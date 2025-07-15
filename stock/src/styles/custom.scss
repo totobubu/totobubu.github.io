@@ -32,6 +32,10 @@
     .p-datatable-column-header-content {
         justify-content: center;
     }
+    .p-datatable-scrollable .p-datatable-frozen-column {
+        background: inherit;
+        border-right: 1px solid #eaeaea;
+    }
 }
 
 // 차트
