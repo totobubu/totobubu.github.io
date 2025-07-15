@@ -1,0 +1,36 @@
+name: Update Ticker Info (Daily)
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # UTC 22:00 (한국 오전 7시)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-info:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: stock/requirements.txt
+      - name: Install dependencies
+        run: pip install -r stock/requirements.txt
+      - name: Run Ticker Info Scraper
+        working-directory: ./stock
+        run: python scripts/scraper_info.py
+        
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated: Update ticker info"
+          file_pattern: stock/public/data/*.json
+          branch: main
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: Author <actions@github.com>
+          push_options: --force

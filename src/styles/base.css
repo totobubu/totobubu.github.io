@@ -1,0 +1,20 @@
+/* src/style.css */
+:root {
+  --font-family-suit: 'SUIT', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', 'Apple SD Gothic Neo', sans-serif;
+}
+
+body {
+  font-family: var(--font-family-suit);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: #212529;
+  background-color: #fff;
+  margin: 0;
+}
+
+/* 선택적으로 전체 컴포넌트에도 적용 */
+*,
+.p-component {
+  font-family: var(--font-family-suit);
+}
