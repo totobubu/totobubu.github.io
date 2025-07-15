@@ -1,10 +1,24 @@
-// vite.config.js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    // base는 '/' 로 고정합니다. User Site에서는 이것이 정답입니다.
     base: '/',
-    plugins: [vue()],
+    publicDir: 'public', // public 폴더를 명시적으로 지정
+    plugins: [
+        vue(),
+        AutoImport({
+            imports: ['vue', 'vue-router'],
+            dts: 'src/auto-imports.d.ts',
+        }),
+        Components({
+            resolvers: [PrimeVueResolver()],
+            dts: 'src/components.d.ts',
+        }),
+    ],
+    
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url))
+        }
+    }
 })
