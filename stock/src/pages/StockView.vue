@@ -97,12 +97,49 @@ const generateDynamicTimeRangeOptions = () => {
 
 const columns = computed(() => {
     if (dividendHistory.value.length === 0) return [];
-    return Object.keys(dividendHistory.value[0]).map(key => ({ field: key, header: key }));
+
+    const allKeys = new Set();
+    dividendHistory.value.forEach(item => {
+        Object.keys(item).forEach(key => allKeys.add(key));
+    });
+
+    const desiredOrder = ['배당락', '배당금', '전일가', '당일가'];
+    const sortedKeys = Array.from(allKeys).sort((a, b) => {
+        const indexA = desiredOrder.indexOf(a);
+        const indexB = desiredOrder.indexOf(b);
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        return a.localeCompare(b);
+    });
+
+    return sortedKeys.map(key => ({ field: key, header: key }));
 });
 
 const chartDisplayData = computed(() => {
     if (dividendHistory.value.length === 0) return [];
-    if (selectedTimeRange.value === 'Max') return [...dividendHistory.value].reverse();
+    
+    if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
+        const now = new Date();
+        const rangeValue = parseInt(selectedTimeRange.value);
+        const rangeUnit = selectedTimeRange.value.slice(-1);
+
+        let startDate = new Date(now);
+        if (rangeUnit === 'M') {
+            startDate.setMonth(now.getMonth() - rangeValue);
+        } else {
+            startDate.setFullYear(now.getFullYear() - rangeValue);
+        }
+        
+        const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+        const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
+        return filteredData.reverse();
+    }
+
+    if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
+        return [...dividendHistory.value].reverse();
+    }
+
     const now = new Date();
     const rangeValue = parseInt(selectedTimeRange.value);
     const rangeUnit = selectedTimeRange.value.slice(-1);
@@ -126,7 +163,19 @@ const setChartDataAndOptions = (data, frequency) => {
     const lineLabelSize = isDesktop.value ? 11 : 9;
     const colorPresets = ['--p-cyan-400', '--p-orange-400', '--p-purple-400', '--p-green-400', '--p-red-400', '--p-blue-400'];
     const shuffledColors = [...colorPresets].sort(() => 0.5 - Math.random());
-    const zoomOptions = { pan: { enabled: true, mode: 'x' }, zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x' } };
+    const zoomOptions = {
+        pan: {
+            enabled: true,
+            mode: 'x',
+            onPanComplete: () => { selectedTimeRange.value = null; }
+        },
+        zoom: {
+            wheel: { enabled: true },
+            pinch: { enabled: true },
+            mode: 'x',
+            onZoomComplete: () => { selectedTimeRange.value = null; }
+        }
+    };
 
     if (frequency === 'Weekly' && !isPriceChartMode.value) {
         const monthlyAggregated = data.reduce((acc, item) => {
@@ -135,35 +184,44 @@ const setChartDataAndOptions = (data, frequency) => {
             const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
             const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
             const weekOfMonth = Math.floor((date.getDate() - 1) / 7) + 1;
-            if (!acc[yearMonth]) { acc[yearMonth] = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, total: 0 }; }
-            acc[yearMonth][weekOfMonth] += amount;
+            if (!acc[yearMonth]) { acc[yearMonth] = { total: 0, weeks: {} }; }
+            if (!acc[yearMonth].weeks[weekOfMonth]) { acc[yearMonth].weeks[weekOfMonth] = 0; }
+            acc[yearMonth].weeks[weekOfMonth] += amount;
             acc[yearMonth].total += amount;
             return acc;
         }, {});
+
         const labels = Object.keys(monthlyAggregated);
         const weekColors = { 1: '#4285F4', 2: '#EA4335', 3: '#FBBC04', 4: '#34A853', 5: '#FF6D01' };
-        const datasets = [1, 2, 3, 4, 5].map(week => ({
+
+        const existingWeeks = [...new Set(Object.values(monthlyAggregated).flatMap(m => Object.keys(m.weeks)))].map(Number).sort();
+        const datasets = existingWeeks.map(week => ({
             type: 'bar', label: `${week}주차`, backgroundColor: weekColors[week],
-            data: labels.map(label => monthlyAggregated[label][week]),
+            data: labels.map(label => monthlyAggregated[label].weeks[week] || 0),
             datalabels: {
-                display: context => context.dataset.data[context.dataIndex] > 0.0001,
-                formatter: (value) => `$${value.toFixed(4)}`, color: '#fff',
-                font: { size: 15, weight: 'bold' }, align: 'center', anchor: 'center'
+                display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
+                formatter: (value) => `$${value.toFixed(4)}`,
+                color: '#fff',
+                font: { size: individualLabelSize, weight: 'bold' },
+                align: 'center', anchor: 'center'
             }
         }));
+
         datasets.push({
             type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
             backgroundColor: 'transparent',
             datalabels: {
-                display: true,
+                display: (context) => (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
                 formatter: (value, context) => {
-                    const total = monthlyAggregated[context.chart.data.labels[context.dataIndex]]?.total || 0;
-                    return total > 0 ? `$${total.toFixed(4)}` : '';
+                    const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
+                    return `$${total.toFixed(4)}`;
                 },
                 color: textColor, anchor: 'end', align: 'end',
-                offset: 10, font: { size: 15, weight: 'bold' }
+                offset: -8,
+                font: { size: totalLabelSize, weight: 'bold' }
             }
         });
+
         chartData.value = { labels, datasets };
         const maxTotal = Math.max(...Object.values(monthlyAggregated).map(m => m.total));
         const yAxisMax = maxTotal * 1.25;
@@ -184,6 +242,7 @@ const setChartDataAndOptions = (data, frequency) => {
                 y: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder }, max: yAxisMax }
             }
         };
+
     } else {
         const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
         const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
@@ -246,6 +305,15 @@ watch(() => route.params.ticker, (newTicker) => {
         fetchData(newTicker);
     }
 }, { immediate: true });
+
+watch(selectedTimeRange, (newRange) => {
+    if (newRange && chartData.value) {
+        const chartInstance = ChartJS.getChart('p-chart-instance');
+        if (chartInstance) {
+            chartInstance.resetZoom();
+        }
+    }
+});
 
 watch([chartDisplayData, isPriceChartMode, isDesktop], ([newData]) => {
     if (newData && newData.length > 0 && tickerInfo.value) {
@@ -320,10 +388,10 @@ const stats = computed(() => {
                             <ToggleButton v-model="isPriceChartMode" onLabel="주가" offLabel="배당" onIcon="pi pi-chart-line" offIcon="pi pi-chart-bar" />
                         </div>
                         <div v-else></div>
-                        <SelectButton v-model="selectedTimeRange" :options="timeRangeOptions" aria-labelledby="basic" />
+                        <SelectButton v-model="selectedTimeRange" :options="timeRangeOptions" aria-labelledby="basic" :allowEmpty="true" />
                     </div>
                     <div class="card" id="p-chart" v-if="chartData && chartOptions">
-                        <PrimeVueChart type="bar" :data="chartData" :options="chartOptions" />
+                        <PrimeVueChart type="bar" :data="chartData" :options="chartOptions" :canvas-props="{'id': 'p-chart-instance'}" />
                     </div>
                      <div v-else class="flex justify-center items-center h-48">
                         <ProgressSpinner />
