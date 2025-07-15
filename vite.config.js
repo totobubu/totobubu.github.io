@@ -27,15 +27,15 @@ export default defineConfig(({ command }) => {
     // [플러그인 설정]
     // ---------------------------------------------------------------
     plugins: [
-      vue(),
-      AutoImport({
-        imports: ['vue', 'vue-router'],
-        dts: 'src/auto-imports.d.ts',
-      }),
-      Components({
-        resolvers: [PrimeVueResolver()],
-        dts: 'src/components.d.ts',
-      }),
+      // vue(),
+      // AutoImport({
+      //   imports: ['vue', 'vue-router'],
+      //   dts: 'src/auto-imports.d.ts',
+      // }),
+      // Components({
+      //   resolvers: [PrimeVueResolver()],
+      //   dts: 'src/components.d.ts',
+      // }),
     ],
     
     // ---------------------------------------------------------------

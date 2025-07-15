@@ -1,14 +1,9 @@
 # 배당 추적기
 
 
-# 1. 루트 폴더로 이동
-cd /workspaces/etf
 
 # 2. 시스템 파이썬에 설치된 라이브러리들 제거
 pip uninstall -y undetected-chromedriver beautifulsoup4 yfinance
-
-# 1. Vue 프로젝트 폴더로 이동
-cd /workspaces/etf/stock
 
 # 2. 'venv' 라는 이름의 가상 환경 생성
 python3 -m venv venv
@@ -24,8 +19,6 @@ python scripts/scraper.py
 
 
 # 3-1. 크롬 없을때
-
-cd /workspaces/etf/stock
 
 sudo apt-get update
 
