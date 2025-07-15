@@ -1,57 +1,52 @@
-# GitHub Pages에 배포하기 위한 최신 공식 워크플로우
 name: Deploy Vue site to Pages
 
 on:
-  # main 브랜치에 푸시될 때마다 실행됩니다.
   push:
     branches: ["main"]
-
-  # Actions 탭에서 수동으로 이 워크플로우를 실행할 수 있도록 허용합니다.
   workflow_dispatch:
 
-# GITHUB_TOKEN의 권한을 설정하여 배포를 허용합니다. (매우 중요)
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 동시 배포를 비활성화하여 한 번에 하나의 배포만 실행되도록 합니다.
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # 빌드 잡
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'npm' 
+          # 이제 package-lock.json은 루트에 있습니다.
           cache-dependency-path: package-lock.json
+
+      # 이제 모든 명령어는 루트에서 바로 실행됩니다.
       - name: Install dependencies
         run: npm ci
-      - name: Build Vue project
+
+      - name: Build
         run: npm run build
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # 빌드 결과물(dist 폴더)의 경로를 정확히 지정
-          path: ./dist
-
-  # 배포 잡
-  deploy:
-    # build 잡이 성공적으로 끝나야만 실행됩니다.
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+          path: './dist'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
