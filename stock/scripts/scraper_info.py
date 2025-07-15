@@ -5,7 +5,7 @@ import yfinance as yf
 from datetime import datetime, timezone, timedelta
 
 def fetch_ticker_info(ticker_symbol, company, frequency, group):
-    print(f"Fetching Ticker Info for {ticker_symbol.upper()}...")
+    # print(f"Fetching Ticker Info for {ticker_symbol.upper()}...")
     try:
         ticker = yf.Ticker(ticker_symbol)
         info = ticker.info
@@ -26,7 +26,7 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group):
             "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
         }
     except Exception as e:
-        print(f"  -> Error fetching info for {ticker_symbol.upper()}: {e}")
+        # print(f"  -> Error fetching info for {ticker_symbol.upper()}: {e}")
         return None
 
 if __name__ == "__main__":

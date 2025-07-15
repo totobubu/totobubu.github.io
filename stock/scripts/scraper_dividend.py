@@ -28,7 +28,7 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         return {"before_price": "N/A", "on_price": "N/A"}
 
 def fetch_dividend_history(ticker_symbol):
-    print(f"Fetching Dividend History for {ticker_symbol.upper()}...")
+    # print(f"Fetching Dividend History for {ticker_symbol.upper()}...")
     try:
         ticker = yf.Ticker(ticker_symbol)
         dividends_df = ticker.dividends.to_frame()
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         file_path = os.path.join(output_dir, f"{ticker.lower()}.json")
         
         if not os.path.exists(file_path):
-            print(f"  -> No existing file for {ticker}. Skipping dividend update. Run info scraper first.")
+            # print(f"  -> No existing file for {ticker}. Skipping dividend update. Run info scraper first.")
             continue
             
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -114,10 +114,10 @@ if __name__ == "__main__":
             final_data_to_save = {"tickerInfo": final_ticker_info, "dividendHistory": final_history}
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
-            print(f" => UPDATED DIVIDENDS for {ticker}")
+            # print(f" => UPDATED DIVIDENDS for {ticker}")
             total_changed_files += 1
-        else:
-            print(f"  -> No dividend changes for {ticker}.")
+        # else:
+            # print(f"  -> No dividend changes for {ticker}.")
 
         time.sleep(1)
 
