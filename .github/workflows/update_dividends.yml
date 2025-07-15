@@ -1,23 +1,29 @@
-name: Update Dividend Data (Twice a day)
+name: Update Dividend Data
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # UTC 21:00 (한국 오전 6시)
-    - cron: '30 14 * * *' # UTC 14:30 (한국 저녁 11시 30분)
-  # 수동 실행을 위한 workflow_dispatch
+    # 한국 시간 기준 (UTC+9)
+    # 매일 오전 6시 (UTC 21:00)
+    - cron: '0 21 * * *'
+    # 매일 오후 11시 30분 (UTC 14:30)
+    - cron: '30 14 * * *'
   workflow_dispatch:
 
 permissions:
+  # 리포지토리 내용을 수정해야 하므로 write 권한이 필요합니다.
   contents: write
 
 jobs:
-  scrape-dividends:
+  scrape-and-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      # 1. 'main' 브랜치의 최신 코드를 가져옵니다.
+      - name: Checkout main branch
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      # 1. 파이썬 환경 설정
+      # 2. Python 환경을 설정합니다.
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -25,37 +31,24 @@ jobs:
           cache: 'pip'
           cache-dependency-path: stock/requirements.txt
 
-      # 2. 의존성 설치
-      # 'stock' 폴더 안에 requirements.txt를 만들고, 그 파일을 이용해 설치합니다.
+      # 3. 파이썬 의존성을 설치합니다.
       - name: Install dependencies
         run: pip install -r stock/requirements.txt
 
-      # 3. 스크립트 실행
-      # 'stock/scripts/scraper.py' 라는 정확한 경로를 지정해줍니다.
-      # 그리고 스크립트가 public/data 폴더에 접근할 수 있도록,
-      # 'stock' 폴더를 작업 디렉토리로 지정해줍니다.
-      - name: Run Dividend Scraper
+      # 4. 스크래핑 스크립트를 실행합니다.
+      #    스크립트 내의 상대 경로는 'stock' 폴더 기준이므로, 작업 디렉토리를 지정해줍니다.
+      - name: Run Scraper
         working-directory: ./stock
         run: python scripts/scraper_dividend.py
 
-      # 4. 변경사항 커밋 및 푸시
-      # 모든 경로는 루트를 기준으로 합니다.
+      # 5. 변경된 JSON 파일들을 'main' 브랜치에 커밋하고 푸시합니다.
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Update dividend & price data"
-          file_pattern: stock/public/data/*.json
+          commit_message: "chore(data): Update dividend data"
+          # 작업 디렉토리가 아닌, 리포지토리 루트 기준의 파일 경로를 명시합니다.
+          file_pattern: "stock/public/data/*.json"
+          # 'main' 브랜치에 푸시하도록 명시합니다.
           branch: main
           commit_user_name: github-actions[bot]
-          commit_user_email: github-actions[bot]@users.noreply.github.com
-          commit_author: Author <actions@github.com>          
-          push_options: --force
-
-
-      # - name: Commit and push if there are changes
-      #   run: |
-      #     git config --global user.name 'github-actions[bot]'
-      #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      #     # 변경된 파일은 'stock/public/data/' 폴더 안에 있습니다.
-      #     git add stock/public/data/
-      #     git diff --quiet && git diff --staged --quiet || (git commit -m "Update ETF dividend data" && git push)
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
