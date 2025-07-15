@@ -37,14 +37,23 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/data/
           
-          # 커밋하기 전에, 다른 변경사항이 있는지 확인
-          if ! git diff --quiet --staged; then
-            # 푸시하기 전에, 원격 저장소의 최신 내용을 가져와서 재배치(rebase)
-            git pull --rebase
-            git commit -m "Update Dividend data"
-            git push
-          else
-            echo "No changes to commit."
+          # 변경사항이 없으면 아무것도 하지 않고 종료
+          if git diff --quiet public/data/; then
+            echo "No changes in dividend data to commit."
+            exit 0
           fi
+          
+          # 변경사항이 있을 경우
+          git add public/data/
+          # 원격 저장소의 최신 상태를 가져옴
+          git fetch origin
+          # 현재 브랜치를 원격 브랜치 상태로 강제 리셋 (충돌 방지)
+          git reset --hard origin/main
+          
+          # 다시 변경사항을 적용하고 커밋
+          git add public/data/
+          git commit -m "Update Dividend data [skip ci]"
+          
+          # 푸시
+          git push
