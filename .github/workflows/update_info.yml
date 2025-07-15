@@ -21,7 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run Ticker Info Scraper
-        working-directory: ./stock
         run: python scripts/scraper_info.py
         
       - name: Commit and push changes
