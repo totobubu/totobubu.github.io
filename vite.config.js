@@ -10,7 +10,6 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   // GitHub 저장소 이름을 정확히 입력합니다.
-  const repoName = 'etf'
 
   return {
     appType: 'spa',
@@ -18,7 +17,7 @@ export default defineConfig(({ command }) => {
     // [경로 설정]
     // ---------------------------------------------------------------
     // 개발 서버에서는 루트(`/`)를, 빌드 시에는 저장소 이름 경로를 사용
-    base: command === 'serve' ? '/' : `/${repoName}/`,
+    base: '/',
 
     // public 디렉토리의 위치를 명시적으로 지정합니다. 
     // 기본값이 'public'이므로, 혹시 모를 문제를 방지하기 위해 추가합니다.
