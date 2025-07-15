@@ -35,7 +35,6 @@ jobs:
       # 그리고 스크립트가 public/data 폴더에 접근할 수 있도록,
       # 'stock' 폴더를 작업 디렉토리로 지정해줍니다.
       - name: Run Dividend Scraper
-        working-directory: ./stock
         run: python scripts/scraper_dividend.py
 
       # 4. 변경사항 커밋 및 푸시
