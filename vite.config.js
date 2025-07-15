@@ -1,30 +1,10 @@
-import { fileURLToPath, URL } from 'node:url'
+// vite.config.js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  
-  base: '/',
-
-  plugins: [
-    vue(),
-    AutoImport({
-      imports: ['vue', 'vue-router'],
-      dts: 'src/auto-imports.d.ts',
-    }),
-    Components({
-      resolvers: [PrimeVueResolver()],
-      dts: 'src/components.d.ts',
-    }),
-  ],
-  
-  resolve: {
-    alias: {
-      
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+    // base는 '/' 로 고정합니다. User Site에서는 이것이 정답입니다.
+    base: '/',
+    plugins: [vue()],
 })
