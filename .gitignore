@@ -1,49 +1,24 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-EOT
-
-# Dependencies
-# Node.js
-.npm/
-node_modules
-.pnp
-.pnp.js
-
-# Build
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
 cat <<EOT > .gitignore
 # Python
 venv/
 __pycache__/
 *.pyc
 
+# Node.js
+stock/node_modules/
+stock/dist/
+.npm/
 
 # Chrome Profile & Screenshots
-chrome_profile/
-error_screenshots/
-*.png
+stock/chrome_profile/
+stock/error_screenshots/
+
+# IDE & OS files
+.vscode/
+.DS_Store
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+EOT
