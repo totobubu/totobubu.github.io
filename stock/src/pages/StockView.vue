@@ -271,7 +271,6 @@ const stats = computed(() => {
   ];
 });
 
-const home = ref({ icon: 'pi pi-home', route: '/' });
 </script>
 
 <template>
