@@ -53,11 +53,31 @@
 
 // 주식 정보
 #tickerInfo {
-    padding: 0;
-    display: flex;
-    gap: 2rem;
-    flex-direction: column;
-    align-items: center;
+    .p-accordionpanel {
+        border: none;
+        background-color: transparent;
+    }
+    .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover {
+        background-color: transparent;
+    }
+    .p-accordionheader {
+        position: relative;
+        background-color: transparent;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .p-accordionheader-toggle-icon {
+        position: absolute; right: 0; 
+
+    }
+    .p-accordioncontent-content {
+        background-color: transparent;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+    }
 }
 
 .tickerInfo {
