@@ -60,7 +60,7 @@ onMounted(async () => {
 // 행 클릭 시 페이지 이동 함수 (수정 없음)
 const onRowSelect = (event) => {
     const ticker = event.data.name;
-    router.push(`/stock/${ticker.toLowerCase()}`);
+    router.push(`/${ticker.toLowerCase()}`);
 };
 
 

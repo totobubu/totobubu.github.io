@@ -23,15 +23,15 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-          cache-dependency-path: stock/requirements.txt
+          cache-dependency-path: requirements.txt
 
       # 2. 의존성 설치
       # 'stock' 폴더 안에 requirements.txt를 만들고, 그 파일을 이용해 설치합니다.
       - name: Install dependencies
-        run: pip install -r stock/requirements.txt
+        run: pip install -r requirements.txt
 
       # 3. 스크립트 실행
-      # 'stock/scripts/scraper.py' 라는 정확한 경로를 지정해줍니다.
+      # 'scripts/scraper.py' 라는 정확한 경로를 지정해줍니다.
       # 그리고 스크립트가 public/data 폴더에 접근할 수 있도록,
       # 'stock' 폴더를 작업 디렉토리로 지정해줍니다.
       - name: Run Dividend Scraper
@@ -44,7 +44,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Automated: Update dividend & price data"
-          file_pattern: stock/public/data/*.json
+          file_pattern: public/data/*.json
           branch: main
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
@@ -56,6 +56,6 @@ jobs:
       #   run: |
       #     git config --global user.name 'github-actions[bot]'
       #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      #     # 변경된 파일은 'stock/public/data/' 폴더 안에 있습니다.
-      #     git add stock/public/data/
+      #     # 변경된 파일은 'public/data/' 폴더 안에 있습니다.
+      #     git add public/data/
       #     git diff --quiet && git diff --staged --quiet || (git commit -m "Update ETF dividend data" && git push)
