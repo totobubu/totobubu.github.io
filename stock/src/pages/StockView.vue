@@ -287,22 +287,30 @@ const stats = computed(() => {
         <div v-else-if="tickerInfo && dividendHistory.length > 0" class="flex flex-column gap-5">
 
             <div id="tickerInfo">
-                <div class="tickerInfo__header">
-                    <div class="tickerInfo__brand">{{ tickerInfo.company }} · {{ tickerInfo.frequency }} · {{ tickerInfo.group }}</div>
-                    <h2 class="tickerInfo__title">{{ tickerInfo.name }} <small>· {{ tickerInfo.fullname }}</small></h2>
-                </div>
-                <div class="tickerInfo__status">
-                    <div class="stats">
-                        <div v-for="(stat, index) in stats" :key="index" class="layout-card">
-                            <div class="stats-content">
-                                <div class="stats-value">{{ stat.value }}</div>
+                <Accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus">
+                    <AccordionPanel value="0">
+                        <AccordionHeader>
+                            <div class="tickerInfo__header">
+                                <div class="tickerInfo__brand">{{ tickerInfo.company }} · {{ tickerInfo.frequency }} · {{ tickerInfo.group }}</div>
+                                <h2 class="tickerInfo__title">{{ tickerInfo.name }} <small>· {{ tickerInfo.fullname }}</small></h2>
                             </div>
-                            <div class="stats-header">
-                                <span class="stats-title">{{ stat.title }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        </AccordionHeader>
+                        <AccordionContent>
+                            <div class="tickerInfo__status">
+                                <div class="stats">
+                                    <div v-for="(stat, index) in stats" :key="index" class="layout-card">
+                                        <div class="stats-content">
+                                            <div class="stats-value">{{ stat.value }}</div>
+                                        </div>
+                                        <div class="stats-header">
+                                            <span class="stats-title">{{ stat.title }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
             </div>
 
             <Card>
