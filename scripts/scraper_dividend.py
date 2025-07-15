@@ -116,8 +116,8 @@ if __name__ == "__main__":
                 json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
             # print(f" => UPDATED DIVIDENDS for {ticker}")
             total_changed_files += 1
-        else:
-            print(f"  -> No dividend changes for {ticker}.")
+        # else:
+            # print(f"  -> No dividend changes for {ticker}.")
 
         time.sleep(1)
 

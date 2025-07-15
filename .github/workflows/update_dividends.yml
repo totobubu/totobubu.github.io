@@ -38,4 +38,13 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add public/data/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Dividend data" && git push)
+          
+          # 커밋하기 전에, 다른 변경사항이 있는지 확인
+          if ! git diff --quiet --staged; then
+            # 푸시하기 전에, 원격 저장소의 최신 내용을 가져와서 재배치(rebase)
+            git pull --rebase
+            git commit -m "Update Dividend data"
+            git push
+          else
+            echo "No changes to commit."
+          fi
