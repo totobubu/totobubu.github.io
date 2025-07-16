@@ -1,4 +1,3 @@
-import "./styles/global.scss";
 import "./styles/dashboard.scss";
 import "./styles/custom.scss";
 
