@@ -4,8 +4,7 @@ import router from './router';
 
 // 1. PrimeVue와 같은 라이브러리들을 먼저 import 합니다.
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-light-green/theme.css'; // 라이브러리 테마 CSS
-import 'primeflex/primeflex.css'; // 라이브러리 유틸리티 CSS
+import Aura from "@primeuix/themes/aura";
 
 // 2. 모든 라이브러리 CSS가 로드된 후, 맨 마지막에 우리의 커스텀 SCSS를 import 합니다.
 //    이렇게 해야 우리 스타일이 라이브러리 스타일을 '덮어쓸' 수 있습니다.
