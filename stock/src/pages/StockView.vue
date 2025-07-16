@@ -18,8 +18,8 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import Hammer from 'hammerjs';
 
 ChartJS.register(
-  Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, 
-  PointElement, LineElement, BarController, LineController, 
+  Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
+  PointElement, LineElement, BarController, LineController,
   ChartDataLabels, zoomPlugin
 );
 
@@ -86,7 +86,7 @@ const generateDynamicTimeRangeOptions = () => {
     if (oldestRecordDate < sixMonthsAgo) options.push('6M');
     if (oldestRecordDate < nineMonthsAgo) options.push('9M');
     if (oldestRecordDate < oneYearAgo) options.push('1Y');
-    
+
     options.push('Max');
     timeRangeOptions.value = options;
 
@@ -118,7 +118,7 @@ const columns = computed(() => {
 
 const chartDisplayData = computed(() => {
     if (dividendHistory.value.length === 0) return [];
-    
+
     if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
         const now = new Date();
         const rangeValue = parseInt(selectedTimeRange.value);
@@ -130,7 +130,7 @@ const chartDisplayData = computed(() => {
         } else {
             startDate.setFullYear(now.getFullYear() - rangeValue);
         }
-        
+
         const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
         const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
         return filteredData.reverse();
@@ -211,7 +211,7 @@ const setChartDataAndOptions = (data, frequency) => {
             type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
             backgroundColor: 'transparent',
             datalabels: {
-                display: (context) => isDesktop.value && (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0, // 데스크톱에서만 Total 표시
+                display: (context) => isDesktop.value && (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
                 formatter: (value, context) => {
                     const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
                     return `$${total.toFixed(4)}`;
@@ -254,21 +254,21 @@ const setChartDataAndOptions = (data, frequency) => {
                     type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
                     backgroundColor: documentStyle.getPropertyValue(shuffledColors[0]),
                     data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
-                    datalabels: { display: isDesktop.value,, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
+                    datalabels: { display: isDesktop.value, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
                 },
                 {
                     type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
                     borderColor: documentStyle.getPropertyValue(shuffledColors[1]),
                     data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
                     tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: isDesktop.value,, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                    datalabels: { display: isDesktop.value, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                 },
                 {
                     type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
                     borderColor: documentStyle.getPropertyValue(shuffledColors[2]),
                     data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
                     tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: isDesktop.value,: true, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                    datalabels: { display: isDesktop.value, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                 }
             ]
         };
@@ -375,7 +375,7 @@ const stats = computed(() => {
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </AccordionContent>
                     </AccordionPanel>
                 </Accordion>
