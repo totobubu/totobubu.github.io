@@ -211,7 +211,7 @@ const setChartDataAndOptions = (data, frequency) => {
             type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
             backgroundColor: 'transparent',
             datalabels: {
-                display: (context) => (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
+                display: (context) => isDesktop.value && (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0, // 데스크톱에서만 Total 표시
                 formatter: (value, context) => {
                     const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
                     return `$${total.toFixed(4)}`;
@@ -254,21 +254,21 @@ const setChartDataAndOptions = (data, frequency) => {
                     type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
                     backgroundColor: documentStyle.getPropertyValue(shuffledColors[0]),
                     data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
-                    datalabels: { display: true, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
+                    datalabels: { display: isDesktop.value,, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
                 },
                 {
                     type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
                     borderColor: documentStyle.getPropertyValue(shuffledColors[1]),
                     data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
                     tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: true, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                    datalabels: { display: isDesktop.value,, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                 },
                 {
                     type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
                     borderColor: documentStyle.getPropertyValue(shuffledColors[2]),
                     data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
                     tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: true, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                    datalabels: { display: isDesktop.value,: true, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                 }
             ]
         };
@@ -342,7 +342,7 @@ const stats = computed(() => {
 </script>
 
 <template>
-    <div class="card">
+    <div class="card" :class="{ 'is-mobile': !isDesktop }">
         <div v-if="isLoading" class="flex justify-center items-center h-screen">
             <ProgressSpinner />
         </div>
@@ -352,7 +352,7 @@ const stats = computed(() => {
             <p class="text-red-500 text-xl mt-4">{{ error }}</p>
         </div>
 
-        <div v-else-if="tickerInfo && dividendHistory.length > 0" class="flex flex-column gap-5">
+        <div v-else-if="tickerInfo && dividendHistory.length > 0" class="flex flex-column" :class="isDesktop ? 'gap-5' : 'gap-3'">
 
             <div id="tickerInfo">
                 <Accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus">
@@ -383,18 +383,20 @@ const stats = computed(() => {
 
             <Card>
                 <template #content>
-                    <div class="flex justify-between items-center w-full gap-2 mb-4">
+                    <div class="flex justify-between items-center w-full gap-2" :class="isDesktop ? 'mb-4' : 'mb-3'">
                         <div v-if="tickerInfo?.frequency === 'Weekly'">
                             <ToggleButton v-model="isPriceChartMode" onLabel="주가" offLabel="배당" onIcon="pi pi-chart-line" offIcon="pi pi-chart-bar" />
                         </div>
                         <div v-else></div>
                         <SelectButton v-model="selectedTimeRange" :options="timeRangeOptions" aria-labelledby="basic" :allowEmpty="true" />
                     </div>
-                    <div class="card" id="p-chart" v-if="chartData && chartOptions">
-                        <PrimeVueChart type="bar" :data="chartData" :options="chartOptions" :canvas-props="{'id': 'p-chart-instance'}" />
-                    </div>
-                     <div v-else class="flex justify-center items-center h-48">
-                        <ProgressSpinner />
+                    <div class="chart-container">
+                        <div class="card" id="p-chart" v-if="chartData && chartOptions">
+                            <PrimeVueChart type="bar" :data="chartData" :options="chartOptions" :canvas-props="{'id': 'p-chart-instance'}" />
+                        </div>
+                        <div v-else class="flex justify-center items-center h-48">
+                            <ProgressSpinner />
+                        </div>
                     </div>
                 </template>
             </Card>
@@ -403,7 +405,9 @@ const stats = computed(() => {
                 <template #icons>
                     <span class="text-surface-500 dark:text-surface-400">Last Update: {{ tickerInfo.Update }}</span>
                 </template>
-                <DataTable :value="dividendHistory" responsiveLayout="scroll" stripedRows :rows="10" paginator>
+                <DataTable :value="dividendHistory" responsiveLayout="scroll" stripedRows :rows="10" paginator
+                    :paginatorTemplate="isDesktop ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink' : 'PrevPageLink CurrentPageReport NextPageLink'"
+                    currentPageReportTemplate="{first} - {last} of {totalRecords}">
                     <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" sortable></Column>
                 </DataTable>
             </Panel>
