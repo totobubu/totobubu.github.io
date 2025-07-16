@@ -1,19 +1,7 @@
 // stock/src/composables/useStockChart.js
 
-import { ref, computed } from 'vue';
-
-// 날짜 파싱 함수는 여기서도 필요하므로 가져옵니다.
-// 또는 별도의 utils 파일로 만들어 공유할 수도 있습니다.
-const parseYYMMDD = (dateStr) => {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map(part => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
-};
-
-// stock/src/composables/useStockChart.js
-
-// ... (파일 상단의 import 및 parseYYMMDD 함수 등은 그대로 유지) ...
+import { ref } from 'vue';
+import { parseYYMMDD } from '@/utils/date.js'; // 유틸리티 함수 import
 
 export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
     const chartData = ref(null);
@@ -98,65 +86,47 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             };
 
         } else {
-            // 👇 가격 차트(else 블록) 로직을 여기서부터 수정합니다.
-            
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
             
-            // 지정된 색상 프리셋 정의
-            const colorDividend = '#FFA726'; // 배당금 (Gold)
-            const colorPrevPrice = '#BDBDBD'; // 전일가 (Gray)
-            const colorCurrentPrice = '#1e88e5'; // 당일가 (Dark Blue)
+            const colorDividend = '#FFA726';
+            const colorPrevPrice = '#BDBDBD';
+            const colorCurrentPrice = '#1e88e5';
 
             chartData.value = {
                 labels: data.map(item => item['배당락']),
                 datasets: [
                     {
-                        type: 'bar',
-                        label: '배당금',
-                        yAxisID: 'y',
-                        order: 2,
-                        backgroundColor: colorDividend, // Gold 색상 적용
+                        type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
+                        backgroundColor: colorDividend,
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
                         datalabels: { display: isDesktop.value, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
                     },
                     {
-                        type: 'line',
-                        label: '전일가',
-                        yAxisID: 'y1',
-                        order: 1,
-                        borderColor: colorPrevPrice, // Gray 색상 적용
+                        type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
+                        borderColor: colorPrevPrice,
                         data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
-                        tension: 0.4,
-                        borderWidth: 2,
-                        fill: false,
+                        tension: 0.4, borderWidth: 2, fill: false,
                         datalabels: { display: isDesktop.value, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                     },
                     {
-                        type: 'line',
-                        label: '당일가',
-                        yAxisID: 'y1',
-                        order: 1,
-                        borderColor: colorCurrentPrice, // Dark Blue 색상 적용
+                        type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
+                        borderColor: colorCurrentPrice,
                         data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
-                        tension: 0.4,
-                        borderWidth: 2,
-                        fill: false,
+                        tension: 0.4, borderWidth: 2, fill: false,
                         datalabels: { display: isDesktop.value, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                     }
                 ]
             };
             
             chartOptions.value = {
-                maintainAspectRatio: false,
-                aspectRatio: 0.6,
+                maintainAspectRatio: false, aspectRatio: 0.6,
                 plugins: {
                     legend: { display: false },
                     datalabels: { display: false },
                     tooltip: {
-                        mode: 'index',
-                        intersect: false,
+                        mode: 'index', intersect: false,
                         callbacks: {
                             label: function(context) {
                                 let label = context.dataset.label || '';
@@ -171,11 +141,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     x: { ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
                     y: { type: 'linear', display: true, position: 'left', ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
                     y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        min: priceMin,
-                        max: priceMax,
+                        type: 'linear', display: true, position: 'right',
+                        min: priceMin, max: priceMax,
                         ticks: { color: textColorSecondary },
                         grid: { drawOnChartArea: false, color: surfaceBorder }
                     }
@@ -184,7 +151,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
         }
     };
 
-    // 외부에서 사용할 수 있도록 chartData, chartOptions와 이들을 업데이트하는 함수를 반환합니다.
     return {
         chartData,
         chartOptions,
