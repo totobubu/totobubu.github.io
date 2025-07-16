@@ -5,12 +5,9 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
-  schedule:
-    - cron: "0 */6 * * *"
+      - main # main 브랜치에 push가 발생할 때마다 실행
   workflow_dispatch:
 
-# 권한 설정: 아티팩트를 만들고 배포할 수 있도록 설정
 permissions:
   contents: read
   pages: write
@@ -18,25 +15,14 @@ permissions:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-22.04 # 특정 버전으로 고정
+    runs-on: ubuntu-22.04
 
     steps:
+      # 1. 최신 코드(데이터 포함) 가져오기
       - name: Checkout
         uses: actions/checkout@v4
 
-      # (크롤러 부분은 동일)
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          # pip install requests beautifulsoup4 # 필요한 라이브러리 설치
-      - name: Run Crawler
-        run: python crawler.py
-
-      # (Vue 빌드 부분은 동일)
+      # 2. Vue 앱 빌드
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -47,23 +33,17 @@ jobs:
           npm install
           npm run build
 
-      # 새로고침 404 방지 처리
+      # 3. 새로고침 404 방지 처리
       - name: Prepare 404 page
         run: cp stock/dist/index.html stock/dist/404.html
 
-      # --- 👇 배포 방식 변경 (가장 중요) ---
-
-      # 1. Pages를 위한 환경 설정
+      # 4. Pages 배포 준비 및 실행
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      # 2. 빌드 결과물을 아티팩트로 업로드
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./stock/dist" # Vue 빌드 결과물 폴더
-
-      # 3. 아티팩트를 Pages에 배포
+          path: "./stock/dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
