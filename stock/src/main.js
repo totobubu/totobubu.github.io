@@ -1,12 +1,11 @@
-import "./styles/dashboard.scss";
-import "./styles/custom.scss";
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import PrimeVue from 'primevue/config'
 import router from './router'
 import Aura from "@primeuix/themes/aura";
 
+import "./styles/dashboard.scss";
+import "./styles/custom.scss";
 
 const app = createApp(App);
 
