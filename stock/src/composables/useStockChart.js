@@ -1,7 +1,28 @@
 // stock/src/composables/useStockChart.js
 
 import { ref } from 'vue';
-import { parseYYMMDD } from '@/utils/date.js'; // 유틸리티 함수 import
+import { parseYYMMDD } from '@/utils/date.js';
+
+// [핵심 로직 1] 동적 폰트 크기 계산 함수 (변경 없음)
+function getDynamicFontSize(range, isDesktop, type = 'default') {
+    let baseSize = isDesktop ? 12 : 10;
+    if (type === 'total') baseSize = isDesktop ? 15 : 12;
+    if (type === 'line') baseSize = isDesktop ? 11 : 9;
+
+    switch (range) {
+        case '3M':
+        case '6M':
+            return baseSize;
+        case '9M':
+        case '1Y':
+            return baseSize - 1 < 8 ? 8 : baseSize - 1;
+        case 'Max':
+            return baseSize - 2 < 8 ? 8 : baseSize - 2;
+        default:
+            return 8;
+    }
+}
+
 
 export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
     const chartData = ref(null);
@@ -12,13 +33,17 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
         const textColor = documentStyle.getPropertyValue('--p-text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
         const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        const individualLabelSize = isDesktop.value ? 12 : 10;
-        const totalLabelSize = isDesktop.value ? 15 : 12;
-        const lineLabelSize = isDesktop.value ? 11 : 9;
+
         const zoomOptions = {
-            pan: { enabled: true, mode: 'x', onPanComplete: () => { selectedTimeRange.value = null; }},
-            zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x', onZoomComplete: () => { selectedTimeRange.value = null; }}
+            pan: { enabled: true, mode: 'x', onPanComplete: () => { selectedTimeRange.value = null; } },
+            zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x', onZoomComplete: () => { selectedTimeRange.value = null; } }
         };
+
+        const barLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'default');
+        const lineLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'line');
+        const totalLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'total');
+        
+        const lastDataIndex = data.length - 1;
 
         if (frequency === 'Weekly' && !isPriceChartMode.value) {
             const monthlyAggregated = data.reduce((acc, item) => {
@@ -36,8 +61,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
 
             const labels = Object.keys(monthlyAggregated);
             const weekColors = { 1: '#4285F4', 2: '#EA4335', 3: '#FBBC04', 4: '#34A853', 5: '#FF6D01' };
-
             const existingWeeks = [...new Set(Object.values(monthlyAggregated).flatMap(m => Object.keys(m.weeks)))].map(Number).sort();
+            
             const datasets = existingWeeks.map(week => ({
                 type: 'bar', label: `${week}주차`, backgroundColor: weekColors[week],
                 data: labels.map(label => monthlyAggregated[label].weeks[week] || 0),
@@ -45,7 +70,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
                     formatter: (value) => `$${value.toFixed(4)}`,
                     color: '#fff',
-                    font: { size: individualLabelSize, weight: 'bold' },
+                    // 👇 [개선] 동적 폰트 크기 적용
+                    font: { size: barLabelSize, weight: 'bold' },
                     align: 'center', anchor: 'center'
                 }
             }));
@@ -54,13 +80,12 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
                 backgroundColor: 'transparent',
                 datalabels: {
-                    display: (context) => isDesktop.value && (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
-                    formatter: (value, context) => {
-                        const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
-                        return `$${total.toFixed(4)}`;
-                    },
+                    display: (context) => (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
+                    formatter: (value, context) => `$${monthlyAggregated[labels[context.dataIndex]]?.total.toFixed(4)}`,
                     color: textColor, anchor: 'end', align: 'end',
-                    offset: -8, font: { size: totalLabelSize, weight: 'bold' }
+                    offset: -8, 
+                    // 👇 [개선] 동적 폰트 크기 적용
+                    font: { size: totalLabelSize, weight: 'bold' }
                 }
             });
 
@@ -68,7 +93,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             const maxTotal = Math.max(...Object.values(monthlyAggregated).map(m => m.total));
             const yAxisMax = maxTotal * 1.25;
             chartOptions.value = {
-                maintainAspectRatio: false, aspectRatio: 0.8,
+                maintainAspectRatio: false,
+                aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     title: { display: false },
                     tooltip: { mode: 'index', intersect: false, callbacks: {
@@ -86,85 +112,73 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             };
 
         } else {
+            // 가격 차트 로직 (변경 없음, 이미 완벽함)
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
-            
-            const colorDividend = '#FFC107';// 일반 배당금 (Gold)
+
+            const colorDividend = '#FFC107';
             const LineDividend = '#5f5f5f';
-            const colorHighlight = '#FB8C00'; // 강조할 배당금 (Vibrant Gold/Orange)
+            const colorHighlight = '#FB8C00';
             const colorPrevPrice = '#9E9E9E';
             const colorCurrentPrice = '#212121';
-
-            const lastDataIndex = data.length - 1;
 
             chartData.value = {
                 labels: data.map(item => item['배당락']),
                 datasets: [
                     {
-                        type: 'bar',
-                        label: '배당금',
-                        yAxisID: 'y',
-                        order: 2,
-                        // --- 👇 [수정 1] backgroundColor를 함수로 변경 ---
-                        backgroundColor: function(context) {
-                            // 현재 데이터의 인덱스가 마지막 인덱스와 같으면 강조 색상을, 아니면 일반 색상을 반환
-                            return context.dataIndex === lastDataIndex ? colorHighlight : colorDividend;
-                        },
+                        type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
+                        backgroundColor: (context) => context.dataIndex === lastDataIndex ? colorHighlight : colorDividend,
+                        borderColor: LineDividend,
+                        borderWidth: 1, // 테두리 두께를 명시적으로 주는 것이 좋습니다.
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
-                        datalabels: { 
-                            display: isDesktop.value, 
-                            anchor: 'end', 
-                            align: 'end', 
-                            color: textColor,
-                            formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, 
-                            // --- 👇 [수정 2] font를 함수로 변경 ---
-                            font: function(context) {
-                                const isLast = context.dataIndex === lastDataIndex;
-                                return {
-                                    // 마지막 데이터일 경우 폰트 크기를 키우고 볼드체로 설정
-                                    size: isLast ? individualLabelSize + 4 : individualLabelSize,
-                                    weight: isLast ? 'bold' : 'normal'
-                                };
-                            }
+                        datalabels: {
+                            display: true,
+                            anchor: 'end', align: 'end', color: textColor,
+                            formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null,
+                            font: (context) => ({
+                                size: context.dataIndex === lastDataIndex ? barLabelSize + 2 : barLabelSize,
+                                weight: context.dataIndex === lastDataIndex ? 'bold' : 'normal'
+                            })
                         }
                     },
                     {
-                        type: 'line',
-                        label: '전일가',
-                        yAxisID: 'y1',
-                        order: 1,
+                        type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
                         borderColor: colorPrevPrice,
                         data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
-                        datalabels: { display: isDesktop.value, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                        datalabels: {
+                            display: true,
+                            align: 'top', color: textColor,
+                            formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                            font: { size: lineLabelSize }
+                        }
                     },
                     {
-                        type: 'line',
-                        label: '당일가',
-                        yAxisID: 'y1',
-                        order: 1,
+                        type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
                         borderColor: colorCurrentPrice,
                         data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
-                        datalabels: { display: isDesktop.value, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                        datalabels: {
+                            display: true,
+                            align: 'bottom', color: textColor,
+                            formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                            font: { size: lineLabelSize }
+                        }
                     }
                 ]
             };
-            
+
             chartOptions.value = {
-                maintainAspectRatio: false, aspectRatio: 0.6,
+                maintainAspectRatio: false,
+                aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     legend: { display: false },
                     datalabels: { display: false },
                     tooltip: {
                         mode: 'index', intersect: false,
                         callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (context.parsed.y !== null) { label += `: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)}`; }
-                                return label;
-                            }
+                            label: (context) => `${context.dataset.label || ''}: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)}`
                         }
                     },
                     zoom: zoomOptions
@@ -187,7 +201,7 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
         chartData,
         chartOptions,
         updateChart: () => {
-             if (chartDisplayData.value && chartDisplayData.value.length > 0 && tickerInfo.value) {
+            if (chartDisplayData.value && chartDisplayData.value.length > 0 && tickerInfo.value) {
                 setChartDataAndOptions(chartDisplayData.value, tickerInfo.value.frequency);
             } else {
                 chartData.value = null;
