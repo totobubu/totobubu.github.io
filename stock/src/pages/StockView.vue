@@ -1,48 +1,79 @@
 <script setup>
 import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
-import { joinURL } from 'ufo';
-import { useStockData } from '@/composables/useStockData'; // @는 src를 가리킵니다.
 
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import ProgressSpinner from 'primevue/progressspinner';
-import SelectButton from 'primevue/selectbutton';
-import ToggleButton from 'primevue/togglebutton';
-import Panel from 'primevue/panel';
-import Card from 'primevue/card';
-import PrimeVueChart from 'primevue/chart';
+// 1. 필요한 컴포저블만 import 합니다.
+import { useStockData } from '@/composables/useStockData';
+import { useStockChart } from '@/composables/useStockChart';
 
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, BarController, LineController } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import zoomPlugin from 'chartjs-plugin-zoom';
-import Hammer from 'hammerjs';
-
+// 2. 필요한 자식 컴포넌트들을 각각의 이름으로 import 합니다.
 import StockHeader from '@/components/StockHeader.vue';
-import StockHeader from '@/components/StockChartCard.vue';
-import StockHeader from '@/components/StockHistoryPanel.vue';
+import StockChartCard from '@/components/StockChartCard.vue';
+import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
 
-ChartJS.register(
-  Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
-  PointElement, LineElement, BarController, LineController,
-  ChartDataLabels, zoomPlugin
-);
+// 3. 로딩/에러 표시를 위한 컴포넌트만 남깁니다.
+import ProgressSpinner from 'primevue/progressspinner';
+import { Chart as ChartJS } from 'chart.js'; // Chart 인스턴스 접근을 위해 필요
 
+// --- 상태 관리 ---
 const route = useRoute();
-
-const timeRangeOptions = ref([]);
-const selectedTimeRange = ref('1Y');
-const isPriceChartMode = ref(false);
 const isDesktop = ref(window.innerWidth >= 768);
+const isPriceChartMode = ref(false);
+const selectedTimeRange = ref('1Y');
+const timeRangeOptions = ref([]);
 
-const chartData = ref();
-const chartOptions = ref();
+// --- 로직 실행 (컴포저블) ---
+const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
 
+// chartDisplayData는 여러 곳에서 사용되므로 부모에 둡니다.
+const chartDisplayData = computed(() => {
+    if (dividendHistory.value.length === 0) return [];
+    
+    if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
+        const now = new Date();
+        const rangeValue = parseInt(selectedTimeRange.value);
+        const rangeUnit = selectedTimeRange.value.slice(-1);
+        let startDate = new Date(now);
+        if (rangeUnit === 'M') {
+            startDate.setMonth(now.getMonth() - rangeValue);
+        } else {
+            startDate.setFullYear(now.getFullYear() - rangeValue);
+        }
+        const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+        const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
+        return filteredData.reverse();
+    }
+    if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
+        return [...dividendHistory.value].reverse();
+    }
+    const now = new Date();
+    const rangeValue = parseInt(selectedTimeRange.value);
+    const rangeUnit = selectedTimeRange.value.slice(-1);
+    let cutoffDate;
+    if (rangeUnit === 'M') {
+        cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
+    } else {
+        cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
+    }
+    const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
+    return filteredData.reverse();
+});
+
+// useStockChart에 필요한 상태들을 인자로 전달합니다.
+const { chartData, chartOptions, updateChart } = useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange);
+
+
+// --- 유틸리티 및 라이프사이클 훅 ---
 const onResize = () => { isDesktop.value = window.innerWidth >= 768; };
 onMounted(() => { window.addEventListener('resize', onResize); });
 onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
 
-const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
+const parseYYMMDD = (dateStr) => {
+    if (!dateStr || typeof dateStr !== 'string') return null;
+    const parts = dateStr.split('.').map(part => part.trim());
+    if (parts.length !== 3) return null;
+    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
+};
 
 const generateDynamicTimeRangeOptions = () => {
     if (dividendHistory.value.length === 0) return;
@@ -58,7 +89,7 @@ const generateDynamicTimeRangeOptions = () => {
     if (oldestRecordDate < sixMonthsAgo) options.push('6M');
     if (oldestRecordDate < nineMonthsAgo) options.push('9M');
     if (oldestRecordDate < oneYearAgo) options.push('1Y');
-
+    
     options.push('Max');
     timeRangeOptions.value = options;
 
@@ -67,217 +98,28 @@ const generateDynamicTimeRangeOptions = () => {
     }
 };
 
-const columns = computed(() => {
-    if (dividendHistory.value.length === 0) return [];
-
-    const allKeys = new Set();
-    dividendHistory.value.forEach(item => {
-        Object.keys(item).forEach(key => allKeys.add(key));
-    });
-
-    const desiredOrder = ['배당락', '배당금', '전일가', '당일가'];
-    const sortedKeys = Array.from(allKeys).sort((a, b) => {
-        const indexA = desiredOrder.indexOf(a);
-        const indexB = desiredOrder.indexOf(b);
-        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-        if (indexA !== -1) return -1;
-        if (indexB !== -1) return 1;
-        return a.localeCompare(b);
-    });
-
-    return sortedKeys.map(key => ({ field: key, header: key }));
-});
-
-const chartDisplayData = computed(() => {
-    if (dividendHistory.value.length === 0) return [];
-
-    if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
-        const now = new Date();
-        const rangeValue = parseInt(selectedTimeRange.value);
-        const rangeUnit = selectedTimeRange.value.slice(-1);
-
-        let startDate = new Date(now);
-        if (rangeUnit === 'M') {
-            startDate.setMonth(now.getMonth() - rangeValue);
-        } else {
-            startDate.setFullYear(now.getFullYear() - rangeValue);
-        }
-
-        const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
-        const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
-        return filteredData.reverse();
-    }
-
-    if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
-        return [...dividendHistory.value].reverse();
-    }
-
-    const now = new Date();
-    const rangeValue = parseInt(selectedTimeRange.value);
-    const rangeUnit = selectedTimeRange.value.slice(-1);
-    let cutoffDate;
-    if (rangeUnit === 'M') {
-        cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
-    } else {
-        cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
-    }
-    const filteredData = dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate);
-    return filteredData.reverse();
-});
-
-const setChartDataAndOptions = (data, frequency) => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-    const individualLabelSize = isDesktop.value ? 12 : 10;
-    const totalLabelSize = isDesktop.value ? 15 : 12;
-    const lineLabelSize = isDesktop.value ? 11 : 9;
-    const colorPresets = ['--p-cyan-400', '--p-orange-400', '--p-purple-400', '--p-green-400', '--p-red-400', '--p-blue-400'];
-    const shuffledColors = [...colorPresets].sort(() => 0.5 - Math.random());
-    const zoomOptions = {
-        pan: {
-            enabled: true,
-            mode: 'x',
-            onPanComplete: () => { selectedTimeRange.value = null; }
-        },
-        zoom: {
-            wheel: { enabled: true },
-            pinch: { enabled: true },
-            mode: 'x',
-            onZoomComplete: () => { selectedTimeRange.value = null; }
-        }
-    };
-
-    if (frequency === 'Weekly' && !isPriceChartMode.value) {
-        const monthlyAggregated = data.reduce((acc, item) => {
-            const date = parseYYMMDD(item['배당락']);
-            if (!date) return acc;
-            const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-            const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
-            const weekOfMonth = Math.floor((date.getDate() - 1) / 7) + 1;
-            if (!acc[yearMonth]) { acc[yearMonth] = { total: 0, weeks: {} }; }
-            if (!acc[yearMonth].weeks[weekOfMonth]) { acc[yearMonth].weeks[weekOfMonth] = 0; }
-            acc[yearMonth].weeks[weekOfMonth] += amount;
-            acc[yearMonth].total += amount;
-            return acc;
-        }, {});
-
-        const labels = Object.keys(monthlyAggregated);
-        const weekColors = { 1: '#4285F4', 2: '#EA4335', 3: '#FBBC04', 4: '#34A853', 5: '#FF6D01' };
-
-        const existingWeeks = [...new Set(Object.values(monthlyAggregated).flatMap(m => Object.keys(m.weeks)))].map(Number).sort();
-        const datasets = existingWeeks.map(week => ({
-            type: 'bar', label: `${week}주차`, backgroundColor: weekColors[week],
-            data: labels.map(label => monthlyAggregated[label].weeks[week] || 0),
-            datalabels: {
-                display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
-                formatter: (value) => `$${value.toFixed(4)}`,
-                color: '#fff',
-                font: { size: individualLabelSize, weight: 'bold' },
-                align: 'center', anchor: 'center'
-            }
-        }));
-
-        datasets.push({
-            type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
-            backgroundColor: 'transparent',
-            datalabels: {
-                display: (context) => isDesktop.value && (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
-                formatter: (value, context) => {
-                    const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
-                    return `$${total.toFixed(4)}`;
-                },
-                color: textColor, anchor: 'end', align: 'end',
-                offset: -8,
-                font: { size: totalLabelSize, weight: 'bold' }
-            }
-        });
-
-        chartData.value = { labels, datasets };
-        const maxTotal = Math.max(...Object.values(monthlyAggregated).map(m => m.total));
-        const yAxisMax = maxTotal * 1.25;
-        chartOptions.value = {
-            maintainAspectRatio: false, aspectRatio: 0.8,
-            plugins: {
-                title: { display: false },
-                tooltip: { mode: 'index', intersect: false, callbacks: {
-                    filter: item => item.dataset.label !== 'Total' && item.parsed.y > 0,
-                    footer: items => 'Total: $' + items.reduce((a, b) => a + b.parsed.y, 0).toFixed(4),
-                }},
-                legend: { display: false },
-                datalabels: { display: true },
-                zoom: zoomOptions
-            },
-            scales: {
-                x: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
-                y: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder }, max: yAxisMax }
-            }
-        };
-
-    } else {
-        const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
-        const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
-        const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
-        chartData.value = {
-            labels: data.map(item => item['배당락']),
-            datasets: [
-                {
-                    type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
-                    backgroundColor: documentStyle.getPropertyValue(shuffledColors[0]),
-                    data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
-                    datalabels: { display: isDesktop.value, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
-                },
-                {
-                    type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
-                    borderColor: documentStyle.getPropertyValue(shuffledColors[1]),
-                    data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
-                    tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: isDesktop.value, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
-                },
-                {
-                    type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
-                    borderColor: documentStyle.getPropertyValue(shuffledColors[2]),
-                    data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
-                    tension: 0.4, borderWidth: 2, fill: false,
-                    datalabels: { display: isDesktop.value, align: 'bottom', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
-                }
-            ]
-        };
-        chartOptions.value = {
-            maintainAspectRatio: false, aspectRatio: 0.6,
-            plugins: {
-                legend: { display: false },
-                datalabels: { display: false },
-                tooltip: { mode: 'index', intersect: false, callbacks: {
-                    label: function(context) {
-                        let label = context.dataset.label || '';
-                        if (context.parsed.y !== null) { label += `: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)}`; }
-                        return label;
-                    }
-                }},
-                zoom: zoomOptions
-            },
-            scales: {
-                x: { ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
-                y: { type: 'linear', display: true, position: 'left', ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
-                y1: {
-                    type: 'linear', display: true, position: 'right', min: priceMin, max: priceMax,
-                    ticks: { color: textColorSecondary }, grid: { drawOnChartArea: false, color: surfaceBorder }
-                }
-            }
-        };
-    }
-};
-
+// --- Watchers (상태 변경 감지 및 반응) ---
 watch(() => route.params.ticker, (newTicker) => {
     if (newTicker) {
         isPriceChartMode.value = false;
         selectedTimeRange.value = '1Y';
-        fetchData(newTicker); 
+        fetchData(newTicker);
     }
 }, { immediate: true });
 
+// 데이터 로드가 완료되면, 기간 선택 옵션을 생성합니다.
+watch(dividendHistory, (newHistory) => {
+    if (newHistory && newHistory.length > 0) {
+        generateDynamicTimeRangeOptions();
+    }
+});
+
+// 차트를 다시 그려야 할 조건이 변경되면 updateChart 함수를 호출합니다.
+watch([chartDisplayData, isPriceChartMode, isDesktop], () => {
+    updateChart();
+}, { deep: true });
+
+// 기간 선택 버튼을 누르면 차트 줌을 리셋합니다.
 watch(selectedTimeRange, (newRange) => {
     if (newRange && chartData.value) {
         const chartInstance = ChartJS.getChart('p-chart-instance');
@@ -286,31 +128,6 @@ watch(selectedTimeRange, (newRange) => {
         }
     }
 });
-
-watch([chartDisplayData, isPriceChartMode, isDesktop], ([newData]) => {
-    if (newData && newData.length > 0 && tickerInfo.value) {
-        setChartDataAndOptions(newData, tickerInfo.value.frequency);
-    } else {
-        chartData.value = null;
-        chartOptions.value = null;
-    }
-}, { deep: true, immediate: true });
-
-const stats = computed(() => {
-  if (!tickerInfo.value) {
-    return [
-        { title: "시가총액", value: "..." }, { title: "52주", value: "..." },
-        { title: "NAV", value: "..." }, { title: "Total Return", value: "..." },
-    ];
-  }
-  return [
-    { title: "시가총액", value: tickerInfo.value.Volume },
-    { title: "52주", value: tickerInfo.value['52Week'] },
-    { title: "NAV", value: tickerInfo.value.NAV },
-    { title: "Total Return", value: tickerInfo.value.TotalReturn },
-  ];
-});
-
 </script>
 
 <template>
@@ -325,15 +142,27 @@ const stats = computed(() => {
         </div>
 
         <div v-else-if="tickerInfo && dividendHistory.length > 0" class="flex flex-column" :class="isDesktop ? 'gap-5' : 'gap-3'">
-
-            <!-- 1. 헤더 컴포넌트 -->  
+            
+            <!-- 헤더 컴포넌트에 종목 정보 전달 -->
             <StockHeader :info="tickerInfo" />
 
-            <!-- 2. 차트 카드 컴포넌트 (예시) -->
-            <StockChartCard :chartData="chartData" />
+            <!-- 차트 컴포넌트에 필요한 모든 데이터와 상태를 props와 v-model로 전달 -->
+            <StockChartCard 
+                :frequency="tickerInfo.frequency"
+                :chart-data="chartData"
+                :chart-options="chartOptions"
+                :time-range-options="timeRangeOptions"
+                v-model:isPriceChartMode="isPriceChartMode"
+                v-model:selectedTimeRange="selectedTimeRange"
+            />
 
-            <!-- 3. 상세 정보 패널 컴포넌트 (예시) -->
-            <StockHistoryPanel :history="dividendHistory" />
+            <!-- 히스토리 패널에 필요한 데이터 전달 -->
+            <StockHistoryPanel 
+                :history="dividendHistory" 
+                :update-time="tickerInfo.Update" 
+                :is-desktop="isDesktop" 
+            />
+
         </div>
 
         <div v-else class="text-center mt-8">
