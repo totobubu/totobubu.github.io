@@ -35,7 +35,7 @@ jobs:
 
       # 3. 배당금 스크레이퍼 실행
       - name: Run Dividend Scraper
-        run: python stock/scripts/scraper_dividend.py
+        run: python scripts/scraper_dividend.py
 
       # 4. 변경된 파일이 있으면 자동으로 커밋
       - name: Commit and push if changed
