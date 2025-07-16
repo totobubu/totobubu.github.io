@@ -22,7 +22,7 @@ jobs:
         run: pip install -r stock/requirements.txt
       - name: Run Ticker Info Scraper
         working-directory: ./stock
-        run: python scripts/scraper_info.py
+        run: python stock/scripts/scraper_info.py
         
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
