@@ -127,28 +127,30 @@
 
 }
 
-/* 또는 global style에 추가 */
-.is-mobile .tickerInfo__title {
-    font-size: 1.5rem; /* 기본 h2 폰트 크기 줄이기 */
+
+// 반응형 모바일
+.is-mobile {
+    .tickerInfo__title {
+        font-size: 1.5rem; /* 기본 h2 폰트 크기 줄이기 */
+        small {
+            font-size: 0.875rem; /* small 폰트 크기 줄이기 */
+        }
+    }
+    /* 데이터 테이블의 폰트도 살짝 조절 */
+    .p-datatable .p-datatable-tbody > tr > td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .chart-container {
+        overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
+        -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+        /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
+        #p-chart {
+            min-width: 600px; /* 1년치 데이터를 충분히 보여줄 너비 */
+            height: 300px; /* 높이 고정 */
+        }
+    }
+    
 }
 
-.is-mobile .tickerInfo__title small {
-    font-size: 0.875rem; /* small 폰트 크기 줄이기 */
-}
-
-/* 데이터 테이블의 폰트도 살짝 조절 */
-.is-mobile .p-datatable .p-datatable-tbody > tr > td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.9rem;
-}
-
-.chart-container {
-    overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
-    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
-}
-
-/* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
-.chart-container #p-chart {
-    min-width: 600px; /* 1년치 데이터를 충분히 보여줄 너비 */
-    height: 300px; /* 높이 고정 */
-}
