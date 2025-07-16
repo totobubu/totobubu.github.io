@@ -10,27 +10,53 @@ permissions:
 
 jobs:
   scrape-info:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # ubuntu-22.04 대신 latest 사용 권장
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      # 1. 리포지토리 코드 가져오기
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      # 2. 파이썬 설정
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11" # 특정 버전 명시 권장
           cache: "pip"
-          cache-dependency-path: stock/requirements.txt
-      - name: Install dependencies
-        run: pip install -r stock/requirements.txt
+          cache-dependency-path: stock/requirements.txt # 캐시 경로 명시
+
+      # 3. 파이썬 의존성 설치
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # requirements.txt 파일이 있는지 먼저 확인하고 설치
+          if [ -f stock/requirements.txt ]; then
+            pip install -r stock/requirements.txt
+          else
+            echo "stock/requirements.txt not found!"
+            # 필요한 라이브러리를 직접 설치 (yfinance 등)
+            pip install yfinance
+          fi
+
+      # 4. (★★★ 디버깅 단계 ★★★) 파일 구조 확인
+      - name: List files for debugging
+        run: |
+          echo "--- Current Directory (root) ---"
+          ls -l
+          echo "--- Listing all files recursively ---"
+          ls -R
+
+      # 5. 상세정보 스크레이퍼 실행
       - name: Run Ticker Info Scraper
         working-directory: ./stock
         run: python scripts/scraper_info.py
 
-      - name: Commit and push changes
+      # 6. 변경된 파일이 있으면 자동으로 커밋
+      - name: Commit and push if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Automated: Update ticker info"
-          file_pattern: stock/public/data/*.json
+          file_pattern: "stock/public/data/*.json"
           branch: main
           commit_user_name: github-actions[bot]
-          commit_user_email: github-actions[bot]@users.noreply.github.com
-          commit_author: Author <actions@github.com>
-          push_options: --force
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
