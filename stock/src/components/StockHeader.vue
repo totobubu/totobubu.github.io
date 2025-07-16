@@ -38,13 +38,11 @@ const stats = computed(() => {
                     <div class="tickerInfo__status">
                         <div class="stats">
                             <div v-for="(stat, index) in stats" :key="index" class="layout-card">
-                                <div v-for="(stat, index) in stats" :key="index" class="layout-card">
-                                    <div class="stats-content">
-                                        <div class="stats-value">{{ stat.value }}</div>
-                                    </div>
-                                    <div class="stats-header">
-                                        <span class="stats-title">{{ stat.title }}</span>
-                                    </div>
+                                <div class="stats-content">
+                                    <div class="stats-value">{{ stat.value }}</div>
+                                </div>
+                                <div class="stats-header">
+                                    <span class="stats-title">{{ stat.title }}</span>
                                 </div>
                             </div>
                         </div>
