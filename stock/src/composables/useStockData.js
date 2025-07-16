@@ -1,14 +1,7 @@
 // stock/src/composables/useStockData.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
-
-// date parsing 함수도 이 파일로 가져옵니다.
-const parseYYMMDD = (dateStr) => {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map(part => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
-};
+import { parseYYMMDD } from '@/utils/date.js'; // 유틸리티 함수 import
 
 export function useStockData() {
     const tickerInfo = ref(null);
@@ -25,15 +18,33 @@ export function useStockData() {
 
         try {
             const response = await fetch(url);
-            if (!response.ok) throw new Error(`File not found`);
+
+            // 404 에러를 더 명확하게 처리
+            if (response.status === 404) {
+                throw new Error(`Data file for ${tickerName.toUpperCase()} not found.`);
+            }
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // JSON 파싱 에러를 별도로 잡기 위해 try-catch 추가
             const responseData = await response.json();
+            
             tickerInfo.value = responseData.tickerInfo;
             const sortedHistory = responseData.dividendHistory.sort((a, b) =>
                 parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
             );
             dividendHistory.value = sortedHistory;
+
         } catch (err) {
-            error.value = `${tickerName.toUpperCase()}의 분배금 정보를 찾을 수 없습니다.`;
+            // console.error(err); // 디버깅을 위해 콘솔에 실제 에러를 출력할 수 있습니다.
+            if (err instanceof SyntaxError) {
+                // JSON 파싱 실패 시
+                error.value = `${tickerName.toUpperCase()}의 데이터 파일 형식이 올바르지 않습니다. (JSON 오류)`;
+            } else {
+                // 그 외 다른 모든 에러 (네트워크 문제, 파일 없음 등)
+                error.value = `${tickerName.toUpperCase()}의 분배금 정보를 가져오는 데 실패했습니다.`;
+            }
         } finally {
             isLoading.value = false;
         }
