@@ -40,121 +40,121 @@ $is-mobile : 768px;
     }
 }
 
-// // 차트
-// #p-chart {
-//     width: 100%;
+// 차트
+#p-chart {
+    width: 100%;
 
-//     >div,
-//     canvas {
-//         width: 100%;
-//         height: 100%;
-//     }
-// }
-// .card {
-//     &.is-mobile { 
-//         .chart-container {
-//             overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
-//             -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
-//             /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
-//         }
-//         #p-chart {
-//             min-width: 600px; /* 모바일에서 최소 너비 설정 */
-//             // height: 300px; /* 높이 고정 */
-//             aspect-ratio: 4 / 3; /* 비율 유지 */
-//         }
-//     }
-//     &:not(.is-mobile) {
-//         .chart-container {
-//             overflow-x: hidden; /* 가로 스크롤 비활성화 */
-//         }
-//         #p-chart {
-//             width: 100%;
-//             aspect-ratio: 16 / 9; /* 비율 유지 */
-//         }
-//     }
-// }
+    >div,
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+}
+.card {
+    &.is-mobile { 
+        .chart-container {
+            overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
+            -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+            /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
+        }
+        #p-chart {
+            min-width: 600px; /* 모바일에서 최소 너비 설정 */
+            // height: 300px; /* 높이 고정 */
+            aspect-ratio: 4 / 3; /* 비율 유지 */
+        }
+    }
+    &:not(.is-mobile) {
+        .chart-container {
+            overflow-x: hidden; /* 가로 스크롤 비활성화 */
+        }
+        #p-chart {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* 비율 유지 */
+        }
+    }
+}
 
-// // 주식 정보
-// #tickerInfo {
-//     .p-accordionpanel {
-//         border: none;
-//         background-color: transparent;
-//     }
-//     .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover {
-//         background-color: transparent;
-//     }
-//     .p-accordionheader {
-//         position: relative;
-//         width: 100%;
-//         background-color: transparent;
-//         padding: 0;
-//         color: var(--p-text-color);
-//     }
-//     .p-accordionheader-toggle-icon {
-//         position: absolute; right: 0; 
+// 주식 정보
+#tickerInfo {
+    .p-accordionpanel {
+        border: none;
+        background-color: transparent;
+    }
+    .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover {
+        background-color: transparent;
+    }
+    .p-accordionheader {
+        position: relative;
+        width: 100%;
+        background-color: transparent;
+        padding: 0;
+        color: var(--p-text-color);
+    }
+    .p-accordionheader-toggle-icon {
+        position: absolute; right: 0; 
 
-//     }
-//     .p-accordioncontent-content {
-//         background-color: transparent;
-//         padding-top: 1em;
-//         padding-bottom: 0;
-//         padding-left: 0;
-//         padding-right: 0;
+    }
+    .p-accordioncontent-content {
+        background-color: transparent;
+        padding-top: 1em;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
 
-//     }
-// }
+    }
+}
 
-// .tickerInfo {
-//     &__header {
-//         width: 100%;
-//         text-align: center;
-//         display: flex;
-//         flex-direction: column;
-//         gap: 1rem;
-//     }
+.tickerInfo {
+    &__header {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-//     &__brand {
-//         color: var(--p-primary-500);
-//         line-height: 1.25;
-//         font-weight: 600;
-//         font-size: 1.25rem;
-//     }
+    &__brand {
+        color: var(--p-primary-500);
+        line-height: 1.25;
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
 
-//     &__title {
-//         margin: 0;
-//         padding: 0;
-//         font-weight: 700;
-//         line-height: 1.25;
-//         font-size: 2rem;
-//         .is-mobile & {
-//             font-size: 1.5rem; /* 모바일에서 폰트 크기 줄이기 */
-//         }
-//         small {
-//             font-size: 0.875rem;
-//         }
-//     }
+    &__title {
+        margin: 0;
+        padding: 0;
+        font-weight: 700;
+        line-height: 1.25;
+        font-size: 2rem;
+        .is-mobile & {
+            font-size: 1.5rem; /* 모바일에서 폰트 크기 줄이기 */
+        }
+        small {
+            font-size: 0.875rem;
+        }
+    }
 
-//     &__status {
-//         .layout-card {
-//             border-color: color-mix(in srgb, var(--p-primary-200) 50%, transparent);
-//             background-color: color-mix(in srgb, var(--p-primary-50) 50%, transparent);
-//             text-align: center;
-//             justify-content: center;
-//         }
+    &__status {
+        .layout-card {
+            border-color: color-mix(in srgb, var(--p-primary-200) 50%, transparent);
+            background-color: color-mix(in srgb, var(--p-primary-50) 50%, transparent);
+            text-align: center;
+            justify-content: center;
+        }
 
-//         .stats-header {
-//             font-weight: 500;
-//             font-size: 1.875rem;
-//             justify-content: center;
-//         }
+        .stats-header {
+            font-weight: 500;
+            font-size: 1.875rem;
+            justify-content: center;
+        }
 
-//         .stats-title {
-//             font-size: 1.125rem;
-//             color: var(--p-primary-500);
-//         }
-//     }
+        .stats-title {
+            font-size: 1.125rem;
+            color: var(--p-primary-500);
+        }
+    }
 
-// }
+}
 
 
 
