@@ -3,66 +3,67 @@
 name: Build and Deploy to GitHub Pages
 
 on:
-  # 1. main 브랜치에 push될 때마다 실행
   push:
     branches:
       - main
-
-  # 2. 스케줄에 따라 주기적으로 실행 (예: 6시간마다)
-  # UTC 기준이므로, 한국 시간(KST)으로는 09:00, 15:00, 21:00, 03:00에 실행됩니다.
   schedule:
-    - cron: '0 */6 * * *'
-
-  # 수동으로 실행할 수 있도록 workflow_dispatch 추가
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
+# 권한 설정: 아티팩트를 만들고 배포할 수 있도록 설정
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-22.04 
-    # runs-on: ubuntu-latest 작업이 실행될 가상 환경
+    runs-on: ubuntu-22.04 # 특정 버전으로 고정
 
     steps:
-      # 1. 리포지토리 코드 가져오기
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2. Python 환경 설정 (크롤러 실행용)
+      # (크롤러 부분은 동일)
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x' # 사용하는 파이썬 버전 명시
+          python-version: "3.x"
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          # 필요한 라이브러리 설치 (예: requests, beautifulsoup4)
-          # pip install requests beautifulsoup4
+          # pip install requests beautifulsoup4 # 필요한 라이브러리 설치
+      - name: Run Crawler
+        run: python crawler.py
 
-      # 4. Node.js 환경 설정 (Vue 앱 빌드용)
+      # (Vue 빌드 부분은 동일)
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20 # Vue 프로젝트에 맞는 Node.js 버전
-
-      # 5. Vue 앱 빌드
+          node-version: 20
       - name: Build Vue App
-        # 작업 디렉토리를 'stock' 폴더로 변경하여 실행
         working-directory: ./stock
         run: |
           npm install
           npm run build
 
-      # 6. 새로고침 시 404 방지 처리
-      # 빌드 결과물인 dist/index.html을 dist/404.html로 복사
+      # 새로고침 404 방지 처리
       - name: Prepare 404 page
         run: cp stock/dist/index.html stock/dist/404.html
 
-      # 7. 빌드 결과물을 GitHub Pages에 배포
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # --- 👇 배포 방식 변경 (가장 중요) ---
+
+      # 1. Pages를 위한 환경 설정
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 2. 빌드 결과물을 아티팩트로 업로드
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 배포할 폴더를 Vue 빌드 결과물 폴더로 지정
-          publish_dir: ./stock/dist
+          path: "./stock/dist" # Vue 빌드 결과물 폴더
+
+      # 3. 아티팩트를 Pages에 배포
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
