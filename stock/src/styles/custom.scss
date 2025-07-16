@@ -1,44 +1,44 @@
-// $is-mobile : 768px;
+$is-mobile : 768px;
 
-// // 전체 메뉴
-// .p-drawer-mask.p-drawer-right .p-drawer {
-//     max-width: 100%;
-//     width: 75%;
+// 전체 메뉴
+.p-drawer-mask.p-drawer-right .p-drawer {
+    max-width: 100%;
+    width: 75%;
 
-//     @media (max-width: 640px) {
-//         width: 100%;
-//     }
+    @media (max-width: 640px) {
+        width: 100%;
+    }
 
-//     table {
-//         text-align: center;
+    table {
+        text-align: center;
 
-//         tr {
-//             >*:nth-child(1) {
-//                 text-align: center;
-//             }
+        tr {
+            >*:nth-child(1) {
+                text-align: center;
+            }
 
-//             >*:nth-child(2) {
-//                 text-align: center;
-//             }
+            >*:nth-child(2) {
+                text-align: center;
+            }
 
-//             >*:nth-child(3) {
-//                 text-align: center;
-//             }
+            >*:nth-child(3) {
+                text-align: center;
+            }
 
-//             >*:nth-child(4) {
-//                 text-align: center;
-//             }
-//         }
-//     }
+            >*:nth-child(4) {
+                text-align: center;
+            }
+        }
+    }
 
-//     .p-datatable-column-header-content {
-//         justify-content: center;
-//     }
-//     .p-datatable-scrollable .p-datatable-frozen-column {
-//         background: inherit;
-//         border-right: 1px solid #eaeaea;
-//     }
-// }
+    .p-datatable-column-header-content {
+        justify-content: center;
+    }
+    .p-datatable-scrollable .p-datatable-frozen-column {
+        background: inherit;
+        border-right: 1px solid #eaeaea;
+    }
+}
 
 // // 차트
 // #p-chart {

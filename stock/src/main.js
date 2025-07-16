@@ -7,7 +7,6 @@ import PrimeVue from 'primevue/config';
 import Aura from "@primeuix/themes/aura";
 
 // 2. 모든 라이브러리 CSS가 로드된 후, 맨 마지막에 우리의 커스텀 SCSS를 import 합니다.
-//    이렇게 해야 우리 스타일이 라이브러리 스타일을 '덮어쓸' 수 있습니다.
 import './styles/dashboard.scss'; 
 import './styles/custom.scss'; 
 
