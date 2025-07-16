@@ -18,6 +18,10 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import Hammer from 'hammerjs';
 
+import StockHeader from '@/components/StockHeader.vue';
+import StockHeader from '@/components/StockChartCard.vue';
+import StockHeader from '@/components/StockHistoryPanel.vue';
+
 ChartJS.register(
   Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
   PointElement, LineElement, BarController, LineController,
@@ -322,63 +326,14 @@ const stats = computed(() => {
 
         <div v-else-if="tickerInfo && dividendHistory.length > 0" class="flex flex-column" :class="isDesktop ? 'gap-5' : 'gap-3'">
 
-            <div id="tickerInfo">
-                <Accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus">
-                    <AccordionPanel value="0">
-                        <AccordionHeader>
-                            <div class="tickerInfo__header">
-                                <div class="tickerInfo__brand">{{ tickerInfo.company }} · {{ tickerInfo.frequency }} · {{ tickerInfo.group }}</div>
-                                <h2 class="tickerInfo__title">{{ tickerInfo.name }} <small>· {{ tickerInfo.fullname }}</small></h2>
-                            </div>
-                        </AccordionHeader>
-                        <AccordionContent>
-                            <div class="tickerInfo__status">
-                                <div class="stats">
-                                    <div v-for="(stat, index) in stats" :key="index" class="layout-card">
-                                        <div class="stats-content">
-                                            <div class="stats-value">{{ stat.value }}</div>
-                                        </div>
-                                        <div class="stats-header">
-                                            <span class="stats-title">{{ stat.title }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </AccordionContent>
-                    </AccordionPanel>
-                </Accordion>
-            </div>
+            <!-- 1. 헤더 컴포넌트 -->  
+            <StockHeader :info="tickerInfo" />
 
-            <Card>
-                <template #content>
-                    <div class="flex justify-between items-center w-full gap-2" :class="isDesktop ? 'mb-4' : 'mb-3'">
-                        <div v-if="tickerInfo?.frequency === 'Weekly'">
-                            <ToggleButton v-model="isPriceChartMode" onLabel="주가" offLabel="배당" onIcon="pi pi-chart-line" offIcon="pi pi-chart-bar" />
-                        </div>
-                        <div v-else></div>
-                        <SelectButton v-model="selectedTimeRange" :options="timeRangeOptions" aria-labelledby="basic" :allowEmpty="true" />
-                    </div>
-                    <div class="chart-container">
-                        <div class="card" id="p-chart" v-if="chartData && chartOptions">
-                            <PrimeVueChart type="bar" :data="chartData" :options="chartOptions" :canvas-props="{'id': 'p-chart-instance'}" />
-                        </div>
-                        <div v-else class="flex justify-center items-center h-48">
-                            <ProgressSpinner />
-                        </div>
-                    </div>
-                </template>
-            </Card>
+            <!-- 2. 차트 카드 컴포넌트 (예시) -->
+            <StockChartCard :chartData="chartData" />
 
-            <Panel :toggleable="true" header="배당금 상세 정보" :collapsed="true">
-                <template #icons>
-                    <span class="text-surface-500 dark:text-surface-400">Last Update: {{ tickerInfo.Update }}</span>
-                </template>
-                <DataTable :value="dividendHistory" responsiveLayout="scroll" stripedRows :rows="10" paginator
-                    :paginatorTemplate="isDesktop ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink' : 'PrevPageLink CurrentPageReport NextPageLink'"
-                    currentPageReportTemplate="{first} - {last} of {totalRecords}">
-                    <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" sortable></Column>
-                </DataTable>
-            </Panel>
+            <!-- 3. 상세 정보 패널 컴포넌트 (예시) -->
+            <StockHistoryPanel :history="dividendHistory" />
         </div>
 
         <div v-else class="text-center mt-8">
