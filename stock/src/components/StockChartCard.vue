@@ -52,14 +52,3 @@ const localSelectedTimeRange = computed({
         </template>
     </Card>
 </template>
-
-<style scoped>
-.chart-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.chart-container #p-chart {
-    min-width: 600px;
-    height: 300px;
-}
-</style>
