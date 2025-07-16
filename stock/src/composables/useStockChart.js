@@ -90,9 +90,10 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
             
-            const colorDividend = '#FFA726';
-            const colorPrevPrice = '#BDBDBD';
-            const colorCurrentPrice = '#1e88e5';
+            const colorDividend = '#FFC107';
+            const LineDividend = '#5f5f5f';
+            const colorPrevPrice = '#9E9E9E';
+            const colorCurrentPrice = '#212121';
 
             chartData.value = {
                 labels: data.map(item => item['배당락']),
@@ -100,6 +101,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     {
                         type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
                         backgroundColor: colorDividend,
+                        borderColor: LineDividend,
+                        borderWidth: '1px',
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
                         datalabels: { display: isDesktop.value, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
                     },
