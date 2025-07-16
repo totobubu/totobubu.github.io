@@ -21,7 +21,8 @@ permissions:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # 작업이 실행될 가상 환경
+    runs-on: ubuntu-22.04 
+    # runs-on: ubuntu-latest 작업이 실행될 가상 환경
 
     steps:
       # 1. 리포지토리 코드 가져오기
