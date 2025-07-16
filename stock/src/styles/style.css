@@ -14,6 +14,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 선택적으로 전체 컴포넌트에도 적용 */
+*,
+.p-component {
+  font-family: var(--font-family-suit);
+}
+
 a {
   font-weight: 500;
   color: #646cff;
