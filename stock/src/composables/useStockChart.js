@@ -90,31 +90,60 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
             
-            const colorDividend = '#FFC107';
+            const colorDividend = '#FFC107';// 일반 배당금 (Gold)
             const LineDividend = '#5f5f5f';
+            const colorHighlight = '#FB8C00'; // 강조할 배당금 (Vibrant Gold/Orange)
             const colorPrevPrice = '#9E9E9E';
             const colorCurrentPrice = '#212121';
+
+            const lastDataIndex = data.length - 1;
 
             chartData.value = {
                 labels: data.map(item => item['배당락']),
                 datasets: [
                     {
-                        type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
-                        backgroundColor: colorDividend,
-                        borderColor: LineDividend,
-                        borderWidth: '1px',
+                        type: 'bar',
+                        label: '배당금',
+                        yAxisID: 'y',
+                        order: 2,
+                        // --- 👇 [수정 1] backgroundColor를 함수로 변경 ---
+                        backgroundColor: function(context) {
+                            // 현재 데이터의 인덱스가 마지막 인덱스와 같으면 강조 색상을, 아니면 일반 색상을 반환
+                            return context.dataIndex === lastDataIndex ? colorHighlight : colorDividend;
+                        },
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
-                        datalabels: { display: isDesktop.value, anchor: 'end', align: 'end', color: textColor, formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, font: { size: individualLabelSize } }
+                        datalabels: { 
+                            display: isDesktop.value, 
+                            anchor: 'end', 
+                            align: 'end', 
+                            color: textColor,
+                            formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null, 
+                            // --- 👇 [수정 2] font를 함수로 변경 ---
+                            font: function(context) {
+                                const isLast = context.dataIndex === lastDataIndex;
+                                return {
+                                    // 마지막 데이터일 경우 폰트 크기를 키우고 볼드체로 설정
+                                    size: isLast ? individualLabelSize + 4 : individualLabelSize,
+                                    weight: isLast ? 'bold' : 'normal'
+                                };
+                            }
+                        }
                     },
                     {
-                        type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
+                        type: 'line',
+                        label: '전일가',
+                        yAxisID: 'y1',
+                        order: 1,
                         borderColor: colorPrevPrice,
                         data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
                         datalabels: { display: isDesktop.value, align: 'top', color: textColor, formatter: (value) => value ? `$${value.toFixed(2)}` : null, font: { size: lineLabelSize } }
                     },
                     {
-                        type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
+                        type: 'line',
+                        label: '당일가',
+                        yAxisID: 'y1',
+                        order: 1,
                         borderColor: colorCurrentPrice,
                         data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
