@@ -2,6 +2,7 @@
 import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
+import { useStockData } from '@/composables/useStockData'; // @는 src를 가리킵니다.
 
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -24,10 +25,6 @@ ChartJS.register(
 );
 
 const route = useRoute();
-const tickerInfo = ref(null);
-const dividendHistory = ref([]);
-const isLoading = ref(true);
-const error = ref(null);
 
 const timeRangeOptions = ref([]);
 const selectedTimeRange = ref('1Y');
@@ -41,36 +38,7 @@ const onResize = () => { isDesktop.value = window.innerWidth >= 768; };
 onMounted(() => { window.addEventListener('resize', onResize); });
 onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
 
-const parseYYMMDD = (dateStr) => {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map(part => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
-};
-
-const fetchData = async (tickerName) => {
-    isLoading.value = true;
-    error.value = null;
-    tickerInfo.value = null;
-    dividendHistory.value = [];
-    timeRangeOptions.value = [];
-    const url = joinURL(import.meta.env.BASE_URL, `data/${tickerName.toLowerCase()}.json`);
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`File not found`);
-        const responseData = await response.json();
-        tickerInfo.value = responseData.tickerInfo;
-        const sortedHistory = responseData.dividendHistory.sort((a, b) =>
-            parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
-        );
-        dividendHistory.value = sortedHistory;
-        generateDynamicTimeRangeOptions();
-    } catch (err) {
-        error.value = `${tickerName.toUpperCase()}의 분배금 정보를 찾을 수 없습니다.`;
-    } finally {
-        isLoading.value = false;
-    }
-};
+const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
 
 const generateDynamicTimeRangeOptions = () => {
     if (dividendHistory.value.length === 0) return;
@@ -302,7 +270,7 @@ watch(() => route.params.ticker, (newTicker) => {
     if (newTicker) {
         isPriceChartMode.value = false;
         selectedTimeRange.value = '1Y';
-        fetchData(newTicker);
+        fetchData(newTicker); 
     }
 }, { immediate: true });
 
