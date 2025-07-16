@@ -11,7 +11,6 @@ const props = defineProps({
     isDesktop: Boolean,
 });
 
-// 컬럼 생성 로직은 이제 이 컴포넌트의 책임
 const columns = computed(() => {
     if (!props.history || props.history.length === 0) return [];
 
@@ -37,7 +36,7 @@ const columns = computed(() => {
 <template>
     <Panel :toggleable="true" header="배당금 상세 정보" :collapsed="true">
         <template #icons>
-            <span class="text-surface-500 dark:text-surface-400">Last Update: {{ updateTime }}</span>
+            <span class="text-surface-500 dark:text-surface-400">{{ updateTime }}</span>
         </template>
         <DataTable :value="history" responsiveLayout="scroll" stripedRows :rows="10" paginator
             :paginatorTemplate="isDesktop ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink' : 'PrevPageLink CurrentPageReport NextPageLink'"
