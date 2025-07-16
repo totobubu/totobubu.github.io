@@ -114,10 +114,10 @@ if __name__ == "__main__":
             final_data_to_save = {"tickerInfo": final_ticker_info, "dividendHistory": final_history}
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
-            # print(f" => UPDATED DIVIDENDS for {ticker}")
+            print(f" => UPDATED DIVIDENDS for {ticker}")
             total_changed_files += 1
         # else:
-            # print(f"  -> No dividend changes for {ticker}.")
+            print(f"  -> No dividend changes for {ticker}.")
 
         time.sleep(1)
 
