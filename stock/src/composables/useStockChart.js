@@ -3,12 +3,11 @@
 import { ref } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 
-// [핵심 로직 1] 동적 폰트 크기 계산 함수 (변경 없음)
+// 동적 폰트 크기 계산 함수 (변경 없음)
 function getDynamicFontSize(range, isDesktop, type = 'default') {
     let baseSize = isDesktop ? 12 : 10;
     if (type === 'total') baseSize = isDesktop ? 15 : 12;
     if (type === 'line') baseSize = isDesktop ? 11 : 9;
-
     switch (range) {
         case '3M':
         case '6M':
@@ -22,7 +21,6 @@ function getDynamicFontSize(range, isDesktop, type = 'default') {
             return 8;
     }
 }
-
 
 export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
     const chartData = ref(null);
@@ -70,7 +68,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
                     formatter: (value) => `$${value.toFixed(4)}`,
                     color: '#fff',
-                    // 👇 [개선] 동적 폰트 크기 적용
                     font: { size: barLabelSize, weight: 'bold' },
                     align: 'center', anchor: 'center'
                 }
@@ -80,11 +77,14 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
                 backgroundColor: 'transparent',
                 datalabels: {
-                    display: (context) => (monthlyAggregated[labels[context.dataIndex]]?.total || 0) > 0,
-                    formatter: (value, context) => `$${monthlyAggregated[labels[context.dataIndex]]?.total.toFixed(4)}`,
+                    // [문제 3 해결] Total 라벨 항상 표시
+                    display: true, 
+                    formatter: (value, context) => {
+                        const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
+                        return total > 0 ? `$${total.toFixed(4)}` : ''; // 값이 0이면 빈 문자열 반환하여 숨김
+                    },
                     color: textColor, anchor: 'end', align: 'end',
                     offset: -8, 
-                    // 👇 [개선] 동적 폰트 크기 적용
                     font: { size: totalLabelSize, weight: 'bold' }
                 }
             });
@@ -98,10 +98,12 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 plugins: {
                     title: { display: false },
                     tooltip: { mode: 'index', intersect: false, callbacks: {
-                        filter: item => item.dataset.label !== 'Total' && item.parsed.y > 0,
-                        footer: items => 'Total: $' + items.reduce((a, b) => a + b.parsed.y, 0).toFixed(4),
+                        // [문제 2 해결] 툴팁에서 0인 값과 Total 데이터셋 모두 필터링
+                        filter: item => item.raw > 0 && item.dataset.label !== 'Total',
+                        footer: items => 'Total: $' + items.reduce((a, b) => a.raw + b.raw, 0).toFixed(4),
                     }},
                     legend: { display: false },
+                    // [문제 1 해결] 전역 datalabels 플러그인 활성화
                     datalabels: { display: true },
                     zoom: zoomOptions
                 },
@@ -112,7 +114,7 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
             };
 
         } else {
-            // 가격 차트 로직 (변경 없음, 이미 완벽함)
+            // --- 가격 차트(Combo) 로직 수정 ---
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
@@ -130,7 +132,7 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                         type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
                         backgroundColor: (context) => context.dataIndex === lastDataIndex ? colorHighlight : colorDividend,
                         borderColor: LineDividend,
-                        borderWidth: 1, // 테두리 두께를 명시적으로 주는 것이 좋습니다.
+                        borderWidth: 1,
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
                         datalabels: {
                             display: true,
@@ -174,7 +176,8 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     legend: { display: false },
-                    datalabels: { display: false },
+                    // [문제 1 해결] 전역 datalabels 플러그인 활성화
+                    datalabels: { display: true }, 
                     tooltip: {
                         mode: 'index', intersect: false,
                         callbacks: {
