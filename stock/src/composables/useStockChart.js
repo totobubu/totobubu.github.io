@@ -1,6 +1,6 @@
 // stock/src/composables/useStockChart.js
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 
 function getDynamicFontSize(range, isDesktop, type = 'default') {
@@ -20,7 +20,6 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
     const chartOptions = ref(null);
 
     const chartDisplayData = computed(() => {
-        // ... (이전과 동일한 chartDisplayData 계산 로직)
         if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
         if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
             const now = new Date();
@@ -48,21 +47,17 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
         if (!data || data.length === 0 || !frequency) {
-            chartData.value = null;
-            chartOptions.value = null;
-            return;
+            chartData.value = null; chartOptions.value = null; return;
         }
 
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--p-text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
         const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
         const zoomOptions = {
             pan: { enabled: true, mode: 'x', onPanComplete: () => { selectedTimeRange.value = null; } },
             zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x', onZoomComplete: () => { selectedTimeRange.value = null; } }
         };
-
         const barLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'default');
         const lineLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'line');
         const totalLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'total');
@@ -92,9 +87,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                 datalabels: {
                     display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
                     formatter: (value) => `$${value.toFixed(4)}`,
-                    color: '#fff',
-                    font: { size: barLabelSize, weight: 'bold' },
-                    align: 'center', anchor: 'center'
+                    color: '#fff', font: { size: barLabelSize, weight: 'bold' }, align: 'center', anchor: 'center'
                 }
             }));
 
@@ -125,8 +118,15 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                         footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
                     }},
                     legend: { display: false },
-                    // 👇 [핵심 수정] datalabels 전역 설정을 완전히 제거합니다.
-                    // 이제 각 dataset의 설정이 100% 적용됩니다.
+                    // 👇 [핵심 수정 1] '마스터 스위치'를 켭니다.
+                    // 전역 formatter를 제공하여 개별 설정을 존중하게 만듭니다.
+                    datalabels: {
+                        formatter: (value, context) => {
+                            // 각 데이터셋의 datalabels.formatter를 사용하도록 null을 반환합니다.
+                            // 만약 개별 설정이 없다면, 이 라벨은 보이지 않습니다.
+                            return context.dataset.datalabels?.formatter?.(value, context) ?? null;
+                        }
+                    },
                     zoom: zoomOptions
                 },
                 scales: {
@@ -138,12 +138,8 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
-
-            const colorDividend = '#FFC107';
-            const LineDividend = '#5f5f5f';
-            const colorHighlight = '#FB8C00';
-            const colorPrevPrice = '#9E9E9E';
-            const colorCurrentPrice = '#212121';
+            const colorDividend = '#FFC107', LineDividend = '#5f5f5f', colorHighlight = '#FB8C00';
+            const colorPrevPrice = '#9E9E9E', colorCurrentPrice = '#212121';
 
             chartData.value = {
                 labels: data.map(item => item['배당락']),
@@ -151,12 +147,10 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                     {
                         type: 'bar', label: '배당금', yAxisID: 'y', order: 2,
                         backgroundColor: (context) => context.dataIndex === lastDataIndex ? colorHighlight : colorDividend,
-                        borderColor: LineDividend,
-                        borderWidth: 1,
+                        borderColor: LineDividend, borderWidth: 1,
                         data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
                         datalabels: {
-                            display: true,
-                            anchor: 'end', align: 'end', color: textColor,
+                            display: true, anchor: 'end', align: 'end', color: textColor,
                             formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null,
                             font: (context) => ({
                                 size: context.dataIndex === lastDataIndex ? barLabelSize + 2 : barLabelSize,
@@ -170,8 +164,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                         data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
                         datalabels: {
-                            display: true,
-                            align: 'top', color: textColor,
+                            display: true, align: 'top', color: textColor,
                             formatter: (value) => value ? `$${value.toFixed(2)}` : null,
                             font: { size: lineLabelSize }
                         }
@@ -182,8 +175,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                         data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
                         tension: 0.4, borderWidth: 2, fill: false,
                         datalabels: {
-                            display: true,
-                            align: 'bottom', color: textColor,
+                            display: true, align: 'bottom', color: textColor,
                             formatter: (value) => value ? `$${value.toFixed(2)}` : null,
                             font: { size: lineLabelSize }
                         }
@@ -195,7 +187,12 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                 aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     legend: { display: false },
-                    // 👇 [핵심 수정] 여기도 동일하게 전역 설정을 제거합니다.
+                    // 👇 [핵심 수정 2] 가격 차트에서도 동일하게 '마스터 스위치'를 켭니다.
+                    datalabels: {
+                        formatter: (value, context) => {
+                           return context.dataset.datalabels?.formatter?.(value, context) ?? null;
+                        }
+                    },
                     tooltip: {
                         mode: 'index', intersect: false,
                         callbacks: {
@@ -210,17 +207,12 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                     y1: {
                         type: 'linear', display: true, position: 'right',
                         min: priceMin, max: priceMax,
-                        ticks: { color: textColorSecondary },
-                        grid: { drawOnChartArea: false, color: surfaceBorder }
+                        ticks: { color: textColorSecondary }, grid: { drawOnChartArea: false, color: surfaceBorder }
                     }
                 }
             };
         }
     };
 
-    return {
-        chartData,
-        chartOptions,
-        updateChart: setChartDataAndOptions
-    };
+    return { chartData, chartOptions, updateChart: setChartDataAndOptions };
 }
