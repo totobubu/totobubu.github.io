@@ -1,12 +1,9 @@
 // stock/src/composables/charts/usePriceChart.js
 
-// 👇 [핵심 수정] 함수 이름을 더 명확하게 바꾸고, deviceType을 인자로 받습니다.
 function getPriceFontSize(range, deviceType, type = 'default') {
-    // 1. 데스크톱을 기준으로 기본 크기를 설정합니다.
     let baseSize = 12;
     if (type === 'line') baseSize = 11;
 
-    // 2. 기간에 따라 크기를 조절합니다.
     let sizeByRange;
     switch (range) {
         case '3M': case '6M': sizeByRange = baseSize; break;
@@ -15,23 +12,21 @@ function getPriceFontSize(range, deviceType, type = 'default') {
         default: sizeByRange = 8;
     }
 
-    // 3. 기기 타입에 따라 보정값을 곱합니다.
     let finalSize;
     if (deviceType === 'tablet') {
         finalSize = sizeByRange * 0.8;
     } else if (deviceType === 'mobile') {
         finalSize = sizeByRange * 0.7;
-    } else { // desktop
+    } else {
         finalSize = sizeByRange;
     }
     
-    // 4. 최종 크기가 너무 작아지지 않도록 최소값을 보장하고, 정수로 반환합니다.
     return Math.max(7, Math.round(finalSize));
 }
 
 export function usePriceChart(options) {
-    const { data, deviceType, selectedTimeRange } = options;
-    const { textColor, /* ... */ } = options.theme;
+    const { data, deviceType, isDesktop, aspectRatio, selectedTimeRange, theme } = options;
+    const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
 
     const barLabelSize = getPriceFontSize(selectedTimeRange, deviceType, 'default');
     const lineLabelSize = getPriceFontSize(selectedTimeRange, deviceType, 'line');
@@ -85,7 +80,7 @@ export function usePriceChart(options) {
     };
     const priceChartOptions = {
         maintainAspectRatio: false, 
-        aspectRatio: options.aspectRatio,
+        aspectRatio: aspectRatio,
         plugins: {
             legend: { display: false },
             tooltip: {
@@ -95,6 +90,7 @@ export function usePriceChart(options) {
                     label: (context) => `${context.dataset.label || ''}: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)}`
                 }
             },
+            // 👇 [핵심 수정] 여기에 누락되었던 zoomOptions를 추가합니다.
             zoom: zoomOptions
         },
         scales: {
