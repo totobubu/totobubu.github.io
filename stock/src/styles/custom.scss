@@ -1,192 +1,191 @@
-$is-mobile : 768px;
+$is-mobile: 768px;
 
 // 전체 메뉴
 .p-drawer-mask.p-drawer-right .p-drawer {
-    max-width: 100%;
-    width: 75%;
+  max-width: 100%;
+  width: 75%;
 
-    table {
+  table {
+    text-align: center;
+
+    tr {
+      > *:nth-child(1) {
         text-align: center;
+      }
 
-        tr {
-            >*:nth-child(1) {
-                text-align: center;
-            }
+      > *:nth-child(2) {
+        text-align: center;
+      }
 
-            >*:nth-child(2) {
-                text-align: center;
-            }
+      > *:nth-child(3) {
+        text-align: center;
+      }
 
-            >*:nth-child(3) {
-                text-align: center;
-            }
-
-            >*:nth-child(4) {
-                text-align: center;
-            }
-        }
+      > *:nth-child(4) {
+        text-align: center;
+      }
     }
+  }
 
-    .p-datatable-column-header-content {
-        justify-content: center;
-    }
-    .p-datatable-scrollable .p-datatable-frozen-column {
-        background: inherit;
-        border-right: 1px solid #eaeaea;
-    }
+  .p-datatable-column-header-content {
+    justify-content: center;
+  }
+  .p-datatable-scrollable .p-datatable-frozen-column {
+    background: inherit;
+    border-right: 1px solid #eaeaea;
+  }
 }
 
 // 차트
 #p-chart {
-    width: 100%;
+  width: 100%;
 
-    >div,
-    canvas {
-        width: 100%;
-        height: 100%;
-    }
+  > div,
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 // 주식 정보
 #tickerInfo {
-    .p-accordionpanel {
-        border: none;
-        background-color: transparent;
-    }
-    .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover {
-        background-color: transparent;
-    }
-    .p-accordionheader {
-        position: relative;
-        width: 100%;
-        background-color: transparent;
-        padding: 0;
-        color: var(--p-text-color);
-    }
-    .p-accordionheader-toggle-icon {
-        position: absolute; right: 0; 
-
-    }
-    .p-accordioncontent-content {
-        background-color: transparent;
-        padding-top: 1em;
-        padding-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-
-    }
+  .p-accordionpanel {
+    border: none;
+    background-color: transparent;
+  }
+  .p-accordionpanel:not(.p-disabled).p-accordionpanel-active
+    > .p-accordionheader:hover {
+    background-color: transparent;
+  }
+  .p-accordionheader {
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    color: var(--p-text-color);
+  }
+  .p-accordionheader-toggle-icon {
+    position: absolute;
+    right: 0;
+  }
+  .p-accordioncontent-content {
+    background-color: transparent;
+    padding-top: 1em;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .tickerInfo {
-    &__header {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+  &__header {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__brand {
+    color: var(--p-primary-500);
+    line-height: 1.25;
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  &__title {
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    line-height: 1.25;
+    font-size: 2rem;
+    .is-mobile & {
+      font-size: 1.5rem; /* 모바일에서 폰트 크기 줄이기 */
+    }
+    small {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__status {
+    .layout-card {
+      border-color: color-mix(in srgb, var(--p-primary-200) 50%, transparent);
+      background-color: color-mix(
+        in srgb,
+        var(--p-primary-50) 50%,
+        transparent
+      );
+      text-align: center;
+      justify-content: center;
     }
 
-    &__brand {
-        color: var(--p-primary-500);
-        line-height: 1.25;
-        font-weight: 600;
-        font-size: 1.25rem;
+    .stats-header {
+      font-weight: 500;
+      font-size: 1.875rem;
+      justify-content: center;
     }
 
-    &__title {
-        margin: 0;
-        padding: 0;
-        font-weight: 700;
-        line-height: 1.25;
-        font-size: 2rem;
-        .is-mobile & {
-            font-size: 1.5rem; /* 모바일에서 폰트 크기 줄이기 */
-        }
-        small {
-            font-size: 0.875rem;
-        }
+    .stats-title {
+      font-size: 1.125rem;
+      color: var(--p-primary-500);
     }
-
-    &__status {
-        .layout-card {
-            border-color: color-mix(in srgb, var(--p-primary-200) 50%, transparent);
-            background-color: color-mix(in srgb, var(--p-primary-50) 50%, transparent);
-            text-align: center;
-            justify-content: center;
-        }
-
-        .stats-header {
-            font-weight: 500;
-            font-size: 1.875rem;
-            justify-content: center;
-        }
-
-        .stats-title {
-            font-size: 1.125rem;
-            color: var(--p-primary-500);
-        }
-    }
-
+  }
 }
 
-
 .layout-container {
-    // 데스크탑
-    &.desktop {
-        
-        .chart-container {
-            overflow-x: hidden; /* 가로 스크롤 비활성화 */
-        }
-        
-        #p-chart {
-            width: 100%;
-        }
+  // 데스크탑
+  &.desktop {
+    .chart-container {
+      overflow-x: hidden; /* 가로 스크롤 비활성화 */
     }
 
+    #p-chart {
+      width: 100%;
+    }
+  }
 
-    // 태블릿
-    &.tablet {
-        
-        
-        .chart-container {
-            overflow-x: hidden; /* 가로 스크롤 비활성화 */
-        }
-        
-        #p-chart {
-            width: 100%;
-        }
-        .toto-chart-header {
-            .p-select {
-                max-width: 120px;
-            }
-        }
+  // 태블릿
+  &.tablet {
+    padding: 0.5rem;
+    .chart-container {
+      overflow-x: hidden; /* 가로 스크롤 비활성화 */
     }
 
-    // 모바일
-    &.mobile {
-        padding: 0.5rem;
-        .p-drawer-mask.p-drawer-right .p-drawer {
-            width: 100%;
-        }
-
-        .tickerInfo__title small {
-            display: block;
-            margin-top: .5em;
-        }
-        
-        .chart-container {
-            overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
-            -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
-            /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
-        }
-        
-        #p-chart {
-            min-width: 600px; /* 모바일에서 최소 너비 설정 */
-        }
-        .toto-chart-header {
-            .p-select {
-                max-width: 120px;
-            }
-        }
+    #p-chart {
+      width: 100%;
     }
+    .toto-chart-header {
+      .p-select {
+        max-width: 120px;
+      }
+    }
+  }
+
+  // 모바일
+  &.mobile {
+    padding: 0.2rem;
+    .p-drawer-mask.p-drawer-right .p-drawer {
+      width: 100%;
+    }
+
+    .tickerInfo__title small {
+      display: block;
+      margin-top: 0.5em;
+    }
+
+    .chart-container {
+      overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
+      -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+      /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
+    }
+
+    #p-chart {
+      min-width: 600px; /* 모바일에서 최소 너비 설정 */
+    }
+    .toto-chart-header {
+      .p-select {
+        max-width: 120px;
+      }
+    }
+  }
 }
