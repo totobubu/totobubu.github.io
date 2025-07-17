@@ -6,9 +6,9 @@ export function useBreakpoint() {
 
     const updateDeviceType = () => {
         const width = window.innerWidth;
-        if (width < 768) {
+        if (width < 641) {
             deviceType.value = 'mobile';
-        } else if (width >= 768 && width < 1200) {
+        } else if (width >= 641 && width < 1440) {
             deviceType.value = 'tablet';
         } else {
             deviceType.value = 'desktop';

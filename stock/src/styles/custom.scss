@@ -140,7 +140,6 @@ $is-mobile : 768px;
         
         #p-chart {
             width: 100%;
-            // aspect-ratio: 16 / 9; /* 비율 유지 */
         }
     }
 
@@ -155,14 +154,19 @@ $is-mobile : 768px;
         
         #p-chart {
             width: 100%;
-            // aspect-ratio: 16 / 9; /* 비율 유지 */
         }
     }
 
     // 모바일
     &.mobile {
+        padding: 0.5rem;
         .p-drawer-mask.p-drawer-right .p-drawer {
             width: 100%;
+        }
+
+        .tickerInfo__title small {
+            display: block;
+            margin-top: .5em;
         }
         
         .chart-container {
@@ -173,7 +177,11 @@ $is-mobile : 768px;
         
         #p-chart {
             min-width: 600px; /* 모바일에서 최소 너비 설정 */
-            // aspect-ratio: 4 / 3; /* 비율 유지 */
+        }
+        .toto-chart-header {
+            .p-select {
+                max-width: 120px;
+            }
         }
     }
 }

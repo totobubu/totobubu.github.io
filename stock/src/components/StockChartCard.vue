@@ -40,7 +40,7 @@ const dropdownTimeRangeOptions = computed(() => {
 </script>
 
 <template>
-    <Card>
+    <Card class="toto-chart-header">
         <template #content>
             <div class="flex justify-between items-center w-full gap-2 mb-4">
                 <div v-if="frequency === 'Weekly'">
