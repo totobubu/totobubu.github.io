@@ -55,7 +55,8 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     const yAxisMax = maxTotal * 1.25;
 
     const weeklyChartOptions = {
-        maintainAspectRatio: false, aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        maintainAspectRatio: false,
+        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             title: { display: false },
             tooltip: { mode: 'index', intersect: false, callbacks: {
@@ -63,7 +64,12 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
                 footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
             }},
             legend: { display: false },
-            // 👇 [핵심 수정] 불필요한 전역 datalabels 설정을 완전히 제거합니다.
+            // 👇 [핵심 수정] 여기에 datalabels 전역 설정을 다시 추가합니다.
+            datalabels: {
+                // 이 설정은 "마스터 스위치를 켜고, 기본 포맷은 각 데이터셋에 맡긴다"는 의미입니다.
+                display: true,
+                formatter: () => null, // 전역 formatter는 비워두어 개별 설정을 우선시
+            },
             zoom: zoomOptions
         },
         scales: {
@@ -71,6 +77,7 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
             y: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder }, max: yAxisMax }
         }
     };
+
 
     return { weeklyChartData, weeklyChartOptions };
 }

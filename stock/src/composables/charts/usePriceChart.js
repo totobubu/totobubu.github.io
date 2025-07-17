@@ -56,11 +56,16 @@ export function usePriceChart(options) {
             }
         ]
     };
+
     const priceChartOptions = {
-        maintainAspectRatio: false, aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        maintainAspectRatio: false,
+        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             legend: { display: false },
-             // 👇 [핵심 수정] 불필요한 전역 datalabels 설정을 완전히 제거합니다.
+            datalabels: {
+                display: true,
+                formatter: () => null,
+            },
             tooltip: {
                 mode: 'index', intersect: false,
                 callbacks: {
