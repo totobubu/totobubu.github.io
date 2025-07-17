@@ -5,31 +5,9 @@ $is-mobile: 768px;
   max-width: 100%;
   width: 75%;
 
-  @media screen and (max-width: 640px) {
-    width: 100%;
-    font-size: 0.7rem;
-  }
-
-  table {
-    text-align: center;
-
-    tr {
-      > *:nth-child(1) {
-        text-align: center;
-      }
-
-      > *:nth-child(2) {
-        text-align: center;
-      }
-
-      > *:nth-child(3) {
-        text-align: center;
-      }
-
-      > *:nth-child(4) {
-        text-align: center;
-      }
-    }
+  .p-drawer-header {
+    position: absolute; top: 0;
+    transform: translateX(-100%);
   }
 
   .p-datatable-column-header-content {
@@ -173,6 +151,12 @@ $is-mobile: 768px;
       gap: 0.5rem;
     }
 
+    .topbar {
+      &-actions {
+        gap: 0rem;
+      }
+    }
+
     #tickerInfo {
       padding: 0 1rem;
     }
@@ -188,6 +172,8 @@ $is-mobile: 768px;
         small {
           display: block;
           margin-top: 0.5em;
+          font-size: .8em;
+          opacity: .8
         }
         i {
           display: none;
@@ -202,9 +188,9 @@ $is-mobile: 768px;
           grid-template-columns: 1fr 1fr;
           gap: 0.5rem;
           &-value {
-            font-size: 1rem;
+            font-size: .8rem;
           }
-          &-header {
+          &-title {
             font-size: 0.8rem;
           }
         }
@@ -234,6 +220,63 @@ $is-mobile: 768px;
       font-size: 0.7rem;
       .p-panel-content {
         padding: 0;
+      }
+      .p-datatable {
+        &-column-header-content {
+          justify-content: center;
+        }
+        &-header {
+          &-cell {
+            padding: 0.5rem 0.25rem;
+            font-size: 0.8rem;
+          }
+        }
+        &-tbody > tr > td {
+          padding: 0.5rem 0.25rem;
+          font-size: 0.8rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.toto-drawer {
+  &.mobile {
+    .p-drawer-mask.p-drawer-right & {
+      width: 90%;
+      font-size: 0.7rem;
+    }
+    .p-drawer {
+      &-header {
+        display: none;
+      }
+      &-content {
+        padding: 0;
+      }
+    }
+    .p-datatable {
+      &-frozen-column {
+        max-width: 100px;
+        min-width: 100px;
+        &.p-datatable-header-cell {
+          background: var(--p-datatable-header-cell-background);
+        }
+      }
+    }
+    .p-column-filter {
+      width: 100%;
+      max-width: 100%;
+    }
+    .toto-column {
+      &-company {
+        width: 120px;
+        max-width: 120px;
+      }
+      &-frequency,
+      &-group {
+        width: 100px;
+        max-width: 100px;
       }
     }
   }
