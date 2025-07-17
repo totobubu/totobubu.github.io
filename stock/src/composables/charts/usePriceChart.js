@@ -58,7 +58,7 @@ export function usePriceChart(options) {
         maintainAspectRatio: false, aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             legend: { display: false },
-            datalabels: { formatter: () => null },
+             // 👇 [핵심 수정] 불필요한 전역 datalabels 설정을 완전히 제거합니다.
             tooltip: {
                 mode: 'index', intersect: false,
                 callbacks: {
@@ -72,8 +72,7 @@ export function usePriceChart(options) {
             y: { type: 'linear', display: true, position: 'left', ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
             y1: {
                 type: 'linear', display: true, position: 'right',
-                min: priceMin, max: priceMax,
-                ticks: { color: textColorSecondary }, grid: { drawOnChartArea: false, color: surfaceBorder }
+                min: priceMin, max: priceMax, ticks: { color: textColorSecondary }, grid: { drawOnChartArea: false, color: surfaceBorder }
             }
         }
     };
