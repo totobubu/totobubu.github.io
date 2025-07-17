@@ -1,25 +1,43 @@
 // stock/src/composables/charts/useWeeklyChart.js
 import { parseYYMMDD } from '@/utils/date.js';
 
-function getWeeklyFontSize(range, isDesktop, type = 'default') {
-    let baseSize = isDesktop ? 14 : 12;
-    if (type === 'total') baseSize = isDesktop ? 16 : 14;
+// 👇 [핵심 수정] 함수 이름을 더 명확하게 바꾸고, deviceType을 인자로 받습니다.
+function getWeeklyFontSize(range, deviceType, type = 'default') {
+    // 1. 데스크톱을 기준으로 기본 크기를 설정합니다.
+    let baseSize = 14;
+    if (type === 'total') baseSize = 16;
+
+    // 2. 기간에 따라 크기를 조절합니다.
+    let sizeByRange;
     switch (range) {
-        case '3M': return baseSize + 2;
-        case '6M': return baseSize + 1;
-        case '9M': return baseSize;
-        case '1Y': return baseSize - 1;
-        case 'Max': return baseSize - 2 < 10 ? 10 : baseSize - 2;
-        default: return 10;
+        case '3M': sizeByRange = baseSize + 2; break;
+        case '6M': sizeByRange = baseSize + 1; break;
+        case '9M': sizeByRange = baseSize; break;
+        case '1Y': sizeByRange = baseSize - 1; break;
+        case 'Max': sizeByRange = baseSize - 2; break;
+        default: sizeByRange = 10;
     }
+
+    // 3. 기기 타입에 따라 보정값을 곱합니다.
+    let finalSize;
+    if (deviceType === 'tablet') {
+        finalSize = sizeByRange * 0.9;
+    } else if (deviceType === 'mobile') {
+        finalSize = sizeByRange * 0.8;
+    } else { // desktop
+        finalSize = sizeByRange;
+    }
+    
+    // 4. 최종 크기가 너무 작아지지 않도록 최소값을 보장하고, 정수로 반환합니다.
+    return Math.max(10, Math.round(finalSize));
 }
 
 export function useWeeklyChart(options) {
-    const { data, isDesktop, selectedTimeRange } = options;
+    const { data, deviceType, selectedTimeRange } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = options.theme;
 
-    const barLabelSize = getWeeklyFontSize(selectedTimeRange, isDesktop, 'default');
-    const totalLabelSize = getWeeklyFontSize(selectedTimeRange, isDesktop, 'total');
+    const barLabelSize = getWeeklyFontSize(selectedTimeRange, deviceType, 'default');
+    const totalLabelSize = getWeeklyFontSize(selectedTimeRange, deviceType, 'total');
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
