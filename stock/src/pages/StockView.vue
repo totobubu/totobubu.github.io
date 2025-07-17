@@ -1,31 +1,69 @@
 <script setup>
-import { ref, watch, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 
-// 1. 필요한 컴포저블만 import 합니다.
+// 컴포저블 및 자식 컴포넌트 import
 import { useStockData } from '@/composables/useStockData';
 import { useStockChart } from '@/composables/useStockChart';
-
-// 2. 필요한 자식 컴포넌트들을 각각의 이름으로 import 합니다.
 import StockHeader from '@/components/StockHeader.vue';
 import StockChartCard from '@/components/StockChartCard.vue';
 import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
-
-// 3. 로딩/에러 표시를 위한 컴포넌트만 남깁니다.
 import ProgressSpinner from 'primevue/progressspinner';
-import { Chart as ChartJS } from 'chart.js'; // Chart 인스턴스 접근을 위해 필요
 
-// --- 상태 관리 ---
+// --- 상태 변수 선언 ---
 const route = useRoute();
 const isDesktop = ref(window.innerWidth >= 768);
 const isPriceChartMode = ref(false);
 const selectedTimeRange = ref('1Y');
 const timeRangeOptions = ref([]);
 
-// --- 로직 실행 (컴포저블) ---
+// --- 컴포저블 실행 ---
 const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
+const { chartData, chartOptions, updateChart } = useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange);
 
-// chartDisplayData는 여러 곳에서 사용되므로 부모에 둡니다.
+
+// --- 라이프사이클 훅 ---
+const onResize = () => { isDesktop.value = window.innerWidth >= 768; };
+onMounted(() => { window.addEventListener('resize', onResize); });
+onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
+
+
+// --- 👇 [누락된 부분 복원] 유틸리티 함수 ---
+
+// 날짜 파싱 함수 (매우 중요)
+const parseYYMMDD = (dateStr) => {
+    if (!dateStr || typeof dateStr !== 'string') return null;
+    const parts = dateStr.split('.').map(part => part.trim());
+    if (parts.length !== 3) return null;
+    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
+};
+
+// 기간 선택 버튼 옵션 생성 함수 (매우 중요)
+const generateDynamicTimeRangeOptions = () => {
+    if (dividendHistory.value.length === 0) return;
+    const oldestRecordDate = parseYYMMDD(dividendHistory.value[dividendHistory.value.length - 1]['배당락']);
+    const now = new Date();
+    const options = [];
+    const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
+    const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
+    const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
+    const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
+
+    if (oldestRecordDate < threeMonthsAgo) options.push('3M');
+    if (oldestRecordDate < sixMonthsAgo) options.push('6M');
+    if (oldestRecordDate < nineMonthsAgo) options.push('9M');
+    if (oldestRecordDate < oneYearAgo) options.push('1Y');
+    
+    options.push('Max');
+    timeRangeOptions.value = options;
+
+    if (!options.includes(selectedTimeRange.value)) {
+        selectedTimeRange.value = options[options.length - 2] || 'Max';
+    }
+};
+
+
+// --- Computed 속성 ---
 const chartDisplayData = computed(() => {
     if (dividendHistory.value.length === 0) return [];
     
@@ -59,44 +97,6 @@ const chartDisplayData = computed(() => {
     return filteredData.reverse();
 });
 
-// useStockChart에 필요한 상태들을 인자로 전달합니다.
-const { chartData, chartOptions, updateChart } = useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange);
-
-
-// --- 유틸리티 및 라이프사이클 훅 ---
-const onResize = () => { isDesktop.value = window.innerWidth >= 768; };
-onMounted(() => { window.addEventListener('resize', onResize); });
-onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
-
-const parseYYMMDD = (dateStr) => {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map(part => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
-};
-
-const generateDynamicTimeRangeOptions = () => {
-    if (dividendHistory.value.length === 0) return;
-    const oldestRecordDate = parseYYMMDD(dividendHistory.value[dividendHistory.value.length - 1]['배당락']);
-    const now = new Date();
-    const options = [];
-    const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
-    const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
-    const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
-    const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
-
-    if (oldestRecordDate < threeMonthsAgo) options.push('3M');
-    if (oldestRecordDate < sixMonthsAgo) options.push('6M');
-    if (oldestRecordDate < nineMonthsAgo) options.push('9M');
-    if (oldestRecordDate < oneYearAgo) options.push('1Y');
-    
-    options.push('Max');
-    timeRangeOptions.value = options;
-
-    if (!options.includes(selectedTimeRange.value)) {
-        selectedTimeRange.value = options[options.length - 2] || 'Max';
-    }
-};
 
 // --- Watchers (상태 변경 감지 및 반응) ---
 watch(() => route.params.ticker, (newTicker) => {
@@ -107,32 +107,16 @@ watch(() => route.params.ticker, (newTicker) => {
     }
 }, { immediate: true });
 
-// 데이터 로드가 완료되면, 기간 선택 옵션을 생성합니다.
 watch(dividendHistory, (newHistory) => {
     if (newHistory && newHistory.length > 0) {
         generateDynamicTimeRangeOptions();
     }
-});
+}, { immediate: true }); // 데이터 로드 후 즉시 옵션 생성
 
-// 차트를 다시 그려야 할 조건이 변경되면 updateChart 함수를 호출합니다.
+// 모든 차트 관련 상태가 변경될 때마다, updateChart() 함수만 호출합니다.
 watch([chartDisplayData, isPriceChartMode, isDesktop, selectedTimeRange], () => {
-    // updateChart 함수는 차트 데이터와 옵션을 새로 계산합니다.
     updateChart();
-
-    // 차트가 완전히 준비된 후에 업데이트를 강제합니다.
-    // nextTick을 사용하여 DOM 업데이트가 완료된 후 실행되도록 보장합니다.
-    nextTick(() => {
-        const chartInstance = ChartJS.getChart('p-chart-instance');
-        if (chartInstance) {
-            // resetZoom 대신, 더 안전하고 포괄적인 update() 메소드를 사용합니다.
-            chartInstance.update();
-            // 줌이 되어 있었다면, update() 후 resetZoom()을 호출해야 정상 작동합니다.
-            if (chartInstance.isZoomedOrPanned()) {
-                chartInstance.resetZoom();
-            }
-        }
-    });
-}, { deep: true });
+}, { deep: true, immediate: true });
 </script>
 
 <template>
