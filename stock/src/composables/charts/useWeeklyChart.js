@@ -59,21 +59,41 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     console.log('%c[WeeklyChart Expert] 생성된 최종 데이터셋 객체:', 'color: orange; font-weight: bold;', datasets);
 
     const weeklyChartOptions = {
-        maintainAspectRatio: false,
-        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        maintainAspectRatio: false, aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             title: { display: false },
-            tooltip: { mode: 'index', intersect: false, callbacks: {
-                filter: item => item.raw > 0 && item.dataset.label !== 'Total',
-                footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
-            }},
-            legend: { display: false },
-            // 👇 [핵심 수정] 여기에 datalabels 전역 설정을 다시 추가합니다.
-            datalabels: {
-                // 이 설정은 "마스터 스위치를 켜고, 기본 포맷은 각 데이터셋에 맡긴다"는 의미입니다.
-                display: true,
-                formatter: () => null, // 전역 formatter는 비워두어 개별 설정을 우선시
+            // 👇 [핵심 수정] 툴팁 콜백 로직을 완전히 새로 작성합니다.
+            tooltip: {
+                mode: 'index',
+                intersect: false,
+                callbacks: {
+                    // 각 라인을 생성하는 함수
+                    label: function(tooltipItem) {
+                        // 데이터 값이 0보다 크고, 데이터셋 이름이 'Total'이 아닐 때만 라인을 생성
+                        if (tooltipItem.raw > 0 && tooltipItem.dataset.label !== 'Total') {
+                            return `${tooltipItem.dataset.label}: $${Number(tooltipItem.raw).toFixed(4)}`;
+                        }
+                        return null; // 그 외의 경우, 이 라인을 툴팁에서 숨김
+                    },
+                    // 툴팁의 푸터를 생성하는 함수
+                    footer: function(tooltipItems) {
+                        // 툴팁에 표시될 모든 아이템 중에서 유효한 것들만 필터링
+                        const validItems = tooltipItems.filter(item => item.raw > 0 && item.dataset.label !== 'Total');
+                        
+                        // 유효한 아이템이 없으면 푸터를 표시하지 않음
+                        if (validItems.length === 0) {
+                            return '';
+                        }
+                        
+                        // 유효한 아이템들의 합계를 계산
+                        const sum = validItems.reduce((total, currentItem) => total + currentItem.raw, 0);
+                        
+                        return 'Total: $' + sum.toFixed(4);
+                    }
+                }
             },
+            legend: { display: false },
+            datalabels: { formatter: () => null },
             zoom: zoomOptions
         },
         scales: {
@@ -81,7 +101,6 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
             y: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder }, max: yAxisMax }
         }
     };
-
 
     return { weeklyChartData, weeklyChartOptions };
 }
