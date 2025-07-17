@@ -5,18 +5,6 @@ import { useWeeklyChart } from './charts/useWeeklyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { parseYYMMDD } from '@/utils/date.js';
 
-function getDynamicFontSize(range, isDesktop, type = 'default') {
-    let baseSize = isDesktop ? 12 : 10;
-    if (type === 'total') baseSize = isDesktop ? 15 : 12;
-    if (type === 'line') baseSize = isDesktop ? 11 : 9;
-    switch (range) {
-        case '3M': case '6M': return baseSize;
-        case '9M': case '1Y': return baseSize - 1 < 8 ? 8 : baseSize - 1;
-        case 'Max': return baseSize - 2 < 8 ? 8 : baseSize - 2;
-        default: return 8;
-    }
-}
-
 export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
     const chartData = ref(null);
     const chartOptions = ref(null);
@@ -28,43 +16,37 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
             const rangeValue = parseInt(selectedTimeRange.value);
             const rangeUnit = selectedTimeRange.value.slice(-1);
             let startDate = new Date(now);
-            if (rangeUnit === 'M') startDate.setMonth(now.getMonth() - rangeValue);
-            else startDate.setFullYear(now.getFullYear() - rangeValue);
+            if (rangeUnit === 'M') {
+                startDate.setMonth(now.getMonth() - rangeValue);
+            } else {
+                startDate.setFullYear(now.getFullYear() - rangeValue);
+            }
             const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
             return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
         }
+
         if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
             return [...dividendHistory.value].reverse();
         }
+
         const now = new Date();
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
         let cutoffDate;
-        if (rangeUnit === 'M') cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
-        else cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
+        if (rangeUnit === 'M') {
+            cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
+        } else {
+            cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
+        }
         return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
     });
 
     const updateChart = () => {
-        // --- DEBUG ---
-        console.group('%c[Chart Logic] updateChart 실행', 'color: blue; font-weight: bold;');
-
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
         
-        // --- DEBUG ---
-        console.log('[Chart Logic] 1. 입력 데이터 확인:', { 
-            dataLength: data?.length, 
-            frequency, 
-            isPriceChartMode: isPriceChartMode.value 
-        });
-
         if (!data || data.length === 0 || !frequency) {
-            chartData.value = null; chartOptions.value = null;
-            // --- DEBUG ---
-            console.log('%c[Chart Logic] 데이터가 없으므로 차트 초기화 후 종료.', 'color: orange;');
-            console.groupEnd();
-            return;
+            chartData.value = null; chartOptions.value = null; return;
         }
 
         const documentStyle = getComputedStyle(document.documentElement);
@@ -81,29 +63,19 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
         const sharedOptions = {
             data,
             isDesktop: isDesktop.value,
-            getDynamicFontSize,
             selectedTimeRange: selectedTimeRange.value,
             theme: themeOptions
         };
 
         if (frequency === 'Weekly' && !isPriceChartMode.value) {
-            // --- DEBUG ---
-            console.log('%c[Chart Logic] 2. 차트 타입 결정: 주별(Weekly) 차트', 'color: blue;');
             const { weeklyChartData, weeklyChartOptions } = useWeeklyChart(sharedOptions);
             chartData.value = weeklyChartData;
             chartOptions.value = weeklyChartOptions;
         } else {
-            // --- DEBUG ---
-            console.log('%c[Chart Logic] 2. 차트 타입 결정: 가격(Price) 차트', 'color: blue;');
             const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
             chartData.value = priceChartData;
             chartOptions.value = priceChartOptions;
         }
-        
-        // --- DEBUG ---
-        console.log('%c[Chart Logic] 3. 최종 생성된 Chart Data:', 'color: purple;', JSON.parse(JSON.stringify(chartData.value)));
-        console.log('%c[Chart Logic] 4. 최종 생성된 Chart Options:', 'color: purple;', chartOptions.value);
-        console.groupEnd();
     };
 
     return { chartData, chartOptions, updateChart };

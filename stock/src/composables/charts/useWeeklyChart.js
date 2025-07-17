@@ -1,12 +1,25 @@
 // stock/src/composables/charts/useWeeklyChart.js
 import { parseYYMMDD } from '@/utils/date.js';
 
+function getWeeklyFontSize(range, isDesktop, type = 'default') {
+    let baseSize = isDesktop ? 14 : 12;
+    if (type === 'total') baseSize = isDesktop ? 16 : 14;
+    switch (range) {
+        case '3M': return baseSize + 2;
+        case '6M': return baseSize + 1;
+        case '9M': return baseSize;
+        case '1Y': return baseSize - 1;
+        case 'Max': return baseSize - 2 < 10 ? 10 : baseSize - 2;
+        default: return 10;
+    }
+}
+
 export function useWeeklyChart(options) {
-    // --- DEBUG ---
-    console.log('%c[WeeklyChart Expert] 호출됨!', 'background-color: #4285F4; color: white;');
-    
-const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
+    const { data, isDesktop, selectedTimeRange } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = options.theme;
+
+    const barLabelSize = getWeeklyFontSize(selectedTimeRange, isDesktop, 'default');
+    const totalLabelSize = getWeeklyFontSize(selectedTimeRange, isDesktop, 'total');
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
@@ -31,7 +44,8 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
         datalabels: {
             display: context => (context.dataset.data[context.dataIndex] || 0) > 0.0001,
             formatter: (value) => `$${value.toFixed(4)}`,
-            color: '#fff', font: { size: getDynamicFontSize(selectedTimeRange, isDesktop, 'default'), weight: 'bold' },
+            color: '#fff', 
+            font: { size: barLabelSize, weight: 'bold' },
             align: 'center', anchor: 'center'
         }
     }));
@@ -46,7 +60,8 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
                 return total > 0 ? `$${total.toFixed(4)}` : '';
             },
             color: textColor, anchor: 'end', align: 'end',
-            offset: -8, font: { size: getDynamicFontSize(selectedTimeRange, isDesktop, 'total'), weight: 'bold' }
+            offset: -8, 
+            font: { size: totalLabelSize, weight: 'bold' }
         }
     });
 
@@ -54,46 +69,30 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     const maxTotal = Math.max(0, ...Object.values(monthlyAggregated).map(m => m.total));
     const yAxisMax = maxTotal * 1.25;
 
-    // --- DEBUG ---
-    // JSON.stringify 대신 원본 객체를 그대로 출력하여 모든 속성을 확인
-    console.log('%c[WeeklyChart Expert] 생성된 최종 데이터셋 객체:', 'color: orange; font-weight: bold;', datasets);
-
     const weeklyChartOptions = {
-        maintainAspectRatio: false, aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        maintainAspectRatio: false, 
+        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             title: { display: false },
-            // 👇 [핵심 수정] 툴팁 콜백 로직을 완전히 새로 작성합니다.
-            tooltip: {
-                mode: 'index',
-                intersect: false,
+            tooltip: { 
+                mode: 'index', 
+                intersect: false, 
                 callbacks: {
-                    // 각 라인을 생성하는 함수
                     label: function(tooltipItem) {
-                        // 데이터 값이 0보다 크고, 데이터셋 이름이 'Total'이 아닐 때만 라인을 생성
                         if (tooltipItem.raw > 0 && tooltipItem.dataset.label !== 'Total') {
                             return `${tooltipItem.dataset.label}: $${Number(tooltipItem.raw).toFixed(4)}`;
                         }
-                        return null; // 그 외의 경우, 이 라인을 툴팁에서 숨김
+                        return null;
                     },
-                    // 툴팁의 푸터를 생성하는 함수
                     footer: function(tooltipItems) {
-                        // 툴팁에 표시될 모든 아이템 중에서 유효한 것들만 필터링
                         const validItems = tooltipItems.filter(item => item.raw > 0 && item.dataset.label !== 'Total');
-                        
-                        // 유효한 아이템이 없으면 푸터를 표시하지 않음
-                        if (validItems.length === 0) {
-                            return '';
-                        }
-                        
-                        // 유효한 아이템들의 합계를 계산
+                        if (validItems.length === 0) return '';
                         const sum = validItems.reduce((total, currentItem) => total + currentItem.raw, 0);
-                        
                         return 'Total: $' + sum.toFixed(4);
                     }
                 }
             },
             legend: { display: false },
-            datalabels: { formatter: () => null },
             zoom: zoomOptions
         },
         scales: {

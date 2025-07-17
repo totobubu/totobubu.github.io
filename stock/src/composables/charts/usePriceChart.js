@@ -1,18 +1,28 @@
 // stock/src/composables/charts/usePriceChart.js
-export function usePriceChart(options) {
-    // --- DEBUG ---
-    console.log('%c[PriceChart Expert] 호출됨!', 'background-color: #FFC107; color: black;');
 
-    const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
+function getPriceFontSize(range, isDesktop, type = 'default') {
+    let baseSize = isDesktop ? 12 : 10;
+    if (type === 'line') baseSize = isDesktop ? 11 : 9;
+
+    switch (range) {
+        case '3M': case '6M': return baseSize;
+        case '9M': case '1Y': return baseSize - 1 < 8 ? 8 : baseSize - 1;
+        case 'Max': return baseSize - 2 < 8 ? 8 : baseSize - 2;
+        default: return 8;
+    }
+}
+
+export function usePriceChart(options) {
+    const { data, isDesktop, selectedTimeRange } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = options.theme;
 
+    const barLabelSize = getPriceFontSize(selectedTimeRange, isDesktop, 'default');
+    const lineLabelSize = getPriceFontSize(selectedTimeRange, isDesktop, 'line');
+    
     const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
     const lastDataIndex = data.length - 1;
-
-    const barLabelSize = getDynamicFontSize(selectedTimeRange, isDesktop, 'default');
-    const lineLabelSize = getDynamicFontSize(selectedTimeRange, isDesktop, 'line');
 
     const colorDividend = '#FFC107', LineDividend = '#5f5f5f', colorHighlight = '#FB8C00';
     const colorPrevPrice = '#9E9E9E', colorCurrentPrice = '#212121';
@@ -56,21 +66,14 @@ export function usePriceChart(options) {
             }
         ]
     };
-
-    // --- DEBUG ---
-    console.log('%c[PriceChart Expert] 생성된 최종 데이터셋 객체:', 'color: orange; font-weight: bold;', priceChartData.datasets);
-
     const priceChartOptions = {
-        maintainAspectRatio: false,
+        maintainAspectRatio: false, 
         aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
         plugins: {
             legend: { display: false },
-            datalabels: {
-                display: true,
-                formatter: () => null,
-            },
             tooltip: {
-                mode: 'index', intersect: false,
+                mode: 'index', 
+                intersect: false,
                 callbacks: {
                     label: (context) => `${context.dataset.label || ''}: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y)}`
                 }
@@ -82,7 +85,9 @@ export function usePriceChart(options) {
             y: { type: 'linear', display: true, position: 'left', ticks: { color: textColorSecondary }, grid: { color: surfaceBorder } },
             y1: {
                 type: 'linear', display: true, position: 'right',
-                min: priceMin, max: priceMax, ticks: { color: textColorSecondary }, grid: { drawOnChartArea: false, color: surfaceBorder }
+                min: priceMin, max: priceMax, 
+                ticks: { color: textColorSecondary }, 
+                grid: { drawOnChartArea: false, color: surfaceBorder }
             }
         }
     };
