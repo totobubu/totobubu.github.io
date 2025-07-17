@@ -5,6 +5,11 @@ $is-mobile: 768px;
   max-width: 100%;
   width: 75%;
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    font-size: 0.7rem;
+  }
+
   table {
     text-align: center;
 
@@ -154,7 +159,7 @@ $is-mobile: 768px;
     #p-chart {
       width: 100%;
     }
-    .toto-chart-header {
+    .toto-chart {
       .p-select {
         max-width: 120px;
       }
@@ -163,14 +168,47 @@ $is-mobile: 768px;
 
   // 모바일
   &.mobile {
-    padding: 0.2rem;
-    .p-drawer-mask.p-drawer-right .p-drawer {
-      width: 100%;
+    padding: 0;
+    .layout-grid {
+      gap: 0.5rem;
     }
 
-    .tickerInfo__title small {
-      display: block;
-      margin-top: 0.5em;
+    #tickerInfo {
+      padding: 0 1rem;
+    }
+    .tickerInfo {
+      &__header {
+        gap: 0.5rem;
+      }
+      &__brand {
+        font-size: 0.75rem;
+      }
+      &__title {
+        font-size: 1rem;
+        small {
+          display: block;
+          margin-top: 0.5em;
+        }
+        i {
+          display: none;
+        }
+      }
+      &__status {
+        .layout-card {
+          padding: 0.75rem 0.5rem;
+          gap: 0.3rem;
+        }
+        .stats {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+          &-value {
+            font-size: 1rem;
+          }
+          &-header {
+            font-size: 0.8rem;
+          }
+        }
+      }
     }
 
     .chart-container {
@@ -182,9 +220,20 @@ $is-mobile: 768px;
     #p-chart {
       min-width: 600px; /* 모바일에서 최소 너비 설정 */
     }
-    .toto-chart-header {
+    .toto-chart {
+      border-radius: 0;
+      border: 0;
       .p-select {
+        font-size: 0.7rem;
         max-width: 120px;
+      }
+    }
+    .toto-history {
+      border-radius: 0;
+      border: 0;
+      font-size: 0.7rem;
+      .p-panel-content {
+        padding: 0;
       }
     }
   }
