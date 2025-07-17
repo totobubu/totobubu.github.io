@@ -18,15 +18,15 @@ function getPriceFontSize(range, deviceType, type = 'default') {
     // 3. 기기 타입에 따라 보정값을 곱합니다.
     let finalSize;
     if (deviceType === 'tablet') {
-        finalSize = sizeByRange * 0.9;
-    } else if (deviceType === 'mobile') {
         finalSize = sizeByRange * 0.8;
+    } else if (deviceType === 'mobile') {
+        finalSize = sizeByRange * 0.7;
     } else { // desktop
         finalSize = sizeByRange;
     }
     
     // 4. 최종 크기가 너무 작아지지 않도록 최소값을 보장하고, 정수로 반환합니다.
-    return Math.max(8, Math.round(finalSize));
+    return Math.max(7, Math.round(finalSize));
 }
 
 export function usePriceChart(options) {

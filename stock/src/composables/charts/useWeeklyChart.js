@@ -10,7 +10,7 @@ function getWeeklyFontSize(range, deviceType, type = 'default') {
     // 2. 기간에 따라 크기를 조절합니다.
     let sizeByRange;
     switch (range) {
-        case '3M': sizeByRange = baseSize + 2; break;
+        case '3M': sizeByRange = baseSize + 3; break;
         case '6M': sizeByRange = baseSize + 1; break;
         case '9M': sizeByRange = baseSize; break;
         case '1Y': sizeByRange = baseSize - 1; break;
@@ -21,15 +21,15 @@ function getWeeklyFontSize(range, deviceType, type = 'default') {
     // 3. 기기 타입에 따라 보정값을 곱합니다.
     let finalSize;
     if (deviceType === 'tablet') {
-        finalSize = sizeByRange * 0.9;
-    } else if (deviceType === 'mobile') {
         finalSize = sizeByRange * 0.8;
+    } else if (deviceType === 'mobile') {
+        finalSize = sizeByRange * 0.7;
     } else { // desktop
         finalSize = sizeByRange;
     }
     
     // 4. 최종 크기가 너무 작아지지 않도록 최소값을 보장하고, 정수로 반환합니다.
-    return Math.max(10, Math.round(finalSize));
+    return Math.max(8, Math.round(finalSize));
 }
 
 export function useWeeklyChart(options) {

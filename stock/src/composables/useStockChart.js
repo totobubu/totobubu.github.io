@@ -3,19 +3,18 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { usePriceChart } from './charts/usePriceChart';
-import { useBreakpoint } from '@/composables/useBreakpoint'; // useBreakpoint를 여기서 직접 사용
+import { useBreakpoint } from '@/composables/useBreakpoint';
 import { parseYYMMDD } from '@/utils/date.js';
 
 export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, selectedTimeRange) {
     const chartData = ref(null);
     const chartOptions = ref(null);
 
-    const { deviceType, isDesktop } = useBreakpoint(); // 반응형 상태를 여기서 직접 가져옴
+    const { deviceType, isDesktop } = useBreakpoint();
 
-    // 디바이스 타입에 따라 동적으로 화면 비율을 계산하는 computed 속성
     const aspectRatio = computed(() => {
         switch (deviceType.value) {
-            case 'desktop': return 16 / 10;
+            case 'desktop': return 16 / 9;
             case 'tablet': return 3 / 2;
             case 'mobile': return 4 / 3;
             default: return 16 / 10;
@@ -29,28 +28,20 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
             const rangeValue = parseInt(selectedTimeRange.value);
             const rangeUnit = selectedTimeRange.value.slice(-1);
             let startDate = new Date(now);
-            if (rangeUnit === 'M') {
-                startDate.setMonth(now.getMonth() - rangeValue);
-            } else {
-                startDate.setFullYear(now.getFullYear() - rangeValue);
-            }
+            if (rangeUnit === 'M') startDate.setMonth(now.getMonth() - rangeValue);
+            else startDate.setFullYear(now.getFullYear() - rangeValue);
             const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
             return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
         }
-
         if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
             return [...dividendHistory.value].reverse();
         }
-
         const now = new Date();
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
         let cutoffDate;
-        if (rangeUnit === 'M') {
-            cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
-        } else {
-            cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
-        }
+        if (rangeUnit === 'M') cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
+        else cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
         return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
     });
 
@@ -58,7 +49,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
         
-        if (!data || data.length === 0 || !frequency) {
+        if (!data || data.length === 0) { // frequency 체크 제거
             chartData.value = null; chartOptions.value = null; return;
         }
 
@@ -75,20 +66,31 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
 
         const sharedOptions = {
             data,
-            isDesktop: isDesktop.value,
-            aspectRatio: aspectRatio.value, // 계산된 비율을 전달
+            deviceType: deviceType.value,
+            isDesktop: isDesktop.value, // isDesktop도 전달
+            aspectRatio: aspectRatio.value,
             selectedTimeRange: selectedTimeRange.value,
             theme: themeOptions
         };
 
-        if (frequency === 'Weekly' && !isPriceChartMode.value) {
-            const { weeklyChartData, weeklyChartOptions } = useWeeklyChart(sharedOptions);
-            chartData.value = weeklyChartData;
-            chartOptions.value = weeklyChartOptions;
-        } else {
+        // 👇 [핵심 수정] 조건문 로직을 명확하게 변경합니다.
+        if (isPriceChartMode.value) {
+            // 1. 주가 차트 모드가 켜져있으면, 무조건 가격 차트를 그립니다.
             const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
             chartData.value = priceChartData;
             chartOptions.value = priceChartOptions;
+        } else {
+            // 2. 주가 차트 모드가 꺼져있을 때만, frequency를 확인합니다.
+            if (frequency === 'Weekly') {
+                const { weeklyChartData, weeklyChartOptions } = useWeeklyChart(sharedOptions);
+                chartData.value = weeklyChartData;
+                chartOptions.value = weeklyChartOptions;
+            } else {
+                // 'Weekly'가 아닌 다른 모든 경우 (월배당 등)는 가격 차트와 동일한 로직을 사용합니다.
+                const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
+                chartData.value = priceChartData;
+                chartOptions.value = priceChartOptions;
+            }
         }
     };
 
