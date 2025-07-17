@@ -16,7 +16,12 @@ html {
   font-optical-sizing: auto;
   font-variation-settings: normal;
   font-weight: 400;
-  font-size: clamp(10px, 5vw, 16px);
+  @media screen and (max-width: 640px) {
+    font-size: 5vw;
+  }
+  @media screen and (min-width: 641px) {
+    font-size: 16px;
+  }
 }
 
 body {
@@ -37,9 +42,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  // @media (max-width: 640px) {
-  //   padding: 1rem;
-  // }
 }
 
 .p-dark .layout-container {

@@ -24,7 +24,18 @@ const emit = defineEmits([
 ]);
 
 // 3. isDesktop 상태 가져오기
-const { isDesktop } = useBreakpoint();
+const { isDesktop, isMobile } = useBreakpoint();
+
+// 👇 [핵심 수정 1] 기기 크기에 따라 동적으로 버튼 크기를 결정하는 computed 속성
+const buttonSize = computed(() => {
+    if (isMobile.value) {
+        return 'small';
+    }
+    // 태블릿과 데스크톱은 기본 크기(null) 또는 'large'를 사용할 수 있습니다.
+    // PrimeVue 기본값이 적절하므로, null을 반환하여 기본 크기를 사용하게 합니다.
+    // 만약 더 크게 하고 싶다면 'large'를 반환하면 됩니다.
+    return null; 
+});
 
 const localIsPriceChartMode = computed({
   get: () => props.isPriceChartMode,
@@ -56,6 +67,7 @@ const dropdownTimeRangeOptions = computed(() => {
             offLabel="배당"
             onIcon="pi pi-chart-line"
             offIcon="pi pi-chart-bar"
+            :size="buttonSize"
           />
         </div>
         <div v-else></div>
@@ -69,6 +81,7 @@ const dropdownTimeRangeOptions = computed(() => {
           :options="timeRangeOptions"
           aria-labelledby="basic"
           :allowEmpty="true"
+          
         />
 
         <!-- 모바일일 때: 새로운 Dropdown -->
@@ -79,7 +92,7 @@ const dropdownTimeRangeOptions = computed(() => {
           optionLabel="name"
           optionValue="code"
           placeholder="기간 선택"
-          class="w-full md:w-14rem"
+          :size="buttonSize"
         />
       </div>
       <div class="chart-container">

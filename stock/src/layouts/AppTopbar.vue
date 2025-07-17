@@ -5,6 +5,10 @@ import { useLayout } from "../composables/useLayout";
 import AppConfig from "./AppConfig.vue";
 import AppSidebar from "./AppSidebar.vue";
 import Drawer from 'primevue/drawer';
+import { useBreakpoint } from '@/composables/useBreakpoint';
+
+// useBreakpoint를 호출하여 반응형 상태를 가져옵니다.
+const { deviceType } = useBreakpoint();
 
 const { isDarkMode, toggleDarkMode } = useLayout();
 const router = useRouter();
@@ -34,7 +38,7 @@ const visible = ref(false);
         <Button icon="pi pi-bars" class="topbar-theme-button" text rounded @click="visible = true" />
 
         <div class="card flex justify-center">
-            <Drawer v-model:visible="visible" position="right">
+            <Drawer v-model:visible="visible" position="right" class="toto-drawer" :class="deviceType">
                 <AppSidebar />
             </Drawer>
         </div>
