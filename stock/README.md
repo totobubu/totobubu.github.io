@@ -2,10 +2,11 @@
 
 
 # 1. 루트 폴더로 이동
-cd /workspaces/etf
+node -v  18이상
 
 # 2. 시스템 파이썬에 설치된 라이브러리들 제거
 pip uninstall -y undetected-chromedriver beautifulsoup4 yfinance
+
 
 # 1. Vue 프로젝트 폴더로 이동
 cd /workspaces/etf/stock

@@ -1,68 +1,34 @@
 // stock/src/composables/charts/usePriceChart.js
 import { getChartColorsByGroup } from "@/utils/chartColors.js";
 
-function getPriceFontSize(range, deviceType, type = "default") {
-  let baseSize = 12;
-  if (type === "line") baseSize = 11;
-
-  let sizeByRange;
-  switch (range) {
-    case "3M":
-      sizeByRange = baseSize + 3;
-      break;
-    case "6M":
-      sizeByRange = baseSize + 2;
-      break;
-    case "9M":
-      sizeByRange = baseSize;
-      break;
-    case "1Y":
-      sizeByRange = baseSize - 1;
-      break;
-    case "2Y":
-      sizeByRange = baseSize - 2;
-      break;
-    case "3Y":
-      sizeByRange = baseSize - 3;
-      break;
-    case "Max":
-      sizeByRange = baseSize - 4;
-      break;
-    default:
-      sizeByRange = 8;
-  }
+function getPriceFontSize(itemCount, deviceType, type = "default") {
+  let baseSize = 16;
+  if (type === "line") baseSize = 16;
+  if (type === "axis") baseSize = 12;
 
   let finalSize;
-  if (deviceType === "tablet") {
-    finalSize = sizeByRange * 0.8;
-  } else if (deviceType === "mobile") {
-    finalSize = sizeByRange * 0.7;
-  } else {
-    finalSize = sizeByRange;
-  }
+  if (itemCount <= 5) finalSize = baseSize + 6;
+  else if (itemCount <= 10) finalSize = baseSize + 4;
+  else if (itemCount <= 15) finalSize = baseSize;
+  else if (itemCount <= 30) finalSize = baseSize - 2;
+  else if (itemCount <= 60)
+    finalSize = baseSize - 3; // 5년치(60개) 데이터 대응
+  else finalSize = baseSize - 4; // 그 이상
 
-  return Math.max(7, Math.round(finalSize));
-}
+  if (deviceType === "tablet") finalSize *= 0.7;
+  if (deviceType === "mobile") finalSize *= 0.4;
 
-function getAxisTickFontSize(deviceType) {
-  if (deviceType === "mobile") return 6; // 가격 차트는 라벨이 더 많으므로 약간 더 작게
-  if (deviceType === "tablet") return 8;
-  return 12; // desktop
+  return Math.max(9, Math.round(finalSize));
 }
 
 export function usePriceChart(options) {
-  const {
-    data,
-    deviceType,
-    isDesktop,
-    aspectRatio,
-    selectedTimeRange,
-    group,
-    theme,
-  } = options;
+  const { data, deviceType, group, theme } = options;
   const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
 
-  // 👇 [핵심 수정] group 값에 따라 색상 팔레트를 가져옵니다.
+  const barLabelSize = getPriceFontSize(data.length, deviceType, "default");
+  const lineLabelSize = getPriceFontSize(data.length, deviceType, "line");
+  const tickFontSize = getPriceFontSize(data.length, deviceType, "axis");
+
   const {
     dividend: colorDividend,
     highlight: colorHighlight,
@@ -70,15 +36,6 @@ export function usePriceChart(options) {
     prevPrice: colorPrevPrice,
     currentPrice: colorCurrentPrice,
   } = getChartColorsByGroup(group);
-
-  const barLabelSize = getPriceFontSize(
-    selectedTimeRange,
-    deviceType,
-    "default"
-  );
-  const lineLabelSize = getPriceFontSize(selectedTimeRange, deviceType, "line");
-
-  const tickFontSize = getAxisTickFontSize(deviceType);
 
   const prices = data
     .flatMap((item) => [
@@ -160,7 +117,18 @@ export function usePriceChart(options) {
   };
   const priceChartOptions = {
     maintainAspectRatio: false,
-    aspectRatio: aspectRatio,
+    aspectRatio: (() => {
+      switch (deviceType) {
+        case "desktop":
+          return 16 / 10;
+        case "tablet":
+          return 3 / 2;
+        case "mobile":
+          return 4 / 3;
+        default:
+          return 16 / 10;
+      }
+    })(),
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -168,7 +136,10 @@ export function usePriceChart(options) {
         intersect: false,
         callbacks: {
           label: (context) =>
-            `${context.dataset.label || ""}: ${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(context.parsed.y)}`,
+            `${context.dataset.label || ""}: ${new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(context.parsed.y)}`,
         },
       },
       zoom: zoomOptions,

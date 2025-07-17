@@ -2,6 +2,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+
 import { useStockData } from "@/composables/useStockData";
 import { useStockChart } from "@/composables/useStockChart";
 import { useBreakpoint } from "@/composables/useBreakpoint";
@@ -28,31 +29,41 @@ const { chartData, chartOptions, updateChart } = useStockChart(
 
 const generateDynamicTimeRangeOptions = () => {
   if (dividendHistory.value.length === 0) return;
+
+  const frequency = tickerInfo.value?.frequency;
   const oldestRecordDate = parseYYMMDD(
     dividendHistory.value[dividendHistory.value.length - 1]["배당락"]
   );
   const now = new Date();
   const options = [];
-  const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
-  const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
-  const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
+
+  if (frequency !== "Quarterly" && frequency !== "Semi-Annually") {
+    const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
+    const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
+    const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
+
+    if (oldestRecordDate < threeMonthsAgo) options.push("3M");
+    if (oldestRecordDate < sixMonthsAgo) options.push("6M");
+    if (oldestRecordDate < nineMonthsAgo) options.push("9M");
+  }
+
   const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
   const twoYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 2));
-  // 👇 [오류 수정] now.getFullYear()로 수정
   const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
+  const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
 
-  if (oldestRecordDate < threeMonthsAgo) options.push("3M");
-  if (oldestRecordDate < sixMonthsAgo) options.push("6M");
-  if (oldestRecordDate < nineMonthsAgo) options.push("9M");
   if (oldestRecordDate < oneYearAgo) options.push("1Y");
   if (oldestRecordDate < twoYearsAgo) options.push("2Y");
   if (oldestRecordDate < threeYearsAgo) options.push("3Y");
+  if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
 
   options.push("Max");
   timeRangeOptions.value = options;
 
   if (!options.includes(selectedTimeRange.value)) {
-    selectedTimeRange.value = options[options.length - 2] || "Max";
+    selectedTimeRange.value = options.includes("1Y")
+      ? "1Y"
+      : options[0] || "Max";
   }
 };
 
@@ -68,14 +79,19 @@ watch(
   { immediate: true }
 );
 
-// 👇 [개선] 두 개의 watch를 하나로 통합하여 더 명확하게 만듭니다.
 watch(
-  [dividendHistory, isPriceChartMode, selectedTimeRange],
-  (values) => {
-    const newHistory = values[0];
+  dividendHistory,
+  (newHistory) => {
     if (newHistory && newHistory.length > 0) {
       generateDynamicTimeRangeOptions();
     }
+  },
+  { immediate: true }
+);
+
+watch(
+  [dividendHistory, isPriceChartMode, selectedTimeRange],
+  () => {
     updateChart();
   },
   { deep: true, immediate: true }
