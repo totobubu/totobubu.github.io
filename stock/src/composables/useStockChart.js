@@ -40,7 +40,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
         const barLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'default');
         const lineLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'line');
         const totalLabelSize = getDynamicFontSize(selectedTimeRange.value, isDesktop.value, 'total');
-        
         const lastDataIndex = data.length - 1;
 
         if (frequency === 'Weekly' && !isPriceChartMode.value) {
@@ -81,7 +80,7 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     display: true, 
                     formatter: (value, context) => {
                         const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
-                        return total > 0 ? `$${total.toFixed(4)}` : ''; // 값이 0이면 빈 문자열 반환하여 숨김
+                        return total > 0 ? `$${total.toFixed(4)}` : '';
                     },
                     color: textColor, anchor: 'end', align: 'end',
                     offset: -8, 
@@ -100,11 +99,16 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     tooltip: { mode: 'index', intersect: false, callbacks: {
                         // [문제 2 해결] 툴팁에서 0인 값과 Total 데이터셋 모두 필터링
                         filter: item => item.raw > 0 && item.dataset.label !== 'Total',
-                        footer: items => 'Total: $' + items.reduce((a, b) => a.raw + b.raw, 0).toFixed(4),
+                        footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
                     }},
                     legend: { display: false },
-                    // [문제 1 해결] 전역 datalabels 플러그인 활성화
-                    datalabels: { display: true },
+                    datalabels: {
+                        // 전역적으로 datalabels를 활성화하되, 각 데이터셋에서 개별 컨트롤
+                        formatter: (value, context) => {
+                            // 각 데이터셋의 datalabels.formatter를 사용하도록 null 반환
+                            return null;
+                        }
+                    },
                     zoom: zoomOptions
                 },
                 scales: {
@@ -112,7 +116,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     y: { stacked: true, ticks: { color: textColorSecondary }, grid: { color: surfaceBorder }, max: yAxisMax }
                 }
             };
-
         } else {
             // --- 가격 차트(Combo) 로직 수정 ---
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
