@@ -60,7 +60,7 @@ export function useWeeklyChart(options) {
                 footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
             }},
             legend: { display: false },
-            datalabels: { formatter: () => null },
+            // 👇 [핵심 수정] 불필요한 전역 datalabels 설정을 완전히 제거합니다.
             zoom: zoomOptions
         },
         scales: {
