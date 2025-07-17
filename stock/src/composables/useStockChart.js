@@ -46,11 +46,25 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
     });
 
     const updateChart = () => {
+        // --- DEBUG ---
+        console.group('%c[Chart Logic] updateChart 실행', 'color: blue; font-weight: bold;');
+
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
         
+        // --- DEBUG ---
+        console.log('[Chart Logic] 1. 입력 데이터 확인:', { 
+            dataLength: data?.length, 
+            frequency, 
+            isPriceChartMode: isPriceChartMode.value 
+        });
+
         if (!data || data.length === 0 || !frequency) {
-            chartData.value = null; chartOptions.value = null; return;
+            chartData.value = null; chartOptions.value = null;
+            // --- DEBUG ---
+            console.log('%c[Chart Logic] 데이터가 없으므로 차트 초기화 후 종료.', 'color: orange;');
+            console.groupEnd();
+            return;
         }
 
         const documentStyle = getComputedStyle(document.documentElement);
@@ -73,14 +87,23 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
         };
 
         if (frequency === 'Weekly' && !isPriceChartMode.value) {
+            // --- DEBUG ---
+            console.log('%c[Chart Logic] 2. 차트 타입 결정: 주별(Weekly) 차트', 'color: blue;');
             const { weeklyChartData, weeklyChartOptions } = useWeeklyChart(sharedOptions);
             chartData.value = weeklyChartData;
             chartOptions.value = weeklyChartOptions;
         } else {
+            // --- DEBUG ---
+            console.log('%c[Chart Logic] 2. 차트 타입 결정: 가격(Price) 차트', 'color: blue;');
             const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
             chartData.value = priceChartData;
             chartOptions.value = priceChartOptions;
         }
+        
+        // --- DEBUG ---
+        console.log('%c[Chart Logic] 3. 최종 생성된 Chart Data:', 'color: purple;', JSON.parse(JSON.stringify(chartData.value)));
+        console.log('%c[Chart Logic] 4. 최종 생성된 Chart Options:', 'color: purple;', chartOptions.value);
+        console.groupEnd();
     };
 
     return { chartData, chartOptions, updateChart };

@@ -1,6 +1,8 @@
 // stock/src/composables/charts/usePriceChart.js
-
 export function usePriceChart(options) {
+    // --- DEBUG ---
+    console.log('%c[PriceChart Expert] 호출됨!', 'background-color: #FFC107; color: black;');
+
     const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = options.theme;
 

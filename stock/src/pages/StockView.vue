@@ -16,6 +16,9 @@ const isPriceChartMode = ref(false);
 const selectedTimeRange = ref('1Y');
 const timeRangeOptions = ref([]);
 
+// --- DEBUG ---
+console.log('%c[View] StockView.vue 컴포넌트 초기화', 'color: green; font-weight: bold;');
+
 const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
 const { chartData, chartOptions, updateChart } = useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange);
 
@@ -24,7 +27,12 @@ onMounted(() => { window.addEventListener('resize', onResize); });
 onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
 
 const generateDynamicTimeRangeOptions = () => {
-    if (dividendHistory.value.length === 0) return;
+    // --- DEBUG ---
+    console.log('%c[View] 기간 선택 버튼 생성 시도...', 'color: green;');
+    if (dividendHistory.value.length === 0) {
+        console.log('%c[View] 데이터가 없어서 버튼 생성 중단.', 'color: orange;');
+        return;
+    }
     const oldestRecordDate = parseYYMMDD(dividendHistory.value[dividendHistory.value.length - 1]['배당락']);
     const now = new Date();
     const options = [];
@@ -44,10 +52,14 @@ const generateDynamicTimeRangeOptions = () => {
     if (!options.includes(selectedTimeRange.value)) {
         selectedTimeRange.value = options[options.length - 2] || 'Max';
     }
+    // --- DEBUG ---
+    console.log('%c[View] 생성된 버튼 옵션:', 'color: green; font-weight: bold;', options);
 };
 
 watch(() => route.params.ticker, (newTicker) => {
     if (newTicker) {
+        // --- DEBUG ---
+        console.log(`%c[View] 라우트 변경 감지: ${newTicker}. 데이터 로딩 시작.`, 'color: green; font-weight: bold;');
         isPriceChartMode.value = false;
         selectedTimeRange.value = '1Y';
         fetchData(newTicker);
@@ -55,12 +67,17 @@ watch(() => route.params.ticker, (newTicker) => {
 }, { immediate: true });
 
 watch(dividendHistory, (newHistory) => {
+    // --- DEBUG ---
+    console.log('%c[View] dividendHistory 변경 감지!', 'color: green;');
     if (newHistory && newHistory.length > 0) {
+        console.log(`%c[View] ${newHistory.length}개의 데이터 로드 완료.`, 'color: green; font-weight: bold;');
         generateDynamicTimeRangeOptions();
     }
 }, { immediate: true });
 
 watch([dividendHistory, isPriceChartMode, isDesktop, selectedTimeRange], () => {
+    // --- DEBUG ---
+    console.log('%c[View] 차트 업데이트 트리거 발생! updateChart() 호출.', 'color: green; font-weight: bold;');
     updateChart();
 }, { deep: true, immediate: true });
 </script>

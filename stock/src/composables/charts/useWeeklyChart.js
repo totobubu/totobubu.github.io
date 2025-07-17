@@ -2,7 +2,10 @@
 import { parseYYMMDD } from '@/utils/date.js';
 
 export function useWeeklyChart(options) {
-    const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
+    // --- DEBUG ---
+    console.log('%c[WeeklyChart Expert] 호출됨!', 'background-color: #4285F4; color: white;');
+    
+const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = options.theme;
 
     const monthlyAggregated = data.reduce((acc, item) => {
