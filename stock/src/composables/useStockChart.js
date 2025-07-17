@@ -14,7 +14,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
 
     const aspectRatio = computed(() => {
         switch (deviceType.value) {
-            case 'desktop': return 16 / 9;
+            case 'desktop': return 16 / 10;
             case 'tablet': return 3 / 2;
             case 'mobile': return 4 / 3;
             default: return 16 / 10;
@@ -49,11 +49,13 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
         
-        if (!data || data.length === 0) { // frequency 체크 제거
+        if (!data || data.length === 0) {
             chartData.value = null; chartOptions.value = null; return;
         }
 
         const documentStyle = getComputedStyle(document.documentElement);
+        
+        // 👇 [핵심 수정] themeOptions 객체 안에 zoomOptions를 포함시킵니다.
         const themeOptions = {
             textColor: documentStyle.getPropertyValue('--p-text-color'),
             textColorSecondary: documentStyle.getPropertyValue('--p-text-muted-color'),
@@ -67,26 +69,22 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const sharedOptions = {
             data,
             deviceType: deviceType.value,
-            isDesktop: isDesktop.value, // isDesktop도 전달
+            isDesktop: isDesktop.value,
             aspectRatio: aspectRatio.value,
             selectedTimeRange: selectedTimeRange.value,
             theme: themeOptions
         };
 
-        // 👇 [핵심 수정] 조건문 로직을 명확하게 변경합니다.
         if (isPriceChartMode.value) {
-            // 1. 주가 차트 모드가 켜져있으면, 무조건 가격 차트를 그립니다.
             const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
             chartData.value = priceChartData;
             chartOptions.value = priceChartOptions;
         } else {
-            // 2. 주가 차트 모드가 꺼져있을 때만, frequency를 확인합니다.
             if (frequency === 'Weekly') {
                 const { weeklyChartData, weeklyChartOptions } = useWeeklyChart(sharedOptions);
                 chartData.value = weeklyChartData;
                 chartOptions.value = weeklyChartOptions;
             } else {
-                // 'Weekly'가 아닌 다른 모든 경우 (월배당 등)는 가격 차트와 동일한 로직을 사용합니다.
                 const { priceChartData, priceChartOptions } = usePriceChart(sharedOptions);
                 chartData.value = priceChartData;
                 chartOptions.value = priceChartOptions;
