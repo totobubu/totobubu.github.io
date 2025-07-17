@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 // 컴포저블 및 자식 컴포넌트 import
 import { useStockData } from '@/composables/useStockData';
 import { useStockChart } from '@/composables/useStockChart';
+import { parseYYMMDD } from '@/utils/date.js';
 import StockHeader from '@/components/StockHeader.vue';
 import StockChartCard from '@/components/StockChartCard.vue';
 import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
@@ -31,12 +32,12 @@ onBeforeUnmount(() => { window.removeEventListener('resize', onResize); });
 // --- 👇 [누락된 부분 복원] 유틸리티 함수 ---
 
 // 날짜 파싱 함수 (매우 중요)
-const parseYYMMDD = (dateStr) => {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map(part => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
-};
+// const parseYYMMDD = (dateStr) => {
+//     if (!dateStr || typeof dateStr !== 'string') return null;
+//     const parts = dateStr.split('.').map(part => part.trim());
+//     if (parts.length !== 3) return null;
+//     return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
+// };
 
 // 기간 선택 버튼 옵션 생성 함수 (매우 중요)
 const generateDynamicTimeRangeOptions = () => {
