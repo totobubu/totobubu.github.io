@@ -26,7 +26,6 @@ const { chartData, chartOptions, updateChart } = useStockChart(
     dividendHistory, 
     tickerInfo, 
     isPriceChartMode, 
-    isDesktop, 
     selectedTimeRange
 );
 
@@ -70,7 +69,7 @@ watch(dividendHistory, (newHistory) => {
 }, { immediate: true });
 
 // 차트 업데이트 트리거
-watch([dividendHistory, isPriceChartMode, isDesktop, selectedTimeRange], () => {
+watch([dividendHistory, isPriceChartMode, selectedTimeRange], () => {
     updateChart();
 }, { deep: true, immediate: true });
 </script>

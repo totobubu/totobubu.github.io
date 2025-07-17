@@ -68,7 +68,7 @@ export function usePriceChart(options) {
     };
     const priceChartOptions = {
         maintainAspectRatio: false, 
-        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        aspectRatio: options.aspectRatio,
         plugins: {
             legend: { display: false },
             tooltip: {

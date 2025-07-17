@@ -3,11 +3,24 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { usePriceChart } from './charts/usePriceChart';
+import { useBreakpoint } from '@/composables/useBreakpoint'; // useBreakpoint를 여기서 직접 사용
 import { parseYYMMDD } from '@/utils/date.js';
 
-export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
+export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, selectedTimeRange) {
     const chartData = ref(null);
     const chartOptions = ref(null);
+
+    const { deviceType, isDesktop } = useBreakpoint(); // 반응형 상태를 여기서 직접 가져옴
+
+    // 디바이스 타입에 따라 동적으로 화면 비율을 계산하는 computed 속성
+    const aspectRatio = computed(() => {
+        switch (deviceType.value) {
+            case 'desktop': return 16 / 10;
+            case 'tablet': return 3 / 2;
+            case 'mobile': return 4 / 3;
+            default: return 16 / 10;
+        }
+    });
 
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
@@ -63,6 +76,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
         const sharedOptions = {
             data,
             isDesktop: isDesktop.value,
+            aspectRatio: aspectRatio.value, // 계산된 비율을 전달
             selectedTimeRange: selectedTimeRange.value,
             theme: themeOptions
         };

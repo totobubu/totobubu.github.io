@@ -5,10 +5,6 @@ $is-mobile : 768px;
     max-width: 100%;
     width: 75%;
 
-    @media (max-width: 640px) {
-        width: 100%;
-    }
-
     table {
         text-align: center;
 
@@ -48,29 +44,6 @@ $is-mobile : 768px;
     canvas {
         width: 100%;
         height: 100%;
-    }
-}
-.card {
-    &.is-mobile { 
-        .chart-container {
-            overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
-            -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
-            /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
-        }
-        #p-chart {
-            min-width: 600px; /* 모바일에서 최소 너비 설정 */
-            // height: 300px; /* 높이 고정 */
-            aspect-ratio: 4 / 3; /* 비율 유지 */
-        }
-    }
-    &:not(.is-mobile) {
-        .chart-container {
-            overflow-x: hidden; /* 가로 스크롤 비활성화 */
-        }
-        #p-chart {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* 비율 유지 */
-        }
     }
 }
 
@@ -157,4 +130,50 @@ $is-mobile : 768px;
 }
 
 
+.layout-container {
+    // 데스크탑
+    &.desktop {
+        
+        .chart-container {
+            overflow-x: hidden; /* 가로 스크롤 비활성화 */
+        }
+        
+        #p-chart {
+            width: 100%;
+            // aspect-ratio: 16 / 9; /* 비율 유지 */
+        }
+    }
 
+
+    // 태블릿
+    &.tablet {
+        
+        
+        .chart-container {
+            overflow-x: hidden; /* 가로 스크롤 비활성화 */
+        }
+        
+        #p-chart {
+            width: 100%;
+            // aspect-ratio: 16 / 9; /* 비율 유지 */
+        }
+    }
+
+    // 모바일
+    &.mobile {
+        .p-drawer-mask.p-drawer-right .p-drawer {
+            width: 100%;
+        }
+        
+        .chart-container {
+            overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
+            -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+            /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
+        }
+        
+        #p-chart {
+            min-width: 600px; /* 모바일에서 최소 너비 설정 */
+            // aspect-ratio: 4 / 3; /* 비율 유지 */
+        }
+    }
+}

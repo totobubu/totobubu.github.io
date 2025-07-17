@@ -71,7 +71,7 @@ export function useWeeklyChart(options) {
 
     const weeklyChartOptions = {
         maintainAspectRatio: false, 
-        aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
+        aspectRatio: options.aspectRatio,
         plugins: {
             title: { display: false },
             tooltip: { 
