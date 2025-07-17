@@ -1,78 +1,33 @@
 // stock/src/composables/charts/useWeeklyChart.js
 import { parseYYMMDD } from "@/utils/date.js";
 
-// 👇 [핵심 수정] 함수 이름을 더 명확하게 바꾸고, deviceType을 인자로 받습니다.
-function getWeeklyFontSize(range, deviceType, type = "default") {
-  // 1. 데스크톱을 기준으로 기본 크기를 설정합니다.
-  let baseSize = 16;
-  if (type === "total") baseSize = 18;
+function getWeeklyFontSize(itemCount, deviceType, type = "default") {
+  let baseSize = 18;
+  if (type === "total") baseSize = 24;
+  if (type === "axis") baseSize = 15;
 
-  // 2. 기간에 따라 크기를 조절합니다.
-  let sizeByRange;
-  switch (range) {
-    case "3M":
-      sizeByRange = baseSize + 6;
-      break;
-    case "6M":
-      sizeByRange = baseSize + 4;
-      break;
-    case "9M":
-      sizeByRange = baseSize;
-      break;
-    case "1Y":
-      sizeByRange = baseSize - 1;
-      break;
-    case "2Y":
-      sizeByRange = baseSize - 2;
-      break;
-    case "3Y":
-      sizeByRange = baseSize - 3;
-      break;
-    case "Max":
-      sizeByRange = baseSize - 4;
-      break;
-    default:
-      sizeByRange = 10;
-  }
-
-  // 3. 기기 타입에 따라 보정값을 곱합니다.
   let finalSize;
-  if (deviceType === "tablet") {
-    finalSize = sizeByRange * 0.6;
-  } else if (deviceType === "mobile") {
-    finalSize = sizeByRange * 0.5;
-  } else {
-    // desktop
-    finalSize = sizeByRange;
-  }
+  if (itemCount <= 5) finalSize = baseSize + 6;
+  else if (itemCount <= 10) finalSize = baseSize + 3;
+  else if (itemCount <= 15) finalSize = baseSize;
+  else if (itemCount <= 30) finalSize = baseSize - 2;
+  else if (itemCount <= 52)
+    finalSize = baseSize - 4; // 52주(1년) 데이터에 대응
+  else finalSize = baseSize - 4; // 그 이상
 
-  // 4. 최종 크기가 너무 작아지지 않도록 최소값을 보장하고, 정수로 반환합니다.
-  return Math.max(6, Math.round(finalSize));
-}
+  if (deviceType === "tablet") finalSize *= 0.5;
+  if (deviceType === "mobile") finalSize *= 0.4;
 
-function getAxisTickFontSize(deviceType) {
-  if (deviceType === "mobile") return 10;
-  if (deviceType === "tablet") return 11;
-  return 12; // desktop
+  return Math.max(5, Math.round(finalSize));
 }
 
 export function useWeeklyChart(options) {
-  const { data, deviceType, selectedTimeRange } = options;
-  const { textColor, textColorSecondary, surfaceBorder, zoomOptions } =
-    options.theme;
+  const { data, deviceType, theme } = options;
+  const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
 
-  const barLabelSize = getWeeklyFontSize(
-    selectedTimeRange,
-    deviceType,
-    "default"
-  );
-  const totalLabelSize = getWeeklyFontSize(
-    selectedTimeRange,
-    deviceType,
-    "total"
-  );
-
-  const tickFontSize = getAxisTickFontSize(deviceType);
+  const barLabelSize = getWeeklyFontSize(data.length, deviceType, "default");
+  const totalLabelSize = getWeeklyFontSize(data.length, deviceType, "total");
+  const tickFontSize = getWeeklyFontSize(data.length, deviceType, "axis");
 
   const monthlyAggregated = data.reduce((acc, item) => {
     const date = parseYYMMDD(item["배당락"]);
@@ -155,7 +110,18 @@ export function useWeeklyChart(options) {
 
   const weeklyChartOptions = {
     maintainAspectRatio: false,
-    aspectRatio: options.aspectRatio,
+    aspectRatio: (() => {
+      switch (deviceType) {
+        case "desktop":
+          return 16 / 10;
+        case "tablet":
+          return 3 / 2;
+        case "mobile":
+          return 4 / 3;
+        default:
+          return 16 / 10;
+      }
+    })(),
     plugins: {
       title: { display: false },
       tooltip: {
@@ -164,7 +130,9 @@ export function useWeeklyChart(options) {
         callbacks: {
           label: function (tooltipItem) {
             if (tooltipItem.raw > 0 && tooltipItem.dataset.label !== "Total") {
-              return `${tooltipItem.dataset.label}: $${Number(tooltipItem.raw).toFixed(4)}`;
+              return `${tooltipItem.dataset.label}: $${Number(
+                tooltipItem.raw
+              ).toFixed(4)}`;
             }
             return null;
           },
