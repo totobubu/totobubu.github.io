@@ -66,12 +66,14 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
             }
         };
 
+        // 👇 [핵심 수정] sharedOptions에 group 정보를 추가합니다.
         const sharedOptions = {
             data,
             deviceType: deviceType.value,
             isDesktop: isDesktop.value,
             aspectRatio: aspectRatio.value,
             selectedTimeRange: selectedTimeRange.value,
+            group: tickerInfo.value?.group, // group 정보 전달
             theme: themeOptions
         };
 

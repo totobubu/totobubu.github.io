@@ -1,4 +1,5 @@
 // stock/src/composables/charts/usePriceChart.js
+import { getChartColorsByGroup } from '@/utils/chartColors.js';
 
 function getPriceFontSize(range, deviceType, type = 'default') {
     let baseSize = 12;
@@ -25,8 +26,11 @@ function getPriceFontSize(range, deviceType, type = 'default') {
 }
 
 export function usePriceChart(options) {
-    const { data, deviceType, isDesktop, aspectRatio, selectedTimeRange, theme } = options;
+    const { data, deviceType, isDesktop, aspectRatio, selectedTimeRange, group, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
+
+    // 👇 [핵심 수정] group 값에 따라 색상 팔레트를 가져옵니다.
+    const { dividend: colorDividend, highlight: colorHighlight, lineDividend: LineDividend, prevPrice: colorPrevPrice, currentPrice: colorCurrentPrice } = getChartColorsByGroup(group);
 
     const barLabelSize = getPriceFontSize(selectedTimeRange, deviceType, 'default');
     const lineLabelSize = getPriceFontSize(selectedTimeRange, deviceType, 'line');
@@ -35,9 +39,6 @@ export function usePriceChart(options) {
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
     const lastDataIndex = data.length - 1;
-
-    const colorDividend = '#FFC107', LineDividend = '#5f5f5f', colorHighlight = '#FB8C00';
-    const colorPrevPrice = '#9E9E9E', colorCurrentPrice = '#212121';
 
     const priceChartData = {
         labels: data.map(item => item['배당락']),
