@@ -1,6 +1,6 @@
 // stock/src/composables/useStockChart.js
 
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 
 function getDynamicFontSize(range, isDesktop, type = 'default') {
@@ -20,42 +20,33 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
     const chartOptions = ref(null);
 
     const chartDisplayData = computed(() => {
+        // ... (이전과 동일한 chartDisplayData 계산 로직)
         if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
-        
         if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
             const now = new Date();
             const rangeValue = parseInt(selectedTimeRange.value);
             const rangeUnit = selectedTimeRange.value.slice(-1);
             let startDate = new Date(now);
-            if (rangeUnit === 'M') {
-                startDate.setMonth(now.getMonth() - rangeValue);
-            } else {
-                startDate.setFullYear(now.getFullYear() - rangeValue);
-            }
+            if (rangeUnit === 'M') startDate.setMonth(now.getMonth() - rangeValue);
+            else startDate.setFullYear(now.getFullYear() - rangeValue);
             const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
             return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
         }
-
         if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
             return [...dividendHistory.value].reverse();
         }
-
         const now = new Date();
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
         let cutoffDate;
-        if (rangeUnit === 'M') {
-            cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
-        } else {
-            cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
-        }
+        if (rangeUnit === 'M') cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
+        else cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
         return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
     });
 
     const setChartDataAndOptions = () => {
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
-        
         if (!data || data.length === 0 || !frequency) {
             chartData.value = null;
             chartOptions.value = null;
@@ -117,8 +108,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                         return total > 0 ? `$${total.toFixed(4)}` : '';
                     },
                     color: textColor, anchor: 'end', align: 'end',
-                    offset: -8, 
-                    font: { size: totalLabelSize, weight: 'bold' }
+                    offset: -8, font: { size: totalLabelSize, weight: 'bold' }
                 }
             });
 
@@ -135,7 +125,8 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                         footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
                     }},
                     legend: { display: false },
-                    datalabels: { formatter: () => null },
+                    // 👇 [핵심 수정] datalabels 전역 설정을 완전히 제거합니다.
+                    // 이제 각 dataset의 설정이 100% 적용됩니다.
                     zoom: zoomOptions
                 },
                 scales: {
@@ -204,7 +195,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isD
                 aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     legend: { display: false },
-                    datalabels: { formatter: () => null },
+                    // 👇 [핵심 수정] 여기도 동일하게 전역 설정을 제거합니다.
                     tooltip: {
                         mode: 'index', intersect: false,
                         callbacks: {
