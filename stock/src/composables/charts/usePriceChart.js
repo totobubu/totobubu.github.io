@@ -57,6 +57,9 @@ export function usePriceChart(options) {
         ]
     };
 
+    // --- DEBUG ---
+    console.log('%c[PriceChart Expert] 생성된 최종 데이터셋 객체:', 'color: orange; font-weight: bold;', priceChartData.datasets);
+
     const priceChartOptions = {
         maintainAspectRatio: false,
         aspectRatio: isDesktop ? (16 / 9) : (4 / 3),

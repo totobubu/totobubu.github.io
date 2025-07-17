@@ -54,6 +54,10 @@ const { data, isDesktop, getDynamicFontSize, selectedTimeRange } = options;
     const maxTotal = Math.max(0, ...Object.values(monthlyAggregated).map(m => m.total));
     const yAxisMax = maxTotal * 1.25;
 
+    // --- DEBUG ---
+    // JSON.stringify 대신 원본 객체를 그대로 출력하여 모든 속성을 확인
+    console.log('%c[WeeklyChart Expert] 생성된 최종 데이터셋 객체:', 'color: orange; font-weight: bold;', datasets);
+
     const weeklyChartOptions = {
         maintainAspectRatio: false,
         aspectRatio: isDesktop ? (16 / 9) : (4 / 3),
