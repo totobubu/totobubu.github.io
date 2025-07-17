@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 
 // 1. 필요한 컴포저블만 import 합니다.
@@ -115,19 +115,24 @@ watch(dividendHistory, (newHistory) => {
 });
 
 // 차트를 다시 그려야 할 조건이 변경되면 updateChart 함수를 호출합니다.
-watch([chartDisplayData, isPriceChartMode, isDesktop], () => {
+watch([chartDisplayData, isPriceChartMode, isDesktop, selectedTimeRange], () => {
+    // updateChart 함수는 차트 데이터와 옵션을 새로 계산합니다.
     updateChart();
-}, { deep: true });
 
-// 기간 선택 버튼을 누르면 차트 줌을 리셋합니다.
-watch(selectedTimeRange, (newRange) => {
-    if (newRange && chartData.value) {
+    // 차트가 완전히 준비된 후에 업데이트를 강제합니다.
+    // nextTick을 사용하여 DOM 업데이트가 완료된 후 실행되도록 보장합니다.
+    nextTick(() => {
         const chartInstance = ChartJS.getChart('p-chart-instance');
         if (chartInstance) {
-            chartInstance.resetZoom();
+            // resetZoom 대신, 더 안전하고 포괄적인 update() 메소드를 사용합니다.
+            chartInstance.update();
+            // 줌이 되어 있었다면, update() 후 resetZoom()을 호출해야 정상 작동합니다.
+            if (chartInstance.isZoomedOrPanned()) {
+                chartInstance.resetZoom();
+            }
         }
-    }
-});
+    });
+}, { deep: true });
 </script>
 
 <template>
