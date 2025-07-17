@@ -1,32 +1,67 @@
 // stock/src/composables/useStockChart.js
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 
-// 동적 폰트 크기 계산 함수 (변경 없음)
 function getDynamicFontSize(range, isDesktop, type = 'default') {
     let baseSize = isDesktop ? 12 : 10;
     if (type === 'total') baseSize = isDesktop ? 15 : 12;
     if (type === 'line') baseSize = isDesktop ? 11 : 9;
     switch (range) {
-        case '3M':
-        case '6M':
-            return baseSize;
-        case '9M':
-        case '1Y':
-            return baseSize - 1 < 8 ? 8 : baseSize - 1;
-        case 'Max':
-            return baseSize - 2 < 8 ? 8 : baseSize - 2;
-        default:
-            return 8;
+        case '3M': case '6M': return baseSize;
+        case '9M': case '1Y': return baseSize - 1 < 8 ? 8 : baseSize - 1;
+        case 'Max': return baseSize - 2 < 8 ? 8 : baseSize - 2;
+        default: return 8;
     }
 }
 
-export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
+export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, isDesktop, selectedTimeRange) {
     const chartData = ref(null);
     const chartOptions = ref(null);
 
-    const setChartDataAndOptions = (data, frequency) => {
+    const chartDisplayData = computed(() => {
+        if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
+        
+        if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value && selectedTimeRange.value && selectedTimeRange.value !== 'Max') {
+            const now = new Date();
+            const rangeValue = parseInt(selectedTimeRange.value);
+            const rangeUnit = selectedTimeRange.value.slice(-1);
+            let startDate = new Date(now);
+            if (rangeUnit === 'M') {
+                startDate.setMonth(now.getMonth() - rangeValue);
+            } else {
+                startDate.setFullYear(now.getFullYear() - rangeValue);
+            }
+            const cutoffDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+            return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
+        }
+
+        if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
+            return [...dividendHistory.value].reverse();
+        }
+
+        const now = new Date();
+        const rangeValue = parseInt(selectedTimeRange.value);
+        const rangeUnit = selectedTimeRange.value.slice(-1);
+        let cutoffDate;
+        if (rangeUnit === 'M') {
+            cutoffDate = new Date(new Date().setMonth(now.getMonth() - rangeValue));
+        } else {
+            cutoffDate = new Date(new Date().setFullYear(now.getFullYear() - rangeValue));
+        }
+        return dividendHistory.value.filter(item => parseYYMMDD(item['배당락']) >= cutoffDate).reverse();
+    });
+
+    const setChartDataAndOptions = () => {
+        const data = chartDisplayData.value;
+        const frequency = tickerInfo.value?.frequency;
+        
+        if (!data || data.length === 0 || !frequency) {
+            chartData.value = null;
+            chartOptions.value = null;
+            return;
+        }
+
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--p-text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
@@ -76,7 +111,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 type: 'bar', label: 'Total', data: new Array(labels.length).fill(0),
                 backgroundColor: 'transparent',
                 datalabels: {
-                    // [문제 3 해결] Total 라벨 항상 표시
                     display: true, 
                     formatter: (value, context) => {
                         const total = monthlyAggregated[labels[context.dataIndex]]?.total || 0;
@@ -97,18 +131,11 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 plugins: {
                     title: { display: false },
                     tooltip: { mode: 'index', intersect: false, callbacks: {
-                        // [문제 2 해결] 툴팁에서 0인 값과 Total 데이터셋 모두 필터링
                         filter: item => item.raw > 0 && item.dataset.label !== 'Total',
                         footer: items => 'Total: $' + items.reduce((sum, i) => sum + i.raw, 0).toFixed(4),
                     }},
                     legend: { display: false },
-                    datalabels: {
-                        // 전역적으로 datalabels를 활성화하되, 각 데이터셋에서 개별 컨트롤
-                        formatter: (value, context) => {
-                            // 각 데이터셋의 datalabels.formatter를 사용하도록 null 반환
-                            return null;
-                        }
-                    },
+                    datalabels: { formatter: () => null },
                     zoom: zoomOptions
                 },
                 scales: {
@@ -117,7 +144,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                 }
             };
         } else {
-            // --- 가격 차트(Combo) 로직 수정 ---
             const prices = data.flatMap(item => [parseFloat(item['전일가']?.replace('$', '')), parseFloat(item['당일가']?.replace('$', ''))]).filter(p => !isNaN(p));
             const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
             const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
@@ -173,14 +199,12 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
                     }
                 ]
             };
-
             chartOptions.value = {
                 maintainAspectRatio: false,
                 aspectRatio: isDesktop.value ? (16 / 9) : (4 / 3),
                 plugins: {
                     legend: { display: false },
-                    // [문제 1 해결] 전역 datalabels 플러그인 활성화
-                    datalabels: { display: true }, 
+                    datalabels: { formatter: () => null },
                     tooltip: {
                         mode: 'index', intersect: false,
                         callbacks: {
@@ -206,13 +230,6 @@ export function useStockChart(chartDisplayData, tickerInfo, isPriceChartMode, is
     return {
         chartData,
         chartOptions,
-        updateChart: () => {
-            if (chartDisplayData.value && chartDisplayData.value.length > 0 && tickerInfo.value) {
-                setChartDataAndOptions(chartDisplayData.value, tickerInfo.value.frequency);
-            } else {
-                chartData.value = null;
-                chartOptions.value = null;
-            }
-        }
+        updateChart: setChartDataAndOptions
     };
 }
