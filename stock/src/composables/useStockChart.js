@@ -3,6 +3,7 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { usePriceChart } from './charts/usePriceChart';
+import { parseYYMMDD } from '@/utils/date.js';
 
 function getDynamicFontSize(range, isDesktop, type = 'default') {
     let baseSize = isDesktop ? 12 : 10;
