@@ -9,17 +9,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
-    Card: typeof import('primevue/card')['default']
-    Column: typeof import('primevue/column')['default']
-    DataTable: typeof import('primevue/datatable')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    Panel: typeof import('primevue/panel')['default']
-    ProductOverviewWidget: typeof import('./components/dashboard/ProductOverviewWidget.vue')['default']
-    ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SelectButton: typeof import('primevue/selectbutton')['default']
-    ToggleButton: typeof import('primevue/togglebutton')['default']
+    StockChartCard: typeof import('./components/StockChartCard.vue')['default']
+    StockHeader: typeof import('./components/StockHeader.vue')['default']
+    StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
   }
   export interface GlobalDirectives {
     StyleClass: typeof import('primevue/styleclass')['default']
