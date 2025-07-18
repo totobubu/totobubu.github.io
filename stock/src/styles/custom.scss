@@ -3,7 +3,6 @@ $is-mobile: 768px;
 // 전체 메뉴
 .p-drawer-mask.p-drawer-right .p-drawer {
   max-width: 100%;
-  width: 75%;
 
   .p-datatable-column-header-content {
     justify-content: center;
@@ -243,6 +242,12 @@ $is-mobile: 768px;
     }
     &-content {
       padding: 0;
+      * {
+        text-align: center;
+      }
+      [class*="toto-column-"] {
+        min-width: 100px;
+      }
     }
   }
   .p-iconfield {
@@ -254,11 +259,10 @@ $is-mobile: 768px;
   &.mobile {
     .p-drawer-mask.p-drawer-right & {
       width: 90%;
-      font-size: 0.7rem;
     }
     .p-drawer {
-      &-content {
-        padding: 0;
+      &-header {
+        padding: 0.5rem;
       }
     }
     .p-datatable {
@@ -276,14 +280,29 @@ $is-mobile: 768px;
     }
     .toto-column {
       &-company {
-        width: 120px;
-        max-width: 120px;
+        width: 140px;
+        max-width: 140px;
       }
       &-frequency,
       &-group {
-        width: 100px;
-        max-width: 100px;
+        width: 140px;
+        max-width: 140px;
       }
+    }
+    .p-tag {
+      font-size: 0.8em;
+      &-label {
+      }
+    }
+  }
+  &.tablet {
+    .p-drawer-mask.p-drawer-right & {
+      width: 600px;
+    }
+  }
+  &.desktop {
+    .p-drawer-mask.p-drawer-right & {
+      width: 600px;
     }
   }
 }

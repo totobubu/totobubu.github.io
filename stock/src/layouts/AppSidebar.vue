@@ -1,6 +1,6 @@
 <!-- AppSidebar.vue -->
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue"; // computed 추가
 import { useRouter } from "vue-router";
 import { joinURL } from "ufo";
 
@@ -12,6 +12,7 @@ import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import RadioButton from "primevue/radiobutton";
 import { useFilterState } from "@/composables/useFilterState";
+import { useBreakpoint } from "@/composables/useBreakpoint"; // Breakpoint import
 
 const router = useRouter();
 const etfList = ref([]);
@@ -19,6 +20,35 @@ const isLoading = ref(true);
 const error = ref(null);
 
 const { filters } = useFilterState();
+const { isDesktop, isMobile } = useBreakpoint(); // isDesktop과 isMobile 가져오기
+
+// --- [핵심 수정 1] 반응형 scrollHeight를 위한 computed 속성 ---
+const tableScrollHeight = computed(() => {
+  // AppTopbar의 Drawer 헤더 높이가 대략 60px, 테이블 헤더가 60px 정도라고 가정
+  const topbarHeight = 60;
+  const tableHeaderHeight = 60;
+  const totalHeaderHeight = topbarHeight + tableHeaderHeight;
+
+  if (isMobile.value) {
+    // 모바일에서는 Drawer 헤더 높이만 고려
+    return `calc(100vh - ${topbarHeight}px)`;
+  } else {
+    // 데스크톱 & 태블릿에서는 전체 높이를 고려 (Drawer가 아닐 수 있으므로)
+    // 이 값은 Drawer가 열리는 AppTopbar의 높이와 관련있습니다.
+    // 현재 AppTopbar에 있으므로, Drawer 헤더 높이만 빼주면 됩니다.
+    return `calc(100vh - ${topbarHeight}px - 2rem)`; // 2rem은 card의 기본 padding
+  }
+});
+
+const tableSize = computed(() => {
+  if (isMobile.value) {
+    return "small";
+  }
+  // 태블릿과 데스크톱은 기본 크기(null) 또는 'large'를 사용할 수 있습니다.
+  // PrimeVue 기본값이 적절하므로, null을 반환하여 기본 크기를 사용하게 합니다.
+  // 만약 더 크게 하고 싶다면 'large'를 반환하면 됩니다.
+  return null;
+});
 
 const dialogsVisible = ref({
   company: false,
@@ -124,23 +154,21 @@ const getGroupSeverity = (group) => {
       class="p-datatable-sm"
       stripedRows
       scrollable
-      scrollHeight="calc(100vh - 86px)"
+      :scrollHeight="tableScrollHeight"
+      :size="tableSize"
     >
-      <!-- #header 슬롯은 이제 필요 없으므로 완전히 제거 -->
-
       <template #empty>
         <div class="text-center p-4">검색 결과가 없습니다.</div>
       </template>
 
-      <!-- 컬럼 정의는 이전과 동일 -->
       <Column
         field="name"
         header="티커"
         sortable
         frozen
-        class="font-bold text-center"
+        class="font-bold toto-column-ticker"
       ></Column>
-      <Column field="company" sortable>
+      <Column field="company" sortable class="toto-column-company">
         <template #header>
           <div class="column-header">
             <Button
@@ -155,10 +183,12 @@ const getGroupSeverity = (group) => {
             <span>운용사</span>
           </div>
         </template>
-        <template #body="{ data }"><Tag :value="data.company" /></template>
+        <template #body="{ data }">
+          <Tag :value="data.company" />
+        </template>
       </Column>
 
-      <Column field="frequency" sortable>
+      <Column field="frequency" sortable class="toto-column-frequency">
         <template #header>
           <div class="column-header">
             <Button
@@ -173,10 +203,12 @@ const getGroupSeverity = (group) => {
             <span>지급주기</span>
           </div>
         </template>
-        <template #body="{ data }"><Tag :value="data.frequency" /></template>
+        <template #body="{ data }">
+          <Tag :value="data.frequency" />
+        </template>
       </Column>
 
-      <Column field="group" sortable>
+      <Column field="group" sortable class="toto-column-group">
         <template #header>
           <div class="column-header">
             <Button
@@ -191,12 +223,13 @@ const getGroupSeverity = (group) => {
             <span>그룹</span>
           </div>
         </template>
-        <template #body="{ data }"
-          ><Tag
+        <template #body="{ data }">
+          <Tag
             v-if="data.group"
             :value="data.group"
             :severity="getGroupSeverity(data.group)"
-        /></template>
+          />
+        </template>
       </Column>
     </DataTable>
 
@@ -295,9 +328,9 @@ const getGroupSeverity = (group) => {
             name="group"
             :value="group"
             @change="dialogsVisible.group = false"
-          /><label :for="group" class="ml-2"
-            ><Tag :value="group" :severity="getGroupSeverity(group)"
-          /></label>
+          /><label :for="group" class="ml-2">
+            <Tag :value="group" :severity="getGroupSeverity(group)" />
+          </label>
         </div>
       </div>
     </Dialog>
