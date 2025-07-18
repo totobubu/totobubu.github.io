@@ -99,7 +99,14 @@ const responsiveSize = computed(() => {
     >
       <template #header>
         <div class="flex gap-3">
-          <IconField>
+          <Button
+            icon="pi pi-search"
+            severity="secondary"
+            aria-label="Search"
+            :size="responsiveSize"
+            v-if="isMobile"
+          />
+          <IconField v-else>
             <InputIcon class="pi pi-search" :size="responsiveSize" />
             <InputText
               v-model="value1"
