@@ -76,25 +76,27 @@ const clearGlobalFilter = () => {
       :class="deviceType"
     >
       <template #header>
-        <InputGroup class="toto-drawer-search">
-          <IconField iconPosition="left">
+        <div class="flex gap-3">
+          <IconField>
             <InputIcon class="pi pi-search" />
-            <!-- 👇 [핵심 수정] AutoComplete를 기본 InputText로 변경 -->
             <InputText
-              v-model="filters.global.value"
-              placeholder="티커 검색"
-              autofocus
+              v-model="value1"
+              value="티커"
+              readonly
+              size="large"
+              disabled
             />
           </IconField>
-          <InputGroupAddon v-if="filters.global.value">
-            <Button
-              icon="pi pi-times"
-              text
-              rounded
-              severity="secondary"
-              @click="clearGlobalFilter"
-          /></InputGroupAddon>
-        </InputGroup>
+          <InputOtp v-model="filters.global.value" size="large" />
+          <Button
+            v-if="filters.global.value"
+            icon="pi pi-times"
+            text
+            rounded
+            severity="secondary"
+            @click="clearGlobalFilter"
+          />
+        </div>
       </template>
       <AppSidebar />
     </Drawer>

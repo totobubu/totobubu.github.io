@@ -124,7 +124,7 @@ const getGroupSeverity = (group) => {
       class="p-datatable-sm"
       stripedRows
       scrollable
-      scrollHeight="calc(100vh - 120px)"
+      scrollHeight="calc(100vh - 86px)"
     >
       <!-- #header 슬롯은 이제 필요 없으므로 완전히 제거 -->
 
