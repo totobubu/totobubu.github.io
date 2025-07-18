@@ -5,7 +5,6 @@ $is-mobile: 768px;
   max-width: 100%;
   width: 75%;
 
-
   .p-datatable-column-header-content {
     justify-content: center;
   }
@@ -168,8 +167,8 @@ $is-mobile: 768px;
         small {
           display: block;
           margin-top: 0.5em;
-          font-size: .8em;
-          opacity: .8
+          font-size: 0.8em;
+          opacity: 0.8;
         }
         i {
           display: none;
@@ -184,7 +183,7 @@ $is-mobile: 768px;
           grid-template-columns: 1fr 1fr;
           gap: 0.5rem;
           &-value {
-            font-size: .8rem;
+            font-size: 0.8rem;
           }
           &-title {
             font-size: 0.8rem;
@@ -238,6 +237,10 @@ $is-mobile: 768px;
 }
 
 .toto-drawer {
+  &-search {
+    max-width: 300px;
+    width: 50%;
+  }
   &.mobile {
     .p-drawer-mask.p-drawer-right & {
       width: 90%;
@@ -254,7 +257,7 @@ $is-mobile: 768px;
         min-width: 100px;
       }
       &-header-cell {
-          background: var(--p-datatable-header-cell-background) !important;
+        background: var(--p-datatable-header-cell-background) !important;
       }
     }
     .p-column-filter {
