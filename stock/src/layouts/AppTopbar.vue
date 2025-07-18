@@ -4,16 +4,24 @@ import { ref } from "vue";
 import AppConfig from "./AppConfig.vue";
 import AppSidebar from "./AppSidebar.vue";
 import Drawer from "primevue/drawer";
-import InputText from "primevue/inputtext"; // AutoComplete 대신 InputText 사용
+import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
+import Button from "primevue/button"; // Clear 버튼을 위해 Button import
 import { useLayout } from "../composables/useLayout";
-import { useFilterState } from "@/composables/useFilterState"; // 전역 필터 상태만 import
+import { useFilterState } from "@/composables/useFilterState";
+import { useBreakpoint } from "@/composables/useBreakpoint";
 
+const { deviceType } = useBreakpoint();
 const { isDarkMode, toggleDarkMode } = useLayout();
-const { filters } = useFilterState(); // 전역 필터 상태만 가져옴
+const { filters } = useFilterState();
 
 const visible = ref(false);
+
+// [핵심 수정 1] 클리어 버튼을 위한 함수
+const clearGlobalFilter = () => {
+  filters.value.global.value = null;
+};
 </script>
 
 <template>
@@ -61,17 +69,32 @@ const visible = ref(false);
       @click="visible = true"
     />
 
-    <Drawer v-model:visible="visible" position="right" class="toto-drawer">
+    <Drawer
+      v-model:visible="visible"
+      position="right"
+      class="toto-drawer"
+      :class="deviceType"
+    >
       <template #header>
-        <IconField iconPosition="left" class="w-full">
-          <InputIcon class="pi pi-search" />
-          <!-- 👇 [핵심 수정] AutoComplete를 기본 InputText로 변경 -->
-          <InputText
-            v-model="filters.global.value"
-            placeholder="티커 검색"
-            autofocus
-          />
-        </IconField>
+        <InputGroup class="toto-drawer-search">
+          <IconField iconPosition="left">
+            <InputIcon class="pi pi-search" />
+            <!-- 👇 [핵심 수정] AutoComplete를 기본 InputText로 변경 -->
+            <InputText
+              v-model="filters.global.value"
+              placeholder="티커 검색"
+              autofocus
+            />
+          </IconField>
+          <InputGroupAddon v-if="filters.global.value">
+            <Button
+              icon="pi pi-times"
+              text
+              rounded
+              severity="secondary"
+              @click="clearGlobalFilter"
+          /></InputGroupAddon>
+        </InputGroup>
       </template>
       <AppSidebar />
     </Drawer>
