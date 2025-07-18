@@ -10,7 +10,7 @@ import Tag from "primevue/tag";
 import ProgressSpinner from "primevue/progressspinner";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
-import ToggleButton from 'primevue/togglebutton'; // 1. ToggleButton import
+import ToggleButton from 'primevue/togglebutton';
 import { useFilterState } from "@/composables/useFilterState";
 import { useBreakpoint } from "@/composables/useBreakpoint";
 
@@ -75,15 +75,21 @@ const onRowSelect = (event) => {
   router.push(`/stock/${ticker.toLowerCase()}`);
 };
 
-const openFilterDialog = (filterName) => {
-  dialogsVisible.value[filterName] = true;
-};
+const openFilterDialog = (filterName) => { dialogsVisible.value[filterName] = true; };
 
-// --- [핵심 수정 1] 필터 버튼 클릭을 처리하는 새로운 함수 ---
+// --- [핵심 수정] 필터 선택 시, 다른 필터를 초기화하는 로직 추가 ---
 const selectFilter = (filterName, value) => {
-    // 현재 필터 값에 선택된 값을 할당
-    filters.value[filterName].value = value;
-    // 다이얼로그를 닫음
+    // 1. 모든 개별 필터를 초기화합니다. (글로벌 검색 필터는 유지)
+    filters.value.company.value = null;
+    filters.value.frequency.value = null;
+    filters.value.group.value = null;
+
+    // 2. 현재 선택된 필터에만 새로운 값을 할당합니다.
+    if (filters.value[filterName]) {
+        filters.value[filterName].value = value;
+    }
+    
+    // 3. 다이얼로그를 닫습니다.
     dialogsVisible.value[filterName] = false;
 };
 
