@@ -77,10 +77,10 @@ $is-mobile: 768px;
     line-height: 1.25;
     font-size: 2rem;
     .is-mobile & {
-      font-size: 1.5rem; /* 모바일에서 폰트 크기 줄이기 */
+      font-size: 1.5rem;
     }
     small {
-      font-size: 0.875rem;
+      font-size: 0.8em;
     }
   }
 
@@ -106,6 +106,15 @@ $is-mobile: 768px;
       font-size: 1.125rem;
       color: var(--p-primary-500);
     }
+  }
+}
+
+// 상세 정보
+.toto-history {
+  .p-panel-header {
+    background-color: var(--p-slate-50);
+    border-bottom: 1px solid var(--p-slate-200);
+
   }
 }
 

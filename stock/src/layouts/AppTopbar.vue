@@ -50,36 +50,22 @@ const responsiveSize = computed(() => {
     <router-link to="/">
       <Button icon="pi pi-home" text rounded />
     </router-link>
-    <Button
-      type="button"
-      class="topbar-theme-button"
-      @click="toggleDarkMode"
-      text
-      rounded
-    >
-      <i
-        :class="[
-          'pi ',
-          'pi ',
-          { 'pi-moon': isDarkMode, 'pi-sun': !isDarkMode },
-        ]"
-      />
+    <Button type="button" class="topbar-theme-button" @click="toggleDarkMode" text rounded>
+      <i :class="[
+        'pi ',
+        'pi ',
+        { 'pi-moon': isDarkMode, 'pi-sun': !isDarkMode },
+      ]" />
     </Button>
     <div class="relative">
-      <Button
-        v-styleclass="{
-          selector: '@next',
-          enterFromClass: 'hidden',
-          enterActiveClass: 'animate-scalein',
-          leaveToClass: 'hidden',
-          leaveActiveClass: 'animate-fadeout',
-          hideOnOutsideClick: true,
-        }"
-        icon="pi pi-cog"
-        text
-        rounded
-        aria-label="Settings"
-      />
+      <Button v-styleclass="{
+        selector: '@next',
+        enterFromClass: 'hidden',
+        enterActiveClass: 'animate-scalein',
+        leaveToClass: 'hidden',
+        leaveActiveClass: 'animate-fadeout',
+        hideOnOutsideClick: true,
+      }" icon="pi pi-cog" text rounded aria-label="Settings" />
       <AppConfig />
     </div>
     <Button icon="pi pi-bars" text rounded @click="visible = true" />
@@ -90,41 +76,17 @@ const responsiveSize = computed(() => {
             PrimeVue의 Drawer는 기본적으로 modal일 때 스크롤을 제어하지만,
             우리의 복잡한 레이아웃에서는 수동 제어가 더 확실할 수 있습니다.
         -->
-    <Drawer
-      v-model:visible="visible"
-      position="right"
-      :modal="true"
-      class="toto-drawer"
-      :class="deviceType"
-    >
+    <Drawer v-model:visible="visible" position="right" :modal="true" class="toto-drawer" :class="deviceType">
       <template #header>
         <div class="flex gap-3">
-          <Button
-            icon="pi pi-search"
-            severity="secondary"
-            aria-label="Search"
-            :size="responsiveSize"
-            v-if="isMobile"
-          />
+          <Button icon="pi pi-search" severity="secondary" aria-label="Search" :size="responsiveSize" v-if="isMobile" />
           <IconField v-else>
             <InputIcon class="pi pi-search" :size="responsiveSize" />
-            <InputText
-              v-model="value1"
-              value="티커"
-              readonly
-              :size="responsiveSize"
-              disabled
-            />
+            <InputText v-model="value1" value="티커" readonly :size="responsiveSize" disabled />
           </IconField>
           <InputOtp v-model="filters.global.value" :size="responsiveSize" />
-          <Button
-            v-if="filters.global.value"
-            icon="pi pi-times"
-            text
-            rounded
-            severity="secondary"
-            @click="clearGlobalFilter"
-          />
+          <Button v-if="filters.global.value" icon="pi pi-times" text rounded severity="secondary"
+            @click="clearGlobalFilter" />
         </div>
       </template>
       <AppSidebar />
