@@ -18,6 +18,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectButton: typeof import('primevue/selectbutton')['default']
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']

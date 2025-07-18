@@ -64,8 +64,8 @@ export function usePriceChart(options) {
         ),
         datalabels: {
           display: true,
-          anchor: "end",
-          align: "end",
+          align: "center",
+          anchor: "center",
           color: textColor,
           formatter: (value) => (value > 0 ? `$${value.toFixed(2)}` : null),
           font: (context) => ({
@@ -85,14 +85,14 @@ export function usePriceChart(options) {
         borderColor: colorPrevPrice,
         data: data.map((item) => parseFloat(item["전일가"]?.replace("$", ""))),
         tension: 0.4,
-        borderWidth: 2,
+        borderWidth: 1,
         fill: false,
         datalabels: {
           display: true,
           align: "top",
-          color: textColor,
+          color: colorPrevPrice,
           formatter: (value) => (value ? `$${value.toFixed(2)}` : null),
-          font: { size: lineLabelSize },
+          font: { size: (lineLabelSize*.8) },
         },
       },
       {
@@ -103,12 +103,12 @@ export function usePriceChart(options) {
         borderColor: colorCurrentPrice,
         data: data.map((item) => parseFloat(item["당일가"]?.replace("$", ""))),
         tension: 0.4,
-        borderWidth: 2,
+        borderWidth: 3,
         fill: false,
         datalabels: {
           display: true,
           align: "bottom",
-          color: textColor,
+          color: colorCurrentPrice,
           formatter: (value) => (value ? `$${value.toFixed(2)}` : null),
           font: { size: lineLabelSize },
         },

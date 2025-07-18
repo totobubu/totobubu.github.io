@@ -1,6 +1,6 @@
 <!-- AppSidebar.vue -->
 <script setup>
-import { ref, onMounted, computed } from "vue"; // computed 추가
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { joinURL } from "ufo";
 
@@ -10,9 +10,9 @@ import Tag from "primevue/tag";
 import ProgressSpinner from "primevue/progressspinner";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
-import RadioButton from "primevue/radiobutton";
+import ToggleButton from 'primevue/togglebutton'; // 1. ToggleButton import
 import { useFilterState } from "@/composables/useFilterState";
-import { useBreakpoint } from "@/composables/useBreakpoint"; // Breakpoint import
+import { useBreakpoint } from "@/composables/useBreakpoint";
 
 const router = useRouter();
 const etfList = ref([]);
@@ -20,23 +20,16 @@ const isLoading = ref(true);
 const error = ref(null);
 
 const { filters } = useFilterState();
-const { isDesktop, isMobile } = useBreakpoint(); // isDesktop과 isMobile 가져오기
+const { isMobile } = useBreakpoint();
 
-// --- [핵심 수정 1] 반응형 scrollHeight를 위한 computed 속성 ---
 const tableScrollHeight = computed(() => {
-  // AppTopbar의 Drawer 헤더 높이가 대략 60px, 테이블 헤더가 60px 정도라고 가정
   const topbarHeight = 60;
   const tableHeaderHeight = 60;
   const totalHeaderHeight = topbarHeight + tableHeaderHeight;
-
   if (isMobile.value) {
-    // 모바일에서는 Drawer 헤더 높이만 고려
     return `calc(100vh - ${topbarHeight}px)`;
   } else {
-    // 데스크톱 & 태블릿에서는 전체 높이를 고려 (Drawer가 아닐 수 있으므로)
-    // 이 값은 Drawer가 열리는 AppTopbar의 높이와 관련있습니다.
-    // 현재 AppTopbar에 있으므로, Drawer 헤더 높이만 빼주면 됩니다.
-    return `calc(100vh - ${topbarHeight}px - 2rem)`; // 2rem은 card의 기본 padding
+    return `calc(100vh - ${topbarHeight}px - 2rem)`;
   }
 });
 
@@ -44,9 +37,6 @@ const tableSize = computed(() => {
   if (isMobile.value) {
     return "small";
   }
-  // 태블릿과 데스크톱은 기본 크기(null) 또는 'large'를 사용할 수 있습니다.
-  // PrimeVue 기본값이 적절하므로, null을 반환하여 기본 크기를 사용하게 합니다.
-  // 만약 더 크게 하고 싶다면 'large'를 반환하면 됩니다.
   return null;
 });
 
@@ -88,6 +78,15 @@ const onRowSelect = (event) => {
 const openFilterDialog = (filterName) => {
   dialogsVisible.value[filterName] = true;
 };
+
+// --- [핵심 수정 1] 필터 버튼 클릭을 처리하는 새로운 함수 ---
+const selectFilter = (filterName, value) => {
+    // 현재 필터 값에 선택된 값을 할당
+    filters.value[filterName].value = value;
+    // 다이얼로그를 닫음
+    dialogsVisible.value[filterName] = false;
+};
+
 // --- Tag 컴포넌트 스타일링을 위한 함수들 ---
 const getCompanySeverity = (company) => {
   switch (company) {
@@ -143,43 +142,22 @@ const getGroupSeverity = (group) => {
     </div>
     <div v-else-if="error" class="text-red-500">{{ error }}</div>
 
-    <DataTable
-      v-else
-      :value="etfList"
-      v-model:filters="filters"
-      dataKey="name"
-      selectionMode="single"
-      @rowSelect="onRowSelect"
-      :globalFilterFields="['name']"
-      class="p-datatable-sm"
-      stripedRows
-      scrollable
-      :scrollHeight="tableScrollHeight"
-      :size="tableSize"
-    >
+    <DataTable v-else :value="etfList" v-model:filters="filters" dataKey="name" selectionMode="single"
+      @rowSelect="onRowSelect" :globalFilterFields="['name']" class="p-datatable-sm" stripedRows scrollable
+      :scrollHeight="tableScrollHeight" :size="tableSize">
       <template #empty>
         <div class="text-center p-4">검색 결과가 없습니다.</div>
       </template>
 
-      <Column
-        field="name"
-        header="티커"
-        sortable
-        frozen
-        class="font-bold toto-column-ticker"
-      ></Column>
+      <Column field="name" header="티커" sortable frozen class="font-bold toto-column-ticker"></Column>
       <Column field="company" sortable class="toto-column-company">
         <template #header>
           <div class="column-header">
-            <Button
-              type="button"
-              icon="pi pi-filter-fill"
-              text
-              rounded
-              size="small"
-              @click="openFilterDialog('company')"
-              :class="{ 'p-button-text': !filters.company.value }"
-            />
+
+            <!-- 👇 [핵심 수정] :text와 :severity를 동적으로 바인딩합니다. -->
+            <Button type="button" icon="pi pi-filter-fill" size="small" variant="text"
+              @click="openFilterDialog('company')" :text="!filters.company.value"
+              :severity="filters.company.value ? 'info' : 'secondary'" />
             <span>운용사</span>
           </div>
         </template>
@@ -191,15 +169,11 @@ const getGroupSeverity = (group) => {
       <Column field="frequency" sortable class="toto-column-frequency">
         <template #header>
           <div class="column-header">
-            <Button
-              type="button"
-              icon="pi pi-filter-fill"
-              text
-              rounded
-              size="small"
-              @click="openFilterDialog('frequency')"
-              :class="{ 'p-button-text': !filters.frequency.value }"
-            />
+
+            <!-- 👇 [핵심 수정] :text와 :severity를 동적으로 바인딩합니다. -->
+            <Button type="button" icon="pi pi-filter-fill" size="small" variant="text"
+              @click="openFilterDialog('frequency')" :text="!filters.frequency.value"
+              :severity="filters.frequency.value ? 'info' : 'secondary'" />
             <span>지급주기</span>
           </div>
         </template>
@@ -211,128 +185,85 @@ const getGroupSeverity = (group) => {
       <Column field="group" sortable class="toto-column-group">
         <template #header>
           <div class="column-header">
-            <Button
-              type="button"
-              icon="pi pi-filter-fill"
-              text
-              rounded
-              size="small"
-              @click="openFilterDialog('group')"
-              :class="{ 'p-button-text': !filters.group.value }"
-            />
+            <!-- 👇 [핵심 수정] :text와 :severity를 동적으로 바인딩합니다. -->
+            <Button type="button" icon="pi pi-filter-fill" size="small" variant="text"
+              @click="openFilterDialog('group')" :text="!filters.group.value"
+              :severity="filters.group.value ? 'info' : 'secondary'" />
             <span>그룹</span>
           </div>
         </template>
         <template #body="{ data }">
-          <Tag
-            v-if="data.group"
-            :value="data.group"
-            :severity="getGroupSeverity(data.group)"
-          />
+          <Tag v-if="data.group" :value="data.group" :severity="getGroupSeverity(data.group)" />
         </template>
       </Column>
     </DataTable>
 
-    <!-- 독립적인 Dialog들 (변경 없음) -->
-    <Dialog
-      v-model:visible="dialogsVisible.company"
-      modal
-      header="운용사 필터"
-      :style="{ width: '80vw' }"
-      :breakpoints="{ '576px': '95vw' }"
-    >
-      <div class="filter-options">
-        <div class="flex align-items-center">
-          <RadioButton
-            v-model="filters.company.value"
-            inputId="companyAll"
-            name="company"
-            :value="null"
-            @change="dialogsVisible.company = false"
-          /><label for="companyAll" class="ml-2">전체</label>
-        </div>
-        <div
-          v-for="company in companies"
-          :key="company"
-          class="flex align-items-center"
-        >
-          <RadioButton
-            v-model="filters.company.value"
-            :inputId="company"
-            name="company"
-            :value="company"
-            @change="dialogsVisible.company = false"
-          /><label :for="company" class="ml-2">{{ company }}</label>
-        </div>
+    <!-- 👇 [핵심 수정 2] Dialog 내부를 ToggleButton으로 교체합니다. -->
+
+    <Dialog v-model:visible="dialogsVisible.company" modal header="운용사 필터">
+      <div class="filter-button-group">
+        <ToggleButton 
+          onLabel="전체" offLabel="전체" 
+          :modelValue="filters.company.value === null"
+          @update:modelValue="selectFilter('company', null)"
+          class="p-button-sm"
+        />
+        <ToggleButton 
+          v-for="company in companies" :key="company"
+          :onLabel="company" :offLabel="company"
+          :modelValue="filters.company.value === company"
+          @update:modelValue="selectFilter('company', company)"
+          class="p-button-sm"
+        />
       </div>
     </Dialog>
 
-    <Dialog
-      v-model:visible="dialogsVisible.frequency"
-      modal
-      header="지급주기 필터"
-      :style="{ width: '80vw' }"
-      :breakpoints="{ '576px': '95vw' }"
-    >
-      <div class="filter-options">
-        <div class="flex align-items-center">
-          <RadioButton
-            v-model="filters.frequency.value"
-            inputId="freqAll"
-            name="frequency"
-            :value="null"
-            @change="dialogsVisible.frequency = false"
-          /><label for="freqAll" class="ml-2">전체</label>
-        </div>
-        <div
-          v-for="freq in frequencies"
-          :key="freq"
-          class="flex align-items-center"
-        >
-          <RadioButton
-            v-model="filters.frequency.value"
-            :inputId="freq"
-            name="frequency"
-            :value="freq"
-            @change="dialogsVisible.frequency = false"
-          /><label :for="freq" class="ml-2">{{ freq }}</label>
-        </div>
+    <Dialog v-model:visible="dialogsVisible.frequency" modal header="지급주기 필터">
+      <div class="filter-button-group">
+        <ToggleButton 
+          onLabel="전체" offLabel="전체" 
+          :modelValue="filters.frequency.value === null"
+          @update:modelValue="selectFilter('frequency', null)"
+          class="p-button-sm"
+        />
+        <ToggleButton 
+          v-for="freq in frequencies" :key="freq"
+          :onLabel="freq" :offLabel="freq"
+          :modelValue="filters.frequency.value === freq"
+          @update:modelValue="selectFilter('frequency', freq)"
+          class="p-button-sm"
+        />
       </div>
     </Dialog>
 
-    <Dialog
-      v-model:visible="dialogsVisible.group"
-      modal
-      header="그룹 필터"
-      :style="{ width: '80vw' }"
-      :breakpoints="{ '576px': '95vw' }"
-    >
-      <div class="filter-options">
-        <div class="flex align-items-center">
-          <RadioButton
-            v-model="filters.group.value"
-            inputId="groupAll"
-            name="group"
-            :value="null"
-            @change="dialogsVisible.group = false"
-          /><label for="groupAll" class="ml-2">전체</label>
-        </div>
-        <div
-          v-for="group in groups"
-          :key="group"
-          class="flex align-items-center"
+    <Dialog v-model:visible="dialogsVisible.group" modal header="그룹 필터">
+       <div class="filter-button-group">
+        <ToggleButton 
+          onLabel="전체" offLabel="전체" 
+          :modelValue="filters.group.value === null"
+          @update:modelValue="selectFilter('group', null)"
+          class="p-button-sm"
+        />
+        <ToggleButton 
+          v-for="group in groups" :key="group"
+          :onLabel="group" :offLabel="group"
+          :modelValue="filters.group.value === group"
+          @update:modelValue="selectFilter('group', group)"
+          class="p-button-sm"
         >
-          <RadioButton
-            v-model="filters.group.value"
-            :inputId="group"
-            name="group"
-            :value="group"
-            @change="dialogsVisible.group = false"
-          /><label :for="group" class="ml-2">
+            <!-- 버튼 안에 Tag를 넣어 시각적 효과를 더합니다. -->
             <Tag :value="group" :severity="getGroupSeverity(group)" />
-          </label>
-        </div>
+        </ToggleButton>
       </div>
     </Dialog>
   </div>
 </template>
+
+<style scoped>
+.filter-button-group {
+    display: flex;
+    flex-wrap: wrap; /* 버튼이 많아지면 다음 줄로 넘어감 */
+    gap: 0.75rem; /* 버튼 사이의 간격 */
+    padding: 1rem 0;
+}
+</style>
