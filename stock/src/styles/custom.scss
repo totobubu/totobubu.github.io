@@ -237,9 +237,19 @@ $is-mobile: 768px;
 }
 
 .toto-drawer {
-  &-search {
-    max-width: 300px;
-    width: 50%;
+  .p-drawer {
+    &-header {
+      background-color: var(--p-slate-50);
+    }
+    &-content {
+      padding: 0;
+    }
+  }
+  .p-iconfield {
+    width: 6.5rem;
+    input {
+      width: 100%;
+    }
   }
   &.mobile {
     .p-drawer-mask.p-drawer-right & {
