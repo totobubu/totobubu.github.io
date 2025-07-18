@@ -1,10 +1,11 @@
+// stock/src/composables/useLayout.js
 import { updatePrimaryPalette, updateSurfacePalette } from "@primeuix/themes";
-import { computed, ref } from "vue";
+import { computed, ref, readonly, watchEffect } from "vue";
 
 const appState = ref({
-	primary: "emerald",
-	surface: null,
-	darkMode: false
+    primary: "emerald",
+    surface: null,
+    darkMode: true,
 });
 
 const primaryColors = ref([
@@ -406,54 +407,46 @@ const surfaces = ref([
 ]);
 
 export function useLayout() {
-	function setPrimary(value) {
-		appState.value.primary = value;
-	}
+    watchEffect(() => {
+        if (appState.value.darkMode) {
+            document.documentElement.classList.add("p-dark");
+        } else {
+            document.documentElement.classList.remove("p-dark");
+        }
+    });
 
-	function setSurface(value) {
-		appState.value.surface = value;
-	}
+    function setPrimary(value) {
+        appState.value.primary = value;
+    }
 
-	function setDarkMode(value) {
-		appState.value.darkMode = value;
-		if (value) {
-			document.documentElement.classList.add("p-dark");
-		} else {
-			document.documentElement.classList.remove("p-dark");
-		}
-	}
+    function setSurface(value) {
+        appState.value.surface = value;
+    }
 
-	function toggleDarkMode() {
-		appState.value.darkMode = !appState.value.darkMode;
-		document.documentElement.classList.toggle("p-dark");
-	}
+    function updateColors(type, colorName) {
+        if (type === "primary") {
+            setPrimary(colorName);
+            const color = primaryColors.value.find((c) => c.name === colorName);
+            if (color) updatePrimaryPalette(color.palette);
+        } else if (type === "surface") {
+            setSurface(colorName);
+            const surfaceColor = surfaces.value.find((s) => s.name === colorName);
+            if (surfaceColor) updateSurfacePalette(surfaceColor.palette);
+        }
+    }
 
-	function updateColors(type, colorName) {
-		if (type === "primary") {
-			setPrimary(colorName);
-			const color = primaryColors.value.find((c) => c.name === colorName);
-			updatePrimaryPalette(color.palette);
-		} else if (type === "surface") {
-			setSurface(colorName);
-			const surfaceColor = surfaces.value.find((s) => s.name === colorName);
-			updateSurfacePalette(surfaceColor.palette);
-		}
-	}
+    const isDarkMode = computed(() => appState.value.darkMode);
+    const primary = computed(() => appState.value.primary);
+    const surface = computed(() => appState.value.surface);
 
-	const isDarkMode = computed(() => appState.value.darkMode);
-	const primary = computed(() => appState.value.primary);
-	const surface = computed(() => appState.value.surface);
-
-	return {
-		primaryColors,
-		surfaces,
-		isDarkMode,
-		primary,
-		surface,
-		toggleDarkMode,
-		setDarkMode,
-		setPrimary,
-		setSurface,
-		updateColors
-	};
+    return {
+        primaryColors,
+        surfaces,
+        isDarkMode: readonly(isDarkMode),
+        primary,
+        surface,
+        setPrimary,
+        setSurface,
+        updateColors
+    };
 }

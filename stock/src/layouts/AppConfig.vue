@@ -1,7 +1,8 @@
+<!-- layouts/AppConfig.vue -->
 <script setup>
 import { useLayout } from "../composables/useLayout";
 
-const { primaryColors, surfaces, primary, surface, isDarkMode, updateColors } = useLayout();
+const { primaryColors, surfaces, primary, surface, updateColors } = useLayout();
 </script>
 
 <template>
@@ -32,11 +33,7 @@ const { primaryColors, surfaces, primary, surface, isDarkMode, updateColors } = 
                         :class="[
                             'color-button',
                             {
-                                selected: surface
-                                    ? surface === s.name
-                                    : isDarkMode
-                                    ? s.name === 'zinc'
-                                    : s.name === 'slate',
+                                selected: surface ? surface === s.name : s.name === 'zinc'
                             },
                         ]"
                         :style="{ backgroundColor: s.palette['500'] }"
