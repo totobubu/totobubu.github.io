@@ -43,8 +43,8 @@ export function usePriceChart(options) {
 
   const prices = data
     .flatMap(item => [
-      parseFloat(item['전일가']?.replace('$', '')),
-      parseFloat(item['당일가']?.replace('$', ''))
+      parseFloat(item['전일종가']?.replace('$', '')),
+      parseFloat(item['당일종가']?.replace('$', ''))
     ])
     .filter(p => !isNaN(p));
   const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
@@ -81,9 +81,9 @@ export function usePriceChart(options) {
         }
       },
       {
-        type: 'line', label: '전일가', yAxisID: 'y1', order: 1,
+        type: 'line', label: '전일종가', yAxisID: 'y1', order: 1,
         borderColor: colorPrevPrice,
-        data: data.map(item => parseFloat(item['전일가']?.replace('$', ''))),
+        data: data.map(item => parseFloat(item['전일종가']?.replace('$', ''))),
         tension: 0.4, borderWidth: 1, fill: false,
         datalabels: {
           display: true, align: 'top',
@@ -93,9 +93,9 @@ export function usePriceChart(options) {
         }
       },
       {
-        type: 'line', label: '당일가', yAxisID: 'y1', order: 1,
+        type: 'line', label: '당일종가', yAxisID: 'y1', order: 1,
         borderColor: colorCurrentPrice,
-        data: data.map(item => parseFloat(item['당일가']?.replace('$', ''))),
+        data: data.map(item => parseFloat(item['당일종가']?.replace('$', ''))),
         tension: 0.4, borderWidth: 3, fill: false,
         datalabels: {
           display: true, align: 'bottom',

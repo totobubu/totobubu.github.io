@@ -19,7 +19,7 @@ const columns = computed(() => {
     Object.keys(item).forEach((key) => allKeys.add(key));
   });
 
-  const desiredOrder = ["배당락", "배당금", "전일가", "당일가"];
+  const desiredOrder = ["배당락", "배당금", "전일종가", "당일종가"];
   const sortedKeys = Array.from(allKeys).sort((a, b) => {
     const indexA = desiredOrder.indexOf(a);
     const indexB = desiredOrder.indexOf(b);

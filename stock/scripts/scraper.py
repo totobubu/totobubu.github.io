@@ -14,7 +14,7 @@ def get_historical_prices(ticker_symbol, ex_date_str):
 
         # 2. 조회하려는 날짜가 오늘보다 미래인지 확인
         if ex_date.replace(tzinfo=None) > today:
-            # 배당락일이 아직 오지 않았다면, 전일가만 조회 시도
+            # 배당락일이 아직 오지 않았다면, 전일종가만 조회 시도
             before_date_target = ex_date - timedelta(days=1)
             # 전일조차 아직 오지 않았다면, 아무것도 조회하지 않음
             if before_date_target.replace(tzinfo=None) > today:
@@ -31,14 +31,14 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         # 3. 정확한 날짜의 인덱스를 찾아 종가를 가져오는 방식으로 변경
         on_price, before_price = "N/A", "N/A"
         
-        # 당일가 조회
+        # 당일종가 조회
         try:
             # 정확히 ex_date 날짜의 인덱스가 있는지 확인
             on_price_val = hist.loc[hist.index.strftime('%Y-%m-%d') == ex_date.strftime('%Y-%m-%d')]['Close'].iloc[0]
             on_price = f"${on_price_val:.2f}"
         except (KeyError, IndexError): pass
 
-        # 전일가 조회
+        # 전일종가 조회
         try:
             before_date_target = ex_date - timedelta(days=1)
             # 정확히 before_date_target 날짜의 인덱스가 있는지 확인
@@ -90,8 +90,8 @@ def scrape_with_yfinance(ticker_symbol, company, frequency, group):
                 record = {
                     '배당락': ex_date.strftime('%y. %m. %d'),
                     '배당금': f"${dividend_amount:.4f}",
-                    '전일가': prices['before_price'],
-                    '당일가': prices['on_price'],
+                    '전일종가': prices['before_price'],
+                    '당일종가': prices['on_price'],
                 }
                 dividend_history.append(record)
         
@@ -176,19 +176,19 @@ if __name__ == "__main__":
 
                 should_revalidate = (today - ex_date).days <= 3
                 
-                if item.get('전일가', 'N/A') == 'N/A' or should_revalidate:
+                if item.get('전일종가', 'N/A') == 'N/A' or should_revalidate:
                     print(f"  -> {'Re-validating' if should_revalidate else 'Enriching'} price data for {ticker} on {ex_date_str}...")
                     
                     ex_date_for_price = ex_date.strftime('%m/%d/%Y')
                     prices = get_historical_prices(ticker, ex_date_for_price)
                     
-                    old_before_price = item.get('전일가')
-                    old_on_price = item.get('당일가')
+                    old_before_price = item.get('전일종가')
+                    old_on_price = item.get('당일종가')
                     
                     if old_before_price != prices['before_price'] or old_on_price != prices['on_price']:
                         item.update({
-                            '전일가': prices['before_price'],
-                            '당일가': prices['on_price'],
+                            '전일종가': prices['before_price'],
+                            '당일종가': prices['on_price'],
                         })
                         has_changed = True
                         enriched_or_revalidated_count += 1

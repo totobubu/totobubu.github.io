@@ -7,17 +7,17 @@ from datetime import datetime, timedelta
 def get_historical_prices(ticker_symbol, ex_date_str):
     """
     배당락일(ex_date)을 기준으로 4가지 주요 가격 정보를 가져옵니다.
-    - 전일가: 배당락일 전 영업일의 종가
-    - 시작가: 배당락일 당일의 시가
-    - 당일가: 배당락일 당일의 종가
-    - 배당후: 배당락일 다음 영업일의 종가
+    - 전일종가: 배당락일 전 영업일의 종가
+    - 당일시가: 배당락일 당일의 시가
+    - 당일종가: 배당락일 당일의 종가
+    - 익일종가: 배당락일 다음 영업일의 종가
     """
     try:
         ex_date = datetime.strptime(ex_date_str, '%m/%d/%Y')
         
         # 데이터 조회를 위한 충분한 기간 설정 (주말, 휴일 고려)
         start_date = ex_date - timedelta(days=7)
-        end_date = ex_date + timedelta(days=7) # 배당후 가격을 위해 조회 기간 확대
+        end_date = ex_date + timedelta(days=7) # 익일종가 가격을 위해 조회 기간 확대
         
         ticker = yf.Ticker(ticker_symbol)
         hist = ticker.history(start=start_date, end=end_date)
@@ -28,7 +28,7 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         # 기본값 설정
         before_price, open_price, on_price, after_price = "N/A", "N/A", "N/A", "N/A"
 
-        # 1. 전일가 (배당락일 전날 종가)
+        # 1. 전일종가 (배당락일 전날 종가)
         try:
             # 배당락일 -1일 이전의 가장 마지막 거래일 데이터를 찾음
             before_date_target = ex_date - timedelta(days=1)
@@ -37,7 +37,7 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         except IndexError:
             pass # 해당 날짜 데이터가 없으면 N/A 유지
 
-        # 2. 시작가 및 당일가 (배당락일 시가/종가)
+        # 2. 당일시가 및 당일종가 (배당락일 시가/종가)
         try:
             # 배당락일 당일 또는 그 이전의 가장 마지막 거래일 데이터를 찾음
             on_date_row = hist.loc[:ex_date.strftime('%Y-%m-%d')].iloc[-1]
@@ -48,7 +48,7 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         except IndexError:
             pass # 해당 날짜 데이터가 없으면 N/A 유지
 
-        # 4. 배당후 (배당락일 다음날 종가)
+        # 4. 익일종가 (배당락일 다음날 종가)
         try:
             # 배당락일 +1일 이후의 가장 마지막 거래일 데이터를 찾음
             after_date_target = ex_date + timedelta(days=1)
@@ -90,10 +90,10 @@ def fetch_dividend_history(ticker_symbol):
                 record = {
                     '배당락': ex_date.strftime('%y. %m. %d'),
                     '배당금': f"${dividend_amount:.4f}",
-                    '전일가': prices['before_price'],
-                    '시작가': prices['open_price'], # 시작가 추가
-                    '당일가': prices['on_price'],
-                    '배당후': prices['after_price'], # 배당후 추가
+                    '전일종가': prices['before_price'],
+                    '당일시가': prices['open_price'], # 당일시가 추가
+                    '당일종가': prices['on_price'],
+                    '익일종가': prices['after_price'], # 익일종가 추가
                 }
                 dividend_history.append(record)
         return dividend_history
@@ -150,16 +150,16 @@ if __name__ == "__main__":
         new_dividends_map = {item['배당락']: item for item in new_dividend_history}
         for item in final_history:
             # 가격 정보 중 하나라도 'N/A'이면 전체를 업데이트 시도
-            if any(item.get(price_key, 'N/A') == 'N/A' for price_key in ['전일가', '시작가', '당일가', '배당후']):
+            if any(item.get(price_key, 'N/A') == 'N/A' for price_key in ['전일종가', '당일시가', '당일종가', '익일종가']):
                 if item['배당락'] in new_dividends_map:
                     new_info_item = new_dividends_map[item['배당락']]
                     
                     # 업데이트할 내용
                     update_payload = {
-                        '전일가': new_info_item.get('전일가', 'N/A'),
-                        '시작가': new_info_item.get('시작가', 'N/A'),
-                        '당일가': new_info_item.get('당일가', 'N/A'),
-                        '배당후': new_info_item.get('배당후', 'N/A'),
+                        '전일종가': new_info_item.get('전일종가', 'N/A'),
+                        '당일시가': new_info_item.get('당일시가', 'N/A'),
+                        '당일종가': new_info_item.get('당일종가', 'N/A'),
+                        '익일종가': new_info_item.get('익일종가', 'N/A'),
                     }
                     
                     # 실제로 변경된 내용이 있을 때만 업데이트
