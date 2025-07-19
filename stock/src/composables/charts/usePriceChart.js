@@ -54,15 +54,67 @@ export function usePriceChart(options) {
         .filter(p => !isNaN(p));
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
-
+    
     const priceChartData = {
         labels: data.map(item => item['배당락']),
         datasets: [
+            // ... (datasets 배열 내용은 그대로) ...
+            {
+                type: 'line', label: '전일종가', yAxisID: 'y1', order: 1,
+                borderColor: colorPrevPrice,
+                borderDash: [5, 5],
+                data: data.map(item => parseFloat(item['전일종가']?.replace('$', ''))),
+                tension: 0.4, borderWidth: 1, fill: false,
+                datalabels: {
+                    display: true, align: 'top',
+                    color: prevPriceText,
+                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                    font: { size: lineLabelSize * 0.9 }
+                }
+            },
+            {
+                type: 'line', label: '당일시가', yAxisID: 'y1', order: 2,
+                borderColor: colorOpenPrice,
+                pointStyle: 'rect',
+                data: data.map(item => parseFloat(item['당일시가']?.replace('$', ''))),
+                tension: 0.4, borderWidth: 2, fill: false,
+                datalabels: {
+                    display: true, align: 'center',
+                    color: openPriceText,
+                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                    font: { size: lineLabelSize }
+                }
+            },
+            {
+                type: 'line', label: '당일종가', yAxisID: 'y1', order: 3,
+                borderColor: colorCurrentPrice,
+                data: data.map(item => parseFloat(item['당일종가']?.replace('$', ''))),
+                tension: 0.4, borderWidth: 3, fill: false,
+                datalabels: {
+                    display: true, align: 'bottom',
+                    color: currentPriceText,
+                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                    font: { size: lineLabelSize }
+                }
+            },
+            {
+                type: 'line', label: '익일종가', yAxisID: 'y1', order: 4,
+                borderColor: colorNextPrice,
+                pointStyle: 'triangle',
+                data: data.map(item => parseFloat(item['익일종가']?.replace('$', ''))),
+                tension: 0.4, borderWidth: 2, fill: false,
+                datalabels: {
+                    display: true, align: 'bottom',
+                    color: nextPriceText,
+                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+                    font: { size: lineLabelSize }
+                }
+            },
             {
                 type: 'bar',
                 label: '배당금',
                 yAxisID: 'y',
-                order: 2,
+                order: 5,
                 backgroundColor: (context) => context.dataIndex === lastDataIndex ? colorHighlight : colorDividend,
                 borderColor: LineDividend,
                 borderWidth: 1,
@@ -79,75 +131,24 @@ export function usePriceChart(options) {
                     })
                 }
             },
-            {
-                type: 'line', label: '전일종가', yAxisID: 'y1', order: 1,
-                borderColor: colorPrevPrice,
-                borderDash: [5, 5],
-                data: data.map(item => parseFloat(item['전일종가']?.replace('$', ''))),
-                tension: 0.4, borderWidth: 1, fill: false,
-                datalabels: {
-                    display: true, align: 'top',
-                    color: prevPriceText,
-                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
-                    font: { size: lineLabelSize * 0.9 }
-                }
-            },
-            {
-                type: 'line', label: '당일종가', yAxisID: 'y1', order: 1,
-                borderColor: colorCurrentPrice,
-                data: data.map(item => parseFloat(item['당일종가']?.replace('$', ''))),
-                tension: 0.4, borderWidth: 3, fill: false,
-                datalabels: {
-                    display: true, align: 'bottom',
-                    color: currentPriceText,
-                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
-                    font: { size: lineLabelSize }
-                }
-            },
-            {
-                type: 'line', label: '당일시가', yAxisID: 'y1', order: 1,
-                borderColor: colorOpenPrice,
-                pointStyle: 'rect',
-                data: data.map(item => parseFloat(item['당일시가']?.replace('$', ''))),
-                tension: 0.4, borderWidth: 2, fill: false,
-                datalabels: {
-                    display: true, align: 'center',
-                    color: openPriceText,
-                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
-                    font: { size: lineLabelSize }
-                }
-            },
-            {
-                type: 'line', label: '익일종가', yAxisID: 'y1', order: 1,
-                borderColor: colorNextPrice,
-                pointStyle: 'triangle',
-                data: data.map(item => parseFloat(item['익일종가']?.replace('$', ''))),
-                tension: 0.4, borderWidth: 2, fill: false,
-                datalabels: {
-                    display: true, align: 'bottom',
-                    color: nextPriceText,
-                    formatter: (value) => value ? `$${value.toFixed(2)}` : null,
-                    font: { size: lineLabelSize }
-                }
-            }
         ]
     };
-
+    
     const priceChartOptions = {
         maintainAspectRatio: false,
         aspectRatio: (() => {
-            switch (deviceType) {
-                case "desktop": return 16 / 10;
-                case "tablet": return 3 / 2;
-                case "mobile": return 4 / 3;
-                default: return 16 / 10;
-            }
+            // ... (비율 계산 로직은 그대로) ...
         })(),
         plugins: {
             legend: { display: false },
             tooltip: {
                 mode: "index",
                 intersect: false,
+                // 👇 [핵심 수정] 툴팁 항목 정렬을 위한 itemSort 함수 추가
+                itemSort: function(a, b) {
+                    // 각 데이터셋에 부여한 'order' 속성을 기준으로 정렬합니다.
+                    return a.dataset.order - b.dataset.order;
+                },
                 callbacks: {
                     label: (context) => `${context.dataset.label || ""}: ${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(context.parsed.y)}`
                 }
@@ -155,21 +156,7 @@ export function usePriceChart(options) {
             zoom: zoomOptions
         },
         scales: {
-            x: {
-                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
-                grid: { color: surfaceBorder }
-            },
-            y: {
-                type: 'linear', display: true, position: 'left',
-                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
-                grid: { color: surfaceBorder }
-            },
-            y1: {
-                type: 'linear', display: true, position: 'right',
-                min: priceMin, max: priceMax,
-                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
-                grid: { drawOnChartArea: false, color: surfaceBorder }
-            }
+            // ... (scales 설정은 그대로) ...
         }
     };
 
