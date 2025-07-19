@@ -5,7 +5,7 @@ const colorPalettes = {
     'A': { dividend: '#F4CCCC', highlight: '#FE0000', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#FE0000' },
     'B': { dividend: '#fff2cd', highlight: '#fabd03', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#fabd03' },
     'C': { dividend: '#d8ead2', highlight: '#34a853', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#34a853' },
-    'D': { dividend: '#cfe2f3', highlight: '#4a86e8', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#4a86e8' },
+    'D': { dividend: '#cfe2f3', highlight: '#4a86e8', lineDividend: '#5f5f5f', prevPrice: '#ffffff', currentPrice: '#4a86e8' },
 
     '월요일': { dividend: '#E1D5E7', highlight: '#9900FF', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#9900FF' },
     '화요일': { dividend: '#D0E0E3', highlight: '#00B8D4', lineDividend: '#5f5f5f', prevPrice: '#212121', currentPrice: '#00B8D4' },
