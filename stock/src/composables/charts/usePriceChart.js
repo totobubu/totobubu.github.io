@@ -137,7 +137,12 @@ export function usePriceChart(options) {
     const priceChartOptions = {
         maintainAspectRatio: false,
         aspectRatio: (() => {
-            // ... (비율 계산 로직은 그대로) ...
+            switch (deviceType) {
+                case "desktop": return 16 / 10;
+                case "tablet": return 3 / 2;
+                case "mobile": return 4 / 3;
+                default: return 16 / 10;
+            }
         })(),
         plugins: {
             legend: { display: false },
@@ -156,7 +161,21 @@ export function usePriceChart(options) {
             zoom: zoomOptions
         },
         scales: {
-            // ... (scales 설정은 그대로) ...
+            x: {
+                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
+                grid: { color: surfaceBorder }
+            },
+            y: {
+                type: 'linear', display: true, position: 'left',
+                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
+                grid: { color: surfaceBorder }
+            },
+            y1: {
+                type: 'linear', display: true, position: 'right',
+                min: priceMin, max: priceMax,
+                ticks: { color: textColorSecondary, font: { size: tickFontSize } },
+                grid: { drawOnChartArea: false, color: surfaceBorder }
+            }
         }
     };
 
