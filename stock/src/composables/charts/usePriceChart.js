@@ -1,5 +1,5 @@
 // stock/src/composables/charts/usePriceChart.js
-import { getChartColorsByGroup } from "@/utils/chartColors.js";
+import { getChartColorsByGroup } from '@/utils/chartColors.js';
 
 function getPriceFontSize(itemCount, deviceType, type = "default") {
   let baseSize = 16;
@@ -23,19 +23,25 @@ function getPriceFontSize(itemCount, deviceType, type = "default") {
 
 export function usePriceChart(options) {
   const { data, deviceType, group, theme } = options;
-  const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
+  const { textColor, zoomOptions } = theme; // textColor는 이제 fallback으로만 사용
 
-  const barLabelSize = getPriceFontSize(data.length, deviceType, "default");
-  const lineLabelSize = getPriceFontSize(data.length, deviceType, "line");
-  const tickFontSize = getPriceFontSize(data.length, deviceType, "axis");
-
+  // 👇 [핵심 수정 1] 팔레트에서 텍스트 색상까지 모두 가져옵니다.
   const {
     dividend: colorDividend,
     highlight: colorHighlight,
     lineDividend: LineDividend,
     prevPrice: colorPrevPrice,
     currentPrice: colorCurrentPrice,
+    dividendText,
+    highlightText,
+    prevPriceText,
+    currentPriceText
   } = getChartColorsByGroup(group);
+
+  const barLabelSize = getPriceFontSize(data.length, deviceType, 'default');
+  const lineLabelSize = getPriceFontSize(data.length, deviceType, 'line');
+  const tickFontSize = getPriceFontSize(data.length, deviceType, 'axis');
+  const lastDataIndex = data.length - 1;
 
   const prices = data
     .flatMap((item) => [
@@ -45,14 +51,13 @@ export function usePriceChart(options) {
     .filter((p) => !isNaN(p));
   const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
   const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
-  const lastDataIndex = data.length - 1;
 
   const priceChartData = {
-    labels: data.map((item) => item["배당락"]),
+    labels: data.map(item => item['배당락']),
     datasets: [
       {
-        type: "bar",
-        label: "배당금",
+        type: 'bar',
+        label: '배당금',
         yAxisID: "y",
         order: 2,
         backgroundColor: (context) =>
@@ -66,8 +71,9 @@ export function usePriceChart(options) {
           display: true,
           align: "center",
           anchor: "center",
-          color: textColor,
-          formatter: (value) => (value > 0 ? `$${value.toFixed(2)}` : null),
+          // 👇 [핵심 수정 2] 텍스트 색상을 동적으로 설정합니다.
+          color: (context) => context.dataIndex === lastDataIndex ? highlightText : dividendText,
+          formatter: (value) => value > 0 ? `$${value.toFixed(2)}` : null,
           font: (context) => ({
             size:
               context.dataIndex === lastDataIndex
@@ -75,7 +81,7 @@ export function usePriceChart(options) {
                 : barLabelSize,
             weight: context.dataIndex === lastDataIndex ? "bold" : "normal",
           }),
-        },
+        }
       },
       {
         type: "line",
@@ -88,12 +94,11 @@ export function usePriceChart(options) {
         borderWidth: 1,
         fill: false,
         datalabels: {
-          display: true,
-          align: "top",
-          color: colorPrevPrice,
-          formatter: (value) => (value ? `$${value.toFixed(2)}` : null),
-          font: { size: (lineLabelSize*.8) },
-        },
+          display: true, align: 'top',
+          color: prevPriceText, // 👈 텍스트 색상 적용
+          formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+          font: { size: lineLabelSize * .8 }
+        }
       },
       {
         type: "line",
@@ -107,14 +112,15 @@ export function usePriceChart(options) {
         fill: false,
         datalabels: {
           display: true,
-          align: "bottom",
-          color: colorCurrentPrice,
-          formatter: (value) => (value ? `$${value.toFixed(2)}` : null),
-          font: { size: lineLabelSize },
-        },
-      },
-    ],
+          align: 'bottom',
+          color: currentPriceText, // 👈 텍스트 색상 적용
+          formatter: (value) => value ? `$${value.toFixed(2)}` : null,
+          font: { size: lineLabelSize }
+        }
+      }
+    ]
   };
+
   const priceChartOptions = {
     maintainAspectRatio: false,
     aspectRatio: (() => {
