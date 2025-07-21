@@ -1,6 +1,24 @@
 <template>
   <div class="calendar-container">
-    <!-- 상단 티커 선택 (PrimeVue MultiSelect) -->
+    <!-- 디버깅을 위해 선택된 티커와 최종 데이터를 화면에 직접 출력 -->
+    <div
+      style="
+        background: #eee;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+      "
+    >
+      <p><strong>[디버깅 정보]</strong></p>
+      <p>선택된 티커: {{ selectedTickers.map((t) => t.name) }}</p>
+      <p>
+        캘린더에 표시될 데이터 (아래에 내용이 없다면 데이터가 없는 것입니다):
+      </p>
+      <pre style="white-space: pre-wrap; word-break: break-all">{{
+        dividendsByDate
+      }}</pre>
+    </div>
+
     <div class="multiselect-wrapper">
       <MultiSelect
         v-model="selectedTickers"
@@ -13,14 +31,12 @@
       />
     </div>
 
-    <!-- 캘린더 헤더 -->
+    <!-- 이하 캘린더 UI는 동일 -->
     <div class="calendar-header">
       <button @click="changeMonth(-1)"><</button>
       <h2>{{ currentMonthLabel }}</h2>
       <button @click="changeMonth(1)">></button>
     </div>
-
-    <!-- 요일 표시 -->
     <div class="weekdays">
       <span>MON</span>
       <span>TUE</span>
@@ -28,8 +44,6 @@
       <span>THU</span>
       <span>FRI</span>
     </div>
-
-    <!-- 캘린더 그리드 -->
     <div class="calendar-grid">
       <div
         v-for="(day, index) in calendarDays"
@@ -38,11 +52,10 @@
         :class="{ 'other-month': !day.isCurrentMonth }"
       >
         <div class="day-number">{{ day.day }}</div>
-
         <div v-if="dividendsByDate[day.date]" class="dividend-event">
-          <span class="dividend-amount">
-            ${{ dividendsByDate[day.date].totalAmount.toFixed(2) }}
-          </span>
+          <span class="dividend-amount"
+            >${{ dividendsByDate[day.date].totalAmount.toFixed(2) }}</span
+          >
           <p class="dividend-tickers">
             {{ dividendsByDate[day.date].tickers.join(" • ") }}
           </p>
@@ -54,56 +67,63 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-// PrimeVue의 MultiSelect 컴포넌트를 임포트합니다.
 import MultiSelect from "primevue/multiselect";
 
-// --- 상태(State) 정의 (기존과 동일) ---
 const currentDate = ref(new Date());
 const allTickers = ref([]);
 const selectedTickers = ref([]);
 const allDividendData = ref([]);
 
-/**
- * 컴포넌트 마운트 시 데이터 초기화 (기존과 거의 동일)
- */
 onMounted(async () => {
-  const navResponse = await fetch("/nav.json");
-  const navData = await navResponse.json();
-  // PrimeVue의 optionLabel을 위해 { name: 'JEPI' } 형태의 객체 배열로 만듭니다.
-  allTickers.value = navData.nav.map((item) => ({ name: item.name }));
+  try {
+    const navResponse = await fetch("/nav.json");
+    const navData = await navResponse.json();
+    allTickers.value = navData.nav.map((item) => ({ name: item.name }));
 
-  const tickerNames = allTickers.value.map((t) => t.name);
-  const tickerDataPromises = tickerNames.map((ticker) =>
-    fetch(`/data/${ticker.toLowerCase()}.json`).then((res) => res.json())
-  );
-  const allData = await Promise.all(tickerDataPromises);
+    const tickerNames = allTickers.value.map((t) => t.name);
+    const tickerDataPromises = tickerNames.map((ticker) =>
+      fetch(`/data/${ticker.toLowerCase()}.json`).then((res) => {
+        if (!res.ok) throw new Error(`Failed to fetch ${ticker}.json`);
+        return res.json();
+      })
+    );
+    const allData = await Promise.all(tickerDataPromises);
 
-  const flatDividendList = [];
-  allData.forEach((data) => {
-    const tickerSymbol = data.tickerInfo.Symbol;
-    if (data.dividendHistory) {
-      data.dividendHistory.forEach((dividend) => {
-        const parts = dividend.배당락.split(".").map((p) => p.trim());
-        const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
-        const amount = parseFloat(dividend.배당금.replace("$", ""));
+    const flatDividendList = [];
+    allData.forEach((data) => {
+      const tickerSymbol = data.tickerInfo.Symbol;
+      if (data.dividendHistory) {
+        data.dividendHistory.forEach((dividend) => {
+          const parts = dividend.배당락.split(".").map((p) => p.trim());
+          const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
+          const amount = parseFloat(dividend.배당금.replace("$", ""));
 
-        flatDividendList.push({
-          date: dateStr,
-          amount: amount,
-          ticker: tickerSymbol,
+          flatDividendList.push({
+            date: dateStr,
+            amount: amount,
+            ticker: tickerSymbol,
+          });
         });
-      });
-    }
-  });
-  allDividendData.value = flatDividendList;
+      }
+    });
+    allDividendData.value = flatDividendList;
+
+    // --- 디버깅 로그 1: 마스터 데이터 확인 ---
+    console.log(
+      "[디버그 1] 모든 배당 데이터를 불러왔습니다:",
+      allDividendData.value
+    );
+  } catch (error) {
+    console.error("데이터 로딩 중 심각한 오류 발생:", error);
+  }
 });
 
-/**
- * 선택된 티커들의 배당 정보만 필터링하고 그룹화 (기존과 동일, 완벽하게 재사용 가능)
- */
 const dividendsByDate = computed(() => {
-  // selectedTickers가 이제 [{name: 'TICKER'}] 형태의 객체 배열이므로, 이름만 추출합니다.
   const selectedNames = selectedTickers.value.map((t) => t.name);
+
+  // --- 디버깅 로그 2: 선택된 티커 확인 ---
+  console.log("[디버그 2] 선택된 티커가 변경되었습니다:", selectedNames);
+
   if (selectedNames.length === 0) return {};
 
   const filteredDividends = allDividendData.value.filter((div) =>
@@ -119,18 +139,19 @@ const dividendsByDate = computed(() => {
     processed[div.date].tickers.push(div.ticker);
   });
 
+  // --- 디버깅 로그 3: 최종 가공 데이터 확인 ---
+  console.log("[디버그 3] 캘린더에 표시될 최종 데이터입니다:", processed);
+
   return processed;
 });
 
-// --- 기존 캘린더 로직 (변경 없음) ---
-
-const currentMonthLabel = computed(() => {
-  return currentDate.value.toLocaleDateString("ko-KR", {
+// --- 이하 캘린더 로직은 변경 없음 ---
+const currentMonthLabel = computed(() =>
+  currentDate.value.toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "long",
-  });
-});
-
+  })
+);
 const calendarDays = computed(() => {
   const year = currentDate.value.getFullYear();
   const month = currentDate.value.getMonth();
@@ -154,9 +175,15 @@ const calendarDays = computed(() => {
       });
     }
   }
+  // --- 디버깅 로그 4: 캘린더 날짜 확인 ---
+  if (days.length > 0) {
+    console.log(
+      "[디버그 4] 생성된 캘린더 날짜 중 첫 날:",
+      days.find((d) => d.isCurrentMonth).date
+    );
+  }
   return days;
 });
-
 function changeMonth(direction) {
   currentDate.value = new Date(
     currentDate.value.setMonth(currentDate.value.getMonth() + direction)
@@ -169,12 +196,9 @@ function changeMonth(direction) {
   max-width: 600px;
   margin: 0 auto 2rem;
 }
-/* PrimeVue 컴포넌트의 너비를 조정하기 위한 클래스 */
 .w-full {
   width: 100%;
 }
-
-/* 기존 스타일은 여기에 그대로 유지 */
 .calendar-container {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
@@ -184,8 +208,6 @@ function changeMonth(direction) {
   margin: 2rem auto;
   padding: 1rem;
 }
-
-/* ... (나머지 CSS는 이전과 동일하게 유지) ... */
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -249,7 +271,7 @@ function changeMonth(direction) {
 .dividend-amount {
   display: inline-block;
   background-color: #4caf50;
-  color: white;
+  color: #fff;
   padding: 4px 10px;
   border-radius: 16px;
   font-size: 0.9rem;
