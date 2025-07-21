@@ -13,6 +13,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages" # 배포 관련 작업들을 "pages"라는 그룹으로 묶습니다.
+  cancel-in-progress: true # 새로운 워크플로우가 시작되면, 이미 진행 중인 동일 그룹의 작업을 취소합니다.
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-22.04
