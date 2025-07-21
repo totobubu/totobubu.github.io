@@ -64,14 +64,13 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import MultiSelect from "primevue/multiselect";
 
 const currentDate = ref(new Date());
 const allTickers = ref([]);
-const selectedTickers = ref([]);
+const selectedTickers = ref([]); // 초기값은 비어있음
 const allDividendData = ref([]);
 
 onMounted(async () => {
@@ -79,6 +78,13 @@ onMounted(async () => {
     const navResponse = await fetch("/nav.json");
     const navData = await navResponse.json();
     allTickers.value = navData.nav.map((item) => ({ name: item.name }));
+
+    // ★★★★★ 핵심 수정 부분 ★★★★★
+    // 전체 티커 목록을 가져온 후, 처음 5개를 기본 선택값으로 설정합니다.
+    if (allTickers.value.length > 0) {
+      selectedTickers.value = allTickers.value.slice(0, 5);
+    }
+    // ★★★★★★★★★★★★★★★★★★★
 
     const tickerNames = allTickers.value.map((t) => t.name);
     const tickerDataPromises = tickerNames.map((ticker) =>
@@ -107,26 +113,21 @@ onMounted(async () => {
       }
     });
     allDividendData.value = flatDividendList;
-
-    // --- 디버깅 로그 1: 마스터 데이터 확인 ---
-    console.log(
-      "[디버그 1] 모든 배당 데이터를 불러왔습니다:",
-      allDividendData.value
-    );
   } catch (error) {
     console.error("데이터 로딩 중 심각한 오류 발생:", error);
   }
 });
 
+// `dividendsByDate` computed 속성은 수정할 필요 없이 완벽합니다.
 const dividendsByDate = computed(() => {
+  const masterData = allDividendData.value;
   const selectedNames = selectedTickers.value.map((t) => t.name);
 
-  // --- 디버깅 로그 2: 선택된 티커 확인 ---
-  console.log("[디버그 2] 선택된 티커가 변경되었습니다:", selectedNames);
+  if (masterData.length === 0 || selectedNames.length === 0) {
+    return {};
+  }
 
-  if (selectedNames.length === 0) return {};
-
-  const filteredDividends = allDividendData.value.filter((div) =>
+  const filteredDividends = masterData.filter((div) =>
     selectedNames.includes(div.ticker)
   );
 
@@ -139,13 +140,11 @@ const dividendsByDate = computed(() => {
     processed[div.date].tickers.push(div.ticker);
   });
 
-  // --- 디버깅 로그 3: 최종 가공 데이터 확인 ---
-  console.log("[디버그 3] 캘린더에 표시될 최종 데이터입니다:", processed);
-
   return processed;
 });
 
 // --- 이하 캘린더 로직은 변경 없음 ---
+// (기존 코드 그대로 두시면 됩니다)
 const currentMonthLabel = computed(() =>
   currentDate.value.toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -174,13 +173,6 @@ const calendarDays = computed(() => {
         date: `${year}-${String(month + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`,
       });
     }
-  }
-  // --- 디버깅 로그 4: 캘린더 날짜 확인 ---
-  if (days.length > 0) {
-    console.log(
-      "[디버그 4] 생성된 캘린더 날짜 중 첫 날:",
-      days.find((d) => d.isCurrentMonth).date
-    );
   }
   return days;
 });
