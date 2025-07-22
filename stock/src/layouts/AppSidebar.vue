@@ -57,19 +57,13 @@ onMounted(async () => {
     if (!response.ok) throw new Error("Navigation data not found");
     const data = await response.json();
 
-    // 👇 [핵심 수정] 여기서 데이터 구조를 앱 내부 표준에 맞게 변환합니다.
-    etfList.value = data.nav.map((item) => ({
-      ...item, // 기존의 company, frequency, group 등은 그대로 유지
-      Symbol: item.name,
-      longName: item.fullname || item.name, // fullname이 없을 경우 대비
-    }));
+    // 👇 [핵심 수정] 더 이상 map 변환이 필요 없습니다. 원본 데이터를 그대로 사용합니다.
+    etfList.value = data.nav;
 
-    companies.value = [...new Set(etfList.value.map((item) => item.company))];
-    frequencies.value = [
-      ...new Set(etfList.value.map((item) => item.frequency)),
-    ];
+    companies.value = [...new Set(data.nav.map((item) => item.company))];
+    frequencies.value = [...new Set(data.nav.map((item) => item.frequency))];
     groups.value = [
-      ...new Set(etfList.value.map((item) => item.group).filter((g) => g)),
+      ...new Set(data.nav.map((item) => item.group).filter((g) => g)),
     ];
   } catch (err) {
     error.value = "ETF 목록을 불러오는 데 실패했습니다.";
@@ -79,7 +73,8 @@ onMounted(async () => {
 });
 
 const onRowSelect = (event) => {
-  const ticker = event.data?.Symbol;
+  // 👇 키 이름이 소문자 'symbol'로 바뀌었는지 다시 한번 확인합니다.
+  const ticker = event.data.symbol;
   if (ticker && typeof ticker === "string") {
     router.push(`/stock/${ticker.toLowerCase()}`);
   }
