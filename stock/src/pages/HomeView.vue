@@ -1,52 +1,36 @@
+<!-- stock/src/views/HomeView.vue -->
 <template>
   <div class="calendar-container">
-    <!-- 디버깅을 위해 선택된 티커와 최종 데이터를 화면에 직접 출력 -->
-    <!-- <div
-      style="
-        background: #eee;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 8px;
-      "
-    >
-      <p><strong>[디버깅 정보]</strong></p>
-      <p>선택된 티커: {{ selectedTickers.map((t) => t.name) }}</p>
-      <p>
-        캘린더에 표시될 데이터 (아래에 내용이 없다면 데이터가 없는 것입니다):
-      </p>
-      <pre style="white-space: pre-wrap; word-break: break-all">{{
-        dividendsByDate
-      }}</pre>
-    </div> -->
-
     <div class="multiselect-wrapper">
       <MultiSelect
         v-model="selectedTickers"
         :options="allTickers"
-        optionLabel="name"
+        optionLabel="symbol"
         placeholder="표시할 티커를 선택하세요"
-        :filter="true"
-        :maxSelectedLabels="5"
+        filter
+        :maxSelectedLabels="8"
         class="w-full"
-      />
+      >
+        <!-- 옵션 목록을 더 보기 좋게 커스터마이징 -->
+        <template #option="slotProps">
+          <div class="flex flex-col">
+            <strong>{{ slotProps.option.symbol }}</strong>
+            <small>{{ slotProps.option.longName }}</small>
+          </div>
+        </template>
+      </MultiSelect>
     </div>
 
-    <!-- 이하 캘린더 UI는 동일 -->
     <div class="calendar-header">
-      <button @click="changeMonth(-1)"><</button>
+      <button @click="changeMonth(-1)">‹</button>
       <h2>{{ currentMonthLabel }}</h2>
-      <button @click="changeMonth(1)">></button>
+      <button @click="changeMonth(1)">›</button>
     </div>
     <div class="weekdays">
-      <span>MON</span>
-      <span>TUE</span>
-      <span>WED</span>
-      <span>THU</span>
-      <span>FRI</span>
+      <span>MON</span><span>TUE</span><span>WED</span><span>THU</span
+      ><span>FRI</span>
     </div>
     <div class="calendar-grid">
-      <!-- <template>의 .day-cell 내부만 수정하면 됩니다. -->
-
       <div
         v-for="(day, index) in calendarDays"
         :key="index"
@@ -54,24 +38,18 @@
         :class="{ 'other-month': !day.isCurrentMonth }"
       >
         <div class="day-number">{{ day.day }}</div>
-
-        <!-- ★★★★★ 핵심 수정 부분 ★★★★★ -->
         <div v-if="dividendsByDate[day.date]" class="dividend-event">
-          <!-- v-for를 사용해 각 배당 항목을 <Tag> 컴포넌트로 렌더링 -->
           <Tag
             v-for="entry in dividendsByDate[day.date].entries"
             :key="entry.ticker"
             :severity="getTickerSeverity(entry.ticker)"
           >
             {{ entry.ticker }}
-            <!-- ★★★★★ 핵심 수정 부분 ★★★★★ -->
             <template v-if="entry.amount > 0">
               ${{ formatAmount(entry.amount) }}
             </template>
-            <!-- ★★★★★★★★★★★★★★★★★★★ -->
           </Tag>
         </div>
-        <!-- ★★★★★★★★★★★★★★★★★★★ -->
       </div>
     </div>
   </div>
@@ -80,10 +58,13 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import MultiSelect from "primevue/multiselect";
-import Tag from "primevue/tag"; // Tag 컴포넌트 임포트
+import Tag from "primevue/tag";
 
-// --- ★★★★★ 새로운 헬퍼 함수 추가 ★★★★★ ---
-// PrimeVue Tag 컴포넌트의 severity 옵션들
+const currentDate = ref(new Date());
+const allTickers = ref([]);
+const selectedTickers = ref([]);
+const allDividendData = ref([]);
+
 const severities = [
   "secondary",
   "success",
@@ -92,113 +73,76 @@ const severities = [
   "danger",
   "contrast",
 ];
-const tickerColors = new Map(); // 각 티커의 색상을 저장할 Map
+const tickerColors = new Map();
 
-/**
- * 티커 이름에 고유한 색상(severity)을 할당하는 함수
- * @param {string} ticker - 티커 이름
- * @returns {string} - PrimeVue Tag의 severity 값
- */
 const getTickerSeverity = (ticker) => {
   if (!tickerColors.has(ticker)) {
-    // 새로운 티커가 들어오면, 사용 가능한 색상을 순환하며 할당
     const colorIndex = tickerColors.size % severities.length;
     tickerColors.set(ticker, severities[colorIndex]);
   }
   return tickerColors.get(ticker);
 };
-// --- ★★★★★★★★★★★★★★★★★★★★★★★★★★★ ---
-const currentDate = ref(new Date());
-const allTickers = ref([]);
-const selectedTickers = ref([]);
-const allDividendData = ref([]);
 
-// <script setup> 블록에 다음 함수를 추가합니다.
-// (기존의 getTickerSeverity 함수 위나 아래 등 적당한 곳에 추가)
-
-/**
- * 배당금 숫자를 규칙에 맞게 포맷팅하는 함수
- * @param {number} amount - 배당금 숫자
- * @returns {string} - 포맷팅된 문자열 (예: "0.3333", "70.00")
- */
 const formatAmount = (amount) => {
-  if (typeof amount !== "number" || isNaN(amount)) {
-    return ""; // 숫자가 아니면 빈 문자열 반환
-  }
-
-  // 소수점 아래 부분을 문자열로 추출
+  if (typeof amount !== "number" || isNaN(amount)) return "";
   const decimalPart = String(amount).split(".")[1] || "";
-
-  if (decimalPart.length > 4) {
-    // 4자리보다 길면 4자리에서 반올림
-    return amount.toFixed(4);
-  }
-
-  // 2~4자리 사이면 그대로 두어도 되지만, toFixed(2)보다 우선순위를 두기 위해
-  // 명시적으로 처리하는 것보다 toFixed(2)와 비교하는 것이 더 간단합니다.
-  // 하지만 아래 로직이 더 명확합니다.
-
-  if (decimalPart.length >= 2) {
-    // 2자리 이상이면 (그리고 4자리 이하이면) 그대로 반환
-    return String(amount);
-  } else {
-    // 2자리 미만이면 2자리로 고정
-    return amount.toFixed(2);
-  }
+  if (decimalPart.length > 4) return amount.toFixed(4);
+  if (decimalPart.length >= 2) return String(amount);
+  return amount.toFixed(2);
 };
 
-// onMounted 부분만 수정된 코드입니다.
 onMounted(async () => {
   try {
     const navResponse = await fetch("/nav.json");
     const navData = await navResponse.json();
-    allTickers.value = navData.nav.map((item) => ({ name: item.name }));
+
+    // 👇 [핵심 수정 2] nav.json의 'symbol'과 'longName'을 직접 사용
+    allTickers.value = navData.nav.map((item) => ({
+      symbol: item.symbol,
+      longName: item.longName || item.symbol,
+    }));
 
     if (allTickers.value.length > 0) {
-      selectedTickers.value = allTickers.value.slice(0, 8); // 기본 8개 선택
+      selectedTickers.value = allTickers.value.slice(0, 8);
     }
 
-    const tickerNames = allTickers.value.map((t) => t.name);
-
-    // ★★★★★ 핵심 수정 부분 ★★★★★
+    const tickerNames = allTickers.value.map((t) => t.symbol).filter(Boolean);
     const tickerDataPromises = tickerNames.map(async (ticker) => {
-      // async 추가
-      const response = await fetch(`/data/${ticker.toLowerCase()}.json`);
-      if (!response.ok) {
-        console.error(`'${ticker}.json' 파일 로드 실패!`);
+      if (!ticker) return null;
+      try {
+        const response = await fetch(`/data/${ticker.toLowerCase()}.json`);
+        if (!response.ok) return null;
+        return { tickerName: ticker, data: await response.json() };
+      } catch (e) {
         return null;
       }
-      const jsonData = await response.json();
-      // jsonData와 함께 ticker 이름도 반환
-      return { tickerName: ticker, data: jsonData };
     });
-    // ★★★★★★★★★★★★★★★★★★★
 
     const allDataWithNames = (await Promise.all(tickerDataPromises)).filter(
       Boolean
     );
-
     const flatDividendList = [];
-    allDataWithNames.forEach(({ tickerName, data }) => {
-      // 구조 분해 할당으로 tickerName과 data를 받음
-      // data.tickerInfo.Symbol 대신, 우리가 이미 아는 tickerName을 사용합니다.
-      const tickerSymbol = tickerName;
 
+    allDataWithNames.forEach(({ tickerName, data }) => {
       if (data.dividendHistory && Array.isArray(data.dividendHistory)) {
         data.dividendHistory.forEach((dividend) => {
-          const parts = dividend.배당락.split(".").map((p) => p.trim());
-          const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
-          const amount = parseFloat(dividend.배당금.replace("$", ""));
-
-          flatDividendList.push({
-            date: dateStr,
-            amount: amount,
-            ticker: tickerSymbol.toUpperCase(),
-          });
+          if (dividend && dividend.배당락 && dividend.배당금) {
+            try {
+              const parts = dividend.배당락.split(".").map((p) => p.trim());
+              const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
+              const amount = parseFloat(dividend.배당금.replace("$", ""));
+              if (!isNaN(amount)) {
+                flatDividendList.push({
+                  date: dateStr,
+                  amount: amount,
+                  ticker: tickerName.toUpperCase(),
+                });
+              }
+            } catch (e) {}
+          }
         });
       }
     });
-
     allDividendData.value = flatDividendList;
   } catch (error) {
     console.error("데이터 로딩 중 심각한 오류 발생:", error);
@@ -206,30 +150,28 @@ onMounted(async () => {
 });
 
 const dividendsByDate = computed(() => {
+  if (!Array.isArray(selectedTickers.value)) return {};
   const masterData = allDividendData.value;
-  const selectedNames = selectedTickers.value.map((t) => t.name.toUpperCase());
 
-  if (masterData.length === 0 || selectedNames.length === 0) {
-    return {};
-  }
+  // 👇 [핵심 수정 3] 'symbol' 키를 사용하도록 변경
+  const selectedSymbols = selectedTickers.value
+    .filter((t) => t && t.symbol)
+    .map((t) => t.symbol.toUpperCase());
 
+  if (masterData.length === 0 || selectedSymbols.length === 0) return {};
   const filteredDividends = masterData.filter((div) =>
-    selectedNames.includes(div.ticker)
+    selectedSymbols.includes(div.ticker)
   );
-
   const processed = {};
   filteredDividends.forEach((div) => {
     if (!processed[div.date]) {
-      // 이제 'entries' 라는 배열을 가집니다.
       processed[div.date] = { entries: [] };
     }
-    // 각 티커와 배당금 정보를 객체로 묶어 배열에 추가합니다.
     processed[div.date].entries.push({
       ticker: div.ticker,
       amount: div.amount,
     });
   });
-
   return processed;
 });
 
@@ -264,12 +206,34 @@ const calendarDays = computed(() => {
   }
   return days;
 });
+
 function changeMonth(direction) {
   currentDate.value = new Date(
     currentDate.value.setMonth(currentDate.value.getMonth() + direction)
   );
 }
 </script>
+
+<style scoped>
+.debug-panel {
+  background: #333;
+  color: #eee;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+}
+.debug-panel pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: #444;
+  padding: 0.5rem;
+  max-height: 100px;
+  overflow-y: auto;
+}
+/* ... (다른 스타일은 그대로) ... */
+</style>
 
 <style scoped>
 .multiselect-wrapper {

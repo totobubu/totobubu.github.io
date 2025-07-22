@@ -4,7 +4,7 @@ import { ref, watch, computed } from "vue";
 import AppConfig from "./AppConfig.vue";
 import AppSidebar from "./AppSidebar.vue";
 import Drawer from "primevue/drawer";
-import InputOtp from "primevue/inputotp"; // InputOtp 사용
+import InputOtp from "primevue/inputotp"; // InputOtp만 사용
 import Button from "primevue/button";
 import { useFilterState } from "@/composables/useFilterState";
 import { useBreakpoint } from "@/composables/useBreakpoint";
@@ -68,7 +68,6 @@ const responsiveSize = computed(() => {
       :class="deviceType"
     >
       <template #header>
-        <!-- 👇 [핵심 수정] InputOtp를 사용한 티커 검색창 구현 -->
         <div class="flex-auto flex items-center gap-2">
           <label for="ticker-otp" class="font-bold text-sm">티커</label>
           <InputOtp
