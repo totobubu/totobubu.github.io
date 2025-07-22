@@ -16,6 +16,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
+    Card: typeof import('primevue/card')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
@@ -32,6 +33,7 @@ declare module 'vue' {
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
+    Tag: typeof import('primevue/tag')['default']
     ToggleButton: typeof import('primevue/togglebutton')['default']
   }
   export interface GlobalDirectives {

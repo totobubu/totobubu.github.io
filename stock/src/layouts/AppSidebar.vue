@@ -184,7 +184,7 @@ const getGroupSeverity = (group) => {
               size="small"
               :variant="filters.company.value ? 'filled' : 'text'"
               @click="openFilterDialog('company')"
-              :severity="filters.company.value ? 'info' : 'secondary'"
+              :severity="filters.company.value ? '' : 'secondary'"
             />
             <span>운용사</span>
           </div>
@@ -203,7 +203,7 @@ const getGroupSeverity = (group) => {
               size="small"
               :variant="filters.frequency.value ? 'filled' : 'text'"
               @click="openFilterDialog('frequency')"
-              :severity="filters.frequency.value ? 'info' : 'secondary'"
+              :severity="filters.frequency.value ? '' : 'secondary'"
             />
             <span>지급주기</span>
           </div>
@@ -222,7 +222,7 @@ const getGroupSeverity = (group) => {
               size="small"
               :variant="filters.group.value ? 'filled' : 'text'"
               @click="openFilterDialog('group')"
-              :severity="filters.group.value ? 'info' : 'secondary'"
+              :severity="filters.group.value ? '' : 'secondary'"
             />
             <span>그룹</span>
           </div>

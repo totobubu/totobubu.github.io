@@ -1,13 +1,14 @@
 <!-- stock/src/components/CalendarTickerSelector.vue -->
 <template>
   <div class="p-calendar-search">
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+    <InputGroup class="p-2">
+      <InputGroupAddon>
+        <i class="pi pi-search"></i>
+      </InputGroupAddon>
       <InputText v-model="groupFilter" placeholder="티커 검색" class="w-full" />
-    </div>
-
-    <ScrollPanel style="width: 100%; height: 400px">
-      <Accordion :multiple="true" :activeIndex="[0]" class="ticker-accordion">
+    </InputGroup>
+    <ScrollPanel style="height: 70vh">
+      <Accordion :multiple="false" :activeIndex="[0]" class="ticker-accordion">
         <AccordionPanel
           v-for="group in filteredGroupedTickers"
           :key="group.company"

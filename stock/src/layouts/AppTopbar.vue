@@ -69,7 +69,7 @@ const responsiveSize = computed(() => {
     >
       <template #header>
         <div class="flex-auto flex items-center gap-2">
-          <label for="ticker-otp" class="font-bold text-sm">티커</label>
+          <Button icon="pi pi-search" disabled title="티커검색" />
           <InputOtp
             v-model="filters.global.value"
             :length="4"
