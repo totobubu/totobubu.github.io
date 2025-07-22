@@ -26,7 +26,7 @@ const stats = computed(() => {
 
 <template>
   <div id="tickerInfo">
-    <Accordion>
+    <Accordion :activeIndex="0">
       <AccordionPanel value="0">
         <AccordionHeader>
           <div class="tickerInfo__header">
@@ -34,7 +34,7 @@ const stats = computed(() => {
               {{ info.company }} · {{ info.frequency }} · {{ info.group }}
             </div>
             <h2 class="tickerInfo__title">
-              {{ info.symbol }} <i>·</i> <small>{{ info.longname }}</small>
+              {{ info.Symbol }} <i>·</i> <small>{{ info.longName }}</small>
             </h2>
           </div>
         </AccordionHeader>
