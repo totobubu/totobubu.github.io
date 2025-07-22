@@ -4,32 +4,55 @@
     <Panel id="p-calendar">
       <template #header>
         <div class="p-calendar-search">
-          <!-- 👇 [핵심 수정 1] Listbox를 Accordion + ToggleButton 조합으로 변경 -->
-          <Accordion :multiple="false" :activeIndex="[0]">
-            <AccordionPanel
-              v-for="group in groupedTickers"
-              :key="group.company"
-              :value="group.company"
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-search"></i>
+            </span>
+            <InputText
+              v-model="groupFilter"
+              placeholder="티커 검색"
+              class="w-full"
+            />
+          </div>
+
+          <ScrollPanel>
+            <Accordion
+              :multiple="false"
+              :activeIndex="[0]"
+              class="ticker-accordion"
             >
-              <AccordionHeader
-                >{{ group.company }} ({{ getSelectedCountInGroup(group) }}/{{
-                  group.items.length
-                }})</AccordionHeader
+              <AccordionPanel
+                v-for="group in filteredGroupedTickers"
+                :key="group.company"
+                :value="group.company"
               >
-              <AccordionContent>
-                <div class="p-calendar-ticker">
-                  <ToggleButton
-                    v-for="ticker in group.items"
-                    :key="ticker.symbol"
-                    :modelValue="isSelected(ticker)"
-                    @update:modelValue="toggleTickerSelection(ticker)"
-                    :onLabel="ticker.symbol"
-                    :offLabel="ticker.symbol"
-                  />
-                </div>
-              </AccordionContent>
-            </AccordionPanel>
-          </Accordion>
+                <!-- 👇 [핵심 수정] AccordionHeader/Content를 올바른 슬롯으로 변경 -->
+                <AccordionHeader>
+                  {{ group.company }}
+                  <span v-if="groupFilter">
+                    ({{ getSelectedCountInGroup(group) }} /
+                    {{ group.items.length }} / {{ group.originalItemCount }})
+                  </span>
+                  <span v-else>
+                    ({{ getSelectedCountInGroup(group) }} /
+                    {{ group.originalItemCount }})
+                  </span>
+                </AccordionHeader>
+                <AccordionContent>
+                  <div class="p-calendar-ticker">
+                    <ToggleButton
+                      v-for="ticker in group.items"
+                      :key="ticker.symbol"
+                      :modelValue="isSelected(ticker)"
+                      @update:modelValue="toggleTickerSelection(ticker)"
+                      :onLabel="ticker.symbol"
+                      :offLabel="ticker.symbol"
+                    />
+                  </div>
+                </AccordionContent>
+              </AccordionPanel>
+            </Accordion>
+          </ScrollPanel>
         </div>
       </template>
 
@@ -78,6 +101,8 @@ import AccordionPanel from "primevue/accordionpanel";
 import AccordionHeader from "primevue/accordionheader";
 import AccordionContent from "primevue/accordioncontent";
 import ToggleButton from "primevue/togglebutton";
+import InputText from "primevue/inputtext";
+import ScrollPanel from "primevue/scrollpanel";
 import Tag from "primevue/tag";
 
 const currentDate = ref(new Date());
@@ -85,8 +110,32 @@ const allTickers = ref([]);
 const groupedTickers = ref([]);
 const selectedTickers = ref([]);
 const allDividendData = ref([]);
+const groupFilter = ref("");
 
-// --- [핵심 수정 2] 선택 로직을 위한 새로운 함수들 ---
+const filteredGroupedTickers = computed(() => {
+  if (!groupFilter.value) {
+    return groupedTickers.value.map((group) => ({
+      ...group,
+      originalItemCount: group.items.length,
+    }));
+  }
+
+  const filterText = groupFilter.value.toLowerCase();
+
+  return groupedTickers.value
+    .map((group) => {
+      const filteredItems = group.items.filter((ticker) =>
+        ticker.symbol.toLowerCase().includes(filterText)
+      );
+      return {
+        company: group.company,
+        items: filteredItems,
+        originalItemCount: group.items.length,
+      };
+    })
+    .filter((group) => group.items.length > 0);
+});
+
 const isSelected = (ticker) => {
   return selectedTickers.value.some(
     (selected) => selected.symbol === ticker.symbol
@@ -125,6 +174,7 @@ const getTickerSeverity = (ticker) => {
   }
   return tickerColors.get(ticker);
 };
+
 const formatAmount = (amount) => {
   if (typeof amount !== "number" || isNaN(amount)) return "";
   const decimalPart = String(amount).split(".")[1] || "";
@@ -137,13 +187,11 @@ onMounted(async () => {
   try {
     const navResponse = await fetch("/nav.json");
     const navData = await navResponse.json();
-
     allTickers.value = navData.nav.map((item) => ({
       symbol: item.symbol,
       longName: item.longName || item.symbol,
       company: item.company || "기타",
     }));
-
     const groups = allTickers.value.reduce((acc, ticker) => {
       const company = ticker.company;
       if (!acc[company]) {
@@ -152,7 +200,6 @@ onMounted(async () => {
       acc[company].push(ticker);
       return acc;
     }, {});
-
     groupedTickers.value = Object.keys(groups).map((company) => ({
       company: company,
       items: groups[company],

@@ -16,13 +16,7 @@ $is-mobile: 768px;
 // 달력
 #p-calendar {
   .calendar-container {
-    font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-      Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     width: 100%;
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
   }
   .calendar-header {
     display: flex;
@@ -222,7 +216,6 @@ $is-mobile: 768px;
   &.tablet {
     #p-calendar {
       display: flex;
-      height: 70vh;
       .p-panel-header {
         padding: 0;
         border-width: 0;
@@ -231,7 +224,6 @@ $is-mobile: 768px;
       .p-calendar-search {
         width: 100%;
         height: 100%;
-        overflow-y: auto;
       }
       .p-accordion {
       }
@@ -272,6 +264,10 @@ $is-mobile: 768px;
     #p-calendar {
       .p-panel-header {
         width: calc(100% - 1000px);
+      }
+
+      .p-panel-content-container {
+        width: 1000px;
       }
     }
   }
