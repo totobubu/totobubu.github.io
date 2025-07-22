@@ -34,7 +34,7 @@ const stats = computed(() => {
               {{ info.company }} · {{ info.frequency }} · {{ info.group }}
             </div>
             <h2 class="tickerInfo__title">
-              {{ info.name }} <i>·</i> <small>{{ info.fullname }}</small>
+              {{ info.symbol }} <i>·</i> <small>{{ info.longname }}</small>
             </h2>
           </div>
         </AccordionHeader>
