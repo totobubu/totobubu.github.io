@@ -14,6 +14,8 @@ declare module 'vue' {
     AccordionPanel: typeof import('primevue/accordionpanel')['default']
     Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
+    CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
+    CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
