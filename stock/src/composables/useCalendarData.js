@@ -1,6 +1,8 @@
 // stock/src/composables/useCalendarData.js
 import { ref, onMounted, computed } from "vue";
 
+const STORAGE_KEY = "selectedCalendarTickers"; // localStorage 키를 상수로 관리
+
 export function useCalendarData(selectedTickers) {
   const allTickers = ref([]);
   const groupedTickers = ref([]);
@@ -31,7 +33,17 @@ export function useCalendarData(selectedTickers) {
         items: groups[company],
       }));
 
-      if (allTickers.value.length > 0) {
+      // 👇 [핵심 수정 1] localStorage에서 저장된 값 불러오기
+      const savedTickersJSON = localStorage.getItem(STORAGE_KEY);
+      if (savedTickersJSON) {
+        // 저장된 값이 있으면, 파싱해서 selectedTickers의 초기값으로 설정
+        const savedSymbols = JSON.parse(savedTickersJSON);
+        // allTickers에서 전체 정보를 찾아 복원
+        selectedTickers.value = allTickers.value.filter((t) =>
+          savedSymbols.includes(t.symbol)
+        );
+      } else if (allTickers.value.length > 0) {
+        // 저장된 값이 없으면, 기존처럼 상위 8개를 기본값으로 설정
         selectedTickers.value = allTickers.value.slice(0, 8);
       }
 
