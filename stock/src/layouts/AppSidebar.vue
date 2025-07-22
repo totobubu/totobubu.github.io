@@ -56,12 +56,20 @@ onMounted(async () => {
     const response = await fetch(url);
     if (!response.ok) throw new Error("Navigation data not found");
     const data = await response.json();
-    etfList.value = data.nav;
 
-    companies.value = [...new Set(data.nav.map((item) => item.company))];
-    frequencies.value = [...new Set(data.nav.map((item) => item.frequency))];
+    // 👇 [핵심 수정] 여기서 데이터 구조를 앱 내부 표준에 맞게 변환합니다.
+    etfList.value = data.nav.map((item) => ({
+      ...item, // 기존의 company, frequency, group 등은 그대로 유지
+      Symbol: item.name,
+      longName: item.fullname || item.name, // fullname이 없을 경우 대비
+    }));
+
+    companies.value = [...new Set(etfList.value.map((item) => item.company))];
+    frequencies.value = [
+      ...new Set(etfList.value.map((item) => item.frequency)),
+    ];
     groups.value = [
-      ...new Set(data.nav.map((item) => item.group).filter((g) => g)),
+      ...new Set(etfList.value.map((item) => item.group).filter((g) => g)),
     ];
   } catch (err) {
     error.value = "ETF 목록을 불러오는 데 실패했습니다.";
@@ -71,14 +79,15 @@ onMounted(async () => {
 });
 
 const onRowSelect = (event) => {
-  const ticker = event.data.Symbol;
-  router.push(`/stock/${ticker.toLowerCase()}`);
+  const ticker = event.data?.Symbol;
+  if (ticker && typeof ticker === "string") {
+    router.push(`/stock/${ticker.toLowerCase()}`);
+  }
 };
 
 const openFilterDialog = (filterName) => {
   dialogsVisible.value[filterName] = true;
 };
-
 const selectFilter = (filterName, value) => {
   filters.value.company.value = null;
   filters.value.frequency.value = null;
@@ -90,7 +99,6 @@ const selectFilter = (filterName, value) => {
 
   dialogsVisible.value[filterName] = false;
 };
-
 const getCompanySeverity = (company) => {
   switch (company) {
     case "Roundhill":
@@ -147,10 +155,10 @@ const getGroupSeverity = (group) => {
       v-else
       :value="etfList"
       v-model:filters="filters"
-      dataKey="Symbol"
+      dataKey="symbol"
       selectionMode="single"
       @rowSelect="onRowSelect"
-      :globalFilterFields="['Symbol', 'longName']"
+      :globalFilterFields="['symbol', 'longName']"
       class="p-datatable-sm"
       stripedRows
       scrollable
@@ -162,12 +170,16 @@ const getGroupSeverity = (group) => {
       </template>
 
       <Column
-        field="Symbol"
+        field="symbol"
         header="티커"
         sortable
         frozen
         class="font-bold toto-column-ticker"
-      ></Column>
+      >
+        <template #body="{ data }">
+          <span>{{ data.symbol }}</span>
+        </template>
+      </Column>
       <Column field="company" sortable class="toto-column-company">
         <template #header>
           <div class="column-header">

@@ -72,7 +72,7 @@ if __name__ == "__main__":
         with open(nav_file_path, 'r', encoding='utf-8') as f:
             ticker_list = json.load(f).get('nav', [])
             for item in ticker_list:
-                ticker = item.get('name')
+                ticker = item.get('symbol')
                 if ticker: all_tickers_info[ticker] = item
     except Exception as e:
         print(f"Error loading nav.json: {e}")
