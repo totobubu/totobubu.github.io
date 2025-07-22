@@ -8,6 +8,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Accordion: typeof import('primevue/accordion')['default']
+    AccordionContent: typeof import('primevue/accordioncontent')['default']
+    AccordionHeader: typeof import('primevue/accordionheader')['default']
+    AccordionPanel: typeof import('primevue/accordionpanel')['default']
     Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
@@ -21,10 +25,12 @@ declare module 'vue' {
     Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollPanel: typeof import('primevue/scrollpanel')['default']
     SelectButton: typeof import('primevue/selectbutton')['default']
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
+    ToggleButton: typeof import('primevue/togglebutton')['default']
   }
   export interface GlobalDirectives {
     StyleClass: typeof import('primevue/styleclass')['default']
