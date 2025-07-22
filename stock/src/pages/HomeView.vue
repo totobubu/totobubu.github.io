@@ -1,57 +1,78 @@
 <!-- stock/src/views/HomeView.vue -->
 <template>
-  <div class="calendar-container">
-    <div class="multiselect-wrapper">
-      <MultiSelect
-        v-model="selectedTickers"
-        :options="allTickers"
-        optionLabel="symbol"
-        placeholder="표시할 티커를 선택하세요"
-        filter
-        :maxSelectedLabels="8"
-        class="w-full"
-      >
-        <!-- 옵션 목록을 더 보기 좋게 커스터마이징 -->
-        <template #option="slotProps">
-          <div class="flex flex-col">
-            <strong>{{ slotProps.option.symbol }}</strong>
-            <small>{{ slotProps.option.longName }}</small>
-          </div>
-        </template>
-      </MultiSelect>
-    </div>
-
-    <div class="calendar-header">
-      <button @click="changeMonth(-1)">‹</button>
-      <h2>{{ currentMonthLabel }}</h2>
-      <button @click="changeMonth(1)">›</button>
-    </div>
-    <div class="weekdays">
-      <span>MON</span><span>TUE</span><span>WED</span><span>THU</span
-      ><span>FRI</span>
-    </div>
-    <div class="calendar-grid">
-      <div
-        v-for="(day, index) in calendarDays"
-        :key="index"
-        class="day-cell"
-        :class="{ 'other-month': !day.isCurrentMonth }"
-      >
-        <div class="day-number">{{ day.day }}</div>
-        <div v-if="dividendsByDate[day.date]" class="dividend-event">
-          <Tag
-            v-for="entry in dividendsByDate[day.date].entries"
-            :key="entry.ticker"
-            :severity="getTickerSeverity(entry.ticker)"
+  <div class="card">
+    <Panel id="p-calendar">
+      <template #header>
+        <div class="multiselect-wrapper">
+          <MultiSelect
+            v-model="selectedTickers"
+            :options="allTickers"
+            optionLabel="symbol"
+            placeholder="표시할 티커를 선택하세요"
+            filter
+            :maxSelectedLabels="8"
+            class="w-full"
           >
-            {{ entry.ticker }}
-            <template v-if="entry.amount > 0">
-              ${{ formatAmount(entry.amount) }}
+            <!-- 옵션 목록을 더 보기 좋게 커스터마이징 -->
+            <template #option="slotProps">
+              <div class="flex flex-col">
+                <strong>{{ slotProps.option.symbol }}</strong>
+                <small>{{ slotProps.option.longName }}</small>
+              </div>
             </template>
-          </Tag>
+          </MultiSelect>
+        </div>
+      </template>
+      <template #footer>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <Button icon="pi pi-user" rounded text></Button>
+            <Button
+              icon="pi pi-bookmark"
+              severity="secondary"
+              rounded
+              text
+            ></Button>
+          </div>
+          <span class="text-surface-500 dark:text-surface-400"
+            >Updated 2 hours ago</span
+          >
+        </div>
+      </template>
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <button @click="changeMonth(-1)">‹</button>
+          <h2>{{ currentMonthLabel }}</h2>
+          <button @click="changeMonth(1)">›</button>
+        </div>
+        <div class="weekdays">
+          <span>MON</span><span>TUE</span><span>WED</span><span>THU</span
+          ><span>FRI</span>
+        </div>
+        <div class="calendar-grid">
+          <div
+            v-for="(day, index) in calendarDays"
+            :key="index"
+            class="day-cell"
+            :class="{ 'other-month': !day.isCurrentMonth }"
+          >
+            <div class="day-number">{{ day.day }}</div>
+            <div v-if="dividendsByDate[day.date]" class="dividend-event">
+              <Tag
+                v-for="entry in dividendsByDate[day.date].entries"
+                :key="entry.ticker"
+                :severity="getTickerSeverity(entry.ticker)"
+              >
+                {{ entry.ticker }}
+                <template v-if="entry.amount > 0">
+                  ${{ formatAmount(entry.amount) }}
+                </template>
+              </Tag>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Panel>
   </div>
 </template>
 
@@ -213,128 +234,3 @@ function changeMonth(direction) {
   );
 }
 </script>
-
-<style scoped>
-.debug-panel {
-  background: #333;
-  color: #eee;
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 12px;
-}
-.debug-panel pre {
-  white-space: pre-wrap;
-  word-break: break-all;
-  background: #444;
-  padding: 0.5rem;
-  max-height: 100px;
-  overflow-y: auto;
-}
-/* ... (다른 스타일은 그대로) ... */
-</style>
-
-<style scoped>
-.multiselect-wrapper {
-  max-width: 600px;
-  margin: 0 auto 2rem;
-}
-.w-full {
-  width: 100%;
-}
-.calendar-container {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  width: 100%;
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-.calendar-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-}
-.calendar-header button {
-  background: none;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  font-size: 1rem;
-  color: #555;
-  transition: background-color 0.2s;
-}
-.calendar-header button:hover {
-  background-color: #f0f0f0;
-}
-.weekdays {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #888;
-  text-align: center;
-}
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background-color: #e0e0e0;
-  border: 1px solid #e0e0e0;
-}
-.day-cell {
-  background-color: #fff;
-  min-height: 120px;
-  padding: 8px;
-  position: relative;
-}
-.day-cell.other-month {
-  background-color: #f7f7f7;
-}
-.day-cell.other-month .day-number {
-  color: #ccc;
-}
-.day-number {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #555;
-}
-.dividend-event {
-  margin-top: 8px;
-  margin-top: 8px;
-  /* 아래 3줄 추가 */
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* 태그 사이의 간격 */
-}
-.dividend-amount {
-  display: inline-block;
-  background-color: #4caf50;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 0.8rem; /* 폰트 크기를 약간 줄여 여러 개가 들어갈 수 있도록 함 */
-  font-weight: 700;
-  text-align: center; /* 텍스트 가운데 정렬 */
-  width: fit-content; /* 내용에 맞게 너비 조절 */
-}
-.dividend-tickers {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  color: #333;
-  font-weight: 500;
-  word-break: break-word;
-}
-.dividend-amount {
-}
-</style>
