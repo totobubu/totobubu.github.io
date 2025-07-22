@@ -9,12 +9,14 @@ $is-mobile: 768px;
   }
   .p-datatable-scrollable .p-datatable-frozen-column {
     background: inherit;
-    border-right: 1px solid #eaeaea;
   }
 }
 
 // 달력
 #p-calendar {
+  .p-scrollpanel {
+    width: 100%;
+  }
   .calendar-container {
     width: 100%;
   }
@@ -204,7 +206,6 @@ $is-mobile: 768px;
 // 상세 정보
 .toto-history {
   .p-panel-header {
-    background-color: var(--p-slate-50);
     border-bottom: 1px solid var(--p-slate-200);
   }
 }
@@ -224,6 +225,20 @@ $is-mobile: 768px;
       .p-calendar-search {
         width: 100%;
         height: 100%;
+        .p-inputgroup {
+          height: 3rem;
+        }
+        .p-card {
+          height: calc(100% - 3rem);
+        }
+        .p-card-body {
+          padding: 0;
+          height: 100%;
+        }
+        .p-card-content {
+          padding: 0;
+          height: 100%;
+        }
       }
       .p-accordion {
       }
@@ -383,7 +398,6 @@ $is-mobile: 768px;
 .toto-drawer {
   .p-drawer {
     &-header {
-      background-color: var(--p-slate-50);
     }
     &-content {
       padding: 0;
