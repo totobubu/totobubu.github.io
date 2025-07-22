@@ -3,42 +3,36 @@
   <div class="card">
     <Panel id="p-calendar">
       <template #header>
-        <div class="multiselect-wrapper">
-          <MultiSelect
-            v-model="selectedTickers"
-            :options="allTickers"
-            optionLabel="symbol"
-            placeholder="표시할 티커를 선택하세요"
-            filter
-            :maxSelectedLabels="8"
-            class="w-full"
-          >
-            <!-- 옵션 목록을 더 보기 좋게 커스터마이징 -->
-            <template #option="slotProps">
-              <div class="flex flex-col">
-                <strong>{{ slotProps.option.symbol }}</strong>
-                <small>{{ slotProps.option.longName }}</small>
-              </div>
-            </template>
-          </MultiSelect>
+        <div class="p-calendar-search">
+          <!-- 👇 [핵심 수정 1] Listbox를 Accordion + ToggleButton 조합으로 변경 -->
+          <Accordion :multiple="false" :activeIndex="[0]">
+            <AccordionPanel
+              v-for="group in groupedTickers"
+              :key="group.company"
+              :value="group.company"
+            >
+              <AccordionHeader
+                >{{ group.company }} ({{ getSelectedCountInGroup(group) }}/{{
+                  group.items.length
+                }})</AccordionHeader
+              >
+              <AccordionContent>
+                <div class="p-calendar-ticker">
+                  <ToggleButton
+                    v-for="ticker in group.items"
+                    :key="ticker.symbol"
+                    :modelValue="isSelected(ticker)"
+                    @update:modelValue="toggleTickerSelection(ticker)"
+                    :onLabel="ticker.symbol"
+                    :offLabel="ticker.symbol"
+                  />
+                </div>
+              </AccordionContent>
+            </AccordionPanel>
+          </Accordion>
         </div>
       </template>
-      <template #footer>
-        <div class="flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center gap-2">
-            <Button icon="pi pi-user" rounded text></Button>
-            <Button
-              icon="pi pi-bookmark"
-              severity="secondary"
-              rounded
-              text
-            ></Button>
-          </div>
-          <span class="text-surface-500 dark:text-surface-400"
-            >Updated 2 hours ago</span
-          >
-        </div>
-      </template>
+
       <div class="calendar-container">
         <div class="calendar-header">
           <button @click="changeMonth(-1)">‹</button>
@@ -78,13 +72,41 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import MultiSelect from "primevue/multiselect";
+import Panel from "primevue/panel";
+import Accordion from "primevue/accordion";
+import AccordionPanel from "primevue/accordionpanel";
+import AccordionHeader from "primevue/accordionheader";
+import AccordionContent from "primevue/accordioncontent";
+import ToggleButton from "primevue/togglebutton";
 import Tag from "primevue/tag";
 
 const currentDate = ref(new Date());
 const allTickers = ref([]);
+const groupedTickers = ref([]);
 const selectedTickers = ref([]);
 const allDividendData = ref([]);
+
+// --- [핵심 수정 2] 선택 로직을 위한 새로운 함수들 ---
+const isSelected = (ticker) => {
+  return selectedTickers.value.some(
+    (selected) => selected.symbol === ticker.symbol
+  );
+};
+
+const toggleTickerSelection = (ticker) => {
+  const index = selectedTickers.value.findIndex(
+    (selected) => selected.symbol === ticker.symbol
+  );
+  if (index > -1) {
+    selectedTickers.value.splice(index, 1);
+  } else {
+    selectedTickers.value.push(ticker);
+  }
+};
+
+const getSelectedCountInGroup = (group) => {
+  return group.items.filter(isSelected).length;
+};
 
 const severities = [
   "secondary",
@@ -103,7 +125,6 @@ const getTickerSeverity = (ticker) => {
   }
   return tickerColors.get(ticker);
 };
-
 const formatAmount = (amount) => {
   if (typeof amount !== "number" || isNaN(amount)) return "";
   const decimalPart = String(amount).split(".")[1] || "";
@@ -117,10 +138,24 @@ onMounted(async () => {
     const navResponse = await fetch("/nav.json");
     const navData = await navResponse.json();
 
-    // 👇 [핵심 수정 2] nav.json의 'symbol'과 'longName'을 직접 사용
     allTickers.value = navData.nav.map((item) => ({
       symbol: item.symbol,
       longName: item.longName || item.symbol,
+      company: item.company || "기타",
+    }));
+
+    const groups = allTickers.value.reduce((acc, ticker) => {
+      const company = ticker.company;
+      if (!acc[company]) {
+        acc[company] = [];
+      }
+      acc[company].push(ticker);
+      return acc;
+    }, {});
+
+    groupedTickers.value = Object.keys(groups).map((company) => ({
+      company: company,
+      items: groups[company],
     }));
 
     if (allTickers.value.length > 0) {
@@ -138,12 +173,10 @@ onMounted(async () => {
         return null;
       }
     });
-
     const allDataWithNames = (await Promise.all(tickerDataPromises)).filter(
       Boolean
     );
     const flatDividendList = [];
-
     allDataWithNames.forEach(({ tickerName, data }) => {
       if (data.dividendHistory && Array.isArray(data.dividendHistory)) {
         data.dividendHistory.forEach((dividend) => {
@@ -155,7 +188,7 @@ onMounted(async () => {
               if (!isNaN(amount)) {
                 flatDividendList.push({
                   date: dateStr,
-                  amount: amount,
+                  amount,
                   ticker: tickerName.toUpperCase(),
                 });
               }
@@ -174,7 +207,6 @@ const dividendsByDate = computed(() => {
   if (!Array.isArray(selectedTickers.value)) return {};
   const masterData = allDividendData.value;
 
-  // 👇 [핵심 수정 3] 'symbol' 키를 사용하도록 변경
   const selectedSymbols = selectedTickers.value
     .filter((t) => t && t.symbol)
     .map((t) => t.symbol.toUpperCase());
