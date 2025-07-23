@@ -1,27 +1,24 @@
 <!-- stock/src/components/CalendarGrid.vue -->
 <template>
     <div class="calendar-wrapper">
-        <!-- FullCalendar 컴포넌트에 ref를 연결합니다. -->
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
     </div>
 </template>
 
 <script setup>
-
 import { ref, computed, watch } from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
 
 const props = defineProps({
-    dividendsByDate: Object
+    dividendsByDate: Object,
+    holidays: Array // 1. holidays prop을 받습니다.
 });
 
 const fullCalendar = ref(null);
-const GOOGLE_API_KEY = 'AIzaSyCm6nxVU3g-Pjj3mhq7gnwexjiVRuXCs7g'; // 실제 키로 교체 필요
 
 const calendarEvents = computed(() => {
     if (!props.dividendsByDate) return [];
@@ -41,16 +38,23 @@ const calendarEvents = computed(() => {
 
 const tickerColors = new Map();
 const colorPalette = ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC', '#EF5350', '#26A69A'];
-const getTickerColor = (ticker) => {
-    if (!tickerColors.has(ticker)) {
-        const colorIndex = tickerColors.size % colorPalette.length;
-        tickerColors.set(ticker, colorPalette[colorIndex]);
-    }
-    return tickerColors.get(ticker);
-};
+const getTickerColor = (ticker) => { /* ... (이전과 동일) ... */ };
+
+// 2. [핵심 수정] holidays prop을 FullCalendar 이벤트 형식으로 변환합니다.
+const holidayEvents = computed(() => {
+    if (!props.holidays) return [];
+    return props.holidays.map(holiday => ({
+        id: `holiday-${holiday.date}`,
+        title: holiday.name,
+        start: holiday.date,
+        display: 'background', // 👈 이것이 배경색을 칠하는 핵심 옵션입니다.
+        color: 'rgba(255, 0, 0, 0.3)', // 반투명 빨간색 배경
+        extendedProps: { isHoliday: true }
+    }));
+});
 
 const calendarOptions = ref({
-    plugins: [dayGridPlugin, listPlugin, googleCalendarPlugin, interactionPlugin],
+    plugins: [dayGridPlugin, listPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: koLocale,
     headerToolbar: {
@@ -58,40 +62,35 @@ const calendarOptions = ref({
         center: 'title',
         right: 'dayGridMonth,dayGridWeek,listYear'
     },
+    // 3. [핵심 수정] eventSources를 로컬 데이터 소스로 변경합니다.
     eventSources: [
         {
-            events: (fetchInfo, successCallback, failureCallback) => {
-                successCallback(calendarEvents.value);
-            }
+            events: (fetchInfo, successCallback) => successCallback(calendarEvents.value)
         },
         {
-            googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com',
-            className: 'fc-holiday',
-            color: '#A30000',
-            textColor: 'white'
+            events: (fetchInfo, successCallback) => successCallback(holidayEvents.value)
         }
     ],
-    googleCalendarApiKey: GOOGLE_API_KEY,
-    weekends: true,
+    weekends: false,
     
-    // 👇 [핵심 수정] eventContent 함수에 amount 존재 여부 확인 로직 추가
+    // 4. [핵심 수정] eventContent를 사용하여 휴일 텍스트를 렌더링합니다.
     eventContent: (arg) => {
-        if (arg.event.source?.googleCalendarId) {
-            return; 
+        // 휴일일 경우, 이벤트 제목(휴일 이름)을 표시합니다.
+        if (arg.event.extendedProps.isHoliday) {
+            return {
+                html: `<div class="fc-holiday-name">${arg.event.title}</div>`
+            }
         }
-        
+
+        // 배당금 이벤트 렌더링 로직 (이전과 동일)
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
-
-        // amount가 존재하고 유효한 숫자인 경우에만 금액을 표시합니다.
         const amountHtml = (typeof amount === 'number' && !isNaN(amount))
-            ? `<span>$${amount.toFixed(4)}</span>`
-            : ''; // amount가 없으면 빈 문자열
-
+            ? `<span>$${amount.toFixed(4)}</span>` : '';
         return {
             html: `
-                <div class="custom-event-tag" style="border-left-color: ${arg.event.borderColor}">
-                    <strong>${ticker}</strong>
+                <div class="p-tag p-component" style="background-color: ${arg.event.borderColor}">
+                    <strong>${ticker}</strong> <br/>
                     ${amountHtml}
                 </div>
             `
@@ -99,35 +98,34 @@ const calendarOptions = ref({
     }
 });
 
-watch(() => props.dividendsByDate, () => {
+watch(() => [props.dividendsByDate, props.holidays], () => {
     fullCalendar.value?.getApi().refetchEvents();
 }, { deep: true });
 </script>
 
 <style>
-/* 
-  scoped를 사용하지 않아야 FullCalendar 내부 요소에 스타일을 적용할 수 있습니다. 
-  필요하다면 상위 컴포넌트에서 이 컴포넌트를 감싸는 클래스를 추가하여 범위를 제한할 수 있습니다.
-*/
 .calendar-wrapper {
     height: 90vh; /* 캘린더의 높이를 지정해주는 것이 좋습니다. */
 }
 
-/* 미국 휴일 이벤트의 기본 스타일 */
-.fc-holiday .fc-event-main {
-    font-style: italic;
-}
-
-/* 우리의 커스텀 배당 이벤트 태그 스타일 */
-.custom-event-tag {
+/* 휴일 이름 텍스트 스타일 */
+.fc-holiday-name {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
     padding: 2px 4px;
-    border-radius: 4px;
-    background-color: transparent; /* 배경색은 borderColor가 대신함 */
-    color: var(--p-text-color); /* 테마의 텍스트 색상 사용 */
-    font-size: 0.75rem;
-    border-left: 3px solid; /* 테두리 색으로 구분 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+/* 날짜 셀이 휴일 배경 위에 오도록 z-index 조정 */
+.fc .fc-daygrid-day-frame {
+    position: relative;
+    z-index: 2;
+}
+.fc .fc-daygrid-bg-event {
+    z-index: 1;
 }
 </style>
