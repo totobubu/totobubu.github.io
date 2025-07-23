@@ -1,46 +1,46 @@
 <!-- stock/src/components/CalendarTickerSelector.vue -->
 <template>
-  <div class="p-calendar-search">
-    <InputGroup class="p-2">
-      <InputGroupAddon>
-        <i class="pi pi-search"></i>
-      </InputGroupAddon>
-      <InputText v-model="groupFilter" placeholder="티커 검색" class="w-full" />
-    </InputGroup>
-    <ScrollPanel style="height: 70vh">
-      <Accordion :multiple="false" :activeIndex="[0]" class="ticker-accordion">
-        <AccordionPanel
-          v-for="group in filteredGroupedTickers"
-          :key="group.company"
-          :value="group.company"
-        >
-          <AccordionHeader>
-            {{ group.company }}
-            <span v-if="groupFilter">
-              ({{ getSelectedCountInGroup(group) }} / {{ group.items.length }} /
-              {{ group.originalItemCount }})
-            </span>
-            <span v-else>
-              ({{ getSelectedCountInGroup(group) }} /
-              {{ group.originalItemCount }})
-            </span>
-          </AccordionHeader>
-          <AccordionContent>
-            <div class="p-calendar-ticker">
-              <ToggleButton
-                v-for="ticker in group.items"
-                :key="ticker.symbol"
-                :modelValue="isSelected(ticker)"
-                @update:modelValue="toggleTickerSelection(ticker)"
-                :onLabel="ticker.symbol"
-                :offLabel="ticker.symbol"
-              />
-            </div>
-          </AccordionContent>
-        </AccordionPanel>
-      </Accordion>
-    </ScrollPanel>
-  </div>
+    <div class="p-calendar-search">
+        <InputGroup class="p-2">
+            <InputGroupAddon><i class="pi pi-search"></i></InputGroupAddon>
+            <InputText v-model="groupFilter" placeholder="티커 검색" class="w-full" />
+        </InputGroup>
+        <div class="p-calendar-search-content">
+          <ScrollPanel style="height: 100%">
+              <Accordion :multiple="true" :activeIndex="[0]" class="ticker-accordion">
+                  <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company"
+                            :value="group.company"
+                  >
+                      <AccordionHeader>
+                          {{ group.company }}
+                          <span v-if="groupFilter">({{ getSelectedCountInGroup(group) }} / {{ group.items.length }} / {{ group.originalItemCount }})</span>
+                          <span v-else>({{ getSelectedCountInGroup(group) }} / {{ group.originalItemCount }})</span>
+                      </AccordionHeader>
+                      <AccordionContent>
+                          <div class="p-calendar-ticker">
+                              <!-- 👇 [핵심 수정 1] 'All' 버튼을 추가합니다. -->
+                              <ToggleButton
+                                  onLabel="All" offLabel="All"
+                                  :modelValue="isAllSelectedInGroup(group)"
+                                  @update:modelValue="toggleAllInGroup(group)"
+                                  class="p-button-sm p-button-secondary"
+                              />
+                              <ToggleButton
+                                  v-for="ticker in group.items"
+                                  :key="ticker.symbol"
+                                  :modelValue="isSelected(ticker)"
+                                  @update:modelValue="toggleTickerSelection(ticker)"
+                                  :onLabel="ticker.symbol"
+                                  :offLabel="ticker.symbol"
+                                  class="p-button-sm"
+                              />
+                          </div>
+                      </AccordionContent>
+                  </AccordionPanel>
+              </Accordion>
+          </ScrollPanel>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -52,53 +52,81 @@ import AccordionContent from "primevue/accordioncontent";
 import ToggleButton from "primevue/togglebutton";
 import InputText from "primevue/inputtext";
 import ScrollPanel from "primevue/scrollpanel";
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
 
 const props = defineProps({
-  groupedTickers: Array,
-  modelValue: Array, // v-model for selectedTickers
+    groupedTickers: Array,
+    modelValue: Array,
 });
 const emit = defineEmits(["update:modelValue"]);
 
 const groupFilter = ref("");
 
 const filteredGroupedTickers = computed(() => {
-  const localSelectedTickers = props.modelValue;
-  if (!groupFilter.value) {
-    return props.groupedTickers.map((group) => ({
-      ...group,
-      originalItemCount: group.items.length,
-    }));
-  }
-  const filterText = groupFilter.value.toLowerCase();
-  return props.groupedTickers
-    .map((group) => ({
-      ...group,
-      items: group.items.filter((ticker) =>
-        ticker.symbol.toLowerCase().includes(filterText)
-      ),
-      originalItemCount: group.items.length,
-    }))
-    .filter((group) => group.items.length > 0);
+    if (!groupFilter.value) {
+        return props.groupedTickers.map((group) => ({
+            ...group,
+            originalItemCount: group.items.length,
+        }));
+    }
+    const filterText = groupFilter.value.toLowerCase();
+    return props.groupedTickers
+        .map((group) => ({
+            ...group,
+            items: group.items.filter((ticker) =>
+                ticker.symbol.toLowerCase().includes(filterText)
+            ),
+            originalItemCount: group.items.length,
+        }))
+        .filter((group) => group.items.length > 0);
 });
 
 const isSelected = (ticker) => {
-  return props.modelValue.some((selected) => selected.symbol === ticker.symbol);
+    return props.modelValue.some((selected) => selected.symbol === ticker.symbol);
 };
 
 const toggleTickerSelection = (ticker) => {
-  const localSelectedTickers = [...props.modelValue];
-  const index = localSelectedTickers.findIndex(
-    (selected) => selected.symbol === ticker.symbol
-  );
-  if (index > -1) {
-    localSelectedTickers.splice(index, 1);
-  } else {
-    localSelectedTickers.push(ticker);
-  }
-  emit("update:modelValue", localSelectedTickers);
+    const localSelectedTickers = [...props.modelValue];
+    const index = localSelectedTickers.findIndex(
+        (selected) => selected.symbol === ticker.symbol
+    );
+    if (index > -1) {
+        localSelectedTickers.splice(index, 1);
+    } else {
+        localSelectedTickers.push(ticker);
+    }
+    emit("update:modelValue", localSelectedTickers);
 };
 
 const getSelectedCountInGroup = (group) => {
-  return group.items.filter(isSelected).length;
+    return group.items.filter(isSelected).length;
+};
+
+// --- 👇 [핵심 수정 2] 'All' 버튼을 위한 새로운 함수들 ---
+
+// 해당 그룹의 모든 티커가 선택되었는지 확인하는 함수
+const isAllSelectedInGroup = (group) => {
+    // 그룹에 티커가 하나도 없으면 false 반환
+    if (group.items.length === 0) return false;
+    // 그룹의 모든 티커가 selectedTickers에 포함되어 있는지 확인
+    return group.items.every(isSelected);
+};
+
+// 'All' 버튼 클릭 시, 해당 그룹의 모든 티커를 선택하거나 해제하는 함수
+const toggleAllInGroup = (group) => {
+    const localSelectedTickers = [...props.modelValue];
+    const allSelected = isAllSelectedInGroup(group);
+
+    if (allSelected) {
+        // 이미 전체 선택된 상태이면, 이 그룹의 티커들을 모두 제거
+        const groupSymbols = group.items.map(t => t.symbol);
+        const newSelection = localSelectedTickers.filter(t => !groupSymbols.includes(t.symbol));
+        emit("update:modelValue", newSelection);
+    } else {
+        // 전체 선택되지 않은 상태이면, 이 그룹의 티커들 중 아직 선택되지 않은 것만 추가
+        const newTickersToAdd = group.items.filter(t => !isSelected(t));
+        emit("update:modelValue", [...localSelectedTickers, ...newTickersToAdd]);
+    }
 };
 </script>
