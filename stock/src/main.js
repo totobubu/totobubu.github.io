@@ -6,8 +6,7 @@ import router from './router';
 import PrimeVue from 'primevue/config';
 import Lara from "@primeuix/themes/lara";
 
-import './styles/dashboard.scss'; 
-import './styles/custom.scss';
+import './styles/styles.scss';
 
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, BarController, LineController } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
