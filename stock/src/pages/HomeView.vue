@@ -1,47 +1,52 @@
 <!-- stock/src/views/HomeView.vue -->
 <template>
-  <div class="card">
-    <div v-if="isLoading" class="flex justify-center items-center h-screen">
-      <ProgressSpinner />
+    <div class="card">
+        <div v-if="isLoading" class="flex justify-center items-center h-screen">
+            <ProgressSpinner />
+        </div>
+        <div v-else-if="error" class="text-center mt-8">
+            <p>{{ error }}</p>
+        </div>
+        <Panel v-else id="p-calendar">
+            <template #header>
+                <CalendarTickerSelector 
+                    :groupedTickers="groupedTickers"
+                    v-model="selectedTickers"
+                />
+            </template>
+            <CalendarGrid :dividendsByDate="dividendsByDate" :holidays="holidays" />
+        </Panel>
     </div>
-    <div v-else-if="error" class="text-center mt-8">
-      <p>{{ error }}</p>
-    </div>
-    <Panel v-else id="p-calendar">
-      <template #header>
-        <CalendarTickerSelector
-          :groupedTickers="groupedTickers"
-          v-model="selectedTickers"
-        />
-      </template>
-
-      <CalendarGrid :dividendsByDate="dividendsByDate" />
-    </Panel>
-  </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue"; // watch 추가
+import { ref, onMounted, watch } from "vue"; // watch 추가
 import Panel from "primevue/panel";
 import ProgressSpinner from "primevue/progressspinner";
 import CalendarTickerSelector from "@/components/CalendarTickerSelector.vue";
 import CalendarGrid from "@/components/CalendarGrid.vue";
-import { useCalendarData } from "@/composables/useCalendarData.js";
+import { useCalendarData } from '@/composables/useCalendarData.js';
 
-const STORAGE_KEY = "selectedCalendarTickers"; // 동일한 키 사용
-
+const STORAGE_KEY = 'selectedCalendarTickers';
 const selectedTickers = ref([]);
-const { groupedTickers, dividendsByDate, isLoading, error } =
-  useCalendarData(selectedTickers);
+const holidays = ref([]);
 
-// 👇 [핵심 수정 2] selectedTickers가 변경될 때마다 localStorage에 저장
-watch(
-  selectedTickers,
-  (newSelection) => {
-    // 객체 배열 전체를 저장하는 대신, symbol 문자열 배열만 저장하여 용량을 줄입니다.
-    const symbolsToSave = newSelection.map((ticker) => ticker.symbol);
+const { groupedTickers, dividendsByDate, isLoading, error, loadAllData } = 
+    useCalendarData(selectedTickers);
+
+// 👇 [핵심 수정 3] onMounted 훅을 다시 사용합니다.
+onMounted(async () => {
+    // holidays.json은 여기서 직접 불러오는 것이 더 간단합니다.
+    const holidayResponse = await fetch('/holidays.json');
+    holidays.value = await holidayResponse.json();
+
+    // useCalendarData에서 받은 데이터 로딩 함수를 호출합니다.
+    await loadAllData();
+});
+
+// localStorage 저장을 위한 watch는 그대로 유지합니다.
+watch(selectedTickers, (newSelection) => {
+    const symbolsToSave = newSelection.map(ticker => ticker.symbol);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(symbolsToSave));
-  },
-  { deep: true }
-); // 배열 내부의 변경도 감지하기 위해 deep: true 옵션 사용
+}, { deep: true });
 </script>

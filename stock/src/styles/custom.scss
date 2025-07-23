@@ -13,76 +13,146 @@ $is-mobile: 768px;
 }
 
 // 달력
-#p-calendar {
-  .p-scrollpanel {
-    width: 100%;
-  }
-  .calendar-container {
-    width: 100%;
-  }
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-  .calendar-header h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-  }
-  .calendar-header button {
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #555;
-    transition: background-color 0.2s;
-  }
-  .calendar-header button:hover {
-    background-color: #f0f0f0;
-  }
-  .weekdays {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    font-weight: 700;
-    // color: #888;
-    text-align: center;
-  }
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1px;
-  }
-  .day-cell {
-    background-color: var(--p-neutral-950);
-    min-height: 120px;
-    padding: 8px;
-    position: relative;
-  }
-  .day-cell.other-month {
-    * {
-      opacity: 0;
-    }
-   background-color: inherit;
-  }
-  .day-cell.other-month .day-number {
-    color: #ccc;
-  }
-  .day-number {
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-  .dividend-event {
-    margin-top: 8px;
-    display: flex;
-    gap: 4px; /* 태그 사이의 간격 */
-    flex-flow: wrap;
-  }
+
+/* ========================================================================== */
+/* FullCalendar PrimeVue Theme Override                                       */
+/* ========================================================================== */
+
+/* 
+  FullCalendar는 자체 CSS 변수를 제공합니다. 
+  이 변수들을 PrimeVue의 변수로 덮어쓰면 테마가 완벽하게 통합됩니다.
+*/
+.fc {
+    /* 1. 테두리 색상: 캘린더의 모든 선 색상을 PrimeVue의 표면 테두리 색상으로 변경 */
+    --fc-border-color: var(--p-surface-border);
+    
+    /* 2. 배경 색상 */
+    --fc-page-bg-color: var(--p-surface-ground); /* 전체 배경 */
+    --fc-neutral-bg-color: var(--p-surface-section); /* 헤더 등 중립 배경 */
+    
+    /* 3. '오늘' 날짜 배경색: 프라이머리 색상의 연한 버전으로 변경 */
+    --fc-day-today-bg-color: var(--p-primary-50);
+
+    /* 4. 이벤트 기본 색상 (선택 사항) */
+    --fc-event-bg-color: var(--p-primary-color);
+    --fc-event-border-color: var(--p-primary-color);
+    --fc-event-text-color: var(--p-primary-contrast-color);
 }
+
+/* 5. 툴바 버튼 (이전, 다음, 오늘, 뷰 전환) 스타일링 */
+.fc .fc-button {
+    background-color: var(--p-surface-card);
+    border: 1px solid var(--p-surface-border);
+    color: var(--p-text-color);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: var(--p-border-radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+
+    &:hover {
+        background-color: var(--p-surface-hover);
+    }
+
+    /* 현재 활성화된 버튼 (예: '월' 뷰 버튼) */
+    &.fc-button-primary {
+        background-color: var(--p-primary-color);
+        border-color: var(--p-primary-color);
+        color: var(--p-primary-contrast-color);
+    }
+}
+
+/* 6. 툴바 제목 (예: "2025년 7월") 스타일링 */
+.fc .fc-toolbar-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--p-text-color);
+}
+
+/* 7. 요일 헤더 (MON, TUE ...) 스타일링 */
+.fc .fc-col-header-cell-cushion {
+    color: var(--p-text-muted-color);
+    font-weight: 600;
+    padding: 0.5rem;
+}
+.fc .fc-list-event:hover td {
+        background-color: var(--p-primary-color);
+
+}
+
+// #p-calendar {
+//   .p-scrollpanel {
+//     width: 100%;
+//   }
+//   .calendar-container {
+//     width: 100%;
+//   }
+//   .calendar-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-bottom: 1.5rem;
+//   }
+//   .calendar-header h2 {
+//     font-size: 1.5rem;
+//     font-weight: 600;
+//     color: #333;
+//   }
+//   .calendar-header button {
+//     background: none;
+//     border: 1px solid #ddd;
+//     border-radius: 50%;
+//     width: 30px;
+//     height: 30px;
+//     cursor: pointer;
+//     font-size: 1rem;
+//     color: #555;
+//     transition: background-color 0.2s;
+//   }
+//   .calendar-header button:hover {
+//     background-color: #f0f0f0;
+//   }
+//   .weekdays {
+//     display: grid;
+//     grid-template-columns: repeat(5, 1fr);
+//     font-weight: 700;
+//     // color: #888;
+//     text-align: center;
+//   }
+//   .calendar-grid {
+//     display: grid;
+//     grid-template-columns: repeat(5, 1fr);
+//     gap: 1px;
+//   }
+//   .day-cell {
+//     background-color: var(--p-neutral-950);
+//     min-height: 120px;
+//     padding: 8px;
+//     position: relative;
+//   }
+//   .day-cell.other-month {
+//     * {
+//       opacity: 0;
+//     }
+//    background-color: inherit;
+//   }
+//   .day-cell.other-month .day-number {
+//     color: #ccc;
+//   }
+//   .day-number {
+//     font-size: 0.8rem;
+//     font-weight: 500;
+//   }
+//   .fc-daygrid-day-events {
+//     margin-top: 8px;
+//     display: flex;
+//     gap: 4px;
+//     flex-flow: wrap;
+//   }
+//   .fc-h-event {
+//     background-color: inherit;
+//     border: none;
+//   }
+// }
 
 // 차트
 #p-chart {
