@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, defineEmits } from 'vue'; // defineEmits 추가
+import { ref, computed, watch, defineEmits } from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
@@ -40,7 +40,6 @@ const props = defineProps({
     allTickers: Array
 });
 
-// 👇 [핵심 수정 1] 부모에게 보낼 이벤트를 정의합니다.
 const emit = defineEmits(['remove-ticker', 'view-ticker']);
 
 const fullCalendar = ref(null);
@@ -95,44 +94,39 @@ const holidayEvents = computed(() => {
     }));
 });
 
-const calendarOptions = ref({
+const calendarOptions = {
     plugins: [dayGridPlugin, listPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: koLocale,
     headerToolbar: false,
     datesSet: (info) => {
         currentTitle.value = info.view.title;
+        if (info.view.type !== currentView.value) {
+            currentView.value = info.view.type;
+        }
     },
     eventSources: [
         { events: (fetchInfo, successCallback) => successCallback(calendarEvents.value) },
         { events: (fetchInfo, successCallback) => successCallback(holidayEvents.value) }
     ],
     weekends: false,
-    
-    // 👇 [핵심 수정 2] eventClick 콜백을 추가합니다.
     eventClick: function(info) {
-        // 클릭된 실제 HTML 요소를 찾습니다.
         const target = info.jsEvent.target;
-        // 클릭된 요소 또는 가장 가까운 부모 중에서 data-action 속성을 가진 요소를 찾습니다.
         const actionElement = target.closest('[data-action]');
-
         if (actionElement) {
             const action = actionElement.dataset.action;
             const ticker = info.event.extendedProps.ticker;
-
             if (action === 'view') {
-                // 링크 버튼을 클릭한 경우
                 emit('view-ticker', ticker);
             } else if (action === 'remove') {
-                // 삭제 버튼을 클릭한 경우
                 emit('remove-ticker', ticker);
             }
         }
-        // 버튼이 아닌 다른 영역을 클릭하면 아무것도 하지 않음
     },
-
-eventContent: (arg) => {
-        if (arg.event.extendedProps.isHoliday) { /* ... */ }
+    eventContent: (arg) => {
+        if (arg.event.extendedProps.isHoliday) {
+            return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
+        }
         
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
@@ -142,27 +136,36 @@ eventContent: (arg) => {
             ? `<span>$${amount.toFixed(4)}</span>`
             : '<span class="no-amount">예정</span>';
         
-        const isRemovable = amount !== null; // '예정'이 아닌 경우에만 삭제 가능
+        const isRemovable = amount !== null;
+        const removeButtonHtml = isRemovable 
+            ? `<span class="p-inputgroup-addon" data-action="remove" title="목록에서 제거">
+                   <button class="p-button p-component p-button-icon-only p-button-text p-button-sm">
+                       <span class="pi pi-times"></span>
+                   </button>
+               </span>`
+            : '';
 
         return {
             html: `
-                <div class="p-chip p-component ${frequencyClass}">
-                    <div class="p-chip-text">
-                        <strong>${ticker}</strong>
-                        ${amountHtml}
-                    </div>
-                    <div class="p-chip-actions">
-                        <i class="pi pi-link" data-action="view" title="상세 보기"></i>
-                        ${isRemovable ? '<i class="pi pi-times-circle" data-action="remove" title="목록에서 제거"></i>' : ''}
-                    </div>
+                <div class="p-inputgroup event-input-group ${frequencyClass}">
+                    <span class="p-inputgroup-addon ticker-name">${ticker}</span>
+                    <span class="p-inputgroup-addon amount-text">${amountHtml}</span>
+                    <span class="p-inputgroup-addon" data-action="view" title="상세 보기">
+                        <button class="p-button p-component p-button-icon-only p-button-text p-button-sm">
+                            <span class="pi pi-link"></span>
+                        </button>
+                    </span>
+                    ${removeButtonHtml}
                 </div>
             `
         };
     }
-});
+};
 
 watch(currentView, (newView) => {
-    fullCalendar.value?.getApi().changeView(newView);
+    if (newView && fullCalendar.value) {
+        fullCalendar.value.getApi().changeView(newView);
+    }
 });
 
 watch(() => [props.dividendsByDate, props.holidays], () => {
@@ -212,47 +215,55 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 .fc .fc-daygrid-bg-event {
     z-index: 1;
 }
-
-/* PrimeVue Chip 컴포넌트의 모양을 흉내 냅니다. */
-.p-chip {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 16px;
-    padding: 0.25rem 0.75rem;
-    gap: 0.5rem;
-    margin-bottom: 2px;
-}
-.p-chip-text {
-    line-height: 1.5;
-}
-.p-chip.is-removable {
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-.p-chip.is-removable:hover {
-    opacity: 0.8;
-}
-.p-chip .pi-times-circle {
-    font-size: 0.8rem;
-}
-
-/* Chip 내부의 아이콘 버튼 스타일 */
-.p-chip {
-    justify-content: space-between;
-}
-.p-chip-actions {
+.p-tag.freq-weekly { background-color: #42A5F5; color: #ffffff; }
+.p-tag.freq-monthly { background-color: #66BB6A; color: #ffffff; }
+.p-tag.freq-quarterly { background-color: #FFA726; color: #ffffff; }
+.p-tag.freq-every-4-week { background-color: #AB47BC; color: #ffffff; }
+.p-tag.freq-default { background-color: #757575; color: #ffffff; }
+.p-tag .no-amount { font-size: 0.9em; opacity: 0.7; }
+.p-tag.p-component {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-    margin-left: 0.5rem;
+    padding: 2px 6px;
+    margin-bottom: 2px;
+    border-radius: 4px;
 }
-.p-chip-actions i {
+.event-input-group {
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.event-input-group .p-inputgroup-addon {
+    /* background-color: var(--p-surface-200);
+    color: var(--p-text-color); */
+    padding: 0.25rem 0.5rem;
+    border: none;
+    cursor: default;
+}
+.event-input-group .ticker-name {
+    flex-grow: 1;
+    font-weight: bold;
+    text-align: left;
+}
+.event-input-group .amount-text {
+    font-size: 0.9em;
+}
+.event-input-group .p-inputgroup-addon[data-action] {
     cursor: pointer;
-    transition: transform 0.2s, color 0.2s;
-    opacity: 0.7;
+    /* background-color: var(--p-surface-300); */
 }
-.p-chip-actions i:hover {
-    transform: scale(1.2);
-    opacity: 1;
+.event-input-group .p-inputgroup-addon[data-action]:hover {
+    /* background-color: var(--p-surface-400); */
+}
+.event-input-group button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
 }
 </style>
