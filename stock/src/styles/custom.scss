@@ -18,11 +18,11 @@ $is-mobile: 768px;
 /* FullCalendar PrimeVue Theme Override                                       */
 /* ========================================================================== */
 
+.fc {
 /* 
   FullCalendar는 자체 CSS 변수를 제공합니다. 
   이 변수들을 PrimeVue의 변수로 덮어쓰면 테마가 완벽하게 통합됩니다.
 */
-.fc {
     /* 1. 테두리 색상: 캘린더의 모든 선 색상을 PrimeVue의 표면 테두리 색상으로 변경 */
     --fc-border-color: var(--p-surface-border);
     
@@ -37,86 +37,103 @@ $is-mobile: 768px;
     --fc-event-bg-color: var(--p-primary-color);
     --fc-event-border-color: var(--p-primary-color);
     --fc-event-text-color: var(--p-primary-contrast-color);
-}
 
-/* 5. 툴바 버튼 (이전, 다음, 오늘, 뷰 전환) 스타일링 */
-.fc .fc-button {
-    background-color: var(--p-surface-card);
-    border: 1px solid var(--p-surface-border);
-    color: var(--p-text-color);
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: var(--p-border-radius);
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
+  /* 5. 툴바 버튼 (이전, 다음, 오늘, 뷰 전환) 스타일링 */
+  .fc-button {
+      background-color: var(--p-surface-card);
+      border: 1px solid var(--p-surface-border);
+      color: var(--p-text-color);
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+      border-radius: var(--p-border-radius);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
 
-    &:hover {
-        background-color: var(--p-surface-hover);
-    }
+      &:hover {
+          background-color: var(--p-surface-hover);
+      }
 
-    /* 현재 활성화된 버튼 (예: '월' 뷰 버튼) */
-    &.fc-button-primary {
-        background-color: var(--p-primary-color);
-        border-color: var(--p-primary-color);
-        color: var(--p-primary-contrast-color);
-    }
-}
+      /* 현재 활성화된 버튼 (예: '월' 뷰 버튼) */
+      &.fc-button-primary {
+          background-color: var(--p-primary-color);
+          border-color: var(--p-primary-color);
+          color: var(--p-primary-contrast-color);
+      }
+  }
 
-/* 6. 툴바 제목 (예: "2025년 7월") 스타일링 */
-.fc .fc-toolbar-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--p-text-color);
-}
+  /* 6. 툴바 제목 (예: "2025년 7월") 스타일링 */
+  .fc-toolbar-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--p-text-color);
+  }
 
-/* 7. 요일 헤더 (MON, TUE ...) 스타일링 */
-.fc .fc-col-header-cell-cushion {
-    color: var(--p-text-muted-color);
-    font-weight: 600;
-    padding: 0.5rem;
-}
-.fc .fc-list-event:hover td {
-        background-color: var(--p-primary-color);
-}
+  /* 7. 요일 헤더 (MON, TUE ...) 스타일링 */
+  .fc-col-header-cell-cushion {
+      color: var(--p-text-muted-color);
+      font-weight: 600;
+      padding: 0.5rem;
+  }
+  .fc-list-event:hover td {
+          background-color: var(--p-primary-color);
+  }
 
   .fc-daygrid-event-harness {
-    &:before {
-      content: none;
+      &:before {
+        display: none;
+      }
+
     }
-
+  .fc-daygrid-day-frame {
+    padding: 0.3em;
+    border: 1px solid  var(--p-accordion-header-border-color);
   }
-.fc-daygrid-day-frame {
-  padding: 0.3em;
-  border: 1px solid  var(--p-accordion-header-border-color);
+
+.fc-daygrid-day-events::after, .fc-daygrid-day-events::before, .fc-daygrid-day-frame::after, .fc-daygrid-day-frame::before, .fc-daygrid-event-harness::after, .fc-daygrid-event-harness::before {
+  display: none;
 }
 
-.fc-daygrid-day-events {
-  display: flex;
-  gap: 4px;
-  flex-flow: wrap;
+  .fc-daygrid-day-events {
+    display: flex;
+    gap: 4px;
+    flex-flow: wrap;
     font-size: var(--p-button-sm-font-size);
+      margin-top: 0;
 
 
-  .p-tag {
-    text-align: center;
-    font-size: .8em;
-    padding: (0.375rem / 3) (0.625rem / 3);
+    .p-tag {
+      text-align: center;
+      font-size: .8em;
+      padding: (0.375rem / 3) (0.625rem / 3);
+      color: var(--fc-event-text-color);
+    }
   }
-}
-.fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start {
-  margin-right: 0;
-}
-.fc-direction-ltr .fc-daygrid-event.fc-event-start, .fc-direction-rtl .fc-daygrid-event.fc-event-end {
-  margin-left: 0;
-}
-// .fc-dayGridMonth-view fc-view fc-daygrid {
+  .fc-direction-ltr .fc-daygrid-event.fc-event-end, 
+  .fc-direction-rtl .fc-daygrid-event.fc-event-start {
+    margin-right: 0;
+  }
+  .fc-direction-ltr .fc-daygrid-event.fc-event-start, 
+  .fc-direction-rtl .fc-daygrid-event.fc-event-end {
+    margin-left: 0;
+  }
+  // .fc-dayGridMonth-view fc-view fc-daygrid {
 
-// }
-// .fc-dayGridWeek-view fc-view fc-daygrid {
+  // }
+  .fc-dayGridWeek-view  {
+    .fc-daygrid-day-events {
+      flex-direction: column;
+    font-size: var(--p-button-md-font-size);
+      .p-tag {
+        width: 100%;
+        br {
+          display: none;
+        }
+      }
+    }
+  }
+  // .fc-listYear-view fc-view fc-list fc-list-sticky  {
 
-// }
-// .fc-listYear-view fc-view fc-list fc-list-sticky  {
-
-// }
+  // }
+}
 
 // 달력 커스텀
 #p-calendar_content {
@@ -126,7 +143,7 @@ $is-mobile: 768px;
 }
 
 .calendar-wrapper {
-    height: 90vh; /* 캘린더의 높이를 지정해주는 것이 좋습니다. */
+    // height: 90vh; /* 캘린더의 높이를 지정해주는 것이 좋습니다. */
 }
 
 /* 휴일 이름 텍스트 스타일 */
@@ -347,7 +364,7 @@ $is-mobile: 768px;
         .p-inputgroup {
           height: 3rem;
         }
-        .p-card {
+        &-content {
           height: calc(100% - 3rem);
         }
         .p-card-body {
