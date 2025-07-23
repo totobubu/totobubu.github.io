@@ -76,8 +76,80 @@ $is-mobile: 768px;
 }
 .fc .fc-list-event:hover td {
         background-color: var(--p-primary-color);
-
 }
+
+  .fc-daygrid-event-harness {
+    &:before {
+      content: none;
+    }
+
+  }
+.fc-daygrid-day-frame {
+  padding: 0.3em;
+  border: 1px solid  var(--p-accordion-header-border-color);
+}
+
+.fc-daygrid-day-events {
+  display: flex;
+  gap: 4px;
+  flex-flow: wrap;
+    font-size: var(--p-button-sm-font-size);
+
+
+  .p-tag {
+    text-align: center;
+    font-size: .8em;
+    padding: (0.375rem / 3) (0.625rem / 3);
+  }
+}
+.fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start {
+  margin-right: 0;
+}
+.fc-direction-ltr .fc-daygrid-event.fc-event-start, .fc-direction-rtl .fc-daygrid-event.fc-event-end {
+  margin-left: 0;
+}
+// .fc-dayGridMonth-view fc-view fc-daygrid {
+
+// }
+// .fc-dayGridWeek-view fc-view fc-daygrid {
+
+// }
+// .fc-listYear-view fc-view fc-list fc-list-sticky  {
+
+// }
+
+// 달력 커스텀
+#p-calendar_content {
+  > .p-panel-content {
+    padding: 0;
+  }
+}
+
+.calendar-wrapper {
+    height: 90vh; /* 캘린더의 높이를 지정해주는 것이 좋습니다. */
+}
+
+/* 휴일 이름 텍스트 스타일 */
+.fc-holiday-name {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 2px 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+/* 날짜 셀이 휴일 배경 위에 오도록 z-index 조정 */
+.fc .fc-daygrid-day-frame {
+    position: relative;
+    z-index: 2;
+}
+.fc .fc-daygrid-bg-event {
+    z-index: 1;
+}
+
 
 // #p-calendar {
 //   .p-scrollpanel {
