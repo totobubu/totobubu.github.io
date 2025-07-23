@@ -14,10 +14,13 @@
                     v-model="selectedTickers"
                 />
             </template>
+            
+            <!-- 👇 [핵심 수정] @remove-ticker 이벤트를 수신합니다. -->
             <CalendarGrid 
                 :dividendsByDate="dividendsByDate" 
                 :holidays="holidays"
                 :allTickers="allTickers"
+                @remove-ticker="removeTicker"
             />
         </Panel>
     </div>
@@ -32,13 +35,19 @@ import CalendarGrid from "@/components/CalendarGrid.vue";
 import { useCalendarData } from '@/composables/useCalendarData.js';
 
 const STORAGE_KEY = 'selectedCalendarTickers';
+
 const selectedTickers = ref([]);
 const holidays = ref([]);
-
 const { allTickers, groupedTickers, dividendsByDate, isLoading, error, loadAllData } = 
     useCalendarData(selectedTickers);
 
-// 👇 [핵심 수정 3] onMounted 훅을 다시 사용합니다.
+// 👇 [핵심 수정] 티커를 제거하는 함수를 추가합니다.
+const removeTicker = (tickerSymbol) => {
+    selectedTickers.value = selectedTickers.value.filter(
+        (ticker) => ticker.symbol !== tickerSymbol
+    );
+};
+
 onMounted(async () => {
     // holidays.json은 여기서 직접 불러오는 것이 더 간단합니다.
     const holidayResponse = await fetch('/holidays.json');
