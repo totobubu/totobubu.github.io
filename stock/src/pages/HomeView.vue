@@ -21,6 +21,7 @@
                 :holidays="holidays"
                 :allTickers="allTickers"
                 @remove-ticker="removeTicker"
+                @view-ticker="goToTickerPage"
             />
         </Panel>
     </div>
@@ -34,19 +35,27 @@ import CalendarTickerSelector from "@/components/CalendarTickerSelector.vue";
 import CalendarGrid from "@/components/CalendarGrid.vue";
 import { useCalendarData } from '@/composables/useCalendarData.js';
 
-const STORAGE_KEY = 'selectedCalendarTickers';
 
+const router = useRouter(); // router 인스턴스 생성
+const STORAGE_KEY = 'selectedCalendarTickers';
 const selectedTickers = ref([]);
 const holidays = ref([]);
 const { allTickers, groupedTickers, dividendsByDate, isLoading, error, loadAllData } = 
     useCalendarData(selectedTickers);
 
-// 👇 [핵심 수정] 티커를 제거하는 함수를 추가합니다.
 const removeTicker = (tickerSymbol) => {
     selectedTickers.value = selectedTickers.value.filter(
         (ticker) => ticker.symbol !== tickerSymbol
     );
 };
+
+// 👇 [핵심 수정] 페이지 이동을 처리하는 새로운 함수
+const goToTickerPage = (tickerSymbol) => {
+    if (tickerSymbol && typeof tickerSymbol === 'string') {
+        router.push(`/stock/${tickerSymbol.toLowerCase()}`);
+    }
+};
+
 
 onMounted(async () => {
     // holidays.json은 여기서 직접 불러오는 것이 더 간단합니다.

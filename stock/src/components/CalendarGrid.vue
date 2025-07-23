@@ -41,7 +41,7 @@ const props = defineProps({
 });
 
 // 👇 [핵심 수정 1] 부모에게 보낼 이벤트를 정의합니다.
-const emit = defineEmits(['remove-ticker']);
+const emit = defineEmits(['remove-ticker', 'view-ticker']);
 
 const fullCalendar = ref(null);
 const currentTitle = ref('');
@@ -111,18 +111,28 @@ const calendarOptions = ref({
     
     // 👇 [핵심 수정 2] eventClick 콜백을 추가합니다.
     eventClick: function(info) {
-        // 클릭된 이벤트가 휴일이거나, amount가 없는 '예정' 이벤트일 경우 아무것도 하지 않음
-        if (info.event.extendedProps.isHoliday) {
-            return;
+        // 클릭된 실제 HTML 요소를 찾습니다.
+        const target = info.jsEvent.target;
+        // 클릭된 요소 또는 가장 가까운 부모 중에서 data-action 속성을 가진 요소를 찾습니다.
+        const actionElement = target.closest('[data-action]');
+
+        if (actionElement) {
+            const action = actionElement.dataset.action;
+            const ticker = info.event.extendedProps.ticker;
+
+            if (action === 'view') {
+                // 링크 버튼을 클릭한 경우
+                emit('view-ticker', ticker);
+            } else if (action === 'remove') {
+                // 삭제 버튼을 클릭한 경우
+                emit('remove-ticker', ticker);
+            }
         }
-        // 부모에게 제거할 티커 심볼을 전달합니다.
-        emit('remove-ticker', info.event.extendedProps.ticker);
+        // 버튼이 아닌 다른 영역을 클릭하면 아무것도 하지 않음
     },
 
-    eventContent: (arg) => {
-        if (arg.event.extendedProps.isHoliday) {
-            return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
-        }
+eventContent: (arg) => {
+        if (arg.event.extendedProps.isHoliday) { /* ... */ }
         
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
@@ -131,20 +141,20 @@ const calendarOptions = ref({
         const amountHtml = (amount !== null && typeof amount === 'number' && !isNaN(amount))
             ? `<span>$${amount.toFixed(4)}</span>`
             : '<span class="no-amount">예정</span>';
-
-        // 👇 [핵심 수정 3] 닫기(X) 아이콘을 추가하고, 조건부로 클릭 가능한 클래스를 부여합니다.
-        const isRemovable = amount !== null;
-        const removableClass = isRemovable ? 'is-removable' : '';
-        const removeIcon = isRemovable ? '<i class="pi pi-times-circle"></i>' : '';
+        
+        const isRemovable = amount !== null; // '예정'이 아닌 경우에만 삭제 가능
 
         return {
             html: `
-                <div class="p-chip p-component ${frequencyClass} ${removableClass}">
+                <div class="p-chip p-component ${frequencyClass}">
                     <div class="p-chip-text">
                         <strong>${ticker}</strong>
                         ${amountHtml}
                     </div>
-                    ${removeIcon}
+                    <div class="p-chip-actions">
+                        <i class="pi pi-link" data-action="view" title="상세 보기"></i>
+                        ${isRemovable ? '<i class="pi pi-times-circle" data-action="remove" title="목록에서 제거"></i>' : ''}
+                    </div>
                 </div>
             `
         };
@@ -224,5 +234,25 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 }
 .p-chip .pi-times-circle {
     font-size: 0.8rem;
+}
+
+/* Chip 내부의 아이콘 버튼 스타일 */
+.p-chip {
+    justify-content: space-between;
+}
+.p-chip-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+}
+.p-chip-actions i {
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    opacity: 0.7;
+}
+.p-chip-actions i:hover {
+    transform: scale(1.2);
+    opacity: 1;
 }
 </style>
