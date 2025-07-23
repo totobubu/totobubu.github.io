@@ -112,7 +112,7 @@ const calendarOptions = ref({
     // 👇 [핵심 수정 2] eventClick 콜백을 추가합니다.
     eventClick: function(info) {
         // 클릭된 이벤트가 휴일이거나, amount가 없는 '예정' 이벤트일 경우 아무것도 하지 않음
-        if (info.event.extendedProps.isHoliday || info.event.extendedProps.amount === null) {
+        if (info.event.extendedProps.isHoliday) {
             return;
         }
         // 부모에게 제거할 티커 심볼을 전달합니다.
