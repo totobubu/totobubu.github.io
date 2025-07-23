@@ -1,6 +1,25 @@
 <!-- stock/src/components/CalendarGrid.vue -->
 <template>
     <div class="calendar-wrapper">
+        <div class="custom-calendar-header">
+            <div class="header-left">
+                <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
+                <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
+                <Button label="오늘" class="p-button-sm" @click="goToToday" />
+            </div>
+            <div class="header-center">
+                <h2>{{ currentTitle }}</h2>
+            </div>
+            <div class="header-right">
+                <SelectButton 
+                    v-model="currentView" 
+                    :options="viewOptions" 
+                    optionLabel="label" 
+                    optionValue="value" 
+                    aria-labelledby="basic"
+                />
+            </div>
+        </div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
     </div>
 </template>
@@ -12,6 +31,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
+import Button from 'primevue/button';
+import SelectButton from 'primevue/selectbutton';
 
 const props = defineProps({
     dividendsByDate: Object,
@@ -20,10 +41,17 @@ const props = defineProps({
 });
 
 const fullCalendar = ref(null);
+const currentTitle = ref('');
+const currentView = ref('dayGridMonth');
+const viewOptions = ref([
+    { label: '월', value: 'dayGridMonth' },
+    { label: '주', value: 'dayGridWeek' }
+]);
 
-// 👇 [핵심 수정 1] frequency에 따른 CSS 클래스 이름을 반환하는 함수
 const getFrequencyClass = (tickerSymbol) => {
-    if (!props.allTickers) return 'freq-default';
+    if (!props.allTickers || props.allTickers.length === 0) {
+        return 'freq-default';
+    }
     const tickerInfo = props.allTickers.find(t => t.symbol === tickerSymbol);
     const frequency = tickerInfo?.frequency;
     
@@ -46,10 +74,8 @@ const calendarEvents = computed(() => {
             extendedProps: {
                 ticker: entry.ticker,
                 amount: entry.amount,
-                // 이벤트 객체에 클래스 이름을 미리 담아둡니다.
                 frequencyClass: getFrequencyClass(entry.ticker)
             },
-            // backgroundColor와 borderColor는 이제 CSS가 담당하므로 제거합니다.
         }));
     });
 });
@@ -60,8 +86,8 @@ const holidayEvents = computed(() => {
         id: `holiday-${holiday.date}`,
         title: holiday.name,
         start: holiday.date,
-        display: 'background', // 👈 이것이 배경색을 칠하는 핵심 옵션입니다.
-        color: 'rgba(255, 0, 0, 0.3)', // 반투명 빨간색 배경
+        display: 'background',
+        color: 'rgba(255, 0, 0, 0.3)',
         extendedProps: { isHoliday: true }
     }));
 });
@@ -70,18 +96,15 @@ const calendarOptions = ref({
     plugins: [dayGridPlugin, listPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     locale: koLocale,
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,dayGridWeek,listYear'
+    headerToolbar: false,
+    datesSet: (info) => {
+        currentTitle.value = info.view.title;
     },
     eventSources: [
         { events: (fetchInfo, successCallback) => successCallback(calendarEvents.value) },
         { events: (fetchInfo, successCallback) => successCallback(holidayEvents.value) }
     ],
     weekends: false,
-    
-    // 👇 [핵심 수정 2] eventContent가 이제 동적 클래스를 포함한 HTML을 반환합니다.
     eventContent: (arg) => {
         if (arg.event.extendedProps.isHoliday) {
             return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
@@ -89,7 +112,7 @@ const calendarOptions = ref({
         
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
-        const frequencyClass = arg.event.extendedProps.frequencyClass; // 저장해둔 클래스 이름 가져오기
+        const frequencyClass = arg.event.extendedProps.frequencyClass || 'freq-default';
         
         const amountHtml = (amount !== null && typeof amount === 'number' && !isNaN(amount))
             ? `<span>$${amount.toFixed(4)}</span>`
@@ -106,7 +129,55 @@ const calendarOptions = ref({
     }
 });
 
+watch(currentView, (newView) => {
+    fullCalendar.value?.getApi().changeView(newView);
+});
+
 watch(() => [props.dividendsByDate, props.holidays], () => {
     fullCalendar.value?.getApi().refetchEvents();
 }, { deep: true });
+
+const prevMonth = () => fullCalendar.value?.getApi().prev();
+const nextMonth = () => fullCalendar.value?.getApi().next();
+const goToToday = () => fullCalendar.value?.getApi().today();
 </script>
+
+<style>
+.calendar-wrapper {
+    height: 90vh;
+}
+.custom-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 1.5rem 0;
+}
+.custom-calendar-header .header-left,
+.custom-calendar-header .header-right {
+    display: flex;
+    gap: 0.5rem;
+}
+.custom-calendar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+.fc-holiday-name {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 2px 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+.fc .fc-daygrid-day-frame {
+    position: relative;
+    z-index: 2;
+}
+.fc .fc-daygrid-bg-event {
+    z-index: 1;
+}
+</style>

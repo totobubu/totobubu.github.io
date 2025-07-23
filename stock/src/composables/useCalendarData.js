@@ -18,10 +18,12 @@ export function useCalendarData(selectedTickers) {
             const navResponse = await fetch(joinURL(import.meta.env.BASE_URL, "nav.json"));
             const navData = await navResponse.json();
 
+            // 👇 [핵심 수정] allTickers를 만들 때, frequency 정보를 반드시 포함시킵니다.
             allTickers.value = navData.nav.map((item) => ({
                 symbol: item.symbol,
                 longName: item.longName || item.symbol,
                 company: item.company || "기타",
+                frequency: item.frequency // frequency 정보 추가
             }));
 
             const groups = allTickers.value.reduce((acc, ticker) => {
@@ -62,16 +64,11 @@ export function useCalendarData(selectedTickers) {
             allDataWithNames.forEach(({ tickerName, data }) => {
                 if (data.dividendHistory && Array.isArray(data.dividendHistory)) {
                     data.dividendHistory.forEach((dividend) => {
-                        // 👇 [핵심 수정] '배당락'만 있으면 데이터를 포함시킵니다.
                         if (dividend && dividend.배당락) { 
                             try {
                                 const parts = dividend.배당락.split(".").map((p) => p.trim());
                                 const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
-                                
-                                // '배당금'이 존재하면 파싱하고, 없으면 null로 설정합니다.
                                 const amount = dividend.배당금 ? parseFloat(dividend.배당금.replace("$", "")) : null;
-
-                                // amount가 숫자가 아니면(null 포함) 그대로 push합니다.
                                 if (amount === null || !isNaN(amount)) {
                                     flatDividendList.push({
                                         date: dateStr,
@@ -111,6 +108,5 @@ export function useCalendarData(selectedTickers) {
         return processed;
     });
 
-    // 👇 [핵심 수정 2] loadAllData 함수를 반환합니다.
     return { allTickers, groupedTickers, dividendsByDate, isLoading, error, loadAllData };
 }
