@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, defineEmits } from 'vue'; // defineEmits 추가
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
@@ -39,6 +39,9 @@ const props = defineProps({
     holidays: Array,
     allTickers: Array
 });
+
+// 👇 [핵심 수정 1] 부모에게 보낼 이벤트를 정의합니다.
+const emit = defineEmits(['remove-ticker']);
 
 const fullCalendar = ref(null);
 const currentTitle = ref('');
@@ -105,6 +108,17 @@ const calendarOptions = ref({
         { events: (fetchInfo, successCallback) => successCallback(holidayEvents.value) }
     ],
     weekends: false,
+    
+    // 👇 [핵심 수정 2] eventClick 콜백을 추가합니다.
+    eventClick: function(info) {
+        // 클릭된 이벤트가 휴일이거나, amount가 없는 '예정' 이벤트일 경우 아무것도 하지 않음
+        if (info.event.extendedProps.isHoliday || info.event.extendedProps.amount === null) {
+            return;
+        }
+        // 부모에게 제거할 티커 심볼을 전달합니다.
+        emit('remove-ticker', info.event.extendedProps.ticker);
+    },
+
     eventContent: (arg) => {
         if (arg.event.extendedProps.isHoliday) {
             return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
@@ -118,11 +132,19 @@ const calendarOptions = ref({
             ? `<span>$${amount.toFixed(4)}</span>`
             : '<span class="no-amount">예정</span>';
 
+        // 👇 [핵심 수정 3] 닫기(X) 아이콘을 추가하고, 조건부로 클릭 가능한 클래스를 부여합니다.
+        const isRemovable = amount !== null;
+        const removableClass = isRemovable ? 'is-removable' : '';
+        const removeIcon = isRemovable ? '<i class="pi pi-times-circle"></i>' : '';
+
         return {
             html: `
-                <div class="p-tag p-component ${frequencyClass}">
-                    <strong>${ticker}</strong>
-                    ${amountHtml}
+                <div class="p-chip p-component ${frequencyClass} ${removableClass}">
+                    <div class="p-chip-text">
+                        <strong>${ticker}</strong>
+                        ${amountHtml}
+                    </div>
+                    ${removeIcon}
                 </div>
             `
         };
@@ -179,5 +201,28 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 }
 .fc .fc-daygrid-bg-event {
     z-index: 1;
+}
+
+/* PrimeVue Chip 컴포넌트의 모양을 흉내 냅니다. */
+.p-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 16px;
+    padding: 0.25rem 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 2px;
+}
+.p-chip-text {
+    line-height: 1.5;
+}
+.p-chip.is-removable {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.p-chip.is-removable:hover {
+    opacity: 0.8;
+}
+.p-chip .pi-times-circle {
+    font-size: 0.8rem;
 }
 </style>
