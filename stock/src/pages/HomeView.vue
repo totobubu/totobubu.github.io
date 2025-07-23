@@ -14,7 +14,11 @@
                     v-model="selectedTickers"
                 />
             </template>
-            <CalendarGrid :dividendsByDate="dividendsByDate" :holidays="holidays" />
+            <CalendarGrid 
+                :dividendsByDate="dividendsByDate" 
+                :holidays="holidays"
+                :allTickers="allTickers"
+            />
         </Panel>
     </div>
 </template>
@@ -31,7 +35,7 @@ const STORAGE_KEY = 'selectedCalendarTickers';
 const selectedTickers = ref([]);
 const holidays = ref([]);
 
-const { groupedTickers, dividendsByDate, isLoading, error, loadAllData } = 
+const { allTickers, groupedTickers, dividendsByDate, isLoading, error, loadAllData } = 
     useCalendarData(selectedTickers);
 
 // 👇 [핵심 수정 3] onMounted 훅을 다시 사용합니다.
