@@ -1,5 +1,5 @@
 // stock/src/composables/useCalendarData.js
-import { ref, computed } from "vue"; // onMounted 제거
+import { ref, computed } from "vue";
 import { joinURL } from "ufo";
 
 const STORAGE_KEY = "selectedCalendarTickers";
@@ -11,7 +11,6 @@ export function useCalendarData(selectedTickers) {
     const isLoading = ref(true);
     const error = ref(null);
 
-    // 👇 [핵심 수정 1] onMounted를 loadAllData라는 async function으로 변경
     const loadAllData = async () => {
         isLoading.value = true;
         error.value = null;
@@ -58,17 +57,27 @@ export function useCalendarData(selectedTickers) {
             });
 
             const allDataWithNames = (await Promise.all(tickerDataPromises)).filter(Boolean);
+            
             const flatDividendList = [];
             allDataWithNames.forEach(({ tickerName, data }) => {
                 if (data.dividendHistory && Array.isArray(data.dividendHistory)) {
                     data.dividendHistory.forEach((dividend) => {
-                        if (dividend && dividend.배당락 && dividend.배당금) {
+                        // 👇 [핵심 수정] '배당락'만 있으면 데이터를 포함시킵니다.
+                        if (dividend && dividend.배당락) { 
                             try {
                                 const parts = dividend.배당락.split(".").map((p) => p.trim());
                                 const dateStr = `20${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
-                                const amount = parseFloat(dividend.배당금.replace("$", ""));
-                                if (!isNaN(amount)) {
-                                    flatDividendList.push({ date: dateStr, amount, ticker: tickerName.toUpperCase() });
+                                
+                                // '배당금'이 존재하면 파싱하고, 없으면 null로 설정합니다.
+                                const amount = dividend.배당금 ? parseFloat(dividend.배당금.replace("$", "")) : null;
+
+                                // amount가 숫자가 아니면(null 포함) 그대로 push합니다.
+                                if (amount === null || !isNaN(amount)) {
+                                    flatDividendList.push({
+                                        date: dateStr,
+                                        amount: amount,
+                                        ticker: tickerName.toUpperCase()
+                                    });
                                 }
                             } catch (e) {}
                         }

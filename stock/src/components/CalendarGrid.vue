@@ -32,7 +32,8 @@ const calendarEvents = computed(() => {
                 ticker: entry.ticker,
                 amount: entry.amount
             },
-            borderColor: getTickerColor(entry.ticker),
+            backgroundColor: getTickerColor(entry.ticker),
+            borderColor: getTickerColor(entry.ticker) // 테두리도 같은 색으로
         }));
     });
 });
@@ -86,8 +87,10 @@ const calendarOptions = ref({
         // 배당금 이벤트 렌더링 로직 (이전과 동일)
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
-        const amountHtml = (typeof amount === 'number' && !isNaN(amount))
-            ? `<span>$${amount.toFixed(4)}</span>` : '';
+        const amountHtml = (amount !== null && typeof amount === 'number' && !isNaN(amount))
+            ? `<span>$${amount.toFixed(4)}</span>`
+            : '<span class="no-amount">예정</span>'; // 금액이 없으면 '예정' 텍스트 표시
+
         return {
             html: `
                 <div class="p-tag p-component">
