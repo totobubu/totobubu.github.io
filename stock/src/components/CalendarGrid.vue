@@ -21,6 +21,22 @@ const props = defineProps({
 
 const fullCalendar = ref(null);
 
+const frequencyColors = {
+    'Weekly': '#42A5F5',       // Blue
+    'Monthly': '#66BB6A',      // Green
+    'Quarterly': '#FFA726',    // Orange
+    'Every 4 Week': '#AB47BC', // Purple
+    'default': '#757575'       // 기본값 (Gray)
+};
+
+const getFrequencyColor = (tickerSymbol) => {
+    if (!props.allTickers) return frequencyColors['default'];
+    // allTickers 배열에서 해당 티커를 찾아 frequency를 가져옵니다.
+    const tickerInfo = props.allTickers.find(t => t.symbol === tickerSymbol);
+    const frequency = tickerInfo?.frequency;
+    return frequencyColors[frequency] || frequencyColors['default'];
+};
+
 const calendarEvents = computed(() => {
     if (!props.dividendsByDate) return [];
     
@@ -32,8 +48,8 @@ const calendarEvents = computed(() => {
                 ticker: entry.ticker,
                 amount: entry.amount
             },
-            backgroundColor: getTickerColor(entry.ticker),
-            borderColor: getTickerColor(entry.ticker) // 테두리도 같은 색으로
+            backgroundColor: getFrequencyColor(entry.ticker),
+            borderColor: getFrequencyColor(entry.ticker)
         }));
     });
 });
@@ -77,23 +93,19 @@ const calendarOptions = ref({
     
     // 4. [핵심 수정] eventContent를 사용하여 휴일 텍스트를 렌더링합니다.
     eventContent: (arg) => {
-        // 휴일일 경우, 이벤트 제목(휴일 이름)을 표시합니다.
         if (arg.event.extendedProps.isHoliday) {
-            return {
-                html: `<div class="fc-holiday-name">${arg.event.title}</div>`
-            }
+            return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
         }
-
-        // 배당금 이벤트 렌더링 로직 (이전과 동일)
+        
         const ticker = arg.event.extendedProps.ticker;
         const amount = arg.event.extendedProps.amount;
         const amountHtml = (amount !== null && typeof amount === 'number' && !isNaN(amount))
             ? `<span>$${amount.toFixed(4)}</span>`
-            : '<span class="no-amount">예정</span>'; // 금액이 없으면 '예정' 텍스트 표시
+            : '<span class="no-amount">예정</span>';
 
         return {
             html: `
-                <div class="p-tag p-component">
+                <div class="p-tag p-component" style="background-color: ${arg.event.backgroundColor}; color: #ffffff;">
                     <strong>${ticker}</strong> <br/>
                     ${amountHtml}
                 </div>
