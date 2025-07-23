@@ -12,6 +12,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
+import Tag from "primevue/tag";
 
 const props = defineProps({
     dividendsByDate: Object,
@@ -89,7 +90,7 @@ const calendarOptions = ref({
             ? `<span>$${amount.toFixed(4)}</span>` : '';
         return {
             html: `
-                <div class="p-tag p-component" style="background-color: ${arg.event.borderColor}">
+                <div class="p-tag p-component">
                     <strong>${ticker}</strong> <br/>
                     ${amountHtml}
                 </div>
@@ -102,30 +103,3 @@ watch(() => [props.dividendsByDate, props.holidays], () => {
     fullCalendar.value?.getApi().refetchEvents();
 }, { deep: true });
 </script>
-
-<style>
-.calendar-wrapper {
-    height: 90vh; /* 캘린더의 높이를 지정해주는 것이 좋습니다. */
-}
-
-/* 휴일 이름 텍스트 스타일 */
-.fc-holiday-name {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 0.7em;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 2px 4px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-}
-/* 날짜 셀이 휴일 배경 위에 오도록 z-index 조정 */
-.fc .fc-daygrid-day-frame {
-    position: relative;
-    z-index: 2;
-}
-.fc .fc-daygrid-bg-event {
-    z-index: 1;
-}
-</style>
