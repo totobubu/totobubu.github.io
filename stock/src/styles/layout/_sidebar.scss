@@ -3,8 +3,10 @@
 @use "../functions/breakpoints" as bp;
 
 .toto-drawer {
-    width: auto;
-    max-width: 90%;
+  
+    @include bp.media-breakpoint-up('lg') {
+      width: 800px !important;
+    }
 
     .p-drawer {
         &-content {
@@ -25,7 +27,7 @@
         }
 
         &-frozen-column {
-            background: inherit;
+            background: inherit !important;
         }
     }
     .toto-column {
