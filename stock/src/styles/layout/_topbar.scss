@@ -1,35 +1,32 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
 
 .topbar {
-  background-color: var(--p-surface-0);
+  background-color: var(--p-surface-900);
   padding: 1.5rem;
   border-radius: 1rem;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid var(--p-surface-200);
+  border: 1px solid var(--p-surface-700);
   width: 100%;
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-brand {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    &-text {
+      display: none;
+    }
+  }
 }
 
-.p-dark .topbar {
-  background-color: var(--p-surface-900);
-  border-color: var(--p-surface-700);
-}
-
-.topbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.topbar-brand {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.topbar-brand-text {
-  display: none;
-}
 
 @media (min-width: 640px) {
   .topbar-brand-text {
@@ -61,6 +58,10 @@
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
+  @include bp.media-breakpoint-down('lg') {
+        gap: 0rem;
+
+  }
 }
 
 .topbar-theme-button {

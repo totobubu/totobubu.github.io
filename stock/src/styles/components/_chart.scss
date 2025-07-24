@@ -1,3 +1,7 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
 
 .chart-header {
   display: flex;
@@ -76,4 +80,28 @@
 
 .p-dark .activity-time {
   color: var(--p-surface-400);
+}
+
+
+.chart-container {
+  > .card {
+    width: 100%;
+
+    > div,
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  @include bp.media-breakpoint-down('lg') {
+      overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
+      -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+      /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
+      > .card {
+        min-width: 600px; /* 모바일에서 최소 너비 설정 */
+      }
+  }
+  @include bp.media-breakpoint-up('lg') {
+    overflow-x: hidden; 
+  }
 }

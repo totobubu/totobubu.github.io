@@ -321,18 +321,3 @@ const getGroupSeverity = (group) => {
     </Dialog>
   </div>
 </template>
-
-<style scoped>
-.filter-button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem 0;
-}
-.column-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-}
-</style>
