@@ -34,11 +34,30 @@
           justify-self: center;
         }
     }
+        
     .toto-column {
         &-ticker {
             text-align: center;
         }
     }
+}
+
+.p-tag {
+  &[data-p="mon"] {
+    background: #a78bfa;
+  }
+  &[data-p="tue"] {
+    background: #facc15;
+  }
+  &[data-p="wed"] {
+    background: #14b8a6;
+  }
+  &[data-p="thu"] {
+    background: #6366fa;
+  }
+  &[data-p="fri"] {
+    background: #f472b6;
+  }
 }
 
 
