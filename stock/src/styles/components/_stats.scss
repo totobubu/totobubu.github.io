@@ -9,21 +9,15 @@
 
 .stats-icon-box {
   flex-shrink: 0;
-  background-color: var(--p-primary-100);
-  color: var(--p-primary-600);
+  background-color: color-mix(in srgb, var(--p-primary-400), transparent 80%);
+  color: var(--p-primary-200);
   border-radius: 0.5rem;
   width: 2rem;
   height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--p-primary-200);
-}
-
-.p-dark .stats-icon-box {
-  background-color: color-mix(in srgb, var(--p-primary-400), transparent 80%);
-  border-color: color-mix(in srgb, var(--p-primary-400), transparent 70%);
-  color: var(--p-primary-200);
+  border: 1px solid color-mix(in srgb, var(--p-primary-400), transparent 70%);
 }
 
 .stats-header {
@@ -37,10 +31,6 @@
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.25;
-  color: var(--p-surface-900);
-}
-
-.p-dark .stats-title {
   color: var(--p-surface-0);
 }
 
@@ -55,21 +45,13 @@
   font-size: 1.875rem;
   font-weight: 500;
   line-height: 1.25;
-  color: var(--p-surface-900);
-}
-
-.p-dark .stats-value {
   color: var(--p-surface-0);
 }
 
 .stats-subtitle {
-  color: var(--p-surface-600);
+  color: var(--p-surface-400);
   font-size: 0.875rem;
   line-height: 1.25;
-}
-
-.p-dark .stats-subtitle {
-  color: var(--p-surface-400);
 }
 
 @media (max-width: 991px) {
