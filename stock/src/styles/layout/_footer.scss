@@ -1,9 +1,13 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
 
 .footer {
   background-color: var(--p-surface-0);
   padding: 1.5rem;
   border-radius: 1rem;
-  max-width: 1400px;
+  max-width: vars.$max-width;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid var(--p-surface-200);
