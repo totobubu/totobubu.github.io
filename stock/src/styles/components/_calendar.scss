@@ -1,0 +1,11 @@
+// stock/src/styles/components/_calendar.scss
+@use "../abstracts/variables" as vars;
+
+.calendar-wrapper {
+    height: 90vh;
+}
+
+.custom-calendar-header h2 {
+    font-size: 1.5rem;
+    color: vars.$text-color;
+}
