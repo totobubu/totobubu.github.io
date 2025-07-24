@@ -1,18 +1,31 @@
 // stock/src/styles/base/_globals.scss
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as br;
 
 html {
-    font-size: 14px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: vars.$font-family-base;
+    font-optical-sizing: auto;
+    font-variation-settings: normal;
+    font-weight: 400;
 }
 
 body {
-    font-family: vars.$font-family-base;
-    background-color: vars.$surface-ground;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--p-surface-950);
     color: vars.$text-color;
 }
-
-@include mx.media-breakpoint-up('lg') {
+@include br.media-breakpoint-down('lg') {
+    html {
+        font-size: 5vw;
+    }
+}
+@include br.media-breakpoint-up('lg') {
     html {
         font-size: 16px;
     }
