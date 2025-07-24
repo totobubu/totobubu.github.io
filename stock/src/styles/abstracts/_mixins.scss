@@ -1,0 +1,22 @@
+// stock/src/styles/abstracts/_mixins.scss
+
+@use "sass:map"; // 👈 1. sass:map 모듈을 불러옵니다.
+
+// Breakpoints
+$breakpoints: (
+    'md': 768px,
+    'lg': 1200px
+);
+
+// Media query mixin
+@mixin media-breakpoint-up($name) {
+    // 👇 2. map-has-key를 map.has-key로 수정합니다.
+    @if map.has-key($breakpoints, $name) {
+        // 👇 3. map-get을 map.get으로 수정합니다.
+        @media (min-width: #{map.get($breakpoints, $name)}) {
+            @content;
+        }
+    } @else {
+        @warn "Undefined breakpoint `#{$name}`.";
+    }
+}
