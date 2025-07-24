@@ -187,8 +187,7 @@ const getGroupSeverity = (group) => {
       </Column>
       <Column field="company" sortable class="toto-column-company">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -196,6 +195,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('company')"
               :severity="filters.company.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>운용사</span>
           </div>
         </template>
@@ -206,8 +207,7 @@ const getGroupSeverity = (group) => {
 
       <Column field="frequency" sortable class="toto-column-frequency">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -215,6 +215,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('frequency')"
               :severity="filters.frequency.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>지급주기</span>
           </div>
         </template>
@@ -225,8 +227,7 @@ const getGroupSeverity = (group) => {
 
       <Column field="group" sortable class="toto-column-group">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -234,6 +235,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('group')"
               :severity="filters.group.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>그룹</span>
           </div>
         </template>
