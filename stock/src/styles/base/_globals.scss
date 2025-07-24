@@ -20,9 +20,15 @@ body {
     background-color: var(--p-surface-950);
     color: vars.$text-color;
 }
-@include bp.media-breakpoint-down('lg') {
+
+@include bp.media-breakpoint-between('xs', 'sm') {
     html {
-        font-size: 5vw;
+        font-size: 12px;
+    }
+}
+@include bp.media-breakpoint-between('sm', 'lg') {
+    html {
+        font-size: 14px;
     }
 }
 @include bp.media-breakpoint-up('lg') {
