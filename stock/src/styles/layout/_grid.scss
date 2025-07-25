@@ -57,18 +57,109 @@
 // https://verona.primevue.org/
 // https://avalon.primevue.org/
 
-#toto-layout {
-    background: var(--toto-body-bg);
+#t-layout {
+    position: relative;
+    display: flex;
+    height: 100dvh;
+    flex-direction: row;
+    overflow: hidden;
+    padding: .5rem;
+    -tw-bg-opacity: 1;
+    background-color: var(--toto-body-bg);
     color: var(--text-color);
-    height: 100vh;
+    gap: 1rem;
 }
 
-#toto-header {
-    background: var(--toto-body-bg);
-    color: var(--text-color);
-    height: 5rem;
+#t-grid {
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex: 1 1 0%;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-color: var(--p-surface-600);
+        --tw-shadow: var(--shadow-stroke);
+    --tw-shadow-colored: var(--shadow-stroke);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .3s;
 }
 
-#toto-content {
-    background: var(--p-surface-950)
+#t-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    border-bottom: 1px solid  var(--p-surface-700);;
+    padding: 1rem;
+}
+
+#t-breadcrumb {
+        background: inherit;
+        padding: 0;
+
+    .p-breadcrumb-list {
+        display: flex;
+        max-height: 4rem;
+        align-items: center;
+        gap: .5rem;
+        padding: 1rem 1rem 1rem 1.5rem;
+
+    }
+    .p-breadcrumb-item  {
+        .pi {
+            color: #fff !important;
+        }
+    }
+    .p-breadcrumb-home-item {
+        
+
+    }
+    .p-breadcrumb-item-link {
+        color: #fff}
+    .p-breadcrumb-separator {}
+    .p-breadcrumb-item-icon {
+        color: #fff}
+}
+
+#t-topbar {
+    gap: 1rem;
+    align-items: center;
+    button {
+        aspect-ratio: 1 / 1!important;
+        width: 2.25rem;
+        height: 2.25rem;
+        align-items:center;
+        justify-content: center;
+        border-radius: .375rem;
+            transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .3s;
+    }
+}
+
+#t-content {
+    padding: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1 1 0%;
+}
+
+#t-sidebar {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@include bp.media-breakpoint-only('xs') {
+}
+
+// 641 이상
+@include bp.media-breakpoint-up('sm') {
+    #t-layout { }
 }

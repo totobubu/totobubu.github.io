@@ -23,16 +23,16 @@ body {
 
 @include bp.media-breakpoint-between('xs', 'sm') {
     html {
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 @include bp.media-breakpoint-between('sm', 'lg') {
     html {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 @include bp.media-breakpoint-up('lg') {
     html {
-        font-size: 16px;
+        font-size: 20px;
     }
 }

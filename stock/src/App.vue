@@ -1,5 +1,5 @@
 <script setup>
-import Layout from './layouts/Layout.vue';
+import Layout from './layouts/TotoLayout.vue';
 </script>
 
 <template>
