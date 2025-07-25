@@ -133,6 +133,16 @@ const getGroupSeverity = (group) => {
       return "success";
     case "D":
       return "info";
+    case "월요일":
+      return "mon";
+    case "화요일":
+      return "tue";
+    case "수요일":
+      return "wed";
+    case "목요일":
+      return "thu";
+    case "금요일":
+      return "fri";
     default:
       return "secondary";
   }
@@ -177,8 +187,7 @@ const getGroupSeverity = (group) => {
       </Column>
       <Column field="company" sortable class="toto-column-company">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -186,6 +195,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('company')"
               :severity="filters.company.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>운용사</span>
           </div>
         </template>
@@ -196,8 +207,7 @@ const getGroupSeverity = (group) => {
 
       <Column field="frequency" sortable class="toto-column-frequency">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -205,6 +215,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('frequency')"
               :severity="filters.frequency.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>지급주기</span>
           </div>
         </template>
@@ -215,8 +227,7 @@ const getGroupSeverity = (group) => {
 
       <Column field="group" sortable class="toto-column-group">
         <template #header>
-          <div class="column-header">
-            <Button
+          <Button
               type="button"
               icon="pi pi-filter-fill"
               size="small"
@@ -224,6 +235,8 @@ const getGroupSeverity = (group) => {
               @click="openFilterDialog('group')"
               :severity="filters.group.value ? '' : 'secondary'"
             />
+          <div class="column-header">
+            
             <span>그룹</span>
           </div>
         </template>
@@ -321,18 +334,3 @@ const getGroupSeverity = (group) => {
     </Dialog>
   </div>
 </template>
-
-<style scoped>
-.filter-button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem 0;
-}
-.column-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-}
-</style>

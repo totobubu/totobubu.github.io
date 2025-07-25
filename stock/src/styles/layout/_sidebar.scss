@@ -1,0 +1,97 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
+.toto-drawer {
+  
+    @include bp.media-breakpoint-up('lg') {
+      width: 800px !important;
+    }
+
+    .p-drawer {
+        &-content {
+            padding: 0;
+        }
+    }
+
+    // DataTable
+    .p-datatable {
+        &-column-header-content {
+            justify-content: center;
+        }
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        &-frozen-column {
+            background: inherit !important;
+        }
+        .p-tag {
+          width: auto;
+          justify-self: center;
+        }
+    }
+        
+    .toto-column {
+        &-ticker {
+            text-align: center;
+        }
+    }
+}
+
+.p-tag {
+  &[data-p="mon"] {
+    background: #a78bfa;
+  }
+  &[data-p="tue"] {
+    background: #facc15;
+  }
+  &[data-p="wed"] {
+    background: #14b8a6;
+  }
+  &[data-p="thu"] {
+    background: #6366fa;
+  }
+  &[data-p="fri"] {
+    background: #f472b6;
+  }
+}
+
+
+.toto-drawer {
+  &.mobile {
+    .p-drawer {
+      &-header {
+        padding: 0.5rem;
+      }
+      &-content {
+        * {
+          font-size: 0.7rem !important;
+        }
+      }
+    }
+    .p-datatable {
+      &-frozen-column {
+        max-width: 80px;
+        min-width: 80px;
+      }
+      &-header-cell {
+        background: var(--p-datatable-header-cell-background) !important;
+      }
+      &-head > tr > th,
+      &-tbody > tr > td {
+        padding: 0.2rem 0.25rem !important;
+      }
+      &-column-header-content {
+        gap: 0.2rem;
+        svg {
+          width: 0.7rem;
+          height: auto;
+        }
+      }
+    }
+  }
+}
