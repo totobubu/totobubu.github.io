@@ -1,12 +1,16 @@
 <!-- stock/src/layouts/TotoLayout.vue -->
 <script setup>
 import { ref, watch, computed } from "vue";
-
-import { RouterView } from 'vue-router';
+// [추가 1] useRoute를 vue-router에서 가져오기
+import { RouterView, useRoute } from 'vue-router'; 
 import AppSidebar from "./AppSidebar.vue";
+
+// [추가 2] 홈 화면에서 보여줄 컴포넌트들 가져오기 (경로는 실제 위치에 맞게 수정해야 해)
+import TickerSelector from "@/components/CalendarTickerSelector.vue";
+
 import Drawer from "primevue/drawer";
 import Card from "primevue/card";
-import InputOtp from "primevue/inputotp"; // InputOtp만 사용
+import InputOtp from "primevue/inputotp";
 import Button from "primevue/button";
 import { useFilterState } from "@/composables/useFilterState";
 import { useBreakpoint } from "@/composables/useBreakpoint";
@@ -14,6 +18,12 @@ import { useBreakpoint } from "@/composables/useBreakpoint";
 const { deviceType, isDesktop, isMobile } = useBreakpoint();
 const { filters } = useFilterState();
 const visible = ref(false);
+
+// [추가 3] useRoute를 사용해서 현재 라우트 정보 가져오기
+const route = useRoute();
+
+// [추가 4] 현재 페이지가 홈('/')인지 확인하는 computed 속성
+const isHomePage = computed(() => route.path === '/');
 
 const clearGlobalFilter = () => {
   filters.value.global.value = null;
@@ -49,18 +59,6 @@ const items = ref([
 </script>
 
 <template>
-    <!-- 
-      이제 이 최상위 div는 화면 크기에 따라 
-      'mobile', 'tablet', 'desktop' 클래스를 동적으로 갖게 됩니다. 
-    -->
-    <!-- <div class="layout-container" :class="deviceType">
-        <div class="layout-grid">
-            <AppTopbar />
-            <RouterView />
-        </div>
-    </div> -->
-
-
     <div id="t-layout">
         <aside id="t-sidebar" v-if="deviceType === 'desktop'">
             <header>
@@ -72,7 +70,11 @@ const items = ref([
                 </div>
             </header>
             <article>
-                 <AppSidebar />
+                 <!-- [수정 1] isHomePage 값에 따라 다른 컴포넌트 렌더링 -->
+                 <div v-if="isHomePage">
+                    홈페이지임
+                 </div>
+                 <AppSidebar v-else />
             </article>
         </aside>
         <main id="t-grid">
@@ -114,8 +116,5 @@ const items = ref([
             </template>
             <AppSidebar />
         </Drawer>
-        
     </div>
-
-    
 </template>
