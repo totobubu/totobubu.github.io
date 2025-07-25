@@ -1,0 +1,36 @@
+/* stock/src/styles/style.scss */
+@charset "utf-8";
+
+// 1. Abstracts (도구들): 변수, 함수, 믹스인. CSS를 생성하지 않음.
+// 이 파일들은 다른 파일들이 @use 할 수 있도록 @forward 합니다.
+@forward "abstracts/variables";       // 변수 (색상, 폰트 크기 등)
+@forward "abstracts/mixins";          // 믹스인 (media-breakpoint-up 등)
+@forward "abstracts/functions";       // 함수
+
+// 2. Base (기반 스타일): 실제 CSS를 생성.
+@use "base/reset";                    // 브라우저 기본 스타일 초기화
+@use "base/globals";                  // 전역 스타일 (html, body 등)
+@use "base/typography";               // 기본 폰트 스타일 (body, h1, p 등)
+
+// 3. Components (컴포넌트 스타일)
+@use "components/button";             // 버튼 컴포넌트 스타일
+@use "components/calendar";           // 캘린더 컴포넌트 스타일
+@use "components/stats";          
+@use "components/products";
+@use "components/chart";
+
+// 4. Layout (레이아웃 스타일)
+@use "layout/header";                 // 헤더(Topbar) 레이아웃
+@use "layout/grid";                   // 그리드 시스템
+@use "layout/topbar";
+@use "layout/sidebar";
+@use "layout/footer";
+
+
+// 5. Pages (페이지 전용 스타일)
+@use "pages/home";                    // HomeView 전용 스타일
+@use "pages/stock";                    // StockView 전용 스타일
+
+// 6. Helpers (도구들): 변수, 함수, 믹스인. CSS를 생성하지 않음.
+// 이 파일들은 다른 파일들이 @use 할 수 있도록 @forward 합니다.
+// @forward "helpers/typography";        // 텍스트 

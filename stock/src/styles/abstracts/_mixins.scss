@@ -1,0 +1,110 @@
+// stock/src/styles/abstracts/_mixins.scss
+
+@use "sass:map"; // 👈 1. sass:map 모듈을 불러옵니다.
+
+@mixin margin($top, $right, $bottom, $left) {
+    margin-top: $top;
+    margin-right: $right;
+    margin-bottom: $bottom;
+    margin-left: $left;
+}
+// @include margin(1, 0, 2, null);
+
+
+@mixin padding($top, $right, $bottom, $left) {
+    padding-top: $top;
+    padding-right: $right;
+    padding-bottom: $bottom;
+    padding-left: $left;
+}
+// @include padding(1, 0, 2, null);
+
+
+@mixin clearfix() {
+    &::after {
+        display: block;
+        clear: both;
+        content: "";
+    }
+}
+//@include clearfix;
+
+
+@mixin ir {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+}
+
+
+@mixin container {
+    padding-left: $spacing;
+    padding-right: $spacing;
+
+
+    width: $max-width;
+    margin: auto;
+
+
+    @if ($mode== "responsive") {
+        max-width: $max-width;
+
+
+        @include media-breakpoint-down(md) {
+            width: auto;
+        }
+    }
+}
+@mixin make-container($padding-x: $container-padding-x) {
+    width: 100%;
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+//다중 말줄임적용
+@mixin ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@mixin ellipsisMuti($line-clamp) {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line-clamp;
+}
+
+
+@mixin text-ellipsis($row: 2, $line-height: 20px, $height-fixed: false) {
+    @if $row>1 {
+        display: -webkit-box;
+        -webkit-line-clamp: $row;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+    } @else {
+        max-width: 100%;
+        white-space: nowrap;
+    }
+
+
+    @if $height-fixed {
+        height: $row * $line-height;
+        max-height: none;
+    } @else {
+        max-height: $row * $line-height;
+    }
+
+
+    line-height: $line-height;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
