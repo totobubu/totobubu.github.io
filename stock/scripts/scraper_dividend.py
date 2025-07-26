@@ -13,25 +13,25 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         hist = ticker.history(start=start_date, end=end_date)
         if hist.empty:
             return {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
-        before_price, open_price, on_price, after_price = "N/A", "N/A", "N/A", "N/A"
+        
+        prices = {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
         try:
             before_date_target = ex_date - timedelta(days=1)
-            price_val = hist.loc[:before_date_target.strftime('%Y-%m-%d')].iloc[-1]['Close']
-            before_price = f"${price_val:.2f}"
+            prices["before_price"] = f"${hist.loc[:before_date_target.strftime('%Y-%m-%d')].iloc[-1]['Close']:.2f}"
         except IndexError: pass
         try:
-            on_date_row = hist.loc[:ex_date.strftime('%Y-%m-%d')].iloc[-1]
-            open_price = f"${on_date_row['Open']:.2f}"
-            on_price = f"${on_date_row['Close']:.2f}"
-        except IndexError: pass
+            on_date_row = hist.loc[ex_date.strftime('%Y-%m-%d')]
+            prices["open_price"] = f"${on_date_row['Open']:.2f}"
+            prices["on_price"] = f"${on_date_row['Close']:.2f}"
+        except (IndexError, KeyError): pass
         try:
             after_date_target = ex_date + timedelta(days=1)
-            price_val = hist.loc[:after_date_target.strftime('%Y-%m-%d')].iloc[-1]['Close']
-            after_price = f"${price_val:.2f}"
+            prices["after_price"] = f"${hist.loc[after_date_target.strftime('%Y-%m-%d'):].iloc[0]['Close']:.2f}"
         except IndexError: pass
-        return {"before_price": before_price, "open_price": open_price, "on_price": on_price, "after_price": after_price}
+
+        return prices
     except Exception as e:
-        print(f"     Could not fetch price for {ticker_symbol}. Error: {e}")
+        print(f"     Could not fetch price for {ticker_symbol} on {ex_date_str}. Error: {e}")
         return {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
 
 def fetch_dividend_history(ticker_symbol):
@@ -45,16 +45,14 @@ def fetch_dividend_history(ticker_symbol):
             for index, row in dividends_df.iterrows():
                 ex_date = row['ExDate'].to_pydatetime().replace(tzinfo=None)
                 if ex_date < datetime.now() - timedelta(days=365 * 10): continue
-                ex_date_str_mdy = ex_date.strftime('%m/%d/%Y')
-                dividend_amount = row['Dividend']
-                prices = get_historical_prices(ticker_symbol, ex_date_str_mdy)
+                
                 record = {
                     '배당락': ex_date.strftime('%y. %m. %d'),
-                    '배당금': f"${dividend_amount:.4f}",
-                    '전일종가': prices['before_price'],
-                    '당일시가': prices['open_price'],
-                    '당일종가': prices['on_price'],
-                    '익일종가': prices['after_price'],
+                    '배당금': f"${row['Dividend']:.4f}",
+                    '전일종가': 'N/A', 
+                    '당일시가': 'N/A',
+                    '당일종가': 'N/A',
+                    '익일종가': 'N/A'
                 }
                 dividend_history.append(record)
         return dividend_history
@@ -86,64 +84,51 @@ if __name__ == "__main__":
         if not os.path.exists(file_path):
             continue
             
-        final_data = {}
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 existing_data = json.load(f)
-                if isinstance(existing_data, dict):
-                    final_data = existing_data
-                else:
-                    print(f"  -> Warning: Existing file for {ticker} is not a dictionary. Skipping.")
-                    continue
-        except json.JSONDecodeError:
-            print(f"  -> Warning: Could not decode JSON for {ticker}. Skipping.")
+        except (json.JSONDecodeError, FileNotFoundError):
+            print(f"  -> Warning: Could not read or decode JSON for {ticker}. Skipping.")
             continue
 
-        final_ticker_info = final_data.get('tickerInfo', {})
-        final_history = final_data.get('dividendHistory', [])
+        existing_ticker_info = existing_data.get('tickerInfo', {})
+        existing_history = existing_data.get('dividendHistory', [])
         
-        new_dividend_history = fetch_dividend_history(ticker)
-        if not new_dividend_history:
-            print(f"  -> No dividend data from API for {ticker}.")
-            continue
+        api_history = fetch_dividend_history(ticker)
         
-        has_changed = False
+        original_history_str = json.dumps(existing_history)
         
-        new_dividends_map = {item['배당락']: item for item in new_dividend_history}
-        processed_api_dates = set()
+        merged_history_map = {item['배당락']: item for item in existing_history}
         
-        for existing_item in final_history:
-            ex_date = existing_item.get('배당락')
-            if not ex_date or ex_date not in new_dividends_map:
-                continue
+        api_history_map = {item['배당락']: item for item in api_history}
 
-            api_item = new_dividends_map[ex_date]
-            update_payload = api_item.copy()
+        all_dates = sorted(list(set(merged_history_map.keys()) | set(api_history_map.keys())), 
+                           key=lambda x: datetime.strptime(x, '%y. %m. %d'), reverse=True)
 
-            local_dividend = existing_item.get('배당금')
-            if local_dividend:
-                update_payload['배당금'] = local_dividend
-
-            if any(existing_item.get(k) != v for k, v in update_payload.items()):
-                print(f"  -> Updating/Enriching dividend on {ex_date} for {ticker}.")
-                existing_item.update(update_payload)
-                has_changed = True
+        final_history = []
+        for ex_date in all_dates:
+            local_item = merged_history_map.get(ex_date, {})
+            api_item = api_history_map.get(ex_date, {})
             
-            processed_api_dates.add(ex_date)
+            # Create a new merged item, starting with the API data as a base
+            merged_item = api_item.copy()
+            # Then, update it with local data, which will overwrite API values if keys are the same
+            merged_item.update(local_item)
 
-        newly_added_count = 0
-        for ex_date, api_item in new_dividends_map.items():
-            if ex_date not in processed_api_dates:
-                final_history.append(api_item)
-                has_changed = True
-                newly_added_count += 1
+            # If any price data is missing, fetch it
+            if any(merged_item.get(price_key, 'N/A') == 'N/A' for price_key in ['전일종가', '당일시가', '당일종가', '익일종가']):
+                 # 배당금이 있어야 가격을 가져올 수 있음
+                if '배당금' in merged_item:
+                    mdy_date = datetime.strptime(ex_date, '%y. %m. %d').strftime('%m/%d/%Y')
+                    prices = get_historical_prices(ticker, mdy_date)
+                    merged_item.update(prices)
+
+            final_history.append(merged_item)
         
-        if newly_added_count > 0:
-            print(f"  -> Found {newly_added_count} brand new dividend entries for {ticker}.")
+        final_history_str = json.dumps(final_history)
 
-        if has_changed:
-            final_history.sort(key=lambda x: datetime.strptime(x['배당락'], '%y. %m. %d'), reverse=True)
-            final_data_to_save = {"tickerInfo": final_ticker_info, "dividendHistory": final_history}
+        if original_history_str != final_history_str:
+            final_data_to_save = {"tickerInfo": existing_ticker_info, "dividendHistory": final_history}
             
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
