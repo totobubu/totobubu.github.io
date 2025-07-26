@@ -78,15 +78,15 @@ watch(visible, (newValue) => {
 
                 <div id="t-topbar" class="topbar-actions">
                     <router-link to="/" v-if="!isHomePage">
-                        <Button icon="pi pi-home" severity="contrast"></Button>
+                        <Button icon="pi pi-home"   variant="text"></Button>
                     </router-link>
-                    <Button v-if="deviceType !== 'desktop'" icon="pi pi-bars" severity="contrast"
+                    <Button v-if="deviceType !== 'desktop'" icon="pi pi-bars"   variant="text"
                         @click="visible = true"></Button>
                 </div>
             </header>
             <section id="t-content">
                 <div v-if="deviceType !== 'desktop' && isHomePage">
-                    <Button id="t-calendar-search-button" label="배당금 검색" icon="pi pi-filter" severity="contrast" @click="visible2 = true" />
+                    <Button id="t-calendar-search-button" label="배당금 검색" icon="pi pi-filter"   variant="text" @click="visible2 = true" />
                 </div>
                 <RouterView />
             </section>

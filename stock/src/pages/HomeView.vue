@@ -1,28 +1,23 @@
 <!-- stock/src/views/HomeView.vue -->
 <template>
-    <div class="card">
         <div v-if="isLoading" class="flex justify-center items-center h-screen">
             <ProgressSpinner />
         </div>
         <div v-else-if="error" class="text-center mt-8">
             <p>{{ error }}</p>
         </div>
-        <Panel v-else id="p-calendar">
-            <CalendarGrid 
-                :dividendsByDate="dividendsByDate" 
-                :holidays="holidays"
-                :allTickers="allTickers"
-                @remove-ticker="removeTicker"
-                @view-ticker="goToTickerPage"
-            />
-        </Panel>
-    </div>
+        <CalendarGrid  v-else id="t-calendar"
+            :dividendsByDate="dividendsByDate" 
+            :holidays="holidays"
+            :allTickers="allTickers"
+            @remove-ticker="removeTicker"
+            @view-ticker="goToTickerPage"
+        />
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import Panel from "primevue/panel";
 import ProgressSpinner from "primevue/progressspinner";
 import CalendarGrid from "@/components/CalendarGrid.vue";
 import { useCalendarData } from '@/composables/useCalendarData.js';

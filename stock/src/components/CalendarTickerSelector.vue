@@ -2,8 +2,8 @@
     <div class="p-calendar-search">
         <div class="p-calendar-search-content">
             <ScrollPanel style="height: 100%">
-                <Accordion :multiple="true" :activeIndex="[0]" class="ticker-accordion">
-                    <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company" :value="group.company">
+                <Accordion :activeIndex="[0]" class="ticker-accordion">
+                    <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company" :value="group.items">
                         <AccordionHeader>
                             {{ group.company }}
                             <span v-if="filters.calendarSearch.value">({{ getSelectedCountInGroup(group) }} / {{

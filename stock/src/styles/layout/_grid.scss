@@ -71,7 +71,7 @@
     overflow: hidden;
     padding: .5rem;
     -tw-bg-opacity: 1;
-    background-color: var(--toto-body-bg);
+    background-color: var(--toto-ground);
     color: var(--text-color);
     gap: 1rem;
 }
@@ -85,13 +85,20 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 1.5rem;
-    background-color: var(--p-surface-600);
+    background-color: var(--toto-body-bg);
+    // background-color: color-mix(in srgb, var(--p-zinc-950) calc(100% * var(--tw-bg-opacity, 1)), transparent);
+
     --tw-shadow: var(--shadow-stroke);
     --tw-shadow-colored: var(--shadow-stroke);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     transition-property: all;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     transition-duration: .3s;
+
+
+    // * {
+    //     background-color: inherit;
+    // }
 }
 
 #t-header {
@@ -100,8 +107,6 @@
     align-items: center;
     justify-content: space-between;
     gap: .75rem;
-    border-bottom: 1px solid var(--p-surface-700);
-    ;
     padding: 1rem;
 }
 
@@ -140,12 +145,12 @@
 
 #t-topbar {
     gap: 1rem;
+    align-items: center;
 
     @include bp.media-breakpoint-only('xs') {
-        gap: .5rem;
+        gap: 0;
     }
 
-    align-items: center;
 
     button {
         aspect-ratio: 1 / 1 !important;
@@ -161,7 +166,7 @@
 }
 
 #t-content {
-    padding: 1.5rem;
+    padding: 0 1rem 1.5rem;
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1 1 0%;
@@ -193,6 +198,134 @@
 
 #t-calendar-search-button {
     width: 100%;
+}
+
+#t-calendar {
+    background: var(--p-zinc-800);
+    color: #fff;
+    overflow: hidden;
+    height: 100%;
+
+    .p-card-header {
+        padding: 1rem 1rem 0;
+        text-align: center;
+    }
+
+    .p-card-title {
+        display: flex;
+        justify-content: center;
+    }
+
+    .p-card-body {
+        height: 100%;
+        padding: 0 1rem 1rem;
+        gap: 0;
+    }
+
+    .p-card-content {
+        height: 100%;
+    }
+
+    .fc {
+        height: 100%;
+
+        &-list {
+            border: 0;
+            &-event {
+                &-time {
+                    display: none !important;
+                }
+                &-graphic {
+                    vertical-align: middle;
+                }
+                &-title {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: #fff;
+                    vertical-align: middle;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    > [class^='freq-'] {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+                    .actions {
+                        button {
+                            padding: .5rem;
+                            width:2rem;
+                            height: 2rem;
+                        }
+                    }
+                    .p-button-text {
+                        position: static;
+                    }
+                }
+            }
+            &-table {
+                td {
+                    border: 0;
+                    line-height: 1;
+                }
+            }
+            &-day {
+                > * {
+                    background-color: transparent;
+                    border-color: transparent;
+                }
+                &-cushion {
+                    background-color:  var(--p-zinc-950);
+                    color: #fff;
+                    border-radius: 8px;;
+                }
+            }
+        }
+        .freq {
+            &-weekly {
+                color: #3b82f6; /* blue-500 */
+            }
+            &-monthly {
+                color: #22c55e; /* green-500 */
+            }
+            &-quarterly {
+                color: #f97316; /* orange-500 */
+            }
+            &-every-4-week {
+                color: #14b8a6; /* teal-500 */
+            }
+            &-default {
+                color: #64748b; /* slate-500 */
+            }
+        }
+    }
+
+
+    /* 지급주기별 점(dot) 색상 정의 */
+    .fc-direction-ltr .freq-weekly .fc-list-event-dot {
+        border-color: #3b82f6;
+        /* blue-500 */
+    }
+
+    .fc-direction-ltr .freq-monthly .fc-list-event-dot {
+        border-color: #22c55e;
+        /* green-500 */
+    }
+
+    .fc-direction-ltr .freq-quarterly .fc-list-event-dot {
+        border-color: #f97316;
+        /* orange-500 */
+    }
+
+    .fc-direction-ltr .freq-every-4-week .fc-list-event-dot {
+        border-color: #14b8a6;
+        /* teal-500 */
+    }
+
+    .fc-direction-ltr .freq-default .fc-list-event-dot {
+        border-color: #64748b;
+        /* slate-500 */
+    }
+
 }
 
 @include bp.media-breakpoint-only('xs') {}
