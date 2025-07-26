@@ -1,29 +1,27 @@
 <template>
     <div class="p-calendar-search">
-        <div class="p-calendar-search-content">
-            <ScrollPanel style="height: 100%">
-                <Accordion :activeIndex="[0]" class="ticker-accordion">
-                    <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company" :value="group.items">
-                        <AccordionHeader>
-                            {{ group.company }}
-                            <span v-if="filters.calendarSearch.value">({{ getSelectedCountInGroup(group) }} / {{
-                                group.items.length }} / {{ group.originalItemCount }})</span>
-                            <span v-else>({{ getSelectedCountInGroup(group) }} / {{ group.originalItemCount }})</span>
-                        </AccordionHeader>
-                        <AccordionContent>
-                            <div class="p-calendar-ticker">
-                                <ToggleButton onLabel="All" offLabel="All" :modelValue="isAllSelectedInGroup(group)"
-                                    @update:modelValue="toggleAllInGroup(group)"
-                                    class="p-button-sm p-button-secondary" />
-                                <ToggleButton v-for="ticker in group.items" :key="ticker.symbol"
-                                    :modelValue="isSelected(ticker)" @update:modelValue="toggleTickerSelection(ticker)"
-                                    :onLabel="ticker.symbol" :offLabel="ticker.symbol" class="p-button-sm" />
-                            </div>
-                        </AccordionContent>
-                    </AccordionPanel>
-                </Accordion>
-            </ScrollPanel>
-        </div>
+        <ScrollPanel style="height: 100%">
+            <Accordion :activeIndex="[0]" class="ticker-accordion">
+                <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company" :value="group.items">
+                    <AccordionHeader>
+                        {{ group.company }}
+                        <span v-if="filters.calendarSearch.value">({{ getSelectedCountInGroup(group) }} / {{
+                            group.items.length }} / {{ group.originalItemCount }})</span>
+                        <span v-else>({{ getSelectedCountInGroup(group) }} / {{ group.originalItemCount }})</span>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <div class="p-calendar-ticker">
+                            <ToggleButton onLabel="All" offLabel="All" :modelValue="isAllSelectedInGroup(group)"
+                                @update:modelValue="toggleAllInGroup(group)"
+                                class="p-button-sm p-button-secondary" />
+                            <ToggleButton v-for="ticker in group.items" :key="ticker.symbol"
+                                :modelValue="isSelected(ticker)" @update:modelValue="toggleTickerSelection(ticker)"
+                                :onLabel="ticker.symbol" :offLabel="ticker.symbol" class="p-button-sm" />
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+        </ScrollPanel>
     </div>
 </template>
 
