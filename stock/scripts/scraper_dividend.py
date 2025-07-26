@@ -114,21 +114,22 @@ if __name__ == "__main__":
         
         for existing_item in final_history:
             ex_date = existing_item.get('배당락')
-            if not ex_date:
+            if not ex_date or ex_date not in new_dividends_map:
                 continue
 
-            if ex_date in new_dividends_map:
-                api_item = new_dividends_map[ex_date]
-                
-                is_placeholder = '배당금' not in existing_item
-                values_differ = any(existing_item.get(k) != v for k, v in api_item.items())
+            api_item = new_dividends_map[ex_date]
+            update_payload = api_item.copy()
 
-                if is_placeholder or values_differ:
-                    print(f"  -> Updating dividend on {ex_date} for {ticker}.")
-                    existing_item.update(api_item)
-                    has_changed = True
-                
-                processed_api_dates.add(ex_date)
+            local_dividend = existing_item.get('배당금')
+            if local_dividend:
+                update_payload['배당금'] = local_dividend
+
+            if any(existing_item.get(k) != v for k, v in update_payload.items()):
+                print(f"  -> Updating/Enriching dividend on {ex_date} for {ticker}.")
+                existing_item.update(update_payload)
+                has_changed = True
+            
+            processed_api_dates.add(ex_date)
 
         newly_added_count = 0
         for ex_date, api_item in new_dividends_map.items():
