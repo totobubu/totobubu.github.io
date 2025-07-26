@@ -33,8 +33,8 @@ const iconClass = computed(() => {
 const responsiveSize = computed(() => {
     if (isMobile.value) {
         return "small";
-    } else if (isDesktop.value) {
-        return "large";
+    // } else if (isDesktop.value) {
+    //     return "large";
     } else {
         return null;
     }
@@ -47,7 +47,6 @@ const clearInput = () => {
 
 <template>
     <div class="flex-auto flex items-center gap-2">
-        <Button :icon="iconClass" disabled :title="title"></Button>
         <InputOtp 
             v-model="inputValue" 
             :length="4" 
@@ -57,11 +56,10 @@ const clearInput = () => {
         <Button 
             v-if="modelValue" 
             icon="pi pi-times" 
-            text 
-            rounded 
             severity="secondary"
             @click="clearInput" 
             aria-label="Clear Filter">
         </Button>
+        <Button v-else :icon="iconClass" disabled :title="title" severity="secondary"></Button>
     </div>
 </template>
