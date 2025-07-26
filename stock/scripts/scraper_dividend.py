@@ -10,29 +10,31 @@ def get_historical_prices(ticker_symbol, ex_date_str):
         start_date = ex_date - timedelta(days=7)
         end_date = ex_date + timedelta(days=7)
         ticker = yf.Ticker(ticker_symbol)
-        hist = ticker.history(start=start_date, end=end_date)
+        hist = ticker.history(start=start_date, end=end_date, auto_adjust=False)
         if hist.empty:
-            return {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
+            return {}
         
-        prices = {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
+        prices = {}
         try:
             before_date_target = ex_date - timedelta(days=1)
-            prices["before_price"] = f"${hist.loc[:before_date_target.strftime('%Y-%m-%d')].iloc[-1]['Close']:.2f}"
-        except IndexError: pass
+            price_val = hist.loc[:before_date_target.strftime('%Y-%m-%d')].iloc[-1]['Close']
+            prices["전일종가"] = f"${price_val:.2f}"
+        except (IndexError, KeyError): pass
         try:
             on_date_row = hist.loc[ex_date.strftime('%Y-%m-%d')]
-            prices["open_price"] = f"${on_date_row['Open']:.2f}"
-            prices["on_price"] = f"${on_date_row['Close']:.2f}"
+            prices["당일시가"] = f"${on_date_row['Open']:.2f}"
+            prices["당일종가"] = f"${on_date_row['Close']:.2f}"
         except (IndexError, KeyError): pass
         try:
             after_date_target = ex_date + timedelta(days=1)
-            prices["after_price"] = f"${hist.loc[after_date_target.strftime('%Y-%m-%d'):].iloc[0]['Close']:.2f}"
-        except IndexError: pass
+            price_val = hist.loc[after_date_target.strftime('%Y-%m-%d'):].iloc[0]['Close']
+            prices["익일종가"] = f"${price_val:.2f}"
+        except (IndexError, KeyError): pass
 
         return prices
     except Exception as e:
         print(f"     Could not fetch price for {ticker_symbol} on {ex_date_str}. Error: {e}")
-        return {"before_price": "N/A", "open_price": "N/A", "on_price": "N/A", "after_price": "N/A"}
+        return {}
 
 def fetch_dividend_history(ticker_symbol):
     try:
@@ -48,11 +50,7 @@ def fetch_dividend_history(ticker_symbol):
                 
                 record = {
                     '배당락': ex_date.strftime('%y. %m. %d'),
-                    '배당금': f"${row['Dividend']:.4f}",
-                    '전일종가': 'N/A', 
-                    '당일시가': 'N/A',
-                    '당일종가': 'N/A',
-                    '익일종가': 'N/A'
+                    '배당금': f"${row['Dividend']:.4f}"
                 }
                 dividend_history.append(record)
         return dividend_history
@@ -96,10 +94,9 @@ if __name__ == "__main__":
         
         api_history = fetch_dividend_history(ticker)
         
-        original_history_str = json.dumps(existing_history)
+        original_history_str = json.dumps(existing_history, sort_keys=True)
         
         merged_history_map = {item['배당락']: item for item in existing_history}
-        
         api_history_map = {item['배당락']: item for item in api_history}
 
         all_dates = sorted(list(set(merged_history_map.keys()) | set(api_history_map.keys())), 
@@ -110,22 +107,22 @@ if __name__ == "__main__":
             local_item = merged_history_map.get(ex_date, {})
             api_item = api_history_map.get(ex_date, {})
             
-            # Create a new merged item, starting with the API data as a base
-            merged_item = api_item.copy()
-            # Then, update it with local data, which will overwrite API values if keys are the same
+            merged_item = {}
+            merged_item.update(api_item)
             merged_item.update(local_item)
 
-            # If any price data is missing, fetch it
-            if any(merged_item.get(price_key, 'N/A') == 'N/A' for price_key in ['전일종가', '당일시가', '당일종가', '익일종가']):
-                 # 배당금이 있어야 가격을 가져올 수 있음
-                if '배당금' in merged_item:
-                    mdy_date = datetime.strptime(ex_date, '%y. %m. %d').strftime('%m/%d/%Y')
-                    prices = get_historical_prices(ticker, mdy_date)
-                    merged_item.update(prices)
+            price_keys = ['전일종가', '당일시가', '당일종가', '익일종가']
+            if '배당금' in merged_item and any(key not in merged_item for key in price_keys):
+                mdy_date = datetime.strptime(ex_date, '%y. %m. %d').strftime('%m/%d/%Y')
+                prices = get_historical_prices(ticker, mdy_date)
+                # 오직 'prices' 딕셔너리에 있는 키만 업데이트
+                for key, value in prices.items():
+                    if key not in merged_item: # 기존에 없는 가격 정보만 추가
+                        merged_item[key] = value
 
             final_history.append(merged_item)
         
-        final_history_str = json.dumps(final_history)
+        final_history_str = json.dumps(final_history, sort_keys=True)
 
         if original_history_str != final_history_str:
             final_data_to_save = {"tickerInfo": existing_ticker_info, "dividendHistory": final_history}
