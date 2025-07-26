@@ -1,50 +1,35 @@
-<!-- stock/src/components/CalendarTickerSelector.vue -->
 <template>
     <div class="p-calendar-search">
-        <InputGroup class="p-2">
-            <InputGroupAddon><i class="pi pi-search"></i></InputGroupAddon>
-            <InputText v-model="groupFilter" placeholder="티커 검색" class="w-full" />
-        </InputGroup>
         <div class="p-calendar-search-content">
-          <ScrollPanel style="height: 100%">
-              <Accordion :multiple="true" :activeIndex="[0]" class="ticker-accordion">
-                  <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company"
-                            :value="group.company"
-                  >
-                      <AccordionHeader>
-                          {{ group.company }}
-                          <span v-if="groupFilter">({{ getSelectedCountInGroup(group) }} / {{ group.items.length }} / {{ group.originalItemCount }})</span>
-                          <span v-else>({{ getSelectedCountInGroup(group) }} / {{ group.originalItemCount }})</span>
-                      </AccordionHeader>
-                      <AccordionContent>
-                          <div class="p-calendar-ticker">
-                              <!-- 👇 [핵심 수정 1] 'All' 버튼을 추가합니다. -->
-                              <ToggleButton
-                                  onLabel="All" offLabel="All"
-                                  :modelValue="isAllSelectedInGroup(group)"
-                                  @update:modelValue="toggleAllInGroup(group)"
-                                  class="p-button-sm p-button-secondary"
-                              />
-                              <ToggleButton
-                                  v-for="ticker in group.items"
-                                  :key="ticker.symbol"
-                                  :modelValue="isSelected(ticker)"
-                                  @update:modelValue="toggleTickerSelection(ticker)"
-                                  :onLabel="ticker.symbol"
-                                  :offLabel="ticker.symbol"
-                                  class="p-button-sm"
-                              />
-                          </div>
-                      </AccordionContent>
-                  </AccordionPanel>
-              </Accordion>
-          </ScrollPanel>
+            <ScrollPanel style="height: 100%">
+                <Accordion :multiple="true" :activeIndex="[0]" class="ticker-accordion">
+                    <AccordionPanel v-for="group in filteredGroupedTickers" :key="group.company" :value="group.company">
+                        <AccordionHeader>
+                            {{ group.company }}
+                            <span v-if="filters.calendarSearch.value">({{ getSelectedCountInGroup(group) }} / {{
+                                group.items.length }} / {{ group.originalItemCount }})</span>
+                            <span v-else>({{ getSelectedCountInGroup(group) }} / {{ group.originalItemCount }})</span>
+                        </AccordionHeader>
+                        <AccordionContent>
+                            <div class="p-calendar-ticker">
+                                <ToggleButton onLabel="All" offLabel="All" :modelValue="isAllSelectedInGroup(group)"
+                                    @update:modelValue="toggleAllInGroup(group)"
+                                    class="p-button-sm p-button-secondary" />
+                                <ToggleButton v-for="ticker in group.items" :key="ticker.symbol"
+                                    :modelValue="isSelected(ticker)" @update:modelValue="toggleTickerSelection(ticker)"
+                                    :onLabel="ticker.symbol" :offLabel="ticker.symbol" class="p-button-sm" />
+                            </div>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+            </ScrollPanel>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
+import { useFilterState } from "@/composables/useFilterState";
 import Accordion from "primevue/accordion";
 import AccordionPanel from "primevue/accordionpanel";
 import AccordionHeader from "primevue/accordionheader";
@@ -55,22 +40,24 @@ import ScrollPanel from "primevue/scrollpanel";
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 
+const { filters } = useFilterState();
+
 const props = defineProps({
     groupedTickers: Array,
     modelValue: Array,
 });
 const emit = defineEmits(["update:modelValue"]);
 
-const groupFilter = ref("");
-
 const filteredGroupedTickers = computed(() => {
-    if (!groupFilter.value) {
+    const filterText = filters.value.calendarSearch.value?.toLowerCase();
+
+    if (!filterText) {
         return props.groupedTickers.map((group) => ({
             ...group,
             originalItemCount: group.items.length,
         }));
     }
-    const filterText = groupFilter.value.toLowerCase();
+
     return props.groupedTickers
         .map((group) => ({
             ...group,
@@ -103,28 +90,20 @@ const getSelectedCountInGroup = (group) => {
     return group.items.filter(isSelected).length;
 };
 
-// --- 👇 [핵심 수정 2] 'All' 버튼을 위한 새로운 함수들 ---
-
-// 해당 그룹의 모든 티커가 선택되었는지 확인하는 함수
 const isAllSelectedInGroup = (group) => {
-    // 그룹에 티커가 하나도 없으면 false 반환
     if (group.items.length === 0) return false;
-    // 그룹의 모든 티커가 selectedTickers에 포함되어 있는지 확인
     return group.items.every(isSelected);
 };
 
-// 'All' 버튼 클릭 시, 해당 그룹의 모든 티커를 선택하거나 해제하는 함수
 const toggleAllInGroup = (group) => {
     const localSelectedTickers = [...props.modelValue];
     const allSelected = isAllSelectedInGroup(group);
 
     if (allSelected) {
-        // 이미 전체 선택된 상태이면, 이 그룹의 티커들을 모두 제거
         const groupSymbols = group.items.map(t => t.symbol);
         const newSelection = localSelectedTickers.filter(t => !groupSymbols.includes(t.symbol));
         emit("update:modelValue", newSelection);
     } else {
-        // 전체 선택되지 않은 상태이면, 이 그룹의 티커들 중 아직 선택되지 않은 것만 추가
         const newTickersToAdd = group.items.filter(t => !isSelected(t));
         emit("update:modelValue", [...localSelectedTickers, ...newTickersToAdd]);
     }

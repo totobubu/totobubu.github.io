@@ -19,6 +19,7 @@ declare module 'vue' {
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
     Drawer: typeof import('primevue/drawer')['default']
+    FilterInput: typeof import('./components/FilterInput.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']

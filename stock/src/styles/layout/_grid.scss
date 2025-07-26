@@ -6,16 +6,18 @@
 
 .layout {
     &-container {
-    background-color: var(--p-surface-950);
-    color: var(--p-surface-0);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    @include bp.media-breakpoint-down('lg') {
+        background-color: var(--p-surface-950);
+        color: var(--p-surface-0);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        @include bp.media-breakpoint-down('lg') {
             padding: 0;
         }
     }
+
     &-grid {
         display: flex;
         flex-direction: column;
@@ -23,12 +25,15 @@
         max-width: vars.$max-width;
         width: 100%;
         margin: 0 auto;
+
         @include bp.media-breakpoint-down('lg') {
             gap: 0.5rem;
         }
+
         @include bp.media-breakpoint-up('lg') {
             gap: 1.5rem;
         }
+
         &--row {
             display: flex;
             flex-direction: row;
@@ -37,6 +42,7 @@
         }
 
     }
+
     &-card {
         background-color: var(--p-surface-900);
         color: var(--p-surface-0);
@@ -80,11 +86,11 @@
     overflow: hidden;
     border-radius: 1.5rem;
     background-color: var(--p-surface-600);
-        --tw-shadow: var(--shadow-stroke);
+    --tw-shadow: var(--shadow-stroke);
     --tw-shadow-colored: var(--shadow-stroke);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     transition-duration: .3s;
 }
 
@@ -94,51 +100,63 @@
     align-items: center;
     justify-content: space-between;
     gap: .75rem;
-    border-bottom: 1px solid  var(--p-surface-700);;
+    border-bottom: 1px solid var(--p-surface-700);
+    ;
     padding: 1rem;
 }
 
 #t-breadcrumb {
-        background: inherit;
-        padding: 0;
+    background: inherit;
+    padding: 0;
 
     .p-breadcrumb-list {
         display: flex;
         max-height: 4rem;
         align-items: center;
         gap: .5rem;
-        padding: 1rem 1rem 1rem 1.5rem;
-
+        padding: .6rem 1rem .6rem 1.5rem;
+        text-transform: uppercase;
     }
-    .p-breadcrumb-item  {
+
+    .p-breadcrumb-item {
         .pi {
             color: #fff !important;
         }
     }
-    .p-breadcrumb-home-item {
-        
 
-    }
+    .p-breadcrumb-home-item {}
+
     .p-breadcrumb-item-link {
-        color: #fff}
+        gap: inherit;
+        color: #fff
+    }
+
     .p-breadcrumb-separator {}
+
     .p-breadcrumb-item-icon {
-        color: #fff}
+        color: #fff
+    }
 }
 
 #t-topbar {
     gap: 1rem;
+
+    @include bp.media-breakpoint-only('xs') {
+        gap: .5rem;
+    }
+
     align-items: center;
+
     button {
-        aspect-ratio: 1 / 1!important;
+        aspect-ratio: 1 / 1 !important;
         width: 2.25rem;
         height: 2.25rem;
-        align-items:center;
+        align-items: center;
         justify-content: center;
         border-radius: .375rem;
-            transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .3s;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+        transition-duration: .3s;
     }
 }
 
@@ -147,19 +165,39 @@
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1 1 0%;
+
+    @include bp.media-breakpoint-down('lg') {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+    }
 }
 
 #t-sidebar {
-    width: 400px;
+    width: 295px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    height: 100%;
+
+    .p-calendar-search {
+        overflow-y: hidden;
+        height: calc(100% - 0.5rem - var(--p-button-icon-only-width));
+
+        &-content {
+            height: 100%;
+        }
+    }
 }
 
-@include bp.media-breakpoint-only('xs') {
+#t-calendar-search-button {
+    width: 100%;
 }
+
+@include bp.media-breakpoint-only('xs') {}
 
 // 641 이상
 @include bp.media-breakpoint-up('sm') {
-    #t-layout { }
+    #t-layout {}
 }
