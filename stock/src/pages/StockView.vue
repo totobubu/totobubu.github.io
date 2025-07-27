@@ -37,7 +37,7 @@ const generateDynamicTimeRangeOptions = () => {
   const now = new Date();
   const options = [];
 
-  if (frequency !== "Quarterly" && frequency !== "Semi-Annually") {
+  if (frequency !== "분기" && frequency !== "Semi-Annually") {
     const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
     const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
     const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
