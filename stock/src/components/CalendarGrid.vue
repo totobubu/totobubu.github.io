@@ -120,25 +120,18 @@ const calendarOptions = computed(() => ({
             : '<span class="no-amount">예정</span>';
 
         if (arg.view.type === 'listWeek') {
-            const isRemovable = amount !== null;
-            const removeButtonHtml = isRemovable
-                ? `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast"  data-action="remove" title="목록에서 제거"><span class="pi pi-times"></span></button>`
-                : '';
+            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast" data-action="remove" title="목록에서 제거"><span class="pi pi-times"></span></button>`;
             return {
                 html: `<div class="${frequencyClass}">
                             <span class="ticker-name">${ticker}</span>
                             <span class="amount-text">${amountHtml}</span>
                             <span class="actions">
                                 <button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>
-                            ${removeButtonHtml}
+                                ${removeButtonHtml}
                             </span>
                         </div>`
             };
         } else {
-            const isRemovable = amount !== null;
-            const removeButtonHtml = isRemovable
-                ? `<span class="p-inputgroup-addon" data-action="remove" title="목록에서 제거"><button class="p-button p-component p-button-icon-only p-button-text p-button-sm"><span class="pi pi-times"></span></button></span>`
-                : '';
             return {
                 html: `<div class="fc-event-main-content ${frequencyClass}"><b>${ticker}</b> ${amountHtml}</div>`
             };
@@ -179,9 +172,9 @@ const goToToday = () => fullCalendar.value?.getApi().today();
             {{ currentTitle }}
         </template>
         <template #title>
-            <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
-            <Button label="오늘" class="p-button-sm" @click="goToToday" variant="text" />
-            <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
+                 <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
+                <Button label="오늘" class="p-button-sm" @click="goToToday" variant="text" />
+                <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
         </template>
         <template #content>
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
