@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { joinURL } from "ufo";
 
 import DataTable from "primevue/datatable";
@@ -14,12 +14,14 @@ import { useFilterState } from "@/composables/useFilterState";
 import { useBreakpoint } from "@/composables/useBreakpoint";
 
 const router = useRouter();
+const route = useRoute();
 const etfList = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
+const selectedTicker = ref(null);
 
 const { filters } = useFilterState();
-const { deviceType, isDesktop, isMobile } = useBreakpoint();
+const { deviceType, isMobile } = useBreakpoint();
 
 const tableScrollHeight = computed(() => {
     const topbarHeight = 60;
@@ -30,9 +32,7 @@ const tableScrollHeight = computed(() => {
     }
 });
 
-const tableSize = computed(() => {
-    return isMobile.value ? "small" : null;
-});
+const tableSize = computed(() => (isMobile.value ? "small" : null));
 
 const dialogsVisible = ref({
     company: false,
@@ -55,9 +55,14 @@ onMounted(async () => {
 
         companies.value = [...new Set(data.nav.map((item) => item.company))];
         frequencies.value = [...new Set(data.nav.map((item) => item.frequency))];
-        groups.value = [
-            ...new Set(data.nav.map((item) => item.group).filter((g) => g)),
-        ];
+        groups.value = [...new Set(data.nav.map((item) => item.group).filter((g) => g))];
+        
+        // 현재 URL을 기반으로 선택된 티커 설정
+        const currentTickerSymbol = route.params.ticker?.toUpperCase();
+        if (currentTickerSymbol) {
+            selectedTicker.value = etfList.value.find(t => t.symbol === currentTickerSymbol);
+        }
+
     } catch (err) {
         error.value = "ETF 목록을 불러오는 데 실패했습니다.";
     } finally {
@@ -110,9 +115,19 @@ const getGroupSeverity = (group) => {
     </div>
     <div v-else-if="error" class="text-red-500">{{ error }}</div>
 
-    <DataTable v-else :value="etfList" v-model:filters="filters" dataKey="symbol" selectionMode="single"
-        @rowSelect="onRowSelect" :globalFilterFields="['symbol', 'longName']" class="p-datatable-sm" stripedRows
-        scrollable :scrollHeight="tableScrollHeight" :size="tableSize">
+    <DataTable v-else 
+        :value="etfList" 
+        v-model:filters="filters" 
+        v-model:selection="selectedTicker"
+        dataKey="symbol" 
+        selectionMode="single"
+        @rowSelect="onRowSelect" 
+        :globalFilterFields="['symbol', 'longName']" 
+        class="p-datatable-sm" 
+        stripedRows
+        scrollable 
+        :scrollHeight="tableScrollHeight" 
+        :size="tableSize">
         <template #empty>
             <div class="text-center p-4">검색 결과가 없습니다.</div>
         </template>
@@ -151,8 +166,6 @@ const getGroupSeverity = (group) => {
 
         <Column field="group" sortable class="toto-column-group">
             <template #header>
-                <!-- <Button type="button" icon="pi pi-filter-fill" size="small" :variant="filters.group.value ? 'filled' : 'text'"
-            @click="openFilterDialog('group')" :severity="filters.group.value ? '' : 'secondary'" /> -->
                 <div class="column-header">
                     <span>그룹</span>
                 </div>

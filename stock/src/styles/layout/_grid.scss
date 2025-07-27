@@ -341,13 +341,15 @@
         }
 
         &-thead {
-            > tr {
-                > th {
+            >tr {
+                >th {
                     font-size: .75rem;
+
                     .p-button {
                         padding: 0;
                         width: auto;
                     }
+
                     .pi-filter-fill {
                         font-size: .75rem;
                     }
@@ -366,16 +368,29 @@
             line-height: 1.5;
             text-align: center;
         }
+        &-row-selected {
+            > td,
+            .p-datatable-frozen-column {
+                background-color: #fff;;
+                color: #000;
+                font-weight: 700;
+            }
+        }
+
+
     }
+
     .toto-column {
         &-ticker {
             width: 4rem;
         }
-        &-company {
-        }
+
+        &-company {}
+
         &-frequency {
             width: 5rem;
         }
+
         &-group {
             width: 4rem;
         }

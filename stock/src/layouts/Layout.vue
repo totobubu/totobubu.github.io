@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, computed } from "vue";
-import { RouterView, useRoute, useRouter } from 'vue-router';
+import { RouterView, useRoute } from 'vue-router';
 import AppSidebar from "./AppSidebar.vue";
 import TickerSelector from "@/components/CalendarTickerSelector.vue";
 import FilterInput from "@/components/FilterInput.vue";
@@ -20,10 +20,7 @@ const visible2 = ref(false);
 const route = useRoute();
 const isHomePage = computed(() => route.path === '/');
 
-const home = ref({
-    icon: 'pi pi-home',
-    route: '/'
-});
+
 const items = ref([
     { label: 'company' },
     { label: 'stock', route: '/inputtext' }
@@ -35,6 +32,12 @@ watch(visible, (newValue) => {
     } else {
         document.body.classList.remove("p-overflow-hidden");
     }
+});
+
+// [핵심] 라우트(URL)가 변경되면 모든 Drawer를 닫는다.
+watch(() => route.path, () => {
+    visible.value = false;
+    visible2.value = false;
 });
 </script>
 
@@ -61,7 +64,7 @@ watch(visible, (newValue) => {
 
         <main id="t-grid">
             <header id="t-header">
-                <Breadcrumb :home="home" :model="items" id="t-breadcrumb" v-if="!isHomePage">
+                <Breadcrumb :model="items" id="t-breadcrumb" v-if="!isHomePage">
                     <template #item="{ item, props }">
                         <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
                             <a :href="href" v-bind="props.action" @click="navigate">
@@ -108,11 +111,11 @@ watch(visible, (newValue) => {
         <Drawer v-if="deviceType !== 'desktop' && isHomePage" v-model:visible="visible2"
             :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" id="toto-filter" :class="deviceType">
              <template #header>
-                <FilterInput 
-                    v-model="filters.calendarSearch.value" 
-                    title="달력 티커 검색" 
-                    filter-type="calendar"
-                />
+            <FilterInput 
+                v-model="filters.calendarSearch.value" 
+                title="달력 티커 검색" 
+                filter-type="calendar"
+            />
             </template>
             <TickerSelector :groupedTickers="groupedTickers" v-model="selectedTickers" />
         </Drawer>
