@@ -164,6 +164,13 @@
 }
 
 .toto-history {
+
+    @include bp.media-breakpoint-only('xs') {
+        .p-datatable-table {
+            width: 600px
+        }
+    }
+
     @include bp.media-breakpoint-down('lg') {
         border-radius: 0;
         border: 0;
