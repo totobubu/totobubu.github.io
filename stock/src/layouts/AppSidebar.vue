@@ -49,15 +49,19 @@ onMounted(async () => {
         const url = joinURL(import.meta.env.BASE_URL, "nav.json");
         const response = await fetch(url);
         if (!response.ok) throw new Error("Navigation data not found");
-        const data = await response.json();
+        const rawData = await response.json();
 
-        etfList.value = data.nav;
-
-        companies.value = [...new Set(data.nav.map((item) => item.company))];
-        frequencies.value = [...new Set(data.nav.map((item) => item.frequency))];
-        groups.value = [...new Set(data.nav.map((item) => item.group).filter((g) => g))];
+        const dayOrder = { '월': 1, '화': 2, '수': 3, '목': 4, '금': 5, 'A': 6, 'B': 7, 'C': 8, 'D': 9 };
         
-        // 현재 URL을 기반으로 선택된 티커 설정
+        etfList.value = rawData.nav.map(item => ({
+            ...item,
+            groupOrder: dayOrder[item.group] ?? 999
+        }));
+
+        companies.value = [...new Set(etfList.value.map((item) => item.company))];
+        frequencies.value = [...new Set(etfList.value.map((item) => item.frequency))];
+        groups.value = [...new Set(etfList.value.map((item) => item.group).filter((g) => g))];
+        
         const currentTickerSymbol = route.params.ticker?.toUpperCase();
         if (currentTickerSymbol) {
             selectedTicker.value = etfList.value.find(t => t.symbol === currentTickerSymbol);
@@ -165,7 +169,7 @@ const getGroupSeverity = (group) => {
             </template>
         </Column>
 
-        <Column field="group" sortable class="toto-column-group">
+        <Column field="group" sortable class="toto-column-group" sortField="groupOrder">
             <template #header>
                 <div class="column-header">
                     <span>그룹</span>
