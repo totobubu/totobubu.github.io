@@ -340,11 +340,44 @@
             text-align: center;
         }
 
+        &-thead {
+            > tr {
+                > th {
+                    font-size: .75rem;
+                    .p-button {
+                        padding: 0;
+                        width: auto;
+                    }
+                    .pi-filter-fill {
+                        font-size: .75rem;
+                    }
+                }
+            }
+        }
+
+        &-column-header-content {
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
         &-tbody>tr>td {
             padding: 0.25rem;
             font-size: 0.875rem;
             line-height: 1.5;
             text-align: center;
+        }
+    }
+    .toto-column {
+        &-ticker {
+            width: 4rem;
+        }
+        &-company {
+        }
+        &-frequency {
+            width: 5rem;
+        }
+        &-group {
+            width: 4rem;
         }
     }
 }
