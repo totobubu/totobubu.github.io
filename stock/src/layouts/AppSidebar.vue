@@ -116,6 +116,7 @@ const getGroupSeverity = (group) => {
     <div v-else-if="error" class="text-red-500">{{ error }}</div>
 
     <DataTable v-else 
+        id="toto-search-datatable"
         :value="etfList" 
         v-model:filters="filters" 
         v-model:selection="selectedTicker"

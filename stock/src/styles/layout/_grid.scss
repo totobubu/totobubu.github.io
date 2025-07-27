@@ -116,7 +116,7 @@
 }
 
 #t-sidebar {
-    width: 295px;
+    width: 360px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -334,16 +334,25 @@
         margin-left: -1rem;
         margin-right: -1rem;
     }
+}
+
+#toto-search-datatable {
 
     .p-datatable {
-        td {
-            text-align: center;
-        }
 
         &-thead {
             >tr {
                 >th {
                     font-size: .75rem;
+                    padding-left: 0;
+                    padding-right: 0;
+
+                    @include bp.media-breakpoint-up('lg') {
+                        font-size: .6rem;
+                        svg {
+                            width: 12px
+                        }
+                    }
 
                     .p-button {
                         padding: 0;
@@ -352,6 +361,10 @@
 
                     .pi-filter-fill {
                         font-size: .75rem;
+                        
+                        @include bp.media-breakpoint-up('lg') {
+                            font-size: .5rem;
+                        }
                     }
                 }
             }
@@ -360,6 +373,9 @@
         &-column-header-content {
             justify-content: center;
             gap: 0.3rem;
+            @include bp.media-breakpoint-up('lg') {
+                gap: 0.2rem;
+            }
         }
 
         &-tbody>tr>td {
@@ -367,11 +383,18 @@
             font-size: 0.875rem;
             line-height: 1.5;
             text-align: center;
+
+            @include bp.media-breakpoint-up('lg') {
+                font-size: .7rem;
+            }
         }
+
         &-row-selected {
-            > td,
+
+            >td,
             .p-datatable-frozen-column {
-                background-color: #fff;;
+                background-color: #fff;
+                ;
                 color: #000;
                 font-weight: 700;
             }
@@ -383,6 +406,10 @@
     .toto-column {
         &-ticker {
             width: 4rem;
+
+            @include bp.media-breakpoint-up('lg') {
+                width: 3rem;
+            }
         }
 
         &-company {}
@@ -393,6 +420,12 @@
 
         &-group {
             width: 4rem;
+
+            @include bp.media-breakpoint-up('lg') {
+                .p-tag {
+                    font-size: .65rem;
+                }
+            }
         }
     }
 }
@@ -422,6 +455,4 @@
 @include bp.media-breakpoint-only('xs') {}
 
 // 641 이상
-@include bp.media-breakpoint-up('sm') {
-    #t-layout {}
-}
+@include bp.media-breakpoint-up('sm') {}
