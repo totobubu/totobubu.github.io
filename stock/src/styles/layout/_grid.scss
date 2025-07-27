@@ -128,6 +128,39 @@
     }
 }
 
+#toto-filter {
+}
+
+#toto-calendar-toggle {
+    .p-accordionheader {
+        padding: 0.75rem 1rem;
+        font-weight: 400;
+        color: #fff;
+        gap: .5rem;
+        > span {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+        i {
+            font-style: normal;
+            font-weight: 500;
+        }
+    }
+    .p-accordioncontent-content {
+        padding: 0.5rem;
+        background-color: var(--p-zinc-800);
+        gap: .3rem;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .p-togglebutton {
+        padding: 0.25rem 0.5rem;
+        font-size: .75em;
+    }
+}
+
 #t-calendar-search-button {
     width: 100%;
 }

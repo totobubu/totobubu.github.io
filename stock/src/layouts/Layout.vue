@@ -93,7 +93,7 @@ watch(visible, (newValue) => {
         </main>
 
         <Drawer v-if="deviceType !== 'desktop'" v-model:visible="visible"
-            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" class="toto-drawer"
+            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" class="toto-search"
             :class="deviceType">
             <template #header>
                 <FilterInput 
@@ -106,7 +106,7 @@ watch(visible, (newValue) => {
         </Drawer>
 
         <Drawer v-if="deviceType !== 'desktop' && isHomePage" v-model:visible="visible2"
-            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" id="toto-search" :class="deviceType">
+            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" id="toto-filter" :class="deviceType">
              <template #header>
                 <FilterInput 
                     v-model="filters.calendarSearch.value" 

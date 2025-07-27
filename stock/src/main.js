@@ -62,15 +62,6 @@ const MyPreset = definePreset(Lara, {
     components: {
         card: {
             colorScheme: {
-                light: {
-                    root: {
-                        background: '{surface.0}',
-                        color: '{surface.700}'
-                    },
-                    subtitle: {
-                        color: '{surface.500}'
-                    }
-                },
                 dark: {
                     root: {
                         background: '{surface.900}',
@@ -81,7 +72,7 @@ const MyPreset = definePreset(Lara, {
                     }
                 }
             }
-        }
+        },
     }
 });
 
