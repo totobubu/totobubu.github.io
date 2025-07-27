@@ -226,6 +226,9 @@
                         position: static;
                     }
                 }
+                &:hover td {
+                    background-color: inherit
+                }
             }
             &-table {
                 td {
