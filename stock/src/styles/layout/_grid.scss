@@ -128,8 +128,7 @@
     }
 }
 
-#toto-filter {
-}
+#toto-filter {}
 
 #toto-calendar-toggle {
     .p-accordionheader {
@@ -137,17 +136,20 @@
         font-weight: 400;
         color: #fff;
         gap: .5rem;
-        > span {
+
+        >span {
             display: flex;
             width: 100%;
             justify-content: space-between;
             align-items: center;
         }
+
         i {
             font-style: normal;
             font-weight: 500;
         }
     }
+
     .p-accordioncontent-content {
         padding: 0.5rem;
         background-color: var(--p-zinc-800);
@@ -155,6 +157,7 @@
         display: flex;
         flex-wrap: wrap;
     }
+
     .p-togglebutton {
         padding: 0.25rem 0.5rem;
         font-size: .75em;
@@ -196,13 +199,16 @@
 
         &-list {
             border: 0;
+
             &-event {
                 &-time {
                     display: none !important;
                 }
+
                 &-graphic {
                     vertical-align: middle;
                 }
+
                 &-title {
                     font-size: 0.875rem;
                     font-weight: 500;
@@ -210,59 +216,77 @@
                     vertical-align: middle;
                     padding-top: 0;
                     padding-bottom: 0;
-                    > [class^='freq-'] {
+
+                    >[class^='freq-'] {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
                     }
+
                     .actions {
                         button {
                             padding: .5rem;
-                            width:2rem;
+                            width: 2rem;
                             height: 2rem;
                         }
                     }
+
                     .p-button-text {
                         position: static;
                     }
                 }
+
                 &:hover td {
                     background-color: inherit
                 }
             }
+
             &-table {
                 td {
                     border: 0;
                     line-height: 1;
                 }
             }
+
             &-day {
-                > * {
+                >* {
                     background-color: transparent;
                     border-color: transparent;
                 }
+
                 &-cushion {
-                    background-color:  var(--p-zinc-950);
+                    background-color: var(--p-zinc-950);
                     color: #fff;
-                    border-radius: 8px;;
+                    border-radius: 8px;
+                    ;
                 }
             }
         }
+
         .freq {
             &-weekly {
-                color: #3b82f6; /* blue-500 */
+                color: #3b82f6;
+                /* blue-500 */
             }
+
             &-monthly {
-                color: #22c55e; /* green-500 */
+                color: #22c55e;
+                /* green-500 */
             }
+
             &-quarterly {
-                color: #f97316; /* orange-500 */
+                color: #f97316;
+                /* orange-500 */
             }
+
             &-every-4-week {
-                color: #14b8a6; /* teal-500 */
+                color: #14b8a6;
+                /* teal-500 */
             }
+
             &-default {
-                color: #64748b; /* slate-500 */
+                color: #64748b;
+                /* slate-500 */
             }
         }
     }
@@ -294,6 +318,57 @@
         /* slate-500 */
     }
 
+}
+
+
+.p-drawer-full .p-drawer {
+    .p-drawer-header {}
+
+    .p-drawer-content {
+        padding: 0 1rem 1rem;
+    }
+}
+
+#toto-search {
+    .p-drawer-content {
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+
+    .p-datatable {
+        td {
+            text-align: center;
+        }
+
+        &-tbody>tr>td {
+            padding: 0.25rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+    }
+}
+
+.p-tag {
+    &[data-p="mon"] {
+        background: #a78bfa;
+    }
+
+    &[data-p="tue"] {
+        background: #facc15;
+    }
+
+    &[data-p="wed"] {
+        background: #14b8a6;
+    }
+
+    &[data-p="thu"] {
+        background: #6366fa;
+    }
+
+    &[data-p="fri"] {
+        background: #f472b6;
+    }
 }
 
 @include bp.media-breakpoint-only('xs') {}
