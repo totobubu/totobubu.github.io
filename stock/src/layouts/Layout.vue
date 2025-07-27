@@ -93,7 +93,7 @@ watch(visible, (newValue) => {
         </main>
 
         <Drawer v-if="deviceType !== 'desktop'" v-model:visible="visible"
-            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" class="toto-search"
+            :position="deviceType === 'mobile' ? 'full' : 'right'" :modal="true" id="toto-search"
             :class="deviceType">
             <template #header>
                 <FilterInput 

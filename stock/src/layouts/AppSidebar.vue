@@ -91,21 +91,20 @@ const selectFilter = (filterName, value) => {
 const getGroupSeverity = (group) => {
   switch (group) {
     case "A": return "danger";
-    case "B": return "warning";
+    case "B": return "warn";
     case "C": return "success";
     case "D": return "info";
-    case "월요일": return "mon";
-    case "화요일": return "tue";
-    case "수요일": return "wed";
-    case "목요일": return "thu";
-    case "금요일": return "fri";
+    case "월": return "mon";
+    case "화": return "tue";
+    case "수": return "wed";
+    case "목": return "thu";
+    case "금": return "fri";
     default: return "secondary";
   }
 };
 </script>
 
 <template>
-  <div class="card p-0">
     <div v-if="isLoading" class="flex justify-center items-center h-48">
       <ProgressSpinner />
     </div>
@@ -133,7 +132,7 @@ const getGroupSeverity = (group) => {
           </div>
         </template>
         <template #body="{ data }">
-          <Tag :value="data.company" />
+          {{ data.company }}
         </template>
       </Column>
 
@@ -199,5 +198,4 @@ const getGroupSeverity = (group) => {
         </ToggleButton>
       </div>
     </Dialog>
-  </div>
 </template>
