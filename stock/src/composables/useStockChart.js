@@ -34,7 +34,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
 
-        if (tickerInfo.value?.frequency === 'Weekly' && !isPriceChartMode.value) {
+        if (tickerInfo.value?.frequency === '매주' && !isPriceChartMode.value) {
             let startDate = new Date(now);
             if (rangeUnit === 'M') {
                 startDate.setMonth(now.getMonth() - rangeValue);
@@ -102,7 +102,7 @@ if (isPriceChartMode.value) {
       chartData.value = priceChartData;
       chartOptions.value = priceChartOptions;
     } else {
-      if (frequency === "Weekly") {
+      if (frequency === "매주") {
         const { weeklyChartData, weeklyChartOptions } =
           useWeeklyChart(sharedOptions);
         chartData.value = weeklyChartData;

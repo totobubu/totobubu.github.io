@@ -40,10 +40,10 @@ const getFrequencyClass = (tickerSymbol) => {
     const frequency = tickerInfo?.frequency;
 
     switch (frequency) {
-        case 'Weekly': return 'freq-weekly';
-        case 'Monthly': return 'freq-monthly';
-        case 'Quarterly': return 'freq-quarterly';
-        case 'Every 4 Week': return 'freq-every-4-week';
+        case '매주': return 'freq-weekly';
+        case '매월': return 'freq-monthly';
+        case '분기': return 'freq-quarterly';
+        case '4주': return 'freq-every-4-week';
         default: return 'freq-default';
     }
 };

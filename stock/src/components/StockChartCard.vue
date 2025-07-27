@@ -60,7 +60,7 @@ const dropdownTimeRangeOptions = computed(() => {
   <Card class="toto-chart">
     <template #content>
       <div class="flex justify-between items-center w-full gap-2 mb-4">
-        <div v-if="frequency === 'Weekly'">
+        <div v-if="frequency === '매주'">
           <ToggleButton
             v-model="localIsPriceChartMode"
             onLabel="주가"
