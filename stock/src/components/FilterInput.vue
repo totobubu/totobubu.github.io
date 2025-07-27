@@ -27,7 +27,7 @@ const inputValue = computed({
 });
 
 const iconClass = computed(() => {
-    return props.filterType === 'calendar' ? 'pi pi-filter' : 'pi pi-search';
+    return props.filterType === 'calendar' ? 'pi pi-filter-fill' : 'pi pi-search';
 });
 
 const responsiveSize = computed(() => {
