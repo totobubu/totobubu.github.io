@@ -1,11 +1,8 @@
-// stock/src/composables/useCalendarData.js
-
 import { ref, computed, watch } from "vue";
 import { joinURL } from "ufo";
 
 const STORAGE_KEY = "selectedCalendarTickers";
 
-// --- State (Singleton: 모듈 로드 시 한 번만 생성) ---
 const allTickers = ref([]);
 const groupedTickers = ref([]);
 const allDividendData = ref([]);
@@ -13,7 +10,6 @@ const isLoading = ref(true);
 const error = ref(null);
 const selectedTickers = ref([]);
 
-// selectedTickers가 변경될 때마다 자동으로 localStorage에 저장
 watch(selectedTickers, (newSelection) => {
     if (newSelection) {
         const symbolsToSave = newSelection.map(ticker => ticker.symbol);
@@ -21,10 +17,9 @@ watch(selectedTickers, (newSelection) => {
     }
 }, { deep: true });
 
-
-// --- Computed State ---
 const dividendsByDate = computed(() => {
     if (!Array.isArray(selectedTickers.value)) return {};
+    
     const masterData = allDividendData.value;
     const selectedSymbols = selectedTickers.value
         .filter((t) => t && t.symbol)
@@ -34,18 +29,37 @@ const dividendsByDate = computed(() => {
 
     const filteredDividends = masterData.filter((div) => selectedSymbols.includes(div.ticker));
     
-    const processed = {};
+    const groupedByDate = {};
     filteredDividends.forEach((div) => {
-        if (!processed[div.date]) {
-            processed[div.date] = { entries: [] };
+        if (!groupedByDate[div.date]) {
+            groupedByDate[div.date] = [];
         }
-        processed[div.date].entries.push({ ticker: div.ticker, amount: div.amount });
+        groupedByDate[div.date].push(div);
     });
+
+    const processed = {};
+    for (const date in groupedByDate) {
+        const entriesForDay = groupedByDate[date];
+        const uniqueEntries = new Map();
+
+        entriesForDay.forEach((entry) => {
+            const existing = uniqueEntries.get(entry.ticker);
+            if (!existing || (entry.amount !== null && existing.amount === null)) {
+                uniqueEntries.set(entry.ticker, { 
+                    ticker: entry.ticker, 
+                    amount: entry.amount 
+                });
+            }
+        });
+
+        if (uniqueEntries.size > 0) {
+            processed[date] = { entries: Array.from(uniqueEntries.values()) };
+        }
+    }
+    
     return processed;
 });
 
-
-// --- Actions ---
 const loadAllData = async () => {
     isLoading.value = true;
     error.value = null;
@@ -57,7 +71,8 @@ const loadAllData = async () => {
             symbol: item.symbol,
             longName: item.longName || item.symbol,
             company: item.company || "기타",
-            frequency: item.frequency
+            frequency: item.frequency,
+            group: item.group
         }));
 
         const groups = allTickers.value.reduce((acc, ticker) => {
@@ -130,7 +145,6 @@ const removeTicker = (tickerSymbol) => {
     );
 };
 
-// --- Composable Function ---
 export function useCalendarData() {
     return { 
         allTickers, 
