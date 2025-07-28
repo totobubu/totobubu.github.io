@@ -35,7 +35,7 @@ const viewOptions = computed(() => {
 });
 
 const getEventClass = (tickerInfo) => {
-    if (!tickerInfo) return 'group-default';
+    if (!tickerInfo) return 'freq-default';
     const { frequency, group } = tickerInfo;
 
     if (frequency === '매월' || frequency === '분기') {
@@ -46,23 +46,23 @@ const getEventClass = (tickerInfo) => {
         }
     } else if (frequency === '매주') {
         switch (group) {
-            case '월': return 'group-mon';
-            case '화': return 'group-tue';
-            case '수': return 'group-wed';
-            case '목': return 'group-thu';
-            case '금': return 'group-fri';
+            case '월': return 'freq-mon';
+            case '화': return 'freq-tue';
+            case '수': return 'freq-wed';
+            case '목': return 'freq-thu';
+            case '금': return 'freq-fri';
             default: return 'freq-default';
         }
     } else if (frequency === '4주') {
         switch (group) {
-            case 'A': return 'group-a';
-            case 'B': return 'group-b';
-            case 'C': return 'group-c';
-            case 'D': return 'group-d';
-            default: return 'group-default';
+            case 'A': return 'freq-a';
+            case 'B': return 'freq-b';
+            case 'C': return 'freq-c';
+            case 'D': return 'freq-d';
+            default: return 'freq-default';
         }
     }
-    return 'group-default';
+    return 'freq-default';
 };
 
 const calendarEvents = computed(() => {
@@ -114,7 +114,7 @@ const calendarOptions = computed(() => ({
     ],
     weekends: false,
     eventClassNames: (arg) => {
-        return arg.event.extendedProps.eventClass || 'group-default';
+        return arg.event.extendedProps.eventClass || 'freq-default';
     },
     eventClick: function (info) {
         const target = info.jsEvent.target;
