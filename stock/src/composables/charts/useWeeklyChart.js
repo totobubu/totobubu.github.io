@@ -1,19 +1,17 @@
-// stock/src/composables/charts/useWeeklyChart.js
 import { parseYYMMDD } from "@/utils/date.js";
 
-function getWeeklyFontSize(itemCount, deviceType, type = "default") {
+// [핵심 1] 데이터라벨 전용 폰트 크기 계산 함수 (이름 변경)
+function getDataLabelFontSize(itemCount, deviceType, type = "default") {
   let baseSize = 18;
   if (type === "total") baseSize = 24;
-  if (type === "axis") baseSize = 15;
 
   let finalSize;
   if (itemCount <= 5) finalSize = baseSize + 6;
   else if (itemCount <= 10) finalSize = baseSize + 3;
   else if (itemCount <= 15) finalSize = baseSize;
   else if (itemCount <= 30) finalSize = baseSize - 2;
-  else if (itemCount <= 52)
-    finalSize = baseSize - 4; // 52주(1년) 데이터에 대응
-  else finalSize = baseSize - 4; // 그 이상
+  else if (itemCount <= 52) finalSize = baseSize - 4;
+  else finalSize = baseSize - 4;
 
   if (deviceType === "tablet") finalSize *= 0.5;
   if (deviceType === "mobile") finalSize *= 0.4;
@@ -21,13 +19,35 @@ function getWeeklyFontSize(itemCount, deviceType, type = "default") {
   return Math.max(5, Math.round(finalSize));
 }
 
+// [핵심 2] X, Y축 전용 폰트 크기 계산을 위한 새로운 함수
+function getAxisFontSize(itemCount, deviceType) {
+  // 축 라벨은 데이터라벨보다 작으므로 기본 크기를 낮게 설정
+  let baseSize = 12;
+
+  let finalSize;
+  if (itemCount <= 5) finalSize = baseSize + 2;
+  else if (itemCount <= 10) finalSize = baseSize + 1;
+  else if (itemCount <= 15) finalSize = baseSize;
+  else if (itemCount <= 30) finalSize = baseSize - 1;
+  else if (itemCount <= 52) finalSize = baseSize - 2;
+  else finalSize = baseSize - 2;
+
+  if (deviceType === "tablet") finalSize *= 0.8;
+  if (deviceType === "mobile") finalSize *= 0.7;
+  
+  // 축 라벨의 최소 크기 설정
+  return Math.max(8, Math.round(finalSize));
+}
+
+
 export function useWeeklyChart(options) {
   const { data, deviceType, theme } = options;
   const { textColor, textColorSecondary, surfaceBorder, zoomOptions } = theme;
 
-  const barLabelSize = getWeeklyFontSize(data.length, deviceType, "default");
-  const totalLabelSize = getWeeklyFontSize(data.length, deviceType, "total");
-  const tickFontSize = getWeeklyFontSize(data.length, deviceType, "axis");
+  // [핵심 3] 각 목적에 맞는 함수를 호출하여 폰트 크기 계산
+  const barLabelSize = getDataLabelFontSize(data.length, deviceType, "default");
+  const totalLabelSize = getDataLabelFontSize(data.length, deviceType, "total");
+  const tickFontSize = getAxisFontSize(data.length, deviceType);
 
   const monthlyAggregated = data.reduce((acc, item) => {
     const date = parseYYMMDD(item["배당락"]);

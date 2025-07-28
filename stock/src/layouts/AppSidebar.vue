@@ -181,7 +181,7 @@ const getGroupSeverity = (group) => {
         </Column>
     </DataTable>
 
-    <Dialog v-model:visible="dialogsVisible.company" modal header="운용사 필터" :style="{ width: '80vw' }"
+    <Dialog v-model:visible="dialogsVisible.company" modal header="운용사 필터" :style="{ width: '600px' }"
         :breakpoints="{ '576px': '95vw' }">
         <div class="filter-button-group">
             <ToggleButton onLabel="전체" offLabel="전체" :modelValue="filters.company.value === null"
@@ -192,27 +192,13 @@ const getGroupSeverity = (group) => {
         </div>
     </Dialog>
 
-    <Dialog v-model:visible="dialogsVisible.frequency" modal header="지급주기 필터" :style="{ width: '80vw' }"
-        :breakpoints="{ '576px': '95vw' }">
+    <Dialog v-model:visible="dialogsVisible.frequency" modal header="지급주기 필터" :style="{ width: '576px' }">
         <div class="filter-button-group">
             <ToggleButton onLabel="전체" offLabel="전체" :modelValue="filters.frequency.value === null"
                 @update:modelValue="selectFilter('frequency', null)" class="p-button-sm" />
             <ToggleButton v-for="freq in frequencies" :key="freq" :onLabel="freq" :offLabel="freq"
                 :modelValue="filters.frequency.value === freq" @update:modelValue="selectFilter('frequency', freq)"
                 class="p-button-sm" />
-        </div>
-    </Dialog>
-
-    <Dialog v-model:visible="dialogsVisible.group" modal header="그룹 필터" :style="{ width: '80vw' }"
-        :breakpoints="{ '576px': '95vw' }">
-        <div class="filter-button-group">
-            <ToggleButton onLabel="전체" offLabel="전체" :modelValue="filters.group.value === null"
-                @update:modelValue="selectFilter('group', null)" class="p-button-sm" />
-            <ToggleButton v-for="group in groups" :key="group" :onLabel="group" :offLabel="group"
-                :modelValue="filters.group.value === group" @update:modelValue="selectFilter('group', group)"
-                class="p-button-sm">
-                <Tag :value="group" :severity="getGroupSeverity(group)" />
-            </ToggleButton>
         </div>
     </Dialog>
 </template>
