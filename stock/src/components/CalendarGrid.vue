@@ -102,6 +102,10 @@ const calendarOptions = computed(() => ({
     initialView: isMobile.value ? 'listWeek' : 'dayGridMonth',
     locale: koLocale,
     headerToolbar: false,
+    validRange: {
+        start: '2024-01-01',
+        end: '2026-04-01'
+    },
     datesSet: (info) => {
         currentTitle.value = info.view.title;
         if (info.view.type !== currentView.value) {
