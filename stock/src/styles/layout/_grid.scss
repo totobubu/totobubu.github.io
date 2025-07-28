@@ -273,32 +273,6 @@
                     ;
                 }
             }
-            .freq {
-                &-weekly {
-                    color: #3b82f6;
-                    /* blue-500 */
-                }
-
-                &-monthly {
-                    color: #22c55e;
-                    /* green-500 */
-                }
-
-                &-quarterly {
-                    color: #f97316;
-                    /* orange-500 */
-                }
-
-                &-every-4-week {
-                    color: #14b8a6;
-                    /* teal-500 */
-                }
-
-                &-default {
-                    color: #64748b;
-                    /* slate-500 */
-                }
-            }
         }
         &-daygrid {
 
@@ -317,24 +291,8 @@
             }
             .fc-event-main-content {
                 display: flex;
-
-
             }
             &-event-harness {
-                position: relative;
-
-                .freq {
-
-                    &-monthly {
-                        background-color: #22c55e;
-                        /* green-500 */
-                    }
-
-                    &-quarterly {
-                        background-color: #f97316;
-                        /* orange-500 */
-                    }
-                }
                 .fc-h-event {
                     border: 0;
                     overflow: hidden;
@@ -344,28 +302,6 @@
 
                     }
                 }
-                .group {
-                        &-mon {background: #a78bfa;}
-
-                        &-tue {
-                            background: #facc15;
-                        }
-
-                        &-wed {
-                            background: #14b8a6;
-                        }
-
-                        &-thu {
-                            background: #6366fa;
-                        }
-
-                        &-fri {
-                            background: #f472b6;
-                        }
-                }
-
-
-
             }
             .fc {
                 &-scrollgrid   {
@@ -404,35 +340,6 @@
             }
         }
     }
-
-
-    /* 지급주기별 점(dot) 색상 정의 */
-    .fc-direction-ltr .freq-weekly .fc-list-event-dot {
-        border-color: #3b82f6;
-        /* blue-500 */
-    }
-
-    .fc-direction-ltr .freq-monthly .fc-list-event-dot {
-        border-color: #22c55e;
-        /* green-500 */
-    }
-
-    .fc-direction-ltr .freq-quarterly .fc-list-event-dot {
-        border-color: #f97316;
-        /* orange-500 */
-    }
-
-    .fc-direction-ltr .freq-every-4-week .fc-list-event-dot {
-        border-color: #14b8a6;
-        /* teal-500 */
-    }
-
-    .fc-direction-ltr .freq-default .fc-list-event-dot {
-        border-color: #64748b;
-        /* slate-500 */
-    }
-
-
 }
 
 
@@ -545,27 +452,94 @@
     }
 }
 
+$color-mon :#a78bfa;
+$color-tue :#facc15;
+$color-wed :#14b8a6;
+$color-thu :#6366fa;
+$color-fri :#f472b6;
+
+$color-a :var(--p-tag-danger-background);   // red
+$color-b :var(--p-tag-warn-background);     // orange
+$color-c :var(--p-tag-success-background);  // green
+$color-d :var(--p-tag-info-background);     // sky
+
+$color-monthly :var(--p-amber-400);
+$color-quarterly :var(--p-fuchsia-400);
+
 .p-tag {
     &[data-p="mon"] {
-        background: #a78bfa;
+        background: $color-mon;
     }
 
     &[data-p="tue"] {
-        background: #facc15;
+        background: $color-tue;
     }
 
     &[data-p="wed"] {
-        background: #14b8a6;
+        background: $color-wed;
     }
 
     &[data-p="thu"] {
-        background: #6366fa;
+        background: $color-thu;
     }
 
     &[data-p="fri"] {
-        background: #f472b6;
+        background: $color-fri;
     }
 }
+.fc {
+    &-list {
+        .freq-monthly { color: $color-monthly;
+            .fc-list-event-dot { border-color: $color-monthly;}
+        }
+        .freq-quarterly { color: $color-quarterly;
+            .fc-list-event-dot { border-color: $color-quarterly;}
+        }
+        .freq-mon { color: $color-mon;
+            .fc-list-event-dot { border-color: $color-mon;}
+        }
+        .freq-tue { color: $color-tue;
+            .fc-list-event-dot { border-color: $color-tue;}
+        }
+        .freq-wed { color: $color-wed;
+            .fc-list-event-dot { border-color: $color-wed;}
+        }
+        .freq-thu { color: $color-thu;
+            .fc-list-event-dot { border-color: $color-thu;}
+        }
+        .freq-fri { color: $color-fri;
+            .fc-list-event-dot { border-color: $color-fri;}
+        }
+        .freq-a { color: $color-a;
+            .fc-list-event-dot { border-color: $color-a;}
+        }
+        .freq-b { color: $color-b;
+            .fc-list-event-dot { border-color: $color-b;}
+        }
+        .freq-c { color: $color-c;
+            .fc-list-event-dot { border-color: $color-c;}
+        }
+        .freq-d { color: $color-d;
+            .fc-list-event-dot { border-color: $color-d;}
+        }
+    }
+    &-daygrid {
+        
+        .freq-monthly { background-color: $color-monthly;}
+        .freq-quarterly { background-color: $color-quarterly;}
+        .freq-mon { background-color: $color-mon;}
+        .freq-tue { background-color: $color-tue;}
+        .freq-wed { background-color: $color-wed;}
+        .freq-thu { background-color: $color-thu;}
+        .freq-fri { background-color: $color-fri;}
+        .freq-a { background-color: $color-a;}
+        .freq-b { background-color: $color-b;}
+        .freq-c { background-color: $color-c;}
+        .freq-d { background-color: $color-d;}
+
+    }
+}
+
 
 @include bp.media-breakpoint-only('xs') {}
 
