@@ -2,15 +2,3 @@
 @use "../abstracts/mixins" as mx;
 @use "../functions/breakpoints" as bp;
 
-#p-calendar {
-  @include bp.media-breakpoint-up('lg') {
-
-      .p-panel-header {
-        width: calc(100% - 1000px);
-      }
-
-      .p-panel-content-container {
-        width: 1000px;
-      }
-  }
-}

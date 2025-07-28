@@ -109,7 +109,7 @@ const calendarOptions = computed(() => ({
     },
     eventContent: (arg) => {
         if (arg.event.extendedProps.isHoliday) {
-            return { html: `<div class="fc-holiday-name">${arg.event.title}</div>` };
+            return { html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>` };
         }
 
         const ticker = arg.event.extendedProps.ticker;
@@ -182,7 +182,7 @@ const goToToday = () => fullCalendar.value?.getApi().today();
     </Card>
 
     <Panel v-else class="panel-container">
-        <template #header>
+        <template #header id="t-calendar-header">
             <div class="header-left">
                 <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
                 <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
@@ -201,7 +201,7 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 
 </template>
 
-<style>
+<!-- <style>
 .fc-direction-ltr .freq-weekly .fc-list-event-dot,
 .freq-weekly .fc-event-main-content {
     background-color: #3b82f630;
@@ -240,4 +240,4 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 .fc-event-main-content b {
     margin-right: 4px;
 }
-</style>
+</style> -->

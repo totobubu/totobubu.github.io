@@ -8,38 +8,15 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Accordion: typeof import('primevue/accordion')['default']
-    AccordionContent: typeof import('primevue/accordioncontent')['default']
-    AccordionHeader: typeof import('primevue/accordionheader')['default']
-    AccordionPanel: typeof import('primevue/accordionpanel')['default']
-    Avatar: typeof import('primevue/avatar')['default']
-    Breadcrumb: typeof import('primevue/breadcrumb')['default']
     Button: typeof import('primevue/button')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
-    Card: typeof import('primevue/card')['default']
-    Drawer: typeof import('primevue/drawer')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    IconField: typeof import('primevue/iconfield')['default']
-    InputGroup: typeof import('primevue/inputgroup')['default']
-    InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
-    InputIcon: typeof import('primevue/inputicon')['default']
-    InputOtp: typeof import('primevue/inputotp')['default']
-    InputText: typeof import('primevue/inputtext')['default']
-    Listbox: typeof import('primevue/listbox')['default']
-    Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    ScrollPanel: typeof import('primevue/scrollpanel')['default']
-    SelectButton: typeof import('primevue/selectbutton')['default']
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
-    Tag: typeof import('primevue/tag')['default']
-    ToggleButton: typeof import('primevue/togglebutton')['default']
-  }
-  export interface GlobalDirectives {
-    StyleClass: typeof import('primevue/styleclass')['default']
   }
 }

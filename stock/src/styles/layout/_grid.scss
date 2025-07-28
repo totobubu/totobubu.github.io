@@ -194,6 +194,18 @@
         height: 100%;
     }
 
+    .p-panel {
+        &-header {
+            &-actions {
+                display:none;
+            }
+        }
+        &-content {
+            padding: 0;
+        }
+    }
+
+
     .fc {
         height: 100%;
 
@@ -261,32 +273,99 @@
                     ;
                 }
             }
+            .freq {
+                &-weekly {
+                    color: #3b82f6;
+                    /* blue-500 */
+                }
+
+                &-monthly {
+                    color: #22c55e;
+                    /* green-500 */
+                }
+
+                &-quarterly {
+                    color: #f97316;
+                    /* orange-500 */
+                }
+
+                &-every-4-week {
+                    color: #14b8a6;
+                    /* teal-500 */
+                }
+
+                &-default {
+                    color: #64748b;
+                    /* slate-500 */
+                }
+            }
         }
-
-        .freq {
-            &-weekly {
-                color: #3b82f6;
-                /* blue-500 */
+        &-daygrid {
+            
+            &-day-events {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                &:before {
+                    display: none;;
+                }
             }
+            &-event-harness {
+                .freq {
+                    &-weekly {
+                        background-color: #3b82f6;
+                        /* blue-500 */
+                    }
 
-            &-monthly {
-                color: #22c55e;
-                /* green-500 */
+                    &-monthly {
+                        background-color: #22c55e;
+                        /* green-500 */
+                    }
+
+                    &-quarterly {
+                        background-color: #f97316;
+                        /* orange-500 */
+                    }
+
+                    &-every-4-week {
+                        background-color: #14b8a6;
+                        /* teal-500 */
+                    }
+
+                    &-default {
+                        background-color: #64748b;
+                        /* slate-500 */
+                    }
+                }
+
             }
+            .fc {
+                &-scrollgrid   {
+                    border: 0;
+                }
+                &-bg-event {
+                    opacity: 1;
+                }
+                &-event-main-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: .7rem;
+                    span {
+                        font-size: .8em;
+                    }
+                }
+                &-holiday-name {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    background: rgba(255, 0, 0, 0.5);
+                    color: #fff;
 
-            &-quarterly {
-                color: #f97316;
-                /* orange-500 */
-            }
-
-            &-every-4-week {
-                color: #14b8a6;
-                /* teal-500 */
-            }
-
-            &-default {
-                color: #64748b;
-                /* slate-500 */
+                }
             }
         }
     }
@@ -317,6 +396,7 @@
         border-color: #64748b;
         /* slate-500 */
     }
+
 
 }
 
