@@ -144,23 +144,35 @@ const calendarOptions = computed(() => ({
         if (arg.view.type === 'listWeek') {
             
             return {
-                html: `<div class="mobile-event-item ${eventClass}">
+                html: `<div class="stock-item-list ${eventClass}">
+                        <span class="data">
                             <span class="ticker-name">${ticker}</span>
                             <span class="amount-text">${amountHtml}</span>
+                            </span>
                             <span class="actions">
                                 <button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>
                                 ${removeButtonHtml}
                             </span>
                         </div>`
             };
+
+            
+        } else if (arg.view.type === 'dayGridWeek') {
+            
+            return {
+                html: `<div class="stock-item-week ${eventClass}">
+                            <span class="ticker-name">${ticker}</span>
+                            <span class="amount-text">${amountHtml}</span>
+                            <span class="actions">
+                                ${viewButtonHtml}
+                                ${removeButtonHtml}
+                            </span>
+                        </div>`
+            };
         } else {
             return {
-                html: `
-                
-                <div class="fc-event-main-content ${eventClass}">
-                            ${viewButtonHtml}
+                html: `<div class="stock-item-month ${eventClass}"  data-action="view" title="상세 보기">
                             <div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div>
-                            ${removeButtonHtml}
                         </div>`
             };
         }
@@ -195,29 +207,29 @@ const goToToday = () => fullCalendar.value?.getApi().today();
 </script>
 
 <template>
-    <Card v-if="isMobile">
+    <Card v-if="isMobile" id="t-calendar-list">
         <template #header>
             {{ currentTitle }}
         </template>
         <template #title>
-            <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
+            <Button icon="pi pi-chevron-left" text @click="prevMonth" />
             <Button label="오늘" class="p-button-sm" @click="goToToday" variant="text" />
-            <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
+            <Button icon="pi pi-chevron-right" text @click="nextMonth" />
         </template>
         <template #content>
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </template>
     </Card>
 
-    <Panel v-else class="panel-container">
-        <template #header id="t-calendar-header">
+    <Panel v-else id="t-calendar-grid">
+        <template #header>
             <div class="header-left">
-                <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
-                <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
                 <Button label="오늘" class="p-button-sm" @click="goToToday" />
             </div>
             <div class="header-center">
+                <Button icon="pi pi-chevron-left" text @click="prevMonth" />
                 <h2>{{ currentTitle }}</h2>
+                <Button icon="pi pi-chevron-right" text @click="nextMonth" />
             </div>
             <div class="header-right">
                 <SelectButton v-model="currentView" :options="viewOptions" optionLabel="label" optionValue="value"

@@ -168,7 +168,13 @@
     width: 100%;
 }
 
-#t-calendar {
+
+
+
+
+
+#t-calendar-list {
+
     background: var(--p-zinc-800);
     color: #fff;
     overflow: hidden;
@@ -192,24 +198,12 @@
 
     .p-card-content {
         height: 100%;
-    }
-
-    .p-panel {
-        &-header {
-            &-actions {
-                display:none;
-            }
-        }
-        &-content {
-            padding: 0;
+        > .fc {
+            height: 100%;
         }
     }
 
-
-    .fc {
-        height: 100%;
-
-        &-list {
+    .fc-list {
             border: 0;
 
             &-event {
@@ -229,13 +223,18 @@
                     padding-top: 0;
                     padding-bottom: 0;
 
-                    >[class^='freq-'] {
+                    .stock-item-list {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
                     }
 
+                    .ticker-name {
+                        width: 20%;
+                    }
+
                     .actions {
+                        justify-self: end;
                         button {
                             padding: .5rem;
                             width: 2rem;
@@ -273,7 +272,68 @@
                     ;
                 }
             }
+
+    }
+
+}
+
+#t-calendar-grid {
+    background: var(--p-zinc-800);
+    color: #fff;
+    overflow: hidden;
+    height: 100%;
+
+
+    .p-panel {
+        &-header {
+            height: 3rem;
+            padding: .5rem 1.125rem;
+
+            .header-center {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+            h2 {
+                font-size: 1rem;
+            }
+            .p-button,
+            .p-togglebutton {
+                padding: 0.3125rem 0.5rem;
+                font-size: .7rem;
+            }
+            .p-button-icon-only {
+                width: auto;
+                height: auto;
+            }
+            &-actions {
+                display:none;
+            }
+
+            .p-togglebutton {
+                opacity: .3;
+            }
+            .p-togglebutton-checked {
+                opacity: 1;
+                font-weight: 700;
+                background: var(--p-button-primary-background);
+                color: #000;
+
+            }
         }
+        &-content {
+            padding: 0;
+            height: 100%;
+            &-container {
+                height: calc(100% - 3rem);
+        }
+        }
+    }
+
+    
+    .fc {
+        height: 100%;
+        
         &-daygrid {
 
             td,th {
@@ -284,14 +344,12 @@
             &-day-events {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.25rem;
+                gap: 0.3rem;
                 &:before {
                     display: none;;
                 }
             }
-            .fc-event-main-content {
-                display: flex;
-            }
+            
             &-event-harness {
                 .fc-h-event {
                     border: 0;
@@ -303,44 +361,76 @@
                     }
                 }
             }
-            .fc {
-                &-scrollgrid   {
-                    border: 0;
-                }
-                &-bg-event {
-                    opacity: 1;
-                }
-                &-event-title {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: .7rem;
-                    padding: .3em;
-                    span {
-                        font-size: .8em;
-                    }
-                }
-                &-holiday-name {
-                    display: flex;
-                    width: 100%;
-                    height: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    background: rgba(255, 0, 0, 0.5);
-                    color: #fff;
-
-                }
+        }
+        
+        &-scrollgrid   {
+            border: 0;
+        }
+        &-bg-event {
+            opacity: 1;
+        }
+        &-event-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            padding: .3em;
+            span {
+                font-size: .8em;
             }
         }
-        &-dayGridMonth-view {}
+        &-holiday-name {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 0, 0, 0.5);
+            color: #fff;
+
+        }
+        &-dayGridMonth-view {
+            .fc-h-event {cursor: pointer;
+                width: 50px;
+            }
+        }
         &-dayGridWeek-view {
+
             .fc-daygrid-event-harness {
                 width: 100%;
+
             }
+            .fc-event {
+                width: 100%;
+            }
+            .stock-item-week {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: .2em.5em;
+
+                .p-button {
+                    padding: 0;
+                    width: auto;
+                }
+
+            }
+
+        }
+
+        .stock-item {
+            &-week {
+            }
+            &-month {}
+
         }
     }
+    
+
 }
+
 
 
 .p-drawer-full .p-drawer {
@@ -458,10 +548,10 @@ $color-wed :#14b8a6;
 $color-thu :#6366fa;
 $color-fri :#f472b6;
 
-$color-a :var(--p-tag-danger-background);   // red
-$color-b :var(--p-tag-warn-background);     // orange
-$color-c :var(--p-tag-success-background);  // green
-$color-d :var(--p-tag-info-background);     // sky
+$color-a :var(--p-red-400);   // red
+$color-b :var(--p-orange-400);     // orange
+$color-c :var(--p-green-400);  // green
+$color-d :var(--p-sky-400);     // sky
 
 $color-monthly :var(--p-amber-400);
 $color-quarterly :var(--p-fuchsia-400);
@@ -523,8 +613,23 @@ $color-quarterly :var(--p-fuchsia-400);
             .fc-list-event-dot { border-color: $color-d;}
         }
     }
-    &-daygrid {
-        
+    &-dayGridWeek-view {
+        .stock-item-week {
+            &.freq-monthly { background-color: $color-monthly;}
+            &.freq-quarterly { background-color: $color-quarterly;}
+            &.freq-mon { background-color: $color-mon;}
+            &.freq-tue { background-color: $color-tue;}
+            &.freq-wed { background-color: $color-wed;}
+            &.freq-thu { background-color: $color-thu;}
+            &.freq-fri { background-color: $color-fri;}
+            &.freq-a { background-color: $color-a;}
+            &.freq-b { background-color: $color-b;}
+            &.freq-c { background-color: $color-c;}
+            &.freq-d { background-color: $color-d;}
+        }
+
+    }
+    &-dayGridMonth-view {
         .freq-monthly { background-color: $color-monthly;}
         .freq-quarterly { background-color: $color-quarterly;}
         .freq-mon { background-color: $color-mon;}
