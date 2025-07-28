@@ -5,6 +5,10 @@ import Accordion from "primevue/accordion";
 import AccordionPanel from "primevue/accordionpanel";
 import AccordionHeader from "primevue/accordionheader";
 import AccordionContent from "primevue/accordioncontent";
+import { useBreakpoint } from "@/composables/useBreakpoint";
+
+
+const { isMobile } = useBreakpoint();
 
 const props = defineProps({
   info: {
@@ -26,17 +30,18 @@ const stats = computed(() => {
 
 <template>
   <div id="tickerInfo">
-    <Accordion :activeIndex="0">
+    <div class="tickerInfo__header">
+      <div class="tickerInfo__brand">
+        {{ info.company }} · {{ info.frequency }} · {{ info.group }}
+      </div>
+      <h2 class="tickerInfo__title">
+        {{ info.Symbol }} <i>·</i> <small>{{ info.longName }}</small>
+      </h2>
+    </div>
+    <Accordion :activeIndex="0" v-if="isMobile">
       <AccordionPanel value="0">
         <AccordionHeader>
-          <div class="tickerInfo__header">
-            <div class="tickerInfo__brand">
-              {{ info.company }} · {{ info.frequency }} · {{ info.group }}
-            </div>
-            <h2 class="tickerInfo__title">
-              {{ info.Symbol }} <i>·</i> <small>{{ info.longName }}</small>
-            </h2>
-          </div>
+          
         </AccordionHeader>
         <AccordionContent>
           <div class="tickerInfo__status">

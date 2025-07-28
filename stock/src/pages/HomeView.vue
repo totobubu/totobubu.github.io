@@ -6,7 +6,7 @@
         <div v-else-if="error" class="text-center mt-8">
             <p>{{ error }}</p>
         </div>
-        <CalendarGrid  v-else id="t-calendar"
+        <CalendarGrid  v-else 
             :dividendsByDate="dividendsByDate" 
             :holidays="holidays"
             :allTickers="allTickers"

@@ -21,7 +21,6 @@ const route = useRoute();
 const isHomePage = computed(() => route.path === '/');
 
 const breadcrumbItems = computed(() => {
-    const home = { icon: 'pi pi-home', to: '/' };
     const items = [];
 
     // stock 상세 페이지일 경우 (e.g., /stock/tslw)
@@ -43,7 +42,7 @@ const breadcrumbItems = computed(() => {
     // 다른 종류의 서브 페이지가 추가될 경우 여기에 로직 추가
     // else if (route.path.startsWith('/other-page')) { ... }
 
-    return [home, ...items];
+    return [...items];
 });
 
 watch(visible, (newValue) => {
