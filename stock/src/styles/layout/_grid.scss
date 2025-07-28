@@ -301,6 +301,11 @@
             }
         }
         &-daygrid {
+
+            td,th {
+                padding: .25rem;
+                border-color: rgba(255,255,255,0.1);
+            }
             
             &-day-events {
                 display: flex;
@@ -310,12 +315,15 @@
                     display: none;;
                 }
             }
+            .fc-event-main-content {
+                display: flex;
+
+
+            }
             &-event-harness {
+                position: relative;
+
                 .freq {
-                    &-weekly {
-                        background-color: #3b82f6;
-                        /* blue-500 */
-                    }
 
                     &-monthly {
                         background-color: #22c55e;
@@ -326,17 +334,37 @@
                         background-color: #f97316;
                         /* orange-500 */
                     }
+                }
+                .fc-h-event {
+                    border: 0;
+                    overflow: hidden;
+                    margin: 0;
+                    .p-button {
+                        padding: 0;
 
-                    &-every-4-week {
-                        background-color: #14b8a6;
-                        /* teal-500 */
-                    }
-
-                    &-default {
-                        background-color: #64748b;
-                        /* slate-500 */
                     }
                 }
+                .group {
+                        &-mon {background: #a78bfa;}
+
+                        &-tue {
+                            background: #facc15;
+                        }
+
+                        &-wed {
+                            background: #14b8a6;
+                        }
+
+                        &-thu {
+                            background: #6366fa;
+                        }
+
+                        &-fri {
+                            background: #f472b6;
+                        }
+                }
+
+
 
             }
             .fc {
@@ -346,12 +374,13 @@
                 &-bg-event {
                     opacity: 1;
                 }
-                &-event-main-content {
+                &-event-title {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
                     font-size: .7rem;
+                    padding: .3em;
                     span {
                         font-size: .8em;
                     }
@@ -366,6 +395,12 @@
                     color: #fff;
 
                 }
+            }
+        }
+        &-dayGridMonth-view {}
+        &-dayGridWeek-view {
+            .fc-daygrid-event-harness {
+                width: 100%;
             }
         }
     }

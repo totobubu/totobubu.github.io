@@ -34,32 +34,54 @@ const viewOptions = computed(() => {
     ];
 });
 
-const getFrequencyClass = (tickerSymbol) => {
-    if (!props.allTickers || props.allTickers.length === 0) return 'freq-default';
-    const tickerInfo = props.allTickers.find(t => t.symbol === tickerSymbol);
-    const frequency = tickerInfo?.frequency;
+const getEventClass = (tickerInfo) => {
+    if (!tickerInfo) return 'group-default';
+    const { frequency, group } = tickerInfo;
 
-    switch (frequency) {
-        case '매주': return 'freq-weekly';
-        case '매월': return 'freq-monthly';
-        case '분기': return 'freq-quarterly';
-        case '4주': return 'freq-every-4-week';
-        default: return 'freq-default';
+    if (frequency === '매월' || frequency === '분기') {
+        switch (frequency) {
+            case '매월': return 'freq-monthly';
+            case '분기': return 'freq-quarterly';
+            default: return 'freq-default';
+        }
+    } else if (frequency === '매주') {
+        switch (group) {
+            case '월': return 'group-mon';
+            case '화': return 'group-tue';
+            case '수': return 'group-wed';
+            case '목': return 'group-thu';
+            case '금': return 'group-fri';
+            default: return 'freq-default';
+        }
+    } else if (frequency === '4주') {
+        switch (group) {
+            case 'A': return 'group-a';
+            case 'B': return 'group-b';
+            case 'C': return 'group-c';
+            case 'D': return 'group-d';
+            default: return 'group-default';
+        }
     }
+    return 'group-default';
 };
 
 const calendarEvents = computed(() => {
     if (!props.dividendsByDate) return [];
     return Object.entries(props.dividendsByDate).flatMap(([date, data]) =>
-        data.entries.map(entry => ({
-            title: entry.amount ? `${entry.ticker} $${entry.amount.toFixed(4)}` : entry.ticker,
-            start: date,
-            extendedProps: {
-                ticker: entry.ticker,
-                amount: entry.amount,
-                frequencyClass: getFrequencyClass(entry.ticker)
-            },
-        }))
+        data.entries.map(entry => {
+            const tickerInfo = props.allTickers.find(t => t.symbol === entry.ticker);
+            return {
+                title: entry.amount ? `${entry.ticker} $${entry.amount.toFixed(4)}` : entry.ticker,
+                start: date,
+                extendedProps: {
+                    ticker: entry.ticker,
+                    amount: entry.amount,
+                    eventClass: getEventClass(tickerInfo),
+                    frequency: tickerInfo?.frequency,
+                    group: tickerInfo?.group
+                },
+            };
+        })
     );
 });
 
@@ -92,7 +114,7 @@ const calendarOptions = computed(() => ({
     ],
     weekends: false,
     eventClassNames: (arg) => {
-        return arg.event.extendedProps.frequencyClass || 'freq-default';
+        return arg.event.extendedProps.eventClass || 'group-default';
     },
     eventClick: function (info) {
         const target = info.jsEvent.target;
@@ -112,17 +134,17 @@ const calendarOptions = computed(() => ({
             return { html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>` };
         }
 
-        const ticker = arg.event.extendedProps.ticker;
-        const amount = arg.event.extendedProps.amount;
-        const frequencyClass = arg.event.extendedProps.frequencyClass || 'freq-default';
+        const { ticker, amount, eventClass, frequency, group } = arg.event.extendedProps;
         const amountHtml = (amount !== null && typeof amount === 'number' && !isNaN(amount))
             ? `<span>$${amount.toFixed(4)}</span>`
             : '<span class="no-amount">예정</span>';
+        const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
+        const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="remove" title="목록에서 제거"><span class="pi pi-times"></span></button>`;
 
         if (arg.view.type === 'listWeek') {
-            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast" data-action="remove" title="목록에서 제거"><span class="pi pi-times"></span></button>`;
+            
             return {
-                html: `<div class="${frequencyClass}">
+                html: `<div class="mobile-event-item ${eventClass}">
                             <span class="ticker-name">${ticker}</span>
                             <span class="amount-text">${amountHtml}</span>
                             <span class="actions">
@@ -133,7 +155,13 @@ const calendarOptions = computed(() => ({
             };
         } else {
             return {
-                html: `<div class="fc-event-main-content ${frequencyClass}"><b>${ticker}</b> ${amountHtml}</div>`
+                html: `
+                
+                <div class="fc-event-main-content ${eventClass}">
+                            ${viewButtonHtml}
+                            <div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div>
+                            ${removeButtonHtml}
+                        </div>`
             };
         }
     }
@@ -172,9 +200,9 @@ const goToToday = () => fullCalendar.value?.getApi().today();
             {{ currentTitle }}
         </template>
         <template #title>
-                 <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
-                <Button label="오늘" class="p-button-sm" @click="goToToday" variant="text" />
-                <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
+            <Button icon="pi pi-chevron-left" text rounded @click="prevMonth" />
+            <Button label="오늘" class="p-button-sm" @click="goToToday" variant="text" />
+            <Button icon="pi pi-chevron-right" text rounded @click="nextMonth" />
         </template>
         <template #content>
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
@@ -200,44 +228,3 @@ const goToToday = () => fullCalendar.value?.getApi().today();
     </Panel>
 
 </template>
-
-<!-- <style>
-.fc-direction-ltr .freq-weekly .fc-list-event-dot,
-.freq-weekly .fc-event-main-content {
-    background-color: #3b82f630;
-}
-
-.fc-direction-ltr .freq-monthly .fc-list-event-dot,
-.freq-monthly .fc-event-main-content {
-    background-color: #22c55e30;
-}
-
-.fc-direction-ltr .freq-quarterly .fc-list-event-dot,
-.freq-quarterly .fc-event-main-content {
-    background-color: #f9731630;
-}
-
-.fc-direction-ltr .freq-every-4-week .fc-list-event-dot,
-.freq-every-4-week .fc-event-main-content {
-    background-color: #14b8a630;
-}
-
-.fc-direction-ltr .freq-default .fc-list-event-dot,
-.freq-default .fc-event-main-content {
-    background-color: #64748b30;
-}
-
-.fc-event-main-content {
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    color: inherit;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.fc-event-main-content b {
-    margin-right: 4px;
-}
-</style> -->
