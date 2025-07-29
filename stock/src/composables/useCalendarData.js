@@ -94,7 +94,8 @@ const loadAllData = async () => {
                 savedSymbols.includes(t.symbol)
             );
         } else if (allTickers.value.length > 0) {
-            selectedTickers.value = allTickers.value.slice(0, 8);
+            // selectedTickers.value = allTickers.value.slice(0, 8);
+            selectedTickers.value = [...allTickers.value];
         }
 
         const tickerNames = allTickers.value.map((t) => t.symbol).filter(Boolean);
