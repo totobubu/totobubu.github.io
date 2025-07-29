@@ -4,14 +4,17 @@ function getPriceFontSize(itemCount, deviceType, type = 'default') {
     let baseSize = 14;
     if (type === 'line') baseSize = 13;
     if (type === 'axis') baseSize = 12;
+
     let finalSize;
     if (itemCount <= 7) finalSize = baseSize + 2;
     else if (itemCount <= 15) finalSize = baseSize;
     else if (itemCount <= 30) finalSize = baseSize - 2;
     else if (itemCount <= 60) finalSize = baseSize - 3;
     else finalSize = baseSize - 4;
+
     if (deviceType === 'tablet') finalSize *= 0.9;
     if (deviceType === 'mobile') finalSize *= 0.8;
+
     return Math.max(9, Math.round(finalSize));
 }
 
@@ -87,7 +90,16 @@ export function usePriceChart(options) {
         maintainAspectRatio: false,
         aspectRatio: deviceType === "desktop" ? 16 / 10 : (deviceType === "tablet" ? 3 / 2 : 4 / 3),
         plugins: {
-            legend: { display: false },
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    color: textColor,
+                    font: {
+                        size: tickFontSize
+                    }
+                }
+            },
             tooltip: {
                 mode: "index", intersect: false, itemSort: (a, b) => a.dataset.order - b.dataset.order,
                 callbacks: { label: (c) => `${c.dataset.label || ""}: ${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(c.parsed.y)}` }
