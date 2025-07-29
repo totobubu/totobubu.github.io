@@ -161,6 +161,14 @@
             max-width: 120px;
         }
     }
+    
+
+@include bp.media-breakpoint-only('xs') {
+    .p-card-body {
+        padding: 0;
+    }
+}
+
 }
 
 .toto-history {
