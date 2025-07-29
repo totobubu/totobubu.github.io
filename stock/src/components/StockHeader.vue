@@ -38,7 +38,7 @@ const stats = computed(() => {
         {{ info.Symbol }} <i>·</i> <small>{{ info.longName }}</small>
       </h2>
     </div>
-    <Accordion :activeIndex="0" v-if="isMobile">
+    <!-- <Accordion :activeIndex="0" v-if="isMobile">
       <AccordionPanel value="0">
         <AccordionHeader>
           
@@ -62,6 +62,6 @@ const stats = computed(() => {
           </div>
         </AccordionContent>
       </AccordionPanel>
-    </Accordion>
+    </Accordion> -->
   </div>
 </template>
