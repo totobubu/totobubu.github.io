@@ -14,7 +14,7 @@ import ProgressSpinner from "primevue/progressspinner";
 const route = useRoute();
 const { isDesktop } = useBreakpoint();
 const isPriceChartMode = ref(false);
-const selectedTimeRange = ref("1Y");
+const selectedTimeRange = ref("1Y"); // 초기값, watch에서 덮어씀
 const timeRangeOptions = ref([]);
 
 const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
@@ -33,28 +33,23 @@ const generateDynamicTimeRangeOptions = () => {
   const now = new Date();
   const options = [];
 
-  if (frequency === '분기') {
-    const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
-    const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
-    const tenYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 10));
+  const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
+  const twoYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 2));
+  const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
+  const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
 
+  if (frequency === '분기') {
+    const tenYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 10));
+    if (oldestRecordDate < oneYearAgo) options.push("1Y");
+    if (oldestRecordDate < twoYearsAgo) options.push("2Y");
     if (oldestRecordDate < threeYearsAgo) options.push("3Y");
     if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
     if (oldestRecordDate < tenYearsAgo) options.push("10Y");
-
-  } else {
-    if (frequency === '매주') {
-      const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
-      if (oldestRecordDate < threeMonthsAgo) options.push("3M");
-    }
-
-    const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
-    const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
-    const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
-
-    if (oldestRecordDate < oneYearAgo && frequency !== '분기') {
-      options.push("1Y");
-    }
+  } else { // 매주, 매월, 4주 등
+    const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
+    if (oldestRecordDate < sixMonthsAgo) options.push("6M");
+    if (oldestRecordDate < oneYearAgo) options.push("1Y");
+    if (oldestRecordDate < twoYearsAgo) options.push("2Y");
     if (oldestRecordDate < threeYearsAgo) options.push("3Y");
     if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
   }
@@ -70,10 +65,12 @@ watch(
       isPriceChartMode.value = false;
       await fetchData(newTicker);
 
-      if (tickerInfo.value?.frequency === '분기' && timeRangeOptions.value.includes('3Y')) {
-        selectedTimeRange.value = '3Y';
-      } else if (timeRangeOptions.value.includes('1Y')) {
-        selectedTimeRange.value = '1Y';
+      // 데이터 로드 후, frequency에 따라 기본 기간 설정
+      const freq = tickerInfo.value?.frequency;
+      if (freq === '분기') {
+        selectedTimeRange.value = timeRangeOptions.value.includes('1Y') ? '1Y' : timeRangeOptions.value[0] || 'Max';
+      } else if (['매주', '매월', '4주'].includes(freq)) {
+        selectedTimeRange.value = timeRangeOptions.value.includes('6M') ? '6M' : timeRangeOptions.value[0] || 'Max';
       } else {
         selectedTimeRange.value = timeRangeOptions.value[0] || 'Max';
       }
