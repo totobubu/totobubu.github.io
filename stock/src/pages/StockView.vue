@@ -18,7 +18,7 @@ const selectedTimeRange = ref("1Y");
 const timeRangeOptions = ref([]);
 
 const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
-const { chartData, chartOptions, chartContainerWidth, updateChart } = useStockChart(
+const { chartData, chartOptions, chartContainerWidth, hasDividendChartMode, updateChart } = useStockChart(
   dividendHistory,
   tickerInfo,
   isPriceChartMode,
@@ -52,7 +52,9 @@ const generateDynamicTimeRangeOptions = () => {
     const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
     const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
 
-    if (oldestRecordDate < oneYearAgo) options.push("1Y");
+    if (oldestRecordDate < oneYearAgo && frequency !== '분기') {
+      options.push("1Y");
+    }
     if (oldestRecordDate < threeYearsAgo) options.push("3Y");
     if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
   }
@@ -117,7 +119,7 @@ watch(
       <StockHeader :info="tickerInfo" />
 
       <StockChartCard
-        :frequency="tickerInfo.frequency"
+        :has-dividend-chart-mode="hasDividendChartMode"
         :chart-data="chartData"
         :chart-options="chartOptions"
         :chart-container-width="chartContainerWidth"

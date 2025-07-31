@@ -9,7 +9,7 @@ import Dropdown from "primevue/dropdown";
 import { useBreakpoint } from "@/composables/useBreakpoint";
 
 const props = defineProps({
-  frequency: String,
+  hasDividendChartMode: Boolean,
   chartData: Object,
   chartOptions: Object,
   chartContainerWidth: String,
@@ -51,7 +51,7 @@ const dropdownTimeRangeOptions = computed(() => {
   <Card class="toto-chart">
     <template #content>
       <div class="flex justify-between items-center w-full gap-2 mb-4">
-        <div v-if="['매주', '분기', '4주', '매월'].includes(frequency)">
+        <div v-if="hasDividendChartMode">
           <ToggleButton
             v-model="localIsPriceChartMode"
             onLabel="주가"
