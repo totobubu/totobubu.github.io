@@ -1,4 +1,3 @@
-<!-- stock/src/views/StockView.vue -->
 <script setup>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -18,9 +17,8 @@ const isPriceChartMode = ref(false);
 const selectedTimeRange = ref("1Y");
 const timeRangeOptions = ref([]);
 
-const { tickerInfo, dividendHistory, isLoading, error, fetchData } =
-  useStockData();
-const { chartData, chartOptions, updateChart } = useStockChart(
+const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
+const { chartData, chartOptions, chartContainerWidth, updateChart } = useStockChart(
   dividendHistory,
   tickerInfo,
   isPriceChartMode,
@@ -31,49 +29,44 @@ const generateDynamicTimeRangeOptions = () => {
   if (dividendHistory.value.length === 0) return;
 
   const frequency = tickerInfo.value?.frequency;
-  const oldestRecordDate = parseYYMMDD(
-    dividendHistory.value[dividendHistory.value.length - 1]["배당락"]
-  );
+  const oldestRecordDate = parseYYMMDD(dividendHistory.value[dividendHistory.value.length - 1]["배당락"]);
   const now = new Date();
   const options = [];
 
-  if (frequency !== "분기" && frequency !== "Semi-Annually") {
+  // [핵심 수정] '3M' 옵션은 오직 '매주' 배당일 때만 의미가 있으므로 조건을 변경
+  if (frequency === '매주') {
     const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
-    const sixMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 6));
-    const nineMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 9));
-
     if (oldestRecordDate < threeMonthsAgo) options.push("3M");
-    if (oldestRecordDate < sixMonthsAgo) options.push("6M");
-    if (oldestRecordDate < nineMonthsAgo) options.push("9M");
   }
 
   const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
-  const twoYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 2));
   const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
   const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
 
-  if (oldestRecordDate < oneYearAgo) options.push("1Y");
-  if (oldestRecordDate < twoYearsAgo) options.push("2Y");
+  if (oldestRecordDate < oneYearAgo && frequency !== '분기') {
+    options.push("1Y");
+  }
   if (oldestRecordDate < threeYearsAgo) options.push("3Y");
   if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
 
   options.push("Max");
   timeRangeOptions.value = options;
-
-  if (!options.includes(selectedTimeRange.value)) {
-    selectedTimeRange.value = options.includes("1Y")
-      ? "1Y"
-      : options[0] || "Max";
-  }
 };
 
 watch(
   () => route.params.ticker,
-  (newTicker) => {
+  async (newTicker) => {
     if (newTicker) {
       isPriceChartMode.value = false;
-      selectedTimeRange.value = "1Y";
-      fetchData(newTicker);
+      await fetchData(newTicker);
+
+      if (tickerInfo.value?.frequency === '분기' && timeRangeOptions.value.includes('3Y')) {
+        selectedTimeRange.value = '3Y';
+      } else if (timeRangeOptions.value.includes('1Y')) {
+        selectedTimeRange.value = '1Y';
+      } else {
+        selectedTimeRange.value = timeRangeOptions.value[0] || 'Max';
+      }
     }
   },
   { immediate: true }
@@ -119,6 +112,7 @@ watch(
         :frequency="tickerInfo.frequency"
         :chart-data="chartData"
         :chart-options="chartOptions"
+        :chart-container-width="chartContainerWidth"
         :time-range-options="timeRangeOptions"
         v-model:isPriceChartMode="isPriceChartMode"
         v-model:selectedTimeRange="selectedTimeRange"
