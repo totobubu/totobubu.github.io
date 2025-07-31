@@ -1,14 +1,16 @@
-// stock/src/composables/useStockData.js
+// composables/useStockData.js
+
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
-import { parseYYMMDD } from '@/utils/date.js'; // 유틸리티 함수 import
+import { parseYYMMDD } from '@/utils/date.js';
+
+// [핵심 1] 모든 상태를 함수 밖으로 빼서 공유(싱글톤) 상태로 만듭니다.
+const tickerInfo = ref(null);
+const dividendHistory = ref([]);
+const isLoading = ref(true);
+const error = ref(null);
 
 export function useStockData() {
-    const tickerInfo = ref(null);
-    const dividendHistory = ref([]);
-    const isLoading = ref(true);
-    const error = ref(null);
-
     const fetchData = async (tickerName) => {
         isLoading.value = true;
         error.value = null;
@@ -18,8 +20,6 @@ export function useStockData() {
 
         try {
             const response = await fetch(url);
-
-            // 404 에러를 더 명확하게 처리
             if (response.status === 404) {
                 throw new Error(`Data file for ${tickerName.toUpperCase()} not found.`);
             }
@@ -27,9 +27,9 @@ export function useStockData() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            // JSON 파싱 에러를 별도로 잡기 위해 try-catch 추가
             const responseData = await response.json();
             
+            // [핵심 2] 이제 이 함수는 공유 상태를 업데이트하는 역할만 합니다.
             tickerInfo.value = responseData.tickerInfo;
             const sortedHistory = responseData.dividendHistory.sort((a, b) =>
                 parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
@@ -37,12 +37,9 @@ export function useStockData() {
             dividendHistory.value = sortedHistory;
 
         } catch (err) {
-            // console.error(err); // 디버깅을 위해 콘솔에 실제 에러를 출력할 수 있습니다.
             if (err instanceof SyntaxError) {
-                // JSON 파싱 실패 시
                 error.value = `${tickerName.toUpperCase()}의 데이터 파일 형식이 올바르지 않습니다. (JSON 오류)`;
             } else {
-                // 그 외 다른 모든 에러 (네트워크 문제, 파일 없음 등)
                 error.value = `${tickerName.toUpperCase()}의 분배금 정보를 가져오는 데 실패했습니다.`;
             }
         } finally {
@@ -50,7 +47,7 @@ export function useStockData() {
         }
     };
 
-    // 외부에서 사용할 수 있도록 상태와 함수를 반환합니다.
+    // [핵심 3] 모든 컴포넌트가 동일한 공유 상태와 함수를 바라보도록 반환합니다.
     return {
         tickerInfo,
         dividendHistory,

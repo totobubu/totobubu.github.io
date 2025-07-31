@@ -18,5 +18,6 @@ declare module 'vue' {
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
+    Tag: typeof import('primevue/tag')['default']
   }
 }
