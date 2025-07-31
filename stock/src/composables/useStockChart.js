@@ -12,6 +12,11 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
     const chartContainerWidth = ref('100%');
 
     const { deviceType } = useBreakpoint();
+    
+    const hasDividendChartMode = computed(() => {
+        const freq = tickerInfo.value?.frequency;
+        return ['매주', '분기', '4주', '매월'].includes(freq);
+    });
 
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
@@ -30,7 +35,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
 
-        if ((['매주', '분기', '4주', '매월'].includes(tickerInfo.value?.frequency)) && !isPriceChartMode.value) {
+        if (hasDividendChartMode.value && !isPriceChartMode.value) {
             let startDate = new Date(now);
             if (rangeUnit === 'M') {
                 startDate.setMonth(now.getMonth() - rangeValue);
@@ -69,7 +74,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         };
         const sharedOptions = { data, deviceType: deviceType.value, group: tickerInfo.value?.group, theme: themeOptions };
 
-        if (isPriceChartMode.value && ['매주', '분기', '4주', '매월'].includes(frequency)) {
+        if (isPriceChartMode.value && hasDividendChartMode.value) {
             const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
             chartData.value = priceChartData; chartOptions.value = priceChartOptions; chartContainerWidth.value = newWidth;
         } else if (frequency === "매주") {
@@ -82,11 +87,10 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
             const { monthlyChartData, monthlyChartOptions, chartContainerWidth: newWidth } = useMonthlyChart(sharedOptions);
             chartData.value = monthlyChartData; chartOptions.value = monthlyChartOptions; chartContainerWidth.value = newWidth;
         } else {
-            // 토글 버튼이 없는 기타 종목
             const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
             chartData.value = priceChartData; chartOptions.value = priceChartOptions; chartContainerWidth.value = newWidth;
         }
     };
 
-    return { chartData, chartOptions, chartContainerWidth, updateChart };
+    return { chartData, chartOptions, chartContainerWidth, hasDividendChartMode, updateChart };
 }
