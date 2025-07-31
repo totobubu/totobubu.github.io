@@ -33,21 +33,29 @@ const generateDynamicTimeRangeOptions = () => {
   const now = new Date();
   const options = [];
 
-  // [핵심 수정] '3M' 옵션은 오직 '매주' 배당일 때만 의미가 있으므로 조건을 변경
-  if (frequency === '매주') {
-    const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
-    if (oldestRecordDate < threeMonthsAgo) options.push("3M");
-  }
+  if (frequency === '분기') {
+    const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
+    const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
+    const tenYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 10));
 
-  const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
-  const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
-  const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
+    if (oldestRecordDate < threeYearsAgo) options.push("3Y");
+    if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
+    if (oldestRecordDate < tenYearsAgo) options.push("10Y");
 
-  if (oldestRecordDate < oneYearAgo && frequency !== '분기') {
-    options.push("1Y");
+  } else {
+    if (frequency === '매주') {
+      const threeMonthsAgo = new Date(new Date().setMonth(now.getMonth() - 3));
+      if (oldestRecordDate < threeMonthsAgo) options.push("3M");
+    }
+
+    const oneYearAgo = new Date(new Date().setFullYear(now.getFullYear() - 1));
+    const threeYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 3));
+    const fiveYearsAgo = new Date(new Date().setFullYear(now.getFullYear() - 5));
+
+    if (oldestRecordDate < oneYearAgo) options.push("1Y");
+    if (oldestRecordDate < threeYearsAgo) options.push("3Y");
+    if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
   }
-  if (oldestRecordDate < threeYearsAgo) options.push("3Y");
-  if (oldestRecordDate < fiveYearsAgo) options.push("5Y");
 
   options.push("Max");
   timeRangeOptions.value = options;
