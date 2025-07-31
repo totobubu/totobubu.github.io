@@ -69,10 +69,23 @@
   font-size: 0.75rem;
   color: var(--p-surface-400);
 }
-
+.chart-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.chart-container {
+  position: relative;
+    @include bp.media-breakpoint-only('xs') {
+      height: 100vw;
+    }
+  width: 100%;
+}
+#p-chart {
+  height: 100%;
+  width: 100%;
+}
 
 .chart-container {
-  width: 100%;
   > .card {
     > div,
     canvas {
@@ -84,9 +97,9 @@
       overflow-x: auto; /* 핵심: 가로 스크롤 활성화 */
       -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
       /* 차트의 최소 너비를 지정하여 찌그러지지 않게 함 */
-      > .card {
-        min-width: 600px; /* 모바일에서 최소 너비 설정 */
-      }
+      // > .card {
+      //   min-width: 600px; /* 모바일에서 최소 너비 설정 */
+      // }
   }
   @include bp.media-breakpoint-up('lg') {
     overflow-x: hidden; 

@@ -17,7 +17,7 @@ function getFontSize(itemCount, deviceType, type = "default") {
 function getDynamicChartWidth(itemCount, deviceType) {
     if (deviceType !== 'mobile') return '100%';
     if (itemCount <= 6) return '100%';
-    const calculatedWidth = itemCount * 60;
+    const calculatedWidth = itemCount * 45;
     return `${calculatedWidth}px`;
 }
 
@@ -55,7 +55,7 @@ export function useMonthlyChart(options) {
 
     const monthlyChartOptions = {
         maintainAspectRatio: false,
-        aspectRatio: deviceType === "desktop" ? 16/10 : (deviceType === "tablet" ? 3/2 : 4/3),
+        aspectRatio: deviceType === 'mobile' ? null : (deviceType === "desktop" ? 16/10 : 3/2),
         plugins: {
             title: { display: false },
             legend: { display: false },
