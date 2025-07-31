@@ -8,7 +8,7 @@ import AccordionContent from "primevue/accordioncontent";
 import { useBreakpoint } from "@/composables/useBreakpoint";
 
 
-const { isMobile } = useBreakpoint();
+const { deviceType, isMobile } = useBreakpoint();
 
 const props = defineProps({
   info: {
@@ -29,15 +29,11 @@ const stats = computed(() => {
 </script>
 
 <template>
-  <div id="tickerInfo">
-    <div class="tickerInfo__header">
-      <div class="tickerInfo__brand">
-        {{ info.company }} · {{ info.frequency }} · {{ info.group }}
-      </div>
-      <h2 class="tickerInfo__title">
-        {{ info.Symbol }} <i>·</i> <small>{{ info.longName }}</small>
+  <div id="tickerInfo" v-if="deviceType !== 'desktop'">
+    <!-- <div class="tickerInfo__header">
+      <h2 class="tickerInfo__title">{{ info.longName }}
       </h2>
-    </div>
+    </div> -->
     <!-- <Accordion :activeIndex="0" v-if="isMobile">
       <AccordionPanel value="0">
         <AccordionHeader>

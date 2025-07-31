@@ -7,6 +7,8 @@ import PrimeVueChart from "primevue/chart";
 import ProgressSpinner from "primevue/progressspinner";
 import Dropdown from "primevue/dropdown";
 import { useBreakpoint } from "@/composables/useBreakpoint";
+import { useStockData } from '@/composables/useStockData.js';
+const { tickerInfo } = useStockData();
 
 const props = defineProps({
   hasDividendChartMode: Boolean,
@@ -23,7 +25,7 @@ const emit = defineEmits([
   "update:selectedTimeRange",
 ]);
 
-const { isDesktop, isMobile } = useBreakpoint();
+const { deviceType, isDesktop, isMobile } = useBreakpoint();
 
 const buttonSize = computed(() => {
     return isMobile.value ? 'small' : null; 
@@ -49,36 +51,47 @@ const dropdownTimeRangeOptions = computed(() => {
 
 <template>
   <Card class="toto-chart">
+    <template #header v-if="deviceType !== 'desktop'">
+      <p class="text-center mb-2">
+        {{ tickerInfo.longName }}
+      </p>
+    </template>
     <template #content>
-      <div class="flex justify-between items-center w-full gap-2 mb-4">
-        <div v-if="hasDividendChartMode">
-          <ToggleButton
-            v-model="localIsPriceChartMode"
-            onLabel="주가"
-            offLabel="배당"
-            onIcon="pi pi-chart-line"
-            offIcon="pi pi-chart-bar"
+      <div class="toto-chart-header  mb-4">
+        <div class="flex gap-2">
+          <div v-if="hasDividendChartMode">
+            <ToggleButton
+              v-model="localIsPriceChartMode"
+              onLabel="주가"
+              offLabel="배당"
+              onIcon="pi pi-chart-line"
+              offIcon="pi pi-chart-bar"
+              :size="buttonSize"
+            />
+          </div>
+          <div v-else></div>
+
+          <SelectButton
+            v-if="isDesktop"
+            v-model="localSelectedTimeRange"
+            :options="timeRangeOptions"
+            aria-labelledby="basic"
+          />
+
+          <Dropdown
+            v-else
+            v-model="localSelectedTimeRange"
+            :options="dropdownTimeRangeOptions"
+            optionLabel="name"
+            optionValue="code"
+            placeholder="기간 선택"
             :size="buttonSize"
           />
         </div>
-        <div v-else></div>
-
-        <SelectButton
-          v-if="isDesktop"
-          v-model="localSelectedTimeRange"
-          :options="timeRangeOptions"
-          aria-labelledby="basic"
-        />
-
-        <Dropdown
-          v-else
-          v-model="localSelectedTimeRange"
-          :options="dropdownTimeRangeOptions"
-          optionLabel="name"
-          optionValue="code"
-          placeholder="기간 선택"
-          :size="buttonSize"
-        />
+        <div class="flex gap-2"  v-if="tickerInfo">
+          <Tag severity="secondary">{{ tickerInfo.frequency }}</Tag>
+          <Tag severity="secondary" v-if="tickerInfo.group">{{ tickerInfo.group }}</Tag>
+        </div>
       </div>
       <div class="chart-wrapper">
         <div class="chart-container" :style="{ minWidth: chartContainerWidth }">

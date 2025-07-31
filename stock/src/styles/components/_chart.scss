@@ -105,3 +105,12 @@
     overflow-x: hidden; 
   }
 }
+.toto-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .p-tag {
+    padding: var(--p-togglebutton-padding);
+    font-size: 1rem;
+  }
+}

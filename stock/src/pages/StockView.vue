@@ -1,12 +1,11 @@
 <script setup>
-import { ref, watch } from "vue";
+import { watch } from "vue";
 import { useRoute } from "vue-router";
-
 import { useStockData } from "@/composables/useStockData";
 import { useStockChart } from "@/composables/useStockChart";
 import { useBreakpoint } from "@/composables/useBreakpoint";
 import { parseYYMMDD } from "@/utils/date.js";
-import StockHeader from "@/components/StockHeader.vue";
+// import StockHeader from "@/components/StockHeader.vue";
 import StockChartCard from "@/components/StockChartCard.vue";
 import StockHistoryPanel from "@/components/StockHistoryPanel.vue";
 import ProgressSpinner from "primevue/progressspinner";
@@ -17,6 +16,7 @@ const isPriceChartMode = ref(false);
 const selectedTimeRange = ref("1Y"); // 초기값, watch에서 덮어씀
 const timeRangeOptions = ref([]);
 
+// [핵심] 이제 StockView는 공유 데이터를 가져와 사용하고, fetchData를 실행시키는 역할만 합니다.
 const { tickerInfo, dividendHistory, isLoading, error, fetchData } = useStockData();
 const { chartData, chartOptions, chartContainerWidth, hasDividendChartMode, updateChart } = useStockChart(
   dividendHistory,
@@ -60,13 +60,11 @@ const generateDynamicTimeRangeOptions = () => {
 
 watch(
   () => route.params.ticker,
-  async (newTicker) => {
+  (newTicker) => {
     if (newTicker) {
-      isPriceChartMode.value = false;
-      await fetchData(newTicker);
-
-      // 데이터 로드 후, frequency에 따라 기본 기간 설정
-      const freq = tickerInfo.value?.frequency;
+      // ...
+      fetchData(newTicker); // 공유 데이터를 업데이트하라고 명령
+            const freq = tickerInfo.value?.frequency;
       if (freq === '분기') {
         selectedTimeRange.value = timeRangeOptions.value.includes('1Y') ? '1Y' : timeRangeOptions.value[0] || 'Max';
       } else if (['매주', '매월', '4주'].includes(freq)) {
@@ -113,7 +111,7 @@ watch(
       v-else-if="tickerInfo && dividendHistory.length > 0"
       class="flex flex-column gap-5"
     >
-      <StockHeader :info="tickerInfo" />
+      <!-- <StockHeader :info="tickerInfo" /> -->
 
       <StockChartCard
         :has-dividend-chart-mode="hasDividendChartMode"
