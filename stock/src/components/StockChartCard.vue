@@ -80,17 +80,19 @@ const dropdownTimeRangeOptions = computed(() => {
           :size="buttonSize"
         />
       </div>
-      <div class="chart-container">
-        <div class="card" id="p-chart" v-if="chartData && chartOptions" :style="{ minWidth: chartContainerWidth }">
-          <PrimeVueChart
-            ref="chartRef"
-            type="bar"
-            :data="chartData"
-            :options="chartOptions"
-          />
-        </div>
-        <div v-else class="flex justify-center items-center h-48">
-          <ProgressSpinner />
+      <div class="chart-wrapper">
+        <div class="chart-container" :style="{ minWidth: chartContainerWidth }">
+          <div class="card" id="p-chart" v-if="chartData && chartOptions">
+            <PrimeVueChart
+              ref="chartRef"
+              type="bar"
+              :data="chartData"
+              :options="chartOptions"
+            />
+          </div>
+          <div v-else class="flex justify-center items-center h-full">
+            <ProgressSpinner />
+          </div>
         </div>
       </div>
     </template>

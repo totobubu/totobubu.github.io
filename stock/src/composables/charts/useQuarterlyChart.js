@@ -30,7 +30,7 @@ function getAxisFontSize(itemCount, deviceType) {
 function getDynamicChartWidth(itemCount, deviceType) {
   if (deviceType !== 'mobile') return '100%';
   if (itemCount <= 4) return '100%';
-  const calculatedWidth = itemCount * 90;
+  const calculatedWidth = itemCount * 45;
   return `${calculatedWidth}px`;
 }
 
