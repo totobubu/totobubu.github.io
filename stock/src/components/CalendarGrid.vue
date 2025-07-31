@@ -102,6 +102,7 @@ const calendarOptions = computed(() => ({
     initialView: isMobile.value ? 'listWeek' : 'dayGridMonth',
     locale: koLocale,
     headerToolbar: false,
+    showNonCurrentDates: false,
     validRange: {
         start: '2024-01-01',
         end: '2026-04-01'
