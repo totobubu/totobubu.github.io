@@ -51,7 +51,7 @@ const dropdownTimeRangeOptions = computed(() => {
   <Card class="toto-chart">
     <template #content>
       <div class="flex justify-between items-center w-full gap-2 mb-4">
-        <div v-if="['매주', '분기'].includes(frequency)">
+        <div v-if="['매주', '분기', '4주', '매월'].includes(frequency)">
           <ToggleButton
             v-model="localIsPriceChartMode"
             onLabel="주가"
@@ -68,7 +68,6 @@ const dropdownTimeRangeOptions = computed(() => {
           v-model="localSelectedTimeRange"
           :options="timeRangeOptions"
           aria-labelledby="basic"
-          :allowEmpty="true"
         />
 
         <Dropdown
@@ -81,8 +80,8 @@ const dropdownTimeRangeOptions = computed(() => {
           :size="buttonSize"
         />
       </div>
-      <div class="chart-container" :style="{ minWidth: chartContainerWidth }">
-        <div class="card" id="p-chart" v-if="chartData && chartOptions">
+      <div class="chart-container">
+        <div class="card" id="p-chart" v-if="chartData && chartOptions" :style="{ minWidth: chartContainerWidth }">
           <PrimeVueChart
             ref="chartRef"
             type="bar"

@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { useQuarterlyChart } from './charts/useQuarterlyChart';
+import { useMonthlyChart } from './charts/useMonthlyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { useBreakpoint } from '@/composables/useBreakpoint';
 import { parseYYMMDD } from '@/utils/date.js';
@@ -29,7 +30,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
 
-        if ((tickerInfo.value?.frequency === '매주' || tickerInfo.value?.frequency === '분기') && !isPriceChartMode.value) {
+        if ((['매주', '분기', '4주', '매월'].includes(tickerInfo.value?.frequency)) && !isPriceChartMode.value) {
             let startDate = new Date(now);
             if (rangeUnit === 'M') {
                 startDate.setMonth(now.getMonth() - rangeValue);
@@ -45,9 +46,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
             }
         }
         
-        return pastAndPresentData
-            .filter((item) => parseYYMMDD(item["배당락"]) >= cutoffDate)
-            .reverse();
+        return pastAndPresentData.filter((item) => parseYYMMDD(item["배당락"]) >= cutoffDate).reverse();
     });
 
     const updateChart = () => {
@@ -70,27 +69,22 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         };
         const sharedOptions = { data, deviceType: deviceType.value, group: tickerInfo.value?.group, theme: themeOptions };
 
-        if (isPriceChartMode.value && (frequency === '매주' || frequency === '분기')) {
+        if (isPriceChartMode.value && ['매주', '분기', '4주', '매월'].includes(frequency)) {
             const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
-            chartData.value = priceChartData; 
-            chartOptions.value = priceChartOptions; 
-            chartContainerWidth.value = newWidth;
+            chartData.value = priceChartData; chartOptions.value = priceChartOptions; chartContainerWidth.value = newWidth;
         } else if (frequency === "매주") {
             const { weeklyChartData, weeklyChartOptions, chartContainerWidth: newWidth } = useWeeklyChart(sharedOptions);
-            chartData.value = weeklyChartData; 
-            chartOptions.value = weeklyChartOptions; 
-            chartContainerWidth.value = newWidth;
+            chartData.value = weeklyChartData; chartOptions.value = weeklyChartOptions; chartContainerWidth.value = newWidth;
         } else if (frequency === "분기") {
             const { quarterlyChartData, quarterlyChartOptions, chartContainerWidth: newWidth } = useQuarterlyChart(sharedOptions);
-            chartData.value = quarterlyChartData; 
-            chartOptions.value = quarterlyChartOptions; 
-            chartContainerWidth.value = newWidth;
+            chartData.value = quarterlyChartData; chartOptions.value = quarterlyChartOptions; chartContainerWidth.value = newWidth;
+        } else if (frequency === "4주" || frequency === "매월") {
+            const { monthlyChartData, monthlyChartOptions, chartContainerWidth: newWidth } = useMonthlyChart(sharedOptions);
+            chartData.value = monthlyChartData; chartOptions.value = monthlyChartOptions; chartContainerWidth.value = newWidth;
         } else {
-            // '매월' 등 토글 버튼이 없는 종목은 기본적으로 주가 차트를 표시
+            // 토글 버튼이 없는 기타 종목
             const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
-            chartData.value = priceChartData; 
-            chartOptions.value = priceChartOptions; 
-            chartContainerWidth.value = newWidth;
+            chartData.value = priceChartData; chartOptions.value = priceChartOptions; chartContainerWidth.value = newWidth;
         }
     };
 
