@@ -66,7 +66,7 @@ export function useQuarterlyChart(options) {
     type: "bar", label: `${q}분기`, backgroundColor: quarterColors[q],
     data: labels.map((label) => yearlyAggregated[label].quarters[q] || 0),
     datalabels: {
-      display: (context) => (context.dataset.data[context.dataIndex] || 0) > 0.0001 && labels.length <= 10,
+      display: (context) => (context.dataset.data[context.dataIndex] || 0) > 0.0001 && labels.length <= 11,
       formatter: (value) => `$${value.toFixed(2)}`, color: "#fff",
       font: { size: barLabelSize, weight: "bold" }, align: "center", anchor: "center",
     },
@@ -75,7 +75,7 @@ export function useQuarterlyChart(options) {
   datasets.push({
     type: "bar", label: "Total", data: new Array(labels.length).fill(0), backgroundColor: "transparent",
     datalabels: {
-      display: labels.length <= 10,
+      display: labels.length <= 11,
       formatter: (value, context) => {
         const total = yearlyAggregated[labels[context.dataIndex]]?.total || 0;
         return total > 0 ? `$${total.toFixed(2)}` : "";
