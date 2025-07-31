@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
+import { useQuarterlyChart } from './charts/useQuarterlyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { useBreakpoint } from '@/composables/useBreakpoint';
 import { parseYYMMDD } from '@/utils/date.js';
@@ -7,13 +8,12 @@ import { parseYYMMDD } from '@/utils/date.js';
 export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, selectedTimeRange) {
     const chartData = ref(null);
     const chartOptions = ref(null);
-    const chartContainerWidth = ref('100%'); // [핵심] 동적 너비를 위한 ref 추가
+    const chartContainerWidth = ref('100%');
 
     const { deviceType } = useBreakpoint();
 
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) return [];
-
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const pastAndPresentData = dividendHistory.value.filter(item => {
@@ -29,7 +29,7 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
         const rangeValue = parseInt(selectedTimeRange.value);
         const rangeUnit = selectedTimeRange.value.slice(-1);
 
-        if (tickerInfo.value?.frequency === '매주' && !isPriceChartMode.value) {
+        if ((tickerInfo.value?.frequency === '매주' || tickerInfo.value?.frequency === '분기') && !isPriceChartMode.value) {
             let startDate = new Date(now);
             if (rangeUnit === 'M') {
                 startDate.setMonth(now.getMonth() - rangeValue);
@@ -68,31 +68,29 @@ export function useStockChart(dividendHistory, tickerInfo, isPriceChartMode, sel
                 zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: "x", onZoomComplete: () => { selectedTimeRange.value = null; } },
             },
         };
-        const sharedOptions = {
-            data,
-            deviceType: deviceType.value,
-            group: tickerInfo.value?.group,
-            theme: themeOptions,
-        };
+        const sharedOptions = { data, deviceType: deviceType.value, group: tickerInfo.value?.group, theme: themeOptions };
 
-        if (isPriceChartMode.value) {
+        if (isPriceChartMode.value && (frequency === '매주' || frequency === '분기')) {
             const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
-            chartData.value = priceChartData;
-            chartOptions.value = priceChartOptions;
+            chartData.value = priceChartData; 
+            chartOptions.value = priceChartOptions; 
+            chartContainerWidth.value = newWidth;
+        } else if (frequency === "매주") {
+            const { weeklyChartData, weeklyChartOptions, chartContainerWidth: newWidth } = useWeeklyChart(sharedOptions);
+            chartData.value = weeklyChartData; 
+            chartOptions.value = weeklyChartOptions; 
+            chartContainerWidth.value = newWidth;
+        } else if (frequency === "분기") {
+            const { quarterlyChartData, quarterlyChartOptions, chartContainerWidth: newWidth } = useQuarterlyChart(sharedOptions);
+            chartData.value = quarterlyChartData; 
+            chartOptions.value = quarterlyChartOptions; 
             chartContainerWidth.value = newWidth;
         } else {
-            if (frequency === "매주") {
-                const { weeklyChartData, weeklyChartOptions, chartContainerWidth: newWidth } = useWeeklyChart(sharedOptions);
-                chartData.value = weeklyChartData;
-                chartOptions.value = weeklyChartOptions;
-                chartContainerWidth.value = newWidth;
-            } else {
-                // 월간/분기 배당 종목은 주가 차트를 사용
-                const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
-                chartData.value = priceChartData;
-                chartOptions.value = priceChartOptions;
-                chartContainerWidth.value = newWidth;
-            }
+            // '매월' 등 토글 버튼이 없는 종목은 기본적으로 주가 차트를 표시
+            const { priceChartData, priceChartOptions, chartContainerWidth: newWidth } = usePriceChart(sharedOptions);
+            chartData.value = priceChartData; 
+            chartOptions.value = priceChartOptions; 
+            chartContainerWidth.value = newWidth;
         }
     };
 
