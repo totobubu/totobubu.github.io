@@ -54,22 +54,22 @@ export function usePriceChart(options) {
             {
                 type: 'line', label: '전일종가', yAxisID: 'y1', order: 1, borderColor: colorPrevPrice, borderDash: [5, 5],
                 data: data.map(item => parseFloat(item['전일종가']?.replace('$', ''))), tension: 0.4, borderWidth: 1, fill: false,
-                datalabels: { display: true, align: 'top', color: prevPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize * 0.9 } }
+                datalabels: { display: data.length <= 15, align: 'top', color: prevPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize * 0.9 } }
             },
             {
                 type: 'line', label: '당일시가', yAxisID: 'y1', order: 2, borderColor: colorOpenPrice, pointStyle: 'rect',
                 data: data.map(item => parseFloat(item['당일시가']?.replace('$', ''))), tension: 0.4, borderWidth: 2, fill: false,
-                datalabels: { display: true, align: 'center', color: openPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                datalabels: { display: data.length <= 15, align: 'center', color: openPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
             },
             {
                 type: 'line', label: '당일종가', yAxisID: 'y1', order: 3, borderColor: colorCurrentPrice,
                 data: data.map(item => parseFloat(item['당일종가']?.replace('$', ''))), tension: 0.4, borderWidth: 3, fill: false,
-                datalabels: { display: true, align: 'bottom', color: currentPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                datalabels: { display: data.length <= 15, align: 'bottom', color: currentPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
             },
             {
                 type: 'line', label: '익일종가', yAxisID: 'y1', order: 4, borderColor: colorNextPrice, pointStyle: 'triangle',
                 data: data.map(item => parseFloat(item['익일종가']?.replace('$', ''))), tension: 0.4, borderWidth: 2, fill: false,
-                datalabels: { display: true, align: 'bottom', color: nextPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
+                datalabels: { display: data.length <= 15, align: 'bottom', color: nextPriceText, formatter: (v) => v ? `$${v.toFixed(2)}` : null, font: { size: lineLabelSize } }
             },
             {
                 type: 'bar', label: '배당금', yAxisID: 'y', order: 5,
@@ -77,7 +77,7 @@ export function usePriceChart(options) {
                 borderColor: LineDividend, borderWidth: 1,
                 data: data.map(item => parseFloat(item['배당금']?.replace('$', '') || 0)),
                 datalabels: {
-                    display: true, align: "center", anchor: "center",
+                    display: data.length <= 15, align: "center", anchor: "center",
                     color: (c) => c.dataIndex === lastDataIndex ? highlightText : dividendText,
                     formatter: (v) => v > 0 ? `$${v.toFixed(2)}` : null,
                     font: (c) => ({ size: c.dataIndex === lastDataIndex ? barLabelSize + 2 : barLabelSize, weight: c.dataIndex === lastDataIndex ? 'bold' : 'normal' })
