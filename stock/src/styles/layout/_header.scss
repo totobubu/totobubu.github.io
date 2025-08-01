@@ -1,0 +1,46 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
+
+#t-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: 1rem;
+}
+
+#t-breadcrumb {
+    background: inherit;
+    padding: 0;
+
+    .p-breadcrumb-list {
+        display: flex;
+        max-height: 4rem;
+        align-items: center;
+        gap: .5rem;
+        padding: .6rem 1rem .6rem 1.5rem;
+        text-transform: uppercase;
+    }
+
+    .p-breadcrumb-item {
+        .pi {
+            color: #fff !important;
+        }
+    }
+
+    .p-breadcrumb-home-item {}
+
+    .p-breadcrumb-item-link {
+        gap: inherit;
+        color: #fff
+    }
+
+    .p-breadcrumb-separator {}
+
+    .p-breadcrumb-item-icon {
+        color: #fff
+    }
+}
