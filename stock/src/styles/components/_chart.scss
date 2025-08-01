@@ -75,10 +75,11 @@
 }
 .chart-container {
   position: relative;
+  width: 100%;
     @include bp.media-breakpoint-only('xs') {
       height: 100vw;
     }
-  width: 100%;
+  
 }
 #p-chart {
   height: 100%;
