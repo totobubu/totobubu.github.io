@@ -1,0 +1,54 @@
+// stock/src/styles/components/_calculators.scss
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mx;
+@use "../functions/breakpoints" as bp;
+
+#t-calculator {
+    .p-card-body {
+        padding: 0;
+    }
+    .p-tabpanels {
+        padding: 0;
+    }
+    &-tabs {
+        button {
+            width: 50%;
+        }
+    }
+    &-step {
+        .p-step-header {
+            width: 100%;
+        }
+        .p-step-title {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .p-selectbutton {
+            width: 100%;
+            > button {
+                width: 100%;
+            }
+        }
+        .p-togglebutton {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        &-result {
+            table {
+                width: 100%;
+                text-align: center;
+                th {
+                    font-size: .7rem;
+                }
+            }
+            .p-chart {
+                height: 100vw; 
+            }
+        }
+    }
+    &-return {
+
+    }
+}
