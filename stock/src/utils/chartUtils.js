@@ -17,8 +17,8 @@ export function getChartAspectRatio(deviceType) {
 
 // --- 폰트 크기 계산 함수 ---
 
-export function getBarStackFontSize(itemCount, deviceType, type = "default") {
-    let baseSize = type === "total" ? 18 : 18;
+export function getBarStackFontSize(itemCount, deviceType, type = 'default') {
+    let baseSize = type === 'total' ? 18 : 18;
     let finalSize;
 
     if (itemCount == 1) finalSize = baseSize + 12;
@@ -37,13 +37,13 @@ export function getBarStackFontSize(itemCount, deviceType, type = "default") {
     else if (itemCount == 14) finalSize = baseSize - 6;
     else if (itemCount <= 15) finalSize = baseSize;
     else finalSize = baseSize - 7;
-    if (deviceType === "tablet") finalSize *= 0.75;
-    if (deviceType === "mobile") finalSize *= 0.6;
+    if (deviceType === 'tablet') finalSize *= 0.75;
+    if (deviceType === 'mobile') finalSize *= 0.6;
     return Math.max(8, Math.round(finalSize));
 }
 
 export function getPriceChartFontSize(itemCount, deviceType, type = 'default') {
-    let baseSize = type === 'line' ? 13 : (type === 'axis' ? 12 : 14);
+    let baseSize = type === 'line' ? 13 : type === 'axis' ? 12 : 14;
     let finalSize;
     if (itemCount <= 7) finalSize = baseSize + 2;
     else if (itemCount <= 15) finalSize = baseSize;
@@ -55,7 +55,6 @@ export function getPriceChartFontSize(itemCount, deviceType, type = 'default') {
     return Math.max(9, Math.round(finalSize));
 }
 
-
 // --- 차트 옵션 및 데이터셋 생성 헬퍼 함수 ---
 
 export function getCommonPlugins(options) {
@@ -63,34 +62,50 @@ export function getCommonPlugins(options) {
     const { textColor, tickFontSize, zoomOptions } = theme;
     return {
         title: { display: false },
-        legend: { display: legendDisplay, position: 'top', labels: { color: textColor, font: { size: tickFontSize } } },
-        tooltip: { mode: "index", intersect: false, ...tooltipCallbacks },
+        legend: {
+            display: legendDisplay,
+            position: 'top',
+            labels: { color: textColor, font: { size: tickFontSize } },
+        },
+        tooltip: { mode: 'index', intersect: false, ...tooltipCallbacks },
         zoom: zoomOptions,
     };
 }
 
 export function createStackedBarDatasets(config) {
     const {
-        aggregatedData, primaryLabels, colorMap,
-        labelPrefix, dataLabelConfig, totalLabelConfig
+        aggregatedData,
+        primaryLabels,
+        colorMap,
+        labelPrefix,
+        dataLabelConfig,
+        totalLabelConfig,
     } = config;
 
-    const secondaryKeys = [...new Set(Object.values(aggregatedData).flatMap(m => Object.keys(m.stacks)))].map(Number).sort();
+    const secondaryKeys = [
+        ...new Set(
+            Object.values(aggregatedData).flatMap((m) => Object.keys(m.stacks))
+        ),
+    ]
+        .map(Number)
+        .sort();
 
-    const datasets = secondaryKeys.map(key => ({
-        type: "bar",
+    const datasets = secondaryKeys.map((key) => ({
+        type: 'bar',
         label: `${key}${labelPrefix}`,
         backgroundColor: colorMap[key],
-        data: primaryLabels.map(label => aggregatedData[label].stacks[key] || 0),
-        datalabels: dataLabelConfig
+        data: primaryLabels.map(
+            (label) => aggregatedData[label].stacks[key] || 0
+        ),
+        datalabels: dataLabelConfig,
     }));
 
     datasets.push({
-        type: "bar",
-        label: "Total",
+        type: 'bar',
+        label: 'Total',
         data: new Array(primaryLabels.length).fill(0),
-        backgroundColor: "transparent",
-        datalabels: totalLabelConfig
+        backgroundColor: 'transparent',
+        datalabels: totalLabelConfig,
     });
 
     return datasets;

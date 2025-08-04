@@ -1,8 +1,9 @@
 <!-- layouts/AppConfig.vue -->
 <script setup>
-import { useLayout } from "../composables/useLayout";
+    import { useLayout } from '../composables/useLayout';
 
-const { primaryColors, surfaces, primary, surface, updateColors } = useLayout();
+    const { primaryColors, surfaces, primary, surface, updateColors } =
+        useLayout();
 </script>
 
 <template>
@@ -16,7 +17,10 @@ const { primaryColors, surfaces, primary, surface, updateColors } = useLayout();
                         :key="pc.name"
                         type="button"
                         :title="pc.name"
-                        :class="['color-button', { selected: primary === pc.name }]"
+                        :class="[
+                            'color-button',
+                            { selected: primary === pc.name },
+                        ]"
                         :style="{ backgroundColor: pc.palette['500'] }"
                         @click="updateColors('primary', pc.name)"
                     />
@@ -33,7 +37,9 @@ const { primaryColors, surfaces, primary, surface, updateColors } = useLayout();
                         :class="[
                             'color-button',
                             {
-                                selected: surface ? surface === s.name : s.name === 'zinc'
+                                selected: surface
+                                    ? surface === s.name
+                                    : s.name === 'zinc',
                             },
                         ]"
                         :style="{ backgroundColor: s.palette['500'] }"
