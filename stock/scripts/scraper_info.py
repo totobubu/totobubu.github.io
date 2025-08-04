@@ -61,7 +61,7 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
             "earningsDate": earnings_date_str,
 
             # --- 기업가치 ---
-            "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
+            # "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
             # --- 시가총액 ---
             "marketCap": f"{info.get('marketCap', 0):,}" if info.get('marketCap') else "N/A",
             # --- 거래량 ---
@@ -70,26 +70,20 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
             "AvgVolume": f"{info.get('averageVolume', 0):,}" if info.get('averageVolume') else "N/A",
             # --- 유통 주식수 ---
             "sharesOutstanding": f"{info.get('sharesOutstanding', 0):,}" if info.get('sharesOutstanding') else "N/A",
-            # --- 유동 주식수 ---
-            "floatShares": f"{info.get('floatShares', 0):,}" if info.get('floatShares') else "N/A",
-            # --- 암묵적 유통주식수 ---
-            "impliedSharesOutstanding": f"{info.get('impliedSharesOutstanding', 0):,}" if info.get('impliedSharesOutstanding') else "N/A",
             # --- 52주 범위 ---
             "52Week": f"${info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}" if info.get('fiftyTwoWeekLow') else "N/A",
-
             # --- NAV ---
             "NAV": f"${info.get('navPrice', 0):.2f}" if info.get('navPrice') else "N/A",
             # --- TR  ---
-            "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
+            # "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
             
             # --- 계산된 연배당률 ---
             "Yield": manual_yield,
-            # --- 배당 수익률 ---
-            "dividendYield": f"{(info.get('dividendYield', 0) * 100):.2f}%" if info.get('dividendYield') else "N/A",
+            
             # --- 연간 배당금 ---
-            "dividendRate": f"${info.get('dividendRate', 0):.2f}" if info.get('dividendRate') else "N/A",
+            # "dividendRate": f"${info.get('dividendRate', 0):.2f}" if info.get('dividendRate') else "N/A",
             # --- 배당 성향 ---
-            "payoutRatio": f"{(info.get('payoutRatio', 0) * 100):.2f}%" if info.get('payoutRatio') else "N/A",
+            # "payoutRatio": f"{(info.get('payoutRatio', 0) * 100):.2f}%" if info.get('payoutRatio') else "N/A",
 
             
         }
