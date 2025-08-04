@@ -47,80 +47,56 @@ def fetch_dividend_history(ticker_symbol):
             for index, row in dividends_df.iterrows():
                 ex_date = row['ExDate'].to_pydatetime().replace(tzinfo=None)
                 if ex_date < datetime.now() - timedelta(days=365 * 10): continue
-                record = { '배당락': ex_date.strftime('%y. %m. %d'), '배당금': f"${row['Dividend']:.4f}" }
+                
+                record = {
+                    '배당락': ex_date.strftime('%y. %m. %d'),
+                    '배당금': f"${row['Dividend']:.4f}"
+                }
                 dividend_history.append(record)
         return dividend_history
     except Exception as e:
         print(f"  -> Error fetching dividend history for {ticker_symbol.upper()}: {e}")
         return []
 
-def get_price_on_date(ticker_symbol, target_date):
-    try:
-        start_date = target_date - timedelta(days=14)
-        hist = yf.Ticker(ticker_symbol).history(start=start_date, end=target_date + timedelta(days=1))
-        if not hist.empty:
-            return hist.iloc[-1]['Close']
-    except Exception:
-        pass
-    return None
-
-def calculate_yield_data(ticker_symbol, history):
-    if not history:
-        return []
-
-    latest_price = None
-    latest_record_with_price = next((record for record in history if record.get('당일종가') and record.get('당일종가') != 'N/A'), None)
-    if latest_record_with_price:
-        latest_price = float(latest_record_with_price['당일종가'].replace('$', ''))
-    else:
-        latest_price = get_price_on_date(ticker_symbol, datetime.now())
-
-    if not latest_price or latest_price == 0:
-        return []
-
-    now = datetime.now()
-    oldest_date = datetime.strptime(history[-1]['배당락'].replace(" ", ""), '%y.%m.%d')
+def add_yield_to_history(history):
+    history_with_yield = []
     
-    periods = {
-        "3개월배당률": 3, "6개월배당률": 6, "1년배당률": 12, "2년배당률": 24,
-        "3년배당률": 36, "5년배당률": 60, "10년배당률": 120
-    }
-    
-    yield_data = {}
-
-    for label, months in periods.items():
-        cutoff_date = now - timedelta(days=months * 30.44)
-        if oldest_date > cutoff_date:
-            yield_data[label] = "N/A"
-            continue
-
-        period_history = [h for h in history if datetime.strptime(h['배당락'].replace(" ", ""), '%y.%m.%d') >= cutoff_date]
-        if not period_history:
-            yield_data[label] = "0.00%"
-            continue
-
-        total_dividend = sum(float(h['배당금'].replace('$', '')) for h in period_history if h.get('배당금'))
+    for i, current_item in enumerate(history):
+        new_item = current_item.copy()
         
-        start_of_period_price = get_price_on_date(ticker_symbol, cutoff_date)
-        if not start_of_period_price or start_of_period_price == 0:
-            yield_data[label] = "N/A"
-            continue
-
-        annualized_yield = ((total_dividend / months) * 12 / start_of_period_price) * 100
-        yield_data[label] = f"{annualized_yield:.2f}%"
-
-    all_dividends = [float(h['배당금'].replace('$', '')) for h in history if h.get('배당금')]
-    if all_dividends:
-        max_dividend = max(all_dividends)
-        payouts_per_year = len([h for h in history if datetime.strptime(h['배당락'].replace(" ", ""), '%y.%m.%d') >= now - timedelta(days=365)])
-        if payouts_per_year == 0: payouts_per_year = 12
+        opening_price_str = new_item.get('당일시가')
         
-        max_annual_yield = (max_dividend * payouts_per_year / latest_price) * 100
-        yield_data["최고배당률"] = f"{max_annual_yield:.2f}%"
-    else:
-        yield_data["최고배당률"] = "0.00%"
+        if opening_price_str and opening_price_str != 'N/A':
+            try:
+                opening_price = float(opening_price_str.replace('$', ''))
+                if opening_price > 0:
+                    current_date = datetime.strptime(new_item['배당락'].replace(" ", ""), '%y.%m.%d')
+                    one_year_later = current_date + timedelta(days=365)
+                    
+                    dividends_in_next_year = 0
+                    
+                    # 현재 항목을 포함하여 미래 1년간의 배당금 합산
+                    for future_item in history[i:]:
+                        future_date = datetime.strptime(future_item['배당락'].replace(" ", ""), '%y.%m.%d')
+                        if future_date > one_year_later:
+                            break
+                        
+                        dividend_str = future_item.get('배당금')
+                        if dividend_str:
+                            dividends_in_next_year += float(dividend_str.replace('$', ''))
+                    
+                    # 연환산 배당률 계산
+                    yield_rate = (dividends_in_next_year / opening_price) * 100
+                    new_item['배당률'] = f"{yield_rate:.2f}%"
 
-    return [{k: v} for k, v in yield_data.items()]
+            except (ValueError, TypeError) as e:
+                # 계산 중 오류 발생 시 배당률을 추가하지 않음
+                pass
+        
+        history_with_yield.append(new_item)
+        
+    return history_with_yield
+
 
 if __name__ == "__main__":
     nav_file_path = 'public/nav.json'
@@ -138,7 +114,7 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
     
     total_changed_files = 0
-    print("\n--- Starting Dividend and Yield Data Update ---")
+    print("\n--- Starting Dividend Data Update ---")
     for ticker, info in all_tickers_info.items():
         file_path = os.path.join(output_dir, f"{ticker.lower()}.json")
         
@@ -149,7 +125,7 @@ if __name__ == "__main__":
             with open(file_path, 'r', encoding='utf-8') as f:
                 existing_data = json.load(f)
         except (json.JSONDecodeError, FileNotFoundError):
-            print(f"  -> Warning: Could not read or decode JSON for {ticker}. Skipping."); continue
+            print(f"  -> Warning: Could not read/decode JSON for {ticker}. Skipping."); continue
 
         existing_ticker_info = existing_data.get('tickerInfo', {})
         existing_history = existing_data.get('dividendHistory', [])
@@ -177,22 +153,22 @@ if __name__ == "__main__":
 
             final_history.append(merged_item)
         
-        yield_data = calculate_yield_data(ticker, final_history)
+        # 배당률 계산 로직 추가
+        final_history_with_yield = add_yield_to_history(final_history)
         
         final_data_to_save = {
-            "tickerInfo": existing_ticker_info, 
-            "YieldData": yield_data,
-            "dividendHistory": final_history
+            "tickerInfo": existing_ticker_info,
+            "dividendHistory": final_history_with_yield
         }
 
         if original_data_str != json.dumps(final_data_to_save, sort_keys=True):
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
-            print(f" => UPDATED DIVIDENDS & YIELD for {ticker}")
+            print(f" => UPDATED DIVIDENDS for {ticker}")
             total_changed_files += 1
         else:
             print(f"  -> No changes for {ticker}.")
 
         time.sleep(1)
 
-    print(f"\n--- Update Finished. Total files updated: {total_changed_files} ---")
+    print(f"\n--- Dividend Update Finished. Total files updated: {total_changed_files} ---")
