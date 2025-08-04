@@ -61,7 +61,13 @@ if __name__ == "__main__":
             except json.JSONDecodeError:
                 print(f"  -> Warning: Could not decode JSON for {ticker}. Initializing fresh.")
         
-        new_info = fetch_ticker_info(ticker, info['company'], info['frequency'], info['group'])
+        # [핵심 수정] .get()을 사용하여 'group' 키가 없어도 에러가 나지 않도록 합니다.
+        company_val = info.get('company')
+        frequency_val = info.get('frequency')
+        group_val = info.get('group') # 키가 없으면 None이 반환됩니다.
+
+        new_info = fetch_ticker_info(ticker, company_val, frequency_val, group_val)
+        
         if not new_info: 
             print(f"  -> Skipping update for {ticker}.")
             continue
