@@ -30,6 +30,10 @@
             class: 'toto-stock-history-amount',
             width: '100px',
         },
+        배당률: {
+            class: 'font-bold text-green-500',
+            width: '100px',
+        },
         전일종가: {
             sortable: false,
         },
@@ -56,6 +60,7 @@
         const desiredOrder = [
             '배당락',
             '배당금',
+            '배당률',
             '전일종가',
             '당일시가',
             '당일종가',

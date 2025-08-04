@@ -2,6 +2,7 @@
     import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
     import { joinURL } from 'ufo';
+    import { parseYYMMDD } from '@/utils/date.js';
 
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
@@ -51,6 +52,27 @@
             if (!response.ok) throw new Error('Navigation data not found');
             const rawData = await response.json();
 
+            const tickerDetailsPromises = rawData.nav.map(async (item) => {
+                try {
+                    const res = await fetch(
+                        joinURL(
+                            import.meta.env.BASE_URL,
+                            `data/${item.symbol.toLowerCase()}.json`
+                        )
+                    );
+                    if (!res.ok) return { ...item, yield: 'N/A' };
+                    const detailData = await res.json();
+                    return {
+                        ...item,
+                        yield: detailData.tickerInfo?.Yield || 'N/A',
+                    };
+                } catch (e) {
+                    return { ...item, yield: 'N/A' };
+                }
+            });
+
+            const tickersWithYield = await Promise.all(tickerDetailsPromises);
+
             const dayOrder = {
                 월: 1,
                 화: 2,
@@ -63,7 +85,7 @@
                 D: 9,
             };
 
-            etfList.value = rawData.nav.map((item) => ({
+            etfList.value = tickersWithYield.map((item) => ({
                 ...item,
                 groupOrder: dayOrder[item.group] ?? 999,
             }));
@@ -108,11 +130,9 @@
         filters.value.company.value = null;
         filters.value.frequency.value = null;
         filters.value.group.value = null;
-
         if (filters.value[filterName]) {
             filters.value[filterName].value = value;
         }
-
         dialogsVisible.value[filterName] = false;
     };
 
@@ -146,9 +166,7 @@
     <div v-if="isLoading" class="flex justify-center items-center h-48">
         <ProgressSpinner />
     </div>
-    <div v-else-if="error" class="text-red-500">
-        {{ error }}
-    </div>
+    <div v-else-if="error" class="text-red-500">{{ error }}</div>
 
     <DataTable
         v-else
@@ -159,7 +177,7 @@
         dataKey="symbol"
         selectionMode="single"
         @rowSelect="onRowSelect"
-        :globalFilterFields="['symbol', 'longName']"
+        :globalFilterFields="['symbol', 'longName', 'company']"
         class="p-datatable-sm"
         stripedRows
         scrollable
@@ -176,11 +194,7 @@
             sortable
             frozen
             class="font-bold toto-column-ticker"
-        >
-            <template #body="{ data }">
-                <span>{{ data.symbol }}</span>
-            </template>
-        </Column>
+        />
         <Column field="company" sortable class="toto-column-company">
             <template #header>
                 <Button
@@ -191,15 +205,9 @@
                     @click="openFilterDialog('company')"
                     :severity="filters.company.value ? '' : 'secondary'"
                 />
-                <div class="column-header">
-                    <span>운용사</span>
-                </div>
-            </template>
-            <template #body="{ data }">
-                {{ data.company }}
+                <div class="column-header"><span>운용사</span></div>
             </template>
         </Column>
-
         <Column field="frequency" sortable class="toto-column-frequency">
             <template #header>
                 <Button
@@ -214,9 +222,18 @@
                     <span>지급<br v-if="deviceType !== 'desktop'" />주기</span>
                 </div>
             </template>
-            <template #body="{ data }">{{ data.frequency }} </template>
         </Column>
-
+        <Column
+            field="yield"
+            header="배당률"
+            sortable
+            class="toto-column-yield"
+        >
+            <template #body="{ data }">
+                <span v-if="data.yield && data.yield !== 'N/A'" class="text-surface-500">{{ data.yield }}</span>
+                <span v-else class="text-surface-500">-</span>
+            </template>
+        </Column>
         <Column
             field="group"
             sortable
@@ -224,9 +241,7 @@
             sortField="groupOrder"
         >
             <template #header>
-                <div class="column-header">
-                    <span>그룹</span>
-                </div>
+                <div class="column-header"><span>그룹</span></div>
             </template>
             <template #body="{ data }">
                 <Tag
@@ -264,7 +279,6 @@
             />
         </div>
     </Dialog>
-
     <Dialog
         v-model:visible="dialogsVisible.frequency"
         modal
