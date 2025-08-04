@@ -8,16 +8,42 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('primevue/avatar')['default']
+    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
+    Card: typeof import('primevue/card')['default']
+    DatePicker: typeof import('primevue/datepicker')['default']
+    Fieldset: typeof import('primevue/fieldset')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
+    FloatLabel: typeof import('primevue/floatlabel')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    IftaLabel: typeof import('primevue/iftalabel')['default']
+    InputGroup: typeof import('primevue/inputgroup')['default']
+    InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
+    InputText: typeof import('primevue/inputtext')['default']
+    Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('primevue/select')['default']
+    Step: typeof import('primevue/step')['default']
+    StepItem: typeof import('primevue/stepitem')['default']
+    StepPanel: typeof import('primevue/steppanel')['default']
+    Stepper: typeof import('primevue/stepper')['default']
+    StockCalculators: typeof import('./components/StockCalculators.vue')['default']
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
+    Tab: typeof import('primevue/tab')['default']
+    TabList: typeof import('primevue/tablist')['default']
+    TabPanel: typeof import('primevue/tabpanel')['default']
+    TabPanels: typeof import('primevue/tabpanels')['default']
+    Tabs: typeof import('primevue/tabs')['default']
+    TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
+  }
+  export interface GlobalDirectives {
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }
