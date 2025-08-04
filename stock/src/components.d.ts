@@ -11,6 +11,8 @@ declare module 'vue' {
     Avatar: typeof import('primevue/avatar')['default']
     Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
+    CalculatorInputs: typeof import('./components/calculators/CalculatorInputs.vue')['default']
+    CalculatorResult: typeof import('./components/calculators/CalculatorResult.vue')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
@@ -27,6 +29,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('primevue/select')['default']
+    Splitter: typeof import('primevue/splitter')['default']
+    SplitterPanel: typeof import('primevue/splitterpanel')['default']
     Step: typeof import('primevue/step')['default']
     StepItem: typeof import('primevue/stepitem')['default']
     StepPanel: typeof import('primevue/steppanel')['default']
@@ -42,6 +46,7 @@ declare module 'vue' {
     Tabs: typeof import('primevue/tabs')['default']
     TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
+    ToggleButton: typeof import('primevue/togglebutton')['default']
   }
   export interface GlobalDirectives {
     Tooltip: typeof import('primevue/tooltip')['default']
