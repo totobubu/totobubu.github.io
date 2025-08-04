@@ -47,7 +47,6 @@ def fetch_dividend_history(ticker_symbol):
             for index, row in dividends_df.iterrows():
                 ex_date = row['ExDate'].to_pydatetime().replace(tzinfo=None)
                 if ex_date < datetime.now() - timedelta(days=365 * 10): continue
-                
                 record = {
                     '배당락': ex_date.strftime('%y. %m. %d'),
                     '배당금': f"${row['Dividend']:.4f}"
@@ -61,7 +60,19 @@ def fetch_dividend_history(ticker_symbol):
 def add_yield_to_history(history):
     history_with_yield = []
     
-    for i, current_item in enumerate(history):
+    # 날짜 파싱을 미리 해두어 성능 최적화
+    parsed_history = []
+    for item in history:
+        try:
+            parsed_history.append({
+                "date": datetime.strptime(item['배당락'].replace(" ", ""), '%y.%m.%d'),
+                "data": item
+            })
+        except (ValueError, KeyError):
+            continue # 날짜 형식이 잘못된 데이터는 건너뜀
+
+    for i, current_entry in enumerate(parsed_history):
+        current_item = current_entry['data']
         new_item = current_item.copy()
         
         opening_price_str = new_item.get('당일시가')
@@ -70,27 +81,25 @@ def add_yield_to_history(history):
             try:
                 opening_price = float(opening_price_str.replace('$', ''))
                 if opening_price > 0:
-                    current_date = datetime.strptime(new_item['배당락'].replace(" ", ""), '%y.%m.%d')
-                    one_year_later = current_date + timedelta(days=365)
+                    current_date = current_entry['date']
+                    one_year_before = current_date - timedelta(days=365)
                     
-                    dividends_in_next_year = 0
+                    dividends_in_past_year = 0
                     
-                    # 현재 항목을 포함하여 미래 1년간의 배당금 합산
-                    for future_item in history[i:]:
-                        future_date = datetime.strptime(future_item['배당락'].replace(" ", ""), '%y.%m.%d')
-                        if future_date > one_year_later:
-                            break
+                    # 현재 항목을 기준으로 '과거' 1년간의 배당금 합산
+                    for past_entry in parsed_history[i:]:
+                        past_date = past_entry['date']
+                        if past_date < one_year_before:
+                            break # 1년보다 더 오래된 데이터는 중단
                         
-                        dividend_str = future_item.get('배당금')
+                        dividend_str = past_entry['data'].get('배당금')
                         if dividend_str:
-                            dividends_in_next_year += float(dividend_str.replace('$', ''))
+                            dividends_in_past_year += float(dividend_str.replace('$', ''))
                     
-                    # 연환산 배당률 계산
-                    yield_rate = (dividends_in_next_year / opening_price) * 100
+                    yield_rate = (dividends_in_past_year / opening_price) * 100
                     new_item['배당률'] = f"{yield_rate:.2f}%"
 
-            except (ValueError, TypeError) as e:
-                # 계산 중 오류 발생 시 배당률을 추가하지 않음
+            except (ValueError, TypeError):
                 pass
         
         history_with_yield.append(new_item)
@@ -153,7 +162,6 @@ if __name__ == "__main__":
 
             final_history.append(merged_item)
         
-        # 배당률 계산 로직 추가
         final_history_with_yield = add_yield_to_history(final_history)
         
         final_data_to_save = {
