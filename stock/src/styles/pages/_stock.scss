@@ -208,3 +208,17 @@
         }
     }
 }
+
+.toto-stock-history {
+    &-date {
+    @include bp.media-breakpoint-only('xs') {
+        width: 5rem;
+    }
+    }
+    &-amount {
+        
+    @include bp.media-breakpoint-only('xs') {
+        width: 5rem;
+    }
+    }
+}
