@@ -1,37 +1,37 @@
 // stock/src/composables/useBreakpoint.js
-import { ref, computed, onMounted, onBeforeUnmount, readonly } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, readonly } from 'vue';
 
 export function useBreakpoint() {
-  const deviceType = ref("desktop");
+    const deviceType = ref('desktop');
 
-  const updateDeviceType = () => {
-    const width = window.innerWidth;
-    if (width < 641) {
-      deviceType.value = "mobile";
-    } else if (width >= 641 && width < 1280) {
-      deviceType.value = "tablet";
-    } else {
-      deviceType.value = "desktop";
-    }
-  };
+    const updateDeviceType = () => {
+        const width = window.innerWidth;
+        if (width < 641) {
+            deviceType.value = 'mobile';
+        } else if (width >= 641 && width < 1280) {
+            deviceType.value = 'tablet';
+        } else {
+            deviceType.value = 'desktop';
+        }
+    };
 
-  onMounted(() => {
-    updateDeviceType();
-    window.addEventListener("resize", updateDeviceType);
-  });
+    onMounted(() => {
+        updateDeviceType();
+        window.addEventListener('resize', updateDeviceType);
+    });
 
-  onBeforeUnmount(() => {
-    window.removeEventListener("resize", updateDeviceType);
-  });
+    onBeforeUnmount(() => {
+        window.removeEventListener('resize', updateDeviceType);
+    });
 
-  const isMobile = computed(() => deviceType.value === "mobile");
-  const isTablet = computed(() => deviceType.value === "tablet");
-  const isDesktop = computed(() => deviceType.value === "desktop");
+    const isMobile = computed(() => deviceType.value === 'mobile');
+    const isTablet = computed(() => deviceType.value === 'tablet');
+    const isDesktop = computed(() => deviceType.value === 'desktop');
 
-  return {
-    deviceType: readonly(deviceType),
-    isMobile: readonly(isMobile),
-    isTablet: readonly(isTablet),
-    isDesktop: readonly(isDesktop),
-  };
+    return {
+        deviceType: readonly(deviceType),
+        isMobile: readonly(isMobile),
+        isTablet: readonly(isTablet),
+        isDesktop: readonly(isDesktop),
+    };
 }

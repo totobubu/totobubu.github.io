@@ -1,81 +1,117 @@
 <script setup>
-import { ref, watch, computed, onMounted } from "vue";
-import { RouterView, useRoute } from 'vue-router';
-import AppSidebar from "./AppSidebar.vue";
-import TickerSelector from "@/components/CalendarTickerSelector.vue";
-import FilterInput from "@/components/FilterInput.vue";
-import Drawer from "primevue/drawer";
-import Button from "primevue/button";
-import Breadcrumb from "primevue/breadcrumb";
-import { useFilterState } from "@/composables/useFilterState";
-import { useBreakpoint } from "@/composables/useBreakpoint";
-import { useCalendarData } from '@/composables/useCalendarData.js';
-import { useStockData } from '@/composables/useStockData.js';
+    import { ref, watch, computed, onMounted } from 'vue';
+    import { RouterView, useRoute } from 'vue-router';
+    import AppSidebar from './AppSidebar.vue';
+    import TickerSelector from '@/components/CalendarTickerSelector.vue';
+    import FilterInput from '@/components/FilterInput.vue';
+    import Drawer from 'primevue/drawer';
+    import Button from 'primevue/button';
+    import Breadcrumb from 'primevue/breadcrumb';
+    import { useFilterState } from '@/composables/useFilterState';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useCalendarData } from '@/composables/useCalendarData.js';
+    import { useStockData } from '@/composables/useStockData.js';
 
-const { deviceType, isDesktop, isMobile } = useBreakpoint();
-const { filters } = useFilterState();
-const { groupedTickers, selectedTickers, loadAllData } = useCalendarData();
-const { tickerInfo } = useStockData();
+    const { deviceType, isDesktop, isMobile } = useBreakpoint();
+    const { filters } = useFilterState();
+    const { groupedTickers, selectedTickers, loadAllData } = useCalendarData();
+    const { tickerInfo } = useStockData();
 
-const visible = ref(false);
-const visible2 = ref(false);
-const route = useRoute();
-const isHomePage = computed(() => route.path === '/');
+    const visible = ref(false);
+    const visible2 = ref(false);
+    const route = useRoute();
+    const isHomePage = computed(() => route.path === '/');
 
-onMounted(() => {
-    loadAllData();
-});
+    onMounted(() => {
+        loadAllData();
+    });
 
-const breadcrumbItems = computed(() => {
-    const home = { icon: 'pi pi-home', to: '/' };
-    const items = [];
+    const breadcrumbItems = computed(() => {
+        const home = { icon: 'pi pi-home', to: '/' };
+        const items = [];
 
-    // [핵심] 이제 allTickers 대신, 데이터가 보장된 tickerInfo를 사용합니다.
-    if (route.name === 'stock-detail' && tickerInfo.value) {
-        if (isDesktop.value) {
-            items.push({ label: tickerInfo.value.Symbol });
-            items.push({ label: tickerInfo.value.longName });
-        } else {
-            items.push({ label: tickerInfo.value.company });
-            items.push({ label: tickerInfo.value.Symbol });
+        // [핵심] 이제 allTickers 대신, 데이터가 보장된 tickerInfo를 사용합니다.
+        if (route.name === 'stock-detail' && tickerInfo.value) {
+            if (isDesktop.value) {
+                items.push({ label: tickerInfo.value.Symbol });
+                items.push({ label: tickerInfo.value.longName });
+            } else {
+                items.push({ label: tickerInfo.value.company });
+                items.push({ label: tickerInfo.value.Symbol });
+            }
         }
-    }
-    return [home, ...items];
-});
+        return [home, ...items];
+    });
 
+    watch(visible, (newValue) => {
+        if (newValue) document.body.classList.add('p-overflow-hidden');
+        else document.body.classList.remove('p-overflow-hidden');
+    });
 
-watch(visible, (newValue) => {
-    if (newValue) document.body.classList.add("p-overflow-hidden");
-    else document.body.classList.remove("p-overflow-hidden");
-});
-
-watch(() => route.path, () => {
-    visible.value = false;
-    visible2.value = false;
-});
+    watch(
+        () => route.path,
+        () => {
+            visible.value = false;
+            visible2.value = false;
+        }
+    );
 </script>
 
 <template>
     <div id="t-layout">
         <aside id="t-sidebar" v-if="deviceType === 'desktop'">
             <header>
-                <FilterInput v-if="isHomePage" v-model="filters.calendarSearch.value" title="달력 티커 검색" filter-type="calendar" />
-                <FilterInput v-else v-model="filters.global.value" title="전체 티커 검색" filter-type="global" />
+                <FilterInput
+                    v-if="isHomePage"
+                    v-model="filters.calendarSearch.value"
+                    title="달력 티커 검색"
+                    filter-type="calendar"
+                />
+                <FilterInput
+                    v-else
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global"
+                />
             </header>
-            <TickerSelector v-if="isHomePage" :groupedTickers="groupedTickers" v-model="selectedTickers" />
+            <TickerSelector
+                v-if="isHomePage"
+                :groupedTickers="groupedTickers"
+                v-model="selectedTickers"
+            />
             <AppSidebar v-else />
         </aside>
 
         <main id="t-grid">
             <header id="t-header">
-                <div class="flex items-center gap-4 min-w-0" v-if="!isHomePage && tickerInfo">
+                <div
+                    class="flex items-center gap-4 min-w-0"
+                    v-if="!isHomePage && tickerInfo"
+                >
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
                         <template #item="{ item }">
-                            <router-link v-if="item.to" :to="item.to" class="p-menuitem-link">
-                                <span v-if="item.icon" :class="item.icon"></span>
-                                <span class="font-semibold" :class="{'text-primary': route.path === item.to}">{{ item.label }}</span>
+                            <router-link
+                                v-if="item.to"
+                                :to="item.to"
+                                class="p-menuitem-link"
+                            >
+                                <span
+                                    v-if="item.icon"
+                                    :class="item.icon"
+                                ></span>
+                                <span
+                                    class="font-semibold"
+                                    :class="{
+                                        'text-primary': route.path === item.to,
+                                    }"
+                                    >{{ item.label }}</span
+                                >
                             </router-link>
-                            <span v-else class="text-surface-500 dark:text-surface-400">{{ item.label }}</span>
+                            <span
+                                v-else
+                                class="text-surface-500 dark:text-surface-400"
+                                >{{ item.label }}</span
+                            >
                         </template>
                     </Breadcrumb>
                 </div>
@@ -84,32 +120,65 @@ watch(() => route.path, () => {
                     <!-- <router-link to="/" v-if="!isHomePage">
                         <Button icon="pi pi-home" variant="text"></Button>
                     </router-link> -->
-                    <Button v-if="deviceType !== 'desktop'" icon="pi pi-bars" variant="text" @click="visible = true"></Button>
+                    <Button
+                        v-if="deviceType !== 'desktop'"
+                        icon="pi pi-bars"
+                        variant="text"
+                        @click="visible = true"
+                    ></Button>
                 </div>
             </header>
             <section id="t-content">
                 <div v-if="deviceType !== 'desktop' && isHomePage">
-                    <Button id="t-calendar-search-button" label="배당금 검색" icon="pi pi-filter" variant="text" @click="visible2 = true" />
+                    <Button
+                        id="t-calendar-search-button"
+                        label="배당금 검색"
+                        icon="pi pi-filter"
+                        variant="text"
+                        @click="visible2 = true"
+                    />
                 </div>
                 <RouterView />
             </section>
         </main>
-        
-        <Drawer v-if="deviceType !== 'desktop' && !isHomePage" v-model:visible="visible"
-            :position="isMobile ? 'full' : 'right'" :modal="true" id="toto-search"
-            :class="deviceType">
+
+        <Drawer
+            v-if="deviceType !== 'desktop' && !isHomePage"
+            v-model:visible="visible"
+            :position="isMobile ? 'full' : 'right'"
+            :modal="true"
+            id="toto-search"
+            :class="deviceType"
+        >
             <template #header>
-                <FilterInput v-model="filters.global.value" title="전체 티커 검색" filter-type="global" />
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global"
+                />
             </template>
             <AppSidebar />
         </Drawer>
 
-        <Drawer v-if="deviceType !== 'desktop' && isHomePage" v-model:visible="visible2"
-            :position="isMobile ? 'full' : 'right'" :modal="true" id="toto-filter" :class="deviceType">
-             <template #header>
-                <FilterInput v-model="filters.calendarSearch.value" title="달력 티커 검색" filter-type="calendar" />
+        <Drawer
+            v-if="deviceType !== 'desktop' && isHomePage"
+            v-model:visible="visible2"
+            :position="isMobile ? 'full' : 'right'"
+            :modal="true"
+            id="toto-filter"
+            :class="deviceType"
+        >
+            <template #header>
+                <FilterInput
+                    v-model="filters.calendarSearch.value"
+                    title="달력 티커 검색"
+                    filter-type="calendar"
+                />
             </template>
-            <TickerSelector :groupedTickers="groupedTickers" v-model="selectedTickers" />
+            <TickerSelector
+                :groupedTickers="groupedTickers"
+                v-model="selectedTickers"
+            />
         </Drawer>
     </div>
 </template>

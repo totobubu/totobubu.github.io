@@ -5,16 +5,36 @@ import router from './router';
 
 import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';
-import Lara from "@primeuix/themes/lara";
+import Lara from '@primeuix/themes/lara';
 
 import './styles/style.scss';
 
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, BarController, LineController } from 'chart.js';
+import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarController,
+    LineController,
+} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
-    Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
-    PointElement, LineElement, BarController, LineController,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarController,
+    LineController,
     ChartDataLabels
 );
 
@@ -31,7 +51,7 @@ const MyPreset = definePreset(Lara, {
             700: '{zinc.700}',
             800: '{zinc.800}',
             900: '{zinc.900}',
-            950: '{zinc.950}'
+            950: '{zinc.950}',
         },
         colorScheme: {
             dark: {
@@ -39,25 +59,25 @@ const MyPreset = definePreset(Lara, {
                     color: '{zinc.50}',
                     inverseColor: '{zinc.950}',
                     hoverColor: '{zinc.100}',
-                    activeColor: '{zinc.200}'
+                    activeColor: '{zinc.200}',
                 },
                 highlight: {
                     background: 'rgba(250, 250, 250, .16)',
                     focusBackground: 'rgba(250, 250, 250, .24)',
                     color: 'rgba(255,255,255,.87)',
-                    focusColor: 'rgba(255,255,255,.87)'
+                    focusColor: 'rgba(255,255,255,.87)',
                 },
                 formField: {
-                    hoverBorderColor: '{primary.color}'
-                }
-            }
+                    hoverBorderColor: '{primary.color}',
+                },
+            },
         },
         focusRing: {
             width: '2px',
             style: 'dashed',
             color: '{primary.color}',
-            offset: '1px'
-        }
+            offset: '1px',
+        },
     },
     components: {
         card: {
@@ -65,17 +85,16 @@ const MyPreset = definePreset(Lara, {
                 dark: {
                     root: {
                         background: '{surface.900}',
-                        color: '{surface.0}'
+                        color: '{surface.0}',
                     },
                     subtitle: {
-                        color: '{surface.400}'
-                    }
-                }
-            }
+                        color: '{surface.400}',
+                    },
+                },
+            },
         },
-    }
+    },
 });
-
 
 const app = createApp(App);
 
@@ -84,9 +103,9 @@ app.use(PrimeVue, {
     theme: {
         preset: MyPreset,
         options: {
-            darkModeSelector: ".p-dark",
-        }
+            darkModeSelector: '.p-dark',
+        },
     },
 });
 
-app.mount("#app");
+app.mount('#app');

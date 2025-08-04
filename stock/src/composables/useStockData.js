@@ -16,26 +16,30 @@ export function useStockData() {
         error.value = null;
         tickerInfo.value = null;
         dividendHistory.value = [];
-        const url = joinURL(import.meta.env.BASE_URL, `data/${tickerName.toLowerCase()}.json`);
+        const url = joinURL(
+            import.meta.env.BASE_URL,
+            `data/${tickerName.toLowerCase()}.json`
+        );
 
         try {
             const response = await fetch(url);
             if (response.status === 404) {
-                throw new Error(`Data file for ${tickerName.toUpperCase()} not found.`);
+                throw new Error(
+                    `Data file for ${tickerName.toUpperCase()} not found.`
+                );
             }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const responseData = await response.json();
-            
+
             // [핵심 2] 이제 이 함수는 공유 상태를 업데이트하는 역할만 합니다.
             tickerInfo.value = responseData.tickerInfo;
-            const sortedHistory = responseData.dividendHistory.sort((a, b) =>
-                parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
+            const sortedHistory = responseData.dividendHistory.sort(
+                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
             );
             dividendHistory.value = sortedHistory;
-
         } catch (err) {
             if (err instanceof SyntaxError) {
                 error.value = `${tickerName.toUpperCase()}의 데이터 파일 형식이 올바르지 않습니다. (JSON 오류)`;
@@ -53,6 +57,6 @@ export function useStockData() {
         dividendHistory,
         isLoading,
         error,
-        fetchData
+        fetchData,
     };
 }
