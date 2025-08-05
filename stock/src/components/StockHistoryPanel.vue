@@ -1,6 +1,6 @@
 <script setup>
     import { computed } from 'vue';
-    import Panel from 'primevue/panel';
+    import Card from 'primevue/card';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 
@@ -92,12 +92,7 @@
 </script>
 
 <template>
-    <Panel header="배당금 상세 정보" class="toto-history">
-        <template #icons>
-            <span class="text-surface-500 dark:text-surface-400">{{
-                updateTime
-            }}</span>
-        </template>
+    <div class="toto-history">
         <DataTable
             :value="filteredHistory"
             stripedRows
@@ -124,5 +119,5 @@
             >
             </Column>
         </DataTable>
-    </Panel>
+    </div>
 </template>
