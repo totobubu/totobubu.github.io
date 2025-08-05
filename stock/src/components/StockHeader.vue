@@ -13,8 +13,14 @@
 
         const detailMapping = [
             {
-                key: 'marketCap',
-                label: '시가총액',
+                key:
+                    props.info.marketCap && props.info.marketCap !== 'N/A'
+                        ? 'marketCap'
+                        : 'totalAssets',
+                label:
+                    props.info.marketCap && props.info.marketCap !== 'N/A'
+                        ? '시가총액'
+                        : '운용 자산 (AUM)',
                 formatter: formatLargeNumber,
             },
             {
@@ -47,7 +53,6 @@
                 const rawValue = props.info[item.key];
                 const changeInfo = props.info[`${item.key}Change`];
 
-                // 이전 값도 포맷팅
                 if (changeInfo && item.formatter) {
                     changeInfo.previousValue = item.formatter(
                         changeInfo.previousValue
@@ -62,7 +67,10 @@
             })
             .filter(
                 (item) =>
-                    item.value && item.value !== 'N/A' && item.value !== '0'
+                    item.value &&
+                    item.value !== 'N/A' &&
+                    item.value !== '0' &&
+                    item.value !== '$0'
             );
     });
 
