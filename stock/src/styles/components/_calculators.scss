@@ -1,7 +1,7 @@
 // stock/src/styles/components/_calculators.scss
-@use "../abstracts/variables" as vars;
-@use "../abstracts/mixins" as mx;
-@use "../functions/breakpoints" as bp;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mx;
+@use '../functions/breakpoints' as bp;
 
 #t-calculator {
     .p-card-body {
@@ -15,8 +15,7 @@
             width: 50%;
         }
     }
-    
-    
+
     .p-selectbutton {
         width: 100%;
         > button {
@@ -39,7 +38,7 @@
             align-items: center;
         }
     }
-    
+
     &-return {
         label {
             display: flex;
@@ -47,11 +46,11 @@
             justify-content: space-between;
         }
     }
-    .p-splitterpanel  {
-        padding: .5em;
+    .p-splitterpanel {
+        padding: 0.5em;
     }
-    
-
+}
+.t-calculator {
     &-result {
         width: 100%;
 
@@ -59,13 +58,12 @@
             width: 100%;
             text-align: center;
             th {
-                font-size: .7rem;
+                font-size: 0.7rem;
             }
         }
         .p-chart {
-            
             @include bp.media-breakpoint-only('xs') {
-                height: 100vw; 
+                height: 100vw;
             }
             @include bp.media-breakpoint-between('xs', 'lg') {
                 height: 40vw;
