@@ -115,13 +115,8 @@ export function useReinvestmentChart(options) {
                     callbacks: {
                         title: (tooltipItems) =>
                             `${tooltipItems[0].raw.x}개월 후`,
-                        label: (context) => {
-                            let label = `${context.dataset.label}: ${formatLargeNumber(context.raw.y)}`;
-                            if (context.raw.y >= targetAmount.value) {
-                                label += ' (🏆 목표 달성!)';
-                            }
-                            return label;
-                        },
+                        label: (context) =>
+                            `${context.dataset.label}: ${formatLargeNumber(context.raw.y)}`,
                     },
                 },
                 annotation: {
@@ -174,10 +169,18 @@ export function useReinvestmentChart(options) {
                     grid: { color: surfaceBorder },
                 },
                 y: {
-                    beginAtZero: false,
+                    type: 'logarithmic',
                     ticks: {
                         color: textColorSecondary,
-                        callback: (value) => formatLargeNumber(value),
+                        callback: (value, index, ticks) => {
+                            if (value === 0) return '0';
+                            const log10 = Math.log10(value);
+                            if (log10 === Math.floor(log10)) {
+                                // 10, 100, 1k, 10k...
+                                return formatLargeNumber(value);
+                            }
+                            return ''; // 중간 눈금은 숨김
+                        },
                     },
                     grid: { color: surfaceBorder },
                 },
