@@ -47,6 +47,31 @@
             code: option,
         }));
     });
+
+    const getGroupSeverity = (group) => {
+        switch (group) {
+            case 'A':
+                return 'danger';
+            case 'B':
+                return 'warning';
+            case 'C':
+                return 'success';
+            case 'D':
+                return 'info';
+            case '월':
+                return 'mon';
+            case '화':
+                return 'tue';
+            case '수':
+                return 'wed';
+            case '목':
+                return 'thu';
+            case '금':
+                return 'fri';
+            default:
+                return 'secondary';
+        }
+    };
 </script>
 
 <template>
@@ -90,9 +115,11 @@
                 </div>
                 <div class="flex gap-2" v-if="tickerInfo">
                     <Tag severity="secondary">{{ tickerInfo.frequency }}</Tag>
-                    <Tag severity="secondary" v-if="tickerInfo.group">{{
-                        tickerInfo.group
-                    }}</Tag>
+                    <Tag
+                        :severity="getGroupSeverity(tickerInfo.group)"
+                        v-if="tickerInfo.group"
+                        >{{ tickerInfo.group }}</Tag
+                    >
                 </div>
             </div>
             <div class="chart-wrapper">
