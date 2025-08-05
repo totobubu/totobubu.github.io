@@ -40,7 +40,6 @@
         );
         const now = new Date();
         const options = [];
-
         if (frequency === '분기') {
             const tenYearsAgo = new Date(
                 new Date().setFullYear(now.getFullYear() - 10)
@@ -89,49 +88,42 @@
     };
 
     watch(
-        () => route.params.ticker,
-        async (newTicker) => {
-            if (newTicker) {
+        () => [
+            route.params.ticker,
+            isPriceChartMode.value,
+            selectedTimeRange.value,
+        ],
+        async (newValues, oldValues) => {
+            const [newTicker] = newValues;
+            const oldTicker = oldValues ? oldValues[0] : undefined;
+
+            if (!newTicker) return;
+
+            if (newTicker !== oldTicker) {
                 isPriceChartMode.value = false;
                 await fetchData(newTicker);
+                generateDynamicTimeRangeOptions();
+
                 const freq = tickerInfo.value?.frequency;
-                if (freq === '분기') {
-                    selectedTimeRange.value = timeRangeOptions.value.includes(
-                        '3Y'
-                    )
-                        ? '3Y'
-                        : timeRangeOptions.value[0] || 'Max';
-                } else if (['매주', '매월', '4주'].includes(freq)) {
-                    selectedTimeRange.value = timeRangeOptions.value.includes(
-                        '6M'
-                    )
-                        ? '6M'
-                        : timeRangeOptions.value[0] || 'Max';
+                if (freq === '분기' && timeRangeOptions.value.includes('3Y')) {
+                    selectedTimeRange.value = '3Y';
+                } else if (
+                    ['매주', '매월', '4주'].includes(freq) &&
+                    timeRangeOptions.value.includes('6M')
+                ) {
+                    selectedTimeRange.value = '6M';
                 } else {
-                    selectedTimeRange.value =
-                        timeRangeOptions.value[0] || 'Max';
+                    selectedTimeRange.value = timeRangeOptions.value.includes(
+                        '1Y'
+                    )
+                        ? '1Y'
+                        : timeRangeOptions.value[0] || 'Max';
                 }
             }
-        },
-        { immediate: true }
-    );
 
-    watch(
-        dividendHistory,
-        (newHistory) => {
-            if (newHistory && newHistory.length > 0) {
-                generateDynamicTimeRangeOptions();
-            }
-        },
-        { immediate: true }
-    );
-
-    watch(
-        [dividendHistory, isPriceChartMode, selectedTimeRange],
-        () => {
             updateChart();
         },
-        { deep: true, immediate: true }
+        { immediate: true, deep: true }
     );
 </script>
 
@@ -153,6 +145,7 @@
             <StockHeader :info="tickerInfo" />
 
             <StockChartCard
+                :tickerInfo="tickerInfo"
                 :has-dividend-chart-mode="hasDividendChartMode"
                 :chart-data="chartData"
                 :chart-options="chartOptions"

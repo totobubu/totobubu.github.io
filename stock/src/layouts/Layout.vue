@@ -139,6 +139,17 @@
                     />
                 </div>
                 <RouterView />
+                <ScrollTop
+                    v-if="!isHomePage"
+                    target="parent"
+                    :threshold="100"
+                    icon="pi pi-arrow-up"
+                    :buttonProps="{
+                        severity: 'contrast',
+                        raised: true,
+                        rounded: true,
+                    }"
+                />
             </section>
         </main>
 

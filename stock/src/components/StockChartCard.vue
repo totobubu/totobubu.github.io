@@ -128,9 +128,9 @@
                     :style="{ minWidth: chartContainerWidth }"
                 >
                     <div
+                        v-show="chartData && chartOptions"
                         class="card"
                         id="p-chart"
-                        v-if="chartData && chartOptions"
                     >
                         <PrimeVueChart
                             ref="chartRef"
@@ -138,9 +138,6 @@
                             :data="chartData"
                             :options="chartOptions"
                         />
-                    </div>
-                    <div v-else class="flex justify-center items-center h-full">
-                        <ProgressSpinner />
                     </div>
                 </div>
             </div>

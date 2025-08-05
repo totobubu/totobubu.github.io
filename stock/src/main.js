@@ -23,6 +23,7 @@ import {
     LineController,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Annotation from 'chartjs-plugin-annotation';
 
 ChartJS.register(
     Title,
@@ -35,7 +36,8 @@ ChartJS.register(
     LineElement,
     BarController,
     LineController,
-    ChartDataLabels
+    ChartDataLabels,
+    Annotation
 );
 
 const MyPreset = definePreset(Lara, {

@@ -240,63 +240,34 @@
 </script>
 
 <template>
-    <Card
-        v-if="isMobile"
-        id="t-calendar-list"
-    >
+    <Card v-if="isMobile" id="t-calendar-list">
         <template #header>
             {{ currentTitle }}
         </template>
         <template #title>
-            <Button
-                icon="pi pi-chevron-left"
-                text
-                @click="prevMonth"
-            />
+            <Button icon="pi pi-chevron-left" text @click="prevMonth" />
             <Button
                 label="오늘"
                 class="p-button-sm"
                 @click="goToToday"
                 variant="text"
             />
-            <Button
-                icon="pi pi-chevron-right"
-                text
-                @click="nextMonth"
-            />
+            <Button icon="pi pi-chevron-right" text @click="nextMonth" />
         </template>
         <template #content>
-            <FullCalendar
-                ref="fullCalendar"
-                :options="calendarOptions"
-            />
+            <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </template>
     </Card>
 
-    <Panel
-        v-else
-        id="t-calendar-grid"
-    >
+    <Panel v-else id="t-calendar-grid">
         <template #header>
             <div class="header-left">
-                <Button
-                    label="오늘"
-                    class="p-button-sm"
-                    @click="goToToday"
-                />
+                <Button label="오늘" class="p-button-sm" @click="goToToday" />
             </div>
             <div class="header-center">
-                <Button
-                    icon="pi pi-chevron-left"
-                    text
-                    @click="prevMonth"
-                />
+                <Button icon="pi pi-chevron-left" text @click="prevMonth" />
                 <h2>{{ currentTitle }}</h2>
-                <Button
-                    icon="pi pi-chevron-right"
-                    text
-                    @click="nextMonth"
-                />
+                <Button icon="pi pi-chevron-right" text @click="nextMonth" />
             </div>
             <div class="header-right">
                 <SelectButton
@@ -308,9 +279,6 @@
                 />
             </div>
         </template>
-        <FullCalendar
-            ref="fullCalendar"
-            :options="calendarOptions"
-        />
+        <FullCalendar ref="fullCalendar" :options="calendarOptions" />
     </Panel>
 </template>

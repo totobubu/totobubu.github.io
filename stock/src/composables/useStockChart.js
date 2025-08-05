@@ -75,6 +75,17 @@ export function useStockChart(
     });
 
     const updateChart = () => {
+        // [핵심] 데이터가 완전히 준비되기 전에는 차트를 그리지 않음
+        if (
+            !tickerInfo.value ||
+            !dividendHistory.value ||
+            dividendHistory.value.length === 0
+        ) {
+            chartData.value = null;
+            chartOptions.value = null;
+            return;
+        }
+
         const data = chartDisplayData.value;
         const frequency = tickerInfo.value?.frequency;
 
