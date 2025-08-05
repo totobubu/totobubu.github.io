@@ -14,7 +14,7 @@
 </script>
 
 <template>
-    <Card id="t-calculator-result">
+    <Card class="t-calculator-result">
         <template #title>
             <table class="w-full text-center text-sm">
                 <thead>

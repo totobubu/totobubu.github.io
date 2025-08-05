@@ -215,7 +215,7 @@
             </StepItem>
         </Stepper>
         <Divider />
-        <Card>
+        <Card class="t-calculator-result">
             <template #title>
                 <table class="w-full text-center text-sm">
                     <thead>
@@ -337,54 +337,76 @@
             </div>
         </SplitterPanel>
         <SplitterPanel
-            class="flex flex-column p-4"
+            class="flex items-center justify-center p-4"
             :size="deviceType === 'tablet' ? '40' : '50'"
             :minSize="10"
         >
-            <table class="w-full text-center text-sm mb-4">
-                <thead>
-                    <tr>
-                        <th>희망 (최고 배당)</th>
-                        <th>평균</th>
-                        <th>절망 (최저 배당)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-xs text-surface-500">
-                        <td>(${{ reinvestDividendStats.max.toFixed(4) }})</td>
-                        <td>(${{ reinvestDividendStats.avg.toFixed(4) }})</td>
-                        <td>(${{ reinvestDividendStats.min.toFixed(4) }})</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <Tag severity="success">{{
-                                formatMonthsToYears(goalAchievementTimes.hope)
-                            }}</Tag>
-                        </td>
-                        <td>
-                            <Tag severity="warning">{{
-                                formatMonthsToYears(goalAchievementTimes.avg)
-                            }}</Tag>
-                        </td>
-                        <td>
-                            <Tag severity="danger">{{
-                                formatMonthsToYears(
-                                    goalAchievementTimes.despair
-                                )
-                            }}</Tag>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="chart-container-mobile">
-                <!-- [핵심] 차트 데이터와 옵션이 준비되었을 때만 렌더링합니다. -->
-                <Chart
-                    v-if="reinvestmentChartData"
-                    type="line"
-                    :data="reinvestmentChartData"
-                    :options="reinvestmentChartOptions"
-                />
-            </div>
+            <Card class="t-calculator-result">
+                <template #title>
+                    <table class="w-full text-center text-sm">
+                        <thead>
+                            <tr>
+                                <th>희망</th>
+                                <th>평균</th>
+                                <th>절망</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-xs text-surface-500">
+                                <td>
+                                    (${{
+                                        reinvestDividendStats.max.toFixed(4)
+                                    }})
+                                </td>
+                                <td>
+                                    (${{
+                                        reinvestDividendStats.avg.toFixed(4)
+                                    }})
+                                </td>
+                                <td>
+                                    (${{
+                                        reinvestDividendStats.min.toFixed(4)
+                                    }})
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <Tag severity="success">{{
+                                        formatMonthsToYears(
+                                            goalAchievementTimes.hope
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="warning">{{
+                                        formatMonthsToYears(
+                                            goalAchievementTimes.avg
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="danger">{{
+                                        formatMonthsToYears(
+                                            goalAchievementTimes.despair
+                                        )
+                                    }}</Tag>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+                <template #content>
+                    <div class="h-full">
+                        <!-- [핵심] 차트 데이터와 옵션이 준비되었을 때만 렌더링합니다. -->
+                        <Chart
+                            v-if="reinvestmentChartData"
+                            type="line"
+                            :data="reinvestmentChartData"
+                            :options="reinvestmentChartOptions"
+                        />
+                    </div>
+                </template>
+            </Card>
         </SplitterPanel>
     </Splitter>
 </template>
