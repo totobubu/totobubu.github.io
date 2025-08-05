@@ -103,6 +103,8 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
             "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
             # --- 시가총액 ---
             "marketCap": f"{info.get('marketCap', 0):,}" if info.get('marketCap') else "N/A",
+            # --- AUM ---
+            "totalAssets": f"${info.get('totalAssets', 0):,}" if info.get('totalAssets') else "N/A",
             # --- 거래량 ---
             "Volume": f"{info.get('volume', 0):,}" if info.get('volume') else "N/A",
             # --- 평균 거래량 ---
