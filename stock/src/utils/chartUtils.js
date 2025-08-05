@@ -38,7 +38,7 @@ export function getBarStackFontSize(itemCount, deviceType, type = 'default') {
     else if (itemCount <= 15) finalSize = baseSize;
     else finalSize = baseSize - 7;
     if (deviceType === 'tablet') finalSize *= 0.75;
-    if (deviceType === 'mobile') finalSize *= 0.6;
+    if (deviceType === 'mobile') finalSize *= 0.4;
     return Math.max(8, Math.round(finalSize));
 }
 
