@@ -308,12 +308,6 @@
                         optionLabel="label"
                         optionValue="value"
                         class="flex-1"
-                    /><SelectButton
-                        v-model="dividendStatistic"
-                        :options="dividendStatisticOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        class="flex-1"
                     />
                 </div>
             </div>
