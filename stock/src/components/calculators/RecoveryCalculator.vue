@@ -232,7 +232,12 @@
             :size="deviceType === 'tablet' ? '60' : '50'"
         >
             <div class="flex flex-column gap-2 w-full">
-                <label>초기 투자금</label
+                <label
+                    ><span>초기 투자금</span
+                    ><Tag
+                        severity="contrast"
+                        :value="`$${investmentAmount.toFixed(2)}`"
+                    ></Tag></label
                 ><InputNumber
                     v-model="investmentAmount"
                     mode="currency"
@@ -241,7 +246,14 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
-                <label>참고 주식 가격</label
+                <label
+                    ><span>참고 주식 가격</span
+                    ><span
+                        ><Tag severity="contrast"
+                            >${{ calculatedPrice.toFixed(2) }} /
+                            {{ sharesToBuy.toFixed(2) }} 주</Tag
+                        ></span
+                    ></label
                 ><SelectButton
                     v-model="priceScenario"
                     :options="priceScenarioOptions"
@@ -250,7 +262,9 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
-                <label>지나간 배당금 참고</label
+                <label
+                    ><span>지나간 배당금 참고</span
+                    ><Tag severity="contrast">{{ recoveryPeriod }}</Tag></label
                 ><SelectButton
                     v-model="recoveryPeriod"
                     :options="periodOptions"
@@ -259,7 +273,11 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
-                <label>배당소득세 15%</label
+                <label
+                    ><span>배당소득세 15%</span
+                    ><Tag severity="contrast">{{
+                        applyTax ? '세후' : '세전'
+                    }}</Tag></label
                 ><SelectButton
                     v-model="applyTax"
                     :options="taxOptions"
