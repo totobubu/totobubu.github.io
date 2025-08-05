@@ -4,6 +4,45 @@ import os
 import yfinance as yf
 from datetime import datetime, timezone, timedelta
 
+def parse_numeric_value(value_str):
+    """'$1,234.56%' 같은 문자열에서 숫자만 추출합니다."""
+    if not isinstance(value_str, str):
+        return None
+    try:
+        # 모든 비숫자 문자(소수점 제외)를 제거
+        cleaned_str = ''.join(filter(lambda x: x.isdigit() or x == '.', value_str))
+        return float(cleaned_str)
+    except (ValueError, TypeError):
+        return None
+
+def compare_and_add_change(new_info, old_info):
+    """이전 정보와 새 정보를 비교하여 'change'와 'previousValue'를 추가합니다."""
+    info_with_change = new_info.copy()
+    if not old_info:
+        return info_with_change
+    
+    for key, new_value in new_info.items():
+        old_value = old_info.get(key)
+        
+        # 숫자 값만 비교 대상으로 삼음
+        new_numeric = parse_numeric_value(new_value)
+        old_numeric = parse_numeric_value(old_value)
+
+        if new_numeric is not None and old_numeric is not None:
+            change_info = {"previousValue": old_value}
+            if new_numeric > old_numeric:
+                change_info["change"] = "up"
+            elif new_numeric < old_numeric:
+                change_info["change"] = "down"
+            else:
+                change_info["change"] = "equal"
+            
+            # 원래 키 옆에 새로운 정보 객체를 추가 (예: "marketCapChange")
+            info_with_change[f"{key}Change"] = change_info
+            
+    return info_with_change
+
+
 def calculate_yield_from_history(info, history):
     if not history:
         return "N/A"
@@ -61,7 +100,7 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
             "earningsDate": earnings_date_str,
 
             # --- 기업가치 ---
-            # "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
+            "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
             # --- 시가총액 ---
             "marketCap": f"{info.get('marketCap', 0):,}" if info.get('marketCap') else "N/A",
             # --- 거래량 ---
@@ -75,15 +114,15 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
             # --- NAV ---
             "NAV": f"${info.get('navPrice', 0):.2f}" if info.get('navPrice') else "N/A",
             # --- TR  ---
-            # "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
+            "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
             
             # --- 계산된 연배당률 ---
             "Yield": manual_yield,
             
             # --- 연간 배당금 ---
-            # "dividendRate": f"${info.get('dividendRate', 0):.2f}" if info.get('dividendRate') else "N/A",
+            "dividendRate": f"${info.get('dividendRate', 0):.2f}" if info.get('dividendRate') else "N/A",
             # --- 배당 성향 ---
-            # "payoutRatio": f"{(info.get('payoutRatio', 0) * 100):.2f}%" if info.get('payoutRatio') else "N/A",
+            "payoutRatio": f"{(info.get('payoutRatio', 0) * 100):.2f}%" if info.get('payoutRatio') else "N/A",
 
             
         }
@@ -91,15 +130,15 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
         print(f"  -> Failed to fetch basic info for {ticker_symbol}: {e}")
         return None
 
+
+
 if __name__ == "__main__":
     nav_file_path = 'public/nav.json'
     all_tickers_info = {}
     try:
         with open(nav_file_path, 'r', encoding='utf-8') as f:
-            ticker_list = json.load(f).get('nav', [])
-            for item in ticker_list:
-                ticker = item.get('symbol')
-                if ticker: all_tickers_info[ticker] = item
+            for item in json.load(f).get('nav', []):
+                if item.get('symbol'): all_tickers_info[item.get('symbol')] = item
     except Exception as e:
         print(f"Error loading nav.json: {e}"); exit()
     
@@ -112,6 +151,7 @@ if __name__ == "__main__":
         file_path = os.path.join(output_dir, f"{ticker.lower()}.json")
         
         existing_history = []
+        old_ticker_info = None # 이전 정보를 저장할 변수
         final_data = {}
         if os.path.exists(file_path):
             try:
@@ -120,6 +160,7 @@ if __name__ == "__main__":
                     if isinstance(existing_data, dict):
                         final_data = existing_data
                         existing_history = existing_data.get('dividendHistory', [])
+                        old_ticker_info = existing_data.get('tickerInfo') # 이전 tickerInfo 저장
             except json.JSONDecodeError: pass
         
         group_val = info.get('group')
@@ -128,7 +169,10 @@ if __name__ == "__main__":
         if not new_info: 
             print(f"  -> Skipping update for {ticker}."); continue
         
-        final_data['tickerInfo'] = new_info
+        # [핵심] 새 정보와 이전 정보를 비교하여 최종 정보 생성
+        info_with_change = compare_and_add_change(new_info, old_ticker_info)
+        
+        final_data['tickerInfo'] = info_with_change
         if 'dividendHistory' not in final_data:
             final_data['dividendHistory'] = []
         
