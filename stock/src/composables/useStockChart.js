@@ -26,19 +26,22 @@ export function useStockChart(
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
+
         const now = new Date();
         const today = new Date(
             now.getFullYear(),
             now.getMonth(),
             now.getDate()
         );
-        const pastAndPresentData = dividendHistory.value.filter((item) => {
+
+        const relevantData = dividendHistory.value.filter((item) => {
             const itemDate = parseYYMMDD(item['배당락']);
-            return itemDate && itemDate <= today;
+            // 오늘 이전의 데이터이거나, 미래라도 '배당금'이 있는 데이터는 포함
+            return itemDate && (itemDate <= today || item['배당금']);
         });
 
         if (selectedTimeRange.value === 'Max' || !selectedTimeRange.value) {
-            return [...pastAndPresentData].reverse();
+            return [...relevantData].reverse();
         }
 
         let cutoffDate;
@@ -69,13 +72,12 @@ export function useStockChart(
             }
         }
 
-        return pastAndPresentData
+        return relevantData
             .filter((item) => parseYYMMDD(item['배당락']) >= cutoffDate)
             .reverse();
     });
 
     const updateChart = () => {
-        // [핵심] 데이터가 완전히 준비되기 전에는 차트를 그리지 않음
         if (
             !tickerInfo.value ||
             !dividendHistory.value ||
