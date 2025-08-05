@@ -1,62 +1,129 @@
-<!-- stock/src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
-    import Accordion from 'primevue/accordion';
-    import AccordionPanel from 'primevue/accordionpanel';
-    import AccordionHeader from 'primevue/accordionheader';
-    import AccordionContent from 'primevue/accordioncontent';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
-
-    const { deviceType, isMobile } = useBreakpoint();
+    import Card from 'primevue/card';
+    import Tag from 'primevue/tag';
+    import { formatLargeNumber } from '@/utils/numberFormat.js';
 
     const props = defineProps({
-        info: {
-            type: Object,
-            required: true,
-        },
+        info: Object,
     });
 
-    const stats = computed(() => {
+    const stockDetails = computed(() => {
         if (!props.info) return [];
-        return [
-            { title: '시가총액', value: props.info.Volume },
-            { title: '52주', value: props.info['52Week'] },
-            { title: 'NAV', value: props.info.NAV },
-            { title: 'Total Return', value: props.info.TotalReturn },
+
+        const detailMapping = [
+            {
+                key: 'marketCap',
+                label: '시가총액',
+                formatter: formatLargeNumber,
+            },
+            {
+                key: 'enterpriseValue',
+                label: '기업가치',
+                formatter: formatLargeNumber,
+            },
+            { key: 'earningsDate', label: '실적발표일' },
+            // { key: '52Week', label: '52주 주가' },
+            { key: 'Volume', label: '거래량', formatter: formatLargeNumber },
+            {
+                key: 'AvgVolume',
+                label: '평균거래량',
+                formatter: formatLargeNumber,
+            },
+            {
+                key: 'sharesOutstanding',
+                label: '유통 주식 수',
+                formatter: formatLargeNumber,
+            },
+            { key: 'Yield', label: '연간 배당률' },
+            { key: 'dividendRate', label: '연간 배당금' },
+            { key: 'payoutRatio', label: '배당 성향' },
+            { key: 'NAV', label: '순자산가치 (NAV)' },
+            { key: 'TotalReturn', label: 'YTD 수익률' },
         ];
+
+        return detailMapping
+            .map((item) => {
+                const rawValue = props.info[item.key];
+                const changeInfo = props.info[`${item.key}Change`];
+
+                // 이전 값도 포맷팅
+                if (changeInfo && item.formatter) {
+                    changeInfo.previousValue = item.formatter(
+                        changeInfo.previousValue
+                    );
+                }
+
+                return {
+                    label: item.label,
+                    value: item.formatter ? item.formatter(rawValue) : rawValue,
+                    changeInfo: changeInfo,
+                };
+            })
+            .filter(
+                (item) =>
+                    item.value && item.value !== 'N/A' && item.value !== '0'
+            );
     });
+
+    const getChangeIcon = (change) => {
+        if (change === 'up') return 'pi pi-arrow-up';
+        if (change === 'down') return 'pi pi-arrow-down';
+        return 'pi pi-equals';
+    };
+
+    const getChangeSeverity = (change) => {
+        if (change === 'up') return 'success';
+        if (change === 'down') return 'danger';
+        return 'contrast';
+    };
 </script>
 
 <template>
-    <div id="tickerInfo" v-if="deviceType !== 'desktop'">
-        <!-- <div class="tickerInfo__header">
-      <h2 class="tickerInfo__title">{{ info.longName }}
-      </h2>
-    </div> -->
-        <!-- <Accordion :activeIndex="0" v-if="isMobile">
-      <AccordionPanel value="0">
-        <AccordionHeader>
-          
-        </AccordionHeader>
-        <AccordionContent>
-          <div class="tickerInfo__status">
-            <div class="stats">
-              <div
-                v-for="(stat, index) in stats"
-                :key="index"
-                class="layout-card"
-              >
-                <div class="stats-content">
-                  <div class="stats-value">{{ stat.value }}</div>
+    <div v-if="info" id="t-stock-header" class="flex gap-3 overflow-x-auto">
+        <Card
+            class="status flex-1 min-w-[240px]"
+            v-for="detail in stockDetails"
+            :key="detail.label"
+        >
+            <template #title>
+                <span
+                    class="text-xs font-normal text-surface-500 dark:text-surface-400"
+                >
+                    {{ detail.label }}
+                </span>
+            </template>
+            <template #content>
+                <p class="text-2xl font-bold m-0 truncate">
+                    {{ detail.value }}
+                </p>
+            </template>
+            <template #footer>
+                <div v-if="detail.changeInfo" class="absolute top-2 right-2">
+                    <Tag
+                        class="stats-badge"
+                        :severity="getChangeSeverity(detail.changeInfo.change)"
+                        v-tooltip.bottom="
+                            `이전 값: ${detail.changeInfo.previousValue}`
+                        "
+                    >
+                        <i :class="getChangeIcon(detail.changeInfo.change)" />
+                    </Tag>
                 </div>
-                <div class="stats-header">
-                  <span class="stats-title">{{ stat.title }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </AccordionContent>
-      </AccordionPanel>
-    </Accordion> -->
+            </template>
+        </Card>
     </div>
 </template>
+
+<style scoped>
+    .status {
+        position: relative;
+    }
+    #t-stock-header {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    #t-stock-header::-webkit-scrollbar {
+        display: none;
+    }
+</style>

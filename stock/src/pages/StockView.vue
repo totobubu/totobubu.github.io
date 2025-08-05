@@ -171,6 +171,10 @@
                 :update-time="tickerInfo.Update"
                 :is-desktop="isDesktop"
             />
+            <span class="text-surface-500 dark:text-surface-400 text-center">
+                업데이트:
+                {{ tickerInfo.Update }}
+            </span>
         </div>
 
         <div v-else class="text-center mt-8">

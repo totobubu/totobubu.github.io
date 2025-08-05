@@ -16,6 +16,7 @@ declare module 'vue' {
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
+    Carousel: typeof import('primevue/carousel')['default']
     DatePicker: typeof import('primevue/datepicker')['default']
     Fieldset: typeof import('primevue/fieldset')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
@@ -47,6 +48,7 @@ declare module 'vue' {
     TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
     ToggleButton: typeof import('primevue/togglebutton')['default']
+    VirtualScroller: typeof import('primevue/virtualscroller')['default']
   }
   export interface GlobalDirectives {
     Tooltip: typeof import('primevue/tooltip')['default']
