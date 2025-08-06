@@ -282,7 +282,12 @@
             :size="deviceType === 'tablet' ? '60' : '50'"
         >
             <div class="flex flex-column gap-2 w-full">
-                <label>초기 보유 주식</label
+                <label
+                    ><span>초기 보유 주식</span
+                    ><Tag
+                        severity="contrast"
+                        :value="`${ownedShares}주 (≈${formatLargeNumber(currentAssets)})`"
+                    ></Tag></label
                 ><InputNumber
                     v-model="ownedShares"
                     inputId="shares"
@@ -290,7 +295,12 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
-                <label>목표 자산</label
+                <label
+                    ><span>목표 자산</span
+                    ><Tag
+                        severity="contrast"
+                        :value="`$${formatLargeNumber(targetAmount)}`"
+                    ></Tag></label
                 ><InputNumber
                     v-model="targetAmount"
                     inputId="target"
@@ -300,7 +310,12 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
-                <label>지나간 배당금 참고</label>
+                <label
+                    ><span>지나간 배당금 참고</span
+                    ><Tag severity="contrast">{{
+                        reinvestmentPeriod
+                    }}</Tag></label
+                >
                 <div class="flex gap-2">
                     <SelectButton
                         v-model="reinvestmentPeriod"
