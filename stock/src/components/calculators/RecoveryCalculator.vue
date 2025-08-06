@@ -12,6 +12,7 @@
     import SelectButton from 'primevue/selectbutton';
     import Divider from 'primevue/divider';
     import Tag from 'primevue/tag';
+    import Slider from 'primevue/slider';
     import CalculatorResult from './CalculatorResult.vue';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -33,16 +34,6 @@
         { label: '前 6M', value: '6M' },
         { label: '前 1Y', value: '1Y' },
     ]);
-    const currentPrice = computed(() => {
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const latestRecord = props.dividendHistory.find(
-            (r) => r['당일종가'] && r['당일종가'] !== 'N/A'
-        );
-        return latestRecord
-            ? parseFloat(latestRecord['당일종가'].replace('$', '')) || 0
-            : 0;
-    });
     const payoutsPerYear = computed(() => {
         if (!props.dividendHistory || props.dividendHistory.length === 0)
             return 0;
@@ -56,41 +47,21 @@
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
 
-    const investmentAmount = ref(1000);
+    const myAveragePrice = ref(15.0);
+    const recoveryRate = ref(0); // 0 ~ 100
     const recoveryPeriod = ref('1Y');
-    const priceScenario = ref('current');
     const applyTax = ref(true);
-    const priceScenarioOptions = ref([
-        { label: '-5%', value: 'minus_5' },
-        { label: '-3%', value: 'minus_3' },
-        { label: '현재가', value: 'current' },
-        { label: '+3%', value: 'plus_3' },
-        { label: '+5%', value: 'plus_5' },
-    ]);
     const taxOptions = ref([
         { icon: 'pi pi-shield', value: false, tooltip: '세전' },
         { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
 
-    const calculatedPrice = computed(() => {
-        switch (priceScenario.value) {
-            case 'minus_5':
-                return currentPrice.value * 0.95;
-            case 'minus_3':
-                return currentPrice.value * 0.97;
-            case 'plus_3':
-                return currentPrice.value * 1.03;
-            case 'plus_5':
-                return currentPrice.value * 1.05;
-            default:
-                return currentPrice.value;
-        }
+    const remainingPrincipalPerShare = computed(() => {
+        const price = myAveragePrice.value || 0;
+        const rate = recoveryRate.value || 0;
+        return price * ((100 - rate) / 100);
     });
-    const sharesToBuy = computed(() =>
-        !investmentAmount.value || calculatedPrice.value <= 0
-            ? 0
-            : investmentAmount.value / calculatedPrice.value
-    );
+
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
             const now = new Date();
@@ -113,6 +84,32 @@
         };
     });
 
+    const calculatedRecoveryTime = computed(() => {
+        const calculateMonths = (dividendPerShare) => {
+            if (
+                remainingPrincipalPerShare.value <= 0 ||
+                dividendPerShare <= 0 ||
+                payoutsPerYear.value <= 0
+            )
+                return 0;
+            const finalDividend = applyTax.value
+                ? dividendPerShare * 0.85
+                : dividendPerShare;
+            if (finalDividend <= 0) return Infinity;
+
+            const payoutsToRecover =
+                remainingPrincipalPerShare.value / finalDividend;
+            return (payoutsToRecover * 12) / payoutsPerYear.value;
+        };
+        return {
+            hope: calculateMonths(dividendStats.value.max),
+            avg: calculateMonths(dividendStats.value.avg),
+            despair: calculateMonths(dividendStats.value.min),
+        };
+    });
+
+    // 차트 컴포저블은 수정 없이 그대로 사용 가능!
+    // investmentAmount에 남은 원금을, sharesToBuy에 1주를 기준으로 넘겨주면 됨.
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -125,8 +122,8 @@
     };
     const { recoveryTimes, recoveryChartData, recoveryChartOptions } =
         useRecoveryChart({
-            investmentAmount,
-            sharesToBuy,
+            investmentAmount: remainingPrincipalPerShare,
+            sharesToBuy: ref(1), // 1주 기준으로 계산
             dividendStats,
             payoutsPerYear,
             applyTax,
@@ -139,18 +136,17 @@
         <Stepper value="1">
             <StepItem value="1">
                 <Step
-                    ><span>초기 투자금</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`$${investmentAmount.toFixed(2)}`"
-                    ></Tag
-                ></Step>
+                    ><span>나의 평단</span
+                    ><Tag severity="contrast"
+                        >${{ myAveragePrice.toFixed(2) }}</Tag
+                    ></Step
+                >
                 <StepPanel
                     ><InputGroup
                         ><InputGroupAddon>$</InputGroupAddon
                         ><InputNumber
-                            v-model="investmentAmount"
-                            inputId="investment"
+                            v-model="myAveragePrice"
+                            placeholder="나의 평단"
                             mode="currency"
                             currency="USD"
                             locale="en-US" /></InputGroup
@@ -158,22 +154,22 @@
             </StepItem>
             <StepItem value="2">
                 <Step
-                    ><span>참고 주식 가격</span
-                    ><span
-                        ><Tag severity="contrast"
-                            >${{ calculatedPrice.toFixed(2) }} /
-                            {{ sharesToBuy.toFixed(2) }} 주</Tag
-                        ></span
-                    ></Step
+                    ><span>이미 회수한 원금 %</span
+                    ><Tag severity="contrast">{{ recoveryRate }}%</Tag></Step
                 >
                 <StepPanel
-                    ><SelectButton
-                        v-model="priceScenario"
-                        :options="priceScenarioOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        size="small"
-                /></StepPanel>
+                    ><div class="flex items-center gap-2">
+                        <Slider
+                            v-model="recoveryRate"
+                            :min="0"
+                            :max="100"
+                            class="flex-1"
+                        /><InputNumber
+                            v-model="recoveryRate"
+                            suffix=" %"
+                            class="w-24"
+                        /></div
+                ></StepPanel>
             </StepItem>
             <StepItem value="3">
                 <Step
@@ -220,7 +216,7 @@
         <CalculatorResult
             :formatMonthsToYears="formatMonthsToYears"
             :dividendStats="dividendStats"
-            :recoveryTimes="recoveryTimes"
+            :recoveryTimes="calculatedRecoveryTime"
             :recoveryChartData="recoveryChartData"
             :recoveryChartOptions="recoveryChartOptions"
             containerClass="chart-container-mobile"
@@ -232,14 +228,9 @@
             :size="deviceType === 'tablet' ? '60' : '50'"
         >
             <div class="flex flex-column gap-2 w-full">
-                <label
-                    ><span>초기 투자금</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`$${investmentAmount.toFixed(2)}`"
-                    ></Tag></label
+                <label>나의 평단 ($)</label
                 ><InputNumber
-                    v-model="investmentAmount"
+                    v-model="myAveragePrice"
                     mode="currency"
                     currency="USD"
                     locale="en-US"
@@ -247,19 +238,9 @@
             </div>
             <div class="flex flex-column gap-2 w-full">
                 <label
-                    ><span>참고 주식 가격</span
-                    ><span
-                        ><Tag severity="contrast"
-                            >${{ calculatedPrice.toFixed(2) }} /
-                            {{ sharesToBuy.toFixed(2) }} 주</Tag
-                        ></span
-                    ></label
-                ><SelectButton
-                    v-model="priceScenario"
-                    :options="priceScenarioOptions"
-                    optionLabel="label"
-                    optionValue="value"
-                />
+                    >이미 회수한 원금 % <Tag :value="`${recoveryRate}%`"
+                /></label>
+                <Slider v-model="recoveryRate" :min="0" :max="100" />
             </div>
             <div class="flex flex-column gap-2 w-full">
                 <label
@@ -301,7 +282,7 @@
             <CalculatorResult
                 :formatMonthsToYears="formatMonthsToYears"
                 :dividendStats="dividendStats"
-                :recoveryTimes="recoveryTimes"
+                :recoveryTimes="calculatedRecoveryTime"
                 :recoveryChartData="recoveryChartData"
                 :recoveryChartOptions="recoveryChartOptions"
                 containerClass="chart-container-desktop"
