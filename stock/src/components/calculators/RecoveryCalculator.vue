@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed, watch, onMounted } from 'vue';
     import Stepper from 'primevue/stepper';
     import StepItem from 'primevue/stepitem';
     import Step from 'primevue/step';
@@ -29,11 +29,33 @@
         return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
     };
 
+    // --- State 정의 ---
+    const myAveragePrice = ref(0); // 기본값 0, onMounted에서 설정
+    const recoveryRate = ref(0);
+    const recoveryPeriod = ref('1Y');
+    const applyTax = ref(true);
+
     const periodOptions = ref([
         { label: '前 3M', value: '3M' },
         { label: '前 6M', value: '6M' },
         { label: '前 1Y', value: '1Y' },
     ]);
+    const taxOptions = ref([
+        { icon: 'pi pi-shield', value: false, tooltip: '세전' },
+        { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
+    ]);
+
+    // --- 공통 Computed ---
+    const currentPrice = computed(() => {
+        if (!props.dividendHistory || props.dividendHistory.length === 0)
+            return 0;
+        const latestRecord = props.dividendHistory.find(
+            (r) => r['당일종가'] && r['당일종가'] !== 'N/A'
+        );
+        return latestRecord
+            ? parseFloat(latestRecord['당일종가'].replace('$', '')) || 0
+            : 0;
+    });
     const payoutsPerYear = computed(() => {
         if (!props.dividendHistory || props.dividendHistory.length === 0)
             return 0;
@@ -47,21 +69,12 @@
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
 
-    const myAveragePrice = ref(15.0);
-    const recoveryRate = ref(0); // 0 ~ 100
-    const recoveryPeriod = ref('1Y');
-    const applyTax = ref(true);
-    const taxOptions = ref([
-        { icon: 'pi pi-shield', value: false, tooltip: '세전' },
-        { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
-    ]);
-
+    // --- 계산 로직 Computed ---
     const remainingPrincipalPerShare = computed(() => {
         const price = myAveragePrice.value || 0;
         const rate = recoveryRate.value || 0;
         return price * ((100 - rate) / 100);
     });
-
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
             const now = new Date();
@@ -123,12 +136,58 @@
     const { recoveryTimes, recoveryChartData, recoveryChartOptions } =
         useRecoveryChart({
             investmentAmount: remainingPrincipalPerShare,
-            sharesToBuy: ref(1), // 1주 기준으로 계산
+            sharesToBuy: ref(1),
             dividendStats,
             payoutsPerYear,
             applyTax,
             theme: chartTheme,
         });
+
+    // --- localStorage 핸들링 ---
+    const getStorageKey = () =>
+        `recoveryCalculatorState_${props.tickerInfo?.Symbol}`;
+
+    const saveState = () => {
+        const state = {
+            myAveragePrice: myAveragePrice.value,
+            recoveryRate: recoveryRate.value,
+            recoveryPeriod: recoveryPeriod.value,
+            applyTax: applyTax.value,
+        };
+        localStorage.setItem(getStorageKey(), JSON.stringify(state));
+    };
+
+    const loadState = () => {
+        const savedStateJSON = localStorage.getItem(getStorageKey());
+        if (savedStateJSON) {
+            const savedState = JSON.parse(savedStateJSON);
+            myAveragePrice.value = savedState.myAveragePrice;
+            recoveryRate.value = savedState.recoveryRate;
+            recoveryPeriod.value = savedState.recoveryPeriod;
+            applyTax.value = savedState.applyTax;
+        } else {
+            // 저장된 값이 없으면, 현재가를 평단 기본값으로 설정
+            myAveragePrice.value = currentPrice.value;
+        }
+    };
+
+    onMounted(() => {
+        // 컴포넌트가 마운트되고, currentPrice 계산이 끝난 후에 상태 로드
+        loadState();
+    });
+
+    // currentPrice가 처음 계산되었을 때, 저장된 값이 없다면 평단가 업데이트
+    watch(currentPrice, (newPrice) => {
+        const savedStateJSON = localStorage.getItem(getStorageKey());
+        if (!savedStateJSON && newPrice > 0) {
+            myAveragePrice.value = newPrice;
+        }
+    });
+
+    // 사용자가 값을 변경할 때마다 자동으로 저장
+    watch([myAveragePrice, recoveryRate, recoveryPeriod, applyTax], saveState, {
+        deep: true,
+    });
 </script>
 
 <template>
