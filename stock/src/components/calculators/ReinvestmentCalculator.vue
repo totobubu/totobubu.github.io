@@ -332,10 +332,7 @@
                     <Tag :value="`${annualGrowthRateScenario}%`"
                 /></label>
                 <div class="flex items-center gap-2">
-                    <InputText
-                        v-model.number="annualGrowthRateScenario"
-                        class="w-16 text-center"
-                    /><Slider
+                    <Slider
                         v-model="annualGrowthRateScenario"
                         :min="-15"
                         :max="15"
