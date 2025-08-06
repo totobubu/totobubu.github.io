@@ -286,12 +286,12 @@
                     ><span>초기 보유 주식</span
                     ><Tag
                         severity="contrast"
-                        :value="`${ownedShares}주 (≈${formatLargeNumber(currentAssets)})`"
+                        :value="`$${formatLargeNumber(currentAssets)}`"
                     ></Tag></label
                 ><InputNumber
                     v-model="ownedShares"
                     inputId="shares"
-                    :suffix="` 주 (≈${formatLargeNumber(currentAssets)})`"
+                    :suffix="` 주`"
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
