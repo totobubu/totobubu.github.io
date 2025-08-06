@@ -13,7 +13,7 @@
     import Divider from 'primevue/divider';
     import Tag from 'primevue/tag';
     import Slider from 'primevue/slider';
-    import CalculatorResult from './CalculatorResult.vue';
+    // import CalculatorResult from './CalculatorResult.vue';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
@@ -29,8 +29,8 @@
         return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
     };
 
-    // --- State 정의 ---
-    const myAveragePrice = ref(0); // 기본값 0, onMounted에서 설정
+    const myAveragePrice = ref(0);
+    const myShares = ref(100);
     const recoveryRate = ref(0);
     const recoveryPeriod = ref('1Y');
     const applyTax = ref(true);
@@ -45,7 +45,6 @@
         { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
 
-    // --- 공통 Computed ---
     const currentPrice = computed(() => {
         if (!props.dividendHistory || props.dividendHistory.length === 0)
             return 0;
@@ -69,12 +68,6 @@
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
 
-    // --- 계산 로직 Computed ---
-    const remainingPrincipalPerShare = computed(() => {
-        const price = myAveragePrice.value || 0;
-        const rate = recoveryRate.value || 0;
-        return price * ((100 - rate) / 100);
-    });
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
             const now = new Date();
@@ -97,32 +90,6 @@
         };
     });
 
-    const calculatedRecoveryTime = computed(() => {
-        const calculateMonths = (dividendPerShare) => {
-            if (
-                remainingPrincipalPerShare.value <= 0 ||
-                dividendPerShare <= 0 ||
-                payoutsPerYear.value <= 0
-            )
-                return 0;
-            const finalDividend = applyTax.value
-                ? dividendPerShare * 0.85
-                : dividendPerShare;
-            if (finalDividend <= 0) return Infinity;
-
-            const payoutsToRecover =
-                remainingPrincipalPerShare.value / finalDividend;
-            return (payoutsToRecover * 12) / payoutsPerYear.value;
-        };
-        return {
-            hope: calculateMonths(dividendStats.value.max),
-            avg: calculateMonths(dividendStats.value.avg),
-            despair: calculateMonths(dividendStats.value.min),
-        };
-    });
-
-    // 차트 컴포저블은 수정 없이 그대로 사용 가능!
-    // investmentAmount에 남은 원금을, sharesToBuy에 1주를 기준으로 넘겨주면 됨.
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -135,59 +102,54 @@
     };
     const { recoveryTimes, recoveryChartData, recoveryChartOptions } =
         useRecoveryChart({
-            investmentAmount: remainingPrincipalPerShare,
-            sharesToBuy: ref(1),
+            myAveragePrice,
+            myShares,
+            recoveryRate,
             dividendStats,
             payoutsPerYear,
             applyTax,
+            currentPrice,
             theme: chartTheme,
         });
 
-    // --- localStorage 핸들링 ---
     const getStorageKey = () =>
         `recoveryCalculatorState_${props.tickerInfo?.Symbol}`;
-
     const saveState = () => {
         const state = {
             myAveragePrice: myAveragePrice.value,
+            myShares: myShares.value,
             recoveryRate: recoveryRate.value,
             recoveryPeriod: recoveryPeriod.value,
             applyTax: applyTax.value,
         };
         localStorage.setItem(getStorageKey(), JSON.stringify(state));
     };
-
     const loadState = () => {
         const savedStateJSON = localStorage.getItem(getStorageKey());
         if (savedStateJSON) {
             const savedState = JSON.parse(savedStateJSON);
             myAveragePrice.value = savedState.myAveragePrice;
-            recoveryRate.value = savedState.recoveryRate;
+            myShares.value = savedState.myShares;
+            recoveryRate.value = savedState.recoveryRate || 0;
             recoveryPeriod.value = savedState.recoveryPeriod;
             applyTax.value = savedState.applyTax;
         } else {
-            // 저장된 값이 없으면, 현재가를 평단 기본값으로 설정
             myAveragePrice.value = currentPrice.value;
         }
     };
 
-    onMounted(() => {
-        // 컴포넌트가 마운트되고, currentPrice 계산이 끝난 후에 상태 로드
-        loadState();
-    });
-
-    // currentPrice가 처음 계산되었을 때, 저장된 값이 없다면 평단가 업데이트
+    onMounted(loadState);
     watch(currentPrice, (newPrice) => {
         const savedStateJSON = localStorage.getItem(getStorageKey());
         if (!savedStateJSON && newPrice > 0) {
             myAveragePrice.value = newPrice;
         }
     });
-
-    // 사용자가 값을 변경할 때마다 자동으로 저장
-    watch([myAveragePrice, recoveryRate, recoveryPeriod, applyTax], saveState, {
-        deep: true,
-    });
+    watch(
+        [myAveragePrice, myShares, recoveryRate, recoveryPeriod, applyTax],
+        saveState,
+        { deep: true }
+    );
 </script>
 
 <template>
@@ -195,21 +157,28 @@
         <Stepper value="1">
             <StepItem value="1">
                 <Step
-                    ><span>나의 평단</span
+                    ><span>나의 투자 현황</span
                     ><Tag severity="contrast"
-                        >${{ myAveragePrice.toFixed(2) }}</Tag
+                        >${{ myAveragePrice.toFixed(2) }} /
+                        {{ myShares }}주</Tag
                     ></Step
                 >
-                <StepPanel
-                    ><InputGroup
-                        ><InputGroupAddon>$</InputGroupAddon
-                        ><InputNumber
-                            v-model="myAveragePrice"
-                            placeholder="나의 평단"
-                            mode="currency"
-                            currency="USD"
-                            locale="en-US" /></InputGroup
-                ></StepPanel>
+                <StepPanel>
+                    <div class="flex flex-column gap-2">
+                        <InputGroup
+                            ><InputGroupAddon>$</InputGroupAddon
+                            ><InputNumber
+                                v-model="myAveragePrice"
+                                placeholder="나의 평단"
+                        /></InputGroup>
+                        <InputGroup
+                            ><InputNumber
+                                v-model="myShares"
+                                placeholder="보유 수량"
+                            /><InputGroupAddon>주</InputGroupAddon></InputGroup
+                        >
+                    </div>
+                </StepPanel>
             </StepItem>
             <StepItem value="2">
                 <Step
@@ -223,16 +192,12 @@
                             :min="0"
                             :max="100"
                             class="flex-1"
-                        /><InputNumber
-                            v-model="recoveryRate"
-                            suffix=" %"
-                            class="w-24"
                         /></div
                 ></StepPanel>
             </StepItem>
             <StepItem value="3">
                 <Step
-                    ><span>지나간 배당금 참고</span
+                    ><span>배당금 참고 기간</span
                     ><Tag severity="contrast">{{ recoveryPeriod }}</Tag></Step
                 >
                 <StepPanel
@@ -246,7 +211,7 @@
             </StepItem>
             <StepItem value="4">
                 <Step
-                    ><span>배당소득세 15%</span
+                    ><span>세금 적용</span
                     ><Tag severity="contrast">{{
                         applyTax ? '세후' : '세전'
                     }}</Tag></Step
@@ -272,14 +237,79 @@
             </StepItem>
         </Stepper>
         <Divider />
-        <CalculatorResult
-            :formatMonthsToYears="formatMonthsToYears"
-            :dividendStats="dividendStats"
-            :recoveryTimes="calculatedRecoveryTime"
-            :recoveryChartData="recoveryChartData"
-            :recoveryChartOptions="recoveryChartOptions"
-            containerClass="chart-container-mobile"
-        />
+        <Card class="t-calculator-result">
+            <template #title>
+                <table class="w-full text-center text-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>희망</th>
+                            <th>평균</th>
+                            <th>절망</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-green-500">재투자 O</td>
+                            <td>
+                                <Tag severity="success">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.hope_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="warning">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.avg_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="danger">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.despair_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-gray-500">재투자 X</td>
+                            <td>
+                                <Tag severity="success" outlined>{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.hope_no_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="warning" outlined>{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.avg_no_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="danger" outlined>{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.despair_no_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+            <template #content>
+                <div class="chart-container-desktop">
+                    <Chart
+                        type="bar"
+                        :data="recoveryChartData"
+                        :options="recoveryChartOptions"
+                    />
+                </div>
+            </template>
+        </Card>
     </div>
     <Splitter v-else id="t-calculator-return">
         <SplitterPanel
@@ -296,10 +326,14 @@
                 />
             </div>
             <div class="flex flex-column gap-2 w-full">
+                <label>보유 수량</label
+                ><InputNumber v-model="myShares" suffix=" 주" />
+            </div>
+            <div class="flex flex-column gap-2 w-full">
                 <label
-                    >이미 회수한 원금 % <Tag :value="`${recoveryRate}%`"
-                /></label>
-                <Slider v-model="recoveryRate" :min="0" :max="100" />
+                    >이미 회수한 원금 %
+                    <Tag :value="`${recoveryRate}%`" /></label
+                ><Slider v-model="recoveryRate" :min="0" :max="100" />
             </div>
             <div class="flex flex-column gap-2 w-full">
                 <label
@@ -338,14 +372,83 @@
             :size="deviceType === 'tablet' ? '40' : '50'"
             :minSize="10"
         >
-            <CalculatorResult
-                :formatMonthsToYears="formatMonthsToYears"
-                :dividendStats="dividendStats"
-                :recoveryTimes="calculatedRecoveryTime"
-                :recoveryChartData="recoveryChartData"
-                :recoveryChartOptions="recoveryChartOptions"
-                containerClass="chart-container-desktop"
-            />
+            <Card class="t-calculator-result">
+                <template #title>
+                    <table class="w-full text-center text-sm">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>희망</th>
+                                <th>평균</th>
+                                <th>절망</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-bold text-green-500">
+                                    재투자 O
+                                </td>
+                                <td>
+                                    <Tag severity="success">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.hope_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="warning">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.avg_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="danger">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.despair_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-gray-500">
+                                    재투자 X
+                                </td>
+                                <td>
+                                    <Tag severity="success" outlined>{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.hope_no_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="warning" outlined>{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.avg_no_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                                <td>
+                                    <Tag severity="danger" outlined>{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.despair_no_reinvest
+                                        )
+                                    }}</Tag>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+                <template #content>
+                    <div class="chart-container-desktop">
+                        <Chart
+                            type="bar"
+                            :data="recoveryChartData"
+                            :options="recoveryChartOptions"
+                        />
+                    </div>
+                </template>
+            </Card>
         </SplitterPanel>
     </Splitter>
 </template>
