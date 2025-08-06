@@ -2,8 +2,8 @@ import { computed } from 'vue';
 
 export function useRecoveryChart(options) {
     const {
-        investmentAmount,
-        sharesToBuy,
+        investmentAmount, // 이름은 그대로 두되, 이제 '남은 원금' 값이 들어옴
+        sharesToBuy, // 이름은 그대로 두되, '보유 수량' 값이 들어옴
         dividendStats,
         payoutsPerYear,
         applyTax,
