@@ -1,3 +1,4 @@
+<!-- ReinvestmentCaculator.vue -->
 <script setup>
     import { ref, computed } from 'vue';
     import Stepper from 'primevue/stepper';
@@ -141,278 +142,223 @@
 </script>
 
 <template>
-    <div v-if="deviceType === 'mobile'" class="card" id="t-calculator-step">
-        <Stepper value="1">
-            <StepItem value="1">
-                <Step
-                    ><span>초기 보유 주식</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`${ownedShares}주 (≈${formatLargeNumber(currentAssets)})`"
-                    ></Tag
-                ></Step>
-                <StepPanel
-                    ><InputGroup
-                        ><InputNumber
-                            v-model="ownedShares"
-                            inputId="shares"
-                        /><InputGroupAddon>주</InputGroupAddon></InputGroup
-                    ></StepPanel
+    <Stepper value="1" class="w-full">
+        <StepList class="mx-8" v-if="deviceType !== 'mobile'">
+            <Step value="1">계산</Step>
+            <Step value="2">결과</Step>
+        </StepList>
+        <StepPanels>
+            <StepPanel v-slot="{ activateCallback }" value="1">
+                <div
+                    class="flex flex-column"
+                    :class="deviceType === 'mobile' ? 'gap-2' : ' gap-5'"
                 >
-            </StepItem>
-            <StepItem value="2">
-                <Step
-                    ><span>목표 자산</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`$${formatLargeNumber(targetAmount)}`"
-                    ></Tag
-                ></Step>
-                <StepPanel
-                    ><InputGroup
-                        ><InputGroupAddon>$</InputGroupAddon
-                        ><InputNumber
-                            v-model="targetAmount"
-                            inputId="target"
-                            mode="currency"
-                            currency="USD"
-                            locale="en-US" /></InputGroup
-                ></StepPanel>
-            </StepItem>
-            <StepItem value="3">
-                <Step
-                    ><span>지나간 배당금 참고</span
-                    ><Tag severity="contrast">{{
-                        reinvestmentPeriod
-                    }}</Tag></Step
-                >
-                <StepPanel
-                    ><SelectButton
-                        v-model="reinvestmentPeriod"
-                        :options="periodOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                /></StepPanel>
-            </StepItem>
-            <StepItem value="4">
-                <Step
-                    ><span>예상 연평균 주가 성장률</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`${annualGrowthRateScenario}%`"
-                    ></Tag
-                ></Step>
-                <StepPanel
-                    ><div class="flex flex-column items-center gap-2">
-                        <Slider
-                            v-model="annualGrowthRateScenario"
-                            :min="-15"
-                            :max="15"
-                            :step="1"
-                            class="w-full"
-                        /></div
-                ></StepPanel>
-            </StepItem>
-        </Stepper>
-        <Divider />
-        <Card class="t-calculator-result">
-            <template #title>
-                <table class="w-full text-center text-sm">
-                    <thead>
-                        <tr>
-                            <th>희망</th>
-                            <th>평균</th>
-                            <th>절망</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-xs text-surface-500">
-                            <td>
-                                (${{ reinvestDividendStats.max.toFixed(4) }})
-                            </td>
-                            <td>
-                                (${{ reinvestDividendStats.avg.toFixed(4) }})
-                            </td>
-                            <td>
-                                (${{ reinvestDividendStats.min.toFixed(4) }})
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Tag severity="success">{{
-                                    formatMonthsToYears(
-                                        goalAchievementTimes.hope
-                                    )
-                                }}</Tag>
-                            </td>
-                            <td>
-                                <Tag severity="warning">{{
-                                    formatMonthsToYears(
-                                        goalAchievementTimes.avg
-                                    )
-                                }}</Tag>
-                            </td>
-                            <td>
-                                <Tag severity="danger">{{
-                                    formatMonthsToYears(
-                                        goalAchievementTimes.despair
-                                    )
-                                }}</Tag>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </template>
-            <template #content>
-                <div class="chart-container-mobile">
-                    <!-- [핵심] 차트 데이터와 옵션이 준비되었을 때만 렌더링합니다. -->
-                    <Chart
-                        v-if="reinvestmentChartData"
-                        type="line"
-                        :data="reinvestmentChartData"
-                        :options="reinvestmentChartOptions"
+                    <InputGroup
+                        :class="
+                            deviceType === 'mobile' ? 'flex-column gap-2' : ''
+                        "
+                    >
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="ownedShares"
+                                inputId="shares"
+                                suffix=" 주"
+                                min="1"
+                            />
+                            <label for="myShares">보유 수량</label>
+                        </IftaLabel>
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="targetAmount"
+                                inputId="target"
+                                mode="currency"
+                                currency="USD"
+                                locale="en-US"
+                            />
+                            <label for="myAveragePrice">목표 자산</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon
+                            style="font-size: var(--p-iftalabel-font-size)"
+                            >예상 연평균 주가 성장률</InputGroupAddon
+                        >
+
+                        <div class="p-inputtext toto-range">
+                            <span>
+                                <Slider
+                                    v-model="annualGrowthRateScenario"
+                                    :min="-15"
+                                    :max="15"
+                                    :step="1"
+                                    class="flex-1"
+                                />
+                            </span>
+                        </div>
+
+                        <InputGroupAddon class="text-xs">
+                            <span> {{ annualGrowthRateScenario }} % </span>
+                        </InputGroupAddon>
+                    </InputGroup>
+                    <div
+                        class="flex w-full"
+                        :class="
+                            deviceType === 'mobile'
+                                ? 'flex-column gap-2'
+                                : 'flex-col gap-6'
+                        "
+                    >
+                        <Card class="toto-reference-period">
+                            <template #header>
+                                <label
+                                    style="
+                                        font-size: var(--p-iftalabel-font-size);
+                                    "
+                                >
+                                    <span>前 배당금 참고 기간</span>
+                                    <Tag severity="contrast">{{
+                                        reinvestmentPeriod
+                                    }}</Tag>
+                                </label>
+                            </template>
+                            <template #content>
+                                <SelectButton
+                                    v-model="reinvestmentPeriod"
+                                    :options="periodOptions"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    size="small"
+                                />
+                            </template>
+                        </Card>
+
+                        <Card class="toto-tax-apply">
+                            <template #header>
+                                <label
+                                    style="
+                                        font-size: var(--p-iftalabel-font-size);
+                                    "
+                                >
+                                    <span>세금 적용</span>
+                                    <Tag severity="contrast">{{
+                                        applyTax ? '세후' : '세전'
+                                    }}</Tag>
+                                </label>
+                            </template>
+                            <template #content>
+                                <SelectButton
+                                    v-model="applyTax"
+                                    :options="taxOptions"
+                                    optionValue="value"
+                                    size="small"
+                                    dataKey="value"
+                                    ><template #option="slotProps"
+                                        ><i
+                                            :class="slotProps.option.icon"
+                                            v-tooltip.bottom="
+                                                slotProps.option.tooltip
+                                            "
+                                        ></i
+                                        ><span>{{
+                                            slotProps.option.tooltip
+                                        }}</span></template
+                                    ></SelectButton
+                                >
+                            </template>
+                        </Card>
+                    </div>
+                </div>
+                <div class="flex pt-2 justify-content-end w-full">
+                    <Button
+                        label="결과보기"
+                        severity="secondary"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        @click="activateCallback('2')"
+                        size="small"
                     />
                 </div>
-            </template>
-        </Card>
-    </div>
-    <Splitter v-else id="t-calculator-return">
-        <SplitterPanel
-            class="flex items-center justify-center flex-column gap-5 p-4"
-            :size="deviceType === 'tablet' ? '60' : '50'"
-        >
-            <div class="flex flex-column gap-2 w-full">
-                <label
-                    ><span>초기 보유 주식</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`$${formatLargeNumber(currentAssets)}`"
-                    ></Tag></label
-                ><InputNumber
-                    v-model="ownedShares"
-                    inputId="shares"
-                    :suffix="` 주`"
-                />
-            </div>
-            <div class="flex flex-column gap-2 w-full">
-                <label
-                    ><span>목표 자산</span
-                    ><Tag
-                        severity="contrast"
-                        :value="`$${formatLargeNumber(targetAmount)}`"
-                    ></Tag></label
-                ><InputNumber
-                    v-model="targetAmount"
-                    inputId="target"
-                    mode="currency"
-                    currency="USD"
-                    locale="en-US"
-                />
-            </div>
-            <div class="flex flex-column gap-2 w-full">
-                <label
-                    ><span>지나간 배당금 참고</span
-                    ><Tag severity="contrast">{{
-                        reinvestmentPeriod
-                    }}</Tag></label
-                >
-                <div class="flex gap-2">
-                    <SelectButton
-                        v-model="reinvestmentPeriod"
-                        :options="periodOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        class="flex-1"
-                    />
-                </div>
-            </div>
-            <div class="flex flex-column gap-2 w-full">
-                <label
-                    >예상 연평균 주가 성장률
-                    <Tag :value="`${annualGrowthRateScenario}%`"
-                /></label>
-                <div class="flex items-center gap-2">
-                    <Slider
-                        v-model="annualGrowthRateScenario"
-                        :min="-15"
-                        :max="15"
-                        :step="1"
-                        class="flex-1"
-                    />
-                </div>
-            </div>
-        </SplitterPanel>
-        <SplitterPanel
-            class="flex items-center justify-center p-4"
-            :size="deviceType === 'tablet' ? '40' : '50'"
-            :minSize="10"
-        >
-            <Card class="t-calculator-result">
-                <template #title>
-                    <table class="w-full text-center text-sm">
-                        <thead>
-                            <tr>
-                                <th>희망</th>
-                                <th>평균</th>
-                                <th>절망</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="text-xs text-surface-500">
-                                <td>
-                                    (${{
-                                        reinvestDividendStats.max.toFixed(4)
-                                    }})
-                                </td>
-                                <td>
-                                    (${{
-                                        reinvestDividendStats.avg.toFixed(4)
-                                    }})
-                                </td>
-                                <td>
-                                    (${{
-                                        reinvestDividendStats.min.toFixed(4)
-                                    }})
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <Tag severity="success">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes.hope
-                                        )
-                                    }}</Tag>
-                                </td>
-                                <td>
-                                    <Tag severity="warning">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes.avg
-                                        )
-                                    }}</Tag>
-                                </td>
-                                <td>
-                                    <Tag severity="danger">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes.despair
-                                        )
-                                    }}</Tag>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </template>
-                <template #content>
-                    <div class="h-full">
-                        <!-- [핵심] 차트 데이터와 옵션이 준비되었을 때만 렌더링합니다. -->
+            </StepPanel>
+            <StepPanel v-slot="{ activateCallback }" value="2">
+                <Card class="toto-calculator-result">
+                    <template #title>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>희망</th>
+                                    <th>평균</th>
+                                    <th>절망</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        (${{
+                                            reinvestDividendStats.max.toFixed(
+                                                4
+                                            )
+                                        }})
+                                    </td>
+                                    <td>
+                                        (${{
+                                            reinvestDividendStats.avg.toFixed(
+                                                4
+                                            )
+                                        }})
+                                    </td>
+                                    <td>
+                                        (${{
+                                            reinvestDividendStats.min.toFixed(
+                                                4
+                                            )
+                                        }})
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <Tag severity="success">{{
+                                            formatMonthsToYears(
+                                                goalAchievementTimes.hope
+                                            )
+                                        }}</Tag>
+                                    </td>
+                                    <td>
+                                        <Tag severity="warning">{{
+                                            formatMonthsToYears(
+                                                goalAchievementTimes.avg
+                                            )
+                                        }}</Tag>
+                                    </td>
+                                    <td>
+                                        <Tag severity="danger">{{
+                                            formatMonthsToYears(
+                                                goalAchievementTimes.despair
+                                            )
+                                        }}</Tag>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </template>
+                    <template #content>
                         <Chart
                             v-if="reinvestmentChartData"
                             type="line"
                             :data="reinvestmentChartData"
                             :options="reinvestmentChartOptions"
                         />
-                    </div>
-                </template>
-            </Card>
-        </SplitterPanel>
-    </Splitter>
+                    </template>
+                </Card>
+                <div class="flex pt-2 justify-content-start w-full">
+                    <Button
+                        label="다시계산"
+                        severity="secondary"
+                        icon="pi pi-arrow-left"
+                        @click="activateCallback('1')"
+                        size="small"
+                    />
+                </div>
+            </StepPanel>
+        </StepPanels>
+    </Stepper>
 </template>

@@ -1,3 +1,4 @@
+<!-- StockCaculators.vue -->
 <script setup>
     import { ref } from 'vue';
     import Card from 'primevue/card';
@@ -56,7 +57,6 @@
             id="calculator-recovery"
         >
             <RecoveryCalculator
-                v-if="activeTab === '0'"
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
             />
@@ -69,7 +69,6 @@
             id="calculator-reinvestment"
         >
             <ReinvestmentCalculator
-                v-if="activeTab === '1'"
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
             />
