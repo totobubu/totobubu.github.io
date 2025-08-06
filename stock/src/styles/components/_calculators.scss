@@ -3,83 +3,24 @@
 @use '../abstracts/mixins' as mx;
 @use '../functions/breakpoints' as bp;
 
-#t-calculator {
-    .p-card-body {
-        padding: 0;
-    }
-    .p-tabpanels {
-        padding: 0;
-    }
-    &-tabs {
-        button {
-            width: 50%;
-        }
-    }
-
-    .p-selectbutton {
-        width: 100%;
-        > button {
-            width: 100%;
-        }
-    }
-    .p-togglebutton {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    &-step {
-        .p-step-header {
-            width: 100%;
-        }
-        .p-step-title {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
-
-    &-return {
-        label {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
-    .p-splitterpanel {
-        padding: 0.5em;
-    }
-}
-.t-calculator {
-    &-result {
-        width: 100%;
-
-        table {
-            width: 100%;
-            text-align: center;
-            th {
-                font-size: 0.7rem;
-            }
-        }
-        .p-chart {
-            width: 100%;
-            @include bp.media-breakpoint-only('xs') {
-                height: 100vw;
-            }
-            @include bp.media-breakpoint-between('xs', 'lg') {
-                height: 40vw;
-            }
-            @include bp.media-breakpoint-up('lg') {
-                height: 380px;
-            }
-        }
-    }
-}
-
 [id*='calculator'] {
     .p-dialog-header {
-        padding: var(--toto-overlay-modal-padding-y)
-            var(--toto-overlay-modal-padding-x);
+        position: absolute;
+        right: 0;
+        top: 0;
+
+            @include bp.media-breakpoint-only('xs') {
+                padding: 0;
+                transform: translateY(-100%);
+            }
+
+    }
+    .p-dialog-content {
+        padding-top: var(--toto-overlay-modal-padding-y);
+        
+            @include bp.media-breakpoint-only('xs') {
+                padding: 0;
+            }
     }
     .p-dialog-title {
         font-size: 1rem;
@@ -100,10 +41,55 @@
             margin-top: 0.5em;
         }
     }
-    .toto-reference-period {
-        display: flex;
-        flex-direction: column;
-        gap: 0em;
+    .toto-reference-period,
+    .toto-tax-apply {
+        flex: 1 1 auto;
+        .p-card-header label {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .p-card-body {
+            padding: 0.5em 0;
+        }
+    }
+    .toto-calculator-result {
+        .p-card-header {
+            padding: 0;
+        }
+        .p-card-body {
+            padding: 0;
+        }
+        table  {
+            width: 100%;
+            text-align: center;
+            th {
+                background-color: var(--p-surface-800);
+                padding: 0.5em;
+                font-size: 0.7rem;
+            }
+            td {
+                padding: 0;
+                font-size: 0.7rem;
+            }
+        }
+        .p-tag {
+                font-size: 0.6rem;
+            }
+            .p-chart {
+                width: 100%;
+                @include bp.media-breakpoint-only('xs') {
+                    height: 70vw;
+                }
+                @include bp.media-breakpoint-between('sm', 'lg') {
+                    height: 40vw;
+                }
+                @include bp.media-breakpoint-up('lg') {
+                    height: 380px;
+                }
+
+            }
     }
 }
 #calculator {

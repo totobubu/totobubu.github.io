@@ -9,6 +9,8 @@
     import RecoveryCalculator from './calculators/RecoveryCalculator.vue';
     import ReinvestmentCalculator from './calculators/ReinvestmentCalculator.vue';
 
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+    const { deviceType } = useBreakpoint();
     defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
@@ -22,42 +24,28 @@
 <template>
     <div>
         <Card id="t-calculator">
-            <template #header>
-                <Button
-                    label="투자금 회수 기간 계산기"
-                    icon="pi pi-replay"
-                    @click="visibleRecovery = true"
-                />
-            </template>
             <template #content>
-                <Tabs v-model:value="activeTab" class="p-tabs-calculator">
-                    <TabList id="t-calculator-tabs">
-                        <Tab value="0"
-                            ><i class="pi pi-replay mr-2"></i>
-                            <span>원금 회수 기간</span></Tab
-                        >
-                        <Tab value="1"
-                            ><i class="pi pi-chart-line mr-2"></i>
-                            <span>목표 달성 기간</span></Tab
-                        >
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel value="0">
-                            <RecoveryCalculator
-                                v-if="activeTab === '0'"
-                                :dividendHistory="dividendHistory"
-                                :tickerInfo="tickerInfo"
-                            />
-                        </TabPanel>
-                        <TabPanel value="1">
-                            <ReinvestmentCalculator
-                                v-if="activeTab === '1'"
-                                :dividendHistory="dividendHistory"
-                                :tickerInfo="tickerInfo"
-                            />
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                <div
+                    class="flex justify-between items-center"
+                    :class="
+                        deviceType === 'mobile'
+                            ? 'flex-column gap-2'
+                            : 'flex-col gap-2'
+                    "
+                >
+                    <Button
+                        label="투자금 회수 기간 계산기"
+                        icon="pi pi-refresh"
+                        severity="secondary" 
+                        @click="visibleRecovery = true"
+                    />
+                    <Button
+                        label="목표 달성 기간 계산기"
+                        icon="pi pi-chart-line"
+                        severity="secondary" 
+                        @click="visibleReinvestment = true"
+                    />
+                </div>
             </template>
         </Card>
         <Dialog
@@ -69,6 +57,19 @@
         >
             <RecoveryCalculator
                 v-if="activeTab === '0'"
+                :dividendHistory="dividendHistory"
+                :tickerInfo="tickerInfo"
+            />
+        </Dialog>
+        <Dialog
+            v-model:visible="visibleReinvestment"
+            modal
+            :style="{ width: '600px' }"
+            :breakpoints="{ '640px': '90vw' }"
+            id="calculator-reinvestment"
+        >
+            <ReinvestmentCalculator
+                v-if="activeTab === '1'"
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
             />
