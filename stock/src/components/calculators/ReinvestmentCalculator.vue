@@ -1,13 +1,10 @@
-<!-- ReinvestmentCaculator.vue -->
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed, watch, onMounted } from 'vue';
     import Stepper from 'primevue/stepper';
     import StepItem from 'primevue/stepitem';
     import Step from 'primevue/step';
     import StepPanel from 'primevue/steppanel';
     import Chart from 'primevue/chart';
-    import Splitter from 'primevue/splitter';
-    import SplitterPanel from 'primevue/splitterpanel';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputNumber from 'primevue/inputnumber';
@@ -16,9 +13,9 @@
     import SelectButton from 'primevue/selectbutton';
     import Divider from 'primevue/divider';
     import Tag from 'primevue/tag';
+    import Card from 'primevue/card';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { useReinvestmentGoal } from '@/composables/calculators/useReinvestmentGoal.js';
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { formatLargeNumber } from '@/utils/numberFormat.js';
 
@@ -37,6 +34,10 @@
         { label: '前 3M', value: '3M' },
         { label: '前 6M', value: '6M' },
         { label: '前 1Y', value: '1Y' },
+    ]);
+    const taxOptions = ref([
+        { icon: 'pi pi-shield', value: false, tooltip: '세전' },
+        { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
     const currentPrice = computed(() => {
         if (!props.dividendHistory || props.dividendHistory.length === 0)
@@ -66,25 +67,18 @@
     const reinvestmentPeriod = ref('1Y');
     const dividendStatistic = ref('avg');
     const annualGrowthRateScenario = ref(0);
+    const applyTax = ref(true); // [핵심] 세금 상태 추가
 
     const dividendStatisticOptions = ref([
         { icon: 'pi pi-arrow-down-left', label: '절망', value: 'min' },
         { icon: 'pi pi-equals', label: '평균', value: 'avg' },
         { icon: 'pi pi-arrow-up-right', label: '희망', value: 'max' },
     ]);
-    const growthScenarioOptions = ref([
-        { label: '-15%', value: -0.15 },
-        { label: '-10%', value: -0.1 },
-        { label: '-5%', value: -0.05 },
-        { label: '-3%', value: -0.03 },
-        { label: '0%', value: 0 },
-        { label: '+3%', value: 0.03 },
-        { label: '+5%', value: 0.05 },
-        { label: '+10%', value: 0.1 },
-        { label: '+15%', value: 0.15 },
-    ]);
     const growthRateForCalculation = computed(
         () => annualGrowthRateScenario.value / 100
+    );
+    const currentAssets = computed(
+        () => (ownedShares.value || 0) * currentPrice.value
     );
 
     const reinvestDividendStats = computed(() => {
@@ -109,13 +103,48 @@
         };
     });
 
-    const { currentAssets, goalAchievementTimes } = useReinvestmentGoal(props, {
-        ownedShares,
-        targetAmount,
-        reinvestmentPeriod,
-        dividendStats: reinvestDividendStats,
-        dividendStatistic: dividendStatistic,
-        annualGrowthRateScenario: growthRateForCalculation,
+    const goalAchievementTimes = computed(() => {
+        const calculateMonths = (dividendPerShare) => {
+            if (
+                currentAssets.value <= 0 ||
+                targetAmount.value <= currentAssets.value ||
+                dividendPerShare <= 0 ||
+                currentPrice.value <= 0 ||
+                payoutsPerYear.value <= 0
+            )
+                return 0;
+
+            const finalDividendPerShare = applyTax.value
+                ? dividendPerShare * 0.85
+                : dividendPerShare;
+            if (finalDividendPerShare <= 0) return Infinity;
+
+            let assetValue = currentAssets.value;
+            let months = 0;
+            const monthlyGrowthRate =
+                (1 + growthRateForCalculation.value) ** (1 / 12) - 1;
+
+            while (assetValue < targetAmount.value) {
+                if (months > 1200) {
+                    months = Infinity;
+                    break;
+                }
+                assetValue *= 1 + monthlyGrowthRate;
+                const currentShares = assetValue / currentPrice.value;
+                const dividendReceived =
+                    currentShares *
+                    finalDividendPerShare *
+                    (payoutsPerYear.value / 12);
+                assetValue += dividendReceived;
+                months++;
+            }
+            return months;
+        };
+        return {
+            hope: calculateMonths(reinvestDividendStats.value.max),
+            avg: calculateMonths(reinvestDividendStats.value.avg),
+            despair: calculateMonths(reinvestDividendStats.value.min),
+        };
     });
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -160,12 +189,23 @@
                     >
                         <IftaLabel>
                             <InputNumber
+                                :modelValue="currentAssets"
+                                mode="currency"
+                                currency="USD"
+                                locale="en-US"
+                                disabled
+                                inputId="currentAssets"
+                            />
+                            <label for="currentAssets">현재 자산</label>
+                        </IftaLabel>
+                        <IftaLabel>
+                            <InputNumber
                                 v-model="ownedShares"
                                 inputId="shares"
                                 suffix=" 주"
                                 min="1"
                             />
-                            <label for="myShares">보유 수량</label>
+                            <label for="shares">보유 수량</label>
                         </IftaLabel>
                         <IftaLabel>
                             <InputNumber
@@ -175,7 +215,7 @@
                                 currency="USD"
                                 locale="en-US"
                             />
-                            <label for="myAveragePrice">목표 자산</label>
+                            <label for="target">목표 자산</label>
                         </IftaLabel>
                     </InputGroup>
                     <InputGroup>
@@ -183,7 +223,6 @@
                             style="font-size: var(--p-iftalabel-font-size)"
                             >예상 연평균 주가 성장률</InputGroupAddon
                         >
-
                         <div class="p-inputtext toto-range">
                             <span>
                                 <Slider
@@ -195,58 +234,55 @@
                                 />
                             </span>
                         </div>
-
-                        <InputGroupAddon class="text-xs">
-                            <span> {{ annualGrowthRateScenario }} % </span>
-                        </InputGroupAddon>
+                        <InputGroupAddon class="text-xs"
+                            ><span>
+                                {{ annualGrowthRateScenario }} %
+                            </span></InputGroupAddon
+                        >
                     </InputGroup>
                     <div
                         class="flex w-full"
                         :class="
                             deviceType === 'mobile'
                                 ? 'flex-column gap-2'
-                                : 'flex-col gap-6'
+                                : 'flex-row gap-2'
                         "
                     >
                         <Card class="toto-reference-period">
-                            <template #header>
-                                <label
+                            <template #header
+                                ><label
                                     style="
                                         font-size: var(--p-iftalabel-font-size);
                                     "
-                                >
-                                    <span>前 배당금 참고 기간</span>
+                                    ><span>前 배당금 참고 기간</span>
                                     <Tag severity="contrast">{{
                                         reinvestmentPeriod
-                                    }}</Tag>
-                                </label>
-                            </template>
-                            <template #content>
-                                <SelectButton
+                                    }}</Tag></label
+                                ></template
+                            >
+                            <template #content
+                                ><SelectButton
                                     v-model="reinvestmentPeriod"
                                     :options="periodOptions"
                                     optionLabel="label"
                                     optionValue="value"
                                     size="small"
-                                />
-                            </template>
+                            /></template>
                         </Card>
-
                         <Card class="toto-tax-apply">
-                            <template #header>
-                                <label
+                            <template #header
+                                ><label
                                     style="
                                         font-size: var(--p-iftalabel-font-size);
                                     "
-                                >
-                                    <span>세금 적용</span>
+                                    ><span>세금 적용</span>
                                     <Tag severity="contrast">{{
                                         applyTax ? '세후' : '세전'
-                                    }}</Tag>
-                                </label>
-                            </template>
-                            <template #content>
-                                <SelectButton
+                                    }}</Tag></label
+                                ></template
+                            >
+                            <template #content
+                                ><SelectButton
                                     v-model="applyTax"
                                     :options="taxOptions"
                                     optionValue="value"
@@ -260,11 +296,13 @@
                                             "
                                         ></i
                                         ><span>{{
-                                            slotProps.option.tooltip
+                                            slotProps.option.tooltip.split(
+                                                ' '
+                                            )[0]
                                         }}</span></template
                                     ></SelectButton
-                                >
-                            </template>
+                                ></template
+                            >
                         </Card>
                     </div>
                 </div>
@@ -282,14 +320,16 @@
             <StepPanel v-slot="{ activateCallback }" value="2">
                 <Card class="toto-calculator-result">
                     <template #title>
-                        <table>
+                        <table class="w-full text-center text-sm">
                             <thead>
                                 <tr>
-                                    <th>희망</th>
+                                    <th></th>
+                                    <th>희망 (최고 배당)</th>
                                     <th>평균</th>
-                                    <th>절망</th>
+                                    <th>절망 (최저 배당)</th>
                                 </tr>
-                                <tr>
+                                <tr class="text-xs text-surface-500">
+                                    <td>배당금</td>
                                     <td>
                                         (${{
                                             reinvestDividendStats.max.toFixed(
@@ -315,6 +355,7 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>기간</td>
                                     <td>
                                         <Tag severity="success">{{
                                             formatMonthsToYears(
