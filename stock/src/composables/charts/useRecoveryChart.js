@@ -1,3 +1,5 @@
+// useRecoveryChat.js
+
 import { computed } from 'vue';
 
 export function useRecoveryChart(options) {
