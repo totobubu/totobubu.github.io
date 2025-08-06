@@ -1,12 +1,10 @@
-<!-- RecoveryCalculator.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import Stepper from 'primevue/stepper';
     import StepItem from 'primevue/stepitem';
     import Step from 'primevue/step';
     import StepPanel from 'primevue/steppanel';
-    import Splitter from 'primevue/splitter';
-    import SplitterPanel from 'primevue/splitterpanel';
+    import Chart from 'primevue/chart';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputNumber from 'primevue/inputnumber';
@@ -14,12 +12,10 @@
     import Divider from 'primevue/divider';
     import Tag from 'primevue/tag';
     import Slider from 'primevue/slider';
-    // import CalculatorResult from './CalculatorResult.vue';
+    import Card from 'primevue/card';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
-
-    const activeStep = ref(1);
 
     const { deviceType } = useBreakpoint();
     const props = defineProps({ dividendHistory: Array, tickerInfo: Object });
@@ -163,14 +159,22 @@
         </StepList>
         <StepPanels>
             <StepPanel v-slot="{ activateCallback }" value="1">
-                <div class="flex flex-column":class="deviceType === 'mobile' ? 'gap-2' : ' gap-5'">
-                    <InputGroup :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
+                <div
+                    class="flex flex-column"
+                    :class="deviceType === 'mobile' ? 'gap-2' : ' gap-5'"
+                >
+                    <InputGroup
+                        :class="
+                            deviceType === 'mobile' ? 'flex-column gap-2' : ''
+                        "
+                    >
                         <IftaLabel>
                             <InputNumber
                                 v-model="myAveragePrice"
                                 mode="currency"
                                 currency="USD"
                                 locale="en-US"
+                                inputId="myAveragePrice"
                             />
                             <label for="myAveragePrice">나의 평단</label>
                         </IftaLabel>
@@ -179,18 +183,20 @@
                                 v-model="myShares"
                                 suffix=" 주"
                                 min="1"
+                                inputId="myShares"
                             />
                             <label for="myShares">보유 수량</label>
                         </IftaLabel>
                         <IftaLabel>
                             <InputNumber
-                                :value="myAveragePrice * myShares"
+                                :modelValue="myAveragePrice * myShares"
                                 mode="currency"
                                 currency="USD"
                                 locale="en-US"
                                 disabled
+                                inputId="totalInvestment"
                             />
-                            <label for="">투자원금</label>
+                            <label for="totalInvestment">투자원금</label>
                         </IftaLabel>
                     </InputGroup>
                     <InputGroup>
@@ -201,12 +207,12 @@
 
                         <div class="p-inputtext toto-range">
                             <span>
-                                <Slider
-                                    v-model="recoveryRate"
-                                    :min="0"
-                                    :max="99"
-                                    class="flex-1"
-                                />
+                            <Slider
+                                v-model="recoveryRate"
+                                :min="0"
+                                :max="99"
+                                class="flex-1"
+                            />
                             </span>
                         </div>
 
@@ -214,19 +220,22 @@
                             <span> {{ recoveryRate }} % </span>
                         </InputGroupAddon>
                     </InputGroup>
-                    <div class="flex w-full" :class="deviceType === 'mobile' ? 'flex-column gap-2' : 'flex-col gap-6'">
+                    <div
+                        class="flex w-full"
+                        :class="
+                            deviceType === 'mobile'
+                                ? 'flex-column gap-2'
+                                : 'flex-row gap-4'
+                        "
+                    >
                         <Card class="toto-reference-period">
                             <template #header>
-                                <label
-                                    style="
-                                        font-size: var(--p-iftalabel-font-size);
-                                    "
-                                >
-                                    <span>前 배당금 참고 기간</span>
+                                <label class="text-sm"
+                                    ><span>前 배당금 참고 기간</span>
                                     <Tag severity="contrast">{{
                                         recoveryPeriod
-                                    }}</Tag>
-                                </label>
+                                    }}</Tag></label
+                                >
                             </template>
                             <template #content>
                                 <SelectButton
@@ -238,19 +247,14 @@
                                 />
                             </template>
                         </Card>
-
-                        <Card class="toto-tax-apply">
+                       <Card class="toto-tax-apply">
                             <template #header>
-                                <label
-                                    style="
-                                        font-size: var(--p-iftalabel-font-size);
-                                    "
-                                >
-                                    <span>세금 적용</span>
+                                <label class="text-sm"
+                                    > <span>세금 적용</span>
                                     <Tag severity="contrast">{{
                                         applyTax ? '세후' : '세전'
-                                    }}</Tag>
-                                </label>
+                                    }}</Tag></label
+                                >
                             </template>
                             <template #content>
                                 <SelectButton
@@ -259,7 +263,9 @@
                                     optionValue="value"
                                     size="small"
                                     dataKey="value"
-                                    ><template #option="slotProps"
+                                    class="w-full"
+                                >
+                                    <template #option="slotProps"
                                         ><i
                                             :class="slotProps.option.icon"
                                             v-tooltip.bottom="
@@ -269,8 +275,8 @@
                                         ><span>{{
                                             slotProps.option.tooltip
                                         }}</span></template
-                                    ></SelectButton
-                                >
+                                    >
+                                </SelectButton>
                             </template>
                         </Card>
                     </div>
@@ -289,7 +295,7 @@
             <StepPanel v-slot="{ activateCallback }" value="2">
                 <Card class="toto-calculator-result">
                     <template #title>
-                        <table>
+                        <table class="w-full text-center">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -298,19 +304,16 @@
                                     <th>절망</th>
                                 </tr>
                                 <tr>
-                                    <th></th>
-                                    <th>
-                                        <!-- (${{ reinvestDividendStats.max.toFixed(4)
-                                        }}) -->
-                                    </th>
-                                    <th>
-                                        <!-- (${{ reinvestDividendStats.avg.toFixed(4)
-                                        }}) -->
-                                    </th>
-                                    <th>
-                                        <!-- (${{ reinvestDividendStats.min.toFixed(4)
-                                        }}) -->
-                                    </th>
+                                    <td>배당금</td>
+                                    <td>
+                                        (${{ dividendStats.max.toFixed(4) }})
+                                    </td>
+                                    <td>
+                                        (${{ dividendStats.avg.toFixed(4) }})
+                                    </td>
+                                    <td>
+                                        (${{ dividendStats.min.toFixed(4) }})
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
