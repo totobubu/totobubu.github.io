@@ -18,6 +18,8 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
 
+    const activeStep = ref(1);
+
     const { deviceType } = useBreakpoint();
     const props = defineProps({ dividendHistory: Array, tickerInfo: Object });
 
@@ -153,6 +155,123 @@
 </script>
 
 <template>
+    <Stepper value="1" class="w-full">
+        <StepList class="mx-8">
+            <Step value="1">계산</Step>
+            <Step value="2">결과</Step>
+        </StepList>
+        <StepPanels>
+            <StepPanel v-slot="{ activateCallback }" value="1">
+                <div class="flex flex-column gap-3">
+                    <InputGroup>
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="myAveragePrice"
+                                mode="currency"
+                                currency="USD"
+                                locale="en-US"
+                            />
+                            <label for="myAveragePrice">나의 평단</label>
+                        </IftaLabel>
+                        <IftaLabel>
+                            <InputNumber v-model="myShares" suffix=" 주" />
+                            <label for="myShares">보유 수량</label>
+                        </IftaLabel>
+                        <IftaLabel>
+                            <InputNumber
+                                :value="myAveragePrice * myShares"
+                                mode="currency"
+                                currency="USD"
+                                locale="en-US"
+                                disabled
+                            />
+                            <label for="">투자원금</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon
+                            style="font-size: var(--p-iftalabel-font-size)"
+                            >회수율</InputGroupAddon
+                        >
+
+                        <div class="p-inputtext toto-range">
+                            <span>
+                                <Slider
+                                    v-model="recoveryRate"
+                                    :min="0"
+                                    :max="99"
+                                    class="flex-1"
+                                />
+                            </span>
+                        </div>
+
+                        <InputGroupAddon class="text-xs">
+                            <span> {{ recoveryRate }} % </span>
+                        </InputGroupAddon>
+                    </InputGroup>
+                    <Fluid>
+                        <IftaLabel> </IftaLabel>
+                        <InputGroup class="toto-reference-period">
+                            <InputGroupAddon
+                                style="font-size: var(--p-iftalabel-font-size)"
+                                >前 배당금 참고 기간</InputGroupAddon
+                            >
+                            <SelectButton
+                                v-model="recoveryPeriod"
+                                :options="periodOptions"
+                                optionLabel="label"
+                                optionValue="value"
+                                size="small"
+                            />
+                        </InputGroup>
+
+                        <InputGroup class="toto-reference-period">
+                            <InputGroupAddon
+                                style="font-size: var(--p-iftalabel-font-size)"
+                                >前 배당금 참고 기간</InputGroupAddon
+                            >
+                            <SelectButton
+                                v-model="recoveryPeriod"
+                                :options="periodOptions"
+                                optionLabel="label"
+                                optionValue="value"
+                                size="small"
+                            />
+                        </InputGroup>
+                    </Fluid>
+                </div>
+                <div class="flex pt-2 justify-end w-full">
+                    <Button
+                        label="결과보기"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        @click="activateCallback('2')"
+                        size="small"
+                    />
+                </div>
+            </StepPanel>
+            <StepPanel v-slot="{ activateCallback }" value="2">
+                <div class="flex flex-col h-48">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
+                        Content II
+                    </div>
+                </div>
+                <div class="flex pt-2 justify-start">
+                    <Button
+                        label="다시계산"
+                        severity="secondary"
+                        icon="pi pi-arrow-left"
+                        @click="activateCallback('1')"
+                        size="small"
+                    />
+                </div>
+            </StepPanel>
+        </StepPanels>
+    </Stepper>
+</template>
+<!-- <template>
     <div v-if="deviceType === 'mobile'" class="card" id="t-calculator-step">
         <Stepper value="1">
             <StepItem value="1">
@@ -451,4 +570,4 @@
             </Card>
         </SplitterPanel>
     </Splitter>
-</template>
+</template> -->
