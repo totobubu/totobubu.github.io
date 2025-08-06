@@ -62,6 +62,7 @@
             }
         }
         .p-chart {
+            width: 100%;
             @include bp.media-breakpoint-only('xs') {
                 height: 100vw;
             }
