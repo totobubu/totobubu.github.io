@@ -44,8 +44,8 @@ export function useMonthlyChart(options) {
                 datalabels: {
                     display: labels.length <= 15,
                     color: '#fff',
-                    anchor: 'center', // 중앙 정렬로 되돌립니다 (이전 버전 참조)
-                    align: 'center', // 중앙 정렬로 되돌립니다 (이전 버전 참조)
+                    anchor: 'end', // 중앙 정렬로 되돌립니다 (이전 버전 참조)
+                    align: 'end', // 중앙 정렬로 되돌립니다 (이전 버전 참조)
                     formatter: (value) =>
                         value > 0 ? `$${value.toFixed(4)}` : null,
                     font: { size: barLabelSize, weight: 'bold' },
