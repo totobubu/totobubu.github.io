@@ -29,7 +29,7 @@
     };
 
     const myAveragePrice = ref(0);
-    const myShares = ref(100);
+    const myShares = ref(1); // [핵심 수정] 기본값 1로 설정
     const recoveryRate = ref(0);
     const recoveryPeriod = ref('1Y');
     const applyTax = ref(true);
@@ -66,6 +66,10 @@
         const freq = props.tickerInfo?.frequency;
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
+
+    const totalInvestment = computed(
+        () => (myAveragePrice.value || 0) * (myShares.value || 0)
+    );
 
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
@@ -133,7 +137,9 @@
             recoveryPeriod.value = savedState.recoveryPeriod;
             applyTax.value = savedState.applyTax;
         } else {
+            // [핵심 수정] 기본값 로드 시 myShares도 함께 초기화합니다.
             myAveragePrice.value = currentPrice.value;
+            myShares.value = 100; // 또는 1 (최소값)
         }
     };
 
@@ -207,12 +213,12 @@
 
                         <div class="p-inputtext toto-range">
                             <span>
-                            <Slider
-                                v-model="recoveryRate"
-                                :min="0"
-                                :max="99"
-                                class="flex-1"
-                            />
+                                <Slider
+                                    v-model="recoveryRate"
+                                    :min="0"
+                                    :max="99"
+                                    class="flex-1"
+                                />
                             </span>
                         </div>
 
@@ -247,10 +253,10 @@
                                 />
                             </template>
                         </Card>
-                       <Card class="toto-tax-apply">
+                        <Card class="toto-tax-apply">
                             <template #header>
-                                <label class="text-sm"
-                                    > <span>세금 적용</span>
+                                <label class="text-sm">
+                                    <span>세금 적용</span>
                                     <Tag severity="contrast">{{
                                         applyTax ? '세후' : '세전'
                                     }}</Tag></label

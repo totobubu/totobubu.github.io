@@ -27,7 +27,7 @@
         <Card id="t-calculator">
             <template #content>
                 <div
-                    class="flex justify-between items-center"
+                    class="flex justify-content-center items-center"
                     :class="
                         deviceType === 'mobile'
                             ? 'flex-column gap-2'
@@ -37,13 +37,13 @@
                     <Button
                         label="투자금 회수 기간 계산기"
                         icon="pi pi-refresh"
-                        severity="secondary" 
+                        severity="secondary"
                         @click="visibleRecovery = true"
                     />
                     <Button
                         label="목표 달성 기간 계산기"
                         icon="pi pi-chart-line"
-                        severity="secondary" 
+                        severity="secondary"
                         @click="visibleReinvestment = true"
                     />
                 </div>
