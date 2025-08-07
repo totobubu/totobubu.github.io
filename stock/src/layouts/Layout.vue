@@ -116,12 +116,12 @@
                     </Breadcrumb>
                 </div>
                 <p class="text font-bold" v-else-if="isHomePage">배당금 일정</p>
-                <div id="t-topbar" class="topbar-actions">
-                    <!-- <router-link to="/" v-if="!isHomePage">
-                        <Button icon="pi pi-home" variant="text"></Button>
-                    </router-link> -->
+                <div
+                    id="t-topbar"
+                    class="topbar-actions"
+                    v-if="deviceType !== 'desktop' && !isHomePage"
+                >
                     <Button
-                        v-if="deviceType !== 'desktop'"
                         icon="pi pi-bars"
                         variant="text"
                         @click="visible = true"
