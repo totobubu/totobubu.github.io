@@ -16,6 +16,7 @@ declare module 'vue' {
     Chart: typeof import('primevue/chart')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
+    Drawer: typeof import('primevue/drawer')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IftaLabel: typeof import('primevue/iftalabel')['default']

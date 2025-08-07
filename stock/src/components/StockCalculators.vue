@@ -49,8 +49,11 @@
                 </div>
             </template>
         </Card>
-        <Dialog
+        <Drawer
             v-model:visible="visibleRecovery"
+            header="투자 원금 회수 기간 계산기"
+            position="bottom"
+            style="height: auto"
             modal
             :style="{ width: '600px' }"
             :breakpoints="{ '640px': '90vw' }"
@@ -60,9 +63,12 @@
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
             />
-        </Dialog>
-        <Dialog
+        </Drawer>
+        <Drawer
             v-model:visible="visibleReinvestment"
+            header="목표 달성 기간 계산기"
+            position="bottom"
+            style="height: auto"
             modal
             :style="{ width: '600px' }"
             :breakpoints="{ '640px': '90vw' }"
@@ -72,7 +78,7 @@
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
             />
-        </Dialog>
+        </Drawer>
     </div>
 </template>
 <!-- 

@@ -158,267 +158,217 @@
 </script>
 
 <template>
-    <Stepper value="1" class="w-full">
-        <StepList class="mx-8" v-if="deviceType !== 'mobile'">
-            <Step value="1">계산</Step>
-            <Step value="2">결과</Step>
-        </StepList>
-        <StepPanels>
-            <StepPanel v-slot="{ activateCallback }" value="1">
-                <div
-                    class="flex flex-column"
-                    :class="deviceType === 'mobile' ? 'gap-2' : ' gap-5'"
+    <div
+        class="flex"
+        :class="
+            deviceType === 'desktop'
+                ? 'flex-row justify-content-between'
+                : 'flex-column  gap-2'
+        "
+    >
+        <div class="flex flex-column gap-2">
+            <InputGroup
+                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''"
+            >
+                <IftaLabel>
+                    <InputNumber
+                        v-model="myAveragePrice"
+                        mode="currency"
+                        currency="USD"
+                        locale="en-US"
+                        inputId="myAveragePrice"
+                    />
+                    <label for="myAveragePrice">나의 평단</label>
+                </IftaLabel>
+                <IftaLabel>
+                    <InputNumber
+                        v-model="myShares"
+                        suffix=" 주"
+                        min="1"
+                        inputId="myShares"
+                    />
+                    <label for="myShares">보유 수량</label>
+                </IftaLabel>
+                <IftaLabel>
+                    <InputNumber
+                        :modelValue="myAveragePrice * myShares"
+                        mode="currency"
+                        currency="USD"
+                        locale="en-US"
+                        disabled
+                        inputId="totalInvestment"
+                    />
+                    <label for="totalInvestment">투자원금</label>
+                </IftaLabel>
+            </InputGroup>
+            <InputGroup>
+                <InputGroupAddon style="font-size: var(--p-iftalabel-font-size)"
+                    >회수율</InputGroupAddon
                 >
-                    <InputGroup
-                        :class="
-                            deviceType === 'mobile' ? 'flex-column gap-2' : ''
-                        "
-                    >
-                        <IftaLabel>
-                            <InputNumber
-                                v-model="myAveragePrice"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                inputId="myAveragePrice"
-                            />
-                            <label for="myAveragePrice">나의 평단</label>
-                        </IftaLabel>
-                        <IftaLabel>
-                            <InputNumber
-                                v-model="myShares"
-                                suffix=" 주"
-                                min="1"
-                                inputId="myShares"
-                            />
-                            <label for="myShares">보유 수량</label>
-                        </IftaLabel>
-                        <IftaLabel>
-                            <InputNumber
-                                :modelValue="myAveragePrice * myShares"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                disabled
-                                inputId="totalInvestment"
-                            />
-                            <label for="totalInvestment">투자원금</label>
-                        </IftaLabel>
-                    </InputGroup>
-                    <InputGroup>
-                        <InputGroupAddon
-                            style="font-size: var(--p-iftalabel-font-size)"
-                            >회수율</InputGroupAddon
-                        >
 
-                        <div class="p-inputtext toto-range">
-                            <span>
-                                <Slider
-                                    v-model="recoveryRate"
-                                    :min="0"
-                                    :max="99"
-                                    class="flex-1"
-                                />
-                            </span>
-                        </div>
-
-                        <InputGroupAddon class="text-xs">
-                            <span> {{ recoveryRate }} % </span>
-                        </InputGroupAddon>
-                    </InputGroup>
-                    <div
-                        class="flex w-full"
-                        :class="
-                            deviceType === 'mobile'
-                                ? 'flex-column gap-2'
-                                : 'flex-row gap-4'
-                        "
-                    >
-                        <Card class="toto-reference-period">
-                            <template #header>
-                                <label class="text-sm"
-                                    ><span>前 배당금 참고 기간</span>
-                                    <Tag severity="contrast">{{
-                                        recoveryPeriod
-                                    }}</Tag></label
-                                >
-                            </template>
-                            <template #content>
-                                <SelectButton
-                                    v-model="recoveryPeriod"
-                                    :options="periodOptions"
-                                    optionLabel="label"
-                                    optionValue="value"
-                                    size="small"
-                                />
-                            </template>
-                        </Card>
-                        <Card class="toto-tax-apply">
-                            <template #header>
-                                <label class="text-sm">
-                                    <span>세금 적용</span>
-                                    <Tag severity="contrast">{{
-                                        applyTax ? '세후' : '세전'
-                                    }}</Tag></label
-                                >
-                            </template>
-                            <template #content>
-                                <SelectButton
-                                    v-model="applyTax"
-                                    :options="taxOptions"
-                                    optionValue="value"
-                                    size="small"
-                                    dataKey="value"
-                                    class="w-full"
-                                >
-                                    <template #option="slotProps"
-                                        ><i
-                                            :class="slotProps.option.icon"
-                                            v-tooltip.bottom="
-                                                slotProps.option.tooltip
-                                            "
-                                        ></i
-                                        ><span>{{
-                                            slotProps.option.tooltip
-                                        }}</span></template
-                                    >
-                                </SelectButton>
-                            </template>
-                        </Card>
-                    </div>
-                </div>
-                <div class="flex pt-2 justify-content-end w-full">
-                    <Button
-                        label="결과보기"
-                        severity="secondary"
-                        icon="pi pi-arrow-right"
-                        iconPos="right"
-                        @click="activateCallback('2')"
-                        size="small"
-                    />
-                </div>
-            </StepPanel>
-            <StepPanel v-slot="{ activateCallback }" value="2">
-                <Card class="toto-calculator-result">
-                    <template #title>
-                        <table class="w-full text-center">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>희망</th>
-                                    <th>평균</th>
-                                    <th>절망</th>
-                                </tr>
-                                <tr>
-                                    <td>배당금</td>
-                                    <td>
-                                        (${{ dividendStats.max.toFixed(4) }})
-                                    </td>
-                                    <td>
-                                        (${{ dividendStats.avg.toFixed(4) }})
-                                    </td>
-                                    <td>
-                                        (${{ dividendStats.min.toFixed(4) }})
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>재투자</th>
-                                    <td>
-                                        <div
-                                            class="flex flex-column gap-1 justify-content-center"
-                                        >
-                                            <Tag
-                                                severity="success"
-                                                icon="pi pi-circle"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.hope_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                            <Tag
-                                                severity="success"
-                                                icon="pi pi-times"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.hope_no_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div
-                                            class="flex flex-column gap-1 justify-content-center"
-                                        >
-                                            <Tag
-                                                severity="warn"
-                                                icon="pi pi-circle"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.avg_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                            <Tag
-                                                severity="warn"
-                                                icon="pi pi-times"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.avg_no_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div
-                                            class="flex flex-column gap-1 justify-content-center"
-                                        >
-                                            <Tag
-                                                severity="danger"
-                                                icon="pi pi-circle"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.despair_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                            <Tag
-                                                severity="danger"
-                                                icon="pi pi-times"
-                                                >{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes.despair_no_reinvest
-                                                    )
-                                                }}</Tag
-                                            >
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </template>
-                    <template #content>
-                        <Chart
-                            type="bar"
-                            :data="recoveryChartData"
-                            :options="recoveryChartOptions"
+                <div class="p-inputtext toto-range">
+                    <span>
+                        <Slider
+                            v-model="recoveryRate"
+                            :min="0"
+                            :max="99"
+                            class="flex-1"
                         />
-                    </template>
-                </Card>
-                <div class="flex pt-2 justify-content-start w-full">
-                    <Button
-                        label="다시계산"
-                        severity="secondary"
-                        icon="pi pi-arrow-left"
-                        @click="activateCallback('1')"
+                    </span>
+                </div>
+
+                <InputGroupAddon class="text-xs">
+                    <span> {{ recoveryRate }} % </span>
+                </InputGroupAddon>
+            </InputGroup>
+
+            <Card class="toto-reference-period">
+                <template #header>
+                    <label class="text-sm"
+                        ><span>前 배당금 참고 기간</span>
+                        <Tag severity="contrast">{{
+                            recoveryPeriod
+                        }}</Tag></label
+                    >
+                </template>
+                <template #content>
+                    <SelectButton
+                        v-model="recoveryPeriod"
+                        :options="periodOptions"
+                        optionLabel="label"
+                        optionValue="value"
                         size="small"
                     />
-                </div>
-            </StepPanel>
-        </StepPanels>
-    </Stepper>
+                </template>
+            </Card>
+            <Card class="toto-tax-apply">
+                <template #header>
+                    <label class="text-sm">
+                        <span>세금 적용</span>
+                        <Tag severity="contrast">{{
+                            applyTax ? '세후' : '세전'
+                        }}</Tag></label
+                    >
+                </template>
+                <template #content>
+                    <SelectButton
+                        v-model="applyTax"
+                        :options="taxOptions"
+                        optionValue="value"
+                        size="small"
+                        dataKey="value"
+                        class="w-full"
+                    >
+                        <template #option="slotProps"
+                            ><i
+                                :class="slotProps.option.icon"
+                                v-tooltip.bottom="slotProps.option.tooltip"
+                            ></i
+                            ><span>{{
+                                slotProps.option.tooltip
+                            }}</span></template
+                        >
+                    </SelectButton>
+                </template>
+            </Card>
+        </div>
+        <Card class="toto-calculator-result">
+            <template #title>
+                <table class="w-full text-center">
+                    <colgroup>
+                        <col style="width: 3rem" />
+                        <col />
+                        <col />
+                        <col />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>희망</th>
+                            <th>평균</th>
+                            <th>절망</th>
+                        </tr>
+                        <tr>
+                            <th>배당금</th>
+                            <td>(${{ dividendStats.max.toFixed(4) }})</td>
+                            <td>(${{ dividendStats.avg.toFixed(4) }})</td>
+                            <td>(${{ dividendStats.min.toFixed(4) }})</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>재투자</th>
+                            <td>
+                                <div
+                                    class="flex flex-column gap-1 justify-content-center"
+                                >
+                                    <Tag
+                                        severity="success"
+                                        icon="pi pi-circle"
+                                        >{{
+                                            formatMonthsToYears(
+                                                recoveryTimes.hope_reinvest
+                                            )
+                                        }}</Tag
+                                    >
+                                    <Tag
+                                        severity="success"
+                                        icon="pi pi-times"
+                                        >{{
+                                            formatMonthsToYears(
+                                                recoveryTimes.hope_no_reinvest
+                                            )
+                                        }}</Tag
+                                    >
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    class="flex flex-column gap-1 justify-content-center"
+                                >
+                                    <Tag severity="warn" icon="pi pi-circle">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.avg_reinvest
+                                        )
+                                    }}</Tag>
+                                    <Tag severity="warn" icon="pi pi-times">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.avg_no_reinvest
+                                        )
+                                    }}</Tag>
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    class="flex flex-column gap-1 justify-content-center"
+                                >
+                                    <Tag
+                                        severity="danger"
+                                        icon="pi pi-circle"
+                                        >{{
+                                            formatMonthsToYears(
+                                                recoveryTimes.despair_reinvest
+                                            )
+                                        }}</Tag
+                                    >
+                                    <Tag severity="danger" icon="pi pi-times">{{
+                                        formatMonthsToYears(
+                                            recoveryTimes.despair_no_reinvest
+                                        )
+                                    }}</Tag>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+            <template #content>
+                <Chart
+                    type="bar"
+                    :data="recoveryChartData"
+                    :options="recoveryChartOptions"
+                />
+            </template>
+        </Card>
+    </div>
 </template>
