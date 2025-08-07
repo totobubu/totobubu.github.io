@@ -1,7 +1,7 @@
 <script setup>
     import { computed } from 'vue';
     import Button from 'primevue/button';
-    import InputOtp from 'primevue/inputotp';
+    import InputText from 'primevue/InputText';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
     const { isMobile, isDesktop } = useBreakpoint();
@@ -49,11 +49,11 @@
 
 <template>
     <div class="flex-auto flex items-center gap-2">
-        <InputOtp
+        <InputText
             v-model="inputValue"
-            :length="4"
-            placeholder="----"
+            placeholder="검색"
             :size="responsiveSize"
+            class="flex-1"
         />
         <Button
             v-if="modelValue"
