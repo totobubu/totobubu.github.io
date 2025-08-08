@@ -30,14 +30,30 @@
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
-        // [핵심] 이제 allTickers 대신, 데이터가 보장된 tickerInfo를 사용합니다.
         if (route.name === 'stock-detail' && tickerInfo.value) {
             if (isDesktop.value) {
-                items.push({ label: tickerInfo.value.Symbol });
-                items.push({ label: tickerInfo.value.longName });
+                // 데스크탑 뷰: 심볼 -> 긴 이름
+                if (tickerInfo.value.Symbol) {
+                    items.push({ label: tickerInfo.value.Symbol });
+                }
+                if (tickerInfo.value.longName) {
+                    items.push({
+                        label: tickerInfo.value.longName,
+                    });
+                }
             } else {
-                items.push({ label: tickerInfo.value.company });
-                items.push({ label: tickerInfo.value.Symbol });
+                // 모바일/태블릿 뷰: 회사 -> 심볼
+                if (
+                    tickerInfo.value.company &&
+                    tickerInfo.value.company !== 'N/A'
+                ) {
+                    items.push({ label: tickerInfo.value.company });
+                    items.push({
+                        label: tickerInfo.value.Symbol,
+                    });
+                } else {
+                    items.push({ label: tickerInfo.value.Symbol });
+                }
             }
         }
         return [home, ...items];
