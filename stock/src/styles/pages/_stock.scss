@@ -39,9 +39,12 @@
         left: 0;
         top: 0;
         .p-tag {
-            width: 2rem;
-            height: 2rem;
+            width: 1.5rem;
+            height: 1.5rem;
             border-radius: 0.5rem;
+            .pi {
+                font-size: 0.75rem;
+            }
             @include bp.media-breakpoint-down('md') {
                 width: auto;
                 height: auto;
