@@ -1,18 +1,16 @@
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
-    import Stepper from 'primevue/stepper';
-    import StepItem from 'primevue/stepitem';
-    import Step from 'primevue/step';
-    import StepPanel from 'primevue/steppanel';
-    import Chart from 'primevue/chart';
+    import Card from 'primevue/card';
+    import RadioButton from 'primevue/radiobutton';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputNumber from 'primevue/inputnumber';
+    import InputText from 'primevue/inputtext';
     import SelectButton from 'primevue/selectbutton';
     import Divider from 'primevue/divider';
     import Tag from 'primevue/tag';
     import Slider from 'primevue/slider';
-    import Card from 'primevue/card';
+    import Chart from 'primevue/chart';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
@@ -29,10 +27,13 @@
     };
 
     const myAveragePrice = ref(0);
-    const myShares = ref(1); // [핵심 수정] 기본값 1로 설정
-    const recoveryRate = ref(0);
+    const myShares = ref(1);
     const recoveryPeriod = ref('1Y');
     const applyTax = ref(true);
+
+    const calculationMode = ref('amount'); // 'amount' or 'rate'
+    const recoveredAmount = ref(0);
+    const recoveryRate = ref(0);
 
     const periodOptions = ref([
         { label: '前 3M', value: '3M' },
@@ -70,6 +71,30 @@
     const totalInvestment = computed(
         () => (myAveragePrice.value || 0) * (myShares.value || 0)
     );
+
+    watch(recoveredAmount, (newAmount) => {
+        if (calculationMode.value === 'amount' && totalInvestment.value > 0) {
+            recoveryRate.value = (newAmount / totalInvestment.value) * 100;
+        }
+    });
+
+    watch(recoveryRate, (newRate) => {
+        if (calculationMode.value === 'rate') {
+            recoveredAmount.value = totalInvestment.value * (newRate / 100);
+        }
+    });
+
+    watch(totalInvestment, () => {
+        if (calculationMode.value === 'amount') {
+            if (totalInvestment.value > 0) {
+                recoveryRate.value =
+                    (recoveredAmount.value / totalInvestment.value) * 100;
+            }
+        } else {
+            recoveredAmount.value =
+                totalInvestment.value * (recoveryRate.value / 100);
+        }
+    });
 
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
@@ -159,127 +184,143 @@
 
 <template>
     <div
-        class="flex"
+        class="toto-calculator-grid"
         :class="
             deviceType === 'desktop'
-                ? 'flex-row justify-content-between'
-                : 'flex-column  gap-2'
-        "
-    >
-        <div class="flex flex-column gap-2">
+                ? 'toto-calculator-grid-row'
+                : 'toto-calculator-grid-column'
+        ">
+        <div class="toto-calculator-option">
             <InputGroup
-                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''"
-            >
+                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
                 <IftaLabel>
                     <InputNumber
                         v-model="myAveragePrice"
                         mode="currency"
                         currency="USD"
                         locale="en-US"
-                        inputId="myAveragePrice"
-                    />
-                    <label for="myAveragePrice">나의 평단</label>
+                        inputId="myAveragePrice" />
+                    <label for="myAveragePrice">현재 평단</label>
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
                         v-model="myShares"
                         suffix=" 주"
                         min="1"
-                        inputId="myShares"
-                    />
-                    <label for="myShares">보유 수량</label>
+                        inputId="myShares" />
+                    <label for="myShares">현재 수량</label>
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
-                        :modelValue="myAveragePrice * myShares"
+                        :modelValue="totalInvestment"
                         mode="currency"
                         currency="USD"
                         locale="en-US"
                         disabled
-                        inputId="totalInvestment"
-                    />
-                    <label for="totalInvestment">투자원금</label>
+                        inputId="totalInvestment" />
+                    <label for="totalInvestment">현재 가치</label>
                 </IftaLabel>
             </InputGroup>
-            <InputGroup>
-                <InputGroupAddon style="font-size: var(--p-iftalabel-font-size)"
-                    >회수율</InputGroupAddon
-                >
-
-                <div class="p-inputtext toto-range">
-                    <span>
-                        <Slider
-                            v-model="recoveryRate"
-                            :min="0"
-                            :max="99"
-                            class="flex-1"
-                        />
-                    </span>
-                </div>
-
-                <InputGroupAddon class="text-xs">
-                    <span> {{ recoveryRate }} % </span>
-                </InputGroupAddon>
-            </InputGroup>
-
-            <Card class="toto-reference-period">
-                <template #header>
-                    <label class="text-sm"
-                        ><span>前 배당금 참고 기간</span>
-                        <Tag severity="contrast">{{
-                            recoveryPeriod
-                        }}</Tag></label
-                    >
-                </template>
-                <template #content>
+            <div class="toto-already">
+                <InputGroup>
+                    <InputGroupAddon>
+                        <RadioButton
+                            v-model="calculationMode"
+                            inputId="modeAmount"
+                            name="calcMode"
+                            value="amount" />
+                    </InputGroupAddon>
+                    <InputGroupAddon>
+                        <i class="pi pi-dollar"></i>
+                    </InputGroupAddon>
+                    <IftaLabel>
+                        <InputNumber
+                            v-model="recoveredAmount"
+                            placeholder="이미 받은 배당금"
+                            mode="currency"
+                            currency="USD"
+                            locale="en-US"
+                            :disabled="calculationMode !== 'amount'"
+                            inputId="recoveredAmount" />
+                        <label for="recoveredAmount">누적 배당금</label>
+                    </IftaLabel>
+                </InputGroup>
+                <InputGroup>
+                    <InputGroupAddon>
+                        <RadioButton
+                            v-model="calculationMode"
+                            inputId="modeRate"
+                            name="calcMode"
+                            value="rate" />
+                    </InputGroupAddon>
+                    <InputGroupAddon>
+                        <i class="pi pi-percentage"></i>
+                    </InputGroupAddon>
+                    <InputGroupAddon class="text-xs">
+                        <span> {{ recoveryRate.toFixed(2) }} %</span>
+                    </InputGroupAddon>
+                    <div
+                        class="toto-range"
+                        :disabled="calculationMode !== 'rate'">
+                        <span>
+                            <Slider
+                                v-model="recoveryRate"
+                                :min="0"
+                                :max="99.99"
+                                :step="0.01"
+                                class="w-full"
+                                :disabled="calculationMode !== 'rate'" />
+                        </span>
+                    </div>
+                </InputGroup>
+            </div>
+            <InputGroup class="toto-reference-period">
+                <IftaLabel>
                     <SelectButton
                         v-model="recoveryPeriod"
                         :options="periodOptions"
                         optionLabel="label"
                         optionValue="value"
-                        size="small"
-                    />
-                </template>
-            </Card>
-            <Card class="toto-tax-apply">
-                <template #header>
-                    <label class="text-sm">
-                        <span>세금 적용</span>
-                        <Tag severity="contrast">{{
-                            applyTax ? '세후' : '세전'
-                        }}</Tag></label
-                    >
-                </template>
-                <template #content>
+                        inputId="recoveryPeriod" />
+                    <label for="recoveryPeriod">
+                        <span>前 배당금 참고 기간</span>
+                        <Tag severity="contrast">{{ recoveryPeriod }}</Tag>
+                    </label>
+                </IftaLabel>
+            </InputGroup>
+            <InputGroup class="toto-tax-apply">
+                <IftaLabel>
                     <SelectButton
                         v-model="applyTax"
                         :options="taxOptions"
                         optionValue="value"
-                        size="small"
                         dataKey="value"
-                        class="w-full"
-                    >
-                        <template #option="slotProps"
-                            ><i
+                        inputId="applyTax">
+                        <template #option="slotProps">
+                            <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip"
-                            ></i
-                            ><span>{{
-                                slotProps.option.tooltip
-                            }}</span></template
-                        >
+                                v-tooltip.bottom="slotProps.option.tooltip"></i>
+                            <span>{{ slotProps.option.tooltip }}</span>
+                        </template>
                     </SelectButton>
-                </template>
-            </Card>
+                    <label for="applyTax">
+                        <span>세금 적용</span>
+                        <Tag severity="contrast">{{
+                            applyTax ? '세후' : '세전'
+                        }}</Tag>
+                    </label>
+                </IftaLabel>
+            </InputGroup>
         </div>
-        <Card class="toto-calculator-result">
+        <Divider v-if="deviceType !== 'desktop'" />
+        <Card class="toto-calculator-result flex-1">
             <template #title>
                 <table class="w-full text-center">
                     <colgroup>
-                        <col style="width: 3rem" />
                         <col />
-                        <col />
-                        <col />
+                        <col style="width: 28%" />
+                        <col style="width: 28%" />
+                        <col style="width: 28%" />
                     </colgroup>
                     <thead>
                         <tr>
@@ -297,66 +338,50 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th>재투자</th>
+                            <th rowspan="2">재투자</th>
                             <td>
-                                <div
-                                    class="flex flex-column gap-1 justify-content-center"
-                                >
-                                    <Tag
-                                        severity="success"
-                                        icon="pi pi-circle"
-                                        >{{
-                                            formatMonthsToYears(
-                                                recoveryTimes.hope_reinvest
-                                            )
-                                        }}</Tag
-                                    >
-                                    <Tag
-                                        severity="success"
-                                        icon="pi pi-times"
-                                        >{{
-                                            formatMonthsToYears(
-                                                recoveryTimes.hope_no_reinvest
-                                            )
-                                        }}</Tag
-                                    >
-                                </div>
+                                <Tag severity="success" icon="pi pi-circle">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.hope_reinvest
+                                    )
+                                }}</Tag>
                             </td>
                             <td>
-                                <div
-                                    class="flex flex-column gap-1 justify-content-center"
-                                >
-                                    <Tag severity="warn" icon="pi pi-circle">{{
-                                        formatMonthsToYears(
-                                            recoveryTimes.avg_reinvest
-                                        )
-                                    }}</Tag>
-                                    <Tag severity="warn" icon="pi pi-times">{{
-                                        formatMonthsToYears(
-                                            recoveryTimes.avg_no_reinvest
-                                        )
-                                    }}</Tag>
-                                </div>
+                                <Tag severity="warn" icon="pi pi-circle">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.avg_reinvest
+                                    )
+                                }}</Tag>
                             </td>
                             <td>
-                                <div
-                                    class="flex flex-column gap-1 justify-content-center"
-                                >
-                                    <Tag
-                                        severity="danger"
-                                        icon="pi pi-circle"
-                                        >{{
-                                            formatMonthsToYears(
-                                                recoveryTimes.despair_reinvest
-                                            )
-                                        }}</Tag
-                                    >
-                                    <Tag severity="danger" icon="pi pi-times">{{
-                                        formatMonthsToYears(
-                                            recoveryTimes.despair_no_reinvest
-                                        )
-                                    }}</Tag>
-                                </div>
+                                <Tag severity="danger" icon="pi pi-circle">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.despair_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Tag severity="success" icon="pi pi-times">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.hope_no_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="warn" icon="pi pi-times">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.avg_no_reinvest
+                                    )
+                                }}</Tag>
+                            </td>
+                            <td>
+                                <Tag severity="danger" icon="pi pi-times">{{
+                                    formatMonthsToYears(
+                                        recoveryTimes.despair_no_reinvest
+                                    )
+                                }}</Tag>
                             </td>
                         </tr>
                     </tbody>
@@ -366,8 +391,7 @@
                 <Chart
                     type="bar"
                     :data="recoveryChartData"
-                    :options="recoveryChartOptions"
-                />
+                    :options="recoveryChartOptions" />
             </template>
         </Card>
     </div>

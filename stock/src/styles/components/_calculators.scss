@@ -4,121 +4,199 @@
 @use '../functions/breakpoints' as bp;
 
 [id*='calculator'] {
-    &.p-drawer {
-        @include bp.media-breakpoint-only('xs') {
-            width: 100vw !important;
-        }
-        @include bp.media-breakpoint-up('md') {
-            width: 1200px !important;
-            max-width: 100%;
-        }
-    }
-    .p-drawer-header {
-        // position: absolute;
-        // right: 0;
-        // top: 0;
+    .p-drawer {
+        &-close-button {
+            width: var(--toto-dialog-close-button);
 
-        // @include bp.media-breakpoint-only('xs') {
-        //     padding: 0;
-        //     transform: translateY(-100%);
-        // }
-    }
-    .p-drawer-content {
-        padding: var(--toto-overlay-modal-padding-y) 1.5rem;
-        height: 70vh !important;
-        @include bp.media-breakpoint-up('sm') {
-            max-height: 550px;
-        }
-        overflow-y: auto;
-
-        @include bp.media-breakpoint-only('xs') {
+            padding: 0;
+            &.p-button-icon-only.p-button-rounded {
+                height: var(--toto-dialog-close-button);
+            }
         }
 
-        @include bp.media-breakpoint-up('sm') {
-            padding-top: 0;
-            > .flex {
-                gap: 2rem;
-                > div {
-                    width: 100%;
-                    flex: 1 1 auto;
+        &-content {
+            padding: var(--toto-overlay-modal-padding-y) 1.5rem;
+            height: 70vh !important;
+            @include bp.media-breakpoint-up('sm') {
+                max-height: 550px;
+            }
+            overflow-y: auto;
+
+            @include bp.media-breakpoint-only('xs') {
+            }
+
+            @include bp.media-breakpoint-up('sm') {
+                padding-top: 0;
+                > .flex {
+                    gap: 2rem;
+                    > div {
+                        width: 100%;
+                        flex: 1 1 auto;
+                    }
                 }
             }
         }
-        .p-selectbutton,
-        .p-togglebutton {
-            width: 100%;
+        &-title {
+            font-size: 1rem;
         }
-    }
-    .p-drawer-title {
-        font-size: 1rem;
     }
 
-    .p-drawer-close-button {
-        width: var(--toto-dialog-close-button);
+    .toto {
+        // 회수율
+        &-range {
+            flex: 1 1 auto;
+            background: var(--p-inputtext-background);
+            padding-block: var(--p-inputtext-padding-y);
+            padding-inline: var(--p-inputtext-padding-x);
+            border: 1px solid var(--p-inputtext-border-color);
+            appearance: none;
+            border-radius: 0;
+            border-bottom-right-radius: var(--p-inputtext-border-radius);
+            outline-color: transparent;
+            box-shadow: var(--p-inputtext-shadow);
+            > span {
+                display: block;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+            }
+            &[disabled='true'] {
+                opacity: 1;
+                background: var(--p-inputtext-disabled-background);
+                color: var(--p-inputtext-disabled-color);
+            }
+        }
 
-        padding: 0;
-        &.p-button-icon-only.p-button-rounded {
-            height: var(--toto-dialog-close-button);
-        }
-    }
-    .toto-range {
-        border-radius: 0;
-        > span {
-            display: block;
-            margin-top: 0.5em;
-        }
-    }
-    .toto-reference-period,
-    .toto-tax-apply {
-        flex: 1 1 auto;
-        .p-card-header label {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            justify-content: space-between;
-        }
-        .p-card-body {
-            padding: 0.5em 0;
-        }
-    }
-    .toto-calculator-result {
-        .p-card-header {
-            padding: 0;
-        }
-        .p-card-body {
-            padding: 0;
-        }
-        table {
-            width: 100%;
-            text-align: center;
-            th {
-                background-color: var(--p-surface-800);
-                padding: 0.5em;
-                font-size: 0.7rem;
-            }
-            td {
-                padding: 0;
-                font-size: 0.7rem;
+        &-already {
+            .p-inputgroup {
+                &:first-child {
+                    .p-inputgroupaddon:first-child {
+                        border-bottom-left-radius: 0 !important;
+                    }
+                    > .p-component:last-child {
+                        border-bottom-right-radius: 0 !important;
+                    }
+                }
+                &:last-child {
+                    margin-top: -1px;
+                    .p-inputgroupaddon:first-child {
+                        border-top-left-radius: 0 !important;
+                    }
+                    .p-inputnumber {
+                        max-width: 6rem;
+                        input {
+                            text-align: right;
+                            width: 100%;
+                        }
+                    }
+                }
             }
         }
-        .p-tag {
-            font-size: 0.6rem;
+
+        // 기간 및 세전 선택 버튼
+        &-reference-period,
+        &-tax-apply {
+            label {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                top: 0;
+                left: 0;
+                .p-tag {
+                    font-size: 0.6rem;
+                }
+            }
+            .p-selectbutton {
+                padding-block-start: var(--p-iftalabel-input-padding-top);
+                padding-block-end: var(--p-iftalabel-input-padding-bottom);
+                width: 100%;
+                .p-togglebutton {
+                    width: 100%;
+                }
+            }
         }
-        .p-chart {
-            width: 100%;
-            @include bp.media-breakpoint-only('xs') {
-                height: 70vw;
+
+        &-calculator {
+            &-grid {
+                display: flex;
             }
-            @include bp.media-breakpoint-between('sm', 'lg') {
-                height: 40vw;
+            &-option {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                > * {
+                    flex: 1 1 auto;
+                }
             }
-            @include bp.media-breakpoint-up('lg') {
-                height: 380px;
+            &-result {
+                .p-card-header {
+                    padding: 0;
+                }
+                .p-card-body {
+                    padding: 0;
+                }
+                table {
+                    width: 100%;
+                    text-align: center;
+                    th {
+                        background-color: var(--p-surface-800);
+                        padding: 0.5em;
+                        font-size: 0.7rem;
+                    }
+                    td {
+                        padding: 0;
+                        font-size: 0.7rem;
+                    }
+                }
+                .p-tag {
+                    font-size: 0.6rem;
+                }
+                .p-chart {
+                    width: 100%;
+                    @include bp.media-breakpoint-only('xs') {
+                        height: 70vw;
+                    }
+                    @include bp.media-breakpoint-between('sm', 'lg') {
+                        height: 40vw;
+                    }
+                    @include bp.media-breakpoint-up('lg') {
+                        height: 380px;
+                    }
+                }
             }
         }
     }
 }
-#calculator {
-    &-recovery {
+
+.toto-grid-row {
+    max-width: 1000px;
+    .toto-calculator {
+        &-grid {
+            justify-content: space-between;
+            gap: 2rem;
+            > * {
+                width: 50%;
+            }
+        }
+        &-option {
+            gap: 2em;
+        }
+    }
+}
+
+.toto-grid-column {
+    width: 100vw;
+    max-width: 640px;
+    max-height: 90vh;
+
+    .p-drawer-header {
+        padding-bottom: 0.5rem;
+    }
+    .toto-calculator {
+        &-grid {
+            flex-direction: column;
+        }
+        &-option {
+            gap: 1em;
+        }
     }
 }

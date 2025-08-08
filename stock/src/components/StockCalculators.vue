@@ -32,20 +32,17 @@
                         deviceType === 'mobile'
                             ? 'flex-column gap-2'
                             : 'flex-col gap-2'
-                    "
-                >
+                    ">
                     <Button
                         label="투자금 회수 기간 계산기"
                         icon="pi pi-refresh"
                         severity="secondary"
-                        @click="visibleRecovery = true"
-                    />
+                        @click="visibleRecovery = true" />
                     <Button
                         label="목표 달성 기간 계산기"
                         icon="pi pi-chart-line"
                         severity="secondary"
-                        @click="visibleReinvestment = true"
-                    />
+                        @click="visibleReinvestment = true" />
                 </div>
             </template>
         </Card>
@@ -57,12 +54,13 @@
             modal
             :style="{ width: '600px' }"
             :breakpoints="{ '640px': '90vw' }"
-            id="calculator-recovery"
-        >
+            :class="
+                deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
+            "
+            id="calculator-recovery">
             <RecoveryCalculator
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-            />
+                :tickerInfo="tickerInfo" />
         </Drawer>
         <Drawer
             v-model:visible="visibleReinvestment"
@@ -72,23 +70,13 @@
             modal
             :style="{ width: '600px' }"
             :breakpoints="{ '640px': '90vw' }"
-            id="calculator-reinvestment"
-        >
+            :class="
+                deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
+            "
+            id="calculator-reinvestment">
             <ReinvestmentCalculator
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-            />
+                :tickerInfo="tickerInfo" />
         </Drawer>
     </div>
 </template>
-<!-- 
-<style scoped>
-    .chart-container-mobile {
-        position: relative;
-        height: 250px;
-    }
-    .chart-container-desktop {
-        position: relative;
-        height: 300px;
-    }
-</style> -->
