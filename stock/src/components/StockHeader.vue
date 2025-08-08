@@ -45,7 +45,7 @@
             { key: 'dividendRate', label: '연간 배당금' },
             { key: 'payoutRatio', label: '배당 성향' },
             { key: 'NAV', label: '순자산가치 (NAV)' },
-            { key: 'TotalReturn', label: 'YTD 수익률' },
+            // { key: 'TotalReturn', label: 'YTD 수익률' },
         ];
 
         return detailMapping

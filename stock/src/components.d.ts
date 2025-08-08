@@ -19,6 +19,7 @@ declare module 'vue' {
     Drawer: typeof import('primevue/drawer')['default']
     Fieldset: typeof import('primevue/fieldset')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
+    FloatLabel: typeof import('primevue/floatlabel')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IftaLabel: typeof import('primevue/iftalabel')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
