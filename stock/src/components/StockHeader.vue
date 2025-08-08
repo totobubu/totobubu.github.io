@@ -92,12 +92,10 @@
         <Card
             class="status flex-1 min-w-[240px]"
             v-for="detail in stockDetails"
-            :key="detail.label"
-        >
+            :key="detail.label">
             <template #title>
                 <span
-                    class="text-xs font-normal text-surface-500 dark:text-surface-400"
-                >
+                    class="text-xs font-normal text-surface-500 dark:text-surface-400">
                     {{ detail.label }}
                 </span>
             </template>
@@ -113,8 +111,7 @@
                         :severity="getChangeSeverity(detail.changeInfo.change)"
                         v-tooltip.bottom="
                             `이전 값: ${detail.changeInfo.previousValue}`
-                        "
-                    >
+                        ">
                         <i :class="getChangeIcon(detail.changeInfo.change)" />
                     </Tag>
                 </div>

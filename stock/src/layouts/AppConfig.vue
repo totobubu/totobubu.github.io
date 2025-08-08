@@ -22,8 +22,7 @@
                             { selected: primary === pc.name },
                         ]"
                         :style="{ backgroundColor: pc.palette['500'] }"
-                        @click="updateColors('primary', pc.name)"
-                    />
+                        @click="updateColors('primary', pc.name)" />
                 </div>
             </div>
             <div>
@@ -43,8 +42,7 @@
                             },
                         ]"
                         :style="{ backgroundColor: s.palette['500'] }"
-                        @click="updateColors('surface', s.name)"
-                    />
+                        @click="updateColors('surface', s.name)" />
                 </div>
             </div>
         </div>

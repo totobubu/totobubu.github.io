@@ -1,27 +1,23 @@
 <template>
     <div class="p-calendar-search">
         <ScrollPanel style="height: 100%">
-            <Accordion
-                :activeIndex="[0]"
-                id="toto-calendar-toggle"
-            >
+            <Accordion :activeIndex="[0]" id="toto-calendar-toggle">
                 <AccordionPanel
                     v-for="group in filteredGroupedTickers"
                     :key="group.company"
-                    :value="group.items"
-                >
+                    :value="group.items">
                     <AccordionHeader>
                         <span>
                             <strong>{{ group.company }}</strong>
-                            <span v-if="filters.calendarSearch.value"
-                                >(<i>{{ getSelectedCountInGroup(group) }}</i> /
+                            <span v-if="filters.calendarSearch.value">
+                                (<i>{{ getSelectedCountInGroup(group) }}</i> /
                                 {{ group.items.length }} /
-                                {{ group.originalItemCount }})</span
-                            >
-                            <span v-else
-                                >(<i>{{ getSelectedCountInGroup(group) }}</i> /
-                                {{ group.originalItemCount }})</span
-                            >
+                                {{ group.originalItemCount }})
+                            </span>
+                            <span v-else>
+                                (<i>{{ getSelectedCountInGroup(group) }}</i> /
+                                {{ group.originalItemCount }})
+                            </span>
                         </span>
                     </AccordionHeader>
                     <AccordionContent>
@@ -30,8 +26,7 @@
                             offLabel="All"
                             :modelValue="isAllSelectedInGroup(group)"
                             @update:modelValue="toggleAllInGroup(group)"
-                            class="p-button-sm p-button-secondary"
-                        />
+                            class="p-button-sm p-button-secondary" />
                         <ToggleButton
                             v-for="ticker in group.items"
                             :key="ticker.symbol"
@@ -39,8 +34,7 @@
                             @update:modelValue="toggleTickerSelection(ticker)"
                             :onLabel="ticker.symbol"
                             :offLabel="ticker.symbol"
-                            class="p-button-sm"
-                        />
+                            class="p-button-sm" />
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>

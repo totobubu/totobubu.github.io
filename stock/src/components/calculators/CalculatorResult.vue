@@ -55,8 +55,7 @@
                 <Chart
                     type="bar"
                     :data="recoveryChartData"
-                    :options="recoveryChartOptions"
-                />
+                    :options="recoveryChartOptions" />
             </div>
         </template>
     </Card>

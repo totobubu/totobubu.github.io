@@ -231,7 +231,7 @@
                             value="amount" />
                     </InputGroupAddon>
                     <InputGroupAddon>
-                        <i class="pi pi-dollar"></i>
+                        <i class="pi pi-dollar" />
                     </InputGroupAddon>
                     <IftaLabel>
                         <InputNumber
@@ -254,7 +254,7 @@
                             value="rate" />
                     </InputGroupAddon>
                     <InputGroupAddon>
-                        <i class="pi pi-percentage"></i>
+                        <i class="pi pi-percentage" />
                     </InputGroupAddon>
                     <InputGroupAddon class="text-xs">
                         <span> {{ recoveryRate.toFixed(2) }} %</span>
@@ -299,7 +299,7 @@
                         <template #option="slotProps">
                             <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip"></i>
+                                v-tooltip.bottom="slotProps.option.tooltip" />
                             <span>{{ slotProps.option.tooltip }}</span>
                         </template>
                     </SelectButton>
