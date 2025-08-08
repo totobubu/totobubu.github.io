@@ -172,17 +172,15 @@
 
 <template>
     <div
-        class="flex"
+        class="toto-calculator-grid"
         :class="
             deviceType === 'desktop'
-                ? 'flex-row justify-content-between'
-                : 'flex-column  gap-2'
-        "
-    >
-        <div class="flex flex-column gap-2">
+                ? 'toto-calculator-grid-row'
+                : 'toto-calculator-grid-column'
+        ">
+        <div class="toto-calculator-option">
             <InputGroup
-                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''"
-            >
+                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
                 <IftaLabel>
                     <InputNumber
                         :modelValue="currentAssets"
@@ -190,8 +188,7 @@
                         currency="USD"
                         locale="en-US"
                         disabled
-                        inputId="currentAssets"
-                    />
+                        inputId="currentAssets" />
                     <label for="currentAssets">현재 자산</label>
                 </IftaLabel>
                 <IftaLabel>
@@ -199,8 +196,7 @@
                         v-model="ownedShares"
                         inputId="shares"
                         suffix=" 주"
-                        min="1"
-                    />
+                        min="1" />
                     <label for="shares">보유 수량</label>
                 </IftaLabel>
                 <IftaLabel>
@@ -209,14 +205,18 @@
                         inputId="target"
                         mode="currency"
                         currency="USD"
-                        locale="en-US"
-                    />
+                        locale="en-US" />
                     <label for="target">목표 자산</label>
                 </IftaLabel>
             </InputGroup>
             <InputGroup>
                 <InputGroupAddon style="font-size: var(--p-iftalabel-font-size)"
                     >주가 성장률</InputGroupAddon
+                >
+                <InputGroupAddon class="text-xs"
+                    ><span>
+                        {{ annualGrowthRateScenario }} %
+                    </span></InputGroupAddon
                 >
                 <div class="p-inputtext toto-range">
                     <span>
@@ -225,17 +225,27 @@
                             :min="-15"
                             :max="15"
                             :step="1"
-                            class="flex-1"
-                        />
+                            class="flex-1" />
                     </span>
                 </div>
-                <InputGroupAddon class="text-xs"
-                    ><span>
-                        {{ annualGrowthRateScenario }} %
-                    </span></InputGroupAddon
-                >
             </InputGroup>
-            <Card class="toto-reference-period">
+
+            <InputGroup class="toto-reference-period">
+                <IftaLabel>
+                    <SelectButton
+                        v-model="reinvestmentPeriod"
+                        :options="periodOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        inputId="recoveryPeriod" />
+                    <label for="recoveryPeriod">
+                        <span>前 배당금 참고 기간</span>
+                        <Tag severity="contrast">{{ reinvestmentPeriod }}</Tag>
+                    </label>
+                </IftaLabel>
+            </InputGroup>
+
+            <!-- <Card class="toto-reference-period">
                 <template #header>
                     <label class="text-sm"
                         ><span>前 배당금 참고 기간</span>
@@ -252,45 +262,40 @@
                         optionValue="value"
                         size="small"
                 /></template>
-            </Card>
-            <Card class="toto-tax-apply">
-                <template #header>
-                    <label class="text-sm"
-                        ><span>세금 적용</span>
-                        <Tag severity="contrast">{{
-                            applyTax ? '세후' : '세전'
-                        }}</Tag></label
-                    ></template
-                >
-                <template #content
-                    ><SelectButton
+            </Card> -->
+            <InputGroup class="toto-tax-apply">
+                <IftaLabel>
+                    <SelectButton
                         v-model="applyTax"
                         :options="taxOptions"
                         optionValue="value"
-                        size="small"
                         dataKey="value"
-                        class="w-full"
-                        ><template #option="slotProps"
-                            ><i
+                        inputId="applyTax">
+                        <template #option="slotProps">
+                            <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip"
-                            ></i
-                            ><span>{{
-                                slotProps.option.tooltip.split(' ')[0]
-                            }}</span></template
-                        ></SelectButton
-                    ></template
-                >
-            </Card>
+                                v-tooltip.bottom="slotProps.option.tooltip"></i>
+                            <span>{{ slotProps.option.tooltip }}</span>
+                        </template>
+                    </SelectButton>
+                    <label for="applyTax">
+                        <span>세금 적용</span>
+                        <Tag severity="contrast">{{
+                            applyTax ? '세후' : '세전'
+                        }}</Tag>
+                    </label>
+                </IftaLabel>
+            </InputGroup>
         </div>
-        <Card class="toto-calculator-result">
+        <Divider v-if="deviceType !== 'desktop'" />
+        <Card class="toto-calculator-result flex-1">
             <template #title>
                 <table class="w-full text-center">
                     <colgroup>
-                        <col style="width: 3rem" />
                         <col />
-                        <col />
-                        <col />
+                        <col style="width: 28%" />
+                        <col style="width: 28%" />
+                        <col style="width: 28%" />
                     </colgroup>
                     <thead>
                         <tr>
@@ -345,8 +350,7 @@
                     v-if="reinvestmentChartData"
                     type="line"
                     :data="reinvestmentChartData"
-                    :options="reinvestmentChartOptions"
-                />
+                    :options="reinvestmentChartOptions" />
             </template>
         </Card>
     </div>
