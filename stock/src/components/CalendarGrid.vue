@@ -250,8 +250,7 @@
                 label="오늘"
                 class="p-button-sm"
                 @click="goToToday"
-                variant="text"
-            />
+                variant="text" />
             <Button icon="pi pi-chevron-right" text @click="nextMonth" />
         </template>
         <template #content>
@@ -275,8 +274,7 @@
                     :options="viewOptions"
                     optionLabel="label"
                     optionValue="value"
-                    aria-labelledby="basic"
-                />
+                    aria-labelledby="basic" />
             </div>
         </template>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />

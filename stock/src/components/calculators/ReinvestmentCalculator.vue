@@ -210,14 +210,13 @@
                 </IftaLabel>
             </InputGroup>
             <InputGroup>
-                <InputGroupAddon style="font-size: var(--p-iftalabel-font-size)"
-                    >주가 성장률</InputGroupAddon
-                >
-                <InputGroupAddon class="text-xs"
-                    ><span>
-                        {{ annualGrowthRateScenario }} %
-                    </span></InputGroupAddon
-                >
+                <InputGroupAddon
+                    style="font-size: var(--p-iftalabel-font-size)">
+                    <span>주가 성장률</span>
+                </InputGroupAddon>
+                <InputGroupAddon class="text-xs">
+                    <span> {{ annualGrowthRateScenario }} % </span>
+                </InputGroupAddon>
                 <div class="p-inputtext toto-range">
                     <span>
                         <Slider
@@ -244,25 +243,6 @@
                     </label>
                 </IftaLabel>
             </InputGroup>
-
-            <!-- <Card class="toto-reference-period">
-                <template #header>
-                    <label class="text-sm"
-                        ><span>前 배당금 참고 기간</span>
-                        <Tag severity="contrast">{{
-                            reinvestmentPeriod
-                        }}</Tag></label
-                    ></template
-                >
-                <template #content
-                    ><SelectButton
-                        v-model="reinvestmentPeriod"
-                        :options="periodOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        size="small"
-                /></template>
-            </Card> -->
             <InputGroup class="toto-tax-apply">
                 <IftaLabel>
                     <SelectButton
@@ -274,7 +254,7 @@
                         <template #option="slotProps">
                             <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip"></i>
+                                v-tooltip.bottom="slotProps.option.tooltip" />
                             <span>{{ slotProps.option.tooltip }}</span>
                         </template>
                     </SelectButton>

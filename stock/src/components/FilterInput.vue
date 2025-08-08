@@ -1,6 +1,6 @@
 <script setup>
     import { computed } from 'vue';
-    import Button from 'primevue/button';    
+    import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
@@ -49,26 +49,24 @@
 
 <template>
     <div class="flex-auto flex items-center gap-2">
-        <InputText 
+        <InputText
             v-model="inputValue"
             placeholder="검색"
             :size="responsiveSize"
-            class="flex-1"
-        />
+            class="flex-1" />
         <Button
             v-if="modelValue"
             icon="pi pi-times"
             severity="secondary"
             @click="clearInput"
-            aria-label="Clear Filter"
-        >
+            aria-label="Clear Filter">
         </Button>
         <Button
             v-else
             :icon="iconClass"
             disabled
             :title="title"
-            severity="secondary"
-        ></Button>
+            severity="secondary">
+        </Button>
     </div>
 </template>

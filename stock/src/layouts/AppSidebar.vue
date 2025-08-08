@@ -182,8 +182,7 @@
         stripedRows
         scrollable
         :scrollHeight="tableScrollHeight"
-        :size="tableSize"
-    >
+        :size="tableSize">
         <template #empty>
             <div class="text-center p-4">검색 결과가 없습니다.</div>
         </template>
@@ -193,8 +192,7 @@
             header="티커"
             sortable
             frozen
-            class="font-bold toto-column-ticker"
-        />
+            class="font-bold toto-column-ticker" />
         <Column field="company" sortable class="toto-column-company">
             <template #header>
                 <Button
@@ -203,8 +201,7 @@
                     size="small"
                     :variant="filters.company.value ? 'filled' : 'text'"
                     @click="openFilterDialog('company')"
-                    :severity="filters.company.value ? '' : 'secondary'"
-                />
+                    :severity="filters.company.value ? '' : 'secondary'" />
                 <div class="column-header"><span>운용사</span></div>
             </template>
         </Column>
@@ -216,8 +213,7 @@
                     size="small"
                     :variant="filters.frequency.value ? 'filled' : 'text'"
                     @click="openFilterDialog('frequency')"
-                    :severity="filters.frequency.value ? '' : 'secondary'"
-                />
+                    :severity="filters.frequency.value ? '' : 'secondary'" />
                 <div class="column-header">
                     <span>지급<br v-if="deviceType !== 'desktop'" />주기</span>
                 </div>
@@ -227,10 +223,13 @@
             field="yield"
             header="배당률"
             sortable
-            class="toto-column-yield"
-        >
+            class="toto-column-yield">
             <template #body="{ data }">
-                <span v-if="data.yield && data.yield !== 'N/A'" class="text-surface-500">{{ data.yield }}</span>
+                <span
+                    v-if="data.yield && data.yield !== 'N/A'"
+                    class="text-surface-500"
+                    >{{ data.yield }}
+                </span>
                 <span v-else class="text-surface-500">-</span>
             </template>
         </Column>
@@ -238,8 +237,7 @@
             field="group"
             sortable
             class="toto-column-group"
-            sortField="groupOrder"
-        >
+            sortField="groupOrder">
             <template #header>
                 <div class="column-header"><span>그룹</span></div>
             </template>
@@ -247,8 +245,7 @@
                 <Tag
                     v-if="data.group"
                     :value="data.group"
-                    :severity="getGroupSeverity(data.group)"
-                />
+                    :severity="getGroupSeverity(data.group)" />
             </template>
         </Column>
     </DataTable>
@@ -258,16 +255,14 @@
         modal
         header="운용사 필터"
         :style="{ width: '600px' }"
-        :breakpoints="{ '576px': '95vw' }"
-    >
+        :breakpoints="{ '576px': '95vw' }">
         <div class="filter-button-group">
             <ToggleButton
                 onLabel="전체"
                 offLabel="전체"
                 :modelValue="filters.company.value === null"
                 @update:modelValue="selectFilter('company', null)"
-                class="p-button-sm"
-            />
+                class="p-button-sm" />
             <ToggleButton
                 v-for="company in companies"
                 :key="company"
@@ -275,24 +270,21 @@
                 :offLabel="company"
                 :modelValue="filters.company.value === company"
                 @update:modelValue="selectFilter('company', company)"
-                class="p-button-sm"
-            />
+                class="p-button-sm" />
         </div>
     </Dialog>
     <Dialog
         v-model:visible="dialogsVisible.frequency"
         modal
         header="지급주기 필터"
-        :style="{ width: '576px' }"
-    >
+        :style="{ width: '576px' }">
         <div class="filter-button-group">
             <ToggleButton
                 onLabel="전체"
                 offLabel="전체"
                 :modelValue="filters.frequency.value === null"
                 @update:modelValue="selectFilter('frequency', null)"
-                class="p-button-sm"
-            />
+                class="p-button-sm" />
             <ToggleButton
                 v-for="freq in frequencies"
                 :key="freq"
@@ -300,8 +292,7 @@
                 :offLabel="freq"
                 :modelValue="filters.frequency.value === freq"
                 @update:modelValue="selectFilter('frequency', freq)"
-                class="p-button-sm"
-            />
+                class="p-button-sm" />
         </div>
     </Dialog>
 </template>

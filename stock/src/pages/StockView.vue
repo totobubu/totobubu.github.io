@@ -134,14 +134,13 @@
         </div>
 
         <div v-else-if="error" class="text-center mt-8">
-            <i class="pi pi-exclamation-triangle text-5xl text-red-500"></i>
+            <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
             <p class="text-red-500 text-xl mt-4">{{ error }}</p>
         </div>
 
         <div
             v-else-if="tickerInfo && dividendHistory.length > 0"
-            class="flex flex-column gap-5"
-        >
+            class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
 
             <StockChartCard
@@ -152,18 +151,15 @@
                 :chart-container-width="chartContainerWidth"
                 :time-range-options="timeRangeOptions"
                 v-model:isPriceChartMode="isPriceChartMode"
-                v-model:selectedTimeRange="selectedTimeRange"
-            />
+                v-model:selectedTimeRange="selectedTimeRange" />
             <StockCalculators
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-            />
+                :tickerInfo="tickerInfo" />
 
             <StockHistoryPanel
                 :history="dividendHistory"
                 :update-time="tickerInfo.Update"
-                :is-desktop="isDesktop"
-            />
+                :is-desktop="isDesktop" />
             <span class="text-surface-500 dark:text-surface-400 text-center">
                 업데이트:
                 {{ tickerInfo.Update }}
@@ -171,7 +167,7 @@
         </div>
 
         <div v-else class="text-center mt-8">
-            <i class="pi pi-inbox text-5xl text-surface-500"></i>
+            <i class="pi pi-inbox text-5xl text-surface-500" />
             <p class="text-xl mt-4">표시할 데이터가 없습니다.</p>
         </div>
     </div>

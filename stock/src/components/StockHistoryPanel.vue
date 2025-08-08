@@ -104,8 +104,7 @@
                     : 'PrevPageLink CurrentPageReport NextPageLink'
             "
             currentPageReportTemplate="{first} - {last} of {totalRecords}"
-            scrollable
-        >
+            scrollable>
             <Column
                 v-for="col in columns"
                 :key="col.field"
@@ -115,8 +114,7 @@
                 :frozen="col.frozen"
                 :class="col.class"
                 :style="col.style"
-                :width="col.width"
-            >
+                :width="col.width">
             </Column>
         </DataTable>
     </div>

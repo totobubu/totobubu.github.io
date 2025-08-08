@@ -91,8 +91,7 @@
                             offLabel="배당"
                             onIcon="pi pi-chart-line"
                             offIcon="pi pi-chart-bar"
-                            :size="buttonSize"
-                        />
+                            :size="buttonSize" />
                     </div>
                     <div v-else></div>
 
@@ -100,8 +99,7 @@
                         v-if="isDesktop"
                         v-model="localSelectedTimeRange"
                         :options="timeRangeOptions"
-                        aria-labelledby="basic"
-                    />
+                        aria-labelledby="basic" />
 
                     <Dropdown
                         v-else
@@ -110,34 +108,30 @@
                         optionLabel="name"
                         optionValue="code"
                         placeholder="기간 선택"
-                        :size="buttonSize"
-                    />
+                        :size="buttonSize" />
                 </div>
                 <div class="flex gap-2" v-if="tickerInfo">
                     <Tag severity="secondary">{{ tickerInfo.frequency }}</Tag>
                     <Tag
                         :severity="getGroupSeverity(tickerInfo.group)"
                         v-if="tickerInfo.group"
-                        >{{ tickerInfo.group }}</Tag
-                    >
+                        >{{ tickerInfo.group }}
+                    </Tag>
                 </div>
             </div>
             <div class="chart-wrapper">
                 <div
                     class="chart-container"
-                    :style="{ minWidth: chartContainerWidth }"
-                >
+                    :style="{ minWidth: chartContainerWidth }">
                     <div
                         v-show="chartData && chartOptions"
                         class="card"
-                        id="p-chart"
-                    >
+                        id="p-chart">
                         <PrimeVueChart
                             ref="chartRef"
                             type="bar"
                             :data="chartData"
-                            :options="chartOptions"
-                        />
+                            :options="chartOptions" />
                     </div>
                 </div>
             </div>

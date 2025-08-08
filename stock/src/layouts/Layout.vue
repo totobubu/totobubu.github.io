@@ -65,20 +65,17 @@
                     v-if="isHomePage"
                     v-model="filters.calendarSearch.value"
                     title="달력 티커 검색"
-                    filter-type="calendar"
-                />
+                    filter-type="calendar" />
                 <FilterInput
                     v-else
                     v-model="filters.global.value"
                     title="전체 티커 검색"
-                    filter-type="global"
-                />
+                    filter-type="global" />
             </header>
             <TickerSelector
                 v-if="isHomePage"
                 :groupedTickers="groupedTickers"
-                v-model="selectedTickers"
-            />
+                v-model="selectedTickers" />
             <AppSidebar v-else />
         </aside>
 
@@ -86,19 +83,16 @@
             <header id="t-header">
                 <div
                     class="flex items-center gap-4 min-w-0"
-                    v-if="!isHomePage && tickerInfo"
-                >
+                    v-if="!isHomePage && tickerInfo">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
                         <template #item="{ item }">
                             <router-link
                                 v-if="item.to"
                                 :to="item.to"
-                                class="p-menuitem-link"
-                            >
+                                class="p-menuitem-link">
                                 <span
                                     v-if="item.icon"
-                                    :class="item.icon"
-                                ></span>
+                                    :class="item.icon"></span>
                                 <span
                                     class="font-semibold"
                                     :class="{
@@ -119,13 +113,11 @@
                 <div
                     id="t-topbar"
                     class="topbar-actions"
-                    v-if="deviceType !== 'desktop' && !isHomePage"
-                >
+                    v-if="deviceType !== 'desktop' && !isHomePage">
                     <Button
                         icon="pi pi-bars"
                         variant="text"
-                        @click="visible = true"
-                    ></Button>
+                        @click="visible = true" />
                 </div>
             </header>
             <section id="t-content">
@@ -135,8 +127,7 @@
                         label="배당금 검색"
                         icon="pi pi-filter"
                         variant="text"
-                        @click="visible2 = true"
-                    />
+                        @click="visible2 = true" />
                 </div>
                 <RouterView />
                 <ScrollTop
@@ -148,8 +139,7 @@
                         severity: 'contrast',
                         raised: true,
                         rounded: true,
-                    }"
-                />
+                    }" />
             </section>
         </main>
 
@@ -159,14 +149,12 @@
             :position="isMobile ? 'full' : 'right'"
             :modal="true"
             id="toto-search"
-            :class="deviceType"
-        >
+            :class="deviceType">
             <template #header>
                 <FilterInput
                     v-model="filters.global.value"
                     title="전체 티커 검색"
-                    filter-type="global"
-                />
+                    filter-type="global" />
             </template>
             <AppSidebar />
         </Drawer>
@@ -177,19 +165,16 @@
             :position="isMobile ? 'full' : 'right'"
             :modal="true"
             id="toto-filter"
-            :class="deviceType"
-        >
+            :class="deviceType">
             <template #header>
                 <FilterInput
                     v-model="filters.calendarSearch.value"
                     title="달력 티커 검색"
-                    filter-type="calendar"
-                />
+                    filter-type="calendar" />
             </template>
             <TickerSelector
                 :groupedTickers="groupedTickers"
-                v-model="selectedTickers"
-            />
+                v-model="selectedTickers" />
         </Drawer>
     </div>
 </template>
