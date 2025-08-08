@@ -5,40 +5,55 @@ import yfinance as yf
 from datetime import datetime, timezone, timedelta
 
 def parse_numeric_value(value_str):
-    """'$1,234.56%' 같은 문자열에서 숫자만 추출합니다."""
     if not isinstance(value_str, str):
         return None
     try:
-        # 모든 비숫자 문자(소수점 제외)를 제거
         cleaned_str = ''.join(filter(lambda x: x.isdigit() or x == '.', value_str))
         return float(cleaned_str)
     except (ValueError, TypeError):
         return None
 
 def compare_and_add_change(new_info, old_info):
-    """이전 정보와 새 정보를 비교하여 'change'와 'previousValue'를 추가합니다."""
     info_with_change = new_info.copy()
     if not old_info:
         return info_with_change
     
+    try:
+        new_update_date = new_info.get("Update", "").split(" ")[0]
+        old_update_date = old_info.get("Update", "").split(" ")[0]
+
+        # 날짜가 동일하면 모든 변화를 'equal'로 처리하고 종료
+        if new_update_date == old_update_date:
+            for key in new_info:
+                if key != "Update": # Update 필드 자체는 제외
+                    info_with_change[f"{key}Change"] = {"change": "equal", "previousValue": old_info.get(key)}
+            return info_with_change
+    except IndexError:
+        pass # 날짜 파싱 실패 시, 기존 로직대로 진행
+
+    # 날짜가 다를 경우에만 상세 비교 진행
     for key, new_value in new_info.items():
         old_value = old_info.get(key)
         
-        # 숫자 값만 비교 대상으로 삼음
         new_numeric = parse_numeric_value(new_value)
         old_numeric = parse_numeric_value(old_value)
 
+        change_info = {"previousValue": old_value}
         if new_numeric is not None and old_numeric is not None:
-            change_info = {"previousValue": old_value}
             if new_numeric > old_numeric:
                 change_info["change"] = "up"
             elif new_numeric < old_numeric:
                 change_info["change"] = "down"
             else:
                 change_info["change"] = "equal"
-            
-            # 원래 키 옆에 새로운 정보 객체를 추가 (예: "marketCapChange")
-            info_with_change[f"{key}Change"] = change_info
+        else:
+             # 숫자가 아닌 값들(예: 52주 범위, 실적발표일)은 단순 비교
+            if new_value != old_value:
+                change_info["change"] = "up" # 혹은 'changed' 같은 다른 상태값 사용 가능
+            else:
+                change_info["change"] = "equal"
+
+        info_with_change[f"{key}Change"] = change_info
             
     return info_with_change
 
