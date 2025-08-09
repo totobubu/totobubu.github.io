@@ -52,7 +52,6 @@
             position="bottom"
             style="height: auto"
             modal
-            :breakpoints="{ '640px': '90vw' }"
             :class="
                 deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
             "
@@ -67,7 +66,6 @@
             position="bottom"
             style="height: auto"
             modal
-            :breakpoints="{ '640px': '90vw' }"
             :class="
                 deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
             "

@@ -1,3 +1,4 @@
+<!-- components\calculators\RecoveryCalculator.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import Card from 'primevue/card';
@@ -30,8 +31,7 @@
     const myShares = ref(1);
     const recoveryPeriod = ref('1Y');
     const applyTax = ref(true);
-
-    const calculationMode = ref('amount'); // 'amount' or 'rate'
+    const calculationMode = ref('amount');
     const recoveredAmount = ref(0);
     const recoveryRate = ref(0);
 
@@ -71,24 +71,35 @@
     const totalInvestment = computed(
         () => (myAveragePrice.value || 0) * (myShares.value || 0)
     );
+    const currentValue = computed(
+        () => (currentPrice.value || 0) * (myShares.value || 0)
+    );
+    const profitLossRate = computed(() => {
+        if (totalInvestment.value <= 0) return 0;
+        return (
+            ((currentValue.value - totalInvestment.value) /
+                totalInvestment.value) *
+            100
+        );
+    });
 
     watch(recoveredAmount, (newAmount) => {
         if (calculationMode.value === 'amount' && totalInvestment.value > 0) {
             recoveryRate.value = (newAmount / totalInvestment.value) * 100;
         }
     });
-
     watch(recoveryRate, (newRate) => {
         if (calculationMode.value === 'rate') {
             recoveredAmount.value = totalInvestment.value * (newRate / 100);
         }
     });
-
     watch(totalInvestment, () => {
         if (calculationMode.value === 'amount') {
             if (totalInvestment.value > 0) {
                 recoveryRate.value =
                     (recoveredAmount.value / totalInvestment.value) * 100;
+            } else {
+                recoveryRate.value = 0;
             }
         } else {
             recoveredAmount.value =
@@ -146,6 +157,7 @@
         const state = {
             myAveragePrice: myAveragePrice.value,
             myShares: myShares.value,
+            recoveredAmount: recoveredAmount.value,
             recoveryRate: recoveryRate.value,
             recoveryPeriod: recoveryPeriod.value,
             applyTax: applyTax.value,
@@ -158,6 +170,7 @@
             const savedState = JSON.parse(savedStateJSON);
             myAveragePrice.value = savedState.myAveragePrice;
             myShares.value = savedState.myShares;
+            recoveredAmount.value = savedState.recoveredAmount;
             recoveryRate.value = savedState.recoveryRate || 0;
             recoveryPeriod.value = savedState.recoveryPeriod;
             applyTax.value = savedState.applyTax;
@@ -200,7 +213,7 @@
                         currency="USD"
                         locale="en-US"
                         inputId="myAveragePrice" />
-                    <label for="myAveragePrice">현재 평단</label>
+                    <label for="myAveragePrice">평단</label>
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
@@ -208,9 +221,12 @@
                         suffix=" 주"
                         min="1"
                         inputId="myShares" />
-                    <label for="myShares">현재 수량</label>
+                    <label for="myShares">수량</label>
                 </IftaLabel>
-                <IftaLabel>
+            </InputGroup>
+            <InputGroup
+                :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
+                <FloatLabel variant="on">
                     <InputNumber
                         :modelValue="totalInvestment"
                         mode="currency"
@@ -218,8 +234,26 @@
                         locale="en-US"
                         disabled
                         inputId="totalInvestment" />
-                    <label for="totalInvestment">현재 가치</label>
-                </IftaLabel>
+                    <label for="totalInvestment">투자원금</label>
+                </FloatLabel>
+                <FloatLabel variant="on">
+                    <InputNumber
+                        :modelValue="currentValue"
+                        mode="currency"
+                        currency="USD"
+                        locale="en-US"
+                        disabled
+                        inputId="currentValue" />
+                    <label for="currentValue"
+                        >현재가치
+                        
+                    </label>
+                </FloatLabel>
+                <Tag
+                    :severity="
+                        profitLossRate >= 0 ? 'success' : 'danger'
+                    "
+                    :value="`${profitLossRate.toFixed(2)}%`" />
             </InputGroup>
             <div class="toto-already">
                 <InputGroup>
@@ -233,17 +267,17 @@
                     <InputGroupAddon>
                         <i class="pi pi-dollar" />
                     </InputGroupAddon>
-                    <IftaLabel>
+                    <FloatLabel variant="on">
                         <InputNumber
                             v-model="recoveredAmount"
-                            placeholder="이미 받은 배당금"
+                            placeholder="누적 배당금"
                             mode="currency"
                             currency="USD"
                             locale="en-US"
                             :disabled="calculationMode !== 'amount'"
                             inputId="recoveredAmount" />
                         <label for="recoveredAmount">누적 배당금</label>
-                    </IftaLabel>
+                    </FloatLabel>
                 </InputGroup>
                 <InputGroup>
                     <InputGroupAddon>
