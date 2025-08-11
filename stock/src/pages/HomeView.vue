@@ -1,13 +1,15 @@
+<!-- stock\src\pages\HomeView.vue -->
 <script setup>
     import { ref, onMounted } from 'vue';
+    import { useRouter } from 'vue-router'; // useRouter import 추가
     import Panel from 'primevue/panel';
     import ProgressSpinner from 'primevue/progressspinner';
     import CalendarGrid from '@/components/CalendarGrid.vue';
     import { useCalendarData } from '@/composables/useCalendarData.js';
 
     const holidays = ref([]);
-    const { allTickers, dividendsByDate, isLoading, error, removeTicker } =
-        useCalendarData();
+    // useCalendarData에서 필요한 것만 가져옵니다.
+    const { dividendsByDate, isLoading, error } = useCalendarData();
 
     const router = useRouter();
     const goToTickerPage = (tickerSymbol) => {
@@ -19,7 +21,6 @@
     onMounted(async () => {
         const holidayResponse = await fetch('/holidays.json');
         holidays.value = await holidayResponse.json();
-        // loadAllData() 호출은 이제 Layout.vue가 담당하므로 여기서 제거합니다.
     });
 </script>
 
@@ -31,11 +32,10 @@
         <p>{{ error }}</p>
     </div>
     <div v-else id="p-calendar">
+        <!-- CalendarGrid에 더 이상 필요없는 props를 전달하지 않습니다. -->
         <CalendarGrid
             :dividendsByDate="dividendsByDate"
             :holidays="holidays"
-            :allTickers="allTickers"
-            @remove-ticker="removeTicker"
             @view-ticker="goToTickerPage" />
     </div>
 </template>

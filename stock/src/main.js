@@ -3,6 +3,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import './store/auth';
 
 import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';

@@ -1,3 +1,4 @@
+<!-- stock\src\components\CalendarGrid.vue -->
 <script setup>
     import { ref, computed, watch, defineEmits } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
@@ -9,6 +10,7 @@
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
     import Panel from 'primevue/panel';
+    import { useFilterState } from '@/composables/useFilterState'; // useFilterState import 추가
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
     const props = defineProps({
@@ -17,7 +19,10 @@
         allTickers: Array,
     });
 
-    const emit = defineEmits(['remove-ticker', 'view-ticker']);
+    const emit = defineEmits(['view-ticker']);
+
+    // useFilterState에서 toggleMyStock 함수를 직접 가져옵니다.
+    const { toggleMyStock } = useFilterState();
 
     const { isMobile } = useBreakpoint();
     const fullCalendar = ref(null);
@@ -81,25 +86,32 @@
 
     const calendarEvents = computed(() => {
         if (!props.dividendsByDate) return [];
-        return Object.entries(props.dividendsByDate).flatMap(([date, data]) =>
-            data.entries.map((entry) => {
-                const tickerInfo = props.allTickers.find(
-                    (t) => t.symbol === entry.ticker
-                );
-                return {
-                    title: entry.amount
-                        ? `${entry.ticker} $${entry.amount.toFixed(4)}`
-                        : entry.ticker,
-                    start: date,
-                    extendedProps: {
-                        ticker: entry.ticker,
-                        amount: entry.amount,
-                        eventClass: getEventClass(tickerInfo),
-                        frequency: tickerInfo?.frequency,
-                        group: tickerInfo?.group,
-                    },
-                };
-            })
+
+        // Object.entries()는 [key, value] 형태의 배열을 반환합니다.
+        // flatMap의 콜백 함수에서 이 [key, value]를 인자로 받습니다.
+        return Object.entries(props.dividendsByDate).flatMap(
+            ([date, dividendArray]) => {
+                // 이제 dividendArray는 날짜에 해당하는 배당금 객체들의 배열입니다.
+                // 이 배열을 map으로 순회합니다.
+                return dividendArray.map((entry) => {
+                    return {
+                        title: entry.amount
+                            ? `${entry.ticker} $${entry.amount.toFixed(4)}`
+                            : entry.ticker,
+                        start: date, // key였던 date 변수를 사용합니다.
+                        extendedProps: {
+                            ticker: entry.ticker,
+                            amount: entry.amount,
+                            eventClass: getEventClass({
+                                frequency: entry.frequency,
+                                group: entry.group,
+                            }),
+                            frequency: entry.frequency,
+                            group: entry.group,
+                        },
+                    };
+                });
+            }
         );
     });
 
@@ -154,7 +166,8 @@
                 if (action === 'view') {
                     emit('view-ticker', ticker);
                 } else if (action === 'remove') {
-                    emit('remove-ticker', ticker);
+                    // emit 대신, 가져온 toggleMyStock 함수를 직접 호출합니다.
+                    toggleMyStock(ticker);
                 }
             }
         },
@@ -172,7 +185,7 @@
                     ? `<span>$${amount.toFixed(4)}</span>`
                     : '<span class="no-amount">예정</span>';
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
-            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="remove" title="목록에서 제거"><span class="pi pi-times"></span></button>`;
+            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
 
             if (arg.view.type === 'listWeek') {
                 return {
