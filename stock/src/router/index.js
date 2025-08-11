@@ -6,6 +6,7 @@ import StockView from '../pages/StockView.vue'; // 개별 주식 정보를 보�
 import SignUpView from '../pages/SignUpView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
+import MyPageView from '../pages/MyPageView.vue';
 import NotFound from '../pages/NotFound.vue';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth'; // onAuthStateChanged 추가
@@ -52,6 +53,13 @@ const router = createRouter({
             path: '/password-reset',
             name: 'password-reset',
             component: PasswordResetView,
+        },
+
+        {
+            path: '/mypage',
+            name: 'mypage',
+            component: MyPageView,
+            meta: { requiresAuth: true }, // 로그인이 필요한 페이지로 설정
         },
     ],
 });

@@ -8,6 +8,9 @@
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
     import Breadcrumb from 'primevue/breadcrumb';
+    import Toast from 'primevue/toast'; // Toast import 추가
+    import ConfirmDialog from 'primevue/confirmdialog'; // ConfirmDialog import 추가
+
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useCalendarData } from '@/composables/useCalendarData.js';
@@ -17,6 +20,9 @@
     const { filters, showMyStocksOnly } = useFilterState();
     const { loadAllData } = useCalendarData();
     const { tickerInfo } = useStockData();
+
+    import { useToast } from 'primevue/usetoast';
+    import { useConfirm } from 'primevue/useconfirm';
 
     const router = useRouter();
     import { signOut } from 'firebase/auth';
@@ -28,6 +34,7 @@
     const visible2 = ref(false);
     const route = useRoute();
     const isHomePage = computed(() => route.path === '/');
+    const isMypage = computed(() => route.path === '/mypage');
     const isLogin = computed(() => route.path === '/login');
     const isSignup = computed(() => route.path === '/signup');
 
@@ -49,6 +56,10 @@
         } catch (error) {
             console.error('로그아웃 실패:', error);
         }
+    };
+
+    const goToMyPage = () => {
+        router.push('/mypage');
     };
 
     const breadcrumbItems = computed(() => {
@@ -104,6 +115,8 @@
 
 <template>
     <div id="t-layout">
+        <Toast />
+        <ConfirmDialog />
         <aside id="t-sidebar" v-if="deviceType === 'desktop'">
             <header>
                 <!-- 검색창을 하나로 통일 -->
@@ -146,6 +159,7 @@
                     </Breadcrumb>
                 </div>
                 <p class="text font-bold" v-else-if="isHomePage">배당금 일정</p>
+                <p class="text font-bold" v-else-if="isMypage">마이페이지</p>
                 <div
                     id="t-topbar"
                     class="topbar-actions"
@@ -159,12 +173,19 @@
                         aria-label="로그인" />
 
                     <!-- 사용자가 있을 때 (로그인 상태) -->
-                    <Button
-                        v-else
-                        icon="pi pi-sign-out"
-                        variant="text"
-                        @click="onLogout"
-                        aria-label="로그아웃" />
+                    <template v-else>
+                        <Button
+                            icon="pi pi-user"
+                            variant="text"
+                            @click="goToMyPage"
+                            v-if="!isMypage"
+                            aria-label="마이페이지" />
+                        <Button
+                            icon="pi pi-sign-out"
+                            variant="text"
+                            @click="onLogout"
+                            aria-label="로그아웃" />
+                    </template>
                     <Button
                         v-if="deviceType !== 'desktop'"
                         icon="pi pi-bars"
