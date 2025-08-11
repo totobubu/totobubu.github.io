@@ -1,6 +1,6 @@
 <template>
     <div class="p-4 max-w-md mx-auto">
-        <h2 class="mb-4">로그인</h2>
+        <h2 class="mb-4">회원가입</h2>
         <div class="p-fluid">
             <InputText v-model="email" placeholder="이메일" />
             <Password
@@ -8,7 +8,7 @@
                 placeholder="비밀번호"
                 toggleMask
                 class="mt-3" />
-            <Button label="로그인" class="mt-4" @click="login" />
+            <Button label="회원가입" class="mt-4" @click="signUp" />
         </div>
     </div>
 </template>
@@ -16,20 +16,24 @@
 <script setup>
     import { ref } from 'vue';
     import { auth } from '../firebase';
-    import { signInWithEmailAndPassword } from 'firebase/auth';
+    import { createUserWithEmailAndPassword } from 'firebase/auth';
     import { useRouter } from 'vue-router';
 
     const email = ref('');
     const password = ref('');
     const router = useRouter();
 
-    const login = async () => {
+    const signUp = async () => {
         try {
-            await signInWithEmailAndPassword(auth, email.value, password.value);
-            alert('로그인 성공!');
-            router.push('/');
+            await createUserWithEmailAndPassword(
+                auth,
+                email.value,
+                password.value
+            );
+            alert('회원가입 성공!');
+            router.push('/login');
         } catch (err) {
-            alert('로그인 실패: ' + err.message);
+            alert('회원가입 실패: ' + err.message);
         }
     };
 </script>
