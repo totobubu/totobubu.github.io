@@ -34,7 +34,6 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: HomeView,
-            meta: { requiresAuth: true }, // 로그인이 필요한 페이지
         },
         {
             path: '/stock/:ticker', // :ticker 부분이 변수 역할을 합니다.

@@ -77,14 +77,6 @@
                             >비밀번호 찾기</RouterLink
                         >
                     </Button>
-
-                    <Button
-                        label="비밀번호 찾기"
-                        severity="secondary"
-                        variant="text"
-                        size="small">
-                        <template #icon> </template>
-                    </Button>
                 </div>
             </template>
         </Card>
