@@ -10,4 +10,20 @@
 
     .p-card {
     }
+
+    .t-auth {
+        &-icon {
+            width: auto;
+            height: auto;
+            padding: 1.5rem;
+            aspect-ratio: 1 / 1;
+            opacity: 1;
+            span {
+                font-size: 2rem;
+            }
+        }
+    }
+    .p-button-outlined {
+        text-decoration: none;
+    }
 }

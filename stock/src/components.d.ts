@@ -17,6 +17,8 @@ declare module 'vue' {
     FloatLabel: typeof import('primevue/floatlabel')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IftaLabel: typeof import('primevue/iftalabel')['default']
+    InputGroup: typeof import('primevue/inputgroup')['default']
+    InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Password: typeof import('primevue/password')['default']
     RecoveryCalculator: typeof import('./components/calculators/RecoveryCalculator.vue')['default']
