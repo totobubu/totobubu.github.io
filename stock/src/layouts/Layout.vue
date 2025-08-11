@@ -66,6 +66,10 @@
                         label: tickerInfo.value.longName,
                     });
                 }
+            } else if (isMobile.value) {
+                if (tickerInfo.value.Symbol) {
+                    items.push({ label: tickerInfo.value.Symbol });
+                }
             } else {
                 // 모바일/태블릿 뷰: 회사 -> 심볼
                 if (
