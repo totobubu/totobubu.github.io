@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import StockView from '../pages/StockView.vue'; // 개별 주식 정보를 보여줄 컴포넌트
+import SignUpView from '../pages/SignUpView.vue';
+import LoginView from '../pages/LoginView.vue';
 import NotFound from '../pages/NotFound.vue';
 
 const router = createRouter({
