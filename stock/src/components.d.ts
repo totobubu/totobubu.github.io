@@ -12,6 +12,7 @@ declare module 'vue' {
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
+    Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
     FloatLabel: typeof import('primevue/floatlabel')['default']
