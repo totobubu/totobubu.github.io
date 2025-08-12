@@ -25,7 +25,8 @@
     import { useConfirm } from 'primevue/useconfirm';
 
     const router = useRouter();
-    import { signOut } from 'firebase/auth';
+    // import { signOut } from 'firebase/auth'; // 이 줄 삭제
+    import { handleSignOut } from '../store/auth'; // 새로 만든 함수 import
     import { auth } from '../firebase';
     // 1. 스토어에서 user 상태를 가져옵니다.
     import { user } from '../store/auth';
@@ -48,11 +49,10 @@
     };
     const onLogout = async () => {
         try {
-            await signOut(auth);
-            alert('로그아웃 되었습니다.');
-
-            // router.push('/login'); // 이 부분을 아래와 같이 수정합니다.
-            router.push('/'); // 홈으로 이동
+            await handleSignOut();
+            // auth.js에서 토스트 메시지를 띄우므로 여기서는 alert 제거
+            // alert('로그아웃 되었습니다.');
+            router.push('/');
         } catch (error) {
             console.error('로그아웃 실패:', error);
         }

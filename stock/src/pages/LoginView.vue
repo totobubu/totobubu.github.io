@@ -1,3 +1,69 @@
+<script setup>
+    import { ref, onMounted } from 'vue'; // onMounted 추가
+    import { useRouter, useRoute } from 'vue-router'; // useRoute 추가
+    import {
+        signInWithEmailAndPassword,
+        setPersistence,
+        browserLocalPersistence,
+        browserSessionPersistence,
+    } from 'firebase/auth';
+    import { auth } from '../firebase';
+
+    // PrimeVue 컴포넌트 추가
+    import Message from 'primevue/message';
+    import Checkbox from 'primevue/checkbox';
+    import InputText from 'primevue/inputtext';
+
+    const email = ref('');
+    const password = ref('');
+    const rememberMe = ref(true);
+    const router = useRouter();
+    const route = useRoute(); // 현재 라우트 정보를 가져오기 위해 추가
+
+    // 에러 메시지를 저장할 ref 추가
+    const errorMessage = ref('');
+    const successMessage = ref('');
+
+    onMounted(() => {
+        // 페이지가 마운트될 때 쿼리 파라미터를 확인합니다.
+        if (route.query.from === 'signup') {
+            successMessage.value = '회원가입이 완료되었습니다. 로그인해주세요.';
+        }
+    });
+
+    const onLogin = async () => {
+        errorMessage.value = ''; // 시도할 때마다 이전 에러 메시지 초기화
+        successMessage.value = ''; // 로그인 시도 시 성공 메시지는 초기화
+        try {
+            const persistenceType = rememberMe.value
+                ? browserLocalPersistence
+                : browserSessionPersistence;
+
+            await setPersistence(auth, persistenceType);
+
+            await signInWithEmailAndPassword(auth, email.value, password.value);
+
+            // 로그인 성공 시 onAuthStateChanged가 홈으로 보낼 것이므로,
+            // 여기서 명시적으로 이동할 필요가 없을 수도 있습니다.
+            // 하지만 더 빠른 전환을 위해 유지합니다.
+            router.push('/');
+        } catch (err) {
+            console.error('로그인 실패:', err.code);
+            // Firebase 에러 코드에 따라 사용자 친화적인 메시지 설정
+            if (
+                err.code === 'auth/invalid-credential' ||
+                err.code === 'auth/user-not-found' ||
+                err.code === 'auth/wrong-password'
+            ) {
+                errorMessage.value = '이메일 또는 비밀번호를 확인해주세요.';
+            } else {
+                errorMessage.value = '로그인 중 오류가 발생했습니다.';
+            }
+            // alert('로그인 실패: ' + err.message); // alert 제거
+        }
+    };
+</script>
+
 <template>
     <div id="t-auth">
         <Card>
@@ -49,10 +115,26 @@
             </template>
 
             <template #footer>
+                <!-- 성공 메시지가 있을 경우 -->
+                <Message
+                    v-if="successMessage"
+                    severity="success"
+                    :closable="false"
+                    class="mb-4">
+                    {{ successMessage }}
+                </Message>
+
+                <!-- 에러 메시지가 있을 경우 -->
+                <Message
+                    v-if="errorMessage"
+                    severity="error"
+                    :closable="false"
+                    class="mb-4">
+                    {{ errorMessage }}
+                </Message>
+
                 <div class="flex flex-column gap-3 mt-3">
-                    <Button @click="onLogin" label="로그인">
-                        <template #icon> </template>
-                    </Button>
+                    <Button @click="onLogin" label="로그인" />
                     <Button
                         label="회원가입"
                         severity="secondary"
@@ -82,46 +164,3 @@
         </Card>
     </div>
 </template>
-<script setup>
-    import { ref } from 'vue';
-    import { useRouter } from 'vue-router'; // useRouter 추가
-    import {
-        signInWithEmailAndPassword,
-        setPersistence, // setPersistence 추가
-        browserLocalPersistence, // Local Persistence (브라우저를 닫아도 유지) 추가
-        browserSessionPersistence, // Session Persistence (탭/창을 닫으면 해제) 추가
-    } from 'firebase/auth';
-    import { auth } from '../firebase';
-
-    import Checkbox from 'primevue/checkbox';
-    import InputText from 'primevue/inputtext';
-
-    const email = ref('');
-    const password = ref('');
-    const rememberMe = ref(true); // v-model 이름을 checked1에서 rememberMe로 변경 (의미 명확화)
-    const router = useRouter(); // router 인스턴스 생성
-
-    const onLogin = async () => {
-        try {
-            // 1. 로그인 방식 설정 (로그인 요청 전에 해야 함)
-            const persistenceType = rememberMe.value
-                ? browserLocalPersistence // 체크 O: 로컬 스토리지에 저장
-                : browserSessionPersistence; // 체크 X: 세션 스토리지에 저장
-
-            await setPersistence(auth, persistenceType);
-
-            // 2. 로그인 시도
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                email.value,
-                password.value
-            );
-
-            console.log('로그인 성공:', userCredential.user.email);
-            router.push('/'); // 로그인 성공 후 홈으로 이동
-        } catch (err) {
-            console.error('로그인 실패:', err);
-            alert('로그인 실패: ' + err.message);
-        }
-    };
-</script>

@@ -1,45 +1,46 @@
 import { ref, watch } from 'vue';
 import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
     useFilterState,
-    loadMyStocksFromFirestore, // Firestore 헬퍼 함수 import
-    saveMyStocksToFirestore, // Firestore 헬퍼 함수 import
+    loadMyStocksFromFirestore,
+    saveMyStocksToFirestore,
 } from '../composables/useFilterState';
 
 export const user = ref(null);
+
 const { showMyStocksOnly, myStockSymbols } = useFilterState();
+
+// handleSignOut 함수는 Layout.vue에서 사용하므로 export를 유지합니다.
+export const handleSignOut = async () => {
+    await signOut(auth);
+};
 
 onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
-        console.log('Auth Store: 로그인됨', firebaseUser.email);
+        // 로그인 시 로직
         user.value = {
             uid: firebaseUser.uid,
             email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
         };
         showMyStocksOnly.value = true;
-
-        // 로그인 시 Firestore에서 북마크를 로드하여 상태에 반영
         myStockSymbols.value = await loadMyStocksFromFirestore(
             firebaseUser.uid
         );
-        console.log('Firestore에서 북마크 로드 완료:', myStockSymbols.value);
     } else {
-        console.log('Auth Store: 로그아웃됨');
+        // 로그아웃 또는 탈퇴 시 로직
         user.value = null;
         showMyStocksOnly.value = false;
-
-        // 로그아웃 시 북마크 목록 초기화
         myStockSymbols.value = [];
     }
 });
 
-// myStockSymbols가 변경될 때마다 Firestore에 저장하는 로직
+// 사용자의 북마크 변경을 감시하여 Firestore에 저장하는 로직
 watch(
     myStockSymbols,
     (newSymbols) => {
         if (user.value) {
-            // 로그인 상태일 때만 저장
             saveMyStocksToFirestore(user.value.uid, newSymbols);
         }
     },
