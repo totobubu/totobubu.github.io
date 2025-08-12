@@ -205,33 +205,28 @@
         });
     };
 
+    // ...
     // 7. 회원 탈퇴 실행
     const performDeleteUser = async () => {
         isLoading.value.delete = true;
         const userId = user.value.uid;
         try {
-            // 중요: Firestore 데이터를 먼저 삭제합니다.
             const userDocRef = doc(db, 'userBookmarks', userId);
             await deleteDoc(userDocRef);
 
-            // 그 다음 Auth에서 사용자를 삭제합니다.
+            // Auth에서 사용자 삭제 (이게 성공하면 onAuthStateChanged가 알아서 처리할 것임)
             await deleteUser(auth.currentUser);
-
-            toast.add({
-                severity: 'success',
-                summary: '완료',
-                detail: '회원 탈퇴가 완료되었습니다.',
-                life: 5000,
-            });
-            router.push('/');
         } catch (error) {
+            // 실패 시에는 토스트 메시지를 보여주는 것이 유용합니다.
             toast.add({
                 severity: 'error',
                 summary: '오류',
                 detail: '회원 탈퇴에 실패했습니다.',
                 life: 3000,
             });
+            console.error('회원 탈퇴 실패:', error);
         } finally {
+            // isLoading 상태는 여전히 관리해주는 것이 좋습니다.
             isLoading.value.delete = false;
         }
     };
@@ -357,19 +352,21 @@
             v-model:visible="isReauthDialogVisible"
             modal
             header="비밀번호 확인"
-            :style="{ width: '25rem' }">
+            :style="{ width: '20rem' }">
             <p class="mb-4">
                 계정 보호를 위해 현재 비밀번호를 다시 한번 입력해주세요.
             </p>
-            <div class="flex flex-col gap-2">
+            <InputGroup>
+                <InputGroupAddon>
+                    <i class="pi pi-key"></i>
+                </InputGroupAddon>
                 <Password
                     v-model="currentPassword"
                     placeholder="현재 비밀번호"
-                    class="w-full"
-                    :feedback="false"
                     toggleMask
+                    :feedback="false"
                     @keyup.enter="executeReauth" />
-            </div>
+            </InputGroup>
             <template #footer>
                 <Button
                     label="취소"
