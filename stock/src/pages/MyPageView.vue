@@ -123,22 +123,27 @@
 
     // 4. 이메일 주소 변경 실행
     const performUpdateEmail = async () => {
+        if (!newEmail.value) {
+            toast.add({
+                severity: 'warn',
+                summary: '경고',
+                detail: '새 이메일 주소를 입력해주세요.',
+                life: 3000,
+            });
+            return;
+        }
         isLoading.value.email = true;
         try {
             await updateEmail(auth.currentUser, newEmail.value);
-            toast.add({
-                severity: 'success',
-                summary: '성공',
-                detail: '이메일이 변경되었습니다. 다시 로그인해주세요.',
-                life: 5000,
-            });
-            await auth.signOut();
-            router.push('/login');
+            // 성공 시에는 onAuthStateChanged가 처리하도록 여기서 아무것도 하지 않습니다.
+            // Firebase가 이메일 변경 후 내부적으로 토큰을 만료시키고 로그아웃 상태로 만들 수 있습니다.
+            // 강제로 로그아웃을 호출하여 상태 변화를 확실하게 트리거합니다.
+            await signOut(auth);
         } catch (error) {
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '이메일 변경에 실패했습니다. (이미 사용 중인 이메일)',
+                detail: '이메일 변경에 실패했습니다. (이미 사용 중이거나 유효하지 않은 이메일)',
                 life: 3000,
             });
         } finally {

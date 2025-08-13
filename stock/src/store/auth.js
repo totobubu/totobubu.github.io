@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue';
-import { auth } from '../firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, signOut } from '../firebase'; // signOut import
+import { onAuthStateChanged } from 'firebase/auth';
 import {
     useFilterState,
     loadMyStocksFromFirestore,
@@ -11,10 +11,25 @@ export const user = ref(null);
 
 const { showMyStocksOnly, myStockSymbols } = useFilterState();
 
-// handleSignOut 함수는 Layout.vue에서 사용하므로 export를 유지합니다.
+
+// 로그아웃 원인을 저장할 상태 (객체로 관리)
+const signOutReason = ref({
+    byUser: false,
+    byEmailChange: false
+});
+
+// onAuthStateChanged는 그대로 두고, 로그아웃/이메일 변경 함수를 새로 만듭니다.
 export const handleSignOut = async () => {
+    signOutReason.value.byUser = true;
     await signOut(auth);
 };
+
+// MyPageView에서 이메일 변경 성공 후 호출될 함수
+export const handleSignOutAfterEmailChange = async () => {
+    signOutReason.value.byEmailChange = true;
+    await signOut(auth);
+};
+
 
 onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
