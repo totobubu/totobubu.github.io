@@ -6,6 +6,8 @@ import router from './router';
 import './store/auth';
 
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import { definePreset } from '@primeuix/themes';
 import Lara from '@primeuix/themes/lara';
 
@@ -111,5 +113,8 @@ app.use(PrimeVue, {
         },
     },
 });
+// 3. Toast와 Confirm 서비스를 앱에 명시적으로 등록합니다.
+app.use(ToastService);
+app.use(ConfirmationService);
 
 app.mount('#app');
