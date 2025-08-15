@@ -4,11 +4,13 @@
 
 #t-auth {
     height: 100%;
+    overflow-y: auto;
+}
+
+#t-profile-settings {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: auto;
-
     .p-card {
         height: 100%;
     }
