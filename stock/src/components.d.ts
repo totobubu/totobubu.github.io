@@ -21,6 +21,7 @@ declare module 'vue' {
     InputGroup: typeof import('primevue/inputgroup')['default']
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    Message: typeof import('primevue/message')['default']
     Password: typeof import('primevue/password')['default']
     RecoveryCalculator: typeof import('./components/calculators/RecoveryCalculator.vue')['default']
     ReinvestmentCalculator: typeof import('./components/calculators/ReinvestmentCalculator.vue')['default']

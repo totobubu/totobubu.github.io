@@ -1,9 +1,8 @@
-<!-- stock\src\pages\MyPageView.vue -->
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, onUnmounted } from 'vue';
     import { useRouter } from 'vue-router';
-    import { auth, db } from '../firebase';
-    import { user } from '../store/auth';
+    import { auth, db, signOut } from '../firebase';
+    import { isRecentlyAuthenticated, user } from '../store/auth';
     import {
         updateProfile,
         updateEmail,
@@ -11,6 +10,7 @@
         deleteUser,
         EmailAuthProvider,
         reauthenticateWithCredential,
+        sendEmailVerification,
     } from 'firebase/auth';
     import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 
@@ -20,20 +20,28 @@
     import InputText from 'primevue/inputtext';
     import Password from 'primevue/password';
     import Dialog from 'primevue/dialog';
-    // import Toast from 'primevue/toast';
-    // import ConfirmDialog from 'primevue/confirmdialog';
+    import Message from 'primevue/message';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
+    import Divider from 'primevue/divider';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
 
     const router = useRouter();
-    // const toast = useToast();
-    // const confirm = useConfirm();
+    const toast = useToast();
+    const confirm = useConfirm();
 
-    // 각 기능별 상태
+    // --- 상태 변수 정의 ---
+
+    // 폼 입력값
     const displayName = ref('');
+    const currentPassword = ref(''); // 사전 인증용 비밀번호
     const newEmail = ref('');
     const newPassword = ref('');
+
+    // 로딩 상태
     const isLoading = ref({
+        auth: false,
         displayName: false,
         email: false,
         password: false,
@@ -41,17 +49,51 @@
         delete: false,
     });
 
-    // 재인증 팝업 관련 상태
-    const isReauthDialogVisible = ref(false);
-    const currentPassword = ref('');
-    let actionAfterReauth = null;
+    // 에러 메시지
+    const authError = ref('');
 
-    // 마운트 시 현재 닉네임 가져오기
+    // 회원 탈퇴 확인용 Dialog
+    const isDeleteConfirmDialogVisible = ref(false);
+    const deleteConfirmPassword = ref('');
+
+    // --- 라이프사이클 훅 ---
     onMounted(() => {
         displayName.value = user.value?.displayName || '';
+        // 페이지에 들어올 때마다 인증 상태 초기화
+        isRecentlyAuthenticated.value = false;
     });
 
-    // 1. 닉네임 변경 로직
+    onUnmounted(() => {
+        // 페이지를 떠날 때도 인증 상태 초기화
+        isRecentlyAuthenticated.value = false;
+    });
+
+    // --- 함수 정의 ---
+
+    // 1. 사전 인증 처리
+    const handleReauth = async () => {
+        if (!currentPassword.value) {
+            authError.value = '비밀번호를 입력해주세요.';
+            return;
+        }
+        authError.value = '';
+        isLoading.value.auth = true;
+        const credential = EmailAuthProvider.credential(
+            user.value.email,
+            currentPassword.value
+        );
+        try {
+            await reauthenticateWithCredential(auth.currentUser, credential);
+            isRecentlyAuthenticated.value = true; // 인증 성공!
+        } catch (error) {
+            authError.value = '비밀번호가 올바르지 않습니다.';
+        } finally {
+            isLoading.value.auth = false;
+            currentPassword.value = '';
+        }
+    };
+
+    // 2. 닉네임 변경
     const handleUpdateDisplayName = async () => {
         if (!displayName.value.trim()) {
             toast.add({
@@ -87,63 +129,52 @@
         }
     };
 
-    // 2. 재인증 팝업 열기 (이메일, 비밀번호, 탈퇴 공용)
-    const openReauthDialog = (action) => {
-        actionAfterReauth = action;
-        isReauthDialogVisible.value = true;
-        currentPassword.value = '';
-    };
-
-    // 3. 재인증 실행 및 후속 작업 처리
-    const executeReauth = async () => {
-        if (!currentPassword.value) return;
-
-        const credential = EmailAuthProvider.credential(
-            auth.currentUser.email,
-            currentPassword.value
-        );
-
-        try {
-            await reauthenticateWithCredential(auth.currentUser, credential);
-            isReauthDialogVisible.value = false;
-
-            // 재인증 성공 후, 원래 하려던 작업 실행
-            if (actionAfterReauth === 'email') await performUpdateEmail();
-            if (actionAfterReauth === 'password') await performUpdatePassword();
-            if (actionAfterReauth === 'delete') await performDeleteUser();
-        } catch (error) {
-            toast.add({
-                severity: 'error',
-                summary: '인증 실패',
-                detail: '비밀번호가 올바르지 않습니다.',
-                life: 3000,
-            });
-        }
-    };
-
-    // 4. 이메일 주소 변경 실행
+    // 3. 이메일 주소 변경
     const performUpdateEmail = async () => {
-        if (!newEmail.value) {
-            toast.add({
-                severity: 'warn',
-                summary: '경고',
-                detail: '새 이메일 주소를 입력해주세요.',
-                life: 3000,
-            });
+        if (!auth.currentUser.emailVerified) {
+            confirm.require(/* ... 이메일 인증 안내 ... */);
             return;
         }
         isLoading.value.email = true;
         try {
             await updateEmail(auth.currentUser, newEmail.value);
-            // 성공 시에는 onAuthStateChanged가 처리하도록 여기서 아무것도 하지 않습니다.
-            // Firebase가 이메일 변경 후 내부적으로 토큰을 만료시키고 로그아웃 상태로 만들 수 있습니다.
-            // 강제로 로그아웃을 호출하여 상태 변화를 확실하게 트리거합니다.
+            toast.add({
+                severity: 'success',
+                summary: '성공',
+                detail: '이메일이 변경되었습니다. 다시 로그인해주세요.',
+                life: 5000,
+            });
             await signOut(auth);
+            router.push('/login');
         } catch (error) {
+            // --- 디버깅을 위해 이 부분을 수정 ---
+            console.error('이메일 변경 실패! 전체 에러 객체:', error); // 1. 전체 에러 객체 출력
+            console.error('Firebase 에러 코드:', error.code); // 2. 에러 코드만 따로 출력
+
+            let detailMessage = '이메일 변경에 실패했습니다.'; // 기본 메시지
+
+            // 3. 에러 코드에 따라 사용자에게 보여줄 메시지를 분기 처리
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    detailMessage = '유효하지 않은 이메일 형식입니다.';
+                    break;
+                case 'auth/email-already-in-use':
+                    detailMessage =
+                        '이미 다른 계정에서 사용 중인 이메일입니다.';
+                    break;
+                case 'auth/requires-recent-login':
+                    detailMessage =
+                        '보안을 위해 다시 로그인한 후 시도해주세요.';
+                    break;
+                default:
+                    // 기타 다른 에러들
+                    detailMessage = '알 수 없는 오류가 발생했습니다.';
+            }
+
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '이메일 변경에 실패했습니다. (이미 사용 중이거나 유효하지 않은 이메일)',
+                detail: detailMessage, // 4. 분기 처리된 메시지를 사용
                 life: 3000,
             });
         } finally {
@@ -151,8 +182,58 @@
         }
     };
 
+    // 이메일 주소 변경 카드 부분
+    const handleEmailChangeRequest = () => {
+        if (!auth.currentUser.emailVerified) {
+            // 현재 이메일이 인증되지 않았다면, 인증 메일을 다시 보낼지 물어봅니다.
+            confirm.require({
+                message:
+                    '이메일 주소를 변경하려면 먼저 현재 이메일의 인증이 필요합니다. 인증 메일을 다시 보내시겠습니까?',
+                header: '이메일 인증 필요',
+                acceptLabel: '메일 발송',
+                rejectLabel: '취소',
+                accept: async () => {
+                    try {
+                        await sendEmailVerification(auth.currentUser);
+                        toast.add({
+                            severity: 'success',
+                            summary: '성공',
+                            detail: '인증 메일이 발송되었습니다. 메일함을 확인해주세요.',
+                            life: 3000,
+                        });
+                    } catch (error) {
+                        toast.add({
+                            severity: 'error',
+                            summary: '오류',
+                            detail: '메일 발송에 실패했습니다.',
+                            life: 3000,
+                        });
+                    }
+                },
+            });
+        } else {
+            // 이메일이 이미 인증되었다면, 재인증 절차를 진행합니다.
+            openReauthDialog('email');
+        }
+    };
+
     // 5. 비밀번호 변경 실행
     const performUpdatePassword = async () => {
+        if (!newPassword.value || newPassword.value.length < 6) {
+            toast.add({
+                severity: 'warn',
+                summary: '경고',
+                detail: '새 비밀번호는 6자 이상이어야 합니다.',
+                life: 3000,
+            });
+            return; // 함수 실행 중단
+        }
+
+        // --- 2. 디버깅을 위한 콘솔 로그 추가 ---
+        console.log(
+            `비밀번호 변경 시도: "${newPassword.value}" (길이: ${newPassword.value.length})`
+        );
+
         isLoading.value.password = true;
         try {
             await updatePassword(auth.currentUser, newPassword.value);
@@ -162,12 +243,13 @@
                 detail: '비밀번호가 변경되었습니다.',
                 life: 3000,
             });
-            newPassword.value = '';
+            newPassword.value = ''; // 성공 시에만 입력 필드 초기화
         } catch (error) {
+            console.error('비밀번호 변경 실패! Firebase 에러:', error); // 에러 객체 전
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '비밀번호 변경에 실패했습니다. (6자 이상)',
+                detail: '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.',
                 life: 3000,
             });
         } finally {
@@ -175,7 +257,7 @@
         }
     };
 
-    // 6. 모든 북마크 초기화
+    // 5. 북마크 초기화
     const handleResetBookmarks = () => {
         confirm.require({
             message:
@@ -210,28 +292,38 @@
         });
     };
 
-    // ...
-    // 7. 회원 탈퇴 실행
+    // 6. 회원 탈퇴 (재인증 팝업 사용)
+    const handleDeleteUserRequest = () => {
+        // 사전 인증 상태와 별개로, 탈퇴는 매우 민감하므로 한번 더 확인하는 것이 좋습니다.
+        isDeleteConfirmDialogVisible.value = true;
+        deleteConfirmPassword.value = '';
+    };
+
     const performDeleteUser = async () => {
+        const credential = EmailAuthProvider.credential(
+            user.value.email,
+            deleteConfirmPassword.value
+        );
         isLoading.value.delete = true;
-        const userId = user.value.uid;
         try {
+            // 탈퇴 전 재인증
+            await reauthenticateWithCredential(auth.currentUser, credential);
+
+            const userId = user.value.uid;
             const userDocRef = doc(db, 'userBookmarks', userId);
             await deleteDoc(userDocRef);
-
-            // Auth에서 사용자 삭제 (이게 성공하면 onAuthStateChanged가 알아서 처리할 것임)
             await deleteUser(auth.currentUser);
+
+            isDeleteConfirmDialogVisible.value = false;
+            // onAuthStateChanged가 로그아웃 후 처리를 담당
         } catch (error) {
-            // 실패 시에는 토스트 메시지를 보여주는 것이 유용합니다.
             toast.add({
                 severity: 'error',
-                summary: '오류',
-                detail: '회원 탈퇴에 실패했습니다.',
+                summary: '인증 실패',
+                detail: '비밀번호가 올바르지 않습니다.',
                 life: 3000,
             });
-            console.error('회원 탈퇴 실패:', error);
         } finally {
-            // isLoading 상태는 여전히 관리해주는 것이 좋습니다.
             isLoading.value.delete = false;
         }
     };
@@ -253,9 +345,10 @@
             </template>
             <template #content>
                 <div class="flex flex-column gap-3">
+                    <!-- 닉네임 설정 -->
                     <InputGroup>
-                        <InputGroupAddon>
-                            <i class="pi pi-user"></i>
+                        <InputGroupAddon
+                            ><i class="pi pi-user"></i>
                         </InputGroupAddon>
                         <InputText
                             v-model="displayName"
@@ -268,116 +361,167 @@
                                 :loading="isLoading.displayName" />
                         </InputGroupAddon>
                     </InputGroup>
-                    현재 이메일: {{ user?.email }}
-                    <InputGroup>
-                        <InputGroupAddon> @ </InputGroupAddon>
-                        <InputText
-                            v-model="newEmail"
-                            type="email"
-                            placeholder="새 이메일 주소"
-                            class="flex-grow" />
-                        <InputGroupAddon>
-                            <Button
-                                label="변경"
-                                @click="openReauthDialog('email')"
-                                :loading="isLoading.email" />
-                        </InputGroupAddon>
-                    </InputGroup>
 
-                    <InputGroup>
-                        <InputGroupAddon>
-                            <i class="pi pi-key"></i>
-                        </InputGroupAddon>
-                        <Password
-                            v-model="newPassword"
-                            placeholder="새 비밀번호 (6자 이상)"
-                            :feedback="false"
-                            toggleMask />
-                        <InputGroupAddon>
-                            <Button
-                                label="변경"
-                                @click="openReauthDialog('password')"
-                                :loading="isLoading.password" />
-                        </InputGroupAddon>
-                    </InputGroup>
+                    <!-- 인증 전 UI -->
+                    <div
+                        v-if="!isRecentlyAuthenticated"
+                        class="flex flex-column gap-3">
+                        <InputGroup>
+                            <InputGroupAddon>
+                                <i class="pi pi-key"></i
+                            ></InputGroupAddon>
+                            <Password
+                                v-model="currentPassword"
+                                placeholder="현재 비밀번호"
+                                :feedback="false"
+                                toggleMask
+                                @keyup.enter="handleReauth" />
+                            <InputGroupAddon>
+                                <Button
+                                    label="인증"
+                                    @click="handleReauth"
+                                    :loading="isLoading.auth" />
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <Message
+                            v-if="authError"
+                            severity="error"
+                            :closable="false"
+                            >{{ authError }}</Message
+                        >
+                        <Message severity="info" :closable="false">
+                            정보 변경 및 탈퇴를 위해 비밀번호 인증이 필요합니다.
+                        </Message>
+                    </div>
 
-                    <Divider />
+                    <!-- 인증 후 UI -->
+                    <div v-else class="flex flex-column gap-3">
+                        <Message severity="success" :closable="false"
+                            >인증되었습니다. 이제 정보를 변경할 수
+                            있습니다.</Message
+                        >
+                        <Divider />
 
-                    <!-- 위험 구역 -->
-                    <Card class="border-red-500 border-2">
-                        <template #content>
-                            <div class="flex flex-column gap-2">
-                                <!-- 모든 북마크 초기화 -->
-                                <div
-                                    class="flex flex-col gap-2 align-items-center">
-                                    <span style="width: 10rem">
-                                        <Button
-                                            label="북마크 초기화"
-                                            severity="danger"
-                                            size="small"
-                                            @click="handleResetBookmarks"
-                                            class="w-full"
-                                            :loading="isLoading.reset" />
-                                    </span>
-                                    <p
-                                        class="text-sm text-surface-500 dark:text-surface-400">
-                                        현재 "내 종목"에 추가된 모든 북마크를
-                                        영구적으로 삭제합니다.
-                                    </p>
+                        <!-- 이메일 변경 -->
+                        <div>
+                            <p class="text-sm mb-2">
+                                현재 이메일: {{ user?.email }}
+                            </p>
+                            <InputGroup>
+                                <InputGroupAddon>@</InputGroupAddon>
+                                <InputText
+                                    v-model="newEmail"
+                                    type="email"
+                                    placeholder="새 이메일 주소"
+                                    class="flex-grow" />
+                                <InputGroupAddon>
+                                    <Button
+                                        label="변경"
+                                        @click="performUpdateEmail"
+                                        :loading="isLoading.email" />
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
+
+                        <!-- 비밀번호 변경 -->
+                        <InputGroup>
+                            <InputGroupAddon
+                                ><i class="pi pi-key"></i
+                            ></InputGroupAddon>
+                            <Password
+                                v-model="newPassword"
+                                placeholder="새 비밀번호 (6자 이상)"
+                                :feedback="false"
+                                toggleMask />
+                            <InputGroupAddon>
+                                <Button
+                                    label="변경"
+                                    @click="performUpdatePassword"
+                                    :loading="isLoading.password" />
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <Divider />
+
+                        <!-- 위험 구역 -->
+                        <Card class="border-red-500 border-2">
+                            <template #content>
+                                <div class="flex flex-column gap-2">
+                                    <!-- 모든 북마크 초기화 -->
+                                    <div
+                                        class="flex flex-col gap-2 align-items-center">
+                                        <span style="width: 10rem">
+                                            <Button
+                                                label="북마크 초기화"
+                                                severity="danger"
+                                                size="small"
+                                                @click="handleResetBookmarks"
+                                                class="w-full"
+                                                :loading="isLoading.reset" />
+                                        </span>
+                                        <p
+                                            class="text-sm text-surface-500 dark:text-surface-400">
+                                            모든 데이터를 영구적으로 초기화
+                                            합니다.
+                                        </p>
+                                    </div>
+                                    <hr class="border-red-500 my-2" />
+                                    <!-- 회원 탈퇴 -->
+                                    <div
+                                        class="flex flex-col gap-2 align-items-center">
+                                        <span style="width: 10rem">
+                                            <Button
+                                                label="회원 탈퇴"
+                                                severity="danger"
+                                                size="small"
+                                                @click="
+                                                    openReauthDialog('delete')
+                                                "
+                                                class="w-full"
+                                                :loading="isLoading.delete" />
+                                        </span>
+                                        <p
+                                            class="text-sm text-surface-500 dark:text-surface-400">
+                                            계정과 모든 데이터를 삭제합니다.
+                                        </p>
+                                    </div>
                                 </div>
-                                <hr class="border-red-500 my-2" />
-                                <!-- 회원 탈퇴 -->
-                                <div
-                                    class="flex flex-col gap-2 align-items-center">
-                                    <span style="width: 10rem">
-                                        <Button
-                                            label="회원 탈퇴"
-                                            severity="danger"
-                                            size="small"
-                                            @click="openReauthDialog('delete')"
-                                            class="w-full"
-                                            :loading="isLoading.delete" />
-                                    </span>
-                                    <p
-                                        class="text-sm text-surface-500 dark:text-surface-400">
-                                        계정과 관련된 모든 데이터를 영구적으로
-                                        삭제합니다. 이 작업은 되돌릴 수
-                                        없습니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </template>
-                    </Card>
+                            </template>
+                        </Card>
+                    </div>
                 </div>
             </template>
         </Card>
 
-        <!-- 재인증 팝업(Dialog) -->
+        <!-- 회원 탈퇴 확인 Dialog -->
         <Dialog
-            v-model:visible="isReauthDialogVisible"
+            v-model:visible="isDeleteConfirmDialogVisible"
             modal
-            header="비밀번호 확인"
-            :style="{ width: '20rem' }">
+            header="회원 탈퇴"
+            :style="{ width: '25rem' }">
             <p class="mb-4">
-                계정 보호를 위해 현재 비밀번호를 다시 한번 입력해주세요.
+                정말로 탈퇴하시겠습니까? 계정을 보호하기 위해 비밀번호를 다시
+                한번 입력해주세요.
             </p>
             <InputGroup>
-                <InputGroupAddon>
-                    <i class="pi pi-key"></i>
-                </InputGroupAddon>
+                <InputGroupAddon><i class="pi pi-key"></i></InputGroupAddon>
                 <Password
-                    v-model="currentPassword"
+                    v-model="deleteConfirmPassword"
                     placeholder="현재 비밀번호"
-                    toggleMask
+                    class="w-full"
                     :feedback="false"
-                    @keyup.enter="executeReauth" />
+                    toggleMask
+                    @keyup.enter="performDeleteUser" />
             </InputGroup>
             <template #footer>
                 <Button
                     label="취소"
                     severity="secondary"
-                    @click="isReauthDialogVisible = false" />
-                <Button label="확인" @click="executeReauth" />
+                    @click="isDeleteConfirmDialogVisible = false" />
+                <Button
+                    label="탈퇴 확인"
+                    severity="danger"
+                    @click="performDeleteUser"
+                    :loading="isLoading.delete" />
             </template>
         </Dialog>
     </div>

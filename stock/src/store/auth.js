@@ -8,6 +8,7 @@ import {
 } from '../composables/useFilterState';
 
 export const user = ref(null);
+export const isRecentlyAuthenticated = ref(false); // 새로운 상태 추가
 
 const { showMyStocksOnly, myStockSymbols } = useFilterState();
 
@@ -48,6 +49,7 @@ onAuthStateChanged(auth, async (firebaseUser) => {
         user.value = null;
         showMyStocksOnly.value = false;
         myStockSymbols.value = [];
+        isRecentlyAuthenticated.value = false; // 로그아웃 시 무조건 초기화
     }
 });
 
