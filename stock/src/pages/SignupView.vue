@@ -3,27 +3,39 @@
     import { auth } from '../firebase';
     import { createUserWithEmailAndPassword } from 'firebase/auth';
     import { useRouter } from 'vue-router';
-    import Message from 'primevue/message'; // Message 컴포넌트 import
+    import Message from 'primevue/message';
+    import { useToast } from 'primevue/usetoast'; // useToast import 추가
 
     const email = ref('');
     const password = ref('');
     const router = useRouter();
+    const toast = useToast(); // toast 인스턴스 생성
 
-    // 에러 메시지를 저장할 ref 추가
     const errorMessage = ref('');
+    const isLoading = ref(false); // 로딩 상태 추가
 
     const signUp = async () => {
         errorMessage.value = '';
+        isLoading.value = true; // 로딩 시작
         try {
             await createUserWithEmailAndPassword(
                 auth,
                 email.value,
                 password.value
             );
-            // alert('회원가입 성공! 로그인 페이지로 이동합니다.'); // alert 제거
 
-            // 로그인 페이지로 이동하면서, 회원가입을 통해 왔다는 표시를 남깁니다.
-            router.push('/login?from=signup');
+            // --- 성공 피드백 로직 추가 ---
+            toast.add({
+                severity: 'success',
+                summary: '회원가입 성공',
+                detail: '로그인 페이지로 이동합니다.',
+                life: 3000,
+            });
+
+            // Toast 메시지가 보일 시간을 주기 위해 약간의 딜레이 후 이동
+            setTimeout(() => {
+                router.push('/login?from=signup');
+            }, 1500); // 1.5초 후 이동
         } catch (err) {
             console.error('회원가입 실패:', err.code);
             // Firebase 에러 코드에 따라 사용자 친화적인 메시지 설정
@@ -33,9 +45,10 @@
                 errorMessage.value = '비밀번호는 6자리 이상이어야 합니다.';
             } else {
                 errorMessage.value = '회원가입 중 오류가 발생했습니다.';
+                isLoading.value = false; // 에러 발생 시 로딩 종료
             }
-            // alert('회원가입 실패: ' + err.message); // alert 제거
         }
+        // 성공 시에는 setTimeout 때문에 여기서 로딩을 끝내지 않습니다.
     };
 </script>
 
@@ -90,7 +103,11 @@
                 </Message>
 
                 <div class="flex flex-column gap-3 mt-3">
-                    <Button @click="signUp" label="회원가입" />
+                    <!-- 버튼에 로딩 상태 바인딩 -->
+                    <Button
+                        @click="signUp"
+                        label="회원가입"
+                        :loading="isLoading" />
                     <Button
                         label="로그인"
                         severity="secondary"
