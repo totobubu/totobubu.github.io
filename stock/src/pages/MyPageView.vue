@@ -5,13 +5,11 @@
     import { isRecentlyAuthenticated, user } from '../store/auth';
     import {
         updateProfile,
-        updateEmail,
         updatePassword,
         deleteUser,
         EmailAuthProvider,
         reauthenticateWithCredential,
-        sendEmailVerification,
-    } from 'firebase/auth';
+    } from 'firebase/auth'; // updateEmail, sendEmailVerification 제거
     import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 
     // PrimeVue 컴포넌트 및 서비스
@@ -36,14 +34,14 @@
     // 폼 입력값
     const displayName = ref('');
     const currentPassword = ref(''); // 사전 인증용 비밀번호
-    const newEmail = ref('');
     const newPassword = ref('');
+    // const newEmail = ref(''); // 제거
 
     // 로딩 상태
     const isLoading = ref({
         auth: false,
         displayName: false,
-        email: false,
+        // email: false, // 제거
         password: false,
         reset: false,
         delete: false,
@@ -59,12 +57,10 @@
     // --- 라이프사이클 훅 ---
     onMounted(() => {
         displayName.value = user.value?.displayName || '';
-        // 페이지에 들어올 때마다 인증 상태 초기화
         isRecentlyAuthenticated.value = false;
     });
 
     onUnmounted(() => {
-        // 페이지를 떠날 때도 인증 상태 초기화
         isRecentlyAuthenticated.value = false;
     });
 
@@ -84,7 +80,7 @@
         );
         try {
             await reauthenticateWithCredential(auth.currentUser, credential);
-            isRecentlyAuthenticated.value = true; // 인증 성공!
+            isRecentlyAuthenticated.value = true;
         } catch (error) {
             authError.value = '비밀번호가 올바르지 않습니다.';
         } finally {
@@ -95,6 +91,7 @@
 
     // 2. 닉네임 변경
     const handleUpdateDisplayName = async () => {
+        // ... 기존 닉네임 변경 로직 (변경 없음)
         if (!displayName.value.trim()) {
             toast.add({
                 severity: 'warn',
@@ -109,7 +106,6 @@
             await updateProfile(auth.currentUser, {
                 displayName: displayName.value,
             });
-            // user 스토어의 값도 수동으로 업데이트 해줍니다.
             if (user.value) user.value.displayName = displayName.value;
             toast.add({
                 severity: 'success',
@@ -129,96 +125,11 @@
         }
     };
 
-    // 3. 이메일 주소 변경
-    const performUpdateEmail = async () => {
-        if (!auth.currentUser.emailVerified) {
-            confirm.require(/* ... 이메일 인증 안내 ... */);
-            return;
-        }
-        isLoading.value.email = true;
-        try {
-            await updateEmail(auth.currentUser, newEmail.value);
-            toast.add({
-                severity: 'success',
-                summary: '성공',
-                detail: '이메일이 변경되었습니다. 다시 로그인해주세요.',
-                life: 5000,
-            });
-            await signOut(auth);
-            router.push('/login');
-        } catch (error) {
-            // --- 디버깅을 위해 이 부분을 수정 ---
-            console.error('이메일 변경 실패! 전체 에러 객체:', error); // 1. 전체 에러 객체 출력
-            console.error('Firebase 에러 코드:', error.code); // 2. 에러 코드만 따로 출력
+    // --- 이메일 변경 관련 함수 performUpdateEmail, handleEmailChangeRequest 모두 제거 ---
 
-            let detailMessage = '이메일 변경에 실패했습니다.'; // 기본 메시지
-
-            // 3. 에러 코드에 따라 사용자에게 보여줄 메시지를 분기 처리
-            switch (error.code) {
-                case 'auth/invalid-email':
-                    detailMessage = '유효하지 않은 이메일 형식입니다.';
-                    break;
-                case 'auth/email-already-in-use':
-                    detailMessage =
-                        '이미 다른 계정에서 사용 중인 이메일입니다.';
-                    break;
-                case 'auth/requires-recent-login':
-                    detailMessage =
-                        '보안을 위해 다시 로그인한 후 시도해주세요.';
-                    break;
-                default:
-                    // 기타 다른 에러들
-                    detailMessage = '알 수 없는 오류가 발생했습니다.';
-            }
-
-            toast.add({
-                severity: 'error',
-                summary: '오류',
-                detail: detailMessage, // 4. 분기 처리된 메시지를 사용
-                life: 3000,
-            });
-        } finally {
-            isLoading.value.email = false;
-        }
-    };
-
-    // 이메일 주소 변경 카드 부분
-    const handleEmailChangeRequest = () => {
-        if (!auth.currentUser.emailVerified) {
-            // 현재 이메일이 인증되지 않았다면, 인증 메일을 다시 보낼지 물어봅니다.
-            confirm.require({
-                message:
-                    '이메일 주소를 변경하려면 먼저 현재 이메일의 인증이 필요합니다. 인증 메일을 다시 보내시겠습니까?',
-                header: '이메일 인증 필요',
-                acceptLabel: '메일 발송',
-                rejectLabel: '취소',
-                accept: async () => {
-                    try {
-                        await sendEmailVerification(auth.currentUser);
-                        toast.add({
-                            severity: 'success',
-                            summary: '성공',
-                            detail: '인증 메일이 발송되었습니다. 메일함을 확인해주세요.',
-                            life: 3000,
-                        });
-                    } catch (error) {
-                        toast.add({
-                            severity: 'error',
-                            summary: '오류',
-                            detail: '메일 발송에 실패했습니다.',
-                            life: 3000,
-                        });
-                    }
-                },
-            });
-        } else {
-            // 이메일이 이미 인증되었다면, 재인증 절차를 진행합니다.
-            openReauthDialog('email');
-        }
-    };
-
-    // 5. 비밀번호 변경 실행
+    // 3. 비밀번호 변경 실행 (기존 5번 -> 3번)
     const performUpdatePassword = async () => {
+        // ... 기존 비밀번호 변경 로직 (변경 없음)
         if (!newPassword.value || newPassword.value.length < 6) {
             toast.add({
                 severity: 'warn',
@@ -226,14 +137,8 @@
                 detail: '새 비밀번호는 6자 이상이어야 합니다.',
                 life: 3000,
             });
-            return; // 함수 실행 중단
+            return;
         }
-
-        // --- 2. 디버깅을 위한 콘솔 로그 추가 ---
-        console.log(
-            `비밀번호 변경 시도: "${newPassword.value}" (길이: ${newPassword.value.length})`
-        );
-
         isLoading.value.password = true;
         try {
             await updatePassword(auth.currentUser, newPassword.value);
@@ -243,13 +148,12 @@
                 detail: '비밀번호가 변경되었습니다.',
                 life: 3000,
             });
-            newPassword.value = ''; // 성공 시에만 입력 필드 초기화
+            newPassword.value = '';
         } catch (error) {
-            console.error('비밀번호 변경 실패! Firebase 에러:', error); // 에러 객체 전
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.',
+                detail: '비밀번호 변경에 실패했습니다.',
                 life: 3000,
             });
         } finally {
@@ -257,7 +161,7 @@
         }
     };
 
-    // 5. 북마크 초기화
+    // 4. 북마크 초기화
     const handleResetBookmarks = () => {
         confirm.require({
             message:
@@ -292,9 +196,8 @@
         });
     };
 
-    // 6. 회원 탈퇴 (재인증 팝업 사용)
+    // 5. 회원 탈퇴
     const handleDeleteUserRequest = () => {
-        // 사전 인증 상태와 별개로, 탈퇴는 매우 민감하므로 한번 더 확인하는 것이 좋습니다.
         isDeleteConfirmDialogVisible.value = true;
         deleteConfirmPassword.value = '';
     };
@@ -347,8 +250,8 @@
                 <div class="flex flex-column gap-3">
                     <!-- 닉네임 설정 -->
                     <InputGroup>
-                        <InputGroupAddon
-                            ><i class="pi pi-user"></i>
+                        <InputGroupAddon>
+                            <i class="pi pi-user"/>
                         </InputGroupAddon>
                         <InputText
                             v-model="displayName"
@@ -361,6 +264,14 @@
                                 :loading="isLoading.displayName" />
                         </InputGroupAddon>
                     </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon>@</InputGroupAddon>
+                        <InputText
+                            type="email"
+                            :value="user?.email"
+                            disabled
+                            class="flex-grow" />
+                    </InputGroup>
 
                     <!-- 인증 전 UI -->
                     <div
@@ -368,8 +279,8 @@
                         class="flex flex-column gap-3">
                         <InputGroup>
                             <InputGroupAddon>
-                                <i class="pi pi-key"></i
-                            ></InputGroupAddon>
+                                <i class="pi pi-key"/>
+                            </InputGroupAddon>
                             <Password
                                 v-model="currentPassword"
                                 placeholder="현재 비밀번호"
@@ -402,27 +313,6 @@
                         >
                         <Divider />
 
-                        <!-- 이메일 변경 -->
-                        <div>
-                            <p class="text-sm mb-2">
-                                현재 이메일: {{ user?.email }}
-                            </p>
-                            <InputGroup>
-                                <InputGroupAddon>@</InputGroupAddon>
-                                <InputText
-                                    v-model="newEmail"
-                                    type="email"
-                                    placeholder="새 이메일 주소"
-                                    class="flex-grow" />
-                                <InputGroupAddon>
-                                    <Button
-                                        label="변경"
-                                        @click="performUpdateEmail"
-                                        :loading="isLoading.email" />
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </div>
-
                         <!-- 비밀번호 변경 -->
                         <InputGroup>
                             <InputGroupAddon
@@ -440,7 +330,6 @@
                                     :loading="isLoading.password" />
                             </InputGroupAddon>
                         </InputGroup>
-                        <Divider />
 
                         <!-- 위험 구역 -->
                         <Card class="border-red-500 border-2">

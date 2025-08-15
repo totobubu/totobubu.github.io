@@ -7,8 +7,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
 
     .p-card {
+        height: 100%;
     }
 
     .t-auth {
