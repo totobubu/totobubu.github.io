@@ -5,7 +5,7 @@
     import { auth, db, signOut } from '@/firebase'; // '../../firebase' -> '@/firebase'
     import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/auth'
     import {
-        updateProfile,
+        // updateProfile,
         updatePassword,
         deleteUser,
         EmailAuthProvider,
@@ -91,40 +91,40 @@
     };
 
     // 2. 닉네임 변경
-    const handleUpdateDisplayName = async () => {
-        // ... 기존 닉네임 변경 로직 (변경 없음)
-        if (!displayName.value.trim()) {
-            toast.add({
-                severity: 'warn',
-                summary: '경고',
-                detail: '닉네임을 입력해주세요.',
-                life: 3000,
-            });
-            return;
-        }
-        isLoading.value.displayName = true;
-        try {
-            await updateProfile(auth.currentUser, {
-                displayName: displayName.value,
-            });
-            if (user.value) user.value.displayName = displayName.value;
-            toast.add({
-                severity: 'success',
-                summary: '성공',
-                detail: '닉네임이 변경되었습니다.',
-                life: 3000,
-            });
-        } catch (error) {
-            toast.add({
-                severity: 'error',
-                summary: '오류',
-                detail: '닉네임 변경에 실패했습니다.',
-                life: 3000,
-            });
-        } finally {
-            isLoading.value.displayName = false;
-        }
-    };
+    // const handleUpdateDisplayName = async () => {
+    //     // ... 기존 닉네임 변경 로직 (변경 없음)
+    //     if (!displayName.value.trim()) {
+    //         toast.add({
+    //             severity: 'warn',
+    //             summary: '경고',
+    //             detail: '닉네임을 입력해주세요.',
+    //             life: 3000,
+    //         });
+    //         return;
+    //     }
+    //     isLoading.value.displayName = true;
+    //     try {
+    //         await updateProfile(auth.currentUser, {
+    //             displayName: displayName.value,
+    //         });
+    //         if (user.value) user.value.displayName = displayName.value;
+    //         toast.add({
+    //             severity: 'success',
+    //             summary: '성공',
+    //             detail: '닉네임이 변경되었습니다.',
+    //             life: 3000,
+    //         });
+    //     } catch (error) {
+    //         toast.add({
+    //             severity: 'error',
+    //             summary: '오류',
+    //             detail: '닉네임 변경에 실패했습니다.',
+    //             life: 3000,
+    //         });
+    //     } finally {
+    //         isLoading.value.displayName = false;
+    //     }
+    // };
 
     // --- 이메일 변경 관련 함수 performUpdateEmail, handleEmailChangeRequest 모두 제거 ---
 
@@ -250,7 +250,7 @@
             <template #content>
                 <div class="flex flex-column gap-3">
                     <!-- 닉네임 설정 -->
-                    <InputGroup>
+                    <!-- <InputGroup>
                         <InputGroupAddon>
                             <i class="pi pi-user" />
                         </InputGroupAddon>
@@ -264,7 +264,7 @@
                                 @click="handleUpdateDisplayName"
                                 :loading="isLoading.displayName" />
                         </InputGroupAddon>
-                    </InputGroup>
+                    </InputGroup> -->
                     <InputGroup>
                         <InputGroupAddon>@</InputGroupAddon>
                         <InputText

@@ -15,6 +15,7 @@
     defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
+         userBookmark: Object
     });
 
     const activeTab = ref('0');
@@ -58,7 +59,8 @@
             id="calculator-recovery">
             <RecoveryCalculator
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo" />
+                :tickerInfo="tickerInfo"
+                 :userBookmark="userBookmark" />
         </Drawer>
         <Drawer
             v-model:visible="visibleReinvestment"
@@ -72,7 +74,8 @@
             id="calculator-reinvestment">
             <ReinvestmentCalculator
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo" />
+                :tickerInfo="tickerInfo"
+                 :userBookmark="userBookmark" />
         </Drawer>
     </div>
 </template>

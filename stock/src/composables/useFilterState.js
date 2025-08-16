@@ -17,7 +17,7 @@ const filters = ref({
 const showMyStocksOnly = ref(false);
 
 // *** 핵심 수정 1: 변수 이름을 myBookmarks로 변경하고 초기값을 객체로 설정 ***
-const myBookmarks = ref({}); 
+const myBookmarks = ref({});
 
 // --- Firestore와 통신하는 헬퍼 함수들 ---
 
@@ -52,7 +52,7 @@ export const loadMyBookmarksFromFirestore = async (userId) => {
 // --- 핵심: toggleMyStock 함수 추가 ---
 const toggleMyStock = (symbol) => {
     if (!symbol) return;
-    
+
     if (myBookmarks.value[symbol]) {
         // 이미 북마크 되어있으면 -> 삭제
         delete myBookmarks.value[symbol];
@@ -67,6 +67,28 @@ const toggleMyStock = (symbol) => {
     }
 };
 
+// --- 핵심: 북마크 업데이트 함수 추가 ---
+const updateBookmarkDetails = (symbol, details) => {
+    if (!symbol || !details) return;
+
+    // 1. 먼저 해당 종목이 북마크에 있는지 확인합니다.
+    if (!myBookmarks.value[symbol]) {
+        // 북마크에 없다면, 먼저 기본 구조로 추가합니다 (toggleMyStock과 동일 로직)
+        myBookmarks.value[symbol] = {
+            avgPrice: 0,
+            quantity: 0,
+            accumulatedDividend: 0,
+            targetAsset: 0,
+        };
+    }
+
+    // 2. 전달받은 details 객체의 내용으로 기존 값을 덮어씁니다.
+    //    Object.assign을 사용하면, details에 포함된 키의 값만 업데이트됩니다.
+    //    예: details가 { avgPrice: 15 } 이면, quantity 등 다른 값은 유지됩니다.
+    myBookmarks.value[symbol] = { ...myBookmarks.value[symbol], ...details };
+    console.log(`${symbol} 북마크 업데이트:`, myBookmarks.value[symbol]);
+};
+
 // --- 최종적으로 상태와 함수를 내보내는 Composable 함수 ---
 export function useFilterState() {
     return {
@@ -77,5 +99,6 @@ export function useFilterState() {
         toggleShowMyStocksOnly: () => {
             showMyStocksOnly.value = !showMyStocksOnly.value;
         },
+        updateBookmarkDetails,
     };
 }

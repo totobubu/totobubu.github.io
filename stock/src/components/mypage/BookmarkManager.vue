@@ -59,14 +59,33 @@ const deleteBookmark = (symbol) => {
     }
 };
 
+// --- 숫자 포맷팅 헬퍼 함수 추가 ---
+const formatCurrency = (value, currency = 'USD') => {
+    if (value === null || value === undefined || isNaN(value)) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency,
+        }).format(0);
+    }
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+    }).format(value);
+};
+
+const formatNumber = (value) => {
+    if (value === null || value === undefined || isNaN(value)) {
+        return '0';
+    }
+    return new Intl.NumberFormat().format(value);
+};
+
+
 </script>
 
 <template>
     <div id="t-bookmark">
-        <p class="mb-4 text-surface-500 dark:text-surface-400">
-            북마크된 종목의 정보를 관리합니다. 각 항목을 클릭하여 값을 수정한 후 Enter 키를 누르거나 체크 아이콘을 클릭하여 저장하세요.
-        </p>
-        <DataTable 
+      <DataTable 
             :value="bookmarkedStocks" 
             editMode="row" 
             dataKey="symbol"
@@ -74,35 +93,51 @@ const deleteBookmark = (symbol) => {
             @row-edit-save="onRowEditSave"
             class="p-datatable-sm"
         >
-            <Column field="longName" header="종목명"></Column>
+            <Column field="longName" header="종목명" style="width: 25%"></Column>
             
-            <Column field="avgPrice" header="평단가">
+            <!-- 평단가 컬럼 -->
+            <Column field="avgPrice" header="평단가" style="width: 15%">
+                <template #body="{ data, field }">
+                    {{ formatCurrency(data[field], 'USD') }}
+                </template>
                 <template #editor="{ data, field }">
-                    <InputNumber v-model="data[field]" mode="decimal" :minFractionDigits="2" />
+                    <InputNumber v-model="data[field]" mode="currency" currency="USD" locale="en-US" />
                 </template>
             </Column>
 
-            <Column field="quantity" header="수량">
+            <!-- 수량 컬럼 -->
+            <Column field="quantity" header="수량" style="width: 15%">
+                 <template #body="{ data, field }">
+                    {{ formatNumber(data[field]) }} 주
+                </template>
                  <template #editor="{ data, field }">
-                    <InputNumber v-model="data[field]" />
+                    <InputNumber v-model="data[field]" suffix=" 주" />
                 </template>
             </Column>
 
-            <Column field="accumulatedDividend" header="누적배당금">
+            <!-- 누적배당금 컬럼 -->
+            <Column field="accumulatedDividend" header="누적배당금" style="width: 15%">
+                 <template #body="{ data, field }">
+                    {{ formatCurrency(data[field], 'USD') }}
+                </template>
                  <template #editor="{ data, field }">
-                    <InputNumber v-model="data[field]" mode="decimal" :minFractionDigits="2" />
+                    <InputNumber v-model="data[field]" mode="currency" currency="USD" locale="en-US" />
                 </template>
             </Column>
 
-            <Column field="targetAsset" header="목표 자산">
+            <!-- 목표 자산 컬럼 -->
+            <Column field="targetAsset" header="목표 자산" style="width: 15%">
+                 <template #body="{ data, field }">
+                    {{ formatCurrency(data[field], 'USD') }}
+                </template>
                  <template #editor="{ data, field }">
-                    <InputNumber v-model="data[field]" />
+                    <InputNumber v-model="data[field]" mode="currency" currency="USD" locale="en-US" />
                 </template>
             </Column>
 
-             <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
+            <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
             
-            <Column bodyStyle="text-align:center">
+            <Column bodyStyle="text-align:center" style="width: 5%">
                  <template #body="slotProps">
                     <Button icon="pi pi-trash" severity="danger" text @click="deleteBookmark(slotProps.data.symbol)" />
                 </template>

@@ -14,10 +14,15 @@
     import Chart from 'primevue/chart';
     import { parseYYMMDD } from '@/utils/date.js';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useFilterState } from '@/composables/useFilterState';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
 
     const { deviceType } = useBreakpoint();
-    const props = defineProps({ dividendHistory: Array, tickerInfo: Object });
+    const props = defineProps({
+        dividendHistory: Array,
+        tickerInfo: Object,
+        userBookmark: Object,
+    });
 
     const formatMonthsToYears = (totalMonths) => {
         if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
@@ -26,6 +31,15 @@
         const months = Math.round(totalMonths % 12);
         return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
     };
+
+    const { updateBookmarkDetails } = useFilterState();
+
+    // 2. 각 input에 바인딩될 ref를 선언하고, prop 값으로 초기화
+    const avgPrice = ref(props.userBookmark?.avgPrice || 0);
+    const quantity = ref(props.userBookmark?.quantity || 0);
+    const accumulatedDividend = ref(
+        props.userBookmark?.accumulatedDividend || 0
+    );
 
     const myAveragePrice = ref(0);
     const myShares = ref(1);
@@ -81,6 +95,29 @@
                 totalInvestment.value) *
             100
         );
+    });
+
+    // 3. 각 ref의 변경을 감시하는 watch 함수 추가
+    watch(avgPrice, (newValue) => {
+        // 현재 티커 심볼을 props.tickerInfo.Symbol 에서 가져옵니다.
+        const symbol = props.tickerInfo?.Symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { avgPrice: newValue });
+        }
+    });
+
+    watch(quantity, (newValue) => {
+        const symbol = props.tickerInfo?.Symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { quantity: newValue });
+        }
+    });
+
+    watch(accumulatedDividend, (newValue) => {
+        const symbol = props.tickerInfo?.Symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { accumulatedDividend: newValue });
+        }
     });
 
     watch(recoveredAmount, (newAmount) => {
@@ -208,7 +245,7 @@
                 :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
                 <IftaLabel>
                     <InputNumber
-                        v-model="myAveragePrice"
+                        v-model="avgPrice"
                         mode="currency"
                         currency="USD"
                         locale="en-US"
@@ -217,7 +254,7 @@
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
-                        v-model="myShares"
+                        v-model="quantity"
                         suffix=" 주"
                         min="1"
                         inputId="myShares" />
@@ -244,15 +281,10 @@
                         locale="en-US"
                         disabled
                         inputId="currentValue" />
-                    <label for="currentValue"
-                        >현재가치
-                        
-                    </label>
+                    <label for="currentValue">현재가치 </label>
                 </FloatLabel>
                 <Tag
-                    :severity="
-                        profitLossRate >= 0 ? 'success' : 'danger'
-                    "
+                    :severity="profitLossRate >= 0 ? 'success' : 'danger'"
                     :value="`${profitLossRate.toFixed(2)}%`" />
             </InputGroup>
             <div class="toto-already">
@@ -269,7 +301,7 @@
                     </InputGroupAddon>
                     <FloatLabel variant="on">
                         <InputNumber
-                            v-model="recoveredAmount"
+                            v-model="accumulatedDividend"
                             placeholder="누적 배당금"
                             mode="currency"
                             currency="USD"
