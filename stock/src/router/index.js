@@ -3,7 +3,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import StockView from '../pages/StockView.vue'; // 개별 주식 정보를 보여줄 컴포넌트
-import SignUpView from '../pages/SignUpView.vue';
+import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
 import MyPageView from '../pages/MyPageView.vue';
