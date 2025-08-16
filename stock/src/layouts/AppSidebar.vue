@@ -156,8 +156,9 @@
             }
 
             // 3. 모든 심볼을 한번에 API에 요청하여 실시간 데이터를 가져옵니다.
-            // 참고: 티커가 수백 개 이상으로 많아지면, 100개씩 끊어서 여러 번 요청하는 것이 더 안정적입니다.
-            const apiUrl = `/api/getStockData?tickers=${allSymbols.join(',')}`;
+            const baseUrl = import.meta.env.VITE_API_BASE_URL || ''; // 환경 변수에서 API 기본 주소 가져오기
+            const apiUrl = `${baseUrl}/api/getStockData?tickers=${allSymbols.join(',')}`; // 전체 URL 생성
+
             const apiResponse = await fetch(apiUrl);
             if (!apiResponse.ok)
                 throw new Error('Failed to fetch live stock data from API');
