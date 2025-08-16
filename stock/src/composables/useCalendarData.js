@@ -1,14 +1,13 @@
+// \composables\useCalendarData.js
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
+import { user } from '../store/auth'; // user 상태 추가
 
 // Composable 함수 밖에서 상태를 관리하여 싱글턴처럼 작동하도록 합니다.
 const allDividendData = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
-
-// "내 종목" 목록. 이상적으로는 이것도 별도의 스토어에서 관리해야 합니다.
-const myStockSymbols = ref(['YMAX', 'YMAG', 'QDTE']); // AppSidebar.vue와 동일하게 유지
 
 // 데이터 로딩은 한 번만 실행되도록
 let isDataLoaded = false;
@@ -96,22 +95,19 @@ const loadAllData = async () => {
 };
 
 export function useCalendarData() {
-    // 이제 myStockSymbols도 전역 스토어에서 가져옵니다.
-    const { showMyStocksOnly, myStockSymbols } = useFilterState();
+    const { showMyStocksOnly, myBookmarks } = useFilterState();
 
-    // 달력에 표시될 데이터를 계산하는 computed 속성
     const dividendsByDate = computed(() => {
         let sourceData = allDividendData.value;
 
-        // "내 종목만 보기"가 활성화된 경우, 데이터 소스를 필터링합니다.
-        if (showMyStocksOnly.value) {
-            sourceData = allDividendData.value.filter((div) =>
-                myStockSymbols.value.includes(div.ticker)
+        if (showMyStocksOnly.value && user.value) {
+            sourceData = allDividendData.value.filter(
+                (div) => myBookmarks.value[div.ticker]
             );
         }
 
-        // 날짜별로 그룹화합니다.
         const grouped = {};
+
         sourceData.forEach((div) => {
             if (!grouped[div.date]) {
                 grouped[div.date] = [];

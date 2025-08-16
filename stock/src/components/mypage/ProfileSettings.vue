@@ -2,8 +2,8 @@
 <script setup>
     import { ref, onMounted, onUnmounted } from 'vue';
     import { useRouter } from 'vue-router';
-import { auth, db, signOut } from '@/firebase'; // '../../firebase' -> '@/firebase'
-import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/auth'
+    import { auth, db, signOut } from '@/firebase'; // '../../firebase' -> '@/firebase'
+    import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/auth'
     import {
         updateProfile,
         updatePassword,
@@ -174,9 +174,9 @@ import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/au
             accept: async () => {
                 isLoading.value.reset = true;
                 try {
-                    // Firestore의 'userBookmarks' 문서 내용을 빈 배열로 덮어씁니다.
                     const userDocRef = doc(db, 'userBookmarks', user.value.uid);
-                    await setDoc(userDocRef, { symbols: [] });
+                    // *** 핵심 수정: 빈 객체로 덮어씁니다. ***
+                    await setDoc(userDocRef, { bookmarks: {} });
                     toast.add({
                         severity: 'info',
                         summary: '완료',
@@ -252,7 +252,7 @@ import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/au
                     <!-- 닉네임 설정 -->
                     <InputGroup>
                         <InputGroupAddon>
-                            <i class="pi pi-user"/>
+                            <i class="pi pi-user" />
                         </InputGroupAddon>
                         <InputText
                             v-model="displayName"
@@ -280,7 +280,7 @@ import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/au
                         class="flex flex-column gap-3">
                         <InputGroup>
                             <InputGroupAddon>
-                                <i class="pi pi-key"/>
+                                <i class="pi pi-key" />
                             </InputGroupAddon>
                             <Password
                                 v-model="currentPassword"
