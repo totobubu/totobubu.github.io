@@ -9,7 +9,7 @@ import AssetManager from '@/components/mypage/AssetManager.vue';
 </script>
 
 <template>
-    <div id="t-auth">
+    <div id="t-mypage">
         <TabView>
             <TabPanel header="북마크 관리">
                 <BookmarkManager />

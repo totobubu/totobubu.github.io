@@ -3,7 +3,6 @@
     import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
     import { joinURL } from 'ufo';
-    import { parseYYMMDD } from '@/utils/date.js';
 
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
@@ -23,17 +22,16 @@
     const error = ref(null);
     const selectedTicker = ref(null);
 
-    // 전역 스토어에서 필요한 모든 것을 가져옵니다.
     const {
         filters,
         showMyStocksOnly,
         toggleShowMyStocksOnly,
-        myStockSymbols, // 전역 '내 종목' 목록
-        toggleMyStock, // 전역 토글 함수
+        myBookmarks,
+        toggleMyStock,
     } = useFilterState();
-
     const { deviceType, isMobile } = useBreakpoint();
 
+    // --- UI 관련 computed 속성 (변경 없음) ---
     const tableScrollHeight = computed(() => {
         const topbarHeight = 60;
         if (isMobile.value) {
@@ -42,28 +40,30 @@
             return `calc(100vh - ${topbarHeight}px - 2rem)`;
         }
     });
-
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
-
     const dialogsVisible = ref({
         company: false,
         frequency: false,
         group: false,
     });
-
     const companies = ref([]);
     const frequencies = ref([]);
     const groups = ref([]);
 
-    // '내 종목' 여부를 확인하는 computed 속성 추가
-    // const filteredEtfList = computed(() => {
-    //     if (showMyStocksOnly.value) {
-    //         return etfList.value.filter((item) =>
-    //             myStockSymbols.value.includes(item.symbol)
-    //         );
-    //     }
-    //     return etfList.value;
-    // });
+    // --- UI 이벤트 핸들러 (변경 없음) ---
+
+    // --- 핵심: 필터링된 목록을 계산하는 computed 속성 추가 ---
+    const filteredEtfList = computed(() => {
+        // "내 종목만 보기"가 켜져 있고, 로그인 상태일 때
+        if (showMyStocksOnly.value && user.value) {
+            // 전체 목록(etfList)에서 내 북마크(myBookmarks)에 포함된 종목만 필터링
+            return etfList.value.filter(
+                (item) => myBookmarks.value[item.symbol]
+            );
+        }
+        // 그 외의 경우(토글이 꺼져있거나 로그아웃 상태)에는 전체 목록을 반환
+        return etfList.value;
+    });
 
     const handleBookmarkToggle = () => {
         // 로그인 상태일 때만 작동하도록 방어 코드 추가
@@ -74,7 +74,7 @@
             return;
         }
         toggleShowMyStocksOnly();
-        selectedTicker.value = null;
+        // selectedTicker.value = null;
     };
 
     // 개별 북마크 아이콘 클릭 시 호출될 함수
@@ -88,76 +88,6 @@
             router.push('/login');
         }
     };
-
-    onMounted(async () => {
-        try {
-            const url = joinURL(import.meta.env.BASE_URL, 'nav.json');
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Navigation data not found');
-            const rawData = await response.json();
-
-            const tickerDetailsPromises = rawData.nav.map(async (item) => {
-                try {
-                    const res = await fetch(
-                        joinURL(
-                            import.meta.env.BASE_URL,
-                            `data/${item.symbol.toLowerCase()}.json`
-                        )
-                    );
-                    if (!res.ok) return { ...item, yield: 'N/A' };
-                    const detailData = await res.json();
-                    return {
-                        ...item,
-                        yield: detailData.tickerInfo?.Yield || 'N/A',
-                    };
-                } catch (e) {
-                    return { ...item, yield: 'N/A' };
-                }
-            });
-
-            const tickersWithYield = await Promise.all(tickerDetailsPromises);
-
-            const dayOrder = {
-                월: 1,
-                화: 2,
-                수: 3,
-                목: 4,
-                금: 5,
-                A: 6,
-                B: 7,
-                C: 8,
-                D: 9,
-            };
-
-            etfList.value = tickersWithYield.map((item) => ({
-                ...item,
-                groupOrder: dayOrder[item.group] ?? 999,
-            }));
-
-            companies.value = [
-                ...new Set(etfList.value.map((item) => item.company)),
-            ];
-            frequencies.value = [
-                ...new Set(etfList.value.map((item) => item.frequency)),
-            ];
-            groups.value = [
-                ...new Set(
-                    etfList.value.map((item) => item.group).filter((g) => g)
-                ),
-            ];
-
-            const currentTickerSymbol = route.params.ticker?.toUpperCase();
-            if (currentTickerSymbol) {
-                selectedTicker.value = etfList.value.find(
-                    (t) => t.symbol === currentTickerSymbol
-                );
-            }
-        } catch (err) {
-            error.value = 'ETF 목록을 불러오는 데 실패했습니다.';
-        } finally {
-            isLoading.value = false;
-        }
-    });
 
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
@@ -179,7 +109,6 @@
         }
         dialogsVisible.value[filterName] = false;
     };
-
     const getGroupSeverity = (group) => {
         switch (group) {
             case 'A':
@@ -204,6 +133,93 @@
                 return 'secondary';
         }
     };
+
+    // --- 데이터 로딩 로직 (핵심 변경) ---
+    onMounted(async () => {
+        isLoading.value = true;
+        error.value = null;
+        try {
+            // 1. 기본 정보(이름, 회사, 그룹 등)는 nav.json에서 먼저 로드합니다.
+            const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
+            const navResponse = await fetch(navUrl);
+            if (!navResponse.ok) throw new Error('Navigation data not found');
+            const navData = await navResponse.json();
+
+            // 2. nav.json에 있는 모든 티커 심볼 목록을 추출합니다.
+            const allSymbols = navData.nav
+                .map((item) => item.symbol)
+                .filter(Boolean);
+
+            if (allSymbols.length === 0) {
+                etfList.value = [];
+                throw new Error('No symbols found in nav.json');
+            }
+
+            // 3. 모든 심볼을 한번에 API에 요청하여 실시간 데이터를 가져옵니다.
+            // 참고: 티커가 수백 개 이상으로 많아지면, 100개씩 끊어서 여러 번 요청하는 것이 더 안정적입니다.
+            const apiUrl = `/api/getStockData?tickers=${allSymbols.join(',')}`;
+            const apiResponse = await fetch(apiUrl);
+            if (!apiResponse.ok)
+                throw new Error('Failed to fetch live stock data from API');
+            const liveDataArray = await apiResponse.json();
+
+            // 실시간 데이터를 쉽게 찾을 수 있도록 Map 형태로 변환합니다. (성능 향상)
+            const liveDataMap = new Map(
+                liveDataArray.map((item) => [item.symbol, item])
+            );
+
+            // 4. 기본 정보(nav.json)와 실시간 데이터(API)를 합칩니다.
+            const dayOrder = {
+                월: 1,
+                화: 2,
+                수: 3,
+                목: 4,
+                금: 5,
+                A: 6,
+                B: 7,
+                C: 8,
+                D: 9,
+            };
+
+            etfList.value = navData.nav.map((item) => {
+                const liveData = liveDataMap.get(item.symbol);
+                return {
+                    ...item, // symbol, longName, company, frequency, group 등
+                    yield: liveData?.regularMarketPrice
+                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%` // 예시: 등락률을 표시
+                        : 'N/A',
+                    price: liveData?.regularMarketPrice || 'N/A', // 현재가 정보 추가
+                    groupOrder: dayOrder[item.group] ?? 999,
+                };
+            });
+
+            // 5. 필터용 목록을 생성합니다. (기존과 동일)
+            companies.value = [
+                ...new Set(etfList.value.map((item) => item.company)),
+            ];
+            frequencies.value = [
+                ...new Set(etfList.value.map((item) => item.frequency)),
+            ];
+            groups.value = [
+                ...new Set(
+                    etfList.value.map((item) => item.group).filter((g) => g)
+                ),
+            ];
+
+            // 6. 현재 경로에 해당하는 티커를 선택 상태로 만듭니다. (기존과 동일)
+            const currentTickerSymbol = route.params.ticker?.toUpperCase();
+            if (currentTickerSymbol) {
+                selectedTicker.value = etfList.value.find(
+                    (t) => t.symbol === currentTickerSymbol
+                );
+            }
+        } catch (err) {
+            console.error(err);
+            error.value = 'ETF 목록을 불러오는 데 실패했습니다.';
+        } finally {
+            isLoading.value = false;
+        }
+    });
 </script>
 
 <template>
@@ -216,7 +232,7 @@
         <DataTable
             v-else
             id="toto-search-datatable"
-            :value="etfList"
+            :value="filteredEtfList"
             v-model:filters="filters"
             v-model:selection="selectedTicker"
             dataKey="symbol"
@@ -252,11 +268,10 @@
                         aria-label="내 종목만 보기" />
                 </template>
                 <template #body="{ data }">
-                    <!-- 개별 종목 북마크 아이콘에도 .stop을 추가합니다. -->
                     <i
                         class="pi"
                         :class="
-                            user && myStockSymbols.includes(data.symbol)
+                            user && myBookmarks[data.symbol]
                                 ? 'pi-bookmark-fill text-primary'
                                 : 'pi-bookmark'
                         "

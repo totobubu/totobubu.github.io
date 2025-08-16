@@ -1,3 +1,4 @@
+// \composables\useFilterState.js
 import { ref } from 'vue';
 import { FilterMatchMode } from '@primevue/core/api';
 import { db } from '../firebase';
@@ -15,57 +16,63 @@ const filters = ref({
 
 const showMyStocksOnly = ref(false);
 
-const myStockSymbols = ref([]);
+// *** 핵심 수정 1: 변수 이름을 myBookmarks로 변경하고 초기값을 객체로 설정 ***
+const myBookmarks = ref({}); 
 
 // --- Firestore와 통신하는 헬퍼 함수들 ---
-// 이 함수들은 다른 파일(auth.js)에서 사용할 것이므로 export 해줍니다.
 
-export const saveMyStocksToFirestore = async (userId, stocks) => {
+// *** 핵심 수정 2: 함수 이름이 'saveMyBookmarksToFirestore'가 맞는지 확인 ***
+export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
-        await setDoc(userDocRef, { symbols: stocks });
+        await setDoc(userDocRef, { bookmarks: bookmarks });
     } catch (error) {
         console.error('Firestore에 북마크 저장 실패:', error);
     }
 };
 
-export const loadMyStocksFromFirestore = async (userId) => {
-    if (!userId) return [];
+// *** 핵심 수정 3: 함수 이름이 'loadMyBookmarksFromFirestore'가 맞는지 확인 ***
+export const loadMyBookmarksFromFirestore = async (userId) => {
+    if (!userId) return {};
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
         const docSnap = await getDoc(userDocRef);
         if (docSnap.exists()) {
-            return docSnap.data().symbols || [];
+            return docSnap.data().bookmarks || {};
         }
-        return [];
+        return {};
     } catch (error) {
         console.error('Firestore에서 북마크 로드 실패:', error);
-        return [];
+        return {}; // 에러 시 빈 객체 반환
     }
 };
 
 // --- 상태를 직접 변경하는 함수 ---
-// 이 함수는 useFilterState()를 통해 컴포넌트에서 사용됩니다.
-
+// --- 핵심: toggleMyStock 함수 추가 ---
 const toggleMyStock = (symbol) => {
     if (!symbol) return;
-    const index = myStockSymbols.value.indexOf(symbol);
-    if (index === -1) {
-        myStockSymbols.value.push(symbol);
+    
+    if (myBookmarks.value[symbol]) {
+        // 이미 북마크 되어있으면 -> 삭제
+        delete myBookmarks.value[symbol];
     } else {
-        myStockSymbols.value.splice(index, 1);
+        // 북마크 안 되어있으면 -> 기본 데이터 구조로 추가
+        myBookmarks.value[symbol] = {
+            avgPrice: 0,
+            quantity: 0,
+            accumulatedDividend: 0,
+            targetAsset: 0,
+        };
     }
 };
 
 // --- 최종적으로 상태와 함수를 내보내는 Composable 함수 ---
-// 이 함수가 이 파일의 유일한 기본 export 입니다.
-
 export function useFilterState() {
     return {
         filters,
         showMyStocksOnly,
-        myStockSymbols,
+        myBookmarks,
         toggleMyStock,
         toggleShowMyStocksOnly: () => {
             showMyStocksOnly.value = !showMyStocksOnly.value;
