@@ -4,6 +4,7 @@
     import { useStockData } from '@/composables/useStockData';
     import { useStockChart } from '@/composables/useStockChart';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useFilterState } from '@/composables/useFilterState';
     import { parseYYMMDD } from '@/utils/date.js';
     import StockHeader from '@/components/StockHeader.vue';
     import StockChartCard from '@/components/StockChartCard.vue';
@@ -19,6 +20,7 @@
 
     const { tickerInfo, dividendHistory, isLoading, error, fetchData } =
         useStockData();
+    const { myBookmarks } = useFilterState();
     const {
         chartData,
         chartOptions,
@@ -31,6 +33,11 @@
         isPriceChartMode,
         selectedTimeRange
     );
+
+    const currentUserBookmark = computed(() => {
+    const currentTicker = route.params.ticker.toUpperCase();
+    return myBookmarks.value[currentTicker] || null; // 없으면 null 반환
+});
 
     const generateDynamicTimeRangeOptions = () => {
         if (dividendHistory.value.length === 0) return;
@@ -154,7 +161,8 @@
                 v-model:selectedTimeRange="selectedTimeRange" />
             <StockCalculators
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo" />
+                :tickerInfo="tickerInfo" 
+                 :userBookmark="currentUserBookmark"/>
 
             <StockHistoryPanel
                 :history="dividendHistory"

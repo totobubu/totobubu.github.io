@@ -1,119 +1,38 @@
-import { ref, computed, watch } from 'vue';
+// \composables\useCalendarData.js
+import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
+import { useFilterState } from './useFilterState';
+import { user } from '../store/auth'; // user 상태 추가
 
-const STORAGE_KEY = 'selectedCalendarTickers';
-
-const allTickers = ref([]);
-const groupedTickers = ref([]);
+// Composable 함수 밖에서 상태를 관리하여 싱글턴처럼 작동하도록 합니다.
 const allDividendData = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
-const selectedTickers = ref([]);
 
-watch(
-    selectedTickers,
-    (newSelection) => {
-        if (newSelection) {
-            const symbolsToSave = newSelection.map((ticker) => ticker.symbol);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(symbolsToSave));
-        }
-    },
-    { deep: true }
-);
-
-const dividendsByDate = computed(() => {
-    if (!Array.isArray(selectedTickers.value)) return {};
-
-    const masterData = allDividendData.value;
-    const selectedSymbols = selectedTickers.value
-        .filter((t) => t && t.symbol)
-        .map((t) => t.symbol.toUpperCase());
-
-    if (masterData.length === 0 || selectedSymbols.length === 0) return {};
-
-    const filteredDividends = masterData.filter((div) =>
-        selectedSymbols.includes(div.ticker)
-    );
-
-    const groupedByDate = {};
-    filteredDividends.forEach((div) => {
-        if (!groupedByDate[div.date]) {
-            groupedByDate[div.date] = [];
-        }
-        groupedByDate[div.date].push(div);
-    });
-
-    const processed = {};
-    for (const date in groupedByDate) {
-        const entriesForDay = groupedByDate[date];
-        const uniqueEntries = new Map();
-
-        entriesForDay.forEach((entry) => {
-            const existing = uniqueEntries.get(entry.ticker);
-            if (
-                !existing ||
-                (entry.amount !== null && existing.amount === null)
-            ) {
-                uniqueEntries.set(entry.ticker, {
-                    ticker: entry.ticker,
-                    amount: entry.amount,
-                });
-            }
-        });
-
-        if (uniqueEntries.size > 0) {
-            processed[date] = { entries: Array.from(uniqueEntries.values()) };
-        }
-    }
-
-    return processed;
-});
+// 데이터 로딩은 한 번만 실행되도록
+let isDataLoaded = false;
 
 const loadAllData = async () => {
+    // 이미 로드했다면 다시 실행하지 않음
+    if (isDataLoaded) return;
+
     isLoading.value = true;
     error.value = null;
+
     try {
-        const navResponse = await fetch(
+        // 모든 티커의 배당 정보를 가져옵니다.
+        const tickerNamesResponse = await fetch(
             joinURL(import.meta.env.BASE_URL, 'nav.json')
         );
-        const navData = await navResponse.json();
-
-        allTickers.value = navData.nav.map((item) => ({
-            symbol: item.symbol,
-            longName: item.longName || item.symbol,
-            company: item.company || '기타',
-            frequency: item.frequency,
-            group: item.group,
-        }));
-
-        const groups = allTickers.value.reduce((acc, ticker) => {
-            const company = ticker.company;
-            if (!acc[company]) acc[company] = [];
-            acc[company].push(ticker);
-            return acc;
-        }, {});
-
-        groupedTickers.value = Object.keys(groups).map((company) => ({
-            company: company,
-            items: groups[company],
-        }));
-
-        const savedTickersJSON = localStorage.getItem(STORAGE_KEY);
-        if (savedTickersJSON) {
-            const savedSymbols = JSON.parse(savedTickersJSON);
-            selectedTickers.value = allTickers.value.filter((t) =>
-                savedSymbols.includes(t.symbol)
-            );
-        } else if (allTickers.value.length > 0) {
-            // selectedTickers.value = allTickers.value.slice(0, 8);
-            selectedTickers.value = [...allTickers.value];
-        }
-
-        const tickerNames = allTickers.value
+        const tickerNavData = await tickerNamesResponse.json();
+        const tickerInfoMap = new Map(
+            tickerNavData.nav.map((item) => [item.symbol, item])
+        );
+        const tickerNames = tickerNavData.nav
             .map((t) => t.symbol)
             .filter(Boolean);
+
         const tickerDataPromises = tickerNames.map(async (ticker) => {
-            if (!ticker) return null;
             try {
                 const response = await fetch(
                     joinURL(
@@ -145,42 +64,64 @@ const loadAllData = async () => {
                             const amount = dividend.배당금
                                 ? parseFloat(dividend.배당금.replace('$', ''))
                                 : null;
-                            if (amount === null || !isNaN(amount)) {
-                                flatDividendList.push({
-                                    date: dateStr,
-                                    amount: amount,
-                                    ticker: tickerName.toUpperCase(),
-                                });
-                            }
-                        } catch (e) {}
+                            const tickerInfo = tickerInfoMap.get(
+                                tickerName.toUpperCase()
+                            ); // Map에서 정보 조회
+                            flatDividendList.push({
+                                date: dateStr,
+                                amount,
+                                ticker: tickerName.toUpperCase(),
+                                // 추가 정보 주입
+                                frequency: tickerInfo?.frequency,
+                                group: tickerInfo?.group,
+                            });
+                        } catch (e) {
+                            // 날짜 파싱 오류는 무시
+                        }
                     }
                 });
             }
         });
+
         allDividendData.value = flatDividendList;
+        isDataLoaded = true; // 로딩 완료 플래그 설정
+        console.log('달력 데이터 로딩 완료.');
     } catch (err) {
-        console.error('데이터 로딩 중 심각한 오류 발생:', err);
-        error.value = '데이터를 불러오지 못했습니다.';
+        console.error('데이터 로딩 중 오류 발생:', err);
+        error.value = '달력 데이터를 불러오지 못했습니다.';
     } finally {
         isLoading.value = false;
     }
 };
 
-const removeTicker = (tickerSymbol) => {
-    selectedTickers.value = selectedTickers.value.filter(
-        (ticker) => ticker.symbol !== tickerSymbol
-    );
-};
-
 export function useCalendarData() {
+    const { showMyStocksOnly, myBookmarks } = useFilterState();
+
+    const dividendsByDate = computed(() => {
+        let sourceData = allDividendData.value;
+
+        if (showMyStocksOnly.value && user.value) {
+            sourceData = allDividendData.value.filter(
+                (div) => myBookmarks.value[div.ticker]
+            );
+        }
+
+        const grouped = {};
+
+        sourceData.forEach((div) => {
+            if (!grouped[div.date]) {
+                grouped[div.date] = [];
+            }
+            grouped[div.date].push(div);
+        });
+
+        return grouped;
+    });
+
     return {
-        allTickers,
-        groupedTickers,
-        dividendsByDate,
+        dividendsByDate, // 달력 컴포넌트에서 사용할 최종 데이터
         isLoading,
         error,
-        selectedTickers,
-        loadAllData,
-        removeTicker,
+        loadAllData, // Layout에서 호출할 함수
     };
 }

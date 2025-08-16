@@ -4,13 +4,25 @@
 
 // 주식 정보
 #t-stock-header {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
+    // display: flex;
+    // flex-direction: row;
+    // gap: 1em;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    @include bp.media-breakpoint-only('xs') {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    gap: 0.5rem;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     .status {
-        @include bp.media-breakpoint-only('xs') {
-            min-width: 33.33vw;
-        }
+        position: relative;
         @include bp.media-breakpoint-only('sm') {
         }
         @include bp.media-breakpoint-only('md') {
@@ -29,10 +41,14 @@
         gap: 0.25rem;
     }
     .p-card-caption {
-        padding-top: 1rem;
+        padding-top: 0.75rem;
+    }
+    .p-card-title {
+        font-size: 0.6rem;
     }
     .p-card-content {
-        padding-bottom: 1rem;
+        font-size: 1rem;
+        padding-bottom: 0.75rem;
     }
     .p-card-footer {
         position: absolute;
@@ -85,6 +101,22 @@
 }
 
 .toto-history {
+    .p-datatable {
+        &-header-cell {
+            padding: 0.5rem 0.25rem;
+            font-size: 0.8rem;
+        }
+        &-column-header-content {
+            text-align: center;
+            justify-content: center;
+        }
+
+        &-tbody > tr > td {
+            padding: 0.5rem 0.25rem;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    }
     .p-datatable-paginator-bottom {
         border-bottom: 0;
     }
@@ -102,25 +134,6 @@
 
         .p-panel-content {
             padding: 0;
-        }
-
-        .p-datatable {
-            &-column-header-content {
-                justify-content: center;
-            }
-
-            &-header {
-                &-cell {
-                    padding: 0.5rem 0.25rem;
-                    font-size: 0.8rem;
-                }
-            }
-
-            &-tbody > tr > td {
-                padding: 0.5rem 0.25rem;
-                font-size: 0.8rem;
-                text-align: center;
-            }
         }
     }
 }
