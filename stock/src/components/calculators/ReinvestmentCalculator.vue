@@ -1,3 +1,4 @@
+<!-- components\calculators\ReinvestmentCalculator.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import Stepper from 'primevue/stepper';
@@ -18,13 +19,30 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { formatLargeNumber } from '@/utils/numberFormat.js';
+    import { useFilterState } from '@/composables/useFilterState'; // 1. useFilterState
 
     const { deviceType } = useBreakpoint();
-    const props = defineProps({ dividendHistory: Array, tickerInfo: Object });
+    const props = defineProps({
+        dividendHistory: Array,
+        tickerInfo: Object,
+        userBookmark: Object,
+    });
+    const { updateBookmarkDetails } = useFilterState();
 
     const formatMonthsToYears = (totalMonths) => {
-        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
+        // --- 핵심 수정: -1 값에 대한 처리 추가 ---
+        if (totalMonths === -1) {
+            return '목표 달성';
+        }
+        // ------------------------------------
+
+        if (
+            totalMonths === Infinity ||
+            isNaN(totalMonths) ||
+            totalMonths <= 0
+        ) {
             return '계산 불가';
+        }
         const years = Math.floor(totalMonths / 12);
         const months = Math.round(totalMonths % 12);
         return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
@@ -62,8 +80,9 @@
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
 
-    const ownedShares = ref(100);
-    const targetAmount = ref(100000);
+    // 4. 보유 수량(ownedShares)과 목표 자산(targetAmount)의 초기값을 prop으로 설정
+    const ownedShares = ref(props.userBookmark?.quantity || 100);
+    const targetAmount = ref(props.userBookmark?.targetAsset || 100000);
     const reinvestmentPeriod = ref('1Y');
     const dividendStatistic = ref('avg');
     const annualGrowthRateScenario = ref(0);
@@ -105,14 +124,20 @@
 
     const goalAchievementTimes = computed(() => {
         const calculateMonths = (dividendPerShare) => {
+            // --- 핵심 수정: 목표 달성 조건 확인 ---
+            if (targetAmount.value <= currentAssets.value) {
+                return -1; // -1을 '목표 달성' 상태로 사용
+            }
+            // ------------------------------------
+
             if (
                 currentAssets.value <= 0 ||
-                targetAmount.value <= currentAssets.value ||
                 dividendPerShare <= 0 ||
                 currentPrice.value <= 0 ||
                 payoutsPerYear.value <= 0
-            )
-                return 0;
+            ) {
+                return 0; // 0을 '계산 불가' 상태로 사용
+            }
 
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
@@ -126,6 +151,7 @@
 
             while (assetValue < targetAmount.value) {
                 if (months > 1200) {
+                    // 100년 이상 걸리면 계산 중단
                     months = Infinity;
                     break;
                 }
@@ -168,6 +194,21 @@
             goalAchievementTimes,
             theme: chartTheme,
         });
+
+    // 5. watch 함수 추가
+    watch(ownedShares, (newValue) => {
+        const symbol = props.tickerInfo?.Symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { quantity: newValue });
+        }
+    });
+
+    watch(targetAmount, (newValue) => {
+        const symbol = props.tickerInfo?.Symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { targetAsset: newValue });
+        }
+    });
 </script>
 
 <template>

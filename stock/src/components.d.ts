@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AssetManager: typeof import('./components/mypage/AssetManager.vue')['default']
+    BookmarkManager: typeof import('./components/mypage/BookmarkManager.vue')['default']
     Button: typeof import('primevue/button')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
@@ -23,15 +25,19 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     Message: typeof import('primevue/message')['default']
     Password: typeof import('primevue/password')['default']
+    ProfileSettings: typeof import('./components/mypage/ProfileSettings.vue')['default']
     RecoveryCalculator: typeof import('./components/calculators/RecoveryCalculator.vue')['default']
     ReinvestmentCalculator: typeof import('./components/calculators/ReinvestmentCalculator.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollTop: typeof import('primevue/scrolltop')['default']
+    SearchBar: typeof import('./components/SearchBar.vue')['default']
     StockCalculators: typeof import('./components/StockCalculators.vue')['default']
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
+    TabPanel: typeof import('primevue/tabpanel')['default']
+    TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
   }
   export interface GlobalDirectives {

@@ -88,19 +88,18 @@
 </script>
 
 <template>
-    <div v-if="info" id="t-stock-header" class="flex gap-3 overflow-x-auto">
+    <div v-if="info" id="t-stock-header">
         <Card
             class="status flex-1 min-w-[240px]"
             v-for="detail in stockDetails"
             :key="detail.label">
             <template #title>
-                <span
-                    class="text-xs font-normal text-surface-500 dark:text-surface-400">
+                <span>
                     {{ detail.label }}
                 </span>
             </template>
             <template #content>
-                <p class="text-2xl font-bold m-0 truncate">
+                <p class="">
                     {{ detail.value }}
                 </p>
             </template>
@@ -119,16 +118,3 @@
         </Card>
     </div>
 </template>
-
-<style scoped>
-    .status {
-        position: relative;
-    }
-    #t-stock-header {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    #t-stock-header::-webkit-scrollbar {
-        display: none;
-    }
-</style>

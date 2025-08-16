@@ -1,9 +1,14 @@
-// stock/src/main.js
+// src/main.js
+
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from './router'; // router는 여기서만 import
+import './store/auth'; // auth 스토어 초기화
+import { isRecentlyAuthenticated } from './store/auth'; // 상태 변수만 import
 
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import { definePreset } from '@primeuix/themes';
 import Lara from '@primeuix/themes/lara';
 
@@ -100,7 +105,7 @@ const MyPreset = definePreset(Lara, {
 
 const app = createApp(App);
 
-app.use(router);
+app.use(router); // Vue 앱에 라우터를 먼저 등록합니다.
 app.use(PrimeVue, {
     theme: {
         preset: MyPreset,
@@ -108,6 +113,15 @@ app.use(PrimeVue, {
             darkModeSelector: '.p-dark',
         },
     },
+});
+app.use(ToastService);
+app.use(ConfirmationService);
+
+// --- 핵심: router.afterEach 로직을 여기에 추가합니다 ---
+// 이 코드는 router가 앱에 등록된 후에 실행되어야 합니다.
+router.afterEach(() => {
+    // 페이지가 이동할 때마다 마이페이지의 사전 인증 상태를 초기화합니다.
+    isRecentlyAuthenticated.value = false;
 });
 
 app.mount('#app');
