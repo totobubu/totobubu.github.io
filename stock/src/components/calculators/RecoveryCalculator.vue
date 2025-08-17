@@ -1,53 +1,29 @@
 <!-- components\calculators\RecoveryCalculator.vue -->
 <script setup>
-    import { ref, computed, watch, onMounted } from 'vue';
-    import Card from 'primevue/card';
-    import RadioButton from 'primevue/radiobutton';
-    import InputGroup from 'primevue/inputgroup';
-    import InputGroupAddon from 'primevue/inputgroupaddon';
-    import InputNumber from 'primevue/inputnumber';
-    import InputText from 'primevue/inputtext';
-    import SelectButton from 'primevue/selectbutton';
-    import Divider from 'primevue/divider';
-    import Tag from 'primevue/tag';
-    import Slider from 'primevue/slider';
-    import Chart from 'primevue/chart';
-    import { parseYYMMDD } from '@/utils/date.js';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
+    import { parseYYMMDD } from '@/utils/date.js';
 
-    const { deviceType } = useBreakpoint();
     const props = defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
         userBookmark: Object,
     });
 
-    const formatMonthsToYears = (totalMonths) => {
-        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
-            return '계산 불가';
-        const years = Math.floor(totalMonths / 12);
-        const months = Math.round(totalMonths % 12);
-        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-    };
-
+    const { deviceType } = useBreakpoint();
     const { updateBookmarkDetails } = useFilterState();
 
-    // 2. 각 input에 바인딩될 ref를 선언하고, prop 값으로 초기화
     const avgPrice = ref(props.userBookmark?.avgPrice || 0);
     const quantity = ref(props.userBookmark?.quantity || 0);
     const accumulatedDividend = ref(
         props.userBookmark?.accumulatedDividend || 0
     );
 
-    const myAveragePrice = ref(0);
-    const myShares = ref(1);
     const recoveryPeriod = ref('1Y');
     const applyTax = ref(true);
     const calculationMode = ref('amount');
-    const recoveredAmount = ref(0);
-    const recoveryRate = ref(0);
 
     const periodOptions = ref([
         { label: '前 3M', value: '3M' },
@@ -59,16 +35,36 @@
         { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
 
-    const currentPrice = computed(() => {
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const latestRecord = props.dividendHistory.find(
-            (r) => r['당일종가'] && r['당일종가'] !== 'N/A'
-        );
-        return latestRecord
-            ? parseFloat(latestRecord['당일종가'].replace('$', '')) || 0
-            : 0;
+    const currentPrice = computed(
+        () => props.tickerInfo?.regularMarketPrice || 0
+    );
+    const investmentPrincipal = computed(
+        () => (quantity.value || 0) * (avgPrice.value || 0)
+    );
+    const currentValue = computed(
+        () => (quantity.value || 0) * currentPrice.value
+    );
+
+    // returnRate -> profitLossRate로 변수명 통일
+    const profitLossRate = computed(() => {
+        if (investmentPrincipal.value === 0) return 0;
+        const profit = currentValue.value - investmentPrincipal.value;
+        return (profit / investmentPrincipal.value) * 100;
     });
+
+    const recoveryRate = computed({
+        get() {
+            if (investmentPrincipal.value === 0) return 0;
+            return (
+                (accumulatedDividend.value / investmentPrincipal.value) * 100
+            );
+        },
+        set(newRate) {
+            accumulatedDividend.value =
+                investmentPrincipal.value * (newRate / 100);
+        },
+    });
+
     const payoutsPerYear = computed(() => {
         if (!props.dividendHistory || props.dividendHistory.length === 0)
             return 0;
@@ -81,69 +77,6 @@
         const freq = props.tickerInfo?.frequency;
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
-
-    const totalInvestment = computed(
-        () => (myAveragePrice.value || 0) * (myShares.value || 0)
-    );
-    const currentValue = computed(
-        () => (currentPrice.value || 0) * (myShares.value || 0)
-    );
-    const profitLossRate = computed(() => {
-        if (totalInvestment.value <= 0) return 0;
-        return (
-            ((currentValue.value - totalInvestment.value) /
-                totalInvestment.value) *
-            100
-        );
-    });
-
-    // 3. 각 ref의 변경을 감시하는 watch 함수 추가
-    watch(avgPrice, (newValue) => {
-        // 현재 티커 심볼을 props.tickerInfo.Symbol 에서 가져옵니다.
-        const symbol = props.tickerInfo?.Symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { avgPrice: newValue });
-        }
-    });
-
-    watch(quantity, (newValue) => {
-        const symbol = props.tickerInfo?.Symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { quantity: newValue });
-        }
-    });
-
-    watch(accumulatedDividend, (newValue) => {
-        const symbol = props.tickerInfo?.Symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { accumulatedDividend: newValue });
-        }
-    });
-
-    watch(recoveredAmount, (newAmount) => {
-        if (calculationMode.value === 'amount' && totalInvestment.value > 0) {
-            recoveryRate.value = (newAmount / totalInvestment.value) * 100;
-        }
-    });
-    watch(recoveryRate, (newRate) => {
-        if (calculationMode.value === 'rate') {
-            recoveredAmount.value = totalInvestment.value * (newRate / 100);
-        }
-    });
-    watch(totalInvestment, () => {
-        if (calculationMode.value === 'amount') {
-            if (totalInvestment.value > 0) {
-                recoveryRate.value =
-                    (recoveredAmount.value / totalInvestment.value) * 100;
-            } else {
-                recoveryRate.value = 0;
-            }
-        } else {
-            recoveredAmount.value =
-                totalInvestment.value * (recoveryRate.value / 100);
-        }
-    });
-
     const dividendStats = computed(() => {
         const filtered = props.dividendHistory.filter((i) => {
             const now = new Date();
@@ -157,15 +90,43 @@
         });
         const validAmounts = filtered
             .map((h) => parseFloat(h['배당금']?.replace('$', '')))
-            .filter((a) => a && a > 0);
-        if (validAmounts.length === 0) return { min: 0, max: 0, avg: 0 };
+            .filter((a) => !isNaN(a) && a > 0); // isNaN 체크 추가
+
+        if (validAmounts.length === 0) {
+            // 데이터가 아예 없는 경우
+            return { min: 0, max: 0, avg: 0 };
+        }
+        // 데이터가 하나만 있어도 min, max, avg가 모두 동일한 값으로 설정됨
+        const sum = validAmounts.reduce((s, a) => s + a, 0);
         return {
             min: Math.min(...validAmounts),
             max: Math.max(...validAmounts),
-            avg: validAmounts.reduce((s, a) => s + a, 0) / validAmounts.length,
+            avg: sum / validAmounts.length,
         };
     });
 
+    // watch 로직에서 tickerInfo.symbol (소문자 s) 사용
+    watch(avgPrice, (newValue) => {
+        const symbol = props.tickerInfo?.symbol;
+        if (symbol) updateBookmarkDetails(symbol, { avgPrice: newValue });
+    });
+    watch(quantity, (newValue) => {
+        const symbol = props.tickerInfo?.symbol;
+        if (symbol) updateBookmarkDetails(symbol, { quantity: newValue });
+    });
+    watch(accumulatedDividend, (newValue) => {
+        const symbol = props.tickerInfo?.symbol;
+        if (symbol)
+            updateBookmarkDetails(symbol, { accumulatedDividend: newValue });
+    });
+
+    const formatMonthsToYears = (totalMonths) => {
+        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
+            return '계산 불가';
+        const years = Math.floor(totalMonths / 12);
+        const months = Math.round(totalMonths % 12);
+        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
+    };
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -176,60 +137,18 @@
             '--p-content-border-color'
         ),
     };
+
     const { recoveryTimes, recoveryChartData, recoveryChartOptions } =
         useRecoveryChart({
-            myAveragePrice,
-            myShares,
-            recoveryRate,
+            avgPrice,
+            quantity,
+            accumulatedDividend,
             dividendStats,
             payoutsPerYear,
             applyTax,
             currentPrice,
             theme: chartTheme,
         });
-
-    const getStorageKey = () =>
-        `recoveryCalculatorState_${props.tickerInfo?.Symbol}`;
-    const saveState = () => {
-        const state = {
-            myAveragePrice: myAveragePrice.value,
-            myShares: myShares.value,
-            recoveredAmount: recoveredAmount.value,
-            recoveryRate: recoveryRate.value,
-            recoveryPeriod: recoveryPeriod.value,
-            applyTax: applyTax.value,
-        };
-        localStorage.setItem(getStorageKey(), JSON.stringify(state));
-    };
-    const loadState = () => {
-        const savedStateJSON = localStorage.getItem(getStorageKey());
-        if (savedStateJSON) {
-            const savedState = JSON.parse(savedStateJSON);
-            myAveragePrice.value = savedState.myAveragePrice;
-            myShares.value = savedState.myShares;
-            recoveredAmount.value = savedState.recoveredAmount;
-            recoveryRate.value = savedState.recoveryRate || 0;
-            recoveryPeriod.value = savedState.recoveryPeriod;
-            applyTax.value = savedState.applyTax;
-        } else {
-            // [핵심 수정] 기본값 로드 시 myShares도 함께 초기화합니다.
-            myAveragePrice.value = currentPrice.value;
-            myShares.value = 100; // 또는 1 (최소값)
-        }
-    };
-
-    onMounted(loadState);
-    watch(currentPrice, (newPrice) => {
-        const savedStateJSON = localStorage.getItem(getStorageKey());
-        if (!savedStateJSON && newPrice > 0) {
-            myAveragePrice.value = newPrice;
-        }
-    });
-    watch(
-        [myAveragePrice, myShares, recoveryRate, recoveryPeriod, applyTax],
-        saveState,
-        { deep: true }
-    );
 </script>
 
 <template>
@@ -265,7 +184,7 @@
                 :class="deviceType === 'mobile' ? 'flex-column gap-2' : ''">
                 <FloatLabel variant="on">
                     <InputNumber
-                        :modelValue="totalInvestment"
+                        :modelValue="investmentPrincipal"
                         mode="currency"
                         currency="USD"
                         locale="en-US"

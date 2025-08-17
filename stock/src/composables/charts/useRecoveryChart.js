@@ -1,43 +1,50 @@
 import { computed } from 'vue';
+import { formatLargeNumber } from '@/utils/numberFormat.js'; // formatLargeNumber가 아닌 formatMonthsToYearsForLabel 사용 가정
 
 export function useRecoveryChart(options) {
-    const { 
-        myAveragePrice, 
-        myShares,
-        recoveryRate,
-        dividendStats, 
-        payoutsPerYear, 
+    // --- 1. 받는 prop 이름을 avgPrice, quantity로 수정 ---
+    const {
+        avgPrice,
+        quantity,
+        accumulatedDividend,
+        dividendStats,
+        payoutsPerYear,
         applyTax,
         currentPrice,
-        theme 
+        theme,
     } = options;
-    
+
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
-    const formatMonthsToYearsForLabel = (totalMonths) => {
-        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0) return '';
-        const years = Math.floor(totalMonths / 12);
-        const months = Math.round(totalMonths % 12);
-        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-    };
-    
-    const totalInvestment = computed(() => (myAveragePrice.value || 0) * (myShares.value || 0));
-    const remainingPrincipal = computed(() => totalInvestment.value * (1 - (recoveryRate.value || 0) / 100));
+    const formatMonthsToYearsForLabel = (totalMonths) => { /* ... */ };
+
+    // --- 2. 사용하는 변수명을 avgPrice, quantity로 수정 ---
+    const investmentPrincipal = computed(
+        () => (avgPrice.value || 0) * (quantity.value || 0)
+    );
+    const remainingPrincipal = computed(
+        () => investmentPrincipal.value - (accumulatedDividend.value || 0)
+    );
 
     const recoveryTimes = computed(() => {
+        // --- 3. 방어 코드 강화 ---
+        if (!dividendStats || !dividendStats.value || !payoutsPerYear || !currentPrice) {
+            return { hope_reinvest: 0, avg_reinvest: 0, despair_reinvest: 0, hope_no_reinvest: 0, avg_no_reinvest: 0, despair_no_reinvest: 0 };
+        }
+        
         const results = {};
         const scenarios = ['hope', 'avg', 'despair'];
         const statsMap = { hope: 'max', avg: 'avg', despair: 'min' };
 
-        scenarios.forEach(scenario => {
+        scenarios.forEach((scenario) => {
             const dividendPerShare = dividendStats.value[statsMap[scenario]];
-            
-            if ((myShares.value || 0) <= 0 || dividendPerShare <= 0 || payoutsPerYear.value <= 0 || remainingPrincipal.value <= 0) {
+
+            if ( (quantity.value || 0) <= 0 || dividendPerShare <= 0 || payoutsPerYear.value <= 0 || remainingPrincipal.value <= 0 ) {
                 results[`${scenario}_reinvest`] = 0;
                 results[`${scenario}_no_reinvest`] = 0;
                 return;
             }
-            
+
             const finalDividend = applyTax.value ? dividendPerShare * 0.85 : dividendPerShare;
             if (finalDividend <= 0) {
                 results[`${scenario}_reinvest`] = Infinity;
@@ -45,11 +52,12 @@ export function useRecoveryChart(options) {
                 return;
             }
 
-            const totalDividendPerPayout_noReinvest = myShares.value * finalDividend;
+            // --- 4. 사용하는 변수명을 quantity로 수정 ---
+            const totalDividendPerPayout_noReinvest = quantity.value * finalDividend;
             const payoutsNoReinvest = remainingPrincipal.value / totalDividendPerPayout_noReinvest;
             results[`${scenario}_no_reinvest`] = (payoutsNoReinvest * 12) / payoutsPerYear.value;
 
-            let currentShares = myShares.value;
+            let currentShares = quantity.value;
             let recoveredAmount = 0;
             let payoutsReinvest = 0;
             const priceForReinvest = currentPrice.value;
@@ -72,6 +80,7 @@ export function useRecoveryChart(options) {
     });
 
     const recoveryChartData = computed(() => {
+        if (!recoveryTimes.value) return { labels: [], datasets: [] }; // 방어 코드
         const times = recoveryTimes.value;
         return {
             labels: ['희망', '평균', '절망'],
@@ -96,8 +105,9 @@ export function useRecoveryChart(options) {
     });
 
     const recoveryChartOptions = computed(() => {
+        if (!recoveryTimes.value) return {}; // 방어 코드
         const allTimes = Object.values(recoveryTimes.value);
-        const maxTime = allTimes.length > 0 ? Math.max(...allTimes.filter(t => t !== Infinity && t > 0)) : 0;
+         const maxTime = allTimes.length > 0 ? Math.max(...allTimes.filter(t => t !== Infinity && t > 0)) : 0;
         const yAxisMax = maxTime > 0 ? Math.ceil(maxTime / 6) * 6 : 12;
 
         return {

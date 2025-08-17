@@ -1,52 +1,26 @@
 <!-- components\calculators\ReinvestmentCalculator.vue -->
 <script setup>
-    import { ref, computed, watch, onMounted } from 'vue';
-    import Stepper from 'primevue/stepper';
-    import StepItem from 'primevue/stepitem';
-    import Step from 'primevue/step';
-    import StepPanel from 'primevue/steppanel';
-    import Chart from 'primevue/chart';
-    import InputGroup from 'primevue/inputgroup';
-    import InputGroupAddon from 'primevue/inputgroupaddon';
-    import InputNumber from 'primevue/inputnumber';
-    import InputText from 'primevue/inputtext';
-    import Slider from 'primevue/slider';
-    import SelectButton from 'primevue/selectbutton';
-    import Divider from 'primevue/divider';
-    import Tag from 'primevue/tag';
-    import Card from 'primevue/card';
-    import { parseYYMMDD } from '@/utils/date.js';
+    import { ref, computed, watch } from 'vue';
+    import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
-    import { formatLargeNumber } from '@/utils/numberFormat.js';
-    import { useFilterState } from '@/composables/useFilterState'; // 1. useFilterState
+    import { parseYYMMDD } from '@/utils/date.js';
 
-    const { deviceType } = useBreakpoint();
     const props = defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
         userBookmark: Object,
     });
+
+    const { deviceType } = useBreakpoint();
     const { updateBookmarkDetails } = useFilterState();
 
-    const formatMonthsToYears = (totalMonths) => {
-        // --- 핵심 수정: -1 값에 대한 처리 추가 ---
-        if (totalMonths === -1) {
-            return '목표 달성';
-        }
-        // ------------------------------------
+    const quantity = ref(props.userBookmark?.quantity || 100);
+    const targetAsset = ref(props.userBookmark?.targetAsset || 100000);
 
-        if (
-            totalMonths === Infinity ||
-            isNaN(totalMonths) ||
-            totalMonths <= 0
-        ) {
-            return '계산 불가';
-        }
-        const years = Math.floor(totalMonths / 12);
-        const months = Math.round(totalMonths % 12);
-        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-    };
+    const reinvestmentPeriod = ref('1Y');
+    const annualGrowthRateScenario = ref(0);
+    const applyTax = ref(true);
 
     const periodOptions = ref([
         { label: '前 3M', value: '3M' },
@@ -57,17 +31,26 @@
         { icon: 'pi pi-shield', value: false, tooltip: '세전' },
         { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
-    const currentPrice = computed(() => {
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const latestRecord = props.dividendHistory.find(
-            (r) => r['당일종가'] && r['당일종가'] !== 'N/A'
+
+    // --- Computed 속성 ---
+    const currentPrice = computed(
+        () => props.tickerInfo?.regularMarketPrice || 0
+    );
+    const currentAssets = computed(
+        () => (quantity.value || 0) * currentPrice.value
+    );
+
+    // --- 핵심: 데이터 유효성 검사 computed 추가 ---
+    const isDataReady = computed(() => {
+        return (
+            props.dividendHistory &&
+            props.dividendHistory.length > 0 &&
+            props.tickerInfo
         );
-        return latestRecord
-            ? parseFloat(latestRecord['당일종가'].replace('$', '')) || 0
-            : 0;
     });
+
     const payoutsPerYear = computed(() => {
+        if (!isDataReady.value) return 0;
         if (!props.dividendHistory || props.dividendHistory.length === 0)
             return 0;
         const oneYearAgo = new Date();
@@ -80,27 +63,8 @@
         return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
     });
 
-    // 4. 보유 수량(ownedShares)과 목표 자산(targetAmount)의 초기값을 prop으로 설정
-    const ownedShares = ref(props.userBookmark?.quantity || 100);
-    const targetAmount = ref(props.userBookmark?.targetAsset || 100000);
-    const reinvestmentPeriod = ref('1Y');
-    const dividendStatistic = ref('avg');
-    const annualGrowthRateScenario = ref(0);
-    const applyTax = ref(true); // [핵심] 세금 상태 추가
-
-    const dividendStatisticOptions = ref([
-        { icon: 'pi pi-arrow-down-left', label: '절망', value: 'min' },
-        { icon: 'pi pi-equals', label: '평균', value: 'avg' },
-        { icon: 'pi pi-arrow-up-right', label: '희망', value: 'max' },
-    ]);
-    const growthRateForCalculation = computed(
-        () => annualGrowthRateScenario.value / 100
-    );
-    const currentAssets = computed(
-        () => (ownedShares.value || 0) * currentPrice.value
-    );
-
     const reinvestDividendStats = computed(() => {
+        if (!isDataReady.value) return { min: 0, max: 0, avg: 0 };
         const filtered = props.dividendHistory.filter((item) => {
             const now = new Date();
             let cutoffDate = new Date();
@@ -121,39 +85,49 @@
             avg: validAmounts.reduce((s, a) => s + a, 0) / validAmounts.length,
         };
     });
+    const growthRateForCalculation = computed(
+        () => annualGrowthRateScenario.value / 100
+    );
 
+    // --- 핵심 수정: 문법 오류 및 변수명 수정 ---
     const goalAchievementTimes = computed(() => {
+        // isDataReady를 사용하여 계산 시작 전에 데이터 존재 여부를 확실히 확인
+        if (!isDataReady.value) {
+            return { hope: Infinity, avg: Infinity, despair: Infinity };
+        }
+        // --- 핵심 수정: reinvestDividendStats.value가 존재하는지 먼저 확인 ---
+        if (!reinvestDividendStats.value) {
+            // 데이터가 아직 준비되지 않았으면, 계산 불가 상태를 반환합니다.
+            return { hope: Infinity, avg: Infinity, despair: Infinity };
+        }
+        // -----------------------------------------------------------------
         const calculateMonths = (dividendPerShare) => {
-            // --- 핵심 수정: 목표 달성 조건 확인 ---
-            if (targetAmount.value <= currentAssets.value) {
-                return -1; // -1을 '목표 달성' 상태로 사용
+            if (targetAsset.value <= currentAssets.value) {
+                return -1;
             }
-            // ------------------------------------
-
             if (
                 currentAssets.value <= 0 ||
                 dividendPerShare <= 0 ||
                 currentPrice.value <= 0 ||
                 payoutsPerYear.value <= 0
             ) {
-                return 0; // 0을 '계산 불가' 상태로 사용
+                return 0;
             }
 
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
                 : dividendPerShare;
-            if (finalDividendPerShare <= 0) return Infinity;
+            if (finalDividendPerShare <= 0) return Infinity; // 세후 배당금이 0 이하인 경우 계산 불가 처리
 
             let assetValue = currentAssets.value;
             let months = 0;
             const monthlyGrowthRate =
                 (1 + growthRateForCalculation.value) ** (1 / 12) - 1;
 
-            while (assetValue < targetAmount.value) {
+            while (assetValue < targetAsset.value) {
+                // 100년(1200개월) 이상 걸리면 계산 중단
                 if (months > 1200) {
-                    // 100년 이상 걸리면 계산 중단
-                    months = Infinity;
-                    break;
+                    return Infinity;
                 }
                 assetValue *= 1 + monthlyGrowthRate;
                 const currentShares = assetValue / currentPrice.value;
@@ -166,12 +140,38 @@
             }
             return months;
         };
+
         return {
-            hope: calculateMonths(reinvestDividendStats.value.max),
+            hope: calculateMonths(reinvestDividendStats.value.max), // 이제 이 부분은 안전
             avg: calculateMonths(reinvestDividendStats.value.avg),
             despair: calculateMonths(reinvestDividendStats.value.min),
         };
     });
+    // ------------------------------------------
+
+    watch(quantity, (newValue) => {
+        // API 응답의 symbol은 소문자일 수 있으므로 tickerInfo.symbol을 사용합니다.
+        const symbol = props.tickerInfo?.symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { quantity: newValue });
+        }
+    });
+
+    watch(targetAsset, (newValue) => {
+        const symbol = props.tickerInfo?.symbol;
+        if (symbol) {
+            updateBookmarkDetails(symbol, { targetAsset: newValue });
+        }
+    });
+
+    const formatMonthsToYears = (totalMonths) => {
+        if (totalMonths === -1) return '목표 달성';
+        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
+            return '계산 불가';
+        const years = Math.floor(totalMonths / 12);
+        const months = Math.round(totalMonths % 12);
+        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
+    };
 
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
@@ -183,10 +183,11 @@
             '--p-content-border-color'
         ),
     };
+
     const { reinvestmentChartData, reinvestmentChartOptions } =
         useReinvestmentChart({
             currentAssets,
-            targetAmount,
+            targetAmount: targetAsset,
             payoutsPerYear,
             dividendStats: reinvestDividendStats,
             annualGrowthRateScenario: growthRateForCalculation,
@@ -194,23 +195,7 @@
             goalAchievementTimes,
             theme: chartTheme,
         });
-
-    // 5. watch 함수 추가
-    watch(ownedShares, (newValue) => {
-        const symbol = props.tickerInfo?.Symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { quantity: newValue });
-        }
-    });
-
-    watch(targetAmount, (newValue) => {
-        const symbol = props.tickerInfo?.Symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { targetAsset: newValue });
-        }
-    });
 </script>
-
 <template>
     <div
         class="toto-calculator-grid"
@@ -234,7 +219,7 @@
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
-                        v-model="ownedShares"
+                        v-model="quantity"
                         inputId="shares"
                         suffix=" 주"
                         min="1" />
@@ -242,7 +227,7 @@
                 </IftaLabel>
                 <IftaLabel>
                     <InputNumber
-                        v-model="targetAmount"
+                        v-model="targetAsset"
                         inputId="target"
                         mode="currency"
                         currency="USD"
