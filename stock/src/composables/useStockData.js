@@ -1,50 +1,50 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { joinURL } from 'ufo';
 
-export function useStockData(ticker) {
+// 이제 이 Composable은 ticker를 인자로 받지 않습니다.
+export function useStockData() {
     const tickerInfo = ref(null);
     const dividendHistory = ref([]);
     const isLoading = ref(true);
     const error = ref(null);
 
+    // loadData 함수는 외부에서 호출할 수 있도록 return 합니다.
     const loadData = async (tickerSymbol) => {
-        if (!tickerSymbol) return;
+        if (!tickerSymbol) {
+            error.value = '티커 정보가 없습니다.';
+            isLoading.value = false;
+            return;
+        }
         isLoading.value = true;
         error.value = null;
+        tickerInfo.value = null; // 이전 데이터 초기화
+        dividendHistory.value = [];
+
         try {
-            // 두 개의 데이터를 병렬로 요청합니다.
             const [liveDataResponse, staticDataResponse] = await Promise.all([
-                // 1. 실시간 시세 정보는 우리 API를 통해 가져옵니다.
-                fetch(
-                    `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
-                ),
-                // 2. 배당 내역 등 정적 정보는 기존 JSON 파일에서 가져옵니다.
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        `data/${tickerSymbol.toLowerCase()}.json`
-                    )
-                ),
+                fetch(`/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`),
+                fetch(joinURL(import.meta.env.BASE_URL, `data/${tickerSymbol.toLowerCase()}.json`))
             ]);
 
-            if (!liveDataResponse.ok)
-                throw new Error('Failed to fetch live stock data');
-            if (!staticDataResponse.ok)
-                throw new Error('Failed to fetch static stock data');
-
+            // 하나의 요청이라도 실패하면 에러로 간주 (더 안정적인 처리)
+            if (!liveDataResponse.ok || !staticDataResponse.ok) {
+                 throw new Error('Failed to fetch stock data');
+            }
+            
             const liveDataArray = await liveDataResponse.json();
             const staticData = await staticDataResponse.json();
 
-            // API는 배열을 반환하므로, 첫 번째 요소를 사용합니다.
+            if (!liveDataArray || liveDataArray.length === 0) {
+                throw new Error('Live data not found for the ticker');
+            }
             const liveData = liveDataArray[0];
 
-            // 3. 두 데이터를 합쳐서 tickerInfo ref를 업데이트합니다.
             tickerInfo.value = {
-                ...staticData.tickerInfo, // Yield, company, group 등
-                ...liveData, // symbol, longName, regularMarketPrice 등 실시간 정보로 덮어쓰기
+                ...staticData.tickerInfo,
+                ...liveData,
             };
-
             dividendHistory.value = staticData.dividendHistory || [];
+
         } catch (err) {
             console.error(`Failed to load data for ${tickerSymbol}:`, err);
             error.value = `${tickerSymbol.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
@@ -53,13 +53,8 @@ export function useStockData(ticker) {
         }
     };
 
-    watch(
-        () => ticker,
-        (newTicker) => {
-            loadData(newTicker);
-        },
-        { immediate: true }
-    ); // 컴포넌트 생성 시 즉시 실행
+    // watch 로직을 여기서 완전히 제거합니다.
 
-    return { tickerInfo, dividendHistory, isLoading, error };
+    // loadData 함수를 반환하여 StockView에서 사용할 수 있게 합니다.
+    return { tickerInfo, dividendHistory, isLoading, error, loadData };
 }
