@@ -95,11 +95,14 @@
                     </div>
                     <div v-else></div>
 
+
                     <SelectButton
                         v-if="isDesktop"
                         v-model="localSelectedTimeRange"
                         :options="timeRangeOptions"
-                        aria-labelledby="basic" />
+                        optionLabel="label"
+                        optionValue="value"
+                        aria-labelledby="range-selection" />
 
                     <Dropdown
                         v-else
