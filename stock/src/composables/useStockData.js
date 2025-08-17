@@ -1,43 +1,65 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { joinURL } from 'ufo';
-import { parseYYMMDD } from '@/utils/date.js';
 
-const tickerInfo = ref(null);
-const dividendHistory = ref([]);
-const isLoading = ref(true);
-const error = ref(null);
+export function useStockData(ticker) {
+    const tickerInfo = ref(null);
+    const dividendHistory = ref([]);
+    const isLoading = ref(true);
+    const error = ref(null);
 
-export function useStockData() {
-    const fetchData = async (tickerName) => {
+    const loadData = async (tickerSymbol) => {
+        if (!tickerSymbol) return;
         isLoading.value = true;
         error.value = null;
-        tickerInfo.value = null;
-        dividendHistory.value = [];
-        const url = joinURL(
-            import.meta.env.BASE_URL,
-            `data/${tickerName.toLowerCase()}.json`
-        );
-
         try {
-            const response = await fetch(url);
-            if (response.status === 404)
-                throw new Error(
-                    `Data for ${tickerName.toUpperCase()} not found.`
-                );
-            if (!response.ok)
-                throw new Error(`HTTP error! status: ${response.status}`);
+            // 두 개의 데이터를 병렬로 요청합니다.
+            const [liveDataResponse, staticDataResponse] = await Promise.all([
+                // 1. 실시간 시세 정보는 우리 API를 통해 가져옵니다.
+                fetch(
+                    `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
+                ),
+                // 2. 배당 내역 등 정적 정보는 기존 JSON 파일에서 가져옵니다.
+                fetch(
+                    joinURL(
+                        import.meta.env.BASE_URL,
+                        `data/${tickerSymbol.toLowerCase()}.json`
+                    )
+                ),
+            ]);
 
-            const responseData = await response.json();
-            tickerInfo.value = responseData.tickerInfo;
-            dividendHistory.value = responseData.dividendHistory.sort(
-                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
-            );
+            if (!liveDataResponse.ok)
+                throw new Error('Failed to fetch live stock data');
+            if (!staticDataResponse.ok)
+                throw new Error('Failed to fetch static stock data');
+
+            const liveDataArray = await liveDataResponse.json();
+            const staticData = await staticDataResponse.json();
+
+            // API는 배열을 반환하므로, 첫 번째 요소를 사용합니다.
+            const liveData = liveDataArray[0];
+
+            // 3. 두 데이터를 합쳐서 tickerInfo ref를 업데이트합니다.
+            tickerInfo.value = {
+                ...staticData.tickerInfo, // Yield, company, group 등
+                ...liveData, // symbol, longName, regularMarketPrice 등 실시간 정보로 덮어쓰기
+            };
+
+            dividendHistory.value = staticData.dividendHistory || [];
         } catch (err) {
-            error.value = `Failed to fetch data for ${tickerName.toUpperCase()}.`;
+            console.error(`Failed to load data for ${tickerSymbol}:`, err);
+            error.value = `${tickerSymbol.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
         } finally {
             isLoading.value = false;
         }
     };
 
-    return { tickerInfo, dividendHistory, isLoading, error, fetchData };
+    watch(
+        () => ticker,
+        (newTicker) => {
+            loadData(newTicker);
+        },
+        { immediate: true }
+    ); // 컴포넌트 생성 시 즉시 실행
+
+    return { tickerInfo, dividendHistory, isLoading, error };
 }
