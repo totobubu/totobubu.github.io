@@ -1,6 +1,22 @@
-import yahooFinance from 'yahoo-finance2'; // 라이브러리 import
+import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(request, response) {
+    // --- 핵심: CORS 헤더 설정 추가 ---
+    // 개발 환경(localhost)에서의 요청을 허용합니다.
+    const allowedOrigin = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:3000' // vercel dev가 사용하는 주소
+        : 'https://www.divgrow.com'; // 실제 프로덕션 도메인
+
+    response.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // 브라우저가 보내는 사전 요청(preflight request)인 OPTIONS 요청에 대한 처리
+    if (request.method === 'OPTIONS') {
+        return response.status(200).end();
+    }
+    // ------------------------------------
+
     const tickers = request.query.tickers;
 
     if (!tickers) {
@@ -10,7 +26,7 @@ export default async function handler(request, response) {
     try {
         // yahooFinance.quote 함수를 사용하여 여러 티커를 한 번에 조회
         const results = await yahooFinance.quote(tickers.split(','));
-
+        
         // 필요한 데이터만 추출하여 가공 (라이브러리가 반환하는 필드 이름이 약간 다를 수 있음)
         const formattedResults = results.map(stock => ({
             symbol: stock.symbol,
