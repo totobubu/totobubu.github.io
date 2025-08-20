@@ -15,7 +15,49 @@ export function useStockChart(
     const chartData = ref(null);
     const chartOptions = ref(null);
     const chartContainerWidth = ref('100%');
-    const timeRangeOptions = ref([]);
+
+    const generateDynamicTimeRangeOptions = (history) => {
+        if (!history || history.length === 0) {
+            return [{ label: '전체', value: 'ALL' }];
+        }
+        const dates = history
+            .map((h) => parseYYMMDD(h['배당락']))
+            .sort((a, b) => a - b);
+        const lastDate = dates[dates.length - 1];
+        const today = new Date();
+
+        const options = [];
+        const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
+        if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
+
+        const threeMonthsAgo = new Date(
+            new Date().setMonth(today.getMonth() - 3)
+        );
+        if (lastDate >= threeMonthsAgo)
+            options.push({ label: '3M', value: '3M' });
+
+        const sixMonthsAgo = new Date(
+            new Date().setMonth(today.getMonth() - 6)
+        );
+        if (lastDate >= sixMonthsAgo)
+            options.push({ label: '6M', value: '6M' });
+
+        const oneYearAgo = new Date(
+            new Date().setFullYear(today.getFullYear() - 1)
+        );
+        if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
+
+        options.push({ label: 'ALL', value: 'ALL' });
+
+        return options.map((opt) => ({
+            ...opt,
+            label: opt.value === 'ALL' ? '전체' : opt.label,
+        }));
+    };
+
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(dividendHistory.value)
+    );
 
     const { deviceType } = useBreakpoint();
 
@@ -98,6 +140,19 @@ export function useStockChart(
             result = usePriceChart(sharedOptions);
         }
 
+        // --- 하위 Composable의 반환값 키를 정확히 사용 ---
+        chartData.value =
+            result.priceChartData ||
+            result.weeklyChartData ||
+            result.monthlyChartData ||
+            result.quarterlyChartData;
+        chartOptions.value =
+            result.priceChartOptions ||
+            result.weeklyChartOptions ||
+            result.monthlyChartOptions ||
+            result.quarterlyChartOptions;
+        chartContainerWidth.value = result.chartContainerWidth || '100%';
+
         // --- 핵심 수정: 결과값을 각 ref에 할당 ---
         // 각 하위 Composable이 반환하는 키 이름에 맞게 조정해야 합니다.
         // (예: weeklyChartData, monthlyChartData 등)
@@ -120,6 +175,7 @@ export function useStockChart(
     return {
         chartData,
         chartOptions,
+        timeRangeOptions,
         chartContainerWidth,
         timeRangeOptions,
         hasDividendChartMode,

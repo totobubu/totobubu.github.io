@@ -24,6 +24,7 @@
         chartData,
         chartOptions,
         chartContainerWidth,
+        timeRangeOptions, // useStockChart로부터 직접 받음
         hasDividendChartMode,
         updateChart,
     } = useStockChart(

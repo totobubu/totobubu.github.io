@@ -47,14 +47,20 @@ export function usePriceChart(options) {
     const { data, deviceType, group, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
+    // --- 색상 및 폰트 크기 계산 (기존과 동일) ---
+    const colors = getChartColorsByGroup(group);
+    const prevPrice = colors.prevPrice || '#aaaaaa'; // 기본값 회색
+    const currentPrice = colors.currentPrice || '#3b82f6'; // 기본값 파란색
+    const openPrice = colors.openPrice || '#f97316'; // 기본값 주황색
+    const nextPrice = colors.nextPrice || '#14b8a6'; // 기본값 청록색
+    // ... (나머지 색상 변수들도 동일하게 || '기본값' 추가)
+
     // --- 2. timeRangeOptions와 selectedTimeRange를 내부 상태로 관리 ---
     const selectedTimeRange = ref('1Y');
     const timeRangeOptions = computed(() =>
         generateDynamicTimeRangeOptions(data)
     );
 
-    // --- 색상 및 폰트 크기 계산 (기존과 동일) ---
-    const colors = getChartColorsByGroup(group);
     const chartContainerWidth = getDynamicChartWidth(
         data.length,
         deviceType,
@@ -86,7 +92,7 @@ export function usePriceChart(options) {
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
 
     // --- 3. 반환할 객체의 키 이름을 표준에 맞게 수정 ---
-    const chartData = {
+    const priceChartData = {
         labels: data.map((item) => item['배당락']),
         datasets: [
             {
@@ -208,7 +214,7 @@ export function usePriceChart(options) {
         ],
     };
 
-    const chartOptions = {
+    const priceChartOptions = {
         maintainAspectRatio: false,
         aspectRatio: getChartAspectRatio(deviceType),
         plugins: getCommonPlugins({
@@ -257,10 +263,10 @@ export function usePriceChart(options) {
 
     // --- 4. 표준화된 객체 반환 ---
     return {
-        chartData,
-        chartOptions,
+        priceChartData,
+        priceChartOptions,
         chartContainerWidth,
-        timeRangeOptions,
-        selectedTimeRange,
+        // timeRangeOptions,
+        // selectedTimeRange,
     };
 }
