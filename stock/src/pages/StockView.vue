@@ -1,9 +1,11 @@
+<!-- stock\src\pages\StockView.vue -->
 <script setup>
-    import { ref, computed, watch } from 'vue';
+    import { ref, computed, watch, provide } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
     import { useStockChart } from '@/composables/useStockChart';
+    import { useBreakpoint } from '@/composables/useBreakpoint'; // --- 이 줄을 추가합니다 ---
 
     import ProgressSpinner from 'primevue/progressspinner';
     import StockHeader from '@/components/StockHeader.vue';
@@ -13,9 +15,24 @@
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
+    const { isDesktop } = useBreakpoint(); // --- 이 줄을 추가합니다 ---
 
+    // useStockData를 호출하여 전역 상태와 함수에 접근합니다.
     const { tickerInfo, dividendHistory, isLoading, error, loadData } =
         useStockData();
+
+    // --- 3. 디버그 로그 추가 ---
+    // tickerInfo가 변경될 때마다 로그를 찍어봅니다.
+    watch(
+        tickerInfo,
+        (newInfo) => {
+            console.log('[StockView] tickerInfo 변경 감지:', newInfo);
+        },
+        { deep: true }
+    );
+    // -------------------------
+    // --- 핵심 수정: computed를 provide 합니다. ---
+    // provide('stock-ticker-info', readonly(tickerInfo));
 
     const isPriceChartMode = ref(false);
     const selectedTimeRange = ref('1Y');
@@ -34,6 +51,7 @@
         selectedTimeRange
     );
 
+    // 라우트 파라미터가 변경될 때마다 전역 상태를 업데이트합니다.
     watch(
         () => route.params.ticker,
         (newTicker) => {
