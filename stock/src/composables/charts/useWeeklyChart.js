@@ -11,9 +11,36 @@ import {
 // --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
 // StockView.vue에 있던 함수를 그대로 가져옵니다.
 const generateDynamicTimeRangeOptions = (history) => {
-    if (!history || history.length === 0)
+    if (!history || history.length === 0) {
         return [{ label: '전체', value: 'ALL' }];
-    // ... (StockView에 있던 로직과 동일)
+    }
+    const dates = history
+        .map((h) => parseYYMMDD(h['배당락']))
+        .sort((a, b) => a - b);
+    const lastDate = dates[dates.length - 1];
+    const today = new Date();
+
+    const options = [];
+    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
+    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
+
+    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
+    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
+
+    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
+    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
+
+    const oneYearAgo = new Date(
+        new Date().setFullYear(today.getFullYear() - 1)
+    );
+    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
+
+    options.push({ label: 'ALL', value: 'ALL' });
+
+    return options.map((opt) => ({
+        ...opt,
+        label: opt.value === 'ALL' ? '전체' : opt.label,
+    }));
 };
 
 export function useWeeklyChart(options) {
