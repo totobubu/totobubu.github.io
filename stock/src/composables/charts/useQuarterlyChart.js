@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'; // ref, computed 추가
+import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
@@ -9,21 +9,44 @@ import {
 } from '@/utils/chartUtils.js';
 
 // --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
-// StockView.vue에 있던 함수를 그대로 가져옵니다.
 const generateDynamicTimeRangeOptions = (history) => {
-    if (!history || history.length === 0)
+    if (!history || history.length === 0) {
         return [{ label: '전체', value: 'ALL' }];
-    // ... (StockView에 있던 로직과 동일)
+    }
+    const dates = history
+        .map((h) => parseYYMMDD(h['배당락']))
+        .sort((a, b) => a - b);
+    const lastDate = dates[dates.length - 1];
+    const today = new Date();
+
+    const options = [];
+    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
+    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
+
+    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
+    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
+
+    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
+    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
+
+    const oneYearAgo = new Date(
+        new Date().setFullYear(today.getFullYear() - 1)
+    );
+    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
+
+    options.push({ label: 'ALL', value: 'ALL' });
+
+    return options.map((opt) => ({
+        ...opt,
+        label: opt.value === 'ALL' ? '전체' : opt.label,
+    }));
 };
 
 export function useQuarterlyChart(options) {
     const { data, deviceType, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
-    // --- 2. selectedTimeRange 상태 추가 ---
-    const selectedTimeRange = ref('1Y'); // 기본값
-
-    // --- 3. timeRangeOptions 생성 로직 추가 ---
+    const selectedTimeRange = ref('1Y');
     const timeRangeOptions = computed(() =>
         generateDynamicTimeRangeOptions(data)
     );
@@ -40,7 +63,6 @@ export function useQuarterlyChart(options) {
         acc[year].total += amount;
         return acc;
     }, {});
-
     const labels = Object.keys(yearlyAggregated);
     const chartContainerWidth = getDynamicChartWidth(
         labels.length,
@@ -65,7 +87,6 @@ export function useQuarterlyChart(options) {
         3: '#FBBC04',
         4: '#34A853',
     };
-
     const datasets = createStackedBarDatasets({
         aggregatedData: yearlyAggregated,
         primaryLabels: labels,
@@ -100,7 +121,7 @@ export function useQuarterlyChart(options) {
         },
     });
 
-    const chartData = { labels, datasets };
+    const chartData = { labels, datasets }; // quarterlyChartData -> chartData
     const maxTotal = Math.max(
         0,
         ...Object.values(yearlyAggregated).map((y) => y.total)
@@ -151,8 +172,8 @@ export function useQuarterlyChart(options) {
     };
 
     return {
-        chartData,
-        chartOptions,
+        chartData, // quarterlyChartData -> chartData
+        chartOptions, // quarterlyChartOptions -> chartOptions
         chartContainerWidth,
         timeRangeOptions,
         selectedTimeRange,
