@@ -10,11 +10,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     AssetManager: typeof import('./components/mypage/AssetManager.vue')['default']
     BookmarkManager: typeof import('./components/mypage/BookmarkManager.vue')['default']
+    Breadcrumb: typeof import('primevue/breadcrumb')['default']
     Button: typeof import('primevue/button')['default']
     CalendarGrid: typeof import('./components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
     Chart: typeof import('primevue/chart')['default']
+    ConfirmDialog: typeof import('primevue/confirmdialog')['default']
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']
@@ -41,6 +43,7 @@ declare module 'vue' {
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
     Tag: typeof import('primevue/tag')['default']
+    Toast: typeof import('primevue/toast')['default']
   }
   export interface GlobalDirectives {
     Tooltip: typeof import('primevue/tooltip')['default']

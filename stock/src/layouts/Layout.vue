@@ -1,114 +1,81 @@
-<!-- stock\src\layouts\Layout.vue -->
 <script setup>
-    import { ref, watch, computed, onMounted } from 'vue';
-    import { RouterView, useRoute } from 'vue-router';
+    import { ref, watch, computed, onMounted, inject } from 'vue';
+    import { RouterView, useRoute, useRouter } from 'vue-router';
     import AppSidebar from './AppSidebar.vue';
-    // import TickerSelector from '@/components/CalendarTickerSelector.vue';
     import FilterInput from '@/components/FilterInput.vue';
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
     import Breadcrumb from 'primevue/breadcrumb';
-    import Toast from 'primevue/toast'; // Toast import 추가
-    import ConfirmDialog from 'primevue/confirmdialog'; // ConfirmDialog import 추가
-
+    import Toast from 'primevue/toast';
+    import ConfirmDialog from 'primevue/confirmdialog';
+    import ScrollTop from 'primevue/scrolltop';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useCalendarData } from '@/composables/useCalendarData.js';
-    import { useStockData } from '@/composables/useStockData.js';
+    import { handleSignOut, user } from '../store/auth';
+    import { useStockData } from '@/composables/useStockData';
 
-    const { deviceType, isDesktop, isMobile } = useBreakpoint();
-    const { filters, showMyStocksOnly } = useFilterState();
-    const { loadAllData } = useCalendarData();
-    const { tickerInfo } = useStockData();
-
-    import { useToast } from 'primevue/usetoast';
-    import { useConfirm } from 'primevue/useconfirm';
-
-    const router = useRouter();
-    // import { signOut } from 'firebase/auth'; // 이 줄 삭제
-    import { handleSignOut } from '../store/auth'; // 새로 만든 함수 import
-    import { auth } from '../firebase';
-    // 1. 스토어에서 user 상태를 가져옵니다.
-    import { user } from '../store/auth';
-
-    const visible = ref(false);
-    const visible2 = ref(false);
     const route = useRoute();
-    const isHomePage = computed(() => route.path === '/');
-    const isMypage = computed(() => route.path === '/mypage');
-    const isLogin = computed(() => route.path === '/login');
-    const isSignup = computed(() => route.path === '/signup');
+    const router = useRouter();
+    const { deviceType, isDesktop, isMobile } = useBreakpoint();
+    const { filters } = useFilterState();
+    const { loadAllData } = useCalendarData();
+    // --- 핵심 수정: inject를 단순하게 사용하고, 기본값으로 ref(null)을 사용합니다 ---
+    const { tickerInfo } = useStockData();
+    // ----------------------------------------------------------------------
+    const visible = ref(false);
 
     onMounted(() => {
         loadAllData();
     });
 
-    // 2. 로그인/로그아웃 함수를 만듭니다.
-    const goToLogin = () => {
-        router.push('/login');
-    };
+    const goToLogin = () => router.push('/login');
     const onLogout = async () => {
         try {
             await handleSignOut();
-            // auth.js에서 토스트 메시지를 띄우므로 여기서는 alert 제거
-            // alert('로그아웃 되었습니다.');
             router.push('/');
         } catch (error) {
             console.error('로그아웃 실패:', error);
         }
     };
+    const goToMyPage = () => router.push('/mypage');
 
-    const goToMyPage = () => {
-        router.push('/mypage');
-    };
+    // --- 5. 디버그 로그 추가 ---
+    // inject로 받은 tickerInfo가 변경될 때마다 로그를 찍어봅니다.
+    watch(
+        tickerInfo,
+        (newInfo) => {
+            console.log(
+                '[Layout.vue] inject로 받은 tickerInfo 변경 감지:',
+                newInfo
+            );
+        },
+        { deep: true }
+    );
+    // -------------------------
 
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
+        // inject로 받은 tickerInfo는 readonly ref이므로 여전히 .value로 접근해야 합니다.
         if (route.name === 'stock-detail' && tickerInfo.value) {
-            if (isDesktop.value) {
-                // 데스크탑 뷰: 심볼 -> 긴 이름
-                if (tickerInfo.value.Symbol) {
-                    items.push({ label: tickerInfo.value.Symbol });
-                }
-                if (tickerInfo.value.longName) {
-                    items.push({
-                        label: tickerInfo.value.longName,
-                    });
-                }
-            } else if (isMobile.value) {
-                if (tickerInfo.value.Symbol) {
-                    items.push({ label: tickerInfo.value.Symbol });
-                }
-            } else {
-                // 모바일/태블릿 뷰: 회사 -> 심볼
-                if (
-                    tickerInfo.value.company &&
-                    tickerInfo.value.company !== 'N/A'
-                ) {
-                    items.push({ label: tickerInfo.value.company });
-                    items.push({
-                        label: tickerInfo.value.Symbol,
-                    });
-                } else {
-                    items.push({ label: tickerInfo.value.Symbol });
-                }
+            if (tickerInfo.value.symbol)
+                items.push({ label: tickerInfo.value.symbol.toUpperCase() });
+            if (isDesktop.value && tickerInfo.value.longName) {
+                items.push({ label: tickerInfo.value.longName });
             }
+        } else if (route.name === 'mypage') {
+            items.push({ label: '마이페이지' });
         }
-        return [home, ...items];
-    });
 
-    watch(visible, (newValue) => {
-        if (newValue) document.body.classList.add('p-overflow-hidden');
-        else document.body.classList.remove('p-overflow-hidden');
+        return [home, ...items];
     });
 
     watch(
         () => route.path,
         () => {
             visible.value = false;
-            visible2.value = false;
         }
     );
 </script>
@@ -117,9 +84,8 @@
     <div id="t-layout">
         <Toast />
         <ConfirmDialog />
-        <aside id="t-sidebar" v-if="deviceType === 'desktop'">
+        <aside id="t-sidebar" v-if="isDesktop">
             <header>
-                <!-- 검색창을 하나로 통일 -->
                 <FilterInput
                     v-model="filters.global.value"
                     title="전체 티커 검색"
@@ -130,25 +96,21 @@
 
         <main id="t-grid">
             <header id="t-header">
-                <div
-                    class="flex items-center gap-4 min-w-0"
-                    v-if="!isHomePage && tickerInfo">
+                <!-- 핵심 수정: v-if 조건을 단순화하고 명확하게 만듭니다 -->
+                <div v-if="route.path === '/'" class="flex items-center">
+                    <p class="text-lg font-bold">배당금 일정</p>
+                </div>
+                <div v-else class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
-                        <template #item="{ item }">
+                        <template #item="{ item, props }">
                             <router-link
                                 v-if="item.to"
                                 :to="item.to"
-                                class="p-menuitem-link">
-                                <span
-                                    v-if="item.icon"
-                                    :class="item.icon"></span>
-                                <span
-                                    class="font-semibold"
-                                    :class="{
-                                        'text-primary': route.path === item.to,
-                                    }"
-                                    >{{ item.label }}</span
-                                >
+                                v-bind="props.action">
+                                <span v-if="item.icon" :class="item.icon" />
+                                <span class="font-semibold">{{
+                                    item.label
+                                }}</span>
                             </router-link>
                             <span
                                 v-else
@@ -158,27 +120,20 @@
                         </template>
                     </Breadcrumb>
                 </div>
-                <p class="text font-bold" v-else-if="isHomePage">배당금 일정</p>
-                <p class="text font-bold" v-else-if="isMypage">마이페이지</p>
-                <div
-                    id="t-topbar"
-                    class="topbar-actions"
-                    v-if="!isLogin && !isSignup">
-                    <!-- 사용자가 없을 때 (로그아웃 상태) -->
+
+                <div id="t-topbar" class="topbar-actions">
                     <Button
                         v-if="!user"
                         icon="pi pi-sign-in"
                         variant="text"
                         @click="goToLogin"
                         aria-label="로그인" />
-
-                    <!-- 사용자가 있을 때 (로그인 상태) -->
                     <template v-else>
                         <Button
+                            v-if="route.name !== 'mypage'"
                             icon="pi pi-user"
                             variant="text"
                             @click="goToMyPage"
-                            v-if="!isMypage"
                             aria-label="마이페이지" />
                         <Button
                             icon="pi pi-sign-out"
@@ -187,7 +142,7 @@
                             aria-label="로그아웃" />
                     </template>
                     <Button
-                        v-if="deviceType !== 'desktop'"
+                        v-if="!isDesktop"
                         icon="pi pi-bars"
                         variant="text"
                         @click="visible = true" />
@@ -196,23 +151,18 @@
             <section id="t-content">
                 <RouterView />
                 <ScrollTop
-                    v-if="!isHomePage"
+                    v-if="route.path !== '/'"
                     target="parent"
                     :threshold="100"
-                    icon="pi pi-arrow-up"
-                    :buttonProps="{
-                        severity: 'contrast',
-                        raised: true,
-                        rounded: true,
-                    }" />
+                    icon="pi pi-arrow-up" />
             </section>
         </main>
 
         <Drawer
-            v-if="deviceType !== 'desktop'"
+            v-if="!isDesktop"
             v-model:visible="visible"
             :position="isMobile ? 'full' : 'right'"
-            :modal="true"
+            modal
             id="toto-search"
             :class="deviceType">
             <template #header>
