@@ -43,10 +43,15 @@ sudo apt-get install -y google-chrome-stable
 
 # 4. 개발환경 셋팅
 
-npm install
+npm install --force
 
 npm run build
 
-npm run deploy
-
 npm run dev
+vercel login
+cd stock
+vercel link
+totobubu-github-io
+vercel dev
+
+ "value": "https://www.divgrow.com"
