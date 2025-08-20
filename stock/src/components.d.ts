@@ -17,6 +17,7 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     Chart: typeof import('primevue/chart')['default']
     ConfirmDialog: typeof import('primevue/confirmdialog')['default']
+    DividendYieldCalculator: typeof import('./components/calculators/DividendYieldCalculator.vue')['default']
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     FilterInput: typeof import('./components/FilterInput.vue')['default']

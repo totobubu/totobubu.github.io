@@ -9,18 +9,19 @@
     import TabPanel from 'primevue/tabpanel';
     import RecoveryCalculator from './calculators/RecoveryCalculator.vue';
     import ReinvestmentCalculator from './calculators/ReinvestmentCalculator.vue';
-
+    import DividendYieldCalculator from './calculators/DividendYieldCalculator.vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     const { deviceType } = useBreakpoint();
     defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
-         userBookmark: Object
+        userBookmark: Object,
     });
 
     const activeTab = ref('0');
     const visibleRecovery = ref(false);
     const visibleReinvestment = ref(false);
+    const visibleDividendYield = ref(false);
 </script>
 
 <template>
@@ -44,6 +45,11 @@
                         icon="pi pi-chart-line"
                         severity="secondary"
                         @click="visibleReinvestment = true" />
+                    <Button
+                        label="배당 수익률 계산기"
+                        icon="pi pi-chart-line"
+                        severity="secondary"
+                        @click="visibleDividendYield = true" />
                 </div>
             </template>
         </Card>
@@ -60,7 +66,7 @@
             <RecoveryCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
-                 :userBookmark="userBookmark" />
+                :userBookmark="userBookmark" />
         </Drawer>
         <Drawer
             v-model:visible="visibleReinvestment"
@@ -75,7 +81,22 @@
             <ReinvestmentCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
-                 :userBookmark="userBookmark" />
+                :userBookmark="userBookmark" />
+        </Drawer>
+        <Drawer
+            v-model:visible="visibleDividendYield"
+            header="배당 수익률 계산기"
+            position="bottom"
+            style="height: auto"
+            modal
+            :class="
+                deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
+            "
+            id="calculator-reinvestment">
+            <DividendYieldCalculator
+                :dividendHistory="dividendHistory"
+                :tickerInfo="tickerInfo"
+                :userBookmark="userBookmark" />
         </Drawer>
     </div>
 </template>
