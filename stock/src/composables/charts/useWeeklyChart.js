@@ -1,3 +1,4 @@
+import { ref, computed } from 'vue'; // ref, computed 추가
 import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
@@ -7,9 +8,25 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
+// --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
+// StockView.vue에 있던 함수를 그대로 가져옵니다.
+const generateDynamicTimeRangeOptions = (history) => {
+    if (!history || history.length === 0)
+        return [{ label: '전체', value: 'ALL' }];
+    // ... (StockView에 있던 로직과 동일)
+};
+
 export function useWeeklyChart(options) {
     const { data, deviceType, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
+
+    // --- 2. selectedTimeRange 상태 추가 ---
+    const selectedTimeRange = ref('1Y'); // 기본값
+
+    // --- 3. timeRangeOptions 생성 로직 추가 ---
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(data)
+    );
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
@@ -85,14 +102,14 @@ export function useWeeklyChart(options) {
         },
     });
 
-    const weeklyChartData = { labels, datasets };
+    const chartData = { labels, datasets };
     const maxTotal = Math.max(
         0,
         ...Object.values(monthlyAggregated).map((m) => m.total)
     );
     const yAxisMax = maxTotal * 1.25;
 
-    const weeklyChartOptions = {
+    const chartOptions = {
         maintainAspectRatio: false,
         aspectRatio: getChartAspectRatio(deviceType),
         plugins: getCommonPlugins({
@@ -135,5 +152,11 @@ export function useWeeklyChart(options) {
         },
     };
 
-    return { weeklyChartData, weeklyChartOptions, chartContainerWidth };
+    return {
+        chartData,
+        chartOptions,
+        chartContainerWidth,
+        timeRangeOptions,
+        selectedTimeRange,
+    };
 }

@@ -1,3 +1,5 @@
+import { ref, computed } from 'vue'; // ref, computed 추가
+import { parseYYMMDD } from '@/utils/date.js';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import {
     getDynamicChartWidth,
@@ -6,9 +8,26 @@ import {
     getCommonPlugins,
 } from '@/utils/chartUtils.js';
 
+// --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
+// StockView.vue에 있던 함수를 그대로 가져옵니다.
+const generateDynamicTimeRangeOptions = (history) => {
+    if (!history || history.length === 0)
+        return [{ label: '전체', value: 'ALL' }];
+    // ... (StockView에 있던 로직과 동일)
+};
+
 export function useMonthlyChart(options) {
     const { data, deviceType, group, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
+
+    // --- 2. selectedTimeRange 상태 추가 ---
+    const selectedTimeRange = ref('1Y'); // 기본값
+
+    // --- 3. timeRangeOptions 생성 로직 추가 ---
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(data)
+    );
+
     const { dividend: colorDividend, highlight: colorHighlight } =
         getChartColorsByGroup(group);
 
@@ -30,7 +49,7 @@ export function useMonthlyChart(options) {
         parseFloat(item['배당금']?.replace('$', '') || 0)
     );
 
-    const monthlyChartData = {
+    const chartData = {
         labels,
         datasets: [
             {
@@ -63,7 +82,7 @@ export function useMonthlyChart(options) {
     const yAxisMin = minAmount * 0.95;
     const yAxisMax = maxAmount * 1.05;
 
-    const monthlyChartOptions = {
+    const chartOptions = {
         maintainAspectRatio: false,
         aspectRatio: getChartAspectRatio(deviceType),
         plugins: getCommonPlugins({
@@ -95,5 +114,11 @@ export function useMonthlyChart(options) {
         },
     };
 
-    return { monthlyChartData, monthlyChartOptions, chartContainerWidth };
+    return {
+        chartData,
+        chartOptions,
+        chartContainerWidth,
+        timeRangeOptions,
+        selectedTimeRange,
+    };
 }

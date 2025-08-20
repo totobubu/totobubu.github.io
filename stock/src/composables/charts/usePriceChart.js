@@ -1,4 +1,6 @@
+import { ref, computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
+import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -6,25 +8,53 @@ import {
     getCommonPlugins,
 } from '@/utils/chartUtils.js';
 
+// --- 1. generateDynamicTimeRangeOptions 함수를 이 파일 안으로 가져옵니다. ---
+// (또는 별도의 utils 파일로 만들어 import 해도 좋습니다.)
+const generateDynamicTimeRangeOptions = (history) => {
+    if (!history || history.length === 0) {
+        return [{ label: '전체', value: 'ALL' }];
+    }
+    const dates = history
+        .map((h) => parseYYMMDD(h['배당락']))
+        .sort((a, b) => a - b);
+    const lastDate = dates[dates.length - 1];
+    const today = new Date();
+
+    const options = [];
+    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
+    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
+
+    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
+    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
+
+    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
+    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
+
+    const oneYearAgo = new Date(
+        new Date().setFullYear(today.getFullYear() - 1)
+    );
+    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
+
+    options.push({ label: 'ALL', value: 'ALL' });
+
+    return options.map((opt) => ({
+        ...opt,
+        label: opt.value === 'ALL' ? '전체' : opt.label,
+    }));
+};
+
 export function usePriceChart(options) {
     const { data, deviceType, group, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-    const {
-        dividend,
-        highlight,
-        lineDividend,
-        prevPrice,
-        currentPrice,
-        openPrice,
-        nextPrice,
-        dividendText,
-        highlightText,
-        prevPriceText,
-        currentPriceText,
-        openPriceText,
-        nextPriceText,
-    } = getChartColorsByGroup(group);
 
+    // --- 2. timeRangeOptions와 selectedTimeRange를 내부 상태로 관리 ---
+    const selectedTimeRange = ref('1Y');
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(data)
+    );
+
+    // --- 색상 및 폰트 크기 계산 (기존과 동일) ---
+    const colors = getChartColorsByGroup(group);
     const chartContainerWidth = getDynamicChartWidth(
         data.length,
         deviceType,
@@ -43,6 +73,7 @@ export function usePriceChart(options) {
     const tickFontSize = getPriceChartFontSize(data.length, deviceType, 'axis');
     const lastDataIndex = data.length - 1;
 
+    // --- Y축 범위 계산 (기존과 동일) ---
     const prices = data
         .flatMap((item) => [
             parseFloat(item['전일종가']?.replace('$', '')),
@@ -54,7 +85,8 @@ export function usePriceChart(options) {
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
 
-    const priceChartData = {
+    // --- 3. 반환할 객체의 키 이름을 표준에 맞게 수정 ---
+    const chartData = {
         labels: data.map((item) => item['배당락']),
         datasets: [
             {
@@ -176,7 +208,7 @@ export function usePriceChart(options) {
         ],
     };
 
-    const priceChartOptions = {
+    const chartOptions = {
         maintainAspectRatio: false,
         aspectRatio: getChartAspectRatio(deviceType),
         plugins: getCommonPlugins({
@@ -223,5 +255,12 @@ export function usePriceChart(options) {
         },
     };
 
-    return { priceChartData, priceChartOptions, chartContainerWidth };
+    // --- 4. 표준화된 객체 반환 ---
+    return {
+        chartData,
+        chartOptions,
+        chartContainerWidth,
+        timeRangeOptions,
+        selectedTimeRange,
+    };
 }
