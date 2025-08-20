@@ -25,7 +25,6 @@ declare module 'vue' {
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
-    Message: typeof import('primevue/message')['default']
     Password: typeof import('primevue/password')['default']
     ProfileSettings: typeof import('./components/mypage/ProfileSettings.vue')['default']
     RadioButton: typeof import('primevue/radiobutton')['default']
@@ -41,8 +40,6 @@ declare module 'vue' {
     StockChartCard: typeof import('./components/StockChartCard.vue')['default']
     StockHeader: typeof import('./components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./components/StockHistoryPanel.vue')['default']
-    TabPanel: typeof import('primevue/tabpanel')['default']
-    TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
   }
   export interface GlobalDirectives {
