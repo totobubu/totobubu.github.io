@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
-import { useQuarterlyChart } from './charts/useQuarterlyChart.js';
+import { useQuarterlyChart } from './charts/useQuarterlyChart';
 import { useMonthlyChart } from './charts/useMonthlyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -12,9 +12,12 @@ export function useStockChart(
     isPriceChartMode,
     selectedTimeRange
 ) {
-    const chartData = ref(null);
-    const chartOptions = ref(null);
-    const chartContainerWidth = ref('100%');
+    const { deviceType } = useBreakpoint();
+
+    const hasDividendChartMode = computed(() => {
+        const freq = tickerInfo.value?.frequency;
+        return ['매주', '분기', '4주', '매월'].includes(freq);
+    });
 
     const generateDynamicTimeRangeOptions = (history) => {
         if (!history || history.length === 0) {
@@ -59,26 +62,27 @@ export function useStockChart(
         generateDynamicTimeRangeOptions(dividendHistory.value)
     );
 
-    const { deviceType } = useBreakpoint();
-
-    const hasDividendChartMode = computed(() => {
-        const freq = tickerInfo.value?.frequency;
-        return ['매주', '분기', '4주', '매월'].includes(freq);
-    });
-
-    // 데이터를 필터링하는 로직은 여기에 두는 것이 좋습니다.
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) {
             return [];
         }
 
-        const range = selectedTimeRange.value;
-        if (!range || range === 'ALL' || range === 'Max') {
-            // 'ALL'과 'Max' 모두 처리
-            return dividendHistory.value;
+        const now = new Date();
+        const validPastHistory = dividendHistory.value.filter((item) => {
+            const dividendDate = parseYYMMDD(item['배당락']);
+            const dividendAmount = parseFloat(item['배당금']?.replace('$', ''));
+            return dividendDate && dividendDate <= now && dividendAmount > 0;
+        });
+
+        if (validPastHistory.length === 0) {
+            return [];
         }
 
-        const now = new Date();
+        const range = selectedTimeRange.value;
+        if (!range || range === 'ALL' || range === 'Max') {
+            return validPastHistory;
+        }
+
         const cutoffDate = new Date();
         const rangeValue = parseInt(range);
         const rangeUnit = range.slice(-1);
@@ -89,20 +93,22 @@ export function useStockChart(
             cutoffDate.setFullYear(now.getFullYear() - rangeValue);
         }
 
-        return dividendHistory.value.filter(
+        return validPastHistory.filter(
             (item) => parseYYMMDD(item['배당락']) >= cutoffDate
         );
     });
 
-    const updateChart = () => {
+    const chartResult = computed(() => {
         if (
             !tickerInfo.value ||
             !chartDisplayData.value ||
             chartDisplayData.value.length === 0
         ) {
-            chartData.value = { labels: [], datasets: [] };
-            chartOptions.value = {};
-            return;
+            return {
+                chartData: { labels: [], datasets: [] },
+                chartOptions: {},
+                chartContainerWidth: '100%',
+            };
         }
 
         const documentStyle = getComputedStyle(document.documentElement);
@@ -123,62 +129,49 @@ export function useStockChart(
             theme: themeOptions,
         };
 
-        let result;
-        const frequency = tickerInfo.value?.frequency;
-
         if (isPriceChartMode.value) {
-            // hasDividendChartMode 조건 제거
-            result = usePriceChart(sharedOptions);
-        } else if (frequency === '매주' || frequency === '4주') {
-            result = useWeeklyChart(sharedOptions);
-        } else if (frequency === '분기') {
-            result = useQuarterlyChart(sharedOptions);
-        } else if (frequency === '매월') {
-            result = useMonthlyChart(sharedOptions);
-        } else {
-            // 배당 주기가 없는 종목 등 기본값으로 Price Chart를 보여줌
-            result = usePriceChart(sharedOptions);
+            return usePriceChart(sharedOptions);
         }
 
-        // --- 하위 Composable의 반환값 키를 정확히 사용 ---
-        chartData.value =
-            result.priceChartData ||
-            result.weeklyChartData ||
-            result.monthlyChartData ||
-            result.quarterlyChartData;
-        chartOptions.value =
-            result.priceChartOptions ||
-            result.weeklyChartOptions ||
-            result.monthlyChartOptions ||
-            result.quarterlyChartOptions;
-        chartContainerWidth.value = result.chartContainerWidth || '100%';
+        const frequency = tickerInfo.value?.frequency;
+        if (frequency === '매주' || frequency === '4주') {
+            return useWeeklyChart(sharedOptions);
+        }
+        if (frequency === '분기') {
+            return useQuarterlyChart(sharedOptions);
+        }
+        if (frequency === '매월') {
+            return useMonthlyChart(sharedOptions);
+        }
 
-        // --- 핵심 수정: 결과값을 각 ref에 할당 ---
-        // 각 하위 Composable이 반환하는 키 이름에 맞게 조정해야 합니다.
-        // (예: weeklyChartData, monthlyChartData 등)
-        chartData.value =
-            result.chartData ||
-            result.priceChartData ||
-            result.weeklyChartData ||
-            result.monthlyChartData ||
-            result.quarterlyChartData;
-        chartOptions.value =
-            result.chartOptions ||
-            result.priceChartOptions ||
-            result.weeklyChartOptions ||
-            result.monthlyChartOptions ||
-            result.quarterlyChartOptions;
-        chartContainerWidth.value = result.chartContainerWidth || '100%';
-        timeRangeOptions.value = result.timeRangeOptions || [];
-    };
+        return usePriceChart(sharedOptions);
+    });
+
+    const chartData = computed(
+        () =>
+            chartResult.value.chartData ||
+            chartResult.value.priceChartData ||
+            chartResult.value.weeklyChartData ||
+            chartResult.value.monthlyChartData ||
+            chartResult.value.quarterlyChartData
+    );
+    const chartOptions = computed(
+        () =>
+            chartResult.value.chartOptions ||
+            chartResult.value.priceChartOptions ||
+            chartResult.value.weeklyChartOptions ||
+            chartResult.value.monthlyChartOptions ||
+            chartResult.value.quarterlyChartOptions
+    );
+    const chartContainerWidth = computed(
+        () => chartResult.value.chartContainerWidth || '100%'
+    );
 
     return {
         chartData,
         chartOptions,
-        timeRangeOptions,
         chartContainerWidth,
         timeRangeOptions,
         hasDividendChartMode,
-        updateChart,
     };
 }
