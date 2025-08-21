@@ -1,11 +1,17 @@
+// CJS 방식: require 사용
 const yahooFinance = require('yahoo-finance2').default;
 
+// CJS 방식: module.exports 사용
 module.exports = async (request, response) => {
-    // 로컬 개발을 위해 localhost와 실제 도메인을 모두 허용
-    const allowedOrigins = ['http://localhost:5173', 'https://www.divgrow.com'];
+    // CORS 헤더 설정
+    const allowedOrigins = [
+        'http://localhost:5173',
+        'https://www.divgrow.com',
+        'https://divgrow.com',
+    ];
     const origin = request.headers.origin;
 
-    if (allowedOrigins.includes(origin)) {
+    if (origin && allowedOrigins.includes(origin)) {
         response.setHeader('Access-Control-Allow-Origin', origin);
     }
 
@@ -18,7 +24,6 @@ module.exports = async (request, response) => {
     if (request.method === 'OPTIONS') {
         return response.status(200).end();
     }
-    // ------------------------------------
 
     const tickers = request.query.tickers;
 
@@ -55,4 +60,4 @@ module.exports = async (request, response) => {
             details: error.message,
         });
     }
-}
+};
