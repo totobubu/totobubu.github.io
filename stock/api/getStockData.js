@@ -1,6 +1,6 @@
-import yahooFinance from 'yahoo-finance2';
+const yahooFinance = require('yahoo-finance2').default;
 
-export default async function handler(request, response) {
+module.exports = async (request, response) => {
     // --- 핵심: CORS 헤더 설정 추가 ---
     // 개발 환경(localhost)에서의 요청을 허용합니다.
     const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
@@ -50,4 +50,4 @@ export default async function handler(request, response) {
             details: error.message,
         });
     }
-}
+};

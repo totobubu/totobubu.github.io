@@ -1,11 +1,14 @@
-<!-- stock\src\pages\StockView.vue -->
+<!-- src/pages/StockView.vue -->
 <script setup>
     import { ref, computed, watch, provide } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
-    import { useStockChart } from '@/composables/useStockChart';
-    import { useBreakpoint } from '@/composables/useBreakpoint'; // --- 이 줄을 추가합니다 ---
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { usePriceChart } from '@/composables/charts/usePriceChart';
+    import { useWeeklyChart } from '@/composables/charts/useWeeklyChart';
+    import { useMonthlyChart } from '@/composables/charts/useMonthlyChart';
+    import { useQuarterlyChart } from '@/composables/charts/useQuarterlyChart';
 
     import ProgressSpinner from 'primevue/progressspinner';
     import StockHeader from '@/components/StockHeader.vue';
@@ -15,43 +18,90 @@
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
-    const { isDesktop } = useBreakpoint(); // --- 이 줄을 추가합니다 ---
+    const { isDesktop, deviceType } = useBreakpoint();
 
-    // useStockData를 호출하여 전역 상태와 함수에 접근합니다.
     const { tickerInfo, dividendHistory, isLoading, error, loadData } =
         useStockData();
-
-    // --- 3. 디버그 로그 추가 ---
-    // tickerInfo가 변경될 때마다 로그를 찍어봅니다.
-    watch(
-        tickerInfo,
-        (newInfo) => {
-            console.log('[StockView] tickerInfo 변경 감지:', newInfo);
-        },
-        { deep: true }
-    );
-    // -------------------------
-    // --- 핵심 수정: computed를 provide 합니다. ---
-    // provide('stock-ticker-info', readonly(tickerInfo));
+    provide('stock-ticker-info', tickerInfo);
 
     const isPriceChartMode = ref(false);
     const selectedTimeRange = ref('1Y');
 
-    const {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-        timeRangeOptions, // useStockChart로부터 직접 받음
-        hasDividendChartMode,
-        updateChart,
-    } = useStockChart(
-        dividendHistory,
-        tickerInfo,
-        isPriceChartMode,
-        selectedTimeRange
+    const chartComposableResult = computed(() => {
+        if (!tickerInfo.value || !dividendHistory.value) {
+            return {
+                chartData: { labels: [], datasets: [] },
+                chartOptions: {},
+                chartContainerWidth: '100%',
+                timeRangeOptions: [],
+                selectedTimeRange: ref('1Y'),
+            };
+        }
+
+        const documentStyle = getComputedStyle(document.documentElement);
+        const theme = {
+            textColor: documentStyle.getPropertyValue('--p-text-color'),
+            textColorSecondary: documentStyle.getPropertyValue(
+                '--p-text-muted-color'
+            ),
+            surfaceBorder: documentStyle.getPropertyValue(
+                '--p-content-border-color'
+            ),
+        };
+
+        const options = {
+            data: dividendHistory.value,
+            deviceType: deviceType.value,
+            group: tickerInfo.value.group,
+            theme: theme,
+        };
+
+        if (isPriceChartMode.value) {
+            return usePriceChart(options);
+        }
+
+        const frequency = tickerInfo.value.frequency;
+        if (frequency === '매주' || frequency === '4주') {
+            return useWeeklyChart(options);
+        } else if (frequency === '분기') {
+            return useQuarterlyChart(options);
+        }
+        return useMonthlyChart(options);
+    });
+
+    const chartData = computed(() => chartComposableResult.value.chartData);
+    const chartOptions = computed(
+        () => chartComposableResult.value.chartOptions
+    );
+    const timeRangeOptions = computed(
+        () => chartComposableResult.value.timeRangeOptions
+    );
+    const chartContainerWidth = computed(
+        () => chartComposableResult.value.chartContainerWidth
     );
 
-    // 라우트 파라미터가 변경될 때마다 전역 상태를 업데이트합니다.
+    watch(
+        () => chartComposableResult.value.selectedTimeRange,
+        (newSelectedTimeRangeRef) => {
+            if (
+                newSelectedTimeRangeRef &&
+                selectedTimeRange.value !== newSelectedTimeRangeRef.value
+            ) {
+                selectedTimeRange.value = newSelectedTimeRangeRef.value;
+            }
+        },
+        { immediate: true }
+    );
+
+    watch(selectedTimeRange, (newValue) => {
+        if (
+            chartComposableResult.value &&
+            chartComposableResult.value.selectedTimeRange
+        ) {
+            chartComposableResult.value.selectedTimeRange.value = newValue;
+        }
+    });
+
     watch(
         () => route.params.ticker,
         (newTicker) => {
@@ -62,13 +112,12 @@
         { immediate: true }
     );
 
-    watch(
-        [dividendHistory, tickerInfo, isPriceChartMode, selectedTimeRange],
-        () => {
-            updateChart();
-        },
-        { deep: true, immediate: true }
-    );
+    const hasDividendChartMode = computed(() => {
+        if (!dividendHistory.value) return false;
+        return dividendHistory.value.some(
+            (h) => h['배당금'] && parseFloat(h['배당금'].replace('$', '')) > 0
+        );
+    });
 
     const currentUserBookmark = computed(() => {
         if (!route.params.ticker) return null;
@@ -78,7 +127,7 @@
 </script>
 
 <template>
-    <div class="card" ref="chartContainer">
+    <div class="card">
         <div v-if="isLoading" class="flex justify-center items-center h-screen">
             <ProgressSpinner />
         </div>
@@ -95,7 +144,7 @@
                 :has-dividend-chart-mode="hasDividendChartMode"
                 :chart-data="chartData"
                 :chart-options="chartOptions"
-                :chart-container-width="chartContainerWidth"
+                :chart-container-width="chartContainerWidth.value"
                 :time-range-options="timeRangeOptions"
                 v-model:isPriceChartMode="isPriceChartMode"
                 v-model:selectedTimeRange="selectedTimeRange" />

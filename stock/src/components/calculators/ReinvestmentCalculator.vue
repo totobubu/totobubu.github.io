@@ -6,6 +6,17 @@
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { parseYYMMDD } from '@/utils/date.js';
 
+    import Card from 'primevue/card';
+    import Chart from 'primevue/chart';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
+    import InputNumber from 'primevue/inputnumber';
+    import Slider from 'primevue/slider';
+    import SelectButton from 'primevue/selectbutton';
+    import Divider from 'primevue/divider';
+    import Tag from 'primevue/tag';
+    import Tooltip from 'primevue/tooltip'; // v-tooltip을 위한 import
+
     const props = defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
