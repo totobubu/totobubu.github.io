@@ -1,15 +1,20 @@
-import yahooFinance from 'yahoo-finance2';
+const yahooFinance = require('yahoo-finance2').default;
 
-export default async function handler(request, response) {
-    // --- 핵심: CORS 헤더 설정 추가 ---
-    // 개발 환경(localhost)에서의 요청을 허용합니다.
-    const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
+module.exports = async (request, response) => {
+    // 로컬 개발을 위해 localhost와 실제 도메인을 모두 허용
+    const allowedOrigins = ['http://localhost:5173', 'https://www.divgrow.com'];
+    const origin = request.headers.origin;
 
-    response.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    if (allowedOrigins.includes(origin)) {
+        response.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
     response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+    );
 
-    // 브라우저가 보내는 사전 요청(preflight request)인 OPTIONS 요청에 대한 처리
     if (request.method === 'OPTIONS') {
         return response.status(200).end();
     }
