@@ -2,22 +2,25 @@
 
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router'; // router는 여기서만 import
-import './store/auth'; // auth 스토어 초기화
-import { isRecentlyAuthenticated } from './store/auth'; // 상태 변수만 import
+import router from './router';
+import './store/auth';
+import { isRecentlyAuthenticated } from './store/auth';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
+import Tooltip from 'primevue/tooltip'; // PrimeVue의 Tooltip (v-tooltip용)
+
 import { definePreset } from '@primeuix/themes';
 import Lara from '@primeuix/themes/lara';
 
 import './styles/style.scss';
 
+// --- 핵심 수정: Chart.js의 Tooltip 이름을 'ChartTooltip'으로 변경 ---
 import {
     Chart as ChartJS,
     Title,
-    Tooltip,
+    Tooltip as ChartTooltip, // Tooltip -> ChartTooltip 으로 별칭 지정
     Legend,
     BarElement,
     CategoryScale,
@@ -27,12 +30,14 @@ import {
     BarController,
     LineController,
 } from 'chart.js';
+// -----------------------------------------------------------------
+
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Annotation from 'chartjs-plugin-annotation';
 
 ChartJS.register(
     Title,
-    Tooltip,
+    ChartTooltip, // Tooltip -> ChartTooltip 으로 변경
     Legend,
     BarElement,
     CategoryScale,
@@ -105,7 +110,7 @@ const MyPreset = definePreset(Lara, {
 
 const app = createApp(App);
 
-app.use(router); // Vue 앱에 라우터를 먼저 등록합니다.
+app.use(router);
 app.use(PrimeVue, {
     theme: {
         preset: MyPreset,
@@ -116,11 +121,9 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(ConfirmationService);
+app.directive('tooltip', Tooltip);
 
-// --- 핵심: router.afterEach 로직을 여기에 추가합니다 ---
-// 이 코드는 router가 앱에 등록된 후에 실행되어야 합니다.
 router.afterEach(() => {
-    // 페이지가 이동할 때마다 마이페이지의 사전 인증 상태를 초기화합니다.
     isRecentlyAuthenticated.value = false;
 });
 
