@@ -50,3 +50,5 @@ npm run build
 npm run deploy
 
 npm run dev
+
+vercel dev --listen 5000
