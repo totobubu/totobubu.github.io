@@ -54,7 +54,7 @@ jobs:
 
       # 5. 배당금 스크레이퍼 실행
       - name: Run Dividend Scraper
-        working-directory: ./stock
+
         run: python scripts/scraper_dividend.py
 
       # 6. 변경된 파일이 있으면 자동으로 커밋
