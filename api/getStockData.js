@@ -1,6 +1,6 @@
-const yahooFinance = require('yahoo-finance2').default;
+import yahooFinance from 'yahoo-finance2';
 
-module.exports = async (request, response) => {
+export default async function handler(request, response) {
     const allowedOrigins = [
         'http://localhost:5173',
         'http://localhost:3000',
@@ -41,4 +41,4 @@ module.exports = async (request, response) => {
             details: errorMessage,
         });
     }
-};
+}

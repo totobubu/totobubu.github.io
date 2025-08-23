@@ -1,7 +1,14 @@
 {
+  "redirects": [
+    {
+      "source": "/stock/:ticker",
+      "destination": "/:ticker",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/:path((?!api/|.*\\.).*)",
       "destination": "/index.html"
     }
   ]
