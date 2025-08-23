@@ -17,13 +17,13 @@
 
         &-content {
             padding: var(--toto-overlay-modal-padding-y) 1.5rem;
-            height: 70vh !important;
-            @include bp.media-breakpoint-up('sm') {
-                max-height: 550px;
-            }
+            max-height: 90vh;
             overflow-y: auto;
+            @include bp.media-breakpoint-up('sm') {
+            }
 
             @include bp.media-breakpoint-only('xs') {
+                
             }
 
             @include bp.media-breakpoint-up('sm') {
@@ -91,6 +91,39 @@
                     }
                 }
             }
+        }
+        &-howmuch {
+            .p-inputgroup {
+                &:first-child {
+                    .p-inputgroupaddon:first-child {
+                        border-bottom-left-radius: 0 !important;
+                    }
+                    > .p-component:last-child {
+                        border-bottom-right-radius: 0 !important;
+                    }
+                }
+                    .p-inputnumber {
+                        input {
+                            text-align: right;
+                            width: 100%;
+                        }
+                    }
+                &:last-child {
+                    margin-top: -1px;
+                    .p-inputgroupaddon:first-child {
+                        border-top-left-radius: 0 !important;
+                    }
+                }
+            }
+
+            &-result {
+                table {
+                td {
+                    padding: 0.7em !important;
+                }
+            }
+            }
+
         }
 
         // 기간 및 세전 선택 버튼

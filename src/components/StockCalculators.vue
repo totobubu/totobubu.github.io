@@ -11,6 +11,7 @@
     // 하위 컴포넌트 import
     import RecoveryCalculator from './calculators/RecoveryCalculator.vue';
     import ReinvestmentCalculator from './calculators/ReinvestmentCalculator.vue';
+    import DividendYieldCalculator from './calculators/DividendYieldCalculator.vue';
 
     const { deviceType } = useBreakpoint();
     defineProps({
@@ -22,6 +23,7 @@
     const activeTab = ref('0');
     const visibleRecovery = ref(false);
     const visibleReinvestment = ref(false);
+    const visibleDividendYield = ref(false);
 </script>
 
 <template>
@@ -36,15 +38,20 @@
                             : 'flex-col gap-2'
                     ">
                     <Button
-                        label="투자금 회수 기간 계산기"
+                        label="투자금 회수 기간"
                         icon="pi pi-refresh"
                         severity="secondary"
                         @click="visibleRecovery = true" />
                     <Button
-                        label="목표 달성 기간 계산기"
+                        label="목표 달성 기간"
                         icon="pi pi-chart-line"
                         severity="secondary"
                         @click="visibleReinvestment = true" />
+                    <Button
+                        label="얼마나 배당"
+                        icon="pi pi-dollar"
+                        severity="secondary"
+                        @click="visibleDividendYield = true" />
                 </div>
             </template>
         </Card>
@@ -74,6 +81,21 @@
             "
             id="calculator-reinvestment">
             <ReinvestmentCalculator
+                :dividendHistory="dividendHistory"
+                :tickerInfo="tickerInfo"
+                :userBookmark="userBookmark" />
+        </Drawer>
+        <Drawer
+            v-model:visible="visibleDividendYield"
+            header="얼마나 배당 계산기"
+            position="bottom"
+            style="height: auto"
+            modal
+            :class="
+                deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
+            "
+            id="calculator-reinvestment">
+            <DividendYieldCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
                 :userBookmark="userBookmark" />
