@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 20
       - name: Build Vue App
-        working-directory: ./stock
+
         run: |
           npm install
           npm run build
