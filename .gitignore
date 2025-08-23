@@ -5,23 +5,57 @@ __pycache__/
 *.pyc
 
 # Node.js
-stock/node_modules/
-stock/dist/
+node_modules/
+dist/
 .npm/
 
 # Chrome Profile & Screenshots
-stock/chrome_profile/
-stock/error_screenshots/
+chrome_profile/
+error_screenshots/
 
 # IDE & OS files
 .vscode/
 .DS_Store
 
-# Log files
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-EOT
+pnpm-debug.log*
+lerna-debug.log*
 
-.history/
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+
+# Selenium/Chrome Profile
+/chrome_profile/
+*.png
+
+.history/*
 .vercel
