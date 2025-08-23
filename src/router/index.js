@@ -37,7 +37,7 @@ const router = createRouter({
             component: HomeView,
         },
         {
-            path: '/stock/:ticker', // :ticker 부분이 변수 역할을 합니다.
+            path: '/:ticker', // :ticker 부분이 변수 역할을 합니다.
             name: 'stock-detail',
             component: StockView,
             props: true, // 경로의 파라미터(:ticker)를 컴포넌트의 props로 전달
