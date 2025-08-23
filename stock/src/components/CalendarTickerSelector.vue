@@ -1,3 +1,4 @@
+<!-- stock\src\components\CalendarTickerSelector.vue -->
 <template>
     <div class="p-calendar-search">
         <ScrollPanel style="height: 100%">

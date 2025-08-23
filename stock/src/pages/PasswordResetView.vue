@@ -1,3 +1,4 @@
+<!-- stock\src\pages\PasswordResetView.vue -->
 <script setup>
     import { ref } from 'vue';
     import {

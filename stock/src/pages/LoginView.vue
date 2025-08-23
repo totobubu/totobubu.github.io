@@ -1,3 +1,4 @@
+<!-- stock\src\pages\LoginView.vue -->
 <script setup>
     import { ref, onMounted } from 'vue'; // onMounted 추가
     import { useRouter, useRoute } from 'vue-router'; // useRoute 추가

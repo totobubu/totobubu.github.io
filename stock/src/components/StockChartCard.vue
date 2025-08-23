@@ -1,3 +1,4 @@
+<!-- stock\src\components\StockChartCard.vue -->
 <script setup>
     import { computed, defineProps, defineEmits } from 'vue';
     import Card from 'primevue/card';

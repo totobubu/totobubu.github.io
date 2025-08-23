@@ -1,3 +1,4 @@
+<!-- stock\src\components\StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
     import Card from 'primevue/card';
