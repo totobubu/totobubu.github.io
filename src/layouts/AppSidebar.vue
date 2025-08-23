@@ -92,7 +92,7 @@
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
         if (ticker && typeof ticker === 'string') {
-            router.push(`/stock/${ticker.toLowerCase()}`);
+            router.push(`/${ticker.toLowerCase()}`);
         }
     };
 

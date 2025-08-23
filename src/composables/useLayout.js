@@ -1,4 +1,4 @@
-// stock/src/composables/useLayout.js
+// src/composables/useLayout.js
 import { updatePrimaryPalette, updateSurfacePalette } from '@primeuix/themes';
 import { computed, ref, readonly, watchEffect } from 'vue';
 

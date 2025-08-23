@@ -1,4 +1,4 @@
-// stock/src/composables/useBreakpoint.js
+// src/composables/useBreakpoint.js
 import { ref, computed, onMounted, onBeforeUnmount, readonly } from 'vue';
 
 export function useBreakpoint() {

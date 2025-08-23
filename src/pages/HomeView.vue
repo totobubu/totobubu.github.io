@@ -14,7 +14,7 @@
     const router = useRouter();
     const goToTickerPage = (tickerSymbol) => {
         if (tickerSymbol && typeof tickerSymbol === 'string') {
-            router.push(`/stock/${tickerSymbol.toLowerCase()}`);
+            router.push(`/${tickerSymbol.toLowerCase()}`);
         }
     };
 
