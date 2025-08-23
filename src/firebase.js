@@ -15,21 +15,18 @@ import {
 } from 'firebase/firestore';
 import { getAnalytics } from 'firebase/analytics';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// --- 핵심 수정: .env 파일에서 환경 변수를 읽어와 firebaseConfig 객체 생성 ---
 const firebaseConfig = {
-    apiKey: 'AIzaSyBdTs2law6oJFyjc105KRFh-dPkkybt1Fw',
-    authDomain: 'totobubu-tracker.firebaseapp.com',
-    databaseURL: 'https://totobubu-tracker-default-rtdb.firebaseio.com',
-    projectId: 'totobubu-tracker',
-    storageBucket: 'totobubu-tracker.firebasestorage.app',
-    messagingSenderId: '453207023927',
-    appId: '1:453207023927:web:fc9c59801e21ed7a667ab2',
-    measurementId: 'G-YG5NYLSQL5',
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+// ----------------------------------------------------------------------
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -39,8 +36,8 @@ const db = getFirestore(app);
 
 export {
     auth,
-    analytics,
     db,
+    analytics,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged,
