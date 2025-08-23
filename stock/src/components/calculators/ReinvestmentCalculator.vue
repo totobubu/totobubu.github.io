@@ -6,6 +6,19 @@
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { parseYYMMDD } from '@/utils/date.js';
 
+    // PrimeVue 컴포넌트 import
+    import Card from 'primevue/card';
+    import Chart from 'primevue/chart';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
+    import InputNumber from 'primevue/inputnumber';
+    import SelectButton from 'primevue/selectbutton';
+    import Divider from 'primevue/divider';
+    import Tag from 'primevue/tag';
+    import Slider from 'primevue/slider';
+    import IftaLabel from 'primevue/iftalabel';
+
+
     const props = defineProps({
         dividendHistory: Array,
         tickerInfo: Object,

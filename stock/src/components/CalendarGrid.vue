@@ -6,12 +6,14 @@
     import listPlugin from '@fullcalendar/list';
     import interactionPlugin from '@fullcalendar/interaction';
     import koLocale from '@fullcalendar/core/locales/ko';
+    import { useFilterState } from '@/composables/useFilterState';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+
+    // PrimeVue 컴포넌트 import
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
     import Panel from 'primevue/panel';
-    import { useFilterState } from '@/composables/useFilterState'; // useFilterState import 추가
-    import { useBreakpoint } from '@/composables/useBreakpoint';
 
     const props = defineProps({
         dividendsByDate: Object,

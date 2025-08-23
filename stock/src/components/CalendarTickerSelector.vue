@@ -46,16 +46,14 @@
 <script setup>
     import { computed } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
+
+    // PrimeVue 컴포넌트 import
     import Accordion from 'primevue/accordion';
     import AccordionPanel from 'primevue/accordionpanel';
     import AccordionHeader from 'primevue/accordionheader';
     import AccordionContent from 'primevue/accordioncontent';
     import ToggleButton from 'primevue/togglebutton';
-    import InputText from 'primevue/inputtext';
     import ScrollPanel from 'primevue/scrollpanel';
-    import InputGroup from 'primevue/inputgroup';
-    import InputGroupAddon from 'primevue/inputgroupaddon';
-
     const { filters } = useFilterState();
 
     const props = defineProps({

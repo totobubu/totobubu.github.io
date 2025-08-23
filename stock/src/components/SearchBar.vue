@@ -13,6 +13,10 @@
     import { auth, db } from '../firebase';
     import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
+    // PrimeVue 컴포넌트 import
+    import InputText from 'primevue/inputtext';
+    import Button from 'primevue/button';
+
     const query = ref('');
 
     const saveSearch = async () => {
