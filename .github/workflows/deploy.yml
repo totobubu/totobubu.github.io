@@ -39,7 +39,7 @@ jobs:
 
       # 3. 새로고침 404 방지 처리
       - name: Prepare 404 page
-        run: cp stock/dist/index.html stock/dist/404.html
+        run: cp dist/index.html dist/404.html
 
       # 4. Pages 배포 준비 및 실행
       - name: Setup Pages
@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./stock/dist"
+          path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
