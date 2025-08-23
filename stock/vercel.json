@@ -3,14 +3,13 @@
     "builds": [
         {
             "src": "stock/package.json",
-            "use": "@vercel/static-build",
-            "config": { "distDir": "dist" }
+            "use": "@vercel/static-build"
         }
     ],
     "rewrites": [
         {
-            "source": "/api/(.*)",
-            "destination": "/api/"
+            "source": "/api/:path*",
+            "destination": "/api/:path*"
         },
         {
             "source": "/:path((?!api/|.*\\.).*)",

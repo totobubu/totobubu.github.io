@@ -1,19 +1,11 @@
 {
-  "name": "stock",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "divgrow-monorepo",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cd stock && npm run dev",
+    "build": "cd stock && npm run build",
+    "vercel-build": "cd stock && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jomalkeun/etf.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jomalkeun/etf/issues"
-  },
-  "homepage": "https://github.com/Jomalkeun/etf#readme"
+  "dependencies": {},
+  "devDependencies": {}
 }
