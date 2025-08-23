@@ -17,8 +17,6 @@ pip uninstall -y undetected-chromedriver beautifulsoup4 yfinance
 
 # 1. Vue 프로젝트 폴더로 이동
 
-cd /workspaces/etf/stock
-
 # 2. 'venv' 라는 이름의 가상 환경 생성
 
 python3 -m venv venv
@@ -34,7 +32,7 @@ python scripts/scraper_info.py
 
 # 3-1. 크롬 없을때
 
-cd /workspaces/etf/stock
+cd /workspaces
 
 sudo apt-get update
 
