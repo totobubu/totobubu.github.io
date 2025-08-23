@@ -23,6 +23,7 @@ import { getAnalytics } from 'firebase/analytics';
 const firebaseConfig = {
     apiKey: 'AIzaSyBdTs2law6oJFyjc105KRFh-dPkkybt1Fw',
     authDomain: 'totobubu-tracker.firebaseapp.com',
+    databaseURL: 'https://totobubu-tracker-default-rtdb.firebaseio.com',
     projectId: 'totobubu-tracker',
     storageBucket: 'totobubu-tracker.firebasestorage.app',
     messagingSenderId: '453207023927',
