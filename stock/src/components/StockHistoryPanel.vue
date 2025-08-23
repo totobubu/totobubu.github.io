@@ -1,6 +1,8 @@
+<!-- stock\src\components\StockHistoryPanel.vue -->
 <script setup>
     import { computed } from 'vue';
-    import Card from 'primevue/card';
+
+    // PrimeVue 컴포넌트 import
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 

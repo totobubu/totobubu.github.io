@@ -1,8 +1,11 @@
+<!-- stock\src\components\FilterInput.vue -->
 <script setup>
     import { computed } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+
+    // PrimeVue 컴포넌트 import
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
 
     const { isMobile, isDesktop } = useBreakpoint();
 

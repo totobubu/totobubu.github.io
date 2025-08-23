@@ -1,6 +1,6 @@
 <!-- stock\src\layouts\AppSidebar.vue -->
 <script setup>
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed } from 'vue'; // ref, onMounted, computed 추가
     import { useRouter, useRoute } from 'vue-router';
     import { joinURL } from 'ufo';
 
@@ -139,37 +139,47 @@
         isLoading.value = true;
         error.value = null;
         try {
-            // 1. 기본 정보(이름, 회사, 그룹 등)는 nav.json에서 먼저 로드합니다.
+            // 1. 기본 정보 로드
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
             const navResponse = await fetch(navUrl);
-            if (!navResponse.ok) throw new Error('Navigation data not found');
+            if (!navResponse.ok)
+                throw new Error('Navigation data could not be loaded.');
             const navData = await navResponse.json();
-
-            // 2. nav.json에 있는 모든 티커 심볼 목록을 추출합니다.
             const allSymbols = navData.nav
                 .map((item) => item.symbol)
                 .filter(Boolean);
 
             if (allSymbols.length === 0) {
                 etfList.value = [];
-                throw new Error('No symbols found in nav.json');
+                isLoading.value = false;
+                return;
             }
 
-            // 3. 모든 심볼을 한번에 API에 요청하여 실시간 데이터를 가져옵니다.
-            const baseUrl = import.meta.env.VITE_API_BASE_URL || ''; // 환경 변수에서 API 기본 주소 가져오기
-            const apiUrl = `${baseUrl}/api/getStockData?tickers=${allSymbols.join(',')}`; // 전체 URL 생성
-
+            // 2. 실시간 데이터 로드 (Vite 프록시를 통해 Vercel API 호출)
+            const apiUrl = `/api/getStockData?tickers=${allSymbols.join(',')}`;
             const apiResponse = await fetch(apiUrl);
             if (!apiResponse.ok)
                 throw new Error('Failed to fetch live stock data from API');
-            const liveDataArray = await apiResponse.json();
 
-            // 실시간 데이터를 쉽게 찾을 수 있도록 Map 형태로 변환합니다. (성능 향상)
+            // --- 핵심: JSON 파싱 에러 방지를 위한 디버깅 추가 ---
+            const responseText = await apiResponse.text();
+            let liveDataArray;
+            try {
+                liveDataArray = JSON.parse(responseText);
+            } catch (e) {
+                console.error(
+                    'API 응답이 유효한 JSON이 아닙니다:',
+                    responseText
+                );
+                throw new Error('API로부터 잘못된 형식의 응답을 받았습니다.');
+            }
+            // ---------------------------------------------
+
             const liveDataMap = new Map(
                 liveDataArray.map((item) => [item.symbol, item])
             );
 
-            // 4. 기본 정보(nav.json)와 실시간 데이터(API)를 합칩니다.
+            // 3. 데이터 병합
             const dayOrder = {
                 월: 1,
                 화: 2,
@@ -181,20 +191,19 @@
                 C: 8,
                 D: 9,
             };
-
             etfList.value = navData.nav.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
                 return {
-                    ...item, // symbol, longName, company, frequency, group 등
-                    yield: liveData?.regularMarketPrice
-                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%` // 예시: 등락률을 표시
+                    ...item,
+                    yield: liveData?.regularMarketChangePercent
+                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
                         : 'N/A',
-                    price: liveData?.regularMarketPrice || 'N/A', // 현재가 정보 추가
+                    price: liveData?.regularMarketPrice || 'N/A',
                     groupOrder: dayOrder[item.group] ?? 999,
                 };
             });
 
-            // 5. 필터용 목록을 생성합니다. (기존과 동일)
+            // 4. 필터 목록 생성
             companies.value = [
                 ...new Set(etfList.value.map((item) => item.company)),
             ];
@@ -207,7 +216,7 @@
                 ),
             ];
 
-            // 6. 현재 경로에 해당하는 티커를 선택 상태로 만듭니다. (기존과 동일)
+            // 5. 현재 티커 선택
             const currentTickerSymbol = route.params.ticker?.toUpperCase();
             if (currentTickerSymbol) {
                 selectedTicker.value = etfList.value.find(
@@ -215,7 +224,7 @@
                 );
             }
         } catch (err) {
-            console.error(err);
+            console.error('사이드바 데이터 로딩 중 에러:', err);
             error.value = 'ETF 목록을 불러오는 데 실패했습니다.';
         } finally {
             isLoading.value = false;

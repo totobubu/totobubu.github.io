@@ -1,9 +1,10 @@
+<!-- stock\src\pages\PasswordResetView.vue -->
 <script setup>
     import { ref } from 'vue';
     import {
         sendPasswordResetEmail,
         fetchSignInMethodsForEmail,
-    } from 'firebase/auth'; // new import
+    } from 'firebase/auth';
     import { auth } from '../firebase';
     import { useRouter } from 'vue-router';
     import Message from 'primevue/message'; // Message 컴포넌트 import

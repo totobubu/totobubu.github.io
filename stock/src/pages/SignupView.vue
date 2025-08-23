@@ -1,3 +1,4 @@
+<!-- stock\src\pages\SignupView.vue -->
 <script setup>
     import { ref } from 'vue';
     import { auth } from '../firebase';

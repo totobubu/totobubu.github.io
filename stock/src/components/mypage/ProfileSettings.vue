@@ -2,18 +2,17 @@
 <script setup>
     import { ref, onMounted, onUnmounted } from 'vue';
     import { useRouter } from 'vue-router';
-    import { auth, db, signOut } from '@/firebase'; // '../../firebase' -> '@/firebase'
-    import { isRecentlyAuthenticated, user } from '@/store/auth'; // '../../store/auth'
+    import { auth, db, signOut } from '@/firebase';
+    import { isRecentlyAuthenticated, user } from '@/store/auth';
     import {
-        // updateProfile,
         updatePassword,
         deleteUser,
         EmailAuthProvider,
         reauthenticateWithCredential,
-    } from 'firebase/auth'; // updateEmail, sendEmailVerification 제거
+    } from 'firebase/auth';
     import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 
-    // PrimeVue 컴포넌트 및 서비스
+    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';

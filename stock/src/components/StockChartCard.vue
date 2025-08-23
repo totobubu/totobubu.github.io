@@ -1,12 +1,15 @@
+<!-- stock\src\components\StockChartCard.vue -->
 <script setup>
     import { computed, defineProps, defineEmits } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+
+    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
     import ToggleButton from 'primevue/togglebutton';
     import SelectButton from 'primevue/selectbutton';
     import PrimeVueChart from 'primevue/chart';
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
 
     // tickerInfo는 상위 컴포넌트(StockView)에서 prop으로 이미 받고 있으므로
     // useStockData를 여기서 또 호출할 필요가 없습니다.
