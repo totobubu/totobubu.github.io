@@ -1,3 +1,4 @@
+<!-- stock\src\components\SearchBar.vue -->
 <template>
     <div class="p-4">
         <div class="flex gap-2">

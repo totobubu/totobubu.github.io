@@ -1,3 +1,4 @@
+<!-- stock\src\components\FilterInput.vue -->
 <script setup>
     import { computed } from 'vue';
     import Button from 'primevue/button';

@@ -1,3 +1,4 @@
+<!-- stock\src\pages\NotFound.vue -->
 <template>
     <div class="p-4 max-w-md mx-auto">
         <h2 class="mb-4">로그인</h2>
