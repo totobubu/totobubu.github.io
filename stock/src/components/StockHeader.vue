@@ -1,9 +1,11 @@
 <!-- stock\src\components\StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
+    import { formatLargeNumber } from '@/utils/numberFormat.js';
+
+    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
     import Tag from 'primevue/tag';
-    import { formatLargeNumber } from '@/utils/numberFormat.js';
 
     const props = defineProps({
         info: Object,

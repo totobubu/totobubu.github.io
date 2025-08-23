@@ -1,6 +1,6 @@
 <!-- stock\src\layouts\AppSidebar.vue -->
 <script setup>
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed } from 'vue'; // ref, onMounted, computed 추가
     import { useRouter, useRoute } from 'vue-router';
     import { joinURL } from 'ufo';
 
