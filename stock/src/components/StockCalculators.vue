@@ -1,21 +1,22 @@
 <!-- StockCaculators.vue -->
 <script setup>
     import { ref } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+
+    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
-    import Tabs from 'primevue/tabs';
-    import TabList from 'primevue/tablist';
-    import Tab from 'primevue/tab';
-    import TabPanels from 'primevue/tabpanels';
-    import TabPanel from 'primevue/tabpanel';
+    import Button from 'primevue/button';
+    import Drawer from 'primevue/drawer';
+
+    // 하위 컴포넌트 import
     import RecoveryCalculator from './calculators/RecoveryCalculator.vue';
     import ReinvestmentCalculator from './calculators/ReinvestmentCalculator.vue';
 
-    import { useBreakpoint } from '@/composables/useBreakpoint';
     const { deviceType } = useBreakpoint();
     defineProps({
         dividendHistory: Array,
         tickerInfo: Object,
-         userBookmark: Object
+        userBookmark: Object,
     });
 
     const activeTab = ref('0');
@@ -60,7 +61,7 @@
             <RecoveryCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
-                 :userBookmark="userBookmark" />
+                :userBookmark="userBookmark" />
         </Drawer>
         <Drawer
             v-model:visible="visibleReinvestment"
@@ -75,7 +76,7 @@
             <ReinvestmentCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
-                 :userBookmark="userBookmark" />
+                :userBookmark="userBookmark" />
         </Drawer>
     </div>
 </template>

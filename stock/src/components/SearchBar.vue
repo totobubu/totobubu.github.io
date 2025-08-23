@@ -1,3 +1,4 @@
+<!-- stock\src\components\SearchBar.vue -->
 <template>
     <div class="p-4">
         <div class="flex gap-2">
@@ -11,6 +12,10 @@
     import { ref } from 'vue';
     import { auth, db } from '../firebase';
     import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+
+    // PrimeVue 컴포넌트 import
+    import InputText from 'primevue/inputtext';
+    import Button from 'primevue/button';
 
     const query = ref('');
 
