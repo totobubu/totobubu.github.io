@@ -64,19 +64,21 @@ const router = createRouter({
     ],
 });
 
-// beforeEach를 async 함수로 변경합니다.
 router.beforeEach(async (to, from, next) => {
-    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-    const user = await getCurrentUser(); // 여기서 인증 상태를 기다립니다.
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const isAuthPage = to.name === 'login' || to.name === 'signup';
 
-    if (requiresAuth && !user) {
-        // 로그인이 필요한 페이지인데 사용자가 없는 경우
-        next('/login');
-    } else if ((to.name === 'login' || to.name === 'signup') && user) {
-        // 이미 로그인한 사용자가 로그인/회원가입 페이지로 가려고 할 때
-        next('/'); // 홈으로 리디렉션
+    if (requiresAuth || isAuthPage) {
+        const user = await getCurrentUser();
+        
+        if (requiresAuth && !user) {
+            next({ name: 'login' });
+        } else if (isAuthPage && user) {
+            next({ name: 'home' });
+        } else {
+            next();
+        }
     } else {
-        // 그 외 모든 경우
         next();
     }
 });
