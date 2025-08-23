@@ -32,7 +32,7 @@ python scripts/scraper_info.py
 
 # 3-1. 크롬 없을때
 
-cd /workspaces
+로컬서버
 
 sudo apt-get update
 
