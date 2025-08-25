@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,41 @@ export default defineConfig({
             // d.ts 파일 경로를 명시하지 않으면, 기본 경로에 자동으로 생성됩니다.
             // 경로 문제일 수 있으므로 이 옵션을 제거하여 테스트합니다.
             // dts: 'src/components.d.ts',
+        }),
+        VitePWA({
+            registerType: 'autoUpdate', // 업데이트가 있으면 자동으로 리로드
+            injectRegister: 'auto',
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // 캐싱할 파일 패턴
+            },
+            manifest: {
+                name: 'DivGrow - 자산 성장 관리앱',
+                short_name: 'DivGrow',
+                description: '배당 성장으로 파이어를 꿈꾸는 사람들을 위한 앱',
+                theme_color: '#09090b', // 앱 상단바 색상
+                start_url: '/',
+                display: 'standalone',
+                background_color: '#09090b',
+                icons: [
+                    // 다양한 사이즈의 앱 아이콘 등록 (필수!)
+                    {
+                        src: '@/assets/android-chrome-192x192.png',
+                        sizes: '192x192',
+                        type: 'image/png',
+                    },
+                    {
+                        src: '@/assets/android-chrome-512x512.png',
+                        sizes: '512x512',
+                        type: 'image/png',
+                    },
+                    {
+                        src: '@/assets/android-chrome-512x512.png',
+                        sizes: '512x512',
+                        type: 'image/png',
+                        purpose: 'any maskable', // 아이콘이 동그랗게 잘려도 괜찮게 보임
+                    },
+                ],
+            },
         }),
     ],
     resolve: {
