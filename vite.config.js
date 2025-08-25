@@ -24,7 +24,7 @@ export default defineConfig({
                 globPatterns: ['**/*.{js,css,html,ico,png,svg}'], // 캐싱할 파일 패턴
             },
             manifest: {
-                name: 'DivGrow - 자산 성장 관리앱',
+                name: '배당성장로',
                 short_name: 'DivGrow',
                 description: '배당 성장으로 파이어를 꿈꾸는 사람들을 위한 앱',
                 theme_color: '#09090b', // 앱 상단바 색상
@@ -34,17 +34,13 @@ export default defineConfig({
                 icons: [
                     // 다양한 사이즈의 앱 아이콘 등록 (필수!)
                     {
-                        src: '@/assets/android-chrome-192x192.png',
+                        src: '@/assets/web-app-manifest-192x192.png',
                         sizes: '192x192',
                         type: 'image/png',
+                        purpose: 'any maskable',
                     },
                     {
-                        src: '@/assets/android-chrome-512x512.png',
-                        sizes: '512x512',
-                        type: 'image/png',
-                    },
-                    {
-                        src: '@/assets/android-chrome-512x512.png',
+                        src: '@/assets/web-app-manifest-512x512.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: 'any maskable', // 아이콘이 동그랗게 잘려도 괜찮게 보임
