@@ -6,7 +6,6 @@ https://blog.naver.com/upgrade-forever
 
 의견은 네이버 블로그를 통해 주시면 반영하겠습니다
 
-
 # 1. 루트 폴더로 이동
 
 node -v 18이상
@@ -57,3 +56,7 @@ npm run deploy
 npm run dev
 
 vercel dev --listen 5000
+
+# Bubblewrap
+
+bubblewrap build
