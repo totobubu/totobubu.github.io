@@ -1,7 +1,6 @@
+<!-- src\components\mypage\BookmarkManager.vue -->
 <script setup>
     import { ref, onMounted, computed } from 'vue';
-    import { useHead } from '@vueuse/head';
-
     import { useFilterState } from '@/composables/useFilterState';
     import { joinURL } from 'ufo';
 
@@ -10,10 +9,6 @@
     import Column from 'primevue/column';
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
-
-    useHead({
-        title: '북마크',
-    });
 
     const { myBookmarks } = useFilterState();
 
