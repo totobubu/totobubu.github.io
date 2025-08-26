@@ -1,6 +1,8 @@
 // src/main.js
 
 import { createApp } from 'vue';
+import { createHead } from '@vueuse/head';
+
 import App from './App.vue';
 import router from './router'; // router는 여기서만 import
 import './store/auth'; // auth 스토어 초기화
@@ -104,8 +106,10 @@ const MyPreset = definePreset(Lara, {
 });
 
 const app = createApp(App);
+const head = createHead();
 
 app.use(router); // Vue 앱에 라우터를 먼저 등록합니다.
+app.use(head);
 app.use(PrimeVue, {
     theme: {
         preset: MyPreset,
