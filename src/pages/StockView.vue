@@ -1,5 +1,6 @@
 <!-- stock\src\pages\StockView.vue -->
 <script setup>
+    import { useHead } from '@vueuse/head';
     import { ref, computed, watch, provide } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
@@ -8,6 +9,7 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
     import ProgressSpinner from 'primevue/progressspinner';
+
     import StockHeader from '@/components/StockHeader.vue';
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockCalculators from '@/components/StockCalculators.vue';
@@ -20,6 +22,22 @@
     const { tickerInfo, dividendHistory, isLoading, error, loadData } =
         useStockData();
     provide('stock-ticker-info', tickerInfo);
+
+    // --- SEO 및 페이지 타이틀 설정 ---
+    const tickerSymbol = computed(() => (route.params.ticker || '').toString());
+    const pageTitle = computed(() => {
+        if (!tickerInfo.value?.name) {
+            return tickerSymbol.value
+                ? `${tickerSymbol.value.toUpperCase()} | 배당 정보`
+                : '종목 정보 로딩 중...';
+        }
+        return `${tickerInfo.value.name} (${tickerSymbol.value.toUpperCase()}) | 배당 정보`;
+    });
+    useHead({
+        // computed 값을 직접 전달하면 값이 바뀔 때마다 브라우저 타이틀이 자동으로 업데이트됩니다.
+        title: pageTitle,
+    });
+    // --- // SEO 및 페이지 타이틀 설정 ---
 
     const isPriceChartMode = ref(false);
     const selectedTimeRange = ref('1Y');
@@ -53,7 +71,6 @@
         return myBookmarks.value[currentTicker] || null;
     });
 </script>
-
 <template>
     <div class="card" ref="chartContainer">
         <div v-if="isLoading" class="flex justify-center items-center h-screen">
