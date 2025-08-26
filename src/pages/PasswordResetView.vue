@@ -1,6 +1,7 @@
 <!-- stock\src\pages\PasswordResetView.vue -->
 <script setup>
     import { ref } from 'vue';
+    import { useHead } from '@vueuse/head';
     import {
         sendPasswordResetEmail,
         fetchSignInMethodsForEmail,
@@ -11,6 +12,10 @@
 
     const email = ref('');
     const router = useRouter();
+
+    useHead({
+        title: '비밀번호 재설정',
+    });
 
     // 메시지를 저장할 ref 추가 (성공, 에러 모두 사용)
     const message = ref({ text: '', severity: '' });

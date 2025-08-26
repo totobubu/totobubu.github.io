@@ -4,7 +4,6 @@
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router'; // useRouter import 추가
 
-    import Panel from 'primevue/panel';
     import ProgressSpinner from 'primevue/progressspinner';
 
     import CalendarGrid from '@/components/CalendarGrid.vue';

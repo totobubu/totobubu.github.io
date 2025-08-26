@@ -1,6 +1,7 @@
 <!-- stock\src\pages\SignupView.vue -->
 <script setup>
     import { ref } from 'vue';
+    import { useHead } from '@vueuse/head';
     import { auth } from '../firebase';
     import { createUserWithEmailAndPassword } from 'firebase/auth';
     import { useRouter } from 'vue-router';
@@ -14,6 +15,10 @@
 
     const errorMessage = ref('');
     const isLoading = ref(false); // 로딩 상태 추가
+
+    useHead({
+        title: '회원가입',
+    });
 
     const signUp = async () => {
         errorMessage.value = '';
