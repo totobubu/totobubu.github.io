@@ -1,6 +1,8 @@
 <!-- /components\mypage\ProfileSettings.vue -->
 <script setup>
     import { ref, onMounted, onUnmounted } from 'vue';
+    import { useHead } from '@vueuse/head';
+
     import { useRouter } from 'vue-router';
     import { auth, db, signOut } from '@/firebase';
     import { isRecentlyAuthenticated, user } from '@/store/auth';
@@ -29,6 +31,9 @@
     const toast = useToast();
     const confirm = useConfirm();
 
+    useHead({
+        title: '회원정보 수정',
+    });
     // --- 상태 변수 정의 ---
 
     // 폼 입력값

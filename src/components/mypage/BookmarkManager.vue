@@ -1,5 +1,7 @@
 <script setup>
     import { ref, onMounted, computed } from 'vue';
+    import { useHead } from '@vueuse/head';
+
     import { useFilterState } from '@/composables/useFilterState';
     import { joinURL } from 'ufo';
 
@@ -9,7 +11,10 @@
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
 
-    // 1. 새로운 전역 상태인 myBookmarks를 가져옵니다.
+    useHead({
+        title: '북마크',
+    });
+
     const { myBookmarks } = useFilterState();
 
     const isLoading = ref(true);

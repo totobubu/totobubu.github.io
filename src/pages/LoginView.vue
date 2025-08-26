@@ -1,6 +1,8 @@
 <!-- stock\src\pages\LoginView.vue -->
 <script setup>
     import { ref, onMounted } from 'vue'; // onMounted 추가
+    import { useHead } from '@vueuse/head';
+
     import { useRouter, useRoute } from 'vue-router'; // useRoute 추가
     import {
         signInWithEmailAndPassword,
@@ -14,6 +16,10 @@
     import Message from 'primevue/message';
     import Checkbox from 'primevue/checkbox';
     import InputText from 'primevue/inputtext';
+
+    useHead({
+        title: '로그인',
+    });
 
     const email = ref('');
     const password = ref('');
