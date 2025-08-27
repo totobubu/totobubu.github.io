@@ -1,11 +1,17 @@
 <!-- stock\src\pages\HomeView.vue -->
 <script setup>
     import { ref, onMounted } from 'vue';
+    import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router'; // useRouter import 추가
-    import Panel from 'primevue/panel';
+
     import ProgressSpinner from 'primevue/progressspinner';
+
     import CalendarGrid from '@/components/CalendarGrid.vue';
     import { useCalendarData } from '@/composables/useCalendarData.js';
+
+    useHead({
+        title: '배당금 일정',
+    });
 
     const holidays = ref([]);
     // useCalendarData에서 필요한 것만 가져옵니다.
