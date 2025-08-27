@@ -6,7 +6,6 @@
     import TabView from 'primevue/tabview';
     import TabPanel from 'primevue/tabpanel';
 
-    // 각 탭에 해당하는 컴포넌트들을 import 합니다.
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
     // import AssetManager from '@/components/mypage/AssetManager.vue';
@@ -15,11 +14,14 @@
 
     const tabTitles = [
         '북마크',
-        // '보유자산 관리', // 주석 처리된 탭이므로 배열에서도 제외
+        // '보유자산 관리',
         '회원정보 수정',
     ];
 
-    const pageTitle = computed(() => tabTitles[activeTabIndex.value]);
+    const pageTitle = computed(() => {
+        const currentTabName = tabTitles[activeTabIndex.value];
+        return `${currentTabName} | 마이페이지`;
+    });
 
     useHead({
         title: pageTitle,
