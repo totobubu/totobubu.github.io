@@ -86,7 +86,7 @@ export function useStockChart(
         if (!range || range === 'ALL' || range === 'Max') {
             // 정렬을 추가하여 항상 최신 데이터가 오른쪽으로 가도록 보장
             return validHistory.sort(
-                (a, b) => parseYYMMDD(a['배당락']) - parseYYMMDD(b['배당락'])
+                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
             );
         }
 
@@ -105,7 +105,7 @@ export function useStockChart(
         return validHistory
             .filter((item) => parseYYMMDD(item['배당락']) >= cutoffDate)
             .sort(
-                (a, b) => parseYYMMDD(a['배당락']) - parseYYMMDD(b['배당락'])
+                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
             );
     });
 
