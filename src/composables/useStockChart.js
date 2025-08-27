@@ -68,22 +68,29 @@ export function useStockChart(
             return [];
         }
 
-        const now = new Date();
-        const validPastHistory = dividendHistory.value.filter((item) => {
+        // --- 핵심 수정: "오늘 이전" 날짜 필터링을 제거합니다. ---
+        // 대신, '배당금' 값이 실제로 존재하는 데이터만 유효한 것으로 간주합니다.
+        const validHistory = dividendHistory.value.filter((item) => {
             const dividendDate = parseYYMMDD(item['배당락']);
             const dividendAmount = parseFloat(item['배당금']?.replace('$', ''));
-            return dividendDate && dividendDate <= now && dividendAmount > 0;
+            // 날짜가 유효하고, 배당금 값이 숫자로 변환 가능하며 0보다 큰 경우만 인정
+            return dividendDate && !isNaN(dividendAmount) && dividendAmount > 0;
         });
+        // -----------------------------------------------------
 
-        if (validPastHistory.length === 0) {
+        if (validHistory.length === 0) {
             return [];
         }
 
         const range = selectedTimeRange.value;
         if (!range || range === 'ALL' || range === 'Max') {
-            return validPastHistory;
+            // 정렬을 추가하여 항상 최신 데이터가 오른쪽으로 가도록 보장
+            return validHistory.sort(
+                (a, b) => parseYYMMDD(a['배당락']) - parseYYMMDD(b['배당락'])
+            );
         }
 
+        const now = new Date();
         const cutoffDate = new Date();
         const rangeValue = parseInt(range);
         const rangeUnit = range.slice(-1);
@@ -94,9 +101,12 @@ export function useStockChart(
             cutoffDate.setFullYear(now.getFullYear() - rangeValue);
         }
 
-        return validPastHistory.filter(
-            (item) => parseYYMMDD(item['배당락']) >= cutoffDate
-        );
+        // 정렬을 추가하여 항상 최신 데이터가 오른쪽으로 가도록 보장
+        return validHistory
+            .filter((item) => parseYYMMDD(item['배당락']) >= cutoffDate)
+            .sort(
+                (a, b) => parseYYMMDD(a['배당락']) - parseYYMMDD(b['배당락'])
+            );
     });
 
     const chartResult = computed(() => {
