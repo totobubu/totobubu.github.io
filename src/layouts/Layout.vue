@@ -2,28 +2,28 @@
 <script setup>
     import { ref, watch, computed, onMounted, inject } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
-    import AppSidebar from './AppSidebar.vue';
-    import FilterInput from '@/components/FilterInput.vue';
-    import Drawer from 'primevue/drawer';
-    import Button from 'primevue/button';
-    import Breadcrumb from 'primevue/breadcrumb';
-    import Toast from 'primevue/toast';
-    import ConfirmDialog from 'primevue/confirmdialog';
-    import ScrollTop from 'primevue/scrolltop';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useCalendarData } from '@/composables/useCalendarData.js';
     import { handleSignOut, user } from '../store/auth';
     import { useStockData } from '@/composables/useStockData';
 
+    import Drawer from 'primevue/drawer';
+    import Button from 'primevue/button';
+    import Breadcrumb from 'primevue/breadcrumb';
+    import Toast from 'primevue/toast';
+    import ConfirmDialog from 'primevue/confirmdialog';
+    import ScrollTop from 'primevue/scrolltop';
+
+    import AppSidebar from './AppSidebar.vue';
+    import FilterInput from '@/components/FilterInput.vue';
+
     const route = useRoute();
     const router = useRouter();
     const { deviceType, isDesktop, isMobile } = useBreakpoint();
     const { filters } = useFilterState();
     const { loadAllData } = useCalendarData();
-    // --- 핵심 수정: inject를 단순하게 사용하고, 기본값으로 ref(null)을 사용합니다 ---
     const { tickerInfo } = useStockData();
-    // ----------------------------------------------------------------------
     const visible = ref(false);
 
     onMounted(() => {
@@ -41,8 +41,6 @@
     };
     const goToMyPage = () => router.push('/mypage');
 
-    // --- 5. 디버그 로그 추가 ---
-    // inject로 받은 tickerInfo가 변경될 때마다 로그를 찍어봅니다.
     watch(
         tickerInfo,
         (newInfo) => {
@@ -53,7 +51,6 @@
         },
         { deep: true }
     );
-    // -------------------------
 
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };

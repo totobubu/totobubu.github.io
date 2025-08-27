@@ -16,6 +16,7 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { useHead } from '@vueuse/head';
     import { auth } from '../firebase';
     import { signInWithEmailAndPassword } from 'firebase/auth';
     import { useRouter } from 'vue-router';
@@ -23,6 +24,10 @@
     const email = ref('');
     const password = ref('');
     const router = useRouter();
+
+    useHead({
+        title: '404',
+    });
 
     const login = async () => {
         try {
