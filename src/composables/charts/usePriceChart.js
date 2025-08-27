@@ -47,13 +47,24 @@ export function usePriceChart(options) {
     const { data, deviceType, group, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
-    // --- 색상 및 폰트 크기 계산 (기존과 동일) ---
-    const colors = getChartColorsByGroup(group);
-    const prevPrice = colors.prevPrice || '#aaaaaa'; // 기본값 회색
-    const currentPrice = colors.currentPrice || '#3b82f6'; // 기본값 파란색
-    const openPrice = colors.openPrice || '#f97316'; // 기본값 주황색
-    const nextPrice = colors.nextPrice || '#14b8a6'; // 기본값 청록색
-    // ... (나머지 색상 변수들도 동일하게 || '기본값' 추가)
+    // --- 핵심 수정: 색상 객체를 안전하게 가져오고 모든 변수에 기본값을 설정합니다. ---
+    const colors = getChartColorsByGroup(group) || {}; // getChartColorsByGroup이 undefined를 반환할 경우를 대비
+
+    const dividend = colors.dividend || '#4ade80';
+    const highlight = colors.highlight || '#818cf8';
+    const lineDividend = colors.lineDividend || '#16a34a';
+    const prevPrice = colors.prevPrice || '#9ca3af';
+    const currentPrice = colors.currentPrice || '#3b82f6';
+    const openPrice = colors.openPrice || '#f97316';
+    const nextPrice = colors.nextPrice || '#14b8a6';
+    const dividendText = colors.dividendText || '#ffffff';
+    const highlightText = colors.highlightText || '#ffffff';
+    const prevPriceText = colors.prevPriceText || '#9ca3af'; // 에러가 발생한 변수
+    const currentPriceText = colors.currentPriceText || '#3b82f6';
+    const openPriceText = colors.openPriceText || '#f97316';
+    const nextPriceText = colors.nextPriceText || '#14b8a6';
+    // -------------------------------------------------------------------------
+
 
     // --- 2. timeRangeOptions와 selectedTimeRange를 내부 상태로 관리 ---
     const selectedTimeRange = ref('1Y');
