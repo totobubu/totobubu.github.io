@@ -4,7 +4,7 @@
 
     useHead({
         // %s는 각 페이지 컴포넌트에서 설정한 title 값으로 대체됩니다.
-        titleTemplate: '%s - 배당 나무 (Div Grow)',
+        titleTemplate: '%s - 배당 모아 (Div Grow)',
     });
 </script>
 

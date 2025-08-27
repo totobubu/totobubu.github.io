@@ -1,4 +1,4 @@
-# 배당 나무
+# 배당 모아
 
 https://blog.naver.com/upgrade-forever
 
