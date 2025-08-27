@@ -1,3 +1,4 @@
+// src\composables\useStockChart.js
 import { ref, computed } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { useQuarterlyChart } from './charts/useQuarterlyChart';

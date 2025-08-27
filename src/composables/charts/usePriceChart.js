@@ -1,3 +1,4 @@
+// src\composables\charts\usePriceChart.js
 import { ref, computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import { parseYYMMDD } from '@/utils/date.js';
