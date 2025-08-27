@@ -194,7 +194,7 @@
             etfList.value = navData.nav.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
                 return {
-                    ...item,
+                    ...item, // symbol, longName, company, frequency, group, upcoming 등
                     yield: liveData?.regularMarketChangePercent
                         ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
                         : 'N/A',
@@ -363,8 +363,12 @@
                     </div>
                 </template>
                 <template #body="{ data }">
+                    <!-- 1. upcoming 플래그가 true이면 "예정" 태그를 표시합니다. -->
+                    <Tag v-if="data.upcoming" value="예정" severity="info" />
+
+                    <!-- 2. upcoming이 아닐 경우에만, 기존처럼 그룹 태그를 표시합니다. -->
                     <Tag
-                        v-if="data.group"
+                        v-else-if="data.group"
                         :value="data.group"
                         :severity="getGroupSeverity(data.group)" />
                 </template>
