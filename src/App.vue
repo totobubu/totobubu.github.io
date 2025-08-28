@@ -1,3 +1,4 @@
+<!-- src\App.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
     import Layout from './layouts/Layout.vue';

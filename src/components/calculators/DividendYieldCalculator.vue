@@ -1,6 +1,8 @@
+<!-- src\components\calculators\DividendYieldCalculator.vue -->
 <script setup>
     import { ref, computed, onMounted, watch } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useDividendStats } from '@/composables/useDividendStats';
     import { parseYYMMDD } from '@/utils/date.js';
 
     // PrimeVue 컴포넌트 import
@@ -37,6 +39,12 @@
     // 2. 초기 계산을 한 번만 실행하기 위한 플래그
     const isInitialized = ref(false);
 
+    const { dividendStats, payoutsPerYear } = useDividendStats(
+        computed(() => props.dividendHistory),
+        computed(() => props.tickerInfo),
+        dividendPeriod
+    );
+
     const inputAmountUSD = computed({
         get: () => {
             if (!exchangeRate.value) return 0;
@@ -52,51 +60,6 @@
     const currentPriceUSD = computed(
         () => props.tickerInfo?.regularMarketPrice || 0
     );
-
-    const payoutsPerYear = computed(() => {
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-
-        const pastYearDividends = props.dividendHistory.filter(
-            (d) => parseYYMMDD(d['배당락']) > oneYearAgo
-        );
-
-        if (pastYearDividends.length > 0) return pastYearDividends.length;
-
-        const freq = props.tickerInfo?.frequency;
-        if (freq === '분기') return 4;
-        if (freq === '매주') return 52;
-        return 12;
-    });
-
-    const dividendStats = computed(() => {
-        if (!props.dividendHistory) return { min: 0, max: 0, avg: 0 };
-
-        const filtered = props.dividendHistory.filter((item) => {
-            const now = new Date();
-            let cutoffDate = new Date();
-            const rangeValue = parseInt(dividendPeriod.value);
-            const rangeUnit = dividendPeriod.value.slice(-1);
-            if (rangeUnit === 'M')
-                cutoffDate.setMonth(now.getMonth() - rangeValue);
-            else cutoffDate.setFullYear(now.getFullYear() - rangeValue);
-            return parseYYMMDD(item['배당락']) >= cutoffDate;
-        });
-
-        const validAmounts = filtered
-            .map((h) => parseFloat(h['배당금']?.replace('$', '')))
-            .filter((a) => !isNaN(a) && a > 0);
-
-        if (validAmounts.length === 0) return { min: 0, max: 0, avg: 0 };
-
-        return {
-            min: Math.min(...validAmounts),
-            max: Math.max(...validAmounts),
-            avg: validAmounts.reduce((s, a) => s + a, 0) / validAmounts.length,
-        };
-    });
 
     // --- 계산 로직 (Computed) ---
     watch(inputAmountKRW, (newKRW) => {

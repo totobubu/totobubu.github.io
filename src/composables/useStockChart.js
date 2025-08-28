@@ -6,6 +6,7 @@ import { useMonthlyChart } from './charts/useMonthlyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { useBreakpoint } from '@/composables/useBreakpoint';
 import { parseYYMMDD } from '@/utils/date.js';
+import { generateOptionsFromPeriodString } from '@/utils/chartUtils.js';
 
 export function useStockChart(
     dividendHistory,
@@ -20,73 +21,36 @@ export function useStockChart(
         return ['매주', '분기', '4주', '매월'].includes(freq);
     });
 
-    const generateDynamicTimeRangeOptions = (history) => {
-        if (!history || history.length === 0) {
+    // [수정] timeRangeOptions 계산 로직을 새 방식으로 완전히 교체합니다.
+    const timeRangeOptions = computed(() => {
+        // tickerInfo가 로드되기 전에는 기본 '전체' 옵션만 반환
+        if (!tickerInfo.value) {
             return [{ label: '전체', value: 'ALL' }];
         }
-        const dates = history
-            .map((h) => parseYYMMDD(h['배당락']))
-            .sort((a, b) => a - b);
-        const lastDate = dates[dates.length - 1];
-        const today = new Date();
-
-        const options = [];
-        const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
-        if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
-
-        const threeMonthsAgo = new Date(
-            new Date().setMonth(today.getMonth() - 3)
-        );
-        if (lastDate >= threeMonthsAgo)
-            options.push({ label: '3M', value: '3M' });
-
-        const sixMonthsAgo = new Date(
-            new Date().setMonth(today.getMonth() - 6)
-        );
-        if (lastDate >= sixMonthsAgo)
-            options.push({ label: '6M', value: '6M' });
-
-        const oneYearAgo = new Date(
-            new Date().setFullYear(today.getFullYear() - 1)
-        );
-        if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
-
-        options.push({ label: 'ALL', value: 'ALL' });
-
-        return options.map((opt) => ({
-            ...opt,
-            label: opt.value === 'ALL' ? '전체' : opt.label,
-        }));
-    };
-
-    const timeRangeOptions = computed(() =>
-        generateDynamicTimeRangeOptions(dividendHistory.value)
-    );
+        // tickerInfo에 포함된 period 문자열을 사용하여 옵션을 생성합니다.
+        return generateOptionsFromPeriodString(tickerInfo.value.period);
+    });
 
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) {
             return [];
         }
 
-        // --- 핵심 수정: "오늘 이전" 날짜 필터링을 제거합니다. ---
-        // 대신, '배당금' 값이 실제로 존재하는 데이터만 유효한 것으로 간주합니다.
         const validHistory = dividendHistory.value.filter((item) => {
             const dividendDate = parseYYMMDD(item['배당락']);
             const dividendAmount = parseFloat(item['배당금']?.replace('$', ''));
-            // 날짜가 유효하고, 배당금 값이 숫자로 변환 가능하며 0보다 큰 경우만 인정
             return dividendDate && !isNaN(dividendAmount) && dividendAmount > 0;
         });
-        // -----------------------------------------------------
 
         if (validHistory.length === 0) {
             return [];
         }
 
         const range = selectedTimeRange.value;
-        if (!range || range === 'ALL' || range === 'Max') {
-            // 정렬을 추가하여 항상 최신 데이터가 오른쪽으로 가도록 보장
+        // [수정] 'Max' 조건 제거, 'ALL'만 확인
+        if (!range || range === 'ALL') {
             return validHistory.sort(
-                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
+                (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락']) // [수정] 오름차순 정렬로 변경하여 차트가 왼쪽부터 그려지도록 함
             );
         }
 
@@ -101,7 +65,6 @@ export function useStockChart(
             cutoffDate.setFullYear(now.getFullYear() - rangeValue);
         }
 
-        // 정렬을 추가하여 항상 최신 데이터가 오른쪽으로 가도록 보장
         return validHistory
             .filter((item) => parseYYMMDD(item['배당락']) >= cutoffDate)
             .sort(
@@ -158,24 +121,10 @@ export function useStockChart(
         return usePriceChart(sharedOptions);
     });
 
-    const chartData = computed(
-        () =>
-            chartResult.value.chartData ||
-            chartResult.value.priceChartData ||
-            chartResult.value.weeklyChartData ||
-            chartResult.value.monthlyChartData ||
-            chartResult.value.quarterlyChartData
-    );
-    const chartOptions = computed(
-        () =>
-            chartResult.value.chartOptions ||
-            chartResult.value.priceChartOptions ||
-            chartResult.value.weeklyChartOptions ||
-            chartResult.value.monthlyChartOptions ||
-            chartResult.value.quarterlyChartOptions
-    );
+    const chartData = computed(() => chartResult.value.chartData);
+    const chartOptions = computed(() => chartResult.value.chartOptions);
     const chartContainerWidth = computed(
-        () => chartResult.value.chartContainerWidth || '100%'
+        () => chartResult.value.chartContainerWidth
     );
 
     return {
