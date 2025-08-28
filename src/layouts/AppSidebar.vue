@@ -2,6 +2,7 @@
 <script setup>
     import { ref, onMounted, computed } from 'vue'; // ref, onMounted, computed 추가
     import { useRouter, useRoute } from 'vue-router';
+    import { getGroupSeverity } from '@/utils/uiHelpers.js'; // [수정] 중앙 유틸리티 import
     import { joinURL } from 'ufo';
 
     import DataTable from 'primevue/datatable';
@@ -108,30 +109,6 @@
             filters.value[filterName].value = value;
         }
         dialogsVisible.value[filterName] = false;
-    };
-    const getGroupSeverity = (group) => {
-        switch (group) {
-            case 'A':
-                return 'danger';
-            case 'B':
-                return 'warn';
-            case 'C':
-                return 'success';
-            case 'D':
-                return 'info';
-            case '월':
-                return 'mon';
-            case '화':
-                return 'tue';
-            case '수':
-                return 'wed';
-            case '목':
-                return 'thu';
-            case '금':
-                return 'fri';
-            default:
-                return 'secondary';
-        }
     };
 
     // --- 데이터 로딩 로직 (핵심 변경) ---

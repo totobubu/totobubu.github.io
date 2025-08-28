@@ -2,6 +2,7 @@
 <script setup>
     import { computed, defineProps, defineEmits } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { getGroupSeverity } from '@/utils/uiHelpers.js'; // [수정] 중앙 유틸리티 import
 
     // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
@@ -64,31 +65,6 @@
             code: option.value,
         }));
     });
-
-    const getGroupSeverity = (group) => {
-        switch (group) {
-            case 'A':
-                return 'danger';
-            case 'B':
-                return 'warning';
-            case 'C':
-                return 'success';
-            case 'D':
-                return 'info';
-            case '월':
-                return 'mon';
-            case '화':
-                return 'tue';
-            case '수':
-                return 'wed';
-            case '목':
-                return 'thu';
-            case '금':
-                return 'fri';
-            default:
-                return 'secondary';
-        }
-    };
 </script>
 
 <template>
