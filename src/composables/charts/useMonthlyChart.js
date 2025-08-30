@@ -1,3 +1,4 @@
+// src\composables\charts\useMonthlyChart.js
 import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
