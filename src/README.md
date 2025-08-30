@@ -50,3 +50,5 @@ npm run deploy
 npm run dev
 
 vercel dev --listen 5000
+
+npm run watch-nav 또는 npm run generate-nav
