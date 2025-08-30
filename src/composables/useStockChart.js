@@ -1,7 +1,7 @@
 // src/composables/useStockChart.js
 
 // [핵심 수정 1] import 문에 'watchEffect'를 추가합니다.
-import { ref, computed, watchEffect } from 'vue'; 
+import { ref, computed, watchEffect } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { useQuarterlyChart } from './charts/useQuarterlyChart';
 import { useMonthlyChart } from './charts/useMonthlyChart';
@@ -29,7 +29,7 @@ export function useStockChart(
         }
         return generateTimeRangeOptions(tickerInfo.value.periods);
     });
-    
+
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) {
             return [];
@@ -46,20 +46,22 @@ export function useStockChart(
         }
 
         let filteredHistory = validHistory;
-        
-        // [핵심 수정 2] 정의되지 않은 'range' 변수 대신 'selectedTimeRange.value'를 사용합니다.
-        const range = selectedTimeRange.value; 
+        const range = selectedTimeRange.value;
 
         if (range && range !== 'ALL') {
             const now = new Date();
-            const cutoffDate = new Date();
+            let cutoffDate = new Date(); // let으로 변경
+
             const rangeValue = parseInt(range);
             const rangeUnit = range.slice(-1);
 
             if (rangeUnit === 'M') {
                 cutoffDate.setMonth(now.getMonth() - rangeValue);
             } else if (rangeUnit === 'Y') {
-                cutoffDate.setFullYear(now.getFullYear() - rangeValue);
+                // [핵심 수정] N년 필터 시, N년 전의 1월 1일을 기준으로 설정합니다.
+                // 예: '25년 8월'에 '3Y' 클릭 -> '22년 1월 1일'이 기준이 됨
+                const startYear = now.getFullYear() - rangeValue;
+                cutoffDate = new Date(startYear, 0, 1); // 월(month)은 0부터 시작하므로 0이 1월입니다.
             }
 
             filteredHistory = validHistory.filter(
@@ -91,8 +93,12 @@ export function useStockChart(
         const documentStyle = getComputedStyle(document.documentElement);
         const themeOptions = {
             textColor: documentStyle.getPropertyValue('--p-text-color'),
-            textColorSecondary: documentStyle.getPropertyValue('--p-text-muted-color'),
-            surfaceBorder: documentStyle.getPropertyValue('--p-content-border-color'),
+            textColorSecondary: documentStyle.getPropertyValue(
+                '--p-text-muted-color'
+            ),
+            surfaceBorder: documentStyle.getPropertyValue(
+                '--p-content-border-color'
+            ),
         };
 
         const sharedOptions = {
