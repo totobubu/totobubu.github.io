@@ -1,6 +1,7 @@
 // src\composables\charts\useRecoveryChart.js
 import { computed } from 'vue';
 import { formatLargeNumber } from '@/utils/numberFormat.js'; // formatLargeNumber가 아닌 formatMonthsToYearsForLabel 사용 가정
+import { formatMonthsToYears } from '@/utils/date.js';
 
 export function useRecoveryChart(options) {
     // --- 1. 받는 prop 이름을 avgPrice, quantity로 수정 ---
@@ -16,10 +17,6 @@ export function useRecoveryChart(options) {
     } = options;
 
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-
-    const formatMonthsToYearsForLabel = (totalMonths) => {
-        /* ... */
-    };
 
     // --- 2. 사용하는 변수명을 avgPrice, quantity로 수정 ---
     const investmentPrincipal = computed(
@@ -156,8 +153,9 @@ export function useRecoveryChart(options) {
                 legend: { position: 'bottom', labels: { color: textColor } },
                 tooltip: {
                     callbacks: {
+                        // [수정] import한 함수를 사용합니다.
                         label: (context) =>
-                            ` ${formatMonthsToYearsForLabel(context.raw)}`,
+                            ` ${formatMonthsToYears(context.raw)}`,
                     },
                 },
                 datalabels: {
@@ -166,7 +164,8 @@ export function useRecoveryChart(options) {
                     align: 'end',
                     offset: -4,
                     font: { weight: 'bold', size: 10 },
-                    formatter: (value) => formatMonthsToYearsForLabel(value),
+                    // [수정] import한 함수를 사용합니다.
+                    formatter: (value) => formatMonthsToYears(value),
                 },
             },
             scales: {

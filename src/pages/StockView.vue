@@ -1,7 +1,7 @@
 <!-- stock\src\pages\StockView.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
-    import { ref, computed, watch, provide } from 'vue';
+    import { ref, computed, watch, provide, watchEffect } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
@@ -47,7 +47,8 @@
     // --- // SEO 및 페이지 타이틀 설정 ---
 
     const isPriceChartMode = ref(false);
-    const selectedTimeRange = ref('1Y');
+    // [수정] 초기값을 null 또는 첫 번째 옵션으로 동적으로 설정합니다.
+    const selectedTimeRange = ref(null);
 
     const {
         chartData,
@@ -60,6 +61,32 @@
         tickerInfo,
         isPriceChartMode,
         selectedTimeRange
+    );
+
+    // [핵심 추가] tickerInfo.periods가 변경될 때 selectedTimeRange의 초기값을 설정하는 로직
+    watch(
+        () => tickerInfo.value?.periods, // tickerInfo.periods를 감시
+        (newPeriods) => {
+            if (newPeriods && newPeriods.length > 0) {
+                // periods 배열의 첫 번째 값을 기본 선택값으로 설정합니다.
+                // 예: ["3Y", "5Y"] -> '3Y'를 기본값으로 설정
+                selectedTimeRange.value = newPeriods[0];
+            } else {
+                // periods 정보가 없으면 기본값 '1Y' 또는 'ALL'로 설정
+                selectedTimeRange.value = '1Y';
+            }
+        },
+        { immediate: true } // 컴포넌트가 로드될 때 즉시 실행
+    );
+
+    watch(
+        () => route.params.ticker,
+        (newTicker) => {
+            if (newTicker && typeof newTicker === 'string') {
+                loadData(newTicker);
+            }
+        },
+        { immediate: true }
     );
 
     watch(
@@ -116,7 +143,7 @@
                 :has-dividend-chart-mode="hasDividendChartMode"
                 :chart-data="chartData"
                 :chart-options="chartOptions"
-                :chart-container-width="chartContainerWidth.value"
+                :chart-container-width="chartContainerWidth"
                 :time-range-options="timeRangeOptions"
                 v-model:isPriceChartMode="isPriceChartMode"
                 v-model:selectedTimeRange="selectedTimeRange" />
