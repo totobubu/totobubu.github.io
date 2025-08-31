@@ -67,6 +67,7 @@ export function useMonthlyChart(options) {
         'default'
     );
     const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
+    const newestDataIndex = 0;
     const lastDataIndex = data.length - 1;
     const dividendData = data.map((item) =>
         parseFloat(item['배당금']?.replace('$', '') || 0)
@@ -79,7 +80,8 @@ export function useMonthlyChart(options) {
                 type: 'bar',
                 label: '배당금',
                 backgroundColor: (context) =>
-                    context.dataIndex === lastDataIndex
+                    // [핵심 수정] lastDataIndex -> newestDataIndex
+                    context.dataIndex === newestDataIndex
                         ? colorHighlight
                         : colorDividend,
                 data: dividendData,
