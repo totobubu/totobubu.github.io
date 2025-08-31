@@ -1,3 +1,4 @@
+// src\composables\charts\useQuarterlyChart.js
 import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
@@ -63,7 +64,7 @@ export function useQuarterlyChart(options) {
         acc[year].total += amount;
         return acc;
     }, {});
-    const labels = Object.keys(yearlyAggregated);
+    const labels = Object.keys(yearlyAggregated).sort((a, b) => b - a);
     const chartContainerWidth = getDynamicChartWidth(
         labels.length,
         deviceType,

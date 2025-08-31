@@ -1,4 +1,4 @@
-<!-- StockCaculators.vue -->
+<!-- Components/StockCaculators.vue -->
 <script setup>
     import { ref } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -35,7 +35,7 @@
                     :class="
                         deviceType === 'mobile'
                             ? 'flex-column gap-2'
-                            : 'flex-col gap-2'
+                            : 'flex-row gap-2'
                     ">
                     <Button
                         label="투자금 회수 기간"
@@ -94,7 +94,7 @@
             :class="
                 deviceType === 'desktop' ? 'toto-grid-row' : 'toto-grid-column'
             "
-            id="calculator-reinvestment">
+            id="calculator-reinvestment-yield">
             <DividendYieldCalculator
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"

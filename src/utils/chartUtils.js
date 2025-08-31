@@ -1,4 +1,38 @@
 // src/utils/chartUtils.js
+import { parseYYMMDD } from '@/utils/date.js'; // [추가] parseYYMMDD 함수를 import 합니다.
+
+/**
+ * nav.json의 periods 배열 또는 문자열을 기반으로 차트 기간 옵션 배열을 생성합니다.
+ * @param {string[] | string | undefined} periods - nav.json에서 가져온 기간 배열 또는 문자열
+ * @returns {Array<{label: string, value: string}>} PrimeVue SelectButton/Dropdown용 옵션 배열
+ */
+export const generateTimeRangeOptions = (periods) => {
+    // periods 값이 없으면 '전체' 옵션만 반환
+    if (!periods || periods.length === 0) {
+        return [{ label: '전체', value: 'ALL' }];
+    }
+
+    let periodsArray;
+    // 입력값이 배열이면 그대로 사용, 문자열이면 쉼표로 분리하여 배열로 변환
+    if (Array.isArray(periods)) {
+        periodsArray = periods;
+    } else if (typeof periods === 'string') {
+        periodsArray = periods.split(',').map(p => p.trim());
+    } else {
+        // 그 외의 경우 (예: 잘못된 데이터 타입)
+        return [{ label: '전체', value: 'ALL' }];
+    }
+
+    // "ALL"을 필터링하고 옵션 객체 배열 생성
+    const options = periodsArray
+        .filter(p => p.toUpperCase() !== 'ALL')
+        .map(part => ({ label: part, value: part }));
+
+    // 마지막에 '전체' 옵션을 항상 추가
+    options.push({ label: '전체', value: 'ALL' });
+
+    return options;
+};
 
 // --- 동적 스타일 계산 함수 ---
 

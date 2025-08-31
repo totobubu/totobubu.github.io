@@ -2,6 +2,7 @@
 <script setup>
     import { ref, onMounted, computed } from 'vue'; // ref, onMounted, computed 추가
     import { useRouter, useRoute } from 'vue-router';
+    import { getGroupSeverity } from '@/utils/uiHelpers.js'; // [수정] 중앙 유틸리티 import
     import { joinURL } from 'ufo';
 
     import DataTable from 'primevue/datatable';
@@ -109,30 +110,6 @@
         }
         dialogsVisible.value[filterName] = false;
     };
-    const getGroupSeverity = (group) => {
-        switch (group) {
-            case 'A':
-                return 'danger';
-            case 'B':
-                return 'warn';
-            case 'C':
-                return 'success';
-            case 'D':
-                return 'info';
-            case '월':
-                return 'mon';
-            case '화':
-                return 'tue';
-            case '수':
-                return 'wed';
-            case '목':
-                return 'thu';
-            case '금':
-                return 'fri';
-            default:
-                return 'secondary';
-        }
-    };
 
     // --- 데이터 로딩 로직 (핵심 변경) ---
     onMounted(async () => {
@@ -194,7 +171,7 @@
             etfList.value = navData.nav.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
                 return {
-                    ...item,
+                    ...item, // symbol, longName, company, frequency, group, upcoming 등
                     yield: liveData?.regularMarketChangePercent
                         ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
                         : 'N/A',
@@ -363,8 +340,12 @@
                     </div>
                 </template>
                 <template #body="{ data }">
+                    <!-- 1. upcoming 플래그가 true이면 "예정" 태그를 표시합니다. -->
+                    <Tag v-if="data.upcoming" value="예정" severity="info" />
+
+                    <!-- 2. upcoming이 아닐 경우에만, 기존처럼 그룹 태그를 표시합니다. -->
                     <Tag
-                        v-if="data.group"
+                        v-else-if="data.group"
                         :value="data.group"
                         :severity="getGroupSeverity(data.group)" />
                 </template>
