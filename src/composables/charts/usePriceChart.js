@@ -117,6 +117,9 @@ export function usePriceChart(options) {
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
 
+    // [핵심 수정] lastDataIndex -> newestDataIndex로 변경하고 값을 0으로 설정
+    const newestDataIndex = 0;
+
     // --- 3. 반환할 객체의 키 이름을 표준에 맞게 수정 ---
     const priceChartData = {
         labels: data.map((item) => item['배당락']),
@@ -203,7 +206,7 @@ export function usePriceChart(options) {
                 order: 5,
                 hidden: true,
                 backgroundColor: (c) =>
-                    c.dataIndex === lastDataIndex ? highlight : dividend,
+                    c.dataIndex === newestDataIndex ? highlight : dividend,
                 borderColor: lineDividend,
                 borderWidth: 1,
                 data: data.map((item) => parsePrice(item['배당금'] || 0)), // 수정
@@ -213,9 +216,7 @@ export function usePriceChart(options) {
                     anchor: 'start',
                     offset: 8,
                     color: (c) =>
-                        c.dataIndex === lastDataIndex
-                            ? highlightText
-                            : dividendText,
+                        c.dataIndex === newestDataIndex ? 'bold' : 'normal',
                     formatter: (v) =>
                         v !== null && v > 0 ? `$${v.toFixed(2)}` : null, // 수정
                     font: (c) => ({
