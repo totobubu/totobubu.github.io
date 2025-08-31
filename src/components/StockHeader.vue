@@ -111,9 +111,7 @@
                     <Tag
                         class="stats-badge"
                         :severity="getChangeSeverity(detail.changeInfo.change)"
-                        v-tooltip.bottom="
-                            `이전 값: ${detail.changeInfo.previousValue}`
-                        ">
+                        >
                         <i :class="getChangeIcon(detail.changeInfo.change)" />
                     </Tag>
                 </div>

@@ -1,3 +1,4 @@
+// src\composables\charts\useReinvestmentChart.js
 import { computed, ref } from 'vue'; // ref 추가, watch 제거 (이 파일에서는 직접적인 side effect 없음)
 import { formatLargeNumber } from '@/utils/numberFormat.js';
 import Annotation from 'chartjs-plugin-annotation';

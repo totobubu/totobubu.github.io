@@ -4,6 +4,8 @@
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
+    import { useDividendStats } from '@/composables/useDividendStats'; // [수정] 신규 컴포저블 import
+    import { formatMonthsToYears } from '@/utils/date.js'; // [수정] 중앙 유틸리티 import
     import { parseYYMMDD } from '@/utils/date.js';
 
     // PrimeVue 컴포넌트 import
@@ -36,6 +38,12 @@
     );
 
     const recoveryPeriod = ref('1Y');
+    // --- [수정] 중복 로직을 useDividendStats 컴포저블로 대체 ---
+    const { dividendStats, payoutsPerYear } = useDividendStats(
+        computed(() => props.dividendHistory),
+        computed(() => props.tickerInfo),
+        recoveryPeriod
+    );
     const applyTax = ref(true);
     const calculationMode = ref('amount');
 
@@ -79,46 +87,6 @@
         },
     });
 
-    const payoutsPerYear = computed(() => {
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        const pastYear = props.dividendHistory.filter(
-            (i) => parseYYMMDD(i['배당락']) >= oneYearAgo
-        );
-        if (pastYear.length > 0) return pastYear.length;
-        const freq = props.tickerInfo?.frequency;
-        return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
-    });
-    const dividendStats = computed(() => {
-        const filtered = props.dividendHistory.filter((i) => {
-            const now = new Date();
-            let cutoffDate = new Date();
-            const rangeValue = parseInt(recoveryPeriod.value);
-            const rangeUnit = recoveryPeriod.value.slice(-1);
-            if (rangeUnit === 'M')
-                cutoffDate.setMonth(now.getMonth() - rangeValue);
-            else cutoffDate.setFullYear(now.getFullYear() - rangeValue);
-            return parseYYMMDD(i['배당락']) >= cutoffDate;
-        });
-        const validAmounts = filtered
-            .map((h) => parseFloat(h['배당금']?.replace('$', '')))
-            .filter((a) => !isNaN(a) && a > 0); // isNaN 체크 추가
-
-        if (validAmounts.length === 0) {
-            // 데이터가 아예 없는 경우
-            return { min: 0, max: 0, avg: 0 };
-        }
-        // 데이터가 하나만 있어도 min, max, avg가 모두 동일한 값으로 설정됨
-        const sum = validAmounts.reduce((s, a) => s + a, 0);
-        return {
-            min: Math.min(...validAmounts),
-            max: Math.max(...validAmounts),
-            avg: sum / validAmounts.length,
-        };
-    });
-
     // watch 로직에서 tickerInfo.symbol (소문자 s) 사용
     watch(avgPrice, (newValue) => {
         const symbol = props.tickerInfo?.symbol;
@@ -134,13 +102,6 @@
             updateBookmarkDetails(symbol, { accumulatedDividend: newValue });
     });
 
-    const formatMonthsToYears = (totalMonths) => {
-        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
-            return '계산 불가';
-        const years = Math.floor(totalMonths / 12);
-        const months = Math.round(totalMonths % 12);
-        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-    };
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
         textColor: documentStyle.getPropertyValue('--p-text-color'),

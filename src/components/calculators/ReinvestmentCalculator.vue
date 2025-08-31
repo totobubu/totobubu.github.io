@@ -4,7 +4,8 @@
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
-    import { parseYYMMDD } from '@/utils/date.js';
+    import { useDividendStats } from '@/composables/useDividendStats';
+    import { formatMonthsToYears } from '@/utils/date.js';
 
     // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
@@ -17,7 +18,6 @@
     import Tag from 'primevue/tag';
     import Slider from 'primevue/slider';
     import IftaLabel from 'primevue/iftalabel';
-
 
     const props = defineProps({
         dividendHistory: Array,
@@ -53,67 +53,26 @@
         () => (quantity.value || 0) * currentPrice.value
     );
 
-    // --- 핵심: 데이터 유효성 검사 computed 추가 ---
-    const isDataReady = computed(() => {
-        return (
-            props.dividendHistory &&
-            props.dividendHistory.length > 0 &&
-            props.tickerInfo
-        );
-    });
+    // --- [수정] 신규 컴포저블 사용 ---
+    const { dividendStats, payoutsPerYear } = useDividendStats(
+        computed(() => props.dividendHistory),
+        computed(() => props.tickerInfo),
+        reinvestmentPeriod
+    );
 
-    const payoutsPerYear = computed(() => {
-        if (!isDataReady.value) return 0;
-        if (!props.dividendHistory || props.dividendHistory.length === 0)
-            return 0;
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        const pastYear = props.dividendHistory.filter(
-            (i) => parseYYMMDD(i['배당락']) >= oneYearAgo
-        );
-        if (pastYear.length > 0) return pastYear.length;
-        const freq = props.tickerInfo?.frequency;
-        return freq === '매주' ? 52 : freq === '분기' ? 4 : 12;
-    });
-
-    const reinvestDividendStats = computed(() => {
-        if (!isDataReady.value) return { min: 0, max: 0, avg: 0 };
-        const filtered = props.dividendHistory.filter((item) => {
-            const now = new Date();
-            let cutoffDate = new Date();
-            const rangeValue = parseInt(reinvestmentPeriod.value);
-            const rangeUnit = reinvestmentPeriod.value.slice(-1);
-            if (rangeUnit === 'M')
-                cutoffDate.setMonth(now.getMonth() - rangeValue);
-            else cutoffDate.setFullYear(now.getFullYear() - rangeValue);
-            return parseYYMMDD(item['배당락']) >= cutoffDate;
-        });
-        const validAmounts = filtered
-            .map((h) => parseFloat(h['배당금']?.replace('$', '')))
-            .filter((a) => a && a > 0);
-        if (validAmounts.length === 0) return { min: 0, max: 0, avg: 0 };
-        return {
-            min: Math.min(...validAmounts),
-            max: Math.max(...validAmounts),
-            avg: validAmounts.reduce((s, a) => s + a, 0) / validAmounts.length,
-        };
-    });
     const growthRateForCalculation = computed(
         () => annualGrowthRateScenario.value / 100
     );
 
-    // --- 핵심 수정: 문법 오류 및 변수명 수정 ---
     const goalAchievementTimes = computed(() => {
-        // isDataReady를 사용하여 계산 시작 전에 데이터 존재 여부를 확실히 확인
-        if (!isDataReady.value) {
+        // [수정] 더 이상 존재하지 않는 변수 대신, dividendStats.value를 직접 확인합니다.
+        if (
+            !dividendStats.value ||
+            (dividendStats.value.avg === 0 && dividendStats.value.max === 0)
+        ) {
             return { hope: Infinity, avg: Infinity, despair: Infinity };
         }
-        // --- 핵심 수정: reinvestDividendStats.value가 존재하는지 먼저 확인 ---
-        if (!reinvestDividendStats.value) {
-            // 데이터가 아직 준비되지 않았으면, 계산 불가 상태를 반환합니다.
-            return { hope: Infinity, avg: Infinity, despair: Infinity };
-        }
-        // -----------------------------------------------------------------
+
         const calculateMonths = (dividendPerShare) => {
             if (targetAsset.value <= currentAssets.value) {
                 return -1;
@@ -124,13 +83,13 @@
                 currentPrice.value <= 0 ||
                 payoutsPerYear.value <= 0
             ) {
-                return 0;
+                return Infinity; // [수정] 0 대신 Infinity 반환하여 '계산 불가'로 표시
             }
 
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
                 : dividendPerShare;
-            if (finalDividendPerShare <= 0) return Infinity; // 세후 배당금이 0 이하인 경우 계산 불가 처리
+            if (finalDividendPerShare <= 0) return Infinity;
 
             let assetValue = currentAssets.value;
             let months = 0;
@@ -138,7 +97,6 @@
                 (1 + growthRateForCalculation.value) ** (1 / 12) - 1;
 
             while (assetValue < targetAsset.value) {
-                // 100년(1200개월) 이상 걸리면 계산 중단
                 if (months > 1200) {
                     return Infinity;
                 }
@@ -154,16 +112,15 @@
             return months;
         };
 
+        // [수정] reinvestDividendStats -> dividendStats
         return {
-            hope: calculateMonths(reinvestDividendStats.value.max), // 이제 이 부분은 안전
-            avg: calculateMonths(reinvestDividendStats.value.avg),
-            despair: calculateMonths(reinvestDividendStats.value.min),
+            hope: calculateMonths(dividendStats.value.max),
+            avg: calculateMonths(dividendStats.value.avg),
+            despair: calculateMonths(dividendStats.value.min),
         };
     });
-    // ------------------------------------------
 
     watch(quantity, (newValue) => {
-        // API 응답의 symbol은 소문자일 수 있으므로 tickerInfo.symbol을 사용합니다.
         const symbol = props.tickerInfo?.symbol;
         if (symbol) {
             updateBookmarkDetails(symbol, { quantity: newValue });
@@ -176,15 +133,6 @@
             updateBookmarkDetails(symbol, { targetAsset: newValue });
         }
     });
-
-    const formatMonthsToYears = (totalMonths) => {
-        if (totalMonths === -1) return '목표 달성';
-        if (totalMonths === Infinity || isNaN(totalMonths) || totalMonths <= 0)
-            return '계산 불가';
-        const years = Math.floor(totalMonths / 12);
-        const months = Math.round(totalMonths % 12);
-        return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-    };
 
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = {
@@ -202,7 +150,7 @@
             currentAssets,
             targetAmount: targetAsset,
             payoutsPerYear,
-            dividendStats: reinvestDividendStats,
+            dividendStats: dividendStats, // [수정] reinvestDividendStats -> dividendStats
             annualGrowthRateScenario: growthRateForCalculation,
             currentPrice,
             goalAchievementTimes,
@@ -325,15 +273,10 @@
                         </tr>
                         <tr>
                             <th>배당금</th>
-                            <td>
-                                (${{ reinvestDividendStats.max.toFixed(4) }})
-                            </td>
-                            <td>
-                                (${{ reinvestDividendStats.avg.toFixed(4) }})
-                            </td>
-                            <td>
-                                (${{ reinvestDividendStats.min.toFixed(4) }})
-                            </td>
+                            <!-- [수정] reinvestDividendStats -> dividendStats -->
+                            <td>${{ dividendStats.max.toFixed(4) }}</td>
+                            <td>${{ dividendStats.avg.toFixed(4) }}</td>
+                            <td>${{ dividendStats.min.toFixed(4) }}</td>
                         </tr>
                     </thead>
                     <tbody>
