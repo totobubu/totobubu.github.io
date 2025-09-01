@@ -25,12 +25,23 @@ const loadAllData = async () => {
             joinURL(import.meta.env.BASE_URL, 'nav.json')
         );
         const tickerNavData = await tickerNamesResponse.json();
-        const tickerInfoMap = new Map(
-            tickerNavData.nav.map((item) => [item.symbol, item])
+
+        // [핵심 수정 1] upcoming이 아닌 티커만 필터링하여 사용합니다.
+        const activeTickersNav = tickerNavData.nav.filter(
+            (ticker) => !ticker.upcoming
         );
-        const tickerNames = tickerNavData.nav
+
+        // Map 생성과 티커 이름 목록 추출을 필터링된 데이터 기반으로 변경
+        const tickerInfoMap = new Map(
+            activeTickersNav.map((item) => [item.symbol, item])
+        );
+        const tickerNames = activeTickersNav
             .map((t) => t.symbol)
             .filter(Boolean);
+
+        // [핵심 수정 2] tickerNavData.nav -> activeTickersNav 로 변경 (사실상 위에서 이미 처리됨)
+        // const tickerNames = tickerNavData.nav
+        // -> const tickerNames = activeTickersNav (위 코드로 이미 변경됨)
 
         const tickerDataPromises = tickerNames.map(async (ticker) => {
             try {
@@ -85,7 +96,7 @@ const loadAllData = async () => {
 
         allDividendData.value = flatDividendList;
         isDataLoaded = true; // 로딩 완료 플래그 설정
-        console.log('달력 데이터 로딩 완료.');
+        console.log('달력 데이터 로딩 완료. (출시 예정 종목 제외)'); // 로그 메시지 변경
     } catch (err) {
         console.error('데이터 로딩 중 오류 발생:', err);
         error.value = '달력 데이터를 불러오지 못했습니다.';
