@@ -16,6 +16,8 @@
     import { user } from '../store/auth';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
+    import CompanyLogo from '@/components/CompanyLogo.vue';
+
     const router = useRouter();
     const route = useRoute();
     const etfList = ref([]);
@@ -170,12 +172,24 @@
             };
             etfList.value = navData.nav.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
+
+                // [핵심 수정] liveData가 없는 경우(예: upcoming 종목)를 위한 기본값 설정
+                if (!liveData) {
+                    return {
+                        ...item, // nav.json의 모든 정보 (logo, company, upcoming 포함)
+                        yield: '-', // 데이터 없음을 명확히 표시
+                        price: '-',
+                        groupOrder: dayOrder[item.group] ?? 999,
+                    };
+                }
+
+                // liveData가 있는 경우 기존 로직 수행
                 return {
-                    ...item, // symbol, longName, company, frequency, group, upcoming 등
-                    yield: liveData?.regularMarketChangePercent
+                    ...item,
+                    yield: liveData.regularMarketChangePercent
                         ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
-                        : 'N/A',
-                    price: liveData?.regularMarketPrice || 'N/A',
+                        : '-',
+                    price: liveData.regularMarketPrice || '-',
                     groupOrder: dayOrder[item.group] ?? 999,
                 };
             });
@@ -288,8 +302,14 @@
                         :severity="filters.company.value ? '' : 'secondary'" />
                     <div class="column-header">
                         <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else>운용사</span>
+                        <span v-else>회사</span>
                     </div>
+                </template>
+                <!-- [핵심 수정] #body 템플릿을 추가/수정합니다. -->
+                <template #body="{ data }">
+                    <CompanyLogo
+                        :logo-src="data.logo"
+                        :company-name="data.company" />
                 </template>
             </Column>
             <Column field="frequency" sortable class="toto-column-frequency">
@@ -305,10 +325,7 @@
                         " />
                     <div class="column-header">
                         <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else
-                            >지급<br
-                                v-if="deviceType !== 'desktop'" />주기</span
-                        >
+                        <span v-else>지급</span>
                     </div>
                 </template>
             </Column>
