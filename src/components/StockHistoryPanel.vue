@@ -98,7 +98,7 @@
         <DataTable
             :value="filteredHistory"
             stripedRows
-            :rows="10"
+            :rows="15"
             paginator
             :paginatorTemplate="
                 isDesktop
