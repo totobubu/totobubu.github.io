@@ -1,6 +1,6 @@
 <!-- src\components\mypage\BookmarkManager.vue -->
 <script setup>
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
     import { joinURL } from 'ufo';
 
@@ -10,27 +10,33 @@
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
 
+    const emit = defineEmits(['selection-change']);
+
+    const selectedForBacktest = ref([]);
+
+    watch(selectedForBacktest, (newSelection) => {
+        emit('selection-change', newSelection);
+    });
+
     const { myBookmarks } = useFilterState();
-
     const isLoading = ref(true);
-    const allStockInfo = ref(new Map()); // 전체 종목 정보를 Map으로 관리
-
+    const allStockInfo = ref(new Map());
     const editingRows = ref([]);
 
-    // 2. DataTable에 표시할 최종 데이터 (북마크 정보 + 전체 종목 정보)
     const bookmarkedStocks = computed(() => {
-        return Object.entries(myBookmarks.value).map(([symbol, userData]) => {
-            const stockInfo = allStockInfo.value.get(symbol);
-            return {
-                symbol,
-                longName: stockInfo?.longName || symbol,
-                ...userData, // avgPrice, quantity 등
-            };
-        });
+        return Object.entries(myBookmarks.value)
+            .map(([symbol, userData]) => {
+                const stockInfo = allStockInfo.value.get(symbol);
+                return {
+                    symbol,
+                    longName: stockInfo?.longName || symbol,
+                    ...userData,
+                };
+            })
+            .sort((a, b) => a.symbol.localeCompare(b.symbol));
     });
 
     onMounted(async () => {
-        // 전체 종목 정보를 불러와 Map에 저장
         const url = joinURL(import.meta.env.BASE_URL, 'nav.json');
         const response = await fetch(url);
         const allStockData = (await response.json()).nav;
@@ -40,7 +46,6 @@
         isLoading.value = false;
     });
 
-    // 3. 인라인 편집이 완료되었을 때 호출되는 함수
     const onRowEditSave = (event) => {
         let { newData } = event;
         const symbol = newData.symbol;
@@ -55,15 +60,12 @@
         }
     };
 
-    // 4. 북마크 삭제 함수
     const deleteBookmark = (symbol) => {
         if (myBookmarks.value[symbol]) {
             delete myBookmarks.value[symbol];
-            // Vue 3에서는 객체의 속성을 삭제해도 반응성이 유지됩니다.
         }
     };
 
-    // --- 숫자 포맷팅 헬퍼 함수 추가 ---
     const formatCurrency = (value, currency = 'USD') => {
         if (value === null || value === undefined || isNaN(value)) {
             return new Intl.NumberFormat('en-US', {
@@ -93,11 +95,13 @@
             dataKey="symbol"
             v-model:editingRows="editingRows"
             @row-edit-save="onRowEditSave"
+            v-model:selection="selectedForBacktest"
             class="p-datatable-sm">
+            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
             <Column
                 field="longName"
                 header="종목명"
-                style="width: 25%"></Column>
+                style="width: auto"></Column>
 
             <!-- 평단가 컬럼 -->
             <Column field="avgPrice" header="평단가" style="width: 15%">
@@ -154,12 +158,12 @@
                 </template>
             </Column>
 
+            <!-- 버튼 컬럼 -->
             <Column
                 :rowEditor="true"
                 style="width: 10%; min-width: 8rem"
                 bodyStyle="text-align:center"></Column>
-
-            <Column bodyStyle="text-align:center" style="width: 5%">
+            <Column bodyStyle="text-align:center" style="width: 3rem">
                 <template #body="slotProps">
                     <Button
                         icon="pi pi-trash"

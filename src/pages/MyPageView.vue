@@ -1,25 +1,20 @@
 <!-- src\pages\MyPageView.vue -->
 <script setup>
-    import { ref, computed, onMounted, nextTick } from 'vue';
+    import { ref, computed } from 'vue';
     import { useHead } from '@vueuse/head';
-
     import TabView from 'primevue/tabview';
     import TabPanel from 'primevue/tabpanel';
-
+    import Toast from 'primevue/toast';
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
+    import PortfolioBacktester from '@/components/mypage/PortfolioBacktester.vue';
     // import AssetManager from '@/components/mypage/AssetManager.vue';
 
     const activeTabIndex = ref(0);
-
-    const tabTitles = [
-        '북마크',
-        // '보유자산 관리',
-        '회원정보 수정',
-    ];
+    const tabTitles = ['북마크 & 백테스터', '회원정보 수정'];
 
     const pageTitle = computed(() => {
-        const currentTabName = tabTitles[activeTabIndex.value];
+        const currentTabName = tabTitles[activeTabIndex.value] || '마이페이지';
         return `${currentTabName} | 마이페이지`;
     });
 
@@ -27,23 +22,24 @@
         title: pageTitle,
     });
 
-    // 2. onMounted 훅을 추가합니다.
-    onMounted(() => {
-        // nextTick을 사용하여 Vue의 다음 DOM 업데이트 주기가 완료된 후 코드를 실행합니다.
-        // 이렇게 하면 TabView 컴포넌트가 완전히 렌더링된 것을 보장할 수 있습니다.
-        nextTick(() => {
-            // 활성 탭 인덱스를 다시 0으로 설정하여 TabView가 상태를 갱신하고
-            // .p-highlight 클래스를 올바르게 적용하도록 강제합니다.
-            activeTabIndex.value = 0;
-        });
-    });
+    const backtesterRef = ref(null);
+
+    const handleSelection = (selection) => {
+        if (backtesterRef.value) {
+            backtesterRef.value.handleSelectionChange(selection);
+        }
+    };
 </script>
 
 <template>
     <div id="t-mypage">
+        <Toast />
         <TabView v-model:activeIndex="activeTabIndex">
-            <TabPanel header="북마크">
-                <BookmarkManager />
+            <TabPanel header="북마크 & 백테스터">
+                <PortfolioBacktester ref="backtesterRef" />
+                <div class="mt-4">
+                    <BookmarkManager @selection-change="handleSelection" />
+                </div>
             </TabPanel>
             <!-- <TabPanel header="보유자산 관리">
                 <AssetManager />
