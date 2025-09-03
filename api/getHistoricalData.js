@@ -1,12 +1,17 @@
 import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
+    console.log('--- [API START] ---');
     const { symbols, from, to } = req.query;
+    console.log('[API] 요청 받은 파라미터:', { symbols, from, to });
+
     if (!symbols || !from || !to) {
+        console.error('[API ERROR] 필수 파라미터 누락');
         return res
             .status(400)
             .json({ error: 'Symbols, from, and to parameters are required' });
     }
+
     const symbolArray = symbols.split(',');
     try {
         const results = await Promise.all(
@@ -20,19 +25,26 @@ export default async function handler(req, res) {
                             interval: '1d',
                         }
                     );
-                    // [핵심 수정] 각 데이터 포인트에 symbol을 추가합니다.
+                    console.log(
+                        `[API] '${symbol}' 데이터 ${historicalData.length}개 수신 성공`
+                    );
                     return historicalData.map((dataPoint) => ({
                         ...dataPoint,
                         symbol,
                     }));
                 } catch (e) {
-                    // 개별 종목 에러는 무시하지 않고, 에러 정보와 함께 반환
+                    console.error(
+                        `[API ERROR] '${symbol}' 데이터 수신 실패:`,
+                        e.message
+                    );
                     return { symbol, error: e.message };
                 }
             })
         );
+        console.log('--- [API END] ---');
         res.status(200).json(results);
     } catch (error) {
+        console.error('[API FATAL ERROR]', error);
         res.status(500).json({ error: error.message });
     }
 }
