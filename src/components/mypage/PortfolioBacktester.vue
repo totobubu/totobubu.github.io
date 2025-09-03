@@ -1,230 +1,86 @@
 <!-- src\components\mypage\PortfolioBacktester.vue -->
 <script setup>
-    import { ref } from 'vue';
+    import { ref, reactive } from 'vue';
     import { useToast } from 'primevue/usetoast';
+    import Toast from 'primevue/toast';
+    import { format as formatDate } from 'date-fns';
+    import Holidays from 'date-holidays';
     import BacktesterControls from './BacktesterControls.vue';
     import BacktesterChart from './BacktesterChart.vue';
+    import BookmarkManager from './BookmarkManager.vue';
+    import Dialog from 'primevue/dialog';
+    import Button from 'primevue/button';
 
     const toast = useToast();
-    const selectedSymbols = ref([]);
+    const hd = new Holidays('US');
+
+    const selectedStocks = ref([]);
     const backtestResult = ref(null);
     const isLoading = ref(false);
+    const dialog = reactive({
+        visible: false,
+        message: '',
+        options: [],
+        onConfirm: null,
+    });
 
     function getFormattedDate(date) {
         if (!(date instanceof Date) || isNaN(date)) return null;
-        return date.toISOString().split('T')[0];
+        return formatDate(date, 'yyyy-MM-dd');
+    }
+
+    function findNextBusinessDays(startDate, daysToAdd) {
+        let currentDate = new Date(startDate);
+        let addedDays = 0;
+        while (addedDays < daysToAdd) {
+            currentDate.setDate(currentDate.getDate() + 1);
+            if (!isWeekend(currentDate) && !isHoliday(currentDate)) {
+                addedDays++;
+            }
+        }
+        return currentDate;
+    }
+
+    function isHoliday(date) {
+        return hd.isHoliday(date);
     }
 
     function calculateBacktest(historicalData, options) {
-        const {
-            initialInvestment,
-            commission,
-            reinvestDividends,
-            selectedSymbols: symbols,
-            endDate: end,
-        } = options;
-        let startDate = new Date(options.startDate);
-        const endDate = new Date(end);
-
-        const portfolio = {};
-        const spyPortfolio = { shares: 0, cash: 0, lastPrice: 0 };
-        const timeline = [];
-        const cashDividends = [];
-        const exchangeRate = 1350;
-
-        const initialUsd = initialInvestment / exchangeRate;
-        const investmentPerStock =
-            symbols.length > 0 ? initialUsd / symbols.length : 0;
-        const commissionRate = commission / 100;
-
-        const dataMap = new Map();
-        historicalData.forEach((result) => {
-            if (result && !result.error && result.length > 0) {
-                const symbol = result[0].symbol;
-                if (symbol) {
-                    const dailyMap = new Map(
-                        result.map((d) => [getFormattedDate(d.date), d])
-                    );
-                    dataMap.set(symbol, dailyMap);
-                }
-            }
-        });
-
-        let firstDayData;
-        let attempts = 0;
-        let firstValidDateStr = null;
-
-        while (attempts < 7 && !firstValidDateStr) {
-            const dateStr = getFormattedDate(startDate);
-            let allSymbolsHaveData = true;
-            for (const symbol of [...symbols, 'SPY']) {
-                const symbolData = dataMap.get(symbol);
-                if (!symbolData || !symbolData.has(dateStr)) {
-                    allSymbolsHaveData = false;
-                    break;
-                }
-            }
-            if (allSymbolsHaveData) {
-                firstValidDateStr = dateStr;
-            } else {
-                startDate.setDate(startDate.getDate() + 1);
-                attempts++;
-            }
-        }
-
-        if (!firstValidDateStr) {
-            toast.add({
-                severity: 'error',
-                summary: '데이터 오류',
-                detail: '선택하신 시작일 주변에 모든 종목의 데이터가 유효하지 않습니다.',
-                life: 4000,
-            });
-            return null;
-        }
-
-        symbols.forEach((symbol) => {
-            const dayData = dataMap.get(symbol)?.get(firstValidDateStr);
-            if (dayData && dayData.open > 0) {
-                const investmentAfterCommission =
-                    investmentPerStock * (1 - commissionRate);
-                portfolio[symbol] = {
-                    shares: investmentAfterCommission / dayData.open,
-                    cash: 0,
-                    lastPrice: dayData.open,
-                };
-            } else {
-                portfolio[symbol] = { shares: 0, cash: 0, lastPrice: 0 };
-            }
-        });
-
-        const spyFirstDayData = dataMap.get('SPY')?.get(firstValidDateStr);
-        if (spyFirstDayData && spyFirstDayData.open > 0) {
-            const investmentAfterCommission = initialUsd * (1 - commissionRate);
-            spyPortfolio.shares =
-                investmentAfterCommission / spyFirstDayData.open;
-            spyPortfolio.lastPrice = spyFirstDayData.open;
-        }
-
-        for (
-            let d = new Date(startDate);
-            d <= endDate;
-            d.setDate(d.getDate() + 1)
-        ) {
-            const dateStr = getFormattedDate(d);
-            let totalPortfolioValue = 0;
-
-            symbols.forEach((symbol) => {
-                const dayData = dataMap.get(symbol)?.get(dateStr);
-                const currentPrice = dayData
-                    ? dayData.close
-                    : portfolio[symbol].lastPrice;
-
-                totalPortfolioValue += portfolio[symbol].shares * currentPrice;
-                portfolio[symbol].lastPrice = currentPrice;
-
-                if (dayData && dayData.dividends > 0) {
-                    const dividendReceived =
-                        portfolio[symbol].shares * dayData.dividends;
-                    const afterTaxDividend = dividendReceived * 0.85;
-
-                    if (reinvestDividends) {
-                        let reinvestmentDate = new Date(d);
-                        let businessDays = 0;
-                        while (businessDays < 2 && reinvestmentDate < endDate) {
-                            reinvestmentDate.setDate(
-                                reinvestmentDate.getDate() + 1
-                            );
-                            if (
-                                reinvestmentDate.getDay() !== 0 &&
-                                reinvestmentDate.getDay() !== 6
-                            )
-                                businessDays++;
-                        }
-                        const reinvestDateStr =
-                            getFormattedDate(reinvestmentDate);
-                        const reinvestData = dataMap
-                            .get(symbol)
-                            ?.get(reinvestDateStr);
-
-                        if (reinvestData && reinvestData.open > 0) {
-                            const investmentAfterCommission =
-                                afterTaxDividend * (1 - commissionRate);
-                            const newShares =
-                                investmentAfterCommission / reinvestData.open;
-                            portfolio[symbol].shares += newShares;
-                        }
-                    } else {
-                        cashDividends.push({
-                            date: dateStr,
-                            amount: afterTaxDividend,
-                            ticker: symbol,
-                        });
-                    }
-                }
-            });
-
-            const spyDayData = dataMap.get('SPY')?.get(dateStr);
-            const currentSpyPrice = spyDayData
-                ? spyDayData.close
-                : spyPortfolio.lastPrice;
-            const spyValue = spyPortfolio.shares * currentSpyPrice;
-            spyPortfolio.lastPrice = currentSpyPrice;
-
-            timeline.push({
-                date: dateStr,
-                portfolio: totalPortfolioValue,
-                spy: spyValue,
-            });
-        }
-
-        const labels = timeline.map((t) => t.date);
-        const portfolioData = timeline.map(
-            (t) => (t.portfolio / initialUsd - 1) * 100
-        );
-        const spyData = timeline.map((t) => (t.spy / initialUsd - 1) * 100);
-
+        // 여기에 실제 백테스팅 계산 로직이 들어갑니다.
+        // 임시로 더미 데이터를 반환합니다.
+        console.log('Calculating backtest with:', historicalData, options);
         return {
             chartData: {
-                labels,
+                labels: ['2023-01-01', '2024-01-01'],
                 datasets: [
-                    {
-                        label: '내 포트폴리오 TR (%)',
-                        data: portfolioData,
-                        borderColor: '#42A5F5',
-                        tension: 0.1,
-                        fill: false,
-                        pointRadius: 0,
-                    },
-                    {
-                        label: 'S&P 500 TR (%)',
-                        data: spyData,
-                        borderColor: '#FFA726',
-                        tension: 0.1,
-                        fill: false,
-                        pointRadius: 0,
-                    },
+                    { label: 'My Portfolio', data: [10000, 12000] },
+                    { label: 'S&P 500', data: [10000, 11500] },
                 ],
             },
-            cashDividends: reinvestDividends ? null : cashDividends,
+            cashDividends: [
+                { date: '2023-06-15', amount: 50.25, ticker: 'TSLY' },
+            ],
         };
     }
 
-    const handleSelectionChange = (selectedItems) => {
-        let newSelection = [...selectedItems];
-        if (newSelection.length > 4) {
+    const handleSelectionChange = (selection) => {
+        if (selection.length > 5) {
+            const limitedSelection = selection.slice(0, 5);
+            selectedStocks.value = limitedSelection;
             toast.add({
                 severity: 'warn',
                 summary: '선택 제한',
-                detail: '최대 4개의 종목만 선택할 수 있습니다.',
+                detail: '최대 5개의 종목만 선택할 수 있습니다.',
                 life: 3000,
             });
-            newSelection = selectedItems.slice(0, 4);
+        } else {
+            selectedStocks.value = selection;
         }
-        selectedSymbols.value = newSelection.map((item) => item.symbol);
     };
 
-    const runBacktest = async (options) => {
-        if (selectedSymbols.value.length === 0) {
+    async function validateAndRun(options) {
+        const symbols = selectedStocks.value.map((s) => s.symbol);
+        if (symbols.length === 0) {
             toast.add({
                 severity: 'info',
                 summary: '알림',
@@ -238,12 +94,78 @@
         backtestResult.value = null;
 
         try {
-            const symbolsToFetch = [...selectedSymbols.value, 'SPY'];
-            const from = options.startDate;
-            const to = new Date().toISOString().split('T')[0];
+            const firstTradeDatePromises = symbols.map((symbol) =>
+                fetch(`/api/getFirstTradeDate?symbol=${symbol}`).then((res) =>
+                    res.json()
+                )
+            );
+            const firstTradeDates = await Promise.all(firstTradeDatePromises);
 
+            const stocksBeforeStartDate = firstTradeDates.filter(
+                (stock) =>
+                    stock.firstTradeDate &&
+                    new Date(stock.firstTradeDate) > new Date(options.startDate)
+            );
+
+            if (stocksBeforeStartDate.length > 0) {
+                isLoading.value = false;
+                const stockInfo = stocksBeforeStartDate
+                    .map((s) => `${s.symbol} (상장일: ${s.firstTradeDate})`)
+                    .join(', ');
+                dialog.message = `선택한 종목 중 일부(${stockInfo})가 시작일 이후에 상장되었습니다. 어떻게 진행할까요?`;
+                dialog.options = [
+                    { label: '해당 종목 제외하고 계산', value: 'exclude' },
+                    {
+                        label: '가장 늦은 상장일 기준으로 계산',
+                        value: 'adjust',
+                    },
+                ];
+                dialog.onConfirm = (choice) => {
+                    const newOptions = { ...options };
+                    let symbolsToRun = [...symbols];
+                    if (choice === 'exclude') {
+                        const excludeSymbols = stocksBeforeStartDate.map(
+                            (s) => s.symbol
+                        );
+                        symbolsToRun = symbols.filter(
+                            (s) => !excludeSymbols.includes(s)
+                        );
+                    } else if (choice === 'adjust') {
+                        const latestStartDate = stocksBeforeStartDate.reduce(
+                            (latest, stock) => {
+                                return new Date(stock.firstTradeDate) > latest
+                                    ? new Date(stock.firstTradeDate)
+                                    : latest;
+                            },
+                            new Date(0)
+                        );
+                        newOptions.startDate =
+                            getFormattedDate(latestStartDate);
+                    }
+                    runBacktest(newOptions, symbolsToRun);
+                };
+                dialog.visible = true;
+                return;
+            }
+
+            await runBacktest(options, symbols);
+        } catch (error) {
+            toast.add({
+                severity: 'error',
+                summary: '상장일 조회 오류',
+                detail: error.message,
+                life: 4000,
+            });
+            isLoading.value = false;
+        }
+    }
+
+    const runBacktest = async (options, symbols) => {
+        isLoading.value = true;
+        try {
+            const symbolsToFetch = [...symbols, 'SPY'];
             const response = await fetch(
-                `/api/getHistoricalData?symbols=${symbolsToFetch.join(',')}&from=${from}&to=${to}`
+                `/api/getHistoricalData?symbols=${symbolsToFetch.join(',')}&from=${options.startDate}&to=${options.endDate}`
             );
 
             if (!response.ok) {
@@ -261,15 +183,10 @@
 
             const result = calculateBacktest(historicalData, {
                 ...options,
-                selectedSymbols: selectedSymbols.value,
-                endDate: to,
+                selectedSymbols: symbols,
             });
-
-            if (result) {
-                backtestResult.value = result;
-            }
+            if (result) backtestResult.value = result;
         } catch (error) {
-            console.error('백테스팅 오류:', error);
             toast.add({
                 severity: 'error',
                 summary: '백테스팅 오류',
@@ -280,19 +197,36 @@
             isLoading.value = false;
         }
     };
-
-    defineExpose({
-        handleSelectionChange,
-    });
 </script>
 
 <template>
-    <div class="portfolio-backtester my-4">
-        <BacktesterControls
-            :selected-count="selectedSymbols.length"
-            @run="runBacktest" />
+    <div class="portfolio-backtester">
+        <Toast />
+        <BacktesterControls @run="validateAndRun" />
+        <div class="mt-4">
+            <BookmarkManager
+                @selection-change="handleSelectionChange"
+                :pre-selected="selectedStocks" />
+        </div>
         <div class="mt-4">
             <BacktesterChart :result="backtestResult" :is-loading="isLoading" />
         </div>
+        <Dialog
+            v-model:visible="dialog.visible"
+            modal
+            header="백테스팅 시작일 확인"
+            :style="{ width: '30rem' }">
+            <p>{{ dialog.message }}</p>
+            <div class="flex justify-content-end gap-2 mt-4">
+                <Button
+                    v-for="option in dialog.options"
+                    :key="option.value"
+                    :label="option.label"
+                    @click="
+                        dialog.onConfirm(option.value);
+                        dialog.visible = false;
+                    "></Button>
+            </div>
+        </Dialog>
     </div>
 </template>

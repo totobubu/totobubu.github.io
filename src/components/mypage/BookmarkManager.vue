@@ -10,13 +10,31 @@
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
 
+    const props = defineProps({
+        preSelected: {
+            type: Array,
+            default: () => [],
+        },
+    });
     const emit = defineEmits(['selection-change']);
 
     const selectedForBacktest = ref([]);
 
-    watch(selectedForBacktest, (newSelection) => {
-        emit('selection-change', newSelection);
-    });
+    watch(
+        () => props.preSelected,
+        (newVal) => {
+            selectedForBacktest.value = newVal || [];
+        },
+        { immediate: true, deep: true }
+    );
+
+    watch(
+        selectedForBacktest,
+        (newSelection) => {
+            emit('selection-change', newSelection);
+        },
+        { deep: true }
+    );
 
     const { myBookmarks } = useFilterState();
     const isLoading = ref(true);
@@ -102,8 +120,6 @@
                 field="longName"
                 header="종목명"
                 style="width: auto"></Column>
-
-            <!-- 평단가 컬럼 -->
             <Column field="avgPrice" header="평단가" style="width: 15%">
                 <template #body="{ data, field }">
                     {{ formatCurrency(data[field], 'USD') }}
@@ -116,8 +132,6 @@
                         locale="en-US" />
                 </template>
             </Column>
-
-            <!-- 수량 컬럼 -->
             <Column field="quantity" header="수량" style="width: 15%">
                 <template #body="{ data, field }">
                     {{ formatNumber(data[field]) }} 주
@@ -126,8 +140,6 @@
                     <InputNumber v-model="data[field]" suffix=" 주" />
                 </template>
             </Column>
-
-            <!-- 누적배당금 컬럼 -->
             <Column
                 field="accumulatedDividend"
                 header="누적배당금"
@@ -143,8 +155,6 @@
                         locale="en-US" />
                 </template>
             </Column>
-
-            <!-- 목표 자산 컬럼 -->
             <Column field="targetAsset" header="목표 자산" style="width: 15%">
                 <template #body="{ data, field }">
                     {{ formatCurrency(data[field], 'USD') }}
@@ -157,8 +167,6 @@
                         locale="en-US" />
                 </template>
             </Column>
-
-            <!-- 버튼 컬럼 -->
             <Column
                 :rowEditor="true"
                 style="width: 10%; min-width: 8rem"
