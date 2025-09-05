@@ -2,26 +2,36 @@ import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
     const { symbol, from, to } = req.query;
+    console.log(`[LOG] /api/getHistoricalData received request for ${symbol} from ${from} to ${to}`);
+
     if (!symbol || !from || !to) {
         return res.status(400).json({ error: 'Symbol, from, and to parameters are required' });
     }
 
     try {
-        // [핵심 수정] 날짜 문자열에 UTC 시간대를 명시적으로 추가합니다.
-        // '2024-09-05' -> '2024-09-05T00:00:00.000Z' (시작일의 시작)
-        const fromUTC = new Date(`${from}T00:00:00.000Z`);
-        // '2025-09-04' -> '2025-09-04T23:59:59.999Z' (종료일의 끝)
-        const toUTC = new Date(`${to}T23:59:59.999Z`);
-
         const queryOptions = {
-            period1: fromUTC,
-            period2: toUTC,
+            period1: from,
+            period2: to,
             interval: '1d'
         };
+
+        // [핵심 디버그] 라이브러리 호출 직전의 최종 옵션을 로그로 남깁니다.
+        console.log(`[LOG] Calling yahooFinance.historical for ${symbol} with options:`, JSON.stringify(queryOptions, null, 2));
+
         const result = await yahooFinance.historical(symbol, queryOptions);
         
+        console.log(`[LOG] Successfully fetched historical data for ${symbol}. Found ${result.length} records.`);
         res.status(200).json({ symbol, data: result });
     } catch (error) {
-        res.status(200).json({ symbol, data: [], error: error.message });
+        // [핵심 디버그] 에러 발생 시, 에러 객체 전체를 로그로 남깁니다.
+        console.error(`[ERROR] Failed to fetch historical data for ${symbol}. Query:`, req.query);
+        console.error('[ERROR] Detailed Error:', error);
+
+        res.status(200).json({ 
+            symbol, 
+            data: [], 
+            error: `Failed for symbol ${symbol}: ${error.message}`,
+            query: req.query
+        });
     }
 }
