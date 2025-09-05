@@ -7,10 +7,15 @@ export default async function handler(req, res) {
     }
 
     try {
-        // [핵심 수정] 문자열을 Date 객체로 변환하여 전달합니다.
+        // [핵심 수정] 날짜 문자열에 UTC 시간대를 명시적으로 추가합니다.
+        // '2024-09-05' -> '2024-09-05T00:00:00.000Z' (시작일의 시작)
+        const fromUTC = new Date(`${from}T00:00:00.000Z`);
+        // '2025-09-04' -> '2025-09-04T23:59:59.999Z' (종료일의 끝)
+        const toUTC = new Date(`${to}T23:59:59.999Z`);
+
         const queryOptions = {
-            period1: new Date(from),
-            period2: new Date(to),
+            period1: fromUTC,
+            period2: toUTC,
             interval: '1d'
         };
         const result = await yahooFinance.historical(symbol, queryOptions);
