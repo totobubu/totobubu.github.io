@@ -1,22 +1,22 @@
 import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
-    // [수정] symbols -> symbol 로 변경
     const { symbol, from, to } = req.query;
     if (!symbol || !from || !to) {
         return res.status(400).json({ error: 'Symbol, from, and to parameters are required' });
     }
 
     try {
-        const result = await yahooFinance.historical(symbol, {
-            period1: from,
-            period2: to,
+        // [핵심 수정] 문자열을 Date 객체로 변환하여 전달합니다.
+        const queryOptions = {
+            period1: new Date(from),
+            period2: new Date(to),
             interval: '1d'
-        });
-        // [수정] 결과에 symbol을 명시적으로 포함
+        };
+        const result = await yahooFinance.historical(symbol, queryOptions);
+        
         res.status(200).json({ symbol, data: result });
     } catch (error) {
-        // [수정] 실패 시에도 symbol 정보와 함께 200 응답
         res.status(200).json({ symbol, data: [], error: error.message });
     }
 }
