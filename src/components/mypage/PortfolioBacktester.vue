@@ -2,7 +2,12 @@
     import { ref, reactive } from 'vue';
     import { useToast } from 'primevue/usetoast';
     import Toast from 'primevue/toast';
-    import { format as formatDate, addDays, isWeekend } from 'date-fns';
+    import {
+        format as formatDate,
+        addDays,
+        isWeekend,
+        subDays,
+    } from 'date-fns';
     import Holidays from 'date-holidays';
     import BacktesterControls from './BacktesterControls.vue';
     import BacktesterChart from './BacktesterChart.vue';
@@ -24,11 +29,11 @@
     });
 
     const CHART_COLORS = [
-        '#42A5F5', // Blue
-        '#66BB6A', // Green
-        '#FFA726', // Orange
-        '#AB47BC', // Purple
-        '#EC407A', // Pink
+        '#42A5F5',
+        '#66BB6A',
+        '#FFA726',
+        '#AB47BC',
+        '#EC407A',
     ];
 
     function getColor(index) {
@@ -55,6 +60,14 @@
     function isHoliday(date) {
         const holiday = hd.isHoliday(date);
         return !!holiday;
+    }
+
+    function findPreviousBusinessDay(startDate) {
+        let currentDate = new Date(startDate);
+        while (isWeekend(currentDate) || isHoliday(currentDate)) {
+            currentDate = subDays(currentDate, 1);
+        }
+        return currentDate;
     }
 
     function calculateBacktest(priceDataResults, dividendDataResults, options) {
@@ -304,9 +317,43 @@
             });
             return;
         }
+        if (!options.startDate || !options.endDate) {
+            toast.add({
+                severity: 'warn',
+                summary: '입력 오류',
+                detail: '시작일과 종료일을 모두 선택해주세요.',
+                life: 3000,
+            });
+            return;
+        }
+        if (new Date(options.startDate) > new Date(options.endDate)) {
+            toast.add({
+                severity: 'warn',
+                summary: '입력 오류',
+                detail: '시작일은 종료일보다 이전이어야 합니다.',
+                life: 3000,
+            });
+            return;
+        }
 
         isLoading.value = true;
         backtestResult.value = null;
+
+        const originalStartDate = new Date(options.startDate + 'T00:00:00');
+        const adjustedStartDate = findPreviousBusinessDay(originalStartDate);
+        const finalOptions = {
+            ...options,
+            startDate: getFormattedDate(adjustedStartDate),
+        };
+
+        if (getFormattedDate(originalStartDate) !== finalOptions.startDate) {
+            toast.add({
+                severity: 'info',
+                summary: '시작일 보정',
+                detail: `시작일이 휴일이므로 가장 가까운 영업일인 ${finalOptions.startDate}(으)로 보정하여 계산합니다.`,
+                life: 4000,
+            });
+        }
 
         try {
             const firstTradeDatePromises = symbols.map((symbol) =>
@@ -321,7 +368,8 @@
             const problematicStocks = firstTradeDatesResults.filter((stock) => {
                 return (
                     !stock.firstTradeDate ||
-                    new Date(stock.firstTradeDate) > new Date(options.startDate)
+                    new Date(stock.firstTradeDate) >
+                        new Date(finalOptions.startDate)
                 );
             });
 
@@ -357,7 +405,6 @@
                 dialog.options = [
                     { label: '문제 종목 모두 제외하고 계산', value: 'exclude' },
                 ];
-
                 if (stocksWithValidDate.length > 0) {
                     dialog.options.push({
                         label: '가장 늦은 상장일 기준으로 계산',
@@ -367,7 +414,7 @@
 
                 dialog.onConfirm = (choice) => {
                     let symbolsToRun = [...symbols];
-                    let finalOptions = { ...options };
+                    let confirmedOptions = { ...finalOptions };
 
                     if (choice === 'exclude') {
                         const excludeSymbols = problematicStocks.map(
@@ -381,14 +428,13 @@
                         );
                     } else if (choice === 'adjust') {
                         const latestStartDate = stocksWithValidDate.reduce(
-                            (latest, stock) => {
-                                return new Date(stock.firstTradeDate) > latest
+                            (latest, stock) =>
+                                new Date(stock.firstTradeDate) > latest
                                     ? new Date(stock.firstTradeDate)
-                                    : latest;
-                            },
+                                    : latest,
                             new Date(0)
                         );
-                        finalOptions.startDate =
+                        confirmedOptions.startDate =
                             getFormattedDate(latestStartDate);
 
                         const excludeSymbols = stocksWithoutDate.map(
@@ -403,7 +449,7 @@
                     }
 
                     if (symbolsToRun.length > 0) {
-                        runBacktest(finalOptions, symbolsToRun);
+                        runBacktest(confirmedOptions, symbolsToRun);
                     } else {
                         toast.add({
                             severity: 'info',
@@ -417,7 +463,7 @@
                 return;
             }
 
-            await runBacktest(options, symbols);
+            await runBacktest(finalOptions, symbols);
         } catch (error) {
             toast.add({
                 severity: 'error',
@@ -455,11 +501,14 @@
                 ...dividendDataResults,
             ].filter((res) => res.error);
             if (failedFetches.length > 0) {
-                const failedInfo = failedFetches
-                    .map((f) => `${f.symbol}: ${f.error}`)
-                    .join('\n');
+                const errorDetails = failedFetches
+                    .map(
+                        (f) =>
+                            `${f.symbol}: ${f.error.replace('Failed to get historical data', '데이터 없음').replace('Invalid input', '잘못된 종목 코드')}`
+                    )
+                    .join('; ');
                 throw new Error(
-                    `데이터를 불러오는 데 실패했습니다:\n${failedInfo}`
+                    `일부 종목의 데이터를 불러오지 못했습니다: ${errorDetails}`
                 );
             }
 
@@ -471,14 +520,13 @@
                     selectedSymbols: symbols,
                 }
             );
-
             if (result) backtestResult.value = result;
         } catch (error) {
             toast.add({
                 severity: 'error',
                 summary: '백테스팅 오류',
                 detail: error.message,
-                life: 5000,
+                life: 6000,
             });
         } finally {
             isLoading.value = false;
