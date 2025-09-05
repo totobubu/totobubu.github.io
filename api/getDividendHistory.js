@@ -6,10 +6,13 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Parameters required' });
     }
     try {
-        // [핵심 수정] 문자열을 Date 객체로 변환하여 전달합니다.
+        // [핵심 수정] 여기도 동일하게 UTC 시간대를 명시합니다.
+        const fromUTC = new Date(`${from}T00:00:00.000Z`);
+        const toUTC = new Date(`${to}T23:59:59.999Z`);
+        
         const queryOptions = {
-            period1: new Date(from),
-            period2: new Date(to),
+            period1: fromUTC,
+            period2: toUTC,
             events: 'div'
         };
         const results = await yahooFinance.historical(symbol, queryOptions);
