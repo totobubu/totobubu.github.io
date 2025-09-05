@@ -8,12 +8,18 @@ export default async function handler(req, res) {
     try {
         const quote = await yahooFinance.quote(symbol);
         const firstTradeDate = quote.firstTradeDateMilliseconds;
+
         if (!firstTradeDate) {
-            throw new Error('Could not find first trade date for the symbol.');
+            // 데이터는 있으나 상장일 정보가 없는 경우
+            return res.status(200).json({ symbol, firstTradeDate: null, error: 'First trade date not available.' });
         }
+        
         const date = new Date(firstTradeDate);
         res.status(200).json({ symbol, firstTradeDate: date.toISOString().split('T')[0] });
+
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        // 라이브러리 자체가 에러를 던지는 경우 (예: 존재하지 않는 티커, 신규 상장 예정)
+        // 500 에러 대신, 실패 정보를 담은 200 성공 응답을 보냅니다.
+        res.status(200).json({ symbol, firstTradeDate: null, error: error.message });
     }
 }
