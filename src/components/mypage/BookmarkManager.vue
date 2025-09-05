@@ -1,40 +1,12 @@
 <!-- src\components\mypage\BookmarkManager.vue -->
 <script setup>
-    import { ref, onMounted, computed, watch } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
     import { joinURL } from 'ufo';
-
-    // PrimeVue 컴포넌트 import
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
-
-    const props = defineProps({
-        preSelected: {
-            type: Array,
-            default: () => [],
-        },
-    });
-    const emit = defineEmits(['selection-change']);
-
-    const selectedForBacktest = ref([]);
-
-    watch(
-        () => props.preSelected,
-        (newVal) => {
-            selectedForBacktest.value = newVal || [];
-        },
-        { immediate: true, deep: true }
-    );
-
-    watch(
-        selectedForBacktest,
-        (newSelection) => {
-            emit('selection-change', newSelection);
-        },
-        { deep: true }
-    );
 
     const { myBookmarks } = useFilterState();
     const isLoading = ref(true);
@@ -67,7 +39,6 @@
     const onRowEditSave = (event) => {
         let { newData } = event;
         const symbol = newData.symbol;
-
         if (myBookmarks.value[symbol]) {
             myBookmarks.value[symbol] = {
                 avgPrice: newData.avgPrice || 0,
@@ -113,9 +84,7 @@
             dataKey="symbol"
             v-model:editingRows="editingRows"
             @row-edit-save="onRowEditSave"
-            v-model:selection="selectedForBacktest"
             class="p-datatable-sm">
-            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
             <Column
                 field="longName"
                 header="종목명"

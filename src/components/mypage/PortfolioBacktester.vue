@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, reactive } from 'vue';
+    import { ref, reactive, onMounted } from 'vue';
     import { useToast } from 'primevue/usetoast';
     import Toast from 'primevue/toast';
     import {
@@ -11,14 +11,15 @@
     import Holidays from 'date-holidays';
     import BacktesterControls from './BacktesterControls.vue';
     import BacktesterChart from './BacktesterChart.vue';
-    import BookmarkManager from './BookmarkManager.vue';
     import Dialog from 'primevue/dialog';
     import Button from 'primevue/button';
+    import { joinURL } from 'ufo';
 
     const toast = useToast();
     const hd = new Holidays('US');
 
-    const selectedStocks = ref([]);
+    const allAvailableStocks = ref([]);
+    const selectedSymbols = ref([]);
     const backtestResult = ref(null);
     const isLoading = ref(false);
     const dialog = reactive({
@@ -28,6 +29,19 @@
         onConfirm: null,
     });
 
+    onMounted(async () => {
+        const url = joinURL(import.meta.env.BASE_URL, 'nav.json');
+        const response = await fetch(url);
+        const allStockData = (await response.json()).nav;
+        allAvailableStocks.value = allStockData
+            .filter((stock) => !stock.upcoming)
+            .map((stock) => ({
+                symbol: stock.symbol,
+                longName: `${stock.symbol} - ${stock.company || '개별 주식'}`,
+            }))
+            .sort((a, b) => a.symbol.localeCompare(b.symbol));
+    });
+
     const CHART_COLORS = [
         '#42A5F5',
         '#66BB6A',
@@ -35,16 +49,13 @@
         '#AB47BC',
         '#EC407A',
     ];
-
     function getColor(index) {
         return CHART_COLORS[index % CHART_COLORS.length];
     }
-
     function getFormattedDate(date) {
         if (!(date instanceof Date) || isNaN(date)) return null;
         return formatDate(date, 'yyyy-MM-dd');
     }
-
     function findNextBusinessDays(startDate, daysToAdd) {
         let currentDate = new Date(startDate);
         let addedDays = 0;
@@ -56,12 +67,10 @@
         }
         return currentDate;
     }
-
     function isHoliday(date) {
         const holiday = hd.isHoliday(date);
         return !!holiday;
     }
-
     function findPreviousBusinessDay(startDate) {
         let currentDate = new Date(startDate);
         while (isWeekend(currentDate) || isHoliday(currentDate)) {
@@ -83,7 +92,6 @@
                 priceDataMap.set(item.symbol, dateMappedPrices);
             }
         });
-
         const dividendDataMap = new Map();
         dividendDataResults.forEach((item) => {
             if (item.symbol && Array.isArray(item.dividends)) {
@@ -96,7 +104,6 @@
                 dividendDataMap.set(item.symbol, dateMappedDividends);
             }
         });
-
         if (priceDataMap.size === 0) {
             toast.add({
                 severity: 'error',
@@ -106,16 +113,13 @@
             });
             return null;
         }
-
         const initialInvestmentUSD =
             options.initialInvestment / options.exchangeRate;
         const investmentPerStock =
             initialInvestmentUSD / options.selectedSymbols.length;
         const commissionRate = options.commission / 100;
-
         const portfolio = {};
         const cashDividends = [];
-
         options.selectedSymbols.forEach((symbol) => {
             const startData = priceDataMap.get(symbol)?.get(options.startDate);
             if (startData && startData.close > 0) {
@@ -125,7 +129,6 @@
                 portfolio[symbol] = { quantity, valueHistory: {} };
             }
         });
-
         const spyStartData = priceDataMap.get('SPY')?.get(options.startDate);
         let spyPortfolio = { quantity: 0, valueHistory: {} };
         if (spyStartData && spyStartData.close > 0) {
@@ -133,7 +136,6 @@
             spyPortfolio.quantity =
                 (initialInvestmentUSD - fees) / spyStartData.close;
         }
-
         const allDates = [];
         let currentDate = new Date(options.startDate + 'T00:00:00');
         const endDate = new Date(options.endDate + 'T00:00:00');
@@ -141,11 +143,9 @@
             allDates.push(formatDate(currentDate, 'yyyy-MM-dd'));
             currentDate.setDate(currentDate.getDate() + 1);
         }
-
         allDates.forEach((dateStr) => {
             for (const symbol of options.selectedSymbols) {
                 if (!portfolio[symbol]) continue;
-
                 const dayPriceData = priceDataMap.get(symbol)?.get(dateStr);
                 if (dayPriceData && dayPriceData.close) {
                     portfolio[symbol].valueHistory[dateStr] =
@@ -158,7 +158,6 @@
                     portfolio[symbol].valueHistory[dateStr] =
                         portfolio[symbol].valueHistory[yesterday];
                 }
-
                 const dividendAmount = dividendDataMap
                     .get(symbol)
                     ?.get(dateStr);
@@ -166,7 +165,6 @@
                     const dividendReceived =
                         portfolio[symbol].quantity * dividendAmount;
                     const afterTaxDividend = dividendReceived * 0.85;
-
                     if (options.reinvestDividends) {
                         const reinvestDate = findNextBusinessDays(
                             new Date(dateStr),
@@ -179,7 +177,6 @@
                         const reinvestData = priceDataMap
                             .get(symbol)
                             ?.get(reinvestDateStr);
-
                         if (reinvestData && reinvestData.open > 0) {
                             const newShares =
                                 (afterTaxDividend -
@@ -196,7 +193,6 @@
                     }
                 }
             }
-
             const spyDayData = priceDataMap.get('SPY')?.get(dateStr);
             if (spyDayData && spyDayData.close) {
                 spyPortfolio.valueHistory[dateStr] =
@@ -209,7 +205,6 @@
                 spyPortfolio.valueHistory[dateStr] =
                     spyPortfolio.valueHistory[yesterday];
             }
-
             const spyDividendAmount = dividendDataMap.get('SPY')?.get(dateStr);
             if (spyDividendAmount && spyDividendAmount > 0) {
                 const dividendReceived =
@@ -220,7 +215,6 @@
                 const reinvestData = priceDataMap
                     .get('SPY')
                     ?.get(reinvestDateStr);
-
                 if (reinvestData && reinvestData.open > 0) {
                     const newShares =
                         (afterTaxDividend - afterTaxDividend * commissionRate) /
@@ -229,10 +223,8 @@
                 }
             }
         });
-
         const labels = allDates;
         const datasets = [];
-
         options.selectedSymbols.forEach((symbol, index) => {
             if (!portfolio[symbol]) return;
             const historyValues = labels.map(
@@ -248,7 +240,6 @@
                 yAxisID: 'y',
             });
         });
-
         const spyHistoryValues = labels.map(
             (date) => spyPortfolio.valueHistory[date]
         );
@@ -262,7 +253,6 @@
             tension: 0.1,
             yAxisID: 'y',
         });
-
         const finalPortfolioValue = Object.values(portfolio).reduce(
             (sum, stock) => {
                 const lastValue = stock.valueHistory[labels[labels.length - 1]];
@@ -270,14 +260,12 @@
             },
             0
         );
-
         const finalSpyValue =
             spyPortfolio.valueHistory[labels[labels.length - 1]] || 0;
         const finalCash = options.reinvestDividends
             ? 0
             : cashDividends.reduce((sum, div) => sum + div.amount, 0);
         const finalTotalAsset = finalPortfolioValue + finalCash;
-
         return {
             chartData: { labels, datasets },
             cashDividends: options.reinvestDividends ? null : cashDividends,
@@ -291,23 +279,8 @@
         };
     }
 
-    const handleSelectionChange = (selection) => {
-        if (selection.length > 5) {
-            const limitedSelection = selection.slice(0, 5);
-            selectedStocks.value = limitedSelection;
-            toast.add({
-                severity: 'warn',
-                summary: '선택 제한',
-                detail: '최대 5개의 종목만 선택할 수 있습니다.',
-                life: 3000,
-            });
-        } else {
-            selectedStocks.value = selection;
-        }
-    };
-
     async function validateAndRun(options) {
-        const symbols = selectedStocks.value.map((s) => s.symbol);
+        const symbols = selectedSymbols.value;
         if (symbols.length === 0) {
             toast.add({
                 severity: 'info',
@@ -335,17 +308,14 @@
             });
             return;
         }
-
         isLoading.value = true;
         backtestResult.value = null;
-
         const originalStartDate = new Date(options.startDate + 'T00:00:00');
         const adjustedStartDate = findPreviousBusinessDay(originalStartDate);
         const finalOptions = {
             ...options,
             startDate: getFormattedDate(adjustedStartDate),
         };
-
         if (getFormattedDate(originalStartDate) !== finalOptions.startDate) {
             toast.add({
                 severity: 'info',
@@ -354,7 +324,6 @@
                 life: 4000,
             });
         }
-
         try {
             const firstTradeDatePromises = symbols.map((symbol) =>
                 fetch(`/api/getFirstTradeDate?symbol=${symbol}`).then((res) =>
@@ -364,25 +333,20 @@
             const firstTradeDatesResults = await Promise.all(
                 firstTradeDatePromises
             );
-
-            const problematicStocks = firstTradeDatesResults.filter((stock) => {
-                return (
+            const problematicStocks = firstTradeDatesResults.filter(
+                (stock) =>
                     !stock.firstTradeDate ||
                     new Date(stock.firstTradeDate) >
                         new Date(finalOptions.startDate)
-                );
-            });
-
+            );
             if (problematicStocks.length > 0) {
                 isLoading.value = false;
-
                 const stocksWithValidDate = problematicStocks.filter(
                     (s) => s.firstTradeDate
                 );
                 const stocksWithoutDate = problematicStocks.filter(
                     (s) => !s.firstTradeDate
                 );
-
                 let messageParts = [];
                 if (stocksWithValidDate.length > 0) {
                     const info = stocksWithValidDate
@@ -401,7 +365,6 @@
                     );
                 }
                 dialog.message = messageParts.join(' ');
-
                 dialog.options = [
                     { label: '문제 종목 모두 제외하고 계산', value: 'exclude' },
                 ];
@@ -411,11 +374,9 @@
                         value: 'adjust',
                     });
                 }
-
                 dialog.onConfirm = (choice) => {
                     let symbolsToRun = [...symbols];
                     let confirmedOptions = { ...finalOptions };
-
                     if (choice === 'exclude') {
                         const excludeSymbols = problematicStocks.map(
                             (s) => s.symbol
@@ -423,8 +384,8 @@
                         symbolsToRun = symbols.filter(
                             (s) => !excludeSymbols.includes(s)
                         );
-                        selectedStocks.value = selectedStocks.value.filter(
-                            (stock) => !excludeSymbols.includes(stock.symbol)
+                        selectedSymbols.value = selectedSymbols.value.filter(
+                            (symbol) => !excludeSymbols.includes(symbol)
                         );
                     } else if (choice === 'adjust') {
                         const latestStartDate = stocksWithValidDate.reduce(
@@ -436,18 +397,16 @@
                         );
                         confirmedOptions.startDate =
                             getFormattedDate(latestStartDate);
-
                         const excludeSymbols = stocksWithoutDate.map(
                             (s) => s.symbol
                         );
                         symbolsToRun = symbols.filter(
                             (s) => !excludeSymbols.includes(s)
                         );
-                        selectedStocks.value = selectedStocks.value.filter(
-                            (stock) => !excludeSymbols.includes(stock.symbol)
+                        selectedSymbols.value = selectedSymbols.value.filter(
+                            (symbol) => !excludeSymbols.includes(symbol)
                         );
                     }
-
                     if (symbolsToRun.length > 0) {
                         runBacktest(confirmedOptions, symbolsToRun);
                     } else {
@@ -462,7 +421,6 @@
                 dialog.visible = true;
                 return;
             }
-
             await runBacktest(finalOptions, symbols);
         } catch (error) {
             toast.add({
@@ -479,7 +437,6 @@
         isLoading.value = true;
         try {
             const symbolsToFetch = [...symbols, 'SPY'];
-
             const priceDataPromises = symbolsToFetch.map((symbol) =>
                 fetch(
                     `/api/getHistoricalData?symbol=${symbol}&from=${options.startDate}&to=${options.endDate}`
@@ -490,12 +447,10 @@
                     `/api/getDividendHistory?symbol=${symbol}&from=${options.startDate}&to=${options.endDate}`
                 ).then((res) => res.json())
             );
-
             const [priceDataResults, dividendDataResults] = await Promise.all([
                 Promise.all(priceDataPromises),
                 Promise.all(dividendDataPromises),
             ]);
-
             const failedFetches = [
                 ...priceDataResults,
                 ...dividendDataResults,
@@ -511,14 +466,10 @@
                     `일부 종목의 데이터를 불러오지 못했습니다: ${errorDetails}`
                 );
             }
-
             const result = calculateBacktest(
                 priceDataResults,
                 dividendDataResults,
-                {
-                    ...options,
-                    selectedSymbols: symbols,
-                }
+                { ...options, selectedSymbols: symbols }
             );
             if (result) backtestResult.value = result;
         } catch (error) {
@@ -537,12 +488,10 @@
 <template>
     <div class="portfolio-backtester">
         <Toast />
-        <BacktesterControls @run="validateAndRun" />
-        <div class="mt-4">
-            <BookmarkManager
-                @selection-change="handleSelectionChange"
-                :pre-selected="selectedStocks" />
-        </div>
+        <BacktesterControls
+            :available-stocks="allAvailableStocks"
+            v-model:selected-symbols="selectedSymbols"
+            @run="validateAndRun" />
         <div class="mt-4">
             <BacktesterChart :result="backtestResult" :is-loading="isLoading" />
         </div>

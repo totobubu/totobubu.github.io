@@ -6,10 +6,11 @@
     import TabPanel from 'primevue/tabpanel';
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import PortfolioBacktester from '@/components/mypage/PortfolioBacktester.vue';
-    // import AssetManager from '@/components/mypage/AssetManager.vue';
+    import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
+     // import AssetManager from '@/components/mypage/AssetManager.vue';
 
     const activeTabIndex = ref(0);
-    const tabTitles = ['북마크 & 백테스터', '회원정보 수정'];
+    const tabTitles = ['백테스터', '북마크 관리', '회원정보 수정'];
 
     const pageTitle = computed(() => {
         const currentTabName = tabTitles[activeTabIndex.value] || '마이페이지';
@@ -24,8 +25,11 @@
 <template>
     <div id="t-mypage">
         <TabView v-model:activeIndex="activeTabIndex">
-            <TabPanel header="북마크 & 백테스터" lazy>
+            <TabPanel header="백테스터" lazy>
                 <PortfolioBacktester />
+            </TabPanel>
+            <TabPanel header="북마크 관리" lazy>
+                <BookmarkManager />
             </TabPanel>
             <!-- <TabPanel header="보유자산 관리">
                 <AssetManager />
