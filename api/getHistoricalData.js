@@ -1,50 +1,22 @@
 import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
-    console.log('--- [API START] ---');
-    const { symbols, from, to } = req.query;
-    console.log('[API] 요청 받은 파라미터:', { symbols, from, to });
-
-    if (!symbols || !from || !to) {
-        console.error('[API ERROR] 필수 파라미터 누락');
-        return res
-            .status(400)
-            .json({ error: 'Symbols, from, and to parameters are required' });
+    // [수정] symbols -> symbol 로 변경
+    const { symbol, from, to } = req.query;
+    if (!symbol || !from || !to) {
+        return res.status(400).json({ error: 'Symbol, from, and to parameters are required' });
     }
 
-    const symbolArray = symbols.split(',');
     try {
-        const results = await Promise.all(
-            symbolArray.map(async (symbol) => {
-                try {
-                    const historicalData = await yahooFinance.historical(
-                        symbol,
-                        {
-                            period1: from,
-                            period2: to,
-                            interval: '1d',
-                        }
-                    );
-                    console.log(
-                        `[API] '${symbol}' 데이터 ${historicalData.length}개 수신 성공`
-                    );
-                    return historicalData.map((dataPoint) => ({
-                        ...dataPoint,
-                        symbol,
-                    }));
-                } catch (e) {
-                    console.error(
-                        `[API ERROR] '${symbol}' 데이터 수신 실패:`,
-                        e.message
-                    );
-                    return { symbol, error: e.message };
-                }
-            })
-        );
-        console.log('--- [API END] ---');
-        res.status(200).json(results);
+        const result = await yahooFinance.historical(symbol, {
+            period1: from,
+            period2: to,
+            interval: '1d'
+        });
+        // [수정] 결과에 symbol을 명시적으로 포함
+        res.status(200).json({ symbol, data: result });
     } catch (error) {
-        console.error('[API FATAL ERROR]', error);
-        res.status(500).json({ error: error.message });
+        // [수정] 실패 시에도 symbol 정보와 함께 200 응답
+        res.status(200).json({ symbol, data: [], error: error.message });
     }
 }
