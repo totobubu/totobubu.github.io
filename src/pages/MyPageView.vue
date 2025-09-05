@@ -24,13 +24,13 @@
 <template>
     <div id="t-mypage">
         <TabView v-model:activeIndex="activeTabIndex">
-            <TabPanel header="북마크 & 백테스터">
+            <TabPanel header="북마크 & 백테스터" lazy>
                 <PortfolioBacktester />
             </TabPanel>
             <!-- <TabPanel header="보유자산 관리">
                 <AssetManager />
             </TabPanel> -->
-            <TabPanel header="회원정보 수정">
+            <TabPanel header="회원정보 수정" lazy>
                 <ProfileSettings />
             </TabPanel>
         </TabView>

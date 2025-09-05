@@ -1,9 +1,8 @@
-<!-- src\components\mypage\PortfolioBacktester.vue -->
 <script setup>
     import { ref, reactive } from 'vue';
     import { useToast } from 'primevue/usetoast';
     import Toast from 'primevue/toast';
-    import { format as formatDate } from 'date-fns';
+    import { format as formatDate, addDays, isWeekend } from 'date-fns';
     import Holidays from 'date-holidays';
     import BacktesterControls from './BacktesterControls.vue';
     import BacktesterChart from './BacktesterChart.vue';
@@ -24,6 +23,18 @@
         onConfirm: null,
     });
 
+    const CHART_COLORS = [
+        '#42A5F5', // Blue
+        '#66BB6A', // Green
+        '#FFA726', // Orange
+        '#AB47BC', // Purple
+        '#EC407A', // Pink
+    ];
+
+    function getColor(index) {
+        return CHART_COLORS[index % CHART_COLORS.length];
+    }
+
     function getFormattedDate(date) {
         if (!(date instanceof Date) || isNaN(date)) return null;
         return formatDate(date, 'yyyy-MM-dd');
@@ -33,7 +44,7 @@
         let currentDate = new Date(startDate);
         let addedDays = 0;
         while (addedDays < daysToAdd) {
-            currentDate.setDate(currentDate.getDate() + 1);
+            currentDate = addDays(currentDate, 1);
             if (!isWeekend(currentDate) && !isHoliday(currentDate)) {
                 addedDays++;
             }
@@ -42,24 +53,228 @@
     }
 
     function isHoliday(date) {
-        return hd.isHoliday(date);
+        const holiday = hd.isHoliday(date);
+        return !!holiday;
     }
 
-    function calculateBacktest(historicalData, options) {
-        // 여기에 실제 백테스팅 계산 로직이 들어갑니다.
-        // 임시로 더미 데이터를 반환합니다.
-        console.log('Calculating backtest with:', historicalData, options);
-        return {
-            chartData: {
-                labels: ['2023-01-01', '2024-01-01'],
-                datasets: [
-                    { label: 'My Portfolio', data: [10000, 12000] },
-                    { label: 'S&P 500', data: [10000, 11500] },
-                ],
+    function calculateBacktest(priceDataResults, dividendDataResults, options) {
+        const priceDataMap = new Map();
+        priceDataResults.forEach((item) => {
+            if (item.symbol && Array.isArray(item.data)) {
+                const dateMappedPrices = new Map(
+                    item.data.map((d) => [
+                        formatDate(new Date(d.date), 'yyyy-MM-dd'),
+                        d,
+                    ])
+                );
+                priceDataMap.set(item.symbol, dateMappedPrices);
+            }
+        });
+
+        const dividendDataMap = new Map();
+        dividendDataResults.forEach((item) => {
+            if (item.symbol && Array.isArray(item.dividends)) {
+                const dateMappedDividends = new Map(
+                    item.dividends.map((d) => [
+                        formatDate(new Date(d.date), 'yyyy-MM-dd'),
+                        d.amount,
+                    ])
+                );
+                dividendDataMap.set(item.symbol, dateMappedDividends);
+            }
+        });
+
+        if (priceDataMap.size === 0) {
+            toast.add({
+                severity: 'error',
+                summary: '데이터 오류',
+                detail: '백테스팅에 사용할 유효한 과거 데이터가 없습니다.',
+                life: 4000,
+            });
+            return null;
+        }
+
+        const initialInvestmentUSD =
+            options.initialInvestment / options.exchangeRate;
+        const investmentPerStock =
+            initialInvestmentUSD / options.selectedSymbols.length;
+        const commissionRate = options.commission / 100;
+
+        const portfolio = {};
+        const cashDividends = [];
+
+        options.selectedSymbols.forEach((symbol) => {
+            const startData = priceDataMap.get(symbol)?.get(options.startDate);
+            if (startData && startData.close > 0) {
+                const fees = investmentPerStock * commissionRate;
+                const netInvestment = investmentPerStock - fees;
+                const quantity = netInvestment / startData.close;
+                portfolio[symbol] = { quantity, valueHistory: {} };
+            }
+        });
+
+        const spyStartData = priceDataMap.get('SPY')?.get(options.startDate);
+        let spyPortfolio = { quantity: 0, valueHistory: {} };
+        if (spyStartData && spyStartData.close > 0) {
+            const fees = initialInvestmentUSD * commissionRate;
+            spyPortfolio.quantity =
+                (initialInvestmentUSD - fees) / spyStartData.close;
+        }
+
+        const allDates = [];
+        let currentDate = new Date(options.startDate + 'T00:00:00');
+        const endDate = new Date(options.endDate + 'T00:00:00');
+        while (currentDate <= endDate) {
+            allDates.push(formatDate(currentDate, 'yyyy-MM-dd'));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        allDates.forEach((dateStr) => {
+            for (const symbol of options.selectedSymbols) {
+                if (!portfolio[symbol]) continue;
+
+                const dayPriceData = priceDataMap.get(symbol)?.get(dateStr);
+                if (dayPriceData && dayPriceData.close) {
+                    portfolio[symbol].valueHistory[dateStr] =
+                        portfolio[symbol].quantity * dayPriceData.close;
+                } else {
+                    const yesterday = formatDate(
+                        addDays(new Date(dateStr), -1),
+                        'yyyy-MM-dd'
+                    );
+                    portfolio[symbol].valueHistory[dateStr] =
+                        portfolio[symbol].valueHistory[yesterday];
+                }
+
+                const dividendAmount = dividendDataMap
+                    .get(symbol)
+                    ?.get(dateStr);
+                if (dividendAmount && dividendAmount > 0) {
+                    const dividendReceived =
+                        portfolio[symbol].quantity * dividendAmount;
+                    const afterTaxDividend = dividendReceived * 0.85;
+
+                    if (options.reinvestDividends) {
+                        const reinvestDate = findNextBusinessDays(
+                            new Date(dateStr),
+                            2
+                        );
+                        const reinvestDateStr = formatDate(
+                            reinvestDate,
+                            'yyyy-MM-dd'
+                        );
+                        const reinvestData = priceDataMap
+                            .get(symbol)
+                            ?.get(reinvestDateStr);
+
+                        if (reinvestData && reinvestData.open > 0) {
+                            const newShares =
+                                (afterTaxDividend -
+                                    afterTaxDividend * commissionRate) /
+                                reinvestData.open;
+                            portfolio[symbol].quantity += newShares;
+                        }
+                    } else {
+                        cashDividends.push({
+                            date: dateStr,
+                            ticker: symbol,
+                            amount: afterTaxDividend,
+                        });
+                    }
+                }
+            }
+
+            const spyDayData = priceDataMap.get('SPY')?.get(dateStr);
+            if (spyDayData && spyDayData.close) {
+                spyPortfolio.valueHistory[dateStr] =
+                    spyPortfolio.quantity * spyDayData.close;
+            } else {
+                const yesterday = formatDate(
+                    addDays(new Date(dateStr), -1),
+                    'yyyy-MM-dd'
+                );
+                spyPortfolio.valueHistory[dateStr] =
+                    spyPortfolio.valueHistory[yesterday];
+            }
+
+            const spyDividendAmount = dividendDataMap.get('SPY')?.get(dateStr);
+            if (spyDividendAmount && spyDividendAmount > 0) {
+                const dividendReceived =
+                    spyPortfolio.quantity * spyDividendAmount;
+                const afterTaxDividend = dividendReceived * 0.85;
+                const reinvestDate = findNextBusinessDays(new Date(dateStr), 2);
+                const reinvestDateStr = formatDate(reinvestDate, 'yyyy-MM-dd');
+                const reinvestData = priceDataMap
+                    .get('SPY')
+                    ?.get(reinvestDateStr);
+
+                if (reinvestData && reinvestData.open > 0) {
+                    const newShares =
+                        (afterTaxDividend - afterTaxDividend * commissionRate) /
+                        reinvestData.open;
+                    spyPortfolio.quantity += newShares;
+                }
+            }
+        });
+
+        const labels = allDates;
+        const datasets = [];
+
+        options.selectedSymbols.forEach((symbol, index) => {
+            if (!portfolio[symbol]) return;
+            const historyValues = labels.map(
+                (date) => portfolio[symbol].valueHistory[date]
+            );
+            datasets.push({
+                label: `${symbol} TR (%)`,
+                data: historyValues.map((v) =>
+                    v ? (v / investmentPerStock - 1) * 100 : null
+                ),
+                borderColor: getColor(index),
+                tension: 0.1,
+                yAxisID: 'y',
+            });
+        });
+
+        const spyHistoryValues = labels.map(
+            (date) => spyPortfolio.valueHistory[date]
+        );
+        datasets.push({
+            label: 'S&P 500 TR (%)',
+            data: spyHistoryValues.map((v) =>
+                v ? (v / initialInvestmentUSD - 1) * 100 : null
+            ),
+            borderColor: '#9CA3AF',
+            borderDash: [5, 5],
+            tension: 0.1,
+            yAxisID: 'y',
+        });
+
+        const finalPortfolioValue = Object.values(portfolio).reduce(
+            (sum, stock) => {
+                const lastValue = stock.valueHistory[labels[labels.length - 1]];
+                return sum + (lastValue || 0);
             },
-            cashDividends: [
-                { date: '2023-06-15', amount: 50.25, ticker: 'TSLY' },
-            ],
+            0
+        );
+
+        const finalSpyValue =
+            spyPortfolio.valueHistory[labels[labels.length - 1]] || 0;
+        const finalCash = options.reinvestDividends
+            ? 0
+            : cashDividends.reduce((sum, div) => sum + div.amount, 0);
+        const finalTotalAsset = finalPortfolioValue + finalCash;
+
+        return {
+            chartData: { labels, datasets },
+            cashDividends: options.reinvestDividends ? null : cashDividends,
+            summary: {
+                finalValue: finalTotalAsset,
+                totalReturnPercent:
+                    (finalTotalAsset / initialInvestmentUSD - 1) * 100,
+                sp500ReturnPercent:
+                    (finalSpyValue / initialInvestmentUSD - 1) * 100,
+            },
         };
     }
 
@@ -99,39 +314,73 @@
                     res.json()
                 )
             );
-            const firstTradeDates = await Promise.all(firstTradeDatePromises);
-
-            const stocksBeforeStartDate = firstTradeDates.filter(
-                (stock) =>
-                    stock.firstTradeDate &&
-                    new Date(stock.firstTradeDate) > new Date(options.startDate)
+            const firstTradeDatesResults = await Promise.all(
+                firstTradeDatePromises
             );
 
-            if (stocksBeforeStartDate.length > 0) {
+            const problematicStocks = firstTradeDatesResults.filter((stock) => {
+                return (
+                    !stock.firstTradeDate ||
+                    new Date(stock.firstTradeDate) > new Date(options.startDate)
+                );
+            });
+
+            if (problematicStocks.length > 0) {
                 isLoading.value = false;
-                const stockInfo = stocksBeforeStartDate
-                    .map((s) => `${s.symbol} (상장일: ${s.firstTradeDate})`)
-                    .join(', ');
-                dialog.message = `선택한 종목 중 일부(${stockInfo})가 시작일 이후에 상장되었습니다. 어떻게 진행할까요?`;
+
+                const stocksWithValidDate = problematicStocks.filter(
+                    (s) => s.firstTradeDate
+                );
+                const stocksWithoutDate = problematicStocks.filter(
+                    (s) => !s.firstTradeDate
+                );
+
+                let messageParts = [];
+                if (stocksWithValidDate.length > 0) {
+                    const info = stocksWithValidDate
+                        .map((s) => `${s.symbol} (상장일: ${s.firstTradeDate})`)
+                        .join(', ');
+                    messageParts.push(
+                        `선택한 종목 중 일부(${info})가 시작일 이후에 상장되었습니다.`
+                    );
+                }
+                if (stocksWithoutDate.length > 0) {
+                    const info = stocksWithoutDate
+                        .map((s) => s.symbol)
+                        .join(', ');
+                    messageParts.push(
+                        `또한, ${info} 종목은 상장 정보를 가져올 수 없습니다 (출시 예정 등).`
+                    );
+                }
+                dialog.message = messageParts.join(' ');
+
                 dialog.options = [
-                    { label: '해당 종목 제외하고 계산', value: 'exclude' },
-                    {
+                    { label: '문제 종목 모두 제외하고 계산', value: 'exclude' },
+                ];
+
+                if (stocksWithValidDate.length > 0) {
+                    dialog.options.push({
                         label: '가장 늦은 상장일 기준으로 계산',
                         value: 'adjust',
-                    },
-                ];
+                    });
+                }
+
                 dialog.onConfirm = (choice) => {
-                    const newOptions = { ...options };
                     let symbolsToRun = [...symbols];
+                    let finalOptions = { ...options };
+
                     if (choice === 'exclude') {
-                        const excludeSymbols = stocksBeforeStartDate.map(
+                        const excludeSymbols = problematicStocks.map(
                             (s) => s.symbol
                         );
                         symbolsToRun = symbols.filter(
                             (s) => !excludeSymbols.includes(s)
                         );
+                        selectedStocks.value = selectedStocks.value.filter(
+                            (stock) => !excludeSymbols.includes(stock.symbol)
+                        );
                     } else if (choice === 'adjust') {
-                        const latestStartDate = stocksBeforeStartDate.reduce(
+                        const latestStartDate = stocksWithValidDate.reduce(
                             (latest, stock) => {
                                 return new Date(stock.firstTradeDate) > latest
                                     ? new Date(stock.firstTradeDate)
@@ -139,10 +388,30 @@
                             },
                             new Date(0)
                         );
-                        newOptions.startDate =
+                        finalOptions.startDate =
                             getFormattedDate(latestStartDate);
+
+                        const excludeSymbols = stocksWithoutDate.map(
+                            (s) => s.symbol
+                        );
+                        symbolsToRun = symbols.filter(
+                            (s) => !excludeSymbols.includes(s)
+                        );
+                        selectedStocks.value = selectedStocks.value.filter(
+                            (stock) => !excludeSymbols.includes(stock.symbol)
+                        );
                     }
-                    runBacktest(newOptions, symbolsToRun);
+
+                    if (symbolsToRun.length > 0) {
+                        runBacktest(finalOptions, symbolsToRun);
+                    } else {
+                        toast.add({
+                            severity: 'info',
+                            summary: '알림',
+                            detail: '계산할 종목이 남아있지 않습니다.',
+                            life: 3000,
+                        });
+                    }
                 };
                 dialog.visible = true;
                 return;
@@ -152,8 +421,8 @@
         } catch (error) {
             toast.add({
                 severity: 'error',
-                summary: '상장일 조회 오류',
-                detail: error.message,
+                summary: '오류',
+                detail: '데이터 검증 중 문제가 발생했습니다.',
                 life: 4000,
             });
             isLoading.value = false;
@@ -164,27 +433,45 @@
         isLoading.value = true;
         try {
             const symbolsToFetch = [...symbols, 'SPY'];
-            const response = await fetch(
-                `/api/getHistoricalData?symbols=${symbolsToFetch.join(',')}&from=${options.startDate}&to=${options.endDate}`
+
+            const priceDataPromises = symbolsToFetch.map((symbol) =>
+                fetch(
+                    `/api/getHistoricalData?symbol=${symbol}&from=${options.startDate}&to=${options.endDate}`
+                ).then((res) => res.json())
+            );
+            const dividendDataPromises = symbolsToFetch.map((symbol) =>
+                fetch(
+                    `/api/getDividendHistory?symbol=${symbol}&from=${options.startDate}&to=${options.endDate}`
+                ).then((res) => res.json())
             );
 
-            if (!response.ok) {
-                let errorMessage = `과거 데이터를 불러오는 데 실패했습니다. (HTTP ${response.status})`;
-                try {
-                    const errorData = await response.json();
-                    if (errorData.error) errorMessage = errorData.error;
-                } catch (e) {
-                    errorMessage = `${errorMessage}: ${response.statusText}`;
-                }
-                throw new Error(errorMessage);
+            const [priceDataResults, dividendDataResults] = await Promise.all([
+                Promise.all(priceDataPromises),
+                Promise.all(dividendDataPromises),
+            ]);
+
+            const failedFetches = [
+                ...priceDataResults,
+                ...dividendDataResults,
+            ].filter((res) => res.error);
+            if (failedFetches.length > 0) {
+                const failedInfo = failedFetches
+                    .map((f) => `${f.symbol}: ${f.error}`)
+                    .join('\n');
+                throw new Error(
+                    `데이터를 불러오는 데 실패했습니다:\n${failedInfo}`
+                );
             }
 
-            const historicalData = await response.json();
+            const result = calculateBacktest(
+                priceDataResults,
+                dividendDataResults,
+                {
+                    ...options,
+                    selectedSymbols: symbols,
+                }
+            );
 
-            const result = calculateBacktest(historicalData, {
-                ...options,
-                selectedSymbols: symbols,
-            });
             if (result) backtestResult.value = result;
         } catch (error) {
             toast.add({
