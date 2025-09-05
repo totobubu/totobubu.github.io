@@ -3,6 +3,8 @@ import json
 import os
 import yfinance as yf
 from datetime import datetime, timezone, timedelta
+import subprocess # [핵심] subprocess 모듈을 import 합니다.
+
 
 def parse_numeric_value(value_str):
     if not isinstance(value_str, str):
@@ -150,6 +152,23 @@ def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history
 
 
 if __name__ == "__main__":
+    # [핵심] Node.js 스크립트를 실행하여 nav.json을 먼저 생성합니다.
+    try:
+        print("--- Running 'npm run generate-nav' to update nav.json ---")
+        # Node.js 스크립트가 있는 프로젝트 루트 디렉토리로 이동해야 할 수 있습니다.
+        # 이 스크립트가 프로젝트 루트에 있다면 cwd='.' 또는 cwd='../' 등으로 조정
+        # check=True는 명령어 실행 실패 시 예외를 발생시킵니다.
+        # shell=True는 OS 쉘을 통해 명령어를 실행합니다 (Windows에서 .cmd/.bat 실행 시 필요).
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root, capture_output=True, text=True)
+        print("--- nav.json has been successfully updated. ---")
+    except subprocess.CalledProcessError as e:
+        print(f"!!! Failed to run 'npm run generate-nav'. Error: {e.stderr}")
+        exit() # nav.json 생성에 실패하면 스크립트를 중단합니다.
+    except FileNotFoundError:
+        print("!!! 'npm' command not found. Please ensure Node.js is installed and in your PATH.")
+        exit()
+
     nav_file_path = 'public/nav.json'
     all_tickers_info = {}
     try:
