@@ -25,12 +25,12 @@
     const localSelectedSymbols = ref([...props.selectedSymbols]);
     const localStartDate = ref(props.startDate);
 
-    // 종료일, 투자금 등은 내부 상태로 관리
-    const endDate = ref(new Date(new Date().setDate(new Date().getDate() - 1)));
-    const initialInvestment = ref(10000000);
-    const commission = ref(0.1);
-    const reinvestDividends = ref(true);
-    const exchangeRate = ref(1350);
+    // [핵심 수정 1] 어제 날짜를 계산하여 최대 선택 가능일로 사용
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const endDate = ref(new Date(yesterday)); // 종료일 기본값을 어제로 설정
 
     // Props -> 로컬 ref 동기화
     watch(
@@ -63,9 +63,13 @@
         emit('update:startDate', newVal);
     });
 
+    const initialInvestment = ref(10000000);
+    const commission = ref(0.1);
+    const reinvestDividends = ref(true);
+    const exchangeRate = ref(1350);
+
     const handleRunClick = () => {
         emit('run', {
-            // [수정] 상위에서 받은 startDate 대신, v-model로 양방향 바인딩된 localStartDate 사용
             startDate: getFormattedDate(localStartDate.value),
             endDate: getFormattedDate(endDate.value),
             initialInvestment: initialInvestment.value,
@@ -101,15 +105,17 @@
                 <Calendar
                     v-model="localStartDate"
                     inputId="startDate"
-                    :maxDate="endDate"
+                    :maxDate="endDate || yesterday"
                     dateFormat="yy-mm-dd" />
             </div>
             <div class="field col-6 md:col-3">
                 <label for="endDate">종료일</label>
+                <!-- [핵심 수정 2] endDate Calendar에 maxDate를 yesterday로 설정 -->
                 <Calendar
                     v-model="endDate"
                     inputId="endDate"
                     :minDate="localStartDate"
+                    :maxDate="yesterday"
                     dateFormat="yy-mm-dd" />
             </div>
             <div class="field col-6 md:col-3">
