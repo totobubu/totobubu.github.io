@@ -9,54 +9,62 @@ permissions:
   contents: write
 
 jobs:
-  scrape-info:
-    runs-on: ubuntu-latest # ubuntu-22.04 대신 latest 사용 권장
+  update-all-info:
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 리포지토리 코드 가져오기
       - name: Checkout main branch
         uses: actions/checkout@v4
 
-      # 2. 파이썬 설정
+      # 2. Node.js 환경 설정 (추가)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # npm 캐시 사용
+
+      # 3. Node.js 의존성 설치 (추가)
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      # 4. IPO 날짜 및 Upcoming 상태 업데이트 (추가)
+      - name: Sync IPO dates and upcoming status
+        run: npm run add-ipo-dates
+      
+      # 5. 최종 nav.json 생성 (추가)
+      - name: Generate final nav.json
+        run: npm run generate-nav
+
+      # 6. 파이썬 설정 (기존)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11" # 특정 버전 명시 권장
+          python-version: "3.11"
           cache: "pip"
-          cache-dependency-path: requirements.txt # 캐시 경로 명시
+          cache-dependency-path: requirements.txt
 
-      # 3. 파이썬 의존성 설치
+      # 7. 파이썬 의존성 설치 (기존)
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          # requirements.txt 파일이 있는지 먼저 확인하고 설치
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           else
-            echo "requirements.txt not found!"
-            # 필요한 라이브러리를 직접 설치 (yfinance 등)
             pip install yfinance
           fi
-
-      # 4. (★★★ 디버깅 단계 ★★★) 파일 구조 확인
-      - name: List files for debugging
-        run: |
-          echo "--- Current Directory (root) ---"
-          ls -l
-          echo "--- Listing all files recursively ---"
-          ls -R
-
-      # 5. 상세정보 스크레이퍼 실행
+      
+      # 8. 상세정보 스크레이퍼 실행 (기존)
       - name: Run Ticker Info Scraper
-
         run: python scripts/scraper_info.py
 
-      # 6. 변경된 파일이 있으면 자동으로 커밋
+      # 9. 변경된 파일이 있으면 자동으로 커밋 (수정)
       - name: Commit and push if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Update ticker info"
-          file_pattern: "public/data/*.json"
+          commit_message: "⚙️ Auto: Update ticker info, IPO dates, and nav.json"
+          # 이제 public/data와 public/nav 폴더의 모든 변경사항을 커밋 대상으로 포함
+          file_pattern: "public/data/*.json public/nav/*.json"
           branch: main
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
