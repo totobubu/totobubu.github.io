@@ -52,3 +52,7 @@ npm run dev
 vercel dev --listen 5000
 
 npm run watch-nav 또는 npm run generate-nav
+
+npm run update-data
+
+npm run add-ipo-dates
