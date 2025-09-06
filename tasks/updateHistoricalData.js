@@ -29,6 +29,7 @@ async function fetchAndSaveData(symbol) {
         const historicalPromise = yahooFinance.historical(symbol, {
             period1: FROM,
         });
+
         const dividendPromise = yahooFinance.historical(symbol, {
             period1: FROM,
             events: 'dividends',
@@ -40,7 +41,6 @@ async function fetchAndSaveData(symbol) {
         ]);
 
         if (historicalData && historicalData.length > 0) {
-            // [핵심 수정] 필요한 데이터만 추출하여 저장합니다.
             const simplifiedHistorical = historicalData.map((d) => ({
                 date: d.date,
                 open: d.open,
@@ -60,14 +60,15 @@ async function fetchAndSaveData(symbol) {
         }
 
         if (dividendData && dividendData.length > 0) {
+            // [핵심 수정] d.amount -> d.dividends 로 변경
+            const simplifiedDividends = dividendData.map((d) => ({
+                date: d.date,
+                amount: d.dividends || 0, // <-- 바로 여기!
+            }));
             const dividendFilePath = path.join(
                 DIVIDEND_DATA_DIR,
                 `${symbol.toLowerCase()}.json`
             );
-            const simplifiedDividends = dividendData.map((d) => ({
-                date: d.date,
-                amount: d.amount,
-            }));
             await fs.writeFile(
                 dividendFilePath,
                 JSON.stringify(simplifiedDividends, null, 2)
