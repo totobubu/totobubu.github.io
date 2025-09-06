@@ -8,6 +8,7 @@
         "watch-nav": "nodemon --watch public/nav --ext json --exec npm run generate-nav",
         "dev": "vite",
         "build": "vite build",
+        "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "update-data": "node tasks/updateHistoricalData.js",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
