@@ -1,0 +1,68 @@
+name: Update Historical Data
+
+on:
+  # 1. 매일 한국 시간 새벽 5시에 실행하도록 스케줄 설정
+  schedule:
+    # 0 20 * * *는 UTC 기준 20시를 의미하며, 이는 KST(UTC+9) 기준 5시(20+9=29, 29-24=5)입니다.
+    - cron: '0 20 * * *'
+  # 2. 수동 실행 옵션 추가 (디버깅 및 즉시 업데이트용)
+  workflow_dispatch:
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+    
+    # Git 기록을 위해 Python과 Node.js 환경 모두 설정
+    steps:
+    
+      # 1. 저장소 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 변경 사항을 커밋하기 위해 전체 히스토리와 depth를 가져옴
+          fetch-depth: 0 
+          token: ${{ secrets.GITHUB_TOKEN }} # 기본 토큰 사용
+          
+      # 2. Node.js 환경 설정
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+      # 3. NPM 캐시 복원 및 설치
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. 데이터 업데이트 실행 (tasks/updateHistoricalData.js 실행)
+      # 이 명령어는 public/historical과 public/dividends를 업데이트함
+      - name: Run data update script
+        run: npm run update-data
+
+      # 5. 변경된 파일이 있는지 확인
+      - name: Check for file changes
+        id: git_status
+        run: |
+          # Git 상태를 확인하고 변경된 파일이 있으면 플래그 설정
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # 6. 변경 사항이 있을 경우에만 커밋 및 푸시
+      - name: Commit and push changes
+        if: steps.git_status.outputs.changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/historical public/dividends
+          git commit -m "⚙️ Auto: Update historical and dividend data"
+          git push
