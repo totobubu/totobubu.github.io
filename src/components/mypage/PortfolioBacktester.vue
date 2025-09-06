@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, reactive, onMounted } from 'vue';
+    import { ref, reactive, onMounted, computed, watch } from 'vue';
     import { useToast } from 'primevue/usetoast';
     import Toast from 'primevue/toast';
     import {
@@ -29,6 +29,31 @@
         onConfirm: null,
     });
 
+    // [추가] 컨트롤 컴포넌트와 v-model로 바인딩할 시작일
+    const startDate = ref(
+        new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+    );
+
+    // [핵심] 선택된 시작일을 기준으로 선택 가능한 주식 목록을 동적으로 필터링
+    const filteredAvailableStocks = computed(() => {
+        if (!startDate.value) return allAvailableStocks.value;
+        const start = new Date(startDate.value);
+        return allAvailableStocks.value.filter((stock) => {
+            // ipoDate가 없거나, ipoDate가 시작일보다 이전이면 유효
+            return !stock.ipoDate || new Date(stock.ipoDate) <= start;
+        });
+    });
+
+    // [추가] 시작일이 변경되면, 이미 선택된 종목 중에 유효하지 않은 것들을 제거
+    watch(startDate, () => {
+        const validSymbols = new Set(
+            filteredAvailableStocks.value.map((s) => s.symbol)
+        );
+        selectedSymbols.value = selectedSymbols.value.filter((symbol) =>
+            validSymbols.has(symbol)
+        );
+    });
+
     onMounted(async () => {
         const url = joinURL(import.meta.env.BASE_URL, 'nav.json');
         const response = await fetch(url);
@@ -38,6 +63,7 @@
             .map((stock) => ({
                 symbol: stock.symbol,
                 longName: `${stock.symbol} - ${stock.company || '개별 주식'}`,
+                ipoDate: stock.ipoDate, // ipoDate 정보 추가
             }))
             .sort((a, b) => a.symbol.localeCompare(b.symbol));
     });
@@ -581,8 +607,9 @@
     <div class="portfolio-backtester">
         <Toast />
         <BacktesterControls
-            :available-stocks="allAvailableStocks"
+            :available-stocks="filteredAvailableStocks"
             v-model:selected-symbols="selectedSymbols"
+            v-model:start-date="startDate"
             @run="validateAndRun" />
         <div class="mt-4">
             <BacktesterChart :result="backtestResult" :is-loading="isLoading" />

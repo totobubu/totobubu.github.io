@@ -1,6 +1,5 @@
-<!-- src\components\mypage\BacktesterControls.vue -->
 <script setup>
-    import { ref, computed, watch } from 'vue';
+    import { ref, watch } from 'vue';
     import Calendar from 'primevue/calendar';
     import InputNumber from 'primevue/inputnumber';
     import ToggleButton from 'primevue/togglebutton';
@@ -9,21 +8,45 @@
     import { useToast } from 'primevue/usetoast';
 
     const toast = useToast();
-    const emit = defineEmits(['run', 'update:selectedSymbols']);
+
+    const emit = defineEmits([
+        'run',
+        'update:selectedSymbols',
+        'update:startDate',
+    ]);
 
     const props = defineProps({
-        availableStocks: {
-            type: Array,
-            default: () => [],
-        },
-        selectedSymbols: {
-            type: Array,
-            default: () => [],
-        },
+        availableStocks: { type: Array, default: () => [] },
+        selectedSymbols: { type: Array, default: () => [] },
+        startDate: { type: Date, default: null },
     });
 
+    // v-model 바인딩을 위한 로컬 ref 변수들
     const localSelectedSymbols = ref([...props.selectedSymbols]);
+    const localStartDate = ref(props.startDate);
 
+    // 종료일, 투자금 등은 내부 상태로 관리
+    const endDate = ref(new Date(new Date().setDate(new Date().getDate() - 1)));
+    const initialInvestment = ref(10000000);
+    const commission = ref(0.1);
+    const reinvestDividends = ref(true);
+    const exchangeRate = ref(1350);
+
+    // Props -> 로컬 ref 동기화
+    watch(
+        () => props.selectedSymbols,
+        (newVal) => {
+            localSelectedSymbols.value = newVal;
+        }
+    );
+    watch(
+        () => props.startDate,
+        (newVal) => {
+            localStartDate.value = newVal;
+        }
+    );
+
+    // 로컬 ref 변경 -> 상위 컴포넌트로 emit
     watch(localSelectedSymbols, (newValue) => {
         if (newValue.length > 5) {
             localSelectedSymbols.value = newValue.slice(0, 5);
@@ -36,23 +59,14 @@
         }
         emit('update:selectedSymbols', localSelectedSymbols.value);
     });
-
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(today.getFullYear() - 1);
-
-    const startDate = ref(oneYearAgo);
-    const endDate = ref(yesterday);
-    const initialInvestment = ref(10000000);
-    const commission = ref(0.1);
-    const reinvestDividends = ref(true);
-    const exchangeRate = ref(1350);
+    watch(localStartDate, (newVal) => {
+        emit('update:startDate', newVal);
+    });
 
     const handleRunClick = () => {
         emit('run', {
-            startDate: getFormattedDate(startDate.value),
+            // [수정] 상위에서 받은 startDate 대신, v-model로 양방향 바인딩된 localStartDate 사용
+            startDate: getFormattedDate(localStartDate.value),
             endDate: getFormattedDate(endDate.value),
             initialInvestment: initialInvestment.value,
             commission: commission.value,
@@ -85,8 +99,9 @@
             <div class="field col-6 md:col-3">
                 <label for="startDate">시작일</label>
                 <Calendar
-                    v-model="startDate"
+                    v-model="localStartDate"
                     inputId="startDate"
+                    :maxDate="endDate"
                     dateFormat="yy-mm-dd" />
             </div>
             <div class="field col-6 md:col-3">
@@ -94,6 +109,7 @@
                 <Calendar
                     v-model="endDate"
                     inputId="endDate"
+                    :minDate="localStartDate"
                     dateFormat="yy-mm-dd" />
             </div>
             <div class="field col-6 md:col-3">
