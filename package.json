@@ -8,8 +8,8 @@
         "watch-nav": "nodemon --watch public/nav --ext json --exec npm run generate-nav",
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview",
         "update-data": "node tasks/updateHistoricalData.js",
+        "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "run-s lint:*",
@@ -29,6 +29,8 @@
         "chartjs-plugin-annotation": "^3.1.0",
         "chartjs-plugin-datalabels": "^2.2.0",
         "chartjs-plugin-zoom": "^2.2.0",
+        "date-fns": "^4.1.0",
+        "date-holidays": "^3.25.2",
         "firebase": "^12.1.0",
         "hammerjs": "^2.0.8",
         "primeflex": "^4.0.0",
@@ -60,4 +62,3 @@
         "vite-plugin-vue-devtools": "^8.0.0"
     }
 }
-
