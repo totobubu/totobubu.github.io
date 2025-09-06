@@ -9,6 +9,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
+        "update-data": "node tasks/updateHistoricalData.js",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "run-s lint:*",
@@ -59,3 +60,4 @@
         "vite-plugin-vue-devtools": "^8.0.0"
     }
 }
+
