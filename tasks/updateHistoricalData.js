@@ -1,10 +1,8 @@
-// tasks/updateHistoricalData.js
-
 import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-// 전역 설정은 그대로 유지합니다. 이것이 없으면 다른 종류의 validation 에러가 발생할 수 있습니다.
+// 전역 설정은 만약을 위해 그대로 둡니다.
 yahooFinance.setGlobalConfig({
     validation: {
         logErrors: true,
@@ -24,18 +22,16 @@ const FROM = START_DATE.toISOString().split('T')[0];
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-
 async function fetchAndSaveData(symbol) {
     try {
-        const queryOptions = {
+        console.log(`Fetching data for ${symbol}...`);
+
+        const historicalPromise = yahooFinance.historical(symbol, {
             period1: FROM,
-        };
-
-        const historicalPromise = yahooFinance.historical(symbol, queryOptions);
-
-        // [핵심 수정] events: 'div' 옵션을 다시 추가합니다. (이전 코드에서 누락됨)
-        const dividendPromise = yahooFinance.historical(symbol, queryOptions, {
-            events: 'div',
+        });
+        const dividendPromise = yahooFinance.historical(symbol, {
+            period1: FROM,
+            events: 'dividends',
         });
 
         const [historicalData, dividendData] = await Promise.all([
@@ -44,23 +40,37 @@ async function fetchAndSaveData(symbol) {
         ]);
 
         if (historicalData && historicalData.length > 0) {
+            // [핵심 수정] 필요한 데이터만 추출하여 저장합니다.
+            const simplifiedHistorical = historicalData.map((d) => ({
+                date: d.date,
+                open: d.open,
+                high: d.high,
+                low: d.low,
+                close: d.close,
+                volume: d.volume,
+            }));
             const historicalFilePath = path.join(
                 HISTORICAL_DATA_DIR,
                 `${symbol.toLowerCase()}.json`
             );
             await fs.writeFile(
                 historicalFilePath,
-                JSON.stringify(historicalData, null, 2)
+                JSON.stringify(simplifiedHistorical, null, 2)
             );
         }
+
         if (dividendData && dividendData.length > 0) {
             const dividendFilePath = path.join(
                 DIVIDEND_DATA_DIR,
                 `${symbol.toLowerCase()}.json`
             );
+            const simplifiedDividends = dividendData.map((d) => ({
+                date: d.date,
+                amount: d.amount,
+            }));
             await fs.writeFile(
                 dividendFilePath,
-                JSON.stringify(dividendData, null, 2)
+                JSON.stringify(simplifiedDividends, null, 2)
             );
         }
 
@@ -90,21 +100,31 @@ async function main() {
     let successCount = 0;
     let failureCount = 0;
     const failedSymbols = [];
+    const concurrency = 10;
 
-    for (const [index, symbol] of symbolsToFetch.entries()) {
-        console.log(
-            `\nProcessing ${index + 1} / ${symbolsToFetch.length}: ${symbol}`
+    for (let i = 0; i < symbolsToFetch.length; i += concurrency) {
+        const chunk = symbolsToFetch.slice(i, i + concurrency);
+        console.log(`\nProcessing chunk ${Math.floor(i / concurrency) + 1}...`);
+
+        const results = await Promise.all(
+            chunk.map(async (symbol) => {
+                try {
+                    await fetchAndSaveData(symbol);
+                    return { success: true, symbol };
+                } catch (error) {
+                    return { success: false, symbol, error };
+                }
+            })
         );
-        const result = await fetchAndSaveData(symbol);
 
-        if (result.success) {
-            successCount++;
-        } else {
-            failureCount++;
-            failedSymbols.push(result.symbol);
-        }
-
-        await delay(200);
+        results.forEach((r) => {
+            if (r.success) successCount++;
+            else {
+                failureCount++;
+                failedSymbols.push(r.symbol);
+            }
+        });
+        await delay(500);
     }
 
     console.log(

@@ -83,37 +83,32 @@
         }
         return currentDate;
     }
-
     function calculateBacktest(priceDataResults, dividendDataResults, options) {
         const priceDataMap = new Map();
-        priceDataResults.forEach((data, index) => {
-            const symbol =
-                options.selectedSymbols[index] ||
-                (index === priceDataResults.length - 1 ? 'SPY' : null);
-            if (symbol && Array.isArray(data)) {
+        priceDataResults.forEach((item) => {
+            if (item.symbol && Array.isArray(item.data)) {
                 const dateMappedPrices = new Map(
-                    data.map((d) => [
+                    item.data.map((d) => [
                         formatDate(new Date(d.date), 'yyyy-MM-dd'),
                         d,
                     ])
                 );
-                priceDataMap.set(symbol, dateMappedPrices);
+                priceDataMap.set(item.symbol, dateMappedPrices);
             }
         });
 
         const dividendDataMap = new Map();
-        dividendDataResults.forEach((data, index) => {
-            const symbol =
-                options.selectedSymbols[index] ||
-                (index === dividendDataResults.length - 1 ? 'SPY' : null);
-            if (symbol && Array.isArray(data)) {
+        dividendDataResults.forEach((item) => {
+            // [핵심 수정] item.dividends -> item.data 로 변경
+            if (item.symbol && Array.isArray(item.data)) {
+                // [핵심 수정] item.dividends.map -> item.data.map 로 변경
                 const dateMappedDividends = new Map(
-                    data.map((d) => [
+                    item.data.map((d) => [
                         formatDate(new Date(d.date), 'yyyy-MM-dd'),
                         d.amount,
                     ])
                 );
-                dividendDataMap.set(symbol, dateMappedDividends);
+                dividendDataMap.set(item.symbol, dateMappedDividends);
             }
         });
 
@@ -146,8 +141,8 @@
             }
         });
 
-        const spyStartData = priceDataMap.get('SPY')?.get(options.startDate);
         let spyPortfolio = { quantity: 0, valueHistory: {} };
+        const spyStartData = priceDataMap.get('SPY')?.get(options.startDate);
         if (spyStartData && spyStartData.close > 0) {
             const fees = initialInvestmentUSD * commissionRate;
             spyPortfolio.quantity =
@@ -186,7 +181,6 @@
                     const dividendReceived =
                         portfolio[symbol].quantity * dividendAmount;
                     const afterTaxDividend = dividendReceived * 0.85;
-
                     if (options.reinvestDividends) {
                         const reinvestDate = findNextBusinessDays(
                             new Date(dateStr),
@@ -199,7 +193,6 @@
                         const reinvestData = priceDataMap
                             .get(symbol)
                             ?.get(reinvestDateStr);
-
                         if (reinvestData && reinvestData.open > 0) {
                             const newShares =
                                 (afterTaxDividend -
@@ -240,7 +233,6 @@
                 const reinvestData = priceDataMap
                     .get('SPY')
                     ?.get(reinvestDateStr);
-
                 if (reinvestData && reinvestData.open > 0) {
                     const newShares =
                         (afterTaxDividend - afterTaxDividend * commissionRate) /
@@ -283,34 +275,71 @@
             yAxisID: 'y',
         });
 
-        const finalPortfolioValue = Object.values(portfolio).reduce(
-            (sum, stock) => {
-                const lastValue = stock.valueHistory[labels[labels.length - 1]];
-                return sum + (lastValue || 0);
+        const lastDate = labels[labels.length - 1];
+        const individualSummaries = options.selectedSymbols
+            .map((symbol) => {
+                if (!portfolio[symbol]) return null;
+                const finalValue =
+                    portfolio[symbol].valueHistory[lastDate] || 0;
+                const accumulatedDividends = options.reinvestDividends
+                    ? 0
+                    : cashDividends
+                          .filter((d) => d.ticker === symbol)
+                          .reduce((sum, div) => sum + div.amount, 0);
+                const totalAsset = finalValue + accumulatedDividends;
+                const returnPercent =
+                    (totalAsset / investmentPerStock - 1) * 100;
+                return {
+                    symbol,
+                    initialInvestment: investmentPerStock,
+                    finalValue,
+                    dividends: accumulatedDividends,
+                    totalAsset,
+                    returnPercent,
+                };
+            })
+            .filter(Boolean);
+
+        const totalSummary = individualSummaries.reduce(
+            (acc, curr) => {
+                acc.initialInvestment += curr.initialInvestment;
+                acc.finalValue += curr.finalValue;
+                acc.dividends += curr.dividends;
+                acc.totalAsset += curr.totalAsset;
+                return acc;
             },
-            0
+            {
+                symbol: '합계',
+                initialInvestment: 0,
+                finalValue: 0,
+                dividends: 0,
+                totalAsset: 0,
+            }
         );
 
-        const finalSpyValue =
-            spyPortfolio.valueHistory[labels[labels.length - 1]] || 0;
-        const finalCash = options.reinvestDividends
-            ? 0
-            : cashDividends.reduce((sum, div) => sum + div.amount, 0);
-        const finalTotalAsset = finalPortfolioValue + finalCash;
+        totalSummary.returnPercent =
+            totalSummary.initialInvestment > 0
+                ? (totalSummary.totalAsset / totalSummary.initialInvestment -
+                      1) *
+                  100
+                : 0;
+
+        const finalSpyValue = spyPortfolio.valueHistory[lastDate] || 0;
+        const sp500ReturnPercent =
+            initialInvestmentUSD > 0
+                ? (finalSpyValue / initialInvestmentUSD - 1) * 100
+                : 0;
 
         return {
             chartData: { labels, datasets },
             cashDividends: options.reinvestDividends ? null : cashDividends,
             summary: {
-                finalValue: finalTotalAsset,
-                totalReturnPercent:
-                    (finalTotalAsset / initialInvestmentUSD - 1) * 100,
-                sp500ReturnPercent:
-                    (finalSpyValue / initialInvestmentUSD - 1) * 100,
+                individual: individualSummaries,
+                total: totalSummary,
+                sp500ReturnPercent,
             },
         };
     }
-
     async function validateAndRun(options) {
         const symbols = selectedSymbols.value;
         if (symbols.length === 0) {
@@ -507,13 +536,10 @@
                     folder,
                     `${symbol.toLowerCase()}.json`
                 );
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) return [];
-                    return await response.json();
-                } catch (e) {
-                    return [];
-                }
+                const response = await fetch(url);
+                if (!response.ok)
+                    throw new Error(`${symbol} ${folder} data not found`);
+                return { symbol, data: await response.json() }; // [수정] 결과에 symbol을 포함
             };
 
             const priceDataPromises = symbolsToFetch.map((symbol) =>
@@ -540,8 +566,9 @@
                 severity: 'error',
                 summary: '백테스팅 오류',
                 detail:
-                    '데이터 파일을 처리하는 중 오류가 발생했습니다: ' +
-                    error.message,
+                    '필요한 데이터 파일을 찾을 수 없습니다. 데이터를 먼저 업데이트해주세요. (' +
+                    error.message +
+                    ')',
                 life: 6000,
             });
         } finally {
