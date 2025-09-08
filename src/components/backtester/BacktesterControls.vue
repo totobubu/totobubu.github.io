@@ -3,65 +3,66 @@
     import DatePicker from 'primevue/datepicker';
     import InputNumber from 'primevue/inputnumber';
 
-    const options = defineModel('options', { type: Object, required: true });
+    const startDate = defineModel('startDate');
+    const endDate = defineModel('endDate');
+    const exchangeRate = defineModel('exchangeRate');
+    const commission = defineModel('commission');
 
-    const investmentUSD = computed({
-        get: () =>
-            options.value.exchangeRate && options.value.exchangeRate !== 0
-                ? options.value.initialInvestment / options.value.exchangeRate
-                : 0,
-        set: (newValue) => {
-            if (options.value) {
-                options.value.initialInvestment =
-                    newValue * options.value.exchangeRate;
-            }
-        },
+    const props = defineProps({
+        totalInvestmentUSD: { type: Number, default: 0 },
+    });
+
+    const totalInvestmentKRW = computed(() => {
+        const rate = exchangeRate.value || 0;
+        return props.totalInvestmentUSD * rate;
     });
 </script>
 
 <template>
     <div class="surface-card p-4 border-round">
-        <div v-if="options" class="grid formgrid p-fluid align-items-end">
-            <div class="field col-6 md:col-2">
-                <label for="startDate">시작일</label>
-                <DatePicker
-                    v-model="options.startDate"
+        <h3 class="font-bold mt-0 mb-4">기본 설정</h3>
+        <div class="grid formgrid p-fluid">
+            <div class="field col-6">
+                <label for="startDate">시작일</label
+                ><DatePicker
+                    v-model="startDate"
                     inputId="startDate"
                     dateFormat="yy-mm-dd" />
             </div>
-            <div class="field col-6 md:col-2">
-                <label for="endDate">종료일</label>
-                <DatePicker
-                    v-model="options.endDate"
+            <div class="field col-6">
+                <label for="endDate">종료일</label
+                ><DatePicker
+                    v-model="endDate"
                     inputId="endDate"
                     dateFormat="yy-mm-dd" />
             </div>
-            <div class="field col-6 md:col-2">
-                <label for="investment">투자원금 (KRW)</label>
-                <InputNumber
-                    v-model="options.initialInvestment"
-                    inputId="investment"
-                    mode="decimal" />
-            </div>
-            <div class="field col-6 md:col-2">
-                <label for="investmentUSD">투자원금 (USD)</label>
-                <InputNumber
-                    v-model="investmentUSD"
+            <div class="field col-6">
+                <label for="investmentUSD">총 투자금 (USD)</label
+                ><InputNumber
+                    :modelValue="totalInvestmentUSD"
                     inputId="investmentUSD"
                     mode="currency"
-                    currency="USD" />
+                    currency="USD"
+                    disabled />
             </div>
-            <div class="field col-6 md:col-2">
-                <label for="exchangeRate">적용 환율</label>
-                <InputNumber
-                    v-model="options.exchangeRate"
-                    inputId="exchangeRate"
-                    mode="decimal" />
+            <div class="field col-6">
+                <label for="investmentKRW">총 투자금 (KRW)</label
+                ><InputNumber
+                    :modelValue="totalInvestmentKRW"
+                    inputId="investmentKRW"
+                    mode="currency"
+                    currency="KRW"
+                    locale="ko-KR"
+                    disabled />
             </div>
-            <div class="field col-6 md:col-2">
-                <label for="commission">수수료 (%)</label>
-                <InputNumber
-                    v-model="options.commission"
+            <div class="field col-6">
+                <label for="exchangeRate">적용 환율</label
+                ><InputNumber v-model="exchangeRate" inputId="exchangeRate" />
+            </div>
+            <div class="field col-6">
+                <label for="commission">수수료 (%)</label
+                ><InputNumber
+                    v-model="commission"
                     inputId="commission"
                     suffix=" %"
                     :minFractionDigits="2" />
