@@ -1,6 +1,5 @@
-<!-- stock\src\layouts\Layout.vue -->
 <script setup>
-    import { ref, watch, computed, onMounted, inject } from 'vue';
+    import { ref, watch, computed, onMounted } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -41,29 +40,18 @@
     };
     const goToMyPage = () => router.push('/mypage');
 
-    watch(
-        tickerInfo,
-        (newInfo) => {
-            console.log(
-                '[Layout.vue] inject로 받은 tickerInfo 변경 감지:',
-                newInfo
-            );
-        },
-        { deep: true }
-    );
-
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
-        // inject로 받은 tickerInfo는 readonly ref이므로 여전히 .value로 접근해야 합니다.
-        if (route.name === 'stock-detail' && tickerInfo.value) {
+        if (route.name === 'StockView' && tickerInfo.value) {
             if (tickerInfo.value.symbol)
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
-            if (isDesktop.value && tickerInfo.value.longName) {
+            if (isDesktop.value && tickerInfo.value.longName)
                 items.push({ label: tickerInfo.value.longName });
-            }
-        } else if (route.name === 'mypage') {
+        } else if (route.name === 'Backtester') {
+            items.push({ label: '백테스터' });
+        } else if (route.name === 'MyPage') {
             items.push({ label: '마이페이지' });
         }
 
@@ -94,7 +82,6 @@
 
         <main id="t-grid">
             <header id="t-header">
-                <!-- 핵심 수정: v-if 조건을 단순화하고 명확하게 만듭니다 -->
                 <div v-if="route.path === '/'" class="flex items-center">
                     <p class="text-lg font-bold">배당금 일정</p>
                 </div>
@@ -128,7 +115,7 @@
                         aria-label="로그인" />
                     <template v-else>
                         <Button
-                            v-if="route.name !== 'mypage'"
+                            v-if="route.name !== 'MyPage'"
                             icon="pi pi-user"
                             variant="text"
                             @click="goToMyPage"

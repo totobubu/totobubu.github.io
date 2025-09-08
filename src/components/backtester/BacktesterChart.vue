@@ -47,7 +47,6 @@
 
     const summaryDataForTable = computed(() => {
         if (!props.result || !props.result.summary) return [];
-        // 개별 종목 데이터와 합계 데이터를 하나의 배열로 만듭니다.
         return [...props.result.summary.individual, props.result.summary.total];
     });
 
@@ -79,7 +78,6 @@
                         :options="chartOptions" />
                 </div>
 
-                <!-- [핵심 수정] 요약 정보 테이블 -->
                 <div class="col-12 mt-4">
                     <h3 class="text-xl font-semibold mb-2">
                         백테스팅 결과 요약
@@ -125,7 +123,9 @@
                             </template>
                         </Column>
                     </DataTable>
-                    <div class="text-right mt-2 text-sm text-surface-500">
+                    <div
+                        v-if="result.summary"
+                        class="text-right mt-2 text-sm text-surface-500">
                         * S&P 500 총 수익률:
                         <span
                             :class="
@@ -170,7 +170,7 @@
             class="flex flex-column justify-content-center align-items-center"
             style="height: 400px">
             <p class="text-surface-500">
-                종목을 선택하고 백테스팅을 실행해주세요.
+                종목을 선택하고 설정을 완료한 후 백테스팅을 실행해주세요.
             </p>
         </div>
     </div>
