@@ -8,11 +8,7 @@
 </script>
 
 <template>
-    <div id="t-backtester-page" class="p-4">
-        <div class="flex justify-content-between align-items-center mb-4">
-            <h1 class="text-3xl font-bold">포트폴리오 백테스터</h1>
-        </div>
-
+    <div id="t-backtester-page">
         <PortfolioBacktester />
     </div>
 </template>
