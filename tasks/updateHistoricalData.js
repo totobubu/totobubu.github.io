@@ -2,27 +2,17 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-yahooFinance.setGlobalConfig({
-    validation: {
-        logErrors: true,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
-    },
-});
+yahooFinance.setGlobalConfig({ validation: { logErrors: true } });
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function updateBacktestData(symbol) {
+async function updatePriceData(symbol) {
     try {
         const filePath = path.join(DATA_DIR, `${symbol.toLowerCase()}.json`);
-        let existingData = {
-            tickerInfo: {},
-            dividendHistory: [],
-            backtestData: { prices: [], dividends: [] },
-        };
+        let existingData = { backtestData: { prices: [] } };
         let lastPriceDate = null;
 
         try {
@@ -32,9 +22,7 @@ async function updateBacktestData(symbol) {
             if (prices && prices.length > 0) {
                 lastPriceDate = prices[prices.length - 1].date;
             }
-        } catch (error) {
-            // 파일 없음
-        }
+        } catch (error) {}
 
         const startDate = new Date();
         if (lastPriceDate) {
@@ -49,17 +37,13 @@ async function updateBacktestData(symbol) {
         const today = new Date().toISOString().split('T')[0];
 
         if (from > today) {
-            console.log(`- [${symbol}] Data is already up to date.`);
+            console.log(`- [${symbol}] Price data is already up to date.`);
             return { success: true, symbol };
         }
 
-        const queryOptions = { period1: from };
-        const priceData = await yahooFinance.historical(symbol, queryOptions);
-        const dividendDataRaw = await yahooFinance.historical(
-            symbol,
-            queryOptions,
-            { events: 'div' }
-        );
+        const priceData = await yahooFinance.historical(symbol, {
+            period1: from,
+        });
 
         const newPrices = (priceData || []).map((p) => ({
             date: p.date.toISOString().split('T')[0],
@@ -70,34 +54,19 @@ async function updateBacktestData(symbol) {
             volume: p.volume,
         }));
 
-        // [핵심 수정] amount가 유효한 데이터만 필터링합니다.
-        const newDividends = (dividendDataRaw || [])
-            .filter((d) => typeof d.amount === 'number' && !isNaN(d.amount))
-            .map((d) => ({
-                date: d.date.toISOString().split('T')[0],
-                amount: d.amount,
-            }));
-
-        const existingPrices = existingData.backtestData?.prices || [];
-        const existingDividends = existingData.backtestData?.dividends || [];
-
-        const finalPrices = [...existingPrices, ...newPrices];
-        const finalDividends = [...existingDividends, ...newDividends];
-
+        const finalPrices = [
+            ...(existingData.backtestData?.prices || []),
+            ...newPrices,
+        ];
         const uniquePrices = Array.from(
             new Map(finalPrices.map((item) => [item.date, item])).values()
-        );
-        const uniqueDividends = Array.from(
-            new Map(finalDividends.map((item) => [item.date, item])).values()
         );
 
         const finalData = {
             ...existingData,
             backtestData: {
+                ...existingData.backtestData,
                 prices: uniquePrices.sort(
-                    (a, b) => new Date(a.date) - new Date(b.date)
-                ),
-                dividends: uniqueDividends.sort(
                     (a, b) => new Date(a.date) - new Date(b.date)
                 ),
             },
@@ -109,18 +78,16 @@ async function updateBacktestData(symbol) {
             'utf-8'
         );
         console.log(
-            `✅ [${symbol}] Backtest data updated. Added ${newPrices.length} price points, ${newDividends.length} valid dividends.`
+            `✅ [${symbol}] Price data updated. Added ${newPrices.length} price points.`
         );
         return { success: true, symbol };
     } catch (error) {
         if (error.message.includes('No data found')) {
-            console.warn(
-                `- [${symbol}] No historical data found, symbol may be delisted or new.`
-            );
+            console.warn(`- [${symbol}] No price data found.`);
             return { success: true, symbol, message: 'No data' };
         }
         console.error(
-            `❌ [${symbol}] Failed to update backtest data:`,
+            `❌ [${symbol}] Failed to update price data:`,
             error.message
         );
         return { success: false, symbol, error: error.message };
@@ -128,7 +95,7 @@ async function updateBacktestData(symbol) {
 }
 
 async function main() {
-    console.log('--- Starting Incremental Backtest Data Update ---');
+    console.log('--- Starting Incremental Price Data Update ---'); // 로그 메시지도 명확하게 변경
     await fs.mkdir(DATA_DIR, { recursive: true });
 
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
@@ -146,9 +113,13 @@ async function main() {
         console.log(
             `\nProcessing ${index + 1} / ${symbolsToFetch.length}: ${symbol}`
         );
-        const result = await updateBacktestData(symbol);
-        if (result.success) successCount++;
-        else {
+
+        // [핵심 수정] updateBacktestData -> updatePriceData 로 변경
+        const result = await updatePriceData(symbol);
+
+        if (result.success) {
+            successCount++;
+        } else {
             failureCount++;
             failedSymbols.push(result);
         }
@@ -158,7 +129,9 @@ async function main() {
     console.log(
         `\nUpdate complete. Success: ${successCount}, Failure: ${failureCount}`
     );
-    if (failureCount > 0) console.log('Failed symbols info:', failedSymbols);
+    if (failureCount > 0) {
+        console.log('Failed symbols info:', failedSymbols);
+    }
 }
 
 main();
