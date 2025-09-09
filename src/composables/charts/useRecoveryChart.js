@@ -1,10 +1,8 @@
 // src\composables\charts\useRecoveryChart.js
 import { computed } from 'vue';
-import { formatLargeNumber } from '@/utils/numberFormat.js'; // formatLargeNumber가 아닌 formatMonthsToYearsForLabel 사용 가정
 import { formatMonthsToYears } from '@/utils/date.js';
 
 export function useRecoveryChart(options) {
-    // --- 1. 받는 prop 이름을 avgPrice, quantity로 수정 ---
     const {
         avgPrice,
         quantity,
@@ -15,10 +13,8 @@ export function useRecoveryChart(options) {
         currentPrice,
         theme,
     } = options;
-
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
-    // --- 2. 사용하는 변수명을 avgPrice, quantity로 수정 ---
     const investmentPrincipal = computed(
         () => (avgPrice.value || 0) * (quantity.value || 0)
     );
@@ -27,7 +23,6 @@ export function useRecoveryChart(options) {
     );
 
     const recoveryTimes = computed(() => {
-        // --- 3. 방어 코드 강화 ---
         if (
             !dividendStats ||
             !dividendStats.value ||
@@ -43,14 +38,12 @@ export function useRecoveryChart(options) {
                 despair_no_reinvest: 0,
             };
         }
-
         const results = {};
         const scenarios = ['hope', 'avg', 'despair'];
         const statsMap = { hope: 'max', avg: 'avg', despair: 'min' };
 
         scenarios.forEach((scenario) => {
             const dividendPerShare = dividendStats.value[statsMap[scenario]];
-
             if (
                 (quantity.value || 0) <= 0 ||
                 dividendPerShare <= 0 ||
@@ -61,7 +54,6 @@ export function useRecoveryChart(options) {
                 results[`${scenario}_no_reinvest`] = 0;
                 return;
             }
-
             const finalDividend = applyTax.value
                 ? dividendPerShare * 0.85
                 : dividendPerShare;
@@ -70,20 +62,16 @@ export function useRecoveryChart(options) {
                 results[`${scenario}_no_reinvest`] = Infinity;
                 return;
             }
-
-            // --- 4. 사용하는 변수명을 quantity로 수정 ---
             const totalDividendPerPayout_noReinvest =
                 quantity.value * finalDividend;
             const payoutsNoReinvest =
                 remainingPrincipal.value / totalDividendPerPayout_noReinvest;
             results[`${scenario}_no_reinvest`] =
                 (payoutsNoReinvest * 12) / payoutsPerYear.value;
-
             let currentShares = quantity.value;
             let recoveredAmount = 0;
             let payoutsReinvest = 0;
             const priceForReinvest = currentPrice.value;
-
             if (priceForReinvest > 0) {
                 while (recoveredAmount < remainingPrincipal.value) {
                     if (payoutsReinvest > payoutsPerYear.value * 100) {
@@ -106,7 +94,7 @@ export function useRecoveryChart(options) {
     });
 
     const recoveryChartData = computed(() => {
-        if (!recoveryTimes.value) return { labels: [], datasets: [] }; // 방어 코드
+        if (!recoveryTimes.value) return { labels: [], datasets: [] };
         const times = recoveryTimes.value;
         return {
             labels: ['희망', '평균', '절망'],
@@ -129,7 +117,7 @@ export function useRecoveryChart(options) {
                         times.avg_no_reinvest,
                         times.despair_no_reinvest,
                     ].map((t) => (t > 0 ? t : 0)),
-                    backgroundColor: ['#22c55e80', '#eab30880', '#ef444480'], // 반투명 색상
+                    backgroundColor: ['#22c55e80', '#eab30880', '#ef444480'],
                     borderColor: ['#16a34a', '#ca8a04', '#dc2626'],
                     borderWidth: 1,
                     borderDash: [5, 5],
@@ -139,7 +127,7 @@ export function useRecoveryChart(options) {
     });
 
     const recoveryChartOptions = computed(() => {
-        if (!recoveryTimes.value) return {}; // 방어 코드
+        if (!recoveryTimes.value) return {};
         const allTimes = Object.values(recoveryTimes.value);
         const maxTime =
             allTimes.length > 0
@@ -153,7 +141,6 @@ export function useRecoveryChart(options) {
                 legend: { position: 'bottom', labels: { color: textColor } },
                 tooltip: {
                     callbacks: {
-                        // [수정] import한 함수를 사용합니다.
                         label: (context) =>
                             ` ${formatMonthsToYears(context.raw)}`,
                     },
@@ -164,7 +151,6 @@ export function useRecoveryChart(options) {
                     align: 'end',
                     offset: -4,
                     font: { weight: 'bold', size: 10 },
-                    // [수정] import한 함수를 사용합니다.
                     formatter: (value) => formatMonthsToYears(value),
                 },
             },

@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterReinvestment.vue -->
 <script setup>
     import { computed, watch } from 'vue';
     import Dropdown from 'primevue/dropdown';

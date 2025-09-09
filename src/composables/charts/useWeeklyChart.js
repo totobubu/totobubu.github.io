@@ -1,5 +1,5 @@
 // src\composables\charts\useWeeklyChart.js
-import { ref, computed } from 'vue'; // ref, computed 추가
+import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
@@ -9,52 +9,9 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
-// --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
-// StockView.vue에 있던 함수를 그대로 가져옵니다.
-const generateDynamicTimeRangeOptions = (history) => {
-    if (!history || history.length === 0) {
-        return [{ label: '전체', value: 'ALL' }];
-    }
-    const dates = history
-        .map((h) => parseYYMMDD(h['배당락']))
-        .sort((a, b) => a - b);
-    const lastDate = dates[dates.length - 1];
-    const today = new Date();
-
-    const options = [];
-    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
-    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
-
-    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
-    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
-
-    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
-    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
-
-    const oneYearAgo = new Date(
-        new Date().setFullYear(today.getFullYear() - 1)
-    );
-    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
-
-    options.push({ label: 'ALL', value: 'ALL' });
-
-    return options.map((opt) => ({
-        ...opt,
-        label: opt.value === 'ALL' ? '전체' : opt.label,
-    }));
-};
-
 export function useWeeklyChart(options) {
     const { data, deviceType, theme } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-
-    // --- 2. selectedTimeRange 상태 추가 ---
-    const selectedTimeRange = ref('1Y'); // 기본값
-
-    // --- 3. timeRangeOptions 생성 로직 추가 ---
-    const timeRangeOptions = computed(() =>
-        generateDynamicTimeRangeOptions(data)
-    );
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
@@ -95,7 +52,6 @@ export function useWeeklyChart(options) {
         4: '#34A853',
         5: '#FF6D01',
     };
-
     const datasets = createStackedBarDatasets({
         aggregatedData: monthlyAggregated,
         primaryLabels: labels,
@@ -180,11 +136,5 @@ export function useWeeklyChart(options) {
         },
     };
 
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-        timeRangeOptions,
-        selectedTimeRange,
-    };
+    return { chartData, chartOptions, chartContainerWidth };
 }

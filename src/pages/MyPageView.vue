@@ -1,3 +1,4 @@
+<!-- src\pages\MyPageView.vue -->
 <script setup>
     import { ref, computed } from 'vue';
     import { useHead } from '@vueuse/head';

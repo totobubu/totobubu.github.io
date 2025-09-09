@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterChart.vue -->
 <script setup>
     import { computed } from 'vue';
     import Chart from 'primevue/chart';

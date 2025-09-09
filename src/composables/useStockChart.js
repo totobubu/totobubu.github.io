@@ -1,6 +1,4 @@
 // src/composables/useStockChart.js
-
-// [핵심 수정 1] import 문에 'watchEffect'를 추가합니다.
 import { ref, computed, watchEffect } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { useQuarterlyChart } from './charts/useQuarterlyChart';
@@ -30,50 +28,39 @@ export function useStockChart(
         return generateTimeRangeOptions(tickerInfo.value.periods);
     });
 
- const chartDisplayData = computed(() => {
+    const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0) {
             return [];
         }
-        
         const validHistory = dividendHistory.value.filter((item) => {
             const dividendDate = parseYYMMDD(item['배당락']);
             const dividendAmount = parseFloat(item['배당금']?.replace('$', ''));
             return dividendDate && !isNaN(dividendAmount);
         });
-
         if (validHistory.length === 0) {
             return [];
         }
-
         let filteredHistory = validHistory;
         const range = selectedTimeRange.value;
-
         if (range && range !== 'ALL') {
             const now = new Date();
             let cutoffDate = new Date();
-            
             const rangeValue = parseInt(range);
             const rangeUnit = range.slice(-1);
-
             if (rangeUnit === 'M') {
                 cutoffDate.setMonth(now.getMonth() - rangeValue);
             } else if (rangeUnit === 'Y') {
-                // [핵심 수정] frequency에 따라 연도 필터링 방식을 분기합니다.
                 if (tickerInfo.value?.frequency === '분기') {
-                    // '분기' 배당일 경우: N년 전의 1월 1일을 기준으로 설정
                     const startYear = now.getFullYear() - rangeValue;
                     cutoffDate = new Date(startYear, 0, 1);
                 } else {
-                    // 그 외(매주, 매월 등)일 경우: 오늘로부터 정확히 N년 전을 기준으로 설정
                     cutoffDate.setFullYear(now.getFullYear() - rangeValue);
                 }
             }
-
             filteredHistory = validHistory.filter(
                 (item) => parseYYMMDD(item['배당락']) >= cutoffDate
             );
         }
-
         return filteredHistory.sort(
             (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
         );
@@ -94,7 +81,6 @@ export function useStockChart(
             chartContainerWidth.value = '100%';
             return;
         }
-
         const documentStyle = getComputedStyle(document.documentElement);
         const themeOptions = {
             textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -105,14 +91,12 @@ export function useStockChart(
                 '--p-content-border-color'
             ),
         };
-
         const sharedOptions = {
             data: chartDisplayData.value,
             deviceType: deviceType.value,
             group: tickerInfo.value?.group,
             theme: themeOptions,
         };
-
         let result;
         if (isPriceChartMode.value) {
             result = usePriceChart(sharedOptions);
@@ -128,7 +112,6 @@ export function useStockChart(
                 result = usePriceChart(sharedOptions);
             }
         }
-
         chartData.value = result.chartData || result.priceChartData;
         chartOptions.value = result.chartOptions || result.priceChartOptions;
         chartContainerWidth.value = result.chartContainerWidth;

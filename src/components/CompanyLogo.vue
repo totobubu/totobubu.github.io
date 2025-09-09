@@ -1,3 +1,4 @@
+<!-- src\components\CompanyLogo.vue -->
 <template>
     <div class="company-logo-wrapper">
         <!-- 

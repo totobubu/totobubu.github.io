@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { computed, ref, watch } from 'vue';
     import DatePicker from 'primevue/datepicker';

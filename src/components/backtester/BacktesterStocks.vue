@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterStocks.vue -->
 <script setup>
     import Dropdown from 'primevue/dropdown';
     import InputNumber from 'primevue/inputnumber';

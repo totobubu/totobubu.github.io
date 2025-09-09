@@ -1,3 +1,4 @@
+// src\utils\uiHelpers.js
 // [신규] 중복 함수 이동
 export const getGroupSeverity = (group) => {
     switch (group) {

@@ -1,8 +1,8 @@
+# .github\workflows\update_all_data.yml
 name: Update All Ticker Data (Daily)
 
 on:
     schedule:
-        # 매일 UTC 20:00 (한국 오전 5시)에 모든 업데이트를 순차적으로 실행
         - cron: '0 20 * * *'
     workflow_dispatch:
 
@@ -14,7 +14,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            # --- 공통 설정 ---
             - name: Checkout main branch
               uses: actions/checkout@v4
 
@@ -39,25 +38,21 @@ jobs:
                   python -m pip install --upgrade pip
                   if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-            # --- 데이터 업데이트 (순서 보장) ---
             - name: 1. Update nav source files (IPO dates & upcoming status)
               run: npm run add-ipo-dates
 
             - name: 2. Generate final nav.json
               run: npm run generate-nav
 
-            - name: 3. Update backtest data (prices & dividends)
-              run: |
-                  npm run update-data
-                  python scripts/update_dividends.py
+            - name: 3. Update historical price and dividend data
+              run: npm run update-data
 
-            - name: 4. Update dividend history (for display)
+            - name: 4. Update dividend history for display (using pre-built data)
               run: python scripts/scraper_dividend.py
 
             - name: 5. Update latest ticker info
               run: python scripts/scraper_info.py
 
-            # --- 변경 사항 커밋 ---
             - name: Check for file changes
               id: git_status
               run: |
@@ -72,7 +67,6 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  # 모든 변경 사항을 추가
                   git add .
                   git commit -m "⚙️ Auto: Update all ticker data"
                   git push

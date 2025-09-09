@@ -1,3 +1,4 @@
+# scripts\scraper_info.py
 import time
 import json
 import os

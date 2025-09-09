@@ -1,3 +1,4 @@
+<!-- src\pages\BacktesterPage.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
     import PortfolioBacktester from '@/components/backtester/PortfolioBacktester.vue';
