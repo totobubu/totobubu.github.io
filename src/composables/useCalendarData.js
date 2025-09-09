@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 import { user } from '../store/auth';
-import Holidays from 'date-holidays';
 
 const allDividendData = ref([]);
 const holidays = ref([]);
@@ -11,37 +10,17 @@ const isLoading = ref(true);
 const error = ref(null);
 
 let isDataLoaded = false;
-const hd = new Holidays('US');
 
+// [핵심] 라이브러리를 사용하지 않고, JSON 파일을 직접 fetch하는 단순한 함수로 변경
 const loadHolidays = async () => {
     try {
         const response = await fetch(
             joinURL(import.meta.env.BASE_URL, 'holidays.json')
         );
-        const holidayNameMapData = await response.json();
-        const holidayNameMap = holidayNameMapData.reduce((map, h) => {
-            map[h.name_en] = h.name_ko;
-            return map;
-        }, {});
-
-        const currentYear = new Date().getFullYear();
-        const yearsToFetch = [currentYear, currentYear + 1, currentYear + 2];
-        const allHolidayEvents = [];
-
-        yearsToFetch.forEach((year) => {
-            const yearHolidays = hd.getHolidays(year);
-            yearHolidays.forEach((h) => {
-                if (h.type === 'public') {
-                    allHolidayEvents.push({
-                        date: h.date.split(' ')[0],
-                        name: holidayNameMap[h.name] || h.name,
-                    });
-                }
-            });
-        });
-        holidays.value = allHolidayEvents;
+        if (!response.ok) throw new Error('holidays.json not found');
+        holidays.value = await response.json();
     } catch (e) {
-        console.error('Failed to load or process holiday data:', e);
+        console.error('Failed to load holiday data:', e);
         holidays.value = [];
     }
 };
@@ -110,7 +89,7 @@ const loadAllData = async () => {
                                 group: tickerInfo?.group,
                             });
                         } catch (e) {
-                            /* ignore parse error */
+                            /* ignore */
                         }
                     }
                 });
@@ -139,13 +118,17 @@ export function useCalendarData() {
         }
         const grouped = {};
         sourceData.forEach((div) => {
-            if (!grouped[div.date]) {
-                grouped[div.date] = [];
-            }
+            if (!grouped[div.date]) grouped[div.date] = [];
             grouped[div.date].push(div);
         });
         return grouped;
     });
 
-    return { dividendsByDate, holidays, isLoading, error, loadAllData };
+    return {
+        dividendsByDate,
+        holidays,
+        isLoading,
+        error,
+        loadAllData,
+    };
 }

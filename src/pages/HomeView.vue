@@ -1,11 +1,8 @@
 <!-- stock\src\pages\HomeView.vue -->
 <script setup>
-    import { ref, onMounted } from 'vue';
     import { useHead } from '@vueuse/head';
-    import { useRouter } from 'vue-router'; // useRouter import 추가
-
+    import { useRouter } from 'vue-router';
     import ProgressSpinner from 'primevue/progressspinner';
-
     import CalendarGrid from '@/components/CalendarGrid.vue';
     import { useCalendarData } from '@/composables/useCalendarData.js';
 
@@ -13,9 +10,8 @@
         title: '배당금 일정',
     });
 
-    const holidays = ref([]);
-    // useCalendarData에서 필요한 것만 가져옵니다.
-    const { dividendsByDate, isLoading, error } = useCalendarData();
+    // [핵심] useCalendarData에서 holidays를 직접 가져옵니다.
+    const { dividendsByDate, holidays, isLoading, error } = useCalendarData();
 
     const router = useRouter();
     const goToTickerPage = (tickerSymbol) => {
@@ -24,10 +20,7 @@
         }
     };
 
-    onMounted(async () => {
-        const holidayResponse = await fetch('/holidays.json');
-        holidays.value = await holidayResponse.json();
-    });
+    // onMounted에서 holidays.json을 fetch하는 로직을 완전히 제거합니다.
 </script>
 
 <template>
@@ -38,7 +31,7 @@
         <p>{{ error }}</p>
     </div>
     <div v-else id="p-calendar">
-        <!-- CalendarGrid에 더 이상 필요없는 props를 전달하지 않습니다. -->
+        <!-- [핵심] props로 holidays ref를 그대로 전달합니다. -->
         <CalendarGrid
             :dividendsByDate="dividendsByDate"
             :holidays="holidays"
