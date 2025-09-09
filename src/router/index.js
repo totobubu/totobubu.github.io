@@ -1,6 +1,7 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
+import CalendarView from '../pages/CalendarView.vue';
 import StockView from '../pages/StockView.vue';
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
@@ -31,6 +32,11 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: HomeView,
+        },
+        {
+            path: '/calendar',
+            name: 'Calendar',
+            component: CalendarView,
         },
         {
             path: '/:ticker',

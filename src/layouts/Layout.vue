@@ -26,6 +26,9 @@
     const { tickerInfo } = useStockData();
     const visible = ref(false);
 
+    // [핵심 추가] 현재 경로가 홈('/')인지 확인하는 computed 속성
+    const isHomePage = computed(() => route.path === '/');
+
     onMounted(() => {
         loadAllData();
     });
@@ -50,6 +53,9 @@
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
             if (isDesktop.value && tickerInfo.value.longName)
                 items.push({ label: tickerInfo.value.longName });
+        } else if (route.name === 'Calendar') {
+            // 경로 이름 변경에 따른 수정
+            items.push({ label: '배당 달력' });
         } else if (route.name === 'Backtester') {
             items.push({ label: '백테스터' });
         } else if (route.name === 'MyPage') {
@@ -71,7 +77,9 @@
     <div id="t-layout">
         <Toast />
         <ConfirmDialog />
-        <aside id="t-sidebar" v-if="isDesktop">
+
+        <!-- [핵심 수정] isDesktop이면서 홈 페이지가 아닐 때만 사이드바를 표시합니다. -->
+        <aside id="t-sidebar" v-if="isDesktop && !isHomePage">
             <header>
                 <FilterInput
                     v-model="filters.global.value"
@@ -82,11 +90,9 @@
         </aside>
 
         <main id="t-grid">
-            <header id="t-header">
-                <div v-if="route.path === '/'" class="flex items-center">
-                    <p class="text-lg font-bold">배당금 일정</p>
-                </div>
-                <div v-else class="flex items-center gap-4 min-w-0">
+            <header id="t-header" v-if="!isHomePage">
+                <!-- 홈 페이지일 때의 헤더 -->
+                <div class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
                         <template #item="{ item, props }">
                             <router-link
@@ -137,7 +143,7 @@
             <section id="t-content">
                 <RouterView />
                 <ScrollTop
-                    v-if="route.path !== '/'"
+                    v-if="!isHomePage"
                     target="parent"
                     :threshold="100"
                     icon="pi pi-arrow-up" />
@@ -145,7 +151,7 @@
         </main>
 
         <Drawer
-            v-if="!isDesktop"
+            v-if="!isDesktop && !isHomePage"
             v-model:visible="visible"
             :position="isMobile ? 'full' : 'right'"
             modal
