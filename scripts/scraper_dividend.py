@@ -95,36 +95,31 @@ if __name__ == "__main__":
         with open(file_path, "r", encoding="utf-8") as f:
             existing_data = json.load(f)
 
-        if "backtestData" not in existing_data:
-            print(f"  -> Skipping {ticker}: No backtestData found.")
+        if (
+            "backtestData" not in existing_data
+            or "dividends" not in existing_data["backtestData"]
+        ):
+            print(f"  -> Skipping {ticker}: No backtest dividend data found.")
             continue
 
-        # --- [핵심 로직 수정 시작] ---
-
-        # 1. 각 소스로부터 데이터 로드
         api_dividends = existing_data["backtestData"].get("dividends", [])
         historical_prices_list = existing_data["backtestData"].get("prices", [])
         historical_prices_map = {p["date"]: p for p in historical_prices_list}
 
-        # 기존 dividendHistory 데이터. 없으면 빈 리스트.
         local_history = existing_data.get("dividendHistory", [])
 
-        # 2. '배당락'을 키로 하는 딕셔너리로 변환
-        # API 데이터 (backtestData.dividends) -> 지급일 기준이므로 배당락일로 변환
+        # [핵심 수정] 'amount' 키가 있는 유효한 데이터만 변환합니다.
         api_history_map = {
             (datetime.fromisoformat(div["date"])).strftime("%y. %m. %d"): {
                 "배당금": f"${div['amount']:.4f}"
             }
             for div in api_dividends
+            if "amount" in div and isinstance(div["amount"], (int, float))
         }
-        # 로컬 데이터 (dividendHistory)
-        local_history_map = {h["배당락"]: h for h in local_history}
 
-        # 3. 두 딕셔너리를 병합. 로컬 데이터(수동 입력값)를 우선으로 합니다.
-        # api_history_map을 먼저 놓고, local_history_map으로 덮어쓰면, 같은 '배당락' 키가 있을 경우 로컬 값으로 유지됩니다.
+        local_history_map = {h["배당락"]: h for h in local_history}
         merged_history_map = {**api_history_map, **local_history_map}
 
-        # 날짜순으로 정렬하기 위해 모든 '배당락' 키를 가져와 정렬
         all_dates = sorted(
             list(merged_history_map.keys()),
             key=lambda x: datetime.strptime(x.replace(" ", ""), "%y.%m.%d"),
@@ -134,11 +129,9 @@ if __name__ == "__main__":
         final_history = []
         for ex_date_str in all_dates:
             item_data = merged_history_map[ex_date_str]
-            # '배당락' 필드가 없는 경우를 대비해 추가
             if "배당락" not in item_data:
                 item_data["배당락"] = ex_date_str
 
-            # 주가 정보가 없는 경우에만 API 데이터를 기반으로 가격을 조회하여 채워넣음
             if "배당금" in item_data and "당일종가" not in item_data:
                 ex_date_obj = datetime.strptime(
                     ex_date_str.replace(" ", ""), "%y.%m.%d"
@@ -150,13 +143,10 @@ if __name__ == "__main__":
 
             final_history.append(item_data)
 
-        # --- [핵심 로직 수정 끝] ---
-
         final_history_with_yield = add_yield_to_history(
             final_history, historical_prices_map
         )
 
-        # 변경 여부 확인 및 저장
         original_data_str = json.dumps(
             existing_data.get("dividendHistory", []), sort_keys=True
         )
