@@ -51,21 +51,14 @@ pip install undetected-chromedriver beautifulsoup4 yfinance setuptools
 tasks/updateHistoricalData.js (Node.js)
 대상: backtestData.prices
 역할: yahoo-finance2를 사용하여 과거 일별 주가 데이터를 가져와 이 필드를 채웁니다. 증분 업데이트(Incremental Update) 방식으로 효율적으로 작동합니다.
-scripts/update_dividends.py (Python)
-대상: backtestData.dividends
-역할: yfinance를 사용하여 과거 배당금 지급 내역을 가져와 이 필드를 채웁니다. yahoo-finance2의 불안정성을 피하기 위해 Python을 사용합니다.
+
 scripts/scraper_info.py (Python)
 대상: tickerInfo
 역할: yfinance를 사용하여 최신 시세 정보와 기업 개요(시가총액, 거래량 등)를 가져와 이 필드를 업데이트합니다. 이전 데이터와 비교하여 ...Change 객체를 생성합니다.
+
 scripts/scraper_dividend.py (Python)
 대상: dividendHistory
 역할: backtestData에 저장된 주가와 배당금 데이터를 읽어, 사용자가 보는 상세한 배당 내역(전일/당일/익일 종가, 배당률 등)을 계산하여 이 필드를 채웁니다.
-권장 실행 순서
-데이터의 의존성을 고려했을 때, GitHub Actions나 로컬에서 스크립트를 실행하는 가장 이상적인 순서는 다음과 같습니다.
-npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신화
-python scripts/update_dividends.py -> 배당금 데이터 최신화
-python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
-python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
 
 # 3-1. 크롬 없을때
 
@@ -100,3 +93,9 @@ npm run watch-nav 또는 npm run generate-nav
 npm run update-data
 
 npm run add-ipo-dates
+
+# 5. 권장 실행 순서
+
+npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신화
+python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
+python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
