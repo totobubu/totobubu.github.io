@@ -1,0 +1,72 @@
+# .github\workflows\update_all_data.yml
+name: Update All Ticker Data (Daily)
+
+on:
+    schedule:
+        - cron: '0 20 * * *'
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+    update-all:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout main branch
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+                  cache: 'pip'
+                  cache-dependency-path: 'requirements.txt'
+
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            - name: Install Python dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+            - name: 1. Update nav source files (IPO dates & upcoming status)
+              run: npm run add-ipo-dates
+
+            - name: 2. Generate final nav.json
+              run: npm run generate-nav
+
+            - name: 3. Update historical price and dividend data
+              run: npm run update-data
+
+            - name: 4. Update dividend history for display (using pre-built data)
+              run: python scripts/scraper_dividend.py
+
+            - name: 5. Update latest ticker info
+              run: python scripts/scraper_info.py
+
+            - name: Check for file changes
+              id: git_status
+              run: |
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    echo "changes=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changes=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit and push changes
+              if: steps.git_status.outputs.changes == 'true'
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "⚙️ Auto: Update all ticker data"
+                  git push
