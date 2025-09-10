@@ -1,11 +1,13 @@
-# .github\workflows\update_all_data.yml
 name: Update All Ticker Data (Daily)
 
 on:
+    # 매일 UTC 20:00 (한국 시간 오전 5시)에 실행
     schedule:
         - cron: '0 20 * * *'
+    # GitHub Actions 탭에서 수동으로 실행 가능하도록 설정
     workflow_dispatch:
 
+# Git에 변경 사항을 푸시하기 위해 쓰기 권한을 부여합니다.
 permissions:
     contents: write
 
@@ -14,15 +16,18 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            # 1. 리포지토리 코드를 가져옵니다.
             - name: Checkout main branch
               uses: actions/checkout@v4
 
+            # 2. Node.js 환경을 설정합니다.
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
                   cache: 'npm'
 
+            # 3. Python 환경을 설정합니다.
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
@@ -30,29 +35,43 @@ jobs:
                   cache: 'pip'
                   cache-dependency-path: 'requirements.txt'
 
+            # 4. Node.js 의존성을 설치합니다. (npm ci는 package-lock.json을 사용해 더 빠르고 일관적입니다.)
             - name: Install Node.js dependencies
               run: npm ci
 
+            # 5. Python 의존성을 설치합니다.
             - name: Install Python dependencies
               run: |
                   python -m pip install --upgrade pip
                   if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-            - name: 1. Update nav source files (IPO dates & upcoming status)
+            # --- 데이터 업데이트 파이프라인 (순서가 매우 중요) ---
+
+            # 단계 1: 소스 파일(public/nav/*.json)의 IPO 날짜를 확인하고 'upcoming' 상태를 업데이트합니다.
+            - name: 1. Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
 
+            # 단계 2: 업데이트된 소스 파일을 기반으로 최종 nav.json을 생성합니다.
             - name: 2. Generate final nav.json
               run: npm run generate-nav
 
-            - name: 3. Update historical price and dividend data
+            # 단계 3: Node.js 스크립트로 과거 '주가' 데이터를 가져옵니다.
+            - name: 3. Update historical price data (Node.js/yahoo-finance2)
               run: npm run update-data
 
-            - name: 4. Update dividend history for display (using pre-built data)
+            # 단계 4: Python 스크립트로 과거 '배당' 데이터를 가져옵니다.
+            - name: 4. Update historical dividend data (Python/yfinance)
+              run: python scripts/update_dividends.py
+
+            # 단계 5: Python 스크립트가 미리 생성된 주가/배당 데이터를 사용하여 dividendHistory를 가공합니다.
+            - name: 5. Process and enrich dividend history for display
               run: python scripts/scraper_dividend.py
 
-            - name: 5. Update latest ticker info
+            # 단계 6: Python 스크립트로 최신 시세 및 기업 정보를 가져옵니다.
+            - name: 6. Update latest ticker info
               run: python scripts/scraper_info.py
 
+            # --- 변경 사항 커밋 및 푸시 ---
             - name: Check for file changes
               id: git_status
               run: |
