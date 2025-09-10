@@ -3,12 +3,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-// [핵심 수정] 라이브러리의 엄격한 유효성 검사를 전역적으로 비활성화합니다.
 yahooFinance.setGlobalConfig({
     validation: {
-        logErrors: true, // 에러 로그는 계속 남기되,
-        failOnUnknownProperties: false, // 스키마에 없는 속성이 있어도 통과
-        failOnInvalidData: false, // 데이터가 스키마와 맞지 않아도 에러를 발생시키지 않음
+        logErrors: true,
+        failOnUnknownProperties: false,
+        failOnInvalidData: false,
     },
 });
 
@@ -17,22 +16,30 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const HISTORICAL_DATA_DIR = path.join(PUBLIC_DIR, 'historical');
 const DIVIDEND_DATA_DIR = path.join(PUBLIC_DIR, 'dividends');
 
-const START_DATE = new Date();
-START_DATE.setFullYear(START_DATE.getFullYear() - 10);
-const FROM = START_DATE.toISOString().split('T')[0];
+const MAX_HISTORY_DATE = new Date();
+MAX_HISTORY_DATE.setFullYear(MAX_HISTORY_DATE.getFullYear() - 10);
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchAndSaveData(symbol) {
+async function fetchAndSaveData(ticker) {
+    const { symbol, ipoDate } = ticker;
+
     try {
-        console.log(`Fetching data for ${symbol}...`);
+        let effectiveStartDate = MAX_HISTORY_DATE;
+        if (ipoDate && new Date(ipoDate) > MAX_HISTORY_DATE) {
+            effectiveStartDate = new Date(ipoDate);
+        }
+        const period1 = effectiveStartDate.toISOString().split('T')[0];
+
+        console.log(`Fetching data for ${symbol} from ${period1}...`);
 
         const historicalPromise = yahooFinance.historical(symbol, {
-            period1: FROM,
+            period1: period1,
+            events: 'history', // [핵심 수정] 주가 이력임을 명시
         });
 
         const dividendPromise = yahooFinance.historical(symbol, {
-            period1: FROM,
+            period1: period1,
             events: 'div',
         });
 
@@ -75,28 +82,29 @@ async function fetchAndSaveData(symbol) {
 
 async function main() {
     console.log('Starting historical and dividend data update...');
-
     await fs.mkdir(HISTORICAL_DATA_DIR, { recursive: true });
     await fs.mkdir(DIVIDEND_DATA_DIR, { recursive: true });
-
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-    const allSymbols = navData.nav.map((item) => item.symbol);
-    const symbolsToFetch = [...new Set([...allSymbols, 'SPY'])];
-
-    console.log(`Found ${symbolsToFetch.length} symbols to update.`);
-
+    const allTickersInfo = navData.nav;
+    const spyInfo = { symbol: 'SPY', ipoDate: '1993-01-22' };
+    const tickersToFetch = [...allTickersInfo, spyInfo];
+    const uniqueTickers = Array.from(
+        new Map(tickersToFetch.map((t) => [t.symbol, t])).values()
+    );
+    console.log(`Found ${uniqueTickers.length} symbols to update.`);
     const concurrency = 10;
     let successCount = 0;
     let failureCount = 0;
     const failedSymbols = [];
 
-    for (let i = 0; i < symbolsToFetch.length; i += concurrency) {
-        const chunk = symbolsToFetch.slice(i, i + concurrency);
+    for (let i = 0; i < uniqueTickers.length; i += concurrency) {
+        const chunk = uniqueTickers.slice(i, i + concurrency);
+        const chunkSymbols = chunk.map((t) => t.symbol);
         console.log(
-            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunk.join(', ')})...`
+            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunkSymbols.join(', ')})...`
         );
         const results = await Promise.all(
-            chunk.map((symbol) => fetchAndSaveData(symbol))
+            chunk.map((ticker) => fetchAndSaveData(ticker))
         );
         results.forEach((r) => {
             if (r.success) {
@@ -106,7 +114,7 @@ async function main() {
                 failedSymbols.push(r.symbol);
             }
         });
-        await delay(500); // 각 청크 처리 후 약간의 딜레이
+        await delay(500);
     }
 
     console.log(
