@@ -3,11 +3,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
+// [핵심 수정] 라이브러리의 엄격한 유효성 검사를 전역적으로 비활성화합니다.
 yahooFinance.setGlobalConfig({
     validation: {
-        logErrors: true,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
+        logErrors: true, // 에러 로그는 계속 남기되,
+        failOnUnknownProperties: false, // 스키마에 없는 속성이 있어도 통과
+        failOnInvalidData: false, // 데이터가 스키마와 맞지 않아도 에러를 발생시키지 않음
     },
 });
 
@@ -105,6 +106,7 @@ async function main() {
                 failedSymbols.push(r.symbol);
             }
         });
+        await delay(500); // 각 청크 처리 후 약간의 딜레이
     }
 
     console.log(
