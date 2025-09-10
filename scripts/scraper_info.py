@@ -1,222 +1,190 @@
+# scripts\scraper_info.py
 import time
 import json
 import os
 import yfinance as yf
 from datetime import datetime, timezone, timedelta
-import subprocess # [핵심] subprocess 모듈을 import 합니다.
+import subprocess
 
 
 def parse_numeric_value(value_str):
-    if not isinstance(value_str, str):
+    if value_str is None or not isinstance(value_str, (str, int, float)):
         return None
+    if isinstance(value_str, (int, float)):
+        return float(value_str)
     try:
-        cleaned_str = ''.join(filter(lambda x: x.isdigit() or x == '.', value_str))
+        cleaned_str = (
+            str(value_str).replace("$", "").replace(",", "").replace("%", "").strip()
+        )
         return float(cleaned_str)
     except (ValueError, TypeError):
         return None
 
-def compare_and_add_change(new_info, old_info):
-    info_with_change = new_info.copy()
-    if not old_info:
-        return info_with_change
-    
-    try:
-        new_update_date = new_info.get("Update", "").split(" ")[0]
-        old_update_date = old_info.get("Update", "").split(" ")[0]
 
-        # 날짜가 동일하면 모든 변화를 'equal'로 처리하고 종료
-        if new_update_date == old_update_date:
-            for key in new_info:
-                if key != "Update": # Update 필드 자체는 제외
-                    info_with_change[f"{key}Change"] = {"change": "equal", "previousValue": old_info.get(key)}
-            return info_with_change
-    except IndexError:
-        pass # 날짜 파싱 실패 시, 기존 로직대로 진행
-
-    # 날짜가 다를 경우에만 상세 비교 진행
-    for key, new_value in new_info.items():
-        old_value = old_info.get(key)
-        
-        new_numeric = parse_numeric_value(new_value)
-        old_numeric = parse_numeric_value(old_value)
-
-        change_info = {"previousValue": old_value}
-        if new_numeric is not None and old_numeric is not None:
-            if new_numeric > old_numeric:
-                change_info["change"] = "up"
-            elif new_numeric < old_numeric:
-                change_info["change"] = "down"
-            else:
-                change_info["change"] = "equal"
-        else:
-             # 숫자가 아닌 값들(예: 52주 범위, 실적발표일)은 단순 비교
-            if new_value != old_value:
-                change_info["change"] = "up" # 혹은 'changed' 같은 다른 상태값 사용 가능
-            else:
-                change_info["change"] = "equal"
-
-        info_with_change[f"{key}Change"] = change_info
-            
-    return info_with_change
+def format_currency(value, sign="$"):
+    return f"{sign}{value:,.2f}" if isinstance(value, (int, float)) else "N/A"
 
 
-def calculate_yield_from_history(info, history):
-    if not history:
-        return "N/A"
-    current_price = info.get('regularMarketPrice') or info.get('previousClose')
-    if not current_price or current_price == 0:
-        return "N/A"
-    one_year_ago = datetime.now() - timedelta(days=365)
-    total_dividend_last_year = 0
-    for item in history:
-        try:
-            ex_date_str = item.get('배당락')
-            dividend_str = item.get('배당금')
-            if not ex_date_str or not dividend_str:
-                continue
-            ex_date = datetime.strptime(ex_date_str.replace(" ", ""), '%y.%m.%d')
-            if ex_date >= one_year_ago:
-                amount = float(dividend_str.replace("$", ""))
-                total_dividend_last_year += amount
-        except (ValueError, TypeError):
-            continue
-    if total_dividend_last_year == 0:
-        return "0.00%"
-    yield_percentage = (total_dividend_last_year / current_price) * 100
-    return f"{yield_percentage:.2f}%"
+def format_large_number(value):
+    return f"{value:,}" if isinstance(value, (int, float)) else "N/A"
 
-def fetch_ticker_info(ticker_symbol, company, frequency, group, dividend_history):
+
+def format_percent(value):
+    return f"{(value * 100):.2f}%" if isinstance(value, (int, float)) else "N/A"
+
+
+def fetch_dynamic_ticker_info(ticker_symbol):
     try:
         ticker = yf.Ticker(ticker_symbol)
         info = ticker.info
-        
         now_kst = datetime.now(timezone(timedelta(hours=9)))
-        update_time_str = now_kst.strftime('%Y-%m-%d %H:%M:%S KST')
-
-        manual_yield = calculate_yield_from_history(info, dividend_history)
-
-        earnings_timestamp = info.get('earningsDate')
+        current_price = info.get("regularMarketPrice") or info.get("previousClose")
+        yield_val = (
+            (info.get("trailingAnnualDividendRate", 0) / current_price) * 100
+            if current_price
+            else 0
+        )
         earnings_date_str = "N/A"
-        if earnings_timestamp:
-            earnings_date_str = datetime.fromtimestamp(earnings_timestamp, tz=timezone.utc).astimezone(timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
+        if info.get("earningsTimestamp"):
+            earnings_date_str = (
+                datetime.fromtimestamp(info.get("earningsTimestamp"), tz=timezone.utc)
+                .astimezone(now_kst.tzinfo)
+                .strftime("%Y-%m-%d")
+            )
 
         return {
-            # --- 티커 ---
-            "Symbol": info.get('symbol', ticker_symbol).upper(), 
-            # --- 종목 이름 ---
-            "longName": info.get('longName', ticker_symbol.upper()),
-            # --- 회사 ---
-            "company": company, 
-            # --- 지급주기 ---
-            "frequency": frequency, 
-            # --- 그룹 ---
-            "group": group,
-            # --- 업데이트 시간 ---
-            "Update": update_time_str,
-            # --- 실적 발표일 ---
+            "Update": now_kst.strftime("%Y-%m-%d %H:%M:%S KST"),
+            "longName": info.get("longName"),  # 포맷팅 없이 원본 값 그대로 반환
             "earningsDate": earnings_date_str,
-
-            # --- 기업가치 ---
-            "enterpriseValue": f"{info.get('enterpriseValue', 0):,}" if info.get('enterpriseValue') else "N/A",
-            # --- 시가총액 ---
-            "marketCap": f"{info.get('marketCap', 0):,}" if info.get('marketCap') else "N/A",
-            # --- AUM ---
-            "totalAssets": f"${info.get('totalAssets', 0):,}" if info.get('totalAssets') else "N/A",
-            # --- 거래량 ---
-            "Volume": f"{info.get('volume', 0):,}" if info.get('volume') else "N/A",
-            # --- 평균 거래량 ---
-            "AvgVolume": f"{info.get('averageVolume', 0):,}" if info.get('averageVolume') else "N/A",
-            # --- 유통 주식수 ---
-            "sharesOutstanding": f"{info.get('sharesOutstanding', 0):,}" if info.get('sharesOutstanding') else "N/A",
-            # --- 52주 범위 ---
-            "52Week": f"${info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}" if info.get('fiftyTwoWeekLow') else "N/A",
-            # --- NAV ---
-            "NAV": f"${info.get('navPrice', 0):.2f}" if info.get('navPrice') else "N/A",
-            # --- TR  ---
-            "TotalReturn": f"{(info.get('ytdReturn', 0) * 100):.2f}%" if info.get('ytdReturn') else "N/A",
-            
-            # --- 계산된 연배당률 ---
-            "Yield": manual_yield,
-            
-            # --- 연간 배당금 ---
-            "dividendRate": f"${info.get('dividendRate', 0):.2f}" if info.get('dividendRate') else "N/A",
-            # --- 배당 성향 ---
-            "payoutRatio": f"{(info.get('payoutRatio', 0) * 100):.2f}%" if info.get('payoutRatio') else "N/A",
-
-            
+            "enterpriseValue": format_large_number(info.get("enterpriseValue")),
+            "marketCap": format_large_number(info.get("marketCap")),
+            "totalAssets": format_large_number(info.get("totalAssets")),
+            "Volume": format_large_number(info.get("volume")),
+            "AvgVolume": format_large_number(info.get("averageVolume")),
+            "sharesOutstanding": format_large_number(info.get("sharesOutstanding")),
+            "52Week": (
+                f"${info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}"
+                if info.get("fiftyTwoWeekLow")
+                else "N/A"
+            ),
+            "NAV": format_currency(info.get("navPrice")),
+            "TotalReturn": format_percent(info.get("ytdReturn")),
+            "Yield": f"{yield_val:.2f}%" if yield_val > 0 else "N/A",
+            "dividendRate": format_currency(info.get("dividendRate")),
+            "payoutRatio": format_percent(info.get("payoutRatio")),
         }
     except Exception as e:
-        print(f"  -> Failed to fetch basic info for {ticker_symbol}: {e}")
+        print(f"  -> Failed to fetch dynamic info for {ticker_symbol}: {e}")
         return None
 
 
-
 if __name__ == "__main__":
-    # [핵심] Node.js 스크립트를 실행하여 nav.json을 먼저 생성합니다.
     try:
-        print("--- Running 'npm run generate-nav' to update nav.json ---")
-        # Node.js 스크립트가 있는 프로젝트 루트 디렉토리로 이동해야 할 수 있습니다.
-        # 이 스크립트가 프로젝트 루트에 있다면 cwd='.' 또는 cwd='../' 등으로 조정
-        # check=True는 명령어 실행 실패 시 예외를 발생시킵니다.
-        # shell=True는 OS 쉘을 통해 명령어를 실행합니다 (Windows에서 .cmd/.bat 실행 시 필요).
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root, capture_output=True, text=True)
-        print("--- nav.json has been successfully updated. ---")
-    except subprocess.CalledProcessError as e:
-        print(f"!!! Failed to run 'npm run generate-nav'. Error: {e.stderr}")
-        exit() # nav.json 생성에 실패하면 스크립트를 중단합니다.
-    except FileNotFoundError:
-        print("!!! 'npm' command not found. Please ensure Node.js is installed and in your PATH.")
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root)
+    except Exception as e:
+        print(f"!!! Failed to run 'npm run generate-nav'. Error: {e}")
         exit()
 
-    nav_file_path = 'public/nav.json'
-    all_tickers_info = {}
-    try:
-        with open(nav_file_path, 'r', encoding='utf-8') as f:
-            for item in json.load(f).get('nav', []):
-                if item.get('symbol'): all_tickers_info[item.get('symbol')] = item
-    except Exception as e:
-        print(f"Error loading nav.json: {e}"); exit()
-    
-    output_dir = 'public/data'
-    os.makedirs(output_dir, exist_ok=True)
-    
-    total_updated_files = 0
+    nav_file_path = "public/nav.json"
+    output_dir = "public/data"
+
+    with open(nav_file_path, "r", encoding="utf-8") as f:
+        all_tickers_info_list = json.load(f).get("nav", [])
+
     print("\n--- Starting Daily Ticker Info Update ---")
-    for ticker, info in all_tickers_info.items():
-        file_path = os.path.join(output_dir, f"{ticker.lower()}.json")
-        
-        existing_history = []
-        old_ticker_info = None # 이전 정보를 저장할 변수
-        final_data = {}
+    for info_from_nav in all_tickers_info_list:
+        ticker_symbol = info_from_nav.get("symbol")
+        if not ticker_symbol:
+            continue
+
+        file_path = os.path.join(output_dir, f"{ticker_symbol.lower()}.json")
+
+        existing_data = {}
         if os.path.exists(file_path):
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
+                try:
                     existing_data = json.load(f)
-                    if isinstance(existing_data, dict):
-                        final_data = existing_data
-                        existing_history = existing_data.get('dividendHistory', [])
-                        old_ticker_info = existing_data.get('tickerInfo') # 이전 tickerInfo 저장
-            except json.JSONDecodeError: pass
-        
-        group_val = info.get('group')
-        new_info = fetch_ticker_info(ticker, info.get('company'), info.get('frequency'), group_val, existing_history)
-        
-        if not new_info: 
-            print(f"  -> Skipping update for {ticker}."); continue
-        
-        # [핵심] 새 정보와 이전 정보를 비교하여 최종 정보 생성
-        info_with_change = compare_and_add_change(new_info, old_ticker_info)
-        
-        final_data['tickerInfo'] = info_with_change
-        if 'dividendHistory' not in final_data:
-            final_data['dividendHistory'] = []
-        
-        with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(final_data, f, ensure_ascii=False, indent=2)
-        
-        print(f" => Updated Ticker Info for {ticker}")
-        total_updated_files += 1
+                except json.JSONDecodeError:
+                    pass
+
+        old_ticker_info = existing_data.get("tickerInfo", {})
+
+        dynamic_info_from_yf = fetch_dynamic_ticker_info(ticker_symbol)
+        if not dynamic_info_from_yf:
+            print(f"  -> Skipping update for {ticker_symbol}.")
+            continue
+
+        # [핵심 로직 수정]
+        # 1. nav.json의 고정 정보를 기준으로 최종 tickerInfo 객체를 생성
+        final_ticker_info = {
+            "Symbol": info_from_nav.get("symbol"),
+            "longName": info_from_nav.get("longName"),
+            "company": info_from_nav.get("company"),
+            "frequency": info_from_nav.get("frequency"),
+            "group": info_from_nav.get("group"),
+        }
+
+        # 2. yfinance에서 가져온 데이터 중, 값이 None이 아닌 것만 final_ticker_info에 추가/덮어쓰기
+        for key, value in dynamic_info_from_yf.items():
+            if value is not None:
+                final_ticker_info[key] = value
+
+        changes_obj = {}
+        try:
+            new_update_date = final_ticker_info.get("Update", "").split(" ")[0]
+            old_update_date = old_ticker_info.get("Update", "").split(" ")[0]
+
+            if new_update_date == old_update_date:
+                print(
+                    f"     -> Update is on the same day. Preserving previous changes."
+                )
+                changes_obj = old_ticker_info.get("changes", {})
+            else:
+                print(f"     -> New day detected. Re-calculating all changes.")
+                for key, new_value in final_ticker_info.items():
+                    if key in [
+                        "changes",
+                        "Symbol",
+                        "longName",
+                        "company",
+                        "frequency",
+                        "group",
+                    ]:
+                        continue
+                    old_value = old_ticker_info.get(key)
+                    if old_value is None:
+                        continue
+
+                    change_status = "equal"
+                    new_numeric, old_numeric = parse_numeric_value(
+                        new_value
+                    ), parse_numeric_value(old_value)
+                    if new_numeric is not None and old_numeric is not None:
+                        if new_numeric > old_numeric:
+                            change_status = "up"
+                        elif new_numeric < old_numeric:
+                            change_status = "down"
+                    elif str(new_value) != str(old_value):
+                        change_status = "up"
+
+                    if change_status != "equal":
+                        changes_obj[key] = {"value": old_value, "change": change_status}
+        except (IndexError, ValueError, AttributeError):
+            pass
+
+        final_ticker_info["changes"] = changes_obj
+
+        final_data_to_save = {
+            "tickerInfo": final_ticker_info,
+            "dividendHistory": existing_data.get("dividendHistory", []),
+            "backtestData": existing_data.get("backtestData", {}),
+        }
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
+
+        print(f" => Updated Ticker Info for {ticker_symbol}")
         time.sleep(1)
 
-    print(f"\n--- Ticker Info Update Finished. Total files updated: {total_updated_files} ---")
+    print(f"\n--- Ticker Info Update Finished. ---")
