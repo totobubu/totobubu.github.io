@@ -1,10 +1,9 @@
-# scripts\scraper_info.py
 import time
 import json
 import os
 import yfinance as yf
 from datetime import datetime, timezone, timedelta
-import subprocess
+# [수정] subprocess는 더 이상 필요 없으므로 import 제거
 
 def parse_numeric_value(value_str):
     if value_str is None or not isinstance(value_str, (str, int, float)): return None
@@ -43,7 +42,7 @@ def fetch_dynamic_ticker_info(ticker_symbol):
             "Volume": info.get("volume"),
             "AvgVolume": info.get("averageVolume"),
             "sharesOutstanding": info.get("sharesOutstanding"),
-            "52Week": f"{info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}" if info.get("fiftyTwoWeekLow") else "N/A",
+            "52Week": f"${info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}" if info.get("fiftyTwoWeekLow") else "N/A",
             "NAV": info.get("navPrice"),
             "TotalReturn": info.get("ytdReturn"),
             "Yield": yield_val if yield_val > 0 else 0,
@@ -55,21 +54,29 @@ def fetch_dynamic_ticker_info(ticker_symbol):
         return None
 
 if __name__ == "__main__":
-    try:
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root)
-    except Exception as e:
-        print(f"!!! Failed to run 'npm run generate-nav'. Error: {e}")
-        exit()
+    # [핵심 수정] 스크립트 시작 시 npm run generate-nav를 호출하던 부분을 완전히 삭제합니다.
+    # try:
+    #     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    #     subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root)
+    # except Exception as e:
+    #     print(f"!!! Failed to run 'npm run generate-nav'. Error: {e}")
+    #     exit()
 
     nav_file_path = "public/nav.json"
     output_dir = "public/data"
 
-    with open(nav_file_path, "r", encoding="utf-8") as f:
-        all_tickers_info_list = json.load(f).get("nav", [])
+    # 워크플로우에서 nav.json이 이미 생성되었음을 가정하고 바로 파일을 읽습니다.
+    try:
+        with open(nav_file_path, "r", encoding="utf-8") as f:
+            all_tickers_info_list = json.load(f).get("nav", [])
+    except FileNotFoundError:
+        print(f"!!! Error: {nav_file_path} not found. Make sure 'npm run generate-nav' runs before this script.")
+        exit()
 
     print("\n--- Starting Daily Ticker Info Update ---")
     total_changed_files = 0
+    now_kst = datetime.now(timezone(timedelta(hours=9)))
+
     for info_from_nav in all_tickers_info_list:
         ticker_symbol = info_from_nav.get("symbol")
         if not ticker_symbol:
@@ -83,12 +90,22 @@ if __name__ == "__main__":
                 except json.JSONDecodeError: pass
 
         old_ticker_info = existing_data.get("tickerInfo", {})
+        
+        last_update_str = old_ticker_info.get("Update")
+        if last_update_str:
+            try:
+                last_update_time = datetime.strptime(last_update_str, "%Y-%m-%d %H:%M:%S KST").replace(tzinfo=timezone(timedelta(hours=9)))
+                if now_kst - last_update_time < timedelta(hours=3):
+                    print(f"  -> Skipping {ticker_symbol}: Updated within the last 3 hours.")
+                    continue
+            except ValueError:
+                pass
+
         dynamic_info_from_yf_raw = fetch_dynamic_ticker_info(ticker_symbol)
         if not dynamic_info_from_yf_raw:
-            print(f"  -> Skipping update for {ticker_symbol}.")
+            print(f"  -> Skipping update for {ticker_symbol} (fetch failed).")
             continue
         
-        # [핵심 수정] 변경 사항 비교를 위한 데이터 복사 및 정제
         old_comparable = old_ticker_info.copy()
         old_comparable.pop("Update", None)
         old_comparable.pop("changes", None)
@@ -98,20 +115,15 @@ if __name__ == "__main__":
             if value is not None: new_info_base[key] = value
 
         new_comparable = new_info_base.copy()
-        new_comparable.pop("Update", None)
-        new_comparable.pop("changes", None)
 
-        if json.dumps(old_comparable, sort_keys=True) == json.dumps(new_comparable, sort_keys=True):
-            print(f"  -> No data changes for {ticker_symbol}. Preserving update time.")
+        if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(new_comparable, sort_keys=True, default=str):
+            print(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
             continue
         
-        # 변경 사항이 있을 때만 아래 로직 실행
         total_changed_files += 1
-        now_kst = datetime.now(timezone(timedelta(hours=9)))
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
 
-        # 포맷팅 적용
         for key, value in final_ticker_info.items():
             if key in ["enterpriseValue", "marketCap", "totalAssets", "Volume", "AvgVolume", "sharesOutstanding"]: final_ticker_info[key] = format_large_number(value)
             elif key in ["NAV", "dividendRate"]: final_ticker_info[key] = format_currency(value)
@@ -123,7 +135,7 @@ if __name__ == "__main__":
         old_update_date = old_ticker_info.get("Update", "").split(" ")[0]
         if new_update_date != old_update_date:
             for key, new_value in final_ticker_info.items():
-                if key in ["changes", "Symbol", "longName", "company", "frequency", "group"]: continue
+                if key in ["changes", "Symbol", "longName", "company", "frequency", "group", "Update"]: continue
                 old_value = old_ticker_info.get(key)
                 if old_value is None: continue
                 change_status = "equal"
@@ -138,6 +150,7 @@ if __name__ == "__main__":
         
         final_ticker_info["changes"] = changes_obj
         final_data_to_save = { "tickerInfo": final_ticker_info, "dividendHistory": existing_data.get("dividendHistory", []), "backtestData": existing_data.get("backtestData", {}) }
+        
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
         print(f" => UPDATED Ticker Info for {ticker_symbol}")
