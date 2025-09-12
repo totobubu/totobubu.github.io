@@ -1,5 +1,4 @@
-// src\composables\charts\useQuarterlyChart.js
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
@@ -9,66 +8,48 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
-// --- 1. generateDynamicTimeRangeOptions 함수 추가 ---
-const generateDynamicTimeRangeOptions = (history) => {
-    if (!history || history.length === 0) {
-        return [{ label: '전체', value: 'ALL' }];
-    }
-    const dates = history
-        .map((h) => parseYYMMDD(h['배당락']))
-        .sort((a, b) => a - b);
-    const lastDate = dates[dates.length - 1];
-    const today = new Date();
-
-    const options = [];
-    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
-    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
-
-    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
-    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
-
-    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
-    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
-
-    const oneYearAgo = new Date(
-        new Date().setFullYear(today.getFullYear() - 1)
-    );
-    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
-
-    options.push({ label: 'ALL', value: 'ALL' });
-
-    return options.map((opt) => ({
-        ...opt,
-        label: opt.value === 'ALL' ? '전체' : opt.label,
-    }));
+const defaultQuarterColors = {
+    1: '#4285F4',
+    2: '#EA4335',
+    3: '#FBBC04',
+    4: '#34A853',
 };
 
 export function useQuarterlyChart(options) {
-    const { data, deviceType, theme } = options;
+    const {
+        data,
+        deviceType,
+        theme,
+        aggregation = 'quarter',
+        colorMap = defaultQuarterColors,
+        labelPrefix = '분기',
+    } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-
-    const selectedTimeRange = ref('1Y');
-    const timeRangeOptions = computed(() =>
-        generateDynamicTimeRangeOptions(data)
-    );
 
     const yearlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
-        const quarter = Math.floor(date.getMonth() / 3) + 1;
+
+        const subCategory =
+            aggregation === 'quarter'
+                ? Math.floor(date.getMonth() / 3) + 1
+                : date.getMonth() + 1;
+
         const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
         if (!acc[year]) acc[year] = { total: 0, stacks: {} };
-        if (!acc[year].stacks[quarter]) acc[year].stacks[quarter] = 0;
-        acc[year].stacks[quarter] += amount;
+        if (!acc[year].stacks[subCategory]) acc[year].stacks[subCategory] = 0;
+        acc[year].stacks[subCategory] += amount;
         acc[year].total += amount;
         return acc;
     }, {});
+
     const labels = Object.keys(yearlyAggregated).sort((a, b) => b - a);
+    const itemWidth = aggregation === 'quarter' ? 90 : 60;
     const chartContainerWidth = getDynamicChartWidth(
         labels.length,
         deviceType,
-        90
+        itemWidth
     );
     const barLabelSize = getBarStackFontSize(
         labels.length,
@@ -82,21 +63,16 @@ export function useQuarterlyChart(options) {
     );
     const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
 
-    const quarterColors = {
-        1: '#4285F4',
-        2: '#EA4335',
-        3: '#FBBC04',
-        4: '#34A853',
-    };
     const datasets = createStackedBarDatasets({
         aggregatedData: yearlyAggregated,
         primaryLabels: labels,
-        colorMap: quarterColors,
-        labelPrefix: '분기',
+        colorMap: colorMap,
+        labelPrefix: labelPrefix,
         dataLabelConfig: {
             display: (context) =>
                 (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
-                labels.length <= 11,
+                labels.length <= 11 &&
+                aggregation === 'quarter',
             formatter: (value) => `$${value.toFixed(2)}`,
             color: '#fff',
             font: { size: barLabelSize, weight: 'bold' },
@@ -122,7 +98,7 @@ export function useQuarterlyChart(options) {
         },
     });
 
-    const chartData = { labels, datasets }; // quarterlyChartData -> chartData
+    const chartData = { labels, datasets };
     const maxTotal = Math.max(
         0,
         ...Object.values(yearlyAggregated).map((y) => y.total)
@@ -172,11 +148,10 @@ export function useQuarterlyChart(options) {
         },
     };
 
+    // [핵심 수정] return 문에서 존재하지 않는 timeRangeOptions와 selectedTimeRange를 제거합니다.
     return {
-        chartData, // quarterlyChartData -> chartData
-        chartOptions, // quarterlyChartOptions -> chartOptions
+        chartData,
+        chartOptions,
         chartContainerWidth,
-        timeRangeOptions,
-        selectedTimeRange,
     };
 }

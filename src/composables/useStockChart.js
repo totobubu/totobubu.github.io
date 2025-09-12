@@ -1,6 +1,4 @@
 // src/composables/useStockChart.js
-
-// [핵심 수정 1] import 문에 'watchEffect'를 추가합니다.
 import { ref, computed, watchEffect } from 'vue';
 import { useWeeklyChart } from './charts/useWeeklyChart';
 import { useQuarterlyChart } from './charts/useQuarterlyChart';
@@ -8,7 +6,7 @@ import { useMonthlyChart } from './charts/useMonthlyChart';
 import { usePriceChart } from './charts/usePriceChart';
 import { useBreakpoint } from '@/composables/useBreakpoint';
 import { parseYYMMDD } from '@/utils/date.js';
-import { generateTimeRangeOptions } from '@/utils/chartUtils.js';
+import { generateTimeRangeOptions, monthColors } from '@/utils/chartUtils.js'; // [추가] monthColors import
 
 export function useStockChart(
     dividendHistory,
@@ -87,7 +85,7 @@ export function useStockChart(
         if (
             !tickerInfo.value ||
             !chartDisplayData.value ||
-            chartDisplayData.value.length === 0
+            !chartDisplayData.value.length === 0
         ) {
             chartData.value = { labels: [], datasets: [] };
             chartOptions.value = {};
@@ -118,10 +116,24 @@ export function useStockChart(
             result = usePriceChart(sharedOptions);
         } else {
             const frequency = tickerInfo.value?.frequency;
-            if (frequency === '매주' || frequency === '4주') {
+
+            // [핵심 수정] 월배당이면서 데이터가 60개(5년)를 초과하면 분기 차트(연도별 누적) 로직을 사용
+            if (frequency === '매월' && chartDisplayData.value.length > 59) {
+                // 분기 차트 컴포저블을 재활용하되, 월별 설정을 추가로 전달
+                result = useQuarterlyChart({
+                    ...sharedOptions,
+                    aggregation: 'month', // 'month' 또는 'quarter'
+                    colorMap: monthColors,
+                    labelPrefix: '월',
+                });
+            } else if (frequency === '매주' || frequency === '4주') {
                 result = useWeeklyChart(sharedOptions);
             } else if (frequency === '분기') {
-                result = useQuarterlyChart(sharedOptions);
+                // 기존 분기 차트 호출 시, 분기별 설정을 명시적으로 전달
+                result = useQuarterlyChart({
+                    ...sharedOptions,
+                    aggregation: 'quarter',
+                });
             } else if (frequency === '매월') {
                 result = useMonthlyChart(sharedOptions);
             } else {
