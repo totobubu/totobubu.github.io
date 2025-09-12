@@ -1,6 +1,22 @@
 // src/utils/chartUtils.js
 import { parseYYMMDD } from '@/utils/date.js'; // [추가] parseYYMMDD 함수를 import 합니다.
 
+// [신규] 월별 누적 차트를 위한 12색상 팔레트 추가
+export const monthColors = {
+    1: '#a8c6f5',  // Jan (Light Blue)
+    2: '#87b4f3',  // Feb
+    3: '#4285F4',  // Mar (Blue)
+    4: '#b7e1cd',  // Apr (Light Green)
+    5: '#81c995',  // May
+    6: '#34A853',  // Jun (Green)
+    7: '#fce8b2',  // Jul (Light Yellow)
+    8: '#fdd663',  // Aug
+    9: '#FBBC04',  // Sep (Yellow)
+    10: '#f8c5b9', // Oct (Light Red)
+    11: '#f28b82', // Nov
+    12: '#EA4335', // Dec (Red)
+};
+
 /**
  * nav.json의 periods 배열 또는 문자열을 기반으로 차트 기간 옵션 배열을 생성합니다.
  * @param {string[] | string | undefined} periods - nav.json에서 가져온 기간 배열 또는 문자열

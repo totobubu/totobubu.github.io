@@ -1,9 +1,23 @@
 // src/utils/date.js
 export const parseYYMMDD = (dateStr) => {
     if (!dateStr || typeof dateStr !== 'string') return null;
-    const parts = dateStr.split('.').map((part) => part.trim());
-    if (parts.length !== 3) return null;
-    return new Date(`20${parts[0]}`, parseInt(parts[1], 10) - 1, parts[2]);
+    const parts = dateStr.split('.').map((part) => parseInt(part.trim(), 10));
+    if (parts.length !== 3 || parts.some(isNaN)) return null;
+
+    let [year, month, day] = parts;
+
+    // [핵심 수정] Y2K 문제 해결 로직
+    // 두 자리 연도가 현재 연도(두 자리) + 1 보다 크면 1900년대로 간주
+    // 예: 현재 2024년. '89'는 25보다 크므로 1989년. '15'는 25보다 작으므로 2015년.
+    const currentYearLastTwoDigits = new Date().getFullYear() % 100;
+    if (year > currentYearLastTwoDigits + 1) {
+        year += 1900;
+    } else {
+        year += 2000;
+    }
+
+    // Date 객체 생성 시 월은 0부터 시작하므로 1을 빼줍니다.
+    return new Date(year, month - 1, day);
 };
 
 export function formatMonthsToYears(totalMonths) {
