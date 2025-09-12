@@ -3,10 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-<<<<<<< HEAD
-=======
 // 유효성 검사는 계속 비활성화 상태로 둡니다.
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
 yahooFinance.setGlobalConfig({
     validation: {
         logErrors: true,
@@ -43,37 +40,6 @@ async function fetchAndSavePriceData(ticker) {
             events: 'history',
         });
 
-<<<<<<< HEAD
-        const dividendPromise = yahooFinance.historical(symbol, {
-            period1: FROM,
-            events: 'div',
-        });
-
-        const [historicalData, dividendData] = await Promise.all([
-            historicalPromise,
-            dividendPromise,
-        ]);
-
-        if (historicalData && historicalData.length > 0) {
-            const historicalFilePath = path.join(
-                HISTORICAL_DATA_DIR,
-                `${symbol.toLowerCase()}.json`
-            );
-            await fs.writeFile(
-                historicalFilePath,
-                JSON.stringify(historicalData, null, 2)
-            );
-        }
-        if (dividendData && dividendData.length > 0) {
-            const dividendFilePath = path.join(
-                DIVIDEND_DATA_DIR,
-                `${symbol.toLowerCase()}.json`
-            );
-            await fs.writeFile(
-                dividendFilePath,
-                JSON.stringify(dividendData, null, 2)
-            );
-=======
         if (!priceData || priceData.length === 0) {
             const errorMsg = `No data found, symbol may be delisted`;
             console.warn(`- [${symbol}] ${errorMsg}`);
@@ -93,7 +59,6 @@ async function fetchAndSavePriceData(ticker) {
 
         if (!existingData.backtestData) {
             existingData.backtestData = {};
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
         }
 
         // 받아온 데이터를 필요한 필드만 정제하여 저장
@@ -125,15 +90,8 @@ async function fetchAndSavePriceData(ticker) {
 }
 
 async function main() {
-<<<<<<< HEAD
-    console.log('Starting historical and dividend data update...');
-
-    await fs.mkdir(HISTORICAL_DATA_DIR, { recursive: true });
-    await fs.mkdir(DIVIDEND_DATA_DIR, { recursive: true });
-=======
     console.log('--- Starting Price Data Update (Node.js) ---');
     await fs.mkdir(DATA_DIR, { recursive: true });
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
 
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
 
@@ -144,25 +102,13 @@ async function main() {
         new Map(tickersToFetch.map((t) => [t.symbol, t])).values()
     );
 
-<<<<<<< HEAD
-=======
     console.log(`Found ${uniqueTickers.length} symbols to update.`);
 
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
     const concurrency = 10;
     let successCount = 0;
     let failureCount = 0;
     const failedSymbols = [];
 
-<<<<<<< HEAD
-    for (let i = 0; i < symbolsToFetch.length; i += concurrency) {
-        const chunk = symbolsToFetch.slice(i, i + concurrency);
-        console.log(
-            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunk.join(', ')})...`
-        );
-        const results = await Promise.all(
-            chunk.map((symbol) => fetchAndSaveData(symbol))
-=======
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
         const chunkSymbols = chunk.map((t) => t.symbol);
@@ -172,7 +118,6 @@ async function main() {
 
         const results = await Promise.all(
             chunk.map((ticker) => fetchAndSavePriceData(ticker))
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
         );
         results.forEach((r) => {
             if (r.success) {

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// src\composables\charts\useQuarterlyChart.js
-=======
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
@@ -12,8 +8,6 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
-<<<<<<< HEAD
-=======
 const defaultQuarterColors = {
     1: '#4285F4',
     2: '#EA4335',
@@ -21,7 +15,6 @@ const defaultQuarterColors = {
     4: '#34A853',
 };
 
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
 export function useQuarterlyChart(options) {
     const {
         data,
@@ -155,14 +148,10 @@ export function useQuarterlyChart(options) {
         },
     };
 
-<<<<<<< HEAD
-    return { chartData, chartOptions, chartContainerWidth };
-=======
     // [핵심 수정] return 문에서 존재하지 않는 timeRangeOptions와 selectedTimeRange를 제거합니다.
     return {
         chartData,
         chartOptions,
         chartContainerWidth,
     };
->>>>>>> 37d65b994530774ab605f494ca8a01b1f85d0093
 }
