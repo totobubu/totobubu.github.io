@@ -1,4 +1,3 @@
-// src\composables\charts\useQuarterlyChart.js
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
@@ -9,27 +8,48 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
+const defaultQuarterColors = {
+    1: '#4285F4',
+    2: '#EA4335',
+    3: '#FBBC04',
+    4: '#34A853',
+};
+
 export function useQuarterlyChart(options) {
-    const { data, deviceType, theme } = options;
+    const {
+        data,
+        deviceType,
+        theme,
+        aggregation = 'quarter',
+        colorMap = defaultQuarterColors,
+        labelPrefix = '분기',
+    } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
     const yearlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
-        const quarter = Math.floor(date.getMonth() / 3) + 1;
+
+        const subCategory =
+            aggregation === 'quarter'
+                ? Math.floor(date.getMonth() / 3) + 1
+                : date.getMonth() + 1;
+
         const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
         if (!acc[year]) acc[year] = { total: 0, stacks: {} };
-        if (!acc[year].stacks[quarter]) acc[year].stacks[quarter] = 0;
-        acc[year].stacks[quarter] += amount;
+        if (!acc[year].stacks[subCategory]) acc[year].stacks[subCategory] = 0;
+        acc[year].stacks[subCategory] += amount;
         acc[year].total += amount;
         return acc;
     }, {});
+
     const labels = Object.keys(yearlyAggregated).sort((a, b) => b - a);
+    const itemWidth = aggregation === 'quarter' ? 90 : 60;
     const chartContainerWidth = getDynamicChartWidth(
         labels.length,
         deviceType,
-        90
+        itemWidth
     );
     const barLabelSize = getBarStackFontSize(
         labels.length,
@@ -43,21 +63,16 @@ export function useQuarterlyChart(options) {
     );
     const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
 
-    const quarterColors = {
-        1: '#4285F4',
-        2: '#EA4335',
-        3: '#FBBC04',
-        4: '#34A853',
-    };
     const datasets = createStackedBarDatasets({
         aggregatedData: yearlyAggregated,
         primaryLabels: labels,
-        colorMap: quarterColors,
-        labelPrefix: '분기',
+        colorMap: colorMap,
+        labelPrefix: labelPrefix,
         dataLabelConfig: {
             display: (context) =>
                 (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
-                labels.length <= 11,
+                labels.length <= 11 &&
+                aggregation === 'quarter',
             formatter: (value) => `$${value.toFixed(2)}`,
             color: '#fff',
             font: { size: barLabelSize, weight: 'bold' },
@@ -133,5 +148,10 @@ export function useQuarterlyChart(options) {
         },
     };
 
-    return { chartData, chartOptions, chartContainerWidth };
+    // [핵심 수정] return 문에서 존재하지 않는 timeRangeOptions와 selectedTimeRange를 제거합니다.
+    return {
+        chartData,
+        chartOptions,
+        chartContainerWidth,
+    };
 }
