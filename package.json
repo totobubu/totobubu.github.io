@@ -14,6 +14,7 @@
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "run-s lint:*",
+        "format:data": "prettier --write \"public/data/**/*.json\"",
         "format": "prettier --write src/"
     },
     "dependencies": {
@@ -63,3 +64,4 @@
         "vite-plugin-vue-devtools": "^8.0.0"
     }
 }
+
