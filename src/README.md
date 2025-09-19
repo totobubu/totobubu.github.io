@@ -88,8 +88,6 @@ npm run dev
 
 vercel dev --listen 5000
 
-
-
 # 5. 권장 실행 순서
 
 npm run watch-nav 또는 npm run generate-nav
@@ -101,3 +99,5 @@ npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신�
 python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
 
 python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
+
+npm run format:data
