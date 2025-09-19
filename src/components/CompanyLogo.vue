@@ -1,28 +1,17 @@
 <template>
-    <div class="company-logo-wrapper">
-        <!-- 
-      조건:
-      1. logoSrc prop이 존재하고,
-      2. 아직 이미지 로딩 에러가 발생하지 않았을 때만 img 태그를 렌더링
-    -->
+    <div class="company-logo-wrapper bg" v-if="logoSrc && !hasError">
         <img
-            v-if="logoSrc && !hasError"
             :src="fullLogoSrc"
             :alt="`${companyName} logo`"
             class="company-logo"
             @error="onImageError" />
-        <!--
-      조건:
-      1. companyName prop이 존재하고,
-      2. 위 img 태그 조건이 거짓일 때 (logoSrc가 없거나, 에러가 발생했을 때)
-         대체 텍스트를 보여줌
-    -->
-        <span v-else-if="companyName" class="company-name-fallback">
+    </div>
+    <div class="company-logo-wrapper" v-else-if="companyName">
+        <span class="company-name-fallback">
             {{ companyName }}
         </span>
-        <!-- 회사 정보가 아예 없는 경우 -->
-        <span v-else></span>
     </div>
+    <div class="company-logo-wrapper" v-else></div>
 </template>
 
 <script setup>
@@ -71,11 +60,6 @@
 </script>
 
 <style scoped>
-    /* 이전과 동일한 스타일 */
-    /* ... */
-</style>
-
-<style scoped>
     .company-logo-wrapper {
         /* 정사각형 비율 유지를 위한 스타일 */
         width: 100%;
@@ -89,6 +73,10 @@
         font-weight: 500;
         text-align: center;
         overflow: hidden; /* 로고가 튀어나가는 것을 방지 */
+        border-radius: 0.5rem;
+    }
+    .company-logo-wrapper.bg {
+        background: #fff;
     }
 
     .company-logo,
@@ -107,7 +95,6 @@
     }
 
     .company-name-fallback {
-        /* 텍스트가 중앙에 오도록 함 */
         display: flex;
         align-items: center;
         justify-content: center;
