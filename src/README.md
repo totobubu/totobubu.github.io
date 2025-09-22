@@ -96,6 +96,8 @@ npm run add-ipo-dates
 
 npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신화
 
+python scripts/update_dividends.py => 배당 데이터 현실화
+
 python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
 
 python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
