@@ -2,135 +2,152 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-// 전역 설정은 만약을 위해 그대로 둡니다.
 yahooFinance.setGlobalConfig({
-    validation: {
-        logErrors: true,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
-    },
+  validation: {
+    logErrors: true,
+    failOnUnknownProperties: false,
+    failOnInvalidData: false
+  }
 });
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
-const HISTORICAL_DATA_DIR = path.join(PUBLIC_DIR, 'historical');
-const DIVIDEND_DATA_DIR = path.join(PUBLIC_DIR, 'dividends');
+const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 
-const START_DATE = new Date();
-START_DATE.setFullYear(START_DATE.getFullYear() - 10);
-const FROM = START_DATE.toISOString().split('T')[0];
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+async function fetchAndSavePriceData(ticker) {
+    const { symbol, ipoDate } = ticker;
+    const filePath = path.join(DATA_DIR, `${symbol.toLowerCase()}.json`);
 
-async function fetchAndSaveData(symbol) {
     try {
-        console.log(`Fetching data for ${symbol}...`);
+        let existingData = {};
+        let lastPriceDate = null;
+        
+        // 1. 기존 파일이 있는지 확인하고, 있다면 마지막 날짜를 찾습니다.
+        try {
+            const fileContent = await fs.readFile(filePath, 'utf-8');
+            existingData = JSON.parse(fileContent);
+            const prices = existingData.backtestData?.prices;
+            if (prices && prices.length > 0) {
+                // 데이터가 날짜순으로 정렬되어 있다고 가정하고 마지막 항목을 사용
+                lastPriceDate = prices[prices.length - 1].date;
+            }
+        } catch (error) {
+            console.log(`- [${symbol}] No existing data file found. Fetching all historical data.`);
+        }
+        
+        // 2. 데이터 요청 시작일을 결정합니다.
+        let effectiveStartDate;
+        if (lastPriceDate) {
+            // 기존 데이터가 있으면, 마지막 날짜 다음 날부터 요청
+            const nextDate = new Date(lastPriceDate);
+            nextDate.setDate(nextDate.getDate() + 1);
+            effectiveStartDate = nextDate;
+        } else {
+            // 기존 데이터가 없으면, ipoDate와 10년 전 중 더 최신 날짜부터 요청
+            const maxHistoryDate = new Date();
+            maxHistoryDate.setFullYear(maxHistoryDate.getFullYear() - 10);
+            effectiveStartDate = maxHistoryDate;
+            if (ipoDate && new Date(ipoDate) > maxHistoryDate) {
+                effectiveStartDate = new Date(ipoDate);
+            }
+        }
+        
+        const period1 = effectiveStartDate.toISOString().split('T')[0];
+        const today = new Date().toISOString().split('T')[0];
 
-        const historicalPromise = yahooFinance.historical(symbol, {
-            period1: FROM,
-        });
-
-        const dividendPromise = yahooFinance.historical(symbol, {
-            period1: FROM,
-            events: 'dividends',
-        });
-
-        const [historicalData, dividendData] = await Promise.all([
-            historicalPromise,
-            dividendPromise,
-        ]);
-
-        if (historicalData && historicalData.length > 0) {
-            const simplifiedHistorical = historicalData.map((d) => ({
-                date: d.date,
-                open: d.open,
-                high: d.high,
-                low: d.low,
-                close: d.close,
-                volume: d.volume,
-            }));
-            const historicalFilePath = path.join(
-                HISTORICAL_DATA_DIR,
-                `${symbol.toLowerCase()}.json`
-            );
-            await fs.writeFile(
-                historicalFilePath,
-                JSON.stringify(simplifiedHistorical, null, 2)
-            );
+        // 3. 시작일이 오늘보다 미래이면, 이미 최신 데이터이므로 요청하지 않습니다.
+        if (new Date(period1) > new Date(today)) {
+            console.log(`- [${symbol}] Price data is already up to date.`);
+            return { success: true, symbol };
         }
 
-        if (dividendData && dividendData.length > 0) {
-            // [핵심 수정] d.amount -> d.dividends 로 변경
-            const simplifiedDividends = dividendData.map((d) => ({
-                date: d.date,
-                amount: d.dividends || 0, // <-- 바로 여기!
-            }));
-            const dividendFilePath = path.join(
-                DIVIDEND_DATA_DIR,
-                `${symbol.toLowerCase()}.json`
-            );
-            await fs.writeFile(
-                dividendFilePath,
-                JSON.stringify(simplifiedDividends, null, 2)
-            );
-        }
+        console.log(`Fetching price data for ${symbol} from ${period1}...`);
+        
+        const newPriceData = await yahooFinance.historical(symbol, {
+            period1: period1,
+            events: 'history' 
+        });
 
-        console.log(`✅ [${symbol}] Data saved successfully.`);
+        if (!newPriceData || newPriceData.length === 0) {
+            console.log(`- [${symbol}] No new price data found since ${period1}.`);
+            return { success: true, symbol };
+        }
+        
+        // 4. 기존 데이터와 새로운 데이터를 병합합니다.
+        const existingPrices = existingData.backtestData?.prices || [];
+        const combinedPrices = [
+            ...existingPrices,
+            ...newPriceData.map(p => ({
+                date: p.date.toISOString().split('T')[0],
+                open: p.open,
+                high: p.high,
+                low: p.low,
+                close: p.close,
+                volume: p.volume
+            }))
+        ];
+        
+        // 5. 중복을 제거하고 날짜순으로 정렬하여 최종 데이터를 만듭니다.
+        const uniquePrices = Array.from(new Map(combinedPrices.map(item => [item.date, item])).values());
+        uniquePrices.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        if (!existingData.backtestData) {
+            existingData.backtestData = {};
+        }
+        existingData.backtestData.prices = uniquePrices;
+
+        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+
+        console.log(`✅ [${symbol}] Price data updated. Added ${newPriceData.length} new records. Total: ${uniquePrices.length}.`);
         return { success: true, symbol };
     } catch (error) {
-        console.error(
-            `❌ [${symbol}] Failed to fetch or save data:`,
-            error.message
-        );
-        return { success: false, symbol, error: error.message };
+        const errorMessage = error.message.includes('No data found') ? 'No data found, symbol may be delisted' : error.message;
+        console.error(`❌ [${symbol}] Failed to fetch or save data: ${errorMessage}`);
+        return { success: false, symbol, error: errorMessage };
     }
 }
 
 async function main() {
-    console.log('Starting historical data update...');
-
-    await fs.mkdir(HISTORICAL_DATA_DIR, { recursive: true });
-    await fs.mkdir(DIVIDEND_DATA_DIR, { recursive: true });
+    console.log('--- Starting Incremental Price Data Update (Node.js) ---');
+    await fs.mkdir(DATA_DIR, { recursive: true });
 
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-    const allSymbols = navData.nav.map((item) => item.symbol);
-    const symbolsToFetch = [...new Set([...allSymbols, 'SPY'])];
+    
+    const allTickersInfo = navData.nav; 
+    const spyInfo = { symbol: 'SPY', ipoDate: '1993-01-22' };
+    const tickersToFetch = [...allTickersInfo, spyInfo];
+    const uniqueTickers = Array.from(new Map(tickersToFetch.map(t => [t.symbol, t])).values());
 
-    console.log(`Found ${symbolsToFetch.length} symbols to update.`);
+    console.log(`Found ${uniqueTickers.length} symbols to update.`);
 
+    const concurrency = 10;
     let successCount = 0;
     let failureCount = 0;
     const failedSymbols = [];
-    const concurrency = 10;
 
-    for (let i = 0; i < symbolsToFetch.length; i += concurrency) {
-        const chunk = symbolsToFetch.slice(i, i + concurrency);
-        console.log(`\nProcessing chunk ${Math.floor(i / concurrency) + 1}...`);
-
+    for (let i = 0; i < uniqueTickers.length; i += concurrency) {
+        const chunk = uniqueTickers.slice(i, i + concurrency);
+        const chunkSymbols = chunk.map(t => t.symbol);
+        console.log(`\nProcessing chunk ${Math.floor(i/concurrency) + 1} (${chunkSymbols.join(', ')})...`);
+        
         const results = await Promise.all(
-            chunk.map(async (symbol) => {
-                try {
-                    await fetchAndSaveData(symbol);
-                    return { success: true, symbol };
-                } catch (error) {
-                    return { success: false, symbol, error };
-                }
-            })
+            chunk.map(ticker => fetchAndSavePriceData(ticker))
         );
-
-        results.forEach((r) => {
-            if (r.success) successCount++;
-            else {
+        
+        results.forEach(r => {
+            if (r.success) {
+                successCount++;
+            } else {
                 failureCount++;
                 failedSymbols.push(r.symbol);
             }
         });
         await delay(500);
     }
-
-    console.log(
-        `\nUpdate complete. Success: ${successCount}, Failure: ${failureCount}`
-    );
+    
+    console.log(`\nUpdate complete. Success: ${successCount}, Failure: ${failureCount}`);
     if (failureCount > 0) {
         console.log('Failed symbols:', failedSymbols.join(', '));
     }
