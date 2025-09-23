@@ -2,6 +2,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
+import CalendarView from '../pages/CalendarView.vue'; // [수정] CalendarView를 import 합니다.
 import StockView from '../pages/StockView.vue'; // 개별 주식 정보를 보여줄 컴포넌트
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
@@ -28,13 +29,17 @@ const getCurrentUser = () => {
 // --------------------
 
 const router = createRouter({
-    // ... routes 배열은 그대로 ...
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
             name: 'home',
             component: HomeView,
+        },
+        {
+            path: '/calendar',
+            name: 'calendar',
+            component: CalendarView,
         },
         {
             path: '/:ticker', // :ticker 부분이 변수 역할을 합니다.
@@ -65,12 +70,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     const isAuthPage = to.name === 'login' || to.name === 'signup';
 
     if (requiresAuth || isAuthPage) {
         const user = await getCurrentUser();
-        
+
         if (requiresAuth && !user) {
             next({ name: 'login' });
         } else if (isAuthPage && user) {
