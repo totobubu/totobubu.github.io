@@ -86,15 +86,6 @@
     <div v-else id="t-layout">
         <Toast />
         <ConfirmDialog />
-        <aside id="t-sidebar" v-if="isDesktop">
-            <header>
-                <FilterInput
-                    v-model="filters.global.value"
-                    title="전체 티커 검색"
-                    filter-type="global" />
-            </header>
-            <AppSidebar />
-        </aside>
 
         <main id="t-grid">
             <header id="t-header">
@@ -154,21 +145,32 @@
                     icon="pi pi-arrow-up" />
             </section>
         </main>
+        <template v-if="route.path !== '/backtester'">
+            <aside id="t-sidebar" v-if="isDesktop">
+                <header>
+                    <FilterInput
+                        v-model="filters.global.value"
+                        title="전체 티커 검색"
+                        filter-type="global" />
+                </header>
+                <AppSidebar />
+            </aside>
 
-        <Drawer
-            v-if="!isDesktop"
-            v-model:visible="visible"
-            :position="isMobile ? 'full' : 'right'"
-            modal
-            id="toto-search"
-            :class="deviceType">
-            <template #header>
-                <FilterInput
-                    v-model="filters.global.value"
-                    title="전체 티커 검색"
-                    filter-type="global" />
-            </template>
-            <AppSidebar />
-        </Drawer>
+            <Drawer
+                v-else
+                v-model:visible="visible"
+                :position="isMobile ? 'full' : 'right'"
+                modal
+                id="toto-search"
+                :class="deviceType">
+                <template #header>
+                    <FilterInput
+                        v-model="filters.global.value"
+                        title="전체 티커 검색"
+                        filter-type="global" />
+                </template>
+                <AppSidebar />
+            </Drawer>
+        </template>
     </div>
 </template>
