@@ -13,45 +13,38 @@
 
 <template>
     <header class="t-home-header">
-        <h1>배당모아 Div Grow</h1>
+        <p class="logo">
+            <img src="/src/assets/apple-touch-icon.png" alt="" />
+        </p>
+        <h1 class="h1">배당모아 Div Grow</h1>
+        <h2>파이어족을 위한 배당 포트폴리오 추적 플랫폼</h2>
+        <p class="desc">
+            ETF부터 개별주까지, 나만의 배당금 성장 기록과 관리. 지금 바로 배당의
+            여정을 시작하세요.
+        </p>
     </header>
 
-    <div class="p-4">
-        <div class="grid">
-            <div class="col-12 md:col-6">
-                <div class="surface-card shadow-2 p-4 border-round">
-                    <div class="text-xl font-medium text-900 mb-3">
-                        배당달력
-                    </div>
-                    <p
-                        class="mt-0 mb-3 line-height-3 text-surface-700 dark:text-surface-200">
-                        전체 티커의 월별 배당 일정을 확인하고 나만의
-                        포트폴리오를 관리하세요.
-                    </p>
-                    <Button
-                        label="달력 보러가기"
-                        icon="pi pi-calendar"
-                        @click="router.push('/calendar')" />
-                </div>
-            </div>
-            <div class="col-12 md:col-6">
-                <div class="surface-card shadow-2 p-4 border-round">
-                    <div class="text-xl font-medium text-900 mb-3">
-                        마이페이지
-                    </div>
-                    <p
-                        class="mt-0 mb-3 line-height-3 text-surface-700 dark:text-surface-200">
-                        북마크한 종목을 관리하고, 포트폴리오 백테스팅을 통해
-                        투자 전략을 시뮬레이션 해보세요.
-                    </p>
-                    <Button
-                        label="마이페이지로 이동"
-                        icon="pi pi-user"
-                        severity="secondary"
-                        @click="router.push('/mypage')" />
-                </div>
-            </div>
-            <!-- 앞으로 새로운 위젯을 여기에 추가할 수 있습니다. -->
-        </div>
-    </div>
+    <article class="t-home-link">
+        <Button
+            label="배당달력"
+            icon="pi pi-calendar"
+            severity="secondary"
+            rounded
+            size="large"
+            @click="router.push('/calendar')" />
+        <!-- <Button
+            label="백테스터"
+            icon="pi pi-history"
+            severity="secondary"
+            rounded
+            size="large"
+            @click="router.push('/backtester')" /> -->
+        <Button
+            label="마이페이지"
+            icon="pi pi-user"
+            severity="secondary"
+            rounded
+            size="large"
+            @click="router.push('/mypage')" />
+    </article>
 </template>

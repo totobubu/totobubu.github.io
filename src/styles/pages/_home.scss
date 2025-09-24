@@ -4,4 +4,88 @@
 
 #t-home {
     height: 100vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4rem;
+
+    .logo {
+        overflow: hidden;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        width: 5rem;
+        max-width: 100px;
+        img {
+            width: 100%;
+        }
+    }
+}
+.t-home {
+    &-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+
+        .desc {
+            font-size: 1rem;
+            color: var(--p-surface-400);
+        }
+    }
+    &-link {
+        width: 100%;
+        display: grid;
+        gap: 1.5rem;
+        @include bp.media-breakpoint-down('md') {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            .p-button {
+                justify-self: center;
+            }
+        }
+        @include bp.media-breakpoint-up('md') {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            .p-button {
+                &:nth-child(2n + 1) {
+                    justify-self: end;
+                }
+            }
+        }
+        .p-button {
+            width: 100%;
+            max-width: 300px;
+            border-color: var(--p-surface-700);
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+            gap: calc(var(--tw-spacing) * 5);
+            height: calc(var(--tw-spacing) * 16);
+            padding-left: calc(var(--tw-spacing) * 4);
+            padding-right: calc(var(--tw-spacing) * 6);
+            padding-block: calc(var(--tw-spacing) * 6);
+        }
+        .p-button-icon {
+            width: calc(var(--tw-spacing) * 10);
+            height: calc(var(--tw-spacing) * 10);
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            color: var(--p-surface-950);
+
+            &.pi-calendar {
+                background: var(--p-amber-300);
+            }
+            &.pi-user {
+                background: var(--p-emerald-600);
+            }
+            &.pi-history {
+                background: var(--p-rose-300);
+            }
+        }
+    }
 }
