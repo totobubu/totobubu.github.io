@@ -1,3 +1,4 @@
+// api/getBacktestData.js
 import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
@@ -11,9 +12,7 @@ export default async function handler(req, res) {
 
     const { symbols, from, to } = req.query;
     if (!symbols || !from || !to) {
-        return res
-            .status(400)
-            .json({ error: 'Symbols, from, and to parameters are required' });
+        return res.status(400).json({ error: 'Symbols, from, and to parameters are required' });
     }
 
     const symbolArray = symbols.split(',');
@@ -22,15 +21,21 @@ export default async function handler(req, res) {
         const results = await Promise.all(
             symbolArray.map(async (symbol) => {
                 try {
-                    const historicalData = await yahooFinance.historical(
-                        symbol,
-                        {
+                    const [historicalData, quote] = await Promise.all([
+                        yahooFinance.historical(symbol, {
                             period1: from,
                             period2: to,
                             interval: '1d',
-                            events: 'history|div|split', // 주가, 배당, 액면분할 모두 요청
-                        }
-                    );
+                            events: 'history|div|split',
+                        }),
+                        yahooFinance.quote(symbol, {
+                            fields: ['firstTradeDateMilliseconds'],
+                        }),
+                    ]);
+
+                    const firstTradeDate = quote.firstTradeDateMilliseconds
+                        ? new Date(quote.firstTradeDateMilliseconds).toISOString().split('T')[0]
+                        : null;
 
                     const prices = historicalData.filter((d) => 'close' in d);
                     const dividends = historicalData.filter((d) => d.dividends);
@@ -38,7 +43,7 @@ export default async function handler(req, res) {
 
                     return {
                         symbol,
-                        firstTradeDate, // [핵심 추가] IPO 날짜 반환
+                        firstTradeDate,
                         prices: prices.map((p) => ({
                             date: p.date.toISOString().split('T')[0],
                             open: p.open,
@@ -50,7 +55,7 @@ export default async function handler(req, res) {
                         })),
                         splits: splits.map((s) => ({
                             date: s.date.toISOString().split('T')[0],
-                            ratio: s.stockSplits, // 예: "2:1"
+                            ratio: s.stockSplits,
                         })),
                     };
                 } catch (e) {
@@ -65,19 +70,28 @@ export default async function handler(req, res) {
             })
         );
 
-        const krwUsdRate = await yahooFinance.historical('USDKRW=X', {
-            period1: from,
-            period2: to,
-        });
+        let exchangeRatesData = [];
+        if (symbolArray.some(s => ['SPY', 'QQQ', 'DIA', 'USDKRW=X'].includes(s.toUpperCase())) || symbolArray.length > 1) {
+             try {
+                const krwUsdRate = await yahooFinance.historical('USDKRW=X', {
+                    period1: from,
+                    period2: to,
+                });
+                exchangeRatesData = krwUsdRate.map((r) => ({
+                    date: r.date.toISOString().split('T')[0],
+                    rate: r.close,
+                }));
+             } catch (e) {
+                console.error("Failed to fetch exchange rate data:", e.message);
+             }
+        }
 
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
         return res.status(200).json({
             tickerData: results,
-            exchangeRates: krwUsdRate.map((r) => ({
-                date: r.date.toISOString().split('T')[0],
-                rate: r.close,
-            })),
+            exchangeRates: exchangeRatesData,
         });
+
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
