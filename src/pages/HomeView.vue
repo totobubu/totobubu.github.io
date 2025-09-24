@@ -32,13 +32,13 @@
             rounded
             size="large"
             @click="router.push('/calendar')" />
-        <!-- <Button
+        <Button
             label="백테스터"
             icon="pi pi-history"
             severity="secondary"
             rounded
             size="large"
-            @click="router.push('/backtester')" /> -->
+            @click="router.push('/backtester')" />
         <Button
             label="마이페이지"
             icon="pi pi-user"
