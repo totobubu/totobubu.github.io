@@ -1,109 +1,13 @@
 // src/styles/components/_calendar.scss
-@use "../abstracts/variables" as vars;
-@use "../abstracts/mixins" as mx;
-@use "../functions/breakpoints" as bp;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mx;
+@use '../functions/breakpoints' as bp;
 
-// .calendar-wrapper {
-//     height: 90vh;
-// }
-
-// .custom-calendar-header h2 {
-//     font-size: 1.5rem;
-//     color: vars.$text-color;
-// }
-
-// .calendar-wrapper {
-//     height: 90vh;
-// }
-// .custom-calendar-header {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     padding: 0 0 1.5rem 0;
-// }
-// .custom-calendar-header .header-left,
-// .custom-calendar-header .header-right {
-//     display: flex;
-//     gap: 0.5rem;
-// }
-// .custom-calendar-header h2 {
-//     font-size: 1.5rem;
-//     font-weight: 600;
-//     margin: 0;
-// }
-// .fc-holiday-name {
-//     position: absolute;
-//     top: 5px;
-//     right: 5px;
-//     font-size: 0.7em;
-//     font-weight: bold;
-//     color: rgba(255, 255, 255, 0.7);
-//     padding: 2px 4px;
-//     background-color: rgba(0, 0, 0, 0.2);
-//     border-radius: 3px;
-// }
-// .fc .fc-daygrid-day-frame {
-//     position: relative;
-//     z-index: 2;
-// }
-// .fc .fc-daygrid-bg-event {
-//     z-index: 1;
-// }
-// .p-tag.freq-weekly { background-color: #42A5F5; color: #ffffff; }
-// .p-tag.freq-monthly { background-color: #66BB6A; color: #ffffff; }
-// .p-tag.freq-quarterly { background-color: #FFA726; color: #ffffff; }
-// .p-tag.freq-every-4-week { background-color: #AB47BC; color: #ffffff; }
-// .p-tag.freq-default { background-color: #757575; color: #ffffff; }
-// .p-tag .no-amount { font-size: 0.9em; opacity: 0.7; }
-// .p-tag.p-component {
-//     width: 100%;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     padding: 2px 6px;
-//     margin-bottom: 2px;
-//     border-radius: 4px;
-// }
-// .event-input-group {
-//     width: 100%;
-//     margin-bottom: 2px;
-//     border-radius: 6px;
-//     overflow: hidden;
-// }
-// .event-input-group .p-inputgroup-addon {
-//     /* background-color: var(--p-surface-200);
-//     color: var(--p-text-color); */
-//     padding: 0.25rem 0.5rem;
-//     border: none;
-//     cursor: default;
-// }
-// .event-input-group .ticker-name {
-//     flex-grow: 1;
-//     font-weight: bold;
-//     text-align: left;
-// }
-// .event-input-group .amount-text {
-//     font-size: 0.9em;
-// }
-// .event-input-group .p-inputgroup-addon[data-action] {
-//     cursor: pointer;
-//     /* background-color: var(--p-surface-300); */
-// }
-// .event-input-group button {
-//     background: transparent;
-//     border: none;
-//     color: inherit;
-//     padding: 0;
-//     margin: 0;
-//     font-size: inherit;
-// }
-
-
-
-
+#p-calendar {
+    height: 100%;
+}
 
 #t-calendar-list {
-
     background: var(--p-zinc-800);
     color: #fff;
     overflow: hidden;
@@ -133,77 +37,74 @@
     }
 
     .fc-list {
-            border: 0;
+        border: 0;
 
-            &-event {
-                &-time {
-                    display: none !important;
+        &-event {
+            &-time {
+                display: none !important;
+            }
+
+            &-graphic {
+                vertical-align: middle;
+            }
+
+            &-title {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #fff;
+                vertical-align: middle;
+                padding-top: 0;
+                padding-bottom: 0;
+
+                .stock-item-list {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 }
 
-                &-graphic {
-                    vertical-align: middle;
+                .ticker-name {
+                    width: 20%;
                 }
 
-                &-title {
-                    font-size: 0.875rem;
-                    font-weight: 500;
-                    color: #fff;
-                    vertical-align: middle;
-                    padding-top: 0;
-                    padding-bottom: 0;
-
-                    .stock-item-list {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                    }
-
-                    .ticker-name {
-                        width: 20%;
-                    }
-
-                    .actions {
-                        justify-self: end;
-                        button {
-                            padding: .5rem;
-                            width: 2rem;
-                            height: 2rem;
-                        }
-                    }
-
-                    .p-button-text {
-                        position: static;
+                .actions {
+                    justify-self: end;
+                    button {
+                        padding: 0.5rem;
+                        width: 2rem;
+                        height: 2rem;
                     }
                 }
 
-                &:hover td {
-                    background-color: inherit
+                .p-button-text {
+                    position: static;
                 }
             }
 
-            &-table {
-                td {
-                    border: 0;
-                    line-height: 1;
-                }
+            &:hover td {
+                background-color: inherit;
+            }
+        }
+
+        &-table {
+            td {
+                border: 0;
+                line-height: 1;
+            }
+        }
+
+        &-day {
+            > * {
+                background-color: transparent;
+                border-color: transparent;
             }
 
-            &-day {
-                >* {
-                    background-color: transparent;
-                    border-color: transparent;
-                }
-
-                &-cushion {
-                    background-color: var(--p-zinc-950);
-                    color: #fff;
-                    border-radius: 8px;
-                    ;
-                }
+            &-cushion {
+                background-color: var(--p-zinc-950);
+                color: #fff;
+                border-radius: 8px;
             }
-
+        }
     }
-
 }
 
 #t-calendar-grid {
@@ -212,16 +113,15 @@
     overflow: hidden;
     height: 100%;
 
-
     .p-panel {
         &-header {
             height: 3rem;
-            padding: .5rem 1.125rem;
+            padding: 0.5rem 1.125rem;
 
             .header-center {
                 display: flex;
                 align-items: center;
-                gap: .5rem;
+                gap: 0.5rem;
             }
             h2 {
                 font-size: 1rem;
@@ -229,25 +129,24 @@
             .p-button,
             .p-togglebutton {
                 padding: 0.3125rem 0.5rem;
-                font-size: .7rem;
+                font-size: 0.7rem;
             }
             .p-button-icon-only {
                 width: auto;
                 height: auto;
             }
             &-actions {
-                display:none;
+                display: none;
             }
 
             .p-togglebutton {
-                opacity: .3;
+                opacity: 0.3;
             }
             .p-togglebutton-checked {
                 opacity: 1;
                 font-weight: 700;
                 background: var(--p-button-primary-background);
                 color: #000;
-
             }
         }
         &-content {
@@ -255,30 +154,29 @@
             height: 100%;
             &-container {
                 height: calc(100% - 3rem);
-        }
+            }
         }
     }
 
-    
     .fc {
         height: 100%;
-        
-        &-daygrid {
 
-            td,th {
-                padding: .25rem;
-                border-color: rgba(255,255,255,0.1);
+        &-daygrid {
+            td,
+            th {
+                padding: 0.25rem;
+                border-color: rgba(255, 255, 255, 0.1);
             }
-            
+
             &-day-events {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.3rem;
                 &:before {
-                    display: none;;
+                    display: none;
                 }
             }
-            
+
             &-event-harness {
                 .fc-h-event {
                     border: 0;
@@ -286,13 +184,12 @@
                     margin: 0;
                     .p-button {
                         padding: 0;
-
                     }
                 }
             }
         }
-        
-        &-scrollgrid   {
+
+        &-scrollgrid {
             border: 0;
         }
         &-bg-event {
@@ -303,10 +200,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: .7rem;
-            padding: .3em;
+            font-size: 0.7rem;
+            padding: 0.3em;
             span {
-                font-size: .8em;
+                font-size: 0.8em;
             }
         }
         &-holiday-name {
@@ -317,18 +214,16 @@
             align-items: center;
             background: rgba(255, 0, 0, 0.5);
             color: #fff;
-
         }
         &-dayGridMonth-view {
-            .fc-h-event {cursor: pointer;
+            .fc-h-event {
+                cursor: pointer;
                 width: 50px;
             }
         }
         &-dayGridWeek-view {
-
             .fc-daygrid-event-harness {
                 width: 100%;
-
             }
             .fc-event {
                 width: 100%;
@@ -338,31 +233,25 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: .2em.5em;
+                padding: 0.2em.5em;
 
                 .p-button {
                     padding: 0;
                     width: auto;
                 }
-
             }
-
         }
 
         &-day-disabled {
             background: inherit;
-            opacity: .5;
+            opacity: 0.5;
         }
 
         .stock-item {
             &-week {
             }
-            &-month {}
-
+            &-month {
+            }
         }
     }
-    
-
 }
-
-
