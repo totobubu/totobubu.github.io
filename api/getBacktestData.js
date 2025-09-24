@@ -78,9 +78,19 @@ export default async function handler(req, res) {
                     return {
                         symbol,
                         firstTradeDate: firstTradeDate?.toISOString().split('T')[0],
-                        prices: prices.map(/* ... */),
-                        dividends: dividends.map(/* ... */),
-                        splits: splits.map(/* ... */),
+                        prices: prices.map((p) => ({
+                            date: p.date.toISOString().split('T')[0],
+                            open: p.open,
+                            close: p.close,
+                        })),
+                        dividends: dividends.map((d) => ({
+                            date: d.date.toISOString().split('T')[0],
+                            amount: d.dividends,
+                        })),
+                        splits: splits.map((s) => ({
+                            date: s.date.toISOString().split('T')[0],
+                            ratio: s.stockSplits,
+                        })),
                     };
                 } catch (e) {
                     return { symbol, error: e.message, prices: [], dividends: [], splits: [] };
