@@ -38,6 +38,7 @@ export default async function handler(req, res) {
 
                     return {
                         symbol,
+                        firstTradeDate, // [핵심 추가] IPO 날짜 반환
                         prices: prices.map((p) => ({
                             date: p.date.toISOString().split('T')[0],
                             open: p.open,
