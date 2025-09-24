@@ -56,15 +56,16 @@
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
-        // inject로 받은 tickerInfo는 readonly ref이므로 여전히 .value로 접근해야 합니다.
-        if (route.name === 'stock-detail' && tickerInfo.value) {
+        if (route.name === 'calendar') {
+            items.push({ label: '배당달력' });
+        } else if (route.name === 'mypage') {
+            items.push({ label: '마이페이지' });
+        } else if (route.name === 'stock-detail' && tickerInfo.value) {
             if (tickerInfo.value.symbol)
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
             if (isDesktop.value && tickerInfo.value.longName) {
                 items.push({ label: tickerInfo.value.longName });
             }
-        } else if (route.name === 'mypage') {
-            items.push({ label: '마이페이지' });
         }
 
         return [home, ...items];
@@ -79,7 +80,10 @@
 </script>
 
 <template>
-    <div id="t-layout">
+    <div v-if="route.path === '/'" id="t-home">
+        <RouterView />
+    </div>
+    <div v-else id="t-layout">
         <Toast />
         <ConfirmDialog />
         <aside id="t-sidebar" v-if="isDesktop">
@@ -94,11 +98,7 @@
 
         <main id="t-grid">
             <header id="t-header">
-                <!-- 핵심 수정: v-if 조건을 단순화하고 명확하게 만듭니다 -->
-                <div v-if="route.path === '/'" class="flex items-center">
-                    <p class="text-lg font-bold">배당금 일정</p>
-                </div>
-                <div v-else class="flex items-center gap-4 min-w-0">
+                <div class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
                         <template #item="{ item, props }">
                             <router-link
@@ -149,7 +149,6 @@
             <section id="t-content">
                 <RouterView />
                 <ScrollTop
-                    v-if="route.path !== '/'"
                     target="parent"
                     :threshold="100"
                     icon="pi pi-arrow-up" />
