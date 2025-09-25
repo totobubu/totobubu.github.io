@@ -1,4 +1,4 @@
-// api/getBacktestData.js (최종 안정화 버전 2)
+// api/getBacktestData.js (최종 안정화 버전)
 
 import yahooFinance from 'yahoo-finance2';
 
@@ -23,43 +23,43 @@ export default async function handler(req, res) {
     try {
         const resultsPromises = symbolArray.map(async (symbol) => {
             try {
-                // [핵심 수정] 데이터를 종류별로 명확하게 분리하여 각각 호출합니다.
-                const queryOptions = {
+                const historicalData = await yahooFinance.historical(symbol, {
                     period1: from,
                     period2: to,
                     interval: '1d',
-                };
+                    events: 'history|div|split',
+                });
 
-                const [prices, dividends, splits, quote] = await Promise.all([
-                    yahooFinance
-                        .historical(symbol, {
-                            ...queryOptions,
-                            events: 'history',
+                if (!historicalData || historicalData.length === 0) {
+                    const quote = await yahooFinance
+                        .quote(symbol, {
+                            fields: ['firstTradeDateMilliseconds'],
                         })
-                        .catch(() => []),
-                    yahooFinance
-                        .historical(symbol, { ...queryOptions, events: 'div' })
-                        .catch(() => []),
-                    yahooFinance
-                        .historical(symbol, {
-                            ...queryOptions,
-                            events: 'split',
-                        })
-                        .catch(() => []),
-                    yahooFinance.quote(symbol).catch(() => null), // quote는 간단하므로 fields 없이 호출
-                ]);
-
-                if (prices.length === 0 && !quote) {
-                    throw new Error(`No data found for symbol`);
+                        .catch(() => null);
+                    const firstTradeDate = quote?.firstTradeDateMilliseconds
+                        ? new Date(quote.firstTradeDateMilliseconds)
+                              .toISOString()
+                              .split('T')[0]
+                        : null;
+                    return {
+                        symbol,
+                        firstTradeDate,
+                        prices: [],
+                        dividends: [],
+                        splits: [],
+                    };
                 }
 
-                const firstTradeDate = quote?.firstTradeDateMilliseconds
-                    ? new Date(quote.firstTradeDateMilliseconds)
-                          .toISOString()
-                          .split('T')[0]
-                    : prices[0]
-                      ? prices[0].date.toISOString().split('T')[0]
-                      : null;
+                const firstTradeDate = historicalData[0].date
+                    .toISOString()
+                    .split('T')[0];
+                const prices = historicalData.filter(
+                    (d) => d && typeof d.close === 'number' && d.close > 0
+                );
+                const dividends = historicalData.filter(
+                    (d) => d && typeof d.dividends === 'number'
+                );
+                const splits = historicalData.filter((d) => d && d.stockSplits);
 
                 return {
                     symbol,
@@ -90,7 +90,6 @@ export default async function handler(req, res) {
             }
         });
 
-        // 환율 데이터는 병렬로 함께 요청
         const exchangeRatesPromise = yahooFinance
             .historical('USDKRW=X', { period1: from, period2: to })
             .then((rates) =>
