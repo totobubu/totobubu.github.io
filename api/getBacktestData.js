@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     }
 
     const { symbols, from, to } = req.query;
-    if (!symbols || !from || to) {
+    if (!symbols || !from || !to) {
         return res
             .status(400)
             .json({ error: 'Symbols, from, and to parameters are required' });
