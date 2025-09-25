@@ -71,14 +71,17 @@
 
             const tickerData = await Promise.all(apiPromises);
 
+            // [핵심 수정] 더 이상 환율을 여기서 fetch하지 않습니다.
+            // backtestEngine이 로컬 파일에서 직접 읽습니다.
             const exchangeResponse = await fetch(
                 joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
             );
+
             if (!exchangeResponse.ok)
                 throw new Error('환율 데이터를 불러올 수 없습니다.');
             const exchangeRates = await exchangeResponse.json();
 
-            const apiData = { tickerData, exchangeRates };
+            const apiData = { tickerData, exchangeRates }; // exchangeRates를 함께 전달
 
             let effectiveStartDate = options.startDate
                 .toISOString()
