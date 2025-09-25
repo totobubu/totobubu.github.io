@@ -22,56 +22,74 @@
         adjustedDateMessage.value = '';
 
         try {
-            if (!options.symbols || options.symbols.length === 0) {
-                throw new Error('백테스팅할 종목을 입력해주세요.');
+            if (!options.portfolio || options.portfolio.length === 0) {
+                throw new Error(
+                    '백테스팅할 종목을 입력하고 비중을 설정해주세요.'
+                );
             }
             if (!options.startDate || !options.endDate) {
                 throw new Error('시작일과 종료일을 모두 선택해주세요.');
             }
 
             const symbolsToFetch = [
-                ...options.symbols,
+                ...options.portfolio.map((p) => p.symbol),
                 options.comparisonSymbol,
             ].filter((s) => s && s !== 'None');
-            const fromDateStr = new Date(options.startDate)
+
+            const apiPromises = symbolsToFetch.map((symbol) =>
+                fetch(
+                    joinURL(
+                        import.meta.env.BASE_URL,
+                        `data/${symbol.toLowerCase()}.json`
+                    )
+                )
+                    .then((res) => {
+                        if (!res.ok)
+                            throw new Error(
+                                `[${symbol}] 데이터 파일을 찾을 수 없습니다.`
+                            );
+                        return res.json();
+                    })
+                    .then((data) => {
+                        if (!data.backtestData)
+                            throw new Error(
+                                `[${symbol}] 백테스팅 데이터가 없습니다.`
+                            );
+                        return {
+                            symbol,
+                            ...data.backtestData,
+                        };
+                    })
+                    .catch((error) => ({
+                        symbol,
+                        error: error.message,
+                        prices: [],
+                        dividends: [],
+                        splits: [],
+                    }))
+            );
+
+            const tickerData = await Promise.all(apiPromises);
+
+            const exchangeResponse = await fetch(
+                joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
+            );
+            if (!exchangeResponse.ok)
+                throw new Error('환율 데이터를 불러올 수 없습니다.');
+            const exchangeRates = await exchangeResponse.json();
+
+            const apiData = { tickerData, exchangeRates };
+
+            let effectiveStartDate = options.startDate
                 .toISOString()
                 .split('T')[0];
-            const toDate = new Date(options.endDate);
-            toDate.setDate(toDate.getDate() + 1);
-            const toDateStr = toDate.toISOString().split('T')[0];
-
-            const resultsArray = [];
-            for (const symbol of symbolsToFetch) {
-                const response = await fetch(
-                    `/api/getBacktestData?symbols=${symbol}&from=${fromDateStr}&to=${toDateStr}`
-                );
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    throw new Error(
-                        `[${symbol}] API 요청 실패 (${response.status}): ${errorBody}`
-                    );
-                }
-                resultsArray.push(await response.json());
-            }
-
-            const combinedTickerData = resultsArray.flatMap(
-                (result) => result.tickerData
-            );
-            const exchangeRatesData =
-                resultsArray.find(
-                    (result) =>
-                        result.exchangeRates && result.exchangeRates.length > 0
-                )?.exchangeRates || [];
-            const apiData = {
-                tickerData: combinedTickerData,
-                exchangeRates: exchangeRatesData,
-            };
-
-            let effectiveStartDate = options.startDate;
             const ipoDates = apiData.tickerData
-                .map((d) => d.firstTradeDate)
+                .map((d) =>
+                    d.prices && d.prices.length > 0 ? d.prices[0].date : null
+                )
                 .filter(Boolean)
                 .map((dateStr) => new Date(dateStr));
+
             if (ipoDates.length > 0) {
                 const latestIpoDate = new Date(Math.max.apply(null, ipoDates));
                 const userStartDate = new Date(options.startDate);
