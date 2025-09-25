@@ -1,9 +1,9 @@
 import { runSimulation } from './simulator.js';
 import { aggregateResults } from './aggregator.js';
 import { processSymbolData } from './dataProcessor.js';
+import { calculateCAGR } from './utils.js';
 
 export function runBacktest(options) {
-    console.log('[Engine] Starting `runBacktest`');
     const {
         portfolio,
         comparisonSymbol,
@@ -51,8 +51,6 @@ export function runBacktest(options) {
         ),
     ];
 
-    console.log('[Engine] Processing symbols:', allSymbols);
-
     allSymbols.forEach((symbol) => {
         try {
             const symbolData = apiData.tickerData.find(
@@ -66,13 +64,12 @@ export function runBacktest(options) {
 
             const { priceMap, dividendMap } = processSymbolData(symbolData);
 
-            const dataStartDate =
-                symbolData.prices.length > 0
-                    ? new Date(symbolData.prices[0].date)
-                    : null;
             let effectiveStartDate = new Date(actualStartDateStr);
-            if (dataStartDate && dataStartDate > effectiveStartDate) {
-                effectiveStartDate = dataStartDate;
+            if (symbolData.prices.length > 0) {
+                const dataStartDate = new Date(symbolData.prices[0].date);
+                if (dataStartDate > effectiveStartDate) {
+                    effectiveStartDate = dataStartDate;
+                }
             }
 
             const portfolioItem = portfolio.find(
@@ -103,16 +100,16 @@ export function runBacktest(options) {
                     (365.25 * 24 * 60 * 60 * 1000) || 1;
 
             const endingInvestmentWithReinvest =
-                simulationResult.withReinvest.endingInvestment;
+                simulationResult.endPrice * simulationResult.sharesWithReinvest;
             const totalReturnWithReinvest =
                 investmentPerTicker > 0
                     ? endingInvestmentWithReinvest / investmentPerTicker - 1
                     : 0;
 
             const endingInvestmentWithoutReinvest =
-                simulationResult.withoutReinvest.endingInvestment;
-            const finalCashCollected =
-                simulationResult.withoutReinvest.dividendsCollected;
+                simulationResult.endPrice *
+                simulationResult.sharesWithoutReinvest;
+            const finalCashCollected = simulationResult.finalCashCollected;
             const totalReturnWithoutReinvest =
                 investmentPerTicker > 0
                     ? (endingInvestmentWithoutReinvest + finalCashCollected) /
@@ -124,26 +121,25 @@ export function runBacktest(options) {
                 ...simulationResult,
                 years,
                 withReinvest: {
-                    ...simulationResult.withReinvest,
+                    history: simulationResult.historyWithReinvest,
+                    endingInvestment: endingInvestmentWithReinvest,
                     totalReturn: totalReturnWithReinvest,
                     cagr: calculateCAGR(totalReturnWithReinvest, years),
                 },
                 withoutReinvest: {
-                    ...simulationResult.withoutReinvest,
+                    history: simulationResult.historyWithoutReinvest,
+                    cashHistory: simulationResult.historyCash,
+                    endingInvestment: endingInvestmentWithoutReinvest,
+                    dividendsCollected: finalCashCollected,
                     totalReturn: totalReturnWithoutReinvest,
                     cagr: calculateCAGR(totalReturnWithoutReinvest, years),
                 },
             };
         } catch (error) {
-            console.error(
-                `[Engine] Error during simulation for ${symbol}:`,
-                error.message
-            );
             results[symbol] = { error: error.message };
         }
     });
 
-    console.log('[Engine] All simulations finished, passing to aggregator.');
     return aggregateResults({
         portfolio,
         comparisonSymbol,

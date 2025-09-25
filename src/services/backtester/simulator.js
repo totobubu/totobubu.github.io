@@ -12,9 +12,6 @@ export function runSimulation(options) {
         dividendMap,
         holidays,
     } = options;
-    console.log(
-        `[Simulator] Starting simulation for ${symbol} from ${effectiveStartDateStr}`
-    );
 
     const startPriceData = priceMap.get(effectiveStartDateStr);
     if (!startPriceData || !startPriceData.close) {
@@ -51,6 +48,7 @@ export function runSimulation(options) {
                     perShare: dividendAmount,
                     ticker: symbol,
                 });
+
                 const dividendForReinvest =
                     sharesWithReinvest * dividendAmount * taxRate;
                 const reinvestmentDate = addBusinessDays(
@@ -96,11 +94,10 @@ export function runSimulation(options) {
         historyWithReinvest[historyWithReinvest.length - 1][1] /
         sharesWithReinvest;
 
-    console.log(
-        `[Simulator] Finished simulation for ${symbol}. Generated ${historyWithReinvest.length} records.`
-    );
     return {
         initialShares,
+        sharesWithReinvest,
+        sharesWithoutReinvest,
         historyWithReinvest,
         historyWithoutReinvest,
         historyCash,
