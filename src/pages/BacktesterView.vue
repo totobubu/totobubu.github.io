@@ -22,21 +22,23 @@
         adjustedDateMessage.value = '';
 
         try {
-            if (!options.portfolio || options.portfolio.length === 0) {
-                throw new Error(
-                    '백테스팅할 종목을 입력하고 비중을 설정해주세요.'
-                );
+            const portfolioSymbols = options.portfolio
+                .map((p) => p.symbol)
+                .filter(Boolean);
+            if (portfolioSymbols.length === 0) {
+                throw new Error('백테스팅할 종목을 입력해주세요.');
             }
             if (!options.startDate || !options.endDate) {
                 throw new Error('시작일과 종료일을 모두 선택해주세요.');
             }
 
             const symbolsToFetch = [
-                ...options.portfolio.map((p) => p.symbol),
+                ...portfolioSymbols,
                 options.comparisonSymbol,
             ].filter((s) => s && s !== 'None');
+            const uniqueSymbols = [...new Set(symbolsToFetch)];
 
-            const apiPromises = symbolsToFetch.map((symbol) =>
+            const apiPromises = uniqueSymbols.map((symbol) =>
                 fetch(
                     joinURL(
                         import.meta.env.BASE_URL,
@@ -55,10 +57,7 @@
                             throw new Error(
                                 `[${symbol}] 백테스팅 데이터가 없습니다.`
                             );
-                        return {
-                            symbol,
-                            ...data.backtestData,
-                        };
+                        return { symbol, ...data.backtestData };
                     })
                     .catch((error) => ({
                         symbol,
@@ -71,22 +70,20 @@
 
             const tickerData = await Promise.all(apiPromises);
 
-            // [핵심 수정] 더 이상 환율을 여기서 fetch하지 않습니다.
-            // backtestEngine이 로컬 파일에서 직접 읽습니다.
             const exchangeResponse = await fetch(
                 joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
             );
-
             if (!exchangeResponse.ok)
                 throw new Error('환율 데이터를 불러올 수 없습니다.');
             const exchangeRates = await exchangeResponse.json();
 
-            const apiData = { tickerData, exchangeRates }; // exchangeRates를 함께 전달
+            const apiData = { tickerData, exchangeRates };
 
             let effectiveStartDate = options.startDate
                 .toISOString()
                 .split('T')[0];
             const ipoDates = apiData.tickerData
+                .filter((d) => portfolioSymbols.includes(d.symbol))
                 .map((d) =>
                     d.prices && d.prices.length > 0 ? d.prices[0].date : null
                 )

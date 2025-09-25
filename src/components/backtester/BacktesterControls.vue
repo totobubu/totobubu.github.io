@@ -1,7 +1,7 @@
 <!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
-    import { useExchangeRates } from '@/composables/useExchangeRates'; // [핵심] 신규 컴포저블 import
+    import { useRoute } from 'vue-router';
     import Card from 'primevue/card';
     import MeterGroup from 'primevue/metergroup';
     import InputText from 'primevue/inputtext';
@@ -16,18 +16,21 @@
     import Divider from 'primevue/divider';
     import AutoComplete from 'primevue/autocomplete';
     import { joinURL } from 'ufo';
+    import { useExchangeRates } from '@/composables/useExchangeRates';
 
     defineProps({ isLoading: Boolean });
     const emit = defineEmits(['run']);
 
+    const route = useRoute();
     const allSymbols = ref([]);
     const filteredSymbols = ref([]);
+    const { findRateForDate } = useExchangeRates();
 
     const portfolio = ref([
-        { label: '종목 1', symbol: 'TSLY', value: 25, color: '#34d399' },
-        { label: '종목 2', symbol: 'NVDY', value: 25, color: '#fbbf24' },
-        { label: '종목 3', symbol: 'CONY', value: 25, color: '#60a5fa' },
-        { label: '종목 4', symbol: '', value: 0, color: '#c084fc' },
+        { symbol: '', value: 100, color: '#ef4444' },
+        { symbol: '', value: 0, color: '#f59e0b' },
+        { symbol: '', value: 0, color: '#84cc16' },
+        { symbol: '', value: 0, color: '#3b82f6' },
     ]);
 
     const startDate = ref(
@@ -39,14 +42,25 @@
     const commission = ref(0.1);
     const comparison = ref('SPY');
     const customComparison = ref('');
-    const exchangeRate = ref(1380);
+    const exchangeRate = ref(null);
     const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y']);
+    const applyTax = ref(true);
+    const taxOptions = ref([
+        { label: '세후', value: true },
+        { label: '세전', value: false },
+    ]);
 
     const totalValue = computed(() =>
         portfolio.value.reduce((sum, item) => sum + (item.value || 0), 0)
     );
 
-    const { findRateForDate } = useExchangeRates(); // [핵심] 컴포저블 사용
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
 
     onMounted(async () => {
         try {
@@ -54,6 +68,15 @@
             const navResponse = await fetch(navUrl);
             const navData = await navResponse.json();
             allSymbols.value = navData.nav.map((item) => item.symbol);
+
+            const querySymbol = route.query.symbol?.toUpperCase();
+
+            if (querySymbol && allSymbols.value.includes(querySymbol)) {
+                portfolio.value[0].symbol = querySymbol;
+            } else {
+                const shuffled = shuffleArray([...allSymbols.value]);
+                portfolio.value[0].symbol = shuffled.find((s) => s) || '';
+            }
             await fetchExchangeRateForDate(startDate.value);
         } catch (e) {
             console.error('Error on mount:', e);
@@ -63,7 +86,7 @@
     const searchSymbol = (event) => {
         setTimeout(() => {
             if (!event.query.trim().length) {
-                filteredSymbols.value = [...allSymbols.value];
+                filteredSymbols.value = allSymbols.value.slice(0, 10);
             } else {
                 filteredSymbols.value = allSymbols.value.filter((symbol) => {
                     return symbol
@@ -74,16 +97,15 @@
         }, 250);
     };
 
-    // [핵심 수정] API 호출을 로컬 데이터 조회로 변경
     const fetchExchangeRateForDate = async (date) => {
         const rate = await findRateForDate(date);
         if (rate) {
             exchangeRate.value = rate;
         } else {
             console.warn(
-                `Could not find exchange rate for ${date.toISOString().split('T')[0]}`
+                `Could not find exchange rate for ${date?.toISOString().split('T')[0]}`
             );
-            exchangeRate.value = 1380; // Fallback
+            exchangeRate.value = 1380;
         }
         updateUSD();
     };
@@ -93,7 +115,6 @@
         let newStartDate = new Date();
         const value = parseInt(period);
         const unit = period.slice(-1);
-
         if (unit === 'M') {
             newStartDate.setMonth(newEndDate.getMonth() - value);
         } else if (unit === 'Y') {
@@ -105,7 +126,11 @@
 
     const balanceWeights = () => {
         const activeItems = portfolio.value.filter((p) => p.symbol);
-        if (activeItems.length === 0) return;
+        if (activeItems.length === 0) {
+            portfolio.value.forEach((item) => (item.value = 0));
+            if (portfolio.value.length > 0) portfolio.value[0].value = 100;
+            return;
+        }
         const equalWeight = Math.floor(100 / activeItems.length);
         let remainder = 100 % activeItems.length;
 
@@ -124,15 +149,18 @@
 
     const addItem = (index) => {
         if (!portfolio.value[index].symbol) {
-            portfolio.value[index].symbol = '종목 추가';
-            balanceWeights();
+            const shuffled = shuffleArray([...allSymbols.value]);
+            const existingSymbols = portfolio.value.map((p) => p.symbol);
+            const newSymbol = shuffled.find(
+                (s) => !existingSymbols.includes(s)
+            );
+            portfolio.value[index].symbol = newSymbol || '종목 추가';
         }
     };
 
     const removeItem = (index) => {
         portfolio.value[index].symbol = '';
         portfolio.value[index].value = 0;
-        balanceWeights();
     };
 
     const adjustFirstWeight = () => {
@@ -144,19 +172,28 @@
         }
     };
 
+    watch(() => portfolio.value.slice(1), adjustFirstWeight, { deep: true });
     watch(
-        () => portfolio.value.map((p) => p.value).slice(1),
-        adjustFirstWeight,
+        () => portfolio.value.map((p) => p.symbol),
+        (newSymbols, oldSymbols) => {
+            const newActiveCount = newSymbols.filter((s) => s).length;
+            const oldActiveCount = oldSymbols.filter((s) => s).length;
+            if (newActiveCount !== oldActiveCount) {
+                balanceWeights();
+            }
+        },
         { deep: true }
     );
-    watch(() => portfolio.value.map((p) => p.symbol), balanceWeights);
+
     watch(startDate, (newDate) => fetchExchangeRateForDate(newDate));
 
     const updateKRW = () => {
-        investmentKRW.value = investmentUSD.value * exchangeRate.value;
+        if (document.activeElement?.id === 'investmentUSD')
+            investmentKRW.value = investmentUSD.value * exchangeRate.value;
     };
     const updateUSD = () => {
-        investmentUSD.value = investmentKRW.value / exchangeRate.value;
+        if (document.activeElement?.id !== 'investmentUSD')
+            investmentUSD.value = investmentKRW.value / exchangeRate.value;
     };
 
     const handleRunClick = () => {
@@ -169,7 +206,7 @@
             (sum, item) => sum + item.value,
             0
         );
-        if (totalWeight !== 100) {
+        if (Math.round(totalWeight) !== 100) {
             alert('비중의 총 합계가 100%가 되어야 합니다.');
             return;
         }
@@ -180,6 +217,7 @@
             endDate: endDate.value,
             initialInvestmentKRW: investmentKRW.value,
             commission: commission.value,
+            applyTax: applyTax.value,
             comparisonSymbol:
                 comparison.value === 'Other'
                     ? customComparison.value.toUpperCase()
@@ -217,9 +255,10 @@
                                             v-model="item.symbol"
                                             :suggestions="filteredSymbols"
                                             @complete="searchSymbol"
-                                            :placeholder="item.label"
+                                            :placeholder="`종목 ${index + 1}`"
                                             class="p-inputtext-sm w-full" />
                                         <Button
+                                            v-if="index !== 0"
                                             icon="pi pi-times"
                                             text
                                             rounded
@@ -257,7 +296,11 @@
             class="flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
             <span class="text-surface-500"
                 >총 합계:
-                <span :class="{ 'text-red-500 font-bold': totalValue !== 100 }"
+                <span
+                    :class="{
+                        'text-red-500 font-bold':
+                            Math.round(totalValue) !== 100,
+                    }"
                     >{{ totalValue }}%</span
                 ></span
             >
@@ -274,6 +317,7 @@
             <div class="field col-12">
                 <label>빠른 기간 선택</label>
                 <SelectButton
+                    v-model="startDate"
                     :options="periodOptions"
                     @update:modelValue="updateDates"
                     aria-labelledby="period-selection" />
@@ -300,7 +344,7 @@
                         v-model="investmentKRW"
                         inputId="investmentKRW"
                         mode="decimal"
-                        @update:modelValue="updateUSD" />
+                        @input="updateUSD" />
                     <InputGroupAddon>USD</InputGroupAddon>
                     <InputNumber
                         v-model="investmentUSD"
@@ -308,7 +352,7 @@
                         mode="currency"
                         currency="USD"
                         locale="en-US"
-                        @update:modelValue="updateKRW" />
+                        @input="updateKRW" />
                 </InputGroup>
             </div>
             <div class="field col-12 md:col-6">
@@ -350,17 +394,6 @@
                             >Dow 30 (DIA)</label
                         >
                     </div>
-                    <div class="flex align-items-center">
-                        <RadioButton
-                            v-model="comparison"
-                            inputId="compOther"
-                            name="comparison"
-                            value="Other" /><InputText
-                            v-model="customComparison"
-                            class="ml-2 p-inputtext-sm"
-                            style="width: 80px"
-                            :disabled="comparison !== 'Other'" />
-                    </div>
                 </div>
             </div>
             <div class="field col-6 md:col-3">
@@ -371,7 +404,15 @@
                     :minFractionDigits="2"
                     suffix=" %" />
             </div>
-            <div class="field col-6 md:col-3 flex align-items-end">
+            <div class="field col-6 md:col-3">
+                <label>세금</label>
+                <SelectButton
+                    v-model="applyTax"
+                    :options="taxOptions"
+                    optionLabel="label"
+                    optionValue="value" />
+            </div>
+            <div class="field col-12 md:col-3 flex align-items-end">
                 <Button
                     label="백테스팅 실행"
                     icon="pi pi-chart-line"
