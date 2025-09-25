@@ -15,7 +15,9 @@
 
     const holidays = ref([]);
     // useCalendarData에서 필요한 것만 가져옵니다.
-    const { dividendsByDate, isLoading, error } = useCalendarData();
+    // 1. useCalendarData에서 loadAllData 함수를 가져옵니다.
+    const { dividendsByDate, isLoading, error, ensureDataLoaded } =
+        useCalendarData();
 
     const router = useRouter();
     const goToTickerPage = (tickerSymbol) => {
@@ -25,6 +27,10 @@
     };
 
     onMounted(async () => {
+        // 2. 이 페이지가 마운트될 때 달력 데이터를 로드합니다.
+        ensureDataLoaded();
+
+        // 기존에 있던 휴일 데이터 로드 로직
         const holidayResponse = await fetch('/holidays.json');
         holidays.value = await holidayResponse.json();
     });
