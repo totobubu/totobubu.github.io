@@ -3,6 +3,7 @@
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router';
     import Button from 'primevue/button'; // PrimeVue Button import
+    import { user } from '../store/auth';
 
     const router = useRouter();
 
@@ -32,19 +33,28 @@
             rounded
             size="large"
             @click="router.push('/calendar')" />
-        <Button
+        <!--<Button
             label="백테스터"
             icon="pi pi-history"
             severity="secondary"
             rounded
             size="large"
-            @click="router.push('/backtester')" />
+            @click="router.push('/backtester')" />-->
         <Button
+            v-if="!user"
             label="로그인"
             icon="pi pi-user"
             severity="secondary"
             rounded
             size="large"
             @click="router.push('/login')" />
+        <Button
+            v-else
+            label="마이페이지"
+            icon="pi pi-user"
+            severity="secondary"
+            rounded
+            size="large"
+            @click="router.push('/mypage')" />
     </article>
 </template>

@@ -9,6 +9,7 @@ const formatDate = (timestamp) =>
     new Date(timestamp * 1000).toISOString().split('T')[0];
 
 export default async function handler(req, res) {
+    // [핵심 수정] 하이픈 오타를 수정합니다.
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -102,6 +103,7 @@ export default async function handler(req, res) {
             )
             .then(({ data }) => {
                 const result = data.chart.result[0];
+                if (!result || !result.timestamp) return [];
                 return result.timestamp
                     .map((ts, i) => ({
                         date: formatDate(ts),

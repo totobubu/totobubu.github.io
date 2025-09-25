@@ -15,7 +15,7 @@ function addBusinessDays(startDate, daysToAdd, holidays = []) {
 
 export function runBacktest(options) {
     const {
-        symbols,
+        portfolio,
         comparisonSymbol,
         startDate: initialStartDate,
         endDate,
@@ -28,8 +28,8 @@ export function runBacktest(options) {
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
     let currentDateForStartRate = new Date(initialStartDate);
-    let startRate = null,
-        actualStartDateStr = '';
+    let startRate = null;
+    let actualStartDateStr = '';
 
     for (let i = 0; i < 7; i++) {
         const dateStr = currentDateForStartRate.toISOString().split('T')[0];
@@ -46,12 +46,12 @@ export function runBacktest(options) {
         );
 
     const initialInvestmentUSD = initialInvestmentKRW / startRate;
-    const investmentPerTicker = initialInvestmentUSD / (symbols.length || 1);
     const commissionRate = commission / 100;
     const results = {};
-    const allSymbols = [...symbols, comparisonSymbol].filter(
-        (s) => s && s !== 'None'
-    );
+    const allSymbols = [
+        ...portfolio.map((p) => p.symbol),
+        comparisonSymbol,
+    ].filter((s) => s && s !== 'None');
 
     allSymbols.forEach((symbol) => {
         const symbolData = apiData.tickerData.find((d) => d.symbol === symbol);
@@ -66,6 +66,13 @@ export function runBacktest(options) {
             };
             return;
         }
+
+        const portfolioItem = portfolio.find((p) => p.symbol === symbol);
+        const weight = portfolioItem ? portfolioItem.value / 100 : 1.0;
+        const investmentPerTicker =
+            symbol === comparisonSymbol
+                ? initialInvestmentUSD
+                : initialInvestmentUSD * weight;
 
         let prices = symbolData.prices.map((p) => ({ ...p }));
         let dividends = symbolData.dividends.map((d) => ({ ...d }));
@@ -109,6 +116,7 @@ export function runBacktest(options) {
         let sharesWithReinvest =
             (investmentPerTicker * (1 - commissionRate)) / startPrice;
         let sharesWithoutReinvest = sharesWithReinvest;
+
         let currentDate = new Date(actualStartDateStr);
         const finalDate = new Date(endDate);
         const historyWithReinvest = [],
@@ -175,21 +183,27 @@ export function runBacktest(options) {
         });
 
         const endPrice =
-            historyWithReinvest[historyWithReinvest.length - 1][1] /
-            sharesWithReinvest;
+            historyWithReinvest.length > 0
+                ? historyWithReinvest[historyWithReinvest.length - 1][1] /
+                  sharesWithReinvest
+                : 0;
         const years =
             (finalDate - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
-            endingInvestmentWithReinvest / investmentPerTicker - 1;
+            investmentPerTicker > 0
+                ? endingInvestmentWithReinvest / investmentPerTicker - 1
+                : 0;
         const endingInvestmentWithoutReinvest =
             sharesWithoutReinvest * endPrice;
         const finalCashCollected = cashCollected;
         const totalReturnWithoutReinvest =
-            (endingInvestmentWithoutReinvest + finalCashCollected) /
-                investmentPerTicker -
-            1;
+            investmentPerTicker > 0
+                ? (endingInvestmentWithoutReinvest + finalCashCollected) /
+                      investmentPerTicker -
+                  1
+                : 0;
 
         results[symbol] = {
             withReinvest: {
@@ -209,10 +223,13 @@ export function runBacktest(options) {
         };
     });
 
-    const validSymbols = symbols.filter((s) => results[s] && !results[s].error);
+    const validSymbols = portfolio
+        .map((p) => p.symbol)
+        .filter((s) => results[s] && !results[s].error);
     if (validSymbols.length === 0) {
         throw new Error(
-            results[symbols[0]]?.error || '모든 종목의 백테스팅에 실패했습니다.'
+            results[portfolio[0].symbol]?.error ||
+                '모든 포트폴리오 종목의 백테스팅에 실패했습니다.'
         );
     }
 
@@ -278,38 +295,18 @@ export function runBacktest(options) {
         results[comparisonSymbol] &&
         !results[comparisonSymbol].error
     ) {
-        const compInvestment = initialInvestmentUSD;
         const compResult = results[comparisonSymbol];
-
-        const compHistoryWithReinvest = compResult.withReinvest.history.map(
-            ([date, value]) => [
-                date,
-                (value / investmentPerTicker) * compInvestment,
-            ]
-        );
         finalResult.withReinvest.series.push({
             name: comparisonSymbol,
-            data: compHistoryWithReinvest,
+            data: compResult.withReinvest.history,
         });
-
-        const compHistoryWithoutReinvest =
-            compResult.withoutReinvest.history.map(([date, value]) => [
-                date,
-                (value / investmentPerTicker) * compInvestment,
-            ]);
-        const compCashHistory = compResult.withoutReinvest.cashHistory.map(
-            ([date, value]) => [
-                date,
-                (value / investmentPerTicker) * compInvestment,
-            ]
-        );
         finalResult.withoutReinvest.series.push({
             name: `${comparisonSymbol} (주가)`,
-            data: compHistoryWithoutReinvest,
+            data: compResult.withoutReinvest.history,
         });
         finalResult.withoutReinvest.series.push({
             name: `${comparisonSymbol} (현금 배당)`,
-            data: compCashHistory,
+            data: compResult.withoutReinvest.cashHistory,
         });
     }
 
@@ -358,7 +355,7 @@ export function runBacktest(options) {
     finalResult.cashDividends = validSymbols.flatMap(
         (s) => results[s].dividendPayouts
     );
-    finalResult.symbols = symbols;
+    finalResult.symbols = portfolio.map((p) => p.symbol);
     finalResult.comparisonSymbol = comparisonSymbol;
 
     return finalResult;
