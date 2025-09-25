@@ -1,10 +1,7 @@
-// src/services/backtestEngine.js
-
 function addBusinessDays(startDate, daysToAdd, holidays = []) {
     let currentDate = new Date(startDate);
     let addedDays = 0;
     const holidaySet = new Set(holidays.map((h) => h.date));
-
     while (addedDays < daysToAdd) {
         currentDate.setDate(currentDate.getDate() + 1);
         const dayOfWeek = currentDate.getDay();
@@ -20,7 +17,7 @@ export function runBacktest(options) {
     const {
         symbols,
         comparisonSymbol,
-        startDate,
+        startDate: initialStartDate,
         endDate,
         initialInvestmentKRW,
         commission,
@@ -28,20 +25,38 @@ export function runBacktest(options) {
         holidays,
     } = options;
 
-    console.log('Backtest Engine Start: ', { symbols, startDate, endDate });
+    console.log('Backtest Engine Start: ', {
+        symbols,
+        startDate: initialStartDate,
+        endDate,
+    });
 
-    // --- 1. 초기 설정 ---
     const exchangeRateMap = new Map(
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
-    const startRate = exchangeRateMap.get(startDate);
-    if (!startRate)
-        throw new Error(`시작일(${startDate})의 환율 정보를 찾을 수 없습니다.`);
+    let currentDateForStartRate = new Date(initialStartDate);
+    let startRate = null;
+    let actualStartDateStr = '';
+
+    for (let i = 0; i < 7; i++) {
+        const dateStr = currentDateForStartRate.toISOString().split('T')[0];
+        if (exchangeRateMap.has(dateStr)) {
+            startRate = exchangeRateMap.get(dateStr);
+            actualStartDateStr = dateStr;
+            break;
+        }
+        currentDateForStartRate.setDate(currentDateForStartRate.getDate() + 1);
+    }
+
+    if (!startRate) {
+        throw new Error(
+            `시작일(${initialStartDate}) 근처의 환율 정보를 찾을 수 없습니다.`
+        );
+    }
 
     const initialInvestmentUSD = initialInvestmentKRW / startRate;
     const investmentPerTicker = initialInvestmentUSD / symbols.length;
     const commissionRate = commission / 100;
-
     const results = {};
     const allSymbols = [...symbols, comparisonSymbol].filter(
         (s) => s && s !== 'None'
@@ -51,11 +66,9 @@ export function runBacktest(options) {
         '[Engine] Step 1: Initial setup complete. Starting individual backtests...'
     );
 
-    // --- 2. 각 종목별 개별 백테스팅 실행 ---
     allSymbols.forEach((symbol) => {
         console.log(`[Engine] Processing symbol: ${symbol}`);
         const symbolData = apiData.tickerData.find((d) => d.symbol === symbol);
-        // [수정] symbolData 자체 또는 prices가 없는 경우를 먼저 체크
         if (
             !symbolData ||
             symbolData.error ||
@@ -92,44 +105,29 @@ export function runBacktest(options) {
         const priceMap = new Map(prices.map((p) => [p.date, p]));
         const dividendMap = new Map(dividends.map((d) => [d.date, d.amount]));
 
-        // [수정] 시작일의 주가 데이터를 더 안전하게 찾음
-        let currentDateForStart = new Date(startDate);
-        let startPriceData = null;
-        for (let i = 0; i < 7; i++) {
-            // 최대 7일간 탐색
-            const dateStr = currentDateForStart.toISOString().split('T')[0];
-            if (priceMap.has(dateStr)) {
-                startPriceData = priceMap.get(dateStr);
-                break;
-            }
-            currentDateForStart.setDate(currentDateForStart.getDate() + 1);
-        }
-
+        const startPriceData = priceMap.get(actualStartDateStr);
         if (!startPriceData || !startPriceData.close) {
             results[symbol] = {
-                error: `[${symbol}] 시작일(${startDate}) 근처의 주가 정보가 없습니다. 다른 날짜를 선택해주세요.`,
+                error: `[${symbol}] 시작일(${actualStartDateStr})의 주가 정보가 없습니다.`,
             };
             console.error(results[symbol].error);
             return;
         }
-        const actualStartDate = currentDateForStart;
-        const startPrice = startPriceData.close;
 
+        const startPrice = startPriceData.close;
         let sharesWithReinvest =
             (investmentPerTicker * (1 - commissionRate)) / startPrice;
         let sharesWithoutReinvest = sharesWithReinvest;
         let cashCollected = 0;
-
-        // [중요] 일일 루프의 시작점을 실제 데이터가 있는 날짜로 변경
-        let currentDate = actualStartDate;
+        let currentDate = new Date(actualStartDateStr);
         const finalDate = new Date(endDate);
         const historyWithReinvest = [];
         const historyWithoutReinvest = [];
         const dividendPayouts = [];
+
         while (currentDate <= finalDate) {
             const dateStr = currentDate.toISOString().split('T')[0];
             const currentPriceData = priceMap.get(dateStr);
-
             if (currentPriceData) {
                 const currentClose = currentPriceData.close;
                 historyWithReinvest.push([
@@ -140,12 +138,10 @@ export function runBacktest(options) {
                     dateStr,
                     sharesWithoutReinvest * currentClose,
                 ]);
-
                 if (dividendMap.has(dateStr)) {
                     const dividendAmount = dividendMap.get(dateStr);
                     const totalDividend = sharesWithReinvest * dividendAmount;
                     const afterTaxDividend = totalDividend * 0.85;
-
                     cashCollected +=
                         sharesWithoutReinvest * dividendAmount * 0.85;
                     dividendPayouts.push({
@@ -153,7 +149,6 @@ export function runBacktest(options) {
                         amount: sharesWithoutReinvest * dividendAmount * 0.85,
                         ticker: symbol,
                     });
-
                     const reinvestmentDate = addBusinessDays(
                         currentDate,
                         2,
@@ -164,7 +159,6 @@ export function runBacktest(options) {
                         .split('T')[0];
                     const reinvestmentPriceData =
                         priceMap.get(reinvestmentDateStr);
-
                     if (
                         reinvestmentPriceData &&
                         reinvestmentPriceData.open > 0
@@ -190,12 +184,11 @@ export function runBacktest(options) {
             historyWithReinvest[historyWithReinvest.length - 1][1] /
             sharesWithReinvest;
         const years =
-            (finalDate - new Date(startDate)) / (365.25 * 24 * 60 * 60 * 1000);
-
+            (finalDate - new Date(initialStartDate)) /
+            (365.25 * 24 * 60 * 60 * 1000);
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             endingInvestmentWithReinvest / investmentPerTicker - 1;
-
         const endingInvestmentWithoutReinvest =
             sharesWithoutReinvest * endPrice;
         const totalReturnWithoutReinvest =
@@ -225,14 +218,11 @@ export function runBacktest(options) {
         results
     );
 
-    // --- 3. 포트폴리오 결과 종합 ---
     const validSymbols = symbols.filter((s) => results[s] && !results[s].error);
     if (validSymbols.length === 0) {
-        // [핵심 수정] firstError 변수를 여기서 정의합니다.
         const firstError =
             results[symbols[0]]?.error ||
             '모든 종목의 백테스팅에 실패했습니다.';
-
         console.error(
             '[Engine] All symbols failed. Throwing error:',
             firstError
@@ -249,7 +239,6 @@ export function runBacktest(options) {
         cashDividends: [],
     };
 
-    // 포트폴리오 전체 가치 계산
     const baseHistory = results[validBaseSymbol].withReinvest.history;
     const portfolioHistoryWithReinvest = baseHistory.map(([date]) => {
         const totalValue = validSymbols.reduce((sum, symbol) => {
@@ -280,14 +269,13 @@ export function runBacktest(options) {
         data: portfolioHistoryWithoutReinvest,
     });
 
-    // 비교 대상 차트 데이터 추가
     if (
         comparisonSymbol &&
         comparisonSymbol !== 'None' &&
         results[comparisonSymbol] &&
         !results[comparisonSymbol].error
     ) {
-        const comparisonInvestment = initialInvestmentUSD; // 비교 대상은 전체 투자금으로 시작
+        const comparisonInvestment = initialInvestmentUSD;
         const comparisonHistoryWithReinvest = results[
             comparisonSymbol
         ].withReinvest.history.map(([date, value]) => [
@@ -298,7 +286,6 @@ export function runBacktest(options) {
             name: comparisonSymbol,
             data: comparisonHistoryWithReinvest,
         });
-
         const comparisonHistoryWithoutReinvest = results[
             comparisonSymbol
         ].withoutReinvest.history.map(([date, value]) => [
@@ -311,7 +298,6 @@ export function runBacktest(options) {
         });
     }
 
-    // 최종 요약 정보 계산
     const totalEndingWithReinvest =
         portfolioHistoryWithReinvest[
             portfolioHistoryWithReinvest.length - 1
