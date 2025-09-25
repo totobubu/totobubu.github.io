@@ -15,8 +15,6 @@
     const backtestResult = ref(null);
     const isLoading = ref(false);
     const adjustedDateMessage = ref('');
-    // [추가] 딜레이를 위한 헬퍼 함수
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const handleRun = async (options) => {
         isLoading.value = true;
@@ -43,25 +41,17 @@
             const toDateStr = toDate.toISOString().split('T')[0];
 
             const resultsArray = [];
-
-            // [핵심 수정] Promise.all 대신 for...of 루프를 사용하여 순차적으로 호출합니다.
             for (const symbol of symbolsToFetch) {
-                console.log(`Fetching data for ${symbol}...`);
                 const response = await fetch(
                     `/api/getBacktestData?symbols=${symbol}&from=${fromDateStr}&to=${toDateStr}`
                 );
-
                 if (!response.ok) {
                     const errorBody = await response.text();
                     throw new Error(
                         `[${symbol}] API 요청 실패 (${response.status}): ${errorBody}`
                     );
                 }
-
                 resultsArray.push(await response.json());
-
-                // [핵심 수정] 각 API 호출 후 200ms (0.2초)의 딜레이를 줍니다.
-                await delay(200);
             }
 
             const combinedTickerData = resultsArray.flatMap(
@@ -72,24 +62,19 @@
                     (result) =>
                         result.exchangeRates && result.exchangeRates.length > 0
                 )?.exchangeRates || [];
-
             const apiData = {
                 tickerData: combinedTickerData,
                 exchangeRates: exchangeRatesData,
             };
-
-            console.log('--- API Response Data (Combined) ---', apiData);
 
             let effectiveStartDate = options.startDate;
             const ipoDates = apiData.tickerData
                 .map((d) => d.firstTradeDate)
                 .filter(Boolean)
                 .map((dateStr) => new Date(dateStr));
-
             if (ipoDates.length > 0) {
                 const latestIpoDate = new Date(Math.max.apply(null, ipoDates));
                 const userStartDate = new Date(options.startDate);
-
                 if (userStartDate < latestIpoDate) {
                     effectiveStartDate = latestIpoDate
                         .toISOString()
@@ -110,10 +95,9 @@
                 holidays,
             });
 
-            console.log('--- Final Result from Backtest Engine ---', result);
             backtestResult.value = result;
         } catch (error) {
-            console.error('⛔️ Backtest Run Failed:', error);
+            console.error('Backtest Run Failed:', error);
             toast.add({
                 severity: 'error',
                 summary: '백테스팅 오류',
@@ -123,9 +107,6 @@
             backtestResult.value = { error: error.message };
         } finally {
             isLoading.value = false;
-            console.log(
-                '--- Backtest process finished (isLoading set to false) ---'
-            );
         }
     };
 </script>

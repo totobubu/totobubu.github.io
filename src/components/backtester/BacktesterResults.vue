@@ -1,4 +1,3 @@
-<!-- src/components/backtester/BacktesterResults.vue -->
 <script setup>
     import { ref, computed } from 'vue';
     import { use } from 'echarts/core';
@@ -51,18 +50,14 @@
                 formatter: (params) => {
                     if (!params || params.length === 0) return '';
                     let tooltipHtml = `${params[0].axisValueLabel}<br/>`;
-
-                    // [핵심 수정] SPY 시리즈가 있는지 먼저 확인
                     const spyIndex = params.findIndex((p) =>
                         p.seriesName.includes('SPY')
                     );
 
                     params.forEach((param, index) => {
-                        // SPY 시리즈 바로 위에 구분선을 추가
                         if (spyIndex !== -1 && index === spyIndex) {
                             tooltipHtml += `<hr class="my-1 border-surface-700"/>`;
                         }
-
                         let marker = param.marker;
                         if (
                             param.seriesType === 'line' &&
@@ -73,7 +68,6 @@
                         }
                         tooltipHtml += `${marker} ${param.seriesName}: <strong>${formatCurrency(param.value[1])}</strong><br/>`;
                     });
-
                     return tooltipHtml;
                 },
             },
@@ -113,7 +107,6 @@
 
     const combinedChartOption = computed(() => {
         if (!props.result) return {};
-
         const seriesData = [];
         const legendData = [];
 
@@ -173,10 +166,10 @@
                 data: portfolioDrip.data,
                 z: 10,
                 markPoint: {
-                    symbol: 'circle', // 원형 심볼
-                    symbolSize: 40, // 심볼 크기
-                    itemStyle: { color: '#f59e0b' }, // 주황색 (눈에 띄는 색)
-                    label: { fontSize: 14, fontWeight: 'bold', color: '#000' }, // 검은색 텍스트
+                    symbol: 'circle',
+                    symbolSize: 40,
+                    itemStyle: { color: '#f59e0b' },
+                    label: { fontSize: 14, fontWeight: 'bold', color: '#000' },
                     data: [
                         {
                             type: 'max',
@@ -208,7 +201,7 @@
                 markPoint: {
                     symbol: 'circle',
                     symbolSize: 40,
-                    itemStyle: { color: '#fef08a' }, // 연한 노란색
+                    itemStyle: { color: '#fef08a' },
                     label: { fontSize: 14, fontWeight: 'bold', color: '#000' },
                     data: [
                         {
@@ -268,8 +261,6 @@
                     autoresize
                     style="height: 500px" />
             </div>
-
-            <!-- [핵심 수정] 요약 정보를 테이블로 변경 -->
             <div class="col-12">
                 <DataTable :value="[{}]" class="p-datatable-sm mt-4">
                     <Column header="항목">
@@ -282,7 +273,7 @@
                             <div class="font-bold">기간</div>
                         </template>
                     </Column>
-                    <Column header="배당 재투자 O (DRIP)">
+                    <Column header="배당 재투자 O (DRIP)" class="text-right">
                         <template #body>
                             <div>
                                 {{ formatCurrency(result.initialInvestment) }}
@@ -313,7 +304,7 @@
                             <div>{{ result.years.toFixed(2) }} 년</div>
                         </template>
                     </Column>
-                    <Column header="배당 재투자 X">
+                    <Column header="배당 재투자 X" class="text-right">
                         <template #body>
                             <div>
                                 {{ formatCurrency(result.initialInvestment) }}
@@ -354,7 +345,6 @@
                     </Column>
                 </DataTable>
             </div>
-
             <div
                 v-if="result.cashDividends && result.cashDividends.length > 0"
                 class="col-12 mt-4">
@@ -363,8 +353,16 @@
                     :value="result.cashDividends"
                     paginator
                     :rows="5"
-                    class="p-datatable-sm">
-                    <!-- ... DataTable 컬럼은 동일 ... -->
+                    class="p-datatable-sm"
+                    sortField="date"
+                    :sortOrder="-1">
+                    <Column field="date" header="지급일" sortable></Column>
+                    <Column field="ticker" header="종목" sortable></Column>
+                    <Column field="amount" header="세후 배당금 (USD)" sortable>
+                        <template #body="slotProps">{{
+                            formatCurrency(slotProps.data.amount)
+                        }}</template>
+                    </Column>
                 </DataTable>
             </div>
         </div>
