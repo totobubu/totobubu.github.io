@@ -1,0 +1,97 @@
+<script setup>
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+
+    const props = defineProps({ result: Object });
+    const formatCurrency = (val) =>
+        new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(val || 0);
+    const formatPercent = (val) => `${((val || 0) * 100).toFixed(2)}%`;
+
+    const resultTableData = computed(() => {
+        if (!props.result) return [];
+        const r = props.result;
+        const rows = [
+            {
+                label: '초기 투자금',
+                drip: r.initialInvestment,
+                noDrip: r.initialInvestment,
+                comp: r.initialInvestment,
+            },
+            {
+                label: '최종 평가액',
+                drip: r.withReinvest.summary.endingInvestment,
+                noDrip: r.withoutReinvest.summary.endingInvestment,
+                comp: r.comparisonResult?.withReinvest.endingInvestment,
+            },
+            {
+                label: '누적 현금 배당금',
+                drip: '-',
+                noDrip: r.withoutReinvest.summary.dividendsCollected,
+                comp: r.comparisonResult?.withoutReinvest.dividendsCollected,
+            },
+            {
+                label: '총 수익률',
+                drip: r.withReinvest.summary.totalReturn,
+                noDrip: r.withoutReinvest.summary.totalReturn,
+                comp: r.comparisonResult?.withReinvest.totalReturn,
+            },
+            {
+                label: '연평균 수익률 (CAGR)',
+                drip: r.withReinvest.summary.cagr,
+                noDrip: r.withoutReinvest.summary.cagr,
+                comp: r.comparisonResult?.withReinvest.cagr,
+            },
+            {
+                label: '기간',
+                drip: `${r.years.toFixed(2)} 년`,
+                noDrip: `${r.years.toFixed(2)} 년`,
+                comp: `${r.years.toFixed(2)} 년`,
+            },
+        ];
+        return rows;
+    });
+</script>
+<template>
+    <DataTable :value="resultTableData" class="p-datatable-sm mt-4">
+        <Column field="label" header="항목" />
+        <Column header="배당 재투자 O (DRIP)" class="text-right">
+            <template #body="{ data }">
+                <span v-if="typeof data.drip === 'number'">{{
+                    ['총 수익률', '연평균 수익률 (CAGR)'].includes(data.label)
+                        ? formatPercent(data.drip)
+                        : formatCurrency(data.drip)
+                }}</span>
+                <span v-else>{{ data.drip }}</span>
+            </template>
+        </Column>
+        <Column header="배당 재투자 X" class="text-right">
+            <template #body="{ data }">
+                <span v-if="typeof data.noDrip === 'number'">{{
+                    ['총 수익률', '연평균 수익률 (CAGR)'].includes(data.label)
+                        ? formatPercent(data.noDrip)
+                        : formatCurrency(data.noDrip)
+                }}</span>
+                <span v-else>{{ data.noDrip }}</span>
+            </template>
+        </Column>
+        <Column
+            v-if="result.comparisonResult"
+            :header="result.comparisonSymbol"
+            class="text-right">
+            <template #body="{ data }">
+                <span v-if="data.comp === undefined || data.comp === null"
+                    >-</span
+                >
+                <span v-else-if="typeof data.comp === 'number'">{{
+                    ['총 수익률', '연평균 수익률 (CAGR)'].includes(data.label)
+                        ? formatPercent(data.comp)
+                        : formatCurrency(data.comp)
+                }}</span>
+                <span v-else>{{ data.comp }}</span>
+            </template>
+        </Column>
+    </DataTable>
+</template>

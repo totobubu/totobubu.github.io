@@ -15,6 +15,8 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Button from 'primevue/button';
+    import BacktesterSummaryTable from './BacktesterSummaryTable.vue';
+    import BacktesterResultDetails from './BacktesterResultDetails.vue';
 
     use([
         CanvasRenderer,
@@ -27,7 +29,10 @@
         MarkPointComponent,
     ]);
 
-    const props = defineProps({ result: Object, isLoading: Boolean });
+    const props = defineProps({
+        result: Object,
+        isLoading: Boolean,
+    });
 
     const chartInstance = ref(null);
 
@@ -51,9 +56,10 @@
                     if (!params || params.length === 0) return '';
                     let tooltipHtml = `${params[0].axisValueLabel}<br/>`;
                     const spyIndex = params.findIndex(
-                        (p) => p.seriesName && p.seriesName.includes('SPY')
+                        (p) =>
+                            p.seriesName &&
+                            p.seriesName.includes(props.result.comparisonSymbol)
                     );
-
                     params.forEach((param, index) => {
                         if (spyIndex !== -1 && index === spyIndex) {
                             tooltipHtml += `<hr class="my-1 border-surface-700"/>`;
@@ -218,7 +224,6 @@
                 },
             });
         }
-
         return createChartOption(chartTitle.value, seriesData, legendData);
     });
 
@@ -235,70 +240,16 @@
         link.download = 'backtest-result.png';
         link.click();
     };
-
-    const resultTableData = computed(() => {
-        if (!props.result) return [];
-        const r = props.result;
-        const rows = [
-            {
-                label: '초기 투자금',
-                drip: r.initialInvestment,
-                noDrip: r.initialInvestment,
-                comp: r.initialInvestment,
-            },
-            {
-                label: '최종 평가액',
-                drip: r.withReinvest.summary.endingInvestment,
-                noDrip: r.withoutReinvest.summary.endingInvestment,
-                comp: r.comparisonResult?.withReinvest.endingInvestment,
-            },
-            {
-                label: '누적 현금 배당금',
-                drip: '-',
-                noDrip: r.withoutReinvest.summary.dividendsCollected,
-                comp: r.comparisonResult?.withoutReinvest.dividendsCollected,
-            },
-            {
-                label: '총 수익률',
-                drip: r.withReinvest.summary.totalReturn,
-                noDrip: r.withoutReinvest.summary.totalReturn,
-                comp: r.comparisonResult?.withReinvest.totalReturn,
-            },
-            {
-                label: '연평균 수익률 (CAGR)',
-                drip: r.withReinvest.summary.cagr,
-                noDrip: r.withoutReinvest.summary.cagr,
-                comp: r.comparisonResult?.withReinvest.cagr,
-            },
-            {
-                label: '기간',
-                drip: `${r.years.toFixed(2)} 년`,
-                noDrip: `${r.years.toFixed(2)} 년`,
-                comp: `${r.years.toFixed(2)} 년`,
-            },
-        ];
-        return rows;
-    });
-
-    const individualResultsArray = computed(() => {
-        if (!props.result || !props.result.individualResults) return [];
-        return Object.entries(props.result.individualResults);
-    });
 </script>
 
 <template>
-    <div
-        v-if="isLoading"
-        class="flex justify-content-center align-items-center"
-        style="height: 400px">
-        <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
-    </div>
+    <div v-if="isLoading"></div>
     <div
         v-else-if="result && !result.error"
         class="mt-4 surface-card p-4 border-round">
         <div class="grid">
             <div class="col-12">
-                <div class="flex justify-content-end align-items-center mb-2">
+                <div class="flex justify-content-end">
                     <Button
                         icon="pi pi-download"
                         text
@@ -311,99 +262,16 @@
                     autoresize
                     style="height: 500px" />
             </div>
-
             <div class="col-12">
-                <DataTable :value="resultTableData" class="p-datatable-sm mt-4">
-                    <Column field="label" header="항목" />
-                    <Column header="배당 재투자 O (DRIP)" class="text-right">
-                        <template #body="{ data }">
-                            <span v-if="typeof data.drip === 'number'">{{
-                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                                    data.label
-                                )
-                                    ? formatPercent(data.drip)
-                                    : formatCurrency(data.drip)
-                            }}</span>
-                            <span v-else>{{ data.drip }}</span>
-                        </template>
-                    </Column>
-                    <Column header="배당 재투자 X" class="text-right">
-                        <template #body="{ data }">
-                            <span v-if="typeof data.noDrip === 'number'">{{
-                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                                    data.label
-                                )
-                                    ? formatPercent(data.noDrip)
-                                    : formatCurrency(data.noDrip)
-                            }}</span>
-                            <span v-else>{{ data.noDrip }}</span>
-                        </template>
-                    </Column>
-                    <Column
-                        v-if="result.comparisonResult"
-                        :header="result.comparisonSymbol"
-                        class="text-right">
-                        <template #body="{ data }">
-                            <span
-                                v-if="
-                                    data.comp === undefined ||
-                                    data.comp === null
-                                "
-                                >-</span
-                            >
-                            <span v-else-if="typeof data.comp === 'number'">{{
-                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                                    data.label
-                                )
-                                    ? formatPercent(data.comp)
-                                    : formatCurrency(data.comp)
-                            }}</span>
-                            <span v-else>{{ data.comp }}</span>
-                        </template>
-                    </Column>
-                </DataTable>
+                <BacktesterSummaryTable :result="result" />
             </div>
-
-            <div v-if="individualResultsArray.length > 0" class="col-12 mt-4">
-                <h4>종목별 초기 매수 수량</h4>
-                <DataTable
-                    :value="individualResultsArray"
-                    class="p-datatable-sm">
-                    <Column field="[0]" header="종목"></Column>
-                    <Column field="[1].initialShares" header="초기 수량 (주)">
-                        <template #body="slotProps">{{
-                            (slotProps.data[1].initialShares || 0).toFixed(4)
-                        }}</template>
-                    </Column>
-                </DataTable>
-            </div>
-
-            <div
-                v-if="result.cashDividends && result.cashDividends.length > 0"
-                class="col-12 mt-4">
-                <h4>배당금 수령 내역 (재투자 X 기준)</h4>
-                <DataTable
-                    :value="result.cashDividends"
-                    paginator
-                    :rows="5"
-                    class="p-datatable-sm"
-                    sortField="date"
-                    :sortOrder="-1">
-                    <Column field="date" header="지급일" sortable></Column>
-                    <Column field="ticker" header="종목" sortable></Column>
-                    <Column field="amount" header="세후 배당금 (USD)" sortable>
-                        <template #body="slotProps">{{
-                            formatCurrency(slotProps.data.amount)
-                        }}</template>
-                    </Column>
-                </DataTable>
+            <div class="col-12">
+                <BacktesterResultDetails :result="result" />
             </div>
         </div>
     </div>
     <div v-else-if="result && result.error" class="mt-4 text-center">
         <p class="text-red-500">{{ result.error }}</p>
     </div>
-    <div v-else class="mt-4 text-center text-surface-500">
-        <p>종목과 기간을 설정하고 백테스팅을 실행해주세요.</p>
-    </div>
+    <div v-else></div>
 </template>
