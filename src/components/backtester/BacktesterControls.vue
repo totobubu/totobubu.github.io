@@ -10,7 +10,7 @@
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import Divider from 'primevue/divider';
-    import InputText from 'primevue/inputtext';
+    import InputText from 'primevue/inputtext'; // InputText import
     import { joinURL } from 'ufo';
     import { useExchangeRates } from '@/composables/useExchangeRates';
     import PortfolioInput from './controls/PortfolioInput.vue';
@@ -335,6 +335,20 @@
                             value="DIA" /><label for="compDIA" class="ml-2"
                             >Dow 30 (DIA)</label
                         >
+                    </div>
+                    <!-- [핵심] 누락되었던 UI 복원 -->
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compOther"
+                            name="comparison"
+                            value="Other" />
+                        <InputText
+                            v-model="customComparison"
+                            class="ml-2 p-inputtext-sm"
+                            style="width: 80px"
+                            :disabled="comparison !== 'Other'"
+                            placeholder="직접 입력" />
                     </div>
                 </div>
             </div>
