@@ -1,5 +1,5 @@
-function addBusinessDays(startDate, daysToAdd, holidays = []) {
-    let currentDate = new Date(startDate);
+function addBusinessDays(utcDate, daysToAdd, holidays = []) {
+    let currentDate = new Date(utcDate.getTime());
     let addedDays = 0;
     const holidaySet = new Set(holidays.map((h) => h.date));
     while (addedDays < daysToAdd) {
@@ -34,7 +34,7 @@ export function runBacktest(options) {
     const exchangeRateMap = new Map(
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
-    let currentDateForStartRate = new Date(initialStartDate);
+    let currentDateForStartRate = new Date(`${initialStartDate}T00:00:00Z`);
     let startRate = null;
     let actualStartDateStr = '';
     for (let i = 0; i < 7; i++) {
@@ -44,7 +44,9 @@ export function runBacktest(options) {
             actualStartDateStr = dateStr;
             break;
         }
-        currentDateForStartRate.setDate(currentDateForStartRate.getDate() + 1);
+        currentDateForStartRate.setUTCDate(
+            currentDateForStartRate.getUTCDate() + 1
+        );
     }
     if (!startRate)
         throw new Error(
@@ -57,9 +59,10 @@ export function runBacktest(options) {
     const results = {};
     const allSymbols = [
         ...new Set(
-            [...portfolio.map((p) => p.symbol), comparisonSymbol]
-                .filter((s) => s && s !== 'None')
-                .map((s) => s.toUpperCase())
+            [
+                ...portfolio.map((p) => p.symbol.toUpperCase()),
+                comparisonSymbol.toUpperCase(),
+            ].filter((s) => s && s !== 'NONE')
         ),
     ];
 
@@ -88,8 +91,14 @@ export function runBacktest(options) {
                 ? initialInvestmentUSD
                 : initialInvestmentUSD * weight;
 
-        let prices = symbolData.prices.map((p) => ({ ...p }));
-        let dividends = symbolData.dividends.map((d) => ({ ...d }));
+        let prices = symbolData.prices.map((p) => ({
+            ...p,
+            date: new Date(p.date).toISOString().split('T')[0],
+        }));
+        let dividends = (symbolData.dividends || []).map((d) => ({
+            ...d,
+            date: new Date(d.date).toISOString().split('T')[0],
+        }));
 
         if (symbolData.splits?.length > 0) {
             symbolData.splits.forEach((split) => {
@@ -114,9 +123,7 @@ export function runBacktest(options) {
         }
 
         const priceMap = new Map(prices.map((p) => [p.date, p]));
-        const dividendMap = new Map(
-            dividends.map((d) => [d.date.split('T')[0], d.amount])
-        );
+        const dividendMap = new Map(dividends.map((d) => [d.date, d.amount]));
 
         const dataStartDate = prices.length > 0 ? prices[0].date : null;
         let effectiveStartDateStr = actualStartDateStr;
@@ -167,7 +174,7 @@ export function runBacktest(options) {
                     const dividendForReinvest =
                         sharesWithReinvest * dividendAmount * taxRate;
                     const reinvestmentDate = addBusinessDays(
-                        currentDate,
+                        new Date(`${dateStr}T12:00:00Z`),
                         2,
                         holidays
                     );
@@ -214,9 +221,8 @@ export function runBacktest(options) {
                   sharesWithReinvest
                 : 0;
         const years =
-            (finalDate - new Date(initialStartDate)) /
+            (new Date(endDate) - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
-
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             investmentPerTicker > 0

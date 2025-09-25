@@ -1,3 +1,5 @@
+// src/pages/BacktesterView.vue
+
 <script setup>
     import { ref, watch } from 'vue';
     import { useHead } from '@vueuse/head';
@@ -82,40 +84,68 @@
 
             const apiData = { tickerData, exchangeRates };
 
-            let effectiveStartDate = options.startDate
-                .toISOString()
-                .split('T')[0];
-            const ipoDates = apiData.tickerData
-                .filter((d) => portfolioSymbols.includes(d.symbol))
-                .map((d) =>
-                    d.prices && d.prices.length > 0 ? d.prices[0].date : null
-                )
-                .filter(Boolean)
-                .map((dateStr) => new Date(dateStr));
+            // [핵심 UX 개선]
+            const userStartDate = new Date(options.startDate);
+            const userEndDate = new Date(options.endDate);
 
-            if (ipoDates.length > 0) {
-                const latestIpoDate = new Date(Math.max.apply(null, ipoDates));
-                const userStartDate = new Date(options.startDate);
-                if (userStartDate < latestIpoDate) {
-                    effectiveStartDate = latestIpoDate
-                        .toISOString()
-                        .split('T')[0];
-                    adjustedDateMessage.value = `시작일이 ${effectiveStartDate}로 자동 조정되었습니다. (선택한 모든 종목이 거래 가능한 가장 빠른 날짜)`;
-                }
+            // 포트폴리오에 포함된 모든 종목의 데이터 시작일과 종료일을 찾음
+            const dataStartDates = apiData.tickerData
+                .filter(
+                    (d) =>
+                        options.portfolio
+                            .map((p) => p.symbol)
+                            .includes(d.symbol) && d.prices?.length > 0
+                )
+                .map((d) => new Date(d.prices[0].date));
+
+            const dataEndDates = apiData.tickerData
+                .filter(
+                    (d) =>
+                        options.portfolio
+                            .map((p) => p.symbol)
+                            .includes(d.symbol) && d.prices?.length > 0
+                )
+                .map((d) => new Date(d.prices[d.prices.length - 1].date));
+
+            if (dataStartDates.length === 0) {
+                throw new Error('선택된 모든 종목의 가격 데이터가 없습니다.');
             }
 
+            const latestDataStartDate = new Date(
+                Math.max.apply(null, dataStartDates)
+            );
+            const earliestDataEndDate = new Date(
+                Math.min.apply(null, dataEndDates)
+            );
+
+            // 사용자가 선택한 기간과 데이터가 겹치는지 확인
+            if (
+                userStartDate > earliestDataEndDate ||
+                userEndDate < latestDataStartDate
+            ) {
+                const availableRange = `${latestDataStartDate.toISOString().split('T')[0]} ~ ${earliestDataEndDate.toISOString().split('T')[0]}`;
+                throw new Error(
+                    `선택된 기간에 데이터가 없습니다. 사용 가능한 기간: ${availableRange}`
+                );
+            }
+
+            let effectiveStartDate = userStartDate;
+            if (userStartDate < latestDataStartDate) {
+                effectiveStartDate = latestDataStartDate;
+                adjustedDateMessage.value = `시작일이 ${effectiveStartDate.toISOString().split('T')[0]}로 자동 조정되었습니다.`;
+            }
+
+            
             const holidayResponse = await fetch(
                 joinURL(import.meta.env.BASE_URL, 'holidays.json')
             );
             const holidays = await holidayResponse.json();
-
             const result = runBacktest({
                 ...options,
-                startDate: effectiveStartDate,
+                startDate: effectiveStartDate.toISOString().split('T')[0],
                 apiData,
                 holidays,
             });
-
             backtestResult.value = result;
         } catch (error) {
             console.error('Backtest Run Failed:', error);
