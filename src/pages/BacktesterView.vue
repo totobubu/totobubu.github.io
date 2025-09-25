@@ -22,16 +22,7 @@
         adjustedDateMessage.value = '';
 
         try {
-            const portfolioSymbols = options.portfolio
-                .map((p) => p.symbol)
-                .filter(Boolean);
-            if (portfolioSymbols.length === 0) {
-                throw new Error('백테스팅할 종목을 입력해주세요.');
-            }
-            if (!options.startDate || !options.endDate) {
-                throw new Error('시작일과 종료일을 모두 선택해주세요.');
-            }
-
+            const portfolioSymbols = options.portfolio.map((p) => p.symbol);
             const symbolsToFetch = [
                 ...portfolioSymbols,
                 options.comparisonSymbol,
@@ -39,6 +30,7 @@
             const uniqueSymbols = [...new Set(symbolsToFetch)];
 
             const apiPromises = uniqueSymbols.map((symbol) =>
+                // [핵심 수정] symbol.toLowerCase()를 사용하여 파일 경로를 올바르게 만듦
                 fetch(
                     joinURL(
                         import.meta.env.BASE_URL,

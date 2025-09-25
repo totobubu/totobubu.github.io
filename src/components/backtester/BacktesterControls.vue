@@ -1,4 +1,3 @@
-<!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import { useRoute } from 'vue-router';
@@ -44,6 +43,7 @@
     const customComparison = ref('');
     const exchangeRate = ref(null);
     const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y']);
+    const selectedPeriod = ref('1Y');
     const applyTax = ref(true);
     const taxOptions = ref([
         { label: '세후', value: true },
@@ -111,6 +111,7 @@
     };
 
     const updateDates = (period) => {
+        selectedPeriod.value = period;
         const newEndDate = new Date();
         let newStartDate = new Date();
         const value = parseInt(period);
@@ -172,7 +173,11 @@
         }
     };
 
-    watch(() => portfolio.value.slice(1), adjustFirstWeight, { deep: true });
+    watch(
+        () => portfolio.value.map((p) => p.value).slice(1),
+        adjustFirstWeight,
+        { deep: true }
+    );
     watch(
         () => portfolio.value.map((p) => p.symbol),
         (newSymbols, oldSymbols) => {
@@ -212,7 +217,10 @@
         }
 
         emit('run', {
-            portfolio: validPortfolio,
+            portfolio: validPortfolio.map((p) => ({
+                ...p,
+                symbol: p.symbol.toUpperCase(),
+            })),
             startDate: startDate.value,
             endDate: endDate.value,
             initialInvestmentKRW: investmentKRW.value,
@@ -317,7 +325,7 @@
             <div class="field col-12">
                 <label>빠른 기간 선택</label>
                 <SelectButton
-                    v-model="startDate"
+                    v-model="selectedPeriod"
                     :options="periodOptions"
                     @update:modelValue="updateDates"
                     aria-labelledby="period-selection" />

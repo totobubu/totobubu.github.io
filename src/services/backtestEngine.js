@@ -35,8 +35,8 @@ export function runBacktest(options) {
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
     let currentDateForStartRate = new Date(initialStartDate);
-    let startRate = null,
-        actualStartDateStr = '';
+    let startRate = null;
+    let actualStartDateStr = '';
     for (let i = 0; i < 7; i++) {
         const dateStr = currentDateForStartRate.toISOString().split('T')[0];
         if (exchangeRateMap.has(dateStr)) {
@@ -55,13 +55,15 @@ export function runBacktest(options) {
     const commissionRate = commission / 100;
     const taxRate = applyTax ? 0.85 : 1.0;
     const results = {};
-    const allSymbols = [
-        ...portfolio.map((p) => p.symbol),
-        comparisonSymbol,
-    ].filter((s) => s && s !== 'None');
+    const allSymbols = [...portfolio.map((p) => p.symbol), comparisonSymbol]
+        .filter((s) => s && s !== 'None')
+        .map((s) => s.toUpperCase());
+    const uniqueAllSymbols = [...new Set(allSymbols)];
 
-    allSymbols.forEach((symbol) => {
-        const symbolData = apiData.tickerData.find((d) => d.symbol === symbol);
+    uniqueAllSymbols.forEach((symbol) => {
+        const symbolData = apiData.tickerData.find(
+            (d) => d.symbol.toUpperCase() === symbol
+        );
         if (
             !symbolData ||
             symbolData.error ||
@@ -69,15 +71,17 @@ export function runBacktest(options) {
             symbolData.prices.length === 0
         ) {
             results[symbol] = {
-                error: `[${symbol}] 과거 데이터를 불러오지 못했습니다. (API 응답 없음)`,
+                error: `[${symbol}] 선택된 기간에 유효한 데이터가 없습니다.`,
             };
             return;
         }
 
-        const portfolioItem = portfolio.find((p) => p.symbol === symbol);
+        const portfolioItem = portfolio.find(
+            (p) => p.symbol.toUpperCase() === symbol
+        );
         const weight = portfolioItem ? portfolioItem.value / 100 : 1.0;
         const investmentPerTicker =
-            symbol === comparisonSymbol
+            symbol === comparisonSymbol.toUpperCase()
                 ? initialInvestmentUSD
                 : initialInvestmentUSD * weight;
 
@@ -111,10 +115,19 @@ export function runBacktest(options) {
             dividends.map((d) => [d.date.split('T')[0], d.amount])
         );
 
-        const startPriceData = priceMap.get(actualStartDateStr);
+        const dataStartDate = prices.length > 0 ? prices[0].date : null;
+        let effectiveStartDateStr = actualStartDateStr;
+        if (
+            dataStartDate &&
+            new Date(dataStartDate) > new Date(actualStartDateStr)
+        ) {
+            effectiveStartDateStr = dataStartDate;
+        }
+
+        const startPriceData = priceMap.get(effectiveStartDateStr);
         if (!startPriceData || !startPriceData.close) {
             results[symbol] = {
-                error: `[${symbol}] 시작일(${actualStartDateStr})의 주가 정보가 없습니다.`,
+                error: `[${symbol}] 시작일(${effectiveStartDateStr})의 주가 정보가 없습니다.`,
             };
             return;
         }
@@ -125,7 +138,7 @@ export function runBacktest(options) {
         let sharesWithoutReinvest = sharesWithReinvest;
         const initialShares = sharesWithoutReinvest;
 
-        let currentDate = new Date(`${actualStartDateStr}T00:00:00Z`);
+        let currentDate = new Date(`${effectiveStartDateStr}T00:00:00Z`);
         const finalDate = new Date(`${endDate}T00:00:00Z`);
         const historyWithReinvest = [],
             historyWithoutReinvest = [],
@@ -138,7 +151,6 @@ export function runBacktest(options) {
             if (currentPriceData) {
                 if (dividendMap.has(dateStr)) {
                     const dividendAmount = dividendMap.get(dateStr);
-
                     const dividendForCash =
                         sharesWithoutReinvest * dividendAmount;
                     dividendPayouts.push({
@@ -149,7 +161,6 @@ export function runBacktest(options) {
                         perShare: dividendAmount,
                         ticker: symbol,
                     });
-
                     const dividendForReinvest =
                         sharesWithReinvest * dividendAmount * taxRate;
                     const reinvestmentDate = addBusinessDays(
@@ -202,7 +213,6 @@ export function runBacktest(options) {
         const years =
             (finalDate - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
-
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             investmentPerTicker > 0
@@ -239,17 +249,17 @@ export function runBacktest(options) {
         };
     });
 
-    const validSymbols = portfolio
-        .map((p) => p.symbol)
+    const validPortfolioSymbols = portfolio
+        .map((p) => p.symbol.toUpperCase())
         .filter((s) => results[s] && !results[s].error);
-    if (validSymbols.length === 0) {
+    if (validPortfolioSymbols.length === 0) {
         throw new Error(
-            results[portfolio[0].symbol]?.error ||
+            results[portfolio[0].symbol.toUpperCase()]?.error ||
                 '모든 포트폴리오 종목의 백테스팅에 실패했습니다.'
         );
     }
 
-    const validBaseSymbol = validSymbols[0];
+    const validBaseSymbol = validPortfolioSymbols[0];
     const years = results[validBaseSymbol].years;
     const baseHistory = results[validBaseSymbol].withReinvest.history;
     const finalResult = {
@@ -260,7 +270,7 @@ export function runBacktest(options) {
 
     const portfolioHistoryWithReinvest = baseHistory.map(([date]) => [
         date,
-        validSymbols.reduce(
+        validPortfolioSymbols.reduce(
             (sum, s) =>
                 sum +
                 (results[s].withReinvest.history.find(
@@ -271,7 +281,7 @@ export function runBacktest(options) {
     ]);
     const portfolioHistoryWithoutReinvest = baseHistory.map(([date]) => [
         date,
-        validSymbols.reduce(
+        validPortfolioSymbols.reduce(
             (sum, s) =>
                 sum +
                 (results[s].withoutReinvest.history.find(
@@ -282,7 +292,7 @@ export function runBacktest(options) {
     ]);
     const portfolioCashHistory = baseHistory.map(([date]) => [
         date,
-        validSymbols.reduce(
+        validPortfolioSymbols.reduce(
             (sum, s) =>
                 sum +
                 (results[s].withoutReinvest.cashHistory.find(
@@ -306,21 +316,22 @@ export function runBacktest(options) {
     });
 
     const individualResults = {};
-    validSymbols.forEach((symbol) => {
+    validPortfolioSymbols.forEach((symbol) => {
         individualResults[symbol] = results[symbol];
     });
 
-    let comparisonResult = null;
+    let comparisonDataResult = null;
+    const safeComparisonSymbol = comparisonSymbol.toUpperCase();
     if (
         comparisonSymbol &&
         comparisonSymbol !== 'None' &&
-        results[comparisonSymbol] &&
-        !results[comparisonSymbol].error
+        results[safeComparisonSymbol] &&
+        !results[safeComparisonSymbol].error
     ) {
-        const compResult = results[comparisonSymbol];
-        comparisonResult = compResult;
+        const compResult = results[safeComparisonSymbol];
+        comparisonDataResult = compResult;
         finalResult.withReinvest.series.push({
-            name: comparisonSymbol,
+            name: safeComparisonSymbol,
             data: compResult.withReinvest.history,
         });
     }
@@ -367,13 +378,13 @@ export function runBacktest(options) {
 
     finalResult.initialInvestment = initialInvestmentUSD;
     finalResult.years = years;
-    finalResult.cashDividends = validSymbols.flatMap(
+    finalResult.cashDividends = validPortfolioSymbols.flatMap(
         (s) => results[s].dividendPayouts
     );
-    finalResult.symbols = portfolio.map((p) => p.symbol).filter(Boolean);
+    finalResult.symbols = portfolio.map((p) => p.symbol);
     finalResult.comparisonSymbol = comparisonSymbol;
     finalResult.individualResults = individualResults;
-    finalResult.comparisonResult = comparisonResult;
+    finalResult.comparisonResult = comparisonDataResult;
 
     return finalResult;
 }
