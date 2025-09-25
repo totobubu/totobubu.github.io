@@ -1,6 +1,7 @@
 <!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
+    import { useExchangeRates } from '@/composables/useExchangeRates'; // [핵심] 신규 컴포저블 import
     import Card from 'primevue/card';
     import MeterGroup from 'primevue/metergroup';
     import InputText from 'primevue/inputtext';
@@ -45,6 +46,8 @@
         portfolio.value.reduce((sum, item) => sum + (item.value || 0), 0)
     );
 
+    const { findRateForDate } = useExchangeRates(); // [핵심] 컴포저블 사용
+
     onMounted(async () => {
         try {
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
@@ -71,24 +74,18 @@
         }, 250);
     };
 
+    // [핵심 수정] API 호출을 로컬 데이터 조회로 변경
     const fetchExchangeRateForDate = async (date) => {
-        if (!date || isNaN(date.getTime())) return;
-        try {
-            const dateStr = date.toISOString().split('T')[0];
-            const res = await fetch(
-                `/api/getBacktestData?symbols=USDKRW=X&from=${dateStr}&to=${dateStr}`
+        const rate = await findRateForDate(date);
+        if (rate) {
+            exchangeRate.value = rate;
+        } else {
+            console.warn(
+                `Could not find exchange rate for ${date.toISOString().split('T')[0]}`
             );
-            const data = await res.json();
-            const rateData = data.exchangeRates[0];
-            if (rateData?.rate) {
-                exchangeRate.value = rateData.rate;
-            }
-        } catch (e) {
-            console.error('Failed to fetch exchange rate for date');
             exchangeRate.value = 1380; // Fallback
-        } finally {
-            updateUSD();
         }
+        updateUSD();
     };
 
     const updateDates = (period) => {
