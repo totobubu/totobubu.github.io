@@ -3,8 +3,8 @@ function addBusinessDays(startDate, daysToAdd, holidays = []) {
     let addedDays = 0;
     const holidaySet = new Set(holidays.map((h) => h.date));
     while (addedDays < daysToAdd) {
-        currentDate.setDate(currentDate.getDate() + 1);
-        const dayOfWeek = currentDate.getDay();
+        currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+        const dayOfWeek = currentDate.getUTCDay();
         const dateString = currentDate.toISOString().split('T')[0];
         if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidaySet.has(dateString)) {
             addedDays++;
@@ -12,6 +12,11 @@ function addBusinessDays(startDate, daysToAdd, holidays = []) {
     }
     return currentDate;
 }
+
+const calculateCAGR = (totalReturn, years) => {
+    if (1 + totalReturn <= 0 || years <= 0) return -1;
+    return Math.pow(1 + totalReturn, 1 / years) - 1;
+};
 
 export function runBacktest(options) {
     const {
@@ -21,6 +26,7 @@ export function runBacktest(options) {
         endDate,
         initialInvestmentKRW,
         commission,
+        applyTax,
         apiData,
         holidays,
     } = options;
@@ -29,9 +35,8 @@ export function runBacktest(options) {
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
     let currentDateForStartRate = new Date(initialStartDate);
-    let startRate = null;
-    let actualStartDateStr = '';
-
+    let startRate = null,
+        actualStartDateStr = '';
     for (let i = 0; i < 7; i++) {
         const dateStr = currentDateForStartRate.toISOString().split('T')[0];
         if (exchangeRateMap.has(dateStr)) {
@@ -48,6 +53,7 @@ export function runBacktest(options) {
 
     const initialInvestmentUSD = initialInvestmentKRW / startRate;
     const commissionRate = commission / 100;
+    const taxRate = applyTax ? 0.85 : 1.0;
     const results = {};
     const allSymbols = [
         ...portfolio.map((p) => p.symbol),
@@ -119,8 +125,8 @@ export function runBacktest(options) {
         let sharesWithoutReinvest = sharesWithReinvest;
         const initialShares = sharesWithoutReinvest;
 
-        let currentDate = new Date(actualStartDateStr);
-        const finalDate = new Date(endDate);
+        let currentDate = new Date(`${actualStartDateStr}T00:00:00Z`);
+        const finalDate = new Date(`${endDate}T00:00:00Z`);
         const historyWithReinvest = [],
             historyWithoutReinvest = [],
             dividendPayouts = [];
@@ -132,15 +138,20 @@ export function runBacktest(options) {
             if (currentPriceData) {
                 if (dividendMap.has(dateStr)) {
                     const dividendAmount = dividendMap.get(dateStr);
-                    const afterTaxDividendForCash =
-                        sharesWithoutReinvest * dividendAmount * 0.85;
+
+                    const dividendForCash =
+                        sharesWithoutReinvest * dividendAmount;
                     dividendPayouts.push({
                         date: dateStr,
-                        amount: afterTaxDividendForCash,
+                        amount: dividendForCash * taxRate,
+                        preTaxAmount: dividendForCash,
+                        shares: sharesWithoutReinvest,
+                        perShare: dividendAmount,
                         ticker: symbol,
                     });
-                    const afterTaxDividendForReinvest =
-                        sharesWithReinvest * dividendAmount * 0.85;
+
+                    const dividendForReinvest =
+                        sharesWithReinvest * dividendAmount * taxRate;
                     const reinvestmentDate = addBusinessDays(
                         currentDate,
                         2,
@@ -151,8 +162,7 @@ export function runBacktest(options) {
                     );
                     if (reinvestmentPriceData?.open > 0) {
                         sharesWithReinvest +=
-                            (afterTaxDividendForReinvest *
-                                (1 - commissionRate)) /
+                            (dividendForReinvest * (1 - commissionRate)) /
                             reinvestmentPriceData.open;
                     }
                 }
@@ -165,7 +175,7 @@ export function runBacktest(options) {
                     sharesWithoutReinvest * currentPriceData.close,
                 ]);
             }
-            currentDate.setDate(currentDate.getDate() + 1);
+            currentDate.setUTCDate(currentDate.getUTCDate() + 1);
         }
 
         if (historyWithReinvest.length === 0) {
@@ -192,6 +202,7 @@ export function runBacktest(options) {
         const years =
             (finalDate - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
+
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             investmentPerTicker > 0
@@ -213,6 +224,7 @@ export function runBacktest(options) {
                 history: historyWithReinvest,
                 totalReturn: totalReturnWithReinvest,
                 endingInvestment: endingInvestmentWithReinvest,
+                cagr: calculateCAGR(totalReturnWithReinvest, years),
             },
             withoutReinvest: {
                 history: historyWithoutReinvest,
@@ -220,6 +232,7 @@ export function runBacktest(options) {
                 totalReturn: totalReturnWithoutReinvest,
                 endingInvestment: endingInvestmentWithoutReinvest,
                 dividendsCollected: finalCashCollected,
+                cagr: calculateCAGR(totalReturnWithoutReinvest, years),
             },
             dividendPayouts,
             years,
@@ -310,14 +323,6 @@ export function runBacktest(options) {
             name: comparisonSymbol,
             data: compResult.withReinvest.history,
         });
-        finalResult.withoutReinvest.series.push({
-            name: `${comparisonSymbol} (주가)`,
-            data: compResult.withoutReinvest.history,
-        });
-        finalResult.withoutReinvest.series.push({
-            name: `${comparisonSymbol} (현금 배당)`,
-            data: compResult.withoutReinvest.cashHistory,
-        });
     }
 
     const totalEndingWithReinvest =
@@ -350,12 +355,12 @@ export function runBacktest(options) {
 
     finalResult.withReinvest.summary = {
         totalReturn: totalReturnWithReinvest,
-        cagr: Math.pow(1 + totalReturnWithReinvest, 1 / years) - 1,
+        cagr: calculateCAGR(totalReturnWithReinvest, years),
         endingInvestment: totalEndingWithReinvest,
     };
     finalResult.withoutReinvest.summary = {
         totalReturn: totalReturnWithoutReinvest,
-        cagr: Math.pow(1 + totalReturnWithoutReinvest, 1 / years) - 1,
+        cagr: calculateCAGR(totalReturnWithoutReinvest, years),
         endingInvestment: totalEndingWithoutReinvest,
         dividendsCollected: totalCashCollected,
     };
@@ -365,7 +370,7 @@ export function runBacktest(options) {
     finalResult.cashDividends = validSymbols.flatMap(
         (s) => results[s].dividendPayouts
     );
-    finalResult.symbols = portfolio.map((p) => p.symbol);
+    finalResult.symbols = portfolio.map((p) => p.symbol).filter(Boolean);
     finalResult.comparisonSymbol = comparisonSymbol;
     finalResult.individualResults = individualResults;
     finalResult.comparisonResult = comparisonResult;

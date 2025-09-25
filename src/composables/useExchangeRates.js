@@ -3,19 +3,28 @@ import { joinURL } from 'ufo';
 
 const exchangeRates = ref([]);
 let isLoaded = false;
+let isLoadingPromise = null;
 
 async function loadRates() {
     if (isLoaded) return;
-    try {
-        const response = await fetch(
-            joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
-        );
-        if (!response.ok) throw new Error('Failed to load exchange rates file');
-        exchangeRates.value = await response.json();
-        isLoaded = true;
-    } catch (e) {
-        console.error('Error loading exchange rates:', e);
-    }
+    if (isLoadingPromise) return isLoadingPromise;
+
+    isLoadingPromise = (async () => {
+        try {
+            const response = await fetch(
+                joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
+            );
+            if (!response.ok)
+                throw new Error('Failed to load exchange rates file');
+            exchangeRates.value = await response.json();
+            isLoaded = true;
+        } catch (e) {
+            console.error('Error loading exchange rates:', e);
+        } finally {
+            isLoadingPromise = null;
+        }
+    })();
+    return isLoadingPromise;
 }
 
 export function useExchangeRates() {
@@ -31,7 +40,7 @@ export function useExchangeRates() {
             if (found) return found.rate;
             targetDate.setDate(targetDate.getDate() + 1);
         }
-        return null; // 7일간 못 찾으면 실패
+        return null;
     };
 
     return { findRateForDate };
