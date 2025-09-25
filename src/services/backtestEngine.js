@@ -1,5 +1,3 @@
-// src/services/backtestEngine.js (최종 완성본)
-
 function addBusinessDays(startDate, daysToAdd, holidays = []) {
     let currentDate = new Date(startDate);
     let addedDays = 0;
@@ -30,8 +28,8 @@ export function runBacktest(options) {
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
     let currentDateForStartRate = new Date(initialStartDate);
-    let startRate = null;
-    let actualStartDateStr = '';
+    let startRate = null,
+        actualStartDateStr = '';
 
     for (let i = 0; i < 7; i++) {
         const dateStr = currentDateForStartRate.toISOString().split('T')[0];
@@ -42,7 +40,6 @@ export function runBacktest(options) {
         }
         currentDateForStartRate.setDate(currentDateForStartRate.getDate() + 1);
     }
-
     if (!startRate)
         throw new Error(
             `시작일(${initialStartDate}) 근처의 환율 정보를 찾을 수 없습니다.`
@@ -73,7 +70,7 @@ export function runBacktest(options) {
         let prices = symbolData.prices.map((p) => ({ ...p }));
         let dividends = symbolData.dividends.map((d) => ({ ...d }));
 
-        if (symbolData.splits && Array.isArray(symbolData.splits)) {
+        if (symbolData.splits?.length > 0) {
             symbolData.splits.forEach((split) => {
                 const splitDate = new Date(split.date);
                 const [numerator, denominator] = split.ratio
@@ -99,6 +96,7 @@ export function runBacktest(options) {
         const dividendMap = new Map(
             dividends.map((d) => [d.date.split('T')[0], d.amount])
         );
+
         const startPriceData = priceMap.get(actualStartDateStr);
         if (!startPriceData || !startPriceData.close) {
             results[symbol] = {
@@ -111,46 +109,43 @@ export function runBacktest(options) {
         let sharesWithReinvest =
             (investmentPerTicker * (1 - commissionRate)) / startPrice;
         let sharesWithoutReinvest = sharesWithReinvest;
-
         let currentDate = new Date(actualStartDateStr);
         const finalDate = new Date(endDate);
         const historyWithReinvest = [],
-            historyWithoutReinvest = [];
-        const dividendPayouts = [];
+            historyWithoutReinvest = [],
+            dividendPayouts = [];
 
         while (currentDate <= finalDate) {
             const dateStr = currentDate.toISOString().split('T')[0];
-
-            if (dividendMap.has(dateStr)) {
-                const dividendAmount = dividendMap.get(dateStr);
-                const afterTaxDividendForReinvest =
-                    sharesWithReinvest * dividendAmount * 0.85;
-                const afterTaxDividendForCash =
-                    sharesWithoutReinvest * dividendAmount * 0.85;
-
-                dividendPayouts.push({
-                    date: dateStr,
-                    amount: afterTaxDividendForCash,
-                    ticker: symbol,
-                });
-
-                const reinvestmentDate = addBusinessDays(
-                    currentDate,
-                    2,
-                    holidays
-                );
-                const reinvestmentPriceData = priceMap.get(
-                    reinvestmentDate.toISOString().split('T')[0]
-                );
-                if (reinvestmentPriceData?.open > 0) {
-                    sharesWithReinvest +=
-                        (afterTaxDividendForReinvest * (1 - commissionRate)) /
-                        reinvestmentPriceData.open;
-                }
-            }
-
             const currentPriceData = priceMap.get(dateStr);
+
             if (currentPriceData) {
+                if (dividendMap.has(dateStr)) {
+                    const dividendAmount = dividendMap.get(dateStr);
+                    const afterTaxDividendForCash =
+                        sharesWithoutReinvest * dividendAmount * 0.85;
+                    dividendPayouts.push({
+                        date: dateStr,
+                        amount: afterTaxDividendForCash,
+                        ticker: symbol,
+                    });
+                    const afterTaxDividendForReinvest =
+                        sharesWithReinvest * dividendAmount * 0.85;
+                    const reinvestmentDate = addBusinessDays(
+                        currentDate,
+                        2,
+                        holidays
+                    );
+                    const reinvestmentPriceData = priceMap.get(
+                        reinvestmentDate.toISOString().split('T')[0]
+                    );
+                    if (reinvestmentPriceData?.open > 0) {
+                        sharesWithReinvest +=
+                            (afterTaxDividendForReinvest *
+                                (1 - commissionRate)) /
+                            reinvestmentPriceData.open;
+                    }
+                }
                 historyWithReinvest.push([
                     dateStr,
                     sharesWithReinvest * currentPriceData.close,
@@ -185,14 +180,12 @@ export function runBacktest(options) {
         const years =
             (finalDate - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
-
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             endingInvestmentWithReinvest / investmentPerTicker - 1;
         const endingInvestmentWithoutReinvest =
             sharesWithoutReinvest * endPrice;
-        const finalCashCollected =
-            historyCash.length > 0 ? historyCash[historyCash.length - 1][1] : 0;
+        const finalCashCollected = cashCollected;
         const totalReturnWithoutReinvest =
             (endingInvestmentWithoutReinvest + finalCashCollected) /
                 investmentPerTicker -
@@ -218,10 +211,9 @@ export function runBacktest(options) {
 
     const validSymbols = symbols.filter((s) => results[s] && !results[s].error);
     if (validSymbols.length === 0) {
-        const firstError =
-            results[symbols[0]]?.error ||
-            '모든 종목의 백테스팅에 실패했습니다.';
-        throw new Error(firstError);
+        throw new Error(
+            results[symbols[0]]?.error || '모든 종목의 백테스팅에 실패했습니다.'
+        );
     }
 
     const validBaseSymbol = validSymbols[0];
