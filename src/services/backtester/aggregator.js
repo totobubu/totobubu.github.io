@@ -6,10 +6,10 @@ export function aggregateResults(options) {
         comparisonSymbol,
         results,
         initialInvestmentUSD,
-        investmentPerTicker,
         initialStartDate,
         endDate,
     } = options;
+    console.log('[Aggregator] Starting to aggregate results', { results });
 
     const validPortfolioSymbols = portfolio
         .map((p) => p.symbol.toUpperCase())
@@ -21,9 +21,17 @@ export function aggregateResults(options) {
         );
     }
 
+    const years =
+        (new Date(endDate) - new Date(initialStartDate)) /
+            (365.25 * 24 * 60 * 60 * 1000) || 1;
     const validBaseSymbol = validPortfolioSymbols[0];
-    const years = results[validBaseSymbol].years;
-    const baseHistory = results[validBaseSymbol].withReinvest.history;
+    const baseHistory = results[validBaseSymbol].historyWithReinvest;
+    if (!baseHistory) {
+        throw new Error(
+            `[${validBaseSymbol}] 데이터 처리 중 오류가 발생했습니다.`
+        );
+    }
+
     const finalResult = {
         withReinvest: { series: [] },
         withoutReinvest: { series: [] },
@@ -137,7 +145,6 @@ export function aggregateResults(options) {
         endingInvestment: totalEndingWithoutReinvest,
         dividendsCollected: totalCashCollected,
     };
-
     finalResult.initialInvestment = initialInvestmentUSD;
     finalResult.years = years;
     finalResult.cashDividends = validPortfolioSymbols.flatMap(
@@ -148,5 +155,9 @@ export function aggregateResults(options) {
     finalResult.individualResults = individualResults;
     finalResult.comparisonResult = comparisonDataResult;
 
+    console.log(
+        '[Aggregator] Finished aggregation. Final Result:',
+        finalResult
+    );
     return finalResult;
 }
