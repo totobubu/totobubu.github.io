@@ -1,5 +1,9 @@
 export function processSymbolData(symbolData) {
-    let prices = symbolData.prices.map((p) => ({
+    console.log(`[Processor] Processing data for ${symbolData.symbol}`, {
+        symbolData,
+    });
+
+    let prices = (symbolData.prices || []).map((p) => ({
         ...p,
         date: new Date(p.date).toISOString().split('T')[0],
     }));
@@ -31,5 +35,8 @@ export function processSymbolData(symbolData) {
     const priceMap = new Map(prices.map((p) => [p.date, p]));
     const dividendMap = new Map(dividends.map((d) => [d.date, d.amount]));
 
+    console.log(
+        `[Processor] Finished for ${symbolData.symbol}. Price Map Size: ${priceMap.size}, Dividend Map Size: ${dividendMap.size}`
+    );
     return { priceMap, dividendMap };
 }
