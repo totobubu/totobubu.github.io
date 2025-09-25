@@ -1,35 +1,57 @@
 <!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import Calendar from 'primevue/calendar';
     import InputText from 'primevue/inputtext';
     import InputNumber from 'primevue/inputnumber';
     import RadioButton from 'primevue/radiobutton';
     import Button from 'primevue/button';
+    import SelectButton from 'primevue/selectbutton';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
 
-    defineProps({ isLoading: Boolean });
     const emit = defineEmits(['run']);
+    defineProps({ isLoading: Boolean });
 
-    const defaultEndDate = new Date();
-    const defaultStartDate = new Date();
-    defaultStartDate.setFullYear(defaultStartDate.getFullYear() - 5);
-
-    const symbols = ref('TSLY,NVDY,CONY,MSTY');
-    const startDate = ref(defaultStartDate);
-    const endDate = ref(defaultEndDate);
-    const initialInvestment = ref(10000000);
+    const symbols = ref(['TSLY', 'NVDY', 'CONY', 'MSTY']);
+    const startDate = ref(
+        new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+    );
+    const endDate = ref(new Date());
+    const investmentKRW = ref(10000000);
+    const investmentUSD = ref(0);
     const commission = ref(0.1);
     const comparison = ref('SPY');
     const customComparison = ref('');
+    const exchangeRate = ref(1380);
+
+    const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y']);
+
+    const updateDates = (period) => {
+        const newEndDate = new Date();
+        const newStartDate = new Date();
+        const value = parseInt(period);
+        const unit = period.slice(-1);
+
+        if (unit === 'M') {
+            newStartDate.setMonth(newEndDate.getMonth() - value);
+        } else if (unit === 'Y') {
+            newStartDate.setFullYear(newEndDate.getFullYear() - value);
+        }
+        startDate.value = newStartDate;
+        endDate.value = newEndDate;
+    };
 
     const handleRunClick = () => {
+        const validSymbols = symbols.value
+            .map((s) => s.trim().toUpperCase())
+            .filter(Boolean);
+        if (validSymbols.length === 0) return;
         emit('run', {
-            symbols: symbols.value
-                .split(',')
-                .map((s) => s.trim().toUpperCase()),
+            symbols: validSymbols,
             startDate: startDate.value.toISOString().split('T')[0],
             endDate: endDate.value.toISOString().split('T')[0],
-            initialInvestmentKRW: initialInvestment.value,
+            initialInvestmentKRW: investmentKRW.value,
             commission: commission.value,
             comparisonSymbol:
                 comparison.value === 'Other'
@@ -37,14 +59,29 @@
                     : comparison.value,
         });
     };
+
+    watch(investmentKRW, (newVal) => {
+        investmentUSD.value = newVal / exchangeRate.value;
+    });
+    watch(investmentUSD, (newVal) => {
+        investmentKRW.value = newVal * exchangeRate.value;
+    });
 </script>
 
 <template>
     <div class="p-4 border-round surface-card">
-        <div class="grid formgrid p-fluid align-items-end">
-            <div class="field col-12 md:col-6">
-                <label for="symbols">종목 (쉼표로 구분)</label>
-                <InputText v-model="symbols" id="symbols" />
+        <div class="grid formgrid p-fluid align-items-end gap-y-4">
+            <div v-for="i in 4" :key="i" class="field col-6 md:col-3">
+                <label :for="`symbol${i}`">종목 {{ i }}</label>
+                <InputText v-model="symbols[i - 1]" :id="`symbol${i}`" />
+            </div>
+
+            <div class="field col-12">
+                <label>기간 선택</label>
+                <SelectButton
+                    :options="periodOptions"
+                    @change="updateDates($event.value)"
+                    aria-labelledby="period-selection" />
             </div>
             <div class="field col-6 md:col-3">
                 <label for="startDate">시작일</label>
@@ -61,8 +98,25 @@
                     dateFormat="yy-mm-dd" />
             </div>
             <div class="field col-12 md:col-6">
+                <label for="investment">투자원금 (시작일 환율 기준)</label>
+                <InputGroup>
+                    <InputGroupAddon>KRW</InputGroupAddon>
+                    <InputNumber
+                        v-model="investmentKRW"
+                        inputId="investmentKRW"
+                        mode="decimal" />
+                    <InputGroupAddon>USD</InputGroupAddon>
+                    <InputNumber
+                        v-model="investmentUSD"
+                        inputId="investmentUSD"
+                        mode="currency"
+                        currency="USD"
+                        locale="en-US" />
+                </InputGroup>
+            </div>
+            <div class="field col-12 md:col-6">
                 <label>비교 대상</label>
-                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-3 mt-2">
                     <div class="flex align-items-center">
                         <RadioButton
                             v-model="comparison"
@@ -93,15 +147,6 @@
                     <div class="flex align-items-center">
                         <RadioButton
                             v-model="comparison"
-                            inputId="compDIA"
-                            name="comparison"
-                            value="DIA" /><label for="compDIA" class="ml-2"
-                            >Dow 30 (DIA)</label
-                        >
-                    </div>
-                    <div class="flex align-items-center">
-                        <RadioButton
-                            v-model="comparison"
                             inputId="compOther"
                             name="comparison"
                             value="Other" /><InputText
@@ -113,13 +158,6 @@
                 </div>
             </div>
             <div class="field col-6 md:col-3">
-                <label for="investment">투자원금 (KRW)</label>
-                <InputNumber
-                    v-model="initialInvestment"
-                    inputId="investment"
-                    mode="decimal" />
-            </div>
-            <div class="field col-6 md:col-3">
                 <label for="commission">거래 수수료 (%)</label>
                 <InputNumber
                     v-model="commission"
@@ -127,13 +165,14 @@
                     :minFractionDigits="2"
                     suffix=" %" />
             </div>
-        </div>
-        <div class="mt-4 flex justify-content-end">
-            <Button
-                label="백테스팅 실행"
-                icon="pi pi-chart-line"
-                @click="handleRunClick"
-                :loading="isLoading" />
+            <div class="field col-6 md:col-3 flex align-items-end">
+                <Button
+                    label="백테스팅 실행"
+                    icon="pi pi-chart-line"
+                    @click="handleRunClick"
+                    :loading="isLoading"
+                    class="w-full" />
+            </div>
         </div>
     </div>
 </template>
