@@ -1,6 +1,8 @@
 // api/getBacktestData.js
 
 import yahooFinance from 'yahoo-finance2';
+import path from 'path';
+import fs from 'fs/promises';
 
 yahooFinance.setGlobalConfig({
     validation: {
@@ -9,6 +11,24 @@ yahooFinance.setGlobalConfig({
         failOnInvalidData: false,
     },
 });
+
+// [핵심] Node.js 서버 환경에서 public 폴더의 절대 경로를 찾습니다.
+const publicDir = path.resolve('./public');
+const exchangeRatesFilePath = path.join(publicDir, 'exchange-rates.json');
+
+let allExchangeRates = [];
+// 메모리에 환율 데이터를 캐싱하여 반복적인 파일 읽기를 방지합니다.
+async function loadExchangeRates() {
+    if (allExchangeRates.length > 0) return allExchangeRates;
+    try {
+        const fileContent = await fs.readFile(exchangeRatesFilePath, 'utf-8');
+        allExchangeRates = JSON.parse(fileContent);
+        return allExchangeRates;
+    } catch (e) {
+        console.error('Failed to load local exchange-rates.json', e);
+        return [];
+    }
+}
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,54 +49,53 @@ export default async function handler(req, res) {
     const symbolArray = symbols.split(',');
 
     try {
+        const allRates = await loadExchangeRates();
+
+        // [핵심] 저장된 데이터에서 필요한 기간만큼 필터링합니다.
+        const exchangeRatesData = allRates.filter((rate) => {
+            return rate.date >= from && rate.date <= to;
+        });
+
         const results = await Promise.all(
             symbolArray.map(async (symbol) => {
                 try {
-                    // [핵심 수정 1] historical 호출 한 번으로 모든 데이터를 가져옵니다.
-                    const historicalData = await yahooFinance.historical(
-                        symbol,
-                        {
-                            period1: from,
-                            period2: to,
-                            interval: '1d',
-                            events: 'history|div|split',
-                        }
-                    );
+                    // [핵심 수정] 데이터를 종류별로 명확하게 분리하여 호출합니다.
+                    const queryOptions = { period1, period2, interval: '1d' };
 
-                    if (!historicalData || historicalData.length === 0) {
-                        // 데이터가 전혀 없는 경우, IPO 날짜를 찾아봅니다.
-                        const searchResult = await yahooFinance.search(symbol);
-                        const firstTradeDate = searchResult.quotes[0]
-                            ?.firstTradeDateMilliseconds
-                            ? new Date(
-                                  searchResult.quotes[0].firstTradeDateMilliseconds
-                              )
-                                  .toISOString()
-                                  .split('T')[0]
-                            : null;
-                        return {
-                            symbol,
-                            firstTradeDate,
-                            prices: [],
-                            dividends: [],
-                            splits: [],
-                        };
-                    }
+                    const [prices, dividends, splits, quote] =
+                        await Promise.all([
+                            yahooFinance
+                                .historical(symbol, {
+                                    ...queryOptions,
+                                    events: 'history',
+                                })
+                                .catch(() => []),
+                            yahooFinance
+                                .historical(symbol, {
+                                    ...queryOptions,
+                                    events: 'div',
+                                })
+                                .catch(() => []),
+                            yahooFinance
+                                .historical(symbol, {
+                                    ...queryOptions,
+                                    events: 'split',
+                                })
+                                .catch(() => []),
+                            yahooFinance
+                                .quote(symbol, {
+                                    fields: ['firstTradeDateMilliseconds'],
+                                })
+                                .catch(() => null),
+                        ]);
 
-                    // [핵심 수정 2] historical 데이터에서 IPO 날짜를 유추합니다.
-                    const firstTradeDate = historicalData[0].date
-                        .toISOString()
-                        .split('T')[0];
-
-                    const prices = historicalData.filter(
-                        (d) => d && typeof d.close === 'number'
-                    );
-                    const dividends = historicalData.filter(
-                        (d) => d && d.dividends
-                    );
-                    const splits = historicalData.filter(
-                        (d) => d && d.stockSplits
-                    );
+                    const firstTradeDate = quote?.firstTradeDateMilliseconds
+                        ? new Date(quote.firstTradeDateMilliseconds)
+                              .toISOString()
+                              .split('T')[0]
+                        : prices[0]
+                          ? prices[0].date.toISOString().split('T')[0]
+                          : null;
 
                     return {
                         symbol,
@@ -96,53 +115,21 @@ export default async function handler(req, res) {
                         })),
                     };
                 } catch (e) {
-                    console.error(`[API Error for ${symbol}]:`, e);
-                    // 에러가 발생해도, 검색을 통해 IPO 날짜라도 찾아보려는 시도
-                    try {
-                        const searchResult = await yahooFinance.search(symbol);
-                        const firstTradeDate = searchResult.quotes[0]
-                            ?.firstTradeDateMilliseconds
-                            ? new Date(
-                                  searchResult.quotes[0].firstTradeDateMilliseconds
-                              )
-                                  .toISOString()
-                                  .split('T')[0]
-                            : null;
-                        return {
-                            symbol,
-                            firstTradeDate,
-                            error: e.message,
-                            prices: [],
-                            dividends: [],
-                            splits: [],
-                        };
-                    } catch (searchError) {
-                        return {
-                            symbol,
-                            error: e.message,
-                            prices: [],
-                            dividends: [],
-                            splits: [],
-                        };
-                    }
+                    return {
+                        symbol,
+                        error: e.message,
+                        prices: [],
+                        dividends: [],
+                        splits: [],
+                    };
                 }
             })
         );
 
-        let exchangeRatesData = [];
-        const krwUsdRate = await yahooFinance.historical('USDKRW=X', {
-            period1: from,
-            period2: to,
-        });
-        exchangeRatesData = krwUsdRate.map((r) => ({
-            date: r.date.toISOString().split('T')[0],
-            rate: r.close,
-        }));
-
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
         return res.status(200).json({
             tickerData: results,
-            exchangeRates: exchangeRatesData,
+            exchangeRates: exchangeRatesData, // 로컬 파일에서 필터링한 데이터 반환
         });
     } catch (error) {
         return res.status(500).json({ error: error.message });
