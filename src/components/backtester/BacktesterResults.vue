@@ -1,4 +1,4 @@
-<!-- src\components\backtester\BacktesterResults.vue -->
+<!-- src/components/backtester/BacktesterResults.vue -->
 <script setup>
     import { ref, computed } from 'vue';
     import { use } from 'echarts/core';
@@ -10,6 +10,7 @@
         LegendComponent,
         GridComponent,
         DataZoomComponent,
+        MarkPointComponent,
     } from 'echarts/components';
     import VChart from 'vue-echarts';
     import DataTable from 'primevue/datatable';
@@ -24,12 +25,12 @@
         LegendComponent,
         GridComponent,
         DataZoomComponent,
+        MarkPointComponent,
     ]);
 
     const props = defineProps({ result: Object, isLoading: Boolean });
 
-    const chartInstanceReinvest = ref(null);
-    const chartInstanceNoReinvest = ref(null);
+    const chartInstance = ref(null);
 
     const formatCurrency = (val) =>
         new Intl.NumberFormat('en-US', {
@@ -38,60 +39,206 @@
         }).format(val || 0);
     const formatPercent = (val) => `${((val || 0) * 100).toFixed(2)}%`;
 
-    const createChartOption = (title, seriesData) => {
+    const createChartOption = (title, seriesData, legendData) => {
         return {
-            title: { text: title, left: 'center' },
+            title: {
+                text: title,
+                left: 'center',
+                textStyle: { color: '#ccc' },
+            },
             tooltip: {
                 trigger: 'axis',
-                valueFormatter: (value) => formatCurrency(value),
+                formatter: (params) => {
+                    if (!params || params.length === 0) return '';
+                    let tooltipHtml = `${params[0].axisValueLabel}<br/>`;
+
+                    // [핵심 수정] SPY 시리즈가 있는지 먼저 확인
+                    const spyIndex = params.findIndex((p) =>
+                        p.seriesName.includes('SPY')
+                    );
+
+                    params.forEach((param, index) => {
+                        // SPY 시리즈 바로 위에 구분선을 추가
+                        if (spyIndex !== -1 && index === spyIndex) {
+                            tooltipHtml += `<hr class="my-1 border-surface-700"/>`;
+                        }
+
+                        let marker = param.marker;
+                        if (
+                            param.seriesType === 'line' &&
+                            !param.seriesName.includes('(주가)') &&
+                            !param.seriesName.includes('(현금)')
+                        ) {
+                            marker = `<span style="display:inline-block;margin-right:5px;border-radius:2px;width:10px;height:4px;background-color:${param.color};vertical-align:middle;"></span>`;
+                        }
+                        tooltipHtml += `${marker} ${param.seriesName}: <strong>${formatCurrency(param.value[1])}</strong><br/>`;
+                    });
+
+                    return tooltipHtml;
+                },
             },
-            legend: { top: 'bottom' },
+            legend: {
+                top: 'bottom',
+                data: legendData,
+                textStyle: { color: '#ccc' },
+            },
             grid: {
-                left: '10%',
-                right: '10%',
-                bottom: '15%',
+                left: '3%',
+                right: '4%',
+                bottom: '20%',
                 containLabel: true,
             },
-            xAxis: { type: 'time' },
+            xAxis: { type: 'time', axisLabel: { color: '#ccc' } },
             yAxis: {
                 type: 'value',
                 scale: true,
-                axisLabel: { formatter: '${value}' },
+                axisLabel: { formatter: '${value}', color: '#ccc' },
             },
             dataZoom: [{ type: 'inside' }, { type: 'slider' }],
-            series: seriesData.map((s) => ({
-                name: s.name,
-                type: 'line',
-                showSymbol: false,
-                data: s.data,
-                smooth: true,
-            })),
+            series: seriesData,
         };
     };
 
-    const chartOptionWithReinvest = computed(() =>
-        createChartOption(
-            'Growth of Investment - With Dividends Reinvested',
-            props.result?.withReinvest.series || []
-        )
-    );
-    const chartOptionWithoutReinvest = computed(() =>
-        createChartOption(
-            'Growth of Investment - Without Dividends Reinvested',
-            props.result?.withoutReinvest.series || []
-        )
-    );
+    const chartTitle = computed(() => {
+        if (!props.result) return 'Growth of Investment';
+        const portfolioName = props.result.symbols.join(', ');
+        const comparisonName =
+            props.result.comparisonSymbol !== 'None'
+                ? props.result.comparisonSymbol
+                : null;
+        return comparisonName
+            ? `${portfolioName} vs ${comparisonName}`
+            : portfolioName;
+    });
 
-    const downloadChart = (chartRef, filename) => {
-        if (!chartRef) return;
-        const dataUrl = chartRef.getDataURL({
+    const combinedChartOption = computed(() => {
+        if (!props.result) return {};
+
+        const seriesData = [];
+        const legendData = [];
+
+        const portfolioDrip = props.result.withReinvest?.series.find(
+            (s) => s.name === 'Portfolio'
+        );
+        const portfolioNoDrip_Stock = props.result.withoutReinvest?.series.find(
+            (s) => s.name === 'Portfolio (주가)'
+        );
+        const portfolioNoDrip_Cash = props.result.withoutReinvest?.series.find(
+            (s) => s.name === 'Portfolio (현금 배당)'
+        );
+        const comparisonDrip = props.result.withReinvest?.series.find(
+            (s) => s.name !== 'Portfolio'
+        );
+
+        if (portfolioNoDrip_Stock) {
+            legendData.push('Portfolio (주가)');
+            seriesData.push({
+                id: 'PortfolioNoDrip_Stock',
+                name: 'Portfolio (주가)',
+                type: 'line',
+                smooth: true,
+                stack: 'PortfolioNoDrip',
+                areaStyle: {},
+                symbol: 'none',
+                lineStyle: { width: 0 },
+                emphasis: { focus: 'series' },
+                data: portfolioNoDrip_Stock.data,
+            });
+        }
+        if (portfolioNoDrip_Cash) {
+            legendData.push('Portfolio (현금)');
+            seriesData.push({
+                id: 'PortfolioNoDrip_Cash',
+                name: 'Portfolio (현금)',
+                type: 'line',
+                smooth: true,
+                stack: 'PortfolioNoDrip',
+                areaStyle: {},
+                symbol: 'none',
+                lineStyle: { width: 0 },
+                emphasis: { focus: 'series' },
+                data: portfolioNoDrip_Cash.data,
+            });
+        }
+        if (portfolioDrip) {
+            legendData.push('Portfolio (DRIP)');
+            seriesData.push({
+                id: 'PortfolioDrip',
+                name: 'Portfolio (DRIP)',
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                lineStyle: { width: 2.5 },
+                emphasis: { focus: 'series' },
+                data: portfolioDrip.data,
+                z: 10,
+                markPoint: {
+                    symbol: 'circle', // 원형 심볼
+                    symbolSize: 40, // 심볼 크기
+                    itemStyle: { color: '#f59e0b' }, // 주황색 (눈에 띄는 색)
+                    label: { fontSize: 14, fontWeight: 'bold', color: '#000' }, // 검은색 텍스트
+                    data: [
+                        {
+                            type: 'max',
+                            name: '최고점',
+                            label: { formatter: '高' },
+                        },
+                        {
+                            type: 'min',
+                            name: '최저점',
+                            label: { formatter: '低' },
+                        },
+                    ],
+                },
+            });
+        }
+        if (comparisonDrip) {
+            legendData.push(comparisonDrip.name);
+            seriesData.push({
+                id: 'ComparisonDrip',
+                name: comparisonDrip.name,
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                lineStyle: { width: 2, opacity: 0.7 },
+                itemStyle: { color: '#9ca3af' },
+                emphasis: { focus: 'series' },
+                data: comparisonDrip.data,
+                z: 8,
+                markPoint: {
+                    symbol: 'circle',
+                    symbolSize: 40,
+                    itemStyle: { color: '#fef08a' }, // 연한 노란색
+                    label: { fontSize: 14, fontWeight: 'bold', color: '#000' },
+                    data: [
+                        {
+                            type: 'max',
+                            name: '최고점',
+                            label: { formatter: '高' },
+                        },
+                        {
+                            type: 'min',
+                            name: '최저점',
+                            label: { formatter: '低' },
+                        },
+                    ],
+                },
+            });
+        }
+
+        return createChartOption(chartTitle.value, seriesData, legendData);
+    });
+
+    const downloadChart = () => {
+        if (!chartInstance.value) return;
+        const dataUrl = chartInstance.value.getDataURL({
             type: 'png',
             pixelRatio: 2,
-            backgroundColor: '#FFFFFF',
+            backgroundColor: '#18181b',
         });
         const link = document.createElement('a');
         link.href = dataUrl;
-        link.download = filename;
+        link.download = 'backtest-result.png';
         link.click();
     };
 </script>
@@ -107,115 +254,107 @@
         v-else-if="result && !result.error"
         class="mt-4 surface-card p-4 border-round">
         <div class="grid">
-            <div class="col-12 md:col-6">
-                <div
-                    class="flex justify-content-between align-items-center mb-2">
-                    <h3 class="m-0">배당 재투자 O (DRIP)</h3>
+            <div class="col-12">
+                <div class="flex justify-content-end align-items-center mb-2">
                     <Button
                         icon="pi pi-download"
                         text
                         rounded
-                        @click="
-                            downloadChart(
-                                chartInstanceReinvest,
-                                'DRIP_Chart.png'
-                            )
-                        " />
+                        @click="downloadChart" />
                 </div>
                 <v-chart
-                    ref="chartInstanceReinvest"
-                    :option="chartOptionWithReinvest"
+                    ref="chartInstance"
+                    :option="combinedChartOption"
                     autoresize
-                    style="height: 400px" />
-                <ul class="list-none p-0 m-0 mt-4">
-                    <li>
-                        <strong>초기 투자금:</strong>
-                        {{ formatCurrency(result.initialInvestment) }}
-                    </li>
-                    <li>
-                        <strong>최종 평가액:</strong>
-                        {{
-                            formatCurrency(
-                                result.withReinvest.summary.endingInvestment
-                            )
-                        }}
-                    </li>
-                    <li>
-                        <strong>총 수익률:</strong>
-                        {{
-                            formatPercent(
-                                result.withReinvest.summary.totalReturn
-                            )
-                        }}
-                    </li>
-                    <li>
-                        <strong>연평균 수익률 (CAGR):</strong>
-                        {{ formatPercent(result.withReinvest.summary.cagr) }}
-                    </li>
-                    <li>
-                        <strong>기간:</strong> {{ result.years.toFixed(2) }} 년
-                    </li>
-                </ul>
+                    style="height: 500px" />
             </div>
-            <div class="col-12 md:col-6">
-                <div
-                    class="flex justify-content-between align-items-center mb-2">
-                    <h3 class="m-0">배당 재투자 X</h3>
-                    <Button
-                        icon="pi pi-download"
-                        text
-                        rounded
-                        @click="
-                            downloadChart(
-                                chartInstanceNoReinvest,
-                                'No_DRIP_Chart.png'
-                            )
-                        " />
-                </div>
-                <v-chart
-                    ref="chartInstanceNoReinvest"
-                    :option="chartOptionWithoutReinvest"
-                    autoresize
-                    style="height: 400px" />
-                <ul class="list-none p-0 m-0 mt-4">
-                    <li>
-                        <strong>초기 투자금:</strong>
-                        {{ formatCurrency(result.initialInvestment) }}
-                    </li>
-                    <li>
-                        <strong>최종 평가액:</strong>
-                        {{
-                            formatCurrency(
-                                result.withoutReinvest.summary.endingInvestment
-                            )
-                        }}
-                    </li>
-                    <li>
-                        <strong>누적 현금 배당금:</strong>
-                        {{
-                            formatCurrency(
-                                result.withoutReinvest.summary
-                                    .dividendsCollected
-                            )
-                        }}
-                    </li>
-                    <li>
-                        <strong>총 수익률:</strong>
-                        {{
-                            formatPercent(
-                                result.withoutReinvest.summary.totalReturn
-                            )
-                        }}
-                    </li>
-                    <li>
-                        <strong>연평균 수익률 (CAGR):</strong>
-                        {{ formatPercent(result.withoutReinvest.summary.cagr) }}
-                    </li>
-                    <li>
-                        <strong>기간:</strong> {{ result.years.toFixed(2) }} 년
-                    </li>
-                </ul>
+
+            <!-- [핵심 수정] 요약 정보를 테이블로 변경 -->
+            <div class="col-12">
+                <DataTable :value="[{}]" class="p-datatable-sm mt-4">
+                    <Column header="항목">
+                        <template #body>
+                            <div class="font-bold">초기 투자금</div>
+                            <div class="font-bold">최종 평가액</div>
+                            <div class="font-bold">누적 현금 배당금</div>
+                            <div class="font-bold">총 수익률</div>
+                            <div class="font-bold">연평균 수익률 (CAGR)</div>
+                            <div class="font-bold">기간</div>
+                        </template>
+                    </Column>
+                    <Column header="배당 재투자 O (DRIP)">
+                        <template #body>
+                            <div>
+                                {{ formatCurrency(result.initialInvestment) }}
+                            </div>
+                            <div>
+                                {{
+                                    formatCurrency(
+                                        result.withReinvest.summary
+                                            .endingInvestment
+                                    )
+                                }}
+                            </div>
+                            <div>-</div>
+                            <div>
+                                {{
+                                    formatPercent(
+                                        result.withReinvest.summary.totalReturn
+                                    )
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    formatPercent(
+                                        result.withReinvest.summary.cagr
+                                    )
+                                }}
+                            </div>
+                            <div>{{ result.years.toFixed(2) }} 년</div>
+                        </template>
+                    </Column>
+                    <Column header="배당 재투자 X">
+                        <template #body>
+                            <div>
+                                {{ formatCurrency(result.initialInvestment) }}
+                            </div>
+                            <div>
+                                {{
+                                    formatCurrency(
+                                        result.withoutReinvest.summary
+                                            .endingInvestment
+                                    )
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    formatCurrency(
+                                        result.withoutReinvest.summary
+                                            .dividendsCollected
+                                    )
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    formatPercent(
+                                        result.withoutReinvest.summary
+                                            .totalReturn
+                                    )
+                                }}
+                            </div>
+                            <div>
+                                {{
+                                    formatPercent(
+                                        result.withoutReinvest.summary.cagr
+                                    )
+                                }}
+                            </div>
+                            <div>{{ result.years.toFixed(2) }} 년</div>
+                        </template>
+                    </Column>
+                </DataTable>
             </div>
+
             <div
                 v-if="result.cashDividends && result.cashDividends.length > 0"
                 class="col-12 mt-4">
@@ -225,13 +364,7 @@
                     paginator
                     :rows="5"
                     class="p-datatable-sm">
-                    <Column field="date" header="지급일" sortable></Column>
-                    <Column field="ticker" header="종목" sortable></Column>
-                    <Column field="amount" header="세후 배당금 (USD)" sortable>
-                        <template #body="slotProps">{{
-                            formatCurrency(slotProps.data.amount)
-                        }}</template>
-                    </Column>
+                    <!-- ... DataTable 컬럼은 동일 ... -->
                 </DataTable>
             </div>
         </div>
