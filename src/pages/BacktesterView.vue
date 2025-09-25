@@ -15,6 +15,8 @@
     const backtestResult = ref(null);
     const isLoading = ref(false);
     const adjustedDateMessage = ref('');
+    // [추가] 딜레이를 위한 헬퍼 함수
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const handleRun = async (options) => {
         isLoading.value = true;
@@ -33,33 +35,34 @@
                 ...options.symbols,
                 options.comparisonSymbol,
             ].filter((s) => s && s !== 'None');
+            const fromDateStr = new Date(options.startDate)
+                .toISOString()
+                .split('T')[0];
+            const toDate = new Date(options.endDate);
+            toDate.setDate(toDate.getDate() + 1);
+            const toDateStr = toDate.toISOString().split('T')[0];
 
-            const startDateObj = new Date(options.startDate);
-            const endDateObj = new Date(options.endDate);
+            const resultsArray = [];
 
-            if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
-                throw new Error('유효하지 않은 날짜 형식입니다.');
-            }
-
-            endDateObj.setDate(endDateObj.getDate() + 1);
-            const fromDateStr = startDateObj.toISOString().split('T')[0];
-            const toDateStr = endDateObj.toISOString().split('T')[0];
-
-            const apiPromises = symbolsToFetch.map((symbol) =>
-                fetch(
+            // [핵심 수정] Promise.all 대신 for...of 루프를 사용하여 순차적으로 호출합니다.
+            for (const symbol of symbolsToFetch) {
+                console.log(`Fetching data for ${symbol}...`);
+                const response = await fetch(
                     `/api/getBacktestData?symbols=${symbol}&from=${fromDateStr}&to=${toDateStr}`
-                ).then(async (res) => {
-                    if (!res.ok) {
-                        const errorBody = await res.text();
-                        throw new Error(
-                            `[${symbol}] API 요청 실패 (${res.status}): ${errorBody}`
-                        );
-                    }
-                    return res.json();
-                })
-            );
+                );
 
-            const resultsArray = await Promise.all(apiPromises);
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    throw new Error(
+                        `[${symbol}] API 요청 실패 (${response.status}): ${errorBody}`
+                    );
+                }
+
+                resultsArray.push(await response.json());
+
+                // [핵심 수정] 각 API 호출 후 200ms (0.2초)의 딜레이를 줍니다.
+                await delay(200);
+            }
 
             const combinedTickerData = resultsArray.flatMap(
                 (result) => result.tickerData
