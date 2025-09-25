@@ -1,22 +1,5 @@
 import yahooFinance from 'yahoo-finance2';
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-async function fetchWithRetry(action, retries = 3, delayDuration = 500) {
-    for (let i = 0; i < retries; i++) {
-        try {
-            return await action();
-        } catch (error) {
-            if (i < retries - 1) {
-                console.log(`Attempt ${i + 1} failed, retrying in ${delayDuration}ms...`);
-                await delay(delayDuration);
-            } else {
-                throw error;
-            }
-        }
-    }
-}
-
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -36,21 +19,25 @@ export default async function handler(req, res) {
     try {
         const resultsPromises = symbolArray.map(async (symbol) => {
             try {
-                const queryOptions = { period1: from, period2: to, interval: '1d' };
-                
-                const action = () => Promise.all([
-                    yahooFinance.historical(symbol, { ...queryOptions, events: 'history' }),
-                    yahooFinance.historical(symbol, { ...queryOptions, events: 'div' }),
-                    yahooFinance.historical(symbol, { ...queryOptions, events: 'split' }),
-                    yahooFinance.quote(symbol)
+                const queryOptions = { period1: from, period2: to };
+
+                // [핵심 수정] Python 스크립트와 가장 유사한 방식으로 데이터를 개별적으로, 그리고 안정적으로 요청합니다.
+                const pricesPromise = yahooFinance.historical(symbol, { ...queryOptions, interval: '1d' }).catch(() => []);
+                const dividendsPromise = yahooFinance.getHistoricalDividends(symbol, queryOptions).catch(() => []); // 배당금 전용 메서드 사용
+                const splitsPromise = yahooFinance.historical(symbol, { ...queryOptions, events: 'split' }).catch(() => []);
+                const quotePromise = yahooFinance.quote(symbol).catch(() => null);
+
+                const [prices, dividends, splits, quote] = await Promise.all([
+                    pricesPromise,
+                    dividendsPromise,
+                    splitsPromise,
+                    quotePromise,
                 ]);
 
-                const [prices, dividends, splits, quote] = await fetchWithRetry(action);
-
                 if (prices.length === 0 && !quote) {
-                    throw new Error(`No data found for symbol`);
+                    throw new Error(`No data found for symbol ${symbol}`);
                 }
-                
+
                 const firstTradeDate = quote?.firstTradeDateMilliseconds
                     ? new Date(quote.firstTradeDateMilliseconds).toISOString().split('T')[0]
                     : (prices[0] ? prices[0].date.toISOString().split('T')[0] : null);
@@ -58,25 +45,35 @@ export default async function handler(req, res) {
                 return {
                     symbol,
                     firstTradeDate,
-                    prices: prices.map(p => ({ date: p.date.toISOString().split('T')[0], open: p.open, close: p.close })),
-                    dividends: dividends.map(d => ({ date: d.date.toISOString().split('T')[0], amount: d.dividends })),
-                    splits: splits.map(s => ({ date: s.date.toISOString().split('T')[0], ratio: s.stockSplits })),
+                    prices: prices.map((p) => ({
+                        date: p.date.toISOString().split('T')[0],
+                        open: p.open,
+                        close: p.close,
+                    })),
+                    // [핵심 수정] getHistoricalDividends의 반환 형식에 맞게 amount를 직접 사용합니다.
+                    dividends: dividends.map((d) => ({
+                        date: d.date.toISOString().split('T')[0],
+                        amount: d.amount,
+                    })),
+                    splits: splits.map((s) => ({
+                        date: s.date.toISOString().split('T')[0],
+                        ratio: s.stockSplits,
+                    })),
                 };
             } catch (e) {
-                console.error(`[API] ${symbol} 데이터 조회 최종 실패:`, e.message);
+                console.error(`[API] ${symbol} 데이터 조회 실패:`, e.message);
                 return { symbol, error: e.message, prices: [], dividends: [], splits: [] };
             }
         });
 
-        const exchangeRatesPromise = fetchWithRetry(() => 
-            yahooFinance.historical('USDKRW=X', { period1: from, period2: to })
-        )
-        .then(rates => rates.map(r => ({ date: r.date.toISOString().split('T')[0], rate: r.close })))
-        .catch(e => {
-            console.error('환율 데이터 조회 최종 실패:', e.message);
-            return [];
-        });
-            
+        const exchangeRatesPromise = yahooFinance
+            .historical('USDKRW=X', { period1: from, period2: to })
+            .then((rates) => rates.map((r) => ({ date: r.date.toISOString().split('T')[0], rate: r.close })))
+            .catch((e) => {
+                console.error('환율 데이터 조회 실패:', e.message);
+                return [];
+            });
+
         const [tickerData, exchangeRatesData] = await Promise.all([
             Promise.all(resultsPromises),
             exchangeRatesPromise,
