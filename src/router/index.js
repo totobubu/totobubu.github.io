@@ -2,7 +2,8 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
-import CalendarView from '../pages/CalendarView.vue'; // [수정] CalendarView를 import 합니다.
+import CalendarView from '../pages/CalendarView.vue';
+import BacktesterView from '../pages/BacktesterView.vue';
 import StockView from '../pages/StockView.vue'; // 개별 주식 정보를 보여줄 컴포넌트
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
@@ -41,6 +42,7 @@ const router = createRouter({
             name: 'calendar',
             component: CalendarView,
         },
+        { path: '/backtester', name: 'backtester', component: BacktesterView },
         {
             path: '/:ticker', // :ticker 부분이 변수 역할을 합니다.
             name: 'stock-detail',
