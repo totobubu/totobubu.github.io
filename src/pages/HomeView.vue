@@ -40,11 +40,11 @@
             size="large"
             @click="router.push('/backtester')" />
         <Button
-            label="마이페이지"
+            label="로그인"
             icon="pi pi-user"
             severity="secondary"
             rounded
             size="large"
-            @click="router.push('/mypage')" />
+            @click="router.push('/login')" />
     </article>
 </template>
