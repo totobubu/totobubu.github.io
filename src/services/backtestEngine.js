@@ -55,12 +55,15 @@ export function runBacktest(options) {
     const commissionRate = commission / 100;
     const taxRate = applyTax ? 0.85 : 1.0;
     const results = {};
-    const allSymbols = [...portfolio.map((p) => p.symbol), comparisonSymbol]
-        .filter((s) => s && s !== 'None')
-        .map((s) => s.toUpperCase());
-    const uniqueAllSymbols = [...new Set(allSymbols)];
+    const allSymbols = [
+        ...new Set(
+            [...portfolio.map((p) => p.symbol), comparisonSymbol]
+                .filter((s) => s && s !== 'None')
+                .map((s) => s.toUpperCase())
+        ),
+    ];
 
-    uniqueAllSymbols.forEach((symbol) => {
+    allSymbols.forEach((symbol) => {
         const symbolData = apiData.tickerData.find(
             (d) => d.symbol.toUpperCase() === symbol
         );
@@ -138,13 +141,13 @@ export function runBacktest(options) {
         let sharesWithoutReinvest = sharesWithReinvest;
         const initialShares = sharesWithoutReinvest;
 
-        let currentDate = new Date(`${effectiveStartDateStr}T00:00:00Z`);
-        const finalDate = new Date(`${endDate}T00:00:00Z`);
+        let currentDate = new Date(`${effectiveStartDateStr}T12:00:00Z`);
+        const finalDate = new Date(`${endDate}T12:00:00Z`);
         const historyWithReinvest = [],
             historyWithoutReinvest = [],
             dividendPayouts = [];
 
-        while (currentDate <= finalDate) {
+        while (currentDate.getTime() <= finalDate.getTime()) {
             const dateStr = currentDate.toISOString().split('T')[0];
             const currentPriceData = priceMap.get(dateStr);
 
@@ -213,6 +216,7 @@ export function runBacktest(options) {
         const years =
             (finalDate - new Date(initialStartDate)) /
                 (365.25 * 24 * 60 * 60 * 1000) || 1;
+
         const endingInvestmentWithReinvest = sharesWithReinvest * endPrice;
         const totalReturnWithReinvest =
             investmentPerTicker > 0

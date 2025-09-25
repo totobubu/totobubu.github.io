@@ -9,7 +9,6 @@ const formatDate = (timestamp) =>
     new Date(timestamp * 1000).toISOString().split('T')[0];
 
 export default async function handler(req, res) {
-    // [핵심 수정] 하이픈 오타를 수정합니다.
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -33,20 +32,20 @@ export default async function handler(req, res) {
     try {
         const resultsPromises = symbolArray.map(async (symbol) => {
             try {
-                const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,split`;
+                const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,split`;
                 const { data } = await axios.get(url, { headers: YF_HEADERS });
 
                 if (data.chart.error) {
                     throw new Error(
                         data.chart.error.description ||
-                            'Unknown error from Yahoo API'
+                            `Unknown error for ${symbol}`
                     );
                 }
 
                 const result = data.chart.result[0];
                 if (!result || !result.timestamp) {
                     return {
-                        symbol,
+                        symbol: symbol.toUpperCase(),
                         prices: [],
                         dividends: [],
                         splits: [],
@@ -58,7 +57,7 @@ export default async function handler(req, res) {
                 const quotes = result.indicators.quote[0];
                 const events = result.events || {};
 
-                const prices = timestamps
+                const prices = (timestamps || [])
                     .map((ts, i) => ({
                         date: formatDate(ts),
                         open: quotes.open[i],
@@ -80,14 +79,20 @@ export default async function handler(req, res) {
                     ? formatDate(result.meta.firstTradeTime)
                     : null;
 
-                return { symbol, firstTradeDate, prices, dividends, splits };
+                return {
+                    symbol: symbol.toUpperCase(),
+                    firstTradeDate,
+                    prices,
+                    dividends,
+                    splits,
+                };
             } catch (e) {
                 console.error(
                     `[API] Error fetching data for ${symbol}:`,
                     e.message
                 );
                 return {
-                    symbol,
+                    symbol: symbol.toUpperCase(),
                     error: e.message,
                     prices: [],
                     dividends: [],
