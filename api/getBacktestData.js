@@ -1,36 +1,9 @@
-// api/getBacktestData.js
+// api/getBacktestData.js (최종 안정화 버전)
 
 import yahooFinance from 'yahoo-finance2';
-import path from 'path';
-import fs from 'fs/promises';
-
-yahooFinance.setGlobalConfig({
-    validation: {
-        logErrors: false,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
-    },
-});
-
-// [핵심] Node.js 서버 환경에서 public 폴더의 절대 경로를 찾습니다.
-const publicDir = path.resolve('./public');
-const exchangeRatesFilePath = path.join(publicDir, 'exchange-rates.json');
-
-let allExchangeRates = [];
-// 메모리에 환율 데이터를 캐싱하여 반복적인 파일 읽기를 방지합니다.
-async function loadExchangeRates() {
-    if (allExchangeRates.length > 0) return allExchangeRates;
-    try {
-        const fileContent = await fs.readFile(exchangeRatesFilePath, 'utf-8');
-        allExchangeRates = JSON.parse(fileContent);
-        return allExchangeRates;
-    } catch (e) {
-        console.error('Failed to load local exchange-rates.json', e);
-        return [];
-    }
-}
 
 export default async function handler(req, res) {
+    // CORS 헤더 설정
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -46,90 +19,94 @@ export default async function handler(req, res) {
             .json({ error: 'Symbols, from, and to parameters are required' });
     }
 
+    // Vercel 환경에서는 파일 시스템 접근이 불가능하므로, 환율은 항상 API로 호출
+    const exchangeRatesPromise = yahooFinance
+        .historical('USDKRW=X', { period1: from, period2: to })
+        .then((rates) =>
+            rates.map((r) => ({
+                date: r.date.toISOString().split('T')[0],
+                rate: r.close,
+            }))
+        )
+        .catch((e) => {
+            console.error('환율 데이터 조회 실패:', e.message);
+            return []; // 환율 조회 실패 시 빈 배열 반환
+        });
+
     const symbolArray = symbols.split(',');
 
     try {
-        const allRates = await loadExchangeRates();
+        const resultsPromises = symbolArray.map(async (symbol) => {
+            try {
+                // [핵심] historical API 한 번만 호출하여 모든 것을 해결
+                const historicalData = await yahooFinance.historical(symbol, {
+                    period1: from,
+                    period2: to,
+                    interval: '1d',
+                    events: 'history|div|split',
+                });
 
-        // [핵심] 저장된 데이터에서 필요한 기간만큼 필터링합니다.
-        const exchangeRatesData = allRates.filter((rate) => {
-            return rate.date >= from && rate.date <= to;
-        });
-
-        const results = await Promise.all(
-            symbolArray.map(async (symbol) => {
-                try {
-                    // [핵심 수정] 데이터를 종류별로 명확하게 분리하여 호출합니다.
-                    const queryOptions = { period1, period2, interval: '1d' };
-
-                    const [prices, dividends, splits, quote] =
-                        await Promise.all([
-                            yahooFinance
-                                .historical(symbol, {
-                                    ...queryOptions,
-                                    events: 'history',
-                                })
-                                .catch(() => []),
-                            yahooFinance
-                                .historical(symbol, {
-                                    ...queryOptions,
-                                    events: 'div',
-                                })
-                                .catch(() => []),
-                            yahooFinance
-                                .historical(symbol, {
-                                    ...queryOptions,
-                                    events: 'split',
-                                })
-                                .catch(() => []),
-                            yahooFinance
-                                .quote(symbol, {
-                                    fields: ['firstTradeDateMilliseconds'],
-                                })
-                                .catch(() => null),
-                        ]);
-
-                    const firstTradeDate = quote?.firstTradeDateMilliseconds
-                        ? new Date(quote.firstTradeDateMilliseconds)
-                              .toISOString()
-                              .split('T')[0]
-                        : prices[0]
-                          ? prices[0].date.toISOString().split('T')[0]
-                          : null;
-
+                if (!historicalData || historicalData.length === 0) {
+                    // 데이터가 없는 경우도 정상 처리
                     return {
                         symbol,
-                        firstTradeDate,
-                        prices: prices.map((p) => ({
-                            date: p.date.toISOString().split('T')[0],
-                            open: p.open,
-                            close: p.close,
-                        })),
-                        dividends: dividends.map((d) => ({
-                            date: d.date.toISOString().split('T')[0],
-                            amount: d.dividends,
-                        })),
-                        splits: splits.map((s) => ({
-                            date: s.date.toISOString().split('T')[0],
-                            ratio: s.stockSplits,
-                        })),
-                    };
-                } catch (e) {
-                    return {
-                        symbol,
-                        error: e.message,
+                        firstTradeDate: null,
                         prices: [],
                         dividends: [],
                         splits: [],
                     };
                 }
-            })
-        );
+
+                const firstTradeDate = historicalData[0].date
+                    .toISOString()
+                    .split('T')[0];
+                const prices = historicalData.filter(
+                    (d) => d && typeof d.close === 'number'
+                );
+                const dividends = historicalData.filter(
+                    (d) => d && d.dividends
+                );
+                const splits = historicalData.filter((d) => d && d.stockSplits);
+
+                return {
+                    symbol,
+                    firstTradeDate,
+                    prices: prices.map((p) => ({
+                        date: p.date.toISOString().split('T')[0],
+                        open: p.open,
+                        close: p.close,
+                    })),
+                    dividends: dividends.map((d) => ({
+                        date: d.date.toISOString().split('T')[0],
+                        amount: d.dividends,
+                    })),
+                    splits: splits.map((s) => ({
+                        date: s.date.toISOString().split('T')[0],
+                        ratio: s.stockSplits,
+                    })),
+                };
+            } catch (e) {
+                // 개별 심볼 조회 실패 시 에러 객체 반환
+                console.error(`[API] ${symbol} 데이터 조회 실패:`, e.message);
+                return {
+                    symbol,
+                    error: e.message,
+                    prices: [],
+                    dividends: [],
+                    splits: [],
+                };
+            }
+        });
+
+        const [tickerData, exchangeRatesData] = await Promise.all([
+            Promise.all(resultsPromises),
+            exchangeRatesPromise,
+        ]);
 
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
         return res.status(200).json({
-            tickerData: results,
-            exchangeRates: exchangeRatesData, // 로컬 파일에서 필터링한 데이터 반환
+            tickerData,
+            exchangeRates: exchangeRatesData,
         });
     } catch (error) {
         return res.status(500).json({ error: error.message });
