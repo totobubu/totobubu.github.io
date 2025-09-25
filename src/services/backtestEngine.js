@@ -24,6 +24,7 @@ export function runBacktest(options) {
         apiData,
         holidays,
     } = options;
+
     const exchangeRateMap = new Map(
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
@@ -116,6 +117,7 @@ export function runBacktest(options) {
         let sharesWithReinvest =
             (investmentPerTicker * (1 - commissionRate)) / startPrice;
         let sharesWithoutReinvest = sharesWithReinvest;
+        const initialShares = sharesWithoutReinvest;
 
         let currentDate = new Date(actualStartDateStr);
         const finalDate = new Date(endDate);
@@ -206,6 +208,7 @@ export function runBacktest(options) {
                 : 0;
 
         results[symbol] = {
+            initialShares,
             withReinvest: {
                 history: historyWithReinvest,
                 totalReturn: totalReturnWithReinvest,
@@ -289,6 +292,12 @@ export function runBacktest(options) {
         data: portfolioCashHistory,
     });
 
+    const individualResults = {};
+    validSymbols.forEach((symbol) => {
+        individualResults[symbol] = results[symbol];
+    });
+
+    let comparisonResult = null;
     if (
         comparisonSymbol &&
         comparisonSymbol !== 'None' &&
@@ -296,6 +305,7 @@ export function runBacktest(options) {
         !results[comparisonSymbol].error
     ) {
         const compResult = results[comparisonSymbol];
+        comparisonResult = compResult;
         finalResult.withReinvest.series.push({
             name: comparisonSymbol,
             data: compResult.withReinvest.history,
@@ -357,6 +367,8 @@ export function runBacktest(options) {
     );
     finalResult.symbols = portfolio.map((p) => p.symbol);
     finalResult.comparisonSymbol = comparisonSymbol;
+    finalResult.individualResults = individualResults;
+    finalResult.comparisonResult = comparisonResult;
 
     return finalResult;
 }

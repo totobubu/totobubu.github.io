@@ -50,8 +50,8 @@
                 formatter: (params) => {
                     if (!params || params.length === 0) return '';
                     let tooltipHtml = `${params[0].axisValueLabel}<br/>`;
-                    const spyIndex = params.findIndex((p) =>
-                        p.seriesName.includes('SPY')
+                    const spyIndex = params.findIndex(
+                        (p) => p.seriesName && p.seriesName.includes('SPY')
                     );
 
                     params.forEach((param, index) => {
@@ -224,7 +224,8 @@
 
     const downloadChart = () => {
         if (!chartInstance.value) return;
-        const dataUrl = chartInstance.value.getDataURL({
+        const chart = chartInstance.value.getChart();
+        const dataUrl = chart.getDataURL({
             type: 'png',
             pixelRatio: 2,
             backgroundColor: '#18181b',
@@ -234,6 +235,55 @@
         link.download = 'backtest-result.png';
         link.click();
     };
+
+    const resultTableData = computed(() => {
+        if (!props.result) return [];
+        const r = props.result;
+        const rows = [
+            {
+                label: '초기 투자금',
+                drip: r.initialInvestment,
+                noDrip: r.initialInvestment,
+                comp: r.initialInvestment,
+            },
+            {
+                label: '최종 평가액',
+                drip: r.withReinvest.summary.endingInvestment,
+                noDrip: r.withoutReinvest.summary.endingInvestment,
+                comp: r.comparisonResult?.withReinvest.endingInvestment,
+            },
+            {
+                label: '누적 현금 배당금',
+                drip: '-',
+                noDrip: r.withoutReinvest.summary.dividendsCollected,
+                comp: r.comparisonResult?.withoutReinvest.dividendsCollected,
+            },
+            {
+                label: '총 수익률',
+                drip: r.withReinvest.summary.totalReturn,
+                noDrip: r.withoutReinvest.summary.totalReturn,
+                comp: r.comparisonResult?.withReinvest.totalReturn,
+            },
+            {
+                label: '연평균 수익률 (CAGR)',
+                drip: r.withReinvest.summary.cagr,
+                noDrip: r.withoutReinvest.summary.cagr,
+                comp: r.comparisonResult?.withReinvest.cagr,
+            },
+            {
+                label: '기간',
+                drip: `${r.years.toFixed(2)} 년`,
+                noDrip: `${r.years.toFixed(2)} 년`,
+                comp: `${r.years.toFixed(2)} 년`,
+            },
+        ];
+        return rows;
+    });
+
+    const individualResultsArray = computed(() => {
+        if (!props.result || !props.result.individualResults) return [];
+        return Object.entries(props.result.individualResults);
+    });
 </script>
 
 <template>
@@ -261,90 +311,73 @@
                     autoresize
                     style="height: 500px" />
             </div>
+
             <div class="col-12">
-                <DataTable :value="[{}]" class="p-datatable-sm mt-4">
-                    <Column header="항목">
-                        <template #body>
-                            <div class="font-bold">초기 투자금</div>
-                            <div class="font-bold">최종 평가액</div>
-                            <div class="font-bold">누적 현금 배당금</div>
-                            <div class="font-bold">총 수익률</div>
-                            <div class="font-bold">연평균 수익률 (CAGR)</div>
-                            <div class="font-bold">기간</div>
-                        </template>
-                    </Column>
+                <DataTable :value="resultTableData" class="p-datatable-sm mt-4">
+                    <Column field="label" header="항목" />
                     <Column header="배당 재투자 O (DRIP)" class="text-right">
-                        <template #body>
-                            <div>
-                                {{ formatCurrency(result.initialInvestment) }}
-                            </div>
-                            <div>
-                                {{
-                                    formatCurrency(
-                                        result.withReinvest.summary
-                                            .endingInvestment
-                                    )
-                                }}
-                            </div>
-                            <div>-</div>
-                            <div>
-                                {{
-                                    formatPercent(
-                                        result.withReinvest.summary.totalReturn
-                                    )
-                                }}
-                            </div>
-                            <div>
-                                {{
-                                    formatPercent(
-                                        result.withReinvest.summary.cagr
-                                    )
-                                }}
-                            </div>
-                            <div>{{ result.years.toFixed(2) }} 년</div>
+                        <template #body="{ data }">
+                            <span v-if="typeof data.drip === 'number'">{{
+                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
+                                    data.label
+                                )
+                                    ? formatPercent(data.drip)
+                                    : formatCurrency(data.drip)
+                            }}</span>
+                            <span v-else>{{ data.drip }}</span>
                         </template>
                     </Column>
                     <Column header="배당 재투자 X" class="text-right">
-                        <template #body>
-                            <div>
-                                {{ formatCurrency(result.initialInvestment) }}
-                            </div>
-                            <div>
-                                {{
-                                    formatCurrency(
-                                        result.withoutReinvest.summary
-                                            .endingInvestment
-                                    )
-                                }}
-                            </div>
-                            <div>
-                                {{
-                                    formatCurrency(
-                                        result.withoutReinvest.summary
-                                            .dividendsCollected
-                                    )
-                                }}
-                            </div>
-                            <div>
-                                {{
-                                    formatPercent(
-                                        result.withoutReinvest.summary
-                                            .totalReturn
-                                    )
-                                }}
-                            </div>
-                            <div>
-                                {{
-                                    formatPercent(
-                                        result.withoutReinvest.summary.cagr
-                                    )
-                                }}
-                            </div>
-                            <div>{{ result.years.toFixed(2) }} 년</div>
+                        <template #body="{ data }">
+                            <span v-if="typeof data.noDrip === 'number'">{{
+                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
+                                    data.label
+                                )
+                                    ? formatPercent(data.noDrip)
+                                    : formatCurrency(data.noDrip)
+                            }}</span>
+                            <span v-else>{{ data.noDrip }}</span>
+                        </template>
+                    </Column>
+                    <Column
+                        v-if="result.comparisonResult"
+                        :header="result.comparisonSymbol"
+                        class="text-right">
+                        <template #body="{ data }">
+                            <span
+                                v-if="
+                                    data.comp === undefined ||
+                                    data.comp === null
+                                "
+                                >-</span
+                            >
+                            <span v-else-if="typeof data.comp === 'number'">{{
+                                ['총 수익률', '연평균 수익률 (CAGR)'].includes(
+                                    data.label
+                                )
+                                    ? formatPercent(data.comp)
+                                    : formatCurrency(data.comp)
+                            }}</span>
+                            <span v-else>{{ data.comp }}</span>
                         </template>
                     </Column>
                 </DataTable>
             </div>
+
+            <div v-if="individualResultsArray.length > 0" class="col-12 mt-4">
+                <h4>종목별 초기 매수 수량</h4>
+                <DataTable
+                    :value="individualResultsArray"
+                    class="p-datatable-sm">
+                    <Column field="[0]" header="종목"></Column>
+                    <Column field="[1].initialShares" header="초기 수량 (주)">
+                        <template #body="slotProps">{{
+                            (slotProps.data[1].initialShares || 0).toFixed(4)
+                        }}</template>
+                    </Column>
+                </DataTable>
+            </div>
+
             <div
                 v-if="result.cashDividends && result.cashDividends.length > 0"
                 class="col-12 mt-4">
