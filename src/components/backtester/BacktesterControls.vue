@@ -59,7 +59,7 @@
     });
 
     const updateUnderlying = (item) => {
-        const navInfo = navDataMap.value.get(item.symbol.toUpperCase());
+        const navInfo = navDataMap.value.get(item.symbol?.toUpperCase());
         item.underlying = navInfo?.underlying || null;
     };
 
@@ -103,15 +103,19 @@
             const shuffled = shuffleArray([...allSymbols.value]);
             const existingSymbols = portfolio.value.map((p) => p.symbol);
             const newSymbol = shuffled.find(
-                (s) => !existingSymbols.includes(s)
+                (s) => s && !existingSymbols.includes(s)
             );
-            portfolio.value[index].symbol = newSymbol || '종목 추가';
+            portfolio.value[index].symbol = newSymbol || '';
+            // When adding a new item, re-balance weights
+            balanceWeights();
         }
     };
 
     const removeItem = (index) => {
         portfolio.value[index].symbol = '';
         portfolio.value[index].value = 0;
+        // When removing an item, re-balance weights
+        balanceWeights();
     };
 
     const adjustFirstWeight = () => {
@@ -119,8 +123,31 @@
             const otherSum = portfolio.value
                 .slice(1)
                 .reduce((sum, item) => sum + (item.value || 0), 0);
-            portfolio.value[0].value = Math.max(0, 100 - otherSum);
+            // Ensure the sum of other items doesn't exceed 99 to leave 1% for the first item
+            const cappedOtherSum = Math.min(otherSum, 99);
+
+            // If the sum was capped, we need to adjust the item that was just changed
+            if (otherSum > 99) {
+                // This is a complex UX problem. For now, we'll just cap the sum and let the first item have its minimum.
+                // The user will see the total is not 100% and must adjust manually. A better way is handled by the :max prop.
+            }
+
+            portfolio.value[0].value = 100 - cappedOtherSum;
         }
+    };
+
+    // This function calculates the max value for a slider at a given index (1, 2, or 3)
+    const getMaxValueForSlider = (itemIndex) => {
+        if (itemIndex === 0) return 100; // Not used, but for safety
+        // Sum of all OTHER secondary items (not the current one, not the first one)
+        const otherSecondarySum = portfolio.value.reduce((sum, item, index) => {
+            if (index > 0 && index !== itemIndex) {
+                sum += item.value || 0;
+            }
+            return sum;
+        }, 0);
+        // Max value is 99 (to leave 1% for item 1) minus the sum of other sliders
+        return 99 - otherSecondarySum;
     };
 
     watch(
@@ -128,11 +155,12 @@
         adjustFirstWeight,
         { deep: true }
     );
+
     watch(
         () => portfolio.value.map((p) => p.symbol),
         (newSymbols, oldSymbols) => {
-            const newActiveCount = newSymbols.filter((s) => s).length;
-            const oldActiveCount = oldSymbols.filter((s) => s).length;
+            const newActiveCount = newSymbols.filter(Boolean).length;
+            const oldActiveCount = oldSymbols.filter(Boolean).length;
             if (newActiveCount !== oldActiveCount) {
                 balanceWeights();
             }
@@ -172,6 +200,7 @@
                 <PortfolioInput
                     v-model="portfolio"
                     :all-symbols="allSymbols"
+                    :get-max-value="getMaxValueForSlider"
                     @addItem="addItem"
                     @removeItem="removeItem" />
             </template>
