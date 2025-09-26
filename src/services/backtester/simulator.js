@@ -1,3 +1,4 @@
+// src\services\backtester\simulator.js
 import { addBusinessDays } from './utils.js';
 
 export function runSimulation(options) {

@@ -1,3 +1,4 @@
+// src\services\backtester\aggregator.js
 import { calculateCAGR } from './utils.js';
 
 export function aggregateResults(options) {

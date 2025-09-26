@@ -1,108 +1,182 @@
-@use "../abstracts/variables" as vars;
-@use "../abstracts/mixins" as mx;
-@use "../functions/breakpoints" as bp;
+// src\styles\components\_color.scss
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mx;
+@use '../functions/breakpoints' as bp;
 
+$color-mon: #a78bfa;
+$color-tue: #facc15;
+$color-wed: #14b8a6;
+$color-thu: #6366fa;
+$color-fri: #f472b6;
 
+$color-a: var(--p-red-400); // red
+$color-b: var(--p-orange-400); // orange
+$color-c: var(--p-green-400); // green
+$color-d: var(--p-sky-400); // sky
 
-$color-mon :#a78bfa;
-$color-tue :#facc15;
-$color-wed :#14b8a6;
-$color-thu :#6366fa;
-$color-fri :#f472b6;
-
-$color-a :var(--p-red-400);   // red
-$color-b :var(--p-orange-400);     // orange
-$color-c :var(--p-green-400);  // green
-$color-d :var(--p-sky-400);     // sky
-
-$color-monthly :var(--p-amber-400);
-$color-quarterly :var(--p-fuchsia-400);
+$color-monthly: var(--p-amber-400);
+$color-quarterly: var(--p-fuchsia-400);
 
 .p-tag {
-    &[data-p="mon"] {
+    &[data-p='mon'] {
         background: $color-mon;
     }
 
-    &[data-p="tue"] {
+    &[data-p='tue'] {
         background: $color-tue;
     }
 
-    &[data-p="wed"] {
+    &[data-p='wed'] {
         background: $color-wed;
     }
 
-    &[data-p="thu"] {
+    &[data-p='thu'] {
         background: $color-thu;
     }
 
-    &[data-p="fri"] {
+    &[data-p='fri'] {
         background: $color-fri;
     }
 }
 .fc {
     &-list {
-        .freq-monthly { color: $color-monthly;
-            .fc-list-event-dot { border-color: $color-monthly;}
+        .freq-monthly {
+            color: $color-monthly;
+            .fc-list-event-dot {
+                border-color: $color-monthly;
+            }
         }
-        .freq-quarterly { color: $color-quarterly;
-            .fc-list-event-dot { border-color: $color-quarterly;}
+        .freq-quarterly {
+            color: $color-quarterly;
+            .fc-list-event-dot {
+                border-color: $color-quarterly;
+            }
         }
-        .freq-mon { color: $color-mon;
-            .fc-list-event-dot { border-color: $color-mon;}
+        .freq-mon {
+            color: $color-mon;
+            .fc-list-event-dot {
+                border-color: $color-mon;
+            }
         }
-        .freq-tue { color: $color-tue;
-            .fc-list-event-dot { border-color: $color-tue;}
+        .freq-tue {
+            color: $color-tue;
+            .fc-list-event-dot {
+                border-color: $color-tue;
+            }
         }
-        .freq-wed { color: $color-wed;
-            .fc-list-event-dot { border-color: $color-wed;}
+        .freq-wed {
+            color: $color-wed;
+            .fc-list-event-dot {
+                border-color: $color-wed;
+            }
         }
-        .freq-thu { color: $color-thu;
-            .fc-list-event-dot { border-color: $color-thu;}
+        .freq-thu {
+            color: $color-thu;
+            .fc-list-event-dot {
+                border-color: $color-thu;
+            }
         }
-        .freq-fri { color: $color-fri;
-            .fc-list-event-dot { border-color: $color-fri;}
+        .freq-fri {
+            color: $color-fri;
+            .fc-list-event-dot {
+                border-color: $color-fri;
+            }
         }
-        .freq-a { color: $color-a;
-            .fc-list-event-dot { border-color: $color-a;}
+        .freq-a {
+            color: $color-a;
+            .fc-list-event-dot {
+                border-color: $color-a;
+            }
         }
-        .freq-b { color: $color-b;
-            .fc-list-event-dot { border-color: $color-b;}
+        .freq-b {
+            color: $color-b;
+            .fc-list-event-dot {
+                border-color: $color-b;
+            }
         }
-        .freq-c { color: $color-c;
-            .fc-list-event-dot { border-color: $color-c;}
+        .freq-c {
+            color: $color-c;
+            .fc-list-event-dot {
+                border-color: $color-c;
+            }
         }
-        .freq-d { color: $color-d;
-            .fc-list-event-dot { border-color: $color-d;}
+        .freq-d {
+            color: $color-d;
+            .fc-list-event-dot {
+                border-color: $color-d;
+            }
         }
     }
     &-dayGridWeek-view {
         .stock-item-week {
-            &.freq-monthly { background-color: $color-monthly;}
-            &.freq-quarterly { background-color: $color-quarterly;}
-            &.freq-mon { background-color: $color-mon;}
-            &.freq-tue { background-color: $color-tue;}
-            &.freq-wed { background-color: $color-wed;}
-            &.freq-thu { background-color: $color-thu;}
-            &.freq-fri { background-color: $color-fri;}
-            &.freq-a { background-color: $color-a;}
-            &.freq-b { background-color: $color-b;}
-            &.freq-c { background-color: $color-c;}
-            &.freq-d { background-color: $color-d;}
+            &.freq-monthly {
+                background-color: $color-monthly;
+            }
+            &.freq-quarterly {
+                background-color: $color-quarterly;
+            }
+            &.freq-mon {
+                background-color: $color-mon;
+            }
+            &.freq-tue {
+                background-color: $color-tue;
+            }
+            &.freq-wed {
+                background-color: $color-wed;
+            }
+            &.freq-thu {
+                background-color: $color-thu;
+            }
+            &.freq-fri {
+                background-color: $color-fri;
+            }
+            &.freq-a {
+                background-color: $color-a;
+            }
+            &.freq-b {
+                background-color: $color-b;
+            }
+            &.freq-c {
+                background-color: $color-c;
+            }
+            &.freq-d {
+                background-color: $color-d;
+            }
         }
-
     }
     &-dayGridMonth-view {
-        .freq-monthly { background-color: $color-monthly;}
-        .freq-quarterly { background-color: $color-quarterly;}
-        .freq-mon { background-color: $color-mon;}
-        .freq-tue { background-color: $color-tue;}
-        .freq-wed { background-color: $color-wed;}
-        .freq-thu { background-color: $color-thu;}
-        .freq-fri { background-color: $color-fri;}
-        .freq-a { background-color: $color-a;}
-        .freq-b { background-color: $color-b;}
-        .freq-c { background-color: $color-c;}
-        .freq-d { background-color: $color-d;}
-
+        .freq-monthly {
+            background-color: $color-monthly;
+        }
+        .freq-quarterly {
+            background-color: $color-quarterly;
+        }
+        .freq-mon {
+            background-color: $color-mon;
+        }
+        .freq-tue {
+            background-color: $color-tue;
+        }
+        .freq-wed {
+            background-color: $color-wed;
+        }
+        .freq-thu {
+            background-color: $color-thu;
+        }
+        .freq-fri {
+            background-color: $color-fri;
+        }
+        .freq-a {
+            background-color: $color-a;
+        }
+        .freq-b {
+            background-color: $color-b;
+        }
+        .freq-c {
+            background-color: $color-c;
+        }
+        .freq-d {
+            background-color: $color-d;
+        }
     }
 }
