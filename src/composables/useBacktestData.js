@@ -10,7 +10,13 @@ export function useBacktestData() {
         startDate,
         endDate
     ) => {
-        const portfolioSymbols = portfolio.map((p) => p.symbol.toUpperCase());
+        const portfolioSymbols = portfolio
+            .map((p) => p.symbol.toUpperCase())
+            .filter(Boolean);
+        if (portfolioSymbols.length === 0) {
+            throw new Error('백테스팅할 종목을 입력해주세요.');
+        }
+
         const symbolsToFetch = [
             ...new Set(
                 [...portfolioSymbols, comparisonSymbol.toUpperCase()].filter(
@@ -85,6 +91,8 @@ export function useBacktestData() {
         if (effectiveStartDate < latestIpoDate) {
             effectiveStartDate = latestIpoDate;
             adjustedDateMessage.value = `시작일이 ${effectiveStartDate.toISOString().split('T')[0]}로 자동 조정되었습니다.`;
+        } else {
+            adjustedDateMessage.value = '';
         }
 
         return {

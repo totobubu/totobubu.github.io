@@ -6,10 +6,7 @@
     import Slider from 'primevue/slider';
     import AutoComplete from 'primevue/autocomplete';
 
-    const props = defineProps({
-        modelValue: Array,
-        allSymbols: Array,
-    });
+    const props = defineProps({ modelValue: Array, allSymbols: Array });
     const emit = defineEmits(['update:modelValue', 'addItem', 'removeItem']);
 
     const filteredSymbols = ref([]);
@@ -34,13 +31,8 @@
         }, 250);
     };
 
-    const addItem = (index) => {
-        emit('addItem', index);
-    };
-
-    const removeItem = (index) => {
-        emit('removeItem', index);
-    };
+    const addItem = (index) => emit('addItem', index);
+    const removeItem = (index) => emit('removeItem', index);
 </script>
 
 <template>
@@ -52,7 +44,7 @@
             <Card class="border-1 surface-border shadow-none h-full">
                 <template #content>
                     <div
-                        v-if="!item.symbol"
+                        v-if="index !== 0 && !item.symbol"
                         class="flex align-items-center justify-content-center h-full"
                         style="min-height: 80px">
                         <Button
