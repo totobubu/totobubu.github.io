@@ -1,3 +1,4 @@
+// src\services\backtester\dataProcessor.js
 export function processSymbolData(symbolData) {
     console.log(`[Processor] Processing data for ${symbolData.symbol}`, {
         symbolData,

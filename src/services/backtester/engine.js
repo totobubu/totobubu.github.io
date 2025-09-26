@@ -1,3 +1,4 @@
+// src\services\backtester\engine.js
 import { runSimulation } from './simulator.js';
 import { aggregateResults } from './aggregator.js';
 import { processSymbolData } from './dataProcessor.js';
