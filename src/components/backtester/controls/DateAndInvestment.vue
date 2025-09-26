@@ -28,7 +28,8 @@
     const commission = ref(0.1);
     const comparison = ref('SPY');
     const customComparison = ref('');
-    const exchangeRate = ref(null);
+    // exchangeRate 변수는 더 이상 필요 없으므로 삭제해도 무방합니다.
+    // const exchangeRate = ref(null);
     const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y']);
     const selectedPeriod = ref('1Y');
     const applyTax = ref(true);
@@ -100,13 +101,24 @@
         });
     };
 
+    // --- [수정된 부분] ---
     const updateKRW = () => {
-        if (document.activeElement?.id === 'investmentUSD')
-            investmentKRW.value = investmentUSD.value * exchangeRate.value;
+        // exchangeRate.value 대신 startDateRate.value 사용
+        if (
+            document.activeElement?.id === 'investmentUSD' &&
+            startDateRate.value > 0
+        ) {
+            investmentKRW.value = investmentUSD.value * startDateRate.value;
+        }
     };
     const updateUSD = () => {
-        if (document.activeElement?.id !== 'investmentUSD')
-            investmentUSD.value = investmentKRW.value / exchangeRate.value;
+        // exchangeRate.value 대신 startDateRate.value 사용
+        if (
+            document.activeElement?.id !== 'investmentUSD' &&
+            startDateRate.value > 0
+        ) {
+            investmentUSD.value = investmentKRW.value / startDateRate.value;
+        }
     };
 </script>
 
