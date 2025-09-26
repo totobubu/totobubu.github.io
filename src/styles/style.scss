@@ -34,6 +34,7 @@
 @use 'pages/auth'; // AuthView 전용 스타일
 @use 'pages/home'; // HomeView 전용 스타일
 @use 'pages/stock'; // StockView 전용 스타일
+@use 'pages/backtester'; // BacktesterView 전용 스타일
 
 // 6. Helpers (도구들): 변수, 함수, 믹스인. CSS를 생성하지 않음.
 // 이 파일들은 다른 파일들이 @use 할 수 있도록 @forward 합니다.

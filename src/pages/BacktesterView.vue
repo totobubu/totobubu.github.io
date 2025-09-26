@@ -55,7 +55,7 @@
 </script>
 
 <template>
-    <div>
+    <div id="t-backtester">
         <Toast />
         <BacktesterControls
             @run="handleRun"

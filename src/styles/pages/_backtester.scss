@@ -1,0 +1,17 @@
+// src\styles\pages\_backtester.scss
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mx;
+@use '../functions/breakpoints' as bp;
+
+#t-backtester {
+    &-controls {
+    }
+    &-portfolio {
+        .p-card-body {
+            padding: 0.25rem;
+            .p-inputtext {
+                width: 100%;
+            }
+        }
+    }
+}

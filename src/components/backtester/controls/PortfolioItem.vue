@@ -51,7 +51,7 @@
             </div>
 
             <!-- Case for Active Card (with symbol) -->
-            <div v-else class="flex flex-column gap-3">
+            <div v-else class="flex flex-column gap-2">
                 <div class="flex align-items-center justify-content-between">
                     <AutoComplete
                         v-model="item.symbol"

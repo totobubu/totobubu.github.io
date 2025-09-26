@@ -7,7 +7,7 @@
         <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
     </div>
     <div v-else-if="result && !result.error" class="mt-4">
-        <div class="surface-card p-4 border-round">
+        <div class="surface-card border-round">
             <div class="grid">
                 <div class="col-12">
                     <div
