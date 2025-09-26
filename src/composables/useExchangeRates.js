@@ -38,7 +38,13 @@ export function useExchangeRates() {
             const dateStr = targetDate.toISOString().split('T')[0];
             const found = exchangeRates.value.find((r) => r.date === dateStr);
             if (found) return found.rate;
-            targetDate.setDate(targetDate.getDate() + 1);
+            const pastDate = new Date(date);
+            pastDate.setDate(pastDate.getDate() - i);
+            const pastDateStr = pastDate.toISOString().split('T')[0];
+            const foundPast = exchangeRates.value.find(
+                (r) => r.date === pastDateStr
+            );
+            if (foundPast) return foundPast.rate;
         }
         return null;
     };
