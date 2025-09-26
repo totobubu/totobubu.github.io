@@ -1,3 +1,4 @@
+//src\styles\functions\mixins.scss
 @mixin margin($top, $right, $bottom, $left) {
     margin-top: $top;
     margin-right: $right;
@@ -5,7 +6,6 @@
     margin-left: $left;
 }
 // @include margin(1, 0, 2, null);
-
 
 @mixin padding($top, $right, $bottom, $left) {
     padding-top: $top;
@@ -15,16 +15,14 @@
 }
 // @include padding(1, 0, 2, null);
 
-
 @mixin clearfix() {
     &::after {
         display: block;
         clear: both;
-        content: "";
+        content: '';
     }
 }
 //@include clearfix;
-
 
 @mixin ir {
     display: inline-block;
@@ -36,19 +34,15 @@
     text-align: left;
 }
 
-
 @mixin container {
     padding-left: $spacing;
     padding-right: $spacing;
 
-
     width: $max-width;
     margin: auto;
 
-
-    @if ($mode== "responsive") {
+    @if ($mode== 'responsive') {
         max-width: $max-width;
-
 
         @include media-breakpoint-down(md) {
             width: auto;
@@ -62,7 +56,6 @@
     margin-right: auto;
     margin-left: auto;
 }
-
 
 //다중 말줄임적용
 @mixin ellipsis {
@@ -79,7 +72,6 @@
     -webkit-line-clamp: $line-clamp;
 }
 
-
 @mixin text-ellipsis($row: 2, $line-height: 20px, $height-fixed: false) {
     @if $row>1 {
         display: -webkit-box;
@@ -91,14 +83,12 @@
         white-space: nowrap;
     }
 
-
     @if $height-fixed {
         height: $row * $line-height;
         max-height: none;
     } @else {
         max-height: $row * $line-height;
     }
-
 
     line-height: $line-height;
     text-overflow: ellipsis;

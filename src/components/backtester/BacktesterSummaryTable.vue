@@ -1,12 +1,13 @@
+<!-- src\components\backtester\BacktesterSummaryTable.vue -->
 <script setup>
-    import { computed } from 'vue'; // [핵심] computed를 import 합니다.
+    import { computed } from 'vue';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 
     const props = defineProps({
         result: {
             type: Object,
-            default: () => ({}), // result가 null이나 undefined가 되지 않도록 기본값 설정
+            default: () => ({}),
         },
     });
 
@@ -18,7 +19,6 @@
     const formatPercent = (val) => `${((val || 0) * 100).toFixed(2)}%`;
 
     const resultTableData = computed(() => {
-        // props.result가 null일 수 있는 경우를 대비한 방어 코드
         if (!props.result || !props.result.initialInvestment) return [];
 
         const r = props.result;
@@ -65,7 +65,12 @@
 </script>
 
 <template>
-    <DataTable :value="resultTableData" class="p-datatable-sm mt-4">
+    <!-- [수정] 클래스 추가 -->
+    <DataTable
+        :value="resultTableData"
+        showGridlines
+        stripedRows
+        class="p-datatable-sm summary-table mt-4">
         <Column field="label" header="항목" />
         <Column header="배당 재투자 O (DRIP)" class="text-right">
             <template #body="{ data }">

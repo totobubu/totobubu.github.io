@@ -1,3 +1,4 @@
+// src\services\backtester\simulator.js
 import { addBusinessDays } from './utils.js';
 
 export function runSimulation(options) {
@@ -30,7 +31,8 @@ export function runSimulation(options) {
     const finalDate = new Date(`${endDate}T12:00:00Z`);
     const historyWithReinvest = [],
         historyWithoutReinvest = [],
-        dividendPayouts = [];
+        dividendPayouts = [],
+        dividendPayoutsWithReinvest = []; // [신규] DRIP 배당 내역 배열
 
     while (currentDate.getTime() <= finalDate.getTime()) {
         const dateStr = currentDate.toISOString().split('T')[0];
@@ -38,19 +40,35 @@ export function runSimulation(options) {
 
         if (currentPriceData) {
             if (dividendMap.has(dateStr)) {
-                const dividendAmount = dividendMap.get(dateStr);
-                const dividendForCash = sharesWithoutReinvest * dividendAmount;
+                const dividendPerShare = dividendMap.get(dateStr);
+
+                // --- 1. 현금 배당 (재투자 X) 기록 ---
+                const cashDividendPreTax =
+                    sharesWithoutReinvest * dividendPerShare;
                 dividendPayouts.push({
                     date: dateStr,
-                    amount: dividendForCash * taxRate,
-                    preTaxAmount: dividendForCash,
+                    amount: cashDividendPreTax * taxRate,
+                    preTaxAmount: cashDividendPreTax,
                     shares: sharesWithoutReinvest,
-                    perShare: dividendAmount,
+                    perShare: dividendPerShare,
                     ticker: symbol,
                 });
 
-                const dividendForReinvest =
-                    sharesWithReinvest * dividendAmount * taxRate;
+                // --- 2. 재투자 배당 (DRIP) 기록 ---
+                const reinvestDividendPreTax =
+                    sharesWithReinvest * dividendPerShare;
+                const reinvestDividendPostTax =
+                    reinvestDividendPreTax * taxRate;
+                dividendPayoutsWithReinvest.push({
+                    date: dateStr,
+                    amount: reinvestDividendPostTax,
+                    preTaxAmount: reinvestDividendPreTax,
+                    shares: sharesWithReinvest,
+                    perShare: dividendPerShare,
+                    ticker: symbol,
+                });
+
+                // --- 3. 재투자 실행 (주식 수 업데이트) ---
                 const reinvestmentDate = addBusinessDays(
                     currentDate,
                     2,
@@ -61,7 +79,7 @@ export function runSimulation(options) {
                 );
                 if (reinvestmentPriceData?.open > 0) {
                     sharesWithReinvest +=
-                        (dividendForReinvest * (1 - commissionRate)) /
+                        (reinvestDividendPostTax * (1 - commissionRate)) /
                         reinvestmentPriceData.open;
                 }
             }
@@ -102,6 +120,7 @@ export function runSimulation(options) {
         historyWithoutReinvest,
         historyCash,
         dividendPayouts,
+        dividendPayoutsWithReinvest, // [신규] 반환 객체에 추가
         endPrice,
         finalCashCollected: cashCollected,
     };
