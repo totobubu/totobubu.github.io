@@ -65,7 +65,11 @@
 </script>
 
 <template>
-    <DataTable :value="resultTableData" class="p-datatable-sm mt-4">
+    <DataTable
+        :value="resultTableData"
+        showGridlines
+        stripedRows
+        class="p-datatable-sm mt-4">
         <Column field="label" header="항목" />
         <Column header="배당 재투자 O (DRIP)" class="text-right">
             <template #body="{ data }">
