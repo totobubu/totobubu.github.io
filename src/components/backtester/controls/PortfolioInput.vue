@@ -1,3 +1,4 @@
+<!-- src\components\backtester\controls\PortfolioInput.vue -->
 <script setup>
     import { ref, computed } from 'vue';
     import Card from 'primevue/card';
@@ -6,7 +7,10 @@
     import Slider from 'primevue/slider';
     import AutoComplete from 'primevue/autocomplete';
 
-    const props = defineProps({ modelValue: Array, allSymbols: Array });
+    const props = defineProps({
+        modelValue: Array,
+        allSymbols: Array,
+    });
     const emit = defineEmits(['update:modelValue', 'addItem', 'removeItem']);
 
     const filteredSymbols = ref([]);
@@ -46,7 +50,7 @@
                     <div
                         v-if="index !== 0 && !item.symbol"
                         class="flex align-items-center justify-content-center h-full"
-                        style="min-height: 80px">
+                        style="min-height: 100px">
                         <Button
                             icon="pi pi-plus"
                             rounded
@@ -75,10 +79,22 @@
                             <Slider
                                 v-model="item.value"
                                 class="flex-1 mr-4"
-                                :disabled="index === 0" />
+                                :disabled="index === 0"
+                                :max="
+                                    100 -
+                                    portfolio
+                                        .slice(0, index)
+                                        .filter((p, i) => i !== 0 && p.symbol)
+                                        .reduce((a, b) => a + (b.value || 0), 0)
+                                " />
                             <span class="font-bold text-lg w-4rem text-right"
                                 >{{ item.value || 0 }}%</span
                             >
+                        </div>
+                        <div
+                            v-if="item.initialShares > 0"
+                            class="text-xs text-surface-500 mt-2 text-center">
+                            초기 수량: {{ item.initialShares.toFixed(2) }}주
                         </div>
                     </div>
                 </template>

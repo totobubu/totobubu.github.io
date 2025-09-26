@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import { useRoute } from 'vue-router';

@@ -1,3 +1,4 @@
+<!-- src\components\backtester\controls\DateAndInvestment.vue -->
 <script setup>
     import { ref, watch, onMounted, computed } from 'vue';
     import Calendar from 'primevue/calendar';
@@ -35,32 +36,37 @@
         { label: '세후', value: true },
         { label: '세전', value: false },
     ]);
+    const startDateRate = ref(0);
+    const endDateRate = ref(0);
 
     const underlyingSymbol = computed(() => {
-        if (props.portfolio && props.portfolio.length > 0) {
-            const firstItem = props.portfolio[0];
-            return firstItem.underlying || null;
-        }
-        return null;
+        const firstItem = props.portfolio?.find((p) => p.symbol);
+        return firstItem?.underlying || null;
     });
 
-    watch(startDate, (newDate) => fetchExchangeRateForDate(newDate));
+    watch(startDate, (newDate) =>
+        fetchExchangeRateForDate(ref(newDate), startDateRate)
+    );
     watch(endDate, (newDate) => {
         if (newDate < startDate.value) {
             startDate.value = newDate;
         }
+        fetchExchangeRateForDate(ref(newDate), endDateRate);
     });
 
-    onMounted(() => fetchExchangeRateForDate(startDate.value));
+    onMounted(() => {
+        fetchExchangeRateForDate(startDate, startDateRate);
+        fetchExchangeRateForDate(endDate, endDateRate);
+    });
 
-    const fetchExchangeRateForDate = async (date) => {
-        const rate = await findRateForDate(date);
+    const fetchExchangeRateForDate = async (dateRef, rateRef) => {
+        const rate = await findRateForDate(dateRef.value);
         if (rate) {
-            exchangeRate.value = rate;
+            rateRef.value = rate;
         } else {
-            exchangeRate.value = 1380;
+            rateRef.value = 1380;
         }
-        updateUSD();
+        if (dateRef === startDate) updateUSD();
     };
 
     const updateDates = (period) => {
@@ -115,14 +121,24 @@
                 aria-labelledby="period-selection" />
         </div>
         <div class="field col-6 md:col-3">
-            <label for="startDate">시작일</label>
+            <label for="startDate"
+                >시작일
+                <span v-if="startDateRate" class="text-xs text-surface-500"
+                    >($1 ≈ ₩{{ startDateRate.toFixed(2) }})</span
+                ></label
+            >
             <Calendar
                 v-model="startDate"
                 id="startDate"
                 dateFormat="yy-mm-dd" />
         </div>
         <div class="field col-6 md:col-3">
-            <label for="endDate">종료일</label>
+            <label for="endDate"
+                >종료일
+                <span v-if="endDateRate" class="text-xs text-surface-500"
+                    >($1 ≈ ₩{{ endDateRate.toFixed(2) }})</span
+                ></label
+            >
             <Calendar v-model="endDate" id="endDate" dateFormat="yy-mm-dd" />
         </div>
         <div class="field col-12 md:col-6">
