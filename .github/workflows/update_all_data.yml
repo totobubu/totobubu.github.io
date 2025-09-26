@@ -36,9 +36,9 @@ jobs:
                   cache: 'pip'
                   cache-dependency-path: 'requirements.txt'
 
-            # 4. Node.js 의존성을 설치합니다. (npm ci는 package-lock.json을 사용해 더 빠르고 일관적입니다.)
+            # 4. Node.js 의존성을 설치합니다.
             - name: Install Node.js dependencies
-              run: npm ci
+              run: npm install
 
             # 5. Python 의존성을 설치합니다.
             - name: Install Python dependencies
