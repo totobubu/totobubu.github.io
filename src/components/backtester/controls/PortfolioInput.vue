@@ -41,11 +41,11 @@
 </script>
 
 <template>
-    <div class="grid">
+    <div class="grid" id="t-backtester-portfolio">
         <div
             v-for="(item, index) in portfolio"
             :key="index"
-            class="col-12 md:col-6 lg:col-3">
+            class="col-6 md:col-3">
             <PortfolioItem
                 :modelValue="item"
                 @update:modelValue="(newItem) => updateItem(index, newItem)"

@@ -194,7 +194,7 @@
 </script>
 
 <template>
-    <div class="p-4 border-round surface-card">
+    <div class="border-round surface-card" id="t-backtester-controls">
         <MeterGroup :value="portfolio.filter((p) => p.value > 0)" class="mb-4">
             <template #label>
                 <PortfolioInput
