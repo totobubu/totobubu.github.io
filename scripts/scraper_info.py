@@ -148,6 +148,7 @@ if __name__ == "__main__":
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
+            "underlying": info_from_nav.get("underlying"),
         }
         for key, value in dynamic_info_from_yf_raw.items():
             if value is not None:
