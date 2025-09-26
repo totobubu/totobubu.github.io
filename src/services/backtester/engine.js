@@ -1,7 +1,7 @@
+// src\services\backtester\engine.js
 import { runSimulation } from './simulator.js';
 import { aggregateResults } from './aggregator.js';
 import { processSymbolData } from './dataProcessor.js';
-import { calculateCAGR } from './utils.js';
 
 export function runBacktest(options) {
     const {
@@ -20,8 +20,8 @@ export function runBacktest(options) {
         apiData.exchangeRates.map((r) => [r.date, r.rate])
     );
     let currentDateForStartRate = new Date(`${initialStartDate}T00:00:00Z`);
-    let startRate = null,
-        actualStartDateStr = '';
+    let startRate = null;
+    let actualStartDateStr = '';
     for (let i = 0; i < 7; i++) {
         const dateStr = currentDateForStartRate.toISOString().split('T')[0];
         if (exchangeRateMap.has(dateStr)) {
@@ -124,7 +124,6 @@ export function runBacktest(options) {
                     history: simulationResult.historyWithReinvest,
                     endingInvestment: endingInvestmentWithReinvest,
                     totalReturn: totalReturnWithReinvest,
-                    cagr: calculateCAGR(totalReturnWithReinvest, years),
                 },
                 withoutReinvest: {
                     history: simulationResult.historyWithoutReinvest,
@@ -132,7 +131,6 @@ export function runBacktest(options) {
                     endingInvestment: endingInvestmentWithoutReinvest,
                     dividendsCollected: finalCashCollected,
                     totalReturn: totalReturnWithoutReinvest,
-                    cagr: calculateCAGR(totalReturnWithoutReinvest, years),
                 },
             };
         } catch (error) {

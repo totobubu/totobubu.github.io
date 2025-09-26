@@ -5,10 +5,11 @@
     import BacktesterControls from '@/components/backtester/BacktesterControls.vue';
     import BacktesterResults from '@/components/backtester/BacktesterResults.vue';
     import { runBacktest } from '@/services/backtester/engine.js';
-    import { useBacktestData } from '@/composables/useBacktestData.js';
     import { useToast } from 'primevue/usetoast';
+    import { joinURL } from 'ufo';
     import Toast from 'primevue/toast';
     import Message from 'primevue/message';
+    import { useBacktestData } from '@/composables/useBacktestData.js';
 
     useHead({ title: '백테스팅' });
 
@@ -22,10 +23,6 @@
         backtestResult.value = null;
 
         try {
-            if (!options.portfolio || options.portfolio.length === 0) {
-                throw new Error('백테스팅할 종목을 입력해주세요.');
-            }
-
             const { effectiveStartDate, apiData, holidays } =
                 await fetchDataForBacktest(
                     options.portfolio,
@@ -60,7 +57,10 @@
 <template>
     <div>
         <Toast />
-        <BacktesterControls @run="handleRun" :is-loading="isLoading" />
+        <BacktesterControls
+            @run="handleRun"
+            :is-loading="isLoading"
+            :result="backtestResult" />
         <Message
             v-if="adjustedDateMessage"
             severity="info"

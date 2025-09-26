@@ -1,5 +1,7 @@
 // src/utils/chartColors.js
 
+// src/utils/chartColors.js
+
 const colorPalettes = {
     A: {
         dividend: '#F4CCCC',
@@ -155,4 +157,62 @@ const colorPalettes = {
 
 export function getChartColorsByGroup(group) {
     return colorPalettes[group] || colorPalettes['default'];
+}
+
+// --- [신규] 백테스터 차트 전용 팔레트 ---
+
+const backtesterLightPalette = {
+    // 테마
+    background: '#F5F5F5',
+    textColor: '#1f2937',
+    textColorSecondary: '#4b5563',
+    gridColor: '#d1d5db',
+    // 포트폴리오
+    portfolioStock: '#D32F2F', // 주가 영역 (Gemini 추천)
+    portfolioCash: '#EF5350', // 현금 영역 (Gemini 추천)
+    portfolioDripLine: '#A52020', // 총자산 라인 (Gemini 추천)
+    // 비교 지수
+    comparisonLine: '#1976D2', // (Gemini 추천)
+    // 최고/최저점 마커
+    markPoint: {
+        symbol: 'diamond',
+        symbolSize: 40,
+        itemStyle: { color: '#B71C1C' },
+        label: {
+            fontSize: 14,
+            fontWeight: 'bold',
+            color: '#FFFFFF',
+        },
+    },
+};
+
+const backtesterDarkPalette = {
+    // 테마
+    background: '#18181b', // Zinc 900
+    textColor: '#f4f4f5',
+    textColorSecondary: '#a1a1aa',
+    gridColor: '#3f3f46',
+    // 포트폴리오
+    portfolioStock: '#ef4444', // Red 500
+    portfolioCash: '#f97316', // Orange 500
+    portfolioDripLine: '#fde047', // Yellow 300 (가장 밝고 강조)
+    // 비교 지수
+    comparisonLine: '#3b82f6', // Blue 500
+    // 최고/최저점 마커
+    markPoint: {
+        symbol: 'circle',
+        symbolSize: 40,
+        itemStyle: { color: '#f59e0b' },
+        label: {
+            fontSize: 14,
+            fontWeight: 'bold',
+            color: '#000000',
+        },
+    },
+};
+
+export function getBacktesterChartPalette(themeMode = 'dark') {
+    return themeMode === 'light'
+        ? backtesterLightPalette
+        : backtesterDarkPalette;
 }
