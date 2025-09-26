@@ -52,11 +52,10 @@
         MarkPointComponent,
     } from 'echarts/components';
     import VChart from 'vue-echarts';
-    import DataTable from 'primevue/datatable';
-    import Column from 'primevue/column';
     import Button from 'primevue/button';
     import BacktesterSummaryTable from './BacktesterSummaryTable.vue';
     import BacktesterResultDetails from './BacktesterResultDetails.vue';
+    import { getBacktesterChartPalette } from '@/utils/chartColors.js';
 
     use([
         CanvasRenderer,
@@ -73,8 +72,6 @@
         name: 'BacktesterResults',
         components: {
             VChart,
-            DataTable,
-            Column,
             Button,
             BacktesterSummaryTable,
             BacktesterResultDetails,
@@ -91,40 +88,27 @@
                     style: 'currency',
                     currency: 'USD',
                 }).format(val || 0);
-            const formatPercent = (val) => `${((val || 0) * 100).toFixed(2)}%`;
 
-            const createChartOption = (title, seriesData, legendData) => {
+            const createChartOption = (
+                title,
+                seriesData,
+                legendData,
+                palette
+            ) => {
                 return {
+                    backgroundColor: palette.background,
                     title: {
                         text: title,
                         left: 'center',
-                        textStyle: { color: '#ccc' },
+                        textStyle: { color: palette.textColor },
                     },
                     tooltip: {
                         trigger: 'axis',
                         formatter: (params) => {
                             if (!params || params.length === 0) return '';
                             let tooltipHtml = `${params[0].axisValueLabel}<br/>`;
-                            const compSymbol = props.result?.comparisonSymbol;
-                            const compIndex = params.findIndex(
-                                (p) =>
-                                    p.seriesName &&
-                                    compSymbol &&
-                                    p.seriesName.includes(compSymbol)
-                            );
-
-                            params.forEach((param, index) => {
-                                if (compIndex !== -1 && index === compIndex) {
-                                    tooltipHtml += `<hr class="my-1 border-surface-700"/>`;
-                                }
-                                let marker = param.marker;
-                                if (
-                                    param.seriesType === 'line' &&
-                                    !param.seriesName.includes('(주가)') &&
-                                    !param.seriesName.includes('(현금)')
-                                ) {
-                                    marker = `<span style="display:inline-block;margin-right:5px;border-radius:2px;width:10px;height:4px;background-color:${param.color};vertical-align:middle;"></span>`;
-                                }
+                            params.forEach((param) => {
+                                let marker = `<span style="display:inline-block;margin-right:5px;border-radius:2px;width:10px;height:4px;background-color:${param.color};vertical-align:middle;"></span>`;
                                 tooltipHtml += `${marker} ${param.seriesName}: <strong>${formatCurrency(param.value[1])}</strong><br/>`;
                             });
                             return tooltipHtml;
@@ -133,7 +117,7 @@
                     legend: {
                         top: 'bottom',
                         data: legendData,
-                        textStyle: { color: '#ccc' },
+                        textStyle: { color: palette.textColorSecondary },
                     },
                     grid: {
                         left: '3%',
@@ -141,11 +125,31 @@
                         bottom: '20%',
                         containLabel: true,
                     },
-                    xAxis: { type: 'time', axisLabel: { color: '#ccc' } },
+                    xAxis: {
+                        type: 'time',
+                        axisLabel: { color: palette.textColorSecondary },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: palette.gridColor,
+                                type: 'dashed',
+                            },
+                        },
+                    },
                     yAxis: {
                         type: 'value',
                         scale: true,
-                        axisLabel: { formatter: '${value}', color: '#ccc' },
+                        axisLabel: {
+                            formatter: '${value}',
+                            color: palette.textColorSecondary,
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: palette.gridColor,
+                                type: 'dashed',
+                            },
+                        },
                     },
                     dataZoom: [{ type: 'inside' }, { type: 'slider' }],
                     series: seriesData,
@@ -166,6 +170,13 @@
 
             const combinedChartOption = computed(() => {
                 if (!props.result) return {};
+
+                const themeMode = document.documentElement.classList.contains(
+                    'p-dark'
+                )
+                    ? 'dark'
+                    : 'light';
+                const palette = getBacktesterChartPalette(themeMode);
 
                 const seriesData = [];
                 const legendData = [];
@@ -188,12 +199,11 @@
                 if (portfolioNoDrip_Stock) {
                     legendData.push('Portfolio (주가)');
                     seriesData.push({
-                        id: 'PortfolioNoDrip_Stock',
                         name: 'Portfolio (주가)',
                         type: 'line',
                         smooth: true,
                         stack: 'PortfolioNoDrip',
-                        areaStyle: {},
+                        areaStyle: { color: palette.portfolioStock },
                         symbol: 'none',
                         lineStyle: { width: 0 },
                         emphasis: { focus: 'series' },
@@ -203,12 +213,11 @@
                 if (portfolioNoDrip_Cash) {
                     legendData.push('Portfolio (현금)');
                     seriesData.push({
-                        id: 'PortfolioNoDrip_Cash',
                         name: 'Portfolio (현금)',
                         type: 'line',
                         smooth: true,
                         stack: 'PortfolioNoDrip',
-                        areaStyle: {},
+                        areaStyle: { color: palette.portfolioCash },
                         symbol: 'none',
                         lineStyle: { width: 0 },
                         emphasis: { focus: 'series' },
@@ -218,34 +227,29 @@
                 if (portfolioDrip) {
                     legendData.push('Portfolio (DRIP)');
                     seriesData.push({
-                        id: 'PortfolioDrip',
                         name: 'Portfolio (DRIP)',
                         type: 'line',
                         smooth: true,
                         symbol: 'none',
-                        lineStyle: { width: 2.5 },
+                        lineStyle: {
+                            width: 2.5,
+                            color: palette.portfolioDripLine,
+                        },
                         emphasis: { focus: 'series' },
                         data: portfolioDrip.data,
                         z: 10,
                         markPoint: {
-                            symbol: 'circle',
-                            symbolSize: 40,
-                            itemStyle: { color: '#f59e0b' },
-                            label: {
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                color: '#000',
-                            },
+                            ...palette.markPoint,
                             data: [
                                 {
                                     type: 'max',
                                     name: '최고점',
-                                    label: { formatter: '高' },
+                                    label: { formatter: 'H' },
                                 },
                                 {
                                     type: 'min',
                                     name: '최저점',
-                                    label: { formatter: '低' },
+                                    label: { formatter: 'L' },
                                 },
                             ],
                         },
@@ -254,35 +258,31 @@
                 if (comparisonDrip) {
                     legendData.push(comparisonDrip.name);
                     seriesData.push({
-                        id: 'ComparisonDrip',
                         name: comparisonDrip.name,
                         type: 'line',
                         smooth: true,
                         symbol: 'none',
-                        lineStyle: { width: 2, opacity: 0.7 },
-                        itemStyle: { color: '#9ca3af' },
+                        lineStyle: { width: 2, opacity: 0.8 },
+                        itemStyle: { color: palette.comparisonLine },
                         emphasis: { focus: 'series' },
                         data: comparisonDrip.data,
                         z: 8,
                         markPoint: {
-                            symbol: 'circle',
-                            symbolSize: 40,
-                            itemStyle: { color: '#fef08a' },
-                            label: {
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                color: '#000',
+                            ...palette.markPoint,
+                            itemStyle: {
+                                color: palette.comparisonLine,
+                                opacity: 0.8,
                             },
                             data: [
                                 {
                                     type: 'max',
                                     name: '최고점',
-                                    label: { formatter: '高' },
+                                    label: { formatter: 'H' },
                                 },
                                 {
                                     type: 'min',
                                     name: '최저점',
-                                    label: { formatter: '低' },
+                                    label: { formatter: 'L' },
                                 },
                             ],
                         },
@@ -291,11 +291,19 @@
                 return createChartOption(
                     chartTitle.value,
                     seriesData,
-                    legendData
+                    legendData,
+                    palette
                 );
             });
 
             const downloadChart = () => {
+                const themeMode = document.documentElement.classList.contains(
+                    'p-dark'
+                )
+                    ? 'dark'
+                    : 'light';
+                const palette = getBacktesterChartPalette(themeMode);
+
                 if (
                     chartInstance.value &&
                     typeof chartInstance.value.getDataURL === 'function'
@@ -303,7 +311,7 @@
                     const dataUrl = chartInstance.value.getDataURL({
                         type: 'png',
                         pixelRatio: 2,
-                        backgroundColor: '#18181b',
+                        backgroundColor: palette.background,
                     });
                     const link = document.createElement('a');
                     link.href = dataUrl;
