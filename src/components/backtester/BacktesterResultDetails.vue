@@ -19,37 +19,69 @@
             maximumFractionDigits: fractionDigits,
         }).format(val || 0);
 
-    const dividendHistoryWithDrip = computed(() => {
-        if (!props.result || !props.result.cashDividends) return [];
+    const combinedDividendHistory = computed(() => {
+        if (
+            !props.result ||
+            !props.result.cashDividends ||
+            !props.result.dripDividends
+        ) {
+            return [];
+        }
 
-        const dripPayouts = props.result.individualResults
-            ? Object.values(props.result.individualResults).flatMap(
-                  (res) => res.dividendPayouts
-              )
-            : [];
+        const combinedMap = new Map();
 
-        const combined = [...props.result.cashDividends];
+        // 1. 현금 배당(재투자 X) 데이터를 먼저 채웁니다.
+        props.result.cashDividends.forEach((item) => {
+            const key = `${item.date}-${item.ticker}`;
+            combinedMap.set(key, {
+                date: item.date,
+                ticker: item.ticker,
+                perShare: item.perShare,
+                cash: {
+                    // 재투자 X
+                    shares: item.shares,
+                    preTaxAmount: item.preTaxAmount,
+                    postTaxAmount: item.amount,
+                },
+                drip: null, // DRIP 데이터는 아직 없음
+            });
+        });
 
-        dripPayouts.forEach((drip) => {
-            const existing = combined.find(
-                (cash) => cash.date === drip.date && cash.ticker === drip.ticker
-            );
+        // 2. DRIP 배당(재투자 O) 데이터를 추가/병합합니다.
+        props.result.dripDividends.forEach((item) => {
+            const key = `${item.date}-${item.ticker}`;
+            const existing = combinedMap.get(key);
+            const dripData = {
+                shares: item.shares,
+                preTaxAmount: item.preTaxAmount,
+                postTaxAmount: item.amount,
+            };
+
             if (existing) {
-                existing.dripAmount = drip.amount;
+                existing.drip = dripData;
+            } else {
+                // 현금 배당 내역에 없는 경우 (이론적으로는 발생하지 않음)
+                combinedMap.set(key, {
+                    date: item.date,
+                    ticker: item.ticker,
+                    perShare: item.perShare,
+                    cash: null,
+                    drip: dripData,
+                });
             }
         });
 
-        return combined;
+        return Array.from(combinedMap.values());
     });
 </script>
 
 <template>
     <div
-        v-if="result.cashDividends && result.cashDividends.length > 0"
+        v-if="combinedDividendHistory && combinedDividendHistory.length > 0"
         class="col-12 mt-4">
         <h4>배당금 수령 내역</h4>
         <DataTable
-            :value="dividendHistoryWithDrip"
+            :value="combinedDividendHistory"
             paginator
             :rows="10"
             class="p-datatable-sm"
@@ -57,21 +89,40 @@
             :sortOrder="-1">
             <Column field="date" header="지급일" sortable></Column>
             <Column field="ticker" header="종목" sortable></Column>
-            <Column header="현금 배당금 (재투자 X)">
+            <Column header="주당 배당금" sortable field="perShare">
                 <template #body="{ data }">
-                    {{ (data.shares || 0).toFixed(2) }}주 *
-                    {{ formatCurrency(data.perShare, 4) }} =
-                    <strong>{{ formatCurrency(data.preTaxAmount) }}</strong>
-                    <span v-if="data.preTaxAmount !== data.amount">
-                        (세후: {{ formatCurrency(data.amount) }})</span
-                    >
+                    {{ formatCurrency(data.perShare, 4) }}
                 </template>
             </Column>
-            <Column header="재투자 배당금 (DRIP)">
+            <Column header="재투자 X (현금)">
                 <template #body="{ data }">
-                    <span v-if="data.dripAmount">{{
-                        formatCurrency(data.dripAmount)
-                    }}</span>
+                    <div v-if="data.cash">
+                        <span>{{ data.cash.shares.toFixed(2) }}주 = </span>
+                        <strong class="text-green-400"
+                            >세전
+                            {{ formatCurrency(data.cash.preTaxAmount) }}</strong
+                        >
+                        <span class="text-sm text-surface-500">
+                            | 세후
+                            {{ formatCurrency(data.cash.postTaxAmount) }}</span
+                        >
+                    </div>
+                    <span v-else>-</span>
+                </template>
+            </Column>
+            <Column header="재투자 O (DRIP)">
+                <template #body="{ data }">
+                    <div v-if="data.drip">
+                        <span>{{ data.drip.shares.toFixed(2) }}주 = </span>
+                        <strong class="text-green-400"
+                            >세전
+                            {{ formatCurrency(data.drip.preTaxAmount) }}</strong
+                        >
+                        <span class="text-sm text-surface-500">
+                            | 세후
+                            {{ formatCurrency(data.drip.postTaxAmount) }}</span
+                        >
+                    </div>
                     <span v-else>-</span>
                 </template>
             </Column>
