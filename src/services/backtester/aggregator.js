@@ -26,7 +26,7 @@ export function aggregateResults(options) {
         (new Date(endDate) - new Date(initialStartDate)) /
             (365.25 * 24 * 60 * 60 * 1000) || 1;
     const validBaseSymbol = validPortfolioSymbols[0];
-    const baseHistory = results[validBaseSymbol].historyWithReinvest;
+    const baseHistory = results[validBaseSymbol].withReinvest.history;
     if (!baseHistory) {
         throw new Error(
             `[${validBaseSymbol}] 데이터 처리 중 오류가 발생했습니다.`
@@ -37,6 +37,7 @@ export function aggregateResults(options) {
         withReinvest: { series: [] },
         withoutReinvest: { series: [] },
         cashDividends: [],
+        dripDividends: [], // [신규] DRIP 배당 내역을 담을 배열
     };
 
     const portfolioHistoryWithReinvest = baseHistory.map(([date]) => [
@@ -148,8 +149,12 @@ export function aggregateResults(options) {
     };
     finalResult.initialInvestment = initialInvestmentUSD;
     finalResult.years = years;
+    // [수정] 현금 배당과 DRIP 배당을 각각 합산
     finalResult.cashDividends = validPortfolioSymbols.flatMap(
         (s) => results[s].dividendPayouts
+    );
+    finalResult.dripDividends = validPortfolioSymbols.flatMap(
+        (s) => results[s].dividendPayoutsWithReinvest
     );
     finalResult.symbols = portfolio.map((p) => p.symbol);
     finalResult.comparisonSymbol = comparisonSymbol;
