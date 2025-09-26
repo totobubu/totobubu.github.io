@@ -1,8 +1,9 @@
 <!-- src\components\backtester\BacktesterResultDetails.vue -->
 <script setup>
-    import { computed } from 'vue';
+    import { ref, computed } from 'vue';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
+    import SelectButton from 'primevue/selectbutton'; // SelectButton import 추가
 
     const props = defineProps({
         result: {
@@ -10,6 +11,23 @@
             default: () => ({}),
         },
     });
+
+    // --- [신규] 필터링 로직 추가 ---
+    const selectedTicker = ref('전체'); // 초기값은 '전체'
+
+    const filterOptions = computed(() => {
+        if (!props.result || !props.result.symbols) return [];
+        const options = ['전체', ...props.result.symbols];
+        // 비교 대상이 있고 'None'이 아니면 옵션에 추가
+        if (
+            props.result.comparisonSymbol &&
+            props.result.comparisonSymbol !== 'None'
+        ) {
+            options.push(props.result.comparisonSymbol);
+        }
+        return options;
+    });
+    // ------------------------------------
 
     const formatCurrency = (val, fractionDigits = 2) =>
         new Intl.NumberFormat('en-US', {
@@ -30,7 +48,6 @@
 
         const combinedMap = new Map();
 
-        // 1. 현금 배당(재투자 X) 데이터를 먼저 채웁니다.
         props.result.cashDividends.forEach((item) => {
             const key = `${item.date}-${item.ticker}`;
             combinedMap.set(key, {
@@ -38,16 +55,14 @@
                 ticker: item.ticker,
                 perShare: item.perShare,
                 cash: {
-                    // 재투자 X
                     shares: item.shares,
                     preTaxAmount: item.preTaxAmount,
                     postTaxAmount: item.amount,
                 },
-                drip: null, // DRIP 데이터는 아직 없음
+                drip: null,
             });
         });
 
-        // 2. DRIP 배당(재투자 O) 데이터를 추가/병합합니다.
         props.result.dripDividends.forEach((item) => {
             const key = `${item.date}-${item.ticker}`;
             const existing = combinedMap.get(key);
@@ -60,7 +75,6 @@
             if (existing) {
                 existing.drip = dripData;
             } else {
-                // 현금 배당 내역에 없는 경우 (이론적으로는 발생하지 않음)
                 combinedMap.set(key, {
                     date: item.date,
                     ticker: item.ticker,
@@ -71,22 +85,38 @@
             }
         });
 
-        return Array.from(combinedMap.values());
+        const allDividends = Array.from(combinedMap.values());
+
+        // --- [수정] 필터링 로직 적용 ---
+        if (selectedTicker.value === '전체') {
+            return allDividends;
+        }
+        return allDividends.filter(
+            (item) => item.ticker === selectedTicker.value
+        );
     });
 </script>
 
 <template>
-    <div
-        v-if="combinedDividendHistory && combinedDividendHistory.length > 0"
-        class="col-12 mt-4">
-        <h4>배당금 수령 내역</h4>
+    <div v-if="combinedDividendHistory" class="col-12 mt-4">
+        <div
+            class="flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+            <h4>배당금 수령 내역</h4>
+            <!-- [신규] SelectButton 필터 추가 -->
+            <SelectButton
+                v-model="selectedTicker"
+                :options="filterOptions"
+                aria-labelledby="basic"
+                class="p-button-sm" />
+        </div>
+
         <DataTable
             :value="combinedDividendHistory"
-            paginator
-            :rows="10"
             class="p-datatable-sm"
             sortField="date"
-            :sortOrder="-1">
+            :sortOrder="-1"
+            scrollable
+            scrollHeight="400px">
             <Column field="date" header="지급일" sortable></Column>
             <Column field="ticker" header="종목" sortable></Column>
             <Column header="주당 배당금" sortable field="perShare">
@@ -129,3 +159,11 @@
         </DataTable>
     </div>
 </template>
+
+<style scoped>
+    /* SelectButton 사이즈 조절을 위한 스타일 */
+    :deep(.p-selectbutton .p-button) {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+</style>
