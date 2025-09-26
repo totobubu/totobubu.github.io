@@ -115,14 +115,16 @@
                         },
                     },
                     legend: {
-                        top: 'bottom',
+                        top: 30, // [수정] 상단 배치
+                        left: 'center', // [추가] 수평 중앙 정렬
                         data: legendData,
                         textStyle: { color: palette.textColorSecondary },
                     },
                     grid: {
+                        top: 80, // [추가] 제목과 범례를 위한 상단 여백
                         left: '3%',
                         right: '4%',
-                        bottom: '20%',
+                        bottom: '15%', // [수정] 하단 여백 축소
                         containLabel: true,
                     },
                     xAxis: {
