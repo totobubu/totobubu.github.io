@@ -6,29 +6,32 @@
         style="height: 400px">
         <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
     </div>
-    <div
-        v-else-if="result && !result.error"
-        class="mt-4 surface-card p-4 border-round">
-        <div class="grid">
-            <div class="col-12">
-                <div class="flex justify-content-end align-items-center mb-2">
-                    <Button
-                        icon="pi pi-download"
-                        text
-                        rounded
-                        @click="downloadChart" />
+    <div v-else-if="result && !result.error" class="mt-4">
+        <div class="surface-card p-4 border-round">
+            <div class="grid">
+                <div class="col-12">
+                    <div
+                        class="flex justify-content-end align-items-center mb-2">
+                        <Button
+                            icon="pi pi-download"
+                            text
+                            rounded
+                            @click="downloadResultsAsImage" />
+                    </div>
+                    <v-chart
+                        ref="chartInstance"
+                        :option="combinedChartOption"
+                        autoresize
+                        style="height: 500px" />
                 </div>
-                <v-chart
-                    ref="chartInstance"
-                    :option="combinedChartOption"
-                    autoresize
-                    style="height: 500px" />
-            </div>
-            <div class="col-12">
-                <BacktesterSummaryTable :result="result" />
-            </div>
-            <div class="col-12">
-                <BacktesterResultDetails :result="result" />
+                <div class="col-12">
+                    <BacktesterSummaryTable
+                        ref="summaryTableInstance"
+                        :result="result" />
+                </div>
+                <div class="col-12">
+                    <BacktesterResultDetails :result="result" />
+                </div>
             </div>
         </div>
     </div>
@@ -40,7 +43,7 @@
 
 <script>
     import { defineComponent, ref, computed } from 'vue';
-    import { use } from 'echarts/core';
+    import { use, init } from 'echarts/core';
     import { CanvasRenderer } from 'echarts/renderers';
     import { LineChart } from 'echarts/charts';
     import {
@@ -56,6 +59,7 @@
     import BacktesterSummaryTable from './BacktesterSummaryTable.vue';
     import BacktesterResultDetails from './BacktesterResultDetails.vue';
     import { getBacktesterChartPalette } from '@/utils/chartColors.js';
+    import html2canvas from 'html2canvas';
 
     use([
         CanvasRenderer,
@@ -82,6 +86,7 @@
         },
         setup(props) {
             const chartInstance = ref(null);
+            const summaryTableInstance = ref(null);
 
             const formatCurrency = (val) =>
                 new Intl.NumberFormat('en-US', {
@@ -100,7 +105,7 @@
                     title: {
                         text: title,
                         left: 'center',
-                        textStyle: { color: palette.textColor },
+                        textStyle: { color: palette.textColor, fontSize: 16 },
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -115,16 +120,16 @@
                         },
                     },
                     legend: {
-                        top: 30, // [수정] 상단 배치
-                        left: 'center', // [추가] 수평 중앙 정렬
+                        top: 30,
+                        left: 'center',
                         data: legendData,
                         textStyle: { color: palette.textColorSecondary },
                     },
                     grid: {
-                        top: 80, // [추가] 제목과 범례를 위한 상단 여백
+                        top: 80,
                         left: '3%',
                         right: '4%',
-                        bottom: '15%', // [수정] 하단 여백 축소
+                        bottom: '15%',
                         containLabel: true,
                     },
                     xAxis: {
@@ -159,7 +164,7 @@
             };
 
             const chartTitle = computed(() => {
-                if (!props.result) return 'Growth of Investment';
+                if (!props.result) return 'DivGrow.com/Backtester';
                 const portfolioName = props.result.symbols.join(', ');
                 const comparisonName =
                     props.result.comparisonSymbol !== 'None'
@@ -182,7 +187,6 @@
 
                 const seriesData = [];
                 const legendData = [];
-
                 const portfolioDrip = props.result.withReinvest?.series.find(
                     (s) => s.name === 'Portfolio'
                 );
@@ -197,7 +201,6 @@
                 const comparisonDrip = props.result.withReinvest?.series.find(
                     (s) => s.name !== 'Portfolio'
                 );
-
                 if (portfolioNoDrip_Stock) {
                     legendData.push('Portfolio (주가)');
                     seriesData.push({
@@ -298,37 +301,190 @@
                 );
             });
 
-            const downloadChart = () => {
-                const themeMode = document.documentElement.classList.contains(
-                    'p-dark'
-                )
-                    ? 'dark'
-                    : 'light';
-                const palette = getBacktesterChartPalette(themeMode);
+            const downloadResultsAsImage = async () => {
+                if (!props.result) return;
 
-                if (
-                    chartInstance.value &&
-                    typeof chartInstance.value.getDataURL === 'function'
-                ) {
-                    const dataUrl = chartInstance.value.getDataURL({
-                        type: 'png',
-                        pixelRatio: 2,
-                        backgroundColor: palette.background,
+                const lightPalette = getBacktesterChartPalette('light');
+                const IMAGE_WIDTH = 600;
+
+                const container = document.createElement('div');
+                container.style.position = 'absolute';
+                container.style.top = '-9999px';
+                container.style.left = '0px';
+                container.style.width = `${IMAGE_WIDTH}px`;
+                container.style.padding = '0.5rem';
+                container.style.backgroundColor = lightPalette.background;
+                container.style.fontFamily =
+                    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+
+                // --- [핵심 수정 1] 제목(h2)을 먼저 생성하여 컨테이너에 추가 ---
+                const titleElement = document.createElement('h2');
+                titleElement.innerText = chartTitle.value; // computed의 최신 값을 직접 사용
+                titleElement.style.textAlign = 'center';
+                titleElement.style.color = lightPalette.textColor;
+                titleElement.style.fontSize = '18px';
+                titleElement.style.fontWeight = 'bold';
+                titleElement.style.marginBottom = '1rem'; // 차트와의 간격
+                container.appendChild(titleElement);
+
+                const chartDiv = document.createElement('div');
+                const chartHeight = IMAGE_WIDTH * (3 / 3.5);
+                chartDiv.style.width = '100%';
+                chartDiv.style.height = `${chartHeight}px`;
+                container.appendChild(chartDiv);
+
+                const lightChartOptions = JSON.parse(
+                    JSON.stringify(combinedChartOption.value)
+                );
+                lightChartOptions.title.text = ''; // [핵심 수정 2] ECharts 자체 제목은 제거
+                lightChartOptions.animation = false;
+                lightChartOptions.backgroundColor = lightPalette.background;
+                lightChartOptions.legend.textStyle.color =
+                    lightPalette.textColorSecondary;
+                lightChartOptions.xAxis.axisLabel.color =
+                    lightPalette.textColorSecondary;
+                lightChartOptions.yAxis.axisLabel.color =
+                    lightPalette.textColorSecondary;
+                lightChartOptions.xAxis.splitLine.lineStyle.color =
+                    lightPalette.gridColor;
+                lightChartOptions.yAxis.splitLine.lineStyle.color =
+                    lightPalette.gridColor;
+                lightChartOptions.dataZoom = [];
+
+                const tableHtml = createTableHtml(props.result);
+                container.insertAdjacentHTML('beforeend', tableHtml);
+
+                document.body.appendChild(container);
+
+                let tempChart;
+                try {
+                    tempChart = init(chartDiv);
+                    tempChart.setOption(lightChartOptions);
+
+                    await new Promise((resolve) => setTimeout(resolve, 500));
+
+                    const canvas = await html2canvas(container, {
+                        useCORS: true,
+                        scale: 2,
                     });
+
+                    const dataUrl = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.href = dataUrl;
                     link.download = 'backtest-result.png';
                     link.click();
-                } else {
-                    console.error('ECharts instance is not ready.');
+                } catch (error) {
+                    console.error('Failed to download results:', error);
+                } finally {
+                    if (tempChart) tempChart.dispose();
+                    document.body.removeChild(container);
                 }
+            };
+
+            const createTableHtml = (result) => {
+                const r = result;
+                const comp = r.comparisonResult;
+                const formatPercent = (val) =>
+                    `${((val || 0) * 100).toFixed(2)}%`;
+
+                const rows = [
+                    {
+                        label: '초기 투자금',
+                        drip: formatCurrency(r.initialInvestment),
+                        noDrip: formatCurrency(r.initialInvestment),
+                        comp: comp
+                            ? formatCurrency(r.initialInvestment)
+                            : undefined,
+                    },
+                    {
+                        label: '최종 평가액',
+                        drip: formatCurrency(
+                            r.withReinvest.summary.endingInvestment
+                        ),
+                        noDrip: formatCurrency(
+                            r.withoutReinvest.summary.endingInvestment
+                        ),
+                        comp: comp
+                            ? formatCurrency(comp.withReinvest.endingInvestment)
+                            : undefined,
+                    },
+                    {
+                        label: '누적 현금 배당금',
+                        drip: '-',
+                        noDrip: formatCurrency(
+                            r.withoutReinvest.summary.dividendsCollected
+                        ),
+                        comp: comp
+                            ? formatCurrency(
+                                  comp.withoutReinvest.dividendsCollected
+                              )
+                            : undefined,
+                    },
+                    {
+                        label: '총 수익률',
+                        drip: formatPercent(r.withReinvest.summary.totalReturn),
+                        noDrip: formatPercent(
+                            r.withoutReinvest.summary.totalReturn
+                        ),
+                        comp: comp
+                            ? formatPercent(comp.withReinvest.totalReturn)
+                            : undefined,
+                    },
+                    {
+                        label: '연평균 수익률 (CAGR)',
+                        drip: formatPercent(r.withReinvest.summary.cagr),
+                        noDrip: formatPercent(r.withoutReinvest.summary.cagr),
+                        comp: comp
+                            ? formatPercent(comp.withReinvest.cagr)
+                            : undefined,
+                    },
+                    {
+                        label: '기간',
+                        drip: `${(r.years || 0).toFixed(2)} 년`,
+                        noDrip: `${(r.years || 0).toFixed(2)} 년`,
+                        comp: comp
+                            ? `${(r.years || 0).toFixed(2)} 년`
+                            : undefined,
+                    },
+                ];
+
+                const header = `
+                    <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: left;">항목</th>
+                    <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">배당 재투자 O (DRIP)</th>
+                    <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">배당 재투자 X</th>
+                    ${comp ? `<th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">${r.comparisonSymbol}</th>` : ''}
+                `;
+
+                const body = rows
+                    .map(
+                        (row, index) => `
+                    <tr style="${index % 2 === 1 ? 'background-color: #f9fafb;' : ''}">
+                        <td style="border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left;">${row.label}</td>
+                        <td style="border: 1px solid #e5e7eb; padding: 0.75rem; text-align: right;">${row.drip}</td>
+                        <td style="border: 1px solid #e5e7eb; padding: 0.75rem; text-align: right;">${row.noDrip}</td>
+                        ${comp ? `<td style="border: 1px solid #e5e7eb; padding: 0.75rem; text-align: right;">${row.comp !== undefined ? row.comp : '-'}</td>` : ''}
+                    </tr>
+                `
+                    )
+                    .join('');
+
+                return `
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; color: #1f2937; font-size: 14px;">
+                        <thead><tr>${header}</tr></thead>
+                        <tbody>${body}</tbody>
+                    </table>
+                `;
             };
 
             return {
                 chartInstance,
                 combinedChartOption,
-                downloadChart,
+                downloadResultsAsImage,
             };
         },
     });
 </script>
+
+<style>
+    /* 이 컴포넌트의 스타일은 이제 다운로드 전용 CSS를 포함하지 않습니다. */
+</style>
