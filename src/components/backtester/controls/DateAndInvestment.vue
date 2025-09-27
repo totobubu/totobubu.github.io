@@ -7,9 +7,13 @@
     import SelectButton from 'primevue/selectbutton';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
+    import FloatLabel from 'primevue/floatlabel';
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
     import { useExchangeRates } from '@/composables/useExchangeRates';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+
+    const { deviceType, isDesktop, isMobile } = useBreakpoint();
 
     const props = defineProps({
         isLoading: Boolean,
@@ -30,7 +34,7 @@
     const customComparison = ref('');
     // exchangeRate 변수는 더 이상 필요 없으므로 삭제해도 무방합니다.
     // const exchangeRate = ref(null);
-    const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y']);
+    const periodOptions = ref(['1M', '3M', '6M', '1Y', '2Y', '3Y']);
     const selectedPeriod = ref('1Y');
     const applyTax = ref(true);
     const taxOptions = ref([
@@ -123,141 +127,245 @@
 </script>
 
 <template>
-    <div class="grid formgrid p-fluid align-items-end gap-y-4 mt-4">
-        <div class="field col-12">
-            <label>빠른 기간 선택</label>
-            <SelectButton
-                v-model="selectedPeriod"
-                :options="periodOptions"
-                @update:modelValue="updateDates"
-                aria-labelledby="period-selection" />
-        </div>
-        <div class="field col-6 md:col-3">
-            <label for="startDate"
-                >시작일
-                <span v-if="startDateRate" class="text-xs text-surface-500"
-                    >($1 ≈ ₩{{ startDateRate.toFixed(2) }})</span
-                ></label
-            >
-            <Calendar
-                v-model="startDate"
-                id="startDate"
-                dateFormat="yy-mm-dd" />
-        </div>
-        <div class="field col-6 md:col-3">
-            <label for="endDate"
-                >종료일
-                <span v-if="endDateRate" class="text-xs text-surface-500"
-                    >($1 ≈ ₩{{ endDateRate.toFixed(2) }})</span
-                ></label
-            >
-            <Calendar v-model="endDate" id="endDate" dateFormat="yy-mm-dd" />
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="investmentKRW">투자원금 (시작일 환율 기준)</label>
-            <InputGroup>
-                <InputGroupAddon>KRW</InputGroupAddon>
-                <InputNumber
-                    v-model="investmentKRW"
-                    inputId="investmentKRW"
-                    mode="decimal"
-                    @input="updateUSD" />
-                <InputGroupAddon>USD</InputGroupAddon>
-                <InputNumber
-                    v-model="investmentUSD"
-                    inputId="investmentUSD"
-                    mode="currency"
-                    currency="USD"
-                    locale="en-US"
-                    @input="updateKRW" />
-            </InputGroup>
-        </div>
-        <div class="field col-12 md:col-6">
-            <label class="mb-2">비교 대상</label>
-            <div class="flex flex-wrap gap-3">
-                <div class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compNone"
-                        name="comparison"
-                        value="None" /><label for="compNone" class="ml-2"
-                        >없음</label
-                    >
+    <div class="grid formgrid p-fluid align-items-end gap-2">
+        <Form class="flex flex-column gap-3 col-12">
+            <Fieldset legend="비교 대상">
+                <div class="flex flex-wrap gap-2">
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compNone"
+                            name="comparison"
+                            value="None" /><label for="compNone" class="ml-2"
+                            >없음</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compSPY"
+                            name="comparison"
+                            value="SPY" /><label for="compSPY" class="ml-2"
+                            >S&P 500 (SPY)</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compQQQ"
+                            name="comparison"
+                            value="QQQ" /><label for="compQQQ" class="ml-2"
+                            >Nasdaq 100 (QQQ)</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compDIA"
+                            name="comparison"
+                            value="DIA" /><label for="compDIA" class="ml-2"
+                            >Dow 30 (DIA)</label
+                        >
+                    </div>
+                    <div
+                        v-if="underlyingSymbol"
+                        class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compUnderlying"
+                            name="comparison"
+                            value="Underlying" />
+                        <label for="compUnderlying" class="ml-2"
+                            >기초자산 ({{ underlyingSymbol }})</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compOther"
+                            name="comparison"
+                            value="Other" />
+                        <InputText
+                            v-model="customComparison"
+                            class="ml-2 p-inputtext-sm"
+                            :disabled="comparison !== 'Other'"
+                            placeholder="직접 입력" />
+                    </div>
                 </div>
-                <div class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compSPY"
-                        name="comparison"
-                        value="SPY" /><label for="compSPY" class="ml-2"
-                        >S&P 500 (SPY)</label
-                    >
+            </Fieldset>
+            <Fieldset
+                legend="옵션"
+                :toggleable="true"
+                id="t-backtester-controls-options">
+                <div class="flex flex-column gap-2">
+                    <FormField class="col-12">
+                        <SelectButton
+                            v-model="selectedPeriod"
+                            :options="periodOptions"
+                            @update:modelValue="updateDates"
+                            size="small"
+                            aria-labelledby="period-selection" />
+                    </FormField>
+                    <FormField class="col-12">
+                        <InputGroup>
+                            <FloatLabel variant="in">
+                                <Calendar
+                                    v-model="startDate"
+                                    id="startDate"
+                                    dateFormat="yy-mm-dd" />
+                                <label for="in_label"
+                                    >시작일 ($1 ≈ ₩{{
+                                        startDateRate.toFixed(2)
+                                    }})</label
+                                >
+                            </FloatLabel>
+                            <FloatLabel variant="in">
+                                <Calendar
+                                    v-model="endDate"
+                                    id="endDate"
+                                    dateFormat="yy-mm-dd" />
+                                <label for="in_label"
+                                    >종료일 ($1 ≈ ₩{{
+                                        endDateRate.toFixed(2)
+                                    }})</label
+                                >
+                            </FloatLabel>
+                        </InputGroup>
+                    </FormField>
+                    <template v-if="deviceType === 'mobile'">
+                        <FormField>
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="investmentKRW"
+                                        inputId="investmentKRW"
+                                        mode="currency"
+                                        currency="KRW"
+                                        locale="ko-KR"
+                                        @input="updateUSD" />
+                                    <label for="in_label">KRW</label>
+                                </FloatLabel>
+                                <InputGroupAddon>≈</InputGroupAddon>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="investmentUSD"
+                                        inputId="investmentUSD"
+                                        mode="currency"
+                                        currency="USD"
+                                        locale="en-US"
+                                        @input="updateKRW" />
+                                    <label for="in_label"
+                                        >USD (₩{{
+                                            startDateRate.toFixed(2)
+                                        }})</label
+                                    >
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                        <FormField>
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="commission"
+                                        inputId="commission"
+                                        :minFractionDigits="2"
+                                        suffix=" %" />
+                                    <label for="commission">거래 수수료</label>
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                        <FormField>
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <span
+                                        class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
+                                        <span
+                                            class="p-inputtext p-component p-filled p-inputnumber-input">
+                                            <SelectButton
+                                                v-model="applyTax"
+                                                :options="taxOptions"
+                                                size="small"
+                                                optionLabel="label"
+                                                optionValue="value" />
+                                        </span>
+                                    </span>
+                                    <label for="applyTax">배당 소득세</label>
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                    </template>
+
+                    <div class="flex flex-col gap-2" v-else>
+                        <FormField>
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="investmentKRW"
+                                        inputId="investmentKRW"
+                                        mode="currency"
+                                        currency="KRW"
+                                        locale="ko-KR"
+                                        @input="updateUSD" />
+                                    <label for="in_label">KRW</label>
+                                </FloatLabel>
+                                <InputGroupAddon>≈</InputGroupAddon>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="investmentUSD"
+                                        inputId="investmentUSD"
+                                        mode="currency"
+                                        currency="USD"
+                                        locale="en-US"
+                                        @input="updateKRW" />
+                                    <label for="in_label"
+                                        >USD (₩{{
+                                            startDateRate.toFixed(2)
+                                        }})</label
+                                    >
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                        <FormField class="w-6rem">
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <InputNumber
+                                        v-model="commission"
+                                        inputId="commission"
+                                        :minFractionDigits="2"
+                                        suffix=" %" />
+                                    <label for="commission">거래 수수료</label>
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                        <FormField class="w-10rem">
+                            <InputGroup>
+                                <FloatLabel variant="in">
+                                    <span
+                                        class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
+                                        <span
+                                            class="p-inputtext p-component p-filled p-inputnumber-input">
+                                            <SelectButton
+                                                v-model="applyTax"
+                                                :options="taxOptions"
+                                                size="small"
+                                                optionLabel="label"
+                                                optionValue="value" />
+                                        </span>
+                                    </span>
+                                    <label for="applyTax">배당 소득세</label>
+                                </FloatLabel>
+                            </InputGroup>
+                        </FormField>
+                    </div>
                 </div>
-                <div class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compQQQ"
-                        name="comparison"
-                        value="QQQ" /><label for="compQQQ" class="ml-2"
-                        >Nasdaq 100 (QQQ)</label
-                    >
-                </div>
-                <div class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compDIA"
-                        name="comparison"
-                        value="DIA" /><label for="compDIA" class="ml-2"
-                        >Dow 30 (DIA)</label
-                    >
-                </div>
-                <div v-if="underlyingSymbol" class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compUnderlying"
-                        name="comparison"
-                        value="Underlying" />
-                    <label for="compUnderlying" class="ml-2"
-                        >기초자산 ({{ underlyingSymbol }})</label
-                    >
-                </div>
-                <div class="flex align-items-center">
-                    <RadioButton
-                        v-model="comparison"
-                        inputId="compOther"
-                        name="comparison"
-                        value="Other" />
-                    <InputText
-                        v-model="customComparison"
-                        class="ml-2 p-inputtext-sm"
-                        :disabled="comparison !== 'Other'"
-                        placeholder="직접 입력" />
-                </div>
-            </div>
-        </div>
-        <div class="field col-6 md:col-3">
-            <label for="commission">거래 수수료 (%)</label>
-            <InputNumber
-                v-model="commission"
-                inputId="commission"
-                :minFractionDigits="2"
-                suffix=" %" />
-        </div>
-        <div class="field col-6 md:col-3">
-            <label>세금</label>
-            <SelectButton
-                v-model="applyTax"
-                :options="taxOptions"
-                optionLabel="label"
-                optionValue="value" />
-        </div>
-        <div class="field col-12 md:col-3 flex align-items-end">
+            </Fieldset>
             <Button
+                severity="secondary"
                 label="백테스팅 실행"
                 icon="pi pi-chart-line"
                 @click="handleRunClick"
                 :loading="isLoading"
                 class="w-full" />
-        </div>
+        </Form>
     </div>
 </template>

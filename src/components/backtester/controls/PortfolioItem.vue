@@ -44,56 +44,60 @@
         <template #content>
             <!-- Case for Empty Placeholder Card -->
             <div
+                id="t-backtester-portfolio-item-empty"
                 v-if="!isFirstItem && !item.symbol"
-                class="flex align-items-center justify-content-center h-full"
-                style="min-height: 100px">
+                class="flex align-items-center justify-content-center h-full">
                 <Button icon="pi pi-plus" rounded text @click="handleAdd" />
             </div>
 
             <!-- Case for Active Card (with symbol) -->
-            <div v-else class="flex flex-column gap-2">
-                <div class="flex align-items-center justify-content-between">
+            <div v-else id="t-backtester-portfolio-item">
+                <InputGroup class="p-2">
+                    <InputGroupAddon v-if="isFirstItem">
+                        <Button
+                            icon="pi pi-check"
+                            severity="secondary"
+                            disabled />
+                    </InputGroupAddon>
                     <AutoComplete
                         v-model="item.symbol"
                         :suggestions="filteredSymbols"
                         @complete="handleSearch"
                         :placeholder="`종목 ${index + 1}`"
                         class="p-inputtext-sm w-full" />
-                    <Button
-                        v-if="!isFirstItem"
-                        icon="pi pi-times"
-                        text
-                        rounded
-                        severity="secondary"
-                        @click="handleRemove" />
-                </div>
-
-                <!-- UI for the FIRST portfolio item -->
-                <div
-                    v-if="isFirstItem"
-                    class="flex align-items-center justify-content-end h-2rem">
-                    <span class="font-bold text-lg w-4rem text-right"
-                        >{{ item.value || 0 }}%</span
-                    >
-                </div>
-
-                <!-- UI for OTHER portfolio items (2, 3, 4) -->
-                <div
-                    v-else
-                    class="flex align-items-center justify-content-between">
+                    <InputGroupAddon v-if="!isFirstItem">
+                        <Button
+                            icon="pi pi-times"
+                            severity="secondary"
+                            @click="handleRemove" />
+                    </InputGroupAddon>
+                </InputGroup>
+                <InputGroup class="my-2 text-center" v-if="isFirstItem">
+                    <span class="w-full">기본종목 자동계산</span>
+                </InputGroup>
+                <InputGroup class="my-2" v-else>
+                    
                     <Slider
                         v-model="item.value"
-                        class="flex-1 mr-4"
+                        class="flex-1"
                         :max="maxValue" />
-                    <InputGroup class="w-8rem">
-                        <InputNumber
-                            v-model="item.value"
-                            class="p-inputtext-sm"
-                            :max="maxValue"
-                            :allowEmpty="false" />
-                        <span class="p-inputgroup-addon">%</span>
-                    </InputGroup>
-                </div>
+                </InputGroup>
+
+                <InputGroup class="">
+                    <span v-if="isFirstItem" class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled p-inputtext-sm w-full">
+                        <span class="p-inputtext p-component p-filled p-inputnumber-input text-center">
+                            {{ item.value || 0 }}%
+                        </span>
+                    </span>
+                    <InputNumber
+                        v-else
+                        v-model="item.value"
+                        class="p-inputtext-sm w-full"
+                        suffix=" %"
+                        min="1"
+                        :max="maxValue"
+                        :allowEmpty="false" />
+                </InputGroup>
 
                 <div
                     v-if="item.initialShares > 0"
