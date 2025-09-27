@@ -195,7 +195,27 @@
 
 <template>
     <div class="border-round surface-card" id="t-backtester-controls">
-        <MeterGroup :value="portfolio.filter((p) => p.value > 0)" class="mb-4">
+        <div
+            class="flex justify-content-between align-items-center flex-wrap gap-2">
+            <span 
+                class="p-button p-component p-button-secondary"
+                >총 합계:
+                <span
+                    :class="{
+                        'text-red-500 font-bold':
+                            Math.round(totalValue) !== 100,
+                    }"
+                    >{{ totalValue }}%</span
+                ></span
+            >
+            <Button
+                label="비중 균등 분배"
+                icon="pi pi-chart-pie"
+                @click="balanceWeights"
+                severity="secondary"
+                />
+        </div>
+        <MeterGroup :value="portfolio.filter((p) => p.value > 0)">
             <template #label>
                 <PortfolioInput
                     v-model="portfolio"
@@ -213,27 +233,6 @@
                     }" />
             </template>
         </MeterGroup>
-
-        <div
-            class="flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-            <span class="text-surface-500"
-                >총 합계:
-                <span
-                    :class="{
-                        'text-red-500 font-bold':
-                            Math.round(totalValue) !== 100,
-                    }"
-                    >{{ totalValue }}%</span
-                ></span
-            >
-            <Button
-                label="비중 균등 분배"
-                @click="balanceWeights"
-                severity="secondary"
-                text />
-        </div>
-
-        <Divider />
 
         <DateAndInvestment
             :is-loading="isLoading"
