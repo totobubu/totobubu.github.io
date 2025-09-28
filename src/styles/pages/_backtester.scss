@@ -41,7 +41,9 @@
                 padding: 0;
             }
             &-empty {
-            aspect-ratio: 1 / 1;
+                @include bp.media-breakpoint-down('sm') {
+                    aspect-ratio: 1 / 1;
+                }
                 button {
                     width: 100%;
                     height: 100%;

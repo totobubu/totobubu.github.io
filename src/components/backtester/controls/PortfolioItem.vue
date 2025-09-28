@@ -47,7 +47,7 @@
                 id="t-backtester-portfolio-item-empty"
                 v-if="!isFirstItem && !item.symbol"
                 class="flex align-items-center justify-content-center h-full">
-                <Button icon="pi pi-plus" rounded text @click="handleAdd" />
+                <Button icon="pi pi-plus" text @click="handleAdd" />
             </div>
 
             <!-- Case for Active Card (with symbol) -->
