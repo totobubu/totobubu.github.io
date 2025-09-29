@@ -4,7 +4,6 @@
     import { useRoute } from 'vue-router';
     import MeterGroup from 'primevue/metergroup';
     import Button from 'primevue/button';
-    import Divider from 'primevue/divider';
     import { joinURL } from 'ufo';
     import PortfolioInput from './controls/PortfolioInput.vue';
     import DateAndInvestment from './controls/DateAndInvestment.vue';
@@ -18,10 +17,30 @@
 
     const portfolio = ref([
         { symbol: '', value: 100, color: '#ef4444', underlying: null },
-        { symbol: '', value: 0, color: '#f59e0b', underlying: null },
-        { symbol: '', value: 0, color: '#84cc16', underlying: null },
-        { symbol: '', value: 0, color: '#3b82f6', underlying: null },
     ]);
+
+    // --- [핵심 수정] ---
+    const displayPortfolio = computed(() => {
+        const items = [...portfolio.value];
+        const colors = ['#ef4444', '#f59e0b', '#84cc16', '#3b82f6'];
+
+        // 실제 아이템에 색상 할당
+        items.forEach((item, index) => {
+            item.color = colors[index];
+        });
+
+        // 실제 아이템 수가 4개 미만일 때만, 다음 '+' 버튼을 위한 placeholder 하나만 추가
+        if (items.length < 4) {
+            items.push({ symbol: '', value: 0, color: colors[items.length] });
+        }
+
+        // 최대 4개의 카드 레이아웃 유지를 위해 빈 객체 추가 (렌더링은 안 됨)
+        while (items.length < 4) {
+            items.push({ symbol: null, value: 0 }); // symbol을 null로 하여 구분
+        }
+
+        return items;
+    });
 
     const totalValue = computed(() =>
         portfolio.value.reduce((sum, item) => sum + (item.value || 0), 0)
@@ -71,6 +90,7 @@
                     updateUnderlying(item);
                 }
             });
+            adjustFirstWeight();
         },
         { deep: true }
     );
@@ -78,44 +98,41 @@
     const balanceWeights = () => {
         const activeItems = portfolio.value.filter((p) => p.symbol);
         if (activeItems.length === 0) {
-            portfolio.value.forEach((item) => (item.value = 0));
             if (portfolio.value.length > 0) portfolio.value[0].value = 100;
             return;
         }
         const equalWeight = Math.floor(100 / activeItems.length);
         let remainder = 100 % activeItems.length;
 
-        portfolio.value.forEach((item) => {
-            if (item.symbol) {
-                item.value = equalWeight;
-                if (remainder > 0) {
-                    item.value++;
-                    remainder--;
-                }
-            } else {
-                item.value = 0;
+        portfolio.value.forEach((item, index) => {
+            item.value = equalWeight;
+            if (remainder > 0) {
+                item.value++;
+                remainder--;
             }
         });
     };
 
-    const addItem = (index) => {
-        if (!portfolio.value[index].symbol) {
-            const shuffled = shuffleArray([...allSymbols.value]);
-            const existingSymbols = portfolio.value.map((p) => p.symbol);
-            const newSymbol = shuffled.find(
-                (s) => s && !existingSymbols.includes(s)
-            );
-            portfolio.value[index].symbol = newSymbol || '';
-            // When adding a new item, re-balance weights
-            balanceWeights();
-        }
+    const addItem = () => {
+        if (portfolio.value.length >= 4) return;
+        const shuffled = shuffleArray([...allSymbols.value]);
+        const existingSymbols = portfolio.value.map((p) => p.symbol);
+        const newSymbol = shuffled.find(
+            (s) => s && !existingSymbols.includes(s)
+        );
+
+        portfolio.value.push({
+            symbol: newSymbol || '',
+            value: 0,
+        });
+        balanceWeights();
     };
 
     const removeItem = (index) => {
-        portfolio.value[index].symbol = '';
-        portfolio.value[index].value = 0;
-        // When removing an item, re-balance weights
-        balanceWeights();
+        if (index > 0 && index < portfolio.value.length) {
+            portfolio.value.splice(index, 1);
+            balanceWeights();
+        }
     };
 
     const adjustFirstWeight = () => {
@@ -123,48 +140,32 @@
             const otherSum = portfolio.value
                 .slice(1)
                 .reduce((sum, item) => sum + (item.value || 0), 0);
-            // Ensure the sum of other items doesn't exceed 99 to leave 1% for the first item
+
             const cappedOtherSum = Math.min(otherSum, 99);
-
-            // If the sum was capped, we need to adjust the item that was just changed
-            if (otherSum > 99) {
-                // This is a complex UX problem. For now, we'll just cap the sum and let the first item have its minimum.
-                // The user will see the total is not 100% and must adjust manually. A better way is handled by the :max prop.
-            }
-
             portfolio.value[0].value = 100 - cappedOtherSum;
         }
     };
 
-    // This function calculates the max value for a slider at a given index (1, 2, or 3)
     const getMaxValueForSlider = (itemIndex) => {
-        if (itemIndex === 0) return 100; // Not used, but for safety
-        // Sum of all OTHER secondary items (not the current one, not the first one)
+        if (itemIndex === 0) return 100;
         const otherSecondarySum = portfolio.value.reduce((sum, item, index) => {
             if (index > 0 && index !== itemIndex) {
                 sum += item.value || 0;
             }
             return sum;
         }, 0);
-        // Max value is 99 (to leave 1% for item 1) minus the sum of other sliders
         return 99 - otherSecondarySum;
+    };
+
+    const updatePortfolioItem = (index, item) => {
+        if (portfolio.value[index]) {
+            portfolio.value[index] = item;
+        }
     };
 
     watch(
         () => portfolio.value.map((p) => p.value).slice(1),
         adjustFirstWeight,
-        { deep: true }
-    );
-
-    watch(
-        () => portfolio.value.map((p) => p.symbol),
-        (newSymbols, oldSymbols) => {
-            const newActiveCount = newSymbols.filter(Boolean).length;
-            const oldActiveCount = oldSymbols.filter(Boolean).length;
-            if (newActiveCount !== oldActiveCount) {
-                balanceWeights();
-            }
-        },
         { deep: true }
     );
 
@@ -197,8 +198,7 @@
     <div class="border-round surface-card" id="t-backtester-controls">
         <div
             class="flex justify-content-between align-items-center flex-wrap gap-2">
-            <span 
-                class="p-button p-component p-button-secondary"
+            <span class="p-button p-component p-button-secondary"
                 >총 합계:
                 <span
                     :class="{
@@ -212,17 +212,17 @@
                 label="비중 균등 분배"
                 icon="pi pi-chart-pie"
                 @click="balanceWeights"
-                severity="secondary"
-                />
+                severity="secondary" />
         </div>
         <MeterGroup :value="portfolio.filter((p) => p.value > 0)">
             <template #label>
                 <PortfolioInput
-                    v-model="portfolio"
+                    :modelValue="displayPortfolio"
                     :all-symbols="allSymbols"
                     :get-max-value="getMaxValueForSlider"
                     @addItem="addItem"
-                    @removeItem="removeItem" />
+                    @removeItem="removeItem"
+                    @update:portfolioItem="updatePortfolioItem" />
             </template>
             <template #meter="slotProps">
                 <span

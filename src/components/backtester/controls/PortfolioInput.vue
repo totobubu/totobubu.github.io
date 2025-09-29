@@ -1,27 +1,22 @@
 <!-- src\components\backtester\controls\PortfolioInput.vue -->
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref } from 'vue';
     import PortfolioItem from './PortfolioItem.vue';
 
     const props = defineProps({
         modelValue: Array,
         allSymbols: Array,
-        getMaxValue: Function, // Function passed from parent
+        getMaxValue: Function,
     });
-    const emit = defineEmits(['update:modelValue', 'addItem', 'removeItem']);
+    const emit = defineEmits(['addItem', 'removeItem', 'update:portfolioItem']);
 
     const filteredSymbols = ref([]);
-
-    const portfolio = computed({
-        get: () => props.modelValue,
-        set: (value) => emit('update:modelValue', value),
-    });
 
     const searchSymbol = (event) => {
         if (!props.allSymbols) return;
         setTimeout(() => {
             if (!event.query.trim().length) {
-                filteredSymbols.value = []; // Show nothing on empty query
+                filteredSymbols.value = [];
             } else {
                 const queryLower = event.query.toLowerCase();
                 filteredSymbols.value = props.allSymbols.filter((symbol) => {
@@ -31,31 +26,34 @@
         }, 250);
     };
 
-    const addItem = (index) => emit('addItem', index);
-    const removeItem = (index) => emit('removeItem', index);
-    const updateItem = (index, newItem) => {
-        const newPortfolio = [...portfolio.value];
-        newPortfolio[index] = newItem;
-        emit('update:modelValue', newPortfolio);
+    const handleAddItem = () => emit('addItem');
+    const handleRemoveItem = (index) => emit('removeItem', index);
+    const handleUpdateItem = (index, newItem) => {
+        // portfolio.value[index] = newItem 과 같은 직접적인 수정 대신 이벤트를 emit합니다.
+        emit('update:portfolioItem', index, newItem);
     };
 </script>
 
 <template>
     <div class="grid" id="t-backtester-portfolio">
         <div
-            v-for="(item, index) in portfolio"
+            v-for="(item, index) in modelValue"
             :key="index"
             class="col-6 md:col-3">
+            <!-- [핵심 수정] v-if를 제거하고, 렌더링되지 않아야 할 아이템은 symbol: null로 구분 -->
             <PortfolioItem
+                v-if="item.symbol !== null"
                 :modelValue="item"
-                @update:modelValue="(newItem) => updateItem(index, newItem)"
+                @update:modelValue="
+                    (newItem) => handleUpdateItem(index, newItem)
+                "
                 :index="index"
                 :all-symbols="allSymbols"
                 :filtered-symbols="filteredSymbols"
                 :max-value="getMaxValue(index)"
                 @search="searchSymbol"
-                @addItem="addItem"
-                @removeItem="removeItem" />
+                @addItem="handleAddItem"
+                @removeItem="handleRemoveItem" />
         </div>
     </div>
 </template>

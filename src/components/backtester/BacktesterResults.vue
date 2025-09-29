@@ -431,7 +431,7 @@
                             : undefined,
                     },
                     {
-                        label: '연평균 수익률 (CAGR)',
+                        label: '연평균 수익률',
                         drip: formatPercent(r.withReinvest.summary.cagr),
                         noDrip: formatPercent(r.withoutReinvest.summary.cagr),
                         comp: comp
