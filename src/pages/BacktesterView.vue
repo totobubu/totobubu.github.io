@@ -38,7 +38,9 @@
                 holidays,
             });
 
-            backtestResult.value = result;
+            // --- [핵심 수정] ---
+            // 결과 객체에 세금 적용 여부(applyTax)를 포함시켜 전달
+            backtestResult.value = { ...result, applyTax: options.applyTax };
         } catch (error) {
             console.error('Backtest Run Failed:', error);
             toast.add({
