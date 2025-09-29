@@ -11,6 +11,12 @@
         },
     });
 
+    // --- [신규] 배당금이 있는지 확인하는 computed 속성 ---
+    const hasPortfolioDividends = computed(() => {
+        // withoutReinvest 객체가 존재하고, dividendsCollected 값이 0보다 큰지 확인
+        return props.result?.withoutReinvest?.summary?.dividendsCollected > 0;
+    });
+
     const formatCurrency = (val) =>
         new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -65,15 +71,20 @@
 </script>
 
 <template>
-    <!-- [수정] 클래스 추가 -->
     <DataTable
         id="t-backtester-summary"
         :value="resultTableData"
         showGridlines
         stripedRows
-        class="p-datatable-sm summary-table mt-4">
-        <Column field="label" header="항목" frozen class="font-bold" />
-        <Column header="배당 재투자 O" class="text-right">
+        class="p-datatable-sm summary-table">
+        <Column
+            field="label"
+            header="항목"
+            frozen
+            class="font-bold text-center" />
+        <Column
+            :header="hasPortfolioDividends ? '배당 재투자 O' : 'Portfolio DRIP'"
+            class="text-right">
             <template #body="{ data }">
                 <span
                     v-if="typeof data.drip === 'number'"
@@ -84,9 +95,7 @@
                             data.drip > 0 && data.label !== '초기 투자금',
                     }">
                     {{
-                        ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                            data.label
-                        )
+                        ['총 수익률', '연평균 수익률'].includes(data.label)
                             ? formatPercent(data.drip)
                             : formatCurrency(data.drip)
                     }}
@@ -94,7 +103,11 @@
                 <span v-else>{{ data.drip }}</span>
             </template>
         </Column>
-        <Column header="배당 재투자 X" class="text-right">
+        <!-- [핵심 수정] v-if를 사용하여 조건부 렌더링 -->
+        <Column
+            v-if="hasPortfolioDividends"
+            header="배당 재투자 X"
+            class="text-right">
             <template #body="{ data }">
                 <span
                     v-if="typeof data.noDrip === 'number'"
@@ -105,9 +118,7 @@
                             data.noDrip > 0 && data.label !== '초기 투자금',
                     }">
                     {{
-                        ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                            data.label
-                        )
+                        ['총 수익률', '연평균 수익률'].includes(data.label)
                             ? formatPercent(data.noDrip)
                             : formatCurrency(data.noDrip)
                     }}
@@ -132,9 +143,7 @@
                             data.comp > 0 && data.label !== '초기 투자금',
                     }">
                     {{
-                        ['총 수익률', '연평균 수익률 (CAGR)'].includes(
-                            data.label
-                        )
+                        ['총 수익률', '연평균 수익률'].includes(data.label)
                             ? formatPercent(data.comp)
                             : formatCurrency(data.comp)
                     }}
