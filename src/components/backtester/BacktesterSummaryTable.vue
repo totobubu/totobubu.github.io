@@ -37,7 +37,7 @@
                 comp: comp?.withReinvest.endingInvestment,
             },
             {
-                label: '누적 현금 배당금',
+                label: '누적 현금',
                 drip: '-',
                 noDrip: r.withoutReinvest.summary.dividendsCollected,
                 comp: comp?.withoutReinvest.dividendsCollected,
@@ -49,7 +49,7 @@
                 comp: comp?.withReinvest.totalReturn,
             },
             {
-                label: '연평균 수익률 (CAGR)',
+                label: '연평균 수익률',
                 drip: r.withReinvest.summary.cagr,
                 noDrip: r.withoutReinvest.summary.cagr,
                 comp: comp?.withReinvest.cagr,
@@ -67,11 +67,12 @@
 <template>
     <!-- [수정] 클래스 추가 -->
     <DataTable
+        id="t-backtester-summary"
         :value="resultTableData"
         showGridlines
         stripedRows
         class="p-datatable-sm summary-table mt-4">
-        <Column field="label" header="항목" />
+        <Column field="label" header="항목" frozen class="font-bold" />
         <Column header="배당 재투자 O" class="text-right">
             <template #body="{ data }">
                 <span

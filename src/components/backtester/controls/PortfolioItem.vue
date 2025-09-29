@@ -72,11 +72,10 @@
                             @click="handleRemove" />
                     </InputGroupAddon>
                 </InputGroup>
-                <InputGroup class="my-2 text-center" v-if="isFirstItem">
+                <InputGroup class="text-center" v-if="isFirstItem">
                     <span class="w-full">기본종목 자동계산</span>
                 </InputGroup>
-                <InputGroup class="my-2" v-else>
-                    
+                <InputGroup v-else>
                     <Slider
                         v-model="item.value"
                         class="flex-1"
@@ -84,8 +83,11 @@
                 </InputGroup>
 
                 <InputGroup class="">
-                    <span v-if="isFirstItem" class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled p-inputtext-sm w-full">
-                        <span class="p-inputtext p-component p-filled p-inputnumber-input text-center">
+                    <span
+                        v-if="isFirstItem"
+                        class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled p-inputtext-sm w-full">
+                        <span
+                            class="p-inputtext p-component p-filled p-inputnumber-input text-center">
                             {{ item.value || 0 }}%
                         </span>
                     </span>

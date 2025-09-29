@@ -13,7 +13,7 @@
     import { useExchangeRates } from '@/composables/useExchangeRates';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
-    const { deviceType, isDesktop, isMobile } = useBreakpoint();
+    const { deviceType } = useBreakpoint();
 
     const props = defineProps({
         isLoading: Boolean,
@@ -198,7 +198,7 @@
                 :toggleable="true"
                 id="t-backtester-controls-options">
                 <div class="flex flex-column gap-2">
-                    <FormField class="col-12">
+                    <FormField>
                         <SelectButton
                             v-model="selectedPeriod"
                             :options="periodOptions"
@@ -206,7 +206,7 @@
                             size="small"
                             aria-labelledby="period-selection" />
                     </FormField>
-                    <FormField class="col-12">
+                    <FormField>
                         <InputGroup>
                             <FloatLabel variant="in">
                                 <Calendar
