@@ -13,9 +13,9 @@
                     <div
                         class="flex justify-content-end align-items-center mb-2">
                         <Button
+                            label="이미지로 다운로드"
                             icon="pi pi-download"
                             text
-                            rounded
                             @click="downloadResultsAsImage" />
                     </div>
                     <v-chart
@@ -431,7 +431,7 @@
                             : undefined,
                     },
                     {
-                        label: '연평균 수익률 (CAGR)',
+                        label: '연평균 수익률',
                         drip: formatPercent(r.withReinvest.summary.cagr),
                         noDrip: formatPercent(r.withoutReinvest.summary.cagr),
                         comp: comp
@@ -450,7 +450,7 @@
 
                 const header = `
                     <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: left;">항목</th>
-                    <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">배당 재투자 O (DRIP)</th>
+                    <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">배당 재투자 O</th>
                     <th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">배당 재투자 X</th>
                     ${comp ? `<th style="background: #e5e7eb; color: #111827; border: 1px solid #d1d5db; padding: 0.75rem; text-align: right;">${r.comparisonSymbol}</th>` : ''}
                 `;
