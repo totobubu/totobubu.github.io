@@ -1,6 +1,7 @@
 // src\composables\useBacktestData.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
+import { addBusinessDays } from '@/services/backtester/utils.js'; // 유틸리티 함수 import
 
 export function useBacktestData() {
     const adjustedDateMessage = ref('');
@@ -64,7 +65,7 @@ export function useBacktestData() {
             throw new Error('휴장일 데이터를 불러올 수 없습니다.');
 
         const exchangeRates = await exchangeResponse.json();
-        const holidays = await holidayResponse.json();
+        const holidays = (await holidayResponse.json()).map((h) => h.date);
         const apiData = { tickerData, exchangeRates };
 
         const dataStartDates = tickerData
@@ -89,15 +90,37 @@ export function useBacktestData() {
         const latestIpoDate = new Date(Math.max.apply(null, dataStartDates));
         let effectiveStartDate = new Date(startDate);
 
+        // --- [핵심 수정] 휴장일 및 주말을 고려하여 시작일 조정 ---
+        let originalStartDateStr = effectiveStartDate
+            .toISOString()
+            .split('T')[0];
+
+        // 1. IPO 날짜보다 이전이면 IPO 날짜로 조정
         if (effectiveStartDate < latestIpoDate) {
             effectiveStartDate = latestIpoDate;
-            adjustedDateMessage.value = `시작일이 ${effectiveStartDate.toISOString().split('T')[0]}로 자동 조정되었습니다.`;
+        }
+
+        // 2. 주말/휴장일이면 다음 영업일로 조정
+        // addBusinessDays는 0일을 더해도 휴장일이면 다음날로 이동시켜주는 로직을 포함해야 함
+        // (현재 utils.js의 addBusinessDays는 이미 이 로직을 포함하고 있을 것으로 가정)
+        const businessStartDate = addBusinessDays(
+            effectiveStartDate,
+            0,
+            holidays
+        );
+
+        let adjustedStartDateStr = businessStartDate
+            .toISOString()
+            .split('T')[0];
+
+        if (originalStartDateStr !== adjustedStartDateStr) {
+            adjustedDateMessage.value = `시작일이 ${adjustedStartDateStr}로 자동 조정되었습니다. (영업일 기준)`;
         } else {
             adjustedDateMessage.value = '';
         }
 
         return {
-            effectiveStartDate: effectiveStartDate.toISOString().split('T')[0],
+            effectiveStartDate: adjustedStartDateStr,
             apiData,
             holidays,
         };
