@@ -1,6 +1,7 @@
 <!-- src\components\backtester\BacktesterResultDetails.vue -->
 <script setup>
     import { ref, computed } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import SelectButton from 'primevue/selectbutton';
@@ -12,22 +13,18 @@
         },
     });
 
+    const { isMobile, isDesktop } = useBreakpoint();
     const selectedTicker = ref('전체');
 
-    // --- [수정] 필터 옵션 생성 로직 변경 ---
     const filterOptions = computed(() => {
-        // 배당 내역 데이터가 없으면 필터를 표시하지 않음
         if (!props.result || !props.result.cashDividends) return [];
 
-        // Set을 사용하여 배당 내역에 있는 모든 고유 티커를 추출
         const tickersWithDividends = new Set(
             props.result.cashDividends.map((d) => d.ticker)
         );
 
-        // 고유 티커 목록을 배열로 변환하고 정렬
         const sortedTickers = Array.from(tickersWithDividends).sort();
 
-        // '전체' 옵션을 맨 앞에 추가
         return ['전체', ...sortedTickers];
     });
 
@@ -103,70 +100,118 @@
         v-if="combinedDividendHistory && combinedDividendHistory.length > 0"
         class="col-12">
         <div
-            class="flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+            class="flex mb-2 flex-wrap gap-3"
+            :class="
+                isMobile
+                    ? 'flex-column align-items-start'
+                    : 'justify-content-between align-items-center'
+            ">
             <h4>배당금 수령 내역</h4>
-            <!-- [수정] 필터 옵션이 1개 초과일 때만 (즉, '전체' 외에 다른 종목이 있을 때) 버튼을 표시 -->
             <SelectButton
                 v-if="filterOptions.length > 1"
                 v-model="selectedTicker"
                 :options="filterOptions"
                 aria-labelledby="basic"
-                class="p-button-sm" />
+                class="p-button-sm"
+                :class="isMobile ? 'p-0' : ''" />
         </div>
-
         <DataTable
             :value="combinedDividendHistory"
-            class="p-datatable-sm"
+            :size="isMobile ? 'small' : ''"
             sortField="date"
-            :sortOrder="-1"
-            scrollable
-            scrollHeight="50vh">
-            <Column field="date" header="지급일" sortable></Column>
-            <Column field="ticker" header="종목" sortable></Column>
-            <Column header="주당 배당금" sortable field="perShare">
-                <template #body="{ data }">
-                    {{ formatCurrency(data.perShare, 4) }}
-                </template>
-            </Column>
-            <Column header="재투자 X (현금)">
-                <template #body="{ data }">
-                    <div v-if="data.cash">
-                        <span>{{ data.cash.shares.toFixed(2) }}주 = </span>
-                        <strong class="text-green-400"
-                            >세전
-                            {{ formatCurrency(data.cash.preTaxAmount) }}</strong
-                        >
-                        <span class="text-sm text-surface-500">
-                            | 세후
-                            {{ formatCurrency(data.cash.postTaxAmount) }}</span
-                        >
-                    </div>
-                    <span v-else>-</span>
-                </template>
-            </Column>
-            <Column header="재투자 O (DRIP)">
-                <template #body="{ data }">
-                    <div v-if="data.drip">
-                        <span>{{ data.drip.shares.toFixed(2) }}주 = </span>
-                        <strong class="text-green-400"
-                            >세전
-                            {{ formatCurrency(data.drip.preTaxAmount) }}</strong
-                        >
-                        <span class="text-sm text-surface-500">
-                            | 세후
-                            {{ formatCurrency(data.drip.postTaxAmount) }}</span
-                        >
-                    </div>
-                    <span v-else>-</span>
-                </template>
-            </Column>
+            :sortOrder="-1">
+            <template v-if="isMobile">
+                <Column
+                    header="지급일/종목/배당금"
+                    style="width: 7rem; font-size: 0.8em">
+                    <template #body="{ data }">
+                        {{ data.date }}
+                        <br />
+                        {{ data.ticker }}
+                        <br />
+                        {{ formatCurrency(data.perShare, 4) }}
+                    </template>
+                </Column>
+            </template>
+            <template v-else>
+                <Column field="date" header="지급일" sortable></Column>
+                <Column field="ticker" header="종목"></Column>
+                <Column header="주당 배당금" field="perShare">
+                    <template #body="{ data }">
+                        {{ formatCurrency(data.perShare, 4) }}
+                    </template>
+                </Column>
+            </template>
+            <template>
+                <Column :header="isMobile ? '재투자X' : '재투자X = 현금'">
+                    <template #body="{ data }">
+                        <div v-if="data.cash">
+                            <span>{{ data.cash.shares.toFixed(2) }}주 = </span>
+                            <template v-if="isMobile">
+                                <strong
+                                    v-if="!result.applyTax"
+                                    class="text-green-400"
+                                    >{{
+                                        formatCurrency(data.cash.preTaxAmount)
+                                    }}</strong
+                                >
+                                <strong v-else class="text-green-400">{{
+                                    formatCurrency(data.cash.postTaxAmount)
+                                }}</strong>
+                            </template>
+                            <template v-else>
+                                <strong class="text-green-400"
+                                    >세전
+                                    {{
+                                        formatCurrency(data.cash.preTaxAmount)
+                                    }}</strong
+                                >
+                                <span class="text-sm text-surface-500">
+                                    | 세후
+                                    {{
+                                        formatCurrency(data.cash.postTaxAmount)
+                                    }}</span
+                                >
+                            </template>
+                        </div>
+                        <span v-else>-</span>
+                    </template>
+                </Column>
+                <Column :header="isMobile ? '재투자O' : '재투자O = DRIP'">
+                    <template #body="{ data }">
+                        <div v-if="data.drip">
+                            <span>{{ data.drip.shares.toFixed(2) }}주 = </span>
+                            <template v-if="isMobile">
+                                <strong
+                                    v-if="!result.applyTax"
+                                    class="text-green-400"
+                                    >{{
+                                        formatCurrency(data.drip.preTaxAmount)
+                                    }}</strong
+                                >
+                                <strong v-else class="text-green-400">{{
+                                    formatCurrency(data.drip.postTaxAmount)
+                                }}</strong>
+                            </template>
+                            <template v-else>
+                                <strong class="text-green-400"
+                                    >세전
+                                    {{
+                                        formatCurrency(data.drip.preTaxAmount)
+                                    }}</strong
+                                >
+                                <span class="text-sm text-surface-500">
+                                    | 세후
+                                    {{
+                                        formatCurrency(data.drip.postTaxAmount)
+                                    }}</span
+                                >
+                            </template>
+                        </div>
+                        <span v-else>-</span>
+                    </template>
+                </Column>
+            </template>
         </DataTable>
     </div>
 </template>
-
-<style scoped>
-    :deep(.p-selectbutton .p-button) {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
-</style>
