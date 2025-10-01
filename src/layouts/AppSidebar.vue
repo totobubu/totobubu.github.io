@@ -1,8 +1,8 @@
 <!-- stock\src\layouts\AppSidebar.vue -->
 <script setup>
-    import { ref, onMounted, computed } from 'vue'; // ref, onMounted, computed 추가
+    import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
-    import { getGroupSeverity } from '@/utils/uiHelpers.js'; // [수정] 중앙 유틸리티 import
+    import { getGroupSeverity } from '@/utils/uiHelpers.js';
     import { joinURL } from 'ufo';
 
     import DataTable from 'primevue/datatable';
@@ -34,7 +34,6 @@
     } = useFilterState();
     const { deviceType, isMobile } = useBreakpoint();
 
-    // --- UI 관련 computed 속성 (변경 없음) ---
     const tableScrollHeight = computed(() => {
         const topbarHeight = 60;
         if (isMobile.value) {
@@ -53,40 +52,27 @@
     const frequencies = ref([]);
     const groups = ref([]);
 
-    // --- UI 이벤트 핸들러 (변경 없음) ---
-
-    // --- 핵심: 필터링된 목록을 계산하는 computed 속성 추가 ---
     const filteredEtfList = computed(() => {
-        // "내 종목만 보기"가 켜져 있고, 로그인 상태일 때
         if (showMyStocksOnly.value && user.value) {
-            // 전체 목록(etfList)에서 내 북마크(myBookmarks)에 포함된 종목만 필터링
             return etfList.value.filter(
                 (item) => myBookmarks.value[item.symbol]
             );
         }
-        // 그 외의 경우(토글이 꺼져있거나 로그아웃 상태)에는 전체 목록을 반환
         return etfList.value;
     });
 
     const handleBookmarkToggle = () => {
-        // 로그인 상태일 때만 작동하도록 방어 코드 추가
         if (!user.value) {
-            // 이 버튼은 disabled 처리될 것이므로 사실상 호출되지 않지만,
-            // 안전을 위해 추가합니다.
             router.push('/login');
             return;
         }
         toggleShowMyStocksOnly();
-        // selectedTicker.value = null;
     };
 
-    // 개별 북마크 아이콘 클릭 시 호출될 함수
     const handleStockBookmarkClick = (symbol) => {
         if (user.value) {
-            // 로그인 상태: 내 종목에 추가/삭제
             toggleMyStock(symbol);
         } else {
-            // 로그아웃 상태: 로그인 페이지로 이동
             alert('로그인이 필요한 기능입니다.');
             router.push('/login');
         }
@@ -113,18 +99,20 @@
         dialogsVisible.value[filterName] = false;
     };
 
-    // --- 데이터 로딩 로직 (핵심 변경) ---
     onMounted(async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            // 1. 기본 정보 로드
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
             const navResponse = await fetch(navUrl);
             if (!navResponse.ok)
                 throw new Error('Navigation data could not be loaded.');
             const navData = await navResponse.json();
-            const allSymbols = navData.nav
+
+            // --- [핵심 수정] "upcoming: true"인 종목을 필터링 ---
+            const activeNavItems = navData.nav.filter(item => !item.upcoming);
+            
+            const allSymbols = activeNavItems
                 .map((item) => item.symbol)
                 .filter(Boolean);
 
@@ -134,13 +122,11 @@
                 return;
             }
 
-            // 2. 실시간 데이터 로드 (Vite 프록시를 통해 Vercel API 호출)
             const apiUrl = `/api/getStockData?tickers=${allSymbols.join(',')}`;
             const apiResponse = await fetch(apiUrl);
             if (!apiResponse.ok)
                 throw new Error('Failed to fetch live stock data from API');
 
-            // --- 핵심: JSON 파싱 에러 방지를 위한 디버깅 추가 ---
             const responseText = await apiResponse.text();
             let liveDataArray;
             try {
@@ -152,38 +138,29 @@
                 );
                 throw new Error('API로부터 잘못된 형식의 응답을 받았습니다.');
             }
-            // ---------------------------------------------
 
             const liveDataMap = new Map(
                 liveDataArray.map((item) => [item.symbol, item])
             );
 
-            // 3. 데이터 병합
             const dayOrder = {
-                월: 1,
-                화: 2,
-                수: 3,
-                목: 4,
-                금: 5,
-                A: 6,
-                B: 7,
-                C: 8,
-                D: 9,
+                월: 1, 화: 2, 수: 3, 목: 4, 금: 5,
+                A: 6, B: 7, C: 8, D: 9,
             };
-            etfList.value = navData.nav.map((item) => {
+            
+            // activeNavItems를 기준으로 etfList 생성
+            etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
 
-                // [핵심 수정] liveData가 없는 경우(예: upcoming 종목)를 위한 기본값 설정
                 if (!liveData) {
                     return {
-                        ...item, // nav.json의 모든 정보 (logo, company, upcoming 포함)
-                        yield: '-', // 데이터 없음을 명확히 표시
+                        ...item,
+                        yield: '-',
                         price: '-',
                         groupOrder: dayOrder[item.group] ?? 999,
                     };
                 }
 
-                // liveData가 있는 경우 기존 로직 수행
                 return {
                     ...item,
                     yield: liveData.regularMarketChangePercent
@@ -194,7 +171,6 @@
                 };
             });
 
-            // 4. 필터 목록 생성
             companies.value = [
                 ...new Set(etfList.value.map((item) => item.company)),
             ];
@@ -207,7 +183,6 @@
                 ),
             ];
 
-            // 5. 현재 티커 선택
             const currentTickerSymbol = route.params.ticker?.toUpperCase();
             if (currentTickerSymbol) {
                 selectedTicker.value = etfList.value.find(
@@ -249,15 +224,8 @@
                 <div class="text-center p-4">검색 결과가 없습니다.</div>
             </template>
 
-            <!-- '내 종목' 토글 버튼을 위한 새로운 Column 추가 -->
             <Column frozen class="toto-column-bookmark">
                 <template #header>
-                    <!--
-                    v-model 대신 @click.stop을 사용합니다.
-                    v-model은 내부적으로 @update:modelValue 이벤트를 사용하는데,
-                    여기에 .stop을 직접 붙이기 어렵기 때문입니다.
-                    직접 클릭 이벤트를 제어하는 것이 더 명확합니다.
-                -->
                     <ToggleButton
                         :modelValue="showMyStocksOnly"
                         @click.stop="handleBookmarkToggle"
@@ -305,7 +273,6 @@
                         <span v-else>회사</span>
                     </div>
                 </template>
-                <!-- [핵심 수정] #body 템플릿을 추가/수정합니다. -->
                 <template #body="{ data }">
                     <CompanyLogo
                         :logo-src="data.logo"
@@ -357,12 +324,8 @@
                     </div>
                 </template>
                 <template #body="{ data }">
-                    <!-- 1. upcoming 플래그가 true이면 "예정" 태그를 표시합니다. -->
-                    <Tag v-if="data.upcoming" value="예정" severity="info" />
-
-                    <!-- 2. upcoming이 아닐 경우에만, 기존처럼 그룹 태그를 표시합니다. -->
                     <Tag
-                        v-else-if="data.group"
+                        v-if="data.group"
                         :value="data.group"
                         :severity="getGroupSeverity(data.group)" />
                 </template>
@@ -418,7 +381,6 @@
 </template>
 
 <style scoped>
-    /* 아이콘이 중앙에 오도록 스타일 추가 */
     .toto-column-bookmark .p-column-header-content,
     .toto-column-bookmark .p-column-content {
         display: flex;
@@ -426,7 +388,7 @@
         align-items: center;
     }
     .toto-column-bookmark .p-button {
-        width: 2.5rem; /* 버튼 크기 조절 */
+        width: 2.5rem;
         height: 2.5rem;
     }
 </style>
