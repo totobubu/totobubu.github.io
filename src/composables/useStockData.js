@@ -4,6 +4,7 @@ import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
 const dividendHistory = ref([]);
+const backtestData = ref(null); // [신규] backtestData ref 추가
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -34,6 +35,7 @@ export function useStockData() {
         error.value = null;
         tickerInfo.value = null;
         dividendHistory.value = [];
+        backtestData.value = null; // [신규] 초기화
 
         try {
             const navData = await loadNavData();
@@ -41,13 +43,9 @@ export function useStockData() {
                 (item) => item.symbol === tickerSymbol.toUpperCase()
             );
 
-            // --- 핵심 수정: API 호출 전에 upcoming 플래그를 먼저 확인합니다 ---
             if (currentTickerNavInfo?.upcoming) {
                 isUpcoming.value = true;
-                // 시세 정보가 없을 수 있으므로, nav.json의 기본 정보만이라도 tickerInfo에 할당합니다.
                 tickerInfo.value = currentTickerNavInfo;
-
-                // (선택적 개선) 시도를 해보고, 실패해도 무시합니다.
                 try {
                     const liveDataResponse = await fetch(
                         `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
@@ -66,12 +64,9 @@ export function useStockData() {
                         `Upcoming ticker ${tickerSymbol} live data fetch failed, but proceeding.`
                     );
                 }
-
-                return; // "출시 예정"이므로 여기서 함수를 정상 종료합니다.
+                return;
             }
-            // -----------------------------------------------------------
 
-            // upcoming이 아닌 종목에 대해서만 기존 로직을 수행합니다.
             const [liveDataResponse, staticDataResponse] = await Promise.all([
                 fetch(
                     `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
@@ -100,9 +95,8 @@ export function useStockData() {
                     ...liveData,
                 };
                 dividendHistory.value = staticData.dividendHistory || [];
+                backtestData.value = staticData.backtestData || {}; // [신규] backtestData 할당
             } else {
-                // 이 경우는 upcoming 플래그는 없는데 .json 파일이 없는 경우입니다.
-                // 에러로 처리하거나, 이것도 '출시 예정'으로 볼 수 있습니다.
                 tickerInfo.value = { ...currentTickerNavInfo, ...liveData };
                 isUpcoming.value = true;
             }
@@ -119,6 +113,7 @@ export function useStockData() {
     return {
         tickerInfo,
         dividendHistory,
+        backtestData, // [신규] 반환 객체에 추가
         isLoading,
         error,
         loadData,
