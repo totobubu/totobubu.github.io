@@ -4,11 +4,10 @@
     import { useHead } from '@vueuse/head';
     import {
         sendPasswordResetEmail,
-        fetchSignInMethodsForEmail,
-    } from 'firebase/auth';
+    } from 'firebase/auth'; // fetchSignInMethodsForEmail은 더 이상 필요 없음
     import { auth } from '../firebase';
     import { useRouter } from 'vue-router';
-    import Message from 'primevue/message'; // Message 컴포넌트 import
+    import Message from 'primevue/message';
 
     const email = ref('');
     const router = useRouter();
@@ -17,9 +16,9 @@
         title: '비밀번호 재설정',
     });
 
-    // 메시지를 저장할 ref 추가 (성공, 에러 모두 사용)
     const message = ref({ text: '', severity: '' });
 
+    // --- [수정된 함수] ---
     const onResetPassword = async () => {
         message.value = { text: '', severity: '' };
         if (!email.value) {
@@ -30,28 +29,20 @@
             return;
         }
         try {
-            // 1. Check if the email is registered
-            const methods = await fetchSignInMethodsForEmail(auth, email.value);
-
-            // 2. If no methods, user does not exist
-            if (methods.length === 0) {
-                message.value = {
-                    text: '가입되지 않은 이메일입니다.',
-                    severity: 'error',
-                };
-                return;
-            }
-
-            // 3. If user exists, send the reset email
+            // 이메일 존재 여부를 확인하는 로직을 제거하고, 바로 재설정 이메일을 보냅니다.
+            // Firebase는 백그라운드에서 가입된 이메일일 경우에만 실제로 메일을 발송합니다.
             await sendPasswordResetEmail(auth, email.value);
+
+            // 사용자에게는 가입 여부와 관계없이 항상 동일한 성공 메시지를 보여줍니다.
             message.value = {
-                text: '비밀번호 재설정 이메일을 발송했습니다. 메일함을 확인해주세요.',
+                text: '요청이 접수되었습니다. 가입된 이메일인 경우, 비밀번호 재설정 링크가 발송됩니다.',
                 severity: 'success',
             };
         } catch (err) {
+            // Firebase API 자체에서 에러가 발생한 경우 (예: 네트워크 오류, 잘못된 이메일 형식)
             console.error('비밀번호 재설정 과정 오류:', err);
             message.value = {
-                text: '오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+                text: '오류가 발생했습니다. 이메일 주소를 확인하거나 잠시 후 다시 시도해주세요.',
                 severity: 'error',
             };
         }
@@ -92,7 +83,6 @@
                 </div>
             </template>
             <template #footer>
-                <!-- 메시지가 있을 경우에만 Message 컴포넌트를 표시 -->
                 <Message
                     v-if="message.text"
                     :severity="message.severity"
