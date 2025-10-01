@@ -34,6 +34,8 @@
         }
     };
     const goToMyPage = () => router.push('/mypage');
+    const goToBacktesterPage = () => router.push('/backtester');
+    const goToCalendarPage = () => router.push('/calendar');
 
     watch(
         tickerInfo,
@@ -106,6 +108,16 @@
 
                 <div id="t-topbar" class="topbar-actions">
                     <Button
+                        icon="pi pi-calendar"
+                        variant="text"
+                        @click="goToCalendarPage"
+                        aria-label="배당달력" />
+                    <Button
+                        icon="pi pi-history"
+                        variant="text"
+                        @click="goToBacktesterPage"
+                        aria-label="백테스터" />
+                    <Button
                         v-if="!user"
                         icon="pi pi-sign-in"
                         variant="text"
@@ -139,7 +151,6 @@
                     icon="pi pi-arrow-up" />
             </section>
         </main>
-        <template v-if="route.path !== '/backtester'">
             <aside id="t-sidebar" v-if="isDesktop">
                 <header>
                     <FilterInput
@@ -165,6 +176,5 @@
                 </template>
                 <AppSidebar />
             </Drawer>
-        </template>
     </div>
 </template>
