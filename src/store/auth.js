@@ -7,7 +7,6 @@ import {
     loadMyBookmarksFromFirestore,
     saveMyBookmarksToFirestore,
 } from '@/composables/useFilterState';
-// import { router } from '@/router'; // --- 이 줄을 완전히 삭제합니다 ---
 
 export const user = ref(null);
 export const isRecentlyAuthenticated = ref(false);
@@ -25,7 +24,8 @@ onAuthStateChanged(auth, async (firebaseUser) => {
             email: firebaseUser.email,
             displayName: firebaseUser.displayName,
         };
-        showMyStocksOnly.value = true;
+        // [핵심 수정] 로그인 시 북마크 필터를 활성화하지 않고, 기본값(false)을 유지합니다.
+        // showMyStocksOnly.value = true; // 이 줄을 주석 처리하거나 삭제합니다.
         myBookmarks.value = await loadMyBookmarksFromFirestore(
             firebaseUser.uid
         );
@@ -36,8 +36,6 @@ onAuthStateChanged(auth, async (firebaseUser) => {
         myBookmarks.value = {};
     }
 });
-
-// --- router.afterEach(...) 블록을 여기서 완전히 삭제합니다 ---
 
 watch(
     myBookmarks,
