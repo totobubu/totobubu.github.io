@@ -1,4 +1,5 @@
-# .github\workflows\update_all_data.yml
+# REFACTORED: .github/workflows/update_all_data.yml
+
 name: Update All Ticker Data (Daily)
 
 on:
@@ -44,7 +45,7 @@ jobs:
             - name: Install Python dependencies
               run: |
                   python -m pip install --upgrade pip
-                  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                  pip install -r requirements.txt
 
             # --- 데이터 업데이트 파이프라인 (순서가 매우 중요) ---
             # 단계 1: 실시간 환율 업데이트
@@ -75,8 +76,18 @@ jobs:
             - name: 7. Update latest ticker info
               run: python scripts/scraper_info.py
 
-            # 단계 8: 모든 데이터 업데이트 후, Prettier로 JSON 파일을 포맷팅합니다.
-            - name: 8. Format generated data files
+            # 단계 8: 사이드바용 실시간 시세 데이터(live-data.json) 생성
+            - name: 8. Generate live data for sidebar
+              run: python scripts/generate_live_data.py
+
+            # 단계 9: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
+            - name: 9. Aggregate bookmark popularity from Firestore
+              env:
+                FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+              run: python scripts/aggregate_popularity.py
+              
+            # 단계 10: 변경된 모든 데이터를 일관된 포맷으로 정리
+            - name: 10. Format generated data files
               run: npm run format:data
 
             # --- 변경 사항 커밋 및 푸시 ---
