@@ -1,7 +1,6 @@
-// src\composables\useBacktestData.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
-import { addBusinessDays } from '@/services/backtester/utils.js'; // 유틸리티 함수 import
+import { addBusinessDays } from '@/services/backtester/utils.js';
 
 export function useBacktestData() {
     const adjustedDateMessage = ref('');
@@ -27,32 +26,72 @@ export function useBacktestData() {
             ),
         ];
 
-        const apiPromises = symbolsToFetch.map(async (symbol) => {
+        // --- [핵심 수정] ---
+        // 1. 모든 티커에 대해 로컬 데이터 조회를 먼저 시도합니다.
+        const tickerDataPromises = symbolsToFetch.map(async (symbol) => {
             try {
                 const response = await fetch(
                     joinURL(
                         import.meta.env.BASE_URL,
-                        `data/${symbol.toLowerCase()}.json`
+                        `data/${symbol.toLowerCase().replace(/\./g, '-')}.json`
                     )
                 );
-                if (!response.ok)
-                    throw new Error(`데이터 파일을 찾을 수 없습니다.`);
-                const data = await response.json();
-                if (!data.backtestData)
-                    throw new Error(`백테스팅 데이터가 없습니다.`);
-                return { symbol, ...data.backtestData };
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.backtestData) {
+                        return { symbol, ...data.backtestData };
+                    }
+                }
+                // 로컬 파일이 없거나 데이터가 부적절하면 API 조회를 위해 null 반환
+                return null;
             } catch (error) {
-                return {
-                    symbol,
-                    error: `[${symbol}] ${error.message}`,
-                    prices: [],
-                    dividends: [],
-                    splits: [],
-                };
+                return null;
             }
         });
 
-        const tickerData = await Promise.all(apiPromises);
+        const initialResults = await Promise.all(tickerDataPromises);
+
+        // 2. 로컬에서 찾지 못한 티커 목록을 만듭니다.
+        const foundSymbols = new Set(
+            initialResults.filter(Boolean).map((r) => r.symbol)
+        );
+        const symbolsToFetchFromApi = symbolsToFetch.filter(
+            (s) => !foundSymbols.has(s)
+        );
+
+        let apiResults = [];
+        if (symbolsToFetchFromApi.length > 0) {
+            console.log(
+                'Fetching from API for:',
+                symbolsToFetchFromApi.join(',')
+            );
+            const from = startDate.toISOString().split('T')[0];
+            const to = endDate.toISOString().split('T')[0];
+            try {
+                const apiUrl = `/api/getBacktestData?symbols=${symbolsToFetchFromApi.join(',')}&from=${from}&to=${to}`;
+                const apiResponse = await fetch(apiUrl);
+                if (!apiResponse.ok)
+                    throw new Error(
+                        '실시간 백테스팅 데이터 API 호출에 실패했습니다.'
+                    );
+                const apiData = await apiResponse.json();
+                apiResults = apiData.tickerData || [];
+
+                // API 호출 결과에 에러가 있는지 개별적으로 확인
+                const apiErrors = apiResults.filter((r) => r.error);
+                if (apiErrors.length > 0) {
+                    throw new Error(apiErrors.map((e) => e.error).join(', '));
+                }
+            } catch (e) {
+                throw new Error(
+                    `[${symbolsToFetchFromApi.join(',')}] 실시간 데이터 조회 중 오류가 발생했습니다: ${e.message}`
+                );
+            }
+        }
+
+        // 3. 로컬 데이터와 API 데이터를 합칩니다.
+        const tickerData = initialResults.filter(Boolean).concat(apiResults);
+        // --- // ---
 
         const [exchangeResponse, holidayResponse] = await Promise.all([
             fetch(joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')),
@@ -82,6 +121,14 @@ export function useBacktestData() {
                         (d) => d.symbol === s && d.prices?.length > 0
                     )
             );
+            // 이 시점에서 에러가 발생한 티커가 있다면 그 에러 메시지를 우선적으로 보여줌
+            const errorTicker = tickerData.find(
+                (t) => failedSymbols.includes(t.symbol) && t.error
+            );
+            if (errorTicker) {
+                throw new Error(errorTicker.error);
+            }
+
             throw new Error(
                 `[${failedSymbols.join(', ')}] 종목의 가격 데이터가 없습니다. 다른 종목을 선택해주세요.`
             );
@@ -90,19 +137,14 @@ export function useBacktestData() {
         const latestIpoDate = new Date(Math.max.apply(null, dataStartDates));
         let effectiveStartDate = new Date(startDate);
 
-        // --- [핵심 수정] 휴장일 및 주말을 고려하여 시작일 조정 ---
         let originalStartDateStr = effectiveStartDate
             .toISOString()
             .split('T')[0];
 
-        // 1. IPO 날짜보다 이전이면 IPO 날짜로 조정
         if (effectiveStartDate < latestIpoDate) {
             effectiveStartDate = latestIpoDate;
         }
 
-        // 2. 주말/휴장일이면 다음 영업일로 조정
-        // addBusinessDays는 0일을 더해도 휴장일이면 다음날로 이동시켜주는 로직을 포함해야 함
-        // (현재 utils.js의 addBusinessDays는 이미 이 로직을 포함하고 있을 것으로 가정)
         const businessStartDate = addBusinessDays(
             effectiveStartDate,
             0,
