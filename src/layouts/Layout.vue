@@ -20,7 +20,6 @@
     const route = useRoute();
     const router = useRouter();
     const { deviceType, isDesktop, isMobile } = useBreakpoint();
-    const { deviceType, isDesktop, isMobile } = useBreakpoint();
     const { filters } = useFilterState();
     const { tickerInfo } = useStockData();
     const visible = ref(false);
