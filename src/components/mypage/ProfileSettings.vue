@@ -281,7 +281,7 @@
                                                 :loading="isLoading.reset" />
                                         </span>
                                         <p
-                                            class="text-sm text-surface-500 dark:text-surface-400">
+                                            class="text-sm dark:text-surface-500 dark:text-surface-400">
                                             모든 데이터를 영구적으로 초기화
                                             합니다.
                                         </p>
@@ -299,7 +299,7 @@
                                                 :loading="isLoading.delete" />
                                         </span>
                                         <p
-                                            class="text-sm text-surface-500 dark:text-surface-400">
+                                            class="text-sm dark:text-surface-500 dark:text-surface-400">
                                             계정과 모든 데이터를 삭제합니다.
                                         </p>
                                     </div>

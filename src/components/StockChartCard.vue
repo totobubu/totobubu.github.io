@@ -133,7 +133,7 @@
                     </div>
                     <div
                         v-else
-                        class="flex justify-center items-center h-full text-surface-500">
+                        class="flex justify-center items-center h-full dark:text-surface-500">
                         <p>차트 데이터가 없습니다.</p>
                     </div>
                 </div>
