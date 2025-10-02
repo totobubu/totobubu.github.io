@@ -66,15 +66,22 @@ export default async function handler(req, res) {
                     }))
                     .filter((p) => p.open != null && p.close != null);
 
-                const dividends = (events.dividends || []).map((d) => ({
-                    date: formatDate(d.date),
-                    amount: d.amount,
-                }));
+                const dividends = Array.isArray(events.dividends)
+                    ? events.dividends.map((d) => ({
+                          date: formatDate(d.date),
+                          amount: d.amount,
+                      }))
+                    : [];
 
-                const splits = (events.splits || []).map((s) => ({
-                    date: formatDate(s.date),
-                    ratio: `${s.numerator}:${s.denominator}`,
-                }));
+                // --- [핵심 수정] ---
+                // events.splits가 배열인 경우에만 .map()을 실행하도록 Array.isArray()로 확인
+                const splits = Array.isArray(events.splits)
+                    ? events.splits.map((s) => ({
+                          date: formatDate(s.date),
+                          ratio: `${s.numerator}:${s.denominator}`,
+                      }))
+                    : [];
+                // --- // ---
 
                 const firstTradeDate = result.meta.firstTradeTime
                     ? formatDate(result.meta.firstTradeTime)
