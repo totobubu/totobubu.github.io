@@ -81,7 +81,9 @@
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
         if (ticker && typeof ticker === 'string') {
-            router.push(`/${ticker.toLowerCase()}`);
+            // [핵심 수정] URL로 보내기 전에 티커를 정규화합니다.
+            const sanitizedTicker = ticker.replace(/\./g, '-');
+            router.push(`/${sanitizedTicker.toLowerCase()}`);
         }
     };
 
@@ -110,8 +112,8 @@
             const navData = await navResponse.json();
 
             // --- [핵심 수정] "upcoming: true"인 종목을 필터링 ---
-            const activeNavItems = navData.nav.filter(item => !item.upcoming);
-            
+            const activeNavItems = navData.nav.filter((item) => !item.upcoming);
+
             const allSymbols = activeNavItems
                 .map((item) => item.symbol)
                 .filter(Boolean);
@@ -144,10 +146,17 @@
             );
 
             const dayOrder = {
-                월: 1, 화: 2, 수: 3, 목: 4, 금: 5,
-                A: 6, B: 7, C: 8, D: 9,
+                월: 1,
+                화: 2,
+                수: 3,
+                목: 4,
+                금: 5,
+                A: 6,
+                B: 7,
+                C: 8,
+                D: 9,
             };
-            
+
             // activeNavItems를 기준으로 etfList 생성
             etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);

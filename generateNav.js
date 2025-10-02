@@ -23,11 +23,10 @@ function findLogoFile(normalizedName) {
     for (const ext of supportedExtensions) {
         const filePath = path.join(logosDir, `${normalizedName}${ext}`);
         if (fs.existsSync(filePath)) {
-            // [핵심 수정] 맨 앞의 슬래시 제거
             return `logos/${normalizedName}${ext}`;
         }
     }
-    return null; // 로고 없음
+    return null;
 }
 
 function parseYYMMDD(dateString) {
@@ -39,13 +38,13 @@ function parseYYMMDD(dateString) {
     return new Date(year, month - 1, day);
 }
 function convertPeriodToYears(periodString) {
+    if (!periodString) return 0;
     const value = parseInt(periodString);
     const unit = periodString.slice(-1).toUpperCase();
     if (unit === 'Y') return value;
     if (unit === 'M') return value / 12;
     return 0;
 }
-// --- // ---
 
 async function generateNavJson() {
     let allTickers = [];
@@ -66,13 +65,10 @@ async function generateNavJson() {
         let processedTicker = { ...ticker };
 
         let nameForLogoSearch;
-        let logoType = '';
         if (ticker.company) {
             nameForLogoSearch = ticker.company;
-            logoType = '운용사';
         } else {
             nameForLogoSearch = ticker.symbol;
-            logoType = '개별 주식';
         }
 
         const normalizedName = normalizeToFilename(nameForLogoSearch);
@@ -80,9 +76,7 @@ async function generateNavJson() {
 
         if (logoPath) {
             processedTicker.logo = logoPath;
-        }
-        // [핵심 디버깅 코드 추가] 로고를 못 찾았을 때 로그 출력
-        else if (nameForLogoSearch) {
+        } else if (nameForLogoSearch) {
             console.log(
                 `🔸 ${ticker.symbol}: 로고 없음. 검색 시도한 이름: "${normalizedName}"`
             );
@@ -147,15 +141,13 @@ async function generateNavJson() {
                                 );
                             }
                         }
-                        // [수정] return 대신 processedTicker에 직접 할당
                         processedTicker.periods = calculatedPeriods;
                     }
                 } else {
-                    // 배당 기록이 없는 경우
                     processedTicker.periods = [];
                 }
             } catch (error) {
-                // 데이터 파일이 없는 경우, 아무것도 하지 않음 (periods는 undefined로 남음)
+                // 데이터 파일이 없는 경우, 아무것도 하지 않음
             }
         }
 

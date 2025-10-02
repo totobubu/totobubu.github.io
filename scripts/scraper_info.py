@@ -5,8 +5,6 @@ import os
 import yfinance as yf
 from datetime import datetime, timezone, timedelta
 
-# [수정] subprocess는 더 이상 필요 없으므로 import 제거
-
 
 def parse_numeric_value(value_str):
     if value_str is None or not isinstance(value_str, (str, int, float)):
@@ -78,18 +76,9 @@ def fetch_dynamic_ticker_info(ticker_symbol):
 
 
 if __name__ == "__main__":
-    # [핵심 수정] 스크립트 시작 시 npm run generate-nav를 호출하던 부분을 완전히 삭제합니다.
-    # try:
-    #     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    #     subprocess.run("npm run generate-nav", check=True, shell=True, cwd=project_root)
-    # except Exception as e:
-    #     print(f"!!! Failed to run 'npm run generate-nav'. Error: {e}")
-    #     exit()
-
     nav_file_path = "public/nav.json"
     output_dir = "public/data"
 
-    # 워크플로우에서 nav.json이 이미 생성되었음을 가정하고 바로 파일을 읽습니다.
     try:
         with open(nav_file_path, "r", encoding="utf-8") as f:
             all_tickers_info_list = json.load(f).get("nav", [])
@@ -108,7 +97,10 @@ if __name__ == "__main__":
         if not ticker_symbol:
             continue
 
-        file_path = os.path.join(output_dir, f"{ticker_symbol.lower()}.json")
+        # [핵심 수정] 파일 경로를 위해 티커를 정규화합니다.
+        sanitized_symbol = ticker_symbol.replace(".", "-")
+        file_path = os.path.join(output_dir, f"{sanitized_symbol.lower()}.json")
+
         existing_data = {}
         if os.path.exists(file_path):
             with open(file_path, "r", encoding="utf-8") as f:

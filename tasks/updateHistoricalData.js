@@ -19,19 +19,22 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchAndSavePriceData(ticker) {
     const { symbol, ipoDate } = ticker;
-    const filePath = path.join(DATA_DIR, `${symbol.toLowerCase()}.json`);
+    // [핵심 수정] 파일명 생성을 위해 티커를 정규화합니다.
+    const sanitizedSymbol = symbol.replace(/\./g, '-');
+    const filePath = path.join(
+        DATA_DIR,
+        `${sanitizedSymbol.toLowerCase()}.json`
+    );
 
     try {
         let existingData = {};
         let lastPriceDate = null;
 
-        // 1. 기존 파일이 있는지 확인하고, 있다면 마지막 날짜를 찾습니다.
         try {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             existingData = JSON.parse(fileContent);
             const prices = existingData.backtestData?.prices;
             if (prices && prices.length > 0) {
-                // 데이터가 날짜순으로 정렬되어 있다고 가정하고 마지막 항목을 사용
                 lastPriceDate = prices[prices.length - 1].date;
             }
         } catch (error) {
@@ -40,15 +43,12 @@ async function fetchAndSavePriceData(ticker) {
             );
         }
 
-        // 2. 데이터 요청 시작일을 결정합니다.
         let effectiveStartDate;
         if (lastPriceDate) {
-            // 기존 데이터가 있으면, 마지막 날짜 다음 날부터 요청
             const nextDate = new Date(lastPriceDate);
             nextDate.setDate(nextDate.getDate() + 1);
             effectiveStartDate = nextDate;
         } else {
-            // 기존 데이터가 없으면, ipoDate와 10년 전 중 더 최신 날짜부터 요청
             const maxHistoryDate = new Date();
             maxHistoryDate.setFullYear(maxHistoryDate.getFullYear() - 10);
             effectiveStartDate = maxHistoryDate;
@@ -60,7 +60,6 @@ async function fetchAndSavePriceData(ticker) {
         const period1 = effectiveStartDate.toISOString().split('T')[0];
         const today = new Date().toISOString().split('T')[0];
 
-        // 3. 시작일이 오늘보다 미래이면, 이미 최신 데이터이므로 요청하지 않습니다.
         if (new Date(period1) > new Date(today)) {
             console.log(`- [${symbol}] Price data is already up to date.`);
             return { success: true, symbol };
@@ -80,7 +79,6 @@ async function fetchAndSavePriceData(ticker) {
             return { success: true, symbol };
         }
 
-        // 4. 기존 데이터와 새로운 데이터를 병합합니다.
         const existingPrices = existingData.backtestData?.prices || [];
         const combinedPrices = [
             ...existingPrices,
@@ -94,7 +92,6 @@ async function fetchAndSavePriceData(ticker) {
             })),
         ];
 
-        // 5. 중복을 제거하고 날짜순으로 정렬하여 최종 데이터를 만듭니다.
         const uniquePrices = Array.from(
             new Map(combinedPrices.map((item) => [item.date, item])).values()
         );

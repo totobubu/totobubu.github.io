@@ -102,12 +102,15 @@ if __name__ == "__main__":
     print("\n--- Starting Dividend History Update & Total Calculation ---")
     total_changed_files = 0
 
-    # [핵심 수정] for 루프 시작
     for item in ticker_list:
         ticker = item.get("symbol")
         if not ticker:
             continue
-        file_path = os.path.join(data_dir, f"{ticker.lower()}.json")
+
+        # [핵심 수정] 파일 경로를 위해 티커를 정규화합니다.
+        sanitized_ticker = ticker.replace(".", "-")
+        file_path = os.path.join(data_dir, f"{sanitized_ticker.lower()}.json")
+
         if not os.path.exists(file_path):
             continue
 
@@ -117,7 +120,6 @@ if __name__ == "__main__":
             except json.JSONDecodeError:
                 continue
 
-        # --- 아래 모든 코드가 for 루프 안으로 들어오도록 들여쓰기 수정 ---
         prices_data = existing_data.get("backtestData", {}).get("prices", [])
         dividends_data = existing_data.get("backtestData", {}).get("dividends", [])
 
@@ -156,9 +158,7 @@ if __name__ == "__main__":
         history_with_yield = add_yield_to_history(raw_final_history)
 
         final_history = []
-        for (
-            item_data
-        ) in history_with_yield:  # 변수 이름 충돌 방지를 위해 item -> item_data로 변경
+        for item_data in history_with_yield:
             ordered_item = {
                 key: item_data[key] for key in DESIRED_KEY_ORDER if key in item_data
             }
@@ -199,7 +199,6 @@ if __name__ == "__main__":
         else:
             print(f"  -> No changes for {ticker}.")
 
-    # for 루프가 끝난 후, 최종 결과 출력
     print(
         f"\n--- Dividend Update Finished. Total files updated: {total_changed_files} ---"
     )
