@@ -2,18 +2,18 @@
 <script setup>
     import { computed } from 'vue';
     import Card from 'primevue/card';
-    import InputText from 'primevue/inputtext';
+    import InputText from 'primevue/inputtext'; // [수정] AutoComplete -> InputText
     import Button from 'primevue/button';
     import Slider from 'primevue/slider';
-    import AutoComplete from 'primevue/autocomplete';
     import InputNumber from 'primevue/inputnumber';
     import InputGroup from 'primevue/inputgroup';
 
     const props = defineProps({
-        modelValue: Object, // v-model for the portfolio item
+        modelValue: Object,
         index: Number,
-        allSymbols: Array,
-        filteredSymbols: Array,
+        // allSymbols와 filteredSymbols는 더 이상 필요 없습니다.
+        // allSymbols: Array,
+        // filteredSymbols: Array,
         maxValue: {
             type: Number,
             default: 100,
@@ -24,7 +24,7 @@
         'update:modelValue',
         'addItem',
         'removeItem',
-        'search',
+        // 'search' 이벤트는 더 이상 필요 없습니다.
     ]);
 
     const item = computed({
@@ -36,13 +36,12 @@
 
     const handleRemove = () => emit('removeItem', props.index);
     const handleAdd = () => emit('addItem', props.index);
-    const handleSearch = (event) => emit('search', event);
+    // handleSearch 함수는 더 이상 필요 없습니다.
 </script>
 
 <template>
     <Card class="border-1 surface-border shadow-none h-full">
         <template #content>
-            <!-- Case for Empty Placeholder Card -->
             <div
                 id="t-backtester-portfolio-item-empty"
                 v-if="!isFirstItem && !item.symbol"
@@ -50,7 +49,6 @@
                 <Button icon="pi pi-plus" text @click="handleAdd" />
             </div>
 
-            <!-- Case for Active Card (with symbol) -->
             <div v-else id="t-backtester-portfolio-item">
                 <InputGroup class="p-2">
                     <InputGroupAddon v-if="isFirstItem">
@@ -59,12 +57,14 @@
                             severity="secondary"
                             disabled />
                     </InputGroupAddon>
-                    <AutoComplete
+                    <InputText
                         v-model="item.symbol"
-                        :suggestions="filteredSymbols"
-                        @complete="handleSearch"
                         :placeholder="`종목 ${index + 1}`"
-                        class="p-inputtext-sm w-full" />
+                        class="p-inputtext-sm w-full"
+                        @update:modelValue="
+                            (val) => (item.symbol = val.toUpperCase())
+                        " />
+
                     <InputGroupAddon v-if="!isFirstItem">
                         <Button
                             icon="pi pi-times"
@@ -112,9 +112,12 @@
 </template>
 
 <style scoped>
-    /* Ensure InputNumber's input is right-aligned */
     :deep(.p-inputnumber-input) {
         text-align: right;
-        width: 100%; /* Adjust width if needed */
+        width: 100%;
+    }
+    /* [추가] InputText 스타일 */
+    :deep(.p-inputtext) {
+        text-transform: uppercase;
     }
 </style>
