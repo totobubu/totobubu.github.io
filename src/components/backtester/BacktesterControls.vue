@@ -19,24 +19,20 @@
         { symbol: '', value: 100, color: '#ef4444', underlying: null },
     ]);
 
-    // --- [핵심 수정] ---
     const displayPortfolio = computed(() => {
         const items = [...portfolio.value];
         const colors = ['#ef4444', '#f59e0b', '#84cc16', '#3b82f6'];
 
-        // 실제 아이템에 색상 할당
         items.forEach((item, index) => {
             item.color = colors[index];
         });
 
-        // 실제 아이템 수가 4개 미만일 때만, 다음 '+' 버튼을 위한 placeholder 하나만 추가
         if (items.length < 4) {
             items.push({ symbol: '', value: 0, color: colors[items.length] });
         }
 
-        // 최대 4개의 카드 레이아웃 유지를 위해 빈 객체 추가 (렌더링은 안 됨)
         while (items.length < 4) {
-            items.push({ symbol: null, value: 0 }); // symbol을 null로 하여 구분
+            items.push({ symbol: null, value: 0 });
         }
 
         return items;
@@ -54,14 +50,20 @@
         return array;
     };
 
+    // --- [핵심 수정] ---
     onMounted(async () => {
         try {
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
             const navResponse = await fetch(navUrl);
             const navData = await navResponse.json();
-            allSymbols.value = navData.nav.map((item) => item.symbol);
+
+            // nav.json에서 upcoming이 아닌 종목만 필터링
+            const activeNavItems = navData.nav.filter((item) => !item.upcoming);
+
+            // 필터링된 목록으로 allSymbols와 navDataMap을 생성
+            allSymbols.value = activeNavItems.map((item) => item.symbol);
             navDataMap.value = new Map(
-                navData.nav.map((item) => [item.symbol, item])
+                activeNavItems.map((item) => [item.symbol, item])
             );
 
             const querySymbol = route.query.symbol?.toUpperCase();
@@ -158,8 +160,12 @@
     };
 
     const updatePortfolioItem = (index, item) => {
-        if (portfolio.value[index]) {
+        if (index < portfolio.value.length) {
+            // 실제 데이터가 있는 경우 업데이트
             portfolio.value[index] = item;
+        } else {
+            // Placeholder '+' 버튼이 클릭된 경우 (addItem 로직과 유사)
+            addItem();
         }
     };
 
