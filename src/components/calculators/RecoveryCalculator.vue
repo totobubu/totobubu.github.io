@@ -297,21 +297,24 @@
                             <td>
                                 <Tag severity="success" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.hope_reinvest
+                                        recoveryTimes.hope_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="warn" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.avg_reinvest
+                                        recoveryTimes.avg_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="danger" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.despair_reinvest
+                                        recoveryTimes.despair_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
@@ -320,21 +323,24 @@
                             <td>
                                 <Tag severity="success" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.hope_no_reinvest
+                                        recoveryTimes.hope_no_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="warn" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.avg_no_reinvest
+                                        recoveryTimes.avg_no_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="danger" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.despair_no_reinvest
+                                        recoveryTimes.despair_no_reinvest,
+                                        true
                                     )
                                 }}</Tag>
                             </td>
