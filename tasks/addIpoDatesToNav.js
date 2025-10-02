@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
 
-// [핵심 수정] 라이브러리 유효성 검사 비활성화
+// 라이브러리 유효성 검사 비활성화
 yahooFinance.setGlobalConfig({
     validation: {
         logErrors: true,
@@ -61,6 +61,13 @@ async function processNavFile(filePath) {
         }
 
         if (hasChanges) {
+            // --- [핵심 수정] ---
+            // 파일에 쓰기 전에 symbol 기준으로 배열을 정렬합니다.
+            tickers.sort((a, b) => a.symbol.localeCompare(b.symbol));
+            console.log(
+                `  -> Sorted tickers by symbol for ${path.basename(filePath)}`
+            );
+
             await fs.writeFile(
                 filePath,
                 JSON.stringify(tickers, null, 4),
