@@ -39,6 +39,17 @@
     const goToCalendarPage = () => router.push('/calendar');
     const goToContactPage = () => router.push('/contact');
 
+    watch(
+        tickerInfo,
+        (newInfo) => {
+            console.log(
+                '[Layout.vue] inject로 받은 tickerInfo 변경 감지:',
+                newInfo
+            );
+        },
+        { deep: true }
+    );
+
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
