@@ -8,6 +8,7 @@ import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
 import MyPageView from '../pages/MyPageView.vue';
+import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -48,6 +49,11 @@ const router = createRouter({
             name: 'mypage',
             component: MyPageView,
             meta: { requiresAuth: true },
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: ContactView,
         },
         {
             path: '/:ticker',
