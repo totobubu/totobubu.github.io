@@ -8,7 +8,7 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
-    import ProgressSpinner from 'primevue/progressspinner';
+    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
     import Button from 'primevue/button';
     import Dialog from 'primevue/dialog';
     import ToggleButton from 'primevue/togglebutton';
@@ -24,6 +24,9 @@
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
+
+    // [신규] 스켈레톤 UI를 위한 가짜 데이터
+    const skeletonItems = ref(new Array(15));
 
     const {
         filters,
@@ -81,7 +84,6 @@
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
         if (ticker && typeof ticker === 'string') {
-            // [핵심 수정] URL로 보내기 전에 티커를 정규화합니다.
             const sanitizedTicker = ticker.replace(/\./g, '-');
             router.push(`/${sanitizedTicker.toLowerCase()}`);
         }
@@ -111,7 +113,6 @@
                 throw new Error('Navigation data could not be loaded.');
             const navData = await navResponse.json();
 
-            // --- [핵심 수정] "upcoming: true"인 종목을 필터링 ---
             const activeNavItems = navData.nav.filter((item) => !item.upcoming);
 
             const allSymbols = activeNavItems
@@ -157,10 +158,8 @@
                 D: 9,
             };
 
-            // activeNavItems를 기준으로 etfList 생성
             etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
-
                 if (!liveData) {
                     return {
                         ...item,
@@ -169,7 +168,6 @@
                         groupOrder: dayOrder[item.group] ?? 999,
                     };
                 }
-
                 return {
                     ...item,
                     yield: liveData.regularMarketChangePercent
@@ -192,7 +190,9 @@
                 ),
             ];
 
-            const currentTickerSymbol = route.params.ticker?.toUpperCase();
+            const currentTickerSymbol = route.params.ticker
+                ?.toUpperCase()
+                .replace(/-/g, '.');
             if (currentTickerSymbol) {
                 selectedTicker.value = etfList.value.find(
                     (t) => t.symbol === currentTickerSymbol
@@ -209,26 +209,23 @@
 
 <template>
     <div>
-        <div v-if="isLoading" class="flex justify-center items-center h-48">
-            <ProgressSpinner />
-        </div>
-        <div v-else-if="error" class="text-red-500">{{ error }}</div>
+        <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
 
         <DataTable
             v-else
             id="toto-search-datatable"
-            :value="filteredEtfList"
+            :value="isLoading ? skeletonItems : filteredEtfList"
             v-model:filters="filters"
             v-model:selection="selectedTicker"
             dataKey="symbol"
             selectionMode="single"
             @rowSelect="onRowSelect"
             :globalFilterFields="['symbol', 'longName', 'company']"
-            class="p-datatable-sm"
             stripedRows
             scrollable
             :scrollHeight="tableScrollHeight"
-            :size="tableSize">
+            :size="tableSize"
+            :class="{ 'p-datatable-loading': isLoading }">
             <template #empty>
                 <div class="text-center p-4">검색 결과가 없습니다.</div>
             </template>
@@ -245,17 +242,26 @@
                         offLabel=""
                         aria-label="내 종목만 보기" />
                 </template>
-                <template #body="{ data }">
-                    <i
-                        class="pi"
-                        :class="
-                            user && myBookmarks[data.symbol]
-                                ? 'pi-bookmark-fill text-primary'
-                                : 'pi-bookmark'
-                        "
-                        @click.stop="handleStockBookmarkClick(data.symbol)"></i>
+                <template #body="{ data, index }">
+                    <div v-if="!isLoading">
+                        <i
+                            class="pi"
+                            :class="
+                                user && myBookmarks[data.symbol]
+                                    ? 'pi-bookmark-fill text-primary'
+                                    : 'pi-bookmark'
+                            "
+                            @click.stop="handleStockBookmarkClick(data.symbol)">
+                        </i>
+                    </div>
+                    <Skeleton
+                        v-else
+                        width="1rem"
+                        height="1rem"
+                        borderRadius="50%"></Skeleton>
                 </template>
             </Column>
+
             <Column
                 field="symbol"
                 sortable
@@ -267,7 +273,12 @@
                         <span v-else>티커</span>
                     </div>
                 </template>
+                <template #body="{ data }">
+                    <span v-if="!isLoading">{{ data.symbol }}</span>
+                    <Skeleton v-else></Skeleton>
+                </template>
             </Column>
+
             <Column field="company" sortable class="toto-column-company">
                 <template #header>
                     <Button
@@ -278,16 +289,19 @@
                         @click="openFilterDialog('company')"
                         :severity="filters.company.value ? '' : 'secondary'" />
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else>회사</span>
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>회사</span>
                     </div>
                 </template>
                 <template #body="{ data }">
                     <CompanyLogo
+                        v-if="!isLoading"
                         :logo-src="data.logo"
                         :company-name="data.company" />
+                    <Skeleton v-else width="3rem" height="3rem"></Skeleton>
                 </template>
             </Column>
+
             <Column field="frequency" sortable class="toto-column-frequency">
                 <template #header>
                     <Button
@@ -300,27 +314,31 @@
                             filters.frequency.value ? '' : 'secondary'
                         " />
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else>지급</span>
-                    </div>
-                </template>
-            </Column>
-            <Column field="yield" sortable class="toto-column-yield">
-                <template #header>
-                    <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else>배당률</span>
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>지급</span>
                     </div>
                 </template>
                 <template #body="{ data }">
-                    <span
-                        v-if="data.yield && data.yield !== 'N/A'"
-                        class="text-surface-500"
-                        >{{ data.yield }}
-                    </span>
-                    <span v-else class="text-surface-500">-</span>
+                    <span v-if="!isLoading">{{ data.frequency }}</span>
+                    <Skeleton v-else></Skeleton>
                 </template>
             </Column>
+
+            <Column field="yield" sortable class="toto-column-yield">
+                <template #header>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>배당률</span>
+                    </div>
+                </template>
+                <template #body="{ data }">
+                    <span v-if="!isLoading" class="text-surface-500">{{
+                        data.yield
+                    }}</span>
+                    <Skeleton v-else></Skeleton>
+                </template>
+            </Column>
+
             <Column
                 field="group"
                 sortable
@@ -328,15 +346,16 @@
                 sortField="groupOrder">
                 <template #header>
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i>
-                        <span v-else>그룹</span>
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>그룹</span>
                     </div>
                 </template>
                 <template #body="{ data }">
                     <Tag
-                        v-if="data.group"
+                        v-if="!isLoading && data.group"
                         :value="data.group"
                         :severity="getGroupSeverity(data.group)" />
+                    <Skeleton v-else-if="isLoading"></Skeleton>
                 </template>
             </Column>
         </DataTable>
@@ -399,5 +418,10 @@
     .toto-column-bookmark .p-button {
         width: 2.5rem;
         height: 2.5rem;
+    }
+
+    /* [신규] 로딩 중 스켈레톤 스타일 */
+    .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
+        text-align: center;
     }
 </style>

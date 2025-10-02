@@ -8,10 +8,10 @@
     import { useStockChart } from '@/composables/useStockChart';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
-    import ProgressSpinner from 'primevue/progressspinner';
+    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
     import StockHeader from '@/components/StockHeader.vue';
     import StockChartCard from '@/components/StockChartCard.vue';
-    import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue'; // [신규] import
+    import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
     import StockCalculators from '@/components/StockCalculators.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
 
@@ -22,21 +22,24 @@
     const {
         tickerInfo,
         dividendHistory,
-        backtestData, // [신규] backtestData 가져오기
+        backtestData,
         isLoading,
         error,
         loadData,
         isUpcoming,
     } = useStockData();
 
-    const tickerSymbol = computed(() => (route.params.ticker || '').toString());
+    const tickerSymbol = computed(() =>
+        (route.params.ticker || '').toString().replace(/-/g, '.')
+    ); // URL을 원래 티커로 복원
     const pageTitle = computed(() => {
-        if (!tickerInfo.value?.longName) { // longName으로 변경
-            return tickerSymbol.value
-                ? `${tickerSymbol.value.toUpperCase()} | 정보`
+        const upperTicker = tickerSymbol.value.toUpperCase();
+        if (!tickerInfo.value?.longName) {
+            return upperTicker
+                ? `${upperTicker} | 정보`
                 : '종목 정보 로딩 중...';
         }
-        return `${tickerInfo.value.longName} (${tickerSymbol.value.toUpperCase()}) | 정보`;
+        return `${tickerInfo.value.longName} (${upperTicker}) | 정보`;
     });
     useHead({
         title: pageTitle,
@@ -57,8 +60,7 @@
         isPriceChartMode,
         selectedTimeRange
     );
-    
-    // [신규] 배당 기록이 거의 없는 성장주인지 판단
+
     const isGrowthStockChart = computed(() => {
         return !dividendHistory.value || dividendHistory.value.length < 5;
     });
@@ -79,23 +81,32 @@
         () => route.params.ticker,
         (newTicker) => {
             if (newTicker && typeof newTicker === 'string') {
-                loadData(newTicker);
+                loadData(newTicker); // 정규화된 티커(예: brk-b)를 전달
             }
         },
         { immediate: true }
     );
 
     const currentUserBookmark = computed(() => {
-        if (!route.params.ticker) return null;
-        const currentTicker = route.params.ticker.toUpperCase();
-        return myBookmarks.value[currentTicker] || null;
+        if (!tickerSymbol.value) return null;
+        return myBookmarks.value[tickerSymbol.value.toUpperCase()] || null;
     });
 </script>
 
 <template>
     <div class="card">
-        <div v-if="isLoading" class="flex justify-center items-center h-screen">
-            <ProgressSpinner />
+        <!-- [핵심 수정] 로딩 상태 UI 변경 -->
+        <div v-if="isLoading" class="flex flex-column gap-5">
+            <div id="t-stock-header">
+                <Skeleton
+                    v-for="i in 6"
+                    :key="i"
+                    height="5rem"
+                    borderRadius="0.5rem"></Skeleton>
+            </div>
+            <Skeleton height="30rem" borderRadius="1rem"></Skeleton>
+            <Skeleton height="5rem" borderRadius="1rem"></Skeleton>
+            <Skeleton height="20rem" borderRadius="1rem"></Skeleton>
         </div>
 
         <div v-else-if="error" class="text-center mt-8">
@@ -116,12 +127,9 @@
             </div>
         </div>
 
-        <div
-            v-else-if="tickerInfo"
-            class="flex flex-column gap-5">
+        <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
 
-            <!-- [핵심 수정] 조건부 차트 렌더링 -->
             <StockChartCard
                 v-if="!isGrowthStockChart"
                 :tickerInfo="tickerInfo"
@@ -134,16 +142,14 @@
                 v-model:selectedTimeRange="selectedTimeRange" />
             <StockPriceCandlestickChart
                 v-else
-                :price-data="backtestData?.prices"
-            />
-            
+                :price-data="backtestData?.prices" />
+
             <StockCalculators
-                v-if="!isGrowthStockChart"
+                v-if="dividendHistory && dividendHistory.length > 0"
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
                 :userBookmark="currentUserBookmark" />
 
-            <!-- 배당 내역이 있을 때만 표시 -->
             <StockHistoryPanel
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"

@@ -6,9 +6,9 @@
     import BacktesterResults from '@/components/backtester/BacktesterResults.vue';
     import { runBacktest } from '@/services/backtester/engine.js';
     import { useToast } from 'primevue/usetoast';
-    import { joinURL } from 'ufo';
     import Toast from 'primevue/toast';
     import Message from 'primevue/message';
+    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
     import { useBacktestData } from '@/composables/useBacktestData.js';
 
     useHead({ title: '백테스팅' });
@@ -38,8 +38,6 @@
                 holidays,
             });
 
-            // --- [핵심 수정] ---
-            // 결과 객체에 세금 적용 여부(applyTax)를 포함시켜 전달
             backtestResult.value = { ...result, applyTax: options.applyTax };
         } catch (error) {
             console.error('Backtest Run Failed:', error);
@@ -59,10 +57,7 @@
 <template>
     <div id="t-backtester">
         <Toast />
-        <BacktesterControls
-            @run="handleRun"
-            :is-loading="isLoading"
-            :result="backtestResult" />
+        <BacktesterControls @run="handleRun" :is-loading="isLoading" />
         <Message
             v-if="adjustedDateMessage"
             severity="info"
@@ -70,6 +65,15 @@
             class="mt-4">
             {{ adjustedDateMessage }}
         </Message>
-        <BacktesterResults :result="backtestResult" :is-loading="isLoading" />
+
+        <!-- [핵심 수정] 로딩 상태 UI 변경 -->
+        <div v-if="isLoading" class="mt-4 surface-card p-4 border-round">
+            <div class="flex justify-content-end align-items-center mb-2">
+                <Skeleton shape="circle" size="2rem"></Skeleton>
+            </div>
+            <Skeleton height="500px" class="mb-4"></Skeleton>
+            <Skeleton height="15rem"></Skeleton>
+        </div>
+        <BacktesterResults v-else :result="backtestResult" />
     </div>
 </template>
