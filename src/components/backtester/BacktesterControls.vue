@@ -1,179 +1,29 @@
-<!-- src\components\backtester\BacktesterControls.vue -->
+<!-- REFACTORED: src/components/backtester/BacktesterControls.vue -->
 <script setup>
-    import { ref, computed, watch, onMounted } from 'vue';
-    import { useRoute } from 'vue-router';
+    import { onMounted } from 'vue';
     import MeterGroup from 'primevue/metergroup';
     import Button from 'primevue/button';
-    import Divider from 'primevue/divider';
-    import { joinURL } from 'ufo';
     import PortfolioInput from './controls/PortfolioInput.vue';
     import DateAndInvestment from './controls/DateAndInvestment.vue';
+    import { useBacktestPortfolio } from '@/composables/useBacktestPortfolio';
 
     const props = defineProps({ isLoading: Boolean });
     const emit = defineEmits(['run']);
 
-    const route = useRoute();
-    const allSymbols = ref([]);
-    const navDataMap = ref(new Map());
-
-    const portfolio = ref([
-        { symbol: '', value: 100, color: '#ef4444', underlying: null },
-    ]);
-
-    const displayPortfolio = computed(() => {
-        const items = [...portfolio.value];
-        const colors = ['#ef4444', '#f59e0b', '#84cc16', '#3b82f6'];
-
-        items.forEach((item, index) => {
-            item.color = colors[index];
-        });
-
-        if (items.length < 4) {
-            items.push({ symbol: '', value: 0, color: colors[items.length] });
-        }
-
-        while (items.length < 4) {
-            items.push({ symbol: null, value: 0 });
-        }
-
-        return items;
-    });
-
-    const totalValue = computed(() =>
-        portfolio.value.reduce((sum, item) => sum + (item.value || 0), 0)
-    );
-
-    const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    };
-
-    onMounted(async () => {
-        try {
-            const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
-            const navResponse = await fetch(navUrl);
-            const navData = await navResponse.json();
-
-            const activeNavItems = navData.nav.filter((item) => !item.upcoming);
-
-            allSymbols.value = activeNavItems.map((item) => item.symbol);
-            navDataMap.value = new Map(
-                activeNavItems.map((item) => [item.symbol, item])
-            );
-
-            // --- [핵심 수정] ---
-            // route.query.symbol 대신 route.params.ticker를 사용
-            const pathTicker = route.params.ticker?.toUpperCase();
-
-            if (pathTicker && allSymbols.value.includes(pathTicker)) {
-                portfolio.value[0].symbol = pathTicker;
-            } else {
-                const shuffled = shuffleArray([...allSymbols.value]);
-                portfolio.value[0].symbol = shuffled.find((s) => s) || '';
-            }
-        } catch (e) {
-            console.error('Error on mount:', e);
-        }
-    });
-
-    const updateUnderlying = (item) => {
-        const navInfo = navDataMap.value.get(item.symbol?.toUpperCase());
-        item.underlying = navInfo?.underlying || null;
-    };
-
-    watch(
+    const {
         portfolio,
-        (newPortfolio) => {
-            newPortfolio.forEach((item) => {
-                if (item.symbol) {
-                    updateUnderlying(item);
-                }
-            });
-            adjustFirstWeight();
-        },
-        { deep: true }
-    );
+        allSymbols,
+        displayPortfolio,
+        totalValue,
+        loadNavData,
+        balanceWeights,
+        addItem,
+        removeItem,
+        updatePortfolioItem,
+        getMaxValueForSlider,
+    } = useBacktestPortfolio();
 
-    const balanceWeights = () => {
-        const activeItems = portfolio.value.filter((p) => p.symbol);
-        if (activeItems.length === 0) {
-            if (portfolio.value.length > 0) portfolio.value[0].value = 100;
-            return;
-        }
-        const equalWeight = Math.floor(100 / activeItems.length);
-        let remainder = 100 % activeItems.length;
-
-        portfolio.value.forEach((item, index) => {
-            item.value = equalWeight;
-            if (remainder > 0) {
-                item.value++;
-                remainder--;
-            }
-        });
-    };
-
-    const addItem = () => {
-        if (portfolio.value.length >= 4) return;
-        const shuffled = shuffleArray([...allSymbols.value]);
-        const existingSymbols = portfolio.value.map((p) => p.symbol);
-        const newSymbol = shuffled.find(
-            (s) => s && !existingSymbols.includes(s)
-        );
-
-        portfolio.value.push({
-            symbol: newSymbol || '',
-            value: 0,
-        });
-        balanceWeights();
-    };
-
-    const removeItem = (index) => {
-        if (index > 0 && index < portfolio.value.length) {
-            portfolio.value.splice(index, 1);
-            balanceWeights();
-        }
-    };
-
-    const adjustFirstWeight = () => {
-        if (portfolio.value.length > 0 && portfolio.value[0].symbol) {
-            const otherSum = portfolio.value
-                .slice(1)
-                .reduce((sum, item) => sum + (item.value || 0), 0);
-
-            const cappedOtherSum = Math.min(otherSum, 99);
-            portfolio.value[0].value = 100 - cappedOtherSum;
-        }
-    };
-
-    const getMaxValueForSlider = (itemIndex) => {
-        if (itemIndex === 0) return 100;
-        const otherSecondarySum = portfolio.value.reduce((sum, item, index) => {
-            if (index > 0 && index !== itemIndex) {
-                sum += item.value || 0;
-            }
-            return sum;
-        }, 0);
-        return 99 - otherSecondarySum;
-    };
-
-    const updatePortfolioItem = (index, item) => {
-        if (index < portfolio.value.length) {
-            // 실제 데이터가 있는 경우 업데이트
-            portfolio.value[index] = item;
-        } else {
-            // Placeholder '+' 버튼이 클릭된 경우 (addItem 로직과 유사)
-            addItem();
-        }
-    };
-
-    watch(
-        () => portfolio.value.map((p) => p.value).slice(1),
-        adjustFirstWeight,
-        { deep: true }
-    );
+    onMounted(loadNavData);
 
     const handleRun = (dateAndInvestmentOptions) => {
         const validPortfolio = portfolio.value.filter(
