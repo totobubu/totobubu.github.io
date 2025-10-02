@@ -166,7 +166,7 @@
                                         formatCurrency(data.cash.preTaxAmount)
                                     }}</strong
                                 >
-                                <span class="text-sm text-surface-500">
+                                <span class="text-sm dark:text-surface-500">
                                     | 세후
                                     {{
                                         formatCurrency(data.cash.postTaxAmount)
@@ -200,7 +200,7 @@
                                         formatCurrency(data.drip.preTaxAmount)
                                     }}</strong
                                 >
-                                <span class="text-sm text-surface-500">
+                                <span class="text-sm dark:text-surface-500">
                                     | 세후
                                     {{
                                         formatCurrency(data.drip.postTaxAmount)

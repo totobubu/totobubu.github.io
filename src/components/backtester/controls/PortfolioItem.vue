@@ -103,7 +103,7 @@
 
                 <div
                     v-if="item.initialShares > 0"
-                    class="text-xs text-surface-500 mt-2 text-center">
+                    class="text-xs dark:text-surface-500 mt-2 text-center">
                     초기 수량: {{ item.initialShares.toFixed(2) }}주
                 </div>
             </div>

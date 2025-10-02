@@ -102,7 +102,7 @@
                             </router-link>
                             <span
                                 v-else
-                                class="text-surface-500 dark:text-surface-400"
+                                class="dark:text-surface-500 dark:text-surface-400"
                                 >{{ item.label }}</span
                             >
                         </template>

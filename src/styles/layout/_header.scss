@@ -27,7 +27,7 @@
 
     .p-breadcrumb-item {
         .pi {
-            color: #fff !important;
+            color: var(--p-text-color-inversed, #ffffff);
         }
     }
 
@@ -36,13 +36,13 @@
 
     .p-breadcrumb-item-link {
         gap: inherit;
-        color: #fff;
+        color: var(--p-text-color-inversed, #ffffff);
     }
 
     .p-breadcrumb-separator {
     }
 
     .p-breadcrumb-item-icon {
-        color: #fff;
+        color: var(--p-text-color-inversed, #ffffff);
     }
 }

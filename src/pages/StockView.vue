@@ -196,9 +196,9 @@
             class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
             <div class="text-center my-8">
-                <i class="pi pi-box text-5xl text-surface-500" />
+                <i class="pi pi-box text-5xl dark:text-surface-500" />
                 <p class="text-xl mt-4">출시 예정 종목입니다.</p>
-                <p class="text-surface-500">
+                <p class="dark:text-surface-500">
                     데이터가 집계되면 차트와 상세 정보가 표시됩니다.
                 </p>
             </div>
@@ -230,12 +230,12 @@
                 :is-desktop="isDesktop" />
             <span
                 v-if="tickerInfo.Update"
-                class="text-surface-500 dark:text-surface-400 text-center">
+                class="dark:text-surface-500 dark:text-surface-400 text-center">
                 업데이트: {{ tickerInfo.Update }}
             </span>
         </div>
         <div v-else class="text-center mt-8">
-            <i class="pi pi-inbox text-5xl text-surface-500" />
+            <i class="pi pi-inbox text-5xl dark:text-surface-500" />
             <p class="text-xl mt-4">표시할 데이터가 없습니다.</p>
         </div>
     </div>
