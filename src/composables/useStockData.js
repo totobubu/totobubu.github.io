@@ -4,7 +4,7 @@ import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
 const dividendHistory = ref([]);
-const backtestData = ref(null); // [신규] backtestData ref 추가
+const backtestData = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -25,8 +25,9 @@ const loadNavData = async () => {
 };
 
 export function useStockData() {
-    const loadData = async (tickerSymbol) => {
-        if (!tickerSymbol) {
+    // [핵심 수정] 이제 이 함수는 정규화된 티커를 인자로 받습니다 (예: "brk-b")
+    const loadData = async (sanitizedTicker) => {
+        if (!sanitizedTicker) {
             error.value = '티커 정보가 없습니다.';
             return;
         }
@@ -35,20 +36,32 @@ export function useStockData() {
         error.value = null;
         tickerInfo.value = null;
         dividendHistory.value = [];
-        backtestData.value = null; // [신규] 초기화
+        backtestData.value = null;
 
         try {
             const navData = await loadNavData();
-            const currentTickerNavInfo = navData.nav.find(
-                (item) => item.symbol === tickerSymbol.toUpperCase()
+
+            // [핵심 수정] 정규화된 티커를 이용해 nav.json에서 원본 티커 정보를 찾습니다.
+            const navInfo = navData.nav.find(
+                (item) =>
+                    item.symbol.replace(/\./g, '-').toLowerCase() ===
+                    sanitizedTicker.toLowerCase()
             );
 
-            if (currentTickerNavInfo?.upcoming) {
+            if (!navInfo) {
+                throw new Error(
+                    `'${sanitizedTicker.toUpperCase()}'에 대한 종목 정보를 찾을 수 없습니다.`
+                );
+            }
+
+            const originalTickerSymbol = navInfo.symbol; // API 호출에 사용할 원본 티커 (예: "BRK.B")
+
+            if (navInfo?.upcoming) {
                 isUpcoming.value = true;
-                tickerInfo.value = currentTickerNavInfo;
+                tickerInfo.value = navInfo;
                 try {
                     const liveDataResponse = await fetch(
-                        `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
+                        `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
                     );
                     if (liveDataResponse.ok) {
                         const liveData = (await liveDataResponse.json())[0];
@@ -61,7 +74,7 @@ export function useStockData() {
                     }
                 } catch (e) {
                     console.warn(
-                        `Upcoming ticker ${tickerSymbol} live data fetch failed, but proceeding.`
+                        `Upcoming ticker ${originalTickerSymbol} live data fetch failed, but proceeding.`
                     );
                 }
                 return;
@@ -69,12 +82,13 @@ export function useStockData() {
 
             const [liveDataResponse, staticDataResponse] = await Promise.all([
                 fetch(
-                    `/api/getStockData?tickers=${tickerSymbol.toUpperCase()}`
+                    `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
                 ),
+                // [핵심 수정] 정적 파일 조회 시에도 정규화된 티커를 사용합니다.
                 fetch(
                     joinURL(
                         import.meta.env.BASE_URL,
-                        `data/${tickerSymbol.toLowerCase()}.json`
+                        `data/${sanitizedTicker.toLowerCase()}.json`
                     )
                 ),
             ]);
@@ -84,27 +98,27 @@ export function useStockData() {
             const liveData = (await liveDataResponse.json())[0];
             if (!liveData)
                 throw new Error(
-                    `'${tickerSymbol.toUpperCase()}'에 대한 시세 정보가 없습니다.`
+                    `'${originalTickerSymbol.toUpperCase()}'에 대한 시세 정보가 없습니다.`
                 );
 
             if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
-                    ...currentTickerNavInfo,
+                    ...navInfo,
                     ...liveData,
                 };
                 dividendHistory.value = staticData.dividendHistory || [];
-                backtestData.value = staticData.backtestData || {}; // [신규] backtestData 할당
+                backtestData.value = staticData.backtestData || {};
             } else {
-                tickerInfo.value = { ...currentTickerNavInfo, ...liveData };
+                tickerInfo.value = { ...navInfo, ...liveData };
                 isUpcoming.value = true;
             }
         } catch (err) {
-            console.error(`Failed to load data for ${tickerSymbol}:`, err);
+            console.error(`Failed to load data for ${sanitizedTicker}:`, err);
             error.value =
                 err.message ||
-                `${tickerSymbol.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
+                `${sanitizedTicker.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
         } finally {
             isLoading.value = false;
         }
@@ -113,7 +127,7 @@ export function useStockData() {
     return {
         tickerInfo,
         dividendHistory,
-        backtestData, // [신규] 반환 객체에 추가
+        backtestData,
         isLoading,
         error,
         loadData,

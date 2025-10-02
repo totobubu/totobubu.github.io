@@ -1,26 +1,33 @@
-// tasks\addIpoDatesToNav.js
 import fs from 'fs/promises';
 import path from 'path';
-import yahooFinance from 'yahoo-finance2';
-
-// 라이브러리 유효성 검사 비활성화
-yahooFinance.setGlobalConfig({
-    validation: {
-        logErrors: true,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
-    },
-});
+import axios from 'axios';
 
 const NAV_SOURCE_DIR = path.resolve(process.cwd(), 'public', 'nav');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function getFirstTradeDate(symbol) {
     try {
-        const quote = await yahooFinance.quote(symbol);
-        const firstTradeDateMs = quote.firstTradeDateMilliseconds;
-        if (!firstTradeDateMs) return null;
-        return new Date(firstTradeDateMs).toISOString().split('T')[0];
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}?period1=0&period2=${Math.floor(Date.now() / 1000)}&interval=1d&events=history`;
+        const { data } = await axios.get(url, {
+            headers: {
+                'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            },
+        });
+
+        if (data.chart.error) {
+            throw new Error(
+                data.chart.error.description || `Unknown error for ${symbol}`
+            );
+        }
+
+        const result = data.chart.result[0];
+        const firstTradeTime = result?.meta?.firstTradeDate;
+
+        if (firstTradeTime && typeof firstTradeTime === 'number') {
+            return new Date(firstTradeTime * 1000).toISOString().split('T')[0];
+        }
+        return null;
     } catch (error) {
         return null;
     }
@@ -30,7 +37,7 @@ async function processNavFile(filePath) {
     console.log(`\nProcessing file: ${path.basename(filePath)}`);
     try {
         const fileContent = await fs.readFile(filePath, 'utf-8');
-        const tickers = JSON.parse(fileContent);
+        let tickers = JSON.parse(fileContent);
         let hasChanges = false;
 
         for (const ticker of tickers) {
@@ -38,7 +45,7 @@ async function processNavFile(filePath) {
                 continue;
             }
             const ipoDate = await getFirstTradeDate(ticker.symbol);
-            await delay(200);
+            await delay(300);
 
             if (ipoDate) {
                 ticker.ipoDate = ipoDate;
@@ -61,8 +68,6 @@ async function processNavFile(filePath) {
         }
 
         if (hasChanges) {
-            // --- [핵심 수정] ---
-            // 파일에 쓰기 전에 symbol 기준으로 배열을 정렬합니다.
             tickers.sort((a, b) => a.symbol.localeCompare(b.symbol));
             console.log(
                 `  -> Sorted tickers by symbol for ${path.basename(filePath)}`

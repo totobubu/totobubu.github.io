@@ -2,17 +2,18 @@
 import yfinance as yf
 import json
 import os
-import time  # 재시도를 위한 time 모듈 import
+import time
 from datetime import datetime
 
 DATA_DIR = "public/data"
 NAV_FILE_PATH = "public/nav.json"
 
 
-def update_dividend_data(symbol, retries=3, delay=5):  # 재시도 횟수와 딜레이 추가
-    file_path = os.path.join(DATA_DIR, f"{symbol.lower()}.json")
+def update_dividend_data(symbol, retries=3, delay=5):
+    # [핵심 수정] 파일 경로를 위해 티커를 정규화합니다.
+    sanitized_symbol = symbol.replace(".", "-")
+    file_path = os.path.join(DATA_DIR, f"{sanitized_symbol.lower()}.json")
 
-    # [핵심 수정] 재시도 로직 추가
     for attempt in range(retries):
         try:
             if not os.path.exists(file_path):
@@ -49,19 +50,18 @@ def update_dividend_data(symbol, retries=3, delay=5):  # 재시도 횟수와 딜
             print(
                 f"✅ [{symbol}] Dividend data updated. Found {len(new_dividends)} records."
             )
-            return True  # 성공 시 즉시 함수 종료
+            return True
 
         except Exception as e:
-            # 재시도 가능한 에러인지 확인 (예: 네트워크 관련 에러)
             print(f"❌ [{symbol}] Attempt {attempt + 1}/{retries} failed: {e}")
             if attempt < retries - 1:
                 print(f"    Retrying in {delay} seconds...")
-                time.sleep(delay)  # 다음 시도 전 딜레이
+                time.sleep(delay)
             else:
                 print(f"❌ [{symbol}] All retries failed. Skipping.")
-                return False  # 모든 재시도 실패 시 최종 실패 처리
+                return False
 
-    return False  # 루프가 비정상적으로 끝난 경우
+    return False
 
 
 if __name__ == "__main__":
