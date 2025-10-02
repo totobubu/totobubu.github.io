@@ -20,6 +20,7 @@
     const route = useRoute();
     const router = useRouter();
     const { deviceType, isDesktop, isMobile } = useBreakpoint();
+    const { deviceType, isDesktop, isMobile } = useBreakpoint();
     const { filters } = useFilterState();
     const { tickerInfo } = useStockData();
     const visible = ref(false);
@@ -36,6 +37,7 @@
     const goToMyPage = () => router.push('/mypage');
     const goToBacktesterPage = () => router.push('/backtester');
     const goToCalendarPage = () => router.push('/calendar');
+    const goToContactPage = () => router.push('/contact');
 
     watch(
         tickerInfo,
@@ -56,6 +58,8 @@
             items.push({ label: '배당달력' });
         } else if (route.name === 'mypage') {
             items.push({ label: '마이페이지' });
+        } else if (route.name === 'contact') {
+            items.push({ label: '문의하기' });
         } else if (route.name === 'stock-detail' && tickerInfo.value) {
             if (tickerInfo.value.symbol)
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
@@ -117,6 +121,11 @@
                         variant="text"
                         @click="goToBacktesterPage"
                         aria-label="백테스터" />
+                    <Button
+                        icon="pi pi-envelope"
+                        variant="text"
+                        @click="goToContactPage"
+                        aria-label="문의하기" />
                     <Button
                         v-if="!user"
                         icon="pi pi-sign-in"
