@@ -3,27 +3,21 @@
 @use '../abstracts/mixins' as mx;
 @use '../functions/breakpoints' as bp;
 
-
 [id*='calculator'] {
     .p-drawer {
         &-close-button {
-            width: var(--toto-dialog-close-button);
-
             padding: 0;
-            &.p-button-icon-only.p-button-rounded {
-                height: var(--toto-dialog-close-button);
-            }
         }
 
         &-content {
-            padding: var(--toto-overlay-modal-padding-y) 1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
             max-height: 90vh;
             overflow-y: auto;
             @include bp.media-breakpoint-up('sm') {
             }
 
             @include bp.media-breakpoint-only('xs') {
-                
             }
 
             @include bp.media-breakpoint-up('sm') {
@@ -102,12 +96,12 @@
                         border-bottom-right-radius: 0 !important;
                     }
                 }
-                    .p-inputnumber {
-                        input {
-                            text-align: right;
-                            width: 100%;
-                        }
+                .p-inputnumber {
+                    input {
+                        text-align: right;
+                        width: 100%;
                     }
+                }
                 &:last-child {
                     margin-top: -1px;
                     .p-inputgroupaddon:first-child {
@@ -118,12 +112,11 @@
 
             &-result {
                 table {
-                td {
-                    padding: 0.7em !important;
+                    td {
+                        padding: 0.7em !important;
+                    }
                 }
             }
-            }
-
         }
 
         // 기간 및 세전 선택 버튼
@@ -140,8 +133,7 @@
                 }
             }
             .p-selectbutton {
-                // padding-block-start: var(--p-iftalabel-input-padding-top);
-                padding-block-start: 1.5rem;
+                padding-block-start: var(--p-iftalabel-input-padding-top);
                 padding-block-end: var(--p-iftalabel-input-padding-bottom);
                 width: 100%;
                 .p-togglebutton {

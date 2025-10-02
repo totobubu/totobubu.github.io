@@ -1,4 +1,4 @@
-<!-- src\components\charts\StockPriceCandlestickChart.vue -->
+<!-- REFACTORED: src/components/charts/StockPriceCandlestickChart.vue -->
 <script setup>
     import { computed } from 'vue';
     import { use } from 'echarts/core';
@@ -12,6 +12,7 @@
         VisualMapComponent,
     } from 'echarts/components';
     import VChart from 'vue-echarts';
+    import { useLayout } from '@/composables/useLayout';
 
     use([
         CanvasRenderer,
@@ -31,6 +32,8 @@
         },
     });
 
+    const { isDarkMode } = useLayout();
+
     const chartData = computed(() => {
         if (!props.priceData || props.priceData.length === 0) {
             return { dates: [], ohlc: [], volumes: [] };
@@ -48,8 +51,9 @@
     });
 
     const chartOption = computed(() => {
-        const upColor = '#ef4444'; // Red for up
-        const downColor = '#3b82f6'; // Blue for down
+        const upColor = isDarkMode.value ? '#ef4444' : '#d94c4c';
+        const downColor = isDarkMode.value ? '#3b82f6' : '#2563eb';
+        const textColor = isDarkMode.value ? '#f8fafc' : '#334155';
 
         return {
             animation: false,
@@ -57,37 +61,22 @@
                 bottom: 10,
                 left: 'center',
                 data: ['주가', '거래량'],
+                textStyle: { color: textColor },
             },
             tooltip: {
                 trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                },
-                borderWidth: 1,
-                borderColor: '#ccc',
-                padding: 10,
-                textStyle: {
-                    color: '#000',
-                },
+                axisPointer: { type: 'cross' },
+                backgroundColor: isDarkMode.value ? '#1e293b' : '#ffffff',
+                borderColor: isDarkMode.value ? '#475569' : '#e2e8f0',
+                textStyle: { color: textColor },
             },
             axisPointer: {
                 link: [{ xAxisIndex: 'all' }],
-                label: {
-                    backgroundColor: '#777',
-                },
+                label: { backgroundColor: '#777' },
             },
             grid: [
-                {
-                    left: '10%',
-                    right: '8%',
-                    height: '50%',
-                },
-                {
-                    left: '10%',
-                    right: '8%',
-                    top: '68%',
-                    height: '16%',
-                },
+                { left: '10%', right: '8%', height: '50%' },
+                { left: '10%', right: '8%', top: '68%', height: '16%' },
             ],
             xAxis: [
                 {
@@ -98,9 +87,8 @@
                     splitLine: { show: false },
                     min: 'dataMin',
                     max: 'dataMax',
-                    axisPointer: {
-                        z: 100,
-                    },
+                    axisPointer: { z: 100 },
+                    axisLabel: { color: textColor },
                 },
                 {
                     type: 'category',
@@ -118,9 +106,8 @@
             yAxis: [
                 {
                     scale: true,
-                    splitArea: {
-                        show: true,
-                    },
+                    splitArea: { show: true },
+                    axisLabel: { color: textColor },
                 },
                 {
                     scale: true,
@@ -133,12 +120,7 @@
                 },
             ],
             dataZoom: [
-                {
-                    type: 'inside',
-                    xAxisIndex: [0, 1],
-                    start: 80,
-                    end: 100,
-                },
+                { type: 'inside', xAxisIndex: [0, 1], start: 80, end: 100 },
                 {
                     show: true,
                     xAxisIndex: [0, 1],
@@ -168,7 +150,6 @@
                     data: chartData.value.volumes,
                     itemStyle: {
                         color: (params) => {
-                            // 거래량 바 색상을 캔들스틱과 일치
                             const ohlc = chartData.value.ohlc[params.dataIndex];
                             return ohlc[1] > ohlc[0] ? upColor : downColor;
                         },

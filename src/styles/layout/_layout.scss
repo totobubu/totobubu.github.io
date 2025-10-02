@@ -11,7 +11,7 @@
     overflow: hidden;
     padding: 0.5rem;
     -tw-bg-opacity: 1;
-    background-color: var(--toto-ground);
+    background-color: var(--p-surface-ground);
     color: var(--text-color);
     gap: 1rem;
 }
@@ -25,7 +25,7 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 1.5rem;
-    background-color: var(--toto-body-bg);
+    background-color: var(--p-surface-800);
     // background-color: color-mix(in srgb, var(--p-zinc-950) calc(100% * var(--tw-bg-opacity, 1)), transparent);
 
     --tw-shadow: var(--shadow-stroke);

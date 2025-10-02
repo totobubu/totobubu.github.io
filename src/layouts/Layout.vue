@@ -1,6 +1,6 @@
-<!-- stock\src\layouts\Layout.vue -->
+<!-- REFACTORED: src/layouts/Layout.vue -->
 <script setup>
-    import { ref, watch, computed, onMounted, inject } from 'vue';
+    import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -16,10 +16,11 @@
 
     import AppSidebar from './AppSidebar.vue';
     import FilterInput from '@/components/FilterInput.vue';
+    import ThemeToggler from '@/components/ThemeToggler.vue';
 
     const route = useRoute();
     const router = useRouter();
-    const { deviceType, isDesktop, isMobile } = useBreakpoint();
+    const { isDesktop, isMobile } = useBreakpoint();
     const { filters } = useFilterState();
     const { tickerInfo } = useStockData();
     const visible = ref(false);
@@ -37,17 +38,6 @@
     const goToBacktesterPage = () => router.push('/backtester');
     const goToCalendarPage = () => router.push('/calendar');
 
-    watch(
-        tickerInfo,
-        (newInfo) => {
-            console.log(
-                '[Layout.vue] inject로 받은 tickerInfo 변경 감지:',
-                newInfo
-            );
-        },
-        { deep: true }
-    );
-
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
@@ -62,6 +52,8 @@
             if (isDesktop.value && tickerInfo.value.longName) {
                 items.push({ label: tickerInfo.value.longName });
             }
+        } else if (route.name === 'backtester') {
+            items.push({ label: '백테스터' });
         }
 
         return [home, ...items];
@@ -107,6 +99,7 @@
                 </div>
 
                 <div id="t-topbar" class="topbar-actions">
+                    <ThemeToggler />
                     <Button
                         icon="pi pi-calendar"
                         variant="text"
@@ -151,30 +144,29 @@
                     icon="pi pi-arrow-up" />
             </section>
         </main>
-            <aside id="t-sidebar" v-if="isDesktop">
-                <header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </header>
-                <AppSidebar />
-            </aside>
+        <aside id="t-sidebar" v-if="isDesktop">
+            <header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </header>
+            <AppSidebar />
+        </aside>
 
-            <Drawer
-                v-else
-                v-model:visible="visible"
-                :position="isMobile ? 'full' : 'right'"
-                modal
-                id="toto-search"
-                :class="deviceType">
-                <template #header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </template>
-                <AppSidebar />
-            </Drawer>
+        <Drawer
+            v-else
+            v-model:visible="visible"
+            :position="isMobile ? 'full' : 'right'"
+            modal
+            id="toto-search">
+            <template #header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </template>
+            <AppSidebar />
+        </Drawer>
     </div>
 </template>

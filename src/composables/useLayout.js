@@ -1,6 +1,6 @@
-// src/composables/useLayout.js
+// REFACTORED: src/composables/useLayout.js
 import { updatePrimaryPalette, updateSurfacePalette } from '@primeuix/themes';
-import { computed, ref, readonly, watchEffect } from 'vue';
+import { computed, ref, readonly, watch } from 'vue';
 
 const appState = ref({
     primary: 'emerald',
@@ -407,13 +407,17 @@ const surfaces = ref([
 ]);
 
 export function useLayout() {
-    watchEffect(() => {
-        if (appState.value.darkMode) {
-            document.documentElement.classList.add('p-dark');
-        } else {
-            document.documentElement.classList.remove('p-dark');
-        }
-    });
+    watch(
+        () => appState.value.darkMode,
+        (dark) => {
+            if (dark) {
+                document.documentElement.classList.add('p-dark');
+            } else {
+                document.documentElement.classList.remove('p-dark');
+            }
+        },
+        { immediate: true }
+    );
 
     function setPrimary(value) {
         appState.value.primary = value;
@@ -421,6 +425,10 @@ export function useLayout() {
 
     function setSurface(value) {
         appState.value.surface = value;
+    }
+
+    function toggleDarkMode() {
+        appState.value.darkMode = !appState.value.darkMode;
     }
 
     function updateColors(type, colorName) {
@@ -449,6 +457,7 @@ export function useLayout() {
         surface,
         setPrimary,
         setSurface,
+        toggleDarkMode,
         updateColors,
     };
 }
