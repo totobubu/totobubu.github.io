@@ -1,5 +1,4 @@
-// src/router/index.js
-
+// REFACTORED: src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import CalendarView from '../pages/CalendarView.vue';
@@ -29,36 +28,13 @@ const getCurrentUser = () => {
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+        { path: '/', name: 'home', component: HomeView },
+        { path: '/calendar', name: 'calendar', component: CalendarView },
         {
-            path: '/',
-            name: 'home',
-            component: HomeView,
-        },
-        {
-            path: '/calendar',
-            name: 'calendar',
-            component: CalendarView,
-        },
-        // --- [핵심 수정] ---
-        // 1. backtester 라우트를 수정하고 앞으로 이동
-        {
-            path: '/backtester/:ticker?', // :ticker 파라미터를 선택적(optional)으로 만듬
+            path: '/backtester/:ticker?',
             name: 'backtester',
             component: BacktesterView,
-            props: true, // 파라미터를 props로 전달
-        },
-        // 2. stock-detail 라우트는 뒤에 위치
-        {
-            path: '/:ticker',
-            name: 'stock-detail',
-            component: StockView,
             props: true,
-        },
-        // ---
-        {
-            path: '/:pathMatch(.*)*',
-            name: 'NotFound',
-            component: NotFound,
         },
         { path: '/signup', name: 'signup', component: SignUpView },
         { path: '/login', name: 'login', component: LoginView },
@@ -73,23 +49,25 @@ const router = createRouter({
             component: MyPageView,
             meta: { requiresAuth: true },
         },
+        {
+            path: '/:ticker',
+            name: 'stock-detail',
+            component: StockView,
+            props: true,
+        },
+        { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 });
 
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-    const isAuthPage = to.name === 'login' || to.name === 'signup';
+    const isAuthPage = ['login', 'signup', 'password-reset'].includes(to.name);
+    const user = await getCurrentUser();
 
-    if (requiresAuth || isAuthPage) {
-        const user = await getCurrentUser();
-
-        if (requiresAuth && !user) {
-            next({ name: 'login' });
-        } else if (isAuthPage && user) {
-            next({ name: 'home' });
-        } else {
-            next();
-        }
+    if (requiresAuth && !user) {
+        next({ name: 'login', query: { redirect: to.fullPath } });
+    } else if (isAuthPage && user) {
+        next({ name: 'mypage' });
     } else {
         next();
     }

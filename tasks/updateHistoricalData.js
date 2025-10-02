@@ -1,4 +1,4 @@
-// tasks\updateHistoricalData.js
+// REFACTORED: tasks\updateHistoricalData.js
 import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
@@ -17,19 +17,17 @@ const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const sanitizeTickerForFilename = (ticker) =>
+    ticker.replace(/\./g, '-').toLowerCase();
+
 async function fetchAndSavePriceData(ticker) {
     const { symbol, ipoDate } = ticker;
-    // [핵심 수정] 파일명 생성을 위해 티커를 정규화합니다.
-    const sanitizedSymbol = symbol.replace(/\./g, '-');
-    const filePath = path.join(
-        DATA_DIR,
-        `${sanitizedSymbol.toLowerCase()}.json`
-    );
+    const sanitizedSymbol = sanitizeTickerForFilename(symbol);
+    const filePath = path.join(DATA_DIR, `${sanitizedSymbol}.json`);
 
     try {
         let existingData = {};
         let lastPriceDate = null;
-
         try {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             existingData = JSON.parse(fileContent);
@@ -39,36 +37,22 @@ async function fetchAndSavePriceData(ticker) {
             }
         } catch (error) {
             console.log(
-                `- [${symbol}] No existing data file found. Fetching all historical data.`
+                `- [${symbol}] No existing data file. Fetching all historical data.`
             );
         }
 
-        let effectiveStartDate;
-        if (lastPriceDate) {
-            const nextDate = new Date(lastPriceDate);
-            nextDate.setDate(nextDate.getDate() + 1);
-            effectiveStartDate = nextDate;
-        } else {
-            const maxHistoryDate = new Date();
-            maxHistoryDate.setFullYear(maxHistoryDate.getFullYear() - 10);
-            effectiveStartDate = maxHistoryDate;
-            if (ipoDate && new Date(ipoDate) > maxHistoryDate) {
-                effectiveStartDate = new Date(ipoDate);
-            }
-        }
+        const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
+        if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
 
-        const period1 = effectiveStartDate.toISOString().split('T')[0];
-        const today = new Date().toISOString().split('T')[0];
-
-        if (new Date(period1) > new Date(today)) {
+        const period1 = startDate.toISOString().split('T')[0];
+        if (new Date(period1) > new Date()) {
             console.log(`- [${symbol}] Price data is already up to date.`);
             return { success: true, symbol };
         }
 
         console.log(`Fetching price data for ${symbol} from ${period1}...`);
-
         const newPriceData = await yahooFinance.historical(symbol, {
-            period1: period1,
+            period1,
             events: 'history',
         });
 
@@ -97,23 +81,20 @@ async function fetchAndSavePriceData(ticker) {
         );
         uniquePrices.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        if (!existingData.backtestData) {
-            existingData.backtestData = {};
-        }
+        if (!existingData.backtestData) existingData.backtestData = {};
         existingData.backtestData.prices = uniquePrices;
 
         await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
-
         console.log(
-            `✅ [${symbol}] Price data updated. Added ${newPriceData.length} new records. Total: ${uniquePrices.length}.`
+            `✅ [${symbol}] Price data updated. Added ${newPriceData.length} records. Total: ${uniquePrices.length}.`
         );
         return { success: true, symbol };
     } catch (error) {
         const errorMessage = error.message.includes('No data found')
-            ? 'No data found, symbol may be delisted'
+            ? 'No data found'
             : error.message;
         console.error(
-            `❌ [${symbol}] Failed to fetch or save data: ${errorMessage}`
+            `❌ [${symbol}] Failed to fetch/save data: ${errorMessage}`
         );
         return { success: false, symbol, error: errorMessage };
     }
@@ -124,26 +105,23 @@ async function main() {
     await fs.mkdir(DATA_DIR, { recursive: true });
 
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-
-    const allTickersInfo = navData.nav;
-    const spyInfo = { symbol: 'SPY', ipoDate: '1993-01-22' };
-    const tickersToFetch = [...allTickersInfo, spyInfo];
+    const tickersToFetch = [
+        ...navData.nav,
+        { symbol: 'SPY', ipoDate: '1993-01-22' },
+    ];
     const uniqueTickers = Array.from(
         new Map(tickersToFetch.map((t) => [t.symbol, t])).values()
     );
 
     console.log(`Found ${uniqueTickers.length} symbols to update.`);
-
     const concurrency = 10;
     let successCount = 0;
-    let failureCount = 0;
     const failedSymbols = [];
 
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
-        const chunkSymbols = chunk.map((t) => t.symbol);
         console.log(
-            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunkSymbols.join(', ')})...`
+            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunk.map((t) => t.symbol).join(', ')})...`
         );
 
         const results = await Promise.all(
@@ -151,22 +129,17 @@ async function main() {
         );
 
         results.forEach((r) => {
-            if (r.success) {
-                successCount++;
-            } else {
-                failureCount++;
-                failedSymbols.push(r.symbol);
-            }
+            if (r.success) successCount++;
+            else failedSymbols.push(r.symbol);
         });
         await delay(500);
     }
 
     console.log(
-        `\nUpdate complete. Success: ${successCount}, Failure: ${failureCount}`
+        `\nUpdate complete. Success: ${successCount}, Failure: ${failedSymbols.length}`
     );
-    if (failureCount > 0) {
+    if (failedSymbols.length > 0)
         console.log('Failed symbols:', failedSymbols.join(', '));
-    }
 }
 
 main();
