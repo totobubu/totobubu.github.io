@@ -4,6 +4,7 @@
     import { useRoute } from 'vue-router';
     import MeterGroup from 'primevue/metergroup';
     import Button from 'primevue/button';
+    import Divider from 'primevue/divider';
     import { joinURL } from 'ufo';
     import PortfolioInput from './controls/PortfolioInput.vue';
     import DateAndInvestment from './controls/DateAndInvestment.vue';
@@ -50,26 +51,25 @@
         return array;
     };
 
-    // --- [핵심 수정] ---
     onMounted(async () => {
         try {
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
             const navResponse = await fetch(navUrl);
             const navData = await navResponse.json();
 
-            // nav.json에서 upcoming이 아닌 종목만 필터링
             const activeNavItems = navData.nav.filter((item) => !item.upcoming);
 
-            // 필터링된 목록으로 allSymbols와 navDataMap을 생성
             allSymbols.value = activeNavItems.map((item) => item.symbol);
             navDataMap.value = new Map(
                 activeNavItems.map((item) => [item.symbol, item])
             );
 
-            const querySymbol = route.query.symbol?.toUpperCase();
+            // --- [핵심 수정] ---
+            // route.query.symbol 대신 route.params.ticker를 사용
+            const pathTicker = route.params.ticker?.toUpperCase();
 
-            if (querySymbol && allSymbols.value.includes(querySymbol)) {
-                portfolio.value[0].symbol = querySymbol;
+            if (pathTicker && allSymbols.value.includes(pathTicker)) {
+                portfolio.value[0].symbol = pathTicker;
             } else {
                 const shuffled = shuffleArray([...allSymbols.value]);
                 portfolio.value[0].symbol = shuffled.find((s) => s) || '';
