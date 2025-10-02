@@ -1,35 +1,19 @@
-# scripts\scraper_info.py
+# REFACTORED: scripts\scraper_info.py
 import time
 import json
 import os
 import yfinance as yf
-from datetime import datetime, timezone, timedelta
-
-
-def parse_numeric_value(value_str):
-    if value_str is None or not isinstance(value_str, (str, int, float)):
-        return None
-    if isinstance(value_str, (int, float)):
-        return float(value_str)
-    try:
-        cleaned_str = (
-            str(value_str).replace("$", "").replace(",", "").replace("%", "").strip()
-        )
-        return float(cleaned_str)
-    except (ValueError, TypeError):
-        return None
-
-
-def format_currency(value, sign="$"):
-    return f"{sign}{value:,.2f}" if isinstance(value, (int, float)) else "N/A"
-
-
-def format_large_number(value):
-    return f"{value:,}" if isinstance(value, (int, float)) else "N/A"
-
-
-def format_percent(value):
-    return f"{(value * 100):.2f}%" if isinstance(value, (int, float)) else "N/A"
+from datetime import datetime
+from utils import (
+    load_json_file,
+    save_json_file,
+    sanitize_ticker_for_filename,
+    get_kst_now,
+    parse_numeric_value,
+    format_currency,
+    format_large_number,
+    format_percent,
+)
 
 
 def fetch_dynamic_ticker_info(ticker_symbol):
@@ -42,20 +26,18 @@ def fetch_dynamic_ticker_info(ticker_symbol):
             if current_price
             else 0
         )
-        earnings_date_str = "N/A"
-        if info.get("earningsTimestamp"):
-            earnings_date_str = (
-                datetime.fromtimestamp(info.get("earningsTimestamp"), tz=timezone.utc)
-                .astimezone(timezone(timedelta(hours=9)))
-                .strftime("%Y-%m-%d")
-            )
+        earnings_ts = info.get("earningsTimestamp")
+        earnings_date = (
+            datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
+            if earnings_ts
+            else "N/A"
+        )
 
         return {
             "longName": info.get("longName"),
-            "earningsDate": earnings_date_str,
+            "earningsDate": earnings_date,
             "enterpriseValue": info.get("enterpriseValue"),
             "marketCap": info.get("marketCap"),
-            "totalAssets": info.get("totalAssets"),
             "Volume": info.get("volume"),
             "AvgVolume": info.get("averageVolume"),
             "sharesOutstanding": info.get("sharesOutstanding"),
@@ -64,8 +46,6 @@ def fetch_dynamic_ticker_info(ticker_symbol):
                 if info.get("fiftyTwoWeekLow")
                 else "N/A"
             ),
-            "NAV": info.get("navPrice"),
-            "TotalReturn": info.get("ytdReturn"),
             "Yield": yield_val if yield_val > 0 else 0,
             "dividendRate": info.get("dividendRate"),
             "payoutRatio": info.get("payoutRatio"),
@@ -75,156 +55,131 @@ def fetch_dynamic_ticker_info(ticker_symbol):
         return None
 
 
-if __name__ == "__main__":
-    nav_file_path = "public/nav.json"
-    output_dir = "public/data"
+def format_ticker_info(info_dict):
+    formatted = info_dict.copy()
+    for key, value in formatted.items():
+        if key in [
+            "enterpriseValue",
+            "marketCap",
+            "Volume",
+            "AvgVolume",
+            "sharesOutstanding",
+        ]:
+            formatted[key] = format_large_number(value)
+        elif key == "dividendRate":
+            formatted[key] = format_currency(value)
+        elif key == "payoutRatio":
+            formatted[key] = format_percent(value)
+        elif key == "Yield":
+            formatted[key] = (
+                f"{value:.2f}%"
+                if isinstance(value, (int, float)) and value > 0
+                else "N/A"
+            )
+    return formatted
 
-    try:
-        with open(nav_file_path, "r", encoding="utf-8") as f:
-            all_tickers_info_list = json.load(f).get("nav", [])
-    except FileNotFoundError:
-        print(
-            f"!!! Error: {nav_file_path} not found. Make sure 'npm run generate-nav' runs before this script."
-        )
-        exit()
+
+def calculate_changes(new_info, old_info):
+    changes_obj = {}
+    if not old_info:
+        return changes_obj
+
+    new_update_date = new_info.get("Update", "").split(" ")[0]
+    old_update_date = old_info.get("Update", "").split(" ")[0]
+
+    if new_update_date != old_update_date:
+        for key, new_val in new_info.items():
+            old_val = old_info.get(key)
+            if old_val is None or key in [
+                "changes",
+                "Update",
+                "Symbol",
+                "longName",
+                "company",
+                "frequency",
+                "group",
+            ]:
+                continue
+
+            new_numeric, old_numeric = parse_numeric_value(
+                new_val
+            ), parse_numeric_value(old_val)
+            change_status = "equal"
+            if new_numeric is not None and old_numeric is not None:
+                if new_numeric > old_numeric:
+                    change_status = "up"
+                elif new_numeric < old_numeric:
+                    change_status = "down"
+            elif str(new_val) != str(old_val):
+                change_status = "up"
+
+            if change_status != "equal":
+                changes_obj[key] = {"value": old_val, "change": change_status}
+    else:
+        return old_info.get("changes", {})
+    return changes_obj
+
+
+def main():
+    nav_data = load_json_file("public/nav.json")
+    if not nav_data or "nav" not in nav_data:
+        print("!!! Error: public/nav.json not found.")
+        return
 
     print("\n--- Starting Daily Ticker Info Update ---")
     total_changed_files = 0
-    now_kst = datetime.now(timezone(timedelta(hours=9)))
+    now_kst = get_kst_now()
 
-    for info_from_nav in all_tickers_info_list:
+    for info_from_nav in nav_data.get("nav", []):
         ticker_symbol = info_from_nav.get("symbol")
         if not ticker_symbol:
             continue
 
-        # [핵심 수정] 파일 경로를 위해 티커를 정규화합니다.
-        sanitized_symbol = ticker_symbol.replace(".", "-")
-        file_path = os.path.join(output_dir, f"{sanitized_symbol.lower()}.json")
-
-        existing_data = {}
-        if os.path.exists(file_path):
-            with open(file_path, "r", encoding="utf-8") as f:
-                try:
-                    existing_data = json.load(f)
-                except json.JSONDecodeError:
-                    pass
-
+        file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+        existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
 
-        last_update_str = old_ticker_info.get("Update")
-        if last_update_str:
-            try:
-                last_update_time = datetime.strptime(
-                    last_update_str, "%Y-%m-%d %H:%M:%S KST"
-                ).replace(tzinfo=timezone(timedelta(hours=9)))
-                if now_kst - last_update_time < timedelta(hours=3):
-                    print(
-                        f"  -> Skipping {ticker_symbol}: Updated within the last 3 hours."
-                    )
-                    continue
-            except ValueError:
-                pass
-
-        dynamic_info_from_yf_raw = fetch_dynamic_ticker_info(ticker_symbol)
-        if not dynamic_info_from_yf_raw:
+        dynamic_info = fetch_dynamic_ticker_info(ticker_symbol)
+        if not dynamic_info:
             print(f"  -> Skipping update for {ticker_symbol} (fetch failed).")
             continue
 
-        old_comparable = old_ticker_info.copy()
-        old_comparable.pop("Update", None)
-        old_comparable.pop("changes", None)
-
         new_info_base = {
-            "Symbol": info_from_nav.get("symbol"),
+            "Symbol": ticker_symbol,
             "longName": info_from_nav.get("longName"),
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
             "underlying": info_from_nav.get("underlying"),
         }
-        for key, value in dynamic_info_from_yf_raw.items():
-            if value is not None:
-                new_info_base[key] = value
+        new_info_base.update({k: v for k, v in dynamic_info.items() if v is not None})
 
-        new_comparable = new_info_base.copy()
+        old_comparable = old_ticker_info.copy()
+        old_comparable.pop("Update", None)
+        old_comparable.pop("changes", None)
 
         if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(
-            new_comparable, sort_keys=True, default=str
+            new_info_base, sort_keys=True, default=str
         ):
             print(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
             continue
 
-        total_changed_files += 1
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
+        formatted_info = format_ticker_info(final_ticker_info)
+        formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
 
-        for key, value in final_ticker_info.items():
-            if key in [
-                "enterpriseValue",
-                "marketCap",
-                "totalAssets",
-                "Volume",
-                "AvgVolume",
-                "sharesOutstanding",
-            ]:
-                final_ticker_info[key] = format_large_number(value)
-            elif key in ["NAV", "dividendRate"]:
-                final_ticker_info[key] = format_currency(value)
-            elif key in ["TotalReturn", "payoutRatio"]:
-                final_ticker_info[key] = format_percent(value)
-            elif key == "Yield":
-                final_ticker_info[key] = (
-                    f"{value:.2f}%"
-                    if isinstance(value, (int, float)) and value > 0
-                    else "N/A"
-                )
+        existing_data["tickerInfo"] = formatted_info
+        if save_json_file(file_path, existing_data, indent=2):
+            print(f" => UPDATED Ticker Info for {ticker_symbol}")
+            total_changed_files += 1
 
-        changes_obj = {}
-        new_update_date = final_ticker_info.get("Update", "").split(" ")[0]
-        old_update_date = old_ticker_info.get("Update", "").split(" ")[0]
-        if new_update_date != old_update_date:
-            for key, new_value in final_ticker_info.items():
-                if key in [
-                    "changes",
-                    "Symbol",
-                    "longName",
-                    "company",
-                    "frequency",
-                    "group",
-                    "Update",
-                ]:
-                    continue
-                old_value = old_ticker_info.get(key)
-                if old_value is None:
-                    continue
-                change_status = "equal"
-                new_numeric, old_numeric = parse_numeric_value(
-                    new_value
-                ), parse_numeric_value(old_value)
-                if new_numeric is not None and old_numeric is not None:
-                    if new_numeric > old_numeric:
-                        change_status = "up"
-                    elif new_numeric < old_numeric:
-                        change_status = "down"
-                elif str(new_value) != str(old_value):
-                    change_status = "up"
-                if change_status != "equal":
-                    changes_obj[key] = {"value": old_value, "change": change_status}
-        else:
-            changes_obj = old_ticker_info.get("changes", {})
-
-        final_ticker_info["changes"] = changes_obj
-        final_data_to_save = {
-            "tickerInfo": final_ticker_info,
-            "dividendHistory": existing_data.get("dividendHistory", []),
-            "backtestData": existing_data.get("backtestData", {}),
-        }
-
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(final_data_to_save, f, ensure_ascii=False, indent=2)
-        print(f" => UPDATED Ticker Info for {ticker_symbol}")
         time.sleep(1)
 
     print(
         f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
     )
+
+
+if __name__ == "__main__":
+    main()

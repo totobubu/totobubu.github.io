@@ -1,7 +1,5 @@
 // src/utils/chartColors.js
 
-// src/utils/chartColors.js
-
 const colorPalettes = {
     A: {
         dividend: '#F4CCCC',
