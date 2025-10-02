@@ -47,18 +47,6 @@ source venv/bin/activate
 
 pip install undetected-chromedriver beautifulsoup4 yfinance setuptools
 
-스크립트별 역할
-tasks/updateHistoricalData.js (Node.js)
-대상: backtestData.prices
-역할: yahoo-finance2를 사용하여 과거 일별 주가 데이터를 가져와 이 필드를 채웁니다. 증분 업데이트(Incremental Update) 방식으로 효율적으로 작동합니다.
-
-scripts/scraper_info.py (Python)
-대상: tickerInfo
-역할: yfinance를 사용하여 최신 시세 정보와 기업 개요(시가총액, 거래량 등)를 가져와 이 필드를 업데이트합니다. 이전 데이터와 비교하여 ...Change 객체를 생성합니다.
-
-scripts/scraper_dividend.py (Python)
-대상: dividendHistory
-역할: backtestData에 저장된 주가와 배당금 데이터를 읽어, 사용자가 보는 상세한 배당 내역(전일/당일/익일 종가, 배당률 등)을 계산하여 이 필드를 채웁니다.
 
 # 3-1. 크롬 없을때
 
@@ -80,26 +68,40 @@ sudo apt-get install -y google-chrome-stable
 
 npm install
 
-npm run build
-
-npm run deploy
-
 npm run dev
-
-vercel dev --listen 5000
 
 # 5. 권장 실행 순서
 
-npm run watch-nav 또는 npm run generate-nav
+# 4. Node.js 의존성을 설치합니다.
+npm install
 
+# 5. Python 의존성을 설치합니다.
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+# 단계 1: 실시간 환율 업데이트
+node scripts/fetch_all_exchange_rates.js
+
+# 단계 2: 소스 파일(public/nav/*.json)의 IPO 날짜를 확인하고 'upcoming' 상태를 업데이트합니다.
 npm run add-ipo-dates
 
-npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신화
+# 단계 3: 업데이트된 소스 파일을 기반으로 최종 nav.json을 생성합니다.
+npm run generate-nav
 
-python scripts/update_dividends.py => 배당 데이터 현실화
+# 단계 4: Node.js 스크립트로 과거 '주가' 데이터를 가져옵니다.
+npm run update-data
 
-python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
+# 단계 5: Python 스크립트로 과거 '배당' 데이터를 가져옵니다.
+python scripts/update_dividends.py
 
-python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
+# 단계 6: Python 스크립트가 미리 생성된 주가/배당 데이터를 사용하여 dividendHistory를 가공합니다.
+python scripts/scraper_dividend.py
 
+# 단계 7: Python 스크립트로 최신 시세 및 기업 정보를 가져옵니다.
+python scripts/scraper_info.py
+
+# 단계 8: 사이드바용 실시간 시세 데이터(live-data.json) 생성
+python scripts/generate_live_data.py
+
+# 단계 9: 변경된 모든 데이터를 일관된 포맷으로 정리
 npm run format:data

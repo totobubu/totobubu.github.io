@@ -1,12 +1,38 @@
 {
     "nav": [
         {
+            "symbol": "005930",
+            "longName": "삼성전자",
+            "category": "ㅅ",
+            "frequency": "분기",
+            "ipoDate": "2000-01-04",
+            "market": "KOSPI",
+            "currency": "KRW",
+            "logo": null,
+            "periods": []
+        },
+        {
+            "symbol": "035420",
+            "longName": "NAVER",
+            "category": "ㄴ",
+            "frequency": "미정",
+            "ipoDate": "2002-10-29",
+            "market": "KOSPI",
+            "currency": "KRW",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "AAPL",
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1980-12-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/aapl.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -21,6 +47,8 @@
             "group": "월",
             "underlying": "AAPL",
             "ipoDate": "2025-02-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -31,8 +59,12 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "2013-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/abbv.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -41,6 +73,8 @@
         {
             "symbol": "ABNB",
             "ipoDate": "2020-12-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/abnb.svg",
             "periods": []
         },
@@ -50,6 +84,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -60,6 +96,8 @@
             "group": "C",
             "underlying": "ABNB",
             "ipoDate": "2024-06-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -69,6 +107,8 @@
         {
             "symbol": "AI",
             "ipoDate": "2020-12-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ai.svg",
             "periods": []
         },
@@ -77,6 +117,8 @@
             "company": "Rex",
             "frequency": "매월",
             "ipoDate": "2024-06-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": [
                 "6M",
@@ -90,6 +132,8 @@
             "group": "D",
             "underlying": "AI",
             "ipoDate": "2023-11-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -99,6 +143,8 @@
         {
             "symbol": "AMD",
             "ipoDate": "1980-03-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/amd.svg",
             "periods": []
         },
@@ -109,6 +155,8 @@
             "group": "수",
             "underlying": "AMD",
             "ipoDate": "2025-08-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -119,6 +167,8 @@
             "group": "월",
             "underlying": "AMD",
             "ipoDate": "2025-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -129,6 +179,8 @@
             "group": "C",
             "underlying": "AMD",
             "ipoDate": "2023-09-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -142,12 +194,16 @@
             "group": "금",
             "underlying": "AMD",
             "ipoDate": "2025-09-16",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
         {
             "symbol": "AMZN",
             "ipoDate": "1997-05-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/amzn.svg",
             "periods": []
         },
@@ -158,6 +214,8 @@
             "group": "월",
             "underlying": "AMZN",
             "ipoDate": "2025-06-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -168,6 +226,8 @@
             "group": "D",
             "underlying": "AMZN",
             "ipoDate": "2023-07-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -181,6 +241,8 @@
             "group": "D",
             "underlying": "AAPL",
             "ipoDate": "2023-04-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -191,6 +253,8 @@
             "symbol": "ARKK",
             "company": "Ark Invest",
             "ipoDate": "2014-10-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ark-invest.jpg",
             "periods": [
                 "6M",
@@ -205,12 +269,17 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
         {
             "symbol": "ASML",
             "ipoDate": "1995-03-15",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": [
                 "6M",
                 "1Y",
@@ -226,6 +295,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -234,8 +305,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2009-08-06",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/avgo.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -248,6 +323,8 @@
             "group": "월",
             "underlying": "AVGO",
             "ipoDate": "2025-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -258,12 +335,16 @@
             "group": "금",
             "underlying": "AMZN",
             "ipoDate": "2025-09-16",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
         {
             "symbol": "BABA",
             "ipoDate": "2014-09-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/baba.svg",
             "periods": [
                 "6M",
@@ -277,6 +358,8 @@
             "group": "B",
             "underlying": "BABA",
             "ipoDate": "2024-08-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -289,6 +372,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -297,8 +382,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1973-02-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/bac.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -311,6 +400,8 @@
             "company": "iShares",
             "frequency": "매월",
             "ipoDate": "2023-09-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
                 "6M",
@@ -322,6 +413,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2023-10-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -333,6 +426,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2023-10-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -344,6 +439,8 @@
             "company": "YieldMax",
             "frequency": "매월",
             "ipoDate": "2024-11-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -354,6 +451,8 @@
             "company": "SPDR",
             "frequency": "매월",
             "ipoDate": "2007-05-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/spdr.jpg",
             "periods": [
                 "6M",
@@ -369,6 +468,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2021-10-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -378,6 +479,8 @@
         {
             "symbol": "BKNG",
             "ipoDate": "1999-03-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/bkng.svg",
             "periods": [
                 "6M",
@@ -389,8 +492,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1999-10-01",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/blk.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -404,6 +511,8 @@
             "frequency": "매주",
             "group": "금",
             "ipoDate": "2025-06-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/nicholas.webp",
             "periods": []
         },
@@ -412,6 +521,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2022-08-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -422,6 +533,8 @@
         {
             "symbol": "BRK-B",
             "ipoDate": "1996-05-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/brk-b.svg",
             "periods": []
         },
@@ -432,6 +545,8 @@
             "group": "A",
             "underlying": "BRK.B",
             "ipoDate": "2025-06-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -442,6 +557,8 @@
             "group": "월",
             "underlying": "BRK.B",
             "ipoDate": "2025-06-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -450,6 +567,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2024-10-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M"
@@ -458,6 +577,8 @@
         {
             "symbol": "BYDDY",
             "ipoDate": "2009-12-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/byddy.svg",
             "periods": [
                 "6M",
@@ -473,8 +594,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1977-01-03",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/c.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -487,6 +612,8 @@
             "company": "Rex",
             "frequency": "매월",
             "ipoDate": "2024-12-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": [
                 "6M"
@@ -495,6 +622,9 @@
         {
             "symbol": "CEPT",
             "ipoDate": "2025-05-02",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": []
         },
         {
@@ -503,6 +633,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-04-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -513,12 +645,16 @@
             "group": "화",
             "underlying": "COIN",
             "ipoDate": "2025-06-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
         },
         {
             "symbol": "COIN",
             "ipoDate": "2021-04-14",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/coin.svg",
             "periods": []
         },
@@ -529,6 +665,8 @@
             "group": "월",
             "underlying": "COIN",
             "ipoDate": "2025-02-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -541,6 +679,8 @@
             "group": "C",
             "underlying": "COIN",
             "ipoDate": "2023-08-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -552,8 +692,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1986-07-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/cost.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -568,6 +712,8 @@
             "group": "월",
             "underlying": "COST",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -578,12 +724,17 @@
             "group": "금",
             "underlying": "COIN",
             "ipoDate": "2025-07-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
         {
             "symbol": "CRCL",
             "ipoDate": "2025-06-05",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": []
         },
         {
@@ -593,6 +744,8 @@
             "group": "D",
             "underlying": "CRCL",
             "ipoDate": "2025-09-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -603,6 +756,8 @@
             "group": "A",
             "underlying": "TSLA",
             "ipoDate": "2024-05-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -612,12 +767,17 @@
         {
             "symbol": "CRWD",
             "ipoDate": "2019-06-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/crwd.svg",
             "periods": []
         },
         {
             "symbol": "CRWV",
             "ipoDate": "2025-03-28",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": []
         },
         {
@@ -626,6 +786,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -634,8 +796,12 @@
             "frequency": "분기",
             "group": "JAJO ",
             "ipoDate": "1990-02-16",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/csco.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -646,6 +812,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2022-08-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -656,6 +824,8 @@
         {
             "symbol": "CVNA",
             "ipoDate": "2017-04-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/cvna.svg",
             "periods": []
         },
@@ -666,6 +836,8 @@
             "group": "C",
             "underlying": "CVNA",
             "ipoDate": "2025-01-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -676,8 +848,18 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/cvx.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "DGRO",
@@ -685,8 +867,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2014-06-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -697,6 +883,8 @@
             "company": "WisdomTree",
             "frequency": "매월",
             "ipoDate": "2013-05-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/wisdomtree.jpeg",
             "periods": [
                 "6M",
@@ -711,6 +899,8 @@
             "company": "SPDR",
             "frequency": "매월",
             "ipoDate": "1998-01-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/spdr.jpg",
             "periods": [
                 "6M",
@@ -729,6 +919,8 @@
             "group": "B",
             "underlying": "NVDA",
             "ipoDate": "2024-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -738,8 +930,18 @@
         {
             "symbol": "DIS",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/dis.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "DISO",
@@ -748,6 +950,8 @@
             "group": "D",
             "underlying": "DIS",
             "ipoDate": "2023-08-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -759,6 +963,8 @@
             "company": "Amplify",
             "frequency": "매월",
             "ipoDate": "2016-12-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/amplify.webp",
             "periods": [
                 "6M",
@@ -770,6 +976,8 @@
         {
             "symbol": "DKNG",
             "ipoDate": "2019-07-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/dkng.svg",
             "periods": []
         },
@@ -779,6 +987,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -789,6 +999,8 @@
             "group": "C",
             "underlying": "DKNG",
             "ipoDate": "2025-07-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -797,6 +1009,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2023-10-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -808,8 +1022,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2014-08-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -820,8 +1038,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2016-01-27",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y"
             ]
@@ -832,6 +1054,8 @@
             "frequency": "매주",
             "group": "수",
             "ipoDate": "2025-09-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -840,8 +1064,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2015-09-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y"
             ]
@@ -853,6 +1081,8 @@
             "group": "B",
             "underlying": "META",
             "ipoDate": "2023-07-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -865,6 +1095,8 @@
             "frequency": "4주",
             "group": "A",
             "ipoDate": "2024-12-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -875,6 +1107,8 @@
             "company": "Rex",
             "frequency": "매월",
             "ipoDate": "2023-10-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": [
                 "6M",
@@ -888,6 +1122,8 @@
             "group": "C",
             "underlying": "COIN",
             "ipoDate": "2024-07-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -900,6 +1136,8 @@
             "frequency": "4주",
             "group": "A",
             "ipoDate": "2024-12-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -909,6 +1147,8 @@
             "symbol": "FNGG",
             "company": "Direxion",
             "ipoDate": "2021-09-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/direxion.png",
             "periods": [
                 "6M",
@@ -920,6 +1160,8 @@
             "symbol": "GDE",
             "company": "WisdomTree",
             "ipoDate": "2022-03-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/wisdomtree.jpeg",
             "periods": [
                 "6M",
@@ -930,6 +1172,8 @@
             "symbol": "GDX",
             "company": "VanEck",
             "ipoDate": "2006-05-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/vaneck.webp",
             "periods": [
                 "6M",
@@ -947,6 +1191,8 @@
             "group": "B",
             "underlying": "GDX",
             "ipoDate": "2024-05-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -957,6 +1203,8 @@
             "symbol": "GLD",
             "company": "SPDR",
             "ipoDate": "2004-11-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/spdr.jpg",
             "periods": []
         },
@@ -966,12 +1214,16 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-04-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
         {
             "symbol": "GME",
             "ipoDate": "2002-02-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/gme.svg",
             "periods": [
                 "6M",
@@ -988,12 +1240,16 @@
             "group": "C",
             "underlying": "GME",
             "ipoDate": "2025-09-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
         {
             "symbol": "GOOGL",
             "ipoDate": "2004-08-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/googl.svg",
             "periods": [
                 "6M",
@@ -1007,6 +1263,8 @@
             "group": "월",
             "underlying": "GOOGL",
             "ipoDate": "2025-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1017,6 +1275,8 @@
             "group": "A",
             "underlying": "GOOGL",
             "ipoDate": "2023-07-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1028,6 +1288,8 @@
             "company": "Goldman Sachs",
             "frequency": "매월",
             "ipoDate": "2023-10-27",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/goldman-sachs.svg",
             "periods": [
                 "6M",
@@ -1039,6 +1301,8 @@
             "company": "Goldman Sachs",
             "frequency": "매월",
             "ipoDate": "2023-10-27",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/goldman-sachs.svg",
             "periods": [
                 "6M",
@@ -1051,6 +1315,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-01-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -1061,8 +1327,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1999-05-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/gs.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1075,8 +1345,12 @@
             "frequency": "분기",
             "group": "MMAN",
             "ipoDate": "1981-09-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/hd.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1087,6 +1361,8 @@
         {
             "symbol": "HIMS",
             "ipoDate": "2019-09-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/hims.svg",
             "periods": []
         },
@@ -1097,6 +1373,8 @@
             "group": "수",
             "underlying": "HIMS",
             "ipoDate": "2025-08-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -1107,12 +1385,16 @@
             "group": "D",
             "underlying": "HIMS",
             "ipoDate": "2025-09-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
         {
             "symbol": "HOOD",
             "ipoDate": "2021-07-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/hood.svg",
             "periods": []
         },
@@ -1123,6 +1405,8 @@
             "group": "수",
             "underlying": "HOOD",
             "ipoDate": "2025-08-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -1133,6 +1417,8 @@
             "group": "월",
             "underlying": "HOOD",
             "ipoDate": "2025-06-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1143,6 +1429,8 @@
             "group": "C",
             "underlying": "HOOD",
             "ipoDate": "2025-05-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -1152,6 +1440,8 @@
             "frequency": "매주",
             "group": "금",
             "ipoDate": "2025-09-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -1159,6 +1449,8 @@
             "symbol": "HUMN",
             "company": "Roundhill",
             "ipoDate": "2025-06-26",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1167,6 +1459,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2024-09-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M"
@@ -1177,6 +1471,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2025-06-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": []
         },
@@ -1184,6 +1480,8 @@
             "symbol": "IBIT",
             "company": "iShares",
             "ipoDate": "2024-01-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": []
         },
@@ -1192,13 +1490,25 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ibm.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "IDVO",
             "company": "Amplify",
             "ipoDate": "2022-09-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/amplify.webp",
             "periods": [
                 "6M",
@@ -1211,6 +1521,8 @@
             "company": "First Trust",
             "frequency": "매월",
             "ipoDate": "2021-03-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/first-trust.jpeg",
             "periods": [
                 "6M",
@@ -1221,6 +1533,8 @@
         {
             "symbol": "IONQ",
             "ipoDate": "2021-01-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ionq.svg",
             "periods": []
         },
@@ -1229,6 +1543,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2024-03-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -1240,6 +1556,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2023-12-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -1251,6 +1569,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2024-09-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M"
@@ -1262,8 +1582,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2000-05-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1277,8 +1601,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2000-05-26",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1291,6 +1619,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2024-06-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -1303,6 +1633,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2023-11-01",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -1314,6 +1646,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2025-01-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M"
@@ -1324,6 +1658,8 @@
             "company": "J.P. Morgan",
             "frequency": "매월",
             "ipoDate": "2020-05-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/jp-morgan.png",
             "periods": [
                 "6M",
@@ -1337,6 +1673,8 @@
             "company": "J.P. Morgan",
             "frequency": "매월",
             "ipoDate": "2022-05-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/jp-morgan.png",
             "periods": [
                 "6M",
@@ -1349,6 +1687,8 @@
             "company": "J.P. Morgan",
             "frequency": "매월",
             "ipoDate": "2025-02-14",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/jp-morgan.png",
             "periods": []
         },
@@ -1357,16 +1697,30 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/jnj.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "JPM",
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "1980-03-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/jpm.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1381,6 +1735,8 @@
             "group": "B",
             "underlying": "JPM",
             "ipoDate": "2023-09-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1392,12 +1748,31 @@
             "frequency": "분기",
             "group": "MJSN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ko.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "LABU",
-            "ipoDate": "2015-05-28"
+            "ipoDate": "2015-05-28",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y"
+            ]
         },
         {
             "symbol": "LFGY",
@@ -1405,6 +1780,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-01-14",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -1415,8 +1792,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1972-06-01",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/lly.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1429,8 +1810,18 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/lmt.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "LMTW",
@@ -1438,6 +1829,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1446,8 +1839,12 @@
             "frequency": "분기",
             "group": "JAJO ",
             "ipoDate": "1980-03-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/low.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1460,6 +1857,8 @@
             "company": "iShares",
             "frequency": "매월",
             "ipoDate": "2002-07-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
                 "6M",
@@ -1476,8 +1875,12 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "2006-05-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ma.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1488,6 +1891,8 @@
             "symbol": "MAGC",
             "company": "Roundhill",
             "ipoDate": "2024-10-03",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -1497,6 +1902,8 @@
             "symbol": "MAGX",
             "company": "Roundhill",
             "ipoDate": "2024-02-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -1508,6 +1915,8 @@
             "frequency": "매주",
             "group": "금",
             "ipoDate": "2025-04-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1515,6 +1924,8 @@
             "symbol": "MAIN",
             "frequency": "매월",
             "ipoDate": "2007-10-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/main.svg",
             "periods": [
                 "6M",
@@ -1528,6 +1939,8 @@
         {
             "symbol": "MARA",
             "ipoDate": "2012-05-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mara.svg",
             "periods": []
         },
@@ -1538,6 +1951,8 @@
             "group": "B",
             "underlying": "MARA",
             "ipoDate": "2024-12-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -1546,6 +1961,8 @@
         {
             "symbol": "META",
             "ipoDate": "2012-05-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/meta.svg",
             "periods": [
                 "6M",
@@ -1559,6 +1976,8 @@
             "group": "월",
             "underlying": "META",
             "ipoDate": "2025-06-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1567,28 +1986,60 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mmm.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "MO",
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mo.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "MRK",
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mrk.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "MRNA",
             "ipoDate": "2018-12-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mrna.svg",
             "periods": []
         },
@@ -1599,6 +2050,8 @@
             "group": "B",
             "underlying": "MRNA",
             "ipoDate": "2023-10-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1610,8 +2063,12 @@
             "frequency": "분기",
             "group": "JAJO ",
             "ipoDate": "1993-02-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ms.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1626,6 +2083,8 @@
             "group": "C",
             "underlying": "MSFT",
             "ipoDate": "2023-08-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1637,8 +2096,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1986-03-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/msft.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1653,6 +2116,8 @@
             "group": "월",
             "underlying": "MSFT",
             "ipoDate": "2025-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1663,6 +2128,8 @@
             "group": "화",
             "underlying": "MSTR",
             "ipoDate": "2025-06-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
         },
@@ -1673,12 +2140,16 @@
             "group": "수",
             "underlying": "MSTR",
             "ipoDate": "2025-05-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
         {
             "symbol": "MSTR",
             "ipoDate": "1998-06-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/mstr.svg",
             "periods": []
         },
@@ -1689,6 +2160,8 @@
             "group": "월",
             "underlying": "MSTR",
             "ipoDate": "2025-07-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -1699,6 +2172,8 @@
             "group": "D",
             "underlying": "MSTR",
             "ipoDate": "2024-02-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1712,6 +2187,8 @@
             "group": "금",
             "underlying": "MSTR",
             "ipoDate": "2025-09-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -1722,12 +2199,16 @@
             "group": "월",
             "underlying": "NFLX",
             "ipoDate": "2025-06-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
         {
             "symbol": "NFLX",
             "ipoDate": "2002-05-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/nflx.svg",
             "periods": []
         },
@@ -1738,6 +2219,8 @@
             "group": "C",
             "underlying": "NFLX",
             "ipoDate": "2023-08-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1749,8 +2232,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2013-10-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -1759,6 +2246,8 @@
         {
             "symbol": "NOW",
             "ipoDate": "2012-06-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/now.svg",
             "periods": []
         },
@@ -1767,8 +2256,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1999-01-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/nvda.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -1781,6 +2274,8 @@
             "group": "월",
             "underlying": "NVDA",
             "ipoDate": "2025-02-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -1793,6 +2288,8 @@
             "group": "B",
             "underlying": "NVDA",
             "ipoDate": "2023-05-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1806,6 +2303,8 @@
             "group": "화",
             "underlying": "NVDA",
             "ipoDate": "2025-05-28",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
         },
@@ -1816,6 +2315,8 @@
             "group": "금",
             "underlying": "NVDA",
             "ipoDate": "2025-05-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -1823,6 +2324,8 @@
             "symbol": "O",
             "frequency": "매월",
             "ipoDate": "1994-10-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/o.svg",
             "periods": [
                 "6M",
@@ -1841,6 +2344,8 @@
             "group": "A",
             "underlying": "ARKK",
             "ipoDate": "2022-11-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1852,8 +2357,12 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "1986-03-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/orcl.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1865,8 +2374,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1972-06-01",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pep.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1879,8 +2392,18 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pg.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "PLT",
@@ -1889,12 +2412,16 @@
             "group": "수",
             "underlying": "PLTR",
             "ipoDate": "2025-08-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
         {
             "symbol": "PLTR",
             "ipoDate": "2020-09-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pltr.svg",
             "periods": []
         },
@@ -1905,6 +2432,8 @@
             "group": "월",
             "underlying": "PLTR",
             "ipoDate": "2025-02-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -1917,6 +2446,8 @@
             "group": "B",
             "underlying": "PLTR",
             "ipoDate": "2024-10-08",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -1929,6 +2460,8 @@
             "group": "금",
             "underlying": "PLTR",
             "ipoDate": "2025-09-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -1937,8 +2470,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2008-03-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pm.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -1950,8 +2487,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "2012-04-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/psx.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -1961,6 +2502,8 @@
             "symbol": "PTNQ",
             "company": "Pacer",
             "ipoDate": "2015-06-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pacer.svg",
             "periods": [
                 "6M",
@@ -1972,6 +2515,8 @@
         {
             "symbol": "PYPL",
             "ipoDate": "2015-07-06",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/pypl.svg",
             "periods": []
         },
@@ -1982,6 +2527,8 @@
             "group": "C",
             "underlying": "PYPL",
             "ipoDate": "2023-09-26",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -1992,6 +2539,8 @@
             "symbol": "QBIG",
             "company": "invesco",
             "ipoDate": "2024-12-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/invesco.png",
             "periods": []
         },
@@ -2001,6 +2550,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-03-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M",
@@ -2013,6 +2564,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-02-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2023,6 +2576,8 @@
             "company": "Amplify",
             "frequency": "매월",
             "ipoDate": "2024-08-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/amplify.webp",
             "periods": [
                 "6M",
@@ -2033,6 +2588,8 @@
             "symbol": "QLD",
             "company": "ProSares",
             "ipoDate": "2006-06-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -2049,6 +2606,8 @@
             "frequency": "매주",
             "group": "수",
             "ipoDate": "2025-09-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -2058,8 +2617,12 @@
             "group": "JAJO",
             "frequency": "분기",
             "ipoDate": "1999-03-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/invesco.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2072,6 +2635,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2019-12-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -2085,6 +2650,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2024-01-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -2098,8 +2665,12 @@
             "group": "MJSD",
             "underlying": "QQQ",
             "ipoDate": "2020-10-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/invesco.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y"
             ]
         },
@@ -2109,6 +2680,8 @@
             "frequency": "매월",
             "underlying": "QQQ",
             "ipoDate": "2024-06-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -2122,6 +2695,8 @@
             "group": "목",
             "underlying": "QQQ",
             "ipoDate": "2023-09-14",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -2132,6 +2707,8 @@
             "symbol": "QQUP",
             "company": "ProSares",
             "ipoDate": "2025-06-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": []
         },
@@ -2139,6 +2716,8 @@
             "symbol": "QQXL",
             "company": "ProSares",
             "ipoDate": "2025-08-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": []
         },
@@ -2146,6 +2725,8 @@
             "symbol": "QTOP",
             "company": "iShares",
             "ipoDate": "2024-10-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
                 "6M"
@@ -2156,6 +2737,8 @@
             "company": "Global X",
             "frequency": "매월",
             "ipoDate": "2013-12-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/global-x.jpeg",
             "periods": [
                 "6M",
@@ -2171,6 +2754,8 @@
             "frequency": "4주",
             "group": "A",
             "ipoDate": "2025-07-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -2180,6 +2765,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2189,6 +2776,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-09-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M",
@@ -2201,6 +2790,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-03-06",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2212,6 +2803,8 @@
             "frequency": "4주",
             "group": "A",
             "ipoDate": "2025-09-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -2220,8 +2813,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2015-02-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -2230,6 +2827,8 @@
         {
             "symbol": "RGTI",
             "ipoDate": "2021-04-22",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rgti.svg",
             "periods": []
         },
@@ -2238,6 +2837,8 @@
             "company": "YieldMax",
             "frequency": "매월",
             "ipoDate": "2025-04-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -2246,8 +2847,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1992-06-26",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/sbux.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2260,8 +2865,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2011-10-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/schwab.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -2273,8 +2882,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2010-01-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/schwab.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2287,6 +2900,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-02-06",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2298,6 +2913,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2306,8 +2923,12 @@
             "frequency": "분기",
             "group": "FJSD",
             "ipoDate": "1981-12-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/slb.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2321,6 +2942,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2025-08-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -2331,12 +2954,17 @@
             "group": "수",
             "underlying": "SMCI",
             "ipoDate": "2025-08-20",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
         },
         {
             "symbol": "SMCI",
             "ipoDate": "2007-03-29",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": []
         },
         {
@@ -2346,6 +2974,8 @@
             "group": "D",
             "underlying": "SMCI",
             "ipoDate": "2024-09-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2356,8 +2986,12 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2015-02-05",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -2366,6 +3000,8 @@
         {
             "symbol": "SMR",
             "ipoDate": "2022-03-01",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/smr.svg",
             "periods": []
         },
@@ -2375,12 +3011,16 @@
             "frequency": "매주",
             "group": "금",
             "ipoDate": "2025-09-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
         {
             "symbol": "SNOW",
             "ipoDate": "2020-09-16",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/snow.svg",
             "periods": []
         },
@@ -2391,6 +3031,8 @@
             "group": "A",
             "underlying": "SNOW",
             "ipoDate": "2024-06-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2399,13 +3041,26 @@
         },
         {
             "symbol": "SOXL",
-            "ipoDate": "2010-03-11"
+            "ipoDate": "2010-03-11",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y"
+            ]
         },
         {
             "symbol": "SOXY",
             "company": "YieldMax",
             "frequency": "매월",
             "ipoDate": "2024-12-03",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2417,8 +3072,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2005-11-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/spdr.jpg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2431,8 +3090,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2015-10-12",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/invesco.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y"
             ]
@@ -2443,8 +3106,12 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "1993-01-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/spdr.jpg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2458,6 +3125,8 @@
             "frequency": "매월",
             "underlying": "SPY",
             "ipoDate": "2025-04-03",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": []
         },
@@ -2467,6 +3136,8 @@
             "frequency": "매월",
             "underlying": "SPY",
             "ipoDate": "2022-08-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M",
@@ -2480,6 +3151,8 @@
             "frequency": "매월",
             "underlying": "SPY",
             "ipoDate": "2024-03-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -2491,8 +3164,12 @@
             "frequency": "분기",
             "group": "JAJO ",
             "ipoDate": "1983-11-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/t.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2505,19 +3182,36 @@
             "company": "ProSares",
             "frequency": "분기",
             "ipoDate": "2019-11-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y"
             ]
         },
         {
             "symbol": "TECL",
-            "ipoDate": "2008-12-30"
+            "ipoDate": "2008-12-30",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y"
+            ]
         },
         {
             "symbol": "TEM",
             "ipoDate": "2024-06-14",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/tem.svg",
             "periods": []
         },
@@ -2526,8 +3220,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1973-02-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/tgt.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2539,6 +3237,8 @@
             "symbol": "TLT",
             "company": "iShares",
             "ipoDate": "2002-07-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
                 "6M",
@@ -2555,6 +3255,8 @@
             "company": "Neos",
             "frequency": "매월",
             "ipoDate": "2024-12-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/neos.png",
             "periods": [
                 "6M"
@@ -2565,6 +3267,8 @@
             "company": "ProSares",
             "frequency": "매월",
             "ipoDate": "2019-11-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
                 "6M",
@@ -2575,12 +3279,25 @@
         },
         {
             "symbol": "TNA",
-            "ipoDate": "2008-11-19"
+            "ipoDate": "2008-11-19",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y"
+            ]
         },
         {
             "symbol": "TOPT",
             "company": "iShares",
             "ipoDate": "2024-10-24",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/ishares.jpeg",
             "periods": [
                 "6M"
@@ -2592,8 +3309,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2010-02-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/prosares.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y"
@@ -2606,6 +3327,8 @@
             "group": "금",
             "underlying": "QQQ",
             "ipoDate": "2025-02-26",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": [
                 "6M"
@@ -2618,12 +3341,16 @@
             "group": "화",
             "underlying": "TSLA",
             "ipoDate": "2025-06-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
         },
         {
             "symbol": "TSLA",
             "ipoDate": "2010-06-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/tsla.svg",
             "periods": []
         },
@@ -2634,6 +3361,8 @@
             "group": "월",
             "underlying": "TSLA",
             "ipoDate": "2025-02-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -2646,6 +3375,8 @@
             "group": "A",
             "underlying": "TSLA",
             "ipoDate": "2022-11-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2657,8 +3388,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1997-10-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/tsm.webp",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2673,6 +3408,8 @@
             "group": "월",
             "underlying": "TSM",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2683,6 +3420,8 @@
             "group": "A",
             "underlying": "TSM",
             "ipoDate": "2024-08-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M"
@@ -2695,6 +3434,8 @@
             "group": "금",
             "underlying": "TSLA",
             "ipoDate": "2024-12-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": [
                 "6M"
@@ -2706,6 +3447,8 @@
             "frequency": "매주",
             "group": "월",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2715,6 +3458,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-02-29",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2726,8 +3471,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "1984-10-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/unh.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2741,6 +3490,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-05-10",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -2752,8 +3503,12 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "2008-03-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/v.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2766,8 +3521,12 @@
             "frequency": "분기",
             "group": "MJOD",
             "ipoDate": "2006-05-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/vanguard.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2780,8 +3539,12 @@
             "frequency": "분기",
             "group": "JAJO",
             "ipoDate": "2010-09-09",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/vanguard.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2794,8 +3557,12 @@
             "frequency": "분기",
             "group": "MJSD",
             "ipoDate": "2006-11-16",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/vanguard.png",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2807,8 +3574,12 @@
             "frequency": "분기",
             "group": "JAJO ",
             "ipoDate": "1983-11-21",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/vz.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2822,6 +3593,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2023-09-19",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": [
                 "6M",
@@ -2834,6 +3607,8 @@
             "frequency": "매주",
             "group": "화",
             "ipoDate": "2025-03-06",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -2844,8 +3619,12 @@
             "frequency": "분기",
             "group": "MMAD",
             "ipoDate": "1972-08-25",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/wmt.svg",
             "periods": [
+                "6M",
+                "1Y",
                 "3Y",
                 "5Y",
                 "10Y",
@@ -2860,6 +3639,8 @@
             "group": "D",
             "underlying": "MSTR",
             "ipoDate": "2025-03-27",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": []
         },
@@ -2869,6 +3650,8 @@
             "frequency": "매주",
             "group": "화",
             "ipoDate": "2025-09-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2878,6 +3661,8 @@
             "frequency": "매주",
             "group": "금",
             "ipoDate": "2025-05-13",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -2887,6 +3672,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-03-07",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M",
@@ -2898,8 +3685,18 @@
             "frequency": "분기",
             "group": "FMAN",
             "ipoDate": "1962-01-02",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/xom.svg",
-            "periods": []
+            "periods": [
+                "6M",
+                "1Y",
+                "3Y",
+                "5Y",
+                "10Y",
+                "15Y",
+                "20Y"
+            ]
         },
         {
             "symbol": "XOMO",
@@ -2908,6 +3705,8 @@
             "group": "A",
             "underlying": "XOM",
             "ipoDate": "2023-08-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2921,6 +3720,8 @@
             "group": "월",
             "underlying": "XOM",
             "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": []
         },
@@ -2929,6 +3730,8 @@
             "company": "Roundhill",
             "frequency": "매월",
             "ipoDate": "2024-10-31",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M"
@@ -2937,6 +3740,9 @@
         {
             "symbol": "XYZ",
             "ipoDate": "2015-11-19",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": null,
             "periods": []
         },
         {
@@ -2946,6 +3752,8 @@
             "group": "D",
             "underlying": "XYZ",
             "ipoDate": "2023-10-11",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2958,6 +3766,8 @@
             "frequency": "4주",
             "group": "A",
             "ipoDate": "2024-04-23",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -2970,6 +3780,8 @@
             "frequency": "매주",
             "group": "수",
             "ipoDate": "2024-01-18",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M",
@@ -2982,6 +3794,8 @@
             "frequency": "매주",
             "group": "수",
             "ipoDate": "2024-09-04",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/roundhill.png",
             "periods": [
                 "6M",
@@ -2994,6 +3808,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-01-30",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -3006,6 +3822,8 @@
             "frequency": "매주",
             "group": "목",
             "ipoDate": "2024-01-17",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -3018,6 +3836,8 @@
             "frequency": "4주",
             "group": "D",
             "ipoDate": "2024-08-15",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": [
                 "6M",
@@ -3031,6 +3851,8 @@
             "group": "금",
             "underlying": "SPY",
             "ipoDate": "2025-04-03",
+            "market": "NASDAQ",
+            "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": [
                 "6M"
