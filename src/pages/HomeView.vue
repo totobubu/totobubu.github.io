@@ -1,14 +1,14 @@
-<!-- stock\src\pages\HomeView.vue -->
+<!-- REFACTORED: src/pages/HomeView.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router';
-    import Button from 'primevue/button'; // PrimeVue Button import
+    import Button from 'primevue/button';
     import { user } from '../store/auth';
 
     const router = useRouter();
 
     useHead({
-        title: '홈', // 홈페이지의 기본 타이틀
+        title: '홈',
     });
 </script>
 
@@ -56,5 +56,12 @@
             rounded
             size="large"
             @click="router.push('/mypage')" />
+        <Button
+            label="문의하기"
+            icon="pi pi-envelope"
+            severity="secondary"
+            rounded
+            size="large"
+            @click="router.push('/contact')" />
     </article>
 </template>
