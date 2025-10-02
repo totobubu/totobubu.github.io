@@ -1,4 +1,4 @@
-<!-- components\calculators\ReinvestmentCalculator.vue -->
+<!-- REFACTORED: src/components/calculators/ReinvestmentCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
@@ -7,7 +7,6 @@
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
 
-    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
     import Chart from 'primevue/chart';
     import InputGroup from 'primevue/inputgroup';
@@ -45,7 +44,6 @@
         { icon: 'pi pi-building-columns', value: true, tooltip: '세후 (15%)' },
     ]);
 
-    // --- Computed 속성 ---
     const currentPrice = computed(
         () => props.tickerInfo?.regularMarketPrice || 0
     );
@@ -53,7 +51,6 @@
         () => (quantity.value || 0) * currentPrice.value
     );
 
-    // --- [수정] 신규 컴포저블 사용 ---
     const { dividendStats, payoutsPerYear } = useDividendStats(
         computed(() => props.dividendHistory),
         computed(() => props.tickerInfo),
@@ -65,7 +62,6 @@
     );
 
     const goalAchievementTimes = computed(() => {
-        // [수정] 더 이상 존재하지 않는 변수 대신, dividendStats.value를 직접 확인합니다.
         if (
             !dividendStats.value ||
             (dividendStats.value.avg === 0 && dividendStats.value.max === 0)
@@ -74,16 +70,14 @@
         }
 
         const calculateMonths = (dividendPerShare) => {
-            if (targetAsset.value <= currentAssets.value) {
-                return -1;
-            }
+            if (targetAsset.value <= currentAssets.value) return -1;
             if (
                 currentAssets.value <= 0 ||
                 dividendPerShare <= 0 ||
                 currentPrice.value <= 0 ||
                 payoutsPerYear.value <= 0
             ) {
-                return Infinity; // [수정] 0 대신 Infinity 반환하여 '계산 불가'로 표시
+                return Infinity;
             }
 
             const finalDividendPerShare = applyTax.value
@@ -97,9 +91,7 @@
                 (1 + growthRateForCalculation.value) ** (1 / 12) - 1;
 
             while (assetValue < targetAsset.value) {
-                if (months > 1200) {
-                    return Infinity;
-                }
+                if (months > 1200) return Infinity;
                 assetValue *= 1 + monthlyGrowthRate;
                 const currentShares = assetValue / currentPrice.value;
                 const dividendReceived =
@@ -112,7 +104,6 @@
             return months;
         };
 
-        // [수정] reinvestDividendStats -> dividendStats
         return {
             hope: calculateMonths(dividendStats.value.max),
             avg: calculateMonths(dividendStats.value.avg),
@@ -122,16 +113,12 @@
 
     watch(quantity, (newValue) => {
         const symbol = props.tickerInfo?.symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { quantity: newValue });
-        }
+        if (symbol) updateBookmarkDetails(symbol, { quantity: newValue });
     });
 
     watch(targetAsset, (newValue) => {
         const symbol = props.tickerInfo?.symbol;
-        if (symbol) {
-            updateBookmarkDetails(symbol, { targetAsset: newValue });
-        }
+        if (symbol) updateBookmarkDetails(symbol, { targetAsset: newValue });
     });
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -150,7 +137,7 @@
             currentAssets,
             targetAmount: targetAsset,
             payoutsPerYear,
-            dividendStats: dividendStats, // [수정] reinvestDividendStats -> dividendStats
+            dividendStats: dividendStats,
             annualGrowthRateScenario: growthRateForCalculation,
             currentPrice,
             goalAchievementTimes,
@@ -273,7 +260,6 @@
                         </tr>
                         <tr>
                             <th>배당금</th>
-                            <!-- [수정] reinvestDividendStats -> dividendStats -->
                             <td>${{ dividendStats.max.toFixed(4) }}</td>
                             <td>${{ dividendStats.avg.toFixed(4) }}</td>
                             <td>${{ dividendStats.min.toFixed(4) }}</td>

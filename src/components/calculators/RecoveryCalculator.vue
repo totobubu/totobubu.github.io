@@ -1,14 +1,12 @@
-<!-- components\calculators\RecoveryCalculator.vue -->
+<!-- REFACTORED: src/components/calculators/RecoveryCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
-    import { useDividendStats } from '@/composables/useDividendStats'; // [수정] 신규 컴포저블 import
-    import { formatMonthsToYears } from '@/utils/date.js'; // [수정] 중앙 유틸리티 import
-    import { parseYYMMDD } from '@/utils/date.js';
+    import { useDividendStats } from '@/composables/useDividendStats';
+    import { formatMonthsToYears } from '@/utils/date.js';
 
-    // PrimeVue 컴포넌트 import
     import Card from 'primevue/card';
     import Chart from 'primevue/chart';
     import InputGroup from 'primevue/inputgroup';
@@ -38,7 +36,6 @@
     );
 
     const recoveryPeriod = ref('1Y');
-    // --- [수정] 중복 로직을 useDividendStats 컴포저블로 대체 ---
     const { dividendStats, payoutsPerYear } = useDividendStats(
         computed(() => props.dividendHistory),
         computed(() => props.tickerInfo),
@@ -67,7 +64,6 @@
         () => (quantity.value || 0) * currentPrice.value
     );
 
-    // returnRate -> profitLossRate로 변수명 통일
     const profitLossRate = computed(() => {
         if (investmentPrincipal.value === 0) return 0;
         const profit = currentValue.value - investmentPrincipal.value;
@@ -87,7 +83,6 @@
         },
     });
 
-    // watch 로직에서 tickerInfo.symbol (소문자 s) 사용
     watch(avgPrice, (newValue) => {
         const symbol = props.tickerInfo?.symbol;
         if (symbol) updateBookmarkDetails(symbol, { avgPrice: newValue });

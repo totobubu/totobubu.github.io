@@ -1,7 +1,6 @@
-// src\composables\charts\usePriceChart.js
-import { ref, computed } from 'vue';
+// REFACTORED: src/composables/charts/usePriceChart.js
+import { computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
-import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -9,82 +8,32 @@ import {
     getCommonPlugins,
 } from '@/utils/chartUtils.js';
 
-// --- 1. generateDynamicTimeRangeOptions 함수를 이 파일 안으로 가져옵니다. ---
-// (또는 별도의 utils 파일로 만들어 import 해도 좋습니다.)
-const generateDynamicTimeRangeOptions = (history) => {
-    if (!history || history.length === 0) {
-        return [{ label: '전체', value: 'ALL' }];
-    }
-    const dates = history
-        .map((h) => parseYYMMDD(h['배당락']))
-        .sort((a, b) => a - b);
-    const lastDate = dates[dates.length - 1];
-    const today = new Date();
-
-    const options = [];
-    const oneMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
-    if (lastDate >= oneMonthAgo) options.push({ label: '1M', value: '1M' });
-
-    const threeMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 3));
-    if (lastDate >= threeMonthsAgo) options.push({ label: '3M', value: '3M' });
-
-    const sixMonthsAgo = new Date(new Date().setMonth(today.getMonth() - 6));
-    if (lastDate >= sixMonthsAgo) options.push({ label: '6M', value: '6M' });
-
-    const oneYearAgo = new Date(
-        new Date().setFullYear(today.getFullYear() - 1)
-    );
-    if (lastDate >= oneYearAgo) options.push({ label: '1Y', value: '1Y' });
-
-    options.push({ label: 'ALL', value: 'ALL' });
-
-    return options.map((opt) => ({
-        ...opt,
-        label: opt.value === 'ALL' ? '전체' : opt.label,
-    }));
-};
-
-// [추가] 가격 파싱을 위한 안전한 헬퍼 함수
 const parsePrice = (value) => {
-    // 값이 없거나, 'N/A'인 경우 null 반환
     if (value === null || typeof value === 'undefined' || value === 'N/A') {
         return null;
     }
-    // '$' 기호를 제거하고 숫자로 변환
     const number = parseFloat(String(value).replace('$', ''));
-    // 변환 결과가 숫자가 아니면 null 반환, 정상이면 숫자 반환
     return isNaN(number) ? null : number;
 };
 
 export function usePriceChart(options) {
     const { data, deviceType, group, theme } = options;
-    const { textColor, textColorSecondary, surfaceBorder } = theme;
+    const { textColorSecondary, surfaceBorder } = theme;
 
-    console.log('[usePriceChart] Received data:', data);
-
-    // --- 핵심 수정: 색상 객체를 안전하게 가져오고 모든 변수에 기본값을 설정합니다. ---
-    const colors = getChartColorsByGroup(group) || {}; // getChartColorsByGroup이 undefined를 반환할 경우를 대비
-
-    const dividend = colors.dividend || '#4ade80';
-    const highlight = colors.highlight || '#818cf8';
-    const lineDividend = colors.lineDividend || '#16a34a';
-    const prevPrice = colors.prevPrice || '#9ca3af';
-    const currentPrice = colors.currentPrice || '#3b82f6';
-    const openPrice = colors.openPrice || '#f97316';
-    const nextPrice = colors.nextPrice || '#14b8a6';
-    const dividendText = colors.dividendText || '#ffffff';
-    const highlightText = colors.highlightText || '#ffffff';
-    const prevPriceText = colors.prevPriceText || '#9ca3af'; // 에러가 발생한 변수
-    const currentPriceText = colors.currentPriceText || '#3b82f6';
-    const openPriceText = colors.openPriceText || '#f97316';
-    const nextPriceText = colors.nextPriceText || '#14b8a6';
-    // -------------------------------------------------------------------------
-
-    // --- 2. timeRangeOptions와 selectedTimeRange를 내부 상태로 관리 ---
-    const selectedTimeRange = ref('1Y');
-    const timeRangeOptions = computed(() =>
-        generateDynamicTimeRangeOptions(data)
-    );
+    const colors = getChartColorsByGroup(group) || {};
+    const {
+        dividend = '#4ade80',
+        highlight = '#818cf8',
+        lineDividend = '#16a34a',
+        prevPrice = '#9ca3af',
+        currentPrice = '#3b82f6',
+        openPrice = '#f97316',
+        nextPrice = '#14b8a6',
+        prevPriceText = '#9ca3af',
+        currentPriceText = '#3b82f6',
+        openPriceText = '#f97316',
+        nextPriceText = '#14b8a6',
+    } = colors;
 
     const chartContainerWidth = getDynamicChartWidth(
         data.length,
@@ -103,8 +52,8 @@ export function usePriceChart(options) {
     );
     const tickFontSize = getPriceChartFontSize(data.length, deviceType, 'axis');
     const lastDataIndex = data.length - 1;
+    const newestDataIndex = 0;
 
-    // --- Y축 범위 계산 (기존과 동일) ---
     const prices = data
         .flatMap((item) => [
             parsePrice(item['전일종가']),
@@ -112,15 +61,11 @@ export function usePriceChart(options) {
             parsePrice(item['당일시가']),
             parsePrice(item['익일종가']),
         ])
-        .filter((p) => p !== null); // null이 아닌 유효한 가격만 필터링
+        .filter((p) => p !== null);
 
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
 
-    // [핵심 수정] lastDataIndex -> newestDataIndex로 변경하고 값을 0으로 설정
-    const newestDataIndex = 0;
-
-    // --- 3. 반환할 객체의 키 이름을 표준에 맞게 수정 ---
     const priceChartData = {
         labels: data.map((item) => item['배당락']),
         datasets: [
@@ -131,7 +76,7 @@ export function usePriceChart(options) {
                 order: 1,
                 borderColor: prevPrice,
                 borderDash: [5, 5],
-                data: data.map((item) => parsePrice(item['전일종가'])), // 수정
+                data: data.map((item) => parsePrice(item['전일종가'])),
                 tension: 0.4,
                 borderWidth: 1,
                 fill: false,
@@ -139,7 +84,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'top',
                     color: prevPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null), // 수정
+                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
                     font: { size: lineLabelSize * 0.9 },
                 },
             },
@@ -150,7 +95,7 @@ export function usePriceChart(options) {
                 order: 2,
                 borderColor: openPrice,
                 pointStyle: 'rect',
-                data: data.map((item) => parsePrice(item['당일시가'])), // 수정
+                data: data.map((item) => parsePrice(item['당일시가'])),
                 tension: 0.4,
                 borderWidth: 2,
                 fill: false,
@@ -158,7 +103,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'center',
                     color: openPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null), // 수정
+                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
                     font: { size: lineLabelSize },
                 },
             },
@@ -168,7 +113,7 @@ export function usePriceChart(options) {
                 yAxisID: 'y1',
                 order: 3,
                 borderColor: currentPrice,
-                data: data.map((item) => parsePrice(item['당일종가'])), // 수정
+                data: data.map((item) => parsePrice(item['당일종가'])),
                 tension: 0.4,
                 borderWidth: 3,
                 fill: false,
@@ -176,7 +121,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: currentPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null), // 수정
+                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
                     font: { size: lineLabelSize },
                 },
             },
@@ -187,7 +132,7 @@ export function usePriceChart(options) {
                 order: 4,
                 borderColor: nextPrice,
                 pointStyle: 'triangle',
-                data: data.map((item) => parsePrice(item['익일종가'])), // 수정
+                data: data.map((item) => parsePrice(item['익일종가'])),
                 tension: 0.4,
                 borderWidth: 2,
                 fill: false,
@@ -195,7 +140,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: nextPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null), // 수정
+                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
                     font: { size: lineLabelSize },
                 },
             },
@@ -209,7 +154,7 @@ export function usePriceChart(options) {
                     c.dataIndex === newestDataIndex ? highlight : dividend,
                 borderColor: lineDividend,
                 borderWidth: 1,
-                data: data.map((item) => parsePrice(item['배당금'] || 0)), // 수정
+                data: data.map((item) => parsePrice(item['배당금'] || 0)),
                 datalabels: {
                     display: data.length <= 15,
                     align: 'center',
@@ -218,7 +163,7 @@ export function usePriceChart(options) {
                     color: (c) =>
                         c.dataIndex === newestDataIndex ? 'bold' : 'normal',
                     formatter: (v) =>
-                        v !== null && v > 0 ? `$${v.toFixed(2)}` : null, // 수정
+                        v !== null && v > 0 ? `$${v.toFixed(2)}` : null,
                     font: (c) => ({
                         size:
                             c.dataIndex === lastDataIndex
@@ -279,9 +224,6 @@ export function usePriceChart(options) {
         },
     };
 
-    console.log('[usePriceChart] Generated chart data:', priceChartData);
-
-    // --- 4. 표준화된 객체 반환 ---
     return {
         priceChartData,
         priceChartOptions,
