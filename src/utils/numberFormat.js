@@ -1,5 +1,21 @@
 // src/utils/numberFormat.js
 
+export function formatCurrency(value, currency = 'USD', locale = 'en-US') {
+    if (value === null || value === undefined || isNaN(value)) {
+        return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(0);
+    }
+    
+    // 한국 원화는 소수점 없이 표시
+    const options = {
+        style: 'currency',
+        currency,
+        minimumFractionDigits: currency === 'KRW' ? 0 : 2,
+        maximumFractionDigits: currency === 'KRW' ? 0 : 2,
+    };
+    
+    return new Intl.NumberFormat(locale, options).format(value);
+}
+
 export function formatLargeNumber(value) {
     // 입력값이 문자열일 경우, 숫자 변환을 위해 '$'나 ',' 같은 문자를 제거합니다.
     const num =

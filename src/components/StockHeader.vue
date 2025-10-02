@@ -9,6 +9,18 @@
         info: Object,
     });
 
+    const formattedValue = computed(() => {
+        // 예시: 시가총액 포맷팅
+        const rawValue = props.info.marketCap;
+        const currency = props.info.currency || 'USD';
+        // formatCurrency 유틸리티를 사용하여 포맷팅
+        return formatCurrency(
+            rawValue,
+            currency,
+            currency === 'KRW' ? 'ko-KR' : 'en-US'
+        );
+    });
+
     const stockDetails = computed(() => {
         if (!props.info) return [];
         const detailMapping = [

@@ -1,6 +1,7 @@
 # REFACTORED: scripts/scraper_info.py
 import time
 import json
+import os
 import yfinance as yf
 from datetime import datetime
 from utils import (
@@ -11,8 +12,9 @@ from utils import (
     parse_numeric_value,
     format_currency,
     format_large_number,
-    format_percent
+    format_percent,
 )
+
 
 def fetch_dynamic_ticker_info(ticker_symbol):
     try:
@@ -52,6 +54,7 @@ def fetch_dynamic_ticker_info(ticker_symbol):
         print(f"  -> Failed to fetch dynamic info for {ticker_symbol}: {e}")
         return None
 
+
 def format_ticker_info(info_dict):
     formatted = info_dict.copy()
     for key, value in formatted.items():
@@ -75,6 +78,7 @@ def format_ticker_info(info_dict):
             )
     return formatted
 
+
 def calculate_changes(new_info, old_info):
     changes_obj = {}
     if not old_info:
@@ -97,7 +101,7 @@ def calculate_changes(new_info, old_info):
                 "underlying"
             ]:
                 continue
-            
+
             new_numeric, old_numeric = parse_numeric_value(
                 new_val
             ), parse_numeric_value(old_val)
@@ -109,12 +113,13 @@ def calculate_changes(new_info, old_info):
                     change_status = "down"
             elif str(new_val) != str(old_val):
                 change_status = "up"
-            
+
             if change_status != "equal":
                 changes_obj[key] = {"value": old_val, "change": change_status}
     else:
         return old_info.get("changes", {})
     return changes_obj
+
 
 def main():
     nav_data = load_json_file("public/nav.json")
@@ -168,15 +173,18 @@ def main():
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
         formatted_info = format_ticker_info(final_ticker_info)
         formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
-        
+
         existing_data["tickerInfo"] = formatted_info
         if save_json_file(file_path, existing_data, indent=2):
             print(f" => UPDATED Ticker Info for {ticker_symbol}")
             total_changed_files += 1
-        
+
         time.sleep(1)
 
-    print(f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---")
+    print(
+        f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
+    )
+
 
 if __name__ == "__main__":
     main()
