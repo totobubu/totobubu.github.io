@@ -1,7 +1,7 @@
 # REFACTORED: scripts/scraper_info.py
+
 import time
 import json
-import os
 import yfinance as yf
 from datetime import datetime
 from utils import (
@@ -13,12 +13,13 @@ from utils import (
     format_currency,
     format_large_number,
     format_percent,
+    get_yfinance_ticker,  # <--- [핵심 추가 1] get_yfinance_ticker 함수를 import 합니다.
 )
 
 
-def fetch_dynamic_ticker_info(ticker_symbol):
+def fetch_dynamic_ticker_info(yfinance_ticker):
     try:
-        ticker = yf.Ticker(ticker_symbol)
+        ticker = yf.Ticker(yfinance_ticker)
         info = ticker.info
         current_price = info.get("regularMarketPrice") or info.get("previousClose")
         yield_val = (
@@ -28,7 +29,7 @@ def fetch_dynamic_ticker_info(ticker_symbol):
         )
         earnings_ts = info.get("earningsTimestamp")
         earnings_date = (
-            datetime.fromtimestamp(earnings_ts).strftime('%Y-%m-%d')
+            datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
             if earnings_ts
             else "N/A"
         )
@@ -51,7 +52,8 @@ def fetch_dynamic_ticker_info(ticker_symbol):
             "payoutRatio": info.get("payoutRatio"),
         }
     except Exception as e:
-        print(f"  -> Failed to fetch dynamic info for {ticker_symbol}: {e}")
+        # 에러 로그에 어떤 티커로 조회했는지 명시
+        print(f"  -> Failed to fetch dynamic info for {yfinance_ticker}: {e}")
         return None
 
 
@@ -63,7 +65,7 @@ def format_ticker_info(info_dict):
             "marketCap",
             "Volume",
             "AvgVolume",
-            "sharesOutstanding"
+            "sharesOutstanding",
         ]:
             formatted[key] = format_large_number(value)
         elif key == "dividendRate":
@@ -98,8 +100,10 @@ def calculate_changes(new_info, old_info):
                 "company",
                 "frequency",
                 "group",
-                "underlying"
-            ]:
+                "underlying",
+                "market",
+                "currency",
+            ]:  # 비교 제외 필드 추가
                 continue
 
             new_numeric, old_numeric = parse_numeric_value(
@@ -115,7 +119,10 @@ def calculate_changes(new_info, old_info):
                 change_status = "up"
 
             if change_status != "equal":
-                changes_obj[key] = {"value": old_val, "change": change_status}
+                changes_obj[key] = {
+                    "value": str(old_val),
+                    "change": change_status,
+                }  # 이전 값을 문자열로 저장
     else:
         return old_info.get("changes", {})
     return changes_obj
@@ -133,53 +140,71 @@ def main():
 
     for info_from_nav in nav_data.get("nav", []):
         ticker_symbol = info_from_nav.get("symbol")
+        market = info_from_nav.get("market")
         if not ticker_symbol:
             continue
-        
-        if info_from_nav.get("upcoming"):
-            print(f"  -> Skipping {ticker_symbol}: Marked as 'upcoming'.")
-            continue
+
+        # --- [핵심 수정 2] 야후 파이낸스용 티커 생성 ---
+        yfinance_ticker = get_yfinance_ticker(ticker_symbol, market)
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
 
-        dynamic_info = fetch_dynamic_ticker_info(ticker_symbol)
+        # API 호출 시 yfinance_ticker 사용
+        dynamic_info = fetch_dynamic_ticker_info(yfinance_ticker)
+        # --- // ---
+
         if not dynamic_info:
             print(f"  -> Skipping update for {ticker_symbol} (fetch failed).")
             continue
 
+        # --- [핵심 수정] ---
+        # new_info_base를 구성할 때, nav.json의 koName과 longName을 모두 가져옵니다.
+        # API 결과(dynamic_info)의 longName이 nav.json의 longName을 덮어쓰도록 순서를 조정합니다.
         new_info_base = {
             "Symbol": ticker_symbol,
-            "longName": info_from_nav.get("longName"),
+            "koName": info_from_nav.get("koName"),  # koName 추가
+            "longName": info_from_nav.get("longName"),  # nav의 longName을 기본값으로
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
             "underlying": info_from_nav.get("underlying"),
         }
+        # API에서 가져온 정보로 덮어쓰되, None이 아닌 값만 사용
         new_info_base.update({k: v for k, v in dynamic_info.items() if v is not None})
+        # --- // ---
 
+        # 비교를 위해 이전 데이터에서 불필요한 키 제거
         old_comparable = old_ticker_info.copy()
-        old_comparable.pop("Update", None)
-        old_comparable.pop("changes", None)
+        for key in ["Update", "changes"]:
+            old_comparable.pop(key, None)
 
-        if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(
-            new_info_base, sort_keys=True, default=str
+        # JSON 문자열로 변환하여 비교 (더 안전한 방법)
+        if json.dumps(old_comparable, sort_keys=True) == json.dumps(
+            new_info_base, sort_keys=True
         ):
             print(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
             continue
 
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
+
+        # 포맷팅은 changes 계산 전에 수행
         formatted_info = format_ticker_info(final_ticker_info)
-        formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
+
+        # changes 계산 (포맷팅된 새 정보 vs 포맷팅된 이전 정보)
+        formatted_old_info = format_ticker_info(old_ticker_info)
+        formatted_info["changes"] = calculate_changes(
+            formatted_info, formatted_old_info
+        )
 
         existing_data["tickerInfo"] = formatted_info
         if save_json_file(file_path, existing_data, indent=2):
             print(f" => UPDATED Ticker Info for {ticker_symbol}")
             total_changed_files += 1
 
-        time.sleep(1)
+        time.sleep(0.5)  # API 호출 간격 약간 줄임
 
     print(
         f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
