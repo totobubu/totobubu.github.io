@@ -1,4 +1,4 @@
-<!-- stock\src\layouts\AppSidebar.vue -->
+<!-- REFACTORED: src/layouts/AppSidebar.vue -->
 <script setup>
     import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
@@ -8,7 +8,7 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
-    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
+    import Skeleton from 'primevue/skeleton';
     import Button from 'primevue/button';
     import Dialog from 'primevue/dialog';
     import ToggleButton from 'primevue/togglebutton';
@@ -24,8 +24,6 @@
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
-
-    // [신규] 스켈레톤 UI를 위한 가짜 데이터
     const skeletonItems = ref(new Array(15));
 
     const {
@@ -39,12 +37,11 @@
 
     const tableScrollHeight = computed(() => {
         const topbarHeight = 60;
-        if (isMobile.value) {
-            return `calc(100vh - ${topbarHeight}px)`;
-        } else {
-            return `calc(100vh - ${topbarHeight}px - 2rem)`;
-        }
+        return isMobile.value
+            ? `calc(100vh - ${topbarHeight}px)`
+            : `calc(100vh - ${topbarHeight}px - 2rem)`;
     });
+
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
     const dialogsVisible = ref({
         company: false,
@@ -56,36 +53,25 @@
     const groups = ref([]);
 
     const filteredEtfList = computed(() => {
-        if (showMyStocksOnly.value && user.value) {
-            return etfList.value.filter(
-                (item) => myBookmarks.value[item.symbol]
-            );
-        }
-        return etfList.value;
+        return showMyStocksOnly.value && user.value
+            ? etfList.value.filter((item) => myBookmarks.value[item.symbol])
+            : etfList.value;
     });
 
     const handleBookmarkToggle = () => {
-        if (!user.value) {
-            router.push('/login');
-            return;
-        }
-        toggleShowMyStocksOnly();
+        if (!user.value) router.push('/login');
+        else toggleShowMyStocksOnly();
     };
 
     const handleStockBookmarkClick = (symbol) => {
-        if (user.value) {
-            toggleMyStock(symbol);
-        } else {
-            alert('로그인이 필요한 기능입니다.');
-            router.push('/login');
-        }
+        if (user.value) toggleMyStock(symbol);
+        else router.push('/login');
     };
 
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
         if (ticker && typeof ticker === 'string') {
-            const sanitizedTicker = ticker.replace(/\./g, '-');
-            router.push(`/${sanitizedTicker.toLowerCase()}`);
+            router.push(`/${ticker.replace(/\./g, '-').toLowerCase()}`);
         }
     };
 
@@ -114,7 +100,6 @@
             const navData = await navResponse.json();
 
             const activeNavItems = navData.nav.filter((item) => !item.upcoming);
-
             const allSymbols = activeNavItems
                 .map((item) => item.symbol)
                 .filter(Boolean);
@@ -130,18 +115,9 @@
             if (!apiResponse.ok)
                 throw new Error('Failed to fetch live stock data from API');
 
-            const responseText = await apiResponse.text();
-            let liveDataArray;
-            try {
-                liveDataArray = JSON.parse(responseText);
-            } catch (e) {
-                console.error(
-                    'API 응답이 유효한 JSON이 아닙니다:',
-                    responseText
-                );
-                throw new Error('API로부터 잘못된 형식의 응답을 받았습니다.');
-            }
-
+            // 이전 버전과 동일하게, JSON 파싱을 먼저 시도합니다.
+            // NaN 이슈는 서버에서 해결했으므로 여기서 에러가 나면 다른 문제입니다.
+            const liveDataArray = await apiResponse.json();
             const liveDataMap = new Map(
                 liveDataArray.map((item) => [item.symbol, item])
             );
@@ -160,35 +136,43 @@
 
             etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
-                if (!liveData) {
-                    return {
-                        ...item,
-                        yield: '-',
-                        price: '-',
-                        groupOrder: dayOrder[item.group] ?? 999,
-                    };
-                }
-                return {
+                const baseData = {
                     ...item,
-                    yield: liveData.regularMarketChangePercent
-                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
-                        : '-',
-                    price: liveData.regularMarketPrice || '-',
                     groupOrder: dayOrder[item.group] ?? 999,
                 };
+
+                if (!liveData) {
+                    return { ...baseData, yield: '-', price: '-' };
+                }
+
+                // --- [핵심 수정] ---
+                // liveData의 각 속성을 사용하기 전에 유효한 숫자인지 확인합니다.
+                const changePercent = liveData.regularMarketChangePercent;
+                const price = liveData.regularMarketPrice;
+
+                return {
+                    ...baseData,
+                    yield:
+                        typeof changePercent === 'number' &&
+                        !isNaN(changePercent)
+                            ? `${(changePercent * 100).toFixed(2)}%`
+                            : '-',
+                    price:
+                        typeof price === 'number' && !isNaN(price)
+                            ? price
+                            : '-',
+                };
+                // --- // ---
             });
 
-            companies.value = [
-                ...new Set(etfList.value.map((item) => item.company)),
-            ];
-            frequencies.value = [
-                ...new Set(etfList.value.map((item) => item.frequency)),
-            ];
-            groups.value = [
+            const uniqueValues = (key) => [
                 ...new Set(
-                    etfList.value.map((item) => item.group).filter((g) => g)
+                    etfList.value.map((item) => item[key]).filter(Boolean)
                 ),
             ];
+            companies.value = uniqueValues('company');
+            frequencies.value = uniqueValues('frequency');
+            groups.value = uniqueValues('group');
 
             const currentTickerSymbol = route.params.ticker
                 ?.toUpperCase()
@@ -242,7 +226,7 @@
                         offLabel=""
                         aria-label="내 종목만 보기" />
                 </template>
-                <template #body="{ data, index }">
+                <template #body="{ data }">
                     <div v-if="!isLoading">
                         <i
                             class="pi"
@@ -289,8 +273,8 @@
                         @click="openFilterDialog('company')"
                         :severity="filters.company.value ? '' : 'secondary'" />
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i
-                        ><span v-else>회사</span>
+                        <i v-if="deviceType === 'mobile'"></i>
+                        <span v-else>회사</span>
                     </div>
                 </template>
                 <template #body="{ data }">
@@ -314,8 +298,8 @@
                             filters.frequency.value ? '' : 'secondary'
                         " />
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i
-                        ><span v-else>지급</span>
+                        <i v-if="deviceType === 'mobile'"></i>
+                        <span v-else>지급</span>
                     </div>
                 </template>
                 <template #body="{ data }">
@@ -327,8 +311,8 @@
             <Column field="yield" sortable class="toto-column-yield">
                 <template #header>
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i
-                        ><span v-else>배당률</span>
+                        <i v-if="deviceType === 'mobile'"></i>
+                        <span v-else>배당률</span>
                     </div>
                 </template>
                 <template #body="{ data }">
@@ -346,8 +330,8 @@
                 sortField="groupOrder">
                 <template #header>
                     <div class="column-header">
-                        <i v-if="deviceType === 'mobile'"></i
-                        ><span v-else>그룹</span>
+                        <i v-if="deviceType === 'mobile'"></i>
+                        <span v-else>그룹</span>
                     </div>
                 </template>
                 <template #body="{ data }">
@@ -419,8 +403,6 @@
         width: 2.5rem;
         height: 2.5rem;
     }
-
-    /* [신규] 로딩 중 스켈레톤 스타일 */
     .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
         text-align: center;
     }
