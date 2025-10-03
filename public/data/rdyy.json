@@ -7,27 +7,33 @@
         "group": "A",
         "underlying": null,
         "earningsDate": "N/A",
-        "Volume": "2,760",
-        "AvgVolume": "10,694",
+        "Volume": "9,715",
+        "AvgVolume": "10,255",
         "52Week": "$41.35 - $56.57",
         "Yield": "N/A",
-        "Update": "2025-10-03 05:21:35 KST",
+        "Update": "2025-10-04 05:21:38 KST",
         "changes": {
             "Volume": {
-                "value": "13,179",
-                "change": "down"
+                "value": "2,760",
+                "change": "up"
             },
             "AvgVolume": {
-                "value": "10,537",
-                "change": "up"
-            },
-            "52Week": {
-                "value": "$43.21 - $56.57",
-                "change": "up"
+                "value": "10,694",
+                "change": "down"
             }
         }
     },
-    "dividendHistory": [],
+    "dividendHistory": [
+        {
+            "배당락": "25. 10. 02",
+            "배당금": "$1.051",
+            "전일종가": "$43.39",
+            "당일시가": "$42.23",
+            "당일종가": "$41.68",
+            "익일종가": "$43.08",
+            "배당률": "2.49%"
+        }
+    ],
     "backtestData": {
         "prices": [
             {
@@ -173,8 +179,22 @@
                 "low": 41.35499954223633,
                 "close": 41.679100036621094,
                 "volume": 2760
+            },
+            {
+                "date": "2025-10-03",
+                "open": 41.9900016784668,
+                "high": 43.29999923706055,
+                "low": 42.709999084472656,
+                "close": 43.08000183105469,
+                "volume": 9715
             }
         ],
-        "dividends": []
-    }
+        "dividends": [
+            {
+                "date": "2025-10-02",
+                "amount": 1.051
+            }
+        ]
+    },
+    "dividendTotal": 1.051
 }
