@@ -218,6 +218,8 @@
                             borderRadius="50%"></Skeleton>
                     </template>
                 </Column>
+
+                <!-- [핵심 수정] 티커/종목명 컬럼 로직 수정 -->
                 <Column
                     field="symbol"
                     sortable
@@ -226,39 +228,40 @@
                     header="티커">
                     <template #body="{ data }">
                         <div v-if="!isLoading">
-                            <span
-                                v-if="
-                                    data.market === 'KOSPI' ||
-                                    data.market === 'KOSDAQ'
-                                ">
-                                {{ data.longName || data.symbol }}
+                            <!-- koName이 있으면 koName을, 없으면 longName을, 그것도 없으면 symbol을 표시 -->
+                            <span>
+                                {{
+                                    data.koName || data.longName || data.symbol
+                                }}
                             </span>
-                            <span v-else>{{ data.symbol }}</span>
                         </div>
                         <Skeleton v-else></Skeleton>
                     </template>
                 </Column>
 
-                 <!-- [핵심 수정] :sortable에 조건부 바인딩 추가 -->
-                <Column 
-                    field="company" 
-                    :sortable="categoryFilter === 'ETF'" 
-                    class="toto-column-company" 
-                    header="회사"
-                >
+                <!-- [핵심 수정] :sortable에 조건부 바인딩 추가 -->
+                <Column
+                    field="company"
+                    :sortable="categoryFilter === 'ETF'"
+                    class="toto-column-company"
+                    header="회사">
                     <template #header>
-                        <Button 
+                        <Button
                             v-if="categoryFilter === 'ETF'"
-                            type="button" 
-                            icon="pi pi-filter-fill" 
-                            size="small" 
-                            :variant="filters.company.value ? 'filled' : 'text'" 
-                            @click="openFilterDialog('company')" 
-                            :severity="filters.company.value ? '' : 'secondary'" 
-                        />
+                            type="button"
+                            icon="pi pi-filter-fill"
+                            size="small"
+                            :variant="filters.company.value ? 'filled' : 'text'"
+                            @click="openFilterDialog('company')"
+                            :severity="
+                                filters.company.value ? '' : 'secondary'
+                            " />
                     </template>
                     <template #body="{ data }">
-                        <CompanyLogo v-if="!isLoading" :logo-src="data.logo" :company-name="data.company" />
+                        <CompanyLogo
+                            v-if="!isLoading"
+                            :logo-src="data.logo"
+                            :company-name="data.company" />
                         <Skeleton v-else width="3rem" height="3rem"></Skeleton>
                     </template>
                 </Column>
