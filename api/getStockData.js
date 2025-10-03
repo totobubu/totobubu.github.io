@@ -1,5 +1,32 @@
-// api\getStockData.js
+// REFACTORED: api/getStockData.js
+
 import yahooFinance from 'yahoo-finance2';
+
+// --- [신규] NaN 값을 null로 변환하는 재귀 함수 ---
+// 데이터 내부에 중첩된 객체나 배열이 있을 수 있으므로 재귀적으로 처리하는 것이 가장 안전합니다.
+function sanitizeForJSON(data) {
+    if (data === null || typeof data !== 'object') {
+        // 값이 숫자이고 NaN일 경우 null로 변환
+        if (typeof data === 'number' && isNaN(data)) {
+            return null;
+        }
+        return data;
+    }
+
+    // 배열인 경우, 각 항목에 대해 재귀적으로 함수 호출
+    if (Array.isArray(data)) {
+        return data.map(sanitizeForJSON);
+    }
+
+    // 객체인 경우, 각 속성 값에 대해 재귀적으로 함수 호출
+    const newObj = {};
+    for (const key of Object.keys(data)) {
+        newObj[key] = sanitizeForJSON(data[key]);
+    }
+    return newObj;
+}
+// --- // ---
+
 
 export default async function handler(request, response) {
     const allowedOrigins = [
@@ -30,7 +57,12 @@ export default async function handler(request, response) {
 
     try {
         const results = await yahooFinance.quote(tickers.split(','));
-        return response.status(200).json(results);
+
+        // --- [수정] 결과를 클라이언트에 보내기 전에 데이터 정제 ---
+        const sanitizedResults = sanitizeForJSON(results);
+        return response.status(200).json(sanitizedResults);
+        // --- // ---
+
     } catch (error) {
         console.error('Yahoo Finance API Error:', error);
         const errorMessage =
