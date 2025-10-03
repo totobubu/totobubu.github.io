@@ -1,19 +1,21 @@
-<!-- REFACTORED: src/layouts/AppSidebar.vue -->
+<!-- stock\src\layouts\AppSidebar.vue -->
 <script setup>
     import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
     import { getGroupSeverity } from '@/utils/uiHelpers.js';
     import { joinURL } from 'ufo';
+
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
-    import Skeleton from 'primevue/skeleton';
+    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
     import Button from 'primevue/button';
     import Dialog from 'primevue/dialog';
     import ToggleButton from 'primevue/togglebutton';
     import { useFilterState } from '@/composables/useFilterState';
     import { user } from '../store/auth';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+
     import CompanyLogo from '@/components/CompanyLogo.vue';
 
     const router = useRouter();
@@ -22,6 +24,8 @@
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
+
+    // [신규] 스켈레톤 UI를 위한 가짜 데이터
     const skeletonItems = ref(new Array(15));
 
     const {
@@ -35,10 +39,13 @@
 
     const tableScrollHeight = computed(() => {
         const topbarHeight = 60;
-        return `calc(100vh - ${topbarHeight}px - ${isMobile.value ? '0px' : '2rem'})`;
+        if (isMobile.value) {
+            return `calc(100vh - ${topbarHeight}px)`;
+        } else {
+            return `calc(100vh - ${topbarHeight}px - 2rem)`;
+        }
     });
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
-
     const dialogsVisible = ref({
         company: false,
         frequency: false,
@@ -66,11 +73,12 @@
     };
 
     const handleStockBookmarkClick = (symbol) => {
-        if (!user.value) {
+        if (user.value) {
+            toggleMyStock(symbol);
+        } else {
+            alert('로그인이 필요한 기능입니다.');
             router.push('/login');
-            return;
         }
-        toggleMyStock(symbol);
     };
 
     const onRowSelect = (event) => {
@@ -81,13 +89,17 @@
         }
     };
 
-    const openFilterDialog = (filterName) =>
-        (dialogsVisible.value[filterName] = true);
+    const openFilterDialog = (filterName) => {
+        dialogsVisible.value[filterName] = true;
+    };
 
     const selectFilter = (filterName, value) => {
-        ['company', 'frequency', 'group'].forEach((name) => {
-            filters.value[name].value = name === filterName ? value : null;
-        });
+        filters.value.company.value = null;
+        filters.value.frequency.value = null;
+        filters.value.group.value = null;
+        if (filters.value[filterName]) {
+            filters.value[filterName].value = value;
+        }
         dialogsVisible.value[filterName] = false;
     };
 
@@ -95,35 +107,44 @@
         isLoading.value = true;
         error.value = null;
         try {
-            const baseUrl = import.meta.env.BASE_URL;
-            const [navResponse, liveDataResponse, popularityResponse] =
-                await Promise.all([
-                    fetch(joinURL(baseUrl, 'nav.json')),
-                    fetch(joinURL(baseUrl, 'live-data.json')).catch(() => null),
-                    fetch(joinURL(baseUrl, 'popularity.json')).catch(
-                        () => null
-                    ),
-                ]);
-
+            const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
+            const navResponse = await fetch(navUrl);
             if (!navResponse.ok)
                 throw new Error('Navigation data could not be loaded.');
-
             const navData = await navResponse.json();
+
             const activeNavItems = navData.nav.filter((item) => !item.upcoming);
 
-            const liveDataMap =
-                liveDataResponse && liveDataResponse.ok
-                    ? new Map(
-                          (await liveDataResponse.json()).map((item) => [
-                              item.symbol,
-                              item,
-                          ])
-                      )
-                    : new Map();
-            const popularityMap =
-                popularityResponse && popularityResponse.ok
-                    ? new Map(Object.entries(await popularityResponse.json()))
-                    : new Map();
+            const allSymbols = activeNavItems
+                .map((item) => item.symbol)
+                .filter(Boolean);
+
+            if (allSymbols.length === 0) {
+                etfList.value = [];
+                isLoading.value = false;
+                return;
+            }
+
+            const apiUrl = `/api/getStockData?tickers=${allSymbols.join(',')}`;
+            const apiResponse = await fetch(apiUrl);
+            if (!apiResponse.ok)
+                throw new Error('Failed to fetch live stock data from API');
+
+            const responseText = await apiResponse.text();
+            let liveDataArray;
+            try {
+                liveDataArray = JSON.parse(responseText);
+            } catch (e) {
+                console.error(
+                    'API 응답이 유효한 JSON이 아닙니다:',
+                    responseText
+                );
+                throw new Error('API로부터 잘못된 형식의 응답을 받았습니다.');
+            }
+
+            const liveDataMap = new Map(
+                liveDataArray.map((item) => [item.symbol, item])
+            );
 
             const dayOrder = {
                 월: 1,
@@ -139,25 +160,35 @@
 
             etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
+                if (!liveData) {
+                    return {
+                        ...item,
+                        yield: '-',
+                        price: '-',
+                        groupOrder: dayOrder[item.group] ?? 999,
+                    };
+                }
                 return {
                     ...item,
-                    yield: liveData?.yield
-                        ? `${liveData.yield.toFixed(2)}%`
+                    yield: liveData.regularMarketChangePercent
+                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
                         : '-',
-                    price: liveData?.price || '-',
+                    price: liveData.regularMarketPrice || '-',
                     groupOrder: dayOrder[item.group] ?? 999,
-                    popularityScore: popularityMap.get(item.symbol) || 0,
                 };
             });
 
-            const uniqueValues = (key) => [
+            companies.value = [
+                ...new Set(etfList.value.map((item) => item.company)),
+            ];
+            frequencies.value = [
+                ...new Set(etfList.value.map((item) => item.frequency)),
+            ];
+            groups.value = [
                 ...new Set(
-                    etfList.value.map((item) => item[key]).filter(Boolean)
+                    etfList.value.map((item) => item.group).filter((g) => g)
                 ),
             ];
-            companies.value = uniqueValues('company');
-            frequencies.value = uniqueValues('frequency');
-            groups.value = uniqueValues('group');
 
             const currentTickerSymbol = route.params.ticker
                 ?.toUpperCase()
@@ -179,6 +210,7 @@
 <template>
     <div>
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
+
         <DataTable
             v-else
             id="toto-search-datatable"
@@ -193,10 +225,7 @@
             scrollable
             :scrollHeight="tableScrollHeight"
             :size="tableSize"
-            :class="{ 'p-datatable-loading': isLoading }"
-            removableSort
-            :sortField="'popularityScore'"
-            :sortOrder="-1">
+            :class="{ 'p-datatable-loading': isLoading }">
             <template #empty>
                 <div class="text-center p-4">검색 결과가 없습니다.</div>
             </template>
@@ -213,7 +242,7 @@
                         offLabel=""
                         aria-label="내 종목만 보기" />
                 </template>
-                <template #body="{ data }">
+                <template #body="{ data, index }">
                     <div v-if="!isLoading">
                         <i
                             class="pi"
@@ -239,7 +268,10 @@
                 frozen
                 class="font-bold toto-column-ticker">
                 <template #header>
-                    <span>티커</span>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i>
+                        <span v-else>티커</span>
+                    </div>
                 </template>
                 <template #body="{ data }">
                     <span v-if="!isLoading">{{ data.symbol }}</span>
@@ -256,7 +288,10 @@
                         :variant="filters.company.value ? 'filled' : 'text'"
                         @click="openFilterDialog('company')"
                         :severity="filters.company.value ? '' : 'secondary'" />
-                    <span>회사</span>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>회사</span>
+                    </div>
                 </template>
                 <template #body="{ data }">
                     <CompanyLogo
@@ -278,7 +313,10 @@
                         :severity="
                             filters.frequency.value ? '' : 'secondary'
                         " />
-                    <span>지급</span>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>지급</span>
+                    </div>
                 </template>
                 <template #body="{ data }">
                     <span v-if="!isLoading">{{ data.frequency }}</span>
@@ -288,19 +326,15 @@
 
             <Column field="yield" sortable class="toto-column-yield">
                 <template #header>
-                    <span>등락률</span>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>배당률</span>
+                    </div>
                 </template>
                 <template #body="{ data }">
-                    <span
-                        v-if="!isLoading"
-                        :class="{
-                            'text-red-500': data.yield?.startsWith('-'),
-                            'text-green-500':
-                                !data.yield?.startsWith('-') &&
-                                data.yield !== '-',
-                        }"
-                        >{{ data.yield }}</span
-                    >
+                    <span v-if="!isLoading" class="text-surface-500">{{
+                        data.yield
+                    }}</span>
                     <Skeleton v-else></Skeleton>
                 </template>
             </Column>
@@ -311,7 +345,10 @@
                 class="toto-column-group"
                 sortField="groupOrder">
                 <template #header>
-                    <span>그룹</span>
+                    <div class="column-header">
+                        <i v-if="deviceType === 'mobile'"></i
+                        ><span v-else>그룹</span>
+                    </div>
                 </template>
                 <template #body="{ data }">
                     <Tag
@@ -382,10 +419,9 @@
         width: 2.5rem;
         height: 2.5rem;
     }
+
+    /* [신규] 로딩 중 스켈레톤 스타일 */
     .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
         text-align: center;
-    }
-    .p-column-header-content {
-        gap: 0.5rem;
     }
 </style>
