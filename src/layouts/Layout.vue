@@ -1,12 +1,14 @@
-<!-- stock\src\layouts\Layout.vue -->
+<!-- REFACTORED: src/layouts/Layout.vue -->
+
 <script setup>
-    import { ref, watch, computed, onMounted, inject } from 'vue';
+    import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { handleSignOut, user } from '../store/auth';
     import { useStockData } from '@/composables/useStockData';
 
+    import Menu from 'primevue/menu';
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
     import Breadcrumb from 'primevue/breadcrumb';
@@ -24,49 +26,23 @@
     const { tickerInfo } = useStockData();
     const visible = ref(false);
 
-    const goToLogin = () => router.push('/login');
-    const onLogout = async () => {
-        try {
-            await handleSignOut();
-            router.push('/');
-        } catch (error) {
-            console.error('로그아웃 실패:', error);
-        }
-    };
-    const goToMyPage = () => router.push('/mypage');
-    const goToBacktesterPage = () => router.push('/backtester');
-    const goToCalendarPage = () => router.push('/calendar');
-    const goToContactPage = () => router.push('/contact');
-
-    watch(
-        tickerInfo,
-        (newInfo) => {
-            console.log(
-                '[Layout.vue] inject로 받은 tickerInfo 변경 감지:',
-                newInfo
-            );
-        },
-        { deep: true }
-    );
-
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
-        if (route.name === 'calendar') {
-            items.push({ label: '배당달력' });
-        } else if (route.name === 'mypage') {
-            items.push({ label: '마이페이지' });
-        } else if (route.name === 'contact') {
-            items.push({ label: '문의하기' });
-        } else if (route.name === 'stock-detail' && tickerInfo.value) {
+        // --- [핵심 수정 1] Breadcrumb 경로 업데이트 ---
+        if (route.name === 'calendar') items.push({ label: '배당달력' });
+        else if (route.name === 'backtester') items.push({ label: '백테스터' });
+        else if (route.name === 'bookmarks')
+            items.push({ label: '북마크 관리' });
+        else if (route.name === 'profile')
+            items.push({ label: '회원정보 수정' });
+        else if (route.name === 'stock-detail' && tickerInfo.value) {
             if (tickerInfo.value.symbol)
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
-            if (isDesktop.value && tickerInfo.value.longName) {
+            if (isDesktop.value && tickerInfo.value.longName)
                 items.push({ label: tickerInfo.value.longName });
-            }
         }
-
         return [home, ...items];
     });
 
@@ -76,6 +52,63 @@
             visible.value = false;
         }
     );
+
+    const menu = ref();
+
+    const onLogout = async () => {
+        try {
+            await handleSignOut();
+            router.push('/');
+        } catch (error) {
+            console.error('로그아웃 실패:', error);
+        }
+    };
+
+    // --- [핵심 수정 2] 메뉴 아이템 경로 업데이트 ---
+    const overlayMenuItems = computed(() => {
+        const items = [
+            {
+                label: '배당달력',
+                icon: 'pi pi-calendar',
+                command: () => router.push('/calendar'),
+            },
+            {
+                label: '백테스터',
+                icon: 'pi pi-history',
+                command: () => router.push('/backtester'),
+            },
+            { separator: true },
+        ];
+
+        if (user.value) {
+            items.push({
+                label: '북마크 관리',
+                icon: 'pi pi-bookmark',
+                command: () => router.push('/bookmarks'),
+            });
+            items.push({
+                label: '회원정보 수정',
+                icon: 'pi pi-user-edit',
+                command: () => router.push('/profile'),
+            });
+            items.push({
+                label: '로그아웃',
+                icon: 'pi pi-sign-out',
+                command: onLogout,
+            });
+        } else {
+            items.push({
+                label: '로그인',
+                icon: 'pi pi-sign-in',
+                command: () => router.push('/login'),
+            });
+        }
+        return items;
+    });
+
+    const toggleMenu = (event) => {
+        menu.value.toggle(event);
+    };
 </script>
 
 <template>
@@ -111,44 +144,24 @@
 
                 <div id="t-topbar" class="topbar-actions">
                     <Button
-                        icon="pi pi-calendar"
-                        variant="text"
-                        @click="goToCalendarPage"
-                        aria-label="배당달력" />
-                    <Button
-                        icon="pi pi-history"
-                        variant="text"
-                        @click="goToBacktesterPage"
-                        aria-label="백테스터" />
-                    <Button
-                        icon="pi pi-envelope"
-                        variant="text"
-                        @click="goToContactPage"
-                        aria-label="문의하기" />
-                    <Button
-                        v-if="!user"
-                        icon="pi pi-sign-in"
-                        variant="text"
-                        @click="goToLogin"
-                        aria-label="로그인" />
-                    <template v-else>
-                        <Button
-                            v-if="route.name !== 'mypage'"
-                            icon="pi pi-user"
-                            variant="text"
-                            @click="goToMyPage"
-                            aria-label="마이페이지" />
-                        <Button
-                            icon="pi pi-sign-out"
-                            variant="text"
-                            @click="onLogout"
-                            aria-label="로그아웃" />
-                    </template>
+                        type="button"
+                        icon="pi pi-ellipsis-v"
+                        text
+                        @click="toggleMenu"
+                        aria-haspopup="true"
+                        aria-controls="overlay_menu"
+                        class="p-button-plain" />
+                    <Menu
+                        ref="menu"
+                        id="overlay_menu"
+                        :model="overlayMenuItems"
+                        :popup="true" />
                     <Button
                         v-if="!isDesktop"
                         icon="pi pi-bars"
                         variant="text"
-                        @click="visible = true" />
+                        @click="visible = true"
+                        aria-label="사이드바 열기" />
                 </div>
             </header>
             <section id="t-content">
@@ -159,30 +172,30 @@
                     icon="pi pi-arrow-up" />
             </section>
         </main>
-            <aside id="t-sidebar" v-if="isDesktop">
-                <header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </header>
-                <AppSidebar />
-            </aside>
+        <aside id="t-sidebar" v-if="isDesktop">
+            <header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </header>
+            <AppSidebar />
+        </aside>
 
-            <Drawer
-                v-else
-                v-model:visible="visible"
-                :position="isMobile ? 'full' : 'right'"
-                modal
-                id="toto-search"
-                :class="deviceType">
-                <template #header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </template>
-                <AppSidebar />
-            </Drawer>
+        <Drawer
+            v-else
+            v-model:visible="visible"
+            :position="isMobile ? 'full' : 'right'"
+            modal
+            id="toto-search"
+            :class="deviceType">
+            <template #header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </template>
+            <AppSidebar />
+        </Drawer>
     </div>
 </template>
