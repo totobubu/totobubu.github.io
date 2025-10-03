@@ -1,4 +1,5 @@
-// api\getBacktestData.js
+// REFACTORED: api/getBacktestData.js
+
 import axios from 'axios';
 
 const YF_HEADERS = {
@@ -31,22 +32,28 @@ export default async function handler(req, res) {
     const symbolArray = symbols.split(',');
 
     try {
-        const resultsPromises = symbolArray.map(async (symbol) => {
+        const resultsPromises = symbolArray.map(async (yahooSymbol) => {
+            // --- [핵심 수정] ---
+            // 응답 데이터에 사용할 원본 심볼 (예: '005930.KS' -> '005930')
+            const originalSymbol = yahooSymbol
+                .replace(/\.(KS|KQ)$/, '')
+                .toUpperCase();
+            // --- // ---
             try {
-                const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,split`;
+                const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,split`;
                 const { data } = await axios.get(url, { headers: YF_HEADERS });
 
                 if (data.chart.error) {
                     throw new Error(
                         data.chart.error.description ||
-                            `Unknown error for ${symbol}`
+                            `Unknown error for ${yahooSymbol}`
                     );
                 }
 
                 const result = data.chart.result[0];
                 if (!result || !result.timestamp) {
                     return {
-                        symbol: symbol.toUpperCase(),
+                        symbol: originalSymbol,
                         prices: [],
                         dividends: [],
                         splits: [],
@@ -65,30 +72,25 @@ export default async function handler(req, res) {
                         close: quotes.close[i],
                     }))
                     .filter((p) => p.open != null && p.close != null);
-
                 const dividends = Array.isArray(events.dividends)
                     ? events.dividends.map((d) => ({
                           date: formatDate(d.date),
                           amount: d.amount,
                       }))
                     : [];
-
-                // --- [핵심 수정] ---
-                // events.splits가 배열인 경우에만 .map()을 실행하도록 Array.isArray()로 확인
                 const splits = Array.isArray(events.splits)
                     ? events.splits.map((s) => ({
                           date: formatDate(s.date),
                           ratio: `${s.numerator}:${s.denominator}`,
                       }))
                     : [];
-                // --- // ---
 
                 const firstTradeDate = result.meta.firstTradeTime
                     ? formatDate(result.meta.firstTradeTime)
                     : null;
 
                 return {
-                    symbol: symbol.toUpperCase(),
+                    symbol: originalSymbol,
                     firstTradeDate,
                     prices,
                     dividends,
@@ -96,11 +98,12 @@ export default async function handler(req, res) {
                 };
             } catch (e) {
                 console.error(
-                    `[API] Error fetching data for ${symbol}:`,
+                    `[API] Error fetching data for ${yahooSymbol}:`,
                     e.message
                 );
+                // 에러 발생 시에도 originalSymbol을 반환
                 return {
-                    symbol: symbol.toUpperCase(),
+                    symbol: originalSymbol,
                     error: e.message,
                     prices: [],
                     dividends: [],
