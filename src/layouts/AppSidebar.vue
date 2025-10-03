@@ -154,12 +154,13 @@
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
 
         <div v-else>
-            <div class="p-2">
+            <div class="py-2">
                 <SelectButton
                     v-model="categoryFilter"
                     :options="categoryFilterOptions"
                     optionLabel="label"
                     optionValue="value"
+                    size="small"
                     aria-labelledby="category-filter"
                     class="w-full" />
             </div>
