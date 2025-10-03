@@ -1,6 +1,6 @@
-// REFACTORED: src/composables/charts/usePriceChart.js
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
+import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -12,28 +12,28 @@ const parsePrice = (value) => {
     if (value === null || typeof value === 'undefined' || value === 'N/A') {
         return null;
     }
-    const number = parseFloat(String(value).replace('$', ''));
+    const number = parseFloat(String(value).replace(/[$,]/g, ''));
     return isNaN(number) ? null : number;
 };
 
 export function usePriceChart(options) {
-    const { data, deviceType, group, theme } = options;
-    const { textColorSecondary, surfaceBorder } = theme;
+    const { data, deviceType, group, theme, currency } = options;
+    const { textColor, textColorSecondary, surfaceBorder } = theme;
 
     const colors = getChartColorsByGroup(group) || {};
-    const {
-        dividend = '#4ade80',
-        highlight = '#818cf8',
-        lineDividend = '#16a34a',
-        prevPrice = '#9ca3af',
-        currentPrice = '#3b82f6',
-        openPrice = '#f97316',
-        nextPrice = '#14b8a6',
-        prevPriceText = '#9ca3af',
-        currentPriceText = '#3b82f6',
-        openPriceText = '#f97316',
-        nextPriceText = '#14b8a6',
-    } = colors;
+    const dividend = colors.dividend || '#4ade80';
+    const highlight = colors.highlight || '#818cf8';
+    const lineDividend = colors.lineDividend || '#16a34a';
+    const prevPrice = colors.prevPrice || '#9ca3af';
+    const currentPrice = colors.currentPrice || '#3b82f6';
+    const openPrice = colors.openPrice || '#f97316';
+    const nextPrice = colors.nextPrice || '#14b8a6';
+    const dividendText = colors.dividendText || '#ffffff';
+    const highlightText = colors.highlightText || '#ffffff';
+    const prevPriceText = colors.prevPriceText || '#9ca3af';
+    const currentPriceText = colors.currentPriceText || '#3b82f6';
+    const openPriceText = colors.openPriceText || '#f97316';
+    const nextPriceText = colors.nextPriceText || '#14b8a6';
 
     const chartContainerWidth = getDynamicChartWidth(
         data.length,
@@ -52,7 +52,6 @@ export function usePriceChart(options) {
     );
     const tickFontSize = getPriceChartFontSize(data.length, deviceType, 'axis');
     const lastDataIndex = data.length - 1;
-    const newestDataIndex = 0;
 
     const prices = data
         .flatMap((item) => [
@@ -65,6 +64,24 @@ export function usePriceChart(options) {
 
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
+    const newestDataIndex = 0;
+
+    const formatPriceLabel = (value) => {
+        if (value === null || typeof value === 'undefined') return null;
+        const prefix = currency === 'KRW' ? '₩' : '$';
+        const digits = currency === 'KRW' ? 0 : 2;
+        return `${prefix}${value.toFixed(digits)}`;
+    };
+
+    const formatTooltipPrice = (value) => {
+        const locale = currency === 'KRW' ? 'ko-KR' : 'en-US';
+        return new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currency: currency || 'USD',
+            minimumFractionDigits: currency === 'KRW' ? 0 : 2,
+            maximumFractionDigits: currency === 'KRW' ? 0 : 2,
+        }).format(value);
+    };
 
     const priceChartData = {
         labels: data.map((item) => item['배당락']),
@@ -84,7 +101,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'top',
                     color: prevPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: (v) => formatPriceLabel(v),
                     font: { size: lineLabelSize * 0.9 },
                 },
             },
@@ -103,7 +120,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'center',
                     color: openPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: (v) => formatPriceLabel(v),
                     font: { size: lineLabelSize },
                 },
             },
@@ -121,7 +138,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: currentPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: (v) => formatPriceLabel(v),
                     font: { size: lineLabelSize },
                 },
             },
@@ -140,7 +157,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: nextPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: (v) => formatPriceLabel(v),
                     font: { size: lineLabelSize },
                 },
             },
@@ -163,7 +180,7 @@ export function usePriceChart(options) {
                     color: (c) =>
                         c.dataIndex === newestDataIndex ? 'bold' : 'normal',
                     formatter: (v) =>
-                        v !== null && v > 0 ? `$${v.toFixed(2)}` : null,
+                        v !== null && v > 0 ? formatPriceLabel(v) : null,
                     font: (c) => ({
                         size:
                             c.dataIndex === lastDataIndex
@@ -187,7 +204,7 @@ export function usePriceChart(options) {
                 itemSort: (a, b) => a.dataset.order - b.dataset.order,
                 callbacks: {
                     label: (c) =>
-                        `${c.dataset.label || ''}: ${new Intl.NumberFormat('EN-US', { style: 'currency', currency: 'USD' }).format(c.parsed.y)}`,
+                        `${c.dataset.label || ''}: ${formatTooltipPrice(c.parsed.y)}`,
                 },
             },
         }),
@@ -218,15 +235,16 @@ export function usePriceChart(options) {
                 ticks: {
                     color: textColorSecondary,
                     font: { size: tickFontSize },
+                    callback: function (value) {
+                        const prefix = currency === 'KRW' ? '₩' : '$';
+                        if (value >= 1000) return `${prefix}${value / 1000}k`;
+                        return `${prefix}${value}`;
+                    },
                 },
                 grid: { drawOnChartArea: false, color: surfaceBorder },
             },
         },
     };
 
-    return {
-        priceChartData,
-        priceChartOptions,
-        chartContainerWidth,
-    };
+    return { priceChartData, priceChartOptions, chartContainerWidth };
 }

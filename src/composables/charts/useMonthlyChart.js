@@ -1,6 +1,7 @@
-// REFACTORED: src/composables/charts/useMonthlyChart.js
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
+import { parseYYMMDD } from '@/utils/date.js';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
+import { formatCurrency } from '@/utils/numberFormat.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -8,9 +9,39 @@ import {
     getCommonPlugins,
 } from '@/utils/chartUtils.js';
 
+const generateDynamicTimeRangeOptions = (history) => {
+    if (!history || history.length === 0) {
+        return [{ label: '전체', value: 'ALL' }];
+    }
+    const dates = history
+        .map((h) => parseYYMMDD(h['배당락']))
+        .sort((a, b) => a - b);
+    const lastDate = dates[dates.length - 1];
+    const today = new Date();
+    const options = [];
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 1)))
+        options.push({ label: '1M', value: '1M' });
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 3)))
+        options.push({ label: '3M', value: '3M' });
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 6)))
+        options.push({ label: '6M', value: '6M' });
+    if (lastDate >= new Date(new Date().setFullYear(today.getFullYear() - 1)))
+        options.push({ label: '1Y', value: '1Y' });
+    options.push({ label: 'ALL', value: 'ALL' });
+    return options.map((opt) => ({
+        ...opt,
+        label: opt.value === 'ALL' ? '전체' : opt.label,
+    }));
+};
+
 export function useMonthlyChart(options) {
-    const { data, deviceType, group, theme } = options;
-    const { textColorSecondary, surfaceBorder } = theme;
+    const { data, deviceType, group, theme, currency } = options;
+    const { textColor, textColorSecondary, surfaceBorder } = theme;
+
+    const selectedTimeRange = ref('1Y');
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(data)
+    );
 
     const { dividend: colorDividend, highlight: colorHighlight } =
         getChartColorsByGroup(group);
@@ -28,8 +59,9 @@ export function useMonthlyChart(options) {
     );
     const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
     const newestDataIndex = 0;
+
     const dividendData = data.map((item) =>
-        parseFloat(item['배당금']?.replace('$', '') || 0)
+        parseFloat(String(item['배당금'] || '').replace(/[$,₩]/g, ''))
     );
 
     const chartData = {
@@ -49,7 +81,7 @@ export function useMonthlyChart(options) {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value) =>
-                        value > 0 ? `$${value.toFixed(4)}` : null,
+                        value > 0 ? formatCurrency(value, currency) : null,
                     font: { size: barLabelSize, weight: 'bold' },
                 },
             },
@@ -72,7 +104,7 @@ export function useMonthlyChart(options) {
             tooltipCallbacks: {
                 callbacks: {
                     label: (context) =>
-                        `${context.dataset.label}: $${Number(context.raw).toFixed(4)}`,
+                        `${context.dataset.label}: ${formatCurrency(context.raw, currency)}`,
                 },
             },
         }),
@@ -90,6 +122,7 @@ export function useMonthlyChart(options) {
                 ticks: {
                     color: textColorSecondary,
                     font: { size: tickFontSize },
+                    callback: (value) => formatCurrency(value, currency),
                 },
                 grid: { color: surfaceBorder },
             },
@@ -100,5 +133,7 @@ export function useMonthlyChart(options) {
         chartData,
         chartOptions,
         chartContainerWidth,
+        timeRangeOptions,
+        selectedTimeRange,
     };
 }

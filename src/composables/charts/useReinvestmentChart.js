@@ -1,11 +1,8 @@
-// src\composables\charts\useReinvestmentChart.js
-import { computed, ref } from 'vue'; // ref 추가, watch 제거 (이 파일에서는 직접적인 side effect 없음)
-import { formatLargeNumber } from '@/utils/numberFormat.js';
+import { computed } from 'vue';
+import { formatLargeNumber, formatCurrency } from '@/utils/numberFormat.js';
 import Annotation from 'chartjs-plugin-annotation';
 
-// Vue 3.4+ 에서는 options 객체 전체를 reactive하게 참조하는 것이 더 안정적입니다.
 export function useReinvestmentChart(options) {
-    // 구조 분해 할당 대신, options 객체를 직접 사용합니다.
     const {
         currentAssets,
         targetAmount,
@@ -15,6 +12,7 @@ export function useReinvestmentChart(options) {
         currentPrice,
         goalAchievementTimes,
         theme,
+        currency,
     } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
@@ -23,7 +21,6 @@ export function useReinvestmentChart(options) {
         maxMonths,
         continueOnGoal = false
     ) => {
-        // 이 함수는 ref의 .value에 접근해야 합니다.
         if (
             currentAssets.value <= 0 ||
             dividendPerShare <= 0 ||
@@ -47,24 +44,16 @@ export function useReinvestmentChart(options) {
                 currentShares * dividendPerShare * monthlyPayouts;
             assetValue += dividendReceived;
             path.push({ x: months, y: assetValue });
-
             if (!continueOnGoal && assetValue >= targetAmount.value) break;
         }
         return path;
     };
 
     const reinvestmentChartData = computed(() => {
-        // --- 핵심 수정 1: 데이터 준비 상태 확인 ---
-        // 의존하는 computed 값들이 유효한지 먼저 확인합니다.
-        if (!dividendStats.value || !goalAchievementTimes.value) {
-            return { datasets: [] }; // 데이터가 준비되지 않았으면 빈 차트 반환
-        }
-
-        const avgMonths = Math.ceil(goalAchievementTimes.value.avg);
-        // 계산 불가 상태일 경우 빈 차트 반환
-        if (!isFinite(avgMonths) || avgMonths <= 0) {
+        if (!dividendStats.value || !goalAchievementTimes.value)
             return { datasets: [] };
-        }
+        const avgMonths = Math.ceil(goalAchievementTimes.value.avg);
+        if (!isFinite(avgMonths) || avgMonths <= 0) return { datasets: [] };
 
         const hopePath = calculateGrowthPath(
             dividendStats.value.max,
@@ -113,25 +102,20 @@ export function useReinvestmentChart(options) {
     });
 
     const reinvestmentChartOptions = computed(() => {
-        // --- 핵심 수정 2: 데이터 준비 상태 확인 ---
         if (
             !goalAchievementTimes.value ||
             !isFinite(goalAchievementTimes.value.avg)
         ) {
-            // 계산이 불가능할 때 기본 차트 옵션 반환
             return {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
             };
         }
-
         const hopeTime = goalAchievementTimes.value.hope;
         const avgTime = goalAchievementTimes.value.avg;
-
-        // xAxis의 min, max 값이 유효한 숫자인지 확인
         const xAxisMin =
             isFinite(hopeTime) && hopeTime > 1 ? Math.floor(hopeTime) - 1 : 0;
-        const xAxisMax = isFinite(avgTime) ? Math.ceil(avgTime) : 120; // 평균이 무한대일 경우 10년으로 제한
+        const xAxisMax = isFinite(avgTime) ? Math.ceil(avgTime) : 120;
 
         return {
             maintainAspectRatio: false,
@@ -147,7 +131,7 @@ export function useReinvestmentChart(options) {
                         title: (tooltipItems) =>
                             `${tooltipItems[0].raw.x}개월 후`,
                         label: (context) =>
-                            `${context.dataset.label}: ${formatLargeNumber(context.raw.y)}`,
+                            `${context.dataset.label}: ${formatCurrency(context.raw.y, currency.value)}`,
                     },
                 },
                 annotation: {
@@ -160,7 +144,7 @@ export function useReinvestmentChart(options) {
                             borderWidth: 2,
                             borderDash: [6, 6],
                             label: {
-                                content: `목표: ${formatLargeNumber(targetAmount.value)}`,
+                                content: `목표: ${formatCurrency(targetAmount.value, currency.value)}`,
                                 display: true,
                                 position: 'end',
                                 backgroundColor: 'rgba(255, 99, 132, 0.8)',
@@ -168,7 +152,7 @@ export function useReinvestmentChart(options) {
                         },
                         hopeTargetPoint: {
                             type: 'point',
-                            xValue: goalAchievementTimes.value.hope,
+                            xValue: hopeTime,
                             yValue: targetAmount.value,
                             backgroundColor: 'rgba(34, 197, 94, 0.8)',
                             radius: 8,
@@ -177,7 +161,7 @@ export function useReinvestmentChart(options) {
                         },
                         avgTargetPoint: {
                             type: 'point',
-                            xValue: goalAchievementTimes.value.avg,
+                            xValue: avgTime,
                             yValue: targetAmount.value,
                             backgroundColor: 'rgba(234, 179, 8, 0.8)',
                             radius: 8,
@@ -203,12 +187,11 @@ export function useReinvestmentChart(options) {
                     type: 'logarithmic',
                     ticks: {
                         color: textColorSecondary,
-                        callback: (value, index, ticks) => {
+                        callback: (value) => {
                             if (value === 0) return '0';
                             const log10 = Math.log10(value);
-                            if (log10 === Math.floor(log10)) {
-                                return formatLargeNumber(value);
-                            }
+                            if (log10 === Math.floor(log10))
+                                return formatCurrency(value, currency.value);
                             return '';
                         },
                     },

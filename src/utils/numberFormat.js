@@ -1,47 +1,44 @@
-// src/utils/numberFormat.js
-
-export function formatCurrency(value, currency = 'USD', locale = 'en-US') {
-    if (value === null || value === undefined || isNaN(value)) {
-        return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(0);
-    }
-    
-    // 한국 원화는 소수점 없이 표시
-    const options = {
-        style: 'currency',
-        currency,
-        minimumFractionDigits: currency === 'KRW' ? 0 : 2,
-        maximumFractionDigits: currency === 'KRW' ? 0 : 2,
-    };
-    
-    return new Intl.NumberFormat(locale, options).format(value);
-}
-
-export function formatLargeNumber(value) {
-    // 입력값이 문자열일 경우, 숫자 변환을 위해 '$'나 ',' 같은 문자를 제거합니다.
+export function formatCurrency(value, currency = 'USD') {
     const num =
         typeof value === 'string'
             ? parseFloat(value.replace(/[^0-9.-]+/g, ''))
             : value;
+    if (isNaN(num) || num === null) return value;
 
-    if (isNaN(num) || num === null) {
-        return value; // 숫자로 변환할 수 없으면 원본 값을 반환
-    }
+    const locale = currency === 'KRW' ? 'ko-KR' : 'en-US';
+    const fractionDigits = currency === 'KRW' ? 0 : 2;
+
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits,
+    }).format(num);
+}
+
+export function formatLargeNumber(value, currency = 'USD') {
+    const num =
+        typeof value === 'string'
+            ? parseFloat(value.replace(/[^0-9.-]+/g, ''))
+            : value;
+    if (isNaN(num) || num === null) return value;
 
     const absNum = Math.abs(num);
+    const sign = num < 0 ? '-' : '';
+    const prefix = currency === 'KRW' ? '₩' : '$';
 
     if (absNum >= 1.0e12) {
-        return (num / 1.0e12).toFixed(2) + 'T'; // Trillion
+        return `${sign}${prefix}${(absNum / 1.0e12).toFixed(2)}T`;
     }
     if (absNum >= 1.0e9) {
-        return (num / 1.0e9).toFixed(2) + 'B'; // Billion
+        return `${sign}${prefix}${(absNum / 1.0e9).toFixed(2)}B`;
     }
     if (absNum >= 1.0e6) {
-        return (num / 1.0e6).toFixed(2) + 'M'; // Million
+        return `${sign}${prefix}${(absNum / 1.0e6).toFixed(2)}M`;
     }
     if (absNum >= 1.0e3) {
-        return (num / 1.0e3).toFixed(2) + 'K'; // Thousand
+        return `${sign}${prefix}${(absNum / 1.0e3).toFixed(2)}K`;
     }
 
-    // 1000 미만의 숫자는 그대로 반환
-    return num.toString();
+    return `${sign}${prefix}${absNum}`;
 }

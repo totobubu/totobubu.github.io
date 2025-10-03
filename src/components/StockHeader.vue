@@ -1,7 +1,6 @@
-<!-- REFACTORED: src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
-    import { formatLargeNumber } from '@/utils/numberFormat.js';
+    import { formatLargeNumber, formatCurrency } from '@/utils/numberFormat.js';
     import Card from 'primevue/card';
     import Tag from 'primevue/tag';
 
@@ -9,20 +8,10 @@
         info: Object,
     });
 
-    const formattedValue = computed(() => {
-        // 예시: 시가총액 포맷팅
-        const rawValue = props.info.marketCap;
-        const currency = props.info.currency || 'USD';
-        // formatCurrency 유틸리티를 사용하여 포맷팅
-        return formatCurrency(
-            rawValue,
-            currency,
-            currency === 'KRW' ? 'ko-KR' : 'en-US'
-        );
-    });
-
     const stockDetails = computed(() => {
         if (!props.info) return [];
+        const currency = props.info.currency || 'USD';
+
         const detailMapping = [
             {
                 key:
@@ -33,27 +22,35 @@
                     props.info.marketCap && props.info.marketCap !== 'N/A'
                         ? '시가총액'
                         : '운용 자산 (AUM)',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val, currency),
             },
             {
                 key: 'enterpriseValue',
                 label: '기업가치',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val, currency),
             },
             { key: 'earningsDate', label: '실적발표일' },
-            { key: 'Volume', label: '거래량', formatter: formatLargeNumber },
+            {
+                key: 'Volume',
+                label: '거래량',
+                formatter: (val) => formatLargeNumber(val),
+            },
             {
                 key: 'AvgVolume',
                 label: '평균거래량',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val),
             },
             {
                 key: 'sharesOutstanding',
                 label: '유통 주식 수',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val),
             },
             { key: 'Yield', label: '연간 배당률' },
-            { key: 'dividendRate', label: '연간 배당금' },
+            {
+                key: 'dividendRate',
+                label: '연간 배당금',
+                formatter: (val) => formatCurrency(val, currency),
+            },
             { key: 'payoutRatio', label: '배당 성향' },
         ];
 
@@ -62,7 +59,10 @@
                 const rawValue = props.info[item.key];
                 const changeInfo = props.info.changes?.[item.key];
                 if (changeInfo?.value && item.formatter) {
-                    changeInfo.value = item.formatter(changeInfo.value);
+                    changeInfo.value = item.formatter(
+                        changeInfo.value,
+                        currency
+                    );
                 }
                 return {
                     label: item.label,
@@ -76,7 +76,8 @@
                     item.value !== 'N/A' &&
                     item.value !== '0' &&
                     item.value !== '$0' &&
-                    item.value !== '$-0'
+                    item.value !== '$-0' &&
+                    item.value !== '₩0'
             );
     });
 

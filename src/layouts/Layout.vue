@@ -1,5 +1,3 @@
-<!-- REFACTORED: src/layouts/Layout.vue -->
-
 <script setup>
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
@@ -30,7 +28,6 @@
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
 
-        // --- [핵심 수정 1] Breadcrumb 경로 업데이트 ---
         if (route.name === 'calendar') items.push({ label: '배당달력' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
         else if (route.name === 'bookmarks')
@@ -38,10 +35,15 @@
         else if (route.name === 'profile')
             items.push({ label: '회원정보 수정' });
         else if (route.name === 'stock-detail' && tickerInfo.value) {
-            if (tickerInfo.value.symbol)
-                items.push({ label: tickerInfo.value.symbol.toUpperCase() });
-            if (isDesktop.value && tickerInfo.value.longName)
+            const displayName =
+                tickerInfo.value.koName ||
+                tickerInfo.value.symbol?.toUpperCase();
+            if (displayName) {
+                items.push({ label: displayName });
+            }
+            if (isDesktop.value && tickerInfo.value.longName) {
                 items.push({ label: tickerInfo.value.longName });
+            }
         }
         return [home, ...items];
     });
@@ -64,7 +66,6 @@
         }
     };
 
-    // --- [핵심 수정 2] 메뉴 아이템 경로 업데이트 ---
     const overlayMenuItems = computed(() => {
         const items = [
             {
@@ -135,7 +136,7 @@
                             </router-link>
                             <span
                                 v-else
-                                class="dark:text-surface-500 dark:text-surface-400"
+                                class="text-surface-500 dark:text-surface-400"
                                 >{{ item.label }}</span
                             >
                         </template>

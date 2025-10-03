@@ -1,4 +1,3 @@
-<!-- REFACTORED: src/components/calculators/RecoveryCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
@@ -6,6 +5,7 @@
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
+    import { formatCurrency } from '@/utils/numberFormat.js';
 
     import Card from 'primevue/card';
     import Chart from 'primevue/chart';
@@ -29,13 +29,15 @@
     const { deviceType } = useBreakpoint();
     const { updateBookmarkDetails } = useFilterState();
 
+    const currency = computed(() => props.tickerInfo?.currency || 'USD');
+
     const avgPrice = ref(props.userBookmark?.avgPrice || 0);
     const quantity = ref(props.userBookmark?.quantity || 0);
     const accumulatedDividend = ref(
         props.userBookmark?.accumulatedDividend || 0
     );
-
     const recoveryPeriod = ref('1Y');
+
     const { dividendStats, payoutsPerYear } = useDividendStats(
         computed(() => props.dividendHistory),
         computed(() => props.tickerInfo),
@@ -66,35 +68,41 @@
 
     const profitLossRate = computed(() => {
         if (investmentPrincipal.value === 0) return 0;
-        const profit = currentValue.value - investmentPrincipal.value;
-        return (profit / investmentPrincipal.value) * 100;
+        return (
+            ((currentValue.value - investmentPrincipal.value) /
+                investmentPrincipal.value) *
+            100
+        );
     });
 
     const recoveryRate = computed({
-        get() {
-            if (investmentPrincipal.value === 0) return 0;
-            return (
-                (accumulatedDividend.value / investmentPrincipal.value) * 100
-            );
-        },
-        set(newRate) {
+        get: () =>
+            investmentPrincipal.value === 0
+                ? 0
+                : (accumulatedDividend.value / investmentPrincipal.value) * 100,
+        set: (newRate) => {
             accumulatedDividend.value =
                 investmentPrincipal.value * (newRate / 100);
         },
     });
 
     watch(avgPrice, (newValue) => {
-        const symbol = props.tickerInfo?.symbol;
-        if (symbol) updateBookmarkDetails(symbol, { avgPrice: newValue });
+        if (props.tickerInfo?.symbol)
+            updateBookmarkDetails(props.tickerInfo.symbol, {
+                avgPrice: newValue,
+            });
     });
     watch(quantity, (newValue) => {
-        const symbol = props.tickerInfo?.symbol;
-        if (symbol) updateBookmarkDetails(symbol, { quantity: newValue });
+        if (props.tickerInfo?.symbol)
+            updateBookmarkDetails(props.tickerInfo.symbol, {
+                quantity: newValue,
+            });
     });
     watch(accumulatedDividend, (newValue) => {
-        const symbol = props.tickerInfo?.symbol;
-        if (symbol)
-            updateBookmarkDetails(symbol, { accumulatedDividend: newValue });
+        if (props.tickerInfo?.symbol)
+            updateBookmarkDetails(props.tickerInfo.symbol, {
+                accumulatedDividend: newValue,
+            });
     });
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -136,8 +144,8 @@
                     <InputNumber
                         v-model="avgPrice"
                         mode="currency"
-                        currency="USD"
-                        locale="en-US"
+                        :currency="currency"
+                        :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'"
                         inputId="myAveragePrice" />
                     <label for="myAveragePrice">평단</label>
                 </IftaLabel>
@@ -156,8 +164,8 @@
                     <InputNumber
                         :modelValue="investmentPrincipal"
                         mode="currency"
-                        currency="USD"
-                        locale="en-US"
+                        :currency="currency"
+                        :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'"
                         disabled
                         inputId="totalInvestment" />
                     <label for="totalInvestment">투자원금</label>
@@ -166,8 +174,8 @@
                     <InputNumber
                         :modelValue="currentValue"
                         mode="currency"
-                        currency="USD"
-                        locale="en-US"
+                        :currency="currency"
+                        :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'"
                         disabled
                         inputId="currentValue" />
                     <label for="currentValue">현재가치 </label>
@@ -178,54 +186,61 @@
             </InputGroup>
             <div class="toto-already">
                 <InputGroup>
-                    <InputGroupAddon>
-                        <RadioButton
+                    <InputGroupAddon
+                        ><RadioButton
                             v-model="calculationMode"
                             inputId="modeAmount"
                             name="calcMode"
-                            value="amount" />
-                    </InputGroupAddon>
-                    <InputGroupAddon>
-                        <i class="pi pi-dollar" />
-                    </InputGroupAddon>
+                            value="amount"
+                    /></InputGroupAddon>
+                    <InputGroupAddon
+                        ><i
+                            :class="
+                                currency === 'KRW'
+                                    ? 'pi pi-won'
+                                    : 'pi pi-dollar'
+                            "
+                    /></InputGroupAddon>
                     <FloatLabel variant="on">
                         <InputNumber
                             v-model="accumulatedDividend"
                             placeholder="누적 배당금"
                             mode="currency"
-                            currency="USD"
-                            locale="en-US"
+                            :currency="currency"
+                            :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'"
                             :disabled="calculationMode !== 'amount'"
                             inputId="recoveredAmount" />
                         <label for="recoveredAmount">누적 배당금</label>
                     </FloatLabel>
                 </InputGroup>
                 <InputGroup>
-                    <InputGroupAddon>
-                        <RadioButton
+                    <InputGroupAddon
+                        ><RadioButton
                             v-model="calculationMode"
                             inputId="modeRate"
                             name="calcMode"
-                            value="rate" />
-                    </InputGroupAddon>
-                    <InputGroupAddon>
-                        <i class="pi pi-percentage" />
-                    </InputGroupAddon>
-                    <InputGroupAddon class="text-xs">
-                        <span> {{ recoveryRate.toFixed(2) }} %</span>
-                    </InputGroupAddon>
+                            value="rate"
+                    /></InputGroupAddon>
+                    <InputGroupAddon
+                        ><i class="pi pi-percentage"
+                    /></InputGroupAddon>
+                    <InputGroupAddon class="text-xs"
+                        ><span>
+                            {{ recoveryRate.toFixed(2) }} %</span
+                        ></InputGroupAddon
+                    >
                     <div
                         class="toto-range"
                         :disabled="calculationMode !== 'rate'">
-                        <span>
-                            <Slider
+                        <span
+                            ><Slider
                                 v-model="recoveryRate"
                                 :min="0"
                                 :max="99.99"
                                 :step="0.01"
                                 class="w-full"
-                                :disabled="calculationMode !== 'rate'" />
-                        </span>
+                                :disabled="calculationMode !== 'rate'"
+                        /></span>
                     </div>
                 </InputGroup>
             </div>
@@ -237,10 +252,12 @@
                         optionLabel="label"
                         optionValue="value"
                         inputId="recoveryPeriod" />
-                    <label for="recoveryPeriod">
-                        <span>前 배당금 참고 기간</span>
-                        <Tag severity="contrast">{{ recoveryPeriod }}</Tag>
-                    </label>
+                    <label for="recoveryPeriod"
+                        ><span>前 배당금 참고 기간</span
+                        ><Tag severity="contrast">{{
+                            recoveryPeriod
+                        }}</Tag></label
+                    >
                 </IftaLabel>
             </InputGroup>
             <InputGroup class="toto-tax-apply">
@@ -254,16 +271,17 @@
                         <template #option="slotProps">
                             <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip" />
-                            <span>{{ slotProps.option.tooltip }}</span>
+                                v-tooltip.bottom="
+                                    slotProps.option.tooltip
+                                " /><span>{{ slotProps.option.tooltip }}</span>
                         </template>
                     </SelectButton>
-                    <label for="applyTax">
-                        <span>세금 적용</span>
-                        <Tag severity="contrast">{{
+                    <label for="applyTax"
+                        ><span>세금 적용</span
+                        ><Tag severity="contrast">{{
                             applyTax ? '세후' : '세전'
-                        }}</Tag>
-                    </label>
+                        }}</Tag></label
+                    >
                 </IftaLabel>
             </InputGroup>
         </div>
@@ -286,9 +304,21 @@
                         </tr>
                         <tr>
                             <th>배당금</th>
-                            <td>(${{ dividendStats.max.toFixed(4) }})</td>
-                            <td>(${{ dividendStats.avg.toFixed(4) }})</td>
-                            <td>(${{ dividendStats.min.toFixed(4) }})</td>
+                            <td>
+                                ({{
+                                    formatCurrency(dividendStats.max, currency)
+                                }})
+                            </td>
+                            <td>
+                                ({{
+                                    formatCurrency(dividendStats.avg, currency)
+                                }})
+                            </td>
+                            <td>
+                                ({{
+                                    formatCurrency(dividendStats.min, currency)
+                                }})
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -297,24 +327,21 @@
                             <td>
                                 <Tag severity="success" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.hope_reinvest,
-                                        true
+                                        recoveryTimes.hope_reinvest
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="warn" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.avg_reinvest,
-                                        true
+                                        recoveryTimes.avg_reinvest
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="danger" icon="pi pi-circle">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.despair_reinvest,
-                                        true
+                                        recoveryTimes.despair_reinvest
                                     )
                                 }}</Tag>
                             </td>
@@ -323,24 +350,21 @@
                             <td>
                                 <Tag severity="success" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.hope_no_reinvest,
-                                        true
+                                        recoveryTimes.hope_no_reinvest
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="warn" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.avg_no_reinvest,
-                                        true
+                                        recoveryTimes.avg_no_reinvest
                                     )
                                 }}</Tag>
                             </td>
                             <td>
                                 <Tag severity="danger" icon="pi pi-times">{{
                                     formatMonthsToYears(
-                                        recoveryTimes.despair_no_reinvest,
-                                        true
+                                        recoveryTimes.despair_no_reinvest
                                     )
                                 }}</Tag>
                             </td>

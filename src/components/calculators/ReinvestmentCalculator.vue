@@ -1,4 +1,3 @@
-<!-- REFACTORED: src/components/calculators/ReinvestmentCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
@@ -17,6 +16,7 @@
     import Tag from 'primevue/tag';
     import Slider from 'primevue/slider';
     import IftaLabel from 'primevue/iftalabel';
+    import { formatCurrency } from '@/utils/numberFormat.js';
 
     const props = defineProps({
         dividendHistory: Array,
@@ -27,9 +27,13 @@
     const { deviceType } = useBreakpoint();
     const { updateBookmarkDetails } = useFilterState();
 
-    const quantity = ref(props.userBookmark?.quantity || 100);
-    const targetAsset = ref(props.userBookmark?.targetAsset || 100000);
+    const currency = computed(() => props.tickerInfo?.currency || 'USD');
 
+    const quantity = ref(props.userBookmark?.quantity || 100);
+    const targetAsset = ref(
+        props.userBookmark?.targetAsset ||
+            (currency.value === 'KRW' ? 100000000 : 100000)
+    );
     const reinvestmentPeriod = ref('1Y');
     const annualGrowthRateScenario = ref(0);
     const applyTax = ref(true);
@@ -68,7 +72,6 @@
         ) {
             return { hope: Infinity, avg: Infinity, despair: Infinity };
         }
-
         const calculateMonths = (dividendPerShare) => {
             if (targetAsset.value <= currentAssets.value) return -1;
             if (
@@ -76,10 +79,8 @@
                 dividendPerShare <= 0 ||
                 currentPrice.value <= 0 ||
                 payoutsPerYear.value <= 0
-            ) {
+            )
                 return Infinity;
-            }
-
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
                 : dividendPerShare;
@@ -103,7 +104,6 @@
             }
             return months;
         };
-
         return {
             hope: calculateMonths(dividendStats.value.max),
             avg: calculateMonths(dividendStats.value.avg),
@@ -112,13 +112,16 @@
     });
 
     watch(quantity, (newValue) => {
-        const symbol = props.tickerInfo?.symbol;
-        if (symbol) updateBookmarkDetails(symbol, { quantity: newValue });
+        if (props.tickerInfo?.symbol)
+            updateBookmarkDetails(props.tickerInfo.symbol, {
+                quantity: newValue,
+            });
     });
-
     watch(targetAsset, (newValue) => {
-        const symbol = props.tickerInfo?.symbol;
-        if (symbol) updateBookmarkDetails(symbol, { targetAsset: newValue });
+        if (props.tickerInfo?.symbol)
+            updateBookmarkDetails(props.tickerInfo.symbol, {
+                targetAsset: newValue,
+            });
     });
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -137,11 +140,12 @@
             currentAssets,
             targetAmount: targetAsset,
             payoutsPerYear,
-            dividendStats: dividendStats,
+            dividendStats,
             annualGrowthRateScenario: growthRateForCalculation,
             currentPrice,
             goalAchievementTimes,
             theme: chartTheme,
+            currency,
         });
 </script>
 <template>
@@ -159,8 +163,8 @@
                     <InputNumber
                         :modelValue="currentAssets"
                         mode="currency"
-                        currency="USD"
-                        locale="en-US"
+                        :currency="currency"
+                        :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'"
                         disabled
                         inputId="currentAssets" />
                     <label for="currentAssets">현재 자산</label>
@@ -178,31 +182,31 @@
                         v-model="targetAsset"
                         inputId="target"
                         mode="currency"
-                        currency="USD"
-                        locale="en-US" />
+                        :currency="currency"
+                        :locale="currency === 'KRW' ? 'ko-KR' : 'en-US'" />
                     <label for="target">목표 자산</label>
                 </IftaLabel>
             </InputGroup>
             <InputGroup>
-                <InputGroupAddon
-                    style="font-size: var(--p-iftalabel-font-size)">
-                    <span>주가 성장률</span>
-                </InputGroupAddon>
-                <InputGroupAddon class="text-xs">
-                    <span> {{ annualGrowthRateScenario }} % </span>
-                </InputGroupAddon>
+                <InputGroupAddon style="font-size: var(--p-iftalabel-font-size)"
+                    ><span>주가 성장률</span></InputGroupAddon
+                >
+                <InputGroupAddon class="text-xs"
+                    ><span>
+                        {{ annualGrowthRateScenario }} %
+                    </span></InputGroupAddon
+                >
                 <div class="p-inputtext toto-range">
-                    <span>
-                        <Slider
+                    <span
+                        ><Slider
                             v-model="annualGrowthRateScenario"
                             :min="-15"
                             :max="15"
                             :step="1"
-                            class="flex-1" />
-                    </span>
+                            class="flex-1"
+                    /></span>
                 </div>
             </InputGroup>
-
             <InputGroup class="toto-reference-period">
                 <IftaLabel>
                     <SelectButton
@@ -211,10 +215,12 @@
                         optionLabel="label"
                         optionValue="value"
                         inputId="recoveryPeriod" />
-                    <label for="recoveryPeriod">
-                        <span>前 배당금 참고 기간</span>
-                        <Tag severity="contrast">{{ reinvestmentPeriod }}</Tag>
-                    </label>
+                    <label for="recoveryPeriod"
+                        ><span>前 배당금 참고 기간</span
+                        ><Tag severity="contrast">{{
+                            reinvestmentPeriod
+                        }}</Tag></label
+                    >
                 </IftaLabel>
             </InputGroup>
             <InputGroup class="toto-tax-apply">
@@ -228,16 +234,17 @@
                         <template #option="slotProps">
                             <i
                                 :class="slotProps.option.icon"
-                                v-tooltip.bottom="slotProps.option.tooltip" />
-                            <span>{{ slotProps.option.tooltip }}</span>
+                                v-tooltip.bottom="
+                                    slotProps.option.tooltip
+                                " /><span>{{ slotProps.option.tooltip }}</span>
                         </template>
                     </SelectButton>
-                    <label for="applyTax">
-                        <span>세금 적용</span>
-                        <Tag severity="contrast">{{
+                    <label for="applyTax"
+                        ><span>세금 적용</span
+                        ><Tag severity="contrast">{{
                             applyTax ? '세후' : '세전'
-                        }}</Tag>
-                    </label>
+                        }}</Tag></label
+                    >
                 </IftaLabel>
             </InputGroup>
         </div>
@@ -260,9 +267,21 @@
                         </tr>
                         <tr>
                             <th>배당금</th>
-                            <td>${{ dividendStats.max.toFixed(4) }}</td>
-                            <td>${{ dividendStats.avg.toFixed(4) }}</td>
-                            <td>${{ dividendStats.min.toFixed(4) }}</td>
+                            <td>
+                                {{
+                                    formatCurrency(dividendStats.max, currency)
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    formatCurrency(dividendStats.avg, currency)
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    formatCurrency(dividendStats.min, currency)
+                                }}
+                            </td>
                         </tr>
                     </thead>
                     <tbody>

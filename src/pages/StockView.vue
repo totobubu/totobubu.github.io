@@ -1,4 +1,3 @@
-<!-- REFACTORED: src/pages/StockView.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
     import { ref, computed, watch } from 'vue';
@@ -11,10 +10,7 @@
     import { useMonthlyChart } from '@/composables/charts/useMonthlyChart';
     import { usePriceChart } from '@/composables/charts/usePriceChart';
     import { parseYYMMDD } from '@/utils/date.js';
-    import {
-        monthColors,
-        generateTimeRangeOptions,
-    } from '@/utils/chartUtils.js';
+    import { monthColors } from '@/utils/chartUtils.js';
 
     import Skeleton from 'primevue/skeleton';
     import StockHeader from '@/components/StockHeader.vue';
@@ -41,26 +37,15 @@
         (route.params.ticker || '').toString().replace(/-/g, '.')
     );
     const pageTitle = computed(() => {
-        const upperTicker = tickerSymbol.value.toUpperCase();
+        const displayName =
+            tickerInfo.value?.koName || tickerInfo.value?.symbol?.toUpperCase();
         if (isLoading.value) return '종목 정보 로딩 중...';
-        return tickerInfo.value?.longName
-            ? `${tickerInfo.value.longName} (${upperTicker}) | 정보`
-            : `${upperTicker} | 정보`;
+        return displayName ? `${displayName} | 정보` : '종목 정보';
     });
     useHead({ title: pageTitle });
 
     const isPriceChartMode = ref(false);
     const selectedTimeRange = ref('1Y');
-
-    const timeRangeOptions = computed(() => {
-        if (!tickerInfo.value?.periods) {
-            return [
-                { label: '1Y', value: '1Y' },
-                { label: '전체', value: 'ALL' },
-            ];
-        }
-        return generateTimeRangeOptions(tickerInfo.value.periods);
-    });
 
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
@@ -68,7 +53,11 @@
         const validHistory = dividendHistory.value.filter(
             (item) =>
                 parseYYMMDD(item['배당락']) &&
-                !isNaN(parseFloat(item['배당금']?.replace('$', '')))
+                !isNaN(
+                    parseFloat(
+                        String(item['배당금'] || '').replace(/[$,₩]/g, '')
+                    )
+                )
         );
         if (validHistory.length === 0) return [];
 
@@ -114,6 +103,7 @@
             deviceType: deviceType.value,
             group: tickerInfo.value?.group,
             theme: themeOptions,
+            currency: tickerInfo.value?.currency || 'USD',
         };
 
         if (isPriceChartMode.value) return usePriceChart(sharedOptions);
@@ -151,11 +141,12 @@
     const chartContainerWidth = computed(
         () => chartComposableResult.value.chartContainerWidth
     );
-
-    const hasDividendChartMode = computed(() => {
-        const freq = tickerInfo.value?.frequency;
-        return ['매주', '분기', '4주', '매월'].includes(freq);
-    });
+    const timeRangeOptions = computed(
+        () => chartComposableResult.value.timeRangeOptions
+    );
+    const hasDividendChartMode = computed(() =>
+        ['매주', '분기', '4주', '매월'].includes(tickerInfo.value?.frequency)
+    );
     const isGrowthStockChart = computed(
         () => !dividendHistory.value || dividendHistory.value.length < 5
     );
@@ -187,24 +178,28 @@
             <Skeleton height="5rem" borderRadius="1rem"></Skeleton>
             <Skeleton height="20rem" borderRadius="1rem"></Skeleton>
         </div>
+
         <div v-else-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
             <p class="text-red-500 text-xl mt-4">{{ error }}</p>
         </div>
+
         <div
             v-else-if="isUpcoming && tickerInfo"
             class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
             <div class="text-center my-8">
-                <i class="pi pi-box text-5xl dark:text-surface-500" />
+                <i class="pi pi-box text-5xl text-surface-500" />
                 <p class="text-xl mt-4">출시 예정 종목입니다.</p>
-                <p class="dark:text-surface-500">
+                <p class="text-surface-500">
                     데이터가 집계되면 차트와 상세 정보가 표시됩니다.
                 </p>
             </div>
         </div>
+
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
+
             <StockChartCard
                 v-if="!isGrowthStockChart"
                 :tickerInfo="tickerInfo"
@@ -218,24 +213,29 @@
             <StockPriceCandlestickChart
                 v-else
                 :price-data="backtestData?.prices" />
+
             <StockCalculators
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
                 :userBookmark="currentUserBookmark" />
+
             <StockHistoryPanel
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"
+                :currency="tickerInfo.currency"
                 :update-time="tickerInfo.Update"
                 :is-desktop="isDesktop" />
+
             <span
                 v-if="tickerInfo.Update"
-                class="dark:text-surface-500 dark:text-surface-400 text-center">
+                class="text-surface-500 dark:text-surface-400 text-center">
                 업데이트: {{ tickerInfo.Update }}
             </span>
         </div>
+
         <div v-else class="text-center mt-8">
-            <i class="pi pi-inbox text-5xl dark:text-surface-500" />
+            <i class="pi pi-inbox text-5xl text-surface-500" />
             <p class="text-xl mt-4">표시할 데이터가 없습니다.</p>
         </div>
     </div>

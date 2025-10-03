@@ -1,6 +1,6 @@
-// REFACTORED: src/composables/charts/useWeeklyChart.js
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
+import { formatCurrency } from '@/utils/numberFormat.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -9,19 +9,47 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
+const generateDynamicTimeRangeOptions = (history) => {
+    if (!history || history.length === 0)
+        return [{ label: '전체', value: 'ALL' }];
+    const dates = history
+        .map((h) => parseYYMMDD(h['배당락']))
+        .sort((a, b) => a - b);
+    const lastDate = dates[dates.length - 1];
+    const today = new Date();
+    const options = [];
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 1)))
+        options.push({ label: '1M', value: '1M' });
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 3)))
+        options.push({ label: '3M', value: '3M' });
+    if (lastDate >= new Date(new Date().setMonth(today.getMonth() - 6)))
+        options.push({ label: '6M', value: '6M' });
+    if (lastDate >= new Date(new Date().setFullYear(today.getFullYear() - 1)))
+        options.push({ label: '1Y', value: '1Y' });
+    options.push({ label: 'ALL', value: 'ALL' });
+    return options.map((opt) => ({
+        ...opt,
+        label: opt.value === 'ALL' ? '전체' : opt.label,
+    }));
+};
+
 export function useWeeklyChart(options) {
-    const { data, deviceType, theme } = options;
+    const { data, deviceType, theme, currency } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
+
+    const selectedTimeRange = ref('1Y');
+    const timeRangeOptions = computed(() =>
+        generateDynamicTimeRangeOptions(data)
+    );
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
-        const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(
-            date.getMonth() + 1
-        )
-            .toString()
-            .padStart(2, '0')}`;
-        const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
+        const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+        const amount = parseFloat(
+            String(item['배당금'] || '').replace(/[$,₩]/g, '')
+        );
+        if (isNaN(amount)) return acc;
         const weekOfMonth = Math.floor((date.getDate() - 1) / 7) + 1;
         if (!acc[yearMonth]) acc[yearMonth] = { total: 0, stacks: {} };
         if (!acc[yearMonth].stacks[weekOfMonth])
@@ -66,7 +94,7 @@ export function useWeeklyChart(options) {
             display: (context) =>
                 (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
                 labels.length <= 15,
-            formatter: (value) => `$${value.toFixed(4)}`,
+            formatter: (value) => formatCurrency(value, currency),
             color: '#fff',
             font: { size: barLabelSize, weight: 'bold' },
             align: 'center',
@@ -77,7 +105,7 @@ export function useWeeklyChart(options) {
             formatter: (value, context) => {
                 const total =
                     monthlyAggregated[labels[context.dataIndex]]?.total || 0;
-                return total > 0 ? `$${total.toFixed(4)}` : '';
+                return total > 0 ? formatCurrency(total, currency) : '';
             },
             color: textColor,
             anchor: 'end',
@@ -107,7 +135,7 @@ export function useWeeklyChart(options) {
                 callbacks: {
                     label: (item) =>
                         item.raw > 0 && item.dataset.label !== 'Total'
-                            ? `${item.dataset.label}: $${Number(item.raw).toFixed(4)}`
+                            ? `${item.dataset.label}: ${formatCurrency(item.raw, currency)}`
                             : null,
                     footer: (items) => {
                         const valid = items.filter(
@@ -115,7 +143,7 @@ export function useWeeklyChart(options) {
                         );
                         if (valid.length === 0) return '';
                         const sum = valid.reduce((t, c) => t + c.raw, 0);
-                        return `Total: $${sum.toFixed(4)}`;
+                        return `Total: ${formatCurrency(sum, currency)}`;
                     },
                 },
             },
@@ -134,6 +162,7 @@ export function useWeeklyChart(options) {
                 ticks: {
                     color: textColorSecondary,
                     font: { size: tickFontSize },
+                    callback: (value) => formatCurrency(value, currency),
                 },
                 grid: { color: surfaceBorder },
                 max: yAxisMax,
@@ -145,5 +174,7 @@ export function useWeeklyChart(options) {
         chartData,
         chartOptions,
         chartContainerWidth,
+        timeRangeOptions,
+        selectedTimeRange,
     };
 }

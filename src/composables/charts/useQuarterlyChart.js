@@ -1,6 +1,6 @@
-// src\composables\charts\useQuarterlyChart.js
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
+import { formatCurrency } from '@/utils/numberFormat.js';
 import {
     getDynamicChartWidth,
     getChartAspectRatio,
@@ -24,6 +24,7 @@ export function useQuarterlyChart(options) {
         aggregation = 'quarter',
         colorMap = defaultQuarterColors,
         labelPrefix = '분기',
+        currency,
     } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
@@ -31,13 +32,14 @@ export function useQuarterlyChart(options) {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
-
         const subCategory =
             aggregation === 'quarter'
                 ? Math.floor(date.getMonth() / 3) + 1
                 : date.getMonth() + 1;
-
-        const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
+        const amount = parseFloat(
+            String(item['배당금'] || '').replace(/[$,₩]/g, '')
+        );
+        if (isNaN(amount)) return acc;
         if (!acc[year]) acc[year] = { total: 0, stacks: {} };
         if (!acc[year].stacks[subCategory]) acc[year].stacks[subCategory] = 0;
         acc[year].stacks[subCategory] += amount;
@@ -74,7 +76,7 @@ export function useQuarterlyChart(options) {
                 (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
                 labels.length <= 11 &&
                 aggregation === 'quarter',
-            formatter: (value) => `$${value.toFixed(2)}`,
+            formatter: (value) => formatCurrency(value, currency),
             color: '#fff',
             font: { size: barLabelSize, weight: 'bold' },
             align: 'center',
@@ -85,7 +87,7 @@ export function useQuarterlyChart(options) {
             formatter: (value, context) => {
                 const total =
                     yearlyAggregated[labels[context.dataIndex]]?.total || 0;
-                return total > 0 ? `$${total.toFixed(2)}` : '';
+                return total > 0 ? formatCurrency(total, currency) : '';
             },
             color: textColor,
             anchor: 'end',
@@ -115,7 +117,7 @@ export function useQuarterlyChart(options) {
                 callbacks: {
                     label: (item) =>
                         item.raw > 0 && item.dataset.label !== 'Total'
-                            ? `${item.dataset.label}: $${Number(item.raw).toFixed(2)}`
+                            ? `${item.dataset.label}: ${formatCurrency(item.raw, currency)}`
                             : null,
                     footer: (items) => {
                         const valid = items.filter(
@@ -123,7 +125,7 @@ export function useQuarterlyChart(options) {
                         );
                         if (valid.length === 0) return '';
                         const sum = valid.reduce((t, c) => t + c.raw, 0);
-                        return `Total: $${sum.toFixed(2)}`;
+                        return `Total: ${formatCurrency(sum, currency)}`;
                     },
                 },
             },
@@ -142,6 +144,7 @@ export function useQuarterlyChart(options) {
                 ticks: {
                     color: textColorSecondary,
                     font: { size: tickFontSize },
+                    callback: (value) => formatCurrency(value, currency),
                 },
                 grid: { color: surfaceBorder },
                 max: yAxisMax,
@@ -149,10 +152,5 @@ export function useQuarterlyChart(options) {
         },
     };
 
-    // [핵심 수정] return 문에서 존재하지 않는 timeRangeOptions와 selectedTimeRange를 제거합니다.
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-    };
+    return { chartData, chartOptions, chartContainerWidth };
 }
