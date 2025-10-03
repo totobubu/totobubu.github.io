@@ -1,11 +1,12 @@
-// NEW FILE: src/composables/useBacktestPortfolio.js
+// REFACTORED: src/composables/useBacktestPortfolio.js
+
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
 
 export function useBacktestPortfolio() {
     const route = useRoute();
-    const allSymbols = ref([]);
+    const allStocks = ref([]); // 구조 변경: symbol 문자열 배열 -> 객체 배열
     const navDataMap = ref(new Map());
     const portfolio = ref([
         { symbol: '', value: 100, color: '#ef4444', underlying: null },
@@ -43,7 +44,7 @@ export function useBacktestPortfolio() {
             const navData = await response.json();
             const activeItems = navData.nav.filter((item) => !item.upcoming);
 
-            allSymbols.value = activeItems.map((item) => item.symbol);
+            allStocks.value = activeItems; // 모든 종목 정보(객체)를 저장
             navDataMap.value = new Map(
                 activeItems.map((item) => [item.symbol, item])
             );
@@ -54,12 +55,14 @@ export function useBacktestPortfolio() {
     };
 
     const initializePortfolioSymbol = () => {
-        const pathTicker = route.params.ticker?.toUpperCase();
-        if (pathTicker && allSymbols.value.includes(pathTicker)) {
+        const pathTicker = route.params.ticker
+            ?.toUpperCase()
+            .replace(/-/g, '.');
+        if (pathTicker && navDataMap.value.has(pathTicker)) {
             portfolio.value[0].symbol = pathTicker;
-        } else if (allSymbols.value.length > 0) {
-            const shuffled = shuffleArray([...allSymbols.value]);
-            portfolio.value[0].symbol = shuffled[0] || '';
+        } else if (allStocks.value.length > 0) {
+            const shuffled = shuffleArray([...allStocks.value]);
+            portfolio.value[0].symbol = shuffled[0]?.symbol || '';
         }
     };
 
@@ -104,9 +107,9 @@ export function useBacktestPortfolio() {
         if (portfolio.value.length >= 4) return;
         const existingSymbols = new Set(portfolio.value.map((p) => p.symbol));
         const newSymbol =
-            shuffleArray([...allSymbols.value]).find(
-                (s) => s && !existingSymbols.has(s)
-            ) || '';
+            shuffleArray([...allStocks.value]).find(
+                (s) => s.symbol && !existingSymbols.has(s.symbol)
+            )?.symbol || '';
         portfolio.value.push({ symbol: newSymbol, value: 0 });
         balanceWeights();
     };
@@ -133,9 +136,20 @@ export function useBacktestPortfolio() {
         return 99 - otherSecondarySum;
     };
 
+    // --- [핵심 추가] AutoComplete 검색 함수 ---
+    // const searchStock = (query) => {
+    //     if (!query) return [];
+    //     const lowerCaseQuery = query.toLowerCase();
+    //     return allStocks.value.filter(stock =>
+    //         stock.symbol.toLowerCase().includes(lowerCaseQuery) ||
+    //         stock.koName?.toLowerCase().includes(lowerCaseQuery) ||
+    //         stock.longName?.toLowerCase().includes(lowerCaseQuery)
+    //     );
+    // };
+
     return {
         portfolio,
-        allSymbols,
+        allStocks, // allSymbols 대신 allStocks
         displayPortfolio,
         totalValue,
         loadNavData,
@@ -144,5 +158,6 @@ export function useBacktestPortfolio() {
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
+        searchStock, // 검색 함수 내보내기
     };
 }

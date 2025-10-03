@@ -1,8 +1,7 @@
-<!-- src\components\backtester\controls\PortfolioItem.vue -->
 <script setup>
-    import { computed } from 'vue';
+    import { computed, ref } from 'vue';
     import Card from 'primevue/card';
-    import InputText from 'primevue/inputtext'; // [수정] AutoComplete -> InputText
+    import AutoComplete from 'primevue/autocomplete';
     import Button from 'primevue/button';
     import Slider from 'primevue/slider';
     import InputNumber from 'primevue/inputnumber';
@@ -11,32 +10,52 @@
     const props = defineProps({
         modelValue: Object,
         index: Number,
-        // allSymbols와 filteredSymbols는 더 이상 필요 없습니다.
-        // allSymbols: Array,
-        // filteredSymbols: Array,
-        maxValue: {
-            type: Number,
-            default: 100,
-        },
+        maxValue: { type: Number, default: 100 },
     });
 
-    const emit = defineEmits([
-        'update:modelValue',
-        'addItem',
-        'removeItem',
-        // 'search' 이벤트는 더 이상 필요 없습니다.
-    ]);
+    const emit = defineEmits(['update:modelValue', 'addItem', 'removeItem']);
+
+    const suggestions = ref([]);
 
     const item = computed({
         get: () => props.modelValue,
-        set: (value) => emit('update:modelValue', value),
+        set: (value) => {
+            const newItem = { ...props.modelValue };
+            // AutoComplete가 객체를 반환하면 symbol만 추출, 문자열이면 대문자로 변환하여 사용
+            const symbol =
+                typeof value === 'object' && value !== null
+                    ? value.symbol
+                    : (value || '').toUpperCase();
+            newItem.symbol = symbol;
+            emit('update:modelValue', newItem);
+        },
     });
 
     const isFirstItem = computed(() => props.index === 0);
 
     const handleRemove = () => emit('removeItem', props.index);
-    const handleAdd = () => emit('addItem', props.index);
-    // handleSearch 함수는 더 이상 필요 없습니다.
+    const handleAdd = () => emit('addItem');
+
+    // API를 호출하는 검색 함수
+    const searchSymbols = async (event) => {
+        if (!event.query.trim()) {
+            suggestions.value = [];
+            return;
+        }
+        try {
+            const response = await fetch(
+                `/api/searchSymbol?query=${event.query}`
+            );
+            if (response.ok) {
+                suggestions.value = await response.json();
+            } else {
+                suggestions.value = [];
+            }
+        } catch (error) {
+            console.error('Symbol search failed:', error);
+            suggestions.value = [];
+        }
+    };
 </script>
 
 <template>
@@ -57,13 +76,33 @@
                             severity="secondary"
                             disabled />
                     </InputGroupAddon>
-                    <InputText
+
+                    <AutoComplete
                         v-model="item.symbol"
+                        :suggestions="suggestions"
+                        @complete="searchSymbols"
+                        field="symbol"
                         :placeholder="`종목 ${index + 1}`"
                         class="p-inputtext-sm w-full"
-                        @update:modelValue="
-                            (val) => (item.symbol = val.toUpperCase())
-                        " />
+                        :delay="300">
+                        <template #option="slotProps">
+                            <div
+                                class="flex justify-between items-center w-full">
+                                <div>
+                                    <span class="font-bold">{{
+                                        slotProps.option.symbol
+                                    }}</span>
+                                    <div class="text-xs text-surface-500">
+                                        {{ slotProps.option.name }}
+                                    </div>
+                                </div>
+                                <Tag
+                                    :value="slotProps.option.market"
+                                    severity="secondary"
+                                    class="text-xs"></Tag>
+                            </div>
+                        </template>
+                    </AutoComplete>
 
                     <InputGroupAddon v-if="!isFirstItem">
                         <Button
@@ -72,6 +111,7 @@
                             @click="handleRemove" />
                     </InputGroupAddon>
                 </InputGroup>
+
                 <InputGroup class="text-center" v-if="isFirstItem">
                     <span class="w-full">기본종목 자동계산</span>
                 </InputGroup>
@@ -103,7 +143,7 @@
 
                 <div
                     v-if="item.initialShares > 0"
-                    class="text-xs dark:text-surface-500 mt-2 text-center">
+                    class="text-xs text-surface-500 mt-2 text-center">
                     초기 수량: {{ item.initialShares.toFixed(2) }}주
                 </div>
             </div>
@@ -115,9 +155,5 @@
     :deep(.p-inputnumber-input) {
         text-align: right;
         width: 100%;
-    }
-    /* [추가] InputText 스타일 */
-    :deep(.p-inputtext) {
-        text-transform: uppercase;
     }
 </style>

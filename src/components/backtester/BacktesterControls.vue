@@ -1,4 +1,3 @@
-<!-- REFACTORED: src/components/backtester/BacktesterControls.vue -->
 <script setup>
     import { onMounted } from 'vue';
     import MeterGroup from 'primevue/metergroup';
@@ -12,7 +11,7 @@
 
     const {
         portfolio,
-        allSymbols,
+        allStocks, // allSymbols -> allStocks
         displayPortfolio,
         totalValue,
         loadNavData,
@@ -21,6 +20,7 @@
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
+        // searchStock, // searchStock 가져오기
     } = useBacktestPortfolio();
 
     onMounted(loadNavData);
@@ -42,10 +42,7 @@
 
         emit('run', {
             ...dateAndInvestmentOptions,
-            portfolio: validPortfolio.map((p) => ({
-                ...p,
-                symbol: p.symbol.toUpperCase(),
-            })),
+            portfolio: validPortfolio, // toUpperCase() 로직은 engine에서 처리하도록 위임 가능
         });
     };
 </script>
@@ -54,16 +51,16 @@
     <div class="border-round surface-card" id="t-backtester-controls">
         <div
             class="flex justify-content-between align-items-center flex-wrap gap-2">
-            <span class="p-button p-component p-button-secondary"
-                >총 합계:
+            <span class="p-button p-component p-button-secondary">
+                총 합계:
                 <span
                     :class="{
                         'text-red-500 font-bold':
                             Math.round(totalValue) !== 100,
                     }"
                     >{{ totalValue }}%</span
-                ></span
-            >
+                >
+            </span>
             <Button
                 label="비중 균등 분배"
                 icon="pi pi-chart-pie"
@@ -74,7 +71,6 @@
             <template #label>
                 <PortfolioInput
                     :modelValue="displayPortfolio"
-                    :all-symbols="allSymbols"
                     :get-max-value="getMaxValueForSlider"
                     @addItem="addItem"
                     @removeItem="removeItem"
