@@ -6,7 +6,7 @@ import { joinURL } from 'ufo';
 
 export function useBacktestPortfolio() {
     const route = useRoute();
-    const allStocks = ref([]); // 구조 변경: symbol 문자열 배열 -> 객체 배열
+    const allStocks = ref([]);
     const navDataMap = ref(new Map());
     const portfolio = ref([
         { symbol: '', value: 100, color: '#ef4444', underlying: null },
@@ -44,7 +44,7 @@ export function useBacktestPortfolio() {
             const navData = await response.json();
             const activeItems = navData.nav.filter((item) => !item.upcoming);
 
-            allStocks.value = activeItems; // 모든 종목 정보(객체)를 저장
+            allStocks.value = activeItems;
             navDataMap.value = new Map(
                 activeItems.map((item) => [item.symbol, item])
             );
@@ -136,20 +136,12 @@ export function useBacktestPortfolio() {
         return 99 - otherSecondarySum;
     };
 
-    // --- [핵심 추가] AutoComplete 검색 함수 ---
-    // const searchStock = (query) => {
-    //     if (!query) return [];
-    //     const lowerCaseQuery = query.toLowerCase();
-    //     return allStocks.value.filter(stock =>
-    //         stock.symbol.toLowerCase().includes(lowerCaseQuery) ||
-    //         stock.koName?.toLowerCase().includes(lowerCaseQuery) ||
-    //         stock.longName?.toLowerCase().includes(lowerCaseQuery)
-    //     );
-    // };
-
+    // --- [핵심 수정] ---
+    // searchStock과 관련된 모든 코드를 제거합니다.
+    
     return {
         portfolio,
-        allStocks, // allSymbols 대신 allStocks
+        allStocks,
         displayPortfolio,
         totalValue,
         loadNavData,
@@ -158,6 +150,6 @@ export function useBacktestPortfolio() {
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
-        searchStock, // 검색 함수 내보내기
+        // searchStock 제거
     };
 }

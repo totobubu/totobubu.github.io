@@ -1,3 +1,4 @@
+<!-- src\components\backtester\controls\PortfolioInput.vue -->
 <script setup>
     import PortfolioItem from './PortfolioItem.vue';
 

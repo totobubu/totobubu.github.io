@@ -1,3 +1,4 @@
+<!-- src\components\backtester\BacktesterControls.vue -->
 <script setup>
     import { onMounted } from 'vue';
     import MeterGroup from 'primevue/metergroup';

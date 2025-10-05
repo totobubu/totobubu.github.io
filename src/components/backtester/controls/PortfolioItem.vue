@@ -1,3 +1,4 @@
+<!-- src\components\backtester\controls\PortfolioItem.vue -->
 <script setup>
     import { computed, ref } from 'vue';
     import Card from 'primevue/card';
@@ -17,26 +18,37 @@
 
     const suggestions = ref([]);
 
-    const item = computed({
-        get: () => props.modelValue,
+    // --- [핵심 수정 1] ---
+    // AutoComplete의 v-model이 이제 객체가 아닌 문자열(symbol)을 직접 다루게 됩니다.
+    // 따라서 item computed는 더 이상 필요하지 않습니다.
+    const itemSymbol = computed({
+        get: () => props.modelValue.symbol,
         set: (value) => {
-            const newItem = { ...props.modelValue };
-            // AutoComplete가 객체를 반환하면 symbol만 추출, 문자열이면 대문자로 변환하여 사용
-            const symbol =
+            // value가 객체로 들어오면 symbol을, 문자열이면 대문자로 변환하여 업데이트
+            const newSymbol =
                 typeof value === 'object' && value !== null
                     ? value.symbol
                     : (value || '').toUpperCase();
-            newItem.symbol = symbol;
-            emit('update:modelValue', newItem);
+            emit('update:modelValue', {
+                ...props.modelValue,
+                symbol: newSymbol,
+            });
         },
     });
+
+    const itemValue = computed({
+        get: () => props.modelValue.value,
+        set: (newValue) => {
+            emit('update:modelValue', { ...props.modelValue, value: newValue });
+        },
+    });
+    // --- // ---
 
     const isFirstItem = computed(() => props.index === 0);
 
     const handleRemove = () => emit('removeItem', props.index);
     const handleAdd = () => emit('addItem');
 
-    // API를 호출하는 검색 함수
     const searchSymbols = async (event) => {
         if (!event.query.trim()) {
             suggestions.value = [];
@@ -63,7 +75,7 @@
         <template #content>
             <div
                 id="t-backtester-portfolio-item-empty"
-                v-if="!isFirstItem && !item.symbol"
+                v-if="!isFirstItem && !props.modelValue.symbol"
                 class="flex align-items-center justify-content-center h-full">
                 <Button icon="pi pi-plus" text @click="handleAdd" />
             </div>
@@ -77,12 +89,13 @@
                             disabled />
                     </InputGroupAddon>
 
+                    <!-- [핵심 수정 2] v-model 수정 및 optionLabel 추가 -->
                     <AutoComplete
-                        v-model="item.symbol"
+                        v-model="itemSymbol"
                         :suggestions="suggestions"
                         @complete="searchSymbols"
-                        field="symbol"
-                        :placeholder="`종목 ${index + 1}`"
+                        optionLabel="symbol"
+                        placeholder="종목 검색"
                         class="p-inputtext-sm w-full"
                         :delay="300">
                         <template #option="slotProps">
@@ -117,7 +130,7 @@
                 </InputGroup>
                 <InputGroup v-else>
                     <Slider
-                        v-model="item.value"
+                        v-model="itemValue"
                         class="flex-1"
                         :max="maxValue" />
                 </InputGroup>
@@ -128,12 +141,12 @@
                         class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled p-inputtext-sm w-full">
                         <span
                             class="p-inputtext p-component p-filled p-inputnumber-input text-center">
-                            {{ item.value || 0 }}%
+                            {{ itemValue || 0 }}%
                         </span>
                     </span>
                     <InputNumber
                         v-else
-                        v-model="item.value"
+                        v-model="itemValue"
                         class="p-inputtext-sm w-full"
                         suffix=" %"
                         min="1"
@@ -142,9 +155,9 @@
                 </InputGroup>
 
                 <div
-                    v-if="item.initialShares > 0"
+                    v-if="props.modelValue.initialShares > 0"
                     class="text-xs text-surface-500 mt-2 text-center">
-                    초기 수량: {{ item.initialShares.toFixed(2) }}주
+                    초기 수량: {{ props.modelValue.initialShares.toFixed(2) }}주
                 </div>
             </div>
         </template>
