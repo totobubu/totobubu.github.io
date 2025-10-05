@@ -1,8 +1,71 @@
 // REFACTORED: src/composables/useBacktestPortfolio.js
-
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
+
+async function registerNewTickers(portfolio, navDataMapRef) {
+    const navMap = navDataMapRef.value;
+    if (!navMap || navMap.size === 0) {
+        console.warn('navDataMap is not ready for registering new tickers.');
+        return;
+    }
+
+    const newTickers = portfolio.filter(
+        (p) => p.symbol && !navMap.has(p.symbol)
+    );
+
+    if (newTickers.length === 0) return;
+
+    console.log(
+        'Registering new tickers:',
+        newTickers.map((t) => t.symbol)
+    );
+
+    for (const ticker of newTickers) {
+        try {
+            // 국가 코드를 추정하여 검색 쿼리에 추가 (더 정확한 검색을 위해)
+            const isKorean = /^\d{6}$/.test(ticker.symbol);
+            const countryQuery = isKorean ? '&country=KR' : '&country=US';
+            const searchRes = await fetch(
+                `/api/searchSymbol?query=${ticker.symbol}${countryQuery}`
+            );
+
+            if (searchRes.ok) {
+                const suggestions = await searchRes.json();
+                const found = suggestions.find(
+                    (s) =>
+                        s.symbol.toUpperCase().replace(/\.(KS|KQ)$/, '') ===
+                        ticker.symbol.toUpperCase()
+                );
+
+                if (found) {
+                    console.log(
+                        `Found new ticker info for ${ticker.symbol}:`,
+                        found
+                    );
+                    await fetch('/api/addTicker', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            symbol: found.symbol.replace(/\.(KS|KQ)$/, ''),
+                            market:
+                                found.market === 'KOS' ? 'KOSPI' : found.market, // 'KOS' -> 'KOSPI'
+                            longName: found.name,
+                            koName: isKorean ? found.name : null,
+                            currency:
+                                found.symbol.endsWith('.KS') ||
+                                found.symbol.endsWith('.KQ')
+                                    ? 'KRW'
+                                    : 'USD',
+                        }),
+                    });
+                }
+            }
+        } catch (error) {
+            console.error(`Failed to register ${ticker.symbol}:`, error);
+        }
+    }
+}
 
 export function useBacktestPortfolio() {
     const route = useRoute();
@@ -138,10 +201,11 @@ export function useBacktestPortfolio() {
 
     // --- [핵심 수정] ---
     // searchStock과 관련된 모든 코드를 제거합니다.
-    
+
     return {
         portfolio,
         allStocks,
+        navDataMap, // navDataMap 내보내기
         displayPortfolio,
         totalValue,
         loadNavData,
@@ -150,6 +214,6 @@ export function useBacktestPortfolio() {
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
-        // searchStock 제거
+        registerNewTickers,
     };
 }

@@ -5,6 +5,7 @@
     defineProps({
         modelValue: Array,
         getMaxValue: Function,
+        navDataMap: Map, // navDataMap prop 추가
     });
     const emit = defineEmits(['addItem', 'removeItem', 'update:portfolioItem']);
 </script>
@@ -23,6 +24,7 @@
                 "
                 :index="index"
                 :max-value="getMaxValue(index)"
+                :nav-data-map="navDataMap"
                 @addItem="emit('addItem')"
                 @removeItem="emit('removeItem', index)" />
         </div>

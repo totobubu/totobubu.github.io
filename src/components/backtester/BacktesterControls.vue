@@ -1,4 +1,4 @@
-<!-- src\components\backtester\BacktesterControls.vue -->
+<!-- REFACTORED: src/components/backtester/BacktesterControls.vue -->
 <script setup>
     import { onMounted } from 'vue';
     import MeterGroup from 'primevue/metergroup';
@@ -12,7 +12,8 @@
 
     const {
         portfolio,
-        allStocks, // allSymbols -> allStocks
+        navDataMap, // [핵심 수정] 누락되었던 navDataMap 추가
+        registerNewTickers,
         displayPortfolio,
         totalValue,
         loadNavData,
@@ -21,12 +22,11 @@
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
-        // searchStock, // searchStock 가져오기
     } = useBacktestPortfolio();
 
     onMounted(loadNavData);
 
-    const handleRun = (dateAndInvestmentOptions) => {
+    const handleRun = async (dateAndInvestmentOptions) => {
         const validPortfolio = portfolio.value.filter(
             (p) => p.symbol && p.value > 0
         );
@@ -41,9 +41,11 @@
             return;
         }
 
+        await registerNewTickers(validPortfolio, navDataMap);
+
         emit('run', {
             ...dateAndInvestmentOptions,
-            portfolio: validPortfolio, // toUpperCase() 로직은 engine에서 처리하도록 위임 가능
+            portfolio: validPortfolio,
         });
     };
 </script>
@@ -73,6 +75,7 @@
                 <PortfolioInput
                     :modelValue="displayPortfolio"
                     :get-max-value="getMaxValueForSlider"
+                    :nav-data-map="navDataMap"
                     @addItem="addItem"
                     @removeItem="removeItem"
                     @update:portfolioItem="updatePortfolioItem" />
