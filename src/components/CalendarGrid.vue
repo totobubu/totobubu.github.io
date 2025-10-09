@@ -69,20 +69,21 @@
                 default:
                     return 'freq-default';
             }
-        } else if (frequency === '4주') {
-            switch (group) {
-                case 'A':
-                    return 'freq-a';
-                case 'B':
-                    return 'freq-b';
-                case 'C':
-                    return 'freq-c';
-                case 'D':
-                    return 'freq-d';
-                default:
-                    return 'freq-default';
-            }
-        }
+        } 
+        // else if (frequency === '4주') {
+        //     switch (group) {
+        //         case 'A':
+        //             return 'freq-a';
+        //         case 'B':
+        //             return 'freq-b';
+        //         case 'C':
+        //             return 'freq-c';
+        //         case 'D':
+        //             return 'freq-d';
+        //         default:
+        //             return 'freq-default';
+        //     }
+        // }
         return 'freq-default';
     };
 
