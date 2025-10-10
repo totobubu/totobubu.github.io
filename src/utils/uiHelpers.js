@@ -1,14 +1,6 @@
-// src\utils\uiHelpers.js
+// REFACTORED: src/utils/uiHelpers.js
 export const getGroupSeverity = (group) => {
     switch (group) {
-        case 'A':
-            return 'danger';
-        case 'B':
-            return 'warning';
-        case 'C':
-            return 'success';
-        case 'D':
-            return 'info';
         case '월':
             return 'mon';
         case '화':

@@ -1,4 +1,4 @@
-<!-- stock\src\components\CalendarGrid.vue -->
+<!-- REFACTORED: src/components/CalendarGrid.vue -->
 <script setup>
     import { ref, computed, watch, defineEmits } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
@@ -9,7 +9,6 @@
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
 
-    // PrimeVue 컴포넌트 import
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
@@ -22,99 +21,57 @@
     });
 
     const emit = defineEmits(['view-ticker']);
-
-    // useFilterState에서 toggleMyStock 함수를 직접 가져옵니다.
     const { toggleMyStock } = useFilterState();
-
     const { isMobile } = useBreakpoint();
     const fullCalendar = ref(null);
     const currentTitle = ref('');
     const currentView = ref(isMobile.value ? 'listWeek' : 'dayGridMonth');
 
-    const viewOptions = computed(() => {
-        if (isMobile.value) {
-            return [{ label: '목록', value: 'listWeek' }];
-        }
-        return [
-            { label: '월', value: 'dayGridMonth' },
-            { label: '주', value: 'dayGridWeek' },
-        ];
-    });
+    const viewOptions = computed(() =>
+        isMobile.value
+            ? [{ label: '목록', value: 'listWeek' }]
+            : [
+                  { label: '월', value: 'dayGridMonth' },
+                  { label: '주', value: 'dayGridWeek' },
+              ]
+    );
 
     const getEventClass = (tickerInfo) => {
         if (!tickerInfo) return 'freq-default';
         const { frequency, group } = tickerInfo;
 
-        if (frequency === '매월' || frequency === '분기') {
-            switch (frequency) {
-                case '매월':
-                    return 'freq-monthly';
-                case '분기':
-                    return 'freq-quarterly';
-                default:
-                    return 'freq-default';
-            }
-        } else if (frequency === '매주') {
-            switch (group) {
-                case '월':
-                    return 'freq-mon';
-                case '화':
-                    return 'freq-tue';
-                case '수':
-                    return 'freq-wed';
-                case '목':
-                    return 'freq-thu';
-                case '금':
-                    return 'freq-fri';
-                default:
-                    return 'freq-default';
-            }
-        } 
-        // else if (frequency === '4주') {
-        //     switch (group) {
-        //         case 'A':
-        //             return 'freq-a';
-        //         case 'B':
-        //             return 'freq-b';
-        //         case 'C':
-        //             return 'freq-c';
-        //         case 'D':
-        //             return 'freq-d';
-        //         default:
-        //             return 'freq-default';
-        //     }
-        // }
+        if (frequency === '매월') return 'freq-monthly';
+        if (frequency === '분기') return 'freq-quarterly';
+        if (frequency === '매주') {
+            const groupMap = {
+                월: 'mon',
+                화: 'tue',
+                수: 'wed',
+                목: 'thu',
+                금: 'fri',
+            };
+            return `freq-${groupMap[group] || 'default'}`;
+        }
         return 'freq-default';
     };
 
     const calendarEvents = computed(() => {
         if (!props.dividendsByDate) return [];
-
-        // Object.entries()는 [key, value] 형태의 배열을 반환합니다.
-        // flatMap의 콜백 함수에서 이 [key, value]를 인자로 받습니다.
         return Object.entries(props.dividendsByDate).flatMap(
-            ([date, dividendArray]) => {
-                // 이제 dividendArray는 날짜에 해당하는 배당금 객체들의 배열입니다.
-                // 이 배열을 map으로 순회합니다.
-                return dividendArray.map((entry) => {
-                    return {
-                        title: entry.amount
-                            ? `${entry.ticker} $${entry.amount.toFixed(4)}`
-                            : entry.ticker,
-                        start: date, // key였던 date 변수를 사용합니다.
-                        extendedProps: {
-                            ticker: entry.ticker,
-                            amount: entry.amount,
-                            eventClass: getEventClass({
-                                frequency: entry.frequency,
-                                group: entry.group,
-                            }),
-                            frequency: entry.frequency,
-                            group: entry.group,
-                        },
-                    };
-                });
-            }
+            ([date, dividendArray]) =>
+                dividendArray.map((entry) => ({
+                    title: entry.amount
+                        ? `${entry.ticker} $${entry.amount.toFixed(4)}`
+                        : entry.ticker,
+                    start: date,
+                    extendedProps: {
+                        ticker: entry.ticker,
+                        amount: entry.amount,
+                        eventClass: getEventClass(entry),
+                        frequency: entry.frequency,
+                        group: entry.group,
+                    },
+                }))
         );
     });
 
@@ -136,10 +93,7 @@
         locale: koLocale,
         headerToolbar: false,
         showNonCurrentDates: false,
-        validRange: {
-            start: '2024-01-01',
-            end: '2026-04-01',
-        },
+        validRange: { start: '2024-01-01', end: '2026-04-01' },
         datesSet: (info) => {
             currentTitle.value = info.view.title;
             if (info.view.type !== currentView.value) {
@@ -157,21 +111,15 @@
             },
         ],
         weekends: false,
-        eventClassNames: (arg) => {
-            return arg.event.extendedProps.eventClass || 'freq-default';
-        },
-        eventClick: function (info) {
-            const target = info.jsEvent.target;
-            const actionElement = target.closest('[data-action]');
+        eventClassNames: (arg) =>
+            arg.event.extendedProps.eventClass || 'freq-default',
+        eventClick: (info) => {
+            const actionElement = info.jsEvent.target.closest('[data-action]');
             if (actionElement) {
-                const action = actionElement.dataset.action;
-                const ticker = info.event.extendedProps.ticker;
-                if (action === 'view') {
-                    emit('view-ticker', ticker);
-                } else if (action === 'remove') {
-                    // emit 대신, 가져온 toggleMyStock 함수를 직접 호출합니다.
-                    toggleMyStock(ticker);
-                }
+                const { action } = actionElement.dataset;
+                const { ticker } = info.event.extendedProps;
+                if (action === 'view') emit('view-ticker', ticker);
+                else if (action === 'remove') toggleMyStock(ticker);
             }
         },
         eventContent: (arg) => {
@@ -181,44 +129,25 @@
                 };
             }
 
-            const { ticker, amount, eventClass, frequency, group } =
-                arg.event.extendedProps;
+            const { ticker, amount, eventClass } = arg.event.extendedProps;
             const amountHtml =
-                amount !== null && typeof amount === 'number' && !isNaN(amount)
+                amount != null
                     ? `<span>$${amount.toFixed(4)}</span>`
                     : '<span class="no-amount">예정</span>';
-            const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
-            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm " data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
+            const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
+            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}">
-                        <span class="data">
-                            <span class="ticker-name">${ticker}</span>
-                            <span class="amount-text">${amountHtml}</span>
-                            </span>
-                            <span class="actions">
-                                <button class="p-button p-component p-button-icon-only p-button-text p-button-sm p-button-contrast" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>
-                                ${removeButtonHtml}
-                            </span>
-                        </div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {
-                    html: `<div class="stock-item-week ${eventClass}">
-                            <span class="ticker-name">${ticker}</span>
-                            <span class="amount-text">${amountHtml}</span>
-                            <span class="actions">
-                                ${viewButtonHtml}
-                                ${removeButtonHtml}
-                            </span>
-                        </div>`,
+                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ${eventClass}"  data-action="view" title="상세 보기">
-                            <div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div>
-                        </div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div></div>`,
                 };
             }
         },
@@ -226,22 +155,16 @@
 
     watch(currentView, (newView) => {
         if (newView && fullCalendar.value) {
-            const calendarApi = fullCalendar.value.getApi();
-            if (calendarApi.view.type !== newView) {
-                calendarApi.changeView(newView);
-            }
+            fullCalendar.value.getApi().changeView(newView);
         }
     });
-
     watch(isMobile, (isNowMobile) => {
-        const calendarApi = fullCalendar.value?.getApi();
-        if (!calendarApi) return;
-        const newView = isNowMobile ? 'listWeek' : 'dayGridMonth';
-        if (calendarApi.view.type !== newView) {
-            calendarApi.changeView(newView);
+        if (fullCalendar.value) {
+            fullCalendar.value
+                .getApi()
+                .changeView(isNowMobile ? 'listWeek' : 'dayGridMonth');
         }
     });
-
     watch(
         () => [props.dividendsByDate, props.holidays],
         () => {

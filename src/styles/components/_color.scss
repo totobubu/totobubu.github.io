@@ -9,11 +9,6 @@ $color-wed: #14b8a6;
 $color-thu: #6366fa;
 $color-fri: #f472b6;
 
-$color-a: var(--p-red-400); // red
-$color-b: var(--p-orange-400); // orange
-$color-c: var(--p-green-400); // green
-$color-d: var(--p-sky-400); // sky
-
 $color-monthly: var(--p-amber-400);
 $color-quarterly: var(--p-fuchsia-400);
 
@@ -82,30 +77,6 @@ $color-quarterly: var(--p-fuchsia-400);
                 border-color: $color-fri;
             }
         }
-        .freq-a {
-            color: $color-a;
-            .fc-list-event-dot {
-                border-color: $color-a;
-            }
-        }
-        .freq-b {
-            color: $color-b;
-            .fc-list-event-dot {
-                border-color: $color-b;
-            }
-        }
-        .freq-c {
-            color: $color-c;
-            .fc-list-event-dot {
-                border-color: $color-c;
-            }
-        }
-        .freq-d {
-            color: $color-d;
-            .fc-list-event-dot {
-                border-color: $color-d;
-            }
-        }
     }
     &-dayGridWeek-view {
         .stock-item-week {
@@ -130,18 +101,6 @@ $color-quarterly: var(--p-fuchsia-400);
             &.freq-fri {
                 background-color: $color-fri;
             }
-            &.freq-a {
-                background-color: $color-a;
-            }
-            &.freq-b {
-                background-color: $color-b;
-            }
-            &.freq-c {
-                background-color: $color-c;
-            }
-            &.freq-d {
-                background-color: $color-d;
-            }
         }
     }
     &-dayGridMonth-view {
@@ -165,18 +124,6 @@ $color-quarterly: var(--p-fuchsia-400);
         }
         .freq-fri {
             background-color: $color-fri;
-        }
-        .freq-a {
-            background-color: $color-a;
-        }
-        .freq-b {
-            background-color: $color-b;
-        }
-        .freq-c {
-            background-color: $color-c;
-        }
-        .freq-d {
-            background-color: $color-d;
         }
     }
 }
