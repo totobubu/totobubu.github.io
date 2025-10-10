@@ -1,4 +1,4 @@
-<!-- stock\src\layouts\AppSidebar.vue -->
+<!-- REFACTORED: src/layouts/AppSidebar.vue -->
 <script setup>
     import { ref, onMounted, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
@@ -8,7 +8,7 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
-    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
+    import Skeleton from 'primevue/skeleton';
     import Button from 'primevue/button';
     import Dialog from 'primevue/dialog';
     import ToggleButton from 'primevue/togglebutton';
@@ -25,7 +25,6 @@
     const error = ref(null);
     const selectedTicker = ref(null);
 
-    // [신규] 스켈레톤 UI를 위한 가짜 데이터
     const skeletonItems = ref(new Array(15));
 
     const {
@@ -146,17 +145,7 @@
                 liveDataArray.map((item) => [item.symbol, item])
             );
 
-            const dayOrder = {
-                월: 1,
-                화: 2,
-                수: 3,
-                목: 4,
-                금: 5,
-                A: 6,
-                B: 7,
-                C: 8,
-                D: 9,
-            };
+            const dayOrder = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
 
             etfList.value = activeNavItems.map((item) => {
                 const liveData = liveDataMap.get(item.symbol);
@@ -171,7 +160,9 @@
                 return {
                     ...item,
                     yield: liveData.regularMarketChangePercent
-                        ? `${(liveData.regularMarketChangePercent * 100).toFixed(2)}%`
+                        ? `${(
+                              liveData.regularMarketChangePercent * 100
+                          ).toFixed(2)}%`
                         : '-',
                     price: liveData.regularMarketPrice || '-',
                     groupOrder: dayOrder[item.group] ?? 999,
@@ -182,11 +173,13 @@
                 ...new Set(etfList.value.map((item) => item.company)),
             ];
             frequencies.value = [
-                ...new Set(etfList.value.map((item) => item.frequency)),
+                ...new Set(
+                    etfList.value.map((item) => item.frequency).filter(Boolean)
+                ),
             ];
             groups.value = [
                 ...new Set(
-                    etfList.value.map((item) => item.group).filter((g) => g)
+                    etfList.value.map((item) => item.group).filter(Boolean)
                 ),
             ];
 
@@ -419,8 +412,6 @@
         width: 2.5rem;
         height: 2.5rem;
     }
-
-    /* [신규] 로딩 중 스켈레톤 스타일 */
     .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
         text-align: center;
     }

@@ -127,8 +127,7 @@
                 labelPrefix: '월',
             });
         }
-        if (freq === '매주' || freq === '4주')
-            return useWeeklyChart(sharedOptions);
+        if (freq === '매주') return useWeeklyChart(sharedOptions);
         if (freq === '분기')
             return useQuarterlyChart({
                 ...sharedOptions,
@@ -155,7 +154,6 @@
     const hasDividendChartMode = computed(() => {
         const freq = tickerInfo.value?.frequency;
         return ['매주', '분기', '매월'].includes(freq);
-        // return ['매주', '분기', '4주', '매월'].includes(freq);
     });
     const isGrowthStockChart = computed(
         () => !dividendHistory.value || dividendHistory.value.length < 5
