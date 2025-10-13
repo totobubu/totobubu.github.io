@@ -1,4 +1,4 @@
-<!-- stock\src\layouts\Layout.vue -->
+<!-- REFACTORED: src/layouts/Layout.vue -->
 <script setup>
     import { ref, watch, computed, onMounted, inject } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
@@ -23,6 +23,10 @@
     const { filters } = useFilterState();
     const { tickerInfo } = useStockData();
     const visible = ref(false);
+
+    const isStandalonePage = computed(() => {
+        return ['/', '/thumbnail-generator'].includes(route.path);
+    });
 
     const goToLogin = () => router.push('/login');
     const onLogout = async () => {
@@ -59,6 +63,8 @@
             items.push({ label: '마이페이지' });
         } else if (route.name === 'contact') {
             items.push({ label: '문의하기' });
+        } else if (route.name === 'backtester') {
+            items.push({ label: '백테스터' });
         } else if (route.name === 'stock-detail' && tickerInfo.value) {
             if (tickerInfo.value.symbol)
                 items.push({ label: tickerInfo.value.symbol.toUpperCase() });
@@ -79,7 +85,7 @@
 </script>
 
 <template>
-    <div v-if="route.path === '/'" id="t-home">
+    <div v-if="isStandalonePage" id="t-standalone">
         <RouterView />
     </div>
     <div v-else id="t-layout">
@@ -102,7 +108,7 @@
                             </router-link>
                             <span
                                 v-else
-                                class="dark:text-surface-500 dark:text-surface-400"
+                                class="text-surface-500 dark:text-surface-400"
                                 >{{ item.label }}</span
                             >
                         </template>
@@ -159,30 +165,30 @@
                     icon="pi pi-arrow-up" />
             </section>
         </main>
-            <aside id="t-sidebar" v-if="isDesktop">
-                <header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </header>
-                <AppSidebar />
-            </aside>
+        <aside id="t-sidebar" v-if="isDesktop">
+            <header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </header>
+            <AppSidebar />
+        </aside>
 
-            <Drawer
-                v-else
-                v-model:visible="visible"
-                :position="isMobile ? 'full' : 'right'"
-                modal
-                id="toto-search"
-                :class="deviceType">
-                <template #header>
-                    <FilterInput
-                        v-model="filters.global.value"
-                        title="전체 티커 검색"
-                        filter-type="global" />
-                </template>
-                <AppSidebar />
-            </Drawer>
+        <Drawer
+            v-else
+            v-model:visible="visible"
+            :position="isMobile ? 'full' : 'right'"
+            modal
+            id="toto-search"
+            :class="deviceType">
+            <template #header>
+                <FilterInput
+                    v-model="filters.global.value"
+                    title="전체 티커 검색"
+                    filter-type="global" />
+            </template>
+            <AppSidebar />
+        </Drawer>
     </div>
 </template>
