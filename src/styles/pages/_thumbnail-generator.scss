@@ -1,4 +1,4 @@
-// CREATE NEW FILE: src/styles/pages/_thumbnail-generator.scss
+// REFACTORED: src/styles/pages/_thumbnail-generator.scss
 @use '../abstracts/variables' as vars;
 @use '../functions/breakpoints' as bp;
 
@@ -31,9 +31,9 @@
         width: 1080px;
         height: 1080px;
         overflow: hidden;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Bungee', sans-serif;
         color: #ffffff;
-        transform: scale(0.6); // 페이지에서 볼 때 크기 조절
+        transform: scale(0.6);
         transform-origin: center;
 
         @include bp.media-breakpoint-down('xl') {
@@ -45,31 +45,6 @@
         @include bp.media-breakpoint-down('sm') {
             transform: scale(0.3);
         }
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        &.yieldmax::before {
-            background: linear-gradient(
-                180deg,
-                rgba(86, 29, 101, 0.5) 0%,
-                rgba(20, 3, 31, 0.9) 100%
-            );
-        }
-        &.roundhill::before {
-            background: linear-gradient(
-                180deg,
-                rgba(50, 47, 126, 0.5) 0%,
-                rgba(13, 11, 48, 0.9) 100%
-            );
-        }
     }
 
     .bg-image {
@@ -79,7 +54,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0.6;
+        opacity: 0.8;
+        z-index: 0;
     }
 
     .header,
@@ -104,7 +80,6 @@
         }
         .date {
             font-size: 64px;
-            font-weight: 700;
         }
     }
 
@@ -118,14 +93,14 @@
         text-align: center;
 
         .ticker {
-            font-size: 400px;
-            font-weight: 900;
+            font-family: 'Bungee', sans-serif;
+            font-size: 300px;
             line-height: 1;
             text-transform: uppercase;
         }
         .amount {
+            font-family: 'Bungee', sans-serif;
             font-size: 200px;
-            font-weight: 900;
             line-height: 1;
             margin-top: -30px;
         }
@@ -134,11 +109,11 @@
     .footer {
         bottom: 60px;
         text-align: center;
-        font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
 
         .comparison {
+            font-family: 'Bungee', sans-serif;
             font-size: 72px;
         }
         .description {
@@ -146,15 +121,5 @@
             opacity: 0.9;
             margin-top: 10px;
         }
-    }
-
-    .sparkle {
-        width: 48px;
-        height: 48px;
-        background-image: url("data:image/svg+xml,%3csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M24 0L26.3137 12.3137L38 10L35.6863 22.3137L48 24L35.6863 25.6863L38 38L26.3137 35.6863L24 48L21.6863 35.6863L10 38L12.3137 25.6863L0 24L12.3137 22.3137L10 10L21.6863 12.3137L24 0Z' fill='white' fill-opacity='0.8'/%3e%3c/svg%3e");
-        position: absolute;
-        bottom: 60px;
-        right: 60px;
-        z-index: 2;
     }
 }
