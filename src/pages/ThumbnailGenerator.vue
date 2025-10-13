@@ -41,22 +41,12 @@
         { name: 'YieldMax', logo: '/logos/yieldmax.png' },
         { name: 'Roundhill', logo: '/logos/roundhill.svg' },
     ]);
+
+    // [핵심 수정 1] 이미지 경로를 public 폴더 기준으로 변경
     const backgroundOptions = ref([
-        {
-            name: 'Blue',
-            path: '/src/assets/thumbnail/blue.png',
-            tickerColor: '#6ffc04',
-        },
-        {
-            name: 'Gray',
-            path: '/src/assets/thumbnail/gray.png',
-            tickerColor: '#ffd700',
-        },
-        {
-            name: 'Red',
-            path: '/src/assets/thumbnail/red.png',
-            tickerColor: '#ffd700',
-        },
+        { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
+        { name: 'Gray', path: '/thumbnail/gray.png', tickerColor: '#ffd700' },
+        { name: 'Red', path: '/thumbnail/red.png', tickerColor: '#ffd700' },
     ]);
 
     const filteredThumbnails = computed(() => {
@@ -98,19 +88,17 @@
     const formatCurrentAmount = (amount) => {
         const amountStr = String(amount);
         const parts = amountStr.split('.');
-        if (parts.length < 2) {
-            return Number(amountStr).toFixed(4);
-        }
+        if (parts.length < 2) return Number(amountStr).toFixed(4);
         const decimalPart = parts[1];
-        if (decimalPart.length < 4) {
-            return Number(amountStr).toFixed(4);
-        }
+        if (decimalPart.length < 4) return Number(amountStr).toFixed(4);
         return amountStr;
     };
 
     onMounted(async () => {
         const today = new Date();
-        date.value = `${String(today.getFullYear()).slice(-2)}. ${String(today.getMonth() + 1)}. ${String(today.getDate())}`;
+        date.value = `${String(today.getFullYear()).slice(-2)}. ${String(
+            today.getMonth() + 1
+        )}. ${String(today.getDate())}`;
 
         try {
             const response = await fetch('/thumbnail.json');
@@ -139,14 +127,12 @@
                 return {
                     ...config,
                     logo: company.logo,
-                    tickerColor: background.tickerColor, // tickerColor를 여기서 할당합니다.
+                    tickerColor: background.tickerColor,
                     formattedCurrentAmount:
                         formatCurrentAmount(currentDividend),
                     comparisonText,
-                    backgroundImageUrl: new URL(
-                        background.path,
-                        import.meta.url
-                    ).href,
+                    // [핵심 수정 2] new URL() 로직 제거, 경로를 직접 사용
+                    backgroundImageUrl: background.path,
                 };
             });
 
