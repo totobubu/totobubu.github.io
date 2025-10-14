@@ -83,10 +83,14 @@ jobs:
             # 단계 9: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
             - name: 9. Aggregate bookmark popularity from Firestore
               env:
-                FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+                  FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
               run: python scripts/aggregate_popularity.py
-              
-            # 단계 10: 변경된 모든 데이터를 일관된 포맷으로 정리
+
+            # 단계 10: 캘린더 이벤트 데이터 생성
+            - name: 10. Generate aggregated calendar events data
+              run: npm run generate-calendar-events
+
+            # 단계 11: 변경된 모든 데이터를 일관된 포맷으로 정리
             - name: 10. Format generated data files
               run: npm run format:data
 
