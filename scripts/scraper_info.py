@@ -16,29 +16,23 @@ from utils import (
 )
 
 
-def fetch_bulk_ticker_info(ticker_symbols):
-    """여러 티커의 정보를 yfinance를 통해 한 번에 가져옵니다."""
-    print(f"Fetching bulk info for {len(ticker_symbols)} tickers...")
-    bulk_data = {}
+def fetch_bulk_ticker_info_batch(ticker_batch):
+    """티커 묶음(batch)의 정보를 yfinance를 통해 가져옵니다."""
+    batch_data = {}
     try:
-        tickers = yf.Tickers(ticker_symbols)
+        tickers_str = " ".join(ticker_batch)
+        tickers = yf.Tickers(tickers_str)
 
-        # [핵심 수정] tqdm으로 루프를 감싸서 진행률을 표시합니다.
-        for symbol, ticker_obj in tqdm(
-            tickers.tickers.items(), desc="Fetching Ticker Info"
-        ):
+        for symbol, ticker_obj in tickers.tickers.items():
             try:
-                # 개별 티커의 .info 접근 시 실제 데이터 fetching이 발생합니다.
-                bulk_data[symbol] = ticker_obj.info
-            except Exception as e:
-                # 개별 티커 정보 가져오기 실패 시 경고 출력
-                # tqdm.write를 사용하면 진행률 표시줄을 방해하지 않고 메시지를 출력할 수 있습니다.
-                tqdm.write(f"  - Warning: Failed to get info for {symbol}: {e}")
-                bulk_data[symbol] = None
-        return bulk_data
+                batch_data[symbol] = ticker_obj.info
+            except Exception:
+                batch_data[symbol] = None
+        return batch_data
     except Exception as e:
-        print(f"  -> Critical error during bulk fetch setup: {e}")
-        return {}
+        print(f"  -> Error during batch fetch: {e}")
+        # 실패한 배치에 대해 None으로 채운 딕셔너리 반환
+        return {symbol: None for symbol in ticker_batch}
 
 
 def process_single_ticker_info(info):
@@ -163,28 +157,37 @@ def main():
 
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
 
-    bulk_info = fetch_bulk_ticker_info(active_symbols)
+    # [핵심 수정] 티커 목록을 100개씩 묶어서 처리
+    batch_size = 100
+    all_bulk_info = {}
+
+    for i in tqdm(
+        range(0, len(active_symbols), batch_size),
+        desc="Fetching All Ticker Info in Batches",
+    ):
+        batch = active_symbols[i : i + batch_size]
+        batch_info = fetch_bulk_ticker_info_batch(batch)
+        all_bulk_info.update(batch_info)
+        if i + batch_size < len(active_symbols):
+            time.sleep(2)  # 각 배치 요청 사이에 2초 지연
 
     total_changed_files = 0
     now_kst = get_kst_now()
 
-    # tqdm을 메인 루프에도 적용하여 파일 저장 진행률을 보여줍니다.
     for info_from_nav in tqdm(
         active_tickers_from_nav, desc="Processing and Saving Data"
     ):
         ticker_symbol = info_from_nav.get("symbol")
 
-        raw_dynamic_info = bulk_info.get(ticker_symbol)
+        raw_dynamic_info = all_bulk_info.get(ticker_symbol)
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
         if not dynamic_info:
-            # tqdm.write(f"  -> Skipping update for {ticker_symbol} (fetch failed or invalid data).")
             continue
 
-        currency = info_from_nav.get(
-            "currency", "USD"
-        )  # nav.json에서 currency 정보 가져오기
+        currency = info_from_nav.get("currency", "USD")
 
+        # ... (이하 파일 저장 로직은 이전과 동일) ...
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
@@ -206,20 +209,15 @@ def main():
         if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(
             new_info_base, sort_keys=True, default=str
         ):
-            # tqdm.write(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
             continue
 
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        formatted_info = format_ticker_info(
-            final_ticker_info, currency
-        )  # currency 전달
-
+        formatted_info = format_ticker_info(final_ticker_info, currency)
         formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
 
         existing_data["tickerInfo"] = formatted_info
         if save_json_file(file_path, existing_data, indent=2):
-            # tqdm.write(f" => UPDATED Ticker Info for {ticker_symbol}")
             total_changed_files += 1
 
     print(
