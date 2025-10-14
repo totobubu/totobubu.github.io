@@ -1,4 +1,4 @@
-// REFACTORED: src/composables/charts/usePriceChart.js
+// src/composables/charts/usePriceChart.js
 import { computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import {

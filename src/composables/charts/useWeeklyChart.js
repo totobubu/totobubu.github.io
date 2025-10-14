@@ -1,4 +1,4 @@
-// REFACTORED: src/composables/charts/useWeeklyChart.js
+// src/composables/charts/useWeeklyChart.js
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {

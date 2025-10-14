@@ -1,4 +1,4 @@
-// REFACTORED: src/router/index.js
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import CalendarView from '../pages/CalendarView.vue';

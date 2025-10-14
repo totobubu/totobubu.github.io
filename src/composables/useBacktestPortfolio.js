@@ -1,4 +1,4 @@
-// NEW FILE: src/composables/useBacktestPortfolio.js
+// src/composables/useBacktestPortfolio.js
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
