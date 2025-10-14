@@ -8,6 +8,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    marketType: { value: '미국 ETF' }, // [신규] 시장 타입 필터 추가, 기본값 설정
     company: { value: null, matchMode: FilterMatchMode.EQUALS },
     frequency: { value: null, matchMode: FilterMatchMode.EQUALS },
     group: { value: null, matchMode: FilterMatchMode.EQUALS },
