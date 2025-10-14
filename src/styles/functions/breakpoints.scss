@@ -1,22 +1,23 @@
 // src\styles\functions\breakpoints.scss
 @use 'sass:map';
+@use 'sass:list';
 @use '../abstracts/variables' as vars;
 
 @function breakpoint-next(
     $name,
     $breakpoints: vars.$grid-breakpoints,
-    $breakpoint-names: map-keys($breakpoints)
+    $breakpoint-names: map.keys($breakpoints)
 ) {
-    $n: index($breakpoint-names, $name);
+    $n: list.index($breakpoint-names, $name);
     @return if(
-        $n !=null and $n < length($breakpoint-names),
-        nth($breakpoint-names, $n + 1),
+        $n !=null and $n < list.length($breakpoint-names),
+        list.nth($breakpoint-names, $n + 1),
         null
     );
 }
 
 @function breakpoint-min($name, $breakpoints: vars.$grid-breakpoints) {
-    $min: map-get($breakpoints, $name);
+    $min: map.get($breakpoints, $name);
     @return if($min != 0, $min, null);
 }
 
