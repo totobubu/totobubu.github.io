@@ -51,9 +51,13 @@ def parse_numeric_value(value):
         return None
 
 
-def format_currency(value, sign="$"):
-    """숫자를 통화 형식의 문자열로 포맷팅합니다."""
-    return f"{sign}{value:,.2f}" if isinstance(value, (int, float)) else "N/A"
+def format_currency(value, currency="USD"):
+    if value is None:
+        return "N/A"
+    symbol = "₩" if currency == "KRW" else "$"
+    if currency == "KRW":
+        return f"{symbol}{value:,.0f}"
+    return f"{symbol}{value:.2f}"
 
 
 def format_large_number(value):
