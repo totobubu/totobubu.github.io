@@ -90,16 +90,15 @@ vercel dev --listen 5000
 
 # 5. 권장 실행 순서
 
-npm run watch-nav 또는 npm run generate-nav
-
+node scripts/fetch_all_exchange_rates.js
 npm run add-ipo-dates
-
-npm run update-data (updateHistoricalData.js 실행) -> 주가 데이터 최신화
-
-python scripts/update_dividends.py => 배당 데이터 현실화
-
-python scripts/scraper_dividend.py -> 1, 2번에서 업데이트된 데이터를 기반으로 상세 배당 내역 계산
-
-python scripts/scraper_info.py -> 최신 시세 및 기업 정보 업데이트
-
+npm run generate-nav
+npm run update-data
+python scripts/update_dividends.py
+python scripts/scraper_dividend.py
+python scripts/scraper_info.py
+python scripts/generate_live_data.py
+python scripts/aggregate_popularity.py
+npm run generate-calendar-events
+npm run generate-sidebar-tickers
 npm run format:data
