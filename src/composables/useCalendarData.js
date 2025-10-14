@@ -1,4 +1,4 @@
-// composables\useCalendarData.js
+// REFACTORED: composables/useCalendarData.js
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
@@ -18,85 +18,20 @@ const loadAllData = () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const tickerNamesResponse = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'nav.json')
+            // [핵심 변경] 단 하나의 파일만 요청합니다.
+            const eventsResponse = await fetch(
+                joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
             );
-            if (!tickerNamesResponse.ok)
-                throw new Error('nav.json could not be loaded.');
-            const tickerNavData = await tickerNamesResponse.json();
+            if (!eventsResponse.ok) {
+                throw new Error('calendar-events.json could not be loaded.');
+            }
 
-            const activeTickersNav = tickerNavData.nav.filter(
-                (ticker) => !ticker.upcoming
-            );
-
-            const tickerInfoMap = new Map(
-                activeTickersNav.map((item) => [item.symbol, item])
-            );
-            const tickerNames = activeTickersNav
-                .map((t) => t.symbol)
-                .filter(Boolean);
-
-            const tickerDataPromises = tickerNames.map(async (ticker) => {
-                try {
-                    const response = await fetch(
-                        joinURL(
-                            import.meta.env.BASE_URL,
-                            `data/${ticker.toLowerCase()}.json`
-                        )
-                    );
-                    if (!response.ok) return null;
-                    return { tickerName: ticker, data: await response.json() };
-                } catch (e) {
-                    return null;
-                }
-            });
-
-            const allDataWithNames = (
-                await Promise.all(tickerDataPromises)
-            ).filter(Boolean);
-
-            const flatDividendList = [];
-            allDataWithNames.forEach(({ tickerName, data }) => {
-                if (
-                    data.dividendHistory &&
-                    Array.isArray(data.dividendHistory)
-                ) {
-                    data.dividendHistory.forEach((dividend) => {
-                        if (dividend && dividend.배당락) {
-                            try {
-                                const parts = dividend.배당락
-                                    .split('.')
-                                    .map((p) => p.trim());
-                                const dateStr = `20${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
-                                const amount = dividend.배당금
-                                    ? parseFloat(
-                                          dividend.배당금.replace('$', '')
-                                      )
-                                    : null;
-                                const tickerInfo = tickerInfoMap.get(
-                                    tickerName.toUpperCase()
-                                );
-                                flatDividendList.push({
-                                    date: dateStr,
-                                    amount,
-                                    ticker: tickerName.toUpperCase(),
-                                    frequency: tickerInfo?.frequency,
-                                    group: tickerInfo?.group,
-                                });
-                            } catch (e) {
-                                // Invalid date format, ignore
-                            }
-                        }
-                    });
-                }
-            });
-
-            allDividendData.value = flatDividendList;
+            allDividendData.value = await eventsResponse.json();
             isDataLoaded = true;
-            console.log('달력 데이터 로딩 완료. (출시 예정 종목 제외)');
+            console.log('최적화된 캘린더 데이터 로딩 완료.');
             resolve();
         } catch (err) {
-            console.error('데이터 로딩 중 오류 발생:', err);
+            console.error('캘린더 데이터 로딩 중 오류 발생:', err);
             error.value = '달력 데이터를 불러오지 못했습니다.';
             reject(err);
         } finally {
@@ -115,18 +50,19 @@ export function useCalendarData() {
         let sourceData = allDividendData.value;
 
         if (showMyStocksOnly.value && user.value) {
-            sourceData = allDividendData.value.filter(
-                (div) => myBookmarks.value[div.ticker]
+            const myTickerSet = new Set(Object.keys(myBookmarks.value));
+            sourceData = allDividendData.value.filter((div) =>
+                myTickerSet.has(div.ticker)
             );
         }
 
         const grouped = {};
-        sourceData.forEach((div) => {
+        for (const div of sourceData) {
             if (!grouped[div.date]) {
                 grouped[div.date] = [];
             }
             grouped[div.date].push(div);
-        });
+        }
         return grouped;
     });
 
