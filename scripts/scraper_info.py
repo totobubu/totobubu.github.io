@@ -81,7 +81,7 @@ def process_single_ticker_info(info):
         return None
 
 
-def format_ticker_info(info_dict):
+def format_ticker_info(info_dict, currency="USD"):  # currency 인자 추가
     formatted = info_dict.copy()
     for key, value in formatted.items():
         if key in [
@@ -91,7 +91,7 @@ def format_ticker_info(info_dict):
             "AvgVolume",
             "sharesOutstanding",
         ]:
-            formatted[key] = format_large_number(value)
+            formatted[key] = format_large_number(value, currency)  # currency 전달
         elif key == "dividendRate":
             formatted[key] = format_currency(value)
         elif key == "payoutRatio":
@@ -181,6 +181,10 @@ def main():
             # tqdm.write(f"  -> Skipping update for {ticker_symbol} (fetch failed or invalid data).")
             continue
 
+        currency = info_from_nav.get(
+            "currency", "USD"
+        )  # nav.json에서 currency 정보 가져오기
+
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
@@ -207,7 +211,10 @@ def main():
 
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        formatted_info = format_ticker_info(final_ticker_info)
+        formatted_info = format_ticker_info(
+            final_ticker_info, currency
+        )  # currency 전달
+
         formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
 
         existing_data["tickerInfo"] = formatted_info
