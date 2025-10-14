@@ -1,4 +1,4 @@
-# REFACTORED: scripts/scraper_info.py
+# scripts/scraper_info.py
 import time
 import json
 import yfinance as yf
@@ -11,22 +11,48 @@ from utils import (
     parse_numeric_value,
     format_currency,
     format_large_number,
-    format_percent
+    format_percent,
 )
 
-def fetch_dynamic_ticker_info(ticker_symbol):
+
+def fetch_bulk_ticker_info(ticker_symbols):
+    """여러 티커의 정보를 yfinance를 통해 한 번에 가져옵니다."""
+    print(f"Fetching bulk info for {len(ticker_symbols)} tickers...")
+    bulk_data = {}
     try:
-        ticker = yf.Ticker(ticker_symbol)
-        info = ticker.info
+        # yf.Tickers (복수형) 객체 생성
+        tickers = yf.Tickers(ticker_symbols)
+
+        # [핵심 수정] 각 티커 객체를 순회하며 .info 속성에 접근합니다.
+        # tickers.tickers는 {'AAPL': Ticker object, 'MSFT': Ticker object, ...} 형태의 사전입니다.
+        for symbol, ticker_obj in tickers.tickers.items():
+            try:
+                bulk_data[symbol] = ticker_obj.info
+            except Exception as e:
+                # 개별 티커의 info를 가져오는 데 실패한 경우
+                print(f"  - Warning: Failed to get info for {symbol}: {e}")
+                bulk_data[symbol] = None  # 실패한 경우 None으로 표시
+        return bulk_data
+    except Exception as e:
+        print(f"  -> Critical error during bulk fetch setup: {e}")
+        return {}
+
+
+def process_single_ticker_info(info):
+    """yfinance에서 받은 단일 티커의 info 객체를 처리합니다."""
+    try:
+        if not info or info.get("regularMarketPrice") is None:
+            return None
+
         current_price = info.get("regularMarketPrice") or info.get("previousClose")
         yield_val = (
             ((info.get("trailingAnnualDividendRate", 0) / current_price) * 100)
-            if current_price
+            if current_price and info.get("trailingAnnualDividendRate")
             else 0
         )
         earnings_ts = info.get("earningsTimestamp")
         earnings_date = (
-            datetime.fromtimestamp(earnings_ts).strftime('%Y-%m-%d')
+            datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
             if earnings_ts
             else "N/A"
         )
@@ -41,18 +67,19 @@ def fetch_dynamic_ticker_info(ticker_symbol):
             "sharesOutstanding": info.get("sharesOutstanding"),
             "52Week": (
                 f"${info.get('fiftyTwoWeekLow', 0):.2f} - ${info.get('fiftyTwoWeekHigh', 0):.2f}"
-                if info.get("fiftyTwoWeekLow")
+                if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh")
                 else "N/A"
             ),
             "Yield": yield_val if yield_val > 0 else 0,
             "dividendRate": info.get("dividendRate"),
             "payoutRatio": info.get("payoutRatio"),
         }
-    except Exception as e:
-        print(f"  -> Failed to fetch dynamic info for {ticker_symbol}: {e}")
+    except Exception:
         return None
 
+
 def format_ticker_info(info_dict):
+    # ... (기존과 동일)
     formatted = info_dict.copy()
     for key, value in formatted.items():
         if key in [
@@ -60,7 +87,7 @@ def format_ticker_info(info_dict):
             "marketCap",
             "Volume",
             "AvgVolume",
-            "sharesOutstanding"
+            "sharesOutstanding",
         ]:
             formatted[key] = format_large_number(value)
         elif key == "dividendRate":
@@ -75,14 +102,14 @@ def format_ticker_info(info_dict):
             )
     return formatted
 
+
 def calculate_changes(new_info, old_info):
+    # ... (기존과 동일)
     changes_obj = {}
     if not old_info:
         return changes_obj
-
     new_update_date = new_info.get("Update", "").split(" ")[0]
     old_update_date = old_info.get("Update", "").split(" ")[0]
-
     if new_update_date != old_update_date:
         for key, new_val in new_info.items():
             old_val = old_info.get(key)
@@ -94,10 +121,9 @@ def calculate_changes(new_info, old_info):
                 "company",
                 "frequency",
                 "group",
-                "underlying"
+                "underlying",
             ]:
                 continue
-            
             new_numeric, old_numeric = parse_numeric_value(
                 new_val
             ), parse_numeric_value(old_val)
@@ -109,12 +135,12 @@ def calculate_changes(new_info, old_info):
                     change_status = "down"
             elif str(new_val) != str(old_val):
                 change_status = "up"
-            
             if change_status != "equal":
                 changes_obj[key] = {"value": old_val, "change": change_status}
     else:
         return old_info.get("changes", {})
     return changes_obj
+
 
 def main():
     nav_data = load_json_file("public/nav.json")
@@ -123,26 +149,40 @@ def main():
         return
 
     print("\n--- Starting Daily Ticker Info Update ---")
+
+    active_tickers_from_nav = [
+        item
+        for item in nav_data.get("nav", [])
+        if item.get("symbol") and not item.get("upcoming")
+    ]
+
+    if not active_tickers_from_nav:
+        print("No active tickers to update.")
+        return
+
+    active_symbols = [item["symbol"] for item in active_tickers_from_nav]
+
+    bulk_info = fetch_bulk_ticker_info(active_symbols)
+
     total_changed_files = 0
     now_kst = get_kst_now()
 
-    for info_from_nav in nav_data.get("nav", []):
+    for info_from_nav in active_tickers_from_nav:
         ticker_symbol = info_from_nav.get("symbol")
-        if not ticker_symbol:
-            continue
-        
-        if info_from_nav.get("upcoming"):
-            print(f"  -> Skipping {ticker_symbol}: Marked as 'upcoming'.")
+
+        raw_dynamic_info = bulk_info.get(ticker_symbol)
+
+        dynamic_info = process_single_ticker_info(raw_dynamic_info)
+
+        if not dynamic_info:
+            print(
+                f"  -> Skipping update for {ticker_symbol} (fetch failed or invalid data)."
+            )
             continue
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
-
-        dynamic_info = fetch_dynamic_ticker_info(ticker_symbol)
-        if not dynamic_info:
-            print(f"  -> Skipping update for {ticker_symbol} (fetch failed).")
-            continue
 
         new_info_base = {
             "Symbol": ticker_symbol,
@@ -168,15 +208,16 @@ def main():
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
         formatted_info = format_ticker_info(final_ticker_info)
         formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
-        
+
         existing_data["tickerInfo"] = formatted_info
         if save_json_file(file_path, existing_data, indent=2):
             print(f" => UPDATED Ticker Info for {ticker_symbol}")
             total_changed_files += 1
-        
-        time.sleep(1)
 
-    print(f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---")
+    print(
+        f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
+    )
+
 
 if __name__ == "__main__":
     main()
