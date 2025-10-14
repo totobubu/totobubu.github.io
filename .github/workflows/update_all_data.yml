@@ -48,8 +48,17 @@ jobs:
                   pip install -r requirements.txt
 
             # --- 데이터 업데이트 파이프라인 (순서가 매우 중요) ---
+
+            # [신규] 오늘 날짜 정보를 가져오는 단계
+            - name: Get date information
+              id: get_date_info
+              run: |
+                  echo "DAY_OF_WEEK=$(date +'%u')" >> $GITHUB_OUTPUT
+                  echo "DAY_OF_MONTH=$(date +'%d')" >> $GITHUB_OUTPUT
+
             # 단계 1: KOSPI, NASDAQ 상위 티커 목록 가져와서 nav 소스에 추가
-            - name: 1. Fetch top tickers (KRX, NASDAQ)
+            - name: 1. Fetch top market tickers (Monthly)
+              if: steps.get_date_info.outputs.DAY_OF_MONTH == '01'
               run: python scripts/fetch_top_tickers.py
 
             # 단계 2: 실시간 환율 업데이트
