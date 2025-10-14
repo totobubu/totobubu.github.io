@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "generate-nav": "node generateNav.js",
+        "generate-calendar-events": "node tasks/generateCalendarEvents.js",
         "watch-nav": "nodemon --watch public/nav --ext json --exec npm run generate-nav",
         "dev": "vite",
         "build": "vite build",
@@ -14,7 +15,7 @@
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "run-s lint:*",
-        "format:data": "prettier --write \"public/data/**/*.json\"",
+        "format:data": "prettier --write \"public/data/**/*.json\" \"public/calendar-events.json\"",
         "format": "prettier --write src/"
     },
     "dependencies": {
@@ -60,6 +61,7 @@
         "gh-pages": "^6.3.0",
         "globals": "^16.3.0",
         "nodemon": "^3.1.10",
+        "npm-run-all": "^4.1.5",
         "oxlint": "~1.12.0",
         "prettier": "3.6.2",
         "sass": "^1.90.0",
