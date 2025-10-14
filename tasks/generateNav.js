@@ -108,7 +108,9 @@ async function generateNavJson() {
         if (logoPath) {
             processedTicker.logo = logoPath;
         } else if (nameForLogoSearch) {
-            // console.log(`🔸 ${ticker.symbol}: 로고 없음. 검색 시도한 이름: "${normalizedName}"`);
+            console.log(
+                `🔸 ${ticker.symbol}: 로고 없음. 검색 시도한 이름: "${normalizedName}"`
+            );
         }
 
         if (!processedTicker.periods) {
