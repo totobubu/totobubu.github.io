@@ -1,12 +1,9 @@
-// generateNav.js;
+// tasks/generateNav.js;
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const publicDir = path.join(__dirname, 'public');
+const rootDir = process.cwd();
+const publicDir = path.join(rootDir, 'public');
 const navDir = path.join(publicDir, 'nav');
 const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
