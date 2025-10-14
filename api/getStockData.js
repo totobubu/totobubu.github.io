@@ -1,4 +1,4 @@
-// REFACTORED: api/getStockData.js
+// api/getStockData.js
 
 import yahooFinance from 'yahoo-finance2';
 
@@ -26,7 +26,6 @@ function sanitizeForJSON(data) {
     return newObj;
 }
 // --- // ---
-
 
 export default async function handler(request, response) {
     const allowedOrigins = [
@@ -62,7 +61,6 @@ export default async function handler(request, response) {
         const sanitizedResults = sanitizeForJSON(results);
         return response.status(200).json(sanitizedResults);
         // --- // ---
-
     } catch (error) {
         console.error('Yahoo Finance API Error:', error);
         const errorMessage =
