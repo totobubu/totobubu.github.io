@@ -1,4 +1,4 @@
-# REFACTORED: scripts\scraper_dividend.py
+# scripts\scraper_dividend.py
 import json
 from datetime import datetime, timedelta
 from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
@@ -84,6 +84,15 @@ def main():
         return
 
     print("\n--- Starting Dividend History Update & Total Calculation ---")
+
+    all_tickers_info = nav_data.get("nav", [])
+    active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
+    upcoming_count = len(all_tickers_info) - len(active_tickers_info)
+
+    print(f"Found {len(all_tickers_info)} total tickers in nav.json.")
+    if upcoming_count > 0:
+        print(f"Skipping {upcoming_count} upcoming tickers.")
+
     total_changed_files = 0
     DESIRED_KEY_ORDER = [
         "배당락",
@@ -95,7 +104,7 @@ def main():
         "배당률",
     ]
 
-    for item in nav_data.get("nav", []):
+    for item in active_tickers_info:
         ticker = item.get("symbol")
         if not ticker:
             continue
