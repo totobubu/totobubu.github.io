@@ -3,6 +3,7 @@ import time
 import json
 import yfinance as yf
 from datetime import datetime
+from tqdm import tqdm
 from utils import (
     load_json_file,
     save_json_file,
@@ -20,18 +21,20 @@ def fetch_bulk_ticker_info(ticker_symbols):
     print(f"Fetching bulk info for {len(ticker_symbols)} tickers...")
     bulk_data = {}
     try:
-        # yf.Tickers (복수형) 객체 생성
         tickers = yf.Tickers(ticker_symbols)
 
-        # [핵심 수정] 각 티커 객체를 순회하며 .info 속성에 접근합니다.
-        # tickers.tickers는 {'AAPL': Ticker object, 'MSFT': Ticker object, ...} 형태의 사전입니다.
-        for symbol, ticker_obj in tickers.tickers.items():
+        # [핵심 수정] tqdm으로 루프를 감싸서 진행률을 표시합니다.
+        for symbol, ticker_obj in tqdm(
+            tickers.tickers.items(), desc="Fetching Ticker Info"
+        ):
             try:
+                # 개별 티커의 .info 접근 시 실제 데이터 fetching이 발생합니다.
                 bulk_data[symbol] = ticker_obj.info
             except Exception as e:
-                # 개별 티커의 info를 가져오는 데 실패한 경우
-                print(f"  - Warning: Failed to get info for {symbol}: {e}")
-                bulk_data[symbol] = None  # 실패한 경우 None으로 표시
+                # 개별 티커 정보 가져오기 실패 시 경고 출력
+                # tqdm.write를 사용하면 진행률 표시줄을 방해하지 않고 메시지를 출력할 수 있습니다.
+                tqdm.write(f"  - Warning: Failed to get info for {symbol}: {e}")
+                bulk_data[symbol] = None
         return bulk_data
     except Exception as e:
         print(f"  -> Critical error during bulk fetch setup: {e}")
@@ -79,7 +82,6 @@ def process_single_ticker_info(info):
 
 
 def format_ticker_info(info_dict):
-    # ... (기존과 동일)
     formatted = info_dict.copy()
     for key, value in formatted.items():
         if key in [
@@ -104,7 +106,6 @@ def format_ticker_info(info_dict):
 
 
 def calculate_changes(new_info, old_info):
-    # ... (기존과 동일)
     changes_obj = {}
     if not old_info:
         return changes_obj
@@ -167,17 +168,17 @@ def main():
     total_changed_files = 0
     now_kst = get_kst_now()
 
-    for info_from_nav in active_tickers_from_nav:
+    # tqdm을 메인 루프에도 적용하여 파일 저장 진행률을 보여줍니다.
+    for info_from_nav in tqdm(
+        active_tickers_from_nav, desc="Processing and Saving Data"
+    ):
         ticker_symbol = info_from_nav.get("symbol")
 
         raw_dynamic_info = bulk_info.get(ticker_symbol)
-
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
         if not dynamic_info:
-            print(
-                f"  -> Skipping update for {ticker_symbol} (fetch failed or invalid data)."
-            )
+            # tqdm.write(f"  -> Skipping update for {ticker_symbol} (fetch failed or invalid data).")
             continue
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
@@ -201,7 +202,7 @@ def main():
         if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(
             new_info_base, sort_keys=True, default=str
         ):
-            print(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
+            # tqdm.write(f"  -> No data changes for {ticker_symbol}. Skipping file write.")
             continue
 
         final_ticker_info = new_info_base.copy()
@@ -211,7 +212,7 @@ def main():
 
         existing_data["tickerInfo"] = formatted_info
         if save_json_file(file_path, existing_data, indent=2):
-            print(f" => UPDATED Ticker Info for {ticker_symbol}")
+            # tqdm.write(f" => UPDATED Ticker Info for {ticker_symbol}")
             total_changed_files += 1
 
     print(
