@@ -51,18 +51,42 @@ def parse_numeric_value(value):
         return None
 
 
+def format_large_number(value, currency="USD"):
+    """숫자 값을 조, 억, 만 단위 등으로 축약하여 반환합니다. 한국 원화(KRW)를 지원합니다."""
+    if value is None or not isinstance(value, (int, float)):
+        return "N/A"
+
+    # 한국 원화(KRW) 처리
+    if currency == "KRW":
+        if value >= 1e12:  # 조
+            return f"{value / 1e12:.2f}T ₩"
+        if value >= 1e8:  # 억
+            return f"{value / 1e8:.2f}B ₩"
+        if value >= 1e4:  # 만
+            return f"{value / 1e4:.2f}M ₩"
+        return f"{value:,.0f} ₩"
+
+    # 달러(USD) 및 기타 통화 처리
+    else:
+        if abs(value) >= 1.0e12:
+            return f"${value / 1.0e12:.2f}T"
+        if abs(value) >= 1.0e9:
+            return f"${value / 1.0e9:.2f}B"
+        if abs(value) >= 1.0e6:
+            return f"${value / 1.0e6:.2f}M"
+        if abs(value) >= 1.0e3:
+            return f"${value / 1.0e3:.2f}K"
+        return f"${value:.2f}"
+
+
 def format_currency(value, currency="USD"):
+    """숫자 값을 통화 형식의 문자열로 변환합니다."""
     if value is None:
         return "N/A"
     symbol = "₩" if currency == "KRW" else "$"
     if currency == "KRW":
         return f"{symbol}{value:,.0f}"
-    return f"{symbol}{value:.2f}"
-
-
-def format_large_number(value):
-    """큰 숫자에 쉼표를 추가하여 포맷팅합니다."""
-    return f"{value:,}" if isinstance(value, (int, float)) else "N/A"
+    return f"{symbol}{value:.4f}"  # 배당금은 소수점 4자리까지 표시
 
 
 def format_percent(value):
