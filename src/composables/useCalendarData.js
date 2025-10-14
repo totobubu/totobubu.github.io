@@ -1,4 +1,4 @@
-// REFACTORED: composables/useCalendarData.js
+// composables/useCalendarData.js
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';

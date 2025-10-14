@@ -1,4 +1,4 @@
-// REFACTORED: src/utils/date.js
+// src/utils/date.js
 export const parseYYMMDD = (dateStr) => {
     if (!dateStr || typeof dateStr !== 'string') return null;
     const parts = dateStr.split('.').map((part) => parseInt(part.trim(), 10));

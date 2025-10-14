@@ -1,4 +1,4 @@
-// NEW FILE: api/sendEmail.js
+// api/sendEmail.js
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -39,13 +39,18 @@ export default async function handler(req, res) {
 
         if (error) {
             console.error('Resend API Error:', error);
-            return res.status(500).json({ error: '이메일 발송에 실패했습니다.', details: error });
+            return res
+                .status(500)
+                .json({ error: '이메일 발송에 실패했습니다.', details: error });
         }
 
-        return res.status(200).json({ message: '이메일이 성공적으로 발송되었습니다.', data });
-
+        return res
+            .status(200)
+            .json({ message: '이메일이 성공적으로 발송되었습니다.', data });
     } catch (error) {
         console.error('Server Error:', error);
-        return res.status(500).json({ error: '서버 오류가 발생했습니다.', details: error });
+        return res
+            .status(500)
+            .json({ error: '서버 오류가 발생했습니다.', details: error });
     }
 }

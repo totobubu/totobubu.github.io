@@ -1,4 +1,4 @@
-// REFACTORED: src/utils/uiHelpers.js
+// src/utils/uiHelpers.js
 export const getGroupSeverity = (group) => {
     switch (group) {
         case '월':
