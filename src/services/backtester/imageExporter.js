@@ -1,4 +1,4 @@
-// NEW FILE: src/services/backtester/imageExporter.js
+// src/services/backtester/imageExporter.js
 import { init } from 'echarts/core';
 import html2canvas from 'html2canvas';
 import { getBacktesterChartPalette } from '@/utils/chartColors.js';

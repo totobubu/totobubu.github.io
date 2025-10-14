@@ -1,4 +1,4 @@
-// REFACTORED: tasks\updateHistoricalData.js
+// tasks\updateHistoricalData.js
 import fs from 'fs/promises';
 import path from 'path';
 import yahooFinance from 'yahoo-finance2';
@@ -105,8 +105,17 @@ async function main() {
     await fs.mkdir(DATA_DIR, { recursive: true });
 
     const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
+
+    const activeTickers = navData.nav.filter((ticker) => !ticker.upcoming);
+    const upcomingCount = navData.nav.length - activeTickers.length;
+
+    console.log(`Found ${navData.nav.length} total tickers in nav.json.`);
+    if (upcomingCount > 0) {
+        console.log(`Skipping ${upcomingCount} upcoming tickers (e.g., XOMW).`);
+    }
+
     const tickersToFetch = [
-        ...navData.nav,
+        ...activeTickers,
         { symbol: 'SPY', ipoDate: '1993-01-22' },
     ];
     const uniqueTickers = Array.from(

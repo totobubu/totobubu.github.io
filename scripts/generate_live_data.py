@@ -1,70 +1,84 @@
-# REFACTORED: scripts/generate_live_data.py
-import yfinance as yf
+# scripts/generate_live_data.py
+import os
 import json
-import time
-from utils import load_json_file, save_json_file
+import yfinance as yf
+import pandas as pd
 
-def fetch_live_data_batch(tickers):
-    if not tickers:
-        return {}
-    try:
-        data = yf.download(tickers, period="1d", progress=False)
-        if data.empty:
-            return {}
-        
-        latest_prices = data['Close'].iloc[-1]
-        previous_prices = data['Close'].iloc[-2] if len(data) > 1 else latest_prices
-        
-        results = {}
-        for ticker in tickers:
-            try:
-                price = latest_prices if isinstance(latest_prices, (float, int)) else latest_prices.get(ticker)
-                prev_price = previous_prices if isinstance(previous_prices, (float, int)) else previous_prices.get(ticker)
-
-                if price is not None and prev_price is not None and prev_price > 0:
-                    change_percent = ((price - prev_price) / prev_price) * 100
-                    results[ticker] = {
-                        "symbol": ticker,
-                        "price": float(price),
-                        "yield": float(change_percent)
-                    }
-            except (KeyError, TypeError):
-                continue
-        return results
-    except Exception as e:
-        print(f"  -> yfinance batch fetch error: {e}")
-        return {}
+# --- 경로 설정 ---
+ROOT_DIR = os.getcwd()
+PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
+DATA_DIR = os.path.join(PUBLIC_DIR, "data")
+NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
+OUTPUT_FILE = os.path.join(PUBLIC_DIR, "live-data.json")
 
 
 def main():
-    print("\n--- Starting Live Data Generation ---")
-    nav_data = load_json_file("public/nav.json")
-    if not nav_data or "nav" not in nav_data:
-        print("Error: public/nav.json not found or is invalid.")
+    print("--- Starting Live Data Generation ---")
+
+    try:
+        with open(NAV_FILE_PATH, "r", encoding="utf-8") as f:
+            nav_data = json.load(f)
+    except FileNotFoundError:
+        print(f"❌ Error: nav.json not found at {NAV_FILE_PATH}")
         return
 
-    active_tickers = [item["symbol"] for item in nav_data.get("nav", []) if not item.get("upcoming")]
-    
+    active_tickers = [
+        t["symbol"]
+        for t in nav_data.get("nav", [])
+        if t.get("symbol") and not t.get("upcoming", False)
+    ]
+
     if not active_tickers:
-        print("No active tickers to fetch.")
-        save_json_file("public/live-data.json", [], indent=None)
+        print("No active tickers found to fetch.")
         return
 
     print(f"Found {len(active_tickers)} active tickers to fetch.")
-    
-    all_live_data = []
-    batch_size = 100
-    
-    for i in range(0, len(active_tickers), batch_size):
-        batch = active_tickers[i:i+batch_size]
-        print(f"Fetching batch {i//batch_size + 1}/{ (len(active_tickers) + batch_size - 1) // batch_size }...")
-        live_data_batch = fetch_live_data_batch(batch)
-        all_live_data.extend(live_data_batch.values())
-        time.sleep(1)
 
-    output_path = "public/live-data.json"
-    if save_json_file(output_path, all_live_data, indent=None):
-         print(f"🎉 Successfully generated {output_path} with {len(all_live_data)} tickers.")
+    batch_size = 100
+    all_live_data = []
+
+    for i in range(0, len(active_tickers), batch_size):
+        batch = active_tickers[i : i + batch_size]
+        print(
+            f"Fetching batch {i // batch_size + 1}/{(len(active_tickers) + batch_size - 1) // batch_size}..."
+        )
+
+        # [핵심 수정] auto_adjust=True 인자를 명시적으로 추가하여 FutureWarning를 제거합니다.
+        data = yf.download(batch, period="1d", progress=False, auto_adjust=True)
+
+        if not data.empty and "Close" in data:
+            # yf.download는 여러 티커에 대해 multi-level column을 가진 DataFrame을 반환합니다.
+            close_prices = data["Close"].iloc[-1]
+
+            for ticker in batch:
+                price = close_prices.get(ticker)
+                if pd.notna(price):
+                    all_live_data.append({"symbol": ticker, "price": price})
+
+    # Yield 정보 추가
+    for item in all_live_data:
+        file_path = os.path.join(
+            DATA_DIR, f"{item['symbol'].replace('.', '-').lower()}.json"
+        )
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                ticker_data = json.load(f)
+                yield_str = ticker_data.get("tickerInfo", {}).get("Yield", "0.0%")
+                # '%'를 제거하고 float으로 변환
+                yield_val = float(yield_str.replace("%", "").strip())
+                item["yield"] = yield_val
+        except (FileNotFoundError, ValueError, KeyError):
+            item["yield"] = 0.0
+
+    try:
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            json.dump(all_live_data, f, indent=2)
+        print(
+            f"Successfully generated {OUTPUT_FILE} with {len(all_live_data)} tickers."
+        )
+    except IOError as e:
+        print(f"❌ Error writing to {OUTPUT_FILE}: {e}")
+
 
 if __name__ == "__main__":
     main()

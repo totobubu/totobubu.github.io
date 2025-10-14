@@ -2,9 +2,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
-
-const NAV_SOURCE_DIR = path.resolve(process.cwd(), 'public', 'nav');
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { NAV_DIR, delay, writeJsonFile, readJsonFile } from './_utils.js';
 
 async function getFirstTradeDate(symbol) {
     try {
@@ -37,8 +35,7 @@ async function getFirstTradeDate(symbol) {
 async function processNavFile(filePath) {
     console.log(`\nProcessing file: ${path.basename(filePath)}`);
     try {
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        let tickers = JSON.parse(fileContent);
+        let tickers = await readJsonFile(filePath);
         let hasChanges = false;
 
         for (const ticker of tickers) {
@@ -70,15 +67,7 @@ async function processNavFile(filePath) {
 
         if (hasChanges) {
             tickers.sort((a, b) => a.symbol.localeCompare(b.symbol));
-            console.log(
-                `  -> Sorted tickers by symbol for ${path.basename(filePath)}`
-            );
-
-            await fs.writeFile(
-                filePath,
-                JSON.stringify(tickers, null, 4),
-                'utf-8'
-            );
+            await writeJsonFile(filePath, tickers);
             console.log(`  -> Saved changes to ${path.basename(filePath)}`);
         } else {
             console.log(
@@ -92,14 +81,20 @@ async function processNavFile(filePath) {
 
 async function main() {
     console.log('--- Starting to Sync Ticker Status (IPO Date & Upcoming) ---');
-    const files = (await fs.readdir(NAV_SOURCE_DIR)).filter((f) =>
-        /^[a-z]\.json$/.test(f)
-    );
+    const marketDirs = await fs.readdir(NAV_DIR);
 
-    for (const file of files) {
-        await processNavFile(path.join(NAV_SOURCE_DIR, file));
+    for (const market of marketDirs) {
+        const marketPath = path.join(NAV_DIR, market);
+        const stats = await fs.stat(marketPath);
+        if (stats.isDirectory()) {
+            const files = (await fs.readdir(marketPath)).filter((f) =>
+                f.endsWith('.json')
+            );
+            for (const file of files) {
+                await processNavFile(path.join(marketPath, file));
+            }
+        }
     }
-
     console.log('\n--- Finished processing all files. ---');
     console.log(
         "Now, please run 'npm run generate-nav' to create the final nav.json with updated status."
