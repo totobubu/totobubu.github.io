@@ -6,7 +6,8 @@
     "scripts": {
         "generate-nav": "node generateNav.js",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
-        "watch-nav": "nodemon --watch public/nav --ext json --exec npm run generate-nav",
+        "generate-sidebar-tickers": "node tasks/generateSidebarTickers.js",
+        "watch-nav": "nodemon --watch public/nav --ext json --exec \"npm run generate-nav && npm run generate-sidebar-tickers\"",
         "dev": "vite",
         "build": "vite build",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
@@ -14,8 +15,8 @@
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
-        "lint": "run-s lint:*",
-        "format:data": "prettier --write \"public/data/**/*.json\" \"public/calendar-events.json\"",
+        "lint": "npm-run-all lint:*",
+        "format:data": "prettier --write \"public/data/**/*.json\" \"public/calendar-events.json\" \"public/sidebar-tickers.json\"",
         "format": "prettier --write src/"
     },
     "dependencies": {

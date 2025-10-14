@@ -90,8 +90,12 @@ jobs:
             - name: 10. Generate aggregated calendar events data
               run: npm run generate-calendar-events
 
-            # 단계 11: 변경된 모든 데이터를 일관된 포맷으로 정리
-            - name: 10. Format generated data files
+            # 단계 11: 사이드바에 표시할 티커 데이터 생성
+            - name: 11. Generate aggregated sidebar tickers data
+              run: npm run generate-sidebar-tickers
+
+            # 단계 12: 변경된 모든 데이터를 일관된 포맷으로 정리
+            - name: 12. Format generated data files
               run: npm run format:data
 
             # --- 변경 사항 커밋 및 푸시 ---
