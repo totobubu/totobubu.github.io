@@ -90,8 +90,10 @@ vercel dev --listen 5000
 
 # 5. 권장 실행 순서
 
+python scripts/fetch_top_tickers.py
 node scripts/fetch_all_exchange_rates.js
 npm run add-ipo-dates
+python scripts/analyze_dividend_frequency.py
 npm run generate-nav
 npm run update-data
 python scripts/update_dividends.py
