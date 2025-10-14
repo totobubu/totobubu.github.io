@@ -1,4 +1,4 @@
-// REFACTORED: src/composables/charts/useMonthlyChart.js
+// src/composables/charts/useMonthlyChart.js
 import { computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import {

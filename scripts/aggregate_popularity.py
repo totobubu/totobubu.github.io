@@ -1,9 +1,10 @@
-# NEW FILE: scripts/aggregate_popularity.py
+# scripts/aggregate_popularity.py
 
 import os
 import json
 import firebase_admin
 from firebase_admin import credentials, firestore
+
 
 def main():
     print("--- Starting Popularity Aggregation ---")
@@ -24,13 +25,13 @@ def main():
         return
 
     popularity_counts = {}
-    users_ref = db.collection('userBookmarks')
+    users_ref = db.collection("userBookmarks")
     docs = users_ref.stream()
 
     total_bookmarks = 0
     for doc in docs:
         user_data = doc.to_dict()
-        bookmarks = user_data.get('bookmarks', {})
+        bookmarks = user_data.get("bookmarks", {})
         for symbol in bookmarks.keys():
             popularity_counts[symbol] = popularity_counts.get(symbol, 0) + 1
             total_bookmarks += 1
@@ -38,11 +39,13 @@ def main():
     print(f"Aggregation complete. Total bookmarks found: {total_bookmarks}")
 
     # 인기도 순으로 정렬
-    sorted_popularity = sorted(popularity_counts.items(), key=lambda item: item[1], reverse=True)
+    sorted_popularity = sorted(
+        popularity_counts.items(), key=lambda item: item[1], reverse=True
+    )
 
     output_path = "public/popularity.json"
     try:
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(dict(sorted_popularity), f, ensure_ascii=False, indent=2)
         print(f"Successfully saved popularity data to {output_path}")
     except Exception as e:
