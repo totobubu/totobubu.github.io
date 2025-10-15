@@ -1,20 +1,37 @@
 {
     "tickerInfo": {
         "Symbol": "SLTY",
+        "koName": "N/A",
         "longName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매주",
         "group": "수",
-        "underlying": null,
+        "underlying": "N/A",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$37.53K",
-        "AvgVolume": "$40.27K",
-        "52Week": "$38.72 - $50.47",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$35,747",
+        "AvgVolume": "$40,205",
+        "sharesOutstanding": "N/A",
+        "52Week": "$37.795 - $50.47",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$25.00K",
+                "value": "$37.53K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$40.27K",
+                "change": "up"
+            },
+            "52Week": {
+                "value": "$38.72 - $50.47",
                 "change": "up"
             }
         }
@@ -57,11 +74,11 @@
         {
             "배당락": "25. 10. 09",
             "배당금": "$0.6087",
+            "배당률": "6.15%",
             "전일종가": "$39.95",
             "당일시가": "$39.35",
             "당일종가": "$39.17",
-            "익일종가": "$40.25",
-            "배당률": "9.35%"
+            "익일종가": "$40.25"
         },
         {
             "배당락": "25. 10. 02",
@@ -74,26 +91,26 @@
         {
             "배당락": "25. 09. 18",
             "배당금": "$0.5519",
+            "배당률": "4.20%",
             "전일종가": "$43.83",
             "당일시가": "$43.10",
-            "당일종가": "$42.76",
-            "배당률": "4.20%"
+            "당일종가": "$42.76"
         },
         {
             "배당락": "25. 09. 11",
             "배당금": "$0.5520",
+            "배당률": "2.72%",
             "전일종가": "$46.90",
             "당일시가": "$46.22",
-            "당일종가": "$45.43",
-            "배당률": "2.72%"
+            "당일종가": "$45.43"
         },
         {
             "배당락": "25. 09. 04",
             "배당금": "$0.7062",
+            "배당률": "1.45%",
             "전일종가": "$49.29",
             "당일시가": "$48.57",
-            "당일종가": "$48.74",
-            "배당률": "1.45%"
+            "당일종가": "$48.74"
         }
     ],
     "backtestData": {
@@ -401,6 +418,14 @@
                 "low": 38.90840148925781,
                 "close": 39.36899948120117,
                 "volume": 37533
+            },
+            {
+                "date": "2025-10-15",
+                "open": 38.72999954223633,
+                "high": 38.221099853515625,
+                "low": 37.79499816894531,
+                "close": 38.085899353027344,
+                "volume": 19563
             }
         ],
         "dividends": [
@@ -409,10 +434,49 @@
                 "amount": 0.706
             },
             {
+                "date": "2025-09-11",
+                "amount": 0.552
+            },
+            {
+                "date": "2025-09-18",
+                "amount": 0.552
+            },
+            {
+                "date": "2025-09-25",
+                "amount": 0.626
+            },
+            {
+                "date": "2025-10-02",
+                "amount": 0.635
+            },
+            {
                 "date": "2025-10-09",
                 "amount": 0.609
             }
         ]
     },
-    "dividendTotal": 4.140000000000001
+    "dividendTotal": 4.140000000000001,
+    "tickerInfoRaw": {
+        "Symbol": "SLTY",
+        "koName": null,
+        "longName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "수",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 35747,
+        "AvgVolume": 40205,
+        "sharesOutstanding": null,
+        "52Week": "37.795 - 50.47",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

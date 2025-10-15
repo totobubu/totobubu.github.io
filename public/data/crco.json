@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "CRCO",
-        "koName": null,
+        "koName": "N/A",
         "longName": "YieldMax CRCL Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매주",
@@ -11,14 +11,23 @@
         "currency": "USD",
         "englishName": "YieldMax CRCL Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$4.19K",
-        "AvgVolume": "$4.60K",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$26,548",
+        "AvgVolume": "$4,600",
+        "sharesOutstanding": "N/A",
         "52Week": "$47.58 - $57.31",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$3.85K",
+                "value": "$4.19K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$4.60K",
                 "change": "up"
             }
         }
@@ -55,7 +64,8 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$2.4795"
         }
     ],
     "backtestData": {
@@ -155,9 +165,40 @@
                 "low": 47.58000183105469,
                 "close": 49.26580047607422,
                 "volume": 4191
+            },
+            {
+                "date": "2025-10-15",
+                "open": 50.25,
+                "high": 51.54949951171875,
+                "low": 50.290000915527344,
+                "close": 51.54949951171875,
+                "volume": 13507
             }
         ],
         "dividends": []
     },
-    "dividendTotal": 0
+    "dividendTotal": 0,
+    "tickerInfoRaw": {
+        "Symbol": "CRCO",
+        "koName": null,
+        "longName": "YieldMax CRCL Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "CRCL",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldMax CRCL Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 26548,
+        "AvgVolume": 4600,
+        "sharesOutstanding": null,
+        "52Week": "47.58 - 57.31",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

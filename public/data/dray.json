@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "DRAY",
-        "koName": null,
+        "koName": "N/A",
         "longName": "YieldMax DKNG Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매주",
@@ -11,14 +11,23 @@
         "currency": "USD",
         "englishName": "YieldMax DKNG Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$6.01K",
-        "AvgVolume": "$15.99K",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$10,902",
+        "AvgVolume": "$15,995",
+        "sharesOutstanding": "N/A",
         "52Week": "$36.18 - $53.95",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$2.50K",
+                "value": "$6.01K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$15.99K",
                 "change": "up"
             }
         }
@@ -55,23 +64,24 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$1.5354"
         },
         {
             "배당락": "25. 09. 18",
             "배당금": "$1.5651",
+            "배당률": "8.06%",
             "전일종가": "$48.49",
             "당일시가": "$46.67",
-            "당일종가": "$47.28",
-            "배당률": "8.06%"
+            "당일종가": "$47.28"
         },
         {
             "배당락": "25. 08. 21",
             "배당금": "$2.1944",
+            "배당률": "4.34%",
             "전일종가": "$53.13",
             "당일시가": "$50.60",
-            "당일종가": "$51.55",
-            "배당률": "4.34%"
+            "당일종가": "$51.55"
         }
     ],
     "backtestData": {
@@ -595,6 +605,14 @@
                 "low": 36.959999084472656,
                 "close": 37.920501708984375,
                 "volume": 6006
+            },
+            {
+                "date": "2025-10-15",
+                "open": 38.924400329589844,
+                "high": 38.924400329589844,
+                "low": 38.924400329589844,
+                "close": 37.920501708984375,
+                "volume": 1972
             }
         ],
         "dividends": [
@@ -608,5 +626,28 @@
             }
         ]
     },
-    "dividendTotal": 3.7595
+    "dividendTotal": 5.2949,
+    "tickerInfoRaw": {
+        "Symbol": "DRAY",
+        "koName": null,
+        "longName": "YieldMax DKNG Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "DKNG",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldMax DKNG Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 10902,
+        "AvgVolume": 15995,
+        "sharesOutstanding": null,
+        "52Week": "36.18 - 53.95",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

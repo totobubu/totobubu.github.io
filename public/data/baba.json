@@ -1,37 +1,49 @@
 {
     "tickerInfo": {
         "Symbol": "BABA",
-        "koName": null,
+        "koName": "N/A",
         "longName": "Alibaba Group Holding Limited",
-        "company": null,
+        "company": "N/A",
         "frequency": "매년",
-        "group": null,
-        "underlying": null,
+        "group": "N/A",
+        "underlying": "N/A",
         "market": "NYSE",
         "currency": "USD",
         "englishName": "Alibaba Group Holding Limited",
         "earningsDate": "2025-08-14",
-        "enterpriseValue": "$2.94T",
-        "marketCap": "$387.61B",
-        "Volume": "$18.52M",
-        "AvgVolume": "$18.98M",
-        "sharesOutstanding": "$2.32B",
+        "enterpriseValue": "$2,940,808,200,192",
+        "marketCap": "$384,745,308,160",
+        "Volume": "$14,125,267",
+        "AvgVolume": "$18,978,457",
+        "sharesOutstanding": "$2,319,000,000",
         "52Week": "$80.06 - $192.67",
-        "Yield": "761.90%",
-        "dividendRate": "$1.0500",
+        "Yield": "4.59%",
+        "dividendRate": "$1.05",
         "payoutRatio": "12.21%",
-        "Update": "2025-10-15 13:58:31 KST",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
+            "enterpriseValue": {
+                "value": "$2.94T",
+                "change": "up"
+            },
             "marketCap": {
-                "value": "$376.46B",
+                "value": "$387.61B",
                 "change": "up"
             },
             "Volume": {
-                "value": "$5.41M",
+                "value": "$18.52M",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$18.98M",
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": "$2.32B",
                 "change": "up"
             },
             "Yield": {
-                "value": "4.70%",
+                "value": "761.90%",
                 "change": "down"
             }
         }
@@ -40,29 +52,29 @@
         {
             "배당락": "25. 06. 12",
             "배당금": "$2.0",
+            "배당률": "3.11%",
             "전일종가": "$120.33",
             "당일시가": "$117.52",
             "당일종가": "$116.62",
-            "익일종가": "$112.87",
-            "배당률": "3.11%"
+            "익일종가": "$112.87"
         },
         {
             "배당락": "24. 06. 13",
             "배당금": "$1.66",
+            "배당률": "3.48%",
             "전일종가": "$78.04",
             "당일시가": "$76.50",
             "당일종가": "$75.68",
-            "익일종가": "$73.35",
-            "배당률": "3.48%"
+            "익일종가": "$73.35"
         },
         {
             "배당락": "23. 12. 20",
             "배당금": "$1.0",
+            "배당률": "1.34%",
             "전일종가": "$75.39",
             "당일시가": "$74.58",
             "당일종가": "$73.35",
-            "익일종가": "$76.26",
-            "배당률": "1.34%"
+            "익일종가": "$76.26"
         }
     ],
     "backtestData": {
@@ -20282,12 +20294,20 @@
                 "low": 160,
                 "close": 162.86000061035156,
                 "volume": 18523327
+            },
+            {
+                "date": "2025-10-15",
+                "open": 168.07000732421875,
+                "high": 168.10000610351562,
+                "low": 164.80999755859375,
+                "close": 167.86500549316406,
+                "volume": 5081704
             }
         ],
         "dividends": [
             {
                 "date": "2023-12-20",
-                "amount": 1
+                "amount": 1.0
             },
             {
                 "date": "2024-06-13",
@@ -20295,9 +20315,32 @@
             },
             {
                 "date": "2025-06-12",
-                "amount": 2
+                "amount": 2.0
             }
         ]
     },
-    "dividendTotal": 4.66
+    "dividendTotal": 4.66,
+    "tickerInfoRaw": {
+        "Symbol": "BABA",
+        "koName": null,
+        "longName": "Alibaba Group Holding Limited",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "Alibaba Group Holding Limited",
+        "earningsDate": "2025-08-14",
+        "enterpriseValue": 2940808200192,
+        "marketCap": 384745308160,
+        "Volume": 14125267,
+        "AvgVolume": 18978457,
+        "sharesOutstanding": 2319000000,
+        "52Week": "80.06 - 192.67",
+        "Yield": 4.592248809595564,
+        "dividendRate": 1.05,
+        "payoutRatio": 0.1221,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

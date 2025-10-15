@@ -1,20 +1,33 @@
 {
     "tickerInfo": {
         "Symbol": "MTYY",
+        "koName": "N/A",
         "longName": "GraniteShares YieldBoost MSTR ETF",
         "company": "GraniteShares",
         "frequency": "매주",
         "group": "금",
         "underlying": "MSTR",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "GraniteShares YieldBoost MSTR ETF",
         "earningsDate": "N/A",
-        "Volume": "$11.08K",
-        "AvgVolume": "$14.31K",
-        "52Week": "$19.41 - $25.17",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$3,574",
+        "AvgVolume": "$14,106",
+        "sharesOutstanding": "N/A",
+        "52Week": "$19.402 - $25.17",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$354.00",
+                "value": "$11.08K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$14.31K",
                 "change": "up"
             }
         }
@@ -56,28 +69,28 @@
         {
             "배당락": "25. 10. 10",
             "배당금": "$0.39940",
+            "배당률": "6.32%",
             "전일종가": "$20.85",
             "당일시가": "$20.45",
-            "당일종가": "$20.23",
-            "배당률": "6.32%"
+            "당일종가": "$20.23"
         },
         {
             "배당락": "25. 10. 03",
             "배당금": "$0.43689",
+            "배당률": "3.97%",
             "전일종가": "$23.05",
             "당일시가": "$22.50",
             "당일종가": "$22.48",
-            "익일종가": "$22.67",
-            "배당률": "3.97%"
+            "익일종가": "$22.67"
         },
         {
             "배당락": "25. 09. 26",
             "배당금": "$0.45659",
+            "배당률": "2.04%",
             "전일종가": "$22.98",
             "당일시가": "$22.40",
             "당일종가": "$22.45",
-            "익일종가": "$22.83",
-            "배당률": "2.04%"
+            "익일종가": "$22.83"
         }
     ],
     "backtestData": {
@@ -217,6 +230,14 @@
                 "low": 19.760000228881836,
                 "close": 19.832799911499023,
                 "volume": 11077
+            },
+            {
+                "date": "2025-10-15",
+                "open": 19.889999389648438,
+                "high": 19.973499298095703,
+                "low": 19.809999465942383,
+                "close": 19.952800750732422,
+                "volume": 2259
             }
         ],
         "dividends": [
@@ -234,5 +255,28 @@
             }
         ]
     },
-    "dividendTotal": 1.29288
+    "dividendTotal": 1.29288,
+    "tickerInfoRaw": {
+        "Symbol": "MTYY",
+        "koName": null,
+        "longName": "GraniteShares YieldBoost MSTR ETF",
+        "company": "GraniteShares",
+        "frequency": "매주",
+        "group": "금",
+        "underlying": "MSTR",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "GraniteShares YieldBoost MSTR ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3574,
+        "AvgVolume": 14106,
+        "sharesOutstanding": null,
+        "52Week": "19.402 - 25.17",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

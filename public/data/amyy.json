@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "AMYY",
-        "koName": null,
+        "koName": "N/A",
         "longName": "Graniteshares YieldBOOST AMD ETF",
         "company": "GraniteShares",
         "frequency": "매주",
@@ -11,18 +11,27 @@
         "currency": "USD",
         "englishName": "Graniteshares YieldBOOST AMD ETF",
         "earningsDate": "N/A",
-        "Volume": "$32.08K",
-        "AvgVolume": "$28.03K",
-        "52Week": "$23.39 - $25.36",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$14,036",
+        "AvgVolume": "$28,033",
+        "sharesOutstanding": "N/A",
+        "52Week": "$23.39 - $25.65",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$3.28K",
+                "value": "$32.08K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$28.03K",
                 "change": "up"
             },
             "52Week": {
-                "value": "$23.39 - $25.33",
+                "value": "$23.39 - $25.36",
                 "change": "up"
             }
         }
@@ -64,19 +73,19 @@
         {
             "배당락": "25. 10. 10",
             "배당금": "$0.47869",
+            "배당률": "5.68%",
             "전일종가": "$25.30",
             "당일시가": "$24.67",
-            "당일종가": "$24.73",
-            "배당률": "7.51%"
+            "당일종가": "$24.73"
         },
         {
             "배당락": "25. 10. 03",
             "배당금": "$0.45686",
+            "배당률": "3.82%",
             "전일종가": "$24.65",
             "당일시가": "$24.15",
             "당일종가": "$24.19",
-            "익일종가": "$24.96",
-            "배당률": "5.69%"
+            "익일종가": "$24.96"
         },
         {
             "배당락": "25. 09. 26",
@@ -85,11 +94,11 @@
         {
             "배당락": "25. 09. 19",
             "배당금": "$0.46458",
+            "배당률": "1.95%",
             "전일종가": "$24.56",
             "당일시가": "$23.84",
             "당일종가": "$24.00",
-            "익일종가": "$24.00",
-            "배당률": "1.95%"
+            "익일종가": "$24.00"
         }
     ],
     "backtestData": {
@@ -261,6 +270,14 @@
                 "low": 24.950000762939453,
                 "close": 25.03499984741211,
                 "volume": 32076
+            },
+            {
+                "date": "2025-10-15",
+                "open": 25.37689971923828,
+                "high": 25.59000015258789,
+                "low": 25.354999542236328,
+                "close": 25.5851993560791,
+                "volume": 5166
             }
         ],
         "dividends": [
@@ -278,5 +295,28 @@
             }
         ]
     },
-    "dividendTotal": 1.85335
+    "dividendTotal": 1.85335,
+    "tickerInfoRaw": {
+        "Symbol": "AMYY",
+        "koName": null,
+        "longName": "Graniteshares YieldBOOST AMD ETF",
+        "company": "GraniteShares",
+        "frequency": "매주",
+        "group": "금",
+        "underlying": "AMD",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Graniteshares YieldBOOST AMD ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 14036,
+        "AvgVolume": 28033,
+        "sharesOutstanding": null,
+        "52Week": "23.39 - 25.65",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

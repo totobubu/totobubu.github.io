@@ -1,20 +1,37 @@
 {
     "tickerInfo": {
         "Symbol": "QQXL",
+        "koName": "N/A",
         "longName": "ProShares Ultra QQQ TOP 30",
         "company": "ProSares",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
+        "frequency": "N/A",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "ProShares Ultra QQQ TOP 30",
         "earningsDate": "N/A",
-        "Volume": "$12.13K",
-        "AvgVolume": "$12.69K",
-        "52Week": "$37.05 - $43.79",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$6,382",
+        "AvgVolume": "$12,680",
+        "sharesOutstanding": "N/A",
+        "52Week": "$37.049 - $43.79",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$10.45K",
+                "value": "$12.13K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$12.69K",
+                "change": "up"
+            },
+            "52Week": {
+                "value": "$37.05 - $43.79",
                 "change": "up"
             }
         }
@@ -23,11 +40,11 @@
         {
             "배당락": "25. 09. 24",
             "배당금": "$0.003",
+            "배당률": "0.01%",
             "전일종가": "$41.83",
             "당일시가": "$42.00",
             "당일종가": "$41.70",
-            "익일종가": "$41.13",
-            "배당률": "0.01%"
+            "익일종가": "$41.13"
         }
     ],
     "backtestData": {
@@ -367,6 +384,14 @@
                 "low": 40.91999816894531,
                 "close": 41.599998474121094,
                 "volume": 12131
+            },
+            {
+                "date": "2025-10-15",
+                "open": 42.119998931884766,
+                "high": 42.499900817871094,
+                "low": 42.119998931884766,
+                "close": 42.499900817871094,
+                "volume": 2583
             }
         ],
         "dividends": [
@@ -376,5 +401,28 @@
             }
         ]
     },
-    "dividendTotal": 0.003
+    "dividendTotal": 0.003,
+    "tickerInfoRaw": {
+        "Symbol": "QQXL",
+        "koName": null,
+        "longName": "ProShares Ultra QQQ TOP 30",
+        "company": "ProSares",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "ProShares Ultra QQQ TOP 30",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6382,
+        "AvgVolume": 12680,
+        "sharesOutstanding": null,
+        "52Week": "37.049 - 43.79",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

@@ -1,20 +1,33 @@
 {
     "tickerInfo": {
         "Symbol": "WNTR",
+        "koName": "N/A",
         "longName": "YieldMax MSTR Short Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매월",
-        "group": null,
+        "group": "N/A",
         "underlying": "MSTR",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldMax MSTR Short Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$58.65K",
-        "AvgVolume": "$99.30K",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$136,235",
+        "AvgVolume": "$99,443",
+        "sharesOutstanding": "N/A",
         "52Week": "$27.24 - $60.64",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$88.95K",
+                "value": "$58.65K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$99.30K",
                 "change": "up"
             }
         }
@@ -51,60 +64,61 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$1.4679"
         },
         {
             "배당락": "25. 09. 25",
             "배당금": "$3.2951",
+            "배당률": "47.00%",
             "전일종가": "$34.45",
             "당일시가": "$31.48",
             "당일종가": "$31.80",
-            "익일종가": "$31.11",
-            "배당률": "47.00%"
+            "익일종가": "$31.11"
         },
         {
             "배당락": "25. 08. 28",
             "배당금": "$2.1976",
+            "배당률": "36.45%",
             "전일종가": "$34.16",
             "당일시가": "$31.55",
-            "당일종가": "$31.90",
-            "배당률": "36.45%"
+            "당일종가": "$31.90"
         },
         {
             "배당락": "25. 07. 31",
             "배당금": "$1.6550",
+            "배당률": "30.11%",
             "전일종가": "$32.93",
             "당일시가": "$30.89",
             "당일종가": "$30.87",
-            "익일종가": "$31.72",
-            "배당률": "30.11%"
+            "익일종가": "$31.72"
         },
         {
             "배당락": "25. 07. 03",
             "배당금": "$1.8550",
+            "배당률": "22.83%",
             "전일종가": "$33.67",
             "당일시가": "$33.49",
             "당일종가": "$33.42",
-            "익일종가": "$33.42",
-            "배당률": "22.83%"
+            "익일종가": "$33.42"
         },
         {
             "배당락": "25. 06. 05",
             "배당금": "$3.0730",
+            "배당률": "16.95%",
             "전일종가": "$34.39",
             "당일시가": "$34.18",
             "당일종가": "$35.02",
-            "익일종가": "$34.78",
-            "배당률": "16.95%"
+            "익일종가": "$34.78"
         },
         {
             "배당락": "25. 05. 08",
             "배당금": "$2.7190",
+            "배당률": "8.39%",
             "전일종가": "$33.75",
             "당일시가": "$32.40",
             "당일종가": "$32.04",
-            "익일종가": "$32.15",
-            "배당률": "8.39%"
+            "익일종가": "$32.15"
         }
     ],
     "backtestData": {
@@ -1220,6 +1234,14 @@
                 "low": 30.575000762939453,
                 "close": 31.079999923706055,
                 "volume": 60540
+            },
+            {
+                "date": "2025-10-15",
+                "open": 31,
+                "high": 31.420000076293945,
+                "low": 30.809999465942383,
+                "close": 30.989999771118164,
+                "volume": 31789
             }
         ],
         "dividends": [
@@ -1249,5 +1271,28 @@
             }
         ]
     },
-    "dividendTotal": 14.7947
+    "dividendTotal": 16.2626,
+    "tickerInfoRaw": {
+        "Symbol": "WNTR",
+        "koName": null,
+        "longName": "YieldMax MSTR Short Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매월",
+        "group": null,
+        "underlying": "MSTR",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldMax MSTR Short Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 136235,
+        "AvgVolume": 99443,
+        "sharesOutstanding": null,
+        "52Week": "27.24 - 60.64",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

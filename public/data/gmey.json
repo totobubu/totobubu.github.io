@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "GMEY",
-        "koName": null,
+        "koName": "N/A",
         "longName": "Yieldmax Gme Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매주",
@@ -11,18 +11,27 @@
         "currency": "USD",
         "englishName": "Yieldmax Gme Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$2.52K",
-        "AvgVolume": "$1.56K",
-        "52Week": "$49.12 - $56.15",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$9,066",
+        "AvgVolume": "$1,557",
+        "sharesOutstanding": "N/A",
+        "52Week": "$49.117 - $56.15",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$105.00",
+                "value": "$2.52K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$1.56K",
                 "change": "up"
             },
             "52Week": {
-                "value": "$49.19 - $56.15",
+                "value": "$49.12 - $56.15",
                 "change": "up"
             }
         }
@@ -59,7 +68,8 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$2.2391"
         }
     ],
     "backtestData": {
@@ -263,9 +273,40 @@
                 "low": 49.117000579833984,
                 "close": 49.117000579833984,
                 "volume": 2522
+            },
+            {
+                "date": "2025-10-15",
+                "open": 49.45500183105469,
+                "high": 49.45500183105469,
+                "low": 49.45500183105469,
+                "close": 49.117000579833984,
+                "volume": 594
             }
         ],
         "dividends": []
     },
-    "dividendTotal": 0
+    "dividendTotal": 0,
+    "tickerInfoRaw": {
+        "Symbol": "GMEY",
+        "koName": null,
+        "longName": "Yieldmax Gme Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "GME",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "Yieldmax Gme Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 9066,
+        "AvgVolume": 1557,
+        "sharesOutstanding": null,
+        "52Week": "49.117 - 56.15",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

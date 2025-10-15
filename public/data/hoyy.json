@@ -1,24 +1,37 @@
 {
     "tickerInfo": {
         "Symbol": "HOYY",
-        "koName": null,
+        "koName": "N/A",
         "longName": "GraniteShares YieldBOOST HOOD ETF",
         "company": "GraniteShares",
         "frequency": "매주",
         "group": "금",
-        "underlying": null,
+        "underlying": "N/A",
         "market": "NASDAQ",
         "currency": "USD",
         "englishName": "GraniteShares YieldBOOST HOOD ETF",
         "earningsDate": "N/A",
-        "Volume": "$53.35K",
-        "AvgVolume": "$86.90K",
-        "52Week": "$23.16 - $26.45",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$68,462",
+        "AvgVolume": "$86,900",
+        "sharesOutstanding": "N/A",
+        "52Week": "$23.155 - $26.455",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$21.68K",
+                "value": "$53.35K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$86.90K",
+                "change": "up"
+            },
+            "52Week": {
+                "value": "$23.16 - $26.45",
                 "change": "up"
             }
         }
@@ -60,19 +73,19 @@
         {
             "배당락": "25. 10. 10",
             "배당금": "$0.69082",
+            "배당률": "5.25%",
             "전일종가": "$26.38",
             "당일시가": "$25.90",
-            "당일종가": "$23.36",
-            "배당률": "5.25%"
+            "당일종가": "$23.36"
         },
         {
             "배당락": "25. 10. 03",
             "배당금": "$0.66913",
+            "배당률": "2.63%",
             "전일종가": "$25.97",
             "당일시가": "$25.43",
             "당일종가": "$25.60",
-            "익일종가": "$25.09",
-            "배당률": "2.63%"
+            "익일종가": "$25.09"
         }
     ],
     "backtestData": {
@@ -164,6 +177,14 @@
                 "low": 23.155000686645508,
                 "close": 23.353200912475586,
                 "volume": 53347
+            },
+            {
+                "date": "2025-10-15",
+                "open": 23.969999313354492,
+                "high": 23.969999313354492,
+                "low": 23.469999313354492,
+                "close": 23.859899520874023,
+                "volume": 26342
             }
         ],
         "dividends": [
@@ -177,5 +198,28 @@
             }
         ]
     },
-    "dividendTotal": 1.35995
+    "dividendTotal": 1.35995,
+    "tickerInfoRaw": {
+        "Symbol": "HOYY",
+        "koName": null,
+        "longName": "GraniteShares YieldBOOST HOOD ETF",
+        "company": "GraniteShares",
+        "frequency": "매주",
+        "group": "금",
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "GraniteShares YieldBOOST HOOD ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 68462,
+        "AvgVolume": 86900,
+        "sharesOutstanding": null,
+        "52Week": "23.155 - 26.455",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

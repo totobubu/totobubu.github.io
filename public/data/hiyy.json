@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "HIYY",
-        "koName": null,
+        "koName": "N/A",
         "longName": "YieldMax HIMS Option Income Strategy ETF",
         "company": "YieldMax",
         "frequency": "매주",
@@ -11,14 +11,23 @@
         "currency": "USD",
         "englishName": "YieldMax HIMS Option Income Strategy ETF",
         "earningsDate": "N/A",
-        "Volume": "$2.38K",
-        "AvgVolume": "$3.46K",
-        "52Week": "$45.14 - $50.78",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$12,386",
+        "AvgVolume": "$3,456",
+        "sharesOutstanding": "N/A",
+        "52Week": "$45.14 - $53.73",
         "Yield": "N/A",
-        "Update": "2025-10-15 13:58:31 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$39.00",
+                "value": "$2.38K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$3.46K",
                 "change": "up"
             }
         }
@@ -55,7 +64,8 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$2.0632"
         }
     ],
     "backtestData": {
@@ -195,9 +205,40 @@
                 "low": 46.779998779296875,
                 "close": 47.05830001831055,
                 "volume": 2382
+            },
+            {
+                "date": "2025-10-15",
+                "open": 47.70000076293945,
+                "high": 49.060001373291016,
+                "low": 47.70000076293945,
+                "close": 49.060001373291016,
+                "volume": 2076
             }
         ],
         "dividends": []
     },
-    "dividendTotal": 0
+    "dividendTotal": 0,
+    "tickerInfoRaw": {
+        "Symbol": "HIYY",
+        "koName": null,
+        "longName": "YieldMax HIMS Option Income Strategy ETF",
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "HIMS",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "YieldMax HIMS Option Income Strategy ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12386,
+        "AvgVolume": 3456,
+        "sharesOutstanding": null,
+        "52Week": "45.14 - 53.73",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

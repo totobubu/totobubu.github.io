@@ -1,20 +1,33 @@
 {
     "tickerInfo": {
         "Symbol": "MAGX",
+        "koName": "N/A",
         "longName": "Roundhill Daily 2X Long Magnificent Seven ETF",
         "company": "Roundhill",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
+        "frequency": "N/A",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Roundhill Daily 2X Long Magnificent Seven ETF",
         "earningsDate": "N/A",
-        "Volume": "$66.53K",
-        "AvgVolume": "$118.03K",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$44,685",
+        "AvgVolume": "$117,656",
+        "sharesOutstanding": "N/A",
         "52Week": "$22.41 - $58.33",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$14.67K",
+                "value": "$66.53K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$118.03K",
                 "change": "up"
             }
         }
@@ -23,11 +36,11 @@
         {
             "배당락": "24. 12. 30",
             "배당금": "$0.396",
+            "배당률": "0.84%",
             "전일종가": "$49.31",
             "당일시가": "$47.19",
             "당일종가": "$47.69",
-            "익일종가": "$46.23",
-            "배당률": "0.84%"
+            "익일종가": "$46.23"
         }
     ],
     "backtestData": {
@@ -3295,6 +3308,14 @@
                 "low": 52.4744987487793,
                 "close": 53.810001373291016,
                 "volume": 66532
+            },
+            {
+                "date": "2025-10-15",
+                "open": 54.65999984741211,
+                "high": 55.13999938964844,
+                "low": 54.45000076293945,
+                "close": 55.10200119018555,
+                "volume": 17127
             }
         ],
         "dividends": [
@@ -3304,5 +3325,28 @@
             }
         ]
     },
-    "dividendTotal": 0.396
+    "dividendTotal": 0.396,
+    "tickerInfoRaw": {
+        "Symbol": "MAGX",
+        "koName": null,
+        "longName": "Roundhill Daily 2X Long Magnificent Seven ETF",
+        "company": "Roundhill",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Roundhill Daily 2X Long Magnificent Seven ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 44685,
+        "AvgVolume": 117656,
+        "sharesOutstanding": null,
+        "52Week": "22.41 - 58.33",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

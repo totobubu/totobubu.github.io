@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "add:etf": "python scripts/add_etfs_by_provider.py",
         "generate-nav": "node tasks/generateNav.js",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
         "generate-sidebar-tickers": "node tasks/generateSidebarTickers.js",

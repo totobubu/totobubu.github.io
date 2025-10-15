@@ -1,20 +1,33 @@
 {
     "tickerInfo": {
         "Symbol": "RDYY",
-        "longName": null,
+        "koName": "N/A",
+        "longName": "N/A",
         "company": "YieldMax",
         "frequency": "매주",
         "group": "목",
-        "underlying": null,
+        "underlying": "N/A",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "N/A",
         "earningsDate": "N/A",
-        "Volume": "$2.16K",
-        "AvgVolume": "$8.33K",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$12,105",
+        "AvgVolume": "$8,096",
+        "sharesOutstanding": "N/A",
         "52Week": "$41.01 - $56.57",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$455.00",
+                "value": "$2.16K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$8.33K",
                 "change": "up"
             }
         }
@@ -51,16 +64,17 @@
             "배당락": "25. 10. 23"
         },
         {
-            "배당락": "25. 10. 16"
+            "배당락": "25. 10. 16",
+            "배당금": "$1.4261"
         },
         {
             "배당락": "25. 10. 02",
             "배당금": "$1.0511",
+            "배당률": "2.49%",
             "전일종가": "$43.39",
             "당일시가": "$42.23",
             "당일종가": "$41.68",
-            "익일종가": "$43.08",
-            "배당률": "2.49%"
+            "익일종가": "$43.08"
         }
     ],
     "backtestData": {
@@ -272,6 +286,14 @@
                 "low": 41.71540069580078,
                 "close": 41.761600494384766,
                 "volume": 2160
+            },
+            {
+                "date": "2025-10-15",
+                "open": 42.779998779296875,
+                "high": 42.90999984741211,
+                "low": 42.689998626708984,
+                "close": 42.689998626708984,
+                "volume": 1457
             }
         ],
         "dividends": [
@@ -281,5 +303,28 @@
             }
         ]
     },
-    "dividendTotal": 1.0511
+    "dividendTotal": 2.4772,
+    "tickerInfoRaw": {
+        "Symbol": "RDYY",
+        "koName": null,
+        "longName": null,
+        "company": "YieldMax",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": null,
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12105,
+        "AvgVolume": 8096,
+        "sharesOutstanding": null,
+        "52Week": "41.01 - 56.57",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

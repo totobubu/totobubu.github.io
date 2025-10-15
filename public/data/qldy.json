@@ -1,20 +1,37 @@
 {
     "tickerInfo": {
         "Symbol": "QLDY",
+        "koName": "N/A",
         "longName": "Defiance NASDAQ 100 Lightningspread Income ETF",
         "company": "Defiance",
         "frequency": "매주",
         "group": "수",
-        "underlying": null,
+        "underlying": "N/A",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Defiance NASDAQ 100 Lightningspread Income ETF",
         "earningsDate": "N/A",
-        "Volume": "$20.29K",
-        "AvgVolume": "$25.42K",
-        "52Week": "$49.22 - $51.84",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$16,569",
+        "AvgVolume": "$25,163",
+        "sharesOutstanding": "N/A",
+        "52Week": "$49.217 - $51.84",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$32.50K",
+                "value": "$20.29K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$25.42K",
+                "change": "up"
+            },
+            "52Week": {
+                "value": "$49.22 - $51.84",
                 "change": "up"
             }
         }
@@ -23,36 +40,36 @@
         {
             "배당락": "25. 10. 10",
             "배당금": "$0.197",
+            "배당률": "1.54%",
             "전일종가": "$51.16",
             "당일시가": "$51.09",
-            "당일종가": "$49.22",
-            "배당률": "1.54%"
+            "당일종가": "$49.22"
         },
         {
             "배당락": "25. 10. 08",
             "배당금": "$0.197",
+            "배당률": "1.16%",
             "전일종가": "$50.94",
             "당일시가": "$50.73",
             "당일종가": "$51.14",
-            "익일종가": "$51.16",
-            "배당률": "1.16%"
+            "익일종가": "$51.16"
         },
         {
             "배당락": "25. 10. 03",
             "배당금": "$0.197",
+            "배당률": "0.77%",
             "전일종가": "$51.42",
             "당일시가": "$51.33",
-            "당일종가": "$50.96",
-            "배당률": "0.77%"
+            "당일종가": "$50.96"
         },
         {
             "배당락": "25. 10. 01",
             "배당금": "$0.196",
+            "배당률": "0.38%",
             "전일종가": "$51.02",
             "당일시가": "$51.01",
             "당일종가": "$51.15",
-            "익일종가": "$51.42",
-            "배당률": "0.38%"
+            "익일종가": "$51.42"
         }
     ],
     "backtestData": {
@@ -208,6 +225,14 @@
                 "low": 49.31999969482422,
                 "close": 49.82640075683594,
                 "volume": 20289
+            },
+            {
+                "date": "2025-10-15",
+                "open": 50.18989944458008,
+                "high": 50.400001525878906,
+                "low": 50.029998779296875,
+                "close": 50.400001525878906,
+                "volume": 3396
             }
         ],
         "dividends": [
@@ -229,5 +254,28 @@
             }
         ]
     },
-    "dividendTotal": 0.7869999999999999
+    "dividendTotal": 0.7869999999999999,
+    "tickerInfoRaw": {
+        "Symbol": "QLDY",
+        "koName": null,
+        "longName": "Defiance NASDAQ 100 Lightningspread Income ETF",
+        "company": "Defiance",
+        "frequency": "매주",
+        "group": "수",
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Defiance NASDAQ 100 Lightningspread Income ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 16569,
+        "AvgVolume": 25163,
+        "sharesOutstanding": null,
+        "52Week": "49.217 - 51.84",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }

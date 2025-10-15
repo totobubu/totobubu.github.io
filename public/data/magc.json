@@ -1,20 +1,37 @@
 {
     "tickerInfo": {
         "Symbol": "MAGC",
+        "koName": "N/A",
         "longName": "Roundhill ETF Trust - Roundhill China Magnificent Seven ETF",
         "company": "Roundhill",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
+        "frequency": "N/A",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Roundhill ETF Trust - Roundhill China Magnificent Seven ETF",
         "earningsDate": "N/A",
-        "Volume": "$11.98K",
-        "AvgVolume": "$12.48K",
-        "52Week": "$20.08 - $30.00",
+        "enterpriseValue": "N/A",
+        "marketCap": "N/A",
+        "Volume": "$8,084",
+        "AvgVolume": "$12,370",
+        "sharesOutstanding": "N/A",
+        "52Week": "$20.08 - $30",
         "Yield": "N/A",
-        "Update": "2025-10-15 05:40:13 KST",
+        "dividendRate": "N/A",
+        "payoutRatio": "N/A",
+        "Update": "2025-10-16 05:33:15 KST",
         "changes": {
             "Volume": {
-                "value": "$3.49K",
+                "value": "$11.98K",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$12.48K",
+                "change": "up"
+            },
+            "52Week": {
+                "value": "$20.08 - $30.00",
                 "change": "up"
             }
         }
@@ -23,11 +40,11 @@
         {
             "배당락": "24. 12. 30",
             "배당금": "$0.218",
+            "배당률": "1.02%",
             "전일종가": "$21.75",
             "당일시가": "$21.41",
             "당일종가": "$21.23",
-            "익일종가": "$21.27",
-            "배당률": "1.02%"
+            "익일종가": "$21.27"
         }
     ],
     "backtestData": {
@@ -2095,6 +2112,14 @@
                 "low": 26.750999450683594,
                 "close": 26.97719955444336,
                 "volume": 11987
+            },
+            {
+                "date": "2025-10-15",
+                "open": 27.290000915527344,
+                "high": 27.450000762939453,
+                "low": 27.229999542236328,
+                "close": 27.409799575805664,
+                "volume": 4089
             }
         ],
         "dividends": [
@@ -2104,5 +2129,28 @@
             }
         ]
     },
-    "dividendTotal": 0.218
+    "dividendTotal": 0.218,
+    "tickerInfoRaw": {
+        "Symbol": "MAGC",
+        "koName": null,
+        "longName": "Roundhill ETF Trust - Roundhill China Magnificent Seven ETF",
+        "company": "Roundhill",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "englishName": "Roundhill ETF Trust - Roundhill China Magnificent Seven ETF",
+        "earningsDate": "N/A",
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 8084,
+        "AvgVolume": 12370,
+        "sharesOutstanding": null,
+        "52Week": "20.08 - 30.0",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 05:33:15 KST"
+    }
 }
