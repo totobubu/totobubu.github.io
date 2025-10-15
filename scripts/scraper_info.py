@@ -72,19 +72,27 @@ def process_single_ticker_info(info):
 def format_ticker_info(info_dict):
     currency = info_dict.get("currency", "USD")
     formatted = info_dict.copy()
-    currency_symbol = "₩" if currency == "KRW" else "$"
+
     for key, value in formatted.items():
         if value is None:
             formatted[key] = "N/A"
             continue
-        if key in ["enterpriseValue", "marketCap"]:
-            formatted[key] = (
-                f"{format_currency(value, currency, show_symbol=False)}".replace(
-                    ".00", ""
+
+        if key in [
+            "enterpriseValue",
+            "marketCap",
+            "Volume",
+            "AvgVolume",
+            "sharesOutstanding",
+        ]:
+            # [핵심 수정] format_large_number로 숫자 축약 후, 통화가 KRW일 때만 ₩ 기호 추가
+            formatted_num = format_large_number(value)
+            if formatted_num != "N/A":
+                formatted[key] = (
+                    f"{formatted_num}{' ₩' if currency == 'KRW' else ''}".strip()
                 )
-            )
-        elif key in ["Volume", "AvgVolume", "sharesOutstanding"]:
-            formatted[key] = format_large_number(value)
+            else:
+                formatted[key] = "N/A"
         elif key == "dividendRate":
             formatted[key] = format_currency(value, currency)
         elif key == "payoutRatio":
