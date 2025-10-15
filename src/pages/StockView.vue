@@ -229,7 +229,8 @@
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"
                 :update-time="tickerInfo.Update"
-                :is-desktop="isDesktop" />
+                :is-desktop="isDesktop"
+                :currency="tickerInfo.currency" />
             <span
                 v-if="tickerInfo.Update"
                 class="dark:text-surface-500 dark:text-surface-400 text-center">
