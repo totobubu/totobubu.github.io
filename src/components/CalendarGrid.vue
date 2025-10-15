@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/CalendarGrid.vue -->
+<!-- src/components/CalendarGrid.vue -->
 <script setup>
     import { ref, computed, watch, defineEmits } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
@@ -129,25 +129,34 @@
                 };
             }
 
-            const { ticker, amount, eventClass } = arg.event.extendedProps;
+            const { ticker, amount, eventClass, koName, currency } =
+                arg.event.extendedProps;
+            const currencySymbol = currency === 'KRW' ? '₩' : '$';
+            const displayName = koName || ticker; // koName 우선 표시
+
+            const amountStr =
+                amount != null
+                    ? `${currencySymbol}${currency === 'KRW' ? Math.round(amount) : amount.toFixed(4)}`
+                    : '';
+
             const amountHtml =
                 amount != null
-                    ? `<span>$${amount.toFixed(4)}</span>`
+                    ? `<span>${amountStr}</span>`
                     : '<span class="no-amount">예정</span>';
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
             const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {
-                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div></div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
                 };
             }
         },
