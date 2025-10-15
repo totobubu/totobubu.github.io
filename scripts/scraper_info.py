@@ -16,23 +16,24 @@ from utils import (
 )
 
 
-def fetch_bulk_ticker_info_batch(ticker_batch):
-    """티커 묶음(batch)의 정보를 yfinance를 통해 가져옵니다."""
-    batch_data = {}
+def fetch_bulk_ticker_info(ticker_symbols):
+    """여러 티커의 정보를 yfinance를 통해 한 번에 가져옵니다."""
+    print(f"Fetching bulk info for {len(ticker_symbols)} tickers...")
+    bulk_data = {}
     try:
-        tickers_str = " ".join(ticker_batch)
-        tickers = yf.Tickers(tickers_str)
-
-        for symbol, ticker_obj in tickers.tickers.items():
+        tickers = yf.Tickers(ticker_symbols)
+        for symbol, ticker_obj in tqdm(
+            tickers.tickers.items(), desc="Fetching Ticker Info"
+        ):
             try:
-                batch_data[symbol] = ticker_obj.info
-            except Exception:
-                batch_data[symbol] = None
-        return batch_data
+                bulk_data[symbol] = ticker_obj.info
+            except Exception as e:
+                tqdm.write(f"  - Warning: Failed to get info for {symbol}: {e}")
+                bulk_data[symbol] = None
+        return bulk_data
     except Exception as e:
-        print(f"  -> Error during batch fetch: {e}")
-        # 실패한 배치에 대해 None으로 채운 딕셔너리 반환
-        return {symbol: None for symbol in ticker_batch}
+        print(f"  -> Critical error during bulk fetch setup: {e}")
+        return {}
 
 
 def process_single_ticker_info(info):
@@ -40,7 +41,6 @@ def process_single_ticker_info(info):
     try:
         if not info or info.get("regularMarketPrice") is None:
             return None
-
         current_price = info.get("regularMarketPrice") or info.get("previousClose")
         yield_val = (
             ((info.get("trailingAnnualDividendRate", 0) / current_price) * 100)
@@ -53,7 +53,6 @@ def process_single_ticker_info(info):
             if earnings_ts
             else "N/A"
         )
-
         return {
             "longName": info.get("longName"),
             "earningsDate": earnings_date,
@@ -75,7 +74,7 @@ def process_single_ticker_info(info):
         return None
 
 
-def format_ticker_info(info_dict, currency="USD"):  # currency 인자 추가
+def format_ticker_info(info_dict, currency="USD"):
     formatted = info_dict.copy()
     for key, value in formatted.items():
         if key in [
@@ -85,9 +84,12 @@ def format_ticker_info(info_dict, currency="USD"):  # currency 인자 추가
             "AvgVolume",
             "sharesOutstanding",
         ]:
-            formatted[key] = format_large_number(value, currency)  # currency 전달
+            # 한국 원화(KRW)일 경우 format_large_number에 통화 정보 전달
+            formatted[key] = format_large_number(
+                value, currency if currency == "KRW" else None
+            )
         elif key == "dividendRate":
-            formatted[key] = format_currency(value)
+            formatted[key] = format_currency(value, currency)
         elif key == "payoutRatio":
             formatted[key] = format_percent(value)
         elif key == "Yield":
@@ -113,6 +115,8 @@ def calculate_changes(new_info, old_info):
                 "Update",
                 "Symbol",
                 "longName",
+                "koName",
+                "englishName",
                 "company",
                 "frequency",
                 "group",
@@ -157,7 +161,8 @@ def main():
 
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
 
-    # [핵심 수정] 티커 목록을 100개씩 묶어서 처리
+    # --- [핵심 수정] ---
+    # 티커 목록을 100개씩 묶어서 처리하여 과부하를 방지합니다.
     batch_size = 100
     all_bulk_info = {}
 
@@ -166,10 +171,13 @@ def main():
         desc="Fetching All Ticker Info in Batches",
     ):
         batch = active_symbols[i : i + batch_size]
+        # 함수 이름 변경에 맞춰 호출
         batch_info = fetch_bulk_ticker_info_batch(batch)
         all_bulk_info.update(batch_info)
+        # 마지막 배치가 아닐 경우에만 지연
         if i + batch_size < len(active_symbols):
             time.sleep(2)  # 각 배치 요청 사이에 2초 지연
+    # --- // ---
 
     total_changed_files = 0
     now_kst = get_kst_now()
@@ -179,41 +187,57 @@ def main():
     ):
         ticker_symbol = info_from_nav.get("symbol")
 
-        raw_dynamic_info = all_bulk_info.get(ticker_symbol)
+        raw_dynamic_info = bulk_info.get(ticker_symbol)
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
         if not dynamic_info:
             continue
 
-        currency = info_from_nav.get("currency", "USD")
-
-        # ... (이하 파일 저장 로직은 이전과 동일) ...
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
         old_ticker_info = existing_data.get("tickerInfo", {})
 
         new_info_base = {
             "Symbol": ticker_symbol,
-            "longName": info_from_nav.get("longName"),
+            "koName": info_from_nav.get("koName"),
+            "longName": info_from_nav.get("koName")
+            or info_from_nav.get("longName"),  # koName 우선
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
             "underlying": info_from_nav.get("underlying"),
+            "market": info_from_nav.get("market"),
+            "currency": info_from_nav.get("currency"),
         }
-        new_info_base.update({k: v for k, v in dynamic_info.items() if v is not None})
+
+        if dynamic_info:
+            if dynamic_info.get("longName"):
+                new_info_base["englishName"] = dynamic_info.pop("longName")
+                if not new_info_base.get(
+                    "longName"
+                ):  # longName이 비어있으면 영문으로 채움
+                    new_info_base["longName"] = new_info_base["englishName"]
+            new_info_base.update(
+                {k: v for k, v in dynamic_info.items() if v is not None}
+            )
 
         old_comparable = old_ticker_info.copy()
-        old_comparable.pop("Update", None)
-        old_comparable.pop("changes", None)
+        for key in ["Update", "changes"]:
+            old_comparable.pop(key, None)
+
+        # 새로운 데이터에서 비교에 불필요한 키 제거
+        new_comparable = new_info_base.copy()
 
         if json.dumps(old_comparable, sort_keys=True, default=str) == json.dumps(
-            new_info_base, sort_keys=True, default=str
+            new_comparable, sort_keys=True, default=str
         ):
             continue
 
         final_ticker_info = new_info_base.copy()
         final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        formatted_info = format_ticker_info(final_ticker_info, currency)
+        formatted_info = format_ticker_info(
+            final_ticker_info, final_ticker_info.get("currency")
+        )
         formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
 
         existing_data["tickerInfo"] = formatted_info
