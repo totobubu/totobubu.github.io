@@ -1,5 +1,5 @@
 // composables/useCalendarData.js
-import { ref, computed, watch } from 'vue'; // watch 추가
+import { ref, computed, watch } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 import { user } from '../store/auth';
@@ -68,9 +68,9 @@ export function useCalendarData() {
     const dividendsByDate = computed(() => {
         let sourceData = allDividendData.value;
 
-        const marketType = filters.value.marketType.value;
+        // [핵심 수정] filters.value.marketType -> filters.marketType 으로 수정
+        const marketType = filters.marketType?.value; // Optional chaining 추가
         if (marketType) {
-            // 필터가 존재할 때만 필터링 수행
             sourceData = sourceData.filter((event) => {
                 const props = allTickerProperties.value.get(event.ticker);
                 if (!props) return false;
@@ -104,9 +104,12 @@ export function useCalendarData() {
         return grouped;
     });
 
+    // [핵심 수정] watch 대상도 filters.marketType.value로 명확히 지정
     watch(
-        () => filters.value.marketType.value,
-        () => {}
+        () => filters.marketType?.value,
+        () => {
+            // 이 watch는 computed 속성인 dividendsByDate를 재계산하도록 트리거합니다.
+        }
     );
 
     return {
