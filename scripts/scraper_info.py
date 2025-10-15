@@ -47,13 +47,13 @@ def process_single_ticker_info(info):
             if earnings_ts
             else "N/A"
         )
-        fifty_two_week_range = "N/A"
-        if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh"):
-            fifty_two_week_range = (
-                f"{info.get('fiftyTwoWeekLow')} - {info.get('fiftyTwoWeekHigh')}"
-            )
+        fifty_two_week_range = (
+            f"{info.get('fiftyTwoWeekLow')} - {info.get('fiftyTwoWeekHigh')}"
+            if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh")
+            else "N/A"
+        )
         return {
-            "longName": info.get("longName"),
+            "englishName": info.get("longName"),
             "earningsDate": earnings_date,
             "enterpriseValue": info.get("enterpriseValue"),
             "marketCap": info.get("marketCap"),
@@ -69,24 +69,22 @@ def process_single_ticker_info(info):
         return None
 
 
-def format_ticker_info(info_dict, currency="USD"):
+def format_ticker_info(info_dict):
+    currency = info_dict.get("currency", "USD")
     formatted = info_dict.copy()
     currency_symbol = "₩" if currency == "KRW" else "$"
     for key, value in formatted.items():
-        if key in [
-            "enterpriseValue",
-            "marketCap",
-            "Volume",
-            "AvgVolume",
-            "sharesOutstanding",
-        ]:
-            formatted_num = format_large_number(value)
-            if formatted_num != "N/A":
-                formatted[key] = (
-                    f"{formatted_num}{' ₩' if currency == 'KRW' else ''}".strip()
+        if value is None:
+            formatted[key] = "N/A"
+            continue
+        if key in ["enterpriseValue", "marketCap"]:
+            formatted[key] = (
+                f"{format_currency(value, currency, show_symbol=False)}".replace(
+                    ".00", ""
                 )
-            else:
-                formatted[key] = "N/A"
+            )
+        elif key in ["Volume", "AvgVolume", "sharesOutstanding"]:
+            formatted[key] = format_large_number(value)
         elif key == "dividendRate":
             formatted[key] = format_currency(value, currency)
         elif key == "payoutRatio":
@@ -100,28 +98,23 @@ def format_ticker_info(info_dict, currency="USD"):
         elif key == "52Week" and value != "N/A":
             try:
                 low, high = map(float, value.split(" - "))
-                if currency == "KRW":
-                    formatted[key] = (
-                        f"{currency_symbol}{int(low):,} - {currency_symbol}{int(high):,}"
-                    )
-                else:
-                    formatted[key] = (
-                        f"{currency_symbol}{low:,.2f} - {currency_symbol}{high:,.2f}"
-                    )
+                formatted[key] = (
+                    f"{format_currency(low, currency)} - {format_currency(high, currency)}"
+                )
             except (ValueError, TypeError):
                 formatted[key] = "N/A"
     return formatted
 
 
-def calculate_changes(new_info, old_info):
+def calculate_changes(new_formatted, old_formatted):
     changes_obj = {}
-    if not old_info:
+    if not old_formatted:
         return changes_obj
-    new_update_date = new_info.get("Update", "").split(" ")[0]
-    old_update_date = old_info.get("Update", "").split(" ")[0]
+    new_update_date = new_formatted.get("Update", "").split(" ")[0]
+    old_update_date = old_formatted.get("Update", "").split(" ")[0]
     if new_update_date != old_update_date:
-        for key, new_val in new_info.items():
-            old_val = old_info.get(key)
+        for key, new_val in new_formatted.items():
+            old_val = old_formatted.get(key)
             if old_val is None or key in [
                 "changes",
                 "Update",
@@ -151,24 +144,21 @@ def calculate_changes(new_info, old_info):
             if change_status != "equal":
                 changes_obj[key] = {"value": old_val, "change": change_status}
     else:
-        return old_info.get("changes", {})
+        return old_formatted.get("changes", {})
     return changes_obj
 
 
 def are_dicts_equal(dict1, dict2):
-    ignore_keys = {"Update", "changes"}
-    keys1 = {k for k in dict1 if k not in ignore_keys}
-    keys2 = {k for k in dict2 if k not in ignore_keys}
+    keys1 = set(dict1.keys())
+    keys2 = set(dict2.keys())
     if keys1 != keys2:
         return False
     for key in keys1:
         val1, val2 = dict1.get(key), dict2.get(key)
-        num1 = parse_numeric_value(val1)
-        num2 = parse_numeric_value(val2)
-        if num1 is not None and num2 is not None:
-            if abs(num1 - num2) > 1e-6:
+        if isinstance(val1, float) and isinstance(val2, float):
+            if abs(val1 - val2) > 1e-9:
                 return False
-        elif str(val1) != str(val2):
+        elif val1 != val2:
             return False
     return True
 
@@ -176,7 +166,6 @@ def are_dicts_equal(dict1, dict2):
 def main():
     nav_data = load_json_file("public/nav.json")
     if not nav_data or "nav" not in nav_data:
-        print("!!! Error: public/nav.json not found.")
         return
 
     print("\n--- Starting Daily Ticker Info Update ---")
@@ -186,7 +175,6 @@ def main():
         if item.get("symbol") and not item.get("upcoming")
     ]
     if not active_tickers_from_nav:
-        print("No active tickers to update.")
         return
 
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
@@ -200,7 +188,7 @@ def main():
         batch_info = fetch_bulk_ticker_info_batch(batch)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
-            time.sleep(2)
+            time.sleep(1)
 
     total_changed_files = 0
     now_kst = get_kst_now()
@@ -215,78 +203,47 @@ def main():
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
-        old_ticker_info = existing_data.get("tickerInfo", {})
+        old_raw_info = existing_data.get("tickerInfoRaw", {})
 
-        new_info_base = {
+        new_raw_info = {
             "Symbol": ticker_symbol,
             "koName": info_from_nav.get("koName"),
-            "longName": info_from_nav.get(
-                "longName"
-            ),  # [수정] longName은 nav.json에서 직접 가져옴
+            "longName": info_from_nav.get("longName") or info_from_nav.get("koName"),
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
             "underlying": info_from_nav.get("underlying"),
-            "market": info_from_nav.get("market"),  # [핵심 수정] market 정보 추가
-            "currency": info_from_nav.get("currency"),  # [핵심 수정] currency 정보 추가
+            "market": info_from_nav.get("market"),
+            "currency": info_from_nav.get("currency"),
         }
-        if dynamic_info:
-            # yfinance의 longName은 englishName으로 별도 저장
-            if dynamic_info.get("longName"):
-                new_info_base["englishName"] = dynamic_info.pop("longName")
-            # nav.json에 longName이 없는 경우에만 englishName으로 채움
-            if not new_info_base.get("longName"):
-                new_info_base["longName"] = new_info_base.get("englishName")
+        new_raw_info.update(dynamic_info)
+        if not new_raw_info.get("longName"):
+            new_raw_info["longName"] = new_raw_info.get("englishName")
 
-            new_info_base.update(
-                {k: v for k, v in dynamic_info.items() if v is not None}
-            )
+        # 비교 시에는 비교에 불필요한 키를 제외한 두 원본 딕셔너리를 비교
+        compare_old = {
+            k: v for k, v in old_raw_info.items() if k not in ["Update", "englishName"]
+        }
+        compare_new = {
+            k: v for k, v in new_raw_info.items() if k not in ["Update", "englishName"]
+        }
 
-        # [핵심 수정] 비교는 포맷팅 전 원본 데이터끼리 수행
-        old_comparable_raw = old_ticker_info.copy()
-        for key in [
-            "Update",
-            "changes",
-            "Yield",
-            "payoutRatio",
-            "dividendRate",
-            "52Week",
-            "sharesOutstanding",
-            "AvgVolume",
-            "Volume",
-            "marketCap",
-            "enterpriseValue",
-        ]:
-            old_comparable_raw.pop(key, None)
-        new_comparable_raw = new_info_base.copy()
-        for key in [
-            "Yield",
-            "payoutRatio",
-            "dividendRate",
-            "52Week",
-            "sharesOutstanding",
-            "AvgVolume",
-            "Volume",
-            "marketCap",
-            "enterpriseValue",
-        ]:
-            new_comparable_raw.pop(key, None)
+        if are_dicts_equal(compare_old, compare_new):
+            continue
 
-        if json.dumps(old_comparable_raw, sort_keys=True) == json.dumps(
-            new_comparable_raw, sort_keys=True
-        ):
-            # 숫자 데이터만 따로 비교
-            if are_dicts_equal(old_ticker_info, new_info_base):
-                continue
+        old_formatted_info = existing_data.get("tickerInfo", {})
 
-        final_ticker_info = new_info_base.copy()
-        final_ticker_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        formatted_info = format_ticker_info(
-            final_ticker_info, final_ticker_info.get("currency")
+        new_raw_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
+        new_formatted_info = format_ticker_info(
+            new_raw_info.copy()
+        )  # 원본 보존을 위해 복사본 전달
+        new_formatted_info["changes"] = calculate_changes(
+            new_formatted_info, old_formatted_info
         )
-        formatted_info["changes"] = calculate_changes(formatted_info, old_ticker_info)
 
-        existing_data["tickerInfo"] = formatted_info
+        existing_data["tickerInfoRaw"] = new_raw_info
+        existing_data["tickerInfo"] = new_formatted_info
+
         if save_json_file(file_path, existing_data, indent=2):
             total_changed_files += 1
 
