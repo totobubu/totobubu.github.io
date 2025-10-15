@@ -1,106 +1,98 @@
-# 배당 모아
+# 배당 모아 (Div Grow) - 프로젝트 설정 가이드
 
-# 1. 루트 폴더로 이동
+## 1. 초기 환경 설정
 
-node -v 18이상
+### # 1-1. Python 가상 환경 설정
+프로젝트 루트에서 아래 명령어를 실행하여 파이썬 가상 환경을 생성하고 활성화합니다.
 
-# 2. 시스템 파이썬에 설치된 라이브러리들 제거
+#```bash
 
-pip uninstall -y undetected-chromedriver beautifulsoup4 yfinance
+# '.venv' 라는 이름의 가상 환경 생성
+python3 -m venv .venv
 
-관리자 권한으로 PowerShell 실행:
-시작 메뉴를 엽니다.
-PowerShell을 검색합니다.
-Windows PowerShell 앱에 마우스 오른쪽 버튼을 클릭하고 **"관리자 권한으로 실행"**을 선택합니다.
-"이 앱이 디바이스를 변경하도록 허용하시겠어요?"라는 창이 뜨면 "예"를 누릅니다.
-현재 실행 정책 확인 (선택 사항):
-관리자 PowerShell 창에 아래 명령어를 입력하여 현재 설정을 확인합니다. 아마 Restricted라고 나올 것입니다.
-code
-Powershell
-Get-ExecutionPolicy
-실행 정책 변경:
-아래 명령어를 입력하고 엔터를 누릅니다.
-code
-Powershell
-Set-ExecutionPolicy RemoteSigned
-확인 프롬프트:
-실행 정책을 변경할 것인지 묻는 메시지가 나타납니다. Y 또는 A를 입력하고 엔터를 누릅니다.
-[Y] 예(Y): 이번 한 번만 변경을 허용합니다. (추천)
-[A] 예(모두)(A): 앞으로도 계속 이 설정을 유지합니다.
-code
-Code
-실행 정책 변경
-실행 정책은 사용자를 신뢰하지 않는 스크립트로부터 보호합니다. 실행 정책을 변경하면 about_Execution_Policies
-도움말 항목에 설명된 보안 위험에 노출될 수 있습니다. 실행 정책을 변경하시겠습니까?
-[Y] 예(Y) [A] 예(모두)(A) [N] 아니요(N) [L] 모두 아니요(L) [S] 일시 중단(S) [?] 도움말 (기본값: "N"): Y
-설정 완료: 이제 관리자 PowerShell 창을 닫아도 됩니다.
+# 가상 환경 활성화 (Windows - Git Bash or WSL)
+source .venv/bin/activate
 
-# 1. Vue 프로젝트 폴더로 이동
+# 가상 환경 활성화 (Windows - Command Prompt)
+# .venv\Scripts\activate
 
-# 2. 'venv' 라는 이름의 가상 환경 생성
+# 1-2. 필수 라이브러리 설치
+프로젝트에 필요한 Node.js와 Python 라이브러리를 설치합니다.
 
-python3 -m venv venv
+# Python 라이브러리 설치
+pip install -r requirements.txt
 
-# 3. 생성된 가상 환경 활성화
-
-source venv/bin/activate
-
-pip install undetected-chromedriver beautifulsoup4 yfinance setuptools
-
-스크립트별 역할
-tasks/updateHistoricalData.js (Node.js)
-대상: backtestData.prices
-역할: yahoo-finance2를 사용하여 과거 일별 주가 데이터를 가져와 이 필드를 채웁니다. 증분 업데이트(Incremental Update) 방식으로 효율적으로 작동합니다.
-
-scripts/scraper_info.py (Python)
-대상: tickerInfo
-역할: yfinance를 사용하여 최신 시세 정보와 기업 개요(시가총액, 거래량 등)를 가져와 이 필드를 업데이트합니다. 이전 데이터와 비교하여 ...Change 객체를 생성합니다.
-
-scripts/scraper_dividend.py (Python)
-대상: dividendHistory
-역할: backtestData에 저장된 주가와 배당금 데이터를 읽어, 사용자가 보는 상세한 배당 내역(전일/당일/익일 종가, 배당률 등)을 계산하여 이 필드를 채웁니다.
-
-# 3-1. 크롬 없을때
-
-로컬서버
-
-sudo apt-get update
-
-sudo apt-get install -y wget gnupg
-
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-
-sudo apt-get update
-
-sudo apt-get install -y google-chrome-stable
-
-# 4. 개발환경 셋팅
-
+# Node.js 라이브러리 설치
 npm install
 
-npm run build
 
-npm run deploy
+# 2. 데이터 업데이트 파이프라인
+데이터를 최신 상태로 유지하기 위한 스크립트 실행 순서입니다. GitHub Actions에서 매일 자동으로 실행되지만, 로컬에서 수동으로 실행할 수도 있습니다.
 
+# 1. (선택) KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
+python scripts/fetch_top_tickers.py
+
+# 2. (선택) 특정 운용사의 모든 ETF 종목 추가
+npm run add:etf "Roundhill"
+
+# 3. (선택) 한국 주식 전체 목록 업데이트
+python scripts/fetch_kr_tickers.py
+
+# 4. 환율 데이터 업데이트
+node scripts/fetch_all_exchange_rates.js
+
+# 5. IPO 날짜 동기화 및 'upcoming' 상태 업데이트
+npm run add-ipo-dates
+
+# 6. 배당 주기(frequency) 및 그룹(group) 자동 분석
+python scripts/analyze_dividend_frequency.py
+
+# 7. 최종 nav.json 파일 생성
+npm run generate-nav
+
+# 8. 주가 데이터 증분 업데이트 (Node.js)
+npm run update-data
+
+# 9. 배당 데이터 증분 업데이트 (Python)
+python scripts/update_dividends.py
+
+# 10. 배당 내역 상세 정보(주가, 배당률 등) 가공
+python scripts/scraper_dividend.py
+
+# 11. 최신 기업 정보(시가총액 등) 업데이트
+python scripts/scraper_info.py
+
+# 12. 사이드바용 실시간 데이터 생성
+python scripts/generate_live_data.py
+
+# 13. 북마크 인기 데이터 집계 (FIRESTORE_SA_KEY 환경 변수 필요)
+python scripts/aggregate_popularity.py
+
+# 14. 달력 이벤트 데이터 생성
+npm run generate-calendar-events
+
+# 15. 사이드바 목록 데이터 생성
+npm run generate-sidebar-tickers
+
+# 16. 생성된 모든 JSON 파일 포맷팅
+npm run format:data
+
+
+3. 개발 서버 실행
 npm run dev
 
-vercel dev --listen 5000
 
-# 5. 권장 실행 순서
 
-python scripts/fetch_top_tickers.py
-node scripts/fetch_all_exchange_rates.js
-npm run add-ipo-dates
-python scripts/analyze_dividend_frequency.py
-npm run generate-nav
-npm run update-data
-python scripts/update_dividends.py
-python scripts/scraper_dividend.py
-python scripts/scraper_info.py
-python scripts/generate_live_data.py
-python scripts/aggregate_popularity.py
-npm run generate-calendar-events
-npm run generate-sidebar-tickers
-npm run format:data
+
+
+
+
+
+
+
+
+
+
+
+
+
