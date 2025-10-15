@@ -1,5 +1,4 @@
 // src/composables/charts/useMonthlyChart.js
-import { computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import {
     getDynamicChartWidth,
@@ -8,10 +7,19 @@ import {
     getCommonPlugins,
 } from '@/utils/chartUtils.js';
 
-export function useMonthlyChart(options) {
-    const { data, deviceType, group, theme } = options;
-    const { textColorSecondary, surfaceBorder } = theme;
+const parsePrice = (value) => {
+    if (value === null || typeof value === 'undefined' || value === 'N/A')
+        return null;
+    const number = parseFloat(
+        String(value).replace(/[$,₩]/g, '').replace(/,/g, '')
+    );
+    return isNaN(number) ? null : number;
+};
 
+export function useMonthlyChart(options) {
+    const { data, deviceType, group, theme, currency = 'USD' } = options;
+    const currencySymbol = currency === 'KRW' ? '₩' : '$';
+    const { textColorSecondary, surfaceBorder } = theme;
     const { dividend: colorDividend, highlight: colorHighlight } =
         getChartColorsByGroup(group);
 
@@ -28,9 +36,7 @@ export function useMonthlyChart(options) {
     );
     const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
     const newestDataIndex = 0;
-    const dividendData = data.map((item) =>
-        parseFloat(item['배당금']?.replace('$', '') || 0)
-    );
+    const dividendData = data.map((item) => parsePrice(item['배당금']));
 
     const chartData = {
         labels,
@@ -49,7 +55,9 @@ export function useMonthlyChart(options) {
                     anchor: 'end',
                     align: 'end',
                     formatter: (value) =>
-                        value > 0 ? `$${value.toFixed(4)}` : null,
+                        value > 0
+                            ? `${currencySymbol}${value.toFixed(currency === 'KRW' ? 0 : 4)}`
+                            : null,
                     font: { size: barLabelSize, weight: 'bold' },
                 },
             },
@@ -72,7 +80,7 @@ export function useMonthlyChart(options) {
             tooltipCallbacks: {
                 callbacks: {
                     label: (context) =>
-                        `${context.dataset.label}: $${Number(context.raw).toFixed(4)}`,
+                        `${context.dataset.label}: ${currencySymbol}${Number(context.raw).toFixed(currency === 'KRW' ? 0 : 4)}`,
                 },
             },
         }),
@@ -96,9 +104,5 @@ export function useMonthlyChart(options) {
         },
     };
 
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-    };
+    return { chartData, chartOptions, chartContainerWidth };
 }

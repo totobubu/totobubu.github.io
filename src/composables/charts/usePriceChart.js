@@ -1,5 +1,4 @@
 // src/composables/charts/usePriceChart.js
-import { computed } from 'vue';
 import { getChartColorsByGroup } from '@/utils/chartColors.js';
 import {
     getDynamicChartWidth,
@@ -9,30 +8,44 @@ import {
 } from '@/utils/chartUtils.js';
 
 const parsePrice = (value) => {
-    if (value === null || typeof value === 'undefined' || value === 'N/A') {
+    if (value === null || typeof value === 'undefined' || value === 'N/A')
         return null;
-    }
-    const number = parseFloat(String(value).replace('$', ''));
+    const number = parseFloat(
+        String(value).replace(/[$,₩]/g, '').replace(/,/g, '')
+    );
     return isNaN(number) ? null : number;
 };
 
 export function usePriceChart(options) {
-    const { data, deviceType, group, theme } = options;
-    const { textColorSecondary, surfaceBorder } = theme;
+    const { data, deviceType, group, theme, currency = 'USD' } = options;
+    const currencySymbol = currency === 'KRW' ? '₩' : '$';
+    const numberFormat =
+        currency === 'KRW'
+            ? new Intl.NumberFormat('ko-KR', {
+                  style: 'currency',
+                  currency: 'KRW',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+              })
+            : new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+              });
 
+    const { textColorSecondary, surfaceBorder } = theme;
     const colors = getChartColorsByGroup(group) || {};
     const {
-        dividend = '#4ade80',
-        highlight = '#818cf8',
-        lineDividend = '#16a34a',
-        prevPrice = '#9ca3af',
-        currentPrice = '#3b82f6',
-        openPrice = '#f97316',
-        nextPrice = '#14b8a6',
-        prevPriceText = '#9ca3af',
-        currentPriceText = '#3b82f6',
-        openPriceText = '#f97316',
-        nextPriceText = '#14b8a6',
+        dividend,
+        highlight,
+        lineDividend,
+        prevPrice,
+        currentPrice,
+        openPrice,
+        nextPrice,
+        prevPriceText,
+        currentPriceText,
+        openPriceText,
+        nextPriceText,
     } = colors;
 
     const chartContainerWidth = getDynamicChartWidth(
@@ -51,7 +64,6 @@ export function usePriceChart(options) {
         'line'
     );
     const tickFontSize = getPriceChartFontSize(data.length, deviceType, 'axis');
-    const lastDataIndex = data.length - 1;
     const newestDataIndex = 0;
 
     const prices = data
@@ -62,9 +74,15 @@ export function usePriceChart(options) {
             parsePrice(item['익일종가']),
         ])
         .filter((p) => p !== null);
-
     const priceMin = prices.length > 0 ? Math.min(...prices) * 0.98 : 0;
     const priceMax = prices.length > 0 ? Math.max(...prices) * 1.02 : 1;
+
+    const createDatalabelsFormatter = (v) =>
+        v !== null
+            ? `${currencySymbol}${Math.round(v).toLocaleString()}`
+            : null;
+    const createTooltipLabel = (c) =>
+        `${c.dataset.label || ''}: ${numberFormat.format(c.parsed.y)}`;
 
     const priceChartData = {
         labels: data.map((item) => item['배당락']),
@@ -84,7 +102,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'top',
                     color: prevPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: createDatalabelsFormatter,
                     font: { size: lineLabelSize * 0.9 },
                 },
             },
@@ -103,7 +121,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'center',
                     color: openPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: createDatalabelsFormatter,
                     font: { size: lineLabelSize },
                 },
             },
@@ -121,7 +139,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: currentPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: createDatalabelsFormatter,
                     font: { size: lineLabelSize },
                 },
             },
@@ -140,7 +158,7 @@ export function usePriceChart(options) {
                     display: data.length <= 15,
                     align: 'bottom',
                     color: nextPriceText,
-                    formatter: (v) => (v !== null ? `$${v.toFixed(2)}` : null),
+                    formatter: createDatalabelsFormatter,
                     font: { size: lineLabelSize },
                 },
             },
@@ -162,15 +180,14 @@ export function usePriceChart(options) {
                     offset: 8,
                     color: (c) =>
                         c.dataIndex === newestDataIndex ? 'bold' : 'normal',
-                    formatter: (v) =>
-                        v !== null && v > 0 ? `$${v.toFixed(2)}` : null,
+                    formatter: createDatalabelsFormatter,
                     font: (c) => ({
                         size:
-                            c.dataIndex === lastDataIndex
+                            c.dataIndex === data.length - 1
                                 ? barLabelSize + 2
                                 : barLabelSize,
                         weight:
-                            c.dataIndex === lastDataIndex ? 'bold' : 'normal',
+                            c.dataIndex === data.length - 1 ? 'bold' : 'normal',
                     }),
                 },
             },
@@ -185,10 +202,7 @@ export function usePriceChart(options) {
             legendDisplay: true,
             tooltipCallbacks: {
                 itemSort: (a, b) => a.dataset.order - b.dataset.order,
-                callbacks: {
-                    label: (c) =>
-                        `${c.dataset.label || ''}: ${new Intl.NumberFormat('EN-US', { style: 'currency', currency: 'USD' }).format(c.parsed.y)}`,
-                },
+                callbacks: { label: createTooltipLabel },
             },
         }),
         scales: {
@@ -224,9 +238,5 @@ export function usePriceChart(options) {
         },
     };
 
-    return {
-        priceChartData,
-        priceChartOptions,
-        chartContainerWidth,
-    };
+    return { priceChartData, priceChartOptions, chartContainerWidth };
 }

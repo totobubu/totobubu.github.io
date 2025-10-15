@@ -1,5 +1,4 @@
 // src/composables/charts/useWeeklyChart.js
-import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import {
     getDynamicChartWidth,
@@ -9,19 +8,25 @@ import {
     createStackedBarDatasets,
 } from '@/utils/chartUtils.js';
 
+const parsePrice = (value) => {
+    if (value === null || typeof value === 'undefined' || value === 'N/A')
+        return null;
+    const number = parseFloat(
+        String(value).replace(/[$,₩]/g, '').replace(/,/g, '')
+    );
+    return isNaN(number) ? null : number;
+};
+
 export function useWeeklyChart(options) {
-    const { data, deviceType, theme } = options;
+    const { data, deviceType, theme, currency = 'USD' } = options;
+    const currencySymbol = currency === 'KRW' ? '₩' : '$';
     const { textColor, textColorSecondary, surfaceBorder } = theme;
 
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
-        const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(
-            date.getMonth() + 1
-        )
-            .toString()
-            .padStart(2, '0')}`;
-        const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
+        const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+        const amount = parsePrice(item['배당금']);
         const weekOfMonth = Math.floor((date.getDate() - 1) / 7) + 1;
         if (!acc[yearMonth]) acc[yearMonth] = { total: 0, stacks: {} };
         if (!acc[yearMonth].stacks[weekOfMonth])
@@ -66,7 +71,8 @@ export function useWeeklyChart(options) {
             display: (context) =>
                 (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
                 labels.length <= 15,
-            formatter: (value) => `$${value.toFixed(4)}`,
+            formatter: (value) =>
+                `${currencySymbol}${value.toFixed(currency === 'KRW' ? 0 : 4)}`,
             color: '#fff',
             font: { size: barLabelSize, weight: 'bold' },
             align: 'center',
@@ -77,7 +83,9 @@ export function useWeeklyChart(options) {
             formatter: (value, context) => {
                 const total =
                     monthlyAggregated[labels[context.dataIndex]]?.total || 0;
-                return total > 0 ? `$${total.toFixed(4)}` : '';
+                return total > 0
+                    ? `${currencySymbol}${total.toFixed(currency === 'KRW' ? 0 : 4)}`
+                    : '';
             },
             color: textColor,
             anchor: 'end',
@@ -107,7 +115,7 @@ export function useWeeklyChart(options) {
                 callbacks: {
                     label: (item) =>
                         item.raw > 0 && item.dataset.label !== 'Total'
-                            ? `${item.dataset.label}: $${Number(item.raw).toFixed(4)}`
+                            ? `${item.dataset.label}: ${currencySymbol}${Number(item.raw).toFixed(currency === 'KRW' ? 0 : 4)}`
                             : null,
                     footer: (items) => {
                         const valid = items.filter(
@@ -115,7 +123,7 @@ export function useWeeklyChart(options) {
                         );
                         if (valid.length === 0) return '';
                         const sum = valid.reduce((t, c) => t + c.raw, 0);
-                        return `Total: $${sum.toFixed(4)}`;
+                        return `Total: ${currencySymbol}${sum.toFixed(currency === 'KRW' ? 0 : 4)}`;
                     },
                 },
             },
@@ -141,9 +149,5 @@ export function useWeeklyChart(options) {
         },
     };
 
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-    };
+    return { chartData, chartOptions, chartContainerWidth };
 }

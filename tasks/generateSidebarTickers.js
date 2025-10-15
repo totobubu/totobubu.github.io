@@ -1,3 +1,4 @@
+// tasks\generateSidebarTickers.js
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -7,12 +8,11 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'sidebar-tickers.json');
 
 const getTickerFromFilename = (filename) => {
-    return path.basename(filename, '.json').toUpperCase();
+    return path.basename(filename, '.json').toUpperCase().replace(/-/g, '.');
 };
 
 async function generateSidebarTickers() {
     console.log('--- Starting to generate sidebar-tickers.json ---');
-
     try {
         const yieldMap = new Map();
         const allDataFiles = await fs.readdir(DATA_DIR);
@@ -26,34 +26,31 @@ async function generateSidebarTickers() {
                     if (data.tickerInfo && data.tickerInfo.Yield) {
                         yieldMap.set(tickerSymbol, data.tickerInfo.Yield);
                     }
-                } catch (e) {
-                    // 개별 파일 오류는 무시
-                }
+                } catch (e) {}
             }
         }
-        console.log(`Extracted yield data for ${yieldMap.size} tickers.`);
 
         const navContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
         const navData = JSON.parse(navContent);
-
-        const dayOrder = { '월': 1, '화': 2, '수': 3, '목': 4, '금': 5 };
+        const dayOrder = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
 
         const sidebarTickers = navData.nav
             .filter((item) => !item.upcoming)
             .map((item) => {
-                const tickerSymbol = item.symbol.toUpperCase();
+                const tickerSymbol = item.symbol;
                 return {
                     symbol: item.symbol,
+                    koName: item.koName, // koName 필드 포함
                     longName: item.longName,
                     company: item.company,
                     logo: item.logo,
                     frequency: item.frequency,
                     group: item.group,
-                    yield: yieldMap.get(tickerSymbol) || '-',
+                    yield: yieldMap.get(tickerSymbol) || 'N/A',
                     groupOrder: dayOrder[item.group] ?? 999,
-                    // [핵심 수정] nav.json에서 currency 정보를 가져와 포함시킵니다.
                     currency: item.currency,
-                    underlying: item.underlying, // ETF 판단을 위해 underlying도 추가
+                    underlying: item.underlying,
+                    market: item.market,
                 };
             });
 
@@ -61,7 +58,6 @@ async function generateSidebarTickers() {
             OUTPUT_FILE,
             JSON.stringify(sidebarTickers, null, 2)
         );
-
         console.log(
             `🎉 Successfully generated sidebar-tickers.json with ${sidebarTickers.length} active tickers.`
         );
