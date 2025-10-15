@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/pages/StockView.vue -->
+<!-- src/pages/StockView.vue -->
 <script setup>
     import { useHead } from '@vueuse/head';
     import { ref, computed, watch } from 'vue';
@@ -162,7 +162,10 @@
     watch(
         () => route.params.ticker,
         (newTicker) => {
-            if (newTicker && typeof newTicker === 'string') loadData(newTicker);
+            if (newTicker && typeof newTicker === 'string') {
+                // [핵심 수정] URL 파라미터를 소문자로 변환하여 전달합니다.
+                loadData(newTicker.toLowerCase());
+            }
         },
         { immediate: true }
     );
