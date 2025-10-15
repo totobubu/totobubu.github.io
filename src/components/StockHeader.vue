@@ -21,7 +21,17 @@
         const currency = info.currency || 'USD';
 
         const detailMapping = [
-            { key: 'market', label: '시장' },
+            {
+                key: 'market',
+                label: '시장',
+                formatter: (val) => {
+                    if (val === 'KR_MARKET' && props.info.symbol) {
+                        if (props.info.symbol.endsWith('.KS')) return 'KOSPI';
+                        if (props.info.symbol.endsWith('.KQ')) return 'KOSDAQ';
+                    }
+                    return val;
+                },
+            },
             { key: 'marketCap', label: '시가총액' },
             { key: 'enterpriseValue', label: '기업가치' },
             { key: 'earningsDate', label: '실적발표일' },
