@@ -1,5 +1,6 @@
 # NEW FILE: scripts/utils.py
 import json
+import re  # [핵심 수정] 정규표현식 모듈 import
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -36,18 +37,22 @@ def get_kst_now():
     return datetime.now(timezone(timedelta(hours=9)))
 
 
-def parse_numeric_value(value):
-    """문자열, 숫자 등 다양한 형태의 값을 float으로 파싱합니다."""
-    if value is None or not isinstance(value, (str, int, float)):
+def parse_numeric_value(value_str):
+    """문자열에서 통화 기호, 쉼표, T/B/M/K 등을 제거하고 순수 숫자로 변환합니다."""
+    if value_str is None:
         return None
-    if isinstance(value, (int, float)):
-        return float(value)
+    if isinstance(value_str, (int, float)):
+        return float(value_str)
+
+    value_str = str(value_str).strip()
+    # [핵심 수정] re 모듈이 사용되는 부분
+    cleaned_str = re.sub(r"[^0-9.-]", "", value_str)
+
+    if not cleaned_str or cleaned_str == ".":
+        return None
     try:
-        cleaned_str = (
-            str(value).replace("$", "").replace(",", "").replace("%", "").strip()
-        )
         return float(cleaned_str)
-    except (ValueError, TypeError):
+    except ValueError:
         return None
 
 
