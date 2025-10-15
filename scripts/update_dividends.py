@@ -13,19 +13,8 @@ DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 
 
-def format_dividends(dividends_series):
-    """yfinance에서 받은 pandas Series를 JSON 형식에 맞는 리스트로 변환합니다."""
-    if dividends_series.empty:
-        return []
-    return [
-        {"date": date.strftime("%Y-%m-%d"), "amount": float(amount)}
-        for date, amount in dividends_series.items()
-    ]
-
-
 def main():
-    print("--- Starting Incremental Dividend Data Update (Python/yfinance) ---")
-
+    print("--- Starting Incremental Dividend Data Update (Batch Mode) ---")
     os.makedirs(DATA_DIR, exist_ok=True)
 
     try:
@@ -36,27 +25,28 @@ def main():
         return
 
     all_tickers_info = nav_data.get("nav", [])
-    active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
-    upcoming_count = len(all_tickers_info) - len(active_tickers_info)
 
-    print(f"Found {len(all_tickers_info)} total tickers in nav.json.")
-    if upcoming_count > 0:
-        print(f"Skipping {upcoming_count} upcoming tickers.")
+    # [핵심 수정 1] 배당이 있을 가능성이 있는 티커만 필터링
+    # upcoming이 아니고, (frequency가 null이 아니거나 or 아직 frequency가 설정되지 않은 티커)
+    dividend_tickers_info = [
+        t
+        for t in all_tickers_info
+        if not t.get("upcoming", False) and t.get("frequency") is not None
+    ]
 
-    success_count = 0
-    fail_count = 0
-    failed_symbols = []
+    print(
+        f"Found {len(all_tickers_info)} total tickers. Analyzing {len(dividend_tickers_info)} potential dividend tickers."
+    )
 
-    for ticker_info in tqdm(active_tickers_info, desc="Updating Dividends"):
+    # 각 티커별로 필요한 시작 날짜를 미리 계산
+    tickers_to_fetch = {}
+    for ticker_info in dividend_tickers_info:
         symbol = ticker_info["symbol"]
         sanitized_symbol = symbol.replace(".", "-").lower()
         json_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
-
-        existing_data = {}
-        existing_dividends = []
         start_date = datetime.strptime(
             ticker_info.get("ipoDate", "1990-01-01"), "%Y-%m-%d"
-        )
+        ).date()
 
         try:
             with open(json_path, "r", encoding="utf-8") as f:
@@ -65,46 +55,91 @@ def main():
                     "dividends", []
                 )
                 if dividends_list:
-                    existing_dividends = dividends_list
                     last_dividend_date_str = max(d["date"] for d in dividends_list)
-                    last_date = datetime.strptime(last_dividend_date_str, "%Y-%m-%d")
+                    last_date = datetime.strptime(
+                        last_dividend_date_str, "%Y-%m-%d"
+                    ).date()
                     start_date = last_date + timedelta(days=1)
-
         except (FileNotFoundError, json.JSONDecodeError, ValueError):
-            tqdm.write(
-                f"- [{symbol}] No existing valid data. Fetching full history from {start_date.strftime('%Y-%m-%d')}."
-            )
+            pass  # 파일이 없으면 ipoDate 기준
+
+        if start_date <= datetime.now().date():
+            tickers_to_fetch[symbol] = start_date
+
+    if not tickers_to_fetch:
+        print("All dividend data is up to date. Nothing to fetch.")
+        return
+
+    print(f"Found {len(tickers_to_fetch)} tickers that need dividend updates.")
+
+    # [핵심 수정 2] 배치 처리
+    batch_size = 100
+    ticker_list = list(tickers_to_fetch.keys())
+    all_new_dividends = {}
+
+    for i in tqdm(
+        range(0, len(ticker_list), batch_size), desc="Fetching Dividend Batches"
+    ):
+        batch_symbols = ticker_list[i : i + batch_size]
+        start_date_for_batch = min(tickers_to_fetch[s] for s in batch_symbols)
 
         try:
-            if start_date.date() > datetime.now().date():
-                tqdm.write(
-                    f"  - [{symbol}] Dividend data is already up to date. Skipping fetch."
-                )
+            # yf.download을 사용하여 배당금('Dividends')만 가져옴
+            data = yf.download(
+                batch_symbols,
+                start=start_date_for_batch,
+                actions=True,  # dividends, splits 포함
+                progress=False,
+                auto_adjust=True,  # FutureWarning 방지
+            )
+
+            if not data.empty and "Dividends" in data:
+                dividends_df = data["Dividends"]
+                for symbol in batch_symbols:
+                    # 각 티커의 배당 데이터 추출 (0 이상인 것만)
+                    symbol_dividends = dividends_df[symbol][dividends_df[symbol] > 0]
+                    if not symbol_dividends.empty:
+                        all_new_dividends[symbol] = symbol_dividends
+        except Exception as e:
+            tqdm.write(f"  ❌ Error in batch starting with {batch_symbols[0]}: {e}")
+
+    # [핵심 수정 3] 파일 저장 로직
+    success_count = 0
+    fail_count = 0
+    failed_symbols = []
+
+    for ticker_info in tqdm(dividend_tickers_info, desc="Saving Dividend Data"):
+        symbol = ticker_info["symbol"]
+        if symbol not in tickers_to_fetch:  # 업데이트가 필요 없는 티커는 건너뜀
+            success_count += 1
+            continue
+
+        try:
+            sanitized_symbol = symbol.replace(".", "-").lower()
+            json_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+
+            existing_data = {}
+            existing_dividends = []
+            try:
+                with open(json_path, "r", encoding="utf-8") as f:
+                    existing_data = json.load(f)
+                    existing_dividends = existing_data.get("backtestData", {}).get(
+                        "dividends", []
+                    )
+            except (FileNotFoundError, json.JSONDecodeError):
+                pass
+
+            new_dividends_series = all_new_dividends.get(symbol)
+
+            if new_dividends_series is None or new_dividends_series.empty:
+                # tqdm.write(f"  - [{symbol}] No new dividends found.")
                 success_count += 1
                 continue
 
-            ticker = yf.Ticker(symbol)
-            all_dividends_series = ticker.dividends
-
-            if not all_dividends_series.empty:
-                # [핵심 수정] 시작 날짜와 yfinance 날짜 인덱스를 모두 UTC로 통일하여 비교합니다.
-                start_date_utc = pd.to_datetime(start_date).tz_localize("UTC")
-                dividends_index_utc = all_dividends_series.index.tz_convert("UTC")
-
-                new_dividends_series = all_dividends_series[
-                    dividends_index_utc >= start_date_utc
-                ]
-            else:
-                new_dividends_series = all_dividends_series
-
-            if new_dividends_series.empty:
-                tqdm.write(
-                    f"  - [{symbol}] No new dividends found since {start_date.strftime('%Y-%m-%d')}."
-                )
-                success_count += 1
-                continue
-
-            new_dividends = format_dividends(new_dividends_series)
+            new_dividends = [
+                {"date": date.strftime("%Y-%m-%d"), "amount": float(amount)}
+                for date, amount in new_dividends_series.items()
+            ]
 
             combined_dividends_map = {div["date"]: div for div in existing_dividends}
             for div in new_dividends:
@@ -127,7 +162,7 @@ def main():
             success_count += 1
 
         except Exception as e:
-            tqdm.write(f"  ❌ [{symbol}] Failed to fetch/update dividend data: {e}")
+            tqdm.write(f"  ❌ [{symbol}] Failed to save dividend data: {e}")
             fail_count += 1
             failed_symbols.append(symbol)
 
