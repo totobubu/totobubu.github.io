@@ -10,6 +10,55 @@
         history: Array,
         updateTime: String,
         isDesktop: Boolean,
+        currency: {
+            // [신규] currency prop 정의
+            type: String,
+            default: 'USD',
+        },
+    });
+
+    const currencySymbol = computed(() =>
+        props.currency === 'KRW' ? '₩' : '$'
+    );
+
+    const formattedHistory = computed(() => {
+        if (!props.history) return [];
+        // 테이블에 표시하기 전에 통화 기호를 올바르게 적용
+        return props.history.map((item) => {
+            const newItem = { ...item };
+            for (const key in newItem) {
+                // 금액과 관련된 필드인지 확인 ( heuristic )
+                if (
+                    [
+                        '배당금',
+                        '전일종가',
+                        '당일시가',
+                        '당일종가',
+                        '익일종가',
+                    ].includes(key)
+                ) {
+                    if (
+                        typeof newItem[key] === 'string' &&
+                        (newItem[key].startsWith('$') ||
+                            newItem[key].startsWith('₩'))
+                    ) {
+                        const numberValue = parseFloat(
+                            newItem[key].replace(/[$,₩,]/g, '')
+                        );
+                        if (!isNaN(numberValue)) {
+                            if (props.currency === 'KRW') {
+                                newItem[key] =
+                                    `${currencySymbol.value}${Math.round(numberValue).toLocaleString()}`;
+                            } else {
+                                newItem[key] =
+                                    `${currencySymbol.value}${numberValue.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+            return newItem;
+        });
     });
 
     const filteredHistory = computed(() => {
@@ -96,7 +145,7 @@
 <template>
     <div class="toto-history">
         <DataTable
-            :value="filteredHistory"
+            :value="formattedHistory"
             stripedRows
             :rows="10"
             paginator
