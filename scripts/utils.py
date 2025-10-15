@@ -17,9 +17,7 @@ def load_json_file(file_path):
 
 
 def save_json_file(file_path, data, indent=2):
-    """JSON 데이터를 파일에 저장합니다. 한글이 깨지지 않도록 ensure_ascii=False를 사용합니다."""
     try:
-        # [핵심 수정] ensure_ascii=False 옵션을 모든 json 저장에 적용합니다.
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=indent, ensure_ascii=False)
         return True
@@ -59,7 +57,7 @@ def format_large_number(value):
         return f"{num / 1.0e6:.2f}M"
     if abs(num) >= 1.0e3:
         return f"{num / 1.0e3:.2f}K"
-    return str(int(num)) if num == int(num) else str(num)
+    return str(int(num)) if num == int(num) else f"{num:.2f}"
 
 
 def format_currency(value, currency="USD", show_symbol=True):
@@ -72,9 +70,10 @@ def format_currency(value, currency="USD", show_symbol=True):
     if currency == "KRW":
         return f"{symbol_str}{int(value):,}"
     else:
-        # 소수점 불필요한 0 제거 로직 개선
+        # 소수점이 없는 경우 정수로 표시
         if value == int(value):
             return f"{symbol_str}{int(value):,}"
+        # 소수점 여섯 자리까지 유효하게 표시
         else:
             return f"{symbol_str}{value:,.6f}".rstrip("0").rstrip(".")
 

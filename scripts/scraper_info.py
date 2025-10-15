@@ -85,14 +85,18 @@ def format_ticker_info(info_dict):
             "AvgVolume",
             "sharesOutstanding",
         ]:
-            # [핵심 수정] format_large_number로 숫자 축약 후, 통화가 KRW일 때만 ₩ 기호 추가
+            # [핵심 수정] format_large_number는 숫자만 반환, 통화 기호는 여기서 제어
             formatted_num = format_large_number(value)
             if formatted_num != "N/A":
-                formatted[key] = (
-                    f"{formatted_num}{' ₩' if currency == 'KRW' else ''}".strip()
-                )
+                if currency == "KRW":
+                    formatted[key] = f"{formatted_num} ₩"
+                else:
+                    # USD의 경우, format_currency를 사용하여 기호와 숫자를 함께 포맷팅
+                    # (단, 축약된 숫자가 아니므로 큰 숫자는 쉼표만 붙음)
+                    formatted[key] = format_currency(value, "USD")
             else:
                 formatted[key] = "N/A"
+
         elif key == "dividendRate":
             formatted[key] = format_currency(value, currency)
         elif key == "payoutRatio":

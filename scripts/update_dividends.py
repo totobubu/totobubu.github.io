@@ -12,6 +12,16 @@ PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 
+
+def format_dividends(dividends_series, currency="USD"):
+    if dividends_series.empty: return []
+    formatted_list = []
+    for date, amount in dividends_series.items():
+        # [핵심 수정] KRW인 경우 정수(int)로, 그 외에는 실수(float)로 변환
+        processed_amount = int(round(amount)) if currency == "KRW" else float(amount)
+        formatted_list.append({"date": date.strftime('%Y-%m-%d'), "amount": processed_amount})
+    return formatted_list
+
 def main():
     print("--- Starting Incremental Dividend Data Update (Batch Mode) ---")
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -97,7 +107,7 @@ def main():
         try:
             sanitized_symbol = symbol.replace(".", "-").lower()
             json_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
-            currency = ticker_info_map.get(symbol, {}).get('currency', 'USD') # 통화 정보 가져오기
+            currency = ticker_info.get("currency", "USD") # currency 정보 가져오기
 
             existing_data = {}
             existing_dividends = []
@@ -109,17 +119,20 @@ def main():
                 pass
 
             new_dividends_series = all_new_dividends.get(symbol)
+
             if new_dividends_series is None or new_dividends_series.empty:
                 continue
 
             # [핵심 수정 1] 한국 주식(KRW)일 경우 amount를 int로 변환
-            new_dividends = [
-                {
-                    "date": date.strftime("%Y-%m-%d"),
-                    "amount": int(amount) if currency == "KRW" else float(amount)
-                }
-                for date, amount in new_dividends_series.items()
-            ]
+            # new_dividends = [
+            #     {
+            #         "date": date.strftime("%Y-%m-%d"),
+            #         "amount": int(amount) if currency == "KRW" else float(amount)
+            #     }
+            #     for date, amount in new_dividends_series.items()
+            # ]
+            
+            new_dividends = format_dividends(new_dividends_series, currency) # currency 전달
 
             combined_dividends_map = {div["date"]: div for div in existing_dividends}
             for div in new_dividends:
