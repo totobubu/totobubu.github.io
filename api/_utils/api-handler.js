@@ -2,14 +2,15 @@
 
 export function createApiHandler(handler) {
     return async function (req, res) {
-        // [핵심 수정] 허용 Origin 목록에 www가 없는 도메인을 추가합니다.
-        const allowedOrigins = (
-            process.env.ALLOWED_ORIGINS ||
-            'http://localhost:5173,https://www.divgrow.com,https://divgrow.com'
-        ).split(',');
+        // [핵심] 허용할 Origin 목록. www 있고 없고 둘 다 포함되어야 함.
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://localhost:3000',
+            'https://www.divgrow.com',
+            'https://divgrow.com',
+        ];
         const origin = req.headers.origin;
 
-        // Origin 헤더가 있고, 허용 목록에 포함된 경우 해당 Origin을 허용
         if (origin && allowedOrigins.includes(origin)) {
             res.setHeader('Access-Control-Allow-Origin', origin);
         }
