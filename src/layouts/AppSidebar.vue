@@ -45,6 +45,7 @@
                 v-model="activeFilterTab"
                 :options="filterOptions"
                 optionValue="value"
+                optionLabel="value"
                 class="w-full">
                 <template #option="slotProps">
                     <i
