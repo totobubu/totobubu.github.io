@@ -1,53 +1,47 @@
 {
     "tickerInfo": {
         "Symbol": "QQXL",
-        "koName": "N/A",
-        "longName": "ProShares Ultra QQQ TOP 30",
+        "koName": null,
+        "longName": null,
         "company": "ProSares",
-        "frequency": "N/A",
-        "group": "N/A",
-        "underlying": "N/A",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
         "englishName": "ProShares Ultra QQQ TOP 30",
         "earningsDate": "N/A",
-        "enterpriseValue": "N/A",
-        "marketCap": "N/A",
-        "Volume": "$6,382",
-        "AvgVolume": "$12,680",
-        "sharesOutstanding": "N/A",
-        "52Week": "$37.049 - $43.79",
-        "Yield": "N/A",
-        "dividendRate": "N/A",
-        "payoutRatio": "N/A",
-        "Update": "2025-10-16 05:33:15 KST",
-        "changes": {
-            "Volume": {
-                "value": "$12.13K",
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": "$12.69K",
-                "change": "up"
-            },
-            "52Week": {
-                "value": "$37.05 - $43.79",
-                "change": "up"
-            }
-        }
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6382,
+        "AvgVolume": 12680,
+        "sharesOutstanding": null,
+        "52Week": "37.049 - 43.79",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 14:26:46 KST",
+        "changes": {}
     },
+    "dividendTotal": 0.003,
     "dividendHistory": [
         {
             "배당락": "25. 09. 24",
-            "배당금": "$0.003",
-            "배당률": "0.01%",
-            "전일종가": "$41.83",
-            "당일시가": "$42.00",
-            "당일종가": "$41.70",
-            "익일종가": "$41.13"
+            "배당금": 0.003,
+            "배당률": 7.142857142857143e-5,
+            "전일종가": 41.826,
+            "당일시가": 42.0,
+            "당일종가": 41.700001,
+            "익일종가": 41.133999
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-09-24",
+                "amount": 0.003
+            }
+        ],
         "prices": [
             {
                 "date": "2025-08-15",
@@ -307,59 +301,59 @@
             },
             {
                 "date": "2025-10-01",
-                "open": 42.08000183105469,
+                "open": 41.95000076293945,
                 "high": 42.52000045776367,
-                "low": 42.08000183105469,
-                "close": 42.44390106201172,
-                "volume": 7969
+                "low": 41.95000076293945,
+                "close": 42.444000244140625,
+                "volume": 8100
             },
             {
                 "date": "2025-10-02",
                 "open": 42.59000015258789,
-                "high": 42.80009841918945,
+                "high": 42.79999923706055,
                 "low": 42.345001220703125,
                 "close": 42.494998931884766,
-                "volume": 13718
+                "volume": 13800
             },
             {
                 "date": "2025-10-03",
                 "open": 42.58000183105469,
                 "high": 42.58000183105469,
                 "low": 42.0099983215332,
-                "close": 42.03310012817383,
-                "volume": 6025
+                "close": 42.03300094604492,
+                "volume": 6000
             },
             {
                 "date": "2025-10-06",
                 "open": 42.81999969482422,
                 "high": 43,
                 "low": 42.59000015258789,
-                "close": 42.835899353027344,
-                "volume": 9182
+                "close": 42.83599853515625,
+                "volume": 9200
             },
             {
                 "date": "2025-10-07",
                 "open": 43.150001525878906,
                 "high": 43.25,
                 "low": 42.5,
-                "close": 42.50490188598633,
-                "volume": 6569
+                "close": 42.505001068115234,
+                "volume": 6700
             },
             {
                 "date": "2025-10-08",
-                "open": 43.13999938964844,
-                "high": 43.71989822387695,
-                "low": 43.13999938964844,
-                "close": 43.6708984375,
-                "volume": 9038
+                "open": 42.880001068115234,
+                "high": 43.720001220703125,
+                "low": 42.880001068115234,
+                "close": 43.67100143432617,
+                "volume": 9100
             },
             {
                 "date": "2025-10-09",
-                "open": 43.49599838256836,
-                "high": 43.642601013183594,
+                "open": 43.72999954223633,
+                "high": 43.72999954223633,
                 "low": 43.290000915527344,
-                "close": 43.642601013183594,
-                "volume": 8834
+                "close": 43.643001556396484,
+                "volume": 8500
             },
             {
                 "date": "2025-10-10",
@@ -367,15 +361,15 @@
                 "high": 43.790000915527344,
                 "low": 40.7400016784668,
                 "close": 40.7599983215332,
-                "volume": 13956
+                "volume": 14900
             },
             {
                 "date": "2025-10-13",
-                "open": 42.0099983215332,
-                "high": 42.27439880371094,
-                "low": 41.90999984741211,
-                "close": 42.27439880371094,
-                "volume": 10447
+                "open": 42.310001373291016,
+                "high": 42.310001373291016,
+                "low": 41.88999938964844,
+                "close": 42.27399826049805,
+                "volume": 10500
             },
             {
                 "date": "2025-10-14",
@@ -383,46 +377,16 @@
                 "high": 42.150001525878906,
                 "low": 40.91999816894531,
                 "close": 41.599998474121094,
-                "volume": 12131
+                "volume": 12300
             },
             {
                 "date": "2025-10-15",
                 "open": 42.119998931884766,
-                "high": 42.499900817871094,
-                "low": 42.119998931884766,
-                "close": 42.499900817871094,
-                "volume": 2583
-            }
-        ],
-        "dividends": [
-            {
-                "date": "2025-09-24",
-                "amount": 0.003
+                "high": 42.720001220703125,
+                "low": 41.493499755859375,
+                "close": 42.055999755859375,
+                "volume": 6382
             }
         ]
-    },
-    "dividendTotal": 0.003,
-    "tickerInfoRaw": {
-        "Symbol": "QQXL",
-        "koName": null,
-        "longName": "ProShares Ultra QQQ TOP 30",
-        "company": "ProSares",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NASDAQ",
-        "currency": "USD",
-        "englishName": "ProShares Ultra QQQ TOP 30",
-        "earningsDate": "N/A",
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 6382,
-        "AvgVolume": 12680,
-        "sharesOutstanding": null,
-        "52Week": "37.049 - 43.79",
-        "Yield": 0,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "Update": "2025-10-16 05:33:15 KST"
     }
 }

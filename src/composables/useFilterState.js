@@ -1,25 +1,18 @@
 import { ref } from 'vue';
-import { FilterMatchMode } from '@primevue/core/api';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-const filters = ref({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    // marketType 필터 제거
-    company: { value: null, matchMode: FilterMatchMode.EQUALS },
-    frequency: { value: null, matchMode: FilterMatchMode.EQUALS },
-    group: { value: null, matchMode: FilterMatchMode.EQUALS },
-    yield: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
-});
+// [핵심 수정] 필터 상태를 개별 ref로 관리
+const globalSearchQuery = ref(null);
+const activeFilterTab = ref('ETF'); // 기본값 ETF
 
-const showMyStocksOnly = ref(false);
 const myBookmarks = ref({});
 
 export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
-        await setDoc(userDocRef, { bookmarks: bookmarks });
+        await setDoc(userDocRef, { bookmarks });
     } catch (error) {
         console.error('Firestore에 북마크 저장 실패:', error);
     }
@@ -30,10 +23,7 @@ export const loadMyBookmarksFromFirestore = async (userId) => {
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
         const docSnap = await getDoc(userDocRef);
-        if (docSnap.exists()) {
-            return docSnap.data().bookmarks || {};
-        }
-        return {};
+        return docSnap.exists() ? docSnap.data().bookmarks || {} : {};
     } catch (error) {
         console.error('Firestore에서 북마크 로드 실패:', error);
         return {};
@@ -69,13 +59,10 @@ const updateBookmarkDetails = (symbol, details) => {
 
 export function useFilterState() {
     return {
-        filters,
-        showMyStocksOnly,
+        globalSearchQuery,
+        activeFilterTab, // 이제 filters 객체 없이 바로 사용 가능
         myBookmarks,
         toggleMyStock,
-        toggleShowMyStocksOnly: () => {
-            showMyStocksOnly.value = !showMyStocksOnly.value;
-        },
         updateBookmarkDetails,
     };
 }

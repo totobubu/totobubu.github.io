@@ -9,6 +9,7 @@
     import { useWeeklyChart } from '@/composables/charts/useWeeklyChart';
     import { useQuarterlyChart } from '@/composables/charts/useQuarterlyChart';
     import { useMonthlyChart } from '@/composables/charts/useMonthlyChart';
+    import { useAnnualChart } from '@/composables/charts/useAnnualChart';
     import { usePriceChart } from '@/composables/charts/usePriceChart';
     import { parseYYMMDD } from '@/utils/date.js';
     import {
@@ -53,13 +54,33 @@
     const selectedTimeRange = ref('1Y');
 
     const timeRangeOptions = computed(() => {
-        if (!tickerInfo.value?.periods) {
-            return [
-                { label: '1Y', value: '1Y' },
-                { label: '전체', value: 'ALL' },
-            ];
+        const allPeriods = tickerInfo.value?.periods;
+        if (!allPeriods || allPeriods.length === 0) {
+            return []; // 데이터가 없으면 버튼 숨김
         }
-        return generateTimeRangeOptions(tickerInfo.value.periods);
+
+        const freq = tickerInfo.value.frequency;
+        let options = generateTimeRangeOptions(allPeriods);
+
+        // [핵심 수정] 분기 배당일 때 3Y 미만 옵션 제거
+        if (freq === '분기') {
+            options = options.filter(
+                (opt) => !['6M', '1Y'].includes(opt.value)
+            );
+            // 필터링 후 옵션이 '전체'만 남으면 빈 배열 반환하여 숨김
+            if (options.length <= 1) return [];
+        }
+
+        // [핵심 수정] 매년 배당일 때 10Y 미만 옵션 제거
+        if (freq === '매년') {
+            const has10Y = allPeriods.includes('10Y');
+            if (!has10Y) return []; // 10년 기록 없으면 버튼 숨김
+            options = options.filter(
+                (opt) => !['6M', '1Y', '3Y', '5Y'].includes(opt.value)
+            );
+        }
+
+        return options;
     });
 
     const chartDisplayData = computed(() => {
@@ -114,9 +135,12 @@
             deviceType: deviceType.value,
             group: tickerInfo.value?.group,
             theme: themeOptions,
+            currency: tickerInfo.value.currency, // 모든 차트가 사용할 통화 정보
         };
 
-        if (isPriceChartMode.value) return usePriceChart(sharedOptions);
+        if (isPriceChartMode.value) {
+            return usePriceChart(sharedOptions);
+        }
 
         const freq = tickerInfo.value.frequency;
         if (freq === '매월' && chartDisplayData.value.length > 59) {
@@ -127,6 +151,7 @@
                 labelPrefix: '월',
             });
         }
+        if (freq === '매년') return useAnnualChart(sharedOptions);
         if (freq === '매주') return useWeeklyChart(sharedOptions);
         if (freq === '분기')
             return useQuarterlyChart({
@@ -134,6 +159,7 @@
                 aggregation: 'quarter',
             });
         if (freq === '매월') return useMonthlyChart(sharedOptions);
+
         return usePriceChart(sharedOptions);
     });
 
@@ -229,7 +255,8 @@
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"
                 :update-time="tickerInfo.Update"
-                :is-desktop="isDesktop" />
+                :is-desktop="isDesktop"
+                :currency="tickerInfo.currency" />
             <span
                 v-if="tickerInfo.Update"
                 class="dark:text-surface-500 dark:text-surface-400 text-center">
