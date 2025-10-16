@@ -9,10 +9,6 @@ from utils import (
     save_json_file,
     sanitize_ticker_for_filename,
     get_kst_now,
-    parse_numeric_value,
-    format_currency,
-    format_large_number,
-    format_percent,
 )
 
 
@@ -164,19 +160,15 @@ def are_dicts_equal(dict1, dict2):
 
 def main():
     nav_data = load_json_file("public/nav.json")
-    if not nav_data or "nav" not in nav_data:
+    if not nav_data:
         return
 
-    print("\n--- Starting Daily Ticker Info Update ---")
+    print("\n--- Starting Daily Ticker Info Update (RAW DATA) ---")
     active_tickers_from_nav = [
-        item
-        for item in nav_data.get("nav", [])
-        if item.get("symbol") and not item.get("upcoming")
+        item for item in nav_data.get("nav", []) if not item.get("upcoming")
     ]
-    if not active_tickers_from_nav:
-        return
-
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
+
     batch_size = 100
     all_bulk_info = {}
     for i in tqdm(
@@ -190,11 +182,12 @@ def main():
             time.sleep(1)
 
     total_changed_files = 0
-    now_kst = get_kst_now()
+    now_kst_str = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
+
     for info_from_nav in tqdm(
         active_tickers_from_nav, desc="Processing Raw Ticker Info"
     ):
-        ticker_symbol = info_from_nav["symbol"]
+        ticker_symbol = info_from_nav.get("symbol")
         raw_dynamic_info = all_bulk_info.get(ticker_symbol)
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
         if not dynamic_info:
@@ -202,11 +195,9 @@ def main():
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
-        old_raw_info = existing_data.get(
-            "tickerInfo", {}
-        )  # 이제 tickerInfo가 raw 데이터 소스
+        old_info = existing_data.get("tickerInfo", {})
 
-        new_raw_info = {
+        new_info = {
             "Symbol": ticker_symbol,
             "koName": info_from_nav.get("koName"),
             "longName": info_from_nav.get("longName") or info_from_nav.get("koName"),
@@ -217,23 +208,39 @@ def main():
             "market": info_from_nav.get("market"),
             "currency": info_from_nav.get("currency"),
         }
-        new_raw_info.update(dynamic_info)
-        if not new_raw_info.get("longName"):
-            new_raw_info["longName"] = new_raw_info.get("englishName")
+        new_info.update(dynamic_info)
+        new_info["Update"] = now_kst_str
 
-        # 비교를 위해 Update 키 추가
-        new_raw_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
+        # changes 계산 및 보존
+        changes = {}
+        if (
+            old_info
+            and old_info.get("Update", "").split(" ")[0] != now_kst_str.split(" ")[0]
+        ):
+            for key, new_val in new_info.items():
+                old_val = old_info.get(key)
+                if old_val is not None and isinstance(new_val, (int, float)):
+                    if new_val > old_val:
+                        changes[key] = {"value": old_val, "change": "up"}
+                    elif new_val < old_val:
+                        changes[key] = {"value": old_val, "change": "down"}
+        elif old_info:
+            changes = old_info.get("changes", {})
+        new_info["changes"] = changes
 
-        # 원본끼리 비교
-        if json.dumps(old_raw_info, sort_keys=True) == json.dumps(
-            new_raw_info, sort_keys=True
+        # 변경 여부 확인
+        compare_old = {
+            k: v for k, v in old_info.items() if k not in ["Update", "changes"]
+        }
+        compare_new = {
+            k: v for k, v in new_info.items() if k not in ["Update", "changes"]
+        }
+        if json.dumps(compare_old, sort_keys=True) == json.dumps(
+            compare_new, sort_keys=True
         ):
             continue
 
-        new_raw_info["changes"] = calculate_changes(new_raw_info, old_raw_info)
-
-        existing_data["tickerInfo"] = new_raw_info
-
+        existing_data["tickerInfo"] = new_info
         if save_json_file(file_path, existing_data):
             total_changed_files += 1
 
