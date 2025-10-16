@@ -39,32 +39,28 @@
 </script>
 
 <template>
-    <div>
-        <div class="p-3">
-            <div class="flex flex-column gap-3">
-                <SelectButton
-                    v-model="activeFilterTab"
-                    :options="filterOptions"
-                    optionValue="value"
-                    class="w-full">
-                    <template #option="slotProps">
-                        <i
-                            v-if="
-                                slotProps.option.icon &&
-                                slotProps.option.icon.startsWith('pi')
-                            "
-                            :class="slotProps.option.icon"
-                            style="font-size: 1rem"></i>
-                        <span v-else-if="slotProps.option.icon">{{
-                            slotProps.option.icon
-                        }}</span>
-                        <span v-else>{{ slotProps.option.value }}</span>
-                    </template>
-                </SelectButton>
-                <FilterInput
-                    v-model="globalSearchQuery"
-                    title="전체 주식 검색" />
-            </div>
+    <div class="flex flex-column gap-3">
+        <div class="flex flex-column gap-3">
+            <SelectButton
+                v-model="activeFilterTab"
+                :options="filterOptions"
+                optionValue="value"
+                class="w-full">
+                <template #option="slotProps">
+                    <i
+                        v-if="
+                            slotProps.option.icon &&
+                            slotProps.option.icon.startsWith('pi')
+                        "
+                        :class="slotProps.option.icon"
+                        style="font-size: 1rem"></i>
+                    <span v-else-if="slotProps.option.icon">{{
+                        slotProps.option.icon
+                    }}</span>
+                    <span v-else>{{ slotProps.option.value }}</span>
+                </template>
+            </SelectButton>
+            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>

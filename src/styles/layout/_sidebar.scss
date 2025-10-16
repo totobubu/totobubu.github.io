@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    height: 100%;
+    height: 100vh;
 
     .p-calendar-search {
         overflow-y: hidden;
@@ -84,14 +84,13 @@
 }
 
 #toto-search {
+    .p-drawer-header {
+        position: absolute;
+        right: 0;
+    }
     .p-drawer-content {
-        margin-left: -1rem;
-        margin-right: -1rem;
-        @include bp.media-breakpoint-up('sm') {
-            margin-left: -1.5rem;
-            margin-right: -1.5rem;
-            width: calc(100% + 3rem);
-        }
+        width: 100%;
+        padding-top: 1em;
     }
     .toto-column-company {
         width: 0.5rem;
@@ -168,6 +167,10 @@
     .toto-column {
         &-bookmark {
             width: 2rem;
+
+            @include bp.media-breakpoint-only('xs') {
+                width: 3rem;
+            }
             align-items: center;
             justify-content: center;
             > * {
@@ -183,25 +186,32 @@
             }
         }
         &-ticker {
-            // width: 4rem;
-
-            @include bp.media-breakpoint-up('lg') {
-                width: 3rem;
-            }
         }
 
         &-company {
             width: 1rem;
+
+            @include bp.media-breakpoint-down('md') {
+                width: 3rem;
+            }
         }
 
         &-frequency {
             width: 2rem;
+
+            @include bp.media-breakpoint-down('md') {
+                width: 3rem;
+            }
         }
 
         &-group {
             width: 3rem;
 
-            @include bp.media-breakpoint-up('lg') {
+            @include bp.media-breakpoint-down('md') {
+                width: 7rem;
+            }
+
+            @include bp.media-breakpoint-down('md') {
                 .p-tag {
                     font-size: 0.65rem;
                 }
