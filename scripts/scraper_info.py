@@ -36,9 +36,10 @@ def process_single_ticker_info(info):
         if not info or info.get("regularMarketPrice") is None:
             return None
         current_price = info.get("regularMarketPrice") or info.get("previousClose")
+        # [수정] trailingAnnualDividendRate가 None일 경우 0으로 처리
         yield_val = (
-            ((info.get("trailingAnnualDividendRate", 0) / current_price) * 100)
-            if current_price and info.get("trailingAnnualDividendRate")
+            ((info.get("trailingAnnualDividendRate") or 0 / current_price) * 100)
+            if current_price
             else 0
         )
         earnings_ts = info.get("earningsTimestamp")
@@ -72,6 +73,7 @@ def process_single_ticker_info(info):
 def format_ticker_info(info_dict):
     currency = info_dict.get("currency", "USD")
     formatted = info_dict.copy()
+
     for key, value in formatted.items():
         if value is None:
             formatted[key] = "N/A"
@@ -84,15 +86,12 @@ def format_ticker_info(info_dict):
             "AvgVolume",
             "sharesOutstanding",
         ]:
-            # [핵심 수정] format_large_number는 숫자만 반환, 통화 기호는 여기서 제어
-            formatted_num = format_large_number(value)
+            # [핵심 수정] format_large_number에 currency를 전달하여 올바른 단위로 축약
+            formatted_num = format_large_number(value, currency)
             if formatted_num != "N/A":
-                if currency == "KRW":
-                    formatted[key] = f"{formatted_num} ₩"
-                else:
-                    # USD의 경우, format_currency를 사용하여 기호와 숫자를 함께 포맷팅
-                    # (단, 축약된 숫자가 아니므로 큰 숫자는 쉼표만 붙음)
-                    formatted[key] = format_currency(value, "USD")
+                # 통화 기호는 항상 앞에 붙임
+                currency_symbol = "₩" if currency == "KRW" else "$"
+                formatted[key] = f"{currency_symbol}{formatted_num}"
             else:
                 formatted[key] = "N/A"
 
@@ -117,45 +116,34 @@ def format_ticker_info(info_dict):
     return formatted
 
 
-def calculate_changes(new_formatted, old_formatted):
+def calculate_changes(new_raw, old_raw):
+    """순수 숫자 데이터를 기반으로 변경 사항을 계산합니다."""
     changes_obj = {}
-    if not old_formatted:
-        return changes_obj
-    new_update_date = new_formatted.get("Update", "").split(" ")[0]
-    old_update_date = old_formatted.get("Update", "").split(" ")[0]
-    if new_update_date != old_update_date:
-        for key, new_val in new_formatted.items():
-            old_val = old_formatted.get(key)
-            if old_val is None or key in [
-                "changes",
-                "Update",
-                "Symbol",
-                "longName",
-                "koName",
-                "englishName",
-                "company",
-                "frequency",
-                "group",
-                "underlying",
-                "market",
-                "currency",
-            ]:
-                continue
-            new_numeric, old_numeric = parse_numeric_value(
-                new_val
-            ), parse_numeric_value(old_val)
-            change_status = "equal"
-            if new_numeric is not None and old_numeric is not None:
-                if new_numeric > old_numeric:
-                    change_status = "up"
-                elif new_numeric < old_numeric:
-                    change_status = "down"
-            elif str(new_val) != str(old_val):
-                change_status = "up"
-            if change_status != "equal":
-                changes_obj[key] = {"value": old_val, "change": change_status}
-    else:
-        return old_formatted.get("changes", {})
+    if not old_raw:
+        return {}
+
+    try:
+        new_dt = datetime.strptime(new_raw.get("Update", "").split(" ")[0], "%Y-%m-%d")
+        old_dt = datetime.strptime(old_raw.get("Update", "").split(" ")[0], "%Y-%m-%d")
+        if (new_dt - old_dt).days < 1:
+            return old_raw.get("changes", {})
+    except (ValueError, TypeError):  # 날짜 파싱 실패 시 변경사항 새로 계산
+        pass
+
+    for key, new_val in new_raw.items():
+        old_val = old_raw.get(key)
+        if old_val is None or not isinstance(new_val, (int, float)):
+            continue
+
+        change_status = "equal"
+        if new_val > old_val:
+            change_status = "up"
+        elif new_val < old_val:
+            change_status = "down"
+
+        if change_status != "equal":
+            changes_obj[key] = {"value": old_val, "change": change_status}
+
     return changes_obj
 
 
@@ -204,9 +192,9 @@ def main():
     total_changed_files = 0
     now_kst = get_kst_now()
     for info_from_nav in tqdm(
-        active_tickers_from_nav, desc="Processing and Saving Data"
+        active_tickers_from_nav, desc="Processing Raw Ticker Info"
     ):
-        ticker_symbol = info_from_nav.get("symbol")
+        ticker_symbol = info_from_nav["symbol"]
         raw_dynamic_info = all_bulk_info.get(ticker_symbol)
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
         if not dynamic_info:
@@ -214,7 +202,9 @@ def main():
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
-        old_raw_info = existing_data.get("tickerInfoRaw", {})
+        old_raw_info = existing_data.get(
+            "tickerInfo", {}
+        )  # 이제 tickerInfo가 raw 데이터 소스
 
         new_raw_info = {
             "Symbol": ticker_symbol,
@@ -231,31 +221,20 @@ def main():
         if not new_raw_info.get("longName"):
             new_raw_info["longName"] = new_raw_info.get("englishName")
 
-        # 비교 시에는 비교에 불필요한 키를 제외한 두 원본 딕셔너리를 비교
-        compare_old = {
-            k: v for k, v in old_raw_info.items() if k not in ["Update", "englishName"]
-        }
-        compare_new = {
-            k: v for k, v in new_raw_info.items() if k not in ["Update", "englishName"]
-        }
+        # 비교를 위해 Update 키 추가
+        new_raw_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
 
-        if are_dicts_equal(compare_old, compare_new):
+        # 원본끼리 비교
+        if json.dumps(old_raw_info, sort_keys=True) == json.dumps(
+            new_raw_info, sort_keys=True
+        ):
             continue
 
-        old_formatted_info = existing_data.get("tickerInfo", {})
+        new_raw_info["changes"] = calculate_changes(new_raw_info, old_raw_info)
 
-        new_raw_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        new_formatted_info = format_ticker_info(
-            new_raw_info.copy()
-        )  # 원본 보존을 위해 복사본 전달
-        new_formatted_info["changes"] = calculate_changes(
-            new_formatted_info, old_formatted_info
-        )
+        existing_data["tickerInfo"] = new_raw_info
 
-        existing_data["tickerInfoRaw"] = new_raw_info
-        existing_data["tickerInfo"] = new_formatted_info
-
-        if save_json_file(file_path, existing_data, indent=2):
+        if save_json_file(file_path, existing_data):
             total_changed_files += 1
 
     print(

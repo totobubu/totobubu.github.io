@@ -1,19 +1,13 @@
 <!-- REFACTORED: src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
+    import { formatCurrency, formatLargeNumber } from '@/utils/formatters.js';
     import Tag from 'primevue/tag';
     import Card from 'primevue/card';
 
     const props = defineProps({
-        info: Object,
+        info: Object, // 순수 숫자/문자열 데이터를 가진 tickerInfo 객체
     });
-
-    // utils.js에서 가져온다고 가정
-    const formatLargeNumber = (value) => {
-        if (typeof value !== 'string') return value;
-        // 간단한 예시, 실제 구현은 utils.js에 따름
-        return value.replace(/\s*₩$/, '').replace(/\s*USD$/, '');
-    };
 
     const stockDetails = computed(() => {
         if (!props.info) return [];
@@ -21,37 +15,68 @@
         const currency = info.currency || 'USD';
 
         const detailMapping = [
+            { key: 'market', label: '시장' },
             {
-                key: 'market',
-                label: '시장',
-                formatter: (val) => {
-                    if (val === 'KR_MARKET' && props.info.symbol) {
-                        if (props.info.symbol.endsWith('.KS')) return 'KOSPI';
-                        if (props.info.symbol.endsWith('.KQ')) return 'KOSDAQ';
-                    }
-                    return val;
-                },
+                key: 'marketCap',
+                label: '시가총액',
+                formatter: (val) => formatLargeNumber(val, currency),
             },
-            { key: 'marketCap', label: '시가총액' },
-            { key: 'enterpriseValue', label: '기업가치' },
+            {
+                key: 'enterpriseValue',
+                label: '기업가치',
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
             { key: 'earningsDate', label: '실적발표일' },
-            { key: 'Volume', label: '거래량' },
-            { key: 'AvgVolume', label: '평균거래량' },
-            { key: 'sharesOutstanding', label: '유통 주식 수' },
-            { key: 'Yield', label: '연간 배당률' },
-            { key: 'dividendRate', label: '연간 배당금' },
-            { key: 'payoutRatio', label: '배당 성향' },
+            {
+                key: 'Volume',
+                label: '거래량',
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
+            {
+                key: 'AvgVolume',
+                label: '평균거래량',
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
+            {
+                key: 'sharesOutstanding',
+                label: '유통 주식 수',
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
+            {
+                key: 'Yield',
+                label: '연간 배당률',
+                formatter: (val) =>
+                    val && val > 0 ? `${val.toFixed(2)}%` : 'N/A',
+            },
+            {
+                key: 'dividendRate',
+                label: '연간 배당금',
+                formatter: (val) => formatCurrency(val, currency),
+            },
+            {
+                key: 'payoutRatio',
+                label: '배당 성향',
+                formatter: (val) =>
+                    val ? `${(val * 100).toFixed(2)}%` : 'N/A',
+            },
+            { key: '52Week', label: '52주 변동폭' }, // 52Week는 포맷팅된 문자열이므로 formatter 없음
         ];
 
         return detailMapping
-            .map((item) => ({
-                label: item.label,
-                value: info[item.key],
-                changeInfo: info.changes?.[item.key],
-            }))
+            .map((item) => {
+                const value = info[item.key];
+                return {
+                    label: item.label,
+                    value: item.formatter ? item.formatter(value) : value,
+                    changeInfo: info.changes?.[item.key],
+                };
+            })
             .filter(
                 (item) =>
-                    item.value && item.value !== 'N/A' && item.value !== '0'
+                    item.value &&
+                    item.value !== 'N/A' &&
+                    item.value !== 0 &&
+                    item.value !== '0'
             );
     });
 
@@ -71,7 +96,7 @@
             <template #content>
                 <Tag
                     v-if="detail.label === '시장'"
-                    :value="detail.value.toUpperCase()"
+                    :value="String(detail.value).toUpperCase()"
                     severity="contrast"
                     class="font-bold" />
                 <p v-else>{{ detail.value }}</p>

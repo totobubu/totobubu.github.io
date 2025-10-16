@@ -44,7 +44,7 @@
             // longName (미국) 또는 koName (한국)
             const displayName =
                 info.koName || info.longName || info.englishName;
-            if (isDesktop.value && displayName) {
+            if (isDesktop.value && displayName && displayName !== 'N/A') {
                 items.push({ label: displayName });
             }
         }
