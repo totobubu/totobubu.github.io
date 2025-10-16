@@ -1,15 +1,6 @@
-// tasks\updateHistoricalData.js
 import fs from 'fs/promises';
 import path from 'path';
-import yahooFinance from 'yahoo-finance2';
-
-yahooFinance.setGlobalConfig({
-    validation: {
-        logErrors: true,
-        failOnUnknownProperties: false,
-        failOnInvalidData: false,
-    },
-});
+import axios from 'axios'; // [핵심] axios를 사용합니다.
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
@@ -19,6 +10,45 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
+
+// [핵심] axios를 사용하여 Yahoo Finance API를 직접 호출하는 함수
+async function fetchHistoricalData(symbol, fromDate) {
+    const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
+    const period2 = Math.floor(Date.now() / 1000);
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=history`;
+
+    const { data } = await axios.get(url, {
+        headers: {
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        },
+    });
+
+    if (data.chart.error) {
+        throw new Error(
+            data.chart.error.description || `Unknown error for ${symbol}`
+        );
+    }
+
+    const result = data.chart.result[0];
+    if (!result || !result.timestamp) {
+        return [];
+    }
+
+    const timestamps = result.timestamp;
+    const quotes = result.indicators.quote[0];
+
+    return timestamps
+        .map((ts, i) => ({
+            date: new Date(ts * 1000).toISOString().split('T')[0],
+            open: quotes.open[i],
+            high: quotes.high[i],
+            low: quotes.low[i],
+            close: quotes.close[i],
+            volume: quotes.volume[i],
+        }))
+        .filter((p) => p.close !== null); // close 가격이 없는 데이터는 제외
+}
 
 async function fetchAndSavePriceData(ticker) {
     const { symbol, ipoDate } = ticker;
@@ -35,46 +65,24 @@ async function fetchAndSavePriceData(ticker) {
             if (prices && prices.length > 0) {
                 lastPriceDate = prices[prices.length - 1].date;
             }
-        } catch (error) {
-            console.log(
-                `- [${symbol}] No existing data file. Fetching all historical data.`
-            );
-        }
+        } catch (error) {}
 
         const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
         if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
 
-        const period1 = startDate.toISOString().split('T')[0];
-        if (new Date(period1) > new Date()) {
-            console.log(`- [${symbol}] Price data is already up to date.`);
+        const from = startDate.toISOString().split('T')[0];
+        if (new Date(from) > new Date()) {
             return { success: true, symbol };
         }
 
-        console.log(`Fetching price data for ${symbol} from ${period1}...`);
-        const newPriceData = await yahooFinance.historical(symbol, {
-            period1,
-            events: 'history',
-        });
+        const newPriceData = await fetchHistoricalData(symbol, from);
 
-        if (!newPriceData || newPriceData.length === 0) {
-            console.log(
-                `- [${symbol}] No new price data found since ${period1}.`
-            );
+        if (newPriceData.length === 0) {
             return { success: true, symbol };
         }
 
         const existingPrices = existingData.backtestData?.prices || [];
-        const combinedPrices = [
-            ...existingPrices,
-            ...newPriceData.map((p) => ({
-                date: p.date.toISOString().split('T')[0],
-                open: p.open,
-                high: p.high,
-                low: p.low,
-                close: p.close,
-                volume: p.volume,
-            })),
-        ];
+        const combinedPrices = [...existingPrices, ...newPriceData];
 
         const uniquePrices = Array.from(
             new Map(combinedPrices.map((item) => [item.date, item])).values()
@@ -86,38 +94,31 @@ async function fetchAndSavePriceData(ticker) {
 
         await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
         console.log(
-            `✅ [${symbol}] Price data updated. Added ${newPriceData.length} records. Total: ${uniquePrices.length}.`
+            `✅ [${symbol}] Price data updated. Added ${newPriceData.length} records.`
         );
         return { success: true, symbol };
     } catch (error) {
-        const errorMessage = error.message.includes('No data found')
-            ? 'No data found'
-            : error.message;
-        console.error(
-            `❌ [${symbol}] Failed to fetch/save data: ${errorMessage}`
-        );
-        return { success: false, symbol, error: errorMessage };
+        console.error(`❌ [${symbol}] An error occurred:`, error.message);
+        return { success: false, symbol, error: error.message };
     }
 }
 
 async function main() {
-    console.log('--- Starting Incremental Price Data Update (Node.js) ---');
+    console.log(
+        '--- Starting Incremental Price Data Update (Node.js/axios) ---'
+    );
     await fs.mkdir(DATA_DIR, { recursive: true });
 
-    const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-
-    const activeTickers = navData.nav.filter((ticker) => !ticker.upcoming);
-    const upcomingCount = navData.nav.length - activeTickers.length;
-
-    console.log(`Found ${navData.nav.length} total tickers in nav.json.`);
-    if (upcomingCount > 0) {
-        console.log(`Skipping ${upcomingCount} upcoming tickers (e.g., XOMW).`);
-    }
+    const navDataContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
+    const navData = JSON.parse(navDataContent);
 
     const tickersToFetch = [
-        ...activeTickers,
+        ...navData.nav,
         { symbol: 'SPY', ipoDate: '1993-01-22' },
-    ];
+        { symbol: 'QQQ', ipoDate: '1999-03-10' },
+        { symbol: 'DIA', ipoDate: '1998-01-14' },
+    ].filter((item) => !item.upcoming);
+
     const uniqueTickers = Array.from(
         new Map(tickersToFetch.map((t) => [t.symbol, t])).values()
     );
@@ -129,9 +130,6 @@ async function main() {
 
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
-        console.log(
-            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunk.map((t) => t.symbol).join(', ')})...`
-        );
 
         const results = await Promise.all(
             chunk.map((ticker) => fetchAndSavePriceData(ticker))
