@@ -1,7 +1,7 @@
 <!-- stock\src\components\StockHistoryPanel.vue -->
 <script setup>
     import { computed } from 'vue';
-    import { formatCurrency } from '@/utils/formatters.js';
+    import { formatCurrency, formatPercent } from '@/utils/formatters.js'; // formatPercent 추가
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 
@@ -27,7 +27,7 @@
                 }
             }
             if (typeof newItem['배당률'] === 'number') {
-                newItem['배당률'] = `${newItem['배당률'].toFixed(2)}%`;
+                newItem['배당률'] = formatPercent(newItem['배당률'] / 100); // 배당률은 100을 곱해야 함
             }
             return newItem;
         });
@@ -44,7 +44,6 @@
             '당일종가',
             '익일종가',
         ];
-        // history의 첫번째 항목에 있는 키들을 기준으로 컬럼 생성 (순서는 desiredOrder 따름)
         const keys = Object.keys(props.history[0]);
         return desiredOrder
             .filter((key) => keys.includes(key))
@@ -59,7 +58,18 @@
 
 <template>
     <div class="toto-history">
-        <DataTable :value="formattedHistory" ...>
+        <DataTable
+            :value="formattedHistory"
+            stripedRows
+            :rows="10"
+            paginator
+            :paginatorTemplate="
+                isDesktop
+                    ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
+                    : 'PrevPageLink CurrentPageReport NextPageLink'
+            "
+            currentPageReportTemplate="{first} - {last} of {totalRecords}"
+            scrollable>
             <Column
                 v-for="col in columns"
                 :key="col.field"
