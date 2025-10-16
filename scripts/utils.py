@@ -45,19 +45,32 @@ def parse_numeric_value(value_str):
         return None
 
 
-def format_large_number(value):
+def format_large_number(value, currency="USD"):
+    """숫자를 단위에 맞게 축약. KRW는 '조', '억', '만'으로, USD는 'T', 'B', 'M', 'K'로."""
     if value is None or not isinstance(value, (int, float)):
         return "N/A"
     num = float(value)
-    if abs(num) >= 1.0e12:
-        return f"{num / 1.0e12:.2f}T"
-    if abs(num) >= 1.0e9:
-        return f"{num / 1.0e9:.2f}B"
-    if abs(num) >= 1.0e6:
-        return f"{num / 1.0e6:.2f}M"
-    if abs(num) >= 1.0e3:
-        return f"{num / 1.0e3:.2f}K"
-    return str(int(num)) if num == int(num) else f"{num:.2f}"
+
+    if currency == "KRW":
+        if abs(num) >= 1.0e16:
+            return f"{(num / 1.0e16):.2f}경"
+        if abs(num) >= 1.0e12:
+            return f"{(num / 1.0e12):.2f}조"
+        if abs(num) >= 1.0e8:
+            return f"{(num / 1.0e8):.2f}억"
+        if abs(num) >= 1.0e4:
+            return f"{(num / 1.0e4):.2f}만"
+        return str(int(num))
+    else:  # USD
+        if abs(num) >= 1.0e12:
+            return f"{num / 1.0e12:.2f}T"
+        if abs(num) >= 1.0e9:
+            return f"{num / 1.0e9:.2f}B"
+        if abs(num) >= 1.0e6:
+            return f"{num / 1.0e6:.2f}M"
+        if abs(num) >= 1.0e3:
+            return f"{num / 1.0e3:.2f}K"
+        return str(int(num)) if num == int(num) else f"{num:.2f}"
 
 
 def format_currency(value, currency="USD", show_symbol=True):
@@ -68,12 +81,10 @@ def format_currency(value, currency="USD", show_symbol=True):
     symbol_str = symbol if show_symbol else ""
 
     if currency == "KRW":
-        return f"{symbol_str}{int(value):,}"
+        return f"{symbol_str}{int(round(value)):,}"
     else:
-        # 소수점이 없는 경우 정수로 표시
         if value == int(value):
             return f"{symbol_str}{int(value):,}"
-        # 소수점 여섯 자리까지 유효하게 표시
         else:
             return f"{symbol_str}{value:,.6f}".rstrip("0").rstrip(".")
 
