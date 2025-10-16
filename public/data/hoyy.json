@@ -1,42 +1,29 @@
 {
     "tickerInfo": {
         "Symbol": "HOYY",
-        "koName": "N/A",
+        "koName": null,
         "longName": "GraniteShares YieldBOOST HOOD ETF",
         "company": "GraniteShares",
         "frequency": "매주",
         "group": "금",
-        "underlying": "N/A",
+        "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
         "englishName": "GraniteShares YieldBOOST HOOD ETF",
         "earningsDate": "N/A",
-        "enterpriseValue": "N/A",
-        "marketCap": "N/A",
-        "Volume": "$68,462",
-        "AvgVolume": "$86,900",
-        "sharesOutstanding": "N/A",
-        "52Week": "$23.155 - $26.455",
-        "Yield": "N/A",
-        "dividendRate": "N/A",
-        "payoutRatio": "N/A",
-        "Update": "2025-10-16 05:33:15 KST",
-        "changes": {
-            "Volume": {
-                "value": "$53.35K",
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": "$86.90K",
-                "change": "up"
-            },
-            "52Week": {
-                "value": "$23.16 - $26.45",
-                "change": "up"
-            }
-        }
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 68448,
+        "AvgVolume": 86900,
+        "sharesOutstanding": null,
+        "52Week": "23.155 - 26.455",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "Update": "2025-10-16 12:13:07 KST",
+        "changes": {}
     },
-    "dividendTotal": 1.35995,
+    "dividendTotal": 1.3599999999999999,
     "dividendHistory": [
         {
             "배당락": "25. 12. 26"
@@ -73,20 +60,21 @@
         },
         {
             "배당락": "25. 10. 10",
-            "배당금": "$0.69082",
-            "배당률": "5.25%",
-            "전일종가": "$26.38",
-            "당일시가": "$25.90",
-            "당일종가": "$23.36"
+            "배당금": 0.691,
+            "배당률": 0.052570543000752104,
+            "전일종가": 26.382999,
+            "당일시가": 25.870001,
+            "당일종가": 23.360001,
+            "익일종가": 23.85
         },
         {
             "배당락": "25. 10. 03",
-            "배당금": "$0.66913",
-            "배당률": "2.63%",
-            "전일종가": "$25.97",
-            "당일시가": "$25.43",
-            "당일종가": "$25.60",
-            "익일종가": "$25.09"
+            "배당금": 0.669,
+            "배당률": 0.026307510813999214,
+            "전일종가": 25.969999,
+            "당일시가": 25.43,
+            "당일종가": 25.6,
+            "익일종가": 25.087999
         }
     ],
     "backtestData": {
@@ -107,15 +95,15 @@
                 "high": 25.645000457763672,
                 "low": 25.187000274658203,
                 "close": 25.645000457763672,
-                "volume": 24573
+                "volume": 27100
             },
             {
                 "date": "2025-10-01",
                 "open": 26.1299991607666,
                 "high": 26.1299991607666,
                 "low": 25.299999237060547,
-                "close": 25.43589973449707,
-                "volume": 38886
+                "close": 25.43600082397461,
+                "volume": 39000
             },
             {
                 "date": "2025-10-02",
@@ -123,47 +111,47 @@
                 "high": 26.40999984741211,
                 "low": 25.65999984741211,
                 "close": 25.969999313354492,
-                "volume": 161288
+                "volume": 163100
             },
             {
                 "date": "2025-10-03",
                 "open": 25.43000030517578,
                 "high": 25.645000457763672,
-                "low": 25.335500717163086,
+                "low": 25.336000442504883,
                 "close": 25.600000381469727,
-                "volume": 80163
+                "volume": 79800
             },
             {
                 "date": "2025-10-06",
                 "open": 25.93000030517578,
-                "high": 25.98870086669922,
-                "low": 25.087900161743164,
-                "close": 25.087900161743164,
-                "volume": 47877
+                "high": 25.98900032043457,
+                "low": 25.08799934387207,
+                "close": 25.08799934387207,
+                "volume": 48300
             },
             {
                 "date": "2025-10-07",
                 "open": 25.459999084472656,
                 "high": 25.489999771118164,
-                "low": 24.80419921875,
-                "close": 25.252399444580078,
-                "volume": 60066
+                "low": 24.804000854492188,
+                "close": 25.25200080871582,
+                "volume": 61500
             },
             {
                 "date": "2025-10-08",
                 "open": 25.510000228881836,
                 "high": 26,
-                "low": 25.315500259399414,
+                "low": 25.31599998474121,
                 "close": 25.979999542236328,
-                "volume": 56556
+                "volume": 56900
             },
             {
                 "date": "2025-10-09",
                 "open": 26.09000015258789,
                 "high": 26.454999923706055,
-                "low": 25.843900680541992,
-                "close": 26.383100509643555,
-                "volume": 135784
+                "low": 25.8439998626709,
+                "close": 26.382999420166016,
+                "volume": 137800
             },
             {
                 "date": "2025-10-10",
@@ -171,55 +159,32 @@
                 "high": 25.950000762939453,
                 "low": 23.360000610351562,
                 "close": 23.360000610351562,
-                "volume": 179362
+                "volume": 179400
             },
             {
                 "date": "2025-10-13",
                 "open": 24.31999969482422,
-                "high": 24.649900436401367,
-                "low": 23.56450080871582,
+                "high": 24.649999618530273,
+                "low": 23.565000534057617,
                 "close": 23.850000381469727,
-                "volume": 107952
+                "volume": 109200
             },
             {
                 "date": "2025-10-14",
-                "open": 23.540000915527344,
+                "open": 23.5,
                 "high": 23.899999618530273,
                 "low": 23.155000686645508,
-                "close": 23.353200912475586,
-                "volume": 53347
+                "close": 23.35300064086914,
+                "volume": 53800
             },
             {
                 "date": "2025-10-15",
                 "open": 23.969999313354492,
                 "high": 23.969999313354492,
-                "low": 23.469999313354492,
-                "close": 23.859899520874023,
-                "volume": 26342
+                "low": 23.219999313354492,
+                "close": 23.28219985961914,
+                "volume": 68448
             }
         ]
-    },
-    "tickerInfoRaw": {
-        "Symbol": "HOYY",
-        "koName": null,
-        "longName": "GraniteShares YieldBOOST HOOD ETF",
-        "company": "GraniteShares",
-        "frequency": "매주",
-        "group": "금",
-        "underlying": null,
-        "market": "NASDAQ",
-        "currency": "USD",
-        "englishName": "GraniteShares YieldBOOST HOOD ETF",
-        "earningsDate": "N/A",
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 68462,
-        "AvgVolume": 86900,
-        "sharesOutstanding": null,
-        "52Week": "23.155 - 26.455",
-        "Yield": 0,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "Update": "2025-10-16 05:33:15 KST"
     }
 }
