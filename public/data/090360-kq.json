@@ -1,112 +1,5 @@
 {
-    "tickerInfo": {
-        "Symbol": "090360.KQ",
-        "koName": "로보스타",
-        "longName": "로보스타",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSDAQ",
-        "currency": "KRW",
-        "englishName": "Robostar Co., Ltd.",
-        "earningsDate": "N/A",
-        "enterpriseValue": 607417860096,
-        "marketCap": 718574977024,
-        "Volume": 4365856,
-        "AvgVolume": 791018,
-        "sharesOutstanding": 9750000,
-        "52Week": "17880.0 - 76500.0",
-        "Yield": 0,
-        "dividendRate": null,
-        "payoutRatio": 0.0,
-        "Update": "2025-10-16 14:26:46 KST",
-        "changes": {}
-    },
-    "dividendTotal": 320,
-    "dividendHistory": [
-        {
-            "배당락": "19. 12. 27",
-            "배당금": 50.0,
-            "배당률": 0.0058823529411764705,
-            "전일종가": 16750.0,
-            "당일시가": 17000.0,
-            "당일종가": 17450.0,
-            "익일종가": 17400.0
-        },
-        {
-            "배당락": "18. 12. 27",
-            "배당금": 50.0,
-            "배당률": 0.00437636761487965,
-            "전일종가": 22550.0,
-            "당일시가": 22850.0,
-            "당일종가": 23150.0,
-            "익일종가": 24000.0
-        },
-        {
-            "배당락": "17. 12. 27",
-            "배당금": 50.0,
-            "배당률": 0.005649717514124294,
-            "전일종가": 17750.0,
-            "당일시가": 17700.0,
-            "당일종가": 18350.0,
-            "익일종가": 18350.0
-        },
-        {
-            "배당락": "16. 12. 28",
-            "배당금": 50.0,
-            "배당률": 0.0069164265129683,
-            "전일종가": 17050.0,
-            "당일시가": 17350.0,
-            "당일종가": 17650.0,
-            "익일종가": 17800.0
-        },
-        {
-            "배당락": "15. 12. 29",
-            "배당금": 70.0,
-            "배당률": 0.006481481481481481,
-            "전일종가": 10700.0,
-            "당일시가": 10800.0,
-            "당일종가": 11100.0,
-            "익일종가": 11500.0
-        },
-        {
-            "배당락": "11. 12. 28",
-            "배당금": 50.0,
-            "배당률": 0.006944444444444444,
-            "전일종가": 7180.0,
-            "당일시가": 7200.0,
-            "당일종가": 7570.0,
-            "익일종가": 7340.0
-        }
-    ],
     "backtestData": {
-        "dividends": [
-            {
-                "date": "2011-12-28",
-                "amount": 50.0
-            },
-            {
-                "date": "2015-12-29",
-                "amount": 70.0
-            },
-            {
-                "date": "2016-12-28",
-                "amount": 50.0
-            },
-            {
-                "date": "2017-12-27",
-                "amount": 50.0
-            },
-            {
-                "date": "2018-12-27",
-                "amount": 50.0
-            },
-            {
-                "date": "2019-12-27",
-                "amount": 50.0
-            }
-        ],
         "prices": [
             {
                 "date": "2011-10-17",
@@ -27555,15 +27448,107 @@
                 "low": 61400,
                 "close": 65700,
                 "volume": 6039824
+            }
+        ],
+        "dividends": [
+            {
+                "date": "2011-12-28",
+                "amount": 50.0
             },
             {
-                "date": "2025-10-16",
-                "open": 67400,
-                "high": 67400,
-                "low": 62500,
-                "close": 64400,
-                "volume": 959769
+                "date": "2015-12-29",
+                "amount": 70.0
+            },
+            {
+                "date": "2016-12-28",
+                "amount": 50.0
+            },
+            {
+                "date": "2017-12-27",
+                "amount": 50.0
+            },
+            {
+                "date": "2018-12-27",
+                "amount": 50.0
+            },
+            {
+                "date": "2019-12-27",
+                "amount": 50.0
             }
         ]
+    },
+    "dividendTotal": 320,
+    "dividendHistory": [
+        {
+            "배당락": "19. 12. 27",
+            "배당금": "₩50"
+        },
+        {
+            "배당락": "18. 12. 27",
+            "배당금": "₩50"
+        },
+        {
+            "배당락": "17. 12. 27",
+            "배당금": "₩50"
+        },
+        {
+            "배당락": "16. 12. 28",
+            "배당금": "₩50"
+        },
+        {
+            "배당락": "15. 12. 29",
+            "배당금": "₩70"
+        },
+        {
+            "배당락": "11. 12. 28",
+            "배당금": "₩50"
+        }
+    ],
+    "tickerInfoRaw": {
+        "Symbol": "090360.KQ",
+        "koName": "로보스타",
+        "longName": "로보스타",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSDAQ",
+        "currency": "KRW",
+        "englishName": "Robostar Co., Ltd.",
+        "earningsDate": "N/A",
+        "enterpriseValue": 607417860096,
+        "marketCap": 640575012864,
+        "Volume": 0,
+        "AvgVolume": 691030,
+        "sharesOutstanding": 9750000,
+        "52Week": "N/A",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": 0.0,
+        "Update": "2025-10-16 05:33:15 KST"
+    },
+    "tickerInfo": {
+        "Symbol": "090360.KQ",
+        "koName": "로보스타",
+        "longName": "로보스타",
+        "company": "N/A",
+        "frequency": "매년",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "KOSDAQ",
+        "currency": "KRW",
+        "englishName": "Robostar Co., Ltd.",
+        "earningsDate": "N/A",
+        "enterpriseValue": "607.42B ₩",
+        "marketCap": "640.58B ₩",
+        "Volume": "0 ₩",
+        "AvgVolume": "691.03K ₩",
+        "sharesOutstanding": "9.75M ₩",
+        "52Week": "N/A",
+        "Yield": "N/A",
+        "dividendRate": "N/A",
+        "payoutRatio": "0.00%",
+        "Update": "2025-10-16 05:33:15 KST",
+        "changes": {}
     }
 }

@@ -1,248 +1,171 @@
-<!-- src\layouts\AppSidebar.vue -->
 <script setup>
-    import { computed, ref } from 'vue';
-    import { useSidebar } from '@/composables/useSidebar.js';
-    import { useBreakpoint } from '@/composables/useBreakpoint.js';
-    import { getGroupSeverity } from '@/utils/uiHelpers.js';
-    import { user } from '../store/auth';
+import { computed, ref } from 'vue';
+import { useSidebar } from '@/composables/useSidebar.js';
+import { useBreakpoint } from '@/composables/useBreakpoint.js';
+import { getGroupSeverity } from '@/utils/uiHelpers.js';
+import { user } from '../store/auth';
 
-    import DataTable from 'primevue/datatable';
-    import Column from 'primevue/column';
-    import Tag from 'primevue/tag';
-    import Skeleton from 'primevue/skeleton';
-    import SelectButton from 'primevue/selectbutton';
-    import Button from 'primevue/button';
-    import CompanyLogo from '@/components/CompanyLogo.vue';
-    import FilterInput from '@/components/FilterInput.vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Tag from 'primevue/tag';
+import Skeleton from 'primevue/skeleton';
+// import SelectButton from 'primevue/selectbutton'; // 제거
+import Button from 'primevue/button';
+import Dialog from 'primevue/dialog';
+import ToggleButton from 'primevue/togglebutton';
+import CompanyLogo from '@/components/CompanyLogo.vue';
+import FilterInput from '@/components/FilterInput.vue';
 
-    const {
-        isLoading,
-        error,
-        selectedTicker,
-        globalSearchQuery,
-        activeFilterTab,
-        myBookmarks,
-        filteredTickers,
-        handleStockBookmarkClick,
-        onRowSelect,
-        handleTickerRequest,
-    } = useSidebar();
+const {
+    isLoading, error, selectedTicker, filters, showMyStocksOnly, myBookmarks,
+    filteredTickers, dialogsVisible, companies, frequencies, groups,
+    handleBookmarkToggle, handleStockBookmarkClick, onRowSelect, openFilterDialog, selectFilter,
+} = useSidebar();
 
-    const { isMobile } = useBreakpoint();
-    const skeletonItems = ref(new Array(25));
-    const tableSize = computed(() => (isMobile.value ? 'small' : null));
-
-    const filterOptions = ref([
-        { icon: 'pi pi-bookmark-fill', value: '북마크' },
-        { icon: 'pi pi-box', value: 'ETF' }, // [수정] ETF 아이콘 추가
-        { icon: '🇺🇸', value: '미국주식' },
-        { icon: '🇰🇷', value: '한국주식' },
-    ]);
+const { isMobile } = useBreakpoint();
+const skeletonItems = ref(new Array(25));
+const tableSize = computed(() => (isMobile.value ? 'small' : null));
 </script>
 
 <template>
-    <!-- [핵심 수정] 레이아웃 구조 변경 -->
-    <div class="flex flex-column gap-3">
-        <div class="flex flex-column gap-3">
-            <div class="flex flex-column gap-3">
-                <SelectButton
-                    v-model="activeFilterTab"
-                    :options="filterOptions"
-                    optionValue="value"
-                    optionLabel="value"
-                    class="w-full">
-                    <template #option="slotProps">
-                        <!-- [핵심 수정] 아이콘/이모지 렌더링 분기 처리 -->
-                        <i
-                            v-if="
-                                slotProps.option.icon &&
-                                slotProps.option.icon.startsWith('pi')
-                            "
-                            :class="slotProps.option.icon"></i>
-                        <span v-else-if="slotProps.option.icon">{{
-                            slotProps.option.icon
-                        }}</span>
-                        <span v-else>{{ slotProps.option.value }}</span>
-                        <!-- 모바일에서는 텍스트 숨김 -->
-                        <span style="display: none">{{
-                            slotProps.option.value
-                        }}</span>
-                    </template>
-                </SelectButton>
-                <FilterInput
-                    v-model="globalSearchQuery"
-                    title="전체 주식 검색" />
-            </div>
+    <div>
+        <!-- [수정] 헤더 영역을 원래대로 복구 -->
+        <div class="p-3">
+            <FilterInput
+                v-model="filters.global.value"
+                title="전체 티커 검색"
+                filter-type="global" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
-
-        <!-- [핵심 수정] DataTable을 감싸는 div 추가 -->
-        <div class="flex-grow-1 overflow-hidden">
-            <DataTable
-                v-if="!error"
-                id="toto-search-datatable"
-                :value="isLoading ? skeletonItems : filteredTickers"
-                v-model:selection="selectedTicker"
-                :globalFilter="globalSearchQuery"
-                dataKey="symbol"
-                selectionMode="single"
-                @rowSelect="onRowSelect"
-                :globalFilterFields="[
-                    'symbol',
-                    'longName',
-                    'koName',
-                    'company',
-                ]"
-                stripedRows
-                scrollable
-                scrollHeight="flex"
-                :size="tableSize"
-                :class="{ 'p-datatable-loading': isLoading }"
-                class="h-full">
-                <template #empty>
-                    <div class="text-center p-4">
-                        <div
-                            v-if="
-                                globalSearchQuery &&
-                                filteredTickers.length === 0
-                            ">
-                            <p class="mb-3">
-                                '{{ globalSearchQuery }}'에 대한 검색 결과가
-                                없습니다.
-                            </p>
-                            <Button
-                                v-if="user"
-                                :label="`'${globalSearchQuery.toUpperCase()}' 추가 요청하기`"
-                                icon="pi pi-plus"
-                                @click="handleTickerRequest(globalSearchQuery)"
-                                size="small"
-                                severity="secondary" />
-                            <p v-else class="text-sm text-surface-500 mt-2">
-                                로그인하시면 없는 종목을 직접 추가 요청할 수
-                                있습니다.
-                            </p>
-                        </div>
-                        <div v-else-if="activeFilterTab === '북마크'">
-                            <p v-if="!user" class="mb-2">
-                                로그인 후 종목을 북마크에 추가해 보세요.
-                            </p>
-                            <p
-                                v-else-if="
-                                    Object.keys(myBookmarks).length === 0
-                                "
-                                class="mb-2">
-                                아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
-                                아이콘을 클릭하여 추가하세요.
-                            </p>
-                        </div>
-                        <div v-else><p>표시할 종목이 없습니다.</p></div>
-                    </div>
+        
+        <DataTable
+            v-if="!error"
+            id="toto-search-datatable"
+            :value="isLoading ? skeletonItems : filteredTickers"
+            v-model:filters="filters"
+            v-model:selection="selectedTicker"
+            dataKey="symbol"
+            selectionMode="single"
+            @rowSelect="onRowSelect"
+            :globalFilterFields="['symbol', 'longName', 'company']"
+            stripedRows
+            scrollable
+            scrollHeight="calc(100vh - 120px)"
+            :size="tableSize"
+            :class="{ 'p-datatable-loading': isLoading }">
+            <template #empty>
+                <div class="text-center p-4">검색 결과가 없습니다.</div>
+            </template>
+            <Column frozen class="toto-column-bookmark">
+                <template #header>
+                    <ToggleButton
+                        :modelValue="showMyStocksOnly"
+                        @click.stop="handleBookmarkToggle"
+                        :disabled="!user"
+                        onIcon="pi pi-bookmark-fill" offIcon="pi pi-bookmark"
+                        aria-label="내 종목만 보기" />
                 </template>
-                <Column frozen class="toto-column-bookmark">
-                    <template #body="{ data }">
-                        <Skeleton
-                            v-if="isLoading"
-                            shape="circle"
-                            size="1rem"></Skeleton>
-                        <i
-                            v-else
-                            class="pi"
-                            :class="
-                                user && myBookmarks[data.symbol]
-                                    ? 'pi-bookmark-fill text-primary'
-                                    : 'pi-bookmark'
-                            "
-                            @click.stop="
-                                handleStockBookmarkClick(data.symbol)
-                            "></i>
-                    </template>
-                </Column>
-                <Column
-                    field="symbol"
-                    sortable
-                    frozen
-                    class="font-bold toto-column-ticker">
-                    <template #header
-                        ><span>{{ isMobile ? '' : '티커' }}</span></template
-                    >
-                    <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
-                        <span v-else>{{ data.koName || data.symbol }}</span>
-                    </template>
-                </Column>
-                <Column field="company" sortable class="toto-column-company">
-                    <template #header
-                        ><span v-if="!isMobile">회사</span></template
-                    >
-                    <template #body="{ data }">
-                        <Skeleton
-                            v-if="isLoading"
-                            width="3rem"
-                            height="3rem"></Skeleton>
-                        <CompanyLogo
-                            v-else
-                            :logo-src="data.logo"
-                            :company-name="data.company" />
-                    </template>
-                </Column>
-                <Column
-                    field="frequency"
-                    sortable
-                    class="toto-column-frequency">
-                    <template #header
-                        ><span v-if="!isMobile">지급</span></template
-                    >
-                    <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
-                        <span v-else>{{ data.frequency }}</span>
-                    </template>
-                </Column>
-                <Column
-                    field="group"
-                    sortable
-                    class="toto-column-group"
-                    sortField="groupOrder">
-                    <template #header
-                        ><span v-if="!isMobile">그룹</span></template
-                    >
-                    <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
-                        <Tag
-                            v-else-if="data.group"
-                            :value="data.group"
-                            :severity="getGroupSeverity(data.group)" />
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading" shape="circle" size="1rem"></Skeleton>
+                    <i v-else class="pi" :class="user && myBookmarks[data.symbol] ? 'pi-bookmark-fill text-primary' : 'pi-bookmark'"
+                        @click.stop="handleStockBookmarkClick(data.symbol)"></i>
+                </template>
+            </Column>
+            <Column field="symbol" sortable frozen class="font-bold toto-column-ticker">
+                <template #header>
+                    <span>{{ isMobile ? '' : '티커' }}</span>
+                </template>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading"></Skeleton>
+                    <span v-else>{{ data.symbol }}</span>
+                </template>
+            </Column>
+            <Column field="company" sortable class="toto-column-company">
+                <template #header>
+                    <Button type="button" icon="pi pi-filter-fill" size="small" :variant="filters.company.value ? 'filled' : 'text'"
+                        @click="openFilterDialog('company')" :severity="filters.company.value ? '' : 'secondary'" />
+                    <span v-if="!isMobile">회사</span>
+                </template>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading" width="3rem" height="3rem"></Skeleton>
+                    <CompanyLogo v-else :logo-src="data.logo" :company-name="data.company" />
+                </template>
+            </Column>
+            <Column field="frequency" sortable class="toto-column-frequency">
+                <template #header>
+                    <Button type="button" icon="pi pi-filter-fill" size="small" :variant="filters.frequency.value ? 'filled' : 'text'"
+                        @click="openFilterDialog('frequency')" :severity="filters.frequency.value ? '' : 'secondary'" />
+                    <span v-if="!isMobile">지급</span>
+                </template>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading"></Skeleton>
+                    <span v-else>{{ data.frequency }}</span>
+                </template>
+            </Column>
+            <Column field="yield" sortable class="toto-column-yield">
+                <template #header>
+                    <span v-if="!isMobile">배당률</span>
+                </template>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading"></Skeleton>
+                    <span v-else class="text-surface-500">{{ data.yield }}</span>
+                </template>
+            </Column>
+            <Column field="group" sortable class="toto-column-group" sortField="groupOrder">
+                <template #header>
+                    <span v-if="!isMobile">그룹</span>
+                </template>
+                <template #body="{ data }">
+                    <Skeleton v-if="isLoading"></Skeleton>
+                    <Tag v-else-if="data.group" :value="data.group" :severity="getGroupSeverity(data.group)" />
+                </template>
+            </Column>
+        </DataTable>
+        
+        <Dialog v-model:visible="dialogsVisible.company" modal header="운용사 필터" :style="{ width: '600px' }" :breakpoints="{ '576px': '95vw' }">
+            <div class="filter-button-group">
+                <ToggleButton onLabel="전체" offLabel="전체" :modelValue="filters.company.value === null" @update:modelValue="selectFilter('company', null)" class="p-button-sm" />
+                <ToggleButton v-for="company in companies" :key="company" :onLabel="company" :offLabel="company" :modelValue="filters.company.value === company" @update:modelValue="selectFilter('company', company)" class="p-button-sm" />
+            </div>
+        </Dialog>
+        <Dialog v-model:visible="dialogsVisible.frequency" modal header="지급주기 필터" :style="{ width: '576px' }">
+            <div class="filter-button-group">
+                <ToggleButton onLabel="전체" offLabel="전체" :modelValue="filters.frequency.value === null" @update:modelValue="selectFilter('frequency', null)" class="p-button-sm" />
+                <ToggleButton v-for="freq in frequencies" :key="freq" :onLabel="freq" :offLabel="freq" :modelValue="filters.frequency.value === freq" @update:modelValue="selectFilter('frequency', freq)" class="p-button-sm" />
+            </div>
+        </Dialog>
     </div>
 </template>
 
 <style scoped>
-    :deep(.p-selectbutton) {
-        display: flex;
-    }
-    :deep(.p-selectbutton .p-button) {
-        flex: 1;
-        font-size: 0.875rem;
-        justify-content: center;
-    }
-    :deep(.p-selectbutton .p-button .pi) {
-        margin-right: 0.5rem;
-    }
-    .toto-column-bookmark .p-column-header-content,
-    .toto-column-bookmark .p-column-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
-        text-align: center;
-    }
-    .p-column-header-content {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
+.filter-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.toto-column-bookmark .p-column-header-content,
+.toto-column-bookmark .p-column-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toto-column-bookmark .p-button {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
+    text-align: center;
+}
+.p-column-header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+:deep(.p-selectbutton) {
+    display: flex;
+}
+:deep(.p-selectbutton .p-button) {
+    flex: 1;
+}
 </style>

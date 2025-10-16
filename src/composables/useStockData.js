@@ -8,6 +8,7 @@ const backtestData = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
+
 let navDataCache = null;
 
 const loadNavData = async () => {
@@ -26,16 +27,6 @@ const loadNavData = async () => {
 
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
-
-const marketNameMap = {
-    NMS: 'NASDAQ',
-    NYQ: 'NYSE',
-    KOE: 'KOSDAQ',
-    KSC: 'KOSPI',
-    NCM: 'NASDAQ',
-    NGM: 'NASDAQ',
-    ASE: 'NYSE',
-};
 
 export function useStockData() {
     const loadData = async (sanitizedTicker) => {
@@ -69,7 +60,23 @@ export function useStockData() {
             if (navInfo.upcoming) {
                 isUpcoming.value = true;
                 tickerInfo.value = navInfo;
-                // ... (upcoming 로직)
+                try {
+                    const liveDataResponse = await fetch(
+                        `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
+                    );
+                    if (liveDataResponse.ok) {
+                        const liveData = (await liveDataResponse.json())[0];
+                        if (liveData)
+                            tickerInfo.value = {
+                                ...tickerInfo.value,
+                                ...liveData,
+                            };
+                    }
+                } catch (e) {
+                    console.warn(
+                        `Upcoming ticker ${originalTickerSymbol} live data fetch failed, but proceeding.`
+                    );
+                }
                 return;
             }
 
@@ -95,20 +102,11 @@ export function useStockData() {
 
             if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
-
-                // [핵심 수정] 이제 tickerInfo는 순수 숫자 데이터를 담고 있음
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
                     ...navInfo,
                     ...liveData,
                 };
-
-                if (liveData && liveData.exchange) {
-                    tickerInfo.value.market =
-                        marketNameMap[liveData.exchange] || liveData.exchange;
-                }
-
-                // [핵심 수정] 주석 해제하여 데이터 정상 할당
                 dividendHistory.value = staticData.dividendHistory || [];
                 backtestData.value = staticData.backtestData || {};
             } else {

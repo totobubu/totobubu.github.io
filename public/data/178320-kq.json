@@ -1,112 +1,5 @@
 {
-    "tickerInfo": {
-        "Symbol": "178320.KQ",
-        "koName": "서진시스템",
-        "longName": "서진시스템",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSDAQ",
-        "currency": "KRW",
-        "englishName": "Seojin System Co.,Ltd",
-        "earningsDate": "N/A",
-        "enterpriseValue": 2347102371840,
-        "marketCap": 1423073214464,
-        "Volume": 727226,
-        "AvgVolume": 277214,
-        "sharesOutstanding": 56247954,
-        "52Week": "16490.0 - 31750.0",
-        "Yield": 0,
-        "dividendRate": null,
-        "payoutRatio": 0.0,
-        "Update": "2025-10-16 14:26:46 KST",
-        "changes": {}
-    },
-    "dividendTotal": 1350,
-    "dividendHistory": [
-        {
-            "배당락": "22. 12. 28",
-            "배당금": 150.0,
-            "배당률": 0.024725274725274724,
-            "전일종가": 18500.0,
-            "당일시가": 18200.0,
-            "당일종가": 18100.0,
-            "익일종가": 17500.0
-        },
-        {
-            "배당락": "21. 12. 29",
-            "배당금": 300.0,
-            "배당률": 0.02768166089965398,
-            "전일종가": 21750.0,
-            "당일시가": 21675.0,
-            "당일종가": 21475.0,
-            "익일종가": 21600.0
-        },
-        {
-            "배당락": "20. 12. 29",
-            "배당금": 300.0,
-            "배당률": 0.01279317697228145,
-            "전일종가": 23300.0,
-            "당일시가": 23450.0,
-            "당일종가": 24975.0,
-            "익일종가": 25300.0
-        },
-        {
-            "배당락": "19. 12. 27",
-            "배당금": 300.0,
-            "배당률": 0.03395585738539898,
-            "전일종가": 14600.0,
-            "당일시가": 14725.0,
-            "당일종가": 14550.0,
-            "익일종가": 14400.0
-        },
-        {
-            "배당락": "18. 12. 27",
-            "배당금": 200.0,
-            "배당률": 0.039603960396039604,
-            "전일종가": 7500.0,
-            "당일시가": 7575.0,
-            "당일종가": 7750.0,
-            "익일종가": 8675.0
-        },
-        {
-            "배당락": "17. 12. 27",
-            "배당금": 100.0,
-            "배당률": 0.011869436201780416,
-            "전일종가": 8412.0,
-            "당일시가": 8425.0,
-            "당일종가": 8500.0,
-            "익일종가": 8700.0
-        }
-    ],
     "backtestData": {
-        "dividends": [
-            {
-                "date": "2017-12-27",
-                "amount": 100.0
-            },
-            {
-                "date": "2018-12-27",
-                "amount": 200.0
-            },
-            {
-                "date": "2019-12-27",
-                "amount": 300.0
-            },
-            {
-                "date": "2020-12-29",
-                "amount": 300.0
-            },
-            {
-                "date": "2021-12-29",
-                "amount": 300.0
-            },
-            {
-                "date": "2022-12-28",
-                "amount": 150.0
-            }
-        ],
         "prices": [
             {
                 "date": "2017-03-27",
@@ -16795,15 +16688,107 @@
                 "low": 22350,
                 "close": 24450,
                 "volume": 1129539
+            }
+        ],
+        "dividends": [
+            {
+                "date": "2017-12-27",
+                "amount": 100.0
             },
             {
-                "date": "2025-10-16",
-                "open": 25000,
-                "high": 25150,
-                "low": 24250,
-                "close": 24650,
-                "volume": 277843
+                "date": "2018-12-27",
+                "amount": 200.0
+            },
+            {
+                "date": "2019-12-27",
+                "amount": 300.0
+            },
+            {
+                "date": "2020-12-29",
+                "amount": 300.0
+            },
+            {
+                "date": "2021-12-29",
+                "amount": 300.0
+            },
+            {
+                "date": "2022-12-28",
+                "amount": 150.0
             }
         ]
+    },
+    "dividendTotal": 1350,
+    "dividendHistory": [
+        {
+            "배당락": "22. 12. 28",
+            "배당금": "₩150"
+        },
+        {
+            "배당락": "21. 12. 29",
+            "배당금": "₩300"
+        },
+        {
+            "배당락": "20. 12. 29",
+            "배당금": "₩300"
+        },
+        {
+            "배당락": "19. 12. 27",
+            "배당금": "₩300"
+        },
+        {
+            "배당락": "18. 12. 27",
+            "배당금": "₩200"
+        },
+        {
+            "배당락": "17. 12. 27",
+            "배당금": "₩100"
+        }
+    ],
+    "tickerInfoRaw": {
+        "Symbol": "178320.KQ",
+        "koName": "서진시스템",
+        "longName": "서진시스템",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSDAQ",
+        "currency": "KRW",
+        "englishName": "Seojin System Co.,Ltd",
+        "earningsDate": "N/A",
+        "enterpriseValue": 2347102371840,
+        "marketCap": 1375262474240,
+        "Volume": 0,
+        "AvgVolume": 261975,
+        "sharesOutstanding": 56247954,
+        "52Week": "N/A",
+        "Yield": 0,
+        "dividendRate": null,
+        "payoutRatio": 0.0,
+        "Update": "2025-10-16 05:33:15 KST"
+    },
+    "tickerInfo": {
+        "Symbol": "178320.KQ",
+        "koName": "서진시스템",
+        "longName": "서진시스템",
+        "company": "N/A",
+        "frequency": "매년",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "KOSDAQ",
+        "currency": "KRW",
+        "englishName": "Seojin System Co.,Ltd",
+        "earningsDate": "N/A",
+        "enterpriseValue": "2.35T ₩",
+        "marketCap": "1.38T ₩",
+        "Volume": "0 ₩",
+        "AvgVolume": "261.98K ₩",
+        "sharesOutstanding": "56.25M ₩",
+        "52Week": "N/A",
+        "Yield": "N/A",
+        "dividendRate": "N/A",
+        "payoutRatio": "0.00%",
+        "Update": "2025-10-16 05:33:15 KST",
+        "changes": {}
     }
 }

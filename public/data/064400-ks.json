@@ -1,47 +1,5 @@
 {
-    "tickerInfo": {
-        "Symbol": "064400.KS",
-        "koName": "LG씨엔에스",
-        "longName": "LG씨엔에스",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "englishName": null,
-        "earningsDate": "N/A",
-        "enterpriseValue": 5316087382016,
-        "marketCap": 6161946378240,
-        "Volume": 460097,
-        "AvgVolume": 661423,
-        "sharesOutstanding": 96885948,
-        "52Week": "46500.0 - 100800.0",
-        "Yield": 0,
-        "dividendRate": 750.0,
-        "payoutRatio": 0.0,
-        "Update": "2025-10-16 14:26:46 KST",
-        "changes": {}
-    },
-    "dividendTotal": 750,
-    "dividendHistory": [
-        {
-            "배당락": "25. 08. 20",
-            "배당금": 750.0,
-            "배당률": 0.010980966325036604,
-            "전일종가": 71000.0,
-            "당일시가": 68300.0,
-            "당일종가": 68500.0,
-            "익일종가": 67100.0
-        }
-    ],
     "backtestData": {
-        "dividends": [
-            {
-                "date": "2025-08-20",
-                "amount": 750.0
-            }
-        ],
         "prices": [
             {
                 "date": "2025-02-05",
@@ -1394,15 +1352,67 @@
                 "low": 62600,
                 "close": 63900,
                 "volume": 396748
-            },
+            }
+        ],
+        "dividends": [
             {
-                "date": "2025-10-16",
-                "open": 64000,
-                "high": 64900,
-                "low": 63200,
-                "close": 64350,
-                "volume": 238329
+                "date": "2025-08-20",
+                "amount": 750.0
             }
         ]
+    },
+    "dividendTotal": 750,
+    "dividendHistory": [
+        {
+            "배당락": "25. 08. 20",
+            "배당금": "₩750"
+        }
+    ],
+    "tickerInfoRaw": {
+        "Symbol": "064400.KS",
+        "koName": "LG씨엔에스",
+        "longName": "LG씨엔에스",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "englishName": null,
+        "earningsDate": "N/A",
+        "enterpriseValue": 5316087382016,
+        "marketCap": 6191012380672,
+        "Volume": 0,
+        "AvgVolume": 667391,
+        "sharesOutstanding": 96885948,
+        "52Week": "N/A",
+        "Yield": 0,
+        "dividendRate": 750.0,
+        "payoutRatio": 0.0,
+        "Update": "2025-10-16 05:33:15 KST"
+    },
+    "tickerInfo": {
+        "Symbol": "064400.KS",
+        "koName": "LG씨엔에스",
+        "longName": "LG씨엔에스",
+        "company": "N/A",
+        "frequency": "N/A",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "KOSPI",
+        "currency": "KRW",
+        "englishName": "N/A",
+        "earningsDate": "N/A",
+        "enterpriseValue": "5.32T ₩",
+        "marketCap": "6.19T ₩",
+        "Volume": "0 ₩",
+        "AvgVolume": "667.39K ₩",
+        "sharesOutstanding": "96.89M ₩",
+        "52Week": "N/A",
+        "Yield": "N/A",
+        "dividendRate": "₩750",
+        "payoutRatio": "0.00%",
+        "Update": "2025-10-16 05:33:15 KST",
+        "changes": {}
     }
 }

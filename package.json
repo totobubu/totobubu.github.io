@@ -7,6 +7,7 @@
         "add:etf": "python scripts/add_etfs_by_provider.py",
         "generate-nav": "node tasks/generateNav.js",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
+        "generate-sidebar-tickers": "node tasks/generateSidebarTickers.js",
         "watch-nav": "nodemon --watch public/nav --ext json --exec \"npm run generate-nav && npm run generate-sidebar-tickers\"",
         "dev": "vite",
         "build": "vite build",
