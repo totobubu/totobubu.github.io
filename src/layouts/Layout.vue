@@ -11,12 +11,12 @@
     import Toast from 'primevue/toast';
     import ConfirmDialog from 'primevue/confirmdialog';
     import ScrollTop from 'primevue/scrolltop';
-    import TieredMenu from 'primevue/tieredmenu'; // [신규] TieredMenu import
+    import TieredMenu from 'primevue/tieredmenu';
     import AppSidebar from './AppSidebar.vue';
 
     const route = useRoute();
     const router = useRouter();
-    const { isDesktop } = useBreakpoint();
+    const { isDesktop, isMobile } = useBreakpoint();
     const { tickerInfo } = useStockData();
     const visible = ref(false);
 
@@ -24,13 +24,11 @@
         return ['/', '/thumbnail-generator'].includes(route.path);
     });
 
-    // [신규] TieredMenu를 위한 ref와 toggle 함수
     const menu = ref();
     const toggleMenu = (event) => {
         menu.value.toggle(event);
     };
 
-    // [신규] TieredMenu에 표시될 메뉴 아이템 목록
     const menuItems = computed(() => [
         {
             label: '배당달력',
@@ -73,17 +71,29 @@
     const breadcrumbItems = computed(() => {
         const home = { icon: 'pi pi-home', to: '/' };
         const items = [];
+
         if (route.name === 'calendar') items.push({ label: '배당달력' });
         else if (route.name === 'mypage') items.push({ label: '마이페이지' });
         else if (route.name === 'contact') items.push({ label: '문의하기' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
         else if (route.name === 'stock-detail' && tickerInfo.value) {
             const info = tickerInfo.value;
-            if (info.market) items.push({ label: info.market.toUpperCase() });
-            if (info.symbol)
-                items.push({ label: info.symbol.split('.')[0].toUpperCase() });
+            if (info.market) {
+                items.push({ label: info.market.toUpperCase() });
+            }
+
+            if (isMobile.value && info.koName && info.koName !== 'N/A') {
+                items.push({ label: info.koName });
+            } else {
+                const baseSymbol = info.symbol.split('.')[0];
+                items.push({ label: baseSymbol.toUpperCase() });
+            }
+
+            // [핵심 수정] Breadcrumb 표시 로직 변경
             const displayName =
                 info.koName || info.longName || info.englishName;
+
+            // 데스크탑에서는 항상 표시
             if (isDesktop.value && displayName && displayName !== 'N/A') {
                 items.push({ label: displayName });
             }
@@ -128,9 +138,7 @@
                         </template>
                     </Breadcrumb>
                 </div>
-
                 <div id="t-topbar" class="topbar-actions">
-                    <!-- [수정] 데스크탑일 때만 개별 버튼 표시 -->
                     <template v-if="isDesktop">
                         <Button
                             icon="pi pi-calendar"
@@ -167,8 +175,6 @@
                                 aria-label="로그아웃" />
                         </template>
                     </template>
-
-                    <!-- [수정] 모바일일 때만 팝업 메뉴 버튼 표시 -->
                     <template v-if="!isDesktop">
                         <Button
                             type="button"
@@ -183,8 +189,6 @@
                             :model="menuItems"
                             popup />
                     </template>
-
-                    <!-- 사이드바를 여는 버튼은 항상 표시 (데스크탑 제외) -->
                     <Button
                         v-if="!isDesktop"
                         icon="pi pi-bars"
