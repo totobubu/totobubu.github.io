@@ -11,7 +11,6 @@
     import Tag from 'primevue/tag';
     import Skeleton from 'primevue/skeleton';
     import SelectButton from 'primevue/selectbutton';
-    import Button from 'primevue/button';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
 
@@ -50,14 +49,21 @@
                     class="w-full">
                     <template #option="slotProps">
                         <i
-                            v-if="slotProps.option.icon"
-                            :class="slotProps.option.icon" />
-                        <span>{{ slotProps.option.value }}</span>
+                            v-if="
+                                slotProps.option.icon &&
+                                slotProps.option.icon.startsWith('pi')
+                            "
+                            :class="slotProps.option.icon"
+                            style="font-size: 1rem"></i>
+                        <span v-else-if="slotProps.option.icon">{{
+                            slotProps.option.icon
+                        }}</span>
+                        <span v-else>{{ slotProps.option.value }}</span>
                     </template>
                 </SelectButton>
                 <FilterInput
                     v-model="globalSearchQuery"
-                    title="전체 티커 검색" />
+                    title="전체 주식 검색" />
             </div>
         </div>
 
@@ -67,8 +73,8 @@
             v-if="!error"
             id="toto-search-datatable"
             :value="isLoading ? skeletonItems : filteredTickers"
-            v-model:filters="filters"
             v-model:selection="selectedTicker"
+            :globalFilter="globalSearchQuery"
             dataKey="symbol"
             selectionMode="single"
             @rowSelect="onRowSelect"
@@ -125,6 +131,7 @@
                     <span v-else>{{ data.koName || data.symbol }}</span>
                 </template>
             </Column>
+
             <Column field="company" sortable class="toto-column-company">
                 <template #header><span v-if="!isMobile">회사</span></template>
                 <template #body="{ data }">
@@ -138,6 +145,7 @@
                         :company-name="data.company" />
                 </template>
             </Column>
+
             <Column field="frequency" sortable class="toto-column-frequency">
                 <template #header><span v-if="!isMobile">지급</span></template>
                 <template #body="{ data }">
@@ -145,17 +153,7 @@
                     <span v-else>{{ data.frequency }}</span>
                 </template>
             </Column>
-            <Column field="yield" sortable class="toto-column-yield">
-                <template #header
-                    ><span v-if="!isMobile">배당률</span></template
-                >
-                <template #body="{ data }">
-                    <Skeleton v-if="isLoading"></Skeleton>
-                    <span v-else class="text-surface-500">{{
-                        data.yield
-                    }}</span>
-                </template>
-            </Column>
+
             <Column
                 field="group"
                 sortable
@@ -180,21 +178,17 @@
     }
     :deep(.p-selectbutton .p-button) {
         flex: 1;
+        font-size: 0.875rem;
+        justify-content: center;
     }
-    .filter-button-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+    :deep(.p-selectbutton .p-button .pi) {
+        font-size: 1.1rem;
     }
     .toto-column-bookmark .p-column-header-content,
     .toto-column-bookmark .p-column-content {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .toto-column-bookmark .p-button {
-        width: 2.5rem;
-        height: 2.5rem;
     }
     .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
         text-align: center;
@@ -203,11 +197,5 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-    }
-    :deep(.p-selectbutton) {
-        display: flex;
-    }
-    :deep(.p-selectbutton .p-button) {
-        flex: 1;
     }
 </style>
