@@ -82,7 +82,7 @@ npm run format:data
 npm run dev
 
 
-python sort_json_keys_.py
+
 
 
 
