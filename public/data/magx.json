@@ -32,6 +32,7 @@
             }
         }
     },
+    "dividendTotal": 0.396,
     "dividendHistory": [
         {
             "배당락": "24. 12. 30",
@@ -44,6 +45,12 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2024-12-30",
+                "amount": 0.396
+            }
+        ],
         "prices": [
             {
                 "date": "2024-02-29",
@@ -3317,15 +3324,8 @@
                 "close": 55.10200119018555,
                 "volume": 17127
             }
-        ],
-        "dividends": [
-            {
-                "date": "2024-12-30",
-                "amount": 0.396
-            }
         ]
     },
-    "dividendTotal": 0.396,
     "tickerInfoRaw": {
         "Symbol": "MAGX",
         "koName": null,

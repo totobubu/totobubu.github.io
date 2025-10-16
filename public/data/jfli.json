@@ -36,6 +36,7 @@
             }
         }
     },
+    "dividendTotal": 2.234,
     "dividendHistory": [
         {
             "배당락": "25. 10. 06",
@@ -102,6 +103,36 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-04-04",
+                "amount": 0.345
+            },
+            {
+                "date": "2025-05-06",
+                "amount": 0.335
+            },
+            {
+                "date": "2025-06-05",
+                "amount": 0.333
+            },
+            {
+                "date": "2025-07-07",
+                "amount": 0.314
+            },
+            {
+                "date": "2025-08-06",
+                "amount": 0.302
+            },
+            {
+                "date": "2025-09-05",
+                "amount": 0.305
+            },
+            {
+                "date": "2025-10-06",
+                "amount": 0.3
+            }
+        ],
         "prices": [
             {
                 "date": "2025-02-14",
@@ -1447,39 +1478,8 @@
                 "close": 50.730098724365234,
                 "volume": 10488
             }
-        ],
-        "dividends": [
-            {
-                "date": "2025-04-04",
-                "amount": 0.345
-            },
-            {
-                "date": "2025-05-06",
-                "amount": 0.335
-            },
-            {
-                "date": "2025-06-05",
-                "amount": 0.333
-            },
-            {
-                "date": "2025-07-07",
-                "amount": 0.314
-            },
-            {
-                "date": "2025-08-06",
-                "amount": 0.302
-            },
-            {
-                "date": "2025-09-05",
-                "amount": 0.305
-            },
-            {
-                "date": "2025-10-06",
-                "amount": 0.3
-            }
         ]
     },
-    "dividendTotal": 2.234,
     "tickerInfoRaw": {
         "Symbol": "JFLI",
         "koName": null,

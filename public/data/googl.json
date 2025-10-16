@@ -52,6 +52,7 @@
             }
         }
     },
+    "dividendTotal": 1.22,
     "dividendHistory": [
         {
             "배당락": "25. 09. 08",
@@ -109,6 +110,32 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2024-06-10",
+                "amount": 0.2
+            },
+            {
+                "date": "2024-09-09",
+                "amount": 0.2
+            },
+            {
+                "date": "2024-12-09",
+                "amount": 0.2
+            },
+            {
+                "date": "2025-03-10",
+                "amount": 0.2
+            },
+            {
+                "date": "2025-06-09",
+                "amount": 0.21
+            },
+            {
+                "date": "2025-09-08",
+                "amount": 0.21
+            }
+        ],
         "prices": [
             {
                 "date": "2015-09-28",
@@ -20334,35 +20361,8 @@
                 "close": 251.2324981689453,
                 "volume": 5883094
             }
-        ],
-        "dividends": [
-            {
-                "date": "2024-06-10",
-                "amount": 0.2
-            },
-            {
-                "date": "2024-09-09",
-                "amount": 0.2
-            },
-            {
-                "date": "2024-12-09",
-                "amount": 0.2
-            },
-            {
-                "date": "2025-03-10",
-                "amount": 0.2
-            },
-            {
-                "date": "2025-06-09",
-                "amount": 0.21
-            },
-            {
-                "date": "2025-09-08",
-                "amount": 0.21
-            }
         ]
     },
-    "dividendTotal": 1.22,
     "tickerInfoRaw": {
         "Symbol": "GOOGL",
         "koName": null,

@@ -36,6 +36,7 @@
             }
         }
     },
+    "dividendTotal": 0.6819999999999999,
     "dividendHistory": [
         {
             "배당락": "25. 10. 08",
@@ -57,6 +58,16 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-10-01",
+                "amount": 0.346
+            },
+            {
+                "date": "2025-10-08",
+                "amount": 0.336
+            }
+        ],
         "prices": [
             {
                 "date": "2025-09-18",
@@ -218,19 +229,8 @@
                 "close": 15.050000190734863,
                 "volume": 5072
             }
-        ],
-        "dividends": [
-            {
-                "date": "2025-10-01",
-                "amount": 0.346
-            },
-            {
-                "date": "2025-10-08",
-                "amount": 0.336
-            }
         ]
     },
-    "dividendTotal": 0.6819999999999999,
     "tickerInfoRaw": {
         "Symbol": "ETHI",
         "koName": null,

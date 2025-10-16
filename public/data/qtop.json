@@ -32,6 +32,7 @@
             }
         }
     },
+    "dividendTotal": 0.119,
     "dividendHistory": [
         {
             "배당락": "25. 09. 16",
@@ -71,6 +72,24 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2024-12-17",
+                "amount": 0.028
+            },
+            {
+                "date": "2025-03-18",
+                "amount": 0.028
+            },
+            {
+                "date": "2025-06-16",
+                "amount": 0.033
+            },
+            {
+                "date": "2025-09-16",
+                "amount": 0.03
+            }
+        ],
         "prices": [
             {
                 "date": "2024-10-24",
@@ -2024,27 +2043,8 @@
                 "close": 31.399999618530273,
                 "volume": 35567
             }
-        ],
-        "dividends": [
-            {
-                "date": "2024-12-17",
-                "amount": 0.028
-            },
-            {
-                "date": "2025-03-18",
-                "amount": 0.028
-            },
-            {
-                "date": "2025-06-16",
-                "amount": 0.033
-            },
-            {
-                "date": "2025-09-16",
-                "amount": 0.03
-            }
         ]
     },
-    "dividendTotal": 0.119,
     "tickerInfoRaw": {
         "Symbol": "QTOP",
         "koName": null,

@@ -36,6 +36,7 @@
             }
         }
     },
+    "dividendTotal": 0.106,
     "dividendHistory": [
         {
             "배당락": "25. 09. 16",
@@ -75,6 +76,24 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2024-12-17",
+                "amount": 0.02
+            },
+            {
+                "date": "2025-03-18",
+                "amount": 0.025
+            },
+            {
+                "date": "2025-06-16",
+                "amount": 0.03
+            },
+            {
+                "date": "2025-09-16",
+                "amount": 0.031
+            }
+        ],
         "prices": [
             {
                 "date": "2024-10-24",
@@ -2028,27 +2047,8 @@
                 "close": 30.510000228881836,
                 "volume": 71515
             }
-        ],
-        "dividends": [
-            {
-                "date": "2024-12-17",
-                "amount": 0.02
-            },
-            {
-                "date": "2025-03-18",
-                "amount": 0.025
-            },
-            {
-                "date": "2025-06-16",
-                "amount": 0.03
-            },
-            {
-                "date": "2025-09-16",
-                "amount": 0.031
-            }
         ]
     },
-    "dividendTotal": 0.106,
     "tickerInfoRaw": {
         "Symbol": "TOPT",
         "koName": null,

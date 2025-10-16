@@ -36,6 +36,7 @@
             }
         }
     },
+    "dividendTotal": 1.35995,
     "dividendHistory": [
         {
             "배당락": "25. 12. 26"
@@ -89,6 +90,16 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-10-03",
+                "amount": 0.669
+            },
+            {
+                "date": "2025-10-10",
+                "amount": 0.691
+            }
+        ],
         "prices": [
             {
                 "date": "2025-09-30",
@@ -186,19 +197,8 @@
                 "close": 23.859899520874023,
                 "volume": 26342
             }
-        ],
-        "dividends": [
-            {
-                "date": "2025-10-03",
-                "amount": 0.669
-            },
-            {
-                "date": "2025-10-10",
-                "amount": 0.691
-            }
         ]
     },
-    "dividendTotal": 1.35995,
     "tickerInfoRaw": {
         "Symbol": "HOYY",
         "koName": null,

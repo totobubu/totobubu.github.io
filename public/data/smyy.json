@@ -32,6 +32,7 @@
             }
         }
     },
+    "dividendTotal": 1.37799,
     "dividendHistory": [
         {
             "배당락": "25. 12. 26"
@@ -85,6 +86,16 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-10-03",
+                "amount": 0.683
+            },
+            {
+                "date": "2025-10-10",
+                "amount": 0.695
+            }
+        ],
         "prices": [
             {
                 "date": "2025-09-30",
@@ -182,19 +193,8 @@
                 "close": 26.149999618530273,
                 "volume": 5817
             }
-        ],
-        "dividends": [
-            {
-                "date": "2025-10-03",
-                "amount": 0.683
-            },
-            {
-                "date": "2025-10-10",
-                "amount": 0.695
-            }
         ]
     },
-    "dividendTotal": 1.37799,
     "tickerInfoRaw": {
         "Symbol": "SMYY",
         "koName": null,

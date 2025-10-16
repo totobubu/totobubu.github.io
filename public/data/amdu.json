@@ -36,6 +36,7 @@
             }
         }
     },
+    "dividendTotal": 1.273,
     "dividendHistory": [
         {
             "배당락": "25. 12. 31"
@@ -129,6 +130,32 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2025-09-03",
+                "amount": 0.175
+            },
+            {
+                "date": "2025-09-10",
+                "amount": 0.144
+            },
+            {
+                "date": "2025-09-17",
+                "amount": 0.232
+            },
+            {
+                "date": "2025-09-24",
+                "amount": 0.182
+            },
+            {
+                "date": "2025-10-01",
+                "amount": 0.171
+            },
+            {
+                "date": "2025-10-08",
+                "amount": 0.37
+            }
+        ],
         "prices": [
             {
                 "date": "2025-08-20",
@@ -450,35 +477,8 @@
                 "close": 30.239999771118164,
                 "volume": 25152
             }
-        ],
-        "dividends": [
-            {
-                "date": "2025-09-03",
-                "amount": 0.175
-            },
-            {
-                "date": "2025-09-10",
-                "amount": 0.144
-            },
-            {
-                "date": "2025-09-17",
-                "amount": 0.232
-            },
-            {
-                "date": "2025-09-24",
-                "amount": 0.182
-            },
-            {
-                "date": "2025-10-01",
-                "amount": 0.171
-            },
-            {
-                "date": "2025-10-08",
-                "amount": 0.37
-            }
         ]
     },
-    "dividendTotal": 1.273,
     "tickerInfoRaw": {
         "Symbol": "AMDU",
         "koName": null,

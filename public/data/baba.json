@@ -48,6 +48,7 @@
             }
         }
     },
+    "dividendTotal": 4.66,
     "dividendHistory": [
         {
             "배당락": "25. 06. 12",
@@ -78,6 +79,20 @@
         }
     ],
     "backtestData": {
+        "dividends": [
+            {
+                "date": "2023-12-20",
+                "amount": 1.0
+            },
+            {
+                "date": "2024-06-13",
+                "amount": 1.66
+            },
+            {
+                "date": "2025-06-12",
+                "amount": 2.0
+            }
+        ],
         "prices": [
             {
                 "date": "2015-09-28",
@@ -20303,23 +20318,8 @@
                 "close": 167.86500549316406,
                 "volume": 5081704
             }
-        ],
-        "dividends": [
-            {
-                "date": "2023-12-20",
-                "amount": 1.0
-            },
-            {
-                "date": "2024-06-13",
-                "amount": 1.66
-            },
-            {
-                "date": "2025-06-12",
-                "amount": 2.0
-            }
         ]
     },
-    "dividendTotal": 4.66,
     "tickerInfoRaw": {
         "Symbol": "BABA",
         "koName": null,
