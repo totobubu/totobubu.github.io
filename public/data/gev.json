@@ -1,73 +1,5 @@
 {
-    "tickerInfo": {
-        "Symbol": "GEV",
-        "koName": null,
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "englishName": "GE Vernova Inc.",
-        "earningsDate": "2025-10-22",
-        "enterpriseValue": 162313338880,
-        "marketCap": 167676329984,
-        "Volume": 3197385,
-        "AvgVolume": 2743211,
-        "sharesOutstanding": 272223940,
-        "52Week": "252.25 - 677.29",
-        "Yield": 75.0,
-        "dividendRate": 1.0,
-        "payoutRatio": 0.12109999,
-        "Update": "2025-10-16 14:26:46 KST",
-        "changes": {}
-    },
-    "dividendTotal": 0.75,
-    "dividendHistory": [
-        {
-            "배당락": "25. 07. 21",
-            "배당금": 0.25,
-            "배당률": 0.0013017668977566158,
-            "전일종가": 574.599976,
-            "당일시가": 576.140015,
-            "당일종가": 565.909973,
-            "익일종가": 548.98999
-        },
-        {
-            "배당락": "25. 04. 17",
-            "배당금": 0.25,
-            "배당률": 0.0014913797801294581,
-            "전일종가": 328.160004,
-            "당일시가": 335.26001,
-            "당일종가": 323.549988,
-            "익일종가": 313.079987
-        },
-        {
-            "배당락": "24. 12. 20",
-            "배당금": 0.25,
-            "배당률": 0.0007618931404947256,
-            "전일종가": 332.799988,
-            "당일시가": 328.130005,
-            "당일종가": 342.660004,
-            "익일종가": 344.920013
-        }
-    ],
     "backtestData": {
-        "dividends": [
-            {
-                "date": "2024-12-20",
-                "amount": 0.25
-            },
-            {
-                "date": "2025-04-17",
-                "amount": 0.25
-            },
-            {
-                "date": "2025-07-21",
-                "amount": 0.25
-            }
-        ],
         "prices": [
             {
                 "date": "2024-03-27",
@@ -3171,24 +3103,140 @@
                 "high": 655.989990234375,
                 "low": 613.1400146484375,
                 "close": 648.25,
-                "volume": 3406800
+                "volume": 3403800
             },
             {
                 "date": "2025-10-14",
                 "open": 635,
-                "high": 656.8800048828125,
-                "low": 615.8400268554688,
+                "high": 656.8798828125,
+                "low": 615.8499755859375,
                 "close": 644.4099731445312,
-                "volume": 2890500
+                "volume": 2887756
             },
             {
                 "date": "2025-10-15",
                 "open": 650.1699829101562,
-                "high": 664.693115234375,
-                "low": 613.5900268554688,
-                "close": 615.9500122070312,
-                "volume": 3197385
+                "high": 664.6929931640625,
+                "low": 638.0050048828125,
+                "close": 639.0050048828125,
+                "volume": 726648
+            }
+        ],
+        "dividends": [
+            {
+                "date": "2024-12-20",
+                "amount": 0.25
+            },
+            {
+                "date": "2025-04-17",
+                "amount": 0.25
+            },
+            {
+                "date": "2025-07-21",
+                "amount": 0.25
             }
         ]
+    },
+    "dividendHistory": [
+        {
+            "배당락": "25. 07. 21",
+            "배당금": "$0.25",
+            "배당률": "0.13%",
+            "전일종가": "$574.60",
+            "당일시가": "$576.14",
+            "당일종가": "$565.91",
+            "익일종가": "$548.99"
+        },
+        {
+            "배당락": "25. 04. 17",
+            "배당금": "$0.25",
+            "배당률": "0.15%",
+            "전일종가": "$328.16",
+            "당일시가": "$335.26",
+            "당일종가": "$323.55",
+            "익일종가": "$313.08"
+        },
+        {
+            "배당락": "24. 12. 20",
+            "배당금": "$0.25",
+            "배당률": "0.08%",
+            "전일종가": "$332.80",
+            "당일시가": "$328.13",
+            "당일종가": "$342.66",
+            "익일종가": "$344.92"
+        }
+    ],
+    "dividendTotal": 0.75,
+    "tickerInfo": {
+        "Symbol": "GEV",
+        "koName": "N/A",
+        "longName": "GE Vernova Inc.",
+        "company": "N/A",
+        "frequency": "분기",
+        "group": "N/A",
+        "underlying": "N/A",
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "GE Vernova Inc.",
+        "earningsDate": "2025-10-22",
+        "enterpriseValue": "$170,060,824,576",
+        "marketCap": "$167,676,329,984",
+        "Volume": "$3,194,030",
+        "AvgVolume": "$2,730,850",
+        "sharesOutstanding": "$272,223,940",
+        "52Week": "$252.25 - $677.29",
+        "Yield": "0.12%",
+        "dividendRate": "$1",
+        "payoutRatio": "12.11%",
+        "Update": "2025-10-16 05:33:15 KST",
+        "changes": {
+            "enterpriseValue": {
+                "value": "$170.06B",
+                "change": "up"
+            },
+            "marketCap": {
+                "value": "$176.47B",
+                "change": "up"
+            },
+            "Volume": {
+                "value": "$2.89M",
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": "$2.73M",
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": "$272.22M",
+                "change": "up"
+            },
+            "Yield": {
+                "value": "75.00%",
+                "change": "down"
+            }
+        }
+    },
+    "tickerInfoRaw": {
+        "Symbol": "GEV",
+        "koName": null,
+        "longName": "GE Vernova Inc.",
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "englishName": "GE Vernova Inc.",
+        "earningsDate": "2025-10-22",
+        "enterpriseValue": 170060824576,
+        "marketCap": 167676329984,
+        "Volume": 3194030,
+        "AvgVolume": 2730850,
+        "sharesOutstanding": 272223940,
+        "52Week": "252.25 - 677.29",
+        "Yield": 0.12176313012419838,
+        "dividendRate": 1.0,
+        "payoutRatio": 0.12109999,
+        "Update": "2025-10-16 05:33:15 KST"
     }
 }

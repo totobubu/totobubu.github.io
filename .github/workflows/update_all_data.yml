@@ -92,6 +92,10 @@ jobs:
             - name: 9. Update latest ticker info
               run: python scripts/scraper_info.py
 
+            # 단계 10: 사이드바용 실시간 시세 데이터(live-data.json) 생성
+            - name: 10. Generate live data for sidebar
+              run: python scripts/generate_live_data.py
+
             # 단계 11: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
             - name: 11. Aggregate bookmark popularity from Firestore
               env:
@@ -106,12 +110,8 @@ jobs:
             - name: 13. Generate aggregated sidebar tickers data
               run: npm run generate-sidebar-tickers
 
-            # 단계 15: 사이드바에 표시할 티커 데이터 생성
-            - name: 15. Generate aggregated sidebar tickers data
-              run: python scripts/generate_sidebar_tickers.py # [수정] npm run ... -> python ...
-
-            # 단계 16: 변경된 모든 데이터를 일관된 포맷으로 정리
-            - name: 16. Format generated data files
+            # 단계 14: 변경된 모든 데이터를 일관된 포맷으로 정리
+            - name: 14. Format generated data files
               run: npm run format:data
 
             # --- 변경 사항 커밋 및 푸시 ---
