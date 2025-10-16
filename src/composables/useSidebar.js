@@ -1,4 +1,4 @@
-import { ref, onMounted, computed } from 'vue'; // watch 제거
+import { ref, onMounted, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
 import { useFilterState } from '@/composables/useFilterState';
@@ -7,55 +7,75 @@ import { user } from '../store/auth';
 export function useSidebar() {
     const router = useRouter();
     const route = useRoute();
-    
+
     const allTickers = ref([]);
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
 
-    const { filters, showMyStocksOnly, myBookmarks, toggleMyStock, toggleShowMyStocksOnly } = useFilterState();
-    
-    const dialogsVisible = ref({ company: false, frequency: false, group: false });
-    const companies = ref([]);
-    const frequencies = ref([]);
-    const groups = ref([]);
-    
-    // [핵심 수정] 필터링 로직을 단순화하여 '내 종목' 필터만 적용합니다.
+    const { globalSearchQuery, activeFilterTab, myBookmarks, toggleMyStock } =
+        useFilterState();
+
+    // [수정] 기존 필터 관련 상태 제거 (Dialogs, companies 등)
+
     const filteredTickers = computed(() => {
-        if (showMyStocksOnly.value && user.value) {
-            return allTickers.value.filter(item => myBookmarks.value[item.symbol]);
+        const tab = activeFilterTab.value;
+        const myBookmarkSymbols = new Set(Object.keys(myBookmarks.value));
+
+        let list = [];
+
+        if (tab === '북마크') {
+            list = allTickers.value.filter((item) =>
+                myBookmarkSymbols.has(item.symbol)
+            );
+        } else if (tab === 'ETF') {
+            list = allTickers.value.filter(
+                (item) => item.company && !myBookmarkSymbols.has(item.symbol)
+            );
+        } else if (tab === '미국주식') {
+            list = allTickers.value.filter(
+                (item) =>
+                    !item.company &&
+                    item.currency === 'USD' &&
+                    !myBookmarkSymbols.has(item.symbol)
+            );
+        } else if (tab === '한국주식') {
+            list = allTickers.value.filter(
+                (item) =>
+                    item.currency === 'KRW' &&
+                    !myBookmarkSymbols.has(item.symbol)
+            );
         }
-        return allTickers.value; // 그 외의 경우 전체 목록을 반환
+
+        return list;
     });
-    
+
     const loadSidebarData = async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const response = await fetch(joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json'));
-            if (!response.ok) throw new Error('Sidebar data could not be loaded.');
-            
+            const response = await fetch(
+                joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
+            );
+            if (!response.ok)
+                throw new Error('Sidebar data could not be loaded.');
+
             const data = await response.json();
             allTickers.value = data;
 
-            companies.value = [...new Set(data.map(item => item.company).filter(Boolean))];
-            frequencies.value = [...new Set(data.map(item => item.frequency).filter(Boolean))];
-            groups.value = [...new Set(data.map(item => item.group).filter(Boolean))];
-
-            const currentTickerSymbol = route.params.ticker?.toUpperCase().replace(/-/g, '.');
+            const currentTickerSymbol = route.params.ticker
+                ?.toUpperCase()
+                .replace(/-/g, '.');
             if (currentTickerSymbol) {
-                selectedTicker.value = data.find(t => t.symbol === currentTickerSymbol);
+                selectedTicker.value = data.find(
+                    (t) => t.symbol === currentTickerSymbol
+                );
             }
         } catch (err) {
             error.value = '티커 목록을 불러오는 데 실패했습니다.';
         } finally {
             isLoading.value = false;
         }
-    };
-    
-    const handleBookmarkToggle = () => {
-        if (!user.value) router.push('/login');
-        else toggleShowMyStocksOnly();
     };
 
     const handleStockBookmarkClick = (symbol) => {
@@ -69,15 +89,6 @@ export function useSidebar() {
             router.push(`/${ticker.replace(/\./g, '-').toLowerCase()}`);
         }
     };
-    
-    const openFilterDialog = (filterName) => {
-        dialogsVisible.value[filterName] = true;
-    };
-
-    const selectFilter = (filterName, value) => {
-        filters.value[filterName].value = value;
-        dialogsVisible.value[filterName] = false;
-    };
 
     onMounted(loadSidebarData);
 
@@ -85,19 +96,11 @@ export function useSidebar() {
         isLoading,
         error,
         selectedTicker,
-        filters,
-        showMyStocksOnly,
+        globalSearchQuery,
+        activeFilterTab,
         myBookmarks,
-        // marketTypeOptions 제거
         filteredTickers,
-        dialogsVisible,
-        companies,
-        frequencies,
-        groups,
-        handleBookmarkToggle,
         handleStockBookmarkClick,
         onRowSelect,
-        openFilterDialog,
-        selectFilter,
     };
 }
