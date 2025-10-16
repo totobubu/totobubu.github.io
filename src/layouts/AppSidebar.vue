@@ -10,10 +10,8 @@
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
     import Skeleton from 'primevue/skeleton';
-    // import SelectButton from 'primevue/selectbutton'; // 제거
+    import SelectButton from 'primevue/selectbutton';
     import Button from 'primevue/button';
-    import Dialog from 'primevue/dialog';
-    import ToggleButton from 'primevue/togglebutton';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
 
@@ -21,34 +19,46 @@
         isLoading,
         error,
         selectedTicker,
-        filters,
-        showMyStocksOnly,
+        globalSearchQuery,
+        activeFilterTab,
         myBookmarks,
         filteredTickers,
-        dialogsVisible,
-        companies,
-        frequencies,
-        groups,
-        handleBookmarkToggle,
         handleStockBookmarkClick,
         onRowSelect,
-        openFilterDialog,
-        selectFilter,
     } = useSidebar();
 
     const { isMobile } = useBreakpoint();
     const skeletonItems = ref(new Array(25));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
+
+    const filterOptions = ref([
+        { icon: 'pi pi-bookmark-fill', value: '북마크' },
+        { value: 'ETF' },
+        { icon: '🇺🇸', value: '미국주식' },
+        { icon: '🇰🇷', value: '한국주식' },
+    ]);
 </script>
 
 <template>
     <div>
-        <!-- [수정] 헤더 영역을 원래대로 복구 -->
         <div class="p-3">
-            <FilterInput
-                v-model="filters.global.value"
-                title="전체 티커 검색"
-                filter-type="global" />
+            <div class="flex flex-column gap-3">
+                <SelectButton
+                    v-model="activeFilterTab"
+                    :options="filterOptions"
+                    optionValue="value"
+                    class="w-full">
+                    <template #option="slotProps">
+                        <i
+                            v-if="slotProps.option.icon"
+                            :class="slotProps.option.icon" />
+                        <span>{{ slotProps.option.value }}</span>
+                    </template>
+                </SelectButton>
+                <FilterInput
+                    v-model="globalSearchQuery"
+                    title="전체 티커 검색" />
+            </div>
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
@@ -62,25 +72,30 @@
             dataKey="symbol"
             selectionMode="single"
             @rowSelect="onRowSelect"
-            :globalFilterFields="['symbol', 'longName', 'company']"
+            :globalFilterFields="['symbol', 'longName', 'koName', 'company']"
             stripedRows
             scrollable
-            scrollHeight="calc(100vh - 120px)"
+            scrollHeight="calc(100vh - 160px)"
             :size="tableSize"
             :class="{ 'p-datatable-loading': isLoading }">
             <template #empty>
-                <div class="text-center p-4">검색 결과가 없습니다.</div>
+                <div
+                    v-if="activeFilterTab === '북마크'"
+                    class="text-center p-4">
+                    <p v-if="!user" class="mb-2">
+                        로그인 후 종목을 북마크에 추가해 보세요.
+                    </p>
+                    <p
+                        v-else-if="Object.keys(myBookmarks).length === 0"
+                        class="mb-2">
+                        아직 추가된 북마크가 없습니다.<br />종목 왼쪽의 아이콘을
+                        클릭하여 추가하세요.
+                    </p>
+                    <p v-else>검색 결과가 없습니다.</p>
+                </div>
+                <div v-else class="text-center p-4">검색 결과가 없습니다.</div>
             </template>
             <Column frozen class="toto-column-bookmark">
-                <template #header>
-                    <ToggleButton
-                        :modelValue="showMyStocksOnly"
-                        @click.stop="handleBookmarkToggle"
-                        :disabled="!user"
-                        onIcon="pi pi-bookmark-fill"
-                        offIcon="pi pi-bookmark"
-                        aria-label="내 종목만 보기" />
-                </template>
                 <template #body="{ data }">
                     <Skeleton
                         v-if="isLoading"
@@ -102,25 +117,16 @@
                 sortable
                 frozen
                 class="font-bold toto-column-ticker">
-                <template #header>
-                    <span>{{ isMobile ? '' : '티커' }}</span>
-                </template>
+                <template #header
+                    ><span>{{ isMobile ? '' : '티커' }}</span></template
+                >
                 <template #body="{ data }">
                     <Skeleton v-if="isLoading"></Skeleton>
                     <span v-else>{{ data.koName || data.symbol }}</span>
                 </template>
             </Column>
             <Column field="company" sortable class="toto-column-company">
-                <template #header>
-                    <Button
-                        type="button"
-                        icon="pi pi-filter-fill"
-                        size="small"
-                        :variant="filters.company.value ? 'filled' : 'text'"
-                        @click="openFilterDialog('company')"
-                        :severity="filters.company.value ? '' : 'secondary'" />
-                    <span v-if="!isMobile">회사</span>
-                </template>
+                <template #header><span v-if="!isMobile">회사</span></template>
                 <template #body="{ data }">
                     <Skeleton
                         v-if="isLoading"
@@ -133,27 +139,16 @@
                 </template>
             </Column>
             <Column field="frequency" sortable class="toto-column-frequency">
-                <template #header>
-                    <Button
-                        type="button"
-                        icon="pi pi-filter-fill"
-                        size="small"
-                        :variant="filters.frequency.value ? 'filled' : 'text'"
-                        @click="openFilterDialog('frequency')"
-                        :severity="
-                            filters.frequency.value ? '' : 'secondary'
-                        " />
-                    <span v-if="!isMobile">지급</span>
-                </template>
+                <template #header><span v-if="!isMobile">지급</span></template>
                 <template #body="{ data }">
                     <Skeleton v-if="isLoading"></Skeleton>
                     <span v-else>{{ data.frequency }}</span>
                 </template>
             </Column>
             <Column field="yield" sortable class="toto-column-yield">
-                <template #header>
-                    <span v-if="!isMobile">배당률</span>
-                </template>
+                <template #header
+                    ><span v-if="!isMobile">배당률</span></template
+                >
                 <template #body="{ data }">
                     <Skeleton v-if="isLoading"></Skeleton>
                     <span v-else class="text-surface-500">{{
@@ -166,9 +161,7 @@
                 sortable
                 class="toto-column-group"
                 sortField="groupOrder">
-                <template #header>
-                    <span v-if="!isMobile">그룹</span>
-                </template>
+                <template #header><span v-if="!isMobile">그룹</span></template>
                 <template #body="{ data }">
                     <Skeleton v-if="isLoading"></Skeleton>
                     <Tag
@@ -178,56 +171,16 @@
                 </template>
             </Column>
         </DataTable>
-
-        <Dialog
-            v-model:visible="dialogsVisible.company"
-            modal
-            header="운용사 필터"
-            :style="{ width: '600px' }"
-            :breakpoints="{ '576px': '95vw' }">
-            <div class="filter-button-group">
-                <ToggleButton
-                    onLabel="전체"
-                    offLabel="전체"
-                    :modelValue="filters.company.value === null"
-                    @update:modelValue="selectFilter('company', null)"
-                    class="p-button-sm" />
-                <ToggleButton
-                    v-for="company in companies"
-                    :key="company"
-                    :onLabel="company"
-                    :offLabel="company"
-                    :modelValue="filters.company.value === company"
-                    @update:modelValue="selectFilter('company', company)"
-                    class="p-button-sm" />
-            </div>
-        </Dialog>
-        <Dialog
-            v-model:visible="dialogsVisible.frequency"
-            modal
-            header="지급주기 필터"
-            :style="{ width: '576px' }">
-            <div class="filter-button-group">
-                <ToggleButton
-                    onLabel="전체"
-                    offLabel="전체"
-                    :modelValue="filters.frequency.value === null"
-                    @update:modelValue="selectFilter('frequency', null)"
-                    class="p-button-sm" />
-                <ToggleButton
-                    v-for="freq in frequencies"
-                    :key="freq"
-                    :onLabel="freq"
-                    :offLabel="freq"
-                    :modelValue="filters.frequency.value === freq"
-                    @update:modelValue="selectFilter('frequency', freq)"
-                    class="p-button-sm" />
-            </div>
-        </Dialog>
     </div>
 </template>
 
 <style scoped>
+    :deep(.p-selectbutton) {
+        display: flex;
+    }
+    :deep(.p-selectbutton .p-button) {
+        flex: 1;
+    }
     .filter-button-group {
         display: flex;
         flex-wrap: wrap;
