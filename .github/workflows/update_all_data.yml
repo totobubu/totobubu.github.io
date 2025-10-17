@@ -48,8 +48,8 @@ jobs:
                   pip install -r requirements.txt
 
             # --- 데이터 업데이트 파이프라인 (순서가 매우 중요) ---
-            # [신규] 오늘 날짜 정보를 가져오는 단계
-            - name: Get date information
+            # 단계 0: 오늘 날짜 정보를 가져오는 단계
+            - name: 0. Get date information
               id: get_date_info
               run: |
                   echo "DAY_OF_WEEK=$(date +'%u')" >> $GITHUB_OUTPUT
@@ -92,26 +92,26 @@ jobs:
             - name: 9. Update latest ticker info
               run: python scripts/scraper_info.py
 
-            # 단계 11: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
-            - name: 11. Aggregate bookmark popularity from Firestore
+            # 단계 10: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
+            - name: 10. Aggregate bookmark popularity from Firestore
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
               run: python scripts/aggregate_popularity.py
 
-            # 단계 12: 캘린더 이벤트 데이터 생성
-            - name: 12. Generate aggregated calendar events data
+            # 단계 11: 캘린더 이벤트 데이터 생성
+            - name: 11. Generate aggregated calendar events data
               run: npm run generate-calendar-events
+
+            # 단계 12: 사이드바에 표시할 티커 데이터 생성
+            - name: 12. Generate aggregated sidebar tickers data
+              run: npm run generate-sidebar-tickers
 
             # 단계 13: 사이드바에 표시할 티커 데이터 생성
             - name: 13. Generate aggregated sidebar tickers data
-              run: npm run generate-sidebar-tickers
+              run: python scripts/generate_sidebar_tickers.py
 
-            # 단계 15: 사이드바에 표시할 티커 데이터 생성
-            - name: 15. Generate aggregated sidebar tickers data
-              run: python scripts/generate_sidebar_tickers.py # [수정] npm run ... -> python ...
-
-            # 단계 16: 변경된 모든 데이터를 일관된 포맷으로 정리
-            - name: 16. Format generated data files
+            # 단계 14: 변경된 모든 데이터를 일관된 포맷으로 정리
+            - name: 14. Format generated data files
               run: npm run format:data
 
             # --- 변경 사항 커밋 및 푸시 ---
