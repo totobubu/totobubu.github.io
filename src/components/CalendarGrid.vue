@@ -1,6 +1,6 @@
 <!-- src/components/CalendarGrid.vue -->
 <script setup>
-    import { ref, computed, watch, defineEmits } from 'vue';
+    import { ref, computed, watch } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
     import dayGridPlugin from '@fullcalendar/daygrid';
     import listPlugin from '@fullcalendar/list';
@@ -15,7 +15,7 @@
     import Panel from 'primevue/panel';
 
     const props = defineProps({
-        dividendsByDate: Object,
+        dividendsByDate: Array, // [수정] 이제는 평탄화된 배열을 받음
         holidays: Array,
     });
 
@@ -26,18 +26,19 @@
     const currentTitle = ref('');
     const currentView = ref(isMobile.value ? 'listWeek' : 'dayGridMonth');
 
-    const viewOptions = computed(() =>
-        isMobile.value
-            ? [{ label: '목록', value: 'listWeek' }]
-            : [
-                  { label: '월', value: 'dayGridMonth' },
-                  { label: '주', value: 'dayGridWeek' },
-              ]
-    );
+    const validRange = computed(() => {
+        const today = new Date();
+        const start = startOfMonth(subMonths(today, 12));
+        const end = endOfMonth(addMonths(today, 3));
+        return {
+            start: start.toISOString().split('T')[0],
+            end: end.toISOString().split('T')[0],
+        };
+    });
 
-    const getEventClass = (tickerInfo) => {
-        if (!tickerInfo) return 'freq-default';
-        const { frequency, group } = tickerInfo;
+    const getEventClass = (event) => {
+        if (!event) return 'freq-default';
+        const { frequency, group } = event;
         if (frequency === '매월') return 'freq-monthly';
         if (frequency === '분기') return 'freq-quarterly';
         if (frequency === '매주') {
@@ -53,33 +54,14 @@
         return 'freq-default';
     };
 
-    const validRange = computed(() => {
-        const today = new Date();
-        const start = startOfMonth(subMonths(today, 12));
-        const end = endOfMonth(addMonths(today, 3));
-        return {
-            start: start.toISOString().split('T')[0],
-            end: end.toISOString().split('T')[0],
-        };
-    });
-
     const calendarEvents = computed(() => {
         if (!props.dividendsByDate) return [];
-        return Object.entries(props.dividendsByDate).flatMap(
-            ([date, dividendArray]) =>
-                dividendArray.map((entry) => ({
-                    title: `${entry.ticker}`,
-                    start: date,
-                    extendedProps: {
-                        ticker: entry.ticker,
-                        amount: entry.amount,
-                        isExpected: entry.isExpected,
-                        eventClass: getEventClass(entry),
-                        koName: entry.koName,
-                        currency: entry.currency,
-                    },
-                }))
-        );
+        // [수정] 이미 평탄화된 배열이므로 바로 사용
+        return props.dividendsByDate.map((entry) => ({
+            title: `${entry.ticker}`,
+            start: entry.date,
+            extendedProps: { ...entry, eventClass: getEventClass(entry) },
+        }));
     });
 
     const holidayEvents = computed(() => {
@@ -131,27 +113,40 @@
             }
         },
         eventContent: (arg) => {
-            if (arg.event.extendedProps.isHoliday) {
-                return {
-                    html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>`,
-                };
-            }
-            const { ticker, amount, eventClass, koName, currency, isExpected } =
-                arg.event.extendedProps;
+            if (arg.event.extendedProps.isHoliday) return { html: `...` };
+
+            const {
+                ticker,
+                amount,
+                eventClass,
+                koName,
+                currency,
+                isExpected,
+                isForecast,
+            } = arg.event.extendedProps;
             const currencySymbol = currency === 'KRW' ? '₩' : '$';
             const displayName = koName || ticker;
+
             let amountHtml;
             if (amount !== null && amount !== undefined) {
-                const amountStr =
-                    currency === 'KRW'
-                        ? Math.round(amount)
-                        : Number(amount.toFixed(4));
-                amountHtml = `<span>${currencySymbol}${amountStr.toLocaleString()}</span>`;
+                const amountStr = new Intl.NumberFormat(
+                    currency === 'KRW' ? 'ko-KR' : 'en-US',
+                    {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 6,
+                    }
+                ).format(amount);
+                amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
             } else {
-                amountHtml = isExpected
-                    ? '<span class="no-amount">예상</span>'
-                    : '<span class="no-amount">예정</span>';
+                if (isForecast) {
+                    amountHtml = '<span class="no-amount">예상</span>';
+                } else if (isExpected) {
+                    amountHtml = '<span class="no-amount">예정</span>';
+                } else {
+                    amountHtml = '<span class="no-amount">미정</span>'; // 혹시 모를 케이스
+                }
             }
+
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
             const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
             if (arg.view.type === 'listWeek') {

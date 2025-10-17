@@ -3,46 +3,61 @@ import fs from 'fs/promises';
 import path from 'path';
 import {
     addMonths,
+    nextDay,
+    getDay,
     addWeeks,
     addYears,
-    getDay,
-    isWeekend,
-    nextDay,
     subMonths,
+    format,
+    startOfDay,
+    subDays,
 } from 'date-fns';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
+const HOLIDAYS_FILE_PATH = path.join(PUBLIC_DIR, 'holidays.json');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json');
 
 const DAY_MAP = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
 
+function getPreviousWorkday(date, holidaysSet) {
+    let currentDate = new Date(date);
+    while (true) {
+        const dayOfWeek = getDay(currentDate);
+        const dateStr = format(currentDate, 'yyyy-MM-dd');
+        // 주말(토=6, 일=0)이 아니고 휴일 목록에도 없으면 영업일
+        if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidaysSet.has(dateStr)) {
+            return currentDate;
+        }
+        currentDate = subDays(currentDate, 1);
+    }
+}
+
 async function generateCalendarEvents() {
     console.log(
-        '--- Starting to generate calendar-events.json with future predictions ---'
+        '--- Regenerating calendar-events.json with holiday adjustments ---'
     );
 
     try {
-        const navFileContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
-        const navData = JSON.parse(navFileContent);
+        const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
+        const holidaysData = JSON.parse(
+            await fs.readFile(HOLIDAYS_FILE_PATH, 'utf-8')
+        );
+        const holidaysSet = new Set(holidaysData.map((h) => h.date));
+
         const tickerInfoMap = new Map(
-            navData.nav.map((item) => [
-                item.symbol,
-                { frequency: item.frequency, group: item.group },
-            ])
+            navData.nav.map((item) => [item.symbol, { ...item }])
         );
 
-        const today = new Date();
+        const today = startOfDay(new Date());
         const startDate = subMonths(today, 12);
-        startDate.setDate(1); // 과거 12개월 전 달의 1일
         const endDate = addMonths(today, 4);
-        endDate.setDate(1); // 미래 4개월 후 달의 1일
 
-        const allFiles = await fs.readdir(DATA_DIR);
-        const jsonFiles = allFiles.filter((file) => file.endsWith('.json'));
-
-        const allEvents = new Map();
+        const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
+            file.endsWith('.json')
+        );
+        const eventsByDate = {};
 
         for (const fileName of jsonFiles) {
             const filePath = path.join(DATA_DIR, fileName);
@@ -55,46 +70,48 @@ async function generateCalendarEvents() {
                     .basename(fileName, '.json')
                     .toUpperCase()
                     .replace(/-/g, '.');
-                const tickerInfo = tickerInfoMap.get(tickerSymbol) || {};
+                const tickerInfo = tickerInfoMap.get(tickerSymbol);
+                if (!tickerInfo) continue;
 
-                let lastKnownExDate = null;
+                let lastKnownDate = null;
 
-                // 1. 실제 기록 및 공시된 예상일 처리
                 backtestData.forEach((entry) => {
                     const eventDate = new Date(entry.date);
-                    if (eventDate >= startDate && eventDate < endDate) {
-                        const eventKey = `${entry.date}-${tickerSymbol}`;
-                        if (allEvents.has(eventKey)) return;
+                    if (eventDate < startDate || eventDate >= endDate) return;
 
-                        const isExpected = entry.expected === true;
-                        const amount = isExpected
-                            ? null
-                            : entry.amountFixed !== undefined
-                              ? entry.amountFixed
-                              : entry.amount;
+                    const dateStr = entry.date;
+                    const amount =
+                        entry.amountFixed !== undefined
+                            ? entry.amountFixed
+                            : entry.amount;
+                    const isExpected = entry.expected === true;
 
-                        allEvents.set(eventKey, {
-                            date: entry.date,
-                            amount: amount,
-                            isExpected: isExpected,
-                            ticker: tickerSymbol,
-                            ...tickerInfo,
-                        });
-                    }
-                    // 가장 최신 배당락일 기록 (예측 시작점으로 사용)
-                    if (
-                        !entry.expected &&
-                        (entry.amount !== undefined ||
-                            entry.amountFixed !== undefined)
-                    ) {
-                        lastKnownExDate = eventDate;
+                    if (eventDate < today && amount === undefined) return;
+                    if (isExpected && eventDate < today) return; // 과거의 expected는 무시
+
+                    if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
+                    if (!eventsByDate[dateStr][tickerInfo.currency])
+                        eventsByDate[dateStr][tickerInfo.currency] = [];
+
+                    const eventEntry = {
+                        ticker: tickerSymbol,
+                        koName: tickerInfo.koName,
+                        frequency: tickerInfo.frequency,
+                        group: tickerInfo.group,
+                    };
+                    if (amount !== undefined) eventEntry.amount = amount;
+                    if (isExpected) eventEntry.isExpected = true;
+
+                    eventsByDate[dateStr][tickerInfo.currency].push(eventEntry);
+
+                    // 예측 시작점을 찾기 위해 가장 마지막 날짜를 기록
+                    if (lastKnownDate === null || eventDate > lastKnownDate) {
+                        lastKnownDate = eventDate;
                     }
                 });
 
-                // 2. 미래 배당일 예측 (가장 최근 실제 배당일 기준)
-                if (lastKnownExDate && tickerInfo.frequency) {
-                    let nextDate = new Date(lastKnownExDate);
-
+                if (lastKnownDate && tickerInfo.frequency) {
+                    let nextDate = new Date(lastKnownDate);
                     while (nextDate < endDate) {
                         if (tickerInfo.frequency === '매월')
                             nextDate = addMonths(nextDate, 1);
@@ -106,35 +123,40 @@ async function generateCalendarEvents() {
                             tickerInfo.frequency === '매주' &&
                             tickerInfo.group
                         ) {
-                            const targetDay = DAY_MAP[tickerInfo.group];
-                            // 다음 주로 이동 후 해당 요일 찾기
                             nextDate = nextDay(
-                                addWeeks(nextDate, 1),
-                                targetDay
+                                nextDate,
+                                DAY_MAP[tickerInfo.group]
                             );
                         } else break;
 
-                        if (nextDate >= endDate) break;
+                        if (nextDate < today || nextDate >= endDate) continue;
 
-                        // 주말일 경우 금요일로 조정 (간단한 비즈니스데이 로직)
-                        const dayOfWeek = getDay(nextDate);
-                        if (dayOfWeek === 0)
-                            nextDate.setDate(nextDate.getDate() - 2); // 일요일 -> 금요일
-                        if (dayOfWeek === 6)
-                            nextDate.setDate(nextDate.getDate() - 1); // 토요일 -> 금요일
+                        let adjustedDate = getPreviousWorkday(
+                            nextDate,
+                            holidaysSet
+                        );
+                        const dateStr = format(adjustedDate, 'yyyy-MM-dd');
 
-                        const dateStr = nextDate.toISOString().split('T')[0];
-                        const eventKey = `${dateStr}-${tickerSymbol}`;
+                        const existingEvents =
+                            eventsByDate[dateStr]?.[tickerInfo.currency] || [];
+                        if (
+                            existingEvents.some(
+                                (e) => e.ticker === tickerSymbol
+                            )
+                        )
+                            continue;
 
-                        if (!allEvents.has(eventKey)) {
-                            allEvents.set(eventKey, {
-                                date: dateStr,
-                                amount: null,
-                                isExpected: true,
-                                ticker: tickerSymbol,
-                                ...tickerInfo,
-                            });
-                        }
+                        if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
+                        if (!eventsByDate[dateStr][tickerInfo.currency])
+                            eventsByDate[dateStr][tickerInfo.currency] = [];
+
+                        eventsByDate[dateStr][tickerInfo.currency].push({
+                            ticker: tickerSymbol,
+                            koName: tickerInfo.koName,
+                            frequency: tickerInfo.frequency,
+                            group: tickerInfo.group,
+                            isForecast: true,
+                        });
                     }
                 }
             } catch (e) {
@@ -142,10 +164,20 @@ async function generateCalendarEvents() {
             }
         }
 
-        const finalEvents = Array.from(allEvents.values());
-        await fs.writeFile(OUTPUT_FILE, JSON.stringify(finalEvents, null, 2));
+        // [핵심 수정] 날짜순으로 최종 객체 정렬
+        const sortedEventsByDate = Object.keys(eventsByDate)
+            .sort()
+            .reduce((acc, key) => {
+                acc[key] = eventsByDate[key];
+                return acc;
+            }, {});
+
+        await fs.writeFile(
+            OUTPUT_FILE,
+            JSON.stringify(sortedEventsByDate, null, 2)
+        );
         console.log(
-            `🎉 Successfully generated calendar-events.json with ${finalEvents.length} events.`
+            `🎉 Successfully generated sorted calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
         );
     } catch (error) {
         console.error('❌ Error generating calendar-events.json:', error);
