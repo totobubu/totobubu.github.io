@@ -1,10 +1,10 @@
+// src\composables\useFilterState.js
 import { ref } from 'vue';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-// [핵심 수정] 필터 상태를 개별 ref로 관리
 const globalSearchQuery = ref(null);
-const activeFilterTab = ref('ETF'); // 기본값 ETF
+const activeFilterTab = ref('ETF');
 
 const myBookmarks = ref({});
 
@@ -60,7 +60,7 @@ const updateBookmarkDetails = (symbol, details) => {
 export function useFilterState() {
     return {
         globalSearchQuery,
-        activeFilterTab, // 이제 filters 객체 없이 바로 사용 가능
+        activeFilterTab,
         myBookmarks,
         toggleMyStock,
         updateBookmarkDetails,
