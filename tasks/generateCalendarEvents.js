@@ -1,4 +1,4 @@
-// CREATE NEW FILE: tasks/generateCalendarEvents.js
+// tasks/generateCalendarEvents.js
 import fs from 'fs/promises';
 import path from 'path';
 import {
@@ -16,7 +16,8 @@ import {
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
-const HOLIDAYS_FILE_PATH = path.join(PUBLIC_DIR, 'holidays.json');
+const US_HOLIDAYS_PATH = path.join(PUBLIC_DIR, 'holidays', 'us_holidays.json');
+const KR_HOLIDAYS_PATH = path.join(PUBLIC_DIR, 'holidays', 'kr_holidays.json');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json');
 
 const DAY_MAP = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
@@ -26,7 +27,6 @@ function getPreviousWorkday(date, holidaysSet) {
     while (true) {
         const dayOfWeek = getDay(currentDate);
         const dateStr = format(currentDate, 'yyyy-MM-dd');
-        // 주말(토=6, 일=0)이 아니고 휴일 목록에도 없으면 영업일
         if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidaysSet.has(dateStr)) {
             return currentDate;
         }
@@ -36,15 +36,19 @@ function getPreviousWorkday(date, holidaysSet) {
 
 async function generateCalendarEvents() {
     console.log(
-        '--- Regenerating calendar-events.json with holiday adjustments ---'
+        '--- Regenerating calendar-events.json with country-specific holidays ---'
     );
-
     try {
         const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-        const holidaysData = JSON.parse(
-            await fs.readFile(HOLIDAYS_FILE_PATH, 'utf-8')
+        const usHolidays = JSON.parse(
+            await fs.readFile(US_HOLIDAYS_PATH, 'utf-8')
         );
-        const holidaysSet = new Set(holidaysData.map((h) => h.date));
+        const krHolidays = JSON.parse(
+            await fs.readFile(KR_HOLIDAYS_PATH, 'utf-8')
+        );
+
+        const usHolidaysSet = new Set(usHolidays.map((h) => h.date));
+        const krHolidaysSet = new Set(krHolidays.map((h) => h.date));
 
         const tickerInfoMap = new Map(
             navData.nav.map((item) => [item.symbol, { ...item }])
@@ -75,6 +79,18 @@ async function generateCalendarEvents() {
 
                 let lastKnownDate = null;
 
+                const createEventEntry = (overrides) => {
+                    const baseEntry = {
+                        symbol: tickerInfo.symbol,
+                        koName: tickerInfo.koName,
+                        company: tickerInfo.company,
+                        underlying: tickerInfo.underlying,
+                        frequency: tickerInfo.frequency,
+                        group: tickerInfo.group,
+                    };
+                    return { ...baseEntry, ...overrides };
+                };
+
                 backtestData.forEach((entry) => {
                     const eventDate = new Date(entry.date);
                     if (eventDate < startDate || eventDate >= endDate) return;
@@ -86,32 +102,43 @@ async function generateCalendarEvents() {
                             : entry.amount;
                     const isExpected = entry.expected === true;
 
-                    if (eventDate < today && amount === undefined) return;
-                    if (isExpected && eventDate < today) return; // 과거의 expected는 무시
+                    if (
+                        (eventDate < today && amount === undefined) ||
+                        (isExpected && eventDate < today)
+                    )
+                        return;
 
                     if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
-                    if (!eventsByDate[dateStr][tickerInfo.currency])
-                        eventsByDate[dateStr][tickerInfo.currency] = [];
+                    const currency = tickerInfo.currency || 'USD';
+                    if (!eventsByDate[dateStr][currency])
+                        eventsByDate[dateStr][currency] = [];
 
-                    const eventEntry = {
-                        ticker: tickerSymbol,
-                        koName: tickerInfo.koName,
-                        frequency: tickerInfo.frequency,
-                        group: tickerInfo.group,
-                    };
-                    if (amount !== undefined) eventEntry.amount = amount;
-                    if (isExpected) eventEntry.isExpected = true;
+                    const eventEntry = createEventEntry({
+                        amount: amount,
+                        isExpected: isExpected ? true : undefined,
+                    });
 
-                    eventsByDate[dateStr][tickerInfo.currency].push(eventEntry);
+                    eventsByDate[dateStr][currency].push(eventEntry);
 
-                    // 예측 시작점을 찾기 위해 가장 마지막 날짜를 기록
-                    if (lastKnownDate === null || eventDate > lastKnownDate) {
+                    if (!isExpected && amount !== undefined) {
+                        lastKnownDate = eventDate;
+                    } else if (
+                        isExpected &&
+                        (lastKnownDate === null || eventDate > lastKnownDate)
+                    ) {
                         lastKnownDate = eventDate;
                     }
                 });
 
                 if (lastKnownDate && tickerInfo.frequency) {
                     let nextDate = new Date(lastKnownDate);
+
+                    // [핵심 수정] 티커의 통화에 따라 올바른 휴일 목록 선택
+                    const holidaysSet =
+                        tickerInfo.currency === 'KRW'
+                            ? krHolidaysSet
+                            : usHolidaysSet;
+
                     while (nextDate < endDate) {
                         if (tickerInfo.frequency === '매월')
                             nextDate = addMonths(nextDate, 1);
@@ -131,32 +158,30 @@ async function generateCalendarEvents() {
 
                         if (nextDate < today || nextDate >= endDate) continue;
 
+                        // 국가별 휴일에 맞춰 영업일 조정
                         let adjustedDate = getPreviousWorkday(
                             nextDate,
                             holidaysSet
                         );
                         const dateStr = format(adjustedDate, 'yyyy-MM-dd');
+                        const currency = tickerInfo.currency || 'USD';
 
                         const existingEvents =
-                            eventsByDate[dateStr]?.[tickerInfo.currency] || [];
+                            eventsByDate[dateStr]?.[currency] || [];
                         if (
                             existingEvents.some(
-                                (e) => e.ticker === tickerSymbol
+                                (e) => e.symbol === tickerSymbol
                             )
                         )
                             continue;
 
                         if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
-                        if (!eventsByDate[dateStr][tickerInfo.currency])
-                            eventsByDate[dateStr][tickerInfo.currency] = [];
+                        if (!eventsByDate[dateStr][currency])
+                            eventsByDate[dateStr][currency] = [];
 
-                        eventsByDate[dateStr][tickerInfo.currency].push({
-                            ticker: tickerSymbol,
-                            koName: tickerInfo.koName,
-                            frequency: tickerInfo.frequency,
-                            group: tickerInfo.group,
-                            isForecast: true,
-                        });
+                        eventsByDate[dateStr][currency].push(
+                            createEventEntry({ isForecast: true })
+                        );
                     }
                 }
             } catch (e) {
@@ -164,7 +189,6 @@ async function generateCalendarEvents() {
             }
         }
 
-        // [핵심 수정] 날짜순으로 최종 객체 정렬
         const sortedEventsByDate = Object.keys(eventsByDate)
             .sort()
             .reduce((acc, key) => {
@@ -177,7 +201,7 @@ async function generateCalendarEvents() {
             JSON.stringify(sortedEventsByDate, null, 2)
         );
         console.log(
-            `🎉 Successfully generated sorted calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
+            `🎉 Successfully generated optimized calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
         );
     } catch (error) {
         console.error('❌ Error generating calendar-events.json:', error);

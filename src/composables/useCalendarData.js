@@ -39,7 +39,7 @@ const loadAllData = async () => {
 export function useCalendarData() {
     const { activeFilterTab, myBookmarks } = useFilterState();
 
-    const dividendsByDate = computed(() => {
+    const processedData = computed(() => {
         const tab = activeFilterTab.value;
         const myTickerSet = new Set(Object.keys(myBookmarks.value));
         const flatEvents = [];
@@ -48,32 +48,48 @@ export function useCalendarData() {
             const dayData = allCalendarData.value[date];
             for (const currency in dayData) {
                 dayData[currency].forEach((event) => {
-                    // 필터링 로직
-                    const isBookmarked = myTickerSet.has(event.ticker);
-                    if (tab === '북마크' && !isBookmarked) return;
-                    if (tab !== '북마크' && isBookmarked) return;
+                    const isBookmarked = myTickerSet.has(event.symbol);
+                    let shouldAdd = false;
 
-                    const isEtf = !!event.company; // nav.json에 company가 있으면 ETF로 간주
-                    const isKr = currency === 'KRW';
+                    if (tab === '북마크' && isBookmarked) {
+                        shouldAdd = true;
+                    } else if (tab !== '북마크' && !isBookmarked) {
+                        const isEtf = !!(event.company || event.underlying);
+                        const isKr = currency === 'KRW';
 
-                    if (tab === 'ETF' && (!isEtf || isKr)) return;
-                    if (tab === '미국주식' && (isEtf || isKr)) return;
-                    if (tab === '한국주식' && !isKr) return;
+                        if (tab === 'ETF' && isEtf) shouldAdd = true;
+                        else if (tab === '미국주식' && !isEtf && !isKr)
+                            shouldAdd = true;
+                        else if (tab === '한국주식' && isKr) shouldAdd = true;
+                    }
 
-                    // 최종 배열에 추가
-                    flatEvents.push({
-                        ...event,
-                        date: date,
-                        currency: currency,
-                    });
+                    if (shouldAdd) {
+                        flatEvents.push({ ...event, date, currency });
+                    }
                 });
             }
         }
-        return flatEvents;
+
+        // [핵심 수정] 최종 반환 객체에 필터 정보 포함
+        let activeFilter = tab;
+        if (tab === '북마크') {
+            // 북마크에 한국 주식이 하나라도 포함되어 있으면 '한국주식' 스타일 적용
+            const hasKoreanStock = flatEvents.some(
+                (event) => event.currency === 'KRW'
+            );
+            activeFilter = hasKoreanStock ? '한국주식' : '미국주식'; // 북마크 내 구성에 따라 동적 결정
+        }
+
+        return {
+            events: flatEvents,
+            activeFilter: activeFilter,
+        };
     });
 
     return {
-        dividendsByDate,
+        // [핵심 수정] computed 속성을 분리하여 전달
+        dividendsByDate: computed(() => processedData.value.events),
+        activeCalendarFilter: computed(() => processedData.value.activeFilter),
         isLoading,
         error,
         ensureDataLoaded: () => {
