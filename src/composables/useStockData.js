@@ -3,8 +3,7 @@ import { ref } from 'vue';
 import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
-const dividendHistory = ref([]);
-const backtestData = ref(null);
+const backtestData = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -48,8 +47,7 @@ export function useStockData() {
         error.value = null;
         isUpcoming.value = false;
         tickerInfo.value = null;
-        dividendHistory.value = [];
-        backtestData.value = null;
+        backtestData.value = []; // 초기화
 
         try {
             const navData = await loadNavData();
@@ -69,7 +67,21 @@ export function useStockData() {
             if (navInfo.upcoming) {
                 isUpcoming.value = true;
                 tickerInfo.value = navInfo;
-                // ... (upcoming 로직)
+                try {
+                    const liveDataResponse = await fetch(
+                        `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
+                    );
+                    if (liveDataResponse.ok) {
+                        const liveData = (await liveDataResponse.json())[0];
+                        if (liveData)
+                            tickerInfo.value = {
+                                ...tickerInfo.value,
+                                ...liveData,
+                            };
+                    }
+                } catch (e) {
+                    /* ignore */
+                }
                 return;
             }
 
@@ -95,8 +107,6 @@ export function useStockData() {
 
             if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
-
-                // [핵심 수정] 이제 tickerInfo는 순수 숫자 데이터를 담고 있음
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
                     ...navInfo,
@@ -108,9 +118,7 @@ export function useStockData() {
                         marketNameMap[liveData.exchange] || liveData.exchange;
                 }
 
-                // [핵심 수정] 주석 해제하여 데이터 정상 할당
-                dividendHistory.value = staticData.dividendHistory || [];
-                backtestData.value = staticData.backtestData || {};
+                backtestData.value = staticData.backtestData || [];
             } else {
                 tickerInfo.value = { ...navInfo, ...liveData };
                 isUpcoming.value = true;
@@ -125,13 +133,5 @@ export function useStockData() {
         }
     };
 
-    return {
-        tickerInfo,
-        dividendHistory,
-        backtestData,
-        isLoading,
-        error,
-        loadData,
-        isUpcoming,
-    };
+    return { tickerInfo, backtestData, isLoading, error, loadData, isUpcoming };
 }

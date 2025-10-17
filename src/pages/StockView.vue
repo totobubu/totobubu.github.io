@@ -28,15 +28,15 @@
     const { myBookmarks } = useFilterState();
     const { isDesktop, deviceType } = useBreakpoint();
 
-    const {
-        tickerInfo,
-        dividendHistory,
-        backtestData,
-        isLoading,
-        error,
-        loadData,
-        isUpcoming,
-    } = useStockData();
+    const { tickerInfo, backtestData, isLoading, error, loadData, isUpcoming } =
+        useStockData();
+
+    // [신규] backtestData에서 배당금이 있는 항목만 필터링하여 dividendHistory처럼 사용
+    const dividendHistory = computed(() =>
+        backtestData.value.filter(
+            (item) => item.amount !== null && typeof item.amount !== 'undefined'
+        )
+    );
 
     const tickerSymbol = computed(() =>
         (route.params.ticker || '').toString().replace(/-/g, '.')
@@ -86,15 +86,16 @@
     const chartDisplayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
+
+        // [핵심 수정] backtestData의 date 형식('YYYY-MM-DD')을 직접 사용
         const validHistory = dividendHistory.value.filter(
-            (item) =>
-                parseYYMMDD(item['배당락']) &&
-                !isNaN(parseFloat(item['배당금']?.replace('$', '')))
+            (item) => item.date && typeof item.amount === 'number'
         );
         if (validHistory.length === 0) return [];
 
         let filtered = validHistory;
         const range = selectedTimeRange.value;
+
         if (range && range !== 'ALL') {
             const now = new Date();
             let cutoffDate = new Date();
@@ -102,19 +103,16 @@
             const unit = range.slice(-1);
             if (unit === 'M') cutoffDate.setMonth(now.getMonth() - val);
             else if (unit === 'Y') {
-                if (tickerInfo.value?.frequency === '분기') {
-                    cutoffDate = new Date(now.getFullYear() - val, 0, 1);
-                } else {
-                    cutoffDate.setFullYear(now.getFullYear() - val);
-                }
+                cutoffDate.setFullYear(now.getFullYear() - val);
             }
+
             filtered = validHistory.filter(
-                (item) => parseYYMMDD(item['배당락']) >= cutoffDate
+                (item) => new Date(item.date) >= cutoffDate
             );
         }
-        return filtered.sort(
-            (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
-        );
+
+        // 정렬은 이미 데이터 소스에서 되어있지만, 안전을 위해 여기서도 수행
+        return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
     });
 
     const chartComposableResult = computed(() => {
