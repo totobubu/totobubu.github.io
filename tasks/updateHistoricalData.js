@@ -1,13 +1,13 @@
+// tasks\updateHistoricalData.js
 import fs from 'fs/promises';
 import path from 'path';
-import axios from 'axios'; // [핵심] axios를 사용합니다.
+import axios from 'axios';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
 
@@ -17,88 +17,101 @@ async function fetchHistoricalData(symbol, fromDate) {
     const period2 = Math.floor(Date.now() / 1000);
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=history`;
 
-    const { data } = await axios.get(url, {
-        headers: {
-            'User-Agent':
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        },
-    });
+    try {
+        const { data } = await axios.get(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0' },
+        });
 
-    if (data.chart.error) {
-        throw new Error(
-            data.chart.error.description || `Unknown error for ${symbol}`
-        );
-    }
+        if (data.chart.error)
+            throw new Error(
+                data.chart.error.description || `Unknown error for ${symbol}`
+            );
 
-    const result = data.chart.result[0];
-    if (!result || !result.timestamp) {
+        const result = data.chart.result[0];
+        if (!result || !result.timestamp) return [];
+
+        const timestamps = result.timestamp;
+        const quotes = result.indicators.quote[0];
+
+        return timestamps
+            .map((ts, i) => ({
+                date: new Date(ts * 1000).toISOString().split('T')[0],
+                open: quotes.open[i],
+                high: quotes.high[i],
+                low: quotes.low[i],
+                close: quotes.close[i],
+                volume: quotes.volume[i],
+            }))
+            .filter((p) => p.close != null);
+    } catch (error) {
+        console.error(`API Error for ${symbol}: ${error.message}`);
         return [];
     }
-
-    const timestamps = result.timestamp;
-    const quotes = result.indicators.quote[0];
-
-    return timestamps
-        .map((ts, i) => ({
-            date: new Date(ts * 1000).toISOString().split('T')[0],
-            open: quotes.open[i],
-            high: quotes.high[i],
-            low: quotes.low[i],
-            close: quotes.close[i],
-            volume: quotes.volume[i],
-        }))
-        .filter((p) => p.close !== null); // close 가격이 없는 데이터는 제외
 }
 
-async function fetchAndSavePriceData(ticker) {
+async function fetchAndMergePriceData(ticker) {
     const { symbol, ipoDate } = ticker;
     const sanitizedSymbol = sanitizeTickerForFilename(symbol);
     const filePath = path.join(DATA_DIR, `${sanitizedSymbol}.json`);
 
     try {
         let existingData = {};
+        let backtestMap = new Map();
         let lastPriceDate = null;
+
         try {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             existingData = JSON.parse(fileContent);
-            const prices = existingData.backtestData?.prices;
-            if (prices && prices.length > 0) {
-                lastPriceDate = prices[prices.length - 1].date;
+            const backtestData = existingData.backtestData || [];
+
+            backtestData.forEach((item) => backtestMap.set(item.date, item));
+            const datesWithPrice = backtestData
+                .filter((d) => d.close)
+                .map((d) => d.date);
+            if (datesWithPrice.length > 0) {
+                datesWithPrice.sort();
+                lastPriceDate = datesWithPrice[datesWithPrice.length - 1];
             }
-        } catch (error) {}
+        } catch (error) {
+            /* 파일 없으면 진행 */
+        }
 
         const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
         if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
 
         const from = startDate.toISOString().split('T')[0];
-        if (new Date(from) > new Date()) {
-            return { success: true, symbol };
-        }
+        if (new Date(from) > new Date()) return { success: true, symbol };
 
+        // [핵심] axios 함수 호출
         const newPriceData = await fetchHistoricalData(symbol, from);
 
-        if (newPriceData.length === 0) {
-            return { success: true, symbol };
+        if (newPriceData.length === 0) return { success: true, symbol };
+
+        // [핵심] 기존 데이터와 병합 (기존의 amount, amountFixed 등 보존)
+        newPriceData.forEach((p) => {
+            const existingEntry = backtestMap.get(p.date) || { date: p.date };
+            backtestMap.set(p.date, { ...existingEntry, ...p });
+        });
+
+        const finalBacktestData = Array.from(backtestMap.values()).sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
+
+        // 변경 사항이 있을 때만 저장
+        if (
+            JSON.stringify(existingData.backtestData) !==
+            JSON.stringify(finalBacktestData)
+        ) {
+            existingData.backtestData = finalBacktestData;
+            await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+            console.log(
+                `✅ [${symbol}] Price data updated. Added/merged ${newPriceData.length} records.`
+            );
         }
 
-        const existingPrices = existingData.backtestData?.prices || [];
-        const combinedPrices = [...existingPrices, ...newPriceData];
-
-        const uniquePrices = Array.from(
-            new Map(combinedPrices.map((item) => [item.date, item])).values()
-        );
-        uniquePrices.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-        if (!existingData.backtestData) existingData.backtestData = {};
-        existingData.backtestData.prices = uniquePrices;
-
-        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
-        console.log(
-            `✅ [${symbol}] Price data updated. Added ${newPriceData.length} records.`
-        );
         return { success: true, symbol };
     } catch (error) {
-        console.error(`❌ [${symbol}] An error occurred:`, error.message);
+        console.error(`❌ [${symbol}] Error: ${error.message}`);
         return { success: false, symbol, error: error.message };
     }
 }
@@ -131,13 +144,14 @@ async function main() {
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
 
+        // [핵심 수정] 함수 이름을 올바르게 변경합니다.
         const results = await Promise.all(
-            chunk.map((ticker) => fetchAndSavePriceData(ticker))
+            chunk.map((ticker) => fetchAndMergePriceData(ticker))
         );
 
         results.forEach((r) => {
             if (r.success) successCount++;
-            else failedSymbols.push(r.symbol);
+            else if (r.symbol) failedSymbols.push(r.symbol);
         });
         await delay(500);
     }
@@ -145,8 +159,9 @@ async function main() {
     console.log(
         `\nUpdate complete. Success: ${successCount}, Failure: ${failedSymbols.length}`
     );
-    if (failedSymbols.length > 0)
+    if (failedSymbols.length > 0) {
         console.log('Failed symbols:', failedSymbols.join(', '));
+    }
 }
 
 main();
