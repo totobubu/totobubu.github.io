@@ -39,6 +39,7 @@ npm install
 # 1. (선택) KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
 
 python scripts/fetch_top_tickers.py
+python scripts/fetch_top_etfs.py
 
 # 2. (선택) 특정 운용사의 모든 ETF 종목 추가
 

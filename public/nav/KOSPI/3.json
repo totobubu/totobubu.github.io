@@ -1,139 +1,454 @@
 [
-    {
-        "symbol": "302440.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "SK바이오사이언스",
-        "longName": "SK바이오사이언스",
-        "ipoDate": "2021-03-18"
-    },
-    {
-        "symbol": "307950.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "현대오토에버",
-        "longName": "현대오토에버",
-        "ipoDate": "2019-03-28",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "316140.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "우리금융지주",
-        "longName": "우리금융지주",
-        "ipoDate": "2019-02-21",
-        "frequency": "분기",
-        "group": "FMAS"
-    },
-    {
-        "symbol": "317450.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "명인제약",
-        "longName": "명인제약",
-        "ipoDate": "2025-10-01"
-    },
-    {
-        "symbol": "323410.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "카카오뱅크",
-        "longName": "카카오뱅크",
-        "ipoDate": "2021-08-06",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "326030.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "SK바이오팜",
-        "longName": "SK바이오팜",
-        "ipoDate": "2020-07-02"
-    },
-    {
-        "symbol": "329180.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "HD현대중공업",
-        "longName": "HD현대중공업",
-        "ipoDate": "2021-09-17"
-    },
-    {
-        "symbol": "336260.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "두산퓨얼셀",
-        "longName": "두산퓨얼셀",
-        "ipoDate": "2019-10-18"
-    },
-    {
-        "symbol": "352820.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "하이브",
-        "longName": "하이브",
-        "ipoDate": "2020-10-15"
-    },
-    {
-        "symbol": "353200.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "대덕전자",
-        "longName": "대덕전자",
-        "ipoDate": "2020-05-21",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "361610.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "SK아이이테크놀로지",
-        "longName": "SK아이이테크놀로지",
-        "ipoDate": "2021-05-11"
-    },
-    {
-        "symbol": "373220.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "LG에너지솔루션",
-        "longName": "LG에너지솔루션",
-        "ipoDate": "2022-01-27"
-    },
-    {
-        "symbol": "375500.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "DL이앤씨",
-        "longName": "DL이앤씨",
-        "ipoDate": "2021-01-25",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "377300.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "카카오페이",
-        "longName": "카카오페이",
-        "ipoDate": "2021-11-03"
-    },
-    {
-        "symbol": "383220.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "F&F",
-        "longName": "F&F",
-        "ipoDate": "2021-05-21",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "395400.KS",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "koName": "SK리츠",
-        "longName": "SK리츠",
-        "ipoDate": "2021-09-14",
-        "frequency": "분기",
-        "group": "MJSD"
-    }
+  {
+    "symbol": "302190.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 중장기국채",
+    "longName": "TIGER 중장기국채"
+  },
+  {
+    "symbol": "302440.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "SK바이오사이언스",
+    "longName": "SK바이오사이언스",
+    "ipoDate": "2021-03-18"
+  },
+  {
+    "symbol": "302450.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 코스피",
+    "longName": "RISE 코스피"
+  },
+  {
+    "symbol": "304760.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO KRX300",
+    "longName": "HANARO KRX300"
+  },
+  {
+    "symbol": "304780.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO 200선물레버리지",
+    "longName": "HANARO 200선물레버리지"
+  },
+  {
+    "symbol": "304940.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 미국나스닥100선물(H)",
+    "longName": "KODEX 미국나스닥100선물(H)"
+  },
+  {
+    "symbol": "305050.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 코스피",
+    "longName": "ACE 코스피"
+  },
+  {
+    "symbol": "306950.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX KRX300레버리지",
+    "longName": "KODEX KRX300레버리지"
+  },
+  {
+    "symbol": "307950.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "현대오토에버",
+    "longName": "현대오토에버",
+    "ipoDate": "2019-03-28",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "309230.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 미국WideMoat동일가중",
+    "longName": "ACE 미국WideMoat동일가중"
+  },
+  {
+    "symbol": "310960.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 200TR",
+    "longName": "TIGER 200TR"
+  },
+  {
+    "symbol": "310970.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER MSCI Korea TR",
+    "longName": "TIGER MSCI Korea TR"
+  },
+  {
+    "symbol": "314250.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 미국빅테크10(H)",
+    "longName": "KODEX 미국빅테크10(H)"
+  },
+  {
+    "symbol": "315270.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 200커뮤니케이션서비스",
+    "longName": "TIGER 200커뮤니케이션서비스"
+  },
+  {
+    "symbol": "315930.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX Top5PlusTR",
+    "longName": "KODEX Top5PlusTR"
+  },
+  {
+    "symbol": "315960.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 대형고배당10TR",
+    "longName": "RISE 대형고배당10TR"
+  },
+  {
+    "symbol": "316140.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "우리금융지주",
+    "longName": "우리금융지주",
+    "ipoDate": "2019-02-21",
+    "frequency": "분기",
+    "group": "FMAS"
+  },
+  {
+    "symbol": "317450.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "명인제약",
+    "longName": "명인제약",
+    "ipoDate": "2025-10-01"
+  },
+  {
+    "symbol": "319640.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 골드선물(H)",
+    "longName": "TIGER 골드선물(H)"
+  },
+  {
+    "symbol": "323410.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "카카오뱅크",
+    "longName": "카카오뱅크",
+    "ipoDate": "2021-08-06",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "325010.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 성장주",
+    "longName": "KODEX 성장주"
+  },
+  {
+    "symbol": "326030.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "SK바이오팜",
+    "longName": "SK바이오팜",
+    "ipoDate": "2020-07-02"
+  },
+  {
+    "symbol": "326240.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE IT플러스",
+    "longName": "RISE IT플러스"
+  },
+  {
+    "symbol": "329180.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HD현대중공업",
+    "longName": "HD현대중공업",
+    "ipoDate": "2021-09-17"
+  },
+  {
+    "symbol": "332500.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 200TR",
+    "longName": "ACE 200TR"
+  },
+  {
+    "symbol": "332610.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "PLUS 미국단기회사채(AAA~A)",
+    "longName": "PLUS 미국단기회사채(AAA~A)"
+  },
+  {
+    "symbol": "332620.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "PLUS 미국장기우량회사채",
+    "longName": "PLUS 미국장기우량회사채"
+  },
+  {
+    "symbol": "332930.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO 200TR",
+    "longName": "HANARO 200TR"
+  },
+  {
+    "symbol": "332940.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO MSCI Korea TR",
+    "longName": "HANARO MSCI Korea TR"
+  },
+  {
+    "symbol": "336160.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 금융채액티브",
+    "longName": "RISE 금융채액티브"
+  },
+  {
+    "symbol": "336260.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "두산퓨얼셀",
+    "longName": "두산퓨얼셀",
+    "ipoDate": "2019-10-18"
+  },
+  {
+    "symbol": "346000.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO KAP초장기국고채",
+    "longName": "HANARO KAP초장기국고채"
+  },
+  {
+    "symbol": "352820.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "하이브",
+    "longName": "하이브",
+    "ipoDate": "2020-10-15"
+  },
+  {
+    "symbol": "353200.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "대덕전자",
+    "longName": "대덕전자",
+    "ipoDate": "2020-05-21",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "354350.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "HANARO 글로벌럭셔리S&P(합성)",
+    "longName": "HANARO 글로벌럭셔리S&P(합성)"
+  },
+  {
+    "symbol": "356540.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 종합채권(AA-이상)액티브",
+    "longName": "ACE 종합채권(AA-이상)액티브"
+  },
+  {
+    "symbol": "357870.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER CD금리투자KIS(합성)",
+    "longName": "TIGER CD금리투자KIS(합성)"
+  },
+  {
+    "symbol": "360200.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 미국S&P500",
+    "longName": "ACE 미국S&P500"
+  },
+  {
+    "symbol": "360750.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 미국S&P500",
+    "longName": "TIGER 미국S&P500"
+  },
+  {
+    "symbol": "361580.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 200TR",
+    "longName": "RISE 200TR"
+  },
+  {
+    "symbol": "361610.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "SK아이이테크놀로지",
+    "longName": "SK아이이테크놀로지",
+    "ipoDate": "2021-05-11"
+  },
+  {
+    "symbol": "363510.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "SOL KIS단기통안채",
+    "longName": "SOL KIS단기통안채"
+  },
+  {
+    "symbol": "363570.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 장기종합채권(AA-이상)액티브",
+    "longName": "KODEX 장기종합채권(AA-이상)액티브"
+  },
+  {
+    "symbol": "365780.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 국고채10년",
+    "longName": "ACE 국고채10년"
+  },
+  {
+    "symbol": "367380.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "ACE 미국나스닥100",
+    "longName": "ACE 미국나스닥100"
+  },
+  {
+    "symbol": "368590.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 미국나스닥100",
+    "longName": "RISE 미국나스닥100"
+  },
+  {
+    "symbol": "373220.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "LG에너지솔루션",
+    "longName": "LG에너지솔루션",
+    "ipoDate": "2022-01-27"
+  },
+  {
+    "symbol": "375500.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "DL이앤씨",
+    "longName": "DL이앤씨",
+    "ipoDate": "2021-01-25",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "377300.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "카카오페이",
+    "longName": "카카오페이",
+    "ipoDate": "2021-11-03"
+  },
+  {
+    "symbol": "379800.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 미국S&P500",
+    "longName": "KODEX 미국S&P500"
+  },
+  {
+    "symbol": "379810.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 미국나스닥100",
+    "longName": "KODEX 미국나스닥100"
+  },
+  {
+    "symbol": "381170.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 미국테크TOP10 INDXX",
+    "longName": "TIGER 미국테크TOP10 INDXX"
+  },
+  {
+    "symbol": "381180.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "TIGER 미국필라델피아반도체나스닥",
+    "longName": "TIGER 미국필라델피아반도체나스닥"
+  },
+  {
+    "symbol": "383220.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "F&F",
+    "longName": "F&F",
+    "ipoDate": "2021-05-21",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "385510.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 신재생에너지액티브",
+    "longName": "KODEX 신재생에너지액티브"
+  },
+  {
+    "symbol": "385540.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 종합채권(A-이상)액티브",
+    "longName": "RISE 종합채권(A-이상)액티브"
+  },
+  {
+    "symbol": "385550.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 단기채권알파액티브",
+    "longName": "RISE 단기채권알파액티브"
+  },
+  {
+    "symbol": "385560.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE KIS국고채30년Enhanced",
+    "longName": "RISE KIS국고채30년Enhanced"
+  },
+  {
+    "symbol": "390390.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "KODEX 미국반도체",
+    "longName": "KODEX 미국반도체"
+  },
+  {
+    "symbol": "395400.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "SK리츠",
+    "longName": "SK리츠",
+    "ipoDate": "2021-09-14",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "397420.KS",
+    "market": "KOSPI",
+    "currency": "KRW",
+    "koName": "RISE 국채선물5년추종",
+    "longName": "RISE 국채선물5년추종"
+  }
 ]
