@@ -71,46 +71,47 @@ export function useStockData() {
                     `data/${sanitizedTicker}.json`
                 )
             );
-
-            if (!staticDataResponse.ok) {
-                // 데이터 파일이 없는 upcoming 종목 처리
-                isUpcoming.value = true;
-                tickerInfo.value = { ...navInfo };
-            } else {
+            if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
-
-                // [핵심 수정] 통합된 backtestData에서 dividendHistory와 주가 데이터를 분리
                 const fullBacktestData = staticData.backtestData || [];
 
-                // 1. 배당 정보만 필터링하여 dividendHistory 생성
-                dividendHistory.value = fullBacktestData
+                // [핵심 수정] 주가 데이터에 인덱스를 추가하여 이전/다음날 가격을 쉽게 찾도록 함
+                const pricesWithIndex = fullBacktestData.map((p, i) => ({
+                    ...p,
+                    index: i,
+                }));
+
+                dividendHistory.value = pricesWithIndex
                     .filter(
                         (item) =>
                             item.amount !== undefined ||
                             item.amountFixed !== undefined
                     )
-                    .map((item) => ({
-                        배당락: new Date(item.date)
-                            .toLocaleDateString('ko-KR', {
-                                year: '2-digit',
-                                month: '2-digit',
-                                day: '2-digit',
-                            })
-                            .replace(/\. /g, '.')
-                            .slice(0, -1),
-                        배당금:
-                            item.amountFixed !== undefined
-                                ? item.amountFixed
-                                : item.amount,
-                        배당률: item.yield,
-                        // scraper_dividend.py가 이 필드를 순수 숫자로 추가한다고 가정
-                        전일종가: item.prevClose,
-                        당일시가: item.open,
-                        당일종가: item.close,
-                        익일종가: item.nextClose,
-                    }));
+                    .map((item) => {
+                        // 이전/다음날 종가 찾기
+                        const prevDayData = pricesWithIndex[item.index - 1];
+                        const nextDayData = pricesWithIndex[item.index + 1];
+                        return {
+                            배당락: new Date(item.date)
+                                .toLocaleDateString('ko-KR', {
+                                    year: '2-digit',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                })
+                                .replace(/\. /g, '.')
+                                .slice(0, -1),
+                            배당금:
+                                item.amountFixed !== undefined
+                                    ? item.amountFixed
+                                    : item.amount,
+                            배당률: item.yield,
+                            전일종가: prevDayData ? prevDayData.close : null,
+                            당일시가: item.open,
+                            당일종가: item.close,
+                            익일종가: nextDayData ? nextDayData.close : null,
+                        };
+                    });
 
-                // 2. 순수 주가 정보만 backtestData에 할당
                 backtestData.value = fullBacktestData.map(
                     ({ date, open, high, low, close, volume }) => ({
                         date,
@@ -121,7 +122,6 @@ export function useStockData() {
                         volume,
                     })
                 );
-
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
                     ...navInfo,
@@ -156,10 +156,9 @@ export function useStockData() {
             isLoading.value = false;
         }
     };
-
     return {
         tickerInfo,
-        dividendHistory, // [핵심 수정] dividendHistory를 return 객체에 추가
+        dividendHistory,
         backtestData,
         isLoading,
         error,
