@@ -97,6 +97,7 @@ python scripts/generate_sidebar_tickers.py
 # 16. 생성된 모든 JSON 파일 포맷팅
 
 npm run format:data
+npm run format:nav
 
 3. 개발 서버 실행
    npm run dev
