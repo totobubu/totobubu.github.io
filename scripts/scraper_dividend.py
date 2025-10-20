@@ -1,4 +1,5 @@
 # scripts\scraper_dividend.py
+import os
 import json
 from datetime import datetime, timedelta
 from utils import load_json_file, save_json_file, sanitize_ticker_for_filename

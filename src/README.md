@@ -39,7 +39,8 @@ npm install
 # 1. (선택) KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
 
 python scripts/fetch_top_tickers.py
-python scripts/fetch_top_etfs.py
+python scripts/fetch_us_etfs.py
+python scripts/fetch_kr_etfs.py
 
 # 2. (선택) 특정 운용사의 모든 ETF 종목 추가
 
@@ -73,7 +74,7 @@ npm run update-data
 
 python scripts/update_dividends.py
 
-# 10. 배당 내역 상세 정보(주가, 배당률 등) 가공
+# 10. 배당 내역 배당률
 
 python scripts/scraper_dividend.py
 
