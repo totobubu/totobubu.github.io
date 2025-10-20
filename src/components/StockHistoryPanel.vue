@@ -47,14 +47,6 @@
         <DataTable
             :value="formattedHistory"
             stripedRows
-            :rows="10"
-            paginator
-            :paginatorTemplate="
-                isDesktop
-                    ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
-                    : 'PrevPageLink CurrentPageReport NextPageLink'
-            "
-            currentPageReportTemplate="{first} - {last} of {totalRecords}"
             scrollable
             :frozenValue="isDesktop ? null : formattedHistory.slice(0, 2)">
             <Column
