@@ -6,14 +6,17 @@
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    // [핵심 수정] 올바른 import 경로로 수정
+    import { useWeeklyChart } from '@/composables/charts/useWeeklyChart.js';
+    import { useQuarterlyChart } from '@/composables/charts/useQuarterlyChart.js';
+    import { useMonthlyChart } from '@/composables/charts/useMonthlyChart.js';
+    import { useAnnualChart } from '@/composables/charts/useAnnualChart.js';
+    import { usePriceChart } from '@/composables/charts/usePriceChart.js';
+    import { parseYYMMDD } from '@/utils/date.js';
     import {
-        useWeeklyChart,
-        useQuarterlyChart,
-        useMonthlyChart,
-        useAnnualChart,
-        usePriceChart,
-    } from '@/composables/charts';
-    import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
+        generateTimeRangeOptions,
+        monthColors,
+    } from '@/utils/chartUtils.js';
 
     import Skeleton from 'primevue/skeleton';
     import StockHeader from '@/components/StockHeader.vue';
@@ -35,6 +38,9 @@
         loadData,
         isUpcoming,
     } = useStockData();
+    const documentStyle = computed(() =>
+        getComputedStyle(document.documentElement)
+    );
 
     const tickerSymbol = computed(() =>
         (route.params.ticker || '').toString().replace(/-/g, '.')
@@ -48,53 +54,45 @@
     });
     useHead({ title: pageTitle });
 
-    // [핵심 수정] 뷰 상태 관리
-    const currentView = ref('배당'); // '배당', '주가', '목록'
+    const currentView = ref('배당');
     const viewOptions = computed(() => {
-        const options = ['배당'];
+        const options = [];
+        if (dividendHistory.value && dividendHistory.value.length > 0)
+            options.push('배당', '목록');
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
-        if (dividendHistory.value && dividendHistory.value.length > 0)
-            options.push('목록');
-        return options;
+        return options.length > 1 ? options : [];
     });
 
     const selectedTimeRange = ref('1Y');
-    const isPriceChartMode = computed(() => currentView.value === '주가');
 
     const timeRangeOptions = computed(() => {
         const allPeriods = tickerInfo.value?.periods;
-        if (!allPeriods || allPeriods.length === 0) {
-            return []; // 데이터가 없으면 버튼 숨김
-        }
+        if (!allPeriods || allPeriods.length === 0)
+            return [{ label: '전체', value: 'ALL' }];
 
-        const freq = tickerInfo.value.frequency;
         let options = generateTimeRangeOptions(allPeriods);
+        const freq = tickerInfo.value.frequency;
 
-        // [핵심 수정] 분기 배당일 때 3Y 미만 옵션 제거
-        if (freq === '분기') {
+        if (freq === '분기' && options.length > 1) {
             options = options.filter(
                 (opt) => !['6M', '1Y'].includes(opt.value)
             );
-            // 필터링 후 옵션이 '전체'만 남으면 빈 배열 반환하여 숨김
             if (options.length <= 1) return [];
         }
-
-        // [핵심 수정] 매년 배당일 때 10Y 미만 옵션 제거
-        if (freq === '매년') {
-            const has10Y = allPeriods.includes('10Y');
-            if (!has10Y) return []; // 10년 기록 없으면 버튼 숨김
+        if (freq === '매년' && options.length > 1) {
+            if (!allPeriods.includes('10Y')) return [];
             options = options.filter(
                 (opt) => !['6M', '1Y', '3Y', '5Y'].includes(opt.value)
             );
         }
-
         return options;
     });
 
     const displayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
+
         const range = selectedTimeRange.value;
         if (!range || range === 'ALL') return dividendHistory.value;
 
@@ -111,13 +109,18 @@
     });
 
     const chartComposableResult = computed(() => {
-        if (!tickerInfo.value || displayData.value.length === 0) return {};
+        if (
+            !tickerInfo.value ||
+            !displayData.value ||
+            displayData.value.length === 0
+        )
+            return {};
         const themeOptions = {
-            textColor: documentStyle.getPropertyValue('--p-text-color'),
-            textColorSecondary: documentStyle.getPropertyValue(
+            textColor: documentStyle.value.getPropertyValue('--p-text-color'),
+            textColorSecondary: documentStyle.value.getPropertyValue(
                 '--p-text-muted-color'
             ),
-            surfaceBorder: documentStyle.getPropertyValue(
+            surfaceBorder: documentStyle.value.getPropertyValue(
                 '--p-content-border-color'
             ),
         };
@@ -139,6 +142,14 @@
                     ...sharedOptions,
                     aggregation: 'quarter',
                 });
+            if (freq === '매월' && displayData.value.length > 59) {
+                return useQuarterlyChart({
+                    ...sharedOptions,
+                    aggregation: 'month',
+                    colorMap: monthColors,
+                    labelPrefix: '월',
+                });
+            }
             if (freq === '매월') return useMonthlyChart(sharedOptions);
         }
         return {};
@@ -152,12 +163,16 @@
         () => chartComposableResult.value.chartContainerWidth
     );
 
+    const isGrowthStockChart = computed(
+        () => !dividendHistory.value || dividendHistory.value.length < 5
+    );
+
     watch(
         () => route.params.ticker,
         (newTicker) => {
             if (newTicker) {
                 loadData(newTicker.toLowerCase());
-                currentView.value = '배당'; // 페이지 변경 시 기본 뷰로 리셋
+                currentView.value = isGrowthStockChart.value ? '주가' : '배당';
             }
         },
         { immediate: true }
@@ -200,22 +215,20 @@
         </div>
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
-
-            <!-- [핵심 수정] 뷰 전환 UI 통합 -->
             <StockChartCard
+                v-if="viewOptions.length > 0"
                 :tickerInfo="tickerInfo"
                 :time-range-options="timeRangeOptions"
                 v-model:currentView="currentView"
                 v-model:selectedTimeRange="selectedTimeRange"
                 :viewOptions="viewOptions" />
 
-            <!-- 배당 또는 주가 차트 뷰 -->
             <div v-if="currentView === '배당' || currentView === '주가'">
                 <div v-if="chartData" class="chart-wrapper">
                     <div
                         class="chart-container"
                         :style="{ minWidth: chartContainerWidth }">
-                        <PrimeVueChart
+                        <primevue-chart
                             type="bar"
                             :data="chartData"
                             :options="chartOptions" />
@@ -223,7 +236,9 @@
                 </div>
                 <div
                     v-else-if="
-                        currentView === '주가' && backtestData.length > 0
+                        currentView === '주가' &&
+                        backtestData &&
+                        backtestData.length > 0
                     ">
                     <StockPriceCandlestickChart :price-data="backtestData" />
                 </div>
@@ -232,7 +247,6 @@
                 </div>
             </div>
 
-            <!-- 목록 뷰 -->
             <StockHistoryPanel
                 v-if="currentView === '목록'"
                 :history="displayData"
@@ -245,10 +259,15 @@
                 :tickerInfo="tickerInfo"
                 :userBookmark="currentUserBookmark" />
 
-            <span v-if="tickerInfo.Update" ...
-                >업데이트: {{ tickerInfo.Update }}</span
-            >
+            <span
+                v-if="tickerInfo.Update"
+                class="dark:text-surface-500 dark:text-surface-400 text-center">
+                업데이트: {{ tickerInfo.Update }}
+            </span>
         </div>
-        <!-- ... -->
+        <div v-else class="text-center mt-8">
+            <i class="pi pi-inbox text-5xl dark:text-surface-500" />
+            <p class="text-xl mt-4">표시할 데이터가 없습니다.</p>
+        </div>
     </div>
 </template>
