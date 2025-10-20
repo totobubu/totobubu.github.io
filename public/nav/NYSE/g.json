@@ -1,163 +1,325 @@
 [
-    {
-        "symbol": "GD",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1962-01-02",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "GDDY",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2015-03-31"
-    },
-    {
-        "symbol": "GDX",
-        "company": "VanEck",
-        "ipoDate": "2006-05-22",
-        "market": "NYSE",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "GDXY",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "GDX",
-        "ipoDate": "2024-05-21",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GE",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1962-01-02",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GEV",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2024-03-27",
-        "frequency": "분기"
-    },
-    {
-        "symbol": "GIS",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "GL",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-10-01",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "GLD",
-        "company": "SPDR",
-        "ipoDate": "2004-11-18",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GLW",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1981-12-31",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "GM",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2010-11-18",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GME",
-        "ipoDate": "2002-02-13",
-        "market": "NYSE",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GMEY",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "GME",
-        "ipoDate": "2025-09-09",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GNRC",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2010-02-11"
-    },
-    {
-        "symbol": "GOOY",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "GOOGL",
-        "ipoDate": "2023-07-28",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GPC",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GPN",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2001-01-16",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GPTY",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "수",
-        "ipoDate": "2025-01-23",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GRMN",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2000-12-08",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "GS",
-        "frequency": "분기",
-        "group": "FMAD",
-        "ipoDate": "1999-05-04",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "GWW",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "FMAN"
-    }
+  {
+    "symbol": "GARP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "GBIL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "ACCESS"
+  },
+  {
+    "symbol": "GBTC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Grayscale"
+  },
+  {
+    "symbol": "GCOW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Pacer"
+  },
+  {
+    "symbol": "GD",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1962-01-02",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "GDDY",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2015-03-31"
+  },
+  {
+    "symbol": "GDX",
+    "company": "VanEck",
+    "ipoDate": "2006-05-22",
+    "market": "NYSE",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "GDXJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "VanEck"
+  },
+  {
+    "symbol": "GDXY",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "GDX",
+    "ipoDate": "2024-05-21",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GE",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1962-01-02",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GEM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GEV",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2024-03-27",
+    "frequency": "분기"
+  },
+  {
+    "symbol": "GIS",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "GL",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-10-01",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "GLD",
+    "company": "SPDR",
+    "ipoDate": "2004-11-18",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GLDM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "GLOV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Activebeta"
+  },
+  {
+    "symbol": "GLTR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "abrdn"
+  },
+  {
+    "symbol": "GLW",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1981-12-31",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "GM",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2010-11-18",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GME",
+    "ipoDate": "2002-02-13",
+    "market": "NYSE",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GMEY",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "GME",
+    "ipoDate": "2025-09-09",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GNR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "GNRC",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2010-02-11"
+  },
+  {
+    "symbol": "GOOY",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "GOOGL",
+    "ipoDate": "2023-07-28",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GOVI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "GOVT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "GPC",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GPN",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2001-01-16",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GPTY",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "수",
+    "ipoDate": "2025-01-23",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GRID",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "First"
+  },
+  {
+    "symbol": "GRMN",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2000-12-08",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "GRNY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Fundstrat"
+  },
+  {
+    "symbol": "GS",
+    "frequency": "분기",
+    "group": "FMAD",
+    "ipoDate": "1999-05-04",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "GSEW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GSG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "GSID",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Marketbeta"
+  },
+  {
+    "symbol": "GSIE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GSLC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "TR"
+  },
+  {
+    "symbol": "GSST",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GSUS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GSY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "GTO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "GUNR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FlexShares"
+  },
+  {
+    "symbol": "GUSA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Goldman"
+  },
+  {
+    "symbol": "GVI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "GWW",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "GWX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  }
 ]

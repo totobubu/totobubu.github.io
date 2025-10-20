@@ -1,219 +1,555 @@
 [
-    {
-        "symbol": "BA",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1962-01-02",
-        "frequency": "분기",
-        "group": "FMAO"
-    },
-    {
-        "symbol": "BABA",
-        "ipoDate": "2014-09-19",
-        "market": "NYSE",
-        "frequency": "매년"
-    },
-    {
-        "symbol": "BABO",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "BABA",
-        "ipoDate": "2024-08-08",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BAC",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "1973-02-21",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BALL",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BAX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1981-10-27",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "BBY",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1985-04-18",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BDX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BEN",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1983-09-23",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BETE",
-        "company": "ProSares",
-        "frequency": "매월",
-        "ipoDate": "2023-10-02",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BETH",
-        "company": "ProSares",
-        "frequency": "매월",
-        "ipoDate": "2023-10-02",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BF-B",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BG",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2001-08-02",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "BIGY",
-        "company": "YieldMax",
-        "frequency": "매월",
-        "ipoDate": "2024-11-21",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BIL",
-        "company": "SPDR",
-        "frequency": "매월",
-        "ipoDate": "2007-05-30",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BITO",
-        "company": "ProSares",
-        "frequency": "매월",
-        "ipoDate": "2021-10-20",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BK",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-05-03",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "BLDR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2005-06-28"
-    },
-    {
-        "symbol": "BLK",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "1999-10-01",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BLOX",
-        "company": "Nicholas",
-        "frequency": "매주",
-        "group": "금",
-        "ipoDate": "2025-06-17",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BMY",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1972-06-01",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "BNDI",
-        "company": "Neos",
-        "frequency": "매월",
-        "ipoDate": "2022-08-30",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2007-03-22",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "BRK-B",
-        "ipoDate": "1996-05-09",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BRKC",
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "BRK.B",
-        "ipoDate": "2025-06-05",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "BRO",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1981-02-11",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "BSX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1992-05-19"
-    },
-    {
-        "symbol": "BX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2007-06-22",
-        "frequency": "분기",
-        "group": "FAAO"
-    },
-    {
-        "symbol": "BXP",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1997-06-18",
-        "frequency": "분기",
-        "group": "MJSD"
-    }
+  {
+    "symbol": "BA",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1962-01-02",
+    "frequency": "분기",
+    "group": "FMAO"
+  },
+  {
+    "symbol": "BAB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BABA",
+    "ipoDate": "2014-09-19",
+    "market": "NYSE",
+    "frequency": "매년"
+  },
+  {
+    "symbol": "BABO",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "BABA",
+    "ipoDate": "2024-08-08",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BAC",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "1973-02-21",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BAFE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Brown"
+  },
+  {
+    "symbol": "BAI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "BALL",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BALT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Innovator"
+  },
+  {
+    "symbol": "BAR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "GraniteShares"
+  },
+  {
+    "symbol": "BAX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1981-10-27",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "BBAG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBAX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBCA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBEU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBIN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBJP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBMC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBRE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBUS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "JPMorgan"
+  },
+  {
+    "symbol": "BBY",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1985-04-18",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BCI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "abrdn"
+  },
+  {
+    "symbol": "BDX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BEN",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1983-09-23",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BETE",
+    "company": "ProSares",
+    "frequency": "매월",
+    "ipoDate": "2023-10-02",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BETH",
+    "company": "ProSares",
+    "frequency": "매월",
+    "ipoDate": "2023-10-02",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BF-B",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BG",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2001-08-02",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "BHYB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Xtrackers"
+  },
+  {
+    "symbol": "BIGY",
+    "company": "YieldMax",
+    "frequency": "매월",
+    "ipoDate": "2024-11-21",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BIL",
+    "company": "SPDR",
+    "frequency": "매월",
+    "ipoDate": "2007-05-30",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BILS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "BILZ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "PIMCO"
+  },
+  {
+    "symbol": "BINC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "BITB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Bitwise"
+  },
+  {
+    "symbol": "BITO",
+    "company": "ProSares",
+    "frequency": "매월",
+    "ipoDate": "2021-10-20",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BITU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "ProShares"
+  },
+  {
+    "symbol": "BITX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "2x"
+  },
+  {
+    "symbol": "BIV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BIZD",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "VanEck"
+  },
+  {
+    "symbol": "BK",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-05-03",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "BKAG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "BNY"
+  },
+  {
+    "symbol": "BKIE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "BNY"
+  },
+  {
+    "symbol": "BKLC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "BNY"
+  },
+  {
+    "symbol": "BKLN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BLDR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2005-06-28"
+  },
+  {
+    "symbol": "BLK",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "1999-10-01",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BLOK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Amplify"
+  },
+  {
+    "symbol": "BLOX",
+    "company": "Nicholas",
+    "frequency": "매주",
+    "group": "금",
+    "ipoDate": "2025-06-17",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BLV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BMY",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1972-06-01",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "BND",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BNDI",
+    "company": "Neos",
+    "frequency": "매월",
+    "ipoDate": "2022-08-30",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BNDW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BNDX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BOND",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "PIMCO"
+  },
+  {
+    "symbol": "BOTZ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Global"
+  },
+  {
+    "symbol": "BOXX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Alpha"
+  },
+  {
+    "symbol": "BR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2007-03-22",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "BRK-B",
+    "ipoDate": "1996-05-09",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BRKC",
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "BRK.B",
+    "ipoDate": "2025-06-05",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "BRO",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1981-02-11",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "BSCP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCQ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSCX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSJQ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "BSV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "BSVO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "EA"
+  },
+  {
+    "symbol": "BSX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1992-05-19"
+  },
+  {
+    "symbol": "BTC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Grayscale"
+  },
+  {
+    "symbol": "BUFC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "AB"
+  },
+  {
+    "symbol": "BUFD",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FT"
+  },
+  {
+    "symbol": "BUFQ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FT"
+  },
+  {
+    "symbol": "BUFR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FT"
+  },
+  {
+    "symbol": "BUG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Global"
+  },
+  {
+    "symbol": "BUYW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Main"
+  },
+  {
+    "symbol": "BWX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "BX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2007-06-22",
+    "frequency": "분기",
+    "group": "FAAO"
+  },
+  {
+    "symbol": "BXP",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1997-06-18",
+    "frequency": "분기",
+    "group": "MJSD"
+  }
 ]

@@ -1,137 +1,839 @@
 [
-    {
-        "symbol": "IBM",
-        "frequency": "분기",
-        "group": "FMAN",
-        "ipoDate": "1962-01-02",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "ICE",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2005-11-16",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "IDVO",
-        "company": "Amplify",
-        "ipoDate": "2022-09-08",
-        "market": "NYSE",
-        "frequency": "매월"
-    },
-    {
-        "symbol": "IEX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1989-06-02",
-        "frequency": "분기",
-        "group": "JMJO"
-    },
-    {
-        "symbol": "IFF",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1974-12-17",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "INVH",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2017-02-01",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "IONQ",
-        "ipoDate": "2021-01-04",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "IP",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1962-01-02",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "IPG",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "IQV",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2013-05-09"
-    },
-    {
-        "symbol": "IR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2017-05-12",
-        "frequency": "분기",
-        "group": "MMAN"
-    },
-    {
-        "symbol": "IRM",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1996-02-01",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "IT",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1993-10-05"
-    },
-    {
-        "symbol": "ITW",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-03-13",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "IVV",
-        "company": "iShares",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "2000-05-19",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "IVZ",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1995-08-25",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "IWM",
-        "company": "iShares",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "2000-05-26",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "IWMY",
-        "company": "Defiance",
-        "frequency": "매주",
-        "group": "목",
-        "ipoDate": "2023-11-01",
-        "market": "NYSE"
-    }
+  {
+    "symbol": "IAGG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IAI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IAU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IAUM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDQ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBDY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBHF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBM",
+    "frequency": "분기",
+    "group": "FMAN",
+    "ipoDate": "1962-01-02",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "IBTF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBTG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBTH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBTI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IBTJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ICE",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2005-11-16",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "ICF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ICLN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ICOW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Pacer"
+  },
+  {
+    "symbol": "ICSH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ICVT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IDEV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IDMO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "IDU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IDV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IDVO",
+    "company": "Amplify",
+    "ipoDate": "2022-09-08",
+    "market": "NYSE",
+    "frequency": "매월"
+  },
+  {
+    "symbol": "IEF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEFA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEMG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IETC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEUR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IEX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1989-06-02",
+    "frequency": "분기",
+    "group": "JMJO"
+  },
+  {
+    "symbol": "IFF",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1974-12-17",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "IFRA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGEB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGIB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGLB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGOV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGRO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGSB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IGV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IHAK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IHDG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "WisdomTree"
+  },
+  {
+    "symbol": "IHF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IHI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IJT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ILCB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ILCG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ILCV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ILF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ILOW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "AB"
+  },
+  {
+    "symbol": "IMCB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IMCG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IMCV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IMTM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "INCM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Franklin"
+  },
+  {
+    "symbol": "INDA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "INFL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Horizon"
+  },
+  {
+    "symbol": "INTF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "INVH",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2017-02-01",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "IONQ",
+    "ipoDate": "2021-01-04",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "IOO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IP",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1962-01-02",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "IPAC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IPG",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "IQDF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FlexShares"
+  },
+  {
+    "symbol": "IQLT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IQV",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2013-05-09"
+  },
+  {
+    "symbol": "IR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2017-05-12",
+    "frequency": "분기",
+    "group": "MMAN"
+  },
+  {
+    "symbol": "IRM",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1996-02-01",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "ISCG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ISTB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IT",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1993-10-05"
+  },
+  {
+    "symbol": "ITA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ITB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ITM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "VanEck"
+  },
+  {
+    "symbol": "ITOT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ITW",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-03-13",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "IUSB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IUSG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IUSV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IVE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IVES",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Dan"
+  },
+  {
+    "symbol": "IVLU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IVOG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "IVOO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "IVOV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "IVV",
+    "company": "iShares",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "2000-05-19",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "IVW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IVZ",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1995-08-25",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "IWB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWD",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWM",
+    "company": "iShares",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "2000-05-26",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "IWMY",
+    "company": "Defiance",
+    "frequency": "매주",
+    "group": "목",
+    "ipoDate": "2023-11-01",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "IWN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IWY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IXC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IXJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IXN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IXP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IXUS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "IYY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  }
 ]
