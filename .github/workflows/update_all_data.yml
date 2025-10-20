@@ -111,8 +111,10 @@ jobs:
               run: python scripts/generate_sidebar_tickers.py
 
             # 단계 14: 변경된 모든 데이터를 일관된 포맷으로 정리
-            - name: 14. Format generated data files
+            - name: 14-1. Format generated data files
               run: npm run format:data
+            - name: 14-2. Format generated nav files
+              run: npm run format:nav
 
             # --- 변경 사항 커밋 및 푸시 ---
             - name: Check for file changes

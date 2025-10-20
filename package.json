@@ -16,7 +16,8 @@
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "npm-run-all lint:*",
-        "format:data": "prettier --write \"public/data/**/*.json\" \"public/calendar-events.json\" \"public/sidebar-tickers.json\"",
+        "format:data": "prettier --write \"public/data/**/*.json\"",
+        "format:nav": "prettier --write \"public/nav/**/*.json\" \"public/*.json\"",
         "format": "prettier --write src/"
     },
     "dependencies": {
