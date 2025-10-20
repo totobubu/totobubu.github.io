@@ -3,8 +3,8 @@ import { ref } from 'vue';
 import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
-const dividendHistory = ref([]); // [수정] 이 ref가 업데이트 되어야 합니다.
-const backtestData = ref(null); // [수정] 이 ref가 업데이트 되어야 합니다.
+const dividendHistory = ref([]);
+const backtestData = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -113,15 +113,14 @@ export function useStockData() {
                     ...navInfo,
                     ...liveData,
                 };
-
                 if (liveData && liveData.exchange) {
                     tickerInfo.value.market =
                         marketNameMap[liveData.exchange] || liveData.exchange;
                 }
 
-                // [핵심 수정] 전역 ref 상태에 데이터를 할당합니다.
+                // [핵심 수정] 주석 해제
                 dividendHistory.value = staticData.dividendHistory || [];
-                backtestData.value = staticData.backtestData || null;
+                backtestData.value = staticData.backtestData || {};
             } else {
                 tickerInfo.value = { ...navInfo, ...liveData };
                 isUpcoming.value = true;
@@ -136,5 +135,13 @@ export function useStockData() {
         }
     };
 
-    return { tickerInfo, backtestData, isLoading, error, loadData, isUpcoming };
+    return {
+        tickerInfo,
+        dividendHistory, // [핵심 수정] dividendHistory 반환
+        backtestData,
+        isLoading,
+        error,
+        loadData,
+        isUpcoming,
+    };
 }

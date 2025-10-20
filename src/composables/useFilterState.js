@@ -4,8 +4,9 @@ import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const globalSearchQuery = ref(null);
-const mainFilterTab = ref('북마크'); // 기본값 '북마크'
+const mainFilterTab = ref('미국'); // [핵심 수정] 기본값을 '미국'으로 변경
 const subFilterTab = ref('ETF');
+
 const myBookmarks = ref({});
 
 watch(mainFilterTab, (newTab) => {
@@ -14,7 +15,6 @@ watch(mainFilterTab, (newTab) => {
     }
 });
 
-// [핵심 수정] export 키워드 추가
 export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
     try {
@@ -25,7 +25,6 @@ export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     }
 };
 
-// [핵심 수정] export 키워드 추가
 export const loadMyBookmarksFromFirestore = async (userId) => {
     if (!userId) return {};
     try {
