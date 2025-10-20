@@ -1,10 +1,10 @@
-// src\composables\useCalendarData.js
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 import { user } from '../store/auth';
 
-const allCalendarData = ref({});
+const allDividendData = ref([]); // 항상 배열로 초기화
+const allTickerProperties = ref(new Map());
 const isLoading = ref(false);
 const error = ref(null);
 let isDataLoaded = false;
@@ -13,19 +13,45 @@ let isLoadingPromise = null;
 const loadAllData = async () => {
     if (isLoadingPromise) return isLoadingPromise;
     if (isDataLoaded) return Promise.resolve();
+
     isLoadingPromise = new Promise(async (resolve, reject) => {
         isLoading.value = true;
         error.value = null;
         try {
-            const response = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
-            );
-            if (!response.ok)
+            const [eventsResponse, tickersResponse] = await Promise.all([
+                fetch(
+                    joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
+                ),
+                fetch(
+                    joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
+                ),
+            ]);
+
+            if (!eventsResponse.ok)
                 throw new Error('calendar-events.json could not be loaded.');
-            allCalendarData.value = await response.json();
+            if (!tickersResponse.ok)
+                throw new Error('sidebar-tickers.json could not be loaded.');
+
+            // [핵심 수정] 데이터가 배열인지 확인
+            const events = await eventsResponse.json();
+            allDividendData.value = Array.isArray(events) ? events : [];
+
+            const sidebarTickers = await tickersResponse.json();
+            allTickerProperties.value = new Map(
+                sidebarTickers.map((t) => [
+                    t.symbol,
+                    {
+                        currency: t.currency,
+                        isEtf: !!(t.company || t.underlying),
+                        koName: t.koName,
+                    },
+                ])
+            );
+
             isDataLoaded = true;
             resolve();
         } catch (err) {
+            console.error('캘린더 데이터 로딩 중 오류 발생:', err);
             error.value = '달력 데이터를 불러오지 못했습니다.';
             reject(err);
         } finally {
@@ -37,59 +63,56 @@ const loadAllData = async () => {
 };
 
 export function useCalendarData() {
-    const { activeFilterTab, myBookmarks } = useFilterState();
+    const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
-    const processedData = computed(() => {
-        const tab = activeFilterTab.value;
+    const dividendsByDate = computed(() => {
+        const mainTab = mainFilterTab.value;
+        const subTab = subFilterTab.value;
         const myTickerSet = new Set(Object.keys(myBookmarks.value));
-        const flatEvents = [];
 
-        for (const date in allCalendarData.value) {
-            const dayData = allCalendarData.value[date];
-            for (const currency in dayData) {
-                dayData[currency].forEach((event) => {
-                    const isBookmarked = myTickerSet.has(event.symbol);
-                    let shouldAdd = false;
+        // [핵심 수정] 필터링 로직을 sourceData.filter() 체인으로 단순화
+        const filteredEvents = allDividendData.value.filter((event) => {
+            const props = allTickerProperties.value.get(event.ticker);
+            if (!props) return false; // 속성 정보 없는 데이터 제외
 
-                    if (tab === '북마크' && isBookmarked) {
-                        shouldAdd = true;
-                    } else if (tab !== '북마크' && !isBookmarked) {
-                        const isEtf = !!(event.company || event.underlying);
-                        const isKr = currency === 'KRW';
+            const isBookmarked = myTickerSet.has(event.ticker);
 
-                        if (tab === 'ETF' && isEtf) shouldAdd = true;
-                        else if (tab === '미국주식' && !isEtf && !isKr)
-                            shouldAdd = true;
-                        else if (tab === '한국주식' && isKr) shouldAdd = true;
-                    }
-
-                    if (shouldAdd) {
-                        flatEvents.push({ ...event, date, currency });
-                    }
-                });
+            if (mainTab === '북마크') {
+                return isBookmarked;
             }
-        }
 
-        // [핵심 수정] 최종 반환 객체에 필터 정보 포함
-        let activeFilter = tab;
-        if (tab === '북마크') {
-            // 북마크에 한국 주식이 하나라도 포함되어 있으면 '한국주식' 스타일 적용
-            const hasKoreanStock = flatEvents.some(
-                (event) => event.currency === 'KRW'
-            );
-            activeFilter = hasKoreanStock ? '한국주식' : '미국주식'; // 북마크 내 구성에 따라 동적 결정
-        }
+            // 북마크 탭이 아니면, 북마크된 항목은 제외
+            if (isBookmarked) return false;
 
-        return {
-            events: flatEvents,
-            activeFilter: activeFilter,
-        };
+            if (mainTab === '미국') {
+                if (props.currency !== 'USD') return false;
+                return subTab === 'ETF' ? props.isEtf : !props.isEtf;
+            }
+
+            if (mainTab === '한국') {
+                if (props.currency !== 'KRW') return false;
+                return subTab === 'ETF' ? props.isEtf : !props.isEtf;
+            }
+
+            return false; // 어떤 탭에도 해당하지 않으면 보이지 않음
+        });
+
+        const grouped = {};
+        for (const div of filteredEvents) {
+            if (!grouped[div.date]) grouped[div.date] = [];
+
+            const props = allTickerProperties.value.get(div.ticker);
+            if (props) {
+                div.koName = props.koName;
+                div.currency = props.currency;
+            }
+            grouped[div.date].push(div);
+        }
+        return grouped;
     });
 
     return {
-        // [핵심 수정] computed 속성을 분리하여 전달
-        dividendsByDate: computed(() => processedData.value.events),
-        activeCalendarFilter: computed(() => processedData.value.activeFilter),
+        dividendsByDate,
         isLoading,
         error,
         ensureDataLoaded: () => {

@@ -3,7 +3,8 @@ import { ref } from 'vue';
 import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
-const backtestData = ref([]);
+const dividendHistory = ref([]); // [수정] 이 ref가 업데이트 되어야 합니다.
+const backtestData = ref(null); // [수정] 이 ref가 업데이트 되어야 합니다.
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -118,7 +119,9 @@ export function useStockData() {
                         marketNameMap[liveData.exchange] || liveData.exchange;
                 }
 
-                backtestData.value = staticData.backtestData || [];
+                // [핵심 수정] 전역 ref 상태에 데이터를 할당합니다.
+                dividendHistory.value = staticData.dividendHistory || [];
+                backtestData.value = staticData.backtestData || null;
             } else {
                 tickerInfo.value = { ...navInfo, ...liveData };
                 isUpcoming.value = true;

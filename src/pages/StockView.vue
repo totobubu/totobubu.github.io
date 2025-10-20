@@ -31,12 +31,8 @@
     const { tickerInfo, backtestData, isLoading, error, loadData, isUpcoming } =
         useStockData();
 
-    // [신규] backtestData에서 배당금이 있는 항목만 필터링하여 dividendHistory처럼 사용
-    const dividendHistory = computed(() =>
-        backtestData.value.filter(
-            (item) => item.amount !== null && typeof item.amount !== 'undefined'
-        )
-    );
+    // [핵심 수정] dividendHistory는 이제 backtestData의 dividends에서 가져옵니다.
+    const dividendHistory = computed(() => backtestData.value?.dividends || []);
 
     const tickerSymbol = computed(() =>
         (route.params.ticker || '').toString().replace(/-/g, '.')
@@ -84,6 +80,7 @@
     });
 
     const chartDisplayData = computed(() => {
+        // [핵심 수정] dividendHistory.value를 직접 사용
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
 
@@ -249,10 +246,10 @@
                 :dividendHistory="dividendHistory"
                 :tickerInfo="tickerInfo"
                 :userBookmark="currentUserBookmark" />
+
             <StockHistoryPanel
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"
-                :update-time="tickerInfo.Update"
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
             <span
