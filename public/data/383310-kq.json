@@ -1183,7 +1183,8 @@
             "low": 75200,
             "close": 75900,
             "volume": 146460,
-            "amount": 330
+            "amount": 330,
+            "yield": 0.004302477183833116
         },
         {
             "date": "2021-12-30",
@@ -3128,7 +3129,8 @@
             "low": 49100,
             "close": 49250,
             "volume": 104490,
-            "amount": 600
+            "amount": 600,
+            "yield": 0.0181640625
         },
         {
             "date": "2022-12-29",
@@ -5081,7 +5083,8 @@
             "low": 66300,
             "close": 68600,
             "volume": 177661,
-            "amount": 600
+            "amount": 600,
+            "yield": 0.018018018018018018
         },
         {
             "date": "2023-12-28",
@@ -7498,7 +7501,8 @@
             "low": 27050,
             "close": 27300,
             "volume": 58336,
-            "amount": 300
+            "amount": 300,
+            "yield": 0.010714285714285714
         },
         {
             "date": "2025-03-31",
@@ -8571,6 +8575,14 @@
             "low": 25500,
             "close": 29750,
             "volume": 1051625
+        },
+        {
+            "date": "2025-10-20",
+            "open": 28850,
+            "high": 29050,
+            "low": 27550,
+            "close": 28800,
+            "volume": 126437
         }
     ],
     "tickerInfo": {
@@ -8578,23 +8590,40 @@
         "koName": "에코프로에이치엔",
         "longName": "에코프로에이치엔",
         "company": null,
-        "frequency": null,
+        "frequency": "매년",
         "group": null,
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
         "englishName": "Ecopro HN Co., Ltd.",
         "earningsDate": "N/A",
-        "enterpriseValue": 479131500544,
-        "marketCap": 620676448256,
-        "Volume": 1066854,
-        "AvgVolume": 59341,
+        "enterpriseValue": 548211851264,
+        "marketCap": 599743004672,
+        "Volume": 130513,
+        "AvgVolume": 82645,
         "sharesOutstanding": 20933438,
         "52Week": "22050.0 - 48550.0",
         "Yield": 0,
         "dividendRate": 300.0,
         "payoutRatio": 0.2609,
-        "Update": "2025-10-17 11:12:36 KST",
-        "changes": {}
+        "Update": "2025-10-20 11:45:57 KST",
+        "changes": {
+            "enterpriseValue": {
+                "value": 479131500544,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 620676448256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1066854,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 59341,
+                "change": "up"
+            }
+        }
     }
 }

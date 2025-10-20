@@ -1759,7 +1759,8 @@
             "low": 57800,
             "close": 59900,
             "volume": 135031,
-            "amount": 300
+            "amount": 300,
+            "yield": 0.00510204081632653
         },
         {
             "date": "2019-12-30",
@@ -3744,7 +3745,8 @@
             "low": 178700,
             "close": 182200,
             "volume": 130044,
-            "amount": 300
+            "amount": 300,
+            "yield": 0.0016574585635359116
         },
         {
             "date": "2020-12-30",
@@ -5729,7 +5731,8 @@
             "low": 341000,
             "close": 344600,
             "volume": 78453,
-            "amount": 300
+            "amount": 300,
+            "yield": 0.0017191977077363897
         },
         {
             "date": "2021-12-30",
@@ -7674,7 +7677,8 @@
             "low": 212500,
             "close": 215000,
             "volume": 135730,
-            "amount": 500
+            "amount": 500,
+            "yield": 0.0033599328013439733
         },
         {
             "date": "2022-12-29",
@@ -9627,7 +9631,8 @@
             "low": 107500,
             "close": 109400,
             "volume": 40378,
-            "amount": 500
+            "amount": 500,
+            "yield": 0.009267840593141797
         },
         {
             "date": "2023-12-28",
@@ -13116,6 +13121,14 @@
             "low": 51200,
             "close": 56600,
             "volume": 180554
+        },
+        {
+            "date": "2025-10-20",
+            "open": 58500,
+            "high": 59800,
+            "low": 55400,
+            "close": 59300,
+            "volume": 93605
         }
     ],
     "tickerInfo": {
@@ -13123,23 +13136,40 @@
         "koName": "천보",
         "longName": "천보",
         "company": null,
-        "frequency": null,
+        "frequency": "매년",
         "group": null,
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
         "englishName": "Chunbo Co., Ltd.",
         "earningsDate": "N/A",
-        "enterpriseValue": 788253704192,
-        "marketCap": 563030982656,
-        "Volume": 185951,
-        "AvgVolume": 48712,
+        "enterpriseValue": 891029159936,
+        "marketCap": 580905009152,
+        "Volume": 97709,
+        "AvgVolume": 56759,
         "sharesOutstanding": 9930000,
-        "52Week": "30050.0 - 57900.0",
+        "52Week": "30050.0 - 61600.0",
         "Yield": 0,
         "dividendRate": null,
         "payoutRatio": 0.0,
-        "Update": "2025-10-17 11:12:36 KST",
-        "changes": {}
+        "Update": "2025-10-20 11:45:57 KST",
+        "changes": {
+            "enterpriseValue": {
+                "value": 788253704192,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 563030982656,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 185951,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48712,
+                "change": "up"
+            }
+        }
     }
 }

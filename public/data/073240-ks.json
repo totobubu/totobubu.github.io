@@ -3783,7 +3783,8 @@
             "low": 37200.0390625,
             "close": 37500.0390625,
             "volume": 72301,
-            "amount": 900
+            "amount": 900,
+            "yield": 0.02380949920479993
         },
         {
             "date": "2006-12-28",
@@ -5752,7 +5753,8 @@
             "low": 40800.0390625,
             "close": 41400.04296875,
             "volume": 36680,
-            "amount": 900
+            "amount": 900,
+            "yield": 0.04363631818186553
         },
         {
             "date": "2007-12-28",
@@ -40913,6 +40915,14 @@
             "low": 4535,
             "close": 4660,
             "volume": 232725
+        },
+        {
+            "date": "2025-10-20",
+            "open": 4665,
+            "high": 4705,
+            "low": 4590,
+            "close": 4665,
+            "volume": 166743
         }
     ],
     "tickerInfo": {
@@ -40927,16 +40937,33 @@
         "currency": "KRW",
         "englishName": "Kumho Tire Co., Inc.",
         "earningsDate": "N/A",
-        "enterpriseValue": 3185323016192,
-        "marketCap": 1338632962048,
-        "Volume": 241933,
-        "AvgVolume": 528540,
+        "enterpriseValue": 3196813312000,
+        "marketCap": 1344378109952,
+        "Volume": 180612,
+        "AvgVolume": 529560,
         "sharesOutstanding": 287260287,
         "52Week": "4060.0 - 5390.0",
         "Yield": 0,
         "dividendRate": null,
         "payoutRatio": 0.0,
-        "Update": "2025-10-17 11:12:36 KST",
-        "changes": {}
+        "Update": "2025-10-20 11:45:57 KST",
+        "changes": {
+            "enterpriseValue": {
+                "value": 3185323016192,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1338632962048,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 241933,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 528540,
+                "change": "up"
+            }
+        }
     }
 }
