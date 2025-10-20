@@ -28,11 +28,18 @@
     const { myBookmarks } = useFilterState();
     const { isDesktop, deviceType } = useBreakpoint();
 
-    const { tickerInfo, backtestData, isLoading, error, loadData, isUpcoming } =
-        useStockData();
+    const {
+        tickerInfo,
+        dividendHistory,
+        backtestData,
+        isLoading,
+        error,
+        loadData,
+        isUpcoming,
+    } = useStockData();
 
     // [핵심 수정] dividendHistory는 이제 backtestData의 dividends에서 가져옵니다.
-    const dividendHistory = computed(() => backtestData.value?.dividends || []);
+    // const dividendHistory = computed(() => backtestData.value?.dividends || []);
 
     const tickerSymbol = computed(() =>
         (route.params.ticker || '').toString().replace(/-/g, '.')
@@ -80,13 +87,11 @@
     });
 
     const chartDisplayData = computed(() => {
-        // [핵심 수정] dividendHistory.value를 직접 사용
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
 
-        // [핵심 수정] backtestData의 date 형식('YYYY-MM-DD')을 직접 사용
         const validHistory = dividendHistory.value.filter(
-            (item) => item.date && typeof item.amount === 'number'
+            (item) => item['배당락'] && typeof item['배당금'] === 'number'
         );
         if (validHistory.length === 0) return [];
 
@@ -103,13 +108,15 @@
                 cutoffDate.setFullYear(now.getFullYear() - val);
             }
 
+            // [핵심 수정] item.date 대신 parseYYMMDD(item['배당락'])을 사용
             filtered = validHistory.filter(
-                (item) => new Date(item.date) >= cutoffDate
+                (item) => parseYYMMDD(item['배당락']) >= cutoffDate
             );
         }
 
-        // 정렬은 이미 데이터 소스에서 되어있지만, 안전을 위해 여기서도 수행
-        return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        return filtered.sort(
+            (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
+        );
     });
 
     const chartComposableResult = computed(() => {
@@ -173,12 +180,14 @@
     );
 
     const hasDividendChartMode = computed(() => {
-        const freq = tickerInfo.value?.frequency;
-        return ['매주', '분기', '매월'].includes(freq);
+        // [핵심 수정] dividendHistory에 데이터가 있으면 버튼 표시
+        return dividendHistory.value && dividendHistory.value.length > 0;
     });
-    const isGrowthStockChart = computed(
-        () => !dividendHistory.value || dividendHistory.value.length < 5
-    );
+
+    const isGrowthStockChart = computed(() => {
+        // [핵심 수정] 배당 기록이 5개 미만이면 주가 차트를 우선 표시
+        return !dividendHistory.value || dividendHistory.value.length < 5;
+    });
 
     watch(
         () => route.params.ticker,
@@ -228,6 +237,8 @@
         </div>
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
+
+            <!-- [수정] v-if 조건 명확화 -->
             <StockChartCard
                 v-if="!isGrowthStockChart"
                 :tickerInfo="tickerInfo"
@@ -238,9 +249,14 @@
                 :time-range-options="timeRangeOptions"
                 v-model:isPriceChartMode="isPriceChartMode"
                 v-model:selectedTimeRange="selectedTimeRange" />
+
             <StockPriceCandlestickChart
-                v-else
-                :price-data="backtestData?.prices" />
+                v-else-if="backtestData && backtestData.length > 0"
+                :price-data="backtestData" />
+
+            <div v-else class="text-center p-4">주가 데이터가 없습니다.</div>
+
+            <!-- [수정] v-if 조건 명확화 -->
             <StockCalculators
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :dividendHistory="dividendHistory"
@@ -250,6 +266,7 @@
             <StockHistoryPanel
                 v-if="dividendHistory && dividendHistory.length > 0"
                 :history="dividendHistory"
+                :update-time="tickerInfo.Update"
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
             <span
