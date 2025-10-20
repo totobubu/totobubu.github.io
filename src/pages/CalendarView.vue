@@ -15,6 +15,7 @@
     useHead({ title: '배당달력' });
 
     const holidays = ref([]);
+    // [핵심 수정] 임시 데이터를 제거하고, useCalendarData를 다시 활성화합니다.
     const { dividendsByDate, isLoading, error, ensureDataLoaded } =
         useCalendarData();
     const { mainFilterTab } = useFilterState();
@@ -29,10 +30,10 @@
     };
 
     const loadHolidays = async (tab) => {
+        // [핵심 수정] 북마크, 미국 탭은 미국 휴일, 한국 탭은 한국 휴일을 로드합니다.
         const fileName =
             tab === '한국' ? 'kr_holidays.json' : 'us_holidays.json';
         try {
-            // [핵심 수정] 올바른 파일 경로로 수정합니다.
             const response = await fetch(`/holidays/${fileName}`);
             if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
             holidays.value = await response.json();
@@ -42,6 +43,7 @@
         }
     };
 
+    // [핵심 수정] onMounted와 watch를 다시 활성화합니다.
     onMounted(() => {
         ensureDataLoaded();
         loadHolidays(mainFilterTab.value);
@@ -54,9 +56,8 @@
 
 <template>
     <div
-        v-if="isLoading && !Object.keys(dividendsByDate).length"
+        v-if="isLoading && Object.keys(dividendsByDate).length === 0"
         id="p-calendar-skeleton">
-        <!-- 스켈레톤 UI -->
         <Card v-if="isMobile">
             <template #header
                 ><Skeleton
