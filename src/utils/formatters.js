@@ -73,5 +73,6 @@ export function formatLargeNumber(value, currency = 'USD') {
 export function formatPercent(value) {
     if (value === null || typeof value === 'undefined' || isNaN(value))
         return 'N/A';
+    // [수정] 0일 경우 0.00%를 반환하도록 함
     return `${(Number(value) * 100).toFixed(2)}%`;
 }

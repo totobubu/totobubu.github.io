@@ -6,56 +6,40 @@
     import Column from 'primevue/column';
 
     const props = defineProps({
-        history: Array, // 배당금이 있는 backtestData 항목들
-        isDesktop: Boolean, // isDesktop prop 추가
+        history: Array, // 이제 순수 숫자 데이터가 담긴 배열
+        isDesktop: Boolean,
         currency: String,
     });
 
     const formattedHistory = computed(() => {
         if (!props.history) return [];
-        // 최신순으로 정렬하여 표시
-        return [...props.history]
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map((item) => {
-                const finalAmount =
-                    item.amountFixed !== undefined && item.amountFixed !== null
-                        ? item.amountFixed
-                        : item.amount;
-
-                const displayItem = {
-                    배당락: new Date(item.date)
-                        .toLocaleDateString('ko-KR', {
-                            year: '2-digit',
-                            month: '2-digit',
-                            day: '2-digit',
-                        })
-                        .replace(/\./g, '. ')
-                        .slice(0, -1),
-                    배당금: formatCurrency(finalAmount, props.currency),
-                    배당률: item.yield ? formatPercent(item.yield) : 'N/A',
-                    당일시가: formatCurrency(item.open, props.currency),
-                    당일종가: formatCurrency(item.close, props.currency),
-                };
-
-                if (
-                    item.amountFixed !== undefined &&
-                    item.amountFixed !== null
-                ) {
-                    displayItem._isFixed = true; // 수동 입력 값 표시 (예: CSS 스타일링용)
-                }
-
-                return displayItem;
-            });
+        return props.history.map((item) => ({
+            배당락: new Date(item.date)
+                .toLocaleDateString('ko-KR', {
+                    year: '2-digit',
+                    month: '2-digit',
+                    day: '2-digit',
+                })
+                .replace(/\./g, '. ')
+                .slice(0, -1),
+            배당금: formatCurrency(item.amount, props.currency),
+            배당률: item.yield ? formatPercent(item.yield) : 'N/A', // yield는 scraper_dividend.py에서 계산됨
+            전일종가: formatCurrency(item.prevClose, props.currency),
+            당일시가: formatCurrency(item.open, props.currency),
+            당일종가: formatCurrency(item.close, props.currency),
+            익일종가: formatCurrency(item.nextClose, props.currency),
+        }));
     });
 
-    // [수정] 표시할 컬럼 목록을 데이터에 맞게 정리
-    const columns = [
-        { field: '배당락', header: '배당락', sortable: true },
-        { field: '배당금', header: '배당금', sortable: true },
-        { field: '배당률', header: '배당률', sortable: true },
-        { field: '당일시가', header: '당일시가', sortable: false },
-        { field: '당일종가', header: '당일종가', sortable: false },
-    ];
+    const columns = computed(() => {
+        [
+            { field: '배당락', header: '배당락', sortable: true },
+            { field: '배당금', header: '배당금', sortable: true },
+            { field: '배당률', header: '배당률', sortable: true },
+            { field: '당일시가', header: '당일시가', sortable: false },
+            { field: '당일종가', header: '당일종가', sortable: false },
+        ];
+    });
 </script>
 
 <template>

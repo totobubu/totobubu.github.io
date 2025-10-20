@@ -19,21 +19,34 @@ export function useSidebar() {
     const error = ref(null);
     const selectedTicker = ref(null);
 
-    const { globalSearchQuery, activeFilterTab, myBookmarks, toggleMyStock } =
-        useFilterState();
+    const {
+        globalSearchQuery,
+        mainFilterTab,
+        subFilterTab,
+        myBookmarks,
+        toggleMyStock,
+    } = useFilterState();
 
     const filteredTickers = computed(() => {
         const myBookmarkSymbols = new Set(Object.keys(myBookmarks.value));
-        const tab = activeFilterTab.value;
+        const query = globalSearchQuery.value?.toLowerCase();
 
-        // [핵심 수정] 검색 로직 제거. 검색은 DataTable의 globalFilter에 위임.
-        // 검색어가 있을 때 전체를 보여주도록 하여 DataTable이 필터링하게 함.
-        if (globalSearchQuery.value) {
-            return allTickers.value;
+        if (query) {
+            return allTickers.value.filter(
+                (item) =>
+                    item.symbol.toLowerCase().includes(query) ||
+                    (item.koName &&
+                        item.koName.toLowerCase().includes(query)) ||
+                    (item.longName &&
+                        item.longName.toLowerCase().includes(query))
+            );
         }
 
+        const mainTab = mainFilterTab.value;
+        const subTab = subFilterTab.value;
         let list = [];
-        if (tab === '북마크') {
+
+        if (mainTab === '북마크') {
             return allTickers.value.filter((item) =>
                 myBookmarkSymbols.has(item.symbol)
             );
@@ -42,22 +55,42 @@ export function useSidebar() {
         const nonBookmarkedTickers = allTickers.value.filter(
             (item) => !myBookmarkSymbols.has(item.symbol)
         );
-        if (tab === 'ETF') {
-            list = nonBookmarkedTickers.filter(
-                (item) => item.company || item.underlying
+
+        if (mainTab === '미국') {
+            const usTickers = nonBookmarkedTickers.filter(
+                (item) => item.currency === 'USD'
             );
-        } else if (tab === '미국주식') {
-            list = nonBookmarkedTickers.filter(
-                (item) =>
-                    !item.company && !item.underlying && item.currency === 'USD'
-            );
-        } else if (tab === '한국주식') {
-            list = nonBookmarkedTickers.filter(
+            if (subTab === 'ETF') {
+                list = usTickers.filter(
+                    (item) => item.company || item.underlying
+                );
+            } else {
+                // 주식
+                list = usTickers.filter(
+                    (item) => !item.company && !item.underlying
+                );
+            }
+        } else if (mainTab === '한국') {
+            const krTickers = nonBookmarkedTickers.filter(
                 (item) => item.currency === 'KRW'
             );
+            if (subTab === 'ETF') {
+                list = krTickers.filter(
+                    (item) => item.company || item.underlying
+                );
+            } else {
+                // 주식
+                list = krTickers.filter(
+                    (item) => !item.company && !item.underlying
+                );
+            }
         }
 
-        // 데이터 소스(`sidebar-tickers.json`)가 이미 정렬되어 있으므로 추가 정렬 불필요
+        list.sort(
+            (a, b) =>
+                (b.popularity || 0) - (a.popularity || 0) ||
+                (b.marketCap || 0) - (a.marketCap || 0)
+        );
         return list.slice(0, 30);
     });
 
@@ -87,18 +120,6 @@ export function useSidebar() {
             console.error(err);
         } finally {
             isLoading.value = false;
-        }
-    };
-
-    const handleStockBookmarkClick = (symbol) => {
-        if (!user.value) router.push('/login');
-        else toggleMyStock(symbol);
-    };
-
-    const onRowSelect = (event) => {
-        const ticker = event.data.symbol;
-        if (ticker && typeof ticker === 'string') {
-            router.push(`/${ticker.replace(/\./g, '-').toLowerCase()}`);
         }
     };
 
@@ -152,9 +173,24 @@ export function useSidebar() {
         }
     };
 
+    const handleStockBookmarkClick = (symbol) => {
+        if (!user.value) router.push('/login');
+        else toggleMyStock(symbol);
+    };
+
+    const onRowSelect = (event) => {
+        const ticker = event.data.symbol;
+        if (ticker && typeof ticker === 'string') {
+            router.push(`/${ticker.replace(/\./g, '-').toLowerCase()}`);
+        }
+    };
+
     onMounted(loadSidebarData);
 
-    watch(activeFilterTab, () => {
+    watch(mainFilterTab, () => {
+        globalSearchQuery.value = null;
+    });
+    watch(subFilterTab, () => {
         globalSearchQuery.value = null;
     });
 
@@ -163,7 +199,8 @@ export function useSidebar() {
         error,
         selectedTicker,
         globalSearchQuery,
-        activeFilterTab,
+        mainFilterTab,
+        subFilterTab,
         myBookmarks,
         filteredTickers,
         handleStockBookmarkClick,

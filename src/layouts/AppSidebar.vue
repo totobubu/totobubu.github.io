@@ -11,7 +11,6 @@
     import Tag from 'primevue/tag';
     import Skeleton from 'primevue/skeleton';
     import SelectButton from 'primevue/selectbutton';
-    import Button from 'primevue/button';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
 
@@ -20,7 +19,8 @@
         error,
         selectedTicker,
         globalSearchQuery,
-        activeFilterTab,
+        mainFilterTab,
+        subFilterTab,
         myBookmarks,
         filteredTickers,
         handleStockBookmarkClick,
@@ -32,52 +32,31 @@
     const skeletonItems = ref(new Array(25));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
-    const filterOptions = ref([
-        { icon: 'pi pi-bookmark-fill', value: '북마크' },
-        { icon: 'pi pi-box', value: 'ETF' }, // [수정] ETF 아이콘 추가
-        { icon: '🇺🇸', value: '미국주식' },
-        { icon: '🇰🇷', value: '한국주식' },
-    ]);
+    // [수정] 옵션을 단순 문자열 배열로 변경
+    const mainFilterOptions = ref(['북마크', '미국', '한국']);
+    const subFilterOptions = ref(['ETF', '주식']);
 </script>
 
 <template>
-    <!-- [핵심 수정] 레이아웃 구조 변경 -->
-    <div class="flex flex-column gap-3">
-        <div class="flex flex-column gap-3">
-            <div class="flex flex-column gap-3">
-                <SelectButton
-                    v-model="activeFilterTab"
-                    :options="filterOptions"
-                    optionValue="value"
-                    optionLabel="value"
-                    class="w-full">
-                    <template #option="slotProps">
-                        <!-- [핵심 수정] 아이콘/이모지 렌더링 분기 처리 -->
-                        <i
-                            v-if="
-                                slotProps.option.icon &&
-                                slotProps.option.icon.startsWith('pi')
-                            "
-                            :class="slotProps.option.icon"></i>
-                        <span v-else-if="slotProps.option.icon">{{
-                            slotProps.option.icon
-                        }}</span>
-                        <span v-else>{{ slotProps.option.value }}</span>
-                        <!-- 모바일에서는 텍스트 숨김 -->
-                        <span style="display: none">{{
-                            slotProps.option.value
-                        }}</span>
-                    </template>
-                </SelectButton>
-                <FilterInput
-                    v-model="globalSearchQuery"
-                    title="전체 주식 검색" />
-            </div>
+    <div class="h-full">
+        <div class="flex flex-column gap-3 p-3">
+            <!-- [수정] v-model을 mainFilterTab에 직접 연결하고 템플릿 단순화 -->
+            <SelectButton
+                v-model="mainFilterTab"
+                :options="mainFilterOptions"
+                class="w-full" />
+
+            <SelectButton
+                v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
+                v-model="subFilterTab"
+                :options="subFilterOptions"
+                class="w-full" />
+
+            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
 
-        <!-- [핵심 수정] DataTable을 감싸는 div 추가 -->
         <div class="flex-grow-1 overflow-hidden">
             <DataTable
                 v-if="!error"
@@ -101,42 +80,22 @@
                 :class="{ 'p-datatable-loading': isLoading }"
                 class="h-full">
                 <template #empty>
-                    <div class="text-center p-4">
-                        <div
-                            v-if="
-                                globalSearchQuery &&
-                                filteredTickers.length === 0
-                            ">
-                            <p class="mb-3">
-                                '{{ globalSearchQuery }}'에 대한 검색 결과가
-                                없습니다.
-                            </p>
-                            <Button
-                                v-if="user"
-                                :label="`'${globalSearchQuery.toUpperCase()}' 추가 요청하기`"
-                                icon="pi pi-plus"
-                                @click="handleTickerRequest(globalSearchQuery)"
-                                size="small"
-                                severity="secondary" />
-                            <p v-else class="text-sm text-surface-500 mt-2">
-                                로그인하시면 없는 종목을 직접 추가 요청할 수
-                                있습니다.
-                            </p>
-                        </div>
-                        <div v-else-if="activeFilterTab === '북마크'">
-                            <p v-if="!user" class="mb-2">
-                                로그인 후 종목을 북마크에 추가해 보세요.
-                            </p>
-                            <p
-                                v-else-if="
-                                    Object.keys(myBookmarks).length === 0
-                                "
-                                class="mb-2">
-                                아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
-                                아이콘을 클릭하여 추가하세요.
-                            </p>
-                        </div>
-                        <div v-else><p>표시할 종목이 없습니다.</p></div>
+                    <div
+                        v-if="mainFilterTab === '북마크'"
+                        class="text-center p-4">
+                        <p v-if="!user" class="mb-2">
+                            로그인 후 종목을 북마크에 추가해 보세요.
+                        </p>
+                        <p
+                            v-else-if="Object.keys(myBookmarks).length === 0"
+                            class="mb-2">
+                            아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
+                            아이콘을 클릭하여 추가하세요.
+                        </p>
+                        <p v-else>검색 결과가 없습니다.</p>
+                    </div>
+                    <div v-else class="text-center p-4">
+                        검색 결과가 없습니다.
                     </div>
                 </template>
                 <Column frozen class="toto-column-bookmark">

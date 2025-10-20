@@ -1,13 +1,20 @@
 // src\composables\useFilterState.js
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const globalSearchQuery = ref(null);
-const activeFilterTab = ref('ETF');
-
+const mainFilterTab = ref('북마크'); // 기본값 '북마크'
+const subFilterTab = ref('ETF');
 const myBookmarks = ref({});
 
+watch(mainFilterTab, (newTab) => {
+    if (newTab === '미국' || newTab === '한국') {
+        subFilterTab.value = 'ETF';
+    }
+});
+
+// [핵심 수정] export 키워드 추가
 export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
     try {
@@ -18,6 +25,7 @@ export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     }
 };
 
+// [핵심 수정] export 키워드 추가
 export const loadMyBookmarksFromFirestore = async (userId) => {
     if (!userId) return {};
     try {
@@ -60,7 +68,8 @@ const updateBookmarkDetails = (symbol, details) => {
 export function useFilterState() {
     return {
         globalSearchQuery,
-        activeFilterTab,
+        mainFilterTab,
+        subFilterTab,
         myBookmarks,
         toggleMyStock,
         updateBookmarkDetails,

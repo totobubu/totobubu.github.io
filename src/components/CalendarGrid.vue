@@ -1,3 +1,4 @@
+<!-- src\components\CalendarGrid.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
@@ -7,14 +8,13 @@
     import koLocale from '@fullcalendar/core/locales/ko';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { subMonths, addMonths, startOfMonth, endOfMonth } from 'date-fns';
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
     import Panel from 'primevue/panel';
 
     const props = defineProps({
-        dividendsByDate: Array,
+        dividendsByDate: Object,
         holidays: Array,
     });
 
@@ -25,19 +25,18 @@
     const currentTitle = ref('');
     const currentView = ref(isMobile.value ? 'listWeek' : 'dayGridMonth');
 
-    const validRange = computed(() => {
-        const today = new Date();
-        const start = startOfMonth(subMonths(today, 12));
-        const end = endOfMonth(addMonths(today, 3));
-        return {
-            start: start.toISOString().split('T')[0],
-            end: end.toISOString().split('T')[0],
-        };
-    });
+    const viewOptions = computed(() =>
+        isMobile.value
+            ? [{ label: '목록', value: 'listWeek' }]
+            : [
+                  { label: '월', value: 'dayGridMonth' },
+                  { label: '주', value: 'dayGridWeek' },
+              ]
+    );
 
-    const getEventClass = (event) => {
-        if (!event) return 'freq-default';
-        const { frequency, group } = event;
+    const getEventClass = (tickerInfo) => {
+        if (!tickerInfo) return 'freq-default';
+        const { frequency, group } = tickerInfo;
         if (frequency === '매월') return 'freq-monthly';
         if (frequency === '분기') return 'freq-quarterly';
         if (frequency === '매주') {
@@ -55,11 +54,25 @@
 
     const calendarEvents = computed(() => {
         if (!props.dividendsByDate) return [];
-        return props.dividendsByDate.map((entry) => ({
-            title: entry.koName || entry.symbol,
-            start: entry.date,
-            extendedProps: { ...entry, eventClass: getEventClass(entry) },
-        }));
+        // [핵심 수정] Object.entries()를 사용하여 객체를 배열로 변환한 후 순회
+        return Object.entries(props.dividendsByDate).flatMap(
+            ([date, dividendArray]) =>
+                dividendArray.map((entry) => ({
+                    title: entry.amount
+                        ? `${entry.koName || entry.ticker} ...`
+                        : entry.koName || entry.ticker,
+                    start: date,
+                    extendedProps: {
+                        ticker: entry.ticker,
+                        koName: entry.koName,
+                        amount: entry.amount,
+                        currency: entry.currency,
+                        eventClass: getEventClass(entry),
+                        frequency: entry.frequency,
+                        group: entry.group,
+                    },
+                }))
+        );
     });
 
     const holidayEvents = computed(() => {
@@ -80,17 +93,16 @@
         locale: koLocale,
         headerToolbar: false,
         showNonCurrentDates: false,
-        validRange: validRange.value,
+        validRange: { start: '2024-01-01', end: '2026-04-01' },
         datesSet: (info) => {
             currentTitle.value = info.view.title;
-            if (info.view.type !== currentView.value) {
+            if (info.view.type !== currentView.value)
                 currentView.value = info.view.type;
-            }
+        }, // [핵심 수정] events를 함수 형태로 제공하여 반응성 확보
+        events: (fetchInfo, successCallback, failureCallback) => {
+            successCallback(calendarEvents.value);
         },
-        eventSources: [
-            { events: calendarEvents.value },
-            { events: holidayEvents.value },
-        ],
+        eventSources: [{ events: holidayEvents.value }],
         weekends: false,
         eventClassNames: (arg) =>
             arg.event.extendedProps.eventClass || 'freq-default',
@@ -98,67 +110,51 @@
             const actionElement = info.jsEvent.target.closest('[data-action]');
             if (actionElement) {
                 const { action } = actionElement.dataset;
-                const { symbol } = info.event.extendedProps;
-                if (action === 'view') emit('view-ticker', symbol);
-                else if (action === 'remove') toggleMyStock(symbol);
+                const { ticker } = info.event.extendedProps;
+                if (action === 'view') emit('view-ticker', ticker);
+                else if (action === 'remove') toggleMyStock(ticker);
             }
         },
         eventContent: (arg) => {
-            if (arg.event.extendedProps.isHoliday) {
+            if (arg.event.extendedProps.isHoliday)
                 return {
                     html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>`,
                 };
-            }
-            const {
-                symbol,
-                amount,
-                eventClass,
-                koName,
-                currency,
-                isExpected,
-                isForecast,
-            } = arg.event.extendedProps;
+
+            const { ticker, amount, eventClass, koName, currency } =
+                arg.event.extendedProps;
             const currencySymbol = currency === 'KRW' ? '₩' : '$';
-            const displayName = koName || symbol;
-
-            let amountHtml;
-            if (amount !== null && amount !== undefined) {
-                const amountStr = new Intl.NumberFormat(
-                    currency === 'KRW' ? 'ko-KR' : 'en-US',
-                    {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 6,
-                    }
-                ).format(amount);
-                amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
-            } else {
-                if (isForecast)
-                    amountHtml = '<span class="no-amount">예상</span>';
-                else if (isExpected)
-                    amountHtml = '<span class="no-amount">예정</span>';
-                else amountHtml = '<span class="no-amount">예상</span>';
-            }
-
-            const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
-            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
+            const displayName = koName || ticker;
+            const amountStr =
+                amount != null
+                    ? `${currencySymbol}${currency === 'KRW' ? Math.round(amount) : amount.toFixed(4)}`
+                    : '';
+            const amountHtml =
+                amount != null
+                    ? `<span>${amountStr}</span>`
+                    : '<span class="no-amount">예정</span>';
+            const viewButtonHtml = `<button class="p-button ... " data-action="view" ...><span class="pi pi-link"></span></button>`;
+            const removeButtonHtml = `<button class="p-button ... " data-action="remove" ...><span class="pi pi-times"></span></button>`;
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span>...</div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {
-                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span>...</div>`,
+                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ..."><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
                 };
             }
         },
     }));
+
     watch(currentView, (newView) => {
-        if (fullCalendar.value) fullCalendar.value.getApi().changeView(newView);
+        if (newView && fullCalendar.value)
+            fullCalendar.value.getApi().changeView(newView);
     });
     watch(isMobile, (isNowMobile) => {
         if (fullCalendar.value)
@@ -166,6 +162,7 @@
                 .getApi()
                 .changeView(isNowMobile ? 'listWeek' : 'dayGridMonth');
     });
+    // [핵심 수정] prop 변경 시 refetchEvents()를 호출하여 캘린더를 다시 그리도록 함
     watch(
         () => props.dividendsByDate,
         () => {
@@ -208,14 +205,7 @@
             <div class="header-right">
                 <SelectButton
                     v-model="currentView"
-                    :options="
-                        isMobile
-                            ? [{ label: '목록', value: 'listWeek' }]
-                            : [
-                                  { label: '월', value: 'dayGridMonth' },
-                                  { label: '주', value: 'dayGridWeek' },
-                              ]
-                    "
+                    :options="viewOptions"
                     optionLabel="label"
                     optionValue="value"
                     aria-labelledby="basic" />
