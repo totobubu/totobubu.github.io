@@ -1,171 +1,501 @@
 [
-    {
-        "symbol": "ECL",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "ED",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1962-01-02",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "EETH",
-        "company": "ProSares",
-        "frequency": "매월",
-        "ipoDate": "2023-10-02",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "EFX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "FMSN"
-    },
-    {
-        "symbol": "EG",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1995-10-03",
-        "frequency": "분기",
-        "group": "MMSN"
-    },
-    {
-        "symbol": "EIX",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-05-03",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "EL",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1995-11-17",
-        "frequency": "분기",
-        "group": "FMSN"
-    },
-    {
-        "symbol": "ELV",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2001-10-30",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "EME",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1995-01-10",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "EMN",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1993-12-14",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "EMR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1972-06-01",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "EOG",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1989-10-04",
-        "frequency": "분기",
-        "group": "JAJO"
-    },
-    {
-        "symbol": "EPAM",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2012-02-08"
-    },
-    {
-        "symbol": "EQR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1993-08-12",
-        "frequency": "분기",
-        "group": "JMJS"
-    },
-    {
-        "symbol": "EQT",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1980-03-17",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "ES",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "MMSD"
-    },
-    {
-        "symbol": "ESS",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1994-06-07",
-        "frequency": "분기",
-        "group": "JMJS"
-    },
-    {
-        "symbol": "ETN",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1972-06-01",
-        "frequency": "분기",
-        "group": "MMAN"
-    },
-    {
-        "symbol": "ETR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1972-06-01",
-        "frequency": "분기",
-        "group": "FMAN"
-    },
-    {
-        "symbol": "EW",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2000-03-27"
-    },
-    {
-        "symbol": "EXPD",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1984-09-26"
-    },
-    {
-        "symbol": "EXR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2004-08-16",
-        "frequency": "분기",
-        "group": "MJSD"
-    }
+  {
+    "symbol": "EAGG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EAGL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Eagle"
+  },
+  {
+    "symbol": "EBND",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "ECH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ECL",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "ED",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1962-01-02",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "EDIV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "EDV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "EEM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EEMA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EEMV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EETH",
+    "company": "ProSares",
+    "frequency": "매월",
+    "ipoDate": "2023-10-02",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "EFA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EFAV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EFG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EFIV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "SPDR"
+  },
+  {
+    "symbol": "EFV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EFX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "FMSN"
+  },
+  {
+    "symbol": "EG",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1995-10-03",
+    "frequency": "분기",
+    "group": "MMSN"
+  },
+  {
+    "symbol": "EIPI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "FT"
+  },
+  {
+    "symbol": "EIX",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-05-03",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "EL",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1995-11-17",
+    "frequency": "분기",
+    "group": "FMSN"
+  },
+  {
+    "symbol": "ELV",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2001-10-30",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "EMB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EMCS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Xtrackers"
+  },
+  {
+    "symbol": "EME",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1995-01-10",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "EMGF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EMLC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "VanEck"
+  },
+  {
+    "symbol": "EMLP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "First"
+  },
+  {
+    "symbol": "EMN",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1993-12-14",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "EMR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1972-06-01",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "EMXC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EOG",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1989-10-04",
+    "frequency": "분기",
+    "group": "JAJO"
+  },
+  {
+    "symbol": "EPAM",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2012-02-08"
+  },
+  {
+    "symbol": "EPI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "WisdomTree"
+  },
+  {
+    "symbol": "EPP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EPS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "WisdomTree"
+  },
+  {
+    "symbol": "EQR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1993-08-12",
+    "frequency": "분기",
+    "group": "JMJS"
+  },
+  {
+    "symbol": "EQT",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1980-03-17",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "EQTY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Kovitz"
+  },
+  {
+    "symbol": "EQWL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "ES",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "MMSD"
+  },
+  {
+    "symbol": "ESGD",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ESGE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ESGU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ESGV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "ESML",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ESS",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1994-06-07",
+    "frequency": "분기",
+    "group": "JMJS"
+  },
+  {
+    "symbol": "ETH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Grayscale"
+  },
+  {
+    "symbol": "ETHA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "ETHE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Grayscale"
+  },
+  {
+    "symbol": "ETHU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "2x"
+  },
+  {
+    "symbol": "ETN",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1972-06-01",
+    "frequency": "분기",
+    "group": "MMAN"
+  },
+  {
+    "symbol": "ETR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1972-06-01",
+    "frequency": "분기",
+    "group": "FMAN"
+  },
+  {
+    "symbol": "EUAD",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Select"
+  },
+  {
+    "symbol": "EUFN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EUSA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EVLN",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Eaton"
+  },
+  {
+    "symbol": "EVTR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Eaton"
+  },
+  {
+    "symbol": "EW",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2000-03-27"
+  },
+  {
+    "symbol": "EWA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWJ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWY",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EWZ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EXI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "EXPD",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1984-09-26"
+  },
+  {
+    "symbol": "EXR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2004-08-16",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "EZM",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "WisdomTree"
+  },
+  {
+    "symbol": "EZU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  }
 ]

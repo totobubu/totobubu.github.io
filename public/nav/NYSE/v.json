@@ -1,88 +1,520 @@
 [
-    {
-        "symbol": "V",
-        "frequency": "분기",
-        "group": "FMAN",
-        "ipoDate": "2008-03-19",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "VICI",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2018-01-02",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "VIG",
-        "company": "Vanguard",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "2006-05-02",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "VLO",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1982-01-04",
-        "frequency": "분기",
-        "group": "JMJN"
-    },
-    {
-        "symbol": "VLTO",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2023-10-04",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "VMC",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1973-02-21",
-        "frequency": "분기",
-        "group": "MMAN"
-    },
-    {
-        "symbol": "VOO",
-        "company": "Vanguard",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "2010-09-09",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "VST",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "2016-10-05",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "VTR",
-        "market": "NYSE",
-        "currency": "USD",
-        "ipoDate": "1997-05-05",
-        "frequency": "분기",
-        "group": "MJSD"
-    },
-    {
-        "symbol": "VYM",
-        "company": "Vanguard",
-        "frequency": "분기",
-        "group": "MJSD",
-        "ipoDate": "2006-11-16",
-        "market": "NYSE"
-    },
-    {
-        "symbol": "VZ",
-        "frequency": "분기",
-        "group": "JAJO",
-        "ipoDate": "1983-11-21",
-        "market": "NYSE"
-    }
+  {
+    "symbol": "V",
+    "frequency": "분기",
+    "group": "FMAN",
+    "ipoDate": "2008-03-19",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "VAW",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VBIL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VBK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VBR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCEB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCIT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCLT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCRB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VCSH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VDC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VDE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VEA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VEU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VFH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VFLO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "VictoryShares"
+  },
+  {
+    "symbol": "VFMO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VGIT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VGK",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VGLT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VGSH",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VGT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VHT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VICI",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2018-01-02",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "VIG",
+    "company": "Vanguard",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "2006-05-02",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "VIGI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VIOG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VIOO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VIOV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VIS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VLO",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1982-01-04",
+    "frequency": "분기",
+    "group": "JMJN"
+  },
+  {
+    "symbol": "VLTO",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2023-10-04",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "VLUE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "iShares"
+  },
+  {
+    "symbol": "VMBS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VMC",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1973-02-21",
+    "frequency": "분기",
+    "group": "MMAN"
+  },
+  {
+    "symbol": "VNLA",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Janus"
+  },
+  {
+    "symbol": "VNQ",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VNQI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VOE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VONE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VONG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VONV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VOO",
+    "company": "Vanguard",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "2010-09-09",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "VOOG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VOOV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VOT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VOTE",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "TCW"
+  },
+  {
+    "symbol": "VOX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VPL",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VPLS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VPU",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VRIG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "VRP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Invesco"
+  },
+  {
+    "symbol": "VSGX",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VSS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VST",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "2016-10-05",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "VT",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTEB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTEC",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTEI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTES",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTHR",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTIP",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTR",
+    "market": "NYSE",
+    "currency": "USD",
+    "ipoDate": "1997-05-05",
+    "frequency": "분기",
+    "group": "MJSD"
+  },
+  {
+    "symbol": "VTV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTWG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTWO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VTWV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VUG",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VUSB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VV",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VWO",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VWOB",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VXF",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VXUS",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VYM",
+    "company": "Vanguard",
+    "frequency": "분기",
+    "group": "MJSD",
+    "ipoDate": "2006-11-16",
+    "market": "NYSE"
+  },
+  {
+    "symbol": "VYMI",
+    "market": "NYSE",
+    "currency": "USD",
+    "company": "Vanguard"
+  },
+  {
+    "symbol": "VZ",
+    "frequency": "분기",
+    "group": "JAJO",
+    "ipoDate": "1983-11-21",
+    "market": "NYSE"
+  }
 ]
