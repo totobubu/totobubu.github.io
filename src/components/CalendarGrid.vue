@@ -1,6 +1,6 @@
-<!-- REFACTORED: src/components/CalendarGrid.vue -->
+<!-- src\components\CalendarGrid.vue -->
 <script setup>
-    import { ref, computed, watch, defineEmits } from 'vue';
+    import { ref, computed, watch } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
     import dayGridPlugin from '@fullcalendar/daygrid';
     import listPlugin from '@fullcalendar/list';
@@ -8,7 +8,6 @@
     import koLocale from '@fullcalendar/core/locales/ko';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
-
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
@@ -17,7 +16,6 @@
     const props = defineProps({
         dividendsByDate: Object,
         holidays: Array,
-        allTickers: Array,
     });
 
     const emit = defineEmits(['view-ticker']);
@@ -36,10 +34,9 @@
               ]
     );
 
-    const getEventClass = (tickerInfo) => {
-        if (!tickerInfo) return 'freq-default';
-        const { frequency, group } = tickerInfo;
-
+    const getEventClass = (entry) => {
+        if (!entry) return 'freq-default';
+        const { frequency, group } = entry;
         if (frequency === '매월') return 'freq-monthly';
         if (frequency === '분기') return 'freq-quarterly';
         if (frequency === '매주') {
@@ -55,27 +52,24 @@
         return 'freq-default';
     };
 
-    const calendarEvents = computed(() => {
-        if (!props.dividendsByDate) return [];
+    // [핵심 수정] computed 대신 일반 함수로 변경하여 eventSources 내부에서 호출
+    const getCalendarEvents = () => {
+        if (!props.dividendsByDate || typeof props.dividendsByDate !== 'object')
+            return [];
         return Object.entries(props.dividendsByDate).flatMap(
             ([date, dividendArray]) =>
                 dividendArray.map((entry) => ({
-                    title: entry.amount
-                        ? `${entry.ticker} $${entry.amount.toFixed(4)}`
-                        : entry.ticker,
+                    title: `${entry.koName || entry.ticker}`,
                     start: date,
                     extendedProps: {
-                        ticker: entry.ticker,
-                        amount: entry.amount,
+                        ...entry,
                         eventClass: getEventClass(entry),
-                        frequency: entry.frequency,
-                        group: entry.group,
                     },
                 }))
         );
-    });
+    };
 
-    const holidayEvents = computed(() => {
+    const getHolidayEvents = () => {
         if (!props.holidays) return [];
         return props.holidays.map((holiday) => ({
             id: `holiday-${holiday.date}`,
@@ -85,7 +79,7 @@
             color: 'rgba(255, 0, 0, 0.3)',
             extendedProps: { isHoliday: true },
         }));
-    });
+    };
 
     const calendarOptions = computed(() => ({
         plugins: [dayGridPlugin, listPlugin, interactionPlugin],
@@ -96,18 +90,22 @@
         validRange: { start: '2024-01-01', end: '2026-04-01' },
         datesSet: (info) => {
             currentTitle.value = info.view.title;
-            if (info.view.type !== currentView.value) {
+            if (info.view.type !== currentView.value)
                 currentView.value = info.view.type;
-            }
         },
+        // [핵심 수정] eventSources를 사용하여 데이터를 동적으로 로드
         eventSources: [
             {
-                events: (fetchInfo, successCallback) =>
-                    successCallback(calendarEvents.value),
+                id: 'dividends',
+                events: (fetchInfo, successCallback) => {
+                    successCallback(getCalendarEvents());
+                },
             },
             {
-                events: (fetchInfo, successCallback) =>
-                    successCallback(holidayEvents.value),
+                id: 'holidays',
+                events: (fetchInfo, successCallback) => {
+                    successCallback(getHolidayEvents());
+                },
             },
         ],
         weekends: false,
@@ -123,16 +121,23 @@
             }
         },
         eventContent: (arg) => {
-            if (arg.event.extendedProps.isHoliday) {
+            if (arg.event.extendedProps.isHoliday)
                 return {
                     html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>`,
                 };
-            }
-
-            const { ticker, amount, eventClass } = arg.event.extendedProps;
+            const { ticker, amount, eventClass, koName, currency } =
+                arg.event.extendedProps;
+            const currencySymbol = currency === 'KRW' ? '₩' : '$';
+            const displayName = koName || ticker;
+            const amountStr =
+                amount != null
+                    ? currency === 'KRW'
+                        ? Math.round(amount)
+                        : amount.toFixed(4)
+                    : '';
             const amountHtml =
                 amount != null
-                    ? `<span>$${amount.toFixed(4)}</span>`
+                    ? `<span>${currencySymbol}${amountStr}</span>`
                     : '<span class="no-amount">예정</span>';
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
             const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
@@ -154,19 +159,18 @@
     }));
 
     watch(currentView, (newView) => {
-        if (newView && fullCalendar.value) {
-            fullCalendar.value.getApi().changeView(newView);
-        }
+        if (fullCalendar.value) fullCalendar.value.getApi().changeView(newView);
     });
     watch(isMobile, (isNowMobile) => {
-        if (fullCalendar.value) {
+        if (fullCalendar.value)
             fullCalendar.value
                 .getApi()
                 .changeView(isNowMobile ? 'listWeek' : 'dayGridMonth');
-        }
     });
+
+    // [핵심 수정] props가 변경되면 refetchEvents를 호출하여 캘린더를 다시 그림
     watch(
-        () => [props.dividendsByDate, props.holidays],
+        [() => props.dividendsByDate, () => props.holidays],
         () => {
             fullCalendar.value?.getApi().refetchEvents();
         },
@@ -180,9 +184,7 @@
 
 <template>
     <Card v-if="isMobile" id="t-calendar-list">
-        <template #header>
-            {{ currentTitle }}
-        </template>
+        <template #header>{{ currentTitle }}</template>
         <template #title>
             <Button icon="pi pi-chevron-left" text @click="prevMonth" />
             <Button
@@ -196,7 +198,6 @@
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </template>
     </Card>
-
     <Panel v-else id="t-calendar-grid">
         <template #header>
             <div class="header-left">

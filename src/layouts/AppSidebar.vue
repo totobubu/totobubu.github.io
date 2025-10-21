@@ -5,66 +5,99 @@ import { useBreakpoint } from '@/composables/useBreakpoint.js';
 import { getGroupSeverity } from '@/utils/uiHelpers.js';
 import { user } from '../store/auth';
 
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Tag from 'primevue/tag';
-import Skeleton from 'primevue/skeleton';
-// import SelectButton from 'primevue/selectbutton'; // 제거
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
-import ToggleButton from 'primevue/togglebutton';
-import CompanyLogo from '@/components/CompanyLogo.vue';
-import FilterInput from '@/components/FilterInput.vue';
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import Tag from 'primevue/tag';
+    import Skeleton from 'primevue/skeleton';
+    import SelectButton from 'primevue/selectbutton';
+    import CompanyLogo from '@/components/CompanyLogo.vue';
+    import FilterInput from '@/components/FilterInput.vue';
 
-const {
-    isLoading, error, selectedTicker, filters, showMyStocksOnly, myBookmarks,
-    filteredTickers, dialogsVisible, companies, frequencies, groups,
-    handleBookmarkToggle, handleStockBookmarkClick, onRowSelect, openFilterDialog, selectFilter,
-} = useSidebar();
+    const {
+        isLoading,
+        error,
+        selectedTicker,
+        globalSearchQuery,
+        mainFilterTab,
+        subFilterTab,
+        myBookmarks,
+        filteredTickers,
+        handleStockBookmarkClick,
+        onRowSelect,
+        handleTickerRequest,
+    } = useSidebar();
 
-const { isMobile } = useBreakpoint();
-const skeletonItems = ref(new Array(25));
-const tableSize = computed(() => (isMobile.value ? 'small' : null));
+    const { isMobile } = useBreakpoint();
+    const skeletonItems = ref(new Array(25));
+    const tableSize = computed(() => (isMobile.value ? 'small' : null));
+
+    // [수정] 옵션을 단순 문자열 배열로 변경
+    const mainFilterOptions = ref(['북마크', '미국', '한국']);
+    const subFilterOptions = ref(['ETF', '주식']);
 </script>
 
 <template>
-    <div>
-        <!-- [수정] 헤더 영역을 원래대로 복구 -->
-        <div class="p-3">
-            <FilterInput
-                v-model="filters.global.value"
-                title="전체 티커 검색"
-                filter-type="global" />
+    <div class="h-full flex flex-column gap-2">
+        <div class="flex flex-column gap-2 p-0">
+            <!-- [수정] v-model을 mainFilterTab에 직접 연결하고 템플릿 단순화 -->
+            <SelectButton
+                v-model="mainFilterTab"
+                :options="mainFilterOptions"
+                size="small"
+                class="w-full" />
+
+            <SelectButton
+                v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
+                v-model="subFilterTab"
+                :options="subFilterOptions"
+                size="small"
+                class="w-full" />
+
+            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
-        
-        <DataTable
-            v-if="!error"
-            id="toto-search-datatable"
-            :value="isLoading ? skeletonItems : filteredTickers"
-            v-model:filters="filters"
-            v-model:selection="selectedTicker"
-            dataKey="symbol"
-            selectionMode="single"
-            @rowSelect="onRowSelect"
-            :globalFilterFields="['symbol', 'longName', 'company']"
-            stripedRows
-            scrollable
-            scrollHeight="calc(100vh - 120px)"
-            :size="tableSize"
-            :class="{ 'p-datatable-loading': isLoading }">
-            <template #empty>
-                <div class="text-center p-4">검색 결과가 없습니다.</div>
-            </template>
-            <Column frozen class="toto-column-bookmark">
-                <template #header>
-                    <ToggleButton
-                        :modelValue="showMyStocksOnly"
-                        @click.stop="handleBookmarkToggle"
-                        :disabled="!user"
-                        onIcon="pi pi-bookmark-fill" offIcon="pi pi-bookmark"
-                        aria-label="내 종목만 보기" />
+
+        <div class="flex-grow-1 overflow-hidden">
+            <DataTable
+                v-if="!error"
+                id="toto-search-datatable"
+                :value="isLoading ? skeletonItems : filteredTickers"
+                v-model:selection="selectedTicker"
+                :globalFilter="globalSearchQuery"
+                dataKey="symbol"
+                selectionMode="single"
+                @rowSelect="onRowSelect"
+                :globalFilterFields="[
+                    'symbol',
+                    'longName',
+                    'koName',
+                    'company',
+                ]"
+                stripedRows
+                scrollable
+                scrollHeight="flex"
+                :size="tableSize"
+                :class="{ 'p-datatable-loading': isLoading }"
+                class="h-full">
+                <template #empty>
+                    <div
+                        v-if="mainFilterTab === '북마크'"
+                        class="text-center p-4">
+                        <p v-if="!user" class="mb-2">
+                            로그인 후 종목을 북마크에 추가해 보세요.
+                        </p>
+                        <p
+                            v-else-if="Object.keys(myBookmarks).length === 0"
+                            class="mb-2">
+                            아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
+                            아이콘을 클릭하여 추가하세요.
+                        </p>
+                        <p v-else>검색 결과가 없습니다.</p>
+                    </div>
+                    <div v-else class="text-center p-4">
+                        검색 결과가 없습니다.
+                    </div>
                 </template>
                 <template #body="{ data }">
                     <Skeleton v-if="isLoading" shape="circle" size="1rem"></Skeleton>

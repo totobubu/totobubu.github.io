@@ -3,10 +3,6 @@
 @use '../abstracts/mixins' as mx;
 @use '../functions/breakpoints' as bp;
 
-#p-calendar {
-    height: 100%;
-}
-
 #t-calendar-list {
     background: var(--p-zinc-800);
     color: #fff;
@@ -251,6 +247,22 @@
             &-week {
             }
             &-month {
+            }
+        }
+    }
+}
+
+#p-calendar {
+    height: 100%;
+    &.filter-kr {
+        #t-calendar-grid .fc-dayGridMonth-view .fc-h-event {
+            width: 100px;
+            b {
+                text-align: center;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
     }

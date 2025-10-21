@@ -1,158 +1,114 @@
-// src\composables\charts\useQuarterlyChart.js
-import { computed } from 'vue';
+// src/composables/charts/useQuarterlyChart.js
 import { parseYYMMDD } from '@/utils/date.js';
-import {
-    getDynamicChartWidth,
-    getChartAspectRatio,
-    getBarStackFontSize,
-    getCommonPlugins,
-    createStackedBarDatasets,
-} from '@/utils/chartUtils.js';
-
-const defaultQuarterColors = {
-    1: '#4285F4',
-    2: '#EA4335',
-    3: '#FBBC04',
-    4: '#34A853',
-};
+import { createNumericFormatter } from '@/utils/formatters.js';
+import { monthColors } from '@/utils/chartUtils';
 
 export function useQuarterlyChart(options) {
-    const {
-        data,
-        deviceType,
-        theme,
-        aggregation = 'quarter',
-        colorMap = defaultQuarterColors,
-        labelPrefix = '분기',
-    } = options;
+    const { data, theme, currency = 'USD', aggregation = 'quarter' } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
+    const formatCurrency = createNumericFormatter(currency);
+    const quarterColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
 
-    const yearlyAggregated = data.reduce((acc, item) => {
+    const yearlyData = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
 
         const subCategory =
             aggregation === 'quarter'
-                ? Math.floor(date.getMonth() / 3) + 1
-                : date.getMonth() + 1;
-
-        const amount = parseFloat(item['배당금']?.replace('$', '') || 0);
-        if (!acc[year]) acc[year] = { total: 0, stacks: {} };
-        if (!acc[year].stacks[subCategory]) acc[year].stacks[subCategory] = 0;
-        acc[year].stacks[subCategory] += amount;
-        acc[year].total += amount;
+                ? Math.floor(date.getMonth() / 3)
+                : date.getMonth();
+        if (!acc[year])
+            acc[year] =
+                aggregation === 'quarter' ? [0, 0, 0, 0] : Array(12).fill(0);
+        acc[year][subCategory] += item['배당금'];
         return acc;
     }, {});
 
-    const labels = Object.keys(yearlyAggregated).sort((a, b) => b - a);
-    const itemWidth = aggregation === 'quarter' ? 90 : 60;
-    const chartContainerWidth = getDynamicChartWidth(
-        labels.length,
-        deviceType,
-        itemWidth
+    const years = Object.keys(yearlyData).sort(
+        (a, b) => parseInt(a) - parseInt(b)
     );
-    const barLabelSize = getBarStackFontSize(
-        labels.length,
-        deviceType,
-        'default'
-    );
-    const totalLabelSize = getBarStackFontSize(
-        labels.length,
-        deviceType,
-        'total'
-    );
-    const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
+    const chartContainerHeight = `${Math.max(250, years.length * 60)}px`;
 
-    const datasets = createStackedBarDatasets({
-        aggregatedData: yearlyAggregated,
-        primaryLabels: labels,
-        colorMap: colorMap,
-        labelPrefix: labelPrefix,
-        dataLabelConfig: {
-            display: (context) =>
-                (context.dataset.data[context.dataIndex] || 0) > 0.0001 &&
-                labels.length <= 11 &&
-                aggregation === 'quarter',
-            formatter: (value) => `$${value.toFixed(2)}`,
-            color: '#fff',
-            font: { size: barLabelSize, weight: 'bold' },
-            align: 'center',
-            anchor: 'center',
+    const subCategories =
+        aggregation === 'quarter'
+            ? [0, 1, 2, 3]
+            : Array.from({ length: 12 }, (_, i) => i);
+    const subCategoryLabels =
+        aggregation === 'quarter'
+            ? ['1분기', '2분기', '3분기', '4분기']
+            : Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
+    const colorMap =
+        aggregation === 'quarter' ? quarterColors : Object.values(monthColors);
+
+    const series = subCategories.map((sc, i) => ({
+        name: subCategoryLabels[i],
+        type: 'bar',
+        stack: 'total',
+        label: {
+            show: true,
+            formatter: (params) =>
+                params.value > 0 ? formatCurrency(params.value) : '',
         },
-        totalLabelConfig: {
-            display: labels.length <= 11,
-            formatter: (value, context) => {
-                const total =
-                    yearlyAggregated[labels[context.dataIndex]]?.total || 0;
-                return total > 0 ? `$${total.toFixed(2)}` : '';
+        emphasis: { focus: 'series' },
+        data: years.map((year) => yearlyData[year][sc]),
+        itemStyle: { color: colorMap[i] },
+    }));
+
+    series.push({
+        name: '연간 총액',
+        type: 'bar',
+        stack: 'total',
+        label: {
+            show: true,
+            position: 'right',
+            formatter: (params) => {
+                const total = yearlyData[params.name].reduce(
+                    (sum, val) => sum + val,
+                    0
+                );
+                return total > 0 ? formatCurrency(total) : '';
             },
             color: textColor,
-            anchor: 'end',
-            align: 'end',
-            offset: (context) =>
-                (context.chart.options.plugins.datalabels.font.size ||
-                    totalLabelSize) /
-                    -2 +
-                2,
-            font: { size: totalLabelSize, weight: 'bold' },
+            fontWeight: 'bold',
         },
+        data: years.map(() => 0),
     });
 
-    const chartData = { labels, datasets };
-    const maxTotal = Math.max(
-        0,
-        ...Object.values(yearlyAggregated).map((y) => y.total)
-    );
-    const yAxisMax = maxTotal * 1.25;
-
     const chartOptions = {
-        maintainAspectRatio: false,
-        aspectRatio: getChartAspectRatio(deviceType),
-        plugins: getCommonPlugins({
-            theme: { ...theme, tickFontSize },
-            tooltipCallbacks: {
-                callbacks: {
-                    label: (item) =>
-                        item.raw > 0 && item.dataset.label !== 'Total'
-                            ? `${item.dataset.label}: $${Number(item.raw).toFixed(2)}`
-                            : null,
-                    footer: (items) => {
-                        const valid = items.filter(
-                            (i) => i.raw > 0 && i.dataset.label !== 'Total'
-                        );
-                        if (valid.length === 0) return '';
-                        const sum = valid.reduce((t, c) => t + c.raw, 0);
-                        return `Total: $${sum.toFixed(2)}`;
-                    },
-                },
-            },
-        }),
-        scales: {
-            x: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary,
-                    font: { size: tickFontSize },
-                },
-                grid: { color: surfaceBorder },
-            },
-            y: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary,
-                    font: { size: tickFontSize },
-                },
-                grid: { color: surfaceBorder },
-                max: yAxisMax,
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow' },
+            formatter: (params) => {
+                const year = params[0].name;
+                const total = yearlyData[year].reduce(
+                    (sum, val) => sum + val,
+                    0
+                );
+                let tooltip = `${year}년<br/>`;
+                params
+                    .filter((p) => p.seriesName !== '연간 총액' && p.value > 0)
+                    .forEach((p) => {
+                        tooltip += `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value)}</strong><br/>`;
+                    });
+                tooltip += `<strong>총액: ${formatCurrency(total)}</strong>`;
+                return tooltip;
             },
         },
+        legend: { show: true, textStyle: { color: textColorSecondary } },
+        grid: { left: '3%', right: '15%', bottom: '3%', containLabel: true },
+        xAxis: {
+            type: 'value',
+            axisLabel: { color: textColorSecondary },
+            splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
+        },
+        yAxis: {
+            type: 'category',
+            data: years,
+            axisLabel: { color: textColorSecondary },
+        },
+        series: series,
     };
 
-    // [핵심 수정] return 문에서 존재하지 않는 timeRangeOptions와 selectedTimeRange를 제거합니다.
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-    };
+    return { chartOptions, chartContainerHeight };
 }

@@ -1,19 +1,22 @@
-import { ref } from 'vue';
-import { FilterMatchMode } from '@primevue/core/api';
+// src/composables/useFilterState.js
+import { ref, watch } from 'vue';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-const filters = ref({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    // marketType 필터 제거
-    company: { value: null, matchMode: FilterMatchMode.EQUALS },
-    frequency: { value: null, matchMode: FilterMatchMode.EQUALS },
-    group: { value: null, matchMode: FilterMatchMode.EQUALS },
-    yield: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
-});
+const globalSearchQuery = ref(null);
+// --- [핵심 수정] mainFilterTab의 기본값을 '북마크'로 변경 ---
+const mainFilterTab = ref('북마크');
+// --- // ---
+const subFilterTab = ref('ETF');
 
 const showMyStocksOnly = ref(false);
 const myBookmarks = ref({});
+
+watch(mainFilterTab, (newTab) => {
+    if (newTab === '미국' || newTab === '한국') {
+        subFilterTab.value = 'ETF';
+    }
+});
 
 export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
@@ -69,8 +72,9 @@ const updateBookmarkDetails = (symbol, details) => {
 
 export function useFilterState() {
     return {
-        filters,
-        showMyStocksOnly,
+        globalSearchQuery,
+        mainFilterTab,
+        subFilterTab,
         myBookmarks,
         toggleMyStock,
         toggleShowMyStocksOnly: () => {

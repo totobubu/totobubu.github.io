@@ -4,7 +4,7 @@ import { joinURL } from 'ufo';
 
 const tickerInfo = ref(null);
 const dividendHistory = ref([]);
-const backtestData = ref(null);
+const backtestData = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
@@ -40,7 +40,7 @@ export function useStockData() {
         isUpcoming.value = false;
         tickerInfo.value = null;
         dividendHistory.value = [];
-        backtestData.value = null;
+        backtestData.value = [];
 
         try {
             const navData = await loadNavData();
@@ -55,63 +55,95 @@ export function useStockData() {
                 );
             }
 
-            const originalTickerSymbol = navInfo.symbol;
-
             if (navInfo.upcoming) {
                 isUpcoming.value = true;
                 tickerInfo.value = navInfo;
-                try {
-                    const liveDataResponse = await fetch(
-                        `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
-                    );
-                    if (liveDataResponse.ok) {
-                        const liveData = (await liveDataResponse.json())[0];
-                        if (liveData)
-                            tickerInfo.value = {
-                                ...tickerInfo.value,
-                                ...liveData,
-                            };
-                    }
-                } catch (e) {
-                    console.warn(
-                        `Upcoming ticker ${originalTickerSymbol} live data fetch failed, but proceeding.`
-                    );
-                }
+                isLoading.value = false;
                 return;
             }
 
-            const [liveDataResponse, staticDataResponse] = await Promise.all([
-                fetch(
-                    `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
-                ),
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        `data/${sanitizedTicker}.json`
-                    )
-                ),
-            ]);
-
-            if (!liveDataResponse.ok)
-                throw new Error('실시간 시세 정보를 가져오지 못했습니다.');
-            const liveData = (await liveDataResponse.json())[0];
-            if (!liveData)
-                throw new Error(
-                    `'${originalTickerSymbol.toUpperCase()}'에 대한 시세 정보가 없습니다.`
-                );
+            const originalTickerSymbol = navInfo.symbol;
+            const staticDataResponse = await fetch(
+                joinURL(
+                    import.meta.env.BASE_URL,
+                    `data/${sanitizedTicker}.json`
+                )
+            );
 
             if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
+                const fullBacktestData = staticData.backtestData || [];
+
+                const pricesWithIndex = fullBacktestData.map((p, i) => ({
+                    ...p,
+                    index: i,
+                }));
+
+                dividendHistory.value = pricesWithIndex
+                    .filter(
+                        (item) =>
+                            item.amount !== undefined ||
+                            item.amountFixed !== undefined
+                    )
+                    .map((item) => {
+                        const prevDayData = pricesWithIndex[item.index - 1];
+                        const nextDayData = pricesWithIndex[item.index + 1];
+                        return {
+                            배당락: new Date(item.date)
+                                .toLocaleDateString('ko-KR', {
+                                    year: '2-digit',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                })
+                                .replace(/\. /g, '.')
+                                .slice(0, -1),
+                            배당금:
+                                item.amountFixed !== undefined
+                                    ? item.amountFixed
+                                    : item.amount,
+                            배당률: item.yield,
+                            전일종가: prevDayData ? prevDayData.close : null,
+                            당일시가: item.open,
+                            당일종가: item.close,
+                            익일종가: nextDayData ? nextDayData.close : null,
+                        };
+                    })
+                    .reverse();
+
+                backtestData.value = fullBacktestData
+                    .filter((d) => d.close != null)
+                    .map(({ date, open, high, low, close, volume }) => ({
+                        date,
+                        open,
+                        high,
+                        low,
+                        close,
+                        volume,
+                    }));
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
                     ...navInfo,
-                    ...liveData,
                 };
-                dividendHistory.value = staticData.dividendHistory || [];
-                backtestData.value = staticData.backtestData || {};
+            }
+
+            const liveDataResponse = await fetch(
+                `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
+            );
+            if (liveDataResponse.ok) {
+                const liveDataArray = await liveDataResponse.json();
+                const liveData = liveDataArray[0];
+                if (liveData) {
+                    tickerInfo.value = { ...tickerInfo.value, ...liveData };
+                    if (liveData.exchange) {
+                        tickerInfo.value.market =
+                            marketNameMap[liveData.exchange] ||
+                            liveData.exchange;
+                    }
+                }
             } else {
-                tickerInfo.value = { ...navInfo, ...liveData };
-                isUpcoming.value = true;
+                console.warn(
+                    `Could not fetch live data for ${originalTickerSymbol}`
+                );
             }
         } catch (err) {
             console.error(`Failed to load data for ${sanitizedTicker}:`, err);
@@ -122,7 +154,6 @@ export function useStockData() {
             isLoading.value = false;
         }
     };
-
     return {
         tickerInfo,
         dividendHistory,

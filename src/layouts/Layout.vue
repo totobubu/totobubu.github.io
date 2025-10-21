@@ -1,9 +1,10 @@
+<!-- src/layouts/Layout.vue -->
 <script setup>
-import { ref, watch, computed } from 'vue';
-import { RouterView, useRoute, useRouter } from 'vue-router';
-import { useBreakpoint } from '@/composables/useBreakpoint';
-import { handleSignOut, user } from '../store/auth';
-import { useStockData } from '@/composables/useStockData';
+    import { ref, watch, computed } from 'vue';
+    import { RouterView, useRoute, useRouter } from 'vue-router';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { handleSignOut, user } from '../store/auth'; // handleSignOut import
+    import { useStockData } from '@/composables/useStockData';
 
 import Drawer from 'primevue/drawer';
 import Button from 'primevue/button';
@@ -27,18 +28,96 @@ const breadcrumbItems = computed(() => {
     const home = { icon: 'pi pi-home', to: '/' };
     const items = [];
 
-    if (route.name === 'calendar') items.push({ label: '배당달력' });
-    else if (route.name === 'mypage') items.push({ label: '마이페이지' });
-    else if (route.name === 'contact') items.push({ label: '문의하기' });
-    else if (route.name === 'backtester') items.push({ label: '백테스터' });
-    else if (route.name === 'stock-detail' && tickerInfo.value) {
-        if (tickerInfo.value.symbol) items.push({ label: tickerInfo.value.symbol.toUpperCase() });
-        if (isDesktop.value && tickerInfo.value.longName) items.push({ label: tickerInfo.value.longName });
-    }
-    return [home, ...items];
-});
 
-watch(() => route.path, () => { visible.value = false; });
+    const menuItems = computed(() => [
+        {
+            label: '배당달력',
+            icon: 'pi pi-calendar',
+            command: () => router.push('/calendar'),
+        },
+        {
+            label: '백테스터', // [수정] 이름 변경
+            icon: 'pi pi-history',
+            command: () => router.push('/backtester'),
+        },
+        // {
+        //     label: '한국 백테스터', // [추가]
+        //     icon: 'pi pi-chart-line',
+        //     command: () => router.push('/backtester-kr'),
+        // },
+        {
+            label: '문의하기',
+            icon: 'pi pi-envelope',
+            command: () => router.push('/contact'),
+        },
+        { separator: true },
+        ...(!user.value
+            ? [
+                  {
+                      label: '로그인',
+                      icon: 'pi pi-sign-in',
+                      command: () => router.push('/login'),
+                  },
+              ]
+            : [
+                  {
+                      label: '북마크',
+                      icon: 'pi pi-bookmark',
+                      command: () => router.push('/bookmarks'),
+                  },
+                  {
+                      label: '회원정보 수정',
+                      icon: 'pi pi-user-edit',
+                      command: () => router.push('/profile'),
+                  },
+                  {
+                      label: '로그아웃',
+                      icon: 'pi pi-sign-out',
+                      command: handleSignOut, // [핵심 수정] store의 함수를 직접 연결
+                  },
+              ]),
+    ]);
+
+    const breadcrumbItems = computed(() => {
+        const home = { icon: 'pi pi-home', to: '/' };
+        const items = [];
+
+        if (route.name === 'calendar') items.push({ label: '배당달력' });
+        else if (route.name === 'bookmarks')
+            items.push({ label: '북마크 관리' }); // [수정]
+        else if (route.name === 'profile')
+            items.push({ label: '회원정보 수정' }); // [수정]
+        else if (route.name === 'contact') items.push({ label: '문의하기' });
+        else if (route.name === 'backtester') items.push({ label: '백테스터' });
+        else if (route.name === 'stock-detail' && tickerInfo.value) {
+            const info = tickerInfo.value;
+            if (info.market) {
+                items.push({ label: info.market.toUpperCase() });
+            }
+
+            if (isMobile.value && info.koName && info.koName !== 'N/A') {
+                items.push({ label: info.koName });
+            } else {
+                const baseSymbol = info.symbol.split('.')[0];
+                items.push({ label: baseSymbol.toUpperCase() });
+            }
+
+            const displayName =
+                info.koName || info.longName || info.englishName;
+
+            if (isDesktop.value && displayName && displayName !== 'N/A') {
+                items.push({ label: displayName });
+            }
+        }
+        return [home, ...items];
+    });
+
+    watch(
+        () => route.path,
+        () => {
+            visible.value = false;
+        }
+    );
 </script>
 
 <template>
@@ -61,16 +140,25 @@ watch(() => route.path, () => { visible.value = false; });
                         </template>
                     </Breadcrumb>
                 </div>
+                <!-- [핵심 수정 2] Top Bar UI 통일 -->
                 <div id="t-topbar" class="topbar-actions">
-                    <Button icon="pi pi-calendar" variant="text" @click="router.push('/calendar')" aria-label="배당달력" />
-                    <Button icon="pi pi-history" variant="text" @click="router.push('/backtester')" aria-label="백테스터" />
-                    <Button icon="pi pi-envelope" variant="text" @click="router.push('/contact')" aria-label="문의하기" />
-                    <Button v-if="!user" icon="pi pi-sign-in" variant="text" @click="router.push('/login')" aria-label="로그인" />
-                    <template v-else>
-                        <Button v-if="route.name !== 'mypage'" icon="pi pi-user" variant="text" @click="router.push('/mypage')" aria-label="마이페이지" />
-                        <Button icon="pi pi-sign-out" variant="text" @click="handleSignOut" aria-label="로그아웃" />
-                    </template>
-                    <Button v-if="!isDesktop" icon="pi pi-bars" variant="text" @click="visible = true" />
+                    <Button
+                        type="button"
+                        icon="pi pi-ellipsis-v"
+                        @click="toggleMenu"
+                        aria-haspopup="true"
+                        aria-controls="overlay_tmenu"
+                        variant="text" />
+                    <TieredMenu
+                        ref="menu"
+                        id="overlay_tmenu"
+                        :model="menuItems"
+                        popup />
+                    <Button
+                        v-if="!isDesktop"
+                        icon="pi pi-bars"
+                        variant="text"
+                        @click="visible = true" />
                 </div>
             </header>
             <section id="t-content">

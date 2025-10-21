@@ -1,4 +1,4 @@
-// \store\auth.js
+// src/store/auth.js
 import { ref, watch } from 'vue';
 import { auth, signOut } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -7,15 +7,20 @@ import {
     loadMyBookmarksFromFirestore,
     saveMyBookmarksToFirestore,
 } from '@/composables/useFilterState';
+import router from '@/router'; // [추가] router import
 
 export const user = ref(null);
 export const isRecentlyAuthenticated = ref(false);
 
-const { showMyStocksOnly, myBookmarks } = useFilterState();
+const { myBookmarks } = useFilterState();
 
+// --- [핵심 수정] ---
 export const handleSignOut = async () => {
     await signOut(auth);
+    // 로그아웃 후 홈으로 리디렉션
+    router.push('/');
 };
+// --- // ---
 
 onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
@@ -24,15 +29,12 @@ onAuthStateChanged(auth, async (firebaseUser) => {
             email: firebaseUser.email,
             displayName: firebaseUser.displayName,
         };
-        // [핵심 수정] 로그인 시 북마크 필터를 활성화하지 않고, 기본값(false)을 유지합니다.
-        // showMyStocksOnly.value = true; // 이 줄을 주석 처리하거나 삭제합니다.
         myBookmarks.value = await loadMyBookmarksFromFirestore(
             firebaseUser.uid
         );
     } else {
         isRecentlyAuthenticated.value = false;
         user.value = null;
-        showMyStocksOnly.value = false;
         myBookmarks.value = {};
     }
 });

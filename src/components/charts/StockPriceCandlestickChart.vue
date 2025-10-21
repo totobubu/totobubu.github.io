@@ -1,6 +1,10 @@
-<!-- src\components\charts\StockPriceCandlestickChart.vue -->
+<!-- src/components/charts/StockPriceCandlestickChart.vue -->
 <script setup>
     import { computed } from 'vue';
+    import VChart from 'vue-echarts';
+
+    // --- [핵심 수정] 아래 use() 관련 import 및 호출 코드 전체 삭제 ---
+    /*
     import { use } from 'echarts/core';
     import { CanvasRenderer } from 'echarts/renderers';
     import { CandlestickChart, BarChart } from 'echarts/charts';
@@ -11,7 +15,6 @@
         LegendComponent,
         VisualMapComponent,
     } from 'echarts/components';
-    import VChart from 'vue-echarts';
 
     use([
         CanvasRenderer,
@@ -23,6 +26,8 @@
         LegendComponent,
         VisualMapComponent,
     ]);
+    */
+    // --- // ---
 
     const props = defineProps({
         priceData: {
@@ -32,6 +37,7 @@
     });
 
     const chartData = computed(() => {
+        // ... (나머지 코드는 그대로 유지)
         if (!props.priceData || props.priceData.length === 0) {
             return { dates: [], ohlc: [], volumes: [] };
         }
@@ -48,6 +54,7 @@
     });
 
     const chartOption = computed(() => {
+        // ... (나머지 코드는 그대로 유지)
         const upColor = '#ef4444'; // Red for up
         const downColor = '#3b82f6'; // Blue for down
 

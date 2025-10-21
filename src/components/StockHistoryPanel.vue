@@ -1,8 +1,7 @@
-<!-- stock\src\components\StockHistoryPanel.vue -->
+<!-- src/components/StockHistoryPanel.vue -->
 <script setup>
     import { computed } from 'vue';
-
-    // PrimeVue 컴포넌트 import
+    import { formatCurrency, formatPercent } from '@/utils/formatters.js';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 
@@ -14,7 +13,15 @@
 
     const filteredHistory = computed(() => {
         if (!props.history) return [];
-        return props.history.filter((item) => Object.keys(item).length > 1);
+        return props.history.map((item) => ({
+            ...item,
+            배당금: formatCurrency(item.배당금, props.currency),
+            배당률: formatPercent(item.배당률),
+            전일종가: formatCurrency(item.전일종가, props.currency),
+            당일시가: formatCurrency(item.당일시가, props.currency),
+            당일종가: formatCurrency(item.당일종가, props.currency),
+            익일종가: formatCurrency(item.익일종가, props.currency),
+        }));
     });
 
     const defaultColumnProps = {
@@ -85,28 +92,14 @@
                 ...defaultColumnProps,
                 field: key,
                 header: key,
-                sortable: true,
-                ...config,
-                frozen: config.frozen && isMobile,
-            };
-        });
+                sortable: ['배당락', '배당금', '배당률'].includes(key),
+            }));
     });
 </script>
 
 <template>
     <div class="toto-history">
-        <DataTable
-            :value="filteredHistory"
-            stripedRows
-            :rows="10"
-            paginator
-            :paginatorTemplate="
-                isDesktop
-                    ? 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
-                    : 'PrevPageLink CurrentPageReport NextPageLink'
-            "
-            currentPageReportTemplate="{first} - {last} of {totalRecords}"
-            scrollable>
+        <DataTable :value="formattedHistory" stripedRows scrollable>
             <Column
                 v-for="col in columns"
                 :key="col.field"

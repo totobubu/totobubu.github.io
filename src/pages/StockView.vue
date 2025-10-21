@@ -6,21 +6,14 @@
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { useWeeklyChart } from '@/composables/charts/useWeeklyChart';
-    import { useQuarterlyChart } from '@/composables/charts/useQuarterlyChart';
-    import { useMonthlyChart } from '@/composables/charts/useMonthlyChart';
-    import { usePriceChart } from '@/composables/charts/usePriceChart';
-    import { parseYYMMDD } from '@/utils/date.js';
-    import {
-        monthColors,
-        generateTimeRangeOptions,
-    } from '@/utils/chartUtils.js';
+    import { useStockCharts } from '@/composables/useStockCharts.js';
+    import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
+    import VChart from 'vue-echarts';
 
     import Skeleton from 'primevue/skeleton';
     import StockHeader from '@/components/StockHeader.vue';
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
-    import StockCalculators from '@/components/StockCalculators.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
 
     const route = useRoute();
@@ -49,122 +42,88 @@
     });
     useHead({ title: pageTitle });
 
-    const isPriceChartMode = ref(false);
-    const selectedTimeRange = ref('1Y');
+    const currentView = ref('배당');
+    const viewOptions = computed(() => {
+        const options = [];
+        if (dividendHistory.value && dividendHistory.value.length > 0)
+            options.push('배당', '목록');
+        if (backtestData.value && backtestData.value.length > 0)
+            options.push('주가');
+        return options;
+    });
+
+    const selectedTimeRange = ref(null);
 
     const timeRangeOptions = computed(() => {
-        if (!tickerInfo.value?.periods) {
-            return [
-                { label: '1Y', value: '1Y' },
-                { label: '전체', value: 'ALL' },
-            ];
-        }
-        return generateTimeRangeOptions(tickerInfo.value.periods);
+        return generateTimeRangeOptions(tickerInfo.value?.periods);
     });
 
-    const chartDisplayData = computed(() => {
+    const displayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
-        const validHistory = dividendHistory.value.filter(
-            (item) =>
-                parseYYMMDD(item['배당락']) &&
-                !isNaN(parseFloat(item['배당금']?.replace('$', '')))
-        );
-        if (validHistory.length === 0) return [];
-
-        let filtered = validHistory;
         const range = selectedTimeRange.value;
-        if (range && range !== 'ALL') {
-            const now = new Date();
-            let cutoffDate = new Date();
-            const val = parseInt(range);
-            const unit = range.slice(-1);
-            if (unit === 'M') cutoffDate.setMonth(now.getMonth() - val);
-            else if (unit === 'Y') {
-                if (tickerInfo.value?.frequency === '분기') {
-                    cutoffDate = new Date(now.getFullYear() - val, 0, 1);
-                } else {
-                    cutoffDate.setFullYear(now.getFullYear() - val);
-                }
+        if (!range || range === 'ALL' || currentView.value === '목록')
+            return dividendHistory.value;
+
+        const now = new Date();
+        const val = parseInt(range);
+        const unit = range.slice(-1);
+        let cutoffDate;
+
+        // --- [핵심 수정] ---
+        // '매주' 배당일 경우, 오늘 날짜 기준 '월(M)' 단위로 필터링
+        if (tickerInfo.value?.frequency === '매주') {
+            cutoffDate = new Date();
+            let monthsToSubtract = 0;
+            if (unit === 'M') {
+                monthsToSubtract = val;
+            } else if (unit === 'Y') {
+                monthsToSubtract = val * 12;
             }
-            filtered = validHistory.filter(
-                (item) => parseYYMMDD(item['배당락']) >= cutoffDate
-            );
+            cutoffDate.setMonth(now.getMonth() - monthsToSubtract);
+        } 
+        // 그 외(매월, 분기, 매년)는 '연도' 기준으로 필터링
+        else {
+            const currentYear = now.getFullYear();
+            let startYear;
+
+            if (unit === 'Y') {
+                startYear = currentYear - val + 1;
+            } else { // 6M 같은 경우는 현재 연도만 표시
+                startYear = currentYear;
+            }
+            cutoffDate = new Date(startYear, 0, 1); // 해당 연도의 1월 1일
         }
-        return filtered.sort(
-            (a, b) => parseYYMMDD(b['배당락']) - parseYYMMDD(a['배당락'])
+        // --- // ---
+
+        return dividendHistory.value.filter(
+            (item) => parseYYMMDD(item['배당락']) >= cutoffDate
         );
     });
 
-    const chartComposableResult = computed(() => {
-        if (!tickerInfo.value || chartDisplayData.value.length === 0) return {};
-
-        const documentStyle = getComputedStyle(document.documentElement);
-        const themeOptions = {
-            textColor: documentStyle.getPropertyValue('--p-text-color'),
-            textColorSecondary: documentStyle.getPropertyValue(
-                '--p-text-muted-color'
-            ),
-            surfaceBorder: documentStyle.getPropertyValue(
-                '--p-content-border-color'
-            ),
-        };
-        const sharedOptions = {
-            data: chartDisplayData.value,
-            deviceType: deviceType.value,
-            group: tickerInfo.value?.group,
-            theme: themeOptions,
-        };
-
-        if (isPriceChartMode.value) return usePriceChart(sharedOptions);
-
-        const freq = tickerInfo.value.frequency;
-        if (freq === '매월' && chartDisplayData.value.length > 59) {
-            return useQuarterlyChart({
-                ...sharedOptions,
-                aggregation: 'month',
-                colorMap: monthColors,
-                labelPrefix: '월',
-            });
-        }
-        if (freq === '매주') return useWeeklyChart(sharedOptions);
-        if (freq === '분기')
-            return useQuarterlyChart({
-                ...sharedOptions,
-                aggregation: 'quarter',
-            });
-        if (freq === '매월') return useMonthlyChart(sharedOptions);
-        return usePriceChart(sharedOptions);
+    const { chartOptions, chartContainerHeight } = useStockCharts({
+        tickerInfo,
+        displayData,
+        currentView,
+        deviceType,
     });
-
-    const chartData = computed(
-        () =>
-            chartComposableResult.value.chartData ||
-            chartComposableResult.value.priceChartData
-    );
-    const chartOptions = computed(
-        () =>
-            chartComposableResult.value.chartOptions ||
-            chartComposableResult.value.priceChartOptions
-    );
-    const chartContainerWidth = computed(
-        () => chartComposableResult.value.chartContainerWidth
-    );
-
-    const hasDividendChartMode = computed(() => {
-        const freq = tickerInfo.value?.frequency;
-        return ['매주', '분기', '매월'].includes(freq);
-    });
-    const isGrowthStockChart = computed(
-        () => !dividendHistory.value || dividendHistory.value.length < 5
-    );
 
     watch(
         () => route.params.ticker,
         (newTicker) => {
-            if (newTicker && typeof newTicker === 'string') {
-                // [핵심 수정] URL 파라미터를 소문자로 변환하여 전달합니다.
-                loadData(newTicker.toLowerCase());
+            if (newTicker) {
+                loadData(newTicker.toLowerCase()).then(() => {
+                    const hasDividends =
+                        dividendHistory.value &&
+                        dividendHistory.value.length > 0;
+                    currentView.value = hasDividends ? '배당' : '주가';
+                    
+                    if (timeRangeOptions.value && timeRangeOptions.value.length > 1) {
+                        selectedTimeRange.value = timeRangeOptions.value[0].value;
+                    } else {
+                        selectedTimeRange.value = 'ALL';
+                    }
+                });
             }
         },
         { immediate: true }
@@ -176,7 +135,9 @@
 </script>
 
 <template>
+    <!-- 템플릿 부분은 변경 없이 그대로 유지됩니다 -->
     <div class="card">
+        <!-- Skeleton UI -->
         <div v-if="isLoading" class="flex flex-column gap-5">
             <div id="t-stock-header">
                 <Skeleton
@@ -186,13 +147,13 @@
                     borderRadius="0.5rem"></Skeleton>
             </div>
             <Skeleton height="30rem" borderRadius="1rem"></Skeleton>
-            <Skeleton height="5rem" borderRadius="1rem"></Skeleton>
-            <Skeleton height="20rem" borderRadius="1rem"></Skeleton>
         </div>
+        <!-- Error UI -->
         <div v-else-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
             <p class="text-red-500 text-xl mt-4">{{ error }}</p>
         </div>
+        <!-- Upcoming UI -->
         <div
             v-else-if="isUpcoming && tickerInfo"
             class="flex flex-column gap-5">
@@ -207,29 +168,47 @@
         </div>
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
+
             <StockChartCard
-                v-if="!isGrowthStockChart"
+                v-if="viewOptions.length > 0"
                 :tickerInfo="tickerInfo"
-                :has-dividend-chart-mode="hasDividendChartMode"
-                :chart-data="chartData"
-                :chart-options="chartOptions"
-                :chart-container-width="chartContainerWidth"
-                :time-range-options="timeRangeOptions"
-                v-model:isPriceChartMode="isPriceChartMode"
-                v-model:selectedTimeRange="selectedTimeRange" />
-            <StockPriceCandlestickChart
-                v-else
-                :price-data="backtestData?.prices" />
-            <StockCalculators
-                v-if="dividendHistory && dividendHistory.length > 0"
                 :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-                :userBookmark="currentUserBookmark" />
+                :userBookmark="currentUserBookmark"
+                :time-range-options="timeRangeOptions"
+                v-model:currentView="currentView"
+                v-model:selectedTimeRange="selectedTimeRange"
+                :viewOptions="viewOptions" />
+
+            <div v-if="currentView === '배당'">
+                <div
+                    v-if="chartOptions && Object.keys(chartOptions).length > 0"
+                    class="chart-wrapper">
+                    <div
+                        class="chart-container"
+                        :style="{ height: chartContainerHeight }">
+                        <v-chart :option="chartOptions" autoresize />
+                    </div>
+                </div>
+                <div v-else class="text-center p-4">
+                    선택된 기간에 대한 배당 차트 데이터가 없습니다.
+                </div>
+            </div>
+
+            <div v-if="currentView === '주가'">
+                <StockPriceCandlestickChart
+                    v-if="backtestData && backtestData.length > 0"
+                    :price-data="backtestData" />
+                <div v-else class="text-center p-4">
+                    주가 데이터가 없습니다.
+                </div>
+            </div>
+
             <StockHistoryPanel
-                v-if="dividendHistory && dividendHistory.length > 0"
-                :history="dividendHistory"
-                :update-time="tickerInfo.Update"
-                :is-desktop="isDesktop" />
+                v-if="currentView === '목록'"
+                :history="displayData"
+                :is-desktop="isDesktop"
+                :currency="tickerInfo.currency" />
+
             <span
                 v-if="tickerInfo.Update"
                 class="dark:text-surface-500 dark:text-surface-400 text-center">
