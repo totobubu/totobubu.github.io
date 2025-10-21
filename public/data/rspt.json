@@ -280,7 +280,7 @@
             "close": 4.927000045776367,
             "volume": 0,
             "amount": 0.0001,
-            "yield": 0.00002029632617635639
+            "yield": 2.029632617635639e-5
         },
         {
             "date": "2006-12-28",
@@ -38277,6 +38277,14 @@
             "low": 44.970001220703125,
             "close": 45.20000076293945,
             "volume": 247700
+        },
+        {
+            "date": "2025-10-21",
+            "open": 45.150001525878906,
+            "high": 45.649898529052734,
+            "low": 45.119998931884766,
+            "close": 45.5099983215332,
+            "volume": 212459
         }
     ],
     "tickerInfo": {
@@ -38284,23 +38292,33 @@
         "koName": null,
         "longName": null,
         "company": "Invesco",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 45.51,
         "englishName": "Invesco S&P 500 Equal Weight Technology ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 208648,
-        "AvgVolume": 283989,
+        "Volume": 212459,
+        "AvgVolume": 285243,
         "sharesOutstanding": null,
         "52Week": "28.52 - 46.02",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 208648,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 283989,
+                "change": "up"
+            }
+        }
     }
 }

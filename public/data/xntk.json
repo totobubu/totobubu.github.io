@@ -1424,7 +1424,7 @@
             "close": 27.170000076293945,
             "volume": 233400,
             "amount": 0.0005,
-            "yield": 0.000018484288876243745
+            "yield": 1.8484288876243745e-5
         },
         {
             "date": "2001-06-18",
@@ -50553,6 +50553,14 @@
             "low": 280,
             "close": 281.9200134277344,
             "volume": 34300
+        },
+        {
+            "date": "2025-10-21",
+            "open": 281.8800048828125,
+            "high": 282.18499755859375,
+            "low": 279.75,
+            "close": 280.80999755859375,
+            "volume": 25366
         }
     ],
     "tickerInfo": {
@@ -50560,23 +50568,41 @@
         "koName": null,
         "longName": null,
         "company": "SPDR",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 280.81,
         "englishName": "SPDR NYSE Technology ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2932161536,
-        "Volume": 25546,
-        "AvgVolume": 31318,
+        "marketCap": 2962545408,
+        "Volume": 25366,
+        "AvgVolume": 31628,
         "sharesOutstanding": 10550000,
         "52Week": "159.43 - 284.65",
-        "Yield": 41,
+        "Yield": 0.0014600619636052847,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "marketCap": {
+                "value": 2932161536,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25546,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 31318,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 41,
+                "change": "down"
+            }
+        }
     }
 }

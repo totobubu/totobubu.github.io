@@ -35050,7 +35050,7 @@
             "close": 87.63999938964844,
             "volume": 7364800,
             "amount": 0.003,
-            "yield": 0.0000343485244537217
+            "yield": 3.43485244537217e-5
         },
         {
             "date": "2023-06-21",
@@ -39753,6 +39753,14 @@
             "low": 108.33999633789062,
             "close": 110.16999816894531,
             "volume": 8694300
+        },
+        {
+            "date": "2025-10-21",
+            "open": 110.125,
+            "high": 110.53350067138672,
+            "low": 109.08000183105469,
+            "close": 109.55999755859375,
+            "volume": 6785804
         }
     ],
     "tickerInfo": {
@@ -39760,23 +39768,33 @@
         "koName": null,
         "longName": null,
         "company": "SPDR",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 109.56,
         "englishName": "SPDR S&P Biotech ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9964382,
-        "AvgVolume": 9822859,
+        "Volume": 6785804,
+        "AvgVolume": 9816026,
         "sharesOutstanding": null,
         "52Week": "66.66 - 110.96",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 9964382,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9822859,
+                "change": "down"
+            }
+        }
     }
 }
