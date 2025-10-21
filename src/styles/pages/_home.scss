@@ -22,6 +22,9 @@
             width: 100%;
         }
     }
+    @include bp.media-breakpoint-down('md') {
+        overflow-y: auto;
+    }
 }
 .t-home {
     &-header {
