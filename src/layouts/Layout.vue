@@ -1,4 +1,4 @@
-<!-- src\layouts\Layout.vue -->
+<!-- src/layouts/Layout.vue -->
 <script setup>
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
@@ -30,6 +30,7 @@
         menu.value.toggle(event);
     };
 
+    // --- [핵심 수정 1] 메뉴 아이템 변경 ---
     const menuItems = computed(() => [
         {
             label: '배당달력',
@@ -57,9 +58,14 @@
               ]
             : [
                   {
-                      label: '마이페이지',
-                      icon: 'pi pi-user',
-                      command: () => router.push('/mypage'),
+                      label: '북마크',
+                      icon: 'pi pi-bookmark',
+                      command: () => router.push('/bookmarks'),
+                  },
+                  {
+                      label: '회원정보 수정',
+                      icon: 'pi pi-user-edit',
+                      command: () => router.push('/profile'),
                   },
                   {
                       label: '로그아웃',
@@ -74,7 +80,10 @@
         const items = [];
 
         if (route.name === 'calendar') items.push({ label: '배당달력' });
-        else if (route.name === 'mypage') items.push({ label: '마이페이지' });
+        else if (route.name === 'bookmarks')
+            items.push({ label: '북마크 관리' }); // [수정]
+        else if (route.name === 'profile')
+            items.push({ label: '회원정보 수정' }); // [수정]
         else if (route.name === 'contact') items.push({ label: '문의하기' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
         else if (route.name === 'stock-detail' && tickerInfo.value) {
@@ -90,11 +99,9 @@
                 items.push({ label: baseSymbol.toUpperCase() });
             }
 
-            // [핵심 수정] Breadcrumb 표시 로직 변경
             const displayName =
                 info.koName || info.longName || info.englishName;
 
-            // 데스크탑에서는 항상 표시
             if (isDesktop.value && displayName && displayName !== 'N/A') {
                 items.push({ label: displayName });
             }
@@ -139,57 +146,20 @@
                         </template>
                     </Breadcrumb>
                 </div>
+                <!-- [핵심 수정 2] Top Bar UI 통일 -->
                 <div id="t-topbar" class="topbar-actions">
-                    <template v-if="isDesktop">
-                        <Button
-                            icon="pi pi-calendar"
-                            variant="text"
-                            @click="router.push('/calendar')"
-                            aria-label="배당달력" />
-                        <Button
-                            icon="pi pi-history"
-                            variant="text"
-                            @click="router.push('/backtester')"
-                            aria-label="백테스터" />
-                        <Button
-                            icon="pi pi-envelope"
-                            variant="text"
-                            @click="router.push('/contact')"
-                            aria-label="문의하기" />
-                        <Button
-                            v-if="!user"
-                            icon="pi pi-sign-in"
-                            variant="text"
-                            @click="router.push('/login')"
-                            aria-label="로그인" />
-                        <template v-else>
-                            <Button
-                                v-if="route.name !== 'mypage'"
-                                icon="pi pi-user"
-                                variant="text"
-                                @click="router.push('/mypage')"
-                                aria-label="마이페이지" />
-                            <Button
-                                icon="pi pi-sign-out"
-                                variant="text"
-                                @click="handleSignOut"
-                                aria-label="로그아웃" />
-                        </template>
-                    </template>
-                    <template v-if="!isDesktop">
-                        <Button
-                            type="button"
-                            icon="pi pi-ellipsis-v"
-                            @click="toggleMenu"
-                            aria-haspopup="true"
-                            aria-controls="overlay_tmenu"
-                            variant="text" />
-                        <TieredMenu
-                            ref="menu"
-                            id="overlay_tmenu"
-                            :model="menuItems"
-                            popup />
-                    </template>
+                    <Button
+                        type="button"
+                        icon="pi pi-ellipsis-v"
+                        @click="toggleMenu"
+                        aria-haspopup="true"
+                        aria-controls="overlay_tmenu"
+                        variant="text" />
+                    <TieredMenu
+                        ref="menu"
+                        id="overlay_tmenu"
+                        :model="menuItems"
+                        popup />
                     <Button
                         v-if="!isDesktop"
                         icon="pi pi-bars"

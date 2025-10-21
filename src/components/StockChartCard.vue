@@ -91,7 +91,8 @@
                         v-if="dividendHistory && dividendHistory.length > 0"
                         :dividendHistory="dividendHistory"
                         :tickerInfo="tickerInfo"
-                        :userBookmark="userBookmark" />
+                        :userBookmark="userBookmark"
+                        class="hidden" />
                 </div>
             </div>
         </template>

@@ -1,4 +1,4 @@
-// tasks/generateNav.js;
+// tasks/generateNav.js
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
@@ -10,6 +10,20 @@ const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
 const outputFile = path.join(publicDir, 'nav.json');
 
+// --- [핵심 수정 1] 한국 ETF 운용사 이름과 로고 파일명 매핑 객체 추가 ---
+const koreanEtfBrandMap = {
+    미래에셋자산운용: 'korea-tiger',
+    삼성자산운용: 'korea-kodex',
+    kb자산운용: 'korea-kbstar',
+    한국투자신탁운용: 'korea-ace',
+    엔에이치아문디자산운용: 'korea-HANARO',
+    신한자산운용: 'korea-SOL',
+    타임폴리오자산운용: 'korea-time',
+    비엔케이자산운용: 'korea-bnk',
+    // 필요한 다른 운용사들을 여기에 추가할 수 있습니다.
+};
+// --- // ---
+
 function normalizeToFilename(name) {
     if (!name) return null;
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
@@ -17,10 +31,16 @@ function normalizeToFilename(name) {
 
 function findLogoFile(normalizedName) {
     if (!normalizedName) return null;
-    const supportedExtensions = ['.svg', '.png', '.webp', '.jpg', '.jpeg'];
+    const supportedExtensions = [
+        '.svg',
+        '.png',
+        '.webp',
+        '.jpg',
+        '.jpeg',
+        'ico',
+    ];
     for (const ext of supportedExtensions) {
         const filePath = path.join(logosDir, `${normalizedName}${ext}`);
-        // [핵심 수정] import한 existsSync를 직접 사용
         if (existsSync(filePath)) {
             return `logos/${normalizedName}${ext}`;
         }
@@ -87,19 +107,27 @@ async function generateNavJson() {
     const finalTickersPromises = allTickers.map(async (ticker) => {
         let processedTicker = { ...ticker };
 
-        const nameForLogoSearch = ticker.company || ticker.symbol;
-        const normalizedName = normalizeToFilename(nameForLogoSearch);
-        const logoPath = findLogoFile(normalizedName); // findLogoFile 함수는 수정 없이 그대로 사용
+        // --- [핵심 수정 2] 로고 검색 이름 결정 로직 수정 ---
+        let nameForLogoSearch;
+        if (ticker.company && koreanEtfBrandMap[ticker.company]) {
+            // 매핑 객체에 한국 운용사 이름이 있으면, 매핑된 영어 이름을 사용
+            nameForLogoSearch = koreanEtfBrandMap[ticker.company];
+        } else {
+            // 그 외의 경우(미국 ETF, 로고 없는 종목 등) 기존 로직 사용
+            nameForLogoSearch = ticker.company || ticker.symbol;
+        }
+        // --- // ---
 
-        // [핵심 수정] logoPath가 없을 경우 로그를 출력하는 로직 복원
+        const normalizedName = normalizeToFilename(nameForLogoSearch);
+        const logoPath = findLogoFile(normalizedName);
+
         if (logoPath) {
             processedTicker.logo = logoPath;
         } else if (nameForLogoSearch) {
-            // 로고가 없는 경우, 어떤 이름으로 검색했는지 로그를 남김
             console.log(
                 `🔸 ${ticker.symbol}: 로고 없음. 검색 시도한 이름: "${normalizedName}"`
             );
-            processedTicker.logo = null; // 명시적으로 null 처리
+            processedTicker.logo = null;
         }
 
         const dataFilePath = path.join(
@@ -134,8 +162,11 @@ async function generateNavJson() {
                     '20Y',
                 ];
 
-                // [핵심 수정] "매년" 배당일 경우 masterPeriods를 장기 옵션으로 제한
-                if (processedTicker.frequency === '매년') {
+                if (processedTicker.frequency === '매월') {
+                    masterPeriods = ['1Y', '2Y', '3Y', '5Y', '10Y'];
+                } else if (processedTicker.frequency === '분기') {
+                    masterPeriods = ['5Y', '10Y', '15Y', '20Y'];
+                } else if (processedTicker.frequency === '매년') {
                     masterPeriods = ['10Y', '15Y', '20Y'];
                 }
 
