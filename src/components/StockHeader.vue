@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/StockHeader.vue -->
+<!-- src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
     import { formatLargeNumber } from '@/utils/numberFormat.js';
@@ -38,7 +38,22 @@
             {
                 key: 'sharesOutstanding',
                 label: '유통 주식 수',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
+            {
+                key: 'Yield',
+                label: '연간 배당률',
+                formatter: formatPercent,
+            },
+            {
+                key: 'dividendRate',
+                label: '연간 배당금',
+                formatter: (val) => formatCurrency(val, currency),
+            },
+            {
+                key: 'payoutRatio',
+                label: '배당 성향',
+                formatter: formatPercent,
             },
             { key: 'Yield', label: '연간 배당률' },
             { key: 'dividendRate', label: '연간 배당금' },
@@ -48,10 +63,10 @@
         return detailMapping
             .map((item) => {
                 const rawValue = props.info[item.key];
-                const changeInfo = props.info.changes?.[item.key];
-                if (changeInfo?.value && item.formatter) {
-                    changeInfo.value = item.formatter(changeInfo.value);
-                }
+                const displayValue = item.formatter
+                    ? item.formatter(rawValue)
+                    : rawValue;
+
                 return {
                     label: item.label,
                     value: item.formatter ? item.formatter(rawValue) : rawValue,
@@ -60,11 +75,9 @@
             })
             .filter(
                 (item) =>
-                    item.value &&
-                    item.value !== 'N/A' &&
-                    item.value !== '0' &&
-                    item.value !== '$0' &&
-                    item.value !== '$-0'
+                    item.value !== null &&
+                    item.value !== undefined &&
+                    item.value !== 'N/A'
             );
     });
 

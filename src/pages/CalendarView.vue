@@ -1,27 +1,27 @@
 <!-- stock\src\pages\CalendarView.vue -->
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router';
-    import { useBreakpoint } from '@/composables/useBreakpoint'; // [신규] useBreakpoint import
-
-    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
-    import Panel from 'primevue/panel'; // [신규] Panel import for skeleton layout
-    import Card from 'primevue/card'; // [신규] Card import for skeleton layout
-
-    import CalendarGrid from '@/components/CalendarGrid.vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useCalendarData } from '@/composables/useCalendarData.js';
+    import { useFilterState } from '@/composables/useFilterState.js';
 
-    useHead({
-        title: '배당달력',
-    });
+    import Skeleton from 'primevue/skeleton';
+    import Panel from 'primevue/panel';
+    import Card from 'primevue/card';
+    import CalendarGrid from '@/components/CalendarGrid.vue';
+
+    useHead({ title: '배당달력' });
 
     const holidays = ref([]);
+    // [핵심 수정] 임시 데이터를 제거하고, useCalendarData를 다시 활성화합니다.
     const { dividendsByDate, isLoading, error, ensureDataLoaded } =
         useCalendarData();
-    const { isMobile } = useBreakpoint(); // [신규] isMobile 가져오기
-
+    const { mainFilterTab } = useFilterState();
+    const { isMobile } = useBreakpoint();
     const router = useRouter();
+
     const goToTickerPage = (tickerSymbol) => {
         if (tickerSymbol && typeof tickerSymbol === 'string') {
             const sanitizedTicker = tickerSymbol.replace(/\./g, '-');
@@ -29,25 +29,42 @@
         }
     };
 
-    onMounted(async () => {
-        ensureDataLoaded();
+    const loadHolidays = async (tab) => {
+        // [핵심 수정] 북마크, 미국 탭은 미국 휴일, 한국 탭은 한국 휴일을 로드합니다.
+        const fileName =
+            tab === '한국' ? 'kr_holidays.json' : 'us_holidays.json';
+        try {
+            const response = await fetch(`/holidays/${fileName}`);
+            if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
+            holidays.value = await response.json();
+        } catch (e) {
+            console.error(`Could not load or parse ${fileName}:`, e);
+            holidays.value = [];
+        }
+    };
 
-        const holidayResponse = await fetch('/holidays.json');
-        holidays.value = await holidayResponse.json();
+    // [핵심 수정] onMounted와 watch를 다시 활성화합니다.
+    onMounted(() => {
+        ensureDataLoaded();
+        loadHolidays(mainFilterTab.value);
+    });
+
+    watch(mainFilterTab, (newTab) => {
+        loadHolidays(newTab);
     });
 </script>
 
 <template>
-    <!-- [핵심 수정] 로딩 상태 UI 변경 -->
-    <div v-if="isLoading" id="p-calendar-skeleton">
-        <!-- 모바일용 스켈레톤 -->
+    <div
+        v-if="isLoading && Object.keys(dividendsByDate).length === 0"
+        id="p-calendar-skeleton">
         <Card v-if="isMobile">
-            <template #header>
-                <Skeleton
+            <template #header
+                ><Skeleton
                     width="10rem"
                     height="1.5rem"
-                    class="mx-auto mt-4"></Skeleton>
-            </template>
+                    class="mx-auto mt-4"></Skeleton
+            ></template>
             <template #title>
                 <div class="flex justify-content-center">
                     <Skeleton
@@ -64,11 +81,10 @@
                         class="mx-2"></Skeleton>
                 </div>
             </template>
-            <template #content>
-                <Skeleton height="calc(100vh - 15rem)"></Skeleton>
-            </template>
+            <template #content
+                ><Skeleton height="calc(100vh - 15rem)"></Skeleton
+            ></template>
         </Card>
-        <!-- 데스크탑용 스켈레톤 -->
         <Panel v-else>
             <template #header>
                 <div class="flex justify-content-between w-full">
@@ -84,11 +100,9 @@
             <Skeleton height="calc(100vh - 10rem)"></Skeleton>
         </Panel>
     </div>
-
     <div v-else-if="error" class="text-center mt-8">
         <p>{{ error }}</p>
     </div>
-
     <div v-else id="p-calendar">
         <CalendarGrid
             :dividendsByDate="dividendsByDate"
@@ -98,7 +112,6 @@
 </template>
 
 <style scoped>
-    /* 스켈레톤 레이아웃을 위한 스타일 */
     #p-calendar-skeleton .p-panel-header,
     #p-calendar-skeleton .p-card-body {
         background-color: var(--surface-card);

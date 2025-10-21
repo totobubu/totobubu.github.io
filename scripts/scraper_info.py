@@ -32,147 +32,43 @@ def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
 
 
 def process_single_ticker_info(info):
-    try:
-        if not info or info.get("regularMarketPrice") is None:
-            return None
-        current_price = info.get("regularMarketPrice") or info.get("previousClose")
-        yield_val = (
-            ((info.get("trailingAnnualDividendRate", 0) / current_price) * 100)
-            if current_price and info.get("trailingAnnualDividendRate")
-            else 0
-        )
-        earnings_ts = info.get("earningsTimestamp")
-        earnings_date = (
-            datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
-            if earnings_ts
-            else "N/A"
-        )
-        fifty_two_week_range = (
-            f"{info.get('fiftyTwoWeekLow')} - {info.get('fiftyTwoWeekHigh')}"
-            if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh")
-            else "N/A"
-        )
-        return {
-            "englishName": info.get("longName"),
-            "earningsDate": earnings_date,
-            "enterpriseValue": info.get("enterpriseValue"),
-            "marketCap": info.get("marketCap"),
-            "Volume": info.get("volume"),
-            "AvgVolume": info.get("averageVolume"),
-            "sharesOutstanding": info.get("sharesOutstanding"),
-            "52Week": fifty_two_week_range,
-            "Yield": yield_val if yield_val > 0 else 0,
-            "dividendRate": info.get("dividendRate"),
-            "payoutRatio": info.get("payoutRatio"),
-        }
-    except Exception:
+    if not info or info.get("regularMarketPrice") is None:
         return None
 
+    current_price = info.get("regularMarketPrice") or info.get("previousClose")
+    yield_val = (
+        (info.get("trailingAnnualDividendRate", 0) / current_price)
+        if current_price and info.get("trailingAnnualDividendRate")
+        else None
+    )
 
-def format_ticker_info(info_dict):
-    currency = info_dict.get("currency", "USD")
-    formatted = info_dict.copy()
+    earnings_ts = info.get("earningsTimestamp")
+    earnings_date = (
+        datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
+        if earnings_ts
+        else None
+    )
 
-    for key, value in formatted.items():
-        if value is None:
-            formatted[key] = "N/A"
-            continue
+    fifty_two_week_range = (
+        f"{info.get('fiftyTwoWeekLow')} - {info.get('fiftyTwoWeekHigh')}"
+        if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh")
+        else None
+    )
 
-        if key in [
-            "enterpriseValue",
-            "marketCap",
-            "Volume",
-            "AvgVolume",
-            "sharesOutstanding",
-        ]:
-            # [핵심 수정] format_large_number는 숫자만 반환, 통화 기호는 여기서 제어
-            formatted_num = format_large_number(value)
-            if formatted_num != "N/A":
-                if currency == "KRW":
-                    formatted[key] = f"{formatted_num} ₩"
-                else:
-                    # USD의 경우, format_currency를 사용하여 기호와 숫자를 함께 포맷팅
-                    # (단, 축약된 숫자가 아니므로 큰 숫자는 쉼표만 붙음)
-                    formatted[key] = format_currency(value, "USD")
-            else:
-                formatted[key] = "N/A"
-
-        elif key == "dividendRate":
-            formatted[key] = format_currency(value, currency)
-        elif key == "payoutRatio":
-            formatted[key] = format_percent(value)
-        elif key == "Yield":
-            formatted[key] = (
-                f"{value:.2f}%"
-                if isinstance(value, (int, float)) and value > 0
-                else "N/A"
-            )
-        elif key == "52Week" and value != "N/A":
-            try:
-                low, high = map(float, value.split(" - "))
-                formatted[key] = (
-                    f"{format_currency(low, currency)} - {format_currency(high, currency)}"
-                )
-            except (ValueError, TypeError):
-                formatted[key] = "N/A"
-    return formatted
-
-
-def calculate_changes(new_formatted, old_formatted):
-    changes_obj = {}
-    if not old_formatted:
-        return changes_obj
-    new_update_date = new_formatted.get("Update", "").split(" ")[0]
-    old_update_date = old_formatted.get("Update", "").split(" ")[0]
-    if new_update_date != old_update_date:
-        for key, new_val in new_formatted.items():
-            old_val = old_formatted.get(key)
-            if old_val is None or key in [
-                "changes",
-                "Update",
-                "Symbol",
-                "longName",
-                "koName",
-                "englishName",
-                "company",
-                "frequency",
-                "group",
-                "underlying",
-                "market",
-                "currency",
-            ]:
-                continue
-            new_numeric, old_numeric = parse_numeric_value(
-                new_val
-            ), parse_numeric_value(old_val)
-            change_status = "equal"
-            if new_numeric is not None and old_numeric is not None:
-                if new_numeric > old_numeric:
-                    change_status = "up"
-                elif new_numeric < old_numeric:
-                    change_status = "down"
-            elif str(new_val) != str(old_val):
-                change_status = "up"
-            if change_status != "equal":
-                changes_obj[key] = {"value": old_val, "change": change_status}
-    else:
-        return old_formatted.get("changes", {})
-    return changes_obj
-
-
-def are_dicts_equal(dict1, dict2):
-    keys1 = set(dict1.keys())
-    keys2 = set(dict2.keys())
-    if keys1 != keys2:
-        return False
-    for key in keys1:
-        val1, val2 = dict1.get(key), dict2.get(key)
-        if isinstance(val1, float) and isinstance(val2, float):
-            if abs(val1 - val2) > 1e-9:
-                return False
-        elif val1 != val2:
-            return False
-    return True
+    return {
+        "regularMarketPrice": info.get("regularMarketPrice"),
+        "englishName": info.get("longName"),
+        "earningsDate": earnings_date,
+        "enterpriseValue": info.get("enterpriseValue"),
+        "marketCap": info.get("marketCap"),
+        "Volume": info.get("volume"),
+        "AvgVolume": info.get("averageVolume"),
+        "sharesOutstanding": info.get("sharesOutstanding"),
+        "52Week": fifty_two_week_range,
+        "Yield": yield_val,
+        "dividendRate": info.get("dividendRate"),
+        "payoutRatio": info.get("payoutRatio"),
+    }
 
 
 def main():
@@ -220,19 +116,33 @@ def main():
         new_raw_info = {
             "Symbol": ticker_symbol,
             "koName": info_from_nav.get("koName"),
-            "longName": info_from_nav.get("longName") or info_from_nav.get("koName"),
+            "longName": info_from_nav.get("longName"),
             "company": info_from_nav.get("company"),
             "frequency": info_from_nav.get("frequency"),
             "group": info_from_nav.get("group"),
             "underlying": info_from_nav.get("underlying"),
             "market": info_from_nav.get("market"),
             "currency": info_from_nav.get("currency"),
+            "Update": now_kst_str,
         }
-        new_raw_info.update(dynamic_info)
-        if not new_raw_info.get("longName"):
-            new_raw_info["longName"] = new_raw_info.get("englishName")
+        new_info.update(dynamic_info)
 
-        # 비교 시에는 비교에 불필요한 키를 제외한 두 원본 딕셔너리를 비교
+        changes = {}
+        if (
+            old_info
+            and old_info.get("Update", "").split(" ")[0] != now_kst_str.split(" ")[0]
+        ):
+            for key, new_val in dynamic_info.items():
+                old_val = old_info.get(key)
+                if old_val is not None and isinstance(new_val, (int, float)):
+                    if new_val > old_val:
+                        changes[key] = {"value": old_val, "change": "up"}
+                    elif new_val < old_val:
+                        changes[key] = {"value": old_val, "change": "down"}
+        elif old_info:
+            changes = old_info.get("changes", {})
+        new_info["changes"] = changes
+
         compare_old = {
             k: v for k, v in old_raw_info.items() if k not in ["Update", "englishName"]
         }
@@ -240,7 +150,9 @@ def main():
             k: v for k, v in new_raw_info.items() if k not in ["Update", "englishName"]
         }
 
-        if are_dicts_equal(compare_old, compare_new):
+        if json.dumps(compare_old, sort_keys=True) == json.dumps(
+            compare_new, sort_keys=True
+        ):
             continue
 
         old_formatted_info = existing_data.get("tickerInfo", {})

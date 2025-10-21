@@ -1,104 +1,53 @@
 // src/composables/charts/useMonthlyChart.js
-import { computed } from 'vue';
-import { getChartColorsByGroup } from '@/utils/chartColors.js';
-import {
-    getDynamicChartWidth,
-    getChartAspectRatio,
-    getBarStackFontSize,
-    getCommonPlugins,
-} from '@/utils/chartUtils.js';
+import { createNumericFormatter } from '@/utils/formatters.js';
 
 export function useMonthlyChart(options) {
-    const { data, deviceType, group, theme } = options;
-    const { textColorSecondary, surfaceBorder } = theme;
+    const { data, theme, currency = 'USD' } = options;
+    const { textColor, textColorSecondary, surfaceBorder } = theme;
+    const formatCurrency = createNumericFormatter(currency, {
+        maximumFractionDigits: 4,
+    });
 
-    const { dividend: colorDividend, highlight: colorHighlight } =
-        getChartColorsByGroup(group);
+    const reversedData = [...data].reverse();
+    const labels = reversedData.map((item) => item['배당락']);
+    const dividendData = reversedData.map((item) => item['배당금']);
+    const chartContainerHeight = `${Math.max(250, data.length * 40)}px`;
 
-    const labels = data.map((item) => item['배당락']);
-    const chartContainerWidth = getDynamicChartWidth(
-        labels.length,
-        deviceType,
-        45
-    );
-    const barLabelSize = getBarStackFontSize(
-        labels.length,
-        deviceType,
-        'default'
-    );
-    const tickFontSize = getBarStackFontSize(labels.length, deviceType, 'axis');
-    const newestDataIndex = 0;
-    const dividendData = data.map((item) =>
-        parseFloat(item['배당금']?.replace('$', '') || 0)
-    );
-
-    const chartData = {
-        labels,
-        datasets: [
+    const chartOptions = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow' },
+            formatter: (params) =>
+                `${params[0].name}<br/>${params[0].marker} 배당금: <strong>${formatCurrency(params[0].value)}</strong>`,
+        },
+        grid: { left: '3%', right: '15%', bottom: '3%', containLabel: true },
+        xAxis: {
+            type: 'value',
+            axisLabel: {
+                color: textColorSecondary,
+                formatter: (val) => formatCurrency(val).replace(/[$,₩]/, ''),
+            },
+            splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
+        },
+        yAxis: {
+            type: 'category',
+            data: labels,
+            axisLabel: { color: textColorSecondary },
+        },
+        series: [
             {
+                name: '배당금',
                 type: 'bar',
-                label: '배당금',
-                backgroundColor: (context) =>
-                    context.dataIndex === newestDataIndex
-                        ? colorHighlight
-                        : colorDividend,
                 data: dividendData,
-                datalabels: {
-                    display: labels.length <= 15,
-                    color: '#fff',
-                    anchor: 'end',
-                    align: 'end',
-                    formatter: (value) =>
-                        value > 0 ? `$${value.toFixed(4)}` : null,
-                    font: { size: barLabelSize, weight: 'bold' },
+                label: {
+                    show: true,
+                    position: 'right',
+                    formatter: (params) => formatCurrency(params.value),
+                    color: textColor,
                 },
             },
         ],
     };
 
-    const validDividends = dividendData.filter((d) => d > 0);
-    const minAmount =
-        validDividends.length > 0 ? Math.min(...validDividends) : 0;
-    const maxAmount =
-        validDividends.length > 0 ? Math.max(...validDividends) : 0;
-    const yAxisMin = minAmount * 0.95;
-    const yAxisMax = maxAmount * 1.05;
-
-    const chartOptions = {
-        maintainAspectRatio: false,
-        aspectRatio: getChartAspectRatio(deviceType),
-        plugins: getCommonPlugins({
-            theme: { ...theme, tickFontSize },
-            tooltipCallbacks: {
-                callbacks: {
-                    label: (context) =>
-                        `${context.dataset.label}: $${Number(context.raw).toFixed(4)}`,
-                },
-            },
-        }),
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary,
-                    font: { size: tickFontSize },
-                },
-                grid: { color: surfaceBorder },
-            },
-            y: {
-                min: yAxisMin,
-                max: yAxisMax,
-                ticks: {
-                    color: textColorSecondary,
-                    font: { size: tickFontSize },
-                },
-                grid: { color: surfaceBorder },
-            },
-        },
-    };
-
-    return {
-        chartData,
-        chartOptions,
-        chartContainerWidth,
-    };
+    return { chartOptions, chartContainerHeight };
 }

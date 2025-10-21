@@ -1,81 +1,5 @@
 {
-    "backtestData": {
-        "prices": [
-            {
-                "date": "2025-10-01",
-                "open": 119800,
-                "high": 125000,
-                "low": 106100,
-                "close": 121900,
-                "volume": 5696196
-            },
-            {
-                "date": "2025-10-02",
-                "open": 128500,
-                "high": 134500,
-                "low": 115800,
-                "close": 115800,
-                "volume": 3263297
-            },
-            {
-                "date": "2025-10-10",
-                "open": 113500,
-                "high": 118500,
-                "low": 105500,
-                "close": 106100,
-                "volume": 1187112
-            },
-            {
-                "date": "2025-10-13",
-                "open": 103500,
-                "high": 106100,
-                "low": 97200,
-                "close": 98000,
-                "volume": 535193
-            },
-            {
-                "date": "2025-10-14",
-                "open": 100600,
-                "high": 118700,
-                "low": 99100,
-                "close": 109700,
-                "volume": 3078503
-            },
-            {
-                "date": "2025-10-15",
-                "open": 111600,
-                "high": 114600,
-                "low": 103800,
-                "close": 104200,
-                "volume": 730794
-            },
-            {
-                "date": "2025-10-16",
-                "open": 99000,
-                "high": 101200,
-                "low": 96000,
-                "close": 96700,
-                "volume": 637807
-            },
-            {
-                "date": "2025-10-17",
-                "open": 0,
-                "high": 0,
-                "low": 0,
-                "close": 91200,
-                "volume": 0
-            },
-            {
-                "date": "2025-10-20",
-                "open": 0,
-                "high": 0,
-                "low": 0,
-                "close": 92900,
-                "volume": 0
-            }
-        ]
-    },
-    "tickerInfoRaw": {
+    "tickerInfo": {
         "Symbol": "317450.KS",
         "koName": "명인제약",
         "longName": "명인제약",
@@ -88,43 +12,114 @@
         "englishName": null,
         "earningsDate": "N/A",
         "enterpriseValue": 745671950336,
-        "marketCap": 1356340002816,
-        "Volume": 0,
+        "marketCap": 1375320014848,
+        "Volume": 292533,
         "AvgVolume": 1947886,
         "sharesOutstanding": 14600000,
-        "52Week": "N/A",
+        "52Week": "90400.0 - 134500.0",
         "Yield": 0,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "Update": "2025-10-21 05:36:29 KST"
-    },
-    "tickerInfo": {
-        "Symbol": "317450.KS",
-        "koName": "명인제약",
-        "longName": "명인제약",
-        "company": "N/A",
-        "frequency": "N/A",
-        "group": "N/A",
-        "underlying": "N/A",
-        "market": "KOSPI",
-        "currency": "KRW",
-        "englishName": "N/A",
-        "earningsDate": "N/A",
-        "enterpriseValue": "745.67B ₩",
-        "marketCap": "1.36T ₩",
-        "Volume": "0 ₩",
-        "AvgVolume": "1.95M ₩",
-        "sharesOutstanding": "14.60M ₩",
-        "52Week": "N/A",
-        "Yield": "N/A",
-        "dividendRate": "N/A",
-        "payoutRatio": "0.00%",
-        "Update": "2025-10-21 05:36:29 KST",
+        "payoutRatio": 0,
+        "Update": "2025-10-20 11:45:57 KST",
         "changes": {
+            "enterpriseValue": {
+                "value": 807271923712,
+                "change": "down"
+            },
             "marketCap": {
-                "value": "1.33T ₩",
+                "value": 1376780025856,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 220944,
                 "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2161271,
+                "change": "down"
             }
         }
-    }
+    },
+    "backtestData": [
+        {
+            "date": "2025-10-01",
+            "open": 119800,
+            "high": 125000,
+            "low": 106100,
+            "close": 121900,
+            "volume": 5696196
+        },
+        {
+            "date": "2025-10-02",
+            "open": 128500,
+            "high": 134500,
+            "low": 115800,
+            "close": 115800,
+            "volume": 3263297
+        },
+        {
+            "date": "2025-10-10",
+            "open": 113500,
+            "high": 118500,
+            "low": 105500,
+            "close": 106100,
+            "volume": 1187112
+        },
+        {
+            "date": "2025-10-13",
+            "open": 103500,
+            "high": 106100,
+            "low": 97200,
+            "close": 98000,
+            "volume": 535193
+        },
+        {
+            "date": "2025-10-14",
+            "open": 100600,
+            "high": 118700,
+            "low": 99100,
+            "close": 109700,
+            "volume": 3078503
+        },
+        {
+            "date": "2025-10-15",
+            "open": 111600,
+            "high": 114600,
+            "low": 103800,
+            "close": 104200,
+            "volume": 730794
+        },
+        {
+            "date": "2025-10-16",
+            "open": 99000,
+            "high": 101200,
+            "low": 96000,
+            "close": 98200,
+            "volume": 367587
+        },
+        {
+            "date": "2025-10-17",
+            "open": 96000,
+            "high": 98800,
+            "low": 94000,
+            "close": 94100,
+            "volume": 212495
+        },
+        {
+            "date": "2025-10-20",
+            "open": 93400,
+            "high": 97400,
+            "low": 92500,
+            "close": 93400,
+            "volume": 288215
+        },
+        {
+            "date": "2025-10-21",
+            "open": 93500,
+            "high": 94900,
+            "low": 89600,
+            "close": 90000,
+            "volume": 278391
+        }
+    ]
 }

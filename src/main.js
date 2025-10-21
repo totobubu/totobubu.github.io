@@ -4,9 +4,9 @@ import { createApp } from 'vue';
 import { createHead } from '@vueuse/head';
 
 import App from './App.vue';
-import router from './router'; // router는 여기서만 import
-import './store/auth'; // auth 스토어 초기화
-import { isRecentlyAuthenticated } from './store/auth'; // 상태 변수만 import
+import router from './router';
+import './store/auth';
+import { isRecentlyAuthenticated } from './store/auth';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -16,38 +16,42 @@ import Lara from '@primeuix/themes/lara';
 
 import './styles/style.scss';
 
+// --- [핵심 수정 1] ECharts 전역 등록 ---
+import { use } from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
+import { BarChart, LineChart, CandlestickChart } from 'echarts/charts';
 import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarController,
-    LineController,
-} from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import Annotation from 'chartjs-plugin-annotation';
+    TitleComponent,
+    TooltipComponent,
+    LegendComponent,
+    GridComponent,
+    DataZoomComponent,
+    VisualMapComponent,
+    MarkPointComponent,
+} from 'echarts/components';
 
-ChartJS.register(
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarController,
-    LineController,
-    ChartDataLabels,
-    Annotation
-);
+// ECharts에 필요한 모든 모듈을 등록합니다.
+use([
+    CanvasRenderer,
+    BarChart,
+    LineChart,
+    CandlestickChart,
+    TitleComponent,
+    TooltipComponent,
+    LegendComponent,
+    GridComponent,
+    DataZoomComponent,
+    VisualMapComponent,
+    MarkPointComponent,
+]);
+// --- // ---
+
+// --- [핵심 수정 2] 기존 Chart.js 관련 코드 모두 삭제 ---
+// ChartJS.register(...) 블록 전체를 삭제합니다.
+// --- // ---
 
 const MyPreset = definePreset(Lara, {
+    // ... (기존 MyPreset 코드는 그대로 유지)
     semantic: {
         primary: {
             50: '{zinc.50}',
@@ -108,7 +112,7 @@ const MyPreset = definePreset(Lara, {
 const app = createApp(App);
 const head = createHead();
 
-app.use(router); // Vue 앱에 라우터를 먼저 등록합니다.
+app.use(router);
 app.use(head);
 app.use(PrimeVue, {
     theme: {
@@ -121,10 +125,7 @@ app.use(PrimeVue, {
 app.use(ToastService);
 app.use(ConfirmationService);
 
-// --- 핵심: router.afterEach 로직을 여기에 추가합니다 ---
-// 이 코드는 router가 앱에 등록된 후에 실행되어야 합니다.
 router.afterEach(() => {
-    // 페이지가 이동할 때마다 마이페이지의 사전 인증 상태를 초기화합니다.
     isRecentlyAuthenticated.value = false;
 });
 

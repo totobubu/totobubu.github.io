@@ -1,4 +1,4 @@
-# REFACTORED: .github/workflows/update_all_data.yml
+# .github/workflows/update_all_data.yml
 
 name: Update All Ticker Data (Daily)
 
@@ -6,30 +6,24 @@ on:
     # 매일 UTC 20:00 (한국 시간 오전 5시)에 실행
     schedule:
         - cron: '0 20 * * *'
-    # GitHub Actions 탭에서 수동으로 실행 가능하도록 설정
     workflow_dispatch:
 
-# Git에 변경 사항을 푸시하기 위해 쓰기 권한을 부여합니다.
 permissions:
     contents: write
 
 jobs:
     update-all:
         runs-on: ubuntu-latest
-
         steps:
-            # 1. 리포지토리 코드를 가져옵니다.
             - name: Checkout main branch
               uses: actions/checkout@v4
 
-            # 2. Node.js 환경을 설정합니다.
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
                   cache: 'npm'
 
-            # 3. Python 환경을 설정합니다.
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
@@ -37,82 +31,66 @@ jobs:
                   cache: 'pip'
                   cache-dependency-path: 'requirements.txt'
 
-            # 4. Node.js 의존성을 설치합니다.
             - name: Install Node.js dependencies
               run: npm install
 
-            # 5. Python 의존성을 설치합니다.
             - name: Install Python dependencies
               run: |
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
-            # --- 데이터 업데이트 파이프라인 (순서가 매우 중요) ---
-            # [신규] 오늘 날짜 정보를 가져오는 단계
-            - name: Get date information
+            # --- 데이터 업데이트 파이프라인 ---
+            - name: 1. Get date information
               id: get_date_info
               run: |
-                  echo "DAY_OF_WEEK=$(date +'%u')" >> $GITHUB_OUTPUT
                   echo "DAY_OF_MONTH=$(date +'%d')" >> $GITHUB_OUTPUT
 
-            # 단계 1: KOSPI, NASDAQ 상위 티커 목록 가져와서 nav 소스에 추가
-            - name: 1. Fetch top market tickers (Monthly)
-              if: steps.get_date_info.outputs.DAY_OF_MONTH == '01'
-              run: python scripts/fetch_top_tickers.py
+            # - name: 2. Fetch top tickers (Monthly)
+            #   if: steps.get_date_info.outputs.DAY_OF_MONTH == '01'
+            #   run: |
+            #       python scripts/fetch_top_tickers.py
+            #       python scripts/fetch_us_etfs.py
+            #       python scripts/fetch_kr_etfs.py
 
-            # 단계 2: 실시간 환율 업데이트
-            - name: 2. Update historical exchange rate data
+            - name: 3. Update exchange rate data
               run: node scripts/fetch_all_exchange_rates.js
 
-            # 단계 3: 소스 파일(public/nav/*.json)의 IPO 날짜를 확인하고 'upcoming' 상태를 업데이트합니다.
-            - name: 3. Sync IPO dates and upcoming status
+            - name: 4. Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
 
-            # 단계 4: 배당 데이터를 분석하여 frequency 및 group 자동 할당
-            - name: 4. Analyze and add dividend frequency
+            - name: 5. Analyze and add dividend frequency
               run: python scripts/analyze_dividend_frequency.py
 
-            # 단계 5: 업데이트된 소스 파일을 기반으로 최종 nav.json을 생성합니다.
-            - name: 5. Generate final nav.json
+            - name: 6. Generate final nav.json
               run: npm run generate-nav
 
-            # 단계 6: Node.js 스크립트로 과거 '주가' 데이터를 가져옵니다.
-            - name: 6. Update historical price data (Node.js/yahoo-finance2)
+            - name: 7. Update historical price data
               run: npm run update-data
 
-            # 단계 7: Python 스크립트로 과거 '배당' 데이터를 가져옵니다.
-            - name: 7. Update historical dividend data (Python/yfinance)
+            - name: 8. Update historical dividend data
               run: python scripts/update_dividends.py
 
-            # 단계 8: Python 스크립트가 미리 생성된 주가/배당 데이터를 사용하여 dividendHistory를 가공합니다.
-            - name: 8. Process and enrich dividend history for display
+            - name: 9. Process and enrich dividend history
               run: python scripts/scraper_dividend.py
 
-            # 단계 9: Python 스크립트로 최신 시세 및 기업 정보를 가져옵니다.
-            - name: 9. Update latest ticker info
+            - name: 10. Update latest ticker info
               run: python scripts/scraper_info.py
 
-            # 단계 10: 사이드바용 실시간 시세 데이터(live-data.json) 생성
-            - name: 10. Generate live data for sidebar
-              run: python scripts/generate_live_data.py
-
-            # 단계 11: Firestore에서 북마크 인기 데이터를 집계하여 popular.json 생성
-            - name: 11. Aggregate bookmark popularity from Firestore
+            - name: 11. Aggregate bookmark popularity
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
               run: python scripts/aggregate_popularity.py
 
-            # 단계 12: 캘린더 이벤트 데이터 생성
-            - name: 12. Generate aggregated calendar events data
+            - name: 12. Generate calendar events data
               run: npm run generate-calendar-events
 
-            # 단계 13: 사이드바에 표시할 티커 데이터 생성
-            - name: 13. Generate aggregated sidebar tickers data
-              run: npm run generate-sidebar-tickers
+            - name: 13. Generate sidebar tickers data
+              run: python scripts/generate_sidebar_tickers.py
 
-            # 단계 14: 변경된 모든 데이터를 일관된 포맷으로 정리
-            - name: 14. Format generated data files
-              run: npm run format:data
+            - name: 14. Format all generated data files
+              run: |
+                  npm run format:data
+                  npm run format:nav
 
             # --- 변경 사항 커밋 및 푸시 ---
             - name: Check for file changes

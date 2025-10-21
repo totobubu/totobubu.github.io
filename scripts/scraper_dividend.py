@@ -1,205 +1,90 @@
 # scripts\scraper_dividend.py
+import os
 import json
 from datetime import datetime, timedelta
-from utils import (
-    load_json_file,
-    save_json_file,
-    sanitize_ticker_for_filename,
-    parse_numeric_value,
-    format_currency,
-)
+from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
 from tqdm import tqdm
 
 
-def get_historical_prices_from_data(ex_date, historical_prices_map, currency="USD"):
-    prices = {}
-    try:
-        # [핵심 수정] 모든 가격 포맷팅을 format_currency 함수에 위임
-        target_date_str = ex_date.strftime("%Y-%m-%d")
-        price_data_on = historical_prices_map.get(target_date_str)
-        if price_data_on:
-            if price_data_on.get("open") is not None:
-                prices["당일시가"] = format_currency(
-                    price_data_on.get("open"), currency
-                )
-            if price_data_on.get("close") is not None:
-                prices["당일종가"] = format_currency(
-                    price_data_on.get("close"), currency
-                )
-
-        for days in range(1, 8):
-            prev_date_str = (ex_date - timedelta(days=days)).strftime("%Y-%m-%d")
-            price_data_before = historical_prices_map.get(prev_date_str)
-            if price_data_before and price_data_before.get("close") is not None:
-                prices["전일종가"] = format_currency(
-                    price_data_before.get("close"), currency
-                )
-                break
-
-        for days in range(1, 8):
-            next_date_str = (ex_date + timedelta(days=days)).strftime("%Y-%m-%d")
-            price_data_after = historical_prices_map.get(next_date_str)
-            if price_data_after and price_data_after.get("close") is not None:
-                prices["익일종가"] = format_currency(
-                    price_data_after.get("close"), currency
-                )
-                break
-    except Exception as e:
-        print(f"     Price lookup error: {e}")
-    return prices
-
-
-def calculate_yields(history):
-    if not history:
+def calculate_yields(backtest_data):
+    if not backtest_data:
         return []
 
-    parsed_history = sorted(
-        [
-            {
-                "date": datetime.strptime(item["배당락"].replace(" ", ""), "%y.%m.%d"),
-                "data": item,
-            }
-            for item in history
-            if item.get("배당락")
-        ],
-        key=lambda x: x["date"],
+    for item in backtest_data:
+        try:
+            item["date_obj"] = datetime.strptime(item["date"], "%Y-%m-%d")
+        except (ValueError, KeyError):
+            item["date_obj"] = None
+
+    valid_data = sorted(
+        [item for item in backtest_data if item["date_obj"] is not None],
+        key=lambda x: x["date_obj"],
     )
 
-    for i, current_entry in enumerate(parsed_history):
-        item = current_entry["data"]
-        price_raw = item.get("_price_raw")
-        dividend_raw = item.get("_dividend_raw")
+    for i, current_item in enumerate(valid_data):
+        price_raw = current_item.get("open") or current_item.get("close")
+
+        # [핵심 수정] amountFixed 우선 사용
+        dividend_raw = (
+            current_item.get("amountFixed")
+            if "amountFixed" in current_item
+            else current_item.get("amount")
+        )
 
         if price_raw and price_raw > 0 and dividend_raw is not None:
-            one_year_before = current_entry["date"] - timedelta(days=365)
+            one_year_before = current_item["date_obj"] - timedelta(days=365)
+
             dividends_in_past_year = sum(
-                past_entry["data"].get("_dividend_raw", 0)
-                for past_entry in parsed_history[i::-1]
-                if past_entry["date"] >= one_year_before
-            )
-            yield_rate = (dividends_in_past_year / price_raw) * 100
-            item["배당률"] = f"{yield_rate:.2f}%"
-
-    return sorted(
-        history,
-        key=lambda x: datetime.strptime(x["배당락"].replace(" ", ""), "%y.%m.%d"),
-        reverse=True,
-    )
-
-
-def process_ticker(item, DESIRED_KEY_ORDER):
-    ticker = item.get("symbol")
-    currency = item.get("currency", "USD")
-    if not ticker:
-        return False
-
-    file_path = f"public/data/{sanitize_ticker_for_filename(ticker)}.json"
-    existing_data = load_json_file(file_path)
-    if not existing_data:
-        return False
-
-    prices_data = existing_data.get("backtestData", {}).get("prices", [])
-    dividends_data = existing_data.get("backtestData", {}).get("dividends", [])
-    original_history = existing_data.get("dividendHistory", [])
-
-    historical_prices_map = {p["date"]: p for p in prices_data}
-    history_map = {h["배당락"]: h for h in original_history if h.get("배당락")}
-
-    if dividends_data:
-        for div in dividends_data:
-            amount = div.get("amount")
-            if amount is None:
-                continue
-
-            ex_date_obj = datetime.strptime(div["date"], "%Y-%m-%d")
-            ex_date_str = ex_date_obj.strftime("%y. %m. %d")
-
-            if ex_date_str not in history_map:
-                history_map[ex_date_str] = {
-                    "배당락": ex_date_str,
-                    "배당금": format_currency(amount, currency),
-                }
-
-    for ex_date_str, entry in history_map.items():
-        if "당일종가" not in entry and "전일종가" not in entry:
-            try:
-                ex_date_obj = datetime.strptime(
-                    ex_date_str.replace(" ", ""), "%y.%m.%d"
+                (
+                    entry.get("amountFixed")
+                    if "amountFixed" in entry
+                    else entry.get("amount", 0)
                 )
-                prices, raw_prices = get_historical_prices_from_data(
-                    ex_date_obj, historical_prices_map, currency
+                for entry in valid_data[i::-1]
+                if entry["date_obj"] >= one_year_before
+                and (
+                    entry.get("amount") is not None
+                    or entry.get("amountFixed") is not None
                 )
-                entry.update(prices)
-                entry["_price_raw"] = raw_prices.get("open_raw") or raw_prices.get(
-                    "prev_close_raw"
-                )
-            except ValueError:
-                continue
-        else:
-            entry["_price_raw"] = parse_numeric_value(
-                entry.get("당일시가") or entry.get("전일종가")
             )
 
-        entry["_dividend_raw"] = parse_numeric_value(entry.get("배당금"))
+            if dividends_in_past_year > 0:
+                current_item["yield"] = dividends_in_past_year / price_raw
 
-    history_with_yield = calculate_yields(list(history_map.values()))
-    final_history = [
-        {
-            key: item_data.get(key)
-            for key in DESIRED_KEY_ORDER
-            if item_data.get(key) is not None
-        }
-        for item_data in history_with_yield
-    ]
+    for item in backtest_data:
+        item.pop("date_obj", None)
 
-    original_history_str = json.dumps(
-        original_history, sort_keys=True, ensure_ascii=False
-    )
-    new_history_str = json.dumps(final_history, sort_keys=True, ensure_ascii=False)
-
-    if original_history_str != new_history_str:
-        total_dividend = sum(parse_numeric_value(entry.get("배당금")) or 0 for entry in final_history)
-        
-        # [핵심 수정] dividendTotal을 정수로 저장 (KRW인 경우)
-        if currency == "KRW":
-            existing_data["dividendTotal"] = int(total_dividend)
-        else:
-            existing_data["dividendTotal"] = total_dividend
-            
-        existing_data["dividendHistory"] = final_history
-        if save_json_file(file_path, existing_data):
-            tqdm.write(f" => UPDATED Dividend History for {ticker} (Total: {format_currency(total_dividend, currency)})")
-            return True
-    return False
+    return backtest_data
 
 def main():
-    nav_data = load_json_file("public/nav.json")
-    if not nav_data or "nav" not in nav_data:
-        print("Error: public/nav.json not found or is invalid.")
-        return
+    print("\n--- Calculating Yield for Backtest Data ---")
+    files = [f for f in os.listdir("public/data") if f.endswith(".json")]
+    updated_count = 0
 
-    print("\n--- Starting Dividend History Update & Total Calculation ---")
-    active_tickers_info = [
-        t for t in nav_data.get("nav", []) if t.get("symbol") and not t.get("upcoming")
-    ]
-    total_changed_files = 0
-    DESIRED_KEY_ORDER = [
-        "배당락",
-        "배당금",
-        "배당률",
-        "전일종가",
-        "당일시가",
-        "당일종가",
-        "익일종가",
-    ]
+    for filename in tqdm(files, desc="Calculating Yields"):
+        file_path = os.path.join("public/data", filename)
+        data = load_json_file(file_path)
+        if not data or "backtestData" not in data:
+            continue
 
-    for item in tqdm(active_tickers_info, desc="Updating Dividend History"):
-        if process_ticker(item, DESIRED_KEY_ORDER):
-            total_changed_files += 1
+        original_backtest_data_str = json.dumps(
+            data.get("backtestData", []), sort_keys=True
+        )
 
-    print(
-        f"\n--- Dividend Update Finished. Total files updated: {total_changed_files} ---"
-    )
+        # 배당 데이터가 있는 경우에만 배당률 계산 실행
+        if any(
+            item.get("amount") is not None or item.get("amountFixed") is not None
+            for item in data["backtestData"]
+        ):
+            new_backtest_data = calculate_yields(data["backtestData"])
+            new_backtest_data_str = json.dumps(new_backtest_data, sort_keys=True)
+
+            if original_backtest_data_str != new_backtest_data_str:
+                data["backtestData"] = new_backtest_data
+                if save_json_file(file_path, data):
+                    updated_count += 1
+
+    print(f"\n--- Yield Calculation Finished. Total files updated: {updated_count} ---")
 
 
 if __name__ == "__main__":

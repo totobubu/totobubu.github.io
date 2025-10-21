@@ -57,7 +57,10 @@
 <template>
     <div id="t-backtester">
         <Toast />
-        <BacktesterControls @run="handleRun" :is-loading="isLoading" />
+        <BacktesterControls
+            @run="handleRun"
+            :is-loading="isLoading"
+            country="US" />
         <Message
             v-if="adjustedDateMessage"
             severity="info"

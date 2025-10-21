@@ -1,40 +1,21 @@
-<!-- REFACTORED: src/components/backtester/BacktesterResults.vue -->
 <script setup>
-    import { ref, computed } from 'vue';
-    import { use, init } from 'echarts/core';
-    import { CanvasRenderer } from 'echarts/renderers';
-    import { LineChart } from 'echarts/charts';
-    import {
-        TitleComponent,
-        TooltipComponent,
-        LegendComponent,
-        GridComponent,
-        DataZoomComponent,
-        MarkPointComponent,
-    } from 'echarts/components';
+    import { computed } from 'vue';
     import VChart from 'vue-echarts';
     import Button from 'primevue/button';
+    // [핵심 수정] 경로를 './'로 변경합니다.
     import BacktesterSummaryTable from './BacktesterSummaryTable.vue';
     import BacktesterResultDetails from './BacktesterResultDetails.vue';
     import { getBacktesterChartPalette } from '@/utils/chartColors.js';
     import { exportResultsAsImage } from '@/services/backtester/imageExporter.js';
 
-    use([
-        CanvasRenderer,
-        LineChart,
-        TitleComponent,
-        TooltipComponent,
-        LegendComponent,
-        GridComponent,
-        DataZoomComponent,
-        MarkPointComponent,
-    ]);
+    // ECharts 모듈은 main.js에서 전역으로 등록했으므로 여기서는 제거합니다.
 
     const props = defineProps({
         result: Object,
         isLoading: Boolean,
     });
 
+    // ... (나머지 스크립트 코드는 이전과 동일하게 유지)
     const formatCurrency = (val) =>
         new Intl.NumberFormat('en-US', {
             style: 'currency',

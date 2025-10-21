@@ -1,8 +1,7 @@
-// composables/useCalendarData.js
+// src\composables\useCalendarData.js
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
-import { user } from '../store/auth';
 
 const allDividendData = ref([]);
 const isLoading = ref(false);
@@ -18,15 +17,45 @@ const loadAllData = () => {
         isLoading.value = true;
         error.value = null;
         try {
-            // [핵심 변경] 단 하나의 파일만 요청합니다.
-            const eventsResponse = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
-            );
-            if (!eventsResponse.ok) {
+            const [eventsResponse, tickersResponse] = await Promise.all([
+                fetch(
+                    joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
+                ),
+                fetch(
+                    joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
+                ),
+            ]);
+            if (!eventsResponse.ok)
                 throw new Error('calendar-events.json could not be loaded.');
             }
 
-            allDividendData.value = await eventsResponse.json();
+            const eventsByDate = await eventsResponse.json();
+            const sidebarTickers = await tickersResponse.json();
+
+            const flatEvents = [];
+            for (const date in eventsByDate) {
+                const dayData = eventsByDate[date];
+                if (dayData.USD)
+                    dayData.USD.forEach((event) =>
+                        flatEvents.push({ ...event, date, currency: 'USD' })
+                    );
+                if (dayData.KRW)
+                    dayData.KRW.forEach((event) =>
+                        flatEvents.push({ ...event, date, currency: 'KRW' })
+                    );
+            }
+            allDividendData.value = flatEvents;
+
+            allTickerProperties.value = new Map(
+                sidebarTickers.map((t) => [
+                    t.symbol,
+                    {
+                        currency: t.currency,
+                        isEtf: !!(t.company || t.underlying),
+                        koName: t.koName,
+                    },
+                ])
+            );
             isDataLoaded = true;
             console.log('최적화된 캘린더 데이터 로딩 완료.');
             resolve();
@@ -44,23 +73,59 @@ const loadAllData = () => {
 };
 
 export function useCalendarData() {
-    const { showMyStocksOnly, myBookmarks } = useFilterState();
+    const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
     const dividendsByDate = computed(() => {
-        let sourceData = allDividendData.value;
+        const mainTab = mainFilterTab.value;
+        const subTab = subFilterTab.value;
+        const myTickerSet = new Set(Object.keys(myBookmarks.value));
 
-        if (showMyStocksOnly.value && user.value) {
-            const myTickerSet = new Set(Object.keys(myBookmarks.value));
-            sourceData = allDividendData.value.filter((div) =>
-                myTickerSet.has(div.ticker)
+        let filteredEvents = [...allDividendData.value];
+
+        if (mainTab === '북마크') {
+            filteredEvents = filteredEvents.filter((event) =>
+                myTickerSet.has(event.ticker)
             );
+        } else {
+            // 북마크가 아닌 탭에서는 북마크된 항목 제외
+            filteredEvents = filteredEvents.filter(
+                (event) => !myTickerSet.has(event.ticker)
+            );
+
+            // [핵심 수정] 국가 필터링
+            if (mainTab === '미국') {
+                filteredEvents = filteredEvents.filter(
+                    (event) =>
+                        allTickerProperties.value.get(event.ticker)
+                            ?.currency === 'USD'
+                );
+            } else if (mainTab === '한국') {
+                filteredEvents = filteredEvents.filter(
+                    (event) =>
+                        allTickerProperties.value.get(event.ticker)
+                            ?.currency === 'KRW'
+                );
+            }
+
+            // [핵심 수정] 소분류 필터링 (국가 필터링 후에 적용)
+            if (subTab === 'ETF') {
+                filteredEvents = filteredEvents.filter(
+                    (event) =>
+                        allTickerProperties.value.get(event.ticker)?.isEtf
+                );
+            } else if (subTab === '주식') {
+                filteredEvents = filteredEvents.filter(
+                    (event) =>
+                        !allTickerProperties.value.get(event.ticker)?.isEtf
+                );
+            }
         }
 
         const grouped = {};
-        for (const div of sourceData) {
-            if (!grouped[div.date]) {
-                grouped[div.date] = [];
-            }
+        for (const div of filteredEvents) {
+            const props = allTickerProperties.value.get(div.ticker);
+            if (props) div.koName = props.koName;
+            if (!grouped[div.date]) grouped[div.date] = [];
             grouped[div.date].push(div);
         }
         return grouped;

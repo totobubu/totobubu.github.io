@@ -51,12 +51,12 @@
                 @click="router.push('/login')" />
             <Button
                 v-else
-                label="마이페이지"
-                icon="pi pi-user"
+                label="북마크"
+                icon="pi pi-star"
                 severity="secondary"
                 rounded
                 size="large"
-                @click="router.push('/mypage')" />
+                @click="router.push('/bookmarks')" />
             <Button
                 label="문의하기"
                 icon="pi pi-envelope"

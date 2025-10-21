@@ -3,14 +3,17 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import CalendarView from '../pages/CalendarView.vue';
 import BacktesterView from '../pages/BacktesterView.vue';
+// import BacktesterViewKR from '../pages/BacktesterViewKR.vue';
 import StockView from '../pages/StockView.vue';
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
-import MyPageView from '../pages/MyPageView.vue';
+// import MyPageView from '../pages/MyPageView.vue'; // [삭제]
+import BookmarkView from '../pages/BookmarkView.vue';
+import ProfileView from '../pages/ProfileView.vue';
 import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
-import ThumbnailGenerator from '../pages/ThumbnailGenerator.vue'; // [추가]
+import ThumbnailGenerator from '../pages/ThumbnailGenerator.vue';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -38,6 +41,12 @@ const router = createRouter({
             component: BacktesterView,
             props: true,
         },
+        // {
+        //     path: '/backtester-kr/:ticker?',
+        //     name: 'backtester-kr',
+        //     component: BacktesterViewKR,
+        //     props: true,
+        // },
         { path: '/signup', name: 'signup', component: SignUpView },
         { path: '/login', name: 'login', component: LoginView },
         {
@@ -46,9 +55,15 @@ const router = createRouter({
             component: PasswordResetView,
         },
         {
-            path: '/mypage',
-            name: 'mypage',
-            component: MyPageView,
+            path: '/bookmarks',
+            name: 'bookmarks',
+            component: BookmarkView,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: ProfileView,
             meta: { requiresAuth: true },
         },
         {
@@ -79,7 +94,7 @@ router.beforeEach(async (to, from, next) => {
     if (requiresAuth && !user) {
         next({ name: 'login', query: { redirect: to.fullPath } });
     } else if (isAuthPage && user) {
-        next({ name: 'mypage' });
+        next({ name: 'bookmarks' }); // 로그인/회원가입 페이지에 이미 로그인된 사용자가 접근 시 /bookmarks 로 이동
     } else {
         next();
     }

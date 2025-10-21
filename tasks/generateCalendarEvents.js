@@ -1,77 +1,233 @@
-// CREATE NEW FILE: tasks/generateCalendarEvents.js
+// tasks/generateCalendarEvents.js
 import fs from 'fs/promises';
 import path from 'path';
+import {
+    format,
+    startOfDay,
+    addMonths,
+    addWeeks,
+    addYears,
+    getDay,
+    nextDay,
+    parseISO,
+} from 'date-fns';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json');
+const KR_HOLIDAYS_PATH = path.join(PUBLIC_DIR, 'holidays', 'kr_holidays.json');
+const US_HOLIDAYS_PATH = path.join(PUBLIC_DIR, 'holidays', 'us_holidays.json');
+
+// --- Helper Functions ---
+
+// 휴일인지, 주말인지 확인하는 함수
+function isNonTradingDay(date, holidaySet) {
+    const day = getDay(date); // 0: Sunday, 6: Saturday
+    if (day === 0 || day === 6) {
+        return true;
+    }
+    return holidaySet.has(format(date, 'yyyy-MM-dd'));
+}
+
+// 다음 영업일을 찾는 함수
+function getNextTradingDay(date, holidaySet) {
+    let nextDate = new Date(date);
+    while (isNonTradingDay(nextDate, holidaySet)) {
+        nextDate.setDate(nextDate.getDate() + 1);
+    }
+    return nextDate;
+}
+
+// 그룹 정보를 기반으로 다음 예상 배당일 계산
+function calculateNextExpectedDate(lastDividend, tickerInfo, holidaySet) {
+    const { frequency, group } = tickerInfo;
+    const lastDate = parseISO(lastDividend.date);
+
+    switch (frequency) {
+        case '매월':
+            return addMonths(lastDate, 1);
+        case '분기':
+            return addMonths(lastDate, 3);
+        case '매년':
+            return addYears(lastDate, 1);
+        case '매주':
+            const dayMap = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
+            const targetDay = dayMap[group];
+            if (targetDay) {
+                // 마지막 배당일로부터 7일 뒤를 기준으로 다음 해당 요일을 찾음
+                const nextWeekBase = addWeeks(lastDate, 1);
+                return nextDay(nextWeekBase, targetDay);
+            }
+            return addWeeks(lastDate, 1); // 그룹 정보 없으면 그냥 1주 더함
+        default:
+            return null;
+    }
+}
 
 async function generateCalendarEvents() {
-    console.log('--- Starting to generate calendar-events.json ---');
-
+    console.log('--- Regenerating calendar-events.json from backtestData ---');
     try {
-        // 1. nav.json에서 티커 정보(frequency, group)를 Map으로 만듭니다.
-        const navFileContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
-        const navData = JSON.parse(navFileContent);
-        const tickerInfoMap = new Map(
-            navData.nav.map((item) => [
-                item.symbol,
-                { frequency: item.frequency, group: item.group },
-            ])
+        // 데이터 로드
+        const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
+        const krHolidays = new Set(
+            JSON.parse(await fs.readFile(KR_HOLIDAYS_PATH, 'utf-8')).map(
+                (h) => h.date
+            )
+        );
+        const usHolidays = new Set(
+            JSON.parse(await fs.readFile(US_HOLIDAYS_PATH, 'utf-8')).map(
+                (h) => h.date
+            )
         );
 
-        // 2. data 디렉토리의 모든 json 파일을 읽습니다.
-        const allFiles = await fs.readdir(DATA_DIR);
-        const jsonFiles = allFiles.filter((file) => file.endsWith('.json'));
+        const tickerInfoMap = new Map(
+            navData.nav.map((item) => [item.symbol, { ...item }])
+        );
 
-        const allEvents = [];
+        const eventsByDate = {};
+        const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
+            file.endsWith('.json')
+        );
 
         for (const fileName of jsonFiles) {
-            const filePath = path.join(DATA_DIR, fileName);
-            const fileContent = await fs.readFile(filePath, 'utf-8');
-            const data = JSON.parse(fileContent);
+            try {
+                const data = JSON.parse(
+                    await fs.readFile(path.join(DATA_DIR, fileName), 'utf-8')
+                );
+                const backtestData = data.backtestData || [];
+                if (backtestData.length === 0) continue;
 
-            // 3. 각 파일에서 dividendHistory를 추출하여 필요한 데이터만 가공합니다.
-            if (data.dividendHistory && Array.isArray(data.dividendHistory)) {
-                // 파일 이름에서 티커 심볼을 추출합니다 (예: 'aapl.json' -> 'AAPL').
                 const tickerSymbol = path
                     .basename(fileName, '.json')
-                    .toUpperCase();
-                const tickerInfo = tickerInfoMap.get(tickerSymbol) || {};
+                    .toUpperCase()
+                    .replace(/-/g, '.');
+                const tickerInfo = tickerInfoMap.get(tickerSymbol);
+                if (!tickerInfo || tickerInfo.upcoming) continue;
 
-                data.dividendHistory.forEach((dividend) => {
-                    if (dividend && dividend.배당락) {
-                        try {
-                            const parts = dividend.배당락
-                                .split('.')
-                                .map((p) => p.trim());
-                            const dateStr = `20${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+                const currency = tickerInfo.currency || 'USD';
+                const holidaySet = currency === 'KRW' ? krHolidays : usHolidays;
 
-                            const amount = dividend.배당금
-                                ? parseFloat(dividend.배당금.replace('$', ''))
-                                : null;
+                const createEventEntry = (overrides) => ({
+                    ticker: tickerInfo.symbol,
+                    koName: tickerInfo.koName,
+                    company: tickerInfo.company,
+                    frequency: tickerInfo.frequency,
+                    group: tickerInfo.group,
+                    ...overrides,
+                });
 
-                            allEvents.push({
-                                date: dateStr,
-                                amount,
-                                ticker: tickerSymbol,
-                                frequency: tickerInfo.frequency,
-                                group: tickerInfo.group,
-                            });
-                        } catch (e) {
-                            // 날짜 형식이 잘못된 경우 무시
+                // 1. 기존 확정/예상 배당일 추가
+                backtestData.forEach((entry) => {
+                    if (!entry.date) return;
+                    const dateStr = format(
+                        startOfDay(new Date(entry.date)),
+                        'yyyy-MM-dd'
+                    );
+
+                    if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
+                    if (!eventsByDate[dateStr][currency])
+                        eventsByDate[dateStr][currency] = [];
+
+                    const amount =
+                        entry.amountFixed !== undefined
+                            ? entry.amountFixed
+                            : entry.amount;
+                    if (amount !== undefined) {
+                        eventsByDate[dateStr][currency].push(
+                            createEventEntry({ amount })
+                        );
+                    } else if (entry.expected === true) {
+                        if (
+                            !eventsByDate[dateStr][currency].some(
+                                (e) => e.ticker === tickerSymbol
+                            )
+                        ) {
+                            eventsByDate[dateStr][currency].push(
+                                createEventEntry({ isForecast: true })
+                            );
                         }
                     }
                 });
+
+                // 2. 미래 예상 배당일 계산 로직
+                const allDividends = backtestData
+                    .filter(
+                        (d) =>
+                            (d.amount !== undefined ||
+                                d.amountFixed !== undefined) &&
+                            d.date
+                    )
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                if (allDividends.length > 0) {
+                    let lastDividend = allDividends[0];
+                    const oneYearFromNow = addYears(new Date(), 1);
+
+                    while (true) {
+                        const nextDateRaw = calculateNextExpectedDate(
+                            lastDividend,
+                            tickerInfo,
+                            holidaySet
+                        );
+                        if (!nextDateRaw || nextDateRaw > oneYearFromNow) break;
+
+                        const nextTradingDay = getNextTradingDay(
+                            nextDateRaw,
+                            holidaySet
+                        );
+                        const dateStr = format(nextTradingDay, 'yyyy-MM-dd');
+
+                        if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
+                        if (!eventsByDate[dateStr][currency])
+                            eventsByDate[dateStr][currency] = [];
+
+                        // 이미 확정 배당이 있는 날짜에는 추가하지 않음
+                        const hasConfirmedDividend = eventsByDate[dateStr][
+                            currency
+                        ].some(
+                            (e) =>
+                                e.ticker === tickerSymbol &&
+                                e.amount !== undefined
+                        );
+
+                        if (!hasConfirmedDividend) {
+                            if (
+                                !eventsByDate[dateStr][currency].some(
+                                    (e) => e.ticker === tickerSymbol
+                                )
+                            ) {
+                                eventsByDate[dateStr][currency].push(
+                                    createEventEntry({ isForecast: true })
+                                );
+                            }
+                        }
+
+                        // 다음 계산을 위해 마지막 배당일을 업데이트
+                        lastDividend = {
+                            date: format(nextTradingDay, 'yyyy-MM-dd'),
+                        };
+                    }
+                }
+            } catch (e) {
+                console.error(`Error processing ${fileName}:`, e);
+                continue;
             }
         }
 
-        // 4. 최종적으로 하나의 JSON 파일로 저장합니다.
-        await fs.writeFile(OUTPUT_FILE, JSON.stringify(allEvents, null, 2));
+        const sortedEventsByDate = Object.keys(eventsByDate)
+            .sort()
+            .reduce((acc, key) => {
+                acc[key] = eventsByDate[key];
+                return acc;
+            }, {});
 
+        await fs.writeFile(
+            OUTPUT_FILE,
+            JSON.stringify(sortedEventsByDate, null, 2)
+        );
         console.log(
-            `🎉 Successfully generated calendar-events.json with ${allEvents.length} events.`
+            `🎉 Successfully generated calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates (including future events).`
         );
     } catch (error) {
         console.error('❌ Error generating calendar-events.json:', error);

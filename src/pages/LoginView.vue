@@ -1,4 +1,4 @@
-<!-- stock\src\pages\LoginView.vue -->
+<!-- src/pages/LoginView.vue -->
 <script setup>
     import { ref, onMounted } from 'vue';
     import { useHead } from '@vueuse/head';
@@ -47,9 +47,7 @@
 
             await signInWithEmailAndPassword(auth, email.value, password.value);
 
-            // --- [핵심 수정] ---
-            // 로그인 성공 시 이동 경로를 '/'에서 '/mypage'로 변경합니다.
-            router.push('/mypage');
+            router.push('/bookmarks');
 
         } catch (err) {
             console.error('로그인 실패:', err.code);

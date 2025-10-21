@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
 
-export function useBacktestPortfolio() {
+export function useBacktestPortfolio(country = 'US') {
     const route = useRoute();
     const allSymbols = ref([]);
     const navDataMap = ref(new Map());
@@ -41,7 +41,20 @@ export function useBacktestPortfolio() {
             const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
             const response = await fetch(navUrl);
             const navData = await response.json();
-            const activeItems = navData.nav.filter((item) => !item.upcoming);
+
+            const countryFilter = (item) => {
+                if (country === 'KR') {
+                    return item.currency === 'KRW';
+                }
+                return item.currency === 'USD';
+            };
+
+            // --- [핵심 수정] ---
+            // activeItems를 생성할 때 countryFilter를 적용합니다.
+            const activeItems = navData.nav.filter(
+                (item) => !item.upcoming && countryFilter(item)
+            );
+            // --- // ---
 
             allSymbols.value = activeItems.map((item) => item.symbol);
             navDataMap.value = new Map(
@@ -103,6 +116,7 @@ export function useBacktestPortfolio() {
     const addItem = () => {
         if (portfolio.value.length >= 4) return;
         const existingSymbols = new Set(portfolio.value.map((p) => p.symbol));
+        // allSymbols가 이미 필터링 되어 있으므로, 여기서 가져오는 newSymbol은 올바른 국가의 종목입니다.
         const newSymbol =
             shuffleArray([...allSymbols.value]).find(
                 (s) => s && !existingSymbols.has(s)

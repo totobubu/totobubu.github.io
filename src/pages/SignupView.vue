@@ -1,4 +1,4 @@
-<!-- stock\src\pages\SignupView.vue -->
+<!-- src/pages/SignupView.vue -->
 <script setup>
     import { ref } from 'vue';
     import { useHead } from '@vueuse/head';
@@ -30,18 +30,18 @@
                 password.value
             );
 
-            // --- [수정] 성공 피드백 로직 ---
             toast.add({
                 severity: 'success',
                 summary: '회원가입 성공',
-                detail: '마이페이지로 이동합니다.', // 메시지 변경
+                detail: '북마크 페이지로 이동합니다.', // 메시지 변경
                 life: 3000,
             });
 
-            // --- [수정] 이동 경로 변경 ---
+            // --- [핵심 수정] ---
             setTimeout(() => {
-                router.push('/mypage'); // '/login?from=signup' -> '/mypage'
+                router.push('/bookmarks');
             }, 1500);
+            // --- // ---
         } catch (err) {
             console.error('회원가입 실패:', err.code);
             if (err.code === 'auth/email-already-in-use') {
@@ -53,10 +53,8 @@
             }
             isLoading.value = false; // 에러 발생 시에만 로딩 상태 해제
         }
-        // 성공 시에는 setTimeout 이후 페이지가 전환되므로 로딩 상태를 유지합니다.
     };
 </script>
-
 <template>
     <div id="t-auth">
         <Card>
