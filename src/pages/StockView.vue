@@ -7,7 +7,7 @@
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useStockCharts } from '@/composables/useStockCharts.js';
-    import { parseYYMMDD } from '@/utils/date.js';
+    import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
     import VChart from 'vue-echarts';
 
     import Skeleton from 'primevue/skeleton';
@@ -52,25 +52,11 @@
         return options;
     });
 
-    const selectedTimeRange = ref('1Y');
+    // --- [핵심 수정 1] 초기값을 null로 변경 ---
+    const selectedTimeRange = ref(null);
 
     const timeRangeOptions = computed(() => {
-        const options = [{ label: '전체', value: 'ALL' }];
-        const historyYears =
-            dividendHistory.value.length > 0
-                ? new Date().getFullYear() -
-                  parseYYMMDD(
-                      dividendHistory.value[dividendHistory.value.length - 1][
-                          '배당락'
-                      ]
-                  ).getFullYear()
-                : 0;
-
-        if (historyYears >= 1) options.unshift({ label: '1Y', value: '1Y' });
-        if (historyYears >= 3) options.unshift({ label: '3Y', value: '3Y' });
-        if (historyYears >= 5) options.unshift({ label: '5Y', value: '5Y' });
-
-        return options;
+        return generateTimeRangeOptions(tickerInfo.value?.periods);
     });
 
     const displayData = computed(() => {
@@ -108,6 +94,19 @@
                         dividendHistory.value &&
                         dividendHistory.value.length > 0;
                     currentView.value = hasDividends ? '배당' : '주가';
+
+                    // --- [핵심 수정 2] 데이터 로드 후 기본 기간 설정 ---
+                    if (
+                        timeRangeOptions.value &&
+                        timeRangeOptions.value.length > 1
+                    ) {
+                        // '전체'가 아닌 첫 번째(가장 짧은) 기간을 기본값으로 설정
+                        selectedTimeRange.value =
+                            timeRangeOptions.value[0].value;
+                    } else {
+                        // 기간 옵션이 없거나 '전체'만 있을 경우 '전체'를 기본값으로 설정
+                        selectedTimeRange.value = 'ALL';
+                    }
                 });
             }
         },
@@ -121,6 +120,7 @@
 
 <template>
     <div class="card">
+        <!-- Skeleton UI -->
         <div v-if="isLoading" class="flex flex-column gap-5">
             <div id="t-stock-header">
                 <Skeleton
@@ -131,10 +131,12 @@
             </div>
             <Skeleton height="30rem" borderRadius="1rem"></Skeleton>
         </div>
+        <!-- Error UI -->
         <div v-else-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
             <p class="text-red-500 text-xl mt-4">{{ error }}</p>
         </div>
+        <!-- Upcoming UI -->
         <div
             v-else-if="isUpcoming && tickerInfo"
             class="flex flex-column gap-5">
@@ -161,7 +163,9 @@
                 :viewOptions="viewOptions" />
 
             <div v-if="currentView === '배당'">
-                <div v-if="chartOptions" class="chart-wrapper">
+                <div
+                    v-if="chartOptions && Object.keys(chartOptions).length > 0"
+                    class="chart-wrapper">
                     <div
                         class="chart-container"
                         :style="{ height: chartContainerHeight }">
@@ -169,7 +173,7 @@
                     </div>
                 </div>
                 <div v-else class="text-center p-4">
-                    배당 차트 데이터가 없습니다.
+                    선택된 기간에 대한 배당 차트 데이터가 없습니다.
                 </div>
             </div>
 

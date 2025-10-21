@@ -1,4 +1,4 @@
-// src\composables\useDividendStats.js
+// src/composables/useDividendStats.js
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 
@@ -42,9 +42,15 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
             return parseYYMMDD(item['배당락']) >= cutoffDate;
         });
 
+        // --- [핵심 수정] ---
+        // '배당금'은 이미 숫자이므로, 문자열 처리(.replace)와 parseFloat를 제거합니다.
         const validAmounts = filtered
-            .map((h) => parseFloat(h['배당금']?.replace('$', '')))
-            .filter((a) => !isNaN(a) && a > 0);
+            .map((h) => h['배당금'])
+            .filter(
+                (a) =>
+                    a !== null && typeof a !== 'undefined' && !isNaN(a) && a > 0
+            );
+        // --- // ---
 
         if (validAmounts.length === 0) return { min: 0, max: 0, avg: 0 };
 
