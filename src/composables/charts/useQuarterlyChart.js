@@ -13,7 +13,6 @@ export function useQuarterlyChart(options) {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
-
         const subCategory =
             aggregation === 'quarter'
                 ? Math.floor(date.getMonth() / 3)

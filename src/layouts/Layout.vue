@@ -6,27 +6,29 @@
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
     import { useStockData } from '@/composables/useStockData';
 
-import Drawer from 'primevue/drawer';
-import Button from 'primevue/button';
-import Breadcrumb from 'primevue/breadcrumb';
-import Toast from 'primevue/toast';
-import ConfirmDialog from 'primevue/confirmdialog';
-import ScrollTop from 'primevue/scrolltop';
-import AppSidebar from './AppSidebar.vue';
+    import Drawer from 'primevue/drawer';
+    import Button from 'primevue/button';
+    import Breadcrumb from 'primevue/breadcrumb';
+    import Toast from 'primevue/toast';
+    import ConfirmDialog from 'primevue/confirmdialog';
+    import ScrollTop from 'primevue/scrolltop';
+    import TieredMenu from 'primevue/tieredmenu';
+    import AppSidebar from './AppSidebar.vue';
 
-const route = useRoute();
-const router = useRouter();
-const { isDesktop, isMobile } = useBreakpoint();
-const { tickerInfo } = useStockData();
-const visible = ref(false);
+    const route = useRoute();
+    const router = useRouter();
+    const { isDesktop, isMobile } = useBreakpoint();
+    const { tickerInfo } = useStockData();
+    const visible = ref(false);
 
-const isStandalonePage = computed(() => {
-    return ['/', '/thumbnail-generator'].includes(route.path);
-});
+    const isStandalonePage = computed(() => {
+        return ['/', '/thumbnail-generator'].includes(route.path);
+    });
 
-const breadcrumbItems = computed(() => {
-    const home = { icon: 'pi pi-home', to: '/' };
-    const items = [];
+    const menu = ref();
+    const toggleMenu = (event) => {
+        menu.value.toggle(event);
+    };
 
 
     const menuItems = computed(() => [
@@ -132,11 +134,20 @@ const breadcrumbItems = computed(() => {
                 <div class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
                         <template #item="{ item, props }">
-                            <router-link v-if="item.to" :to="item.to" v-bind="props.action">
+                            <router-link
+                                v-if="item.to"
+                                :to="item.to"
+                                v-bind="props.action">
                                 <span v-if="item.icon" :class="item.icon" />
-                                <span class="font-semibold">{{ item.label }}</span>
+                                <span class="font-semibold">{{
+                                    item.label
+                                }}</span>
                             </router-link>
-                            <span v-else class="text-surface-500 dark:text-surface-400">{{ item.label }}</span>
+                            <span
+                                v-else
+                                class="text-surface-500 dark:text-surface-400"
+                                >{{ item.label }}</span
+                            >
                         </template>
                     </Breadcrumb>
                 </div>
@@ -163,13 +174,21 @@ const breadcrumbItems = computed(() => {
             </header>
             <section id="t-content">
                 <RouterView />
-                <ScrollTop target="parent" :threshold="100" icon="pi pi-arrow-up" />
+                <ScrollTop
+                    target="parent"
+                    :threshold="100"
+                    icon="pi pi-arrow-up" />
             </section>
         </main>
         <aside id="t-sidebar" v-if="isDesktop">
             <AppSidebar />
         </aside>
-        <Drawer v-else v-model:visible="visible" :position="isMobile ? 'full' : 'right'" modal id="toto-search">
+        <Drawer
+            v-else
+            v-model:visible="visible"
+            :position="isMobile ? 'full' : 'right'"
+            modal
+            id="toto-search">
             <AppSidebar />
         </Drawer>
     </div>

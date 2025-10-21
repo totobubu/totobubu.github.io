@@ -56,6 +56,7 @@ def calculate_yields(backtest_data):
 
     return backtest_data
 
+
 def main():
     print("\n--- Calculating Yield for Backtest Data ---")
     files = [f for f in os.listdir("public/data") if f.endswith(".json")]
