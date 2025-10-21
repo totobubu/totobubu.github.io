@@ -8,6 +8,7 @@ const backtestData = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 const isUpcoming = ref(false);
+
 let navDataCache = null;
 
 const loadNavData = async () => {
@@ -26,16 +27,6 @@ const loadNavData = async () => {
 
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
-
-const marketNameMap = {
-    NMS: 'NASDAQ',
-    NYQ: 'NYSE',
-    KOE: 'KOSDAQ',
-    KSC: 'KOSPI',
-    NCM: 'NASDAQ',
-    NGM: 'NASDAQ',
-    ASE: 'NYSE',
-};
 
 export function useStockData() {
     const loadData = async (sanitizedTicker) => {

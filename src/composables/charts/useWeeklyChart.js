@@ -1,4 +1,5 @@
 // src/composables/charts/useWeeklyChart.js
+import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
 import { createNumericFormatter } from '@/utils/formatters.js';
 
