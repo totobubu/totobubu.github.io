@@ -38,10 +38,15 @@
             command: () => router.push('/calendar'),
         },
         {
-            label: '백테스터',
+            label: '백테스터', // [수정] 이름 변경
             icon: 'pi pi-history',
             command: () => router.push('/backtester'),
         },
+        // {
+        //     label: '한국 백테스터', // [추가]
+        //     icon: 'pi pi-chart-line',
+        //     command: () => router.push('/backtester-kr'),
+        // },
         {
             label: '문의하기',
             icon: 'pi pi-envelope',

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import CalendarView from '../pages/CalendarView.vue';
 import BacktesterView from '../pages/BacktesterView.vue';
+// import BacktesterViewKR from '../pages/BacktesterViewKR.vue';
 import StockView from '../pages/StockView.vue';
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
@@ -40,6 +41,12 @@ const router = createRouter({
             component: BacktesterView,
             props: true,
         },
+        // {
+        //     path: '/backtester-kr/:ticker?',
+        //     name: 'backtester-kr',
+        //     component: BacktesterViewKR,
+        //     props: true,
+        // },
         { path: '/signup', name: 'signup', component: SignUpView },
         { path: '/login', name: 'login', component: LoginView },
         {

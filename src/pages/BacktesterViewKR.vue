@@ -1,4 +1,3 @@
-<!-- src\pages\BacktesterView.vue -->
 <script setup>
     import { ref } from 'vue';
     import { useHead } from '@vueuse/head';
@@ -8,10 +7,10 @@
     import { useToast } from 'primevue/usetoast';
     import Toast from 'primevue/toast';
     import Message from 'primevue/message';
-    import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
+    import Skeleton from 'primevue/skeleton';
     import { useBacktestData } from '@/composables/useBacktestData.js';
 
-    useHead({ title: '백테스팅' });
+    useHead({ title: '한국 주식 백테스팅' });
 
     const toast = useToast();
     const { fetchDataForBacktest, adjustedDateMessage } = useBacktestData();
@@ -55,12 +54,12 @@
 </script>
 
 <template>
-    <div id="t-backtester">
+    <div id="t-backtester-kr">
         <Toast />
         <BacktesterControls
             @run="handleRun"
             :is-loading="isLoading"
-            country="US" />
+            country="KR" />
         <Message
             v-if="adjustedDateMessage"
             severity="info"
@@ -69,7 +68,6 @@
             {{ adjustedDateMessage }}
         </Message>
 
-        <!-- [핵심 수정] 로딩 상태 UI 변경 -->
         <div v-if="isLoading" class="mt-4 surface-card p-4 border-round">
             <div class="flex justify-content-end align-items-center mb-2">
                 <Skeleton shape="circle" size="2rem"></Skeleton>

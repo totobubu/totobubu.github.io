@@ -7,7 +7,14 @@
     import DateAndInvestment from './controls/DateAndInvestment.vue';
     import { useBacktestPortfolio } from '@/composables/useBacktestPortfolio';
 
-    const props = defineProps({ isLoading: Boolean });
+    const props = defineProps({
+        isLoading: Boolean,
+        country: {
+            type: String,
+            default: 'US', // 기본값은 미국
+        },
+    });
+
     const emit = defineEmits(['run']);
 
     const {
@@ -21,7 +28,7 @@
         removeItem,
         updatePortfolioItem,
         getMaxValueForSlider,
-    } = useBacktestPortfolio();
+    } = useBacktestPortfolio(props.country);
 
     onMounted(loadNavData);
 
@@ -93,6 +100,7 @@
         <DateAndInvestment
             :is-loading="isLoading"
             :portfolio="portfolio"
+            :country="country"
             @run-backtest="handleRun" />
     </div>
 </template>
