@@ -5,20 +5,26 @@
 
     const props = defineProps({
         modelValue: Array,
-        allSymbols: Array,
+        allSymbols: Array, // 이 prop은 국가별로 필터링된 종목 목록입니다.
         getMaxValue: Function,
     });
+
     const emit = defineEmits(['addItem', 'removeItem', 'update:portfolioItem']);
 
     const filteredSymbols = ref([]);
 
+    // AutoComplete의 search 이벤트 핸들러
     const searchSymbol = (event) => {
-        if (!props.allSymbols) return;
+        if (!props.allSymbols) {
+            filteredSymbols.value = [];
+            return;
+        }
         setTimeout(() => {
             if (!event.query.trim().length) {
                 filteredSymbols.value = [];
             } else {
                 const queryLower = event.query.toLowerCase();
+                // [수정] props.allSymbols (필터링된 목록) 내에서 검색
                 filteredSymbols.value = props.allSymbols.filter((symbol) => {
                     return symbol.toLowerCase().startsWith(queryLower);
                 });
