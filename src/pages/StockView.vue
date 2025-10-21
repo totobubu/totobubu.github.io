@@ -52,7 +52,6 @@
         return options;
     });
 
-    // --- [핵심 수정 1] 초기값을 null로 변경 ---
     const selectedTimeRange = ref(null);
 
     const timeRangeOptions = computed(() => {
@@ -67,11 +66,35 @@
             return dividendHistory.value;
 
         const now = new Date();
-        let cutoffDate = new Date();
         const val = parseInt(range);
         const unit = range.slice(-1);
-        if (unit === 'M') cutoffDate.setMonth(now.getMonth() - val);
-        else if (unit === 'Y') cutoffDate.setFullYear(now.getFullYear() - val);
+        let cutoffDate;
+
+        // --- [핵심 수정] ---
+        // '매주' 배당일 경우, 오늘 날짜 기준 '월(M)' 단위로 필터링
+        if (tickerInfo.value?.frequency === '매주') {
+            cutoffDate = new Date();
+            let monthsToSubtract = 0;
+            if (unit === 'M') {
+                monthsToSubtract = val;
+            } else if (unit === 'Y') {
+                monthsToSubtract = val * 12;
+            }
+            cutoffDate.setMonth(now.getMonth() - monthsToSubtract);
+        } 
+        // 그 외(매월, 분기, 매년)는 '연도' 기준으로 필터링
+        else {
+            const currentYear = now.getFullYear();
+            let startYear;
+
+            if (unit === 'Y') {
+                startYear = currentYear - val + 1;
+            } else { // 6M 같은 경우는 현재 연도만 표시
+                startYear = currentYear;
+            }
+            cutoffDate = new Date(startYear, 0, 1); // 해당 연도의 1월 1일
+        }
+        // --- // ---
 
         return dividendHistory.value.filter(
             (item) => parseYYMMDD(item['배당락']) >= cutoffDate
@@ -94,17 +117,10 @@
                         dividendHistory.value &&
                         dividendHistory.value.length > 0;
                     currentView.value = hasDividends ? '배당' : '주가';
-
-                    // --- [핵심 수정 2] 데이터 로드 후 기본 기간 설정 ---
-                    if (
-                        timeRangeOptions.value &&
-                        timeRangeOptions.value.length > 1
-                    ) {
-                        // '전체'가 아닌 첫 번째(가장 짧은) 기간을 기본값으로 설정
-                        selectedTimeRange.value =
-                            timeRangeOptions.value[0].value;
+                    
+                    if (timeRangeOptions.value && timeRangeOptions.value.length > 1) {
+                        selectedTimeRange.value = timeRangeOptions.value[0].value;
                     } else {
-                        // 기간 옵션이 없거나 '전체'만 있을 경우 '전체'를 기본값으로 설정
                         selectedTimeRange.value = 'ALL';
                     }
                 });
@@ -119,6 +135,7 @@
 </script>
 
 <template>
+    <!-- 템플릿 부분은 변경 없이 그대로 유지됩니다 -->
     <div class="card">
         <!-- Skeleton UI -->
         <div v-if="isLoading" class="flex flex-column gap-5">

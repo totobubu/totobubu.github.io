@@ -3,7 +3,7 @@
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
     import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { handleSignOut, user } from '../store/auth';
+    import { handleSignOut, user } from '../store/auth'; // handleSignOut import
     import { useStockData } from '@/composables/useStockData';
 
     import Drawer from 'primevue/drawer';
@@ -30,7 +30,7 @@
         menu.value.toggle(event);
     };
 
-    // --- [핵심 수정 1] 메뉴 아이템 변경 ---
+
     const menuItems = computed(() => [
         {
             label: '배당달력',
@@ -75,7 +75,7 @@
                   {
                       label: '로그아웃',
                       icon: 'pi pi-sign-out',
-                      command: handleSignOut,
+                      command: handleSignOut, // [핵심 수정] store의 함수를 직접 연결
                   },
               ]),
     ]);
