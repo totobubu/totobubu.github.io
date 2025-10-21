@@ -9,8 +9,8 @@ import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
 // import MyPageView from '../pages/MyPageView.vue'; // [삭제]
-import BookmarkView from '../pages/BookmarkView.vue'; // [추가]
-import ProfileView from '../pages/ProfileView.vue'; // [추가]
+import BookmarkView from '../pages/BookmarkView.vue';
+import ProfileView from '../pages/ProfileView.vue';
 import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
 import ThumbnailGenerator from '../pages/ThumbnailGenerator.vue';
@@ -54,13 +54,6 @@ const router = createRouter({
             name: 'password-reset',
             component: PasswordResetView,
         },
-        // --- [핵심 수정] ---
-        // {
-        //     path: '/mypage',
-        //     name: 'mypage',
-        //     component: MyPageView,
-        //     meta: { requiresAuth: true },
-        // },
         {
             path: '/bookmarks',
             name: 'bookmarks',
@@ -73,7 +66,6 @@ const router = createRouter({
             component: ProfileView,
             meta: { requiresAuth: true },
         },
-        // --- // ---
         {
             path: '/thumbnail-generator',
             name: 'thumbnail-generator',
@@ -102,7 +94,7 @@ router.beforeEach(async (to, from, next) => {
     if (requiresAuth && !user) {
         next({ name: 'login', query: { redirect: to.fullPath } });
     } else if (isAuthPage && user) {
-        next({ name: 'bookmarks' }); // 로그인 시 북마크 페이지로 이동
+        next({ name: 'bookmarks' }); // 로그인/회원가입 페이지에 이미 로그인된 사용자가 접근 시 /bookmarks 로 이동
     } else {
         next();
     }

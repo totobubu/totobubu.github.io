@@ -135,6 +135,7 @@ async function generateNavJson() {
             `${ticker.symbol.replace(/\./g, '-').toLowerCase()}.json`
         );
         try {
+            // ... (파일 읽고 파싱하는 로직은 변경 없음)
             const dataFileContent = await fs.readFile(dataFilePath, 'utf8');
             const stockData = JSON.parse(dataFileContent);
             const backtestData = stockData.backtestData || [];
@@ -153,22 +154,20 @@ async function generateNavJson() {
                     (today - startDate) / (1000 * 60 * 60 * 24 * 365.25);
 
                 let masterPeriods = [
-                    '6M',
-                    '1Y',
-                    '3Y',
-                    '5Y',
-                    '10Y',
-                    '15Y',
-                    '20Y',
+                    '6M', '1Y', '3Y', '5Y', '10Y', '15Y', '20Y',
                 ];
 
-                if (processedTicker.frequency === '매월') {
+                // --- [핵심 수정] ---
+                if (processedTicker.frequency === '매주') {
+                    masterPeriods = ['6M', '1Y']; // '매주' 배당은 '월' 단위 옵션만 사용
+                } else if (processedTicker.frequency === '매월') {
                     masterPeriods = ['1Y', '2Y', '3Y', '5Y', '10Y'];
                 } else if (processedTicker.frequency === '분기') {
                     masterPeriods = ['5Y', '10Y', '15Y', '20Y'];
                 } else if (processedTicker.frequency === '매년') {
                     masterPeriods = ['10Y', '15Y', '20Y'];
                 }
+                // --- // ---
 
                 const calculatedPeriods = masterPeriods.filter(
                     (p) => yearsOfHistory >= convertPeriodToYears(p)

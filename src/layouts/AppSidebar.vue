@@ -38,18 +38,20 @@
 </script>
 
 <template>
-    <div class="h-full">
-        <div class="flex flex-column gap-3 p-3">
+    <div class="h-full flex flex-column gap-2">
+        <div class="flex flex-column gap-2 p-0">
             <!-- [수정] v-model을 mainFilterTab에 직접 연결하고 템플릿 단순화 -->
             <SelectButton
                 v-model="mainFilterTab"
                 :options="mainFilterOptions"
+                size="small"
                 class="w-full" />
 
             <SelectButton
                 v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
                 v-model="subFilterTab"
                 :options="subFilterOptions"
+                size="small"
                 class="w-full" />
 
             <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
