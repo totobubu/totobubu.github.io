@@ -1,3 +1,4 @@
+<!-- src\layouts\Layout.vue -->
 <script setup>
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';

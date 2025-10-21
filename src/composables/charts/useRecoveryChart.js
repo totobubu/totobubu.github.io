@@ -1,5 +1,7 @@
+// src/composables/charts/useRecoveryChart.js
 import { computed } from 'vue';
 import { formatMonthsToYears } from '@/utils/date.js';
+import { createNumericFormatter } from '@/utils/formatters.js';
 
 export function useRecoveryChart(options) {
     const {
@@ -11,8 +13,10 @@ export function useRecoveryChart(options) {
         applyTax,
         currentPrice,
         theme,
+        currency,
     } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
+    const formatCurrency = createNumericFormatter(currency.value);
 
     const investmentPrincipal = computed(
         () => (avgPrice.value || 0) * (quantity.value || 0)
@@ -40,7 +44,7 @@ export function useRecoveryChart(options) {
             ) {
                 results[`${scenario}_reinvest`] = results[
                     `${scenario}_no_reinvest`
-                ] = 0;
+                ] = -1;
                 continue;
             }
             const finalDividend = applyTax.value
@@ -79,7 +83,7 @@ export function useRecoveryChart(options) {
         const times = recoveryTimes.value || {};
         const maxTime = Math.max(
             0,
-            ...Object.values(times).filter((t) => isFinite(t))
+            ...Object.values(times).filter((t) => isFinite(t) && t > 0)
         );
 
         return {
@@ -114,7 +118,9 @@ export function useRecoveryChart(options) {
                         color: textColorSecondary,
                         formatter: '{value} 개월',
                     },
-                    splitLine: { lineStyle: { color: surfaceBorder } },
+                    splitLine: {
+                        lineStyle: { color: surfaceBorder, type: 'dashed' },
+                    },
                     max: maxTime > 0 ? Math.ceil(maxTime / 6) * 6 : 12,
                 },
             ],
@@ -127,7 +133,7 @@ export function useRecoveryChart(options) {
                         times.hope_reinvest,
                         times.avg_reinvest,
                         times.despair_reinvest,
-                    ].map((t) => (isFinite(t) ? t : 0)),
+                    ].map((t) => (isFinite(t) && t > 0 ? t : 0)),
                     itemStyle: {
                         color: (params) =>
                             ['#22c55e', '#eab308', '#ef4444'][params.dataIndex],
@@ -148,7 +154,7 @@ export function useRecoveryChart(options) {
                         times.hope_no_reinvest,
                         times.avg_no_reinvest,
                         times.despair_no_reinvest,
-                    ].map((t) => (isFinite(t) ? t : 0)),
+                    ].map((t) => (isFinite(t) && t > 0 ? t : 0)),
                     itemStyle: {
                         color: (params) =>
                             ['#22c55e80', '#eab30880', '#ef444480'][
@@ -167,5 +173,5 @@ export function useRecoveryChart(options) {
         };
     });
 
-    return { recoveryTimes, chartData: {}, chartOptions };
+    return { recoveryTimes, chartOptions };
 }

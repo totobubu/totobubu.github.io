@@ -1,3 +1,4 @@
+# scripts/generate_sidebar_tickers.py
 import os
 import json
 from tqdm import tqdm
@@ -5,7 +6,6 @@ from utils import (
     load_json_file,
     save_json_file,
     sanitize_ticker_for_filename,
-    parse_numeric_value,
 )
 
 
@@ -13,7 +13,6 @@ ROOT_DIR = os.getcwd()
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
-POPULARITY_FILE_PATH = os.path.join(PUBLIC_DIR, "popularity.json")
 OUTPUT_FILE = os.path.join(PUBLIC_DIR, "sidebar-tickers.json")
 
 
@@ -21,7 +20,6 @@ def main():
     print("--- Starting to generate rich sidebar-tickers.json from data files ---")
 
     nav_data = load_json_file(NAV_FILE_PATH)
-    popularity_data = load_json_file(POPULARITY_FILE_PATH) or {}
 
     if not nav_data or "nav" not in nav_data:
         print("❌ Error: nav.json not found or is invalid.")
@@ -41,14 +39,14 @@ def main():
         )
         data_file_content = load_json_file(file_path)
 
-        market_cap_raw = None  # [수정] 기본값을 0이 아닌 None으로
-        yield_val = "N/A"
+        market_cap_raw = None
+        yield_val = None
         price = None
 
         if data_file_content and "tickerInfo" in data_file_content:
             info = data_file_content["tickerInfo"]
-            market_cap_raw = info.get("marketCap")  # 순수 숫자 또는 None
-            yield_val = info.get("Yield", "N/A")
+            market_cap_raw = info.get("marketCap")
+            yield_val = info.get("Yield")
             price = info.get("regularMarketPrice")
 
         sidebar_tickers.append(
@@ -67,14 +65,11 @@ def main():
                 "underlying": ticker_info.get("underlying"),
                 "market": ticker_info.get("market"),
                 "marketCap": market_cap_raw,
-                "popularity": popularity_data.get(symbol, 0),
+                "popularity": 0,  # popularity.json은 별도 파이프라인에서 처리
             }
         )
 
-    # [핵심 수정] 정렬 키에서 .get()의 기본값을 사용하여 None을 0으로 처리
-    sidebar_tickers.sort(
-        key=lambda x: (x.get("popularity", 0), x.get("marketCap") or 0), reverse=True
-    )
+    sidebar_tickers.sort(key=lambda x: (x.get("marketCap") or 0), reverse=True)
 
     save_json_file(OUTPUT_FILE, sidebar_tickers)
 
