@@ -6,6 +6,7 @@
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
+    import VChart from 'vue-echarts'; // VChart import
 
     import Card from 'primevue/card';
     import Chart from 'primevue/chart';
@@ -132,17 +133,17 @@
         ),
     };
 
-    const { reinvestmentChartData, reinvestmentChartOptions } =
-        useReinvestmentChart({
-            currentAssets,
-            targetAmount: targetAsset,
-            payoutsPerYear,
-            dividendStats: dividendStats,
-            annualGrowthRateScenario: growthRateForCalculation,
-            currentPrice,
-            goalAchievementTimes,
-            theme: chartTheme,
-        });
+    const { chartOptions: reinvestmentChartOptions } = useReinvestmentChart({
+        currentAssets,
+        targetAmount: targetAsset,
+        payoutsPerYear,
+        dividendStats: dividendStats,
+        annualGrowthRateScenario: growthRateForCalculation,
+        currentPrice,
+        goalAchievementTimes,
+        currency: computed(() => props.tickerInfo?.currency), // currency 전달
+        theme: chartTheme,
+    });
 </script>
 <template>
     <div
@@ -294,11 +295,11 @@
                 </table>
             </template>
             <template #content>
-                <Chart
-                    v-if="reinvestmentChartData"
-                    type="line"
-                    :data="reinvestmentChartData"
-                    :options="reinvestmentChartOptions" />
+                <!-- PrimeVue Chart를 v-chart로 교체 -->
+                <v-chart
+                    :option="reinvestmentChartOptions"
+                    autoresize
+                    style="height: 300px" />
             </template>
         </Card>
     </div>

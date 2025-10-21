@@ -5,6 +5,7 @@
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
+    import VChart from 'vue-echarts'; // [신규] ECharts 컴포넌트 import
     import { useBreakpoint } from '@/composables/useBreakpoint';
     // [핵심 수정] 올바른 import 경로로 수정
     import { useWeeklyChart } from '@/composables/charts/useWeeklyChart.js';
@@ -172,6 +173,7 @@
         (newTicker) => {
             if (newTicker) {
                 loadData(newTicker.toLowerCase());
+                // [핵심 수정] isGrowthStockChart 값에 따라 기본 뷰 설정
                 currentView.value = isGrowthStockChart.value ? '주가' : '배당';
             }
         },
@@ -224,14 +226,12 @@
                 :viewOptions="viewOptions" />
 
             <div v-if="currentView === '배당' || currentView === '주가'">
-                <div v-if="chartData" class="chart-wrapper">
+                <!-- [핵심 수정] PrimeVueChart를 ECharts(<v-chart>)로 교체 -->
+                <div v-if="chartData && chartOptions" class="chart-wrapper">
                     <div
                         class="chart-container"
-                        :style="{ minWidth: chartContainerWidth }">
-                        <primevue-chart
-                            type="bar"
-                            :data="chartData"
-                            :options="chartOptions" />
+                        :style="{ height: chartContainerHeight }">
+                        <v-chart :option="chartOptions" autoresize />
                     </div>
                 </div>
                 <div

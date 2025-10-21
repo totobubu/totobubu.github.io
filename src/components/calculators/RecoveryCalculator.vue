@@ -6,6 +6,7 @@
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
+    import VChart from 'vue-echarts'; // [신규] VChart import
 
     import Card from 'primevue/card';
     import Chart from 'primevue/chart';
@@ -107,8 +108,7 @@
             '--p-content-border-color'
         ),
     };
-
-    const { recoveryTimes, recoveryChartData, recoveryChartOptions } =
+    const { recoveryTimes, chartOptions: recoveryChartOptions } =
         useRecoveryChart({
             avgPrice,
             quantity,
@@ -117,6 +117,7 @@
             payoutsPerYear,
             applyTax,
             currentPrice,
+            currency: computed(() => props.tickerInfo?.currency), // [신규] currency 전달
             theme: chartTheme,
         });
 </script>
@@ -349,10 +350,11 @@
                 </table>
             </template>
             <template #content>
-                <Chart
-                    type="bar"
-                    :data="recoveryChartData"
-                    :options="recoveryChartOptions" />
+                <!-- [핵심 수정] PrimeVue Chart를 v-chart로 교체 -->
+                <v-chart
+                    :option="recoveryChartOptions"
+                    autoresize
+                    style="height: 300px" />
             </template>
         </Card>
     </div>
