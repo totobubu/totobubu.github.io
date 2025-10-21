@@ -4,13 +4,12 @@ import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 
 const allDividendData = ref([]);
-const allTickerProperties = ref(new Map());
 const isLoading = ref(false);
 const error = ref(null);
 let isDataLoaded = false;
 let isLoadingPromise = null;
 
-const loadAllData = async () => {
+const loadAllData = () => {
     if (isLoadingPromise) return isLoadingPromise;
     if (isDataLoaded) return Promise.resolve();
 
@@ -28,8 +27,7 @@ const loadAllData = async () => {
             ]);
             if (!eventsResponse.ok)
                 throw new Error('calendar-events.json could not be loaded.');
-            if (!tickersResponse.ok)
-                throw new Error('sidebar-tickers.json could not be loaded.');
+            }
 
             const eventsByDate = await eventsResponse.json();
             const sidebarTickers = await tickersResponse.json();
@@ -59,6 +57,7 @@ const loadAllData = async () => {
                 ])
             );
             isDataLoaded = true;
+            console.log('최적화된 캘린더 데이터 로딩 완료.');
             resolve();
         } catch (err) {
             console.error('캘린더 데이터 로딩 중 오류 발생:', err);
@@ -141,5 +140,6 @@ export function useCalendarData() {
                 loadAllData();
             }
         },
+        loadAllData,
     };
 }

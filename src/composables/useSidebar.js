@@ -1,20 +1,14 @@
-// src\composables\useSidebar.js
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed } from 'vue'; // watch 제거
 import { useRouter, useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
 import { useFilterState } from '@/composables/useFilterState';
 import { user } from '../store/auth';
-import { db } from '@/firebase';
-import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
-import { useToast } from 'primevue/usetoast';
 
 export function useSidebar() {
     const router = useRouter();
     const route = useRoute();
-    const toast = useToast();
-
+    
     const allTickers = ref([]);
-    const popularityData = ref({});
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
@@ -93,34 +87,35 @@ export function useSidebar() {
         );
         return list.slice(0, 30);
     });
-
+    
     const loadSidebarData = async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            // [핵심 수정] sidebar-tickers.json 파일 하나만 로드
-            const response = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
-            );
-            if (!response.ok)
-                throw new Error('sidebar-tickers.json could not be loaded.');
+            const response = await fetch(joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json'));
+            if (!response.ok) throw new Error('Sidebar data could not be loaded.');
+            
+            const data = await response.json();
+            allTickers.value = data;
 
-            allTickers.value = await response.json();
+            companies.value = [...new Set(data.map(item => item.company).filter(Boolean))];
+            frequencies.value = [...new Set(data.map(item => item.frequency).filter(Boolean))];
+            groups.value = [...new Set(data.map(item => item.group).filter(Boolean))];
 
-            const currentTickerSymbol = route.params.ticker
-                ?.toUpperCase()
-                .replace(/-/g, '.');
+            const currentTickerSymbol = route.params.ticker?.toUpperCase().replace(/-/g, '.');
             if (currentTickerSymbol) {
-                selectedTicker.value = allTickers.value.find(
-                    (t) => t.symbol === currentTickerSymbol
-                );
+                selectedTicker.value = data.find(t => t.symbol === currentTickerSymbol);
             }
         } catch (err) {
-            error.value = '사이드바 데이터를 불러오는 데 실패했습니다.';
-            console.error(err);
+            error.value = '티커 목록을 불러오는 데 실패했습니다.';
         } finally {
             isLoading.value = false;
         }
+    };
+    
+    const handleBookmarkToggle = () => {
+        if (!user.value) router.push('/login');
+        else toggleShowMyStocksOnly();
     };
 
     const handleTickerRequest = async (tickerSymbol) => {
@@ -202,9 +197,16 @@ export function useSidebar() {
         mainFilterTab,
         subFilterTab,
         myBookmarks,
+        // marketTypeOptions 제거
         filteredTickers,
+        dialogsVisible,
+        companies,
+        frequencies,
+        groups,
+        handleBookmarkToggle,
         handleStockBookmarkClick,
         onRowSelect,
-        handleTickerRequest,
+        openFilterDialog,
+        selectFilter,
     };
 }

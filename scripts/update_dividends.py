@@ -92,6 +92,5 @@ def main():
 
     print(f"\n--- Dividend Merge Finished. Total files updated: {updated_count} ---")
 
-
 if __name__ == "__main__":
     main()

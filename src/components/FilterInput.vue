@@ -54,7 +54,7 @@
     <div class="flex-auto flex items-center gap-2">
         <InputText
             v-model="inputValue"
-            placeholder="전체 주식 검색"
+            placeholder="검색"
             :size="responsiveSize"
             class="flex-1" />
         <Button

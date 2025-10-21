@@ -117,21 +117,23 @@ async function fetchAndMergePriceData(ticker) {
 }
 
 async function main() {
-    console.log(
-        '--- Starting Incremental Price Data Update (Node.js/axios) ---'
-    );
+    console.log('--- Starting Incremental Price Data Update (Node.js) ---');
     await fs.mkdir(DATA_DIR, { recursive: true });
 
-    const navDataContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
-    const navData = JSON.parse(navDataContent);
+    const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
+
+    const activeTickers = navData.nav.filter((ticker) => !ticker.upcoming);
+    const upcomingCount = navData.nav.length - activeTickers.length;
+
+    console.log(`Found ${navData.nav.length} total tickers in nav.json.`);
+    if (upcomingCount > 0) {
+        console.log(`Skipping ${upcomingCount} upcoming tickers (e.g., XOMW).`);
+    }
 
     const tickersToFetch = [
-        ...navData.nav,
+        ...activeTickers,
         { symbol: 'SPY', ipoDate: '1993-01-22' },
-        { symbol: 'QQQ', ipoDate: '1999-03-10' },
-        { symbol: 'DIA', ipoDate: '1998-01-14' },
-    ].filter((item) => !item.upcoming);
-
+    ];
     const uniqueTickers = Array.from(
         new Map(tickersToFetch.map((t) => [t.symbol, t])).values()
     );
@@ -143,6 +145,9 @@ async function main() {
 
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
+        console.log(
+            `\nProcessing chunk ${Math.floor(i / concurrency) + 1} (${chunk.map((t) => t.symbol).join(', ')})...`
+        );
 
         // [핵심 수정] 함수 이름을 올바르게 변경합니다.
         const results = await Promise.all(

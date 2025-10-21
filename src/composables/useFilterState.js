@@ -9,6 +9,7 @@ const mainFilterTab = ref('북마크');
 // --- // ---
 const subFilterTab = ref('ETF');
 
+const showMyStocksOnly = ref(false);
 const myBookmarks = ref({});
 
 watch(mainFilterTab, (newTab) => {
@@ -21,7 +22,7 @@ export const saveMyBookmarksToFirestore = async (userId, bookmarks) => {
     if (!userId) return;
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
-        await setDoc(userDocRef, { bookmarks });
+        await setDoc(userDocRef, { bookmarks: bookmarks });
     } catch (error) {
         console.error('Firestore에 북마크 저장 실패:', error);
     }
@@ -32,7 +33,10 @@ export const loadMyBookmarksFromFirestore = async (userId) => {
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
         const docSnap = await getDoc(userDocRef);
-        return docSnap.exists() ? docSnap.data().bookmarks || {} : {};
+        if (docSnap.exists()) {
+            return docSnap.data().bookmarks || {};
+        }
+        return {};
     } catch (error) {
         console.error('Firestore에서 북마크 로드 실패:', error);
         return {};
@@ -73,6 +77,9 @@ export function useFilterState() {
         subFilterTab,
         myBookmarks,
         toggleMyStock,
+        toggleShowMyStocksOnly: () => {
+            showMyStocksOnly.value = !showMyStocksOnly.value;
+        },
         updateBookmarkDetails,
     };
 }
