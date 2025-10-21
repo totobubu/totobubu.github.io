@@ -1,10 +1,12 @@
-// src\composables\useFilterState.js
+// src/composables/useFilterState.js
 import { ref, watch } from 'vue';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const globalSearchQuery = ref(null);
-const mainFilterTab = ref('미국'); // [핵심 수정] 기본값을 '미국'으로 변경
+// --- [핵심 수정] mainFilterTab의 기본값을 '북마크'로 변경 ---
+const mainFilterTab = ref('북마크');
+// --- // ---
 const subFilterTab = ref('ETF');
 
 const myBookmarks = ref({});
