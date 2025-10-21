@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/calculators/ReinvestmentCalculator.vue -->
+<!-- src/components/calculators/ReinvestmentCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
@@ -6,10 +6,9 @@
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
-    import VChart from 'vue-echarts'; // VChart import
+    import VChart from 'vue-echarts';
 
     import Card from 'primevue/card';
-    import Chart from 'primevue/chart';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputNumber from 'primevue/inputnumber';
@@ -141,7 +140,7 @@
         annualGrowthRateScenario: growthRateForCalculation,
         currentPrice,
         goalAchievementTimes,
-        currency: computed(() => props.tickerInfo?.currency), // currency 전달
+        currency: computed(() => props.tickerInfo?.currency),
         theme: chartTheme,
     });
 </script>
@@ -295,7 +294,6 @@
                 </table>
             </template>
             <template #content>
-                <!-- PrimeVue Chart를 v-chart로 교체 -->
                 <v-chart
                     :option="reinvestmentChartOptions"
                     autoresize

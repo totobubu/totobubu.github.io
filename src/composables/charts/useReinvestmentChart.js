@@ -1,4 +1,4 @@
-// src\composables\charts\useReinvestmentChart.js
+// src/composables/charts/useReinvestmentChart.js
 import { computed } from 'vue';
 import { createNumericFormatter } from '@/utils/formatters.js';
 
@@ -12,10 +12,10 @@ export function useReinvestmentChart(options) {
         currentPrice,
         goalAchievementTimes,
         theme,
-        currency = 'USD',
+        currency,
     } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-    const formatCurrency = createNumericFormatter(currency);
+    const formatCurrency = createNumericFormatter(currency.value);
 
     const calculateGrowthPath = (dividendPerShare, maxMonths) => {
         if (
@@ -43,8 +43,6 @@ export function useReinvestmentChart(options) {
         }
         return path;
     };
-
-    const chartData = computed(() => ({}));
 
     const chartOptions = computed(() => {
         if (
@@ -88,17 +86,19 @@ export function useReinvestmentChart(options) {
                     color: textColorSecondary,
                     formatter: '{value}개월',
                 },
-                splitLine: { lineStyle: { color: surfaceBorder } },
+                splitLine: {
+                    lineStyle: { color: surfaceBorder, type: 'dashed' },
+                },
             },
             yAxis: {
-                type: 'logarithmic',
+                type: 'log',
                 axisLabel: {
                     color: textColorSecondary,
-                    formatter: (val) =>
-                        formatCurrency(val).replace(/(\.00|₩|,)/g, '')[0] +
-                        (String(val).length > 4 ? '...' : ''),
+                    formatter: (val) => `$${(val / 1000).toFixed(0)}k`,
                 },
-                splitLine: { lineStyle: { color: surfaceBorder } },
+                splitLine: {
+                    lineStyle: { color: surfaceBorder, type: 'dashed' },
+                },
             },
             series: [
                 {
@@ -150,5 +150,5 @@ export function useReinvestmentChart(options) {
         };
     });
 
-    return { chartData, chartOptions };
+    return { chartOptions };
 }

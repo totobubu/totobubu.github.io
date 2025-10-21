@@ -1,27 +1,33 @@
 // src/utils/formatters.js
-import { format as formatDate } from 'date-fns';
-
 /**
  * 숫자 값을 통화 형식의 문자열로 변환합니다.
  * @param {number | null | undefined} value - 포맷팅할 숫자
  * @param {string} currency - 'USD' 또는 'KRW'
- * @param {object} options - 추가 옵션 (showSymbol, decimals)
  * @returns {string} 포맷팅된 문자열
  */
-
-export function formatCurrency(value, currency = 'USD', options = {}) {
+export function formatCurrency(value, currency = 'USD') {
     if (value === null || typeof value === 'undefined' || isNaN(value)) {
-        return options.defaultValue || 'N/A';
+        return 'N/A';
     }
     const numberValue = Number(value);
+    const options =
+        currency === 'KRW'
+            ? {
+                  style: 'currency',
+                  currency: 'KRW',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+              }
+            : {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 6,
+              };
+
     const formatter = new Intl.NumberFormat(
         currency === 'KRW' ? 'ko-KR' : 'en-US',
-        {
-            style: 'currency',
-            currency: currency,
-            minimumFractionDigits: currency === 'KRW' ? 0 : 2,
-            maximumFractionDigits: currency === 'KRW' ? 0 : 6,
-        }
+        options
     );
     let formatted = formatter.format(numberValue);
     if (currency === 'USD' && formatted.includes('.')) {
@@ -44,6 +50,7 @@ export function formatLargeNumber(value, currency = 'USD') {
         currency === 'KRW'
             ? { 경: 1.0e16, 조: 1.0e12, 억: 1.0e8, 만: 1.0e4 }
             : { T: 1.0e12, B: 1.0e9, M: 1.0e6, K: 1.0e3 };
+
     for (const [unit, threshold] of Object.entries(units)) {
         if (Math.abs(num) >= threshold) {
             return `${(num / threshold).toFixed(2)}${unit}`;
@@ -69,7 +76,7 @@ export function formatPercent(value) {
  * ECharts 툴팁 또는 라벨에 사용할 숫자 포맷터를 생성하는 고차 함수.
  * @param {string} currency - 'USD' 또는 'KRW'
  * @param {object} options - Intl.NumberFormat 옵션
- * @returns {function(number): string} - 숫자를 받아 포맷팅된 문자열을 반환하는 함수
+ * @returns {function(number): string}
  */
 export function createNumericFormatter(currency = 'USD', options = {}) {
     const defaultOptions =

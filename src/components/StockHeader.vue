@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/StockHeader.vue -->
+<!-- src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
     import {
@@ -10,7 +10,7 @@
     import Tag from 'primevue/tag';
 
     const props = defineProps({
-        info: Object, // 순수 숫자 데이터가 담긴 tickerInfo 객체
+        info: Object,
     });
 
     const stockDetails = computed(() => {
@@ -48,8 +48,8 @@
             {
                 key: 'Yield',
                 label: '연간 배당률',
-                formatter: (val) => formatPercent(val / 100),
-            }, // Yield는 이미 % 값이므로 100으로 나눔
+                formatter: formatPercent,
+            },
             {
                 key: 'dividendRate',
                 label: '연간 배당금',
@@ -58,20 +58,16 @@
             {
                 key: 'payoutRatio',
                 label: '배당 성향',
-                formatter: (val) => formatPercent(val),
+                formatter: formatPercent,
             },
         ];
 
         return detailMapping
             .map((item) => {
                 const rawValue = props.info[item.key];
-                let displayValue = rawValue;
-                if (item.formatter) {
-                    displayValue = item.formatter(rawValue);
-                }
-                if (item.key.match(/Value|Cap|Volume|shares/)) {
-                    displayValue = `${currency === 'KRW' ? '₩' : '$'}${displayValue}`;
-                }
+                const displayValue = item.formatter
+                    ? item.formatter(rawValue)
+                    : rawValue;
 
                 return {
                     label: item.label,
@@ -81,10 +77,9 @@
             })
             .filter(
                 (item) =>
-                    item.value &&
-                    item.value !== 'N/A' &&
-                    item.value !== '$0' &&
-                    item.value !== '₩0'
+                    item.value !== null &&
+                    item.value !== undefined &&
+                    item.value !== 'N/A'
             );
     });
 

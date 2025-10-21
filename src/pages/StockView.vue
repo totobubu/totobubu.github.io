@@ -5,25 +5,15 @@
     import { useRoute } from 'vue-router';
     import { useStockData } from '@/composables/useStockData';
     import { useFilterState } from '@/composables/useFilterState';
-    import VChart from 'vue-echarts'; // [신규] ECharts 컴포넌트 import
     import { useBreakpoint } from '@/composables/useBreakpoint';
-    // [핵심 수정] 올바른 import 경로로 수정
-    import { useWeeklyChart } from '@/composables/charts/useWeeklyChart.js';
-    import { useQuarterlyChart } from '@/composables/charts/useQuarterlyChart.js';
-    import { useMonthlyChart } from '@/composables/charts/useMonthlyChart.js';
-    import { useAnnualChart } from '@/composables/charts/useAnnualChart.js';
-    import { usePriceChart } from '@/composables/charts/usePriceChart.js';
+    import { useStockCharts } from '@/composables/useStockCharts.js';
     import { parseYYMMDD } from '@/utils/date.js';
-    import {
-        generateTimeRangeOptions,
-        monthColors,
-    } from '@/utils/chartUtils.js';
+    import VChart from 'vue-echarts';
 
     import Skeleton from 'primevue/skeleton';
     import StockHeader from '@/components/StockHeader.vue';
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
-    import StockCalculators from '@/components/StockCalculators.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
 
     const route = useRoute();
@@ -39,9 +29,6 @@
         loadData,
         isUpcoming,
     } = useStockData();
-    const documentStyle = computed(() =>
-        getComputedStyle(document.documentElement)
-    );
 
     const tickerSymbol = computed(() =>
         (route.params.ticker || '').toString().replace(/-/g, '.')
@@ -62,40 +49,36 @@
             options.push('배당', '목록');
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
-        return options.length > 1 ? options : [];
+        return options;
     });
 
     const selectedTimeRange = ref('1Y');
 
     const timeRangeOptions = computed(() => {
-        const allPeriods = tickerInfo.value?.periods;
-        if (!allPeriods || allPeriods.length === 0)
-            return [{ label: '전체', value: 'ALL' }];
+        const options = [{ label: '전체', value: 'ALL' }];
+        const historyYears =
+            dividendHistory.value.length > 0
+                ? new Date().getFullYear() -
+                  parseYYMMDD(
+                      dividendHistory.value[dividendHistory.value.length - 1][
+                          '배당락'
+                      ]
+                  ).getFullYear()
+                : 0;
 
-        let options = generateTimeRangeOptions(allPeriods);
-        const freq = tickerInfo.value.frequency;
+        if (historyYears >= 1) options.unshift({ label: '1Y', value: '1Y' });
+        if (historyYears >= 3) options.unshift({ label: '3Y', value: '3Y' });
+        if (historyYears >= 5) options.unshift({ label: '5Y', value: '5Y' });
 
-        if (freq === '분기' && options.length > 1) {
-            options = options.filter(
-                (opt) => !['6M', '1Y'].includes(opt.value)
-            );
-            if (options.length <= 1) return [];
-        }
-        if (freq === '매년' && options.length > 1) {
-            if (!allPeriods.includes('10Y')) return [];
-            options = options.filter(
-                (opt) => !['6M', '1Y', '3Y', '5Y'].includes(opt.value)
-            );
-        }
         return options;
     });
 
     const displayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
-
         const range = selectedTimeRange.value;
-        if (!range || range === 'ALL') return dividendHistory.value;
+        if (!range || range === 'ALL' || currentView.value === '목록')
+            return dividendHistory.value;
 
         const now = new Date();
         let cutoffDate = new Date();
@@ -109,72 +92,23 @@
         );
     });
 
-    const chartComposableResult = computed(() => {
-        if (
-            !tickerInfo.value ||
-            !displayData.value ||
-            displayData.value.length === 0
-        )
-            return {};
-        const themeOptions = {
-            textColor: documentStyle.value.getPropertyValue('--p-text-color'),
-            textColorSecondary: documentStyle.value.getPropertyValue(
-                '--p-text-muted-color'
-            ),
-            surfaceBorder: documentStyle.value.getPropertyValue(
-                '--p-content-border-color'
-            ),
-        };
-        const sharedOptions = {
-            data: displayData.value,
-            deviceType: deviceType.value,
-            group: tickerInfo.value?.group,
-            theme: themeOptions,
-            currency: tickerInfo.value.currency,
-        };
-
-        if (currentView.value === '주가') return usePriceChart(sharedOptions);
-        if (currentView.value === '배당') {
-            const freq = tickerInfo.value.frequency;
-            if (freq === '매년') return useAnnualChart(sharedOptions);
-            if (freq === '매주') return useWeeklyChart(sharedOptions);
-            if (freq === '분기')
-                return useQuarterlyChart({
-                    ...sharedOptions,
-                    aggregation: 'quarter',
-                });
-            if (freq === '매월' && displayData.value.length > 59) {
-                return useQuarterlyChart({
-                    ...sharedOptions,
-                    aggregation: 'month',
-                    colorMap: monthColors,
-                    labelPrefix: '월',
-                });
-            }
-            if (freq === '매월') return useMonthlyChart(sharedOptions);
-        }
-        return {};
+    const { chartOptions, chartContainerHeight } = useStockCharts({
+        tickerInfo,
+        displayData,
+        currentView,
+        deviceType,
     });
-
-    const chartData = computed(() => chartComposableResult.value.chartData);
-    const chartOptions = computed(
-        () => chartComposableResult.value.chartOptions
-    );
-    const chartContainerWidth = computed(
-        () => chartComposableResult.value.chartContainerWidth
-    );
-
-    const isGrowthStockChart = computed(
-        () => !dividendHistory.value || dividendHistory.value.length < 5
-    );
 
     watch(
         () => route.params.ticker,
         (newTicker) => {
             if (newTicker) {
-                loadData(newTicker.toLowerCase());
-                // [핵심 수정] isGrowthStockChart 값에 따라 기본 뷰 설정
-                currentView.value = isGrowthStockChart.value ? '주가' : '배당';
+                loadData(newTicker.toLowerCase()).then(() => {
+                    const hasDividends =
+                        dividendHistory.value &&
+                        dividendHistory.value.length > 0;
+                    currentView.value = hasDividends ? '배당' : '주가';
+                });
             }
         },
         { immediate: true }
@@ -196,8 +130,6 @@
                     borderRadius="0.5rem"></Skeleton>
             </div>
             <Skeleton height="30rem" borderRadius="1rem"></Skeleton>
-            <Skeleton height="5rem" borderRadius="1rem"></Skeleton>
-            <Skeleton height="20rem" borderRadius="1rem"></Skeleton>
         </div>
         <div v-else-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
@@ -217,33 +149,36 @@
         </div>
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
+
             <StockChartCard
                 v-if="viewOptions.length > 0"
                 :tickerInfo="tickerInfo"
+                :dividendHistory="dividendHistory"
+                :userBookmark="currentUserBookmark"
                 :time-range-options="timeRangeOptions"
                 v-model:currentView="currentView"
                 v-model:selectedTimeRange="selectedTimeRange"
                 :viewOptions="viewOptions" />
 
-            <div v-if="currentView === '배당' || currentView === '주가'">
-                <!-- [핵심 수정] PrimeVueChart를 ECharts(<v-chart>)로 교체 -->
-                <div v-if="chartData && chartOptions" class="chart-wrapper">
+            <div v-if="currentView === '배당'">
+                <div v-if="chartOptions" class="chart-wrapper">
                     <div
                         class="chart-container"
                         :style="{ height: chartContainerHeight }">
                         <v-chart :option="chartOptions" autoresize />
                     </div>
                 </div>
-                <div
-                    v-else-if="
-                        currentView === '주가' &&
-                        backtestData &&
-                        backtestData.length > 0
-                    ">
-                    <StockPriceCandlestickChart :price-data="backtestData" />
-                </div>
                 <div v-else class="text-center p-4">
-                    차트 데이터가 없습니다.
+                    배당 차트 데이터가 없습니다.
+                </div>
+            </div>
+
+            <div v-if="currentView === '주가'">
+                <StockPriceCandlestickChart
+                    v-if="backtestData && backtestData.length > 0"
+                    :price-data="backtestData" />
+                <div v-else class="text-center p-4">
+                    주가 데이터가 없습니다.
                 </div>
             </div>
 
@@ -252,12 +187,6 @@
                 :history="displayData"
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
-
-            <StockCalculators
-                v-if="dividendHistory && dividendHistory.length > 0"
-                :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-                :userBookmark="currentUserBookmark" />
 
             <span
                 v-if="tickerInfo.Update"

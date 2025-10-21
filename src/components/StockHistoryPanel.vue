@@ -1,4 +1,4 @@
-<!-- stock\src\components\StockHistoryPanel.vue -->
+<!-- src/components/StockHistoryPanel.vue -->
 <script setup>
     import { computed } from 'vue';
     import { formatCurrency, formatPercent } from '@/utils/formatters.js';
@@ -6,35 +6,22 @@
     import Column from 'primevue/column';
 
     const props = defineProps({
-        history: Array, // 순수 숫자 데이터가 담긴 배열
+        history: Array,
         isDesktop: Boolean,
         currency: String,
     });
 
     const formattedHistory = computed(() => {
         if (!props.history) return [];
-        return props.history.map((item) => {
-            const newItem = {};
-            for (const key in item) {
-                const value = item[key];
-                if (
-                    [
-                        '배당금',
-                        '전일종가',
-                        '당일시가',
-                        '당일종가',
-                        '익일종가',
-                    ].includes(key)
-                ) {
-                    newItem[key] = formatCurrency(value, props.currency);
-                } else if (key === '배당률') {
-                    newItem[key] = formatPercent(value);
-                } else {
-                    newItem[key] = value;
-                }
-            }
-            return newItem;
-        });
+        return props.history.map((item) => ({
+            ...item,
+            배당금: formatCurrency(item.배당금, props.currency),
+            배당률: formatPercent(item.배당률),
+            전일종가: formatCurrency(item.전일종가, props.currency),
+            당일시가: formatCurrency(item.당일시가, props.currency),
+            당일종가: formatCurrency(item.당일종가, props.currency),
+            익일종가: formatCurrency(item.익일종가, props.currency),
+        }));
     });
 
     const columns = computed(() => {

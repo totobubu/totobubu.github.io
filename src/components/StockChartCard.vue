@@ -7,9 +7,12 @@
     import SelectButton from 'primevue/selectbutton';
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
+    import StockCalculators from '@/components/StockCalculators.vue';
 
     const props = defineProps({
         tickerInfo: Object,
+        dividendHistory: Array,
+        userBookmark: Object,
         viewOptions: Array,
         timeRangeOptions: Array,
         currentView: String,
@@ -47,29 +50,35 @@
     <Card class="toto-chart">
         <template #content>
             <div class="toto-chart-header mb-4">
-                <div class="flex gap-2">
-                    <!-- [핵심 수정] 뷰 전환 SelectButton -->
+                <div class="flex-grow-1 flex gap-2">
                     <SelectButton
+                        v-if="viewOptions && viewOptions.length > 1"
                         v-model="localCurrentView"
                         :options="viewOptions"
                         :size="buttonSize" />
-
-                    <SelectButton
-                        v-if="isDesktop"
-                        v-model="localSelectedTimeRange"
-                        :options="timeRangeOptions"
-                        optionLabel="label"
-                        optionValue="value" />
-                    <Dropdown
-                        v-else
-                        v-model="localSelectedTimeRange"
-                        :options="dropdownTimeRangeOptions"
-                        optionLabel="name"
-                        optionValue="code"
-                        placeholder="기간"
-                        :size="buttonSize" />
+                    <template
+                        v-if="
+                            timeRangeOptions &&
+                            timeRangeOptions.length > 0 &&
+                            currentView !== '주가'
+                        ">
+                        <SelectButton
+                            v-if="isDesktop"
+                            v-model="localSelectedTimeRange"
+                            :options="timeRangeOptions"
+                            optionLabel="label"
+                            optionValue="value" />
+                        <Dropdown
+                            v-else
+                            v-model="localSelectedTimeRange"
+                            :options="dropdownTimeRangeOptions"
+                            optionLabel="name"
+                            optionValue="code"
+                            placeholder="기간"
+                            :size="buttonSize" />
+                    </template>
                 </div>
-                <div class="flex gap-2" v-if="tickerInfo">
+                <div class="flex align-items-center gap-2" v-if="tickerInfo">
                     <Tag v-if="tickerInfo.frequency" severity="secondary">{{
                         tickerInfo.frequency
                     }}</Tag>
@@ -78,6 +87,11 @@
                         :severity="getGroupSeverity(tickerInfo.group)"
                         >{{ tickerInfo.group }}</Tag
                     >
+                    <StockCalculators
+                        v-if="dividendHistory && dividendHistory.length > 0"
+                        :dividendHistory="dividendHistory"
+                        :tickerInfo="tickerInfo"
+                        :userBookmark="userBookmark" />
                 </div>
             </div>
         </template>

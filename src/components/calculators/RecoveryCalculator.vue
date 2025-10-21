@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/calculators/RecoveryCalculator.vue -->
+<!-- src/components/calculators/RecoveryCalculator.vue -->
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { useFilterState } from '@/composables/useFilterState';
@@ -6,10 +6,9 @@
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { formatMonthsToYears } from '@/utils/date.js';
-    import VChart from 'vue-echarts'; // [신규] VChart import
+    import VChart from 'vue-echarts';
 
     import Card from 'primevue/card';
-    import Chart from 'primevue/chart';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import InputNumber from 'primevue/inputnumber';
@@ -117,7 +116,7 @@
             payoutsPerYear,
             applyTax,
             currentPrice,
-            currency: computed(() => props.tickerInfo?.currency), // [신규] currency 전달
+            currency: computed(() => props.tickerInfo?.currency),
             theme: chartTheme,
         });
 </script>
@@ -350,7 +349,6 @@
                 </table>
             </template>
             <template #content>
-                <!-- [핵심 수정] PrimeVue Chart를 v-chart로 교체 -->
                 <v-chart
                     :option="recoveryChartOptions"
                     autoresize

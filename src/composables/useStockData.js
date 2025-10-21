@@ -64,6 +64,13 @@ export function useStockData() {
                 );
             }
 
+            if (navInfo.upcoming) {
+                isUpcoming.value = true;
+                tickerInfo.value = navInfo;
+                isLoading.value = false;
+                return;
+            }
+
             const originalTickerSymbol = navInfo.symbol;
             const staticDataResponse = await fetch(
                 joinURL(
@@ -71,11 +78,11 @@ export function useStockData() {
                     `data/${sanitizedTicker}.json`
                 )
             );
+
             if (staticDataResponse.ok) {
                 const staticData = await staticDataResponse.json();
                 const fullBacktestData = staticData.backtestData || [];
 
-                // [핵심 수정] 주가 데이터에 인덱스를 추가하여 이전/다음날 가격을 쉽게 찾도록 함
                 const pricesWithIndex = fullBacktestData.map((p, i) => ({
                     ...p,
                     index: i,
@@ -88,7 +95,6 @@ export function useStockData() {
                             item.amountFixed !== undefined
                     )
                     .map((item) => {
-                        // 이전/다음날 종가 찾기
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
                         return {
@@ -110,30 +116,31 @@ export function useStockData() {
                             당일종가: item.close,
                             익일종가: nextDayData ? nextDayData.close : null,
                         };
-                    });
+                    })
+                    .reverse();
 
-                backtestData.value = fullBacktestData.map(
-                    ({ date, open, high, low, close, volume }) => ({
+                backtestData.value = fullBacktestData
+                    .filter((d) => d.close != null)
+                    .map(({ date, open, high, low, close, volume }) => ({
                         date,
                         open,
                         high,
                         low,
                         close,
                         volume,
-                    })
-                );
+                    }));
                 tickerInfo.value = {
                     ...(staticData.tickerInfo || {}),
                     ...navInfo,
                 };
             }
 
-            // 실시간 시세 정보는 항상 가져와서 덮어쓰기
             const liveDataResponse = await fetch(
                 `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
             );
             if (liveDataResponse.ok) {
-                const liveData = (await liveDataResponse.json())[0];
+                const liveDataArray = await liveDataResponse.json();
+                const liveData = liveDataArray[0];
                 if (liveData) {
                     tickerInfo.value = { ...tickerInfo.value, ...liveData };
                     if (liveData.exchange) {
@@ -144,7 +151,7 @@ export function useStockData() {
                 }
             } else {
                 console.warn(
-                    `실시간 시세 정보를 가져오지 못했습니다 for ${originalTickerSymbol}`
+                    `Could not fetch live data for ${originalTickerSymbol}`
                 );
             }
         } catch (err) {
