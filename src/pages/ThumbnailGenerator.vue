@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/pages/ThumbnailGenerator.vue -->
+<!-- src/pages/ThumbnailGenerator.vue -->
 <script setup>
     import { ref, onMounted, computed, watch } from 'vue';
     import { useHead } from '@vueuse/head';
@@ -11,6 +11,7 @@
     import Checkbox from 'primevue/checkbox';
     import InputText from 'primevue/inputtext';
     import SelectButton from 'primevue/selectbutton';
+    import { joinURL } from 'ufo';
 
     useHead({
         title: '썸네일 일괄 생성기',
@@ -33,6 +34,7 @@
     const selectedThumbnails = ref([]);
     const isLoading = ref(true);
     const isDownloading = ref(false);
+    const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
     const date = ref('');
     const groups = ref(['All']);
     const selectedGroup = ref('All');
@@ -41,13 +43,14 @@
         { name: 'YieldMax', logo: '/logos/yieldmax.png' },
         { name: 'Roundhill', logo: '/logos/roundhill.svg' },
     ]);
-
-    // [핵심 수정 1] 이미지 경로를 public 폴더 기준으로 변경
     const backgroundOptions = ref([
         { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
         { name: 'Gray', path: '/thumbnail/gray.png', tickerColor: '#ffd700' },
         { name: 'Red', path: '/thumbnail/red.png', tickerColor: '#ffd700' },
     ]);
+
+    // [신규] 종목별 data 파일을 캐싱하기 위한 Map
+    const tickerDataCache = new Map();
 
     const filteredThumbnails = computed(() => {
         if (selectedGroup.value === 'All') {
@@ -63,20 +66,11 @@
             filteredThumbnails.value.length > 0 &&
             selectedThumbnails.value.length === filteredThumbnails.value.length,
         set: (value) => {
-            const filteredSymbols = filteredThumbnails.value.map(
-                (t) => t.symbol
-            );
+            const filteredSymbols = filteredThumbnails.value.map((t) => t.symbol);
             if (value) {
-                selectedThumbnails.value = [
-                    ...new Set([
-                        ...selectedThumbnails.value,
-                        ...filteredSymbols,
-                    ]),
-                ];
+                selectedThumbnails.value = [...new Set([...selectedThumbnails.value, ...filteredSymbols])];
             } else {
-                selectedThumbnails.value = selectedThumbnails.value.filter(
-                    (s) => !filteredSymbols.includes(s)
-                );
+                selectedThumbnails.value = selectedThumbnails.value.filter((s) => !filteredSymbols.includes(s));
             }
         },
     });
@@ -93,55 +87,105 @@
         if (decimalPart.length < 4) return Number(amountStr).toFixed(4);
         return amountStr;
     };
+    
+    // [신규] YY. MM. DD 형식의 날짜를 YYYY-MM-DD로 변환하는 헬퍼 함수
+    const parseDateInput = (input) => {
+        const parts = input.split('.').map(s => s.trim());
+        if (parts.length !== 3) return null;
+        const year = `20${parts[0]}`;
+        const month = parts[1].padStart(2, '0');
+        const day = parts[2].padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    // [핵심 기능] 날짜 기준으로 배당금 데이터를 동기화하는 함수
+    const syncDividendData = async () => {
+        isSyncing.value = true;
+        const targetDate = parseDateInput(date.value);
+        if (!targetDate) {
+            alert('날짜 형식이 올바르지 않습니다. (예: 24. 10. 20)');
+            isSyncing.value = false;
+            return;
+        }
+
+        const updatedThumbnails = await Promise.all(allThumbnailsData.value.map(async (thumb) => {
+            const symbol = thumb.symbol;
+            const sanitizedSymbol = symbol.replace(/\./g, '-').toLowerCase();
+            let backtestData = tickerDataCache.get(symbol);
+
+            if (!backtestData) {
+                try {
+                    const response = await fetch(joinURL(import.meta.env.BASE_URL, `data/${sanitizedSymbol}.json`));
+                    if(response.ok) {
+                        const data = await response.json();
+                        backtestData = data.backtestData || [];
+                        tickerDataCache.set(symbol, backtestData);
+                    } else {
+                        backtestData = [];
+                    }
+                } catch (e) {
+                    console.error(`Failed to fetch data for ${symbol}`, e);
+                    backtestData = [];
+                }
+            }
+            
+            const allDividends = backtestData
+                .filter(d => d.amount !== undefined || d.amountFixed !== undefined)
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const currentIndex = allDividends.findIndex(d => d.date === targetDate);
+            
+            const currentDividend = currentIndex !== -1 ? (allDividends[currentIndex].amountFixed ?? allDividends[currentIndex].amount) : 0;
+            const previousDividend = currentIndex > 0 ? (allDividends[currentIndex - 1].amountFixed ?? allDividends[currentIndex - 1].amount) : 0;
+            
+            const diff = currentDividend - previousDividend;
+            const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
+
+            return {
+                ...thumb,
+                currentDividendAmount: currentDividend,
+                previousDividendAmount: previousDividend,
+                formattedCurrentAmount: formatCurrentAmount(currentDividend),
+                comparisonText,
+            };
+        }));
+
+        allThumbnailsData.value = updatedThumbnails;
+        isSyncing.value = false;
+    };
+
 
     onMounted(async () => {
         const today = new Date();
-        date.value = `${String(today.getFullYear()).slice(-2)}. ${String(
-            today.getMonth() + 1
-        )}. ${String(today.getDate())}`;
+        date.value = `${String(today.getFullYear()).slice(-2)}. ${String(today.getMonth() + 1)}. ${String(today.getDate())}`;
 
         try {
             const response = await fetch('/thumbnail.json');
             const configs = await response.json();
 
-            groups.value = [
-                'All',
-                ...new Set(configs.map((c) => c.group).filter(Boolean)),
-            ];
+            groups.value = ['All', ...new Set(configs.map((c) => c.group).filter(Boolean))];
 
             allThumbnailsData.value = configs.map((config) => {
-                const company =
-                    companyOptions.value.find(
-                        (c) => c.name === config.companyName
-                    ) || {};
-                const background =
-                    backgroundOptions.value.find(
-                        (b) => b.name === config.backgroundName
-                    ) || {};
-
-                const currentDividend = config.currentDividendAmount || 0;
-                const previousDividend = config.previousDividendAmount || 0;
-                const diff = currentDividend - previousDividend;
-                const comparisonText = `LAST $ ${diff >= 0 ? '+' : '-'}${Number(Math.abs(diff).toFixed(6))}`;
+                const company = companyOptions.value.find((c) => c.name === config.companyName) || {};
+                const background = backgroundOptions.value.find((b) => b.name === config.backgroundName) || {};
 
                 return {
                     ...config,
                     logo: company.logo,
                     tickerColor: background.tickerColor,
-                    formattedCurrentAmount:
-                        formatCurrentAmount(currentDividend),
-                    comparisonText,
-                    // [핵심 수정 2] new URL() 로직 제거, 경로를 직접 사용
                     backgroundImageUrl: background.path,
+                    // 초기값은 0 또는 JSON 파일 값으로 설정
+                    formattedCurrentAmount: formatCurrentAmount(config.currentDividendAmount || 0),
+                    comparisonText: 'LAST $ +0.000000',
                 };
             });
 
             isAllSelected.value = true;
+            // 페이지 로드 시, 오늘 날짜 기준으로 데이터 자동 동기화
+            await syncDividendData();
+
         } catch (error) {
-            console.error(
-                'Failed to load or process thumbnail configs:',
-                error
-            );
+            console.error('Failed to load or process thumbnail configs:', error);
         } finally {
             isLoading.value = false;
         }
@@ -209,11 +253,17 @@
                 </h1>
             </div>
             <div class="flex align-items-center gap-3">
-                <SelectButton
-                    v-if="groups.length > 1"
-                    v-model="selectedGroup"
-                    :options="groups" />
+                <SelectButton v-if="groups.length > 1" v-model="selectedGroup" :options="groups" />
+                
+                <!-- [핵심 수정] 날짜 입력 및 동기화 버튼 -->
                 <InputText v-model="date" placeholder="YY. MM. DD" />
+                <Button 
+                    label="데이터 동기화" 
+                    icon="pi pi-sync" 
+                    @click="syncDividendData" 
+                    :loading="isSyncing" 
+                />
+
                 <Button
                     label="선택 이미지 다운로드"
                     icon="pi pi-download"
