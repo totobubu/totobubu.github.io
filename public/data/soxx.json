@@ -4352,7 +4352,7 @@
             "close": 18.27666664123535,
             "volume": 98100,
             "amount": 0.001333,
-            "yield": 0.00007115658266391166
+            "yield": 7.115658266391166e-5
         },
         {
             "date": "2003-09-16",
@@ -48979,6 +48979,14 @@
             "low": 290.5,
             "close": 292.9700012207031,
             "volume": 5824000
+        },
+        {
+            "date": "2025-10-21",
+            "open": 292.239990234375,
+            "high": 292.6499938964844,
+            "low": 289.2200012207031,
+            "close": 291.3299865722656,
+            "volume": 3865988
         }
     ],
     "tickerInfo": {
@@ -48986,23 +48994,41 @@
         "koName": null,
         "longName": null,
         "company": "iShares",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 291.33,
         "englishName": "iShares Semiconductor ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2204500480,
-        "Volume": 6261510,
-        "AvgVolume": 7584634,
+        "marketCap": 2228674304,
+        "Volume": 3865988,
+        "AvgVolume": 7603362,
         "sharesOutstanding": 7650000,
-        "52Week": "148.31 - 292.51",
-        "Yield": 313.5,
+        "52Week": "148.31 - 295.0",
+        "Yield": 0.010760992688703532,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "marketCap": {
+                "value": 2204500480,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6261510,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7584634,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 313.5,
+                "change": "down"
+            }
+        }
     }
 }

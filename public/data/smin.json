@@ -744,7 +744,7 @@
             "close": 21.059999465942383,
             "volume": 700,
             "amount": 0.001,
-            "yield": 0.00004766444336601766
+            "yield": 4.766444336601766e-5
         },
         {
             "date": "2012-06-22",
@@ -27589,6 +27589,14 @@
             "low": 74.25,
             "close": 74.76000213623047,
             "volume": 579500
+        },
+        {
+            "date": "2025-10-21",
+            "open": 74.52999877929688,
+            "high": 74.9000015258789,
+            "low": 74.27999877929688,
+            "close": 74.27999877929688,
+            "volume": 76506
         }
     ],
     "tickerInfo": {
@@ -27596,23 +27604,33 @@
         "koName": null,
         "longName": null,
         "company": "iShares",
-        "frequency": null,
+        "frequency": "매년",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 74.28,
         "englishName": "iShares MSCI India Small-Cap ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 94782,
-        "AvgVolume": 183440,
+        "Volume": 76506,
+        "AvgVolume": 188854,
         "sharesOutstanding": null,
         "52Week": "61.54 - 84.94",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 94782,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 183440,
+                "change": "up"
+            }
+        }
     }
 }

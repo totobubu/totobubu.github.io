@@ -144,15 +144,15 @@
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {
-                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${ticker}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${ticker}</b> ${amountHtml}</div></div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
                 };
             }
         },

@@ -9,10 +9,6 @@ from utils import (
     save_json_file,
     sanitize_ticker_for_filename,
     get_kst_now,
-    parse_numeric_value,
-    format_currency,
-    format_large_number,
-    format_percent,
 )
 
 
@@ -73,19 +69,15 @@ def process_single_ticker_info(info):
 
 def main():
     nav_data = load_json_file("public/nav.json")
-    if not nav_data or "nav" not in nav_data:
+    if not nav_data:
         return
 
-    print("\n--- Starting Daily Ticker Info Update ---")
+    print("\n--- Starting Daily Ticker Info Update (RAW DATA) ---")
     active_tickers_from_nav = [
-        item
-        for item in nav_data.get("nav", [])
-        if item.get("symbol") and not item.get("upcoming")
+        item for item in nav_data.get("nav", []) if not item.get("upcoming")
     ]
-    if not active_tickers_from_nav:
-        return
-
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
+
     batch_size = 100
     all_bulk_info = {}
     for i in tqdm(
@@ -99,9 +91,10 @@ def main():
             time.sleep(1)
 
     total_changed_files = 0
-    now_kst = get_kst_now()
+    now_kst_str = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
+
     for info_from_nav in tqdm(
-        active_tickers_from_nav, desc="Processing and Saving Data"
+        active_tickers_from_nav, desc="Processing Raw Ticker Info"
     ):
         ticker_symbol = info_from_nav.get("symbol")
         raw_dynamic_info = all_bulk_info.get(ticker_symbol)
@@ -111,9 +104,9 @@ def main():
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
-        old_raw_info = existing_data.get("tickerInfoRaw", {})
+        old_info = existing_data.get("tickerInfo", {})
 
-        new_raw_info = {
+        new_info = {
             "Symbol": ticker_symbol,
             "koName": info_from_nav.get("koName"),
             "longName": info_from_nav.get("longName"),
@@ -144,10 +137,10 @@ def main():
         new_info["changes"] = changes
 
         compare_old = {
-            k: v for k, v in old_raw_info.items() if k not in ["Update", "englishName"]
+            k: v for k, v in old_info.items() if k not in ["Update", "changes"]
         }
         compare_new = {
-            k: v for k, v in new_raw_info.items() if k not in ["Update", "englishName"]
+            k: v for k, v in new_info.items() if k not in ["Update", "changes"]
         }
 
         if json.dumps(compare_old, sort_keys=True) == json.dumps(
@@ -155,20 +148,8 @@ def main():
         ):
             continue
 
-        old_formatted_info = existing_data.get("tickerInfo", {})
-
-        new_raw_info["Update"] = now_kst.strftime("%Y-%m-%d %H:%M:%S KST")
-        new_formatted_info = format_ticker_info(
-            new_raw_info.copy()
-        )  # 원본 보존을 위해 복사본 전달
-        new_formatted_info["changes"] = calculate_changes(
-            new_formatted_info, old_formatted_info
-        )
-
-        existing_data["tickerInfoRaw"] = new_raw_info
-        existing_data["tickerInfo"] = new_formatted_info
-
-        if save_json_file(file_path, existing_data, indent=2):
+        existing_data["tickerInfo"] = new_info
+        if save_json_file(file_path, existing_data):
             total_changed_files += 1
 
     print(

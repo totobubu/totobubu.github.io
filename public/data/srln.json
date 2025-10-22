@@ -160,7 +160,7 @@
             "close": 50.18000030517578,
             "volume": 70300,
             "amount": 0.003,
-            "yield": 0.00005976095526705198
+            "yield": 5.976095526705198e-5
         },
         {
             "date": "2013-05-02",
@@ -25557,6 +25557,14 @@
             "low": 41.189998626708984,
             "close": 41.27000045776367,
             "volume": 4031400
+        },
+        {
+            "date": "2025-10-21",
+            "open": 41.27000045776367,
+            "high": 41.28960037231445,
+            "low": 41.244998931884766,
+            "close": 41.25,
+            "volume": 1666131
         }
     ],
     "tickerInfo": {
@@ -25564,23 +25572,33 @@
         "koName": null,
         "longName": null,
         "company": "SPDR",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 41.25,
         "englishName": "SPDR Blackstone Senior Loan ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5151121,
-        "AvgVolume": 2937742,
+        "Volume": 1666131,
+        "AvgVolume": 2966954,
         "sharesOutstanding": null,
         "52Week": "39.08 - 42.09",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 5151121,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2937742,
+                "change": "up"
+            }
+        }
     }
 }

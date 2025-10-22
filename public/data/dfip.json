@@ -48,7 +48,7 @@
             "close": 49.3120002746582,
             "volume": 180100,
             "amount": 0.001,
-            "yield": 0.000020251113373217444
+            "yield": 2.0251113373217444e-5
         },
         {
             "date": "2021-11-24",
@@ -7961,6 +7961,14 @@
             "low": 42.44499969482422,
             "close": 42.470001220703125,
             "volume": 69900
+        },
+        {
+            "date": "2025-10-21",
+            "open": 42.43000030517578,
+            "high": 42.47740173339844,
+            "low": 42.42020034790039,
+            "close": 42.45500183105469,
+            "volume": 69061
         }
     ],
     "tickerInfo": {
@@ -7968,23 +7976,33 @@
         "koName": null,
         "longName": null,
         "company": "Dimensional",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 42.455,
         "englishName": "Dimensional Inflation-Protected Securities ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 183084,
-        "AvgVolume": 69882,
+        "Volume": 69061,
+        "AvgVolume": 70390,
         "sharesOutstanding": null,
         "52Week": "40.22 - 42.77",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 183084,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 69882,
+                "change": "up"
+            }
+        }
     }
 }

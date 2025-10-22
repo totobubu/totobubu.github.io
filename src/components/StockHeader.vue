@@ -1,7 +1,11 @@
 <!-- src/components/StockHeader.vue -->
 <script setup>
     import { computed } from 'vue';
-    import { formatLargeNumber } from '@/utils/numberFormat.js';
+    import {
+        formatCurrency,
+        formatLargeNumber,
+        formatPercent,
+    } from '@/utils/formatters.js';
     import Card from 'primevue/card';
     import Tag from 'primevue/tag';
 
@@ -11,29 +15,30 @@
 
     const stockDetails = computed(() => {
         if (!props.info) return [];
+        const { currency = 'USD' } = props.info;
+
         const detailMapping = [
+            { key: 'market', label: '시장' },
             {
-                key:
-                    props.info.marketCap && props.info.marketCap !== 'N/A'
-                        ? 'marketCap'
-                        : 'totalAssets',
-                label:
-                    props.info.marketCap && props.info.marketCap !== 'N/A'
-                        ? '시가총액'
-                        : '운용 자산 (AUM)',
-                formatter: formatLargeNumber,
+                key: 'marketCap',
+                label: '시가총액',
+                formatter: (val) => formatLargeNumber(val, currency),
             },
             {
                 key: 'enterpriseValue',
                 label: '기업가치',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val, currency),
             },
             { key: 'earningsDate', label: '실적발표일' },
-            { key: 'Volume', label: '거래량', formatter: formatLargeNumber },
+            {
+                key: 'Volume',
+                label: '거래량',
+                formatter: (val) => formatLargeNumber(val, currency),
+            },
             {
                 key: 'AvgVolume',
                 label: '평균거래량',
-                formatter: formatLargeNumber,
+                formatter: (val) => formatLargeNumber(val, currency),
             },
             {
                 key: 'sharesOutstanding',
@@ -55,9 +60,6 @@
                 label: '배당 성향',
                 formatter: formatPercent,
             },
-            { key: 'Yield', label: '연간 배당률' },
-            { key: 'dividendRate', label: '연간 배당금' },
-            { key: 'payoutRatio', label: '배당 성향' },
         ];
 
         return detailMapping
@@ -69,8 +71,8 @@
 
                 return {
                     label: item.label,
-                    value: item.formatter ? item.formatter(rawValue) : rawValue,
-                    changeInfo: changeInfo,
+                    value: displayValue,
+                    changeInfo: props.info.changes?.[item.key],
                 };
             })
             .filter(
@@ -90,15 +92,17 @@
 
 <template>
     <div v-if="info" id="t-stock-header">
-        <Card
-            class="status flex-1 min-w-[240px]"
-            v-for="detail in stockDetails"
-            :key="detail.label">
-            <template #title>
-                <span>{{ detail.label }}</span>
-            </template>
+        <Card class="status" v-for="detail in stockDetails" :key="detail.label">
+            <template #title
+                ><span>{{ detail.label }}</span></template
+            >
             <template #content>
-                <p class="">{{ detail.value }}</p>
+                <Tag
+                    v-if="detail.label === '시장'"
+                    :value="detail.value.toUpperCase()"
+                    severity="contrast"
+                    class="font-bold" />
+                <p v-else>{{ detail.value }}</p>
             </template>
             <template #footer>
                 <div v-if="detail.changeInfo" class="absolute top-2 right-2">

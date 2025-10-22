@@ -80,7 +80,7 @@
             "close": 51.05799865722656,
             "volume": 15000,
             "amount": 0.004,
-            "yield": 0.00007832386966717346
+            "yield": 7.832386966717346e-5
         },
         {
             "date": "2023-11-22",
@@ -3931,6 +3931,14 @@
             "low": 56.084999084472656,
             "close": 56.1349983215332,
             "volume": 77200
+        },
+        {
+            "date": "2025-10-21",
+            "open": 55.53860092163086,
+            "high": 55.57500076293945,
+            "low": 55.52000045776367,
+            "close": 55.527801513671875,
+            "volume": 125478
         }
     ],
     "tickerInfo": {
@@ -3938,23 +3946,33 @@
         "koName": null,
         "longName": null,
         "company": "Dimensional",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 55.5278,
         "englishName": "Dimensional Global Core Plus Fixed Income ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 155244,
-        "AvgVolume": 164415,
+        "Volume": 125478,
+        "AvgVolume": 163548,
         "sharesOutstanding": null,
         "52Week": "51.92 - 56.17",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 155244,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 164415,
+                "change": "down"
+            }
+        }
     }
 }

@@ -184,7 +184,7 @@
             "close": 100.01499938964844,
             "volume": 15100,
             "amount": 0.006,
-            "yield": 0.0000599880044128749
+            "yield": 5.99880044128749e-5
         },
         {
             "date": "2020-07-02",
@@ -10965,6 +10965,14 @@
             "low": 100.56999969482422,
             "close": 100.58000183105469,
             "volume": 16059300
+        },
+        {
+            "date": "2025-10-21",
+            "open": 100.58999633789062,
+            "high": 100.5999984741211,
+            "low": 100.58999633789062,
+            "close": 100.5999984741211,
+            "volume": 11799009
         }
     ],
     "tickerInfo": {
@@ -10972,23 +10980,33 @@
         "koName": null,
         "longName": null,
         "company": "iShares",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 100.6,
         "englishName": "iShares 0-3 Month Treasury Bond ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14260590,
-        "AvgVolume": 13044070,
+        "Volume": 11799009,
+        "AvgVolume": 13094773,
         "sharesOutstanding": null,
         "52Week": "100.15 - 100.74",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 14260590,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13044070,
+                "change": "up"
+            }
+        }
     }
 }

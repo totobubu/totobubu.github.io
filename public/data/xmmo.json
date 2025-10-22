@@ -5668,7 +5668,7 @@
             "close": 24.520000457763672,
             "volume": 147200,
             "amount": 0.002,
-            "yield": 0.0000823045293330606
+            "yield": 8.23045293330606e-5
         },
         {
             "date": "2007-12-24",
@@ -41637,6 +41637,14 @@
             "low": 134.52000427246094,
             "close": 135.27999877929688,
             "volume": 173100
+        },
+        {
+            "date": "2025-10-21",
+            "open": 135.00999450683594,
+            "high": 135.5,
+            "low": 134.3249969482422,
+            "close": 135.07000732421875,
+            "volume": 208052
         }
     ],
     "tickerInfo": {
@@ -41644,23 +41652,37 @@
         "koName": null,
         "longName": null,
         "company": "Invesco",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 135.07,
         "englishName": "Invesco S&P MidCap Momentum ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 204892,
-        "AvgVolume": 242059,
+        "Volume": 208052,
+        "AvgVolume": 241703,
         "sharesOutstanding": null,
         "52Week": "97.5 - 137.57",
-        "Yield": 34,
+        "Yield": 0.0025172132968090625,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 204892,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 242059,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 34,
+                "change": "down"
+            }
+        }
     }
 }

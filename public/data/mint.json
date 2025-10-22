@@ -72,7 +72,7 @@
             "close": 100.16999816894531,
             "volume": 6700,
             "amount": 0.006,
-            "yield": 0.00005991013388501638
+            "yield": 5.991013388501638e-5
         },
         {
             "date": "2009-12-01",
@@ -32433,6 +32433,14 @@
             "low": 100.51000213623047,
             "close": 100.5199966430664,
             "volume": 1195100
+        },
+        {
+            "date": "2025-10-21",
+            "open": 100.52999877929688,
+            "high": 100.54000091552734,
+            "low": 100.52999877929688,
+            "close": 100.54000091552734,
+            "volume": 958560
         }
     ],
     "tickerInfo": {
@@ -32440,23 +32448,33 @@
         "koName": null,
         "longName": null,
         "company": "PIMCO",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 100.54,
         "englishName": "PIMCO Enhanced Short Maturity Active Exchange-Traded Fund",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 993264,
-        "AvgVolume": 1150737,
+        "Volume": 958560,
+        "AvgVolume": 1153837,
         "sharesOutstanding": null,
         "52Week": "100.04 - 100.76",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 993264,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1150737,
+                "change": "up"
+            }
+        }
     }
 }

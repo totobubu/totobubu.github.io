@@ -32428,7 +32428,7 @@
             "close": 36.50199890136719,
             "volume": 445500,
             "amount": 0.0016,
-            "yield": 0.00008729812730574505
+            "yield": 8.729812730574505e-5
         },
         {
             "date": "2022-03-22",
@@ -39649,6 +39649,14 @@
             "low": 47.470001220703125,
             "close": 47.630001068115234,
             "volume": 75600
+        },
+        {
+            "date": "2025-10-21",
+            "open": 47.59000015258789,
+            "high": 47.88999938964844,
+            "low": 47.41999816894531,
+            "close": 47.83000183105469,
+            "volume": 75790
         }
     ],
     "tickerInfo": {
@@ -39656,23 +39664,33 @@
         "koName": null,
         "longName": null,
         "company": "Invesco",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 47.83,
         "englishName": "Invesco S&P 500 Pure Growth ETF",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 82233,
-        "AvgVolume": 209070,
+        "Volume": 75790,
+        "AvgVolume": 203001,
         "sharesOutstanding": null,
         "52Week": "32.16 - 48.5",
-        "Yield": 0,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 82233,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 209070,
+                "change": "down"
+            }
+        }
     }
 }

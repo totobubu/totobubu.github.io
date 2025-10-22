@@ -2000,7 +2000,7 @@
             "close": 51.5625,
             "volume": 397700,
             "amount": 0.001,
-            "yield": 0.00001932367149758454
+            "yield": 1.932367149758454e-5
         },
         {
             "date": "1999-12-20",
@@ -54145,6 +54145,14 @@
             "low": 286.4700012207031,
             "close": 288.19000244140625,
             "volume": 6901400
+        },
+        {
+            "date": "2025-10-21",
+            "open": 288.010009765625,
+            "high": 289.364990234375,
+            "low": 286.95001220703125,
+            "close": 288.3399963378906,
+            "volume": 6216915
         }
     ],
     "tickerInfo": {
@@ -54152,23 +54160,41 @@
         "koName": null,
         "longName": null,
         "company": "Technology",
-        "frequency": null,
-        "group": null,
+        "frequency": "분기",
+        "group": "MJSD",
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
+        "Update": "2025-10-22 08:21:26 KST",
+        "regularMarketPrice": 288.34,
         "englishName": "The Technology Select Sector SPDR Fund",
-        "earningsDate": "N/A",
+        "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 77538680832,
-        "Volume": 12690546,
-        "AvgVolume": 8389978,
+        "marketCap": 78444625920,
+        "Volume": 6216915,
+        "AvgVolume": 8425587,
         "sharesOutstanding": 272056000,
         "52Week": "172.45 - 291.34",
-        "Yield": 110.3,
+        "Yield": 0.0038253450787265036,
         "dividendRate": null,
         "payoutRatio": null,
-        "Update": "2025-10-20 11:45:57 KST",
-        "changes": {}
+        "changes": {
+            "marketCap": {
+                "value": 77538680832,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12690546,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8389978,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 110.3,
+                "change": "down"
+            }
+        }
     }
 }
