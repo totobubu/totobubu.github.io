@@ -72,9 +72,12 @@ def main():
                     if date_str not in backtest_map:
                         backtest_map[date_str] = {"date": date_str}
 
-                    # [핵심] amount 필드는 항상 최신 yfinance 값으로 업데이트
-                    # amountFixed가 있더라도 amount는 자동 수집 값으로 유지
+                    # amount 필드는 항상 최신 yfinance 값으로 업데이트
                     backtest_map[date_str]["amount"] = new_amount
+
+                    # [핵심 수정] amount가 추가되었으므로, 해당 날짜의 'expected' 키를 삭제합니다.
+                    if "expected" in backtest_map[date_str]:
+                        del backtest_map[date_str]["expected"]
 
             final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
 
