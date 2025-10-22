@@ -122,7 +122,7 @@
                 const currentDividend = config.currentDividendAmount || 0;
                 const previousDividend = config.previousDividendAmount || 0;
                 const diff = currentDividend - previousDividend;
-                const comparisonText = `${config.comparisonPrefix} $ ${diff >= 0 ? '+' : '-'}${Number(Math.abs(diff).toFixed(6))}`;
+                const comparisonText = `LAST $ ${diff >= 0 ? '+' : '-'}${Number(Math.abs(diff).toFixed(6))}`;
 
                 return {
                     ...config,
