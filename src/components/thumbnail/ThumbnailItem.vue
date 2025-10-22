@@ -1,4 +1,4 @@
-<!-- REFACTORED: src/components/thumbnail/ThumbnailItem.vue -->
+<!-- src/components/thumbnail/ThumbnailItem.vue -->
 <script setup>
     defineProps({
         data: Object,
