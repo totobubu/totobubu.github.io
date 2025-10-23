@@ -1,4 +1,5 @@
 // src/store/auth.js
+
 import { ref, watch } from 'vue';
 import { auth, signOut } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -7,20 +8,16 @@ import {
     loadMyBookmarksFromFirestore,
     saveMyBookmarksToFirestore,
 } from '@/composables/useFilterState';
-import router from '@/router'; // [추가] router import
 
 export const user = ref(null);
 export const isRecentlyAuthenticated = ref(false);
 
-const { myBookmarks } = useFilterState();
+// [핵심] useFilterState에서 mainFilterTab을 가져옵니다.
+const { myBookmarks, mainFilterTab } = useFilterState();
 
-// --- [핵심 수정] ---
 export const handleSignOut = async () => {
     await signOut(auth);
-    // 로그아웃 후 홈으로 리디렉션
-    router.push('/');
 };
-// --- // ---
 
 onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
@@ -32,10 +29,20 @@ onAuthStateChanged(auth, async (firebaseUser) => {
         myBookmarks.value = await loadMyBookmarksFromFirestore(
             firebaseUser.uid
         );
+
+        // [핵심 수정] 북마크 유무에 따라 기본 탭 설정
+        if (Object.keys(myBookmarks.value).length > 0) {
+            mainFilterTab.value = '북마크';
+        } else {
+            mainFilterTab.value = '미국';
+        }
     } else {
         isRecentlyAuthenticated.value = false;
         user.value = null;
         myBookmarks.value = {};
+
+        // [핵심 수정] 로그아웃 시 기본 탭을 '미국'으로 설정
+        mainFilterTab.value = '미국';
     }
 });
 
