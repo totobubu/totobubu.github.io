@@ -4,8 +4,7 @@ import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const globalSearchQuery = ref(null);
-// --- [핵심 수정] mainFilterTab의 기본값을 '북마크'로 변경 ---
-const mainFilterTab = ref('북마크');
+const mainFilterTab = ref('미국'); // 기본값을 '미국'으로 유지
 // --- // ---
 const subFilterTab = ref('ETF');
 
