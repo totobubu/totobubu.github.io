@@ -5,8 +5,11 @@
 
 #t-stock-calculator {
     width: 100%;
-    min-width: 640px;
     max-width: 1200px;
+    .p-drawer-close-button {
+        display: none;
+    }
+
     .p-drawer-content {
         height: 70vh;
     }
@@ -14,13 +17,18 @@
         &-option {
             width: 100%;
             @include bp.media-breakpoint-up('sm') {
-                width: 500px;
+                
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
             }
         }
         &-result {
             width: 100%;
             @include bp.media-breakpoint-up('sm') {
-                width: calc(100% - 500px);
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
             }
         }
     }

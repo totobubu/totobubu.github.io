@@ -8,7 +8,7 @@ const { deviceType } = useBreakpoint();
 <template>
     <div class="grid">
         <!-- 옵션 영역: 각 입력 필드를 위한 세분화된 슬롯 -->
-        <div class="calculator-option">
+        <div class="calculator-option flex flex-column gap-2">
             <slot name="avgPriceAndQuantity"></slot>
             <slot name="investmentPrincipalAndCurrentValue"></slot>
             <slot name="accumulatedDividend"></slot>
