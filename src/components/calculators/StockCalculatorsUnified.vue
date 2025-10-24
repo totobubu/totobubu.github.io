@@ -44,18 +44,10 @@
         ),
     });
 
-    // [수정] userBookmark를 computed로 감싸서 전달
-    const recovery = useRecoveryCalc({
-        ...shared,
-        chartTheme,
-        userBookmark: computed(() => props.userBookmark),
-    });
-    const reinvestment = useReinvestmentCalc({
-        ...shared,
-        chartTheme,
-        userBookmark: computed(() => props.userBookmark),
-    });
-    const yieldCalc = useYieldCalc(shared);
+// [수정] userBookmark를 computed로 감싸지 않고 shared에서 직접 사용
+const recovery = useRecoveryCalc({ ...shared, chartTheme });
+const reinvestment = useReinvestmentCalc({ ...shared, chartTheme });
+const yieldCalc = useYieldCalc(shared);
 
     const setInputValues = (source = {}) => {
         shared.avgPrice.value =
@@ -80,17 +72,15 @@
         props.userBookmark && setInputValues(props.userBookmark);
     const resetToCurrentPrice = () => setInputValues();
 
-    // --- [핵심 수정 1] 모든 watch를 게터(getter) 함수 형태로 변경 ---
-    watch(
-        () => shared.currentPrice.value,
-        (newPrice) => {
-            if (newPrice > 0) {
-                setInputValues(props.userBookmark || {});
-            }
-        },
-        { immediate: true }
-    );
 
+// --- [핵심 수정] watch를 게터 함수 형태로 변경 ---
+watch(
+    () => shared.currentPrice.value, // .value에 접근하는 것을 함수로 감쌈
+    (newPrice) => {
+        if (newPrice > 0) setInputValues(props.userBookmark || {});
+    },
+    { immediate: true }
+);
     const exchangeRate = ref(1380);
     const formatKRW = (amount) =>
         (amount * exchangeRate.value).toLocaleString('ko-KR', {
