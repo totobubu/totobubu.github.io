@@ -9,13 +9,64 @@ export function useReinvestmentChart(options) {
         payoutsPerYear,
         dividendStats,
         annualGrowthRateScenario,
+        applyTax, // goalAchievementTimes 대신 applyTax 받기
         currentPrice,
-        goalAchievementTimes,
         theme,
-        currency,
+        currency = 'USD',
     } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
-    const formatCurrency = createNumericFormatter(currency.value);
+    const formatCurrency = createNumericFormatter(currency);
+
+    // --- [핵심 수정] goalAchievementTimes 계산 로직을 이 파일로 이동 ---
+    const goalAchievementTimes = computed(() => {
+        if (
+            !dividendStats.value ||
+            (dividendStats.value.avg === 0 && dividendStats.value.max === 0)
+        ) {
+            return { hope: Infinity, avg: Infinity, despair: Infinity };
+        }
+
+        const calculateMonths = (dividendPerShare) => {
+            if (targetAmount.value <= currentAssets.value) return -1;
+            if (
+                currentAssets.value <= 0 ||
+                dividendPerShare <= 0 ||
+                currentPrice.value <= 0 ||
+                payoutsPerYear.value <= 0
+            ) {
+                return Infinity;
+            }
+            // 여기서 applyTax.value를 직접 사용
+            const finalDividendPerShare = applyTax.value
+                ? dividendPerShare * 0.85
+                : dividendPerShare;
+            if (finalDividendPerShare <= 0) return Infinity;
+
+            let assetValue = currentAssets.value;
+            let months = 0;
+            const monthlyGrowthRate =
+                (1 + annualGrowthRateScenario.value) ** (1 / 12) - 1;
+            const monthlyPayouts = payoutsPerYear.value / 12;
+
+            while (assetValue < targetAmount.value) {
+                if (months > 1200) return Infinity;
+                assetValue *= 1 + monthlyGrowthRate;
+                const currentShares = assetValue / currentPrice.value;
+                const dividendReceived =
+                    currentShares * finalDividendPerShare * monthlyPayouts;
+                assetValue += dividendReceived;
+                months++;
+            }
+            return months;
+        };
+
+        return {
+            hope: calculateMonths(dividendStats.value.max),
+            avg: calculateMonths(dividendStats.value.avg),
+            despair: calculateMonths(dividendStats.value.min),
+        };
+    });
+    // --- // ---
 
     const calculateGrowthPath = (dividendPerShare, maxMonths) => {
         if (
@@ -150,5 +201,5 @@ export function useReinvestmentChart(options) {
         };
     });
 
-    return { chartOptions };
+    return { chartOptions, goalAchievementTimes };
 }
