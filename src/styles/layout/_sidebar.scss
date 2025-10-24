@@ -16,12 +16,6 @@
     }
 }
 
-.filter-button-group {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
 #toto-calendar-toggle {
     .p-accordionheader {
         padding: 0.75rem 1rem;
@@ -73,7 +67,8 @@
 .p-drawer-right .p-drawer {
     width: 500px !important;
     .p-drawer-header {
-        padding: 0.75rem var(--p-drawer-header-padding);
+        display: none;
+        // padding: 0.75rem var(--p-drawer-header-padding);
     }
 
     .p-drawer-content {
@@ -87,6 +82,8 @@
     .p-drawer-header {
         position: absolute;
         right: 0;
+        top: 0;
+        padding: 0.5rem;
     }
     .p-drawer-content {
         width: 100%;
@@ -94,6 +91,14 @@
     }
     .toto-column-company {
         width: 0.5rem;
+    }
+}
+.filter-button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    .p-drawer-full & {
+        width: calc(100vw - 5.5rem);
     }
 }
 
