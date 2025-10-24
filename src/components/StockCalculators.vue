@@ -21,6 +21,18 @@
         { label: '목표 달성', value: 'reinvestment' },
         { label: '예상 배당', value: 'yield' },
     ]);
+
+    const headerInfo = ref({
+        currentPrice: 0,
+        exchangeRate: 0,
+        isUSD: true,
+        currency: 'USD',
+        currencyLocale: 'en-US',
+    });
+
+    const handleHeaderInfoUpdate = (info) => {
+        headerInfo.value = info;
+    };
 </script>
 
 <template>
@@ -46,6 +58,25 @@
                     optionLabel="label"
                     optionValue="value"
                     class="w-full" />
+                <div
+                    class="flex align-items-center justify-content-end gap-2 text-sm">
+                    <Tag v-if="!headerInfo.isUSD" severity="contrast">
+                        환율 :
+                        {{ headerInfo.exchangeRate?.toLocaleString('ko-KR') }}원
+                    </Tag>
+                    <Tag severity="contrast">
+                        현재 주가 :
+                        {{
+                            headerInfo.currentPrice?.toLocaleString(
+                                headerInfo.currencyLocale,
+                                {
+                                    style: 'currency',
+                                    currency: headerInfo.currency,
+                                }
+                            )
+                        }}
+                    </Tag>
+                </div>
             </template>
 
             <!-- [핵심 수정] activeCalculator를 prop으로 전달 -->

@@ -50,7 +50,9 @@
     <Card class="toto-chart">
         <template #content>
             <div class="toto-chart-header mb-4">
-                <div class="flex-grow-1 flex gap-2">
+                <div
+                    class="flex gap-2"
+                    :class="isMobile ? 'flex-column' : 'flex-grow-1'">
                     <SelectButton
                         v-if="viewOptions && viewOptions.length > 1"
                         v-model="localCurrentView"
