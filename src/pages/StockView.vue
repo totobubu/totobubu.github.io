@@ -81,7 +81,7 @@
                 monthsToSubtract = val * 12;
             }
             cutoffDate.setMonth(now.getMonth() - monthsToSubtract);
-        } 
+        }
         // 그 외(매월, 분기, 매년)는 '연도' 기준으로 필터링
         else {
             const currentYear = now.getFullYear();
@@ -89,7 +89,8 @@
 
             if (unit === 'Y') {
                 startYear = currentYear - val + 1;
-            } else { // 6M 같은 경우는 현재 연도만 표시
+            } else {
+                // 6M 같은 경우는 현재 연도만 표시
                 startYear = currentYear;
             }
             cutoffDate = new Date(startYear, 0, 1); // 해당 연도의 1월 1일
@@ -117,12 +118,16 @@
                         dividendHistory.value &&
                         dividendHistory.value.length > 0;
                     currentView.value = hasDividends ? '배당' : '주가';
-                    
-                    if (timeRangeOptions.value && timeRangeOptions.value.length > 1) {
-                        selectedTimeRange.value = timeRangeOptions.value[0].value;
-                    } else {
-                        selectedTimeRange.value = 'ALL';
-                    }
+
+                    // [디버그 로그 추가]
+                    console.log(
+                        '[디버그] StockView -> 계산기로 전달할 Props:',
+                        {
+                            tickerInfo: tickerInfo.value,
+                            dividendHistory: dividendHistory.value,
+                            userBookmark: currentUserBookmark.value,
+                        }
+                    );
                 });
             }
         },
