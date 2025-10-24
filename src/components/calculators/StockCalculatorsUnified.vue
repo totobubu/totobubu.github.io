@@ -1,13 +1,11 @@
 <!-- src\components\calculators\StockCalculatorsUnified.vue -->
 <script setup>
-    import { ref, computed, watch, onMounted, reactive } from 'vue';
-    import { user } from '@/store/auth';
-    import { useFilterState } from '@/composables/useFilterState';
-    import { useDividendStats } from '@/composables/useDividendStats';
-    import { formatMonthsToYears } from '@/utils/date.js';
+    import { watch, onMounted, reactive } from 'vue';
+    import { useSharedCalculatorState } from '@/composables/calculators/useSharedCalculatorState.js';
     import { useRecoveryCalc } from '@/composables/calculators/useRecoveryCalc.js';
     import { useReinvestmentCalc } from '@/composables/calculators/useReinvestmentCalc.js';
     import { useYieldCalc } from '@/composables/calculators/useYieldCalc.js';
+    import { formatMonthsToYears } from '@/utils/date.js';
     import VChart from 'vue-echarts';
 
     // PrimeVue 컴포넌트 임포트
@@ -24,67 +22,23 @@
     import FloatLabel from 'primevue/floatlabel';
     import IftaLabel from 'primevue/iftalabel';
 
-    // --- 1. PROPS, EMITS, 기본 상태 ---
     const props = defineProps({
         activeCalculator: String,
         dividendHistory: Array,
         tickerInfo: Object,
         userBookmark: Object,
     });
+
+    console.log('[Debug] Unified component received props:', {
+        tickerInfo: props.tickerInfo,
+        dividendHistoryLength: props.dividendHistory?.length,
+        userBookmark: props.userBookmark,
+    });
+
     const emit = defineEmits(['update-header-info']);
 
-    const currency = computed(() => props.tickerInfo?.currency || 'USD');
-    const isUSD = computed(() => currency.value === 'USD');
-    const currencyLocale = computed(() => (isUSD.value ? 'en-US' : 'ko-KR'));
-    const currentPrice = computed(
-        () => props.tickerInfo?.regularMarketPrice || 0
-    );
-    const exchangeRate = ref(1380);
+    const shared = useSharedCalculatorState(props);
 
-    // --- 2. 모든 입력 상태 중앙화 ---
-    const avgPrice = ref(0);
-    const quantity = ref(100);
-    const period = ref('5');
-    const periodOptions = ref([
-        { label: '최근 5회', value: '5' },
-        { label: '최근 10회', value: '10' },
-        { label: '최근 20회', value: '20' },
-        { label: '전체 기간', value: 'ALL' },
-    ]);
-    const applyTax = ref(true);
-    const taxOptions = ref([
-        { label: '세전', value: false },
-        { label: '세후 (15%)', value: true },
-    ]);
-    const accumulatedDividend = ref(0);
-    const recoveryCalcMode = ref('amount');
-    const targetAsset = ref(0);
-    const annualGrowthRate = ref(0);
-    const yieldCalcMode = ref('quantity');
-    const inputAmount = ref(0);
-
-    // --- 3. 파생 상태 및 로직 (Composables 호출) ---
-    const investmentPrincipal = computed(
-        () => (quantity.value || 0) * (avgPrice.value || 0)
-    );
-    const currentValue = computed(
-        () => (quantity.value || 0) * currentPrice.value
-    );
-    const profitLossRate = computed(() =>
-        investmentPrincipal.value === 0
-            ? 0
-            : ((currentValue.value - investmentPrincipal.value) /
-                  investmentPrincipal.value) *
-              100
-    );
-    const currentAssets = computed(
-        () => (quantity.value || 0) * currentPrice.value
-    );
-    const { dividendStats, payoutsPerYear } = useDividendStats(
-        computed(() => props.dividendHistory),
-        computed(() => props.tickerInfo),
-        period
-    );
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = reactive({
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -96,128 +50,81 @@
         ),
     });
 
-    const { recoveryRate, recoveryTimes, recoveryChartOptions } =
-        useRecoveryCalc({
-            avgPrice,
-            quantity,
-            accumulatedDividend,
-            dividendStats,
-            payoutsPerYear,
-            applyTax,
-            currentPrice,
-            currency,
-            chartTheme,
-        });
-    const { goalAchievementTimes, reinvestmentChartOptions } =
-        useReinvestmentCalc({
-            currentAssets,
-            dividendStats,
-            payoutsPerYear,
-            applyTax,
-            currentPrice,
-            targetAsset,
-            annualGrowthRate,
-            isUSD,
-            currency,
-            chartTheme,
-            userBookmark: computed(() => props.userBookmark),
-        });
-    const { inputAmountUSD, expectedDividends } = useYieldCalc({
-        quantity,
-        dividendStats,
-        payoutsPerYear,
-        isUSD,
-        exchangeRate,
-        inputAmount,
+    const recovery = useRecoveryCalc({
+        ...shared,
+        chartTheme,
+        userBookmark: computed(() => props.userBookmark),
     });
+    const reinvestment = useReinvestmentCalc({
+        ...shared,
+        chartTheme,
+        userBookmark: computed(() => props.userBookmark),
+    });
+    const yieldCalc = useYieldCalc(shared);
 
-    // --- 4. 북마크 및 초기화 ---
-    const { updateBookmarkDetails } = useFilterState();
-    const getDefaultQuantity = () => {
-        if (!currentPrice.value) return 100;
-        if (isUSD.value) {
-            if (currentPrice.value >= 1000) return 10;
-            if (currentPrice.value >= 100) return 100;
-            if (currentPrice.value >= 10) return 1000;
-        } else {
-            if (currentPrice.value >= 1000000) return 10;
-            if (currentPrice.value >= 100000) return 100;
-            if (currentPrice.value >= 10000) return 1000;
-        }
-        return 10000;
-    };
+    console.log('[Debug] Recovery composable result:', recovery);
+    console.log('[Debug] Reinvestment composable result:', reinvestment);
+    console.log('[Debug] Yield composable result:', yieldCalc);
+
     const setInputValues = (source = {}) => {
-        avgPrice.value = source.avgPrice || currentPrice.value || 0;
-        quantity.value = source.quantity || getDefaultQuantity();
-        accumulatedDividend.value = source.accumulatedDividend || 0;
-        targetAsset.value =
-            source.targetAsset || (isUSD.value ? 100000 : 100000000);
-        inputAmount.value = isUSD.value ? 10000 : 10000000;
+        shared.avgPrice.value =
+            source.avgPrice || shared.currentPrice.value || 0;
+        shared.quantity.value = source.quantity || shared.getDefaultQuantity();
+        recovery.accumulatedDividend.value = source.accumulatedDividend || 0;
+        reinvestment.targetAsset.value =
+            source.targetAsset || (shared.isUSD.value ? 100000 : 100000000);
     };
+
     const saveToBookmark = () => {
-        /* ... */
+        if (shared.user.value && props.tickerInfo?.symbol) {
+            shared.updateBookmarkDetails(props.tickerInfo.symbol, {
+                avgPrice: shared.avgPrice.value,
+                quantity: shared.quantity.value,
+                accumulatedDividend: recovery.accumulatedDividend.value,
+                targetAsset: reinvestment.targetAsset.value,
+            });
+        }
     };
     const loadFromBookmark = () =>
         props.userBookmark && setInputValues(props.userBookmark);
     const resetToCurrentPrice = () => setInputValues();
+
     watch(
-        currentPrice,
+        shared.currentPrice,
         (newPrice) => {
             if (newPrice > 0) setInputValues(props.userBookmark || {});
         },
         { immediate: true }
     );
 
-    // --- 5. 라이프사이클 및 유틸 함수 ---
+    const exchangeRate = ref(1380);
     const formatKRW = (amount) =>
         (amount * exchangeRate.value).toLocaleString('ko-KR', {
             maximumFractionDigits: 0,
         }) + '원';
+
     watch(
-        [currentPrice, exchangeRate, isUSD],
+        [shared.currentPrice, exchangeRate, shared.isUSD],
         () => {
             emit('update-header-info', {
-                currentPrice: currentPrice.value,
+                currentPrice: shared.currentPrice.value,
                 exchangeRate: exchangeRate.value,
-                isUSD: isUSD.value,
-                currency: currency.value,
-                currencyLocale: currencyLocale.value,
+                isUSD: shared.isUSD.value,
+                currency: shared.currency.value,
+                currencyLocale: shared.currencyLocale.value,
             });
         },
         { immediate: true, deep: true }
     );
+
     onMounted(async () => {
-        if (isUSD.value) {
+        if (shared.isUSD.value) {
             try {
                 const res = await fetch('/api/getExchangeRate');
                 if (res.ok) exchangeRate.value = (await res.json()).price;
             } catch (e) {
                 console.error(e);
             }
-        }
-    });
-    watch([inputAmount, yieldCalcMode], () => {
-        if (
-            props.activeCalculator === 'yield' &&
-            yieldCalcMode.value === 'amount' &&
-            currentPrice.value > 0 &&
-            inputAmountUSD.value > 0
-        ) {
-            quantity.value = Math.floor(
-                inputAmountUSD.value / currentPrice.value
-            );
-        }
-    });
-    watch([quantity, yieldCalcMode], () => {
-        if (
-            props.activeCalculator === 'yield' &&
-            yieldCalcMode.value === 'quantity' &&
-            currentPrice.value > 0
-        ) {
-            const totalValue = quantity.value * currentPrice.value;
-            inputAmount.value = isUSD.value
-                ? totalValue
-                : totalValue * exchangeRate.value;
         }
     });
 </script>
@@ -230,29 +137,29 @@
                     :class="{ 'p-disabled': activeCalculator === 'yield' }">
                     <IftaLabel>
                         <InputNumber
-                            v-model="avgPrice"
-                            :mode="isUSD ? 'currency' : 'decimal'"
-                            :currency="currency"
-                            :locale="currencyLocale"
+                            v-model="shared.avgPrice.value"
+                            :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                            :currency="shared.currency.value"
+                            :locale="shared.currencyLocale.value"
                             inputId="avgPrice"
                             :disabled="activeCalculator === 'yield'" />
                         <label for="avgPrice">평단</label>
                     </IftaLabel>
                     <IftaLabel>
                         <InputNumber
-                            v-model="quantity"
+                            v-model="shared.quantity.value"
                             suffix=" 주"
                             min="1"
                             inputId="quantity"
                             :disabled="
                                 activeCalculator === 'yield' &&
-                                yieldCalcMode !== 'quantity'
+                                yieldCalc.yieldCalcMode.value !== 'quantity'
                             " />
                         <label for="quantity">수량</label>
                     </IftaLabel>
                 </InputGroup>
                 <div
-                    v-if="user && activeCalculator !== 'yield'"
+                    v-if="shared.user.value && activeCalculator !== 'yield'"
                     class="flex justify-content-end gap-2">
                     <Button
                         label="저장"
@@ -284,23 +191,25 @@
                 :class="{ 'p-disabled': activeCalculator === 'yield' }">
                 <FloatLabel variant="on"
                     ><InputNumber
-                        :modelValue="investmentPrincipal"
-                        :mode="isUSD ? 'currency' : 'decimal'"
-                        :currency="currency"
-                        :locale="currencyLocale"
+                        :modelValue="shared.investmentPrincipal.value"
+                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                        :currency="shared.currency.value"
+                        :locale="shared.currencyLocale.value"
                         disabled /><label>투자원금</label></FloatLabel
                 >
                 <FloatLabel variant="on"
                     ><InputNumber
-                        :modelValue="currentValue"
-                        :mode="isUSD ? 'currency' : 'decimal'"
-                        :currency="currency"
-                        :locale="currencyLocale"
+                        :modelValue="shared.currentValue.value"
+                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                        :currency="shared.currency.value"
+                        :locale="shared.currencyLocale.value"
                         disabled /><label>현재가치</label></FloatLabel
                 >
                 <Tag
-                    :severity="profitLossRate >= 0 ? 'success' : 'danger'"
-                    :value="`${profitLossRate.toFixed(2)}%`" />
+                    :severity="
+                        shared.profitLossRate.value >= 0 ? 'success' : 'danger'
+                    "
+                    :value="`${shared.profitLossRate.value.toFixed(2)}%`" />
             </InputGroup>
         </template>
         <template #accumulatedDividend>
@@ -310,21 +219,26 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="recoveryCalcMode"
+                            v-model="recovery.recoveryCalcMode.value"
                             value="amount"
                             :disabled="activeCalculator !== 'recovery'"
                     /></InputGroupAddon>
                     <InputGroupAddon
-                        ><i :class="isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'"
+                        ><i
+                            :class="
+                                shared.isUSD.value
+                                    ? 'pi pi-dollar'
+                                    : 'pi pi-won-sign'
+                            "
                     /></InputGroupAddon>
                     <FloatLabel variant="on">
                         <InputNumber
-                            v-model="accumulatedDividend"
-                            :mode="isUSD ? 'currency' : 'decimal'"
-                            :currency="currency"
-                            :locale="currencyLocale"
+                            v-model="recovery.accumulatedDividend.value"
+                            :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                            :currency="shared.currency.value"
+                            :locale="shared.currencyLocale.value"
                             :disabled="
-                                recoveryCalcMode !== 'amount' ||
+                                recovery.recoveryCalcMode.value !== 'amount' ||
                                 activeCalculator !== 'recovery'
                             " />
                         <label>누적 배당금</label>
@@ -333,7 +247,7 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="recoveryCalcMode"
+                            v-model="recovery.recoveryCalcMode.value"
                             value="rate"
                             :disabled="activeCalculator !== 'recovery'"
                     /></InputGroupAddon>
@@ -342,23 +256,26 @@
                     /></InputGroupAddon>
                     <InputGroupAddon class="text-xs"
                         ><span
-                            >{{ recoveryRate.toFixed(2) }} %</span
+                            >{{
+                                recovery.recoveryRate.value.toFixed(2)
+                            }}
+                            %</span
                         ></InputGroupAddon
                     >
                     <div
                         class="toto-range w-full p-inputtext"
                         :disabled="
-                            recoveryCalcMode !== 'rate' ||
+                            recovery.recoveryCalcMode.value !== 'rate' ||
                             activeCalculator !== 'recovery'
                         ">
                         <Slider
-                            v-model="recoveryRate"
+                            v-model="recovery.recoveryRate.value"
                             :min="0"
                             :max="99.99"
                             :step="0.01"
                             class="w-full"
                             :disabled="
-                                recoveryCalcMode !== 'rate' ||
+                                recovery.recoveryCalcMode.value !== 'rate' ||
                                 activeCalculator !== 'recovery'
                             " />
                     </div>
@@ -370,10 +287,10 @@
                 :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
                 <IftaLabel>
                     <InputNumber
-                        v-model="targetAsset"
-                        :mode="isUSD ? 'currency' : 'decimal'"
-                        :currency="currency"
-                        :locale="currencyLocale"
+                        v-model="reinvestment.targetAsset.value"
+                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                        :currency="shared.currency.value"
+                        :locale="shared.currencyLocale.value"
                         :disabled="activeCalculator !== 'reinvestment'" />
                     <label>목표 자산</label>
                 </IftaLabel>
@@ -384,11 +301,13 @@
                 :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
                 <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
                 <InputGroupAddon class="text-xs"
-                    ><span>{{ annualGrowthRate }} %</span></InputGroupAddon
+                    ><span
+                        >{{ reinvestment.annualGrowthRate.value }} %</span
+                    ></InputGroupAddon
                 >
                 <div class="p-inputtext toto-range w-full">
                     <Slider
-                        v-model="annualGrowthRate"
+                        v-model="reinvestment.annualGrowthRate.value"
                         :min="-15"
                         :max="15"
                         :step="1"
@@ -404,38 +323,43 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="yieldCalcMode"
+                            v-model="yieldCalc.yieldCalcMode.value"
                             value="amount"
                             :disabled="activeCalculator !== 'yield'"
                     /></InputGroupAddon>
                     <InputGroupAddon
-                        ><i :class="isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'"
+                        ><i
+                            :class="
+                                shared.isUSD.value
+                                    ? 'pi pi-dollar'
+                                    : 'pi pi-won-sign'
+                            "
                     /></InputGroupAddon>
                     <InputNumber
-                        v-model="inputAmount"
+                        v-model="yieldCalc.inputAmount.value"
                         placeholder="투자 금액"
                         mode="currency"
-                        :currency="currency"
-                        :locale="currencyLocale"
+                        :currency="shared.currency.value"
+                        :locale="shared.currencyLocale.value"
                         :disabled="
-                            yieldCalcMode !== 'amount' ||
+                            yieldCalc.yieldCalcMode.value !== 'amount' ||
                             activeCalculator !== 'yield'
                         " />
                 </InputGroup>
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="yieldCalcMode"
+                            v-model="yieldCalc.yieldCalcMode.value"
                             value="quantity"
                             :disabled="activeCalculator !== 'yield'"
                     /></InputGroupAddon>
                     <InputGroupAddon><i class="pi pi-box" /></InputGroupAddon>
                     <InputNumber
-                        v-model="quantity"
+                        v-model="shared.quantity.value"
                         suffix=" 주"
                         class="w-full"
                         :disabled="
-                            yieldCalcMode !== 'quantity' ||
+                            yieldCalc.yieldCalcMode.value !== 'quantity' ||
                             activeCalculator !== 'yield'
                         " />
                 </InputGroup>
@@ -445,14 +369,16 @@
             <InputGroup class="toto-reference-period">
                 <IftaLabel>
                     <SelectButton
-                        v-model="period"
-                        :options="periodOptions"
+                        v-model="shared.period.value"
+                        :options="shared.periodOptions.value"
                         optionLabel="label"
                         optionValue="value" />
                     <label
                         ><span>前 배당금 참고 기간</span
                         ><Tag severity="contrast">{{
-                            period === 'ALL' ? '전체' : `최근 ${period}회`
+                            shared.period.value === 'ALL'
+                                ? '전체'
+                                : `최근 ${shared.period.value}회`
                         }}</Tag></label
                     >
                 </IftaLabel>
@@ -464,8 +390,8 @@
                 :class="{ 'p-disabled': activeCalculator === 'yield' }">
                 <IftaLabel>
                     <SelectButton
-                        v-model="applyTax"
-                        :options="taxOptions"
+                        v-model="shared.applyTax.value"
+                        :options="shared.taxOptions.value"
                         optionValue="value"
                         dataKey="value"
                         :disabled="activeCalculator === 'yield'"
@@ -476,7 +402,7 @@
                     <label
                         ><span>세금 적용</span
                         ><Tag severity="contrast">{{
-                            applyTax ? '세후' : '세전'
+                            shared.applyTax.value ? '세후' : '세전'
                         }}</Tag></label
                     >
                 </IftaLabel>
@@ -1176,7 +1102,6 @@
                 </div>
             </div>
         </template>
-
         <template #resultsChart>
             <Card v-if="activeCalculator === 'recovery'"
                 ><template #content
