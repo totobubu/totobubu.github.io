@@ -1,4 +1,4 @@
-<!-- src\components\calculators\StockCalculatorsUnified.vue -->
+<!-- src/components/calculators/StockCalculatorsUnified.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
     import { useDividendStats } from '@/composables/useDividendStats';
@@ -10,7 +10,7 @@
     import VChart from 'vue-echarts';
 
     // PrimeVue Imports
-    import CalculatorLayout from './CalculatorLayout.vue';
+    import CalculatorLayout from './CalculatorLayout.vue'; // CalculatorLayout.vue를 다시 사용합니다.
     import Button from 'primevue/button';
     import Card from 'primevue/card';
     import InputGroup from 'primevue/inputgroup';
@@ -33,7 +33,6 @@
 
     const emit = defineEmits(['update-header-info']);
 
-    // --- 상태 및 로직 직접 관리 ---
     const tickerInfo = computed(() => props.tickerInfo);
     const dividendHistory = computed(() => props.dividendHistory);
     const userBookmark = computed(() => props.userBookmark || {});
@@ -51,7 +50,7 @@
         { label: '최근 5회', value: '5' },
         { label: '최근 10회', value: '10' },
         { label: '최근 20회', value: '20' },
-        { label: '전체 기간', value: 'ALL' },
+        // { label: '전체 기간', value: 'ALL' },
     ]);
     const applyTax = ref(true);
     const taxOptions = ref([
@@ -84,20 +83,37 @@
     });
 
     // Reinvestment Calculator state
-    const currentAssets = computed(
-        () => (quantity.value || 0) * currentPrice.value
-    );
     const targetAsset = ref(
         userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
     );
     const annualGrowthRate = ref(0);
+    const currentValue = computed(
+        () => (quantity.value || 0) * currentPrice.value
+    );
+    const profitLossRate = computed(() =>
+        investmentPrincipal.value === 0
+            ? 0
+            : ((currentValue.value - investmentPrincipal.value) /
+                  investmentPrincipal.value) *
+              100
+    );
 
     // Yield Calculator state
     const yieldCalcMode = ref('quantity');
     const inputAmount = ref(isUSD.value ? 10000 : 10000000);
     const exchangeRate = ref(1380);
 
-    // Chart Theme
+    watch(inputAmount, (newAmount) => {
+        if (yieldCalcMode.value === 'amount' && currentPrice.value > 0) {
+            quantity.value = Math.floor(newAmount / currentPrice.value);
+        }
+    });
+    watch(quantity, (newQuantity) => {
+        if (yieldCalcMode.value === 'quantity' && currentPrice.value > 0) {
+            inputAmount.value = newQuantity * currentPrice.value;
+        }
+    });
+
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = computed(() => ({
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -109,7 +125,6 @@
         ),
     }));
 
-    // Composable Calls
     const { recoveryTimes, chartOptions: recoveryChartOptions } =
         useRecoveryChart({
             avgPrice,
@@ -121,12 +136,11 @@
             currentPrice,
             currency,
             theme: chartTheme,
-            investmentPrincipal,
         });
 
     const { goalAchievementTimes, chartOptions: reinvestmentChartOptions } =
         useReinvestmentChart({
-            currentAssets,
+            currentAssets: currentValue,
             targetAmount: targetAsset,
             payoutsPerYear,
             dividendStats,
@@ -157,12 +171,12 @@
 
     const isReady = computed(
         () =>
+            dividendStats.value &&
             recoveryTimes.value &&
             goalAchievementTimes.value &&
             expectedDividends.value
     );
 
-    // Bookmark and other logic
     const { updateBookmarkDetails } = useFilterState();
     const getDefaultQuantity = () => {
         if (!currentPrice.value) return 100;
@@ -175,24 +189,23 @@
             if (currentPrice.value >= 100000) return 100;
             if (currentPrice.value >= 10000) return 1000;
         }
-        return 100;
+        return 10000;
     };
 
-    // [핵심 수정 1] setInputValues와 saveToBookmark 내부의 잘못된 참조 수정
     const setInputValues = (source = {}) => {
         avgPrice.value = source.avgPrice || currentPrice.value || 0;
         quantity.value = source.quantity || getDefaultQuantity();
-        accumulatedDividend.value = source.accumulatedDividend || 0; // 'recovery.' 제거
+        accumulatedDividend.value = source.accumulatedDividend || 0;
         targetAsset.value =
-            source.targetAsset || (isUSD.value ? 100000 : 100000000); // 'reinvestment.' 제거
+            source.targetAsset || (isUSD.value ? 100000 : 100000000);
     };
     const saveToBookmark = () => {
         if (user.value && props.tickerInfo?.symbol) {
             updateBookmarkDetails(props.tickerInfo.symbol, {
                 avgPrice: avgPrice.value,
                 quantity: quantity.value,
-                accumulatedDividend: accumulatedDividend.value, // 'recovery.' 제거
-                targetAsset: targetAsset.value, // 'reinvestment.' 제거
+                accumulatedDividend: accumulatedDividend.value,
+                targetAsset: targetAsset.value,
             });
         }
     };
@@ -243,70 +256,91 @@
 <template>
     <div v-if="isReady">
         <CalculatorLayout>
-            <!-- #avgPriceAndQuantity 슬롯 -->
+            <!-- [UI 통합] '평단/수량' 또는 '매수금/수량' UI를 동적으로 교체 -->
             <template #avgPriceAndQuantity>
                 <div class="flex flex-column gap-3">
-                    <InputGroup
-                        :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                        <IftaLabel>
-                            <InputNumber
-                                v-model="avgPrice"
-                                :mode="isUSD ? 'currency' : 'decimal'"
-                                :currency="currency"
-                                :locale="currencyLocale"
-                                inputId="avgPrice"
-                                :disabled="activeCalculator === 'yield'" />
-                            <label for="avgPrice">평단</label>
-                        </IftaLabel>
-                        <IftaLabel>
-                            <InputNumber
-                                v-model="quantity"
-                                suffix=" 주"
-                                min="1"
-                                inputId="quantity"
-                                :disabled="
-                                    activeCalculator === 'yield' &&
-                                    yieldCalcMode.value !== 'quantity'
-                                " />
-                            <label for="quantity">수량</label>
-                        </IftaLabel>
-                    </InputGroup>
+                    <div v-if="activeCalculator !== 'yield'">
+                        <InputGroup>
+                            <IftaLabel>
+                                <InputNumber
+                                    v-model="avgPrice"
+                                    :mode="isUSD ? 'currency' : 'decimal'"
+                                    :currency="currency"
+                                    :locale="currencyLocale"
+                                    inputId="avgPrice" />
+                                <label for="avgPrice">평단</label>
+                            </IftaLabel>
+                            <IftaLabel>
+                                <InputNumber
+                                    v-model="quantity"
+                                    suffix=" 주"
+                                    min="1"
+                                    inputId="quantity" />
+                                <label for="quantity">수량</label>
+                            </IftaLabel>
+                        </InputGroup>
+                    </div>
+                    <div v-else>
+                        <InputGroup>
+                            <InputGroupAddon>
+                                <RadioButton
+                                    v-model="yieldCalcMode"
+                                    value="amount" />
+                            </InputGroupAddon>
+                            <IftaLabel>
+                                <InputNumber
+                                    v-model="inputAmount"
+                                    :mode="isUSD ? 'currency' : 'decimal'"
+                                    :currency="currency"
+                                    :locale="currencyLocale"
+                                    :disabled="yieldCalcMode !== 'amount'" />
+                                <label>매수금</label>
+                            </IftaLabel>
+                        </InputGroup>
+                        <InputGroup>
+                            <InputGroupAddon>
+                                <RadioButton
+                                    v-model="yieldCalcMode"
+                                    value="quantity" />
+                            </InputGroupAddon>
+                            <IftaLabel>
+                                <InputNumber
+                                    v-model="quantity"
+                                    suffix=" 주"
+                                    min="1"
+                                    :disabled="yieldCalcMode !== 'quantity'" />
+                                <label>수량</label>
+                            </IftaLabel>
+                        </InputGroup>
+                    </div>
                 </div>
             </template>
 
-            <!-- ... 나머지 모든 슬롯 ... -->
-            <!-- recovery.recoveryTimes.value -> recoveryTimes.value 로 변경 -->
-            <!-- reinvestment.goalAchievementTimes.value -> goalAchievementTimes.value 로 변경 -->
-            <!-- expectedDividends.value -> expectedDividends.value 로 변경 -->
-
-            <!-- #investmentPrincipalAndCurrentValue 슬롯 -->
             <template #investmentPrincipalAndCurrentValue>
                 <InputGroup
                     v-if="activeCalculator !== 'yield'"
                     :class="{ 'p-disabled': activeCalculator === 'yield' }">
                     <FloatLabel variant="on">
                         <InputNumber
-                            :modelValue="investmentPrincipal.value"
-                            :mode="isUSD.value ? 'currency' : 'decimal'"
-                            :currency="currency.value"
-                            :locale="currencyLocale.value"
+                            :modelValue="investmentPrincipal"
+                            :mode="isUSD ? 'currency' : 'decimal'"
+                            :currency="currency"
+                            :locale="currencyLocale"
                             disabled />
                         <label>투자원금</label>
                     </FloatLabel>
                     <FloatLabel variant="on">
                         <InputNumber
-                            :modelValue="currentValue.value"
-                            :mode="isUSD.value ? 'currency' : 'decimal'"
-                            :currency="currency.value"
-                            :locale="currencyLocale.value"
+                            :modelValue="currentValue"
+                            :mode="isUSD ? 'currency' : 'decimal'"
+                            :currency="currency"
+                            :locale="currencyLocale"
                             disabled />
                         <label>현재가치</label>
                     </FloatLabel>
                     <Tag
-                        :severity="
-                            profitLossRate.value >= 0 ? 'success' : 'danger'
-                        "
-                        :value="`${profitLossRate.value.toFixed(2)}%`" />
+                        :severity="profitLossRate >= 0 ? 'success' : 'danger'"
+                        :value="`${profitLossRate.toFixed(2)}%`" />
                 </InputGroup>
             </template>
 
@@ -317,26 +351,24 @@
                     <InputGroup>
                         <InputGroupAddon
                             ><RadioButton
-                                v-model="recoveryCalcMode.value"
+                                v-model="recoveryCalcMode"
                                 value="amount"
                                 :disabled="activeCalculator !== 'recovery'"
                         /></InputGroupAddon>
                         <InputGroupAddon
                             ><i
                                 :class="
-                                    isUSD.value
-                                        ? 'pi pi-dollar'
-                                        : 'pi pi-won-sign'
+                                    isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'
                                 "
                         /></InputGroupAddon>
                         <FloatLabel variant="on">
                             <InputNumber
-                                v-model="accumulatedDividend.value"
-                                :mode="isUSD.value ? 'currency' : 'decimal'"
-                                :currency="currency.value"
-                                :locale="currencyLocale.value"
+                                v-model="accumulatedDividend"
+                                :mode="isUSD ? 'currency' : 'decimal'"
+                                :currency="currency"
+                                :locale="currencyLocale"
                                 :disabled="
-                                    recoveryCalcMode.value !== 'amount' ||
+                                    recoveryCalcMode !== 'amount' ||
                                     activeCalculator !== 'recovery'
                                 " />
                             <label>누적 배당금</label>
@@ -345,7 +377,7 @@
                     <InputGroup>
                         <InputGroupAddon
                             ><RadioButton
-                                v-model="recoveryCalcMode.value"
+                                v-model="recoveryCalcMode"
                                 value="rate"
                                 :disabled="activeCalculator !== 'recovery'"
                         /></InputGroupAddon>
@@ -354,23 +386,23 @@
                         /></InputGroupAddon>
                         <InputGroupAddon class="text-xs"
                             ><span
-                                >{{ recoveryRate.value.toFixed(2) }} %</span
+                                >{{ recoveryRate.toFixed(2) }} %</span
                             ></InputGroupAddon
                         >
                         <div
                             class="toto-range w-full p-inputtext"
                             :disabled="
-                                recoveryCalcMode.value !== 'rate' ||
+                                recoveryCalcMode !== 'rate' ||
                                 activeCalculator !== 'recovery'
                             ">
                             <Slider
-                                v-model="recoveryRate.value"
+                                v-model="recoveryRate"
                                 :min="0"
                                 :max="99.99"
                                 :step="0.01"
                                 class="w-full"
                                 :disabled="
-                                    recoveryCalcMode.value !== 'rate' ||
+                                    recoveryCalcMode !== 'rate' ||
                                     activeCalculator !== 'recovery'
                                 " />
                         </div>
@@ -385,10 +417,10 @@
                     }">
                     <IftaLabel>
                         <InputNumber
-                            v-model="targetAsset.value"
-                            :mode="isUSD.value ? 'currency' : 'decimal'"
-                            :currency="currency.value"
-                            :locale="currencyLocale.value"
+                            v-model="targetAsset"
+                            :mode="isUSD ? 'currency' : 'decimal'"
+                            :currency="currency"
+                            :locale="currencyLocale"
                             :disabled="activeCalculator !== 'reinvestment'" />
                         <label>목표 자산</label>
                     </IftaLabel>
@@ -402,13 +434,11 @@
                     }">
                     <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
                     <InputGroupAddon class="text-xs"
-                        ><span
-                            >{{ annualGrowthRate.value }} %</span
-                        ></InputGroupAddon
+                        ><span>{{ annualGrowthRate }} %</span></InputGroupAddon
                     >
                     <div class="p-inputtext toto-range w-full">
                         <Slider
-                            v-model="annualGrowthRate.value"
+                            v-model="annualGrowthRate"
                             :min="-15"
                             :max="15"
                             :step="1"
@@ -418,40 +448,38 @@
                 </InputGroup>
             </template>
 
-            <template #investmentAmount>
+            <!-- <template #investmentAmount>
                 <div
                     class="flex flex-column gap-3"
                     :class="{ 'p-disabled': activeCalculator !== 'yield' }">
                     <InputGroup>
                         <InputGroupAddon
                             ><RadioButton
-                                v-model="yieldCalcMode.value"
+                                v-model="yieldCalcMode"
                                 value="amount"
                                 :disabled="activeCalculator !== 'yield'"
                         /></InputGroupAddon>
                         <InputGroupAddon
                             ><i
                                 :class="
-                                    isUSD.value
-                                        ? 'pi pi-dollar'
-                                        : 'pi pi-won-sign'
+                                    isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'
                                 "
                         /></InputGroupAddon>
                         <InputNumber
-                            v-model="inputAmount.value"
+                            v-model="inputAmount"
                             placeholder="투자 금액"
                             mode="currency"
-                            :currency="currency.value"
-                            :locale="currencyLocale.value"
+                            :currency="currency"
+                            :locale="currencyLocale"
                             :disabled="
-                                yieldCalcMode.value !== 'amount' ||
+                                yieldCalcMode !== 'amount' ||
                                 activeCalculator !== 'yield'
                             " />
                     </InputGroup>
                     <InputGroup>
                         <InputGroupAddon
                             ><RadioButton
-                                v-model="yieldCalcMode.value"
+                                v-model="yieldCalcMode"
                                 value="quantity"
                                 :disabled="activeCalculator !== 'yield'"
                         /></InputGroupAddon>
@@ -459,31 +487,28 @@
                             ><i class="pi pi-box"
                         /></InputGroupAddon>
                         <InputNumber
-                            v-model="quantity.value"
+                            v-model="quantity"
                             suffix=" 주"
                             class="w-full"
                             :disabled="
-                                yieldCalcMode.value !== 'quantity' ||
+                                yieldCalcMode !== 'quantity' ||
                                 activeCalculator !== 'yield'
                             " />
                     </InputGroup>
                 </div>
-            </template>
-
+            </template> -->
             <template #periodSelect>
                 <InputGroup class="toto-reference-period">
                     <IftaLabel>
                         <SelectButton
-                            v-model="period.value"
-                            :options="periodOptions.value"
+                            v-model="period"
+                            :options="periodOptions"
                             optionLabel="label"
                             optionValue="value" />
                         <label
                             ><span>前 배당금 참고 기간</span
                             ><Tag severity="contrast">{{
-                                period.value === 'ALL'
-                                    ? '전체'
-                                    : `최근 ${period.value}회`
+                                period === 'ALL' ? '전체' : `최근 ${period}회`
                             }}</Tag></label
                         >
                     </IftaLabel>
@@ -491,26 +516,23 @@
             </template>
 
             <template #taxSelect>
-                <InputGroup
-                    class="toto-tax-apply"
-                    :class="{ 'p-disabled': activeCalculator === 'yield' }">
+                <InputGroup>
                     <IftaLabel>
                         <SelectButton
-                            v-model="applyTax.value"
-                            :options="taxOptions.value"
+                            v-model="applyTax"
+                            :options="taxOptions"
                             optionValue="value"
-                            dataKey="value"
-                            :disabled="activeCalculator === 'yield'"
-                            ><template #option="slotProps"
+                            dataKey="value">
+                            <template #option="slotProps"
                                 ><span>{{
                                     slotProps.option.label
                                 }}</span></template
-                            ></SelectButton
-                        >
+                            >
+                        </SelectButton>
                         <label
                             ><span>세금 적용</span
                             ><Tag severity="contrast">{{
-                                applyTax.value ? '세후' : '세전'
+                                applyTax ? '세후' : '세전'
                             }}</Tag></label
                         >
                     </IftaLabel>
@@ -538,13 +560,12 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    dividendStats.value.max || 0
+                                                    dividendStats.max || 0
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -557,13 +578,12 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    dividendStats.value.avg || 0
+                                                    dividendStats.avg || 0
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -576,13 +596,12 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    dividendStats.value.min || 0
+                                                    dividendStats.min || 0
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -598,14 +617,13 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    (dividendStats.value.max ||
-                                                        0) * 0.85
+                                                    (dividendStats.max || 0) *
+                                                    0.85
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -618,14 +636,13 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    (dividendStats.value.avg ||
-                                                        0) * 0.85
+                                                    (dividendStats.avg || 0) *
+                                                    0.85
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -638,14 +655,13 @@
                                             disabled>
                                             <span class="p-button-label">{{
                                                 (
-                                                    (dividendStats.value.min ||
-                                                        0) * 0.85
+                                                    (dividendStats.min || 0) *
+                                                    0.85
                                                 ).toLocaleString(
-                                                    currencyLocale.value,
+                                                    currencyLocale,
                                                     {
                                                         style: 'currency',
-                                                        currency:
-                                                            currency.value,
+                                                        currency: currency,
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
@@ -711,9 +727,7 @@
                                                 class="text-yellow-500 font-bold"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.avg_reinvest,
+                                                        recoveryTimes?.avg_reinvest,
                                                         true
                                                     ).duration
                                                 }}</span
@@ -721,18 +735,14 @@
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.avg_reinvest,
+                                                        recoveryTimes?.avg_reinvest,
                                                         true
                                                     ).date
                                                 "
                                                 class="text-sm text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.avg_reinvest,
+                                                        recoveryTimes?.avg_reinvest,
                                                         true
                                                     ).date
                                                 }}</span
@@ -746,9 +756,7 @@
                                                 class="text-red-500 font-bold"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.despair_reinvest,
+                                                        recoveryTimes?.despair_reinvest,
                                                         true
                                                     ).duration
                                                 }}</span
@@ -756,18 +764,14 @@
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.despair_reinvest,
+                                                        recoveryTimes?.despair_reinvest,
                                                         true
                                                     ).date
                                                 "
                                                 class="text-sm text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.despair_reinvest,
+                                                        recoveryTimes?.despair_reinvest,
                                                         true
                                                     ).date
                                                 }}</span
@@ -784,26 +788,21 @@
                                             class="flex flex-column align-items-center">
                                             <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes.value
-                                                        ?.hope_no_reinvest,
+                                                    recoveryTimes?.hope_no_reinvest,
                                                     true
                                                 ).duration
                                             }}</span>
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.hope_no_reinvest,
+                                                        recoveryTimes?.hope_no_reinvest,
                                                         true
                                                     ).date
                                                 "
                                                 class="text-sm text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.hope_no_reinvest,
+                                                        recoveryTimes?.hope_no_reinvest,
                                                         true
                                                     ).date
                                                 }}</span
@@ -815,26 +814,21 @@
                                             class="flex flex-column align-items-center">
                                             <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes.value
-                                                        ?.avg_no_reinvest,
+                                                    recoveryTimes?.avg_no_reinvest,
                                                     true
                                                 ).duration
                                             }}</span>
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.avg_no_reinvest,
+                                                        recoveryTimes?.avg_no_reinvest,
                                                         true
                                                     ).date
                                                 "
                                                 class="text-sm text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.avg_no_reinvest,
+                                                        recoveryTimes?.avg_no_reinvest,
                                                         true
                                                     ).date
                                                 }}</span
@@ -846,26 +840,21 @@
                                             class="flex flex-column align-items-center">
                                             <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes.value
-                                                        ?.despair_no_reinvest,
+                                                    recoveryTimes?.despair_no_reinvest,
                                                     true
                                                 ).duration
                                             }}</span>
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.despair_no_reinvest,
+                                                        recoveryTimes?.despair_no_reinvest,
                                                         true
                                                     ).date
                                                 "
                                                 class="text-sm text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
-                                                        recovery.recoveryTimes
-                                                            .value
-                                                            ?.despair_no_reinvest,
+                                                        recoveryTimes?.despair_no_reinvest,
                                                         true
                                                     ).date
                                                 }}</span
@@ -878,6 +867,7 @@
                     </div>
                 </div>
             </template>
+
             <template #resultsReinvestment>
                 <div
                     class="p-datatable p-component p-datatable-gridlines"
@@ -890,27 +880,21 @@
                                     <td class="text-center">
                                         <Tag severity="success">{{
                                             formatMonthsToYears(
-                                                reinvestment
-                                                    .goalAchievementTimes.value
-                                                    ?.hope
+                                                goalAchievementTimes?.hope
                                             )?.duration
                                         }}</Tag>
                                     </td>
                                     <td class="text-center">
                                         <Tag severity="warning">{{
                                             formatMonthsToYears(
-                                                reinvestment
-                                                    .goalAchievementTimes.value
-                                                    ?.avg
+                                                goalAchievementTimes?.avg
                                             )?.duration
                                         }}</Tag>
                                     </td>
                                     <td class="text-center">
                                         <Tag severity="danger">{{
                                             formatMonthsToYears(
-                                                reinvestment
-                                                    .goalAchievementTimes.value
-                                                    ?.despair
+                                                goalAchievementTimes?.despair
                                             )?.duration
                                         }}</Tag>
                                     </td>
@@ -920,6 +904,7 @@
                     </div>
                 </div>
             </template>
+
             <template #resultsYield>
                 <div
                     class="p-datatable p-component p-datatable-gridlines"
@@ -1352,6 +1337,7 @@
                     /></template>
                 </Card>
             </template>
+           
         </CalculatorLayout>
     </div>
     <div
