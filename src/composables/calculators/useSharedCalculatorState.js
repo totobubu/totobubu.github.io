@@ -1,9 +1,14 @@
-import { ref, computed, watch } from 'vue'; // [에러 수정] computed import 추가
+import { ref, computed, watch, reactive } from 'vue'; // [에러 수정] computed import 추가
 import { useFilterState } from '@/composables/useFilterState';
 import { useDividendStats } from '@/composables/useDividendStats';
 import { user } from '@/store/auth';
 
 export function useSharedCalculatorState(props) {
+    const tickerInfo = computed(() => props.tickerInfo);
+    const dividendHistory = computed(() => props.dividendHistory);
+    // [수정] userBookmark가 null일 경우 빈 객체({})를 기본값으로 사용
+    const userBookmark = computed(() => props.userBookmark || {});
+
     console.log(
         '[Debug] useSharedCalculatorState initialized with props:',
         props
@@ -86,8 +91,11 @@ export function useSharedCalculatorState(props) {
     );
 
     // --- 반환 ---
-    return {
+    return reactive({
         // 기본 상태
+        tickerInfo,
+        dividendHistory,
+        userBookmark,
         currency,
         isUSD,
         currencyLocale,
@@ -110,5 +118,5 @@ export function useSharedCalculatorState(props) {
         updateBookmarkDetails,
         user,
         getDefaultQuantity,
-    };
+    });
 }

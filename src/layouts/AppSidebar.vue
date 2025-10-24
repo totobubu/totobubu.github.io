@@ -33,26 +33,10 @@
     const skeletonItems = ref(new Array(25));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
-    // [핵심 수정] 깃발 아이콘(SVG)을 지원하도록 옵션 구조 변경
     const mainFilterOptions = ref([
-        {
-            type: 'icon',
-            icon: 'pi pi-bookmark',
-            value: '북마크',
-            label: '북마크',
-        },
-        {
-            type: 'flag',
-            flagSrc: '/flags/us.svg',
-            value: '미국',
-            label: '미국 주식',
-        },
-        {
-            type: 'flag',
-            flagSrc: '/flags/kr.svg',
-            value: '한국',
-            label: '한국 주식',
-        },
+        { label: '북마크', value: '북마크', icon: 'pi pi-bookmark' },
+        { label: '미국', value: '미국', flagSrc: '/flags/us.svg' },
+        { label: '한국', value: '한국', flagSrc: '/flags/kr.svg' },
     ]);
 
     const subFilterOptions = ref(['ETF', '주식']);
@@ -70,13 +54,13 @@
                     size="small"
                     class="w-full">
                     <template #option="slotProps">
-                            <i
-                                v-if="slotProps.option.icon"
-                                :class="slotProps.option.icon"></i>
-                            <img
-                                v-if="slotProps.option.flagSrc"
-                                :src="slotProps.option.flagSrc" />
-                            <span class="hidden">{{ slotProps.option.label }}</span>
+                        <i
+                            v-if="slotProps.option.icon"
+                            :class="slotProps.option.icon"></i>
+                        <img
+                            v-if="slotProps.option.flagSrc"
+                            :src="slotProps.option.flagSrc" />
+                        <span class="hidden">{{ slotProps.option.label }}</span>
                     </template>
                 </SelectButton>
 
