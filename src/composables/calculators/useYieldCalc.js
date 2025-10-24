@@ -30,6 +30,7 @@ export function useYieldCalc(shared) {
             const annual = total * payoutsPerYear.value;
             return { perPayout: total, monthly: annual / 12, annual };
         };
+        // [핵심 수정] dividendStats.value로 접근
         const scenarios = (tax) => ({
             hope: calculate(dividendStats.value.max, tax),
             avg: calculate(dividendStats.value.avg, tax),
