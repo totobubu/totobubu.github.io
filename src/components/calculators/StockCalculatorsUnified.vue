@@ -40,11 +40,12 @@
 
     const avgPrice = ref(0);
     const quantity = ref(100);
-    const period = ref('1Y');
+    const period = ref('5'); // 기본값을 5회로 변경
     const periodOptions = ref([
-        { label: '前 3M', value: '3M' },
-        { label: '前 6M', value: '6M' },
-        { label: '前 1Y', value: '1Y' },
+        { label: '최근 5회', value: '5' },
+        { label: '최근 10회', value: '10' },
+        { label: '최근 20회', value: '20' },
+        { label: '전체 기간', value: 'ALL' },
     ]);
     const applyTax = ref(true);
     const taxOptions = ref([
@@ -148,7 +149,8 @@
         currentPrice,
         (newPrice) => {
             if (newPrice > 0) {
-                setInputValues(props.userBookmark);
+                // [핵심 수정] props.userBookmark가 null/undefined일 경우를 대비하여 || {} 추가
+                setInputValues(props.userBookmark || {});
             }
         },
         { immediate: true }
@@ -309,7 +311,10 @@
                     /></InputGroupAddon>
                     <InputGroupAddon class="text-xs"
                         ><span
-                            >{{ recovery.recoveryRate.toFixed(2) }} %</span
+                            >{{
+                                recovery.recoveryRate.value.toFixed(2)
+                            }}
+                            %</span
                         ></InputGroupAddon
                     >
                     <div
@@ -415,43 +420,36 @@
         </template>
 
         <template #periodSelect>
-            <InputGroup class="toto-reference-period">
-                <IftaLabel>
-                    <SelectButton
-                        v-model="period"
-                        :options="periodOptions"
-                        optionLabel="label"
-                        optionValue="value" />
-                    <label>
-                        <span>前 배당금 참고 기간</span>
-                        <Tag severity="contrast">{{ period }}</Tag>
-                    </label>
-                </IftaLabel>
+            <label>
+                <span>前 배당금 참고 기간</span>
+                <Tag severity="contrast">{{ period }}</Tag>
+            </label>
+
+            <InputGroup>
+                <SelectButton
+                    v-model="period"
+                    :options="periodOptions"
+                    optionLabel="label"
+                    optionValue="value" />
             </InputGroup>
         </template>
 
         <template #taxSelect>
-            <InputGroup
-                class="toto-tax-apply"
-                :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                <IftaLabel>
-                    <SelectButton
-                        v-model="applyTax"
-                        :options="taxOptions"
-                        optionValue="value"
-                        dataKey="value"
-                        :disabled="activeCalculator === 'yield'">
-                        <template #option="slotProps"
-                            ><span>{{ slotProps.option.label }}</span></template
-                        >
-                    </SelectButton>
-                    <label>
-                        <span>세금 적용</span>
-                        <Tag severity="contrast">{{
-                            applyTax ? '세후' : '세전'
-                        }}</Tag>
-                    </label>
-                </IftaLabel>
+            <label>
+                <span>세금 적용</span>
+                <Tag severity="contrast">{{ applyTax ? '세후' : '세전' }}</Tag>
+            </label>
+            <InputGroup :class="{ 'p-disabled': activeCalculator === 'yield' }">
+                <SelectButton
+                    v-model="applyTax"
+                    :options="taxOptions"
+                    optionValue="value"
+                    dataKey="value"
+                    :disabled="activeCalculator === 'yield'">
+                    <template #option="slotProps"
+                        ><span>{{ slotProps.option.label }}</span></template
+                    >
+                </SelectButton>
             </InputGroup>
         </template>
 
