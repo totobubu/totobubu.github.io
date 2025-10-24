@@ -1,6 +1,6 @@
 <!-- src\components\calculators\StockCalculatorsUnified.vue -->
 <script setup>
-    import { watch, onMounted, reactive } from 'vue';
+    import { ref, computed, watch, onMounted, reactive } from 'vue';
     import { useSharedCalculatorState } from '@/composables/calculators/useSharedCalculatorState.js';
     import { useRecoveryCalc } from '@/composables/calculators/useRecoveryCalc.js';
     import { useReinvestmentCalc } from '@/composables/calculators/useReinvestmentCalc.js';
@@ -37,6 +37,13 @@
 
     const emit = defineEmits(['update-header-info']);
 
+    // [디버그 로그 추가]
+    console.log('[디버그] 계산기 Props 수신:', {
+        activeCalculator: props.activeCalculator,
+        tickerInfo: props.tickerInfo,
+        dividendHistoryLength: props.dividendHistory?.length,
+        userBookmark: props.userBookmark,
+    });
     const shared = useSharedCalculatorState(props);
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -170,7 +177,7 @@
                         text />
                     <Button
                         label="불러오기"
-                        icon="pi pi-bookmark"
+                        icon="pi pi-folder-open"
                         @click="loadFromBookmark"
                         severity="info"
                         size="small"

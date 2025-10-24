@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { ref, computed, watch  } from 'vue';
 import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
 
 export function useReinvestmentCalc(shared) {

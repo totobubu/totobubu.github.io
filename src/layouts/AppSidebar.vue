@@ -65,22 +65,18 @@
                 <SelectButton
                     v-model="mainFilterTab"
                     :options="mainFilterOptions"
-                    size="small"
                     optionValue="value"
-                    class="w-full"
-                    :allowEmpty="false">
-                    <template #option="{ option }">
-                        <!-- [핵심 수정] type에 따라 아이콘 또는 깃발 이미지(img)를 렌더링 -->
-                        <i
-                            v-if="option.type === 'icon'"
-                            :class="option.icon"
-                            v-tooltip.top="option.label" />
-                        <img
-                            v-else-if="option.type === 'flag'"
-                            :src="option.flagSrc"
-                            :alt="option.label"
-                            class="flag-icon"
-                            v-tooltip.top="option.label" />
+                    aria-labelledby="main-filter-tabs"
+                    size="small"
+                    class="w-full">
+                    <template #option="slotProps">
+                            <i
+                                v-if="slotProps.option.icon"
+                                :class="slotProps.option.icon"></i>
+                            <img
+                                v-if="slotProps.option.flagSrc"
+                                :src="slotProps.option.flagSrc" />
+                            <span class="hidden">{{ slotProps.option.label }}</span>
                     </template>
                 </SelectButton>
 
