@@ -1,3 +1,4 @@
+// src\composables\calculators\useSharedCalculatorState.js
 import { ref, computed, watch, reactive } from 'vue'; // [에러 수정] computed import 추가
 import { useFilterState } from '@/composables/useFilterState';
 import { useDividendStats } from '@/composables/useDividendStats';
