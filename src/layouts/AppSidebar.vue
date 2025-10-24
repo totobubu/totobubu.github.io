@@ -1,4 +1,5 @@
-<!-- src\layouts\AppSidebar.vue -->
+<!-- src/layouts/AppSidebar.vue -->
+
 <script setup>
     import { computed, ref } from 'vue';
     import { useSidebar } from '@/composables/useSidebar.js';
@@ -32,29 +33,69 @@
     const skeletonItems = ref(new Array(25));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
-    // [수정] 옵션을 단순 문자열 배열로 변경
-    const mainFilterOptions = ref(['북마크', '미국', '한국']);
+    // [핵심 수정] 깃발 아이콘(SVG)을 지원하도록 옵션 구조 변경
+    const mainFilterOptions = ref([
+        {
+            type: 'icon',
+            icon: 'pi pi-bookmark',
+            value: '북마크',
+            label: '북마크',
+        },
+        {
+            type: 'flag',
+            flagSrc: '/flags/us.svg',
+            value: '미국',
+            label: '미국 주식',
+        },
+        {
+            type: 'flag',
+            flagSrc: '/flags/kr.svg',
+            value: '한국',
+            label: '한국 주식',
+        },
+    ]);
+
     const subFilterOptions = ref(['ETF', '주식']);
 </script>
 
 <template>
     <div class="h-full flex flex-column gap-2">
         <div class="flex flex-column gap-2 p-0">
-            <!-- [수정] v-model을 mainFilterTab에 직접 연결하고 템플릿 단순화 -->
-            <SelectButton
-                v-model="mainFilterTab"
-                :options="mainFilterOptions"
-                size="small"
-                class="w-full" />
+            <div class="filter-button-group">
+                <SelectButton
+                    v-model="mainFilterTab"
+                    :options="mainFilterOptions"
+                    size="small"
+                    optionValue="value"
+                    class="w-full"
+                    :allowEmpty="false">
+                    <template #option="{ option }">
+                        <!-- [핵심 수정] type에 따라 아이콘 또는 깃발 이미지(img)를 렌더링 -->
+                        <i
+                            v-if="option.type === 'icon'"
+                            :class="option.icon"
+                            v-tooltip.top="option.label" />
+                        <img
+                            v-else-if="option.type === 'flag'"
+                            :src="option.flagSrc"
+                            :alt="option.label"
+                            class="flag-icon"
+                            v-tooltip.top="option.label" />
+                    </template>
+                </SelectButton>
 
-            <SelectButton
-                v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
-                v-model="subFilterTab"
-                :options="subFilterOptions"
-                size="small"
-                class="w-full" />
+                <SelectButton
+                    v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
+                    v-model="subFilterTab"
+                    :options="subFilterOptions"
+                    size="small"
+                    class="w-full" />
+            </div>
 
-            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
+            <FilterInput
+                v-if="mainFilterTab !== '북마크'"
+                v-model="globalSearchQuery"
+                title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
@@ -65,16 +106,9 @@
                 id="toto-search-datatable"
                 :value="isLoading ? skeletonItems : filteredTickers"
                 v-model:selection="selectedTicker"
-                :globalFilter="globalSearchQuery"
                 dataKey="symbol"
                 selectionMode="single"
                 @rowSelect="onRowSelect"
-                :globalFilterFields="[
-                    'symbol',
-                    'longName',
-                    'koName',
-                    'company',
-                ]"
                 stripedRows
                 scrollable
                 scrollHeight="flex"
@@ -184,14 +218,26 @@
     :deep(.p-selectbutton) {
         display: flex;
     }
-    :deep(.p-selectbutton .p-button) {
+    :deep(.p-selectbutton .p-togglebutton) {
         flex: 1;
-        font-size: 0.875rem;
         justify-content: center;
     }
-    :deep(.p-selectbutton .p-button .pi) {
-        margin-right: 0.5rem;
+    :deep(.p-selectbutton .p-button-label) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
     }
+
+    /* [핵심 추가] 깃발 아이콘 스타일링 */
+    .flag-icon {
+        height: 1.25rem; /* 버튼 높이에 맞게 조절 */
+        width: auto;
+        border-radius: 3px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* 살짝 그림자 효과 */
+    }
+
+    /* ... 이하 스타일은 동일 ... */
     .toto-column-bookmark .p-column-header-content,
     .toto-column-bookmark .p-column-content {
         display: flex;
