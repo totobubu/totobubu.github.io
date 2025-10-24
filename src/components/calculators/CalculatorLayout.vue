@@ -8,22 +8,35 @@
 
 <template>
     <div
-        class="toto-calculator-grid"
-        :class="
-            deviceType === 'desktop'
-                ? 'toto-calculator-grid-row'
-                : 'toto-calculator-grid-column'
-        ">
-        <div class="toto-calculator-option">
-            <!-- 입력 필드가 이 슬롯에 들어옵니다 -->
-            <slot name="options"></slot>
+        class="flex"
+        :class="deviceType === 'mobile' ? 'flex-column' : 'flex-row'">
+        <!-- 옵션 영역: 각 입력 필드를 위한 세분화된 슬롯 -->
+        <div class="calculator-option">
+            <slot name="avgPriceAndQuantity"></slot>
+            <slot name="investmentPrincipalAndCurrentValue"></slot>
+
+            <!-- Recovery Calculator Slots -->
+            <slot name="accumulatedDividend"></slot>
+
+            <!-- Reinvestment Calculator Slots -->
+            <slot name="targetAsset"></slot>
+            <slot name="annualGrowthRate"></slot>
+
+            <!-- Yield Calculator Slots -->
+            <slot name="priceInfo"></slot>
+            <slot name="investmentAmount"></slot>
+
+            <!-- Shared Slots -->
+            <slot name="periodSelect"></slot>
+            <slot name="taxSelect"></slot>
         </div>
 
         <Divider v-if="deviceType !== 'desktop'" />
 
-        <div class="toto-calculator-result flex-1">
-            <!-- 결과(Card 컴포넌트 포함)가 이 슬롯에 들어옵니다 -->
-            <slot name="results"></slot>
+        <!-- 결과 영역: 테이블과 차트를 위한 분리된 슬롯 -->
+        <div class="calculator-result">
+            <slot name="resultsTable"></slot>
+            <slot name="resultsChart"></slot>
         </div>
     </div>
 </template>
