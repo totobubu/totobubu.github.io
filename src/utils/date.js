@@ -16,14 +16,15 @@ export const parseYYMMDD = (dateStr) => {
     return new Date(year, month - 1, day);
 };
 
+// --- [핵심 수정 2] 함수가 객체를 반환하도록 변경 ---
 export function formatMonthsToYears(totalMonths, includeFutureDate = false) {
+    const defaultResult = { duration: '계산 불가', date: null };
+
     if (totalMonths === -1) {
-        // '달성 완료'의 경우 date는 null로 반환
         return { duration: '달성 완료', date: null };
     }
     if (!isFinite(totalMonths) || totalMonths <= 0) {
-        // '계산 불가'의 경우 date는 null로 반환
-        return { duration: '계산 불가', date: null };
+        return defaultResult;
     }
 
     const years = Math.floor(totalMonths / 12);
@@ -45,13 +46,11 @@ export function formatMonthsToYears(totalMonths, includeFutureDate = false) {
     const futureDate = new Date();
     futureDate.setMonth(futureDate.getMonth() + Math.round(totalMonths));
 
-    // --- [핵심 수정] ---
-    // 년도를 4자리로, 월을 2자리로 포맷팅합니다.
-    const futureYear = futureDate.getFullYear();
-    const futureMonth = String(futureDate.getMonth() + 1).padStart(2, '0');
-    const dateString = `${futureYear}. ${futureMonth}`;
-    // --- // ---
+    const futureYear = futureDate.getFullYear().toString().slice(-2);
+    const futureMonth = futureDate.getMonth() + 1;
 
-    // 객체 형태로 반환합니다.
-    return { duration: durationString, date: dateString };
+    return {
+        duration: durationString,
+        date: `(${futureYear}년 ${futureMonth}월)`,
+    };
 }

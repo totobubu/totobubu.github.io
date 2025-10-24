@@ -29,21 +29,8 @@
         userBookmark: Object,
     });
 
-    console.log('[Debug] Unified component received props:', {
-        tickerInfo: props.tickerInfo,
-        dividendHistoryLength: props.dividendHistory?.length,
-        userBookmark: props.userBookmark,
-    });
-
     const emit = defineEmits(['update-header-info']);
 
-    // [디버그 로그 추가]
-    console.log('[디버그] 계산기 Props 수신:', {
-        activeCalculator: props.activeCalculator,
-        tickerInfo: props.tickerInfo,
-        dividendHistoryLength: props.dividendHistory?.length,
-        userBookmark: props.userBookmark,
-    });
     const shared = useSharedCalculatorState(props);
 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -57,6 +44,7 @@
         ),
     });
 
+    // [수정] userBookmark를 computed로 감싸서 전달
     const recovery = useRecoveryCalc({
         ...shared,
         chartTheme,
@@ -68,10 +56,6 @@
         userBookmark: computed(() => props.userBookmark),
     });
     const yieldCalc = useYieldCalc(shared);
-
-    console.log('[Debug] Recovery composable result:', recovery);
-    console.log('[Debug] Reinvestment composable result:', reinvestment);
-    console.log('[Debug] Yield composable result:', yieldCalc);
 
     const setInputValues = (source = {}) => {
         shared.avgPrice.value =
@@ -96,10 +80,13 @@
         props.userBookmark && setInputValues(props.userBookmark);
     const resetToCurrentPrice = () => setInputValues();
 
+    // --- [핵심 수정 1] 모든 watch를 게터(getter) 함수 형태로 변경 ---
     watch(
-        shared.currentPrice,
+        () => shared.currentPrice.value,
         (newPrice) => {
-            if (newPrice > 0) setInputValues(props.userBookmark || {});
+            if (newPrice > 0) {
+                setInputValues(props.userBookmark || {});
+            }
         },
         { immediate: true }
     );
@@ -111,7 +98,11 @@
         }) + '원';
 
     watch(
-        [shared.currentPrice, exchangeRate, shared.isUSD],
+        [
+            () => shared.currentPrice.value,
+            exchangeRate,
+            () => shared.isUSD.value,
+        ],
         () => {
             emit('update-header-info', {
                 currentPrice: shared.currentPrice.value,
