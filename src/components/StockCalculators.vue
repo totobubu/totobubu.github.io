@@ -4,6 +4,7 @@
     import Button from 'primevue/button';
     import Drawer from 'primevue/drawer';
     import SelectButton from 'primevue/selectbutton'; // SelectButton import
+    import ProgressSpinner from 'primevue/progressspinner'; // 로딩 스피너 import
     import StockCalculatorsUnified from './calculators/StockCalculatorsUnified.vue';
 
     defineProps({
@@ -51,14 +52,15 @@
             style="height: auto"
             modal>
             <template #header>
-                <!-- [핵심 수정] SelectButton을 header 슬롯으로 이동 -->
                 <SelectButton
                     v-model="activeCalculator"
                     :options="calculatorOptions"
                     optionLabel="label"
                     optionValue="value"
                     class="w-full" />
+                <!-- [수정] 데이터가 있을 때만 헤더 정보 표시 -->
                 <div
+                    v-if="headerInfo.currentPrice > 0"
                     class="flex align-items-center justify-content-end gap-2 text-sm">
                     <Tag v-if="!headerInfo.isUSD" severity="contrast">
                         환율 :
@@ -78,13 +80,23 @@
                     </Tag>
                 </div>
             </template>
-
-            <!-- [핵심 수정] activeCalculator를 prop으로 전달 -->
-            <StockCalculatorsUnified
-                :active-calculator="activeCalculator"
-                :dividendHistory="dividendHistory"
-                :tickerInfo="tickerInfo"
-                :userBookmark="userBookmark" />
+            <!-- [핵심 수정] 데이터가 준비되었을 때만 계산기 컴포넌트를 렌더링 -->
+            <div
+                v-if="
+                    isDrawerVisible &&
+                    dividendHistory &&
+                    dividendHistory.length > 0
+                ">
+                <StockCalculatorsUnified
+                    :active-calculator="activeCalculator"
+                    :dividendHistory="dividendHistory"
+                    :tickerInfo="tickerInfo"
+                    :userBookmark="userBookmark" />
+            </div>
+            <!-- 데이터가 없을 경우 로딩 인디케이터 표시 -->
+            <div v-else class="flex justify-content-center align-items-center" style="min-height: 300px;">
+                <ProgressSpinner />
+            </div>
         </Drawer>
     </div>
 </template>

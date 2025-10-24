@@ -182,7 +182,18 @@
                 :time-range-options="timeRangeOptions"
                 v-model:currentView="currentView"
                 v-model:selectedTimeRange="selectedTimeRange"
-                :viewOptions="viewOptions" />
+                :viewOptions="viewOptions">
+            
+
+                <!-- [핵심 수정] 이 부분에 v-if를 추가합니다. -->
+                <template #calculators>
+                    <StockCalculators
+                        v-if="dividendHistory && dividendHistory.length > 0"
+                        :dividendHistory="dividendHistory"
+                        :tickerInfo="tickerInfo"
+                        :userBookmark="currentUserBookmark" />
+                </template>
+            </StockChartCard>
 
             <div v-if="currentView === '배당'">
                 <div

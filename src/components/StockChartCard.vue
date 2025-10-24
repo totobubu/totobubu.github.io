@@ -7,7 +7,7 @@
     import SelectButton from 'primevue/selectbutton';
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
-    import StockCalculators from '@/components/StockCalculators.vue';
+    // import StockCalculators from '@/components/StockCalculators.vue';
 
     const props = defineProps({
         tickerInfo: Object,
@@ -89,11 +89,13 @@
                         :severity="getGroupSeverity(tickerInfo.group)"
                         >{{ tickerInfo.group }}</Tag
                     >
-                    <StockCalculators
+                    <!-- <StockCalculators
                         v-if="dividendHistory && dividendHistory.length > 0"
                         :dividendHistory="dividendHistory"
                         :tickerInfo="tickerInfo"
-                        :userBookmark="userBookmark" />
+                        :userBookmark="userBookmark" /> -->
+                                            <!-- [핵심 수정] 기존 StockCalculators 컴포넌트를 slot으로 변경 -->
+                    <slot name="calculators"></slot>
                 </div>
             </div>
         </template>
