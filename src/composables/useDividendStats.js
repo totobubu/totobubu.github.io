@@ -11,7 +11,14 @@ import { parseYYMMDD } from '@/utils/date.js';
  */
 export function useDividendStats(dividendHistoryRef, tickerInfoRef, periodRef) {
     const payoutsPerYear = computed(() => {
-        // [안정성 강화] dividendHistoryRef.value가 배열이 아니면 0을 반환
+        // [수정] dividendHistory가 undefined일 경우를 대비한 방어 코드 추가
+        if (
+            !dividendHistory ||
+            !dividendHistory.value ||
+            dividendHistory.value.length === 0
+        ) {
+            return 0;
+        }
         if (
             !Array.isArray(dividendHistoryRef.value) ||
             dividendHistoryRef.value.length === 0
@@ -37,6 +44,10 @@ export function useDividendStats(dividendHistoryRef, tickerInfoRef, periodRef) {
 
     const dividendStats = computed(() => {
         // [안정성 강화] dividendHistoryRef.value가 배열이 아니면 기본값 반환
+        // [수정] dividendHistory가 undefined일 경우를 대비한 방어 코드 추가
+        if (!dividendHistory || !dividendHistory.value) {
+            return { min: 0, max: 0, avg: 0 };
+        }
         if (!Array.isArray(dividendHistoryRef.value)) {
             return { min: 0, max: 0, avg: 0 };
         }
