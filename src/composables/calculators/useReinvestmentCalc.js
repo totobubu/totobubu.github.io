@@ -1,10 +1,26 @@
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
 
-export function useReinvestmentCalc({ currentAssets, dividendStats, payoutsPerYear, applyTax, currentPrice, targetAsset, annualGrowthRate, currency, chartTheme }) {
+export function useReinvestmentCalc(shared) {
+    const {
+        currentAssets,
+        dividendStats,
+        payoutsPerYear,
+        applyTax,
+        currentPrice,
+        isUSD,
+        currency,
+        chartTheme,
+        userBookmark,
+    } = shared;
+
+    const targetAsset = ref(
+        userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
+    );
+    const annualGrowthRate = ref(0);
     const growthRateForCalc = computed(() => annualGrowthRate.value / 100);
 
-    const { goalAchievementTimes, chartOptions: reinvestmentChartOptions } = useReinvestmentChart({
+    const { goalAchievementTimes, chartOptions } = useReinvestmentChart({
         currentAssets,
         targetAmount: targetAsset,
         payoutsPerYear,
@@ -17,7 +33,9 @@ export function useReinvestmentCalc({ currentAssets, dividendStats, payoutsPerYe
     });
 
     return {
+        targetAsset,
+        annualGrowthRate,
         goalAchievementTimes,
-        reinvestmentChartOptions,
+        reinvestmentChartOptions: chartOptions,
     };
 }

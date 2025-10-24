@@ -1,28 +1,66 @@
-import { computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
-export function useYieldCalc({ quantity, dividendStats, payoutsPerYear, isUSD, exchangeRate, inputAmount }) {
+export function useYieldCalc(shared) {
+    const {
+        quantity,
+        dividendStats,
+        payoutsPerYear,
+        isUSD,
+        exchangeRate,
+        currentPrice,
+    } = shared;
+
+    const yieldCalcMode = ref('quantity');
+    const inputAmount = ref(isUSD.value ? 10000 : 10000000);
+
     const inputAmountUSD = computed(() =>
-        isUSD.value ? inputAmount.value : exchangeRate.value ? inputAmount.value / exchangeRate.value : 0
+        isUSD.value
+            ? inputAmount.value
+            : exchangeRate.value
+              ? inputAmount.value / exchangeRate.value
+              : 0
     );
 
     const expectedDividends = computed(() => {
-        const calculate = (dividendPerShare, taxRateValue) => {
+        const calculate = (dividendPerShare, taxRate) => {
             if (!quantity.value || !dividendPerShare || !payoutsPerYear.value)
                 return { perPayout: 0, monthly: 0, annual: 0 };
-            const totalPerPayout = quantity.value * dividendPerShare * taxRateValue;
-            const annual = totalPerPayout * payoutsPerYear.value;
-            return { perPayout: totalPerPayout, monthly: annual / 12, annual };
+            const total = quantity.value * dividendPerShare * taxRate;
+            const annual = total * payoutsPerYear.value;
+            return { perPayout: total, monthly: annual / 12, annual };
         };
-        const createScenarios = (tax) => ({
+        const scenarios = (tax) => ({
             hope: calculate(dividendStats.value.max, tax),
             avg: calculate(dividendStats.value.avg, tax),
             despair: calculate(dividendStats.value.min, tax),
         });
-        return { preTax: createScenarios(1.0), postTax: createScenarios(0.85) };
+        return { preTax: scenarios(1.0), postTax: scenarios(0.85) };
+    });
+
+    watch(inputAmount, () => {
+        if (
+            yieldCalcMode.value === 'amount' &&
+            currentPrice.value > 0 &&
+            inputAmountUSD.value > 0
+        ) {
+            quantity.value = Math.floor(
+                inputAmountUSD.value / currentPrice.value
+            );
+        }
+    });
+
+    watch(quantity, () => {
+        if (yieldCalcMode.value === 'quantity' && currentPrice.value > 0) {
+            const totalValue = quantity.value * currentPrice.value;
+            inputAmount.value = isUSD.value
+                ? totalValue
+                : totalValue * exchangeRate.value;
+        }
     });
 
     return {
-        inputAmountUSD,
+        yieldCalcMode,
+        inputAmount,
         expectedDividends,
     };
 }
