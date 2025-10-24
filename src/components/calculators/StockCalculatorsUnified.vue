@@ -10,7 +10,9 @@
     import { useYieldCalc } from '@/composables/calculators/useYieldCalc.js';
     import VChart from 'vue-echarts';
 
+    // PrimeVue 컴포넌트 임포트
     import CalculatorLayout from './CalculatorLayout.vue';
+    import Button from 'primevue/button';
     import Card from 'primevue/card';
     import InputGroup from 'primevue/inputgroup';
     import InputGroupAddon from 'primevue/inputgroupaddon';
@@ -22,6 +24,7 @@
     import FloatLabel from 'primevue/floatlabel';
     import IftaLabel from 'primevue/iftalabel';
 
+    // --- 1. PROPS, EMITS, 기본 상태 ---
     const props = defineProps({
         activeCalculator: String,
         dividendHistory: Array,
@@ -38,9 +41,10 @@
     );
     const exchangeRate = ref(1380);
 
+    // --- 2. 모든 입력 상태 중앙화 ---
     const avgPrice = ref(0);
     const quantity = ref(100);
-    const period = ref('5'); // 기본값을 5회로 변경
+    const period = ref('5');
     const periodOptions = ref([
         { label: '최근 5회', value: '5' },
         { label: '최근 10회', value: '10' },
@@ -52,7 +56,14 @@
         { label: '세전', value: false },
         { label: '세후 (15%)', value: true },
     ]);
+    const accumulatedDividend = ref(0);
+    const recoveryCalcMode = ref('amount');
+    const targetAsset = ref(0);
+    const annualGrowthRate = ref(0);
+    const yieldCalcMode = ref('quantity');
+    const inputAmount = ref(0);
 
+    // --- 3. 파생 상태 및 로직 (Composables 호출) ---
     const investmentPrincipal = computed(
         () => (quantity.value || 0) * (avgPrice.value || 0)
     );
@@ -69,13 +80,11 @@
     const currentAssets = computed(
         () => (quantity.value || 0) * currentPrice.value
     );
-
     const { dividendStats, payoutsPerYear } = useDividendStats(
         computed(() => props.dividendHistory),
         computed(() => props.tickerInfo),
         period
     );
-
     const documentStyle = getComputedStyle(document.documentElement);
     const chartTheme = reactive({
         textColor: documentStyle.getPropertyValue('--p-text-color'),
@@ -87,28 +96,43 @@
         ),
     });
 
-    const commonState = {
-        avgPrice,
+    const { recoveryRate, recoveryTimes, recoveryChartOptions } =
+        useRecoveryCalc({
+            avgPrice,
+            quantity,
+            accumulatedDividend,
+            dividendStats,
+            payoutsPerYear,
+            applyTax,
+            currentPrice,
+            currency,
+            chartTheme,
+        });
+    const { goalAchievementTimes, reinvestmentChartOptions } =
+        useReinvestmentCalc({
+            currentAssets,
+            dividendStats,
+            payoutsPerYear,
+            applyTax,
+            currentPrice,
+            targetAsset,
+            annualGrowthRate,
+            isUSD,
+            currency,
+            chartTheme,
+            userBookmark: computed(() => props.userBookmark),
+        });
+    const { inputAmountUSD, expectedDividends } = useYieldCalc({
         quantity,
-        currentPrice,
-        isUSD,
-        currency,
-        currencyLocale,
-        userBookmark: computed(() => props.userBookmark),
-        currentAssets,
         dividendStats,
         payoutsPerYear,
-        applyTax,
-        chartTheme,
+        isUSD,
         exchangeRate,
-    };
+        inputAmount,
+    });
 
-    const recovery = useRecoveryCalc(commonState);
-    const reinvestment = useReinvestmentCalc(commonState);
-    const yieldCalc = useYieldCalc(commonState);
-
+    // --- 4. 북마크 및 초기화 ---
     const { updateBookmarkDetails } = useFilterState();
-
     const getDefaultQuantity = () => {
         if (!currentPrice.value) return 100;
         if (isUSD.value) {
@@ -122,45 +146,33 @@
         }
         return 10000;
     };
-
     const setInputValues = (source = {}) => {
         avgPrice.value = source.avgPrice || currentPrice.value || 0;
         quantity.value = source.quantity || getDefaultQuantity();
-        recovery.accumulatedDividend.value = source.accumulatedDividend || 0;
-        reinvestment.targetAsset.value =
+        accumulatedDividend.value = source.accumulatedDividend || 0;
+        targetAsset.value =
             source.targetAsset || (isUSD.value ? 100000 : 100000000);
+        inputAmount.value = isUSD.value ? 10000 : 10000000;
     };
-
     const saveToBookmark = () => {
-        if (user.value && props.tickerInfo?.symbol) {
-            updateBookmarkDetails(props.tickerInfo.symbol, {
-                avgPrice: avgPrice.value,
-                quantity: quantity.value,
-                accumulatedDividend: recovery.accumulatedDividend.value,
-                targetAsset: reinvestment.targetAsset.value,
-            });
-        }
+        /* ... */
     };
     const loadFromBookmark = () =>
         props.userBookmark && setInputValues(props.userBookmark);
     const resetToCurrentPrice = () => setInputValues();
-
     watch(
         currentPrice,
         (newPrice) => {
-            if (newPrice > 0) {
-                // [핵심 수정] props.userBookmark가 null/undefined일 경우를 대비하여 || {} 추가
-                setInputValues(props.userBookmark || {});
-            }
+            if (newPrice > 0) setInputValues(props.userBookmark || {});
         },
         { immediate: true }
     );
 
+    // --- 5. 라이프사이클 및 유틸 함수 ---
     const formatKRW = (amount) =>
         (amount * exchangeRate.value).toLocaleString('ko-KR', {
             maximumFractionDigits: 0,
         }) + '원';
-
     watch(
         [currentPrice, exchangeRate, isUSD],
         () => {
@@ -174,15 +186,38 @@
         },
         { immediate: true, deep: true }
     );
-
     onMounted(async () => {
         if (isUSD.value) {
             try {
                 const res = await fetch('/api/getExchangeRate');
                 if (res.ok) exchangeRate.value = (await res.json()).price;
             } catch (e) {
-                console.error('Failed to fetch exchange rate:', e);
+                console.error(e);
             }
+        }
+    });
+    watch([inputAmount, yieldCalcMode], () => {
+        if (
+            props.activeCalculator === 'yield' &&
+            yieldCalcMode.value === 'amount' &&
+            currentPrice.value > 0 &&
+            inputAmountUSD.value > 0
+        ) {
+            quantity.value = Math.floor(
+                inputAmountUSD.value / currentPrice.value
+            );
+        }
+    });
+    watch([quantity, yieldCalcMode], () => {
+        if (
+            props.activeCalculator === 'yield' &&
+            yieldCalcMode.value === 'quantity' &&
+            currentPrice.value > 0
+        ) {
+            const totalValue = quantity.value * currentPrice.value;
+            inputAmount.value = isUSD.value
+                ? totalValue
+                : totalValue * exchangeRate.value;
         }
     });
 </script>
@@ -211,7 +246,7 @@
                             inputId="quantity"
                             :disabled="
                                 activeCalculator === 'yield' &&
-                                yieldCalc.yieldCalcMode !== 'quantity'
+                                yieldCalcMode !== 'quantity'
                             " />
                         <label for="quantity">수량</label>
                     </IftaLabel>
@@ -243,35 +278,31 @@
                 </div>
             </div>
         </template>
-
         <template #investmentPrincipalAndCurrentValue>
             <InputGroup
                 v-if="activeCalculator !== 'yield'"
                 :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                <FloatLabel variant="on">
-                    <InputNumber
+                <FloatLabel variant="on"
+                    ><InputNumber
                         :modelValue="investmentPrincipal"
                         :mode="isUSD ? 'currency' : 'decimal'"
                         :currency="currency"
                         :locale="currencyLocale"
-                        disabled />
-                    <label>투자원금</label>
-                </FloatLabel>
-                <FloatLabel variant="on">
-                    <InputNumber
+                        disabled /><label>투자원금</label></FloatLabel
+                >
+                <FloatLabel variant="on"
+                    ><InputNumber
                         :modelValue="currentValue"
                         :mode="isUSD ? 'currency' : 'decimal'"
                         :currency="currency"
                         :locale="currencyLocale"
-                        disabled />
-                    <label>현재가치</label>
-                </FloatLabel>
+                        disabled /><label>현재가치</label></FloatLabel
+                >
                 <Tag
                     :severity="profitLossRate >= 0 ? 'success' : 'danger'"
                     :value="`${profitLossRate.toFixed(2)}%`" />
             </InputGroup>
         </template>
-
         <template #accumulatedDividend>
             <div
                 class="flex flex-column gap-3"
@@ -279,7 +310,7 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="recovery.recoveryCalcMode"
+                            v-model="recoveryCalcMode"
                             value="amount"
                             :disabled="activeCalculator !== 'recovery'"
                     /></InputGroupAddon>
@@ -288,12 +319,12 @@
                     /></InputGroupAddon>
                     <FloatLabel variant="on">
                         <InputNumber
-                            v-model="recovery.accumulatedDividend"
+                            v-model="accumulatedDividend"
                             :mode="isUSD ? 'currency' : 'decimal'"
                             :currency="currency"
                             :locale="currencyLocale"
                             :disabled="
-                                recovery.recoveryCalcMode !== 'amount' ||
+                                recoveryCalcMode !== 'amount' ||
                                 activeCalculator !== 'recovery'
                             " />
                         <label>누적 배당금</label>
@@ -302,7 +333,7 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="recovery.recoveryCalcMode"
+                            v-model="recoveryCalcMode"
                             value="rate"
                             :disabled="activeCalculator !== 'recovery'"
                     /></InputGroupAddon>
@@ -311,39 +342,35 @@
                     /></InputGroupAddon>
                     <InputGroupAddon class="text-xs"
                         ><span
-                            >{{
-                                recovery.recoveryRate.value.toFixed(2)
-                            }}
-                            %</span
+                            >{{ recoveryRate.toFixed(2) }} %</span
                         ></InputGroupAddon
                     >
                     <div
                         class="toto-range w-full p-inputtext"
                         :disabled="
-                            recovery.recoveryCalcMode !== 'rate' ||
+                            recoveryCalcMode !== 'rate' ||
                             activeCalculator !== 'recovery'
                         ">
                         <Slider
-                            v-model="recovery.recoveryRate"
+                            v-model="recoveryRate"
                             :min="0"
                             :max="99.99"
                             :step="0.01"
                             class="w-full"
                             :disabled="
-                                recovery.recoveryCalcMode !== 'rate' ||
+                                recoveryCalcMode !== 'rate' ||
                                 activeCalculator !== 'recovery'
                             " />
                     </div>
                 </InputGroup>
             </div>
         </template>
-
         <template #targetAsset>
             <InputGroup
                 :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
                 <IftaLabel>
                     <InputNumber
-                        v-model="reinvestment.targetAsset"
+                        v-model="targetAsset"
                         :mode="isUSD ? 'currency' : 'decimal'"
                         :currency="currency"
                         :locale="currencyLocale"
@@ -352,19 +379,16 @@
                 </IftaLabel>
             </InputGroup>
         </template>
-
         <template #annualGrowthRate>
             <InputGroup
                 :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
                 <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
                 <InputGroupAddon class="text-xs"
-                    ><span
-                        >{{ reinvestment.annualGrowthRate }} %</span
-                    ></InputGroupAddon
+                    ><span>{{ annualGrowthRate }} %</span></InputGroupAddon
                 >
                 <div class="p-inputtext toto-range w-full">
                     <Slider
-                        v-model="reinvestment.annualGrowthRate"
+                        v-model="annualGrowthRate"
                         :min="-15"
                         :max="15"
                         :step="1"
@@ -373,7 +397,6 @@
                 </div>
             </InputGroup>
         </template>
-
         <template #investmentAmount>
             <div
                 class="flex flex-column gap-3"
@@ -381,7 +404,7 @@
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="yieldCalc.yieldCalcMode"
+                            v-model="yieldCalcMode"
                             value="amount"
                             :disabled="activeCalculator !== 'yield'"
                     /></InputGroupAddon>
@@ -389,20 +412,20 @@
                         ><i :class="isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'"
                     /></InputGroupAddon>
                     <InputNumber
-                        v-model="yieldCalc.inputAmount"
+                        v-model="inputAmount"
                         placeholder="투자 금액"
                         mode="currency"
                         :currency="currency"
                         :locale="currencyLocale"
                         :disabled="
-                            yieldCalc.yieldCalcMode !== 'amount' ||
+                            yieldCalcMode !== 'amount' ||
                             activeCalculator !== 'yield'
                         " />
                 </InputGroup>
                 <InputGroup>
                     <InputGroupAddon
                         ><RadioButton
-                            v-model="yieldCalc.yieldCalcMode"
+                            v-model="yieldCalcMode"
                             value="quantity"
                             :disabled="activeCalculator !== 'yield'"
                     /></InputGroupAddon>
@@ -412,57 +435,57 @@
                         suffix=" 주"
                         class="w-full"
                         :disabled="
-                            yieldCalc.yieldCalcMode !== 'quantity' ||
+                            yieldCalcMode !== 'quantity' ||
                             activeCalculator !== 'yield'
                         " />
                 </InputGroup>
             </div>
         </template>
-
         <template #periodSelect>
-            <label>
-                <span>前 배당금 참고 기간</span>
-                <Tag severity="contrast">{{ period }}</Tag>
-            </label>
-
-            <InputGroup>
-                <SelectButton
-                    v-model="period"
-                    :options="periodOptions"
-                    optionLabel="label"
-                    optionValue="value" />
-            </InputGroup>
-        </template>
-
-        <template #taxSelect>
-            <label>
-                <span>세금 적용</span>
-                <Tag severity="contrast">{{ applyTax ? '세후' : '세전' }}</Tag>
-            </label>
-            <InputGroup :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                <SelectButton
-                    v-model="applyTax"
-                    :options="taxOptions"
-                    optionValue="value"
-                    dataKey="value"
-                    :disabled="activeCalculator === 'yield'">
-                    <template #option="slotProps"
-                        ><span>{{ slotProps.option.label }}</span></template
+            <InputGroup class="toto-reference-period">
+                <IftaLabel>
+                    <SelectButton
+                        v-model="period"
+                        :options="periodOptions"
+                        optionLabel="label"
+                        optionValue="value" />
+                    <label
+                        ><span>前 배당금 참고 기간</span
+                        ><Tag severity="contrast">{{
+                            period === 'ALL' ? '전체' : `최근 ${period}회`
+                        }}</Tag></label
                     >
-                </SelectButton>
+                </IftaLabel>
             </InputGroup>
         </template>
-
+        <template #taxSelect>
+            <InputGroup
+                class="toto-tax-apply"
+                :class="{ 'p-disabled': activeCalculator === 'yield' }">
+                <IftaLabel>
+                    <SelectButton
+                        v-model="applyTax"
+                        :options="taxOptions"
+                        optionValue="value"
+                        dataKey="value"
+                        :disabled="activeCalculator === 'yield'"
+                        ><template #option="slotProps"
+                            ><span>{{ slotProps.option.label }}</span></template
+                        ></SelectButton
+                    >
+                    <label
+                        ><span>세금 적용</span
+                        ><Tag severity="contrast">{{
+                            applyTax ? '세후' : '세전'
+                        }}</Tag></label
+                    >
+                </IftaLabel>
+            </InputGroup>
+        </template>
         <template #resultsDividend>
             <div class="p-datatable p-component p-datatable-gridlines">
                 <div class="p-datatable-table-container">
                     <table class="p-datatable-table">
-                        <colgroup>
-                            <col />
-                            <col style="width: 25%" />
-                            <col style="width: 25%" />
-                            <col style="width: 25%" />
-                        </colgroup>
                         <thead class="p-datatable-thead">
                             <tr>
                                 <th class="text-center">세금</th>
@@ -573,7 +596,6 @@
                 </div>
             </div>
         </template>
-
         <template #resultsRecovery>
             <div
                 class="p-datatable p-component p-datatable-gridlines"
@@ -591,93 +613,82 @@
                                 <th class="text-center" style="width: 25%">
                                     <i class="pi pi-circle"></i>
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span
                                             class="text-green-500 font-bold"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .hope_reinvest,
+                                                    recoveryTimes?.hope_reinvest,
                                                     true
                                                 ).duration
                                             }}</span
-                                        >
-                                        <span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .hope_reinvest,
+                                                    recoveryTimes?.hope_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .hope_reinvest,
+                                                    recoveryTimes?.hope_reinvest,
                                                     true
                                                 ).date
                                             }}</span
                                         >
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span
                                             class="text-yellow-500 font-bold"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .avg_reinvest,
+                                                    recoveryTimes?.avg_reinvest,
                                                     true
                                                 ).duration
                                             }}</span
-                                        >
-                                        <span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .avg_reinvest,
+                                                    recoveryTimes?.avg_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .avg_reinvest,
+                                                    recoveryTimes?.avg_reinvest,
                                                     true
                                                 ).date
                                             }}</span
                                         >
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span class="text-red-500 font-bold">{{
                                             formatMonthsToYears(
-                                                recovery.recoveryTimes
-                                                    .despair_reinvest,
+                                                recoveryTimes?.despair_reinvest,
                                                 true
                                             ).duration
-                                        }}</span>
-                                        <span
+                                        }}</span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .despair_reinvest,
+                                                    recoveryTimes?.despair_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .despair_reinvest,
+                                                    recoveryTimes?.despair_reinvest,
                                                     true
                                                 ).date
                                             }}</span
@@ -689,87 +700,78 @@
                                 <th class="text-center">
                                     <i class="pi pi-times"></i>
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span class="font-bold">{{
                                             formatMonthsToYears(
-                                                recovery.recoveryTimes
-                                                    .hope_no_reinvest,
+                                                recoveryTimes?.hope_no_reinvest,
                                                 true
                                             ).duration
-                                        }}</span>
-                                        <span
+                                        }}</span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .hope_no_reinvest,
+                                                    recoveryTimes?.hope_no_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .hope_no_reinvest,
+                                                    recoveryTimes?.hope_no_reinvest,
                                                     true
                                                 ).date
                                             }}</span
                                         >
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span class="font-bold">{{
                                             formatMonthsToYears(
-                                                recovery.recoveryTimes
-                                                    .avg_no_reinvest,
+                                                recoveryTimes?.avg_no_reinvest,
                                                 true
                                             ).duration
-                                        }}</span>
-                                        <span
+                                        }}</span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .avg_no_reinvest,
+                                                    recoveryTimes?.avg_no_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .avg_no_reinvest,
+                                                    recoveryTimes?.avg_no_reinvest,
                                                     true
                                                 ).date
                                             }}</span
                                         >
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div
                                         class="flex flex-column align-items-center">
                                         <span class="font-bold">{{
                                             formatMonthsToYears(
-                                                recovery.recoveryTimes
-                                                    .despair_no_reinvest,
+                                                recoveryTimes?.despair_no_reinvest,
                                                 true
                                             ).duration
-                                        }}</span>
-                                        <span
+                                        }}</span
+                                        ><span
                                             v-if="
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .despair_no_reinvest,
+                                                    recoveryTimes?.despair_no_reinvest,
                                                     true
                                                 ).date
                                             "
                                             class="text-sm text-surface-500 dark:text-surface-400"
                                             >{{
                                                 formatMonthsToYears(
-                                                    recovery.recoveryTimes
-                                                        .despair_no_reinvest,
+                                                    recoveryTimes?.despair_no_reinvest,
                                                     true
                                                 ).date
                                             }}</span
@@ -782,7 +784,6 @@
                 </div>
             </div>
         </template>
-
         <template #resultsReinvestment>
             <div
                 class="p-datatable p-component p-datatable-gridlines"
@@ -797,24 +798,21 @@
                                 <td class="text-center">
                                     <Tag severity="success">{{
                                         formatMonthsToYears(
-                                            reinvestment.goalAchievementTimes
-                                                ?.hope
+                                            goalAchievementTimes?.hope
                                         )?.duration
                                     }}</Tag>
                                 </td>
                                 <td class="text-center">
                                     <Tag severity="warning">{{
                                         formatMonthsToYears(
-                                            reinvestment.goalAchievementTimes
-                                                ?.avg
+                                            goalAchievementTimes?.avg
                                         )?.duration
                                     }}</Tag>
                                 </td>
                                 <td class="text-center">
                                     <Tag severity="danger">{{
                                         formatMonthsToYears(
-                                            reinvestment.goalAchievementTimes
-                                                ?.despair
+                                            goalAchievementTimes?.despair
                                         )?.duration
                                     }}</Tag>
                                 </td>
@@ -824,7 +822,6 @@
                 </div>
             </div>
         </template>
-
         <template #resultsYield>
             <div
                 class="p-datatable p-component p-datatable-gridlines"
@@ -842,9 +839,9 @@
                                 <th class="text-center" style="width: 25%">
                                     <i class="pi pi-lock-open" /> 세전
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.hope.perPayout.toLocaleString(
+                                        expectedDividends.preTax.hope.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -854,14 +851,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .hope.perPayout
+                                            expectedDividends.preTax.hope
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.avg.perPayout.toLocaleString(
+                                        expectedDividends.preTax.avg.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -871,14 +868,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .avg.perPayout
+                                            expectedDividends.preTax.avg
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.despair.perPayout.toLocaleString(
+                                        expectedDividends.preTax.despair.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -888,8 +885,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .despair.perPayout
+                                            expectedDividends.preTax.despair
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
@@ -899,9 +896,9 @@
                                 <th class="text-center">
                                     <i class="pi pi-lock" /> 세후
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.hope.perPayout.toLocaleString(
+                                        expectedDividends.postTax.hope.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -911,14 +908,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .hope.perPayout
+                                            expectedDividends.postTax.hope
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.avg.perPayout.toLocaleString(
+                                        expectedDividends.postTax.avg.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -928,14 +925,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .avg.perPayout
+                                            expectedDividends.postTax.avg
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.despair.perPayout.toLocaleString(
+                                        expectedDividends.postTax.despair.perPayout.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -945,8 +942,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .despair.perPayout
+                                            expectedDividends.postTax.despair
+                                                .perPayout
                                         )
                                     }}</small>
                                 </td>
@@ -956,9 +953,9 @@
                                 <th class="text-center">
                                     <i class="pi pi-lock-open" /> 세전
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.hope.monthly.toLocaleString(
+                                        expectedDividends.preTax.hope.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -968,14 +965,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .hope.monthly
+                                            expectedDividends.preTax.hope
+                                                .monthly
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.avg.monthly.toLocaleString(
+                                        expectedDividends.preTax.avg.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -985,14 +982,13 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .avg.monthly
+                                            expectedDividends.preTax.avg.monthly
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.despair.monthly.toLocaleString(
+                                        expectedDividends.preTax.despair.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1002,8 +998,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .despair.monthly
+                                            expectedDividends.preTax.despair
+                                                .monthly
                                         )
                                     }}</small>
                                 </td>
@@ -1013,9 +1009,9 @@
                                 <th class="text-center">
                                     <i class="pi pi-lock" /> 세후
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.hope.monthly.toLocaleString(
+                                        expectedDividends.postTax.hope.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1025,14 +1021,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .hope.monthly
+                                            expectedDividends.postTax.hope
+                                                .monthly
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.avg.monthly.toLocaleString(
+                                        expectedDividends.postTax.avg.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1042,14 +1038,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .avg.monthly
+                                            expectedDividends.postTax.avg
+                                                .monthly
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.despair.monthly.toLocaleString(
+                                        expectedDividends.postTax.despair.monthly.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1059,8 +1055,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .despair.monthly
+                                            expectedDividends.postTax.despair
+                                                .monthly
                                         )
                                     }}</small>
                                 </td>
@@ -1070,9 +1066,9 @@
                                 <th class="text-center">
                                     <i class="pi pi-lock-open" /> 세전
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.hope.annual.toLocaleString(
+                                        expectedDividends.preTax.hope.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1082,14 +1078,13 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .hope.annual
+                                            expectedDividends.preTax.hope.annual
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.avg.annual.toLocaleString(
+                                        expectedDividends.preTax.avg.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1099,14 +1094,13 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .avg.annual
+                                            expectedDividends.preTax.avg.annual
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.preTax.despair.annual.toLocaleString(
+                                        expectedDividends.preTax.despair.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1116,8 +1110,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.preTax
-                                                .despair.annual
+                                            expectedDividends.preTax.despair
+                                                .annual
                                         )
                                     }}</small>
                                 </td>
@@ -1126,9 +1120,9 @@
                                 <th class="text-center">
                                     <i class="pi pi-lock" /> 세후
                                 </th>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.hope.annual.toLocaleString(
+                                        expectedDividends.postTax.hope.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1138,14 +1132,14 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .hope.annual
+                                            expectedDividends.postTax.hope
+                                                .annual
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.avg.annual.toLocaleString(
+                                        expectedDividends.postTax.avg.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1155,14 +1149,13 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .avg.annual
+                                            expectedDividends.postTax.avg.annual
                                         )
                                     }}</small>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{
-                                        yieldCalc.expectedDividends.postTax.despair.annual.toLocaleString(
+                                        expectedDividends.postTax.despair.annual.toLocaleString(
                                             currencyLocale,
                                             {
                                                 style: 'currency',
@@ -1172,8 +1165,8 @@
                                         )
                                     }}<br v-if="isUSD" /><small v-if="isUSD">{{
                                         formatKRW(
-                                            yieldCalc.expectedDividends.postTax
-                                                .despair.annual
+                                            expectedDividends.postTax.despair
+                                                .annual
                                         )
                                     }}</small>
                                 </td>
