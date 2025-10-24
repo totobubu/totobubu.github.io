@@ -49,6 +49,7 @@
                 <SelectButton
                     v-model="mainFilterTab"
                     :options="mainFilterOptions"
+                    optionLabel="label"
                     optionValue="value"
                     aria-labelledby="main-filter-tabs"
                     size="small"

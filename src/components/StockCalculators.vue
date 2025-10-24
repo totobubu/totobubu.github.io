@@ -1,11 +1,16 @@
 <!-- Components/StockCaculators.vue -->
 <script setup>
     import { ref } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
     import Button from 'primevue/button';
     import Drawer from 'primevue/drawer';
     import SelectButton from 'primevue/selectbutton'; // SelectButton import
+    import Dropdown from 'primevue/dropdown'; // Dropdown import
     import ProgressSpinner from 'primevue/progressspinner'; // 로딩 스피너 import
     import StockCalculatorsUnified from './calculators/StockCalculatorsUnified.vue';
+    import { user } from '@/store/auth'; // [핵심 수정] 이 한 줄이 빠져있었습니다!
+
+    const { isDesktop, isMobile } = useBreakpoint();
 
     defineProps({
         dividendHistory: Array,
@@ -34,6 +39,9 @@
     const handleHeaderInfoUpdate = (info) => {
         headerInfo.value = info;
     };
+
+    // [핵심 수정 1] 자식 컴포넌트의 함수를 호출하기 위한 ref 생성
+    const unifiedComponentRef = ref(null);
 </script>
 
 <template>
@@ -52,49 +60,99 @@
             style="height: auto"
             modal>
             <template #header>
-                <SelectButton
-                    v-model="activeCalculator"
-                    :options="calculatorOptions"
-                    optionLabel="label"
-                    optionValue="value"
-                    class="w-full" />
-                <!-- [수정] 데이터가 있을 때만 헤더 정보 표시 -->
-                <div
-                    v-if="headerInfo.currentPrice > 0"
-                    class="flex align-items-center justify-content-end gap-2 text-sm">
-                    <Tag v-if="!headerInfo.isUSD" severity="contrast">
-                        환율 :
-                        {{ headerInfo.exchangeRate?.toLocaleString('ko-KR') }}원
-                    </Tag>
-                    <Tag severity="contrast">
-                        현재 주가 :
-                        {{
-                            headerInfo.currentPrice?.toLocaleString(
-                                headerInfo.currencyLocale,
-                                {
-                                    style: 'currency',
-                                    currency: headerInfo.currency,
-                                }
-                            )
-                        }}
-                    </Tag>
+                <div class="flex flex-column gap-2 w-full">
+                    <div
+                        class="flex justify-content-between align-items-center w-full">
+                        <!-- [핵심 수정 2] 모바일/데스크탑에 따라 다른 컴포넌트 표시 -->
+                        <SelectButton
+                            v-if="!isMobile"
+                            v-model="activeCalculator"
+                            :options="calculatorOptions"
+                            optionLabel="label"
+                            optionValue="value" />
+                        <Dropdown
+                            v-else
+                            v-model="activeCalculator"
+                            :options="calculatorOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            class="flex-grow-1" />
+
+                        <div
+                            v-if="headerInfo.currentPrice > 0"
+                            class="flex align-items-center justify-content-end gap-2 text-sm">
+                            <Tag v-if="!headerInfo.isUSD" severity="contrast">
+                                환율 :
+                                {{
+                                    headerInfo.exchangeRate?.toLocaleString(
+                                        'ko-KR'
+                                    )
+                                }}원
+                            </Tag>
+                            <Tag severity="contrast">
+                                현재 주가 :
+                                {{
+                                    headerInfo.currentPrice?.toLocaleString(
+                                        headerInfo.currencyLocale,
+                                        {
+                                            style: 'currency',
+                                            currency: headerInfo.currency,
+                                        }
+                                    )
+                                }}
+                            </Tag>
+                        </div>
+                        <!-- [핵심 수정 3] 헤더 오른쪽에 버튼 그룹 추가 -->
+                        <div
+                            v-if="user"
+                            class="flex ml-4">
+                            <Button
+                                icon="pi pi-save"
+                                @click="unifiedComponentRef?.saveToBookmark()"
+                                severity="success"
+                                text
+                                rounded
+                                aria-label="Save" />
+                            <Button
+                                icon="pi pi-folder-open"
+                                @click="unifiedComponentRef?.loadFromBookmark()"
+                                severity="info"
+                                text
+                                rounded
+                                aria-label="Load" />
+                            <Button
+                                icon="pi pi-refresh"
+                                @click="
+                                    unifiedComponentRef?.resetToCurrentPrice()
+                                "
+                                severity="secondary"
+                                text
+                                rounded
+                                aria-label="Reset" />
+                        </div>
+                    </div>
                 </div>
             </template>
-            <!-- [핵심 수정] 데이터가 준비되었을 때만 계산기 컴포넌트를 렌더링 -->
+
             <div
                 v-if="
                     isDrawerVisible &&
                     dividendHistory &&
                     dividendHistory.length > 0
                 ">
+                <!-- [핵심 수정 4] 자식 컴포넌트에 ref 연결 -->
                 <StockCalculatorsUnified
+                    ref="unifiedComponentRef"
                     :active-calculator="activeCalculator"
                     :dividendHistory="dividendHistory"
                     :tickerInfo="tickerInfo"
-                    :userBookmark="userBookmark" />
+                    :userBookmark="userBookmark"
+                    @update-header-info="handleHeaderInfoUpdate" />
             </div>
-            <!-- 데이터가 없을 경우 로딩 인디케이터 표시 -->
-            <div v-else class="flex justify-content-center align-items-center" style="min-height: 300px;">
+            <div
+                v-else
+                class="flex justify-content-center align-items-center"
+                style="min-height: 300px">
                 <ProgressSpinner />
             </div>
         </Drawer>
