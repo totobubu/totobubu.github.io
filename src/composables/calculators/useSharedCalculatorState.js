@@ -1,21 +1,14 @@
 // src\composables\calculators\useSharedCalculatorState.js
-import { ref, computed, watch, reactive } from 'vue'; // [에러 수정] computed import 추가
-import { useFilterState } from '@/composables/useFilterState';
+import { ref, computed, watch } from 'vue';
 import { useDividendStats } from '@/composables/useDividendStats';
 import { user } from '@/store/auth';
+import { useFilterState } from '@/composables/useFilterState';
 
 export function useSharedCalculatorState(props) {
+    // --- Props 기반 Computed ---
     const tickerInfo = computed(() => props.tickerInfo);
     const dividendHistory = computed(() => props.dividendHistory);
-    // [수정] userBookmark가 null일 경우 빈 객체({})를 기본값으로 사용
     const userBookmark = computed(() => props.userBookmark || {});
-
-    console.log(
-        '[Debug] useSharedCalculatorState initialized with props:',
-        props
-    );
-
-    // --- 1. 기본 상태 및 Props 기반 Computed ---
     const currency = computed(() => props.tickerInfo?.currency || 'USD');
     const isUSD = computed(() => currency.value === 'USD');
     const currencyLocale = computed(() => (isUSD.value ? 'en-US' : 'ko-KR'));
@@ -23,7 +16,7 @@ export function useSharedCalculatorState(props) {
         () => props.tickerInfo?.regularMarketPrice || 0
     );
 
-    // --- 2. 공통 입력 상태 ---
+    // --- 공통 입력 상태 ---
     const avgPrice = ref(0);
     const quantity = ref(100);
     const period = ref('5');
@@ -39,7 +32,7 @@ export function useSharedCalculatorState(props) {
         { label: '세후 (15%)', value: true },
     ]);
 
-    // --- 3. 공통 파생 상태 ---
+    // --- 공통 파생 상태 ---
     const investmentPrincipal = computed(
         () => (quantity.value || 0) * (avgPrice.value || 0)
     );
@@ -57,14 +50,13 @@ export function useSharedCalculatorState(props) {
         () => (quantity.value || 0) * currentPrice.value
     );
     const { dividendStats, payoutsPerYear } = useDividendStats(
-        computed(() => props.dividendHistory),
-        computed(() => props.tickerInfo),
+        dividendHistory,
+        tickerInfo,
         period
     );
 
-    // --- 4. 북마크 및 초기화 메소드 ---
+    // --- 유틸 및 메소드 ---
     const { updateBookmarkDetails } = useFilterState();
-
     const getDefaultQuantity = () => {
         if (!currentPrice.value) return 100;
         if (isUSD.value) {
@@ -76,24 +68,11 @@ export function useSharedCalculatorState(props) {
             if (currentPrice.value >= 100000) return 100;
             if (currentPrice.value >= 10000) return 1000;
         }
-        return 10000;
+        return 100;
     };
 
-    // [Debug] 주요 상태 변경 감지
-    watch(
-        [currentPrice, dividendStats],
-        ([price, stats]) => {
-            console.log('[Debug] Shared state changed:', {
-                currentPrice: price,
-                dividendStats: stats,
-            });
-        },
-        { deep: true }
-    );
-
-    // --- 반환 ---
-    return reactive({
-        // 기본 상태
+    // [핵심 수정] reactive 제거, 모든 상태를 ref/computed 그대로 반환
+    return {
         tickerInfo,
         dividendHistory,
         userBookmark,
@@ -101,23 +80,20 @@ export function useSharedCalculatorState(props) {
         isUSD,
         currencyLocale,
         currentPrice,
-        // 공통 입력
         avgPrice,
         quantity,
         period,
         periodOptions,
         applyTax,
         taxOptions,
-        // 공통 파생
         investmentPrincipal,
         currentValue,
         profitLossRate,
         currentAssets,
         dividendStats,
         payoutsPerYear,
-        // 유틸 및 메소드
         updateBookmarkDetails,
         user,
         getDefaultQuantity,
-    });
+    };
 }

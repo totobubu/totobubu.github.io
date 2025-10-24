@@ -1,5 +1,5 @@
 // src\composables\calculators\useReinvestmentCalc.js
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
 
 export function useReinvestmentCalc(shared) {
@@ -15,6 +15,7 @@ export function useReinvestmentCalc(shared) {
         userBookmark,
     } = shared;
 
+    // [핵심 수정] userBookmark.value로 접근
     const targetAsset = ref(
         userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
     );

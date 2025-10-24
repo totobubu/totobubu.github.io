@@ -21,6 +21,7 @@
     import Slider from 'primevue/slider';
     import FloatLabel from 'primevue/floatlabel';
     import IftaLabel from 'primevue/iftalabel';
+    import ProgressSpinner from 'primevue/progressspinner'; // 로딩 스피너 추가
 
     const props = defineProps({
         activeCalculator: String,
@@ -44,10 +45,27 @@
         ),
     });
 
-// [수정] userBookmark를 computed로 감싸지 않고 shared에서 직접 사용
-const recovery = useRecoveryCalc({ ...shared, chartTheme });
-const reinvestment = useReinvestmentCalc({ ...shared, chartTheme });
-const yieldCalc = useYieldCalc(shared);
+    const recovery = useRecoveryCalc({
+        ...shared,
+        chartTheme,
+        userBookmark: computed(() => props.userBookmark),
+    });
+    const reinvestment = useReinvestmentCalc({
+        ...shared,
+        chartTheme,
+        userBookmark: computed(() => props.userBookmark),
+    });
+    const yieldCalc = useYieldCalc(shared);
+
+    // [핵심 수정 1] 렌더링 준비 상태를 확인하는 computed 속성 추가
+    const isReady = computed(() => {
+        // 모든 계산 결과가 null이 아닌지 확인
+        return (
+            recovery.recoveryTimes.value &&
+            reinvestment.goalAchievementTimes.value &&
+            yieldCalc.expectedDividends.value
+        );
+    });
 
     const setInputValues = (source = {}) => {
         shared.avgPrice.value =
@@ -72,15 +90,14 @@ const yieldCalc = useYieldCalc(shared);
         props.userBookmark && setInputValues(props.userBookmark);
     const resetToCurrentPrice = () => setInputValues();
 
+    watch(
+        () => shared.currentPrice.value,
+        (newPrice) => {
+            if (newPrice > 0) setInputValues(props.userBookmark || {});
+        },
+        { immediate: true }
+    );
 
-// --- [핵심 수정] watch를 게터 함수 형태로 변경 ---
-watch(
-    () => shared.currentPrice.value, // .value에 접근하는 것을 함수로 감쌈
-    (newPrice) => {
-        if (newPrice > 0) setInputValues(props.userBookmark || {});
-    },
-    { immediate: true }
-);
     const exchangeRate = ref(1380);
     const formatKRW = (amount) =>
         (amount * exchangeRate.value).toLocaleString('ko-KR', {
@@ -118,625 +135,732 @@ watch(
 </script>
 
 <template>
-    <CalculatorLayout>
-        <template #avgPriceAndQuantity>
-            <div class="flex flex-column gap-3">
-                <InputGroup
-                    :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                    <IftaLabel>
-                        <InputNumber
-                            v-model="shared.avgPrice.value"
-                            :mode="shared.isUSD.value ? 'currency' : 'decimal'"
-                            :currency="shared.currency.value"
-                            :locale="shared.currencyLocale.value"
-                            inputId="avgPrice"
-                            :disabled="activeCalculator === 'yield'" />
-                        <label for="avgPrice">평단</label>
-                    </IftaLabel>
-                    <IftaLabel>
-                        <InputNumber
-                            v-model="shared.quantity.value"
-                            suffix=" 주"
-                            min="1"
-                            inputId="quantity"
-                            :disabled="
-                                activeCalculator === 'yield' &&
-                                yieldCalc.yieldCalcMode.value !== 'quantity'
-                            " />
-                        <label for="quantity">수량</label>
-                    </IftaLabel>
-                </InputGroup>
-                <div
-                    v-if="shared.user.value && activeCalculator !== 'yield'"
-                    class="flex justify-content-end gap-2">
-                    <Button
-                        label="저장"
-                        icon="pi pi-save"
-                        @click="saveToBookmark"
-                        severity="success"
-                        size="small"
-                        text />
-                    <Button
-                        label="불러오기"
-                        icon="pi pi-folder-open"
-                        @click="loadFromBookmark"
-                        severity="info"
-                        size="small"
-                        text />
-                    <Button
-                        label="초기화"
-                        icon="pi pi-refresh"
-                        @click="resetToCurrentPrice"
-                        severity="secondary"
-                        size="small"
-                        text />
+    <!-- [핵심 수정 2] isReady가 true일 때만 전체 레이아웃을 렌더링 -->
+    <div v-if="isReady">
+        <CalculatorLayout>
+            <!-- #avgPriceAndQuantity 슬롯 -->
+            <template #avgPriceAndQuantity>
+                <div class="flex flex-column gap-3">
+                    <InputGroup
+                        :class="{ 'p-disabled': activeCalculator === 'yield' }">
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="shared.avgPrice.value"
+                                :mode="
+                                    shared.isUSD.value ? 'currency' : 'decimal'
+                                "
+                                :currency="shared.currency.value"
+                                :locale="shared.currencyLocale.value"
+                                inputId="avgPrice"
+                                :disabled="activeCalculator === 'yield'" />
+                            <label for="avgPrice">평단</label>
+                        </IftaLabel>
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="shared.quantity.value"
+                                suffix=" 주"
+                                min="1"
+                                inputId="quantity"
+                                :disabled="
+                                    activeCalculator === 'yield' &&
+                                    yieldCalc.yieldCalcMode.value !== 'quantity'
+                                " />
+                            <label for="quantity">수량</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <div
+                        v-if="shared.user.value && activeCalculator !== 'yield'"
+                        class="flex justify-content-end gap-2">
+                        <Button
+                            label="저장"
+                            icon="pi pi-save"
+                            @click="saveToBookmark"
+                            severity="success"
+                            size="small"
+                            text />
+                        <Button
+                            label="불러오기"
+                            icon="pi pi-folder-open"
+                            @click="loadFromBookmark"
+                            severity="info"
+                            size="small"
+                            text />
+                        <Button
+                            label="초기화"
+                            icon="pi pi-refresh"
+                            @click="resetToCurrentPrice"
+                            severity="secondary"
+                            size="small"
+                            text />
+                    </div>
                 </div>
-            </div>
-        </template>
-        <template #investmentPrincipalAndCurrentValue>
-            <InputGroup
-                v-if="activeCalculator !== 'yield'"
-                :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                <FloatLabel variant="on"
-                    ><InputNumber
-                        :modelValue="shared.investmentPrincipal.value"
-                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
-                        :currency="shared.currency.value"
-                        :locale="shared.currencyLocale.value"
-                        disabled /><label>투자원금</label></FloatLabel
-                >
-                <FloatLabel variant="on"
-                    ><InputNumber
-                        :modelValue="shared.currentValue.value"
-                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
-                        :currency="shared.currency.value"
-                        :locale="shared.currencyLocale.value"
-                        disabled /><label>현재가치</label></FloatLabel
-                >
-                <Tag
-                    :severity="
-                        shared.profitLossRate.value >= 0 ? 'success' : 'danger'
-                    "
-                    :value="`${shared.profitLossRate.value.toFixed(2)}%`" />
-            </InputGroup>
-        </template>
-        <template #accumulatedDividend>
-            <div
-                class="flex flex-column gap-3"
-                :class="{ 'p-disabled': activeCalculator !== 'recovery' }">
-                <InputGroup>
-                    <InputGroupAddon
-                        ><RadioButton
-                            v-model="recovery.recoveryCalcMode.value"
-                            value="amount"
-                            :disabled="activeCalculator !== 'recovery'"
-                    /></InputGroupAddon>
-                    <InputGroupAddon
-                        ><i
-                            :class="
-                                shared.isUSD.value
-                                    ? 'pi pi-dollar'
-                                    : 'pi pi-won-sign'
-                            "
-                    /></InputGroupAddon>
+            </template>
+
+            <!-- #investmentPrincipalAndCurrentValue 슬롯 -->
+            <template #investmentPrincipalAndCurrentValue>
+                <InputGroup
+                    v-if="activeCalculator !== 'yield'"
+                    :class="{ 'p-disabled': activeCalculator === 'yield' }">
                     <FloatLabel variant="on">
                         <InputNumber
-                            v-model="recovery.accumulatedDividend.value"
+                            :modelValue="shared.investmentPrincipal.value"
                             :mode="shared.isUSD.value ? 'currency' : 'decimal'"
                             :currency="shared.currency.value"
                             :locale="shared.currencyLocale.value"
-                            :disabled="
-                                recovery.recoveryCalcMode.value !== 'amount' ||
-                                activeCalculator !== 'recovery'
-                            " />
-                        <label>누적 배당금</label>
+                            disabled />
+                        <label>투자원금</label>
                     </FloatLabel>
+                    <FloatLabel variant="on">
+                        <InputNumber
+                            :modelValue="shared.currentValue.value"
+                            :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                            :currency="shared.currency.value"
+                            :locale="shared.currencyLocale.value"
+                            disabled />
+                        <label>현재가치</label>
+                    </FloatLabel>
+                    <Tag
+                        :severity="
+                            shared.profitLossRate.value >= 0
+                                ? 'success'
+                                : 'danger'
+                        "
+                        :value="`${shared.profitLossRate.value.toFixed(2)}%`" />
                 </InputGroup>
-                <InputGroup>
-                    <InputGroupAddon
-                        ><RadioButton
-                            v-model="recovery.recoveryCalcMode.value"
-                            value="rate"
-                            :disabled="activeCalculator !== 'recovery'"
-                    /></InputGroupAddon>
-                    <InputGroupAddon
-                        ><i class="pi pi-percentage"
-                    /></InputGroupAddon>
-                    <InputGroupAddon class="text-xs"
-                        ><span
-                            >{{
-                                recovery.recoveryRate.value.toFixed(2)
-                            }}
-                            %</span
-                        ></InputGroupAddon
-                    >
-                    <div
-                        class="toto-range w-full p-inputtext"
-                        :disabled="
-                            recovery.recoveryCalcMode.value !== 'rate' ||
-                            activeCalculator !== 'recovery'
-                        ">
-                        <Slider
-                            v-model="recovery.recoveryRate.value"
-                            :min="0"
-                            :max="99.99"
-                            :step="0.01"
-                            class="w-full"
+            </template>
+
+            <!-- (나머지 모든 슬롯 내용은 기존과 동일하게 유지) -->
+            <!-- #accumulatedDividend, #targetAsset, #annualGrowthRate, ... #resultsChart 등 -->
+
+            <template #accumulatedDividend>
+                <div
+                    class="flex flex-column gap-3"
+                    :class="{ 'p-disabled': activeCalculator !== 'recovery' }">
+                    <InputGroup>
+                        <InputGroupAddon
+                            ><RadioButton
+                                v-model="recovery.recoveryCalcMode.value"
+                                value="amount"
+                                :disabled="activeCalculator !== 'recovery'"
+                        /></InputGroupAddon>
+                        <InputGroupAddon
+                            ><i
+                                :class="
+                                    shared.isUSD.value
+                                        ? 'pi pi-dollar'
+                                        : 'pi pi-won-sign'
+                                "
+                        /></InputGroupAddon>
+                        <FloatLabel variant="on">
+                            <InputNumber
+                                v-model="recovery.accumulatedDividend.value"
+                                :mode="
+                                    shared.isUSD.value ? 'currency' : 'decimal'
+                                "
+                                :currency="shared.currency.value"
+                                :locale="shared.currencyLocale.value"
+                                :disabled="
+                                    recovery.recoveryCalcMode.value !==
+                                        'amount' ||
+                                    activeCalculator !== 'recovery'
+                                " />
+                            <label>누적 배당금</label>
+                        </FloatLabel>
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon
+                            ><RadioButton
+                                v-model="recovery.recoveryCalcMode.value"
+                                value="rate"
+                                :disabled="activeCalculator !== 'recovery'"
+                        /></InputGroupAddon>
+                        <InputGroupAddon
+                            ><i class="pi pi-percentage"
+                        /></InputGroupAddon>
+                        <InputGroupAddon class="text-xs"
+                            ><span
+                                >{{
+                                    recovery.recoveryRate.value.toFixed(2)
+                                }}
+                                %</span
+                            ></InputGroupAddon
+                        >
+                        <div
+                            class="toto-range w-full p-inputtext"
                             :disabled="
                                 recovery.recoveryCalcMode.value !== 'rate' ||
                                 activeCalculator !== 'recovery'
-                            " />
+                            ">
+                            <Slider
+                                v-model="recovery.recoveryRate.value"
+                                :min="0"
+                                :max="99.99"
+                                :step="0.01"
+                                class="w-full"
+                                :disabled="
+                                    recovery.recoveryCalcMode.value !==
+                                        'rate' ||
+                                    activeCalculator !== 'recovery'
+                                " />
+                        </div>
+                    </InputGroup>
+                </div>
+            </template>
+            <template #targetAsset>
+                <InputGroup
+                    :class="{
+                        'p-disabled': activeCalculator !== 'reinvestment',
+                    }">
+                    <IftaLabel>
+                        <InputNumber
+                            v-model="reinvestment.targetAsset.value"
+                            :mode="shared.isUSD.value ? 'currency' : 'decimal'"
+                            :currency="shared.currency.value"
+                            :locale="shared.currencyLocale.value"
+                            :disabled="activeCalculator !== 'reinvestment'" />
+                        <label>목표 자산</label>
+                    </IftaLabel>
+                </InputGroup>
+            </template>
+            <template #annualGrowthRate>
+                <InputGroup
+                    :class="{
+                        'p-disabled': activeCalculator !== 'reinvestment',
+                    }">
+                    <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
+                    <InputGroupAddon class="text-xs"
+                        ><span
+                            >{{ reinvestment.annualGrowthRate.value }} %</span
+                        ></InputGroupAddon
+                    >
+                    <div class="p-inputtext toto-range w-full">
+                        <Slider
+                            v-model="reinvestment.annualGrowthRate.value"
+                            :min="-15"
+                            :max="15"
+                            :step="1"
+                            class="w-full"
+                            :disabled="activeCalculator !== 'reinvestment'" />
                     </div>
                 </InputGroup>
-            </div>
-        </template>
-        <template #targetAsset>
-            <InputGroup
-                :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
-                <IftaLabel>
-                    <InputNumber
-                        v-model="reinvestment.targetAsset.value"
-                        :mode="shared.isUSD.value ? 'currency' : 'decimal'"
-                        :currency="shared.currency.value"
-                        :locale="shared.currencyLocale.value"
-                        :disabled="activeCalculator !== 'reinvestment'" />
-                    <label>목표 자산</label>
-                </IftaLabel>
-            </InputGroup>
-        </template>
-        <template #annualGrowthRate>
-            <InputGroup
-                :class="{ 'p-disabled': activeCalculator !== 'reinvestment' }">
-                <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
-                <InputGroupAddon class="text-xs"
-                    ><span
-                        >{{ reinvestment.annualGrowthRate.value }} %</span
-                    ></InputGroupAddon
-                >
-                <div class="p-inputtext toto-range w-full">
-                    <Slider
-                        v-model="reinvestment.annualGrowthRate.value"
-                        :min="-15"
-                        :max="15"
-                        :step="1"
-                        class="w-full"
-                        :disabled="activeCalculator !== 'reinvestment'" />
+            </template>
+            <template #investmentAmount>
+                <div
+                    class="flex flex-column gap-3"
+                    :class="{ 'p-disabled': activeCalculator !== 'yield' }">
+                    <InputGroup>
+                        <InputGroupAddon
+                            ><RadioButton
+                                v-model="yieldCalc.yieldCalcMode.value"
+                                value="amount"
+                                :disabled="activeCalculator !== 'yield'"
+                        /></InputGroupAddon>
+                        <InputGroupAddon
+                            ><i
+                                :class="
+                                    shared.isUSD.value
+                                        ? 'pi pi-dollar'
+                                        : 'pi pi-won-sign'
+                                "
+                        /></InputGroupAddon>
+                        <InputNumber
+                            v-model="yieldCalc.inputAmount.value"
+                            placeholder="투자 금액"
+                            mode="currency"
+                            :currency="shared.currency.value"
+                            :locale="shared.currencyLocale.value"
+                            :disabled="
+                                yieldCalc.yieldCalcMode.value !== 'amount' ||
+                                activeCalculator !== 'yield'
+                            " />
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupAddon
+                            ><RadioButton
+                                v-model="yieldCalc.yieldCalcMode.value"
+                                value="quantity"
+                                :disabled="activeCalculator !== 'yield'"
+                        /></InputGroupAddon>
+                        <InputGroupAddon
+                            ><i class="pi pi-box"
+                        /></InputGroupAddon>
+                        <InputNumber
+                            v-model="shared.quantity.value"
+                            suffix=" 주"
+                            class="w-full"
+                            :disabled="
+                                yieldCalc.yieldCalcMode.value !== 'quantity' ||
+                                activeCalculator !== 'yield'
+                            " />
+                    </InputGroup>
                 </div>
-            </InputGroup>
-        </template>
-        <template #investmentAmount>
-            <div
-                class="flex flex-column gap-3"
-                :class="{ 'p-disabled': activeCalculator !== 'yield' }">
-                <InputGroup>
-                    <InputGroupAddon
-                        ><RadioButton
-                            v-model="yieldCalc.yieldCalcMode.value"
-                            value="amount"
-                            :disabled="activeCalculator !== 'yield'"
-                    /></InputGroupAddon>
-                    <InputGroupAddon
-                        ><i
-                            :class="
-                                shared.isUSD.value
-                                    ? 'pi pi-dollar'
-                                    : 'pi pi-won-sign'
-                            "
-                    /></InputGroupAddon>
-                    <InputNumber
-                        v-model="yieldCalc.inputAmount.value"
-                        placeholder="투자 금액"
-                        mode="currency"
-                        :currency="shared.currency.value"
-                        :locale="shared.currencyLocale.value"
-                        :disabled="
-                            yieldCalc.yieldCalcMode.value !== 'amount' ||
-                            activeCalculator !== 'yield'
-                        " />
+            </template>
+            <template #periodSelect>
+                <InputGroup class="toto-reference-period">
+                    <IftaLabel>
+                        <SelectButton
+                            v-model="shared.period.value"
+                            :options="shared.periodOptions.value"
+                            optionLabel="label"
+                            optionValue="value" />
+                        <label
+                            ><span>前 배당금 참고 기간</span
+                            ><Tag severity="contrast">{{
+                                shared.period.value === 'ALL'
+                                    ? '전체'
+                                    : `최근 ${shared.period.value}회`
+                            }}</Tag></label
+                        >
+                    </IftaLabel>
                 </InputGroup>
-                <InputGroup>
-                    <InputGroupAddon
-                        ><RadioButton
-                            v-model="yieldCalc.yieldCalcMode.value"
-                            value="quantity"
-                            :disabled="activeCalculator !== 'yield'"
-                    /></InputGroupAddon>
-                    <InputGroupAddon><i class="pi pi-box" /></InputGroupAddon>
-                    <InputNumber
-                        v-model="shared.quantity.value"
-                        suffix=" 주"
-                        class="w-full"
-                        :disabled="
-                            yieldCalc.yieldCalcMode.value !== 'quantity' ||
-                            activeCalculator !== 'yield'
-                        " />
+            </template>
+            <template #taxSelect>
+                <InputGroup
+                    class="toto-tax-apply"
+                    :class="{ 'p-disabled': activeCalculator === 'yield' }">
+                    <IftaLabel>
+                        <SelectButton
+                            v-model="shared.applyTax.value"
+                            :options="shared.taxOptions.value"
+                            optionValue="value"
+                            dataKey="value"
+                            :disabled="activeCalculator === 'yield'"
+                            ><template #option="slotProps"
+                                ><span>{{
+                                    slotProps.option.label
+                                }}</span></template
+                            ></SelectButton
+                        >
+                        <label
+                            ><span>세금 적용</span
+                            ><Tag severity="contrast">{{
+                                shared.applyTax.value ? '세후' : '세전'
+                            }}</Tag></label
+                        >
+                    </IftaLabel>
                 </InputGroup>
-            </div>
-        </template>
-        <template #periodSelect>
-            <InputGroup class="toto-reference-period">
-                <IftaLabel>
-                    <SelectButton
-                        v-model="shared.period.value"
-                        :options="shared.periodOptions.value"
-                        optionLabel="label"
-                        optionValue="value" />
-                    <label
-                        ><span>前 배당금 참고 기간</span
-                        ><Tag severity="contrast">{{
-                            shared.period.value === 'ALL'
-                                ? '전체'
-                                : `최근 ${shared.period.value}회`
-                        }}</Tag></label
-                    >
-                </IftaLabel>
-            </InputGroup>
-        </template>
-        <template #taxSelect>
-            <InputGroup
-                class="toto-tax-apply"
-                :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                <IftaLabel>
-                    <SelectButton
-                        v-model="shared.applyTax.value"
-                        :options="shared.taxOptions.value"
-                        optionValue="value"
-                        dataKey="value"
-                        :disabled="activeCalculator === 'yield'"
-                        ><template #option="slotProps"
-                            ><span>{{ slotProps.option.label }}</span></template
-                        ></SelectButton
-                    >
-                    <label
-                        ><span>세금 적용</span
-                        ><Tag severity="contrast">{{
-                            shared.applyTax.value ? '세후' : '세전'
-                        }}</Tag></label
-                    >
-                </IftaLabel>
-            </InputGroup>
-        </template>
-        <template #resultsDividend>
-            <div class="p-datatable p-component p-datatable-gridlines">
-                <div class="p-datatable-table-container">
-                    <table class="p-datatable-table">
-                        <thead class="p-datatable-thead">
-                            <tr>
-                                <th class="text-center">세금</th>
-                                <th class="text-center">희망</th>
-                                <th class="text-center">평균</th>
-                                <th class="text-center">절망</th>
-                            </tr>
-                        </thead>
-                        <tbody class="p-datatable-tbody">
-                            <tr>
-                                <th class="text-center">0 %</th>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-success p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                dividendStats.max || 0
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-warn p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                dividendStats.avg || 0
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-danger p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                dividendStats.min || 0
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="text-center">15 %</th>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-success p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                (dividendStats.max || 0) * 0.85
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-warn p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                (dividendStats.avg || 0) * 0.85
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                                <td class="text-center">
-                                    <button
-                                        class="p-button p-component p-button-sm p-button-danger p-button-text"
-                                        disabled>
-                                        <span class="p-button-label">{{
-                                            (
-                                                (dividendStats.min || 0) * 0.85
-                                            ).toLocaleString(currencyLocale, {
-                                                style: 'currency',
-                                                currency: currency,
-                                                maximumFractionDigits: 4,
-                                            })
-                                        }}</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </template>
+            <template #resultsDividend>
+                <div class="p-datatable p-component p-datatable-gridlines">
+                    <div class="p-datatable-table-container">
+                        <table class="p-datatable-table">
+                            <thead class="p-datatable-thead">
+                                <tr>
+                                    <th class="text-center">세금</th>
+                                    <th class="text-center">희망</th>
+                                    <th class="text-center">평균</th>
+                                    <th class="text-center">절망</th>
+                                </tr>
+                            </thead>
+                            <tbody class="p-datatable-tbody">
+                                <tr>
+                                    <th class="text-center">0 %</th>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-success p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    shared.dividendStats.value
+                                                        .max || 0
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-warn p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    shared.dividendStats.value
+                                                        .avg || 0
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-danger p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    shared.dividendStats.value
+                                                        .min || 0
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">15 %</th>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-success p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    (shared.dividendStats.value
+                                                        .max || 0) * 0.85
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-warn p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    (shared.dividendStats.value
+                                                        .avg || 0) * 0.85
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button
+                                            class="p-button p-component p-button-sm p-button-danger p-button-text"
+                                            disabled>
+                                            <span class="p-button-label">{{
+                                                (
+                                                    (shared.dividendStats.value
+                                                        .min || 0) * 0.85
+                                                ).toLocaleString(
+                                                    shared.currencyLocale.value,
+                                                    {
+                                                        style: 'currency',
+                                                        currency:
+                                                            shared.currency
+                                                                .value,
+                                                        maximumFractionDigits: 4,
+                                                    }
+                                                )
+                                            }}</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </template>
-        <template #resultsRecovery>
-            <div
-                class="p-datatable p-component p-datatable-gridlines"
-                v-if="activeCalculator === 'recovery'">
-                <div class="p-datatable-table-container">
-                    <table class="p-datatable-table">
-                        <tbody class="p-datatable-tbody">
-                            <tr>
-                                <th
-                                    rowspan="2"
-                                    class="text-center"
-                                    style="width: 25%">
-                                    재투자
-                                </th>
-                                <th class="text-center" style="width: 25%">
-                                    <i class="pi pi-circle"></i>
-                                </th>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span
-                                            class="text-green-500 font-bold"
-                                            >{{
+            </template>
+            <template #resultsRecovery>
+                <div
+                    class="p-datatable p-component p-datatable-gridlines"
+                    v-if="activeCalculator === 'recovery'">
+                    <div class="p-datatable-table-container">
+                        <table class="p-datatable-table">
+                            <tbody class="p-datatable-tbody">
+                                <tr>
+                                    <th
+                                        rowspan="2"
+                                        class="text-center"
+                                        style="width: 25%">
+                                        재투자
+                                    </th>
+                                    <th class="text-center" style="width: 25%">
+                                        <i class="pi pi-circle"></i>
+                                    </th>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span
+                                                class="text-green-500 font-bold"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.hope_reinvest,
+                                                        true
+                                                    ).duration
+                                                }}</span
+                                            >
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.hope_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.hope_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span
+                                                class="text-yellow-500 font-bold"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.avg_reinvest,
+                                                        true
+                                                    ).duration
+                                                }}</span
+                                            >
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.avg_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.avg_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span
+                                                class="text-red-500 font-bold"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.despair_reinvest,
+                                                        true
+                                                    ).duration
+                                                }}</span
+                                            >
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.despair_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.despair_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">
+                                        <i class="pi pi-times"></i>
+                                    </th>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recoveryTimes?.hope_reinvest,
+                                                    recovery.recoveryTimes.value
+                                                        ?.hope_no_reinvest,
                                                     true
                                                 ).duration
-                                            }}</span
-                                        ><span
-                                            v-if="
+                                            }}</span>
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.hope_no_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.hope_no_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recoveryTimes?.hope_reinvest,
-                                                    true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.hope_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span
-                                            class="text-yellow-500 font-bold"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.avg_reinvest,
+                                                    recovery.recoveryTimes.value
+                                                        ?.avg_no_reinvest,
                                                     true
                                                 ).duration
-                                            }}</span
-                                        ><span
-                                            v-if="
+                                            }}</span>
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.avg_no_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.avg_no_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div
+                                            class="flex flex-column align-items-center">
+                                            <span class="font-bold">{{
                                                 formatMonthsToYears(
-                                                    recoveryTimes?.avg_reinvest,
+                                                    recovery.recoveryTimes.value
+                                                        ?.despair_no_reinvest,
                                                     true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.avg_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span class="text-red-500 font-bold">{{
-                                            formatMonthsToYears(
-                                                recoveryTimes?.despair_reinvest,
-                                                true
-                                            ).duration
-                                        }}</span
-                                        ><span
-                                            v-if="
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.despair_reinvest,
-                                                    true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.despair_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="text-center">
-                                    <i class="pi pi-times"></i>
-                                </th>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span class="font-bold">{{
-                                            formatMonthsToYears(
-                                                recoveryTimes?.hope_no_reinvest,
-                                                true
-                                            ).duration
-                                        }}</span
-                                        ><span
-                                            v-if="
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.hope_no_reinvest,
-                                                    true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.hope_no_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span class="font-bold">{{
-                                            formatMonthsToYears(
-                                                recoveryTimes?.avg_no_reinvest,
-                                                true
-                                            ).duration
-                                        }}</span
-                                        ><span
-                                            v-if="
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.avg_no_reinvest,
-                                                    true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.avg_no_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div
-                                        class="flex flex-column align-items-center">
-                                        <span class="font-bold">{{
-                                            formatMonthsToYears(
-                                                recoveryTimes?.despair_no_reinvest,
-                                                true
-                                            ).duration
-                                        }}</span
-                                        ><span
-                                            v-if="
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.despair_no_reinvest,
-                                                    true
-                                                ).date
-                                            "
-                                            class="text-sm text-surface-500 dark:text-surface-400"
-                                            >{{
-                                                formatMonthsToYears(
-                                                    recoveryTimes?.despair_no_reinvest,
-                                                    true
-                                                ).date
-                                            }}</span
-                                        >
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                                ).duration
+                                            }}</span>
+                                            <span
+                                                v-if="
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.despair_no_reinvest,
+                                                        true
+                                                    ).date
+                                                "
+                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                >{{
+                                                    formatMonthsToYears(
+                                                        recovery.recoveryTimes
+                                                            .value
+                                                            ?.despair_no_reinvest,
+                                                        true
+                                                    ).date
+                                                }}</span
+                                            >
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </template>
-        <template #resultsReinvestment>
-            <div
-                class="p-datatable p-component p-datatable-gridlines"
-                v-if="activeCalculator === 'reinvestment'">
-                <div class="p-datatable-table-container">
-                    <table class="p-datatable-table">
-                        <tbody class="p-datatable-tbody">
-                            <tr>
-                                <th class="text-center" style="width: 25%">
-                                    기간
-                                </th>
-                                <td class="text-center">
-                                    <Tag severity="success">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes?.hope
-                                        )?.duration
-                                    }}</Tag>
-                                </td>
-                                <td class="text-center">
-                                    <Tag severity="warning">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes?.avg
-                                        )?.duration
-                                    }}</Tag>
-                                </td>
-                                <td class="text-center">
-                                    <Tag severity="danger">{{
-                                        formatMonthsToYears(
-                                            goalAchievementTimes?.despair
-                                        )?.duration
-                                    }}</Tag>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </template>
+            <template #resultsReinvestment>
+                <div
+                    class="p-datatable p-component p-datatable-gridlines"
+                    v-if="activeCalculator === 'reinvestment'">
+                    <div class="p-datatable-table-container">
+                        <table class="p-datatable-table">
+                            <tbody class="p-datatable-tbody">
+                                <tr>
+                                    <th class="text-center" style="width: 25%">
+                                        기간
+                                    </th>
+                                    <td class="text-center">
+                                        <Tag severity="success">{{
+                                            formatMonthsToYears(
+                                                reinvestment
+                                                    .goalAchievementTimes.value
+                                                    ?.hope
+                                            )?.duration
+                                        }}</Tag>
+                                    </td>
+                                    <td class="text-center">
+                                        <Tag severity="warning">{{
+                                            formatMonthsToYears(
+                                                reinvestment
+                                                    .goalAchievementTimes.value
+                                                    ?.avg
+                                            )?.duration
+                                        }}</Tag>
+                                    </td>
+                                    <td class="text-center">
+                                        <Tag severity="danger">{{
+                                            formatMonthsToYears(
+                                                reinvestment
+                                                    .goalAchievementTimes.value
+                                                    ?.despair
+                                            )?.duration
+                                        }}</Tag>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </template>
-        <template #resultsYield>
+            </template>
+            <template #resultsYield>
             <div
                 class="p-datatable p-component p-datatable-gridlines"
                 v-if="activeCalculator === 'yield'">
@@ -1089,22 +1213,34 @@ watch(
                     </table>
                 </div>
             </div>
-        </template>
-        <template #resultsChart>
-            <Card v-if="activeCalculator === 'recovery'"
-                ><template #content
-                    ><v-chart
-                        :option="recovery.recoveryChartOptions"
-                        autoresize
-                        style="height: 300px" /></template
-            ></Card>
-            <Card v-if="activeCalculator === 'reinvestment'"
-                ><template #content
-                    ><v-chart
-                        :option="reinvestment.reinvestmentChartOptions"
-                        autoresize
-                        style="height: 300px" /></template
-            ></Card>
-        </template>
-    </CalculatorLayout>
+            </template>
+
+            <template #resultsChart>
+                <Card v-if="activeCalculator === 'recovery'">
+                    <template #content
+                        ><v-chart
+                            :option="recovery.recoveryChartOptions"
+                            autoresize
+                            style="height: 300px"
+                    /></template>
+                </Card>
+                <Card v-if="activeCalculator === 'reinvestment'">
+                    <template #content
+                        ><v-chart
+                            :option="reinvestment.reinvestmentChartOptions"
+                            autoresize
+                            style="height: 300px"
+                    /></template>
+                </Card>
+            </template>
+        </CalculatorLayout>
+    </div>
+
+    <!-- [핵심 수정 3] isReady가 false일 때 로딩 스피너를 표시 -->
+    <div
+        v-else
+        class="flex justify-content-center align-items-center"
+        style="min-height: 400px">
+        <ProgressSpinner />
+    </div>
 </template>
