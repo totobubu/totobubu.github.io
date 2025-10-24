@@ -12,8 +12,16 @@
     }
     .calculator {
         &-option {
+            width: 100%;
+            @include bp.media-breakpoint-up('sm') {
+                width: 500px;
+            }
         }
         &-result {
+            width: 100%;
+            @include bp.media-breakpoint-up('sm') {
+                width: calc(100% - 500px);
+            }
         }
     }
 }

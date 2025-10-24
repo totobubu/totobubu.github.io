@@ -81,6 +81,9 @@ jobs:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
               run: python scripts/aggregate_popularity.py
 
+            - name: 11.5. Project future expected dividend dates
+              run: python scripts/project_future_dividends.py
+
             - name: 12. Generate calendar events data
               run: npm run generate-calendar-events
 
