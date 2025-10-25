@@ -1,87 +1,106 @@
+# scripts/project_future_dividends.py
+
 import os
 import json
 from datetime import datetime, timedelta
 from collections import Counter
 from tqdm import tqdm
 
-# utils.py가 있다면 import, 없다면 필요한 함수를 여기에 직접 정의
-try:
-    from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
-except ImportError:
-    # utils.py가 없는 경우를 위한 폴백 함수들
-    def load_json_file(file_path):
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            return None
-
-    def save_json_file(file_path, data, indent=2):
-        try:
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=indent, ensure_ascii=False)
-            return True
-        except IOError:
-            return False
+# --- 경로 설정 ---
+PUBLIC_DIR = "public"
+DATA_DIR = os.path.join(PUBLIC_DIR, "data")
+US_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "us_holidays.json")
+KR_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "kr_holidays.json")
 
 
-def get_dividend_interval(dates):
-    """배당 날짜 리스트를 기반으로 평균 배당 간격을 계산합니다."""
-    if len(dates) < 2:
+# --- 유틸리티 함수 ---
+def load_json_file(file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
         return None
 
+
+def save_json_file(file_path, data, indent=2):
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+        return True
+    except IOError:
+        return False
+
+
+# 배당 간격 계산 함수 (기존과 유사)
+def get_dividend_interval(dates):
+    if len(dates) < 2:
+        return None
     intervals = [(dates[i] - dates[i - 1]).days for i in range(1, len(dates))]
 
-    # 간격을 그룹화하여 가장 빈번한 간격 유형 찾기
     def get_interval_group(days):
         if 4 <= days <= 10:
-            return 7  # 주간
+            return 7
         if 25 <= days <= 35:
-            return 30  # 월간
+            return 30
         if 81 <= days <= 101:
-            return 91  # 분기
+            return 91
         if 335 <= days <= 395:
-            return 365  # 연간
+            return 365
         return None
 
     grouped = [get_interval_group(i) for i in intervals]
     if not any(grouped):
         return None
-
-    # 최빈값 계산
     mode_interval = Counter(g for g in grouped if g is not None).most_common(1)[0][0]
     return timedelta(days=mode_interval)
 
 
+# [신규] 이전 영업일 찾는 함수
+def get_previous_business_day(date, holiday_set):
+    current_date = date
+    while True:
+        weekday = current_date.weekday()
+        date_str = current_date.strftime("%Y-%m-%d")
+        # 주말(토:5, 일:6)이 아니고 공휴일이 아니면 반환
+        if weekday < 5 and date_str not in holiday_set:
+            return current_date
+        current_date -= timedelta(days=1)
+
+
 def main():
-    print("--- Starting to Project Future Expected Dividend Dates ---")
-    data_dir = "public/data"
-    files = [f for f in os.listdir(data_dir) if f.endswith(".json")]
+    print("--- Starting to Project Future Forecasted Dividend Dates ---")
+
+    # 공휴일 데이터 로드
+    us_holidays = set(h["date"] for h in load_json_file(US_HOLIDAYS_PATH) or [])
+    kr_holidays = set(h["date"] for h in load_json_file(KR_HOLIDAYS_PATH) or [])
+
+    files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
     updated_count = 0
 
     for filename in tqdm(files, desc="Projecting future dividends"):
-        file_path = os.path.join(data_dir, filename)
+        file_path = os.path.join(DATA_DIR, filename)
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:
             continue
-
-        # 'upcoming' 종목은 건너뛰기
         if data["tickerInfo"].get("upcoming"):
             continue
 
+        currency = data["tickerInfo"].get("currency", "USD")
+        holiday_set = kr_holidays if currency == "KRW" else us_holidays
+
         backtest_data = data["backtestData"]
 
-        # 1. 기존 'expected' 데이터 제거
-        original_len = len(backtest_data)
-        backtest_data = [item for item in backtest_data if not item.get("expected")]
+        # 1. [수정] 기존 'forecasted' 데이터만 제거 ('scheduled'는 보존)
+        original_data_str = json.dumps(backtest_data, sort_keys=True)
+        backtest_data = [item for item in backtest_data if not item.get("forecasted")]
 
         # 2. 배당 내역 추출 및 마지막 배당일 찾기
         dividend_entries = sorted(
             [
                 item
                 for item in backtest_data
-                if item.get("amount") is not None or item.get("amountFixed") is not None
+                if "amount" in item or "amountFixed" in item
             ],
             key=lambda x: x["date"],
         )
@@ -109,37 +128,32 @@ def main():
         next_date = last_dividend_date
         one_year_later = datetime.now() + timedelta(days=365)
 
+        # [신규] 이미 존재하는 모든 날짜(확정, 예정, 예상)를 set으로 관리하여 중복 방지
+        existing_dates = {item["date"] for item in backtest_data}
+
         while True:
             next_date += interval
             if next_date > one_year_later:
                 break
 
-            # 주말(토:5, 일:6)이면 금요일로 조정
-            weekday = next_date.weekday()
-            if weekday == 5:  # 토요일
-                next_date -= timedelta(days=1)
-            elif weekday == 6:  # 일요일
-                next_date -= timedelta(days=2)
+            # [수정] 주말/공휴일 조정
+            adjusted_date = get_previous_business_day(next_date, holiday_set)
+            date_str = adjusted_date.strftime("%Y-%m-%d")
 
-            future_projections.append(
-                {"date": next_date.strftime("%Y-%m-%d"), "expected": True}
-            )
+            if date_str not in existing_dates:
+                # [수정] "forecasted": true 플래그 사용
+                future_projections.append({"date": date_str, "forecasted": True})
+                existing_dates.add(date_str)
 
         if not future_projections:
             continue
 
         # 5. 데이터 병합 및 저장
-        new_backtest_data = backtest_data + future_projections
-
-        # 날짜순으로 정렬하고 중복 제거
-        final_data_map = {item["date"]: item for item in new_backtest_data}
-        final_backtest_data = sorted(final_data_map.values(), key=lambda x: x["date"])
+        data["backtestData"].extend(future_projections)
+        data["backtestData"].sort(key=lambda x: x["date"])
 
         # 변경 사항이 있을 경우에만 파일 쓰기
-        if len(final_backtest_data) > original_len or any(
-            p.get("expected") for p in final_backtest_data
-        ):
-            data["backtestData"] = final_backtest_data
+        if original_data_str != json.dumps(data["backtestData"], sort_keys=True):
             if save_json_file(file_path, data):
                 updated_count += 1
 

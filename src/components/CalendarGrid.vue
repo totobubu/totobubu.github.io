@@ -125,8 +125,15 @@
                 return {
                     html: `<div class="fc-holiday-name"><span>${arg.event.title}</span></div>`,
                 };
-            const { ticker, amount, eventClass, koName, currency } =
-                arg.event.extendedProps;
+            const {
+                ticker,
+                amount,
+                eventClass,
+                koName,
+                currency,
+                isScheduled,
+                isForecast,
+            } = arg.event.extendedProps;
             const currencySymbol = currency === 'KRW' ? '₩' : '$';
             const displayName = koName || ticker;
             const amountStr =
@@ -135,10 +142,20 @@
                         ? Math.round(amount)
                         : amount.toFixed(4)
                     : '';
-            const amountHtml =
-                amount != null
-                    ? `<span>${currencySymbol}${amountStr}</span>`
-                    : '<span class="no-amount">예정</span>';
+
+            // [수정] amountHtml 로직 변경
+            let amountHtml;
+            if (amount != null) {
+                amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
+            } else if (isScheduled) {
+                amountHtml = '<span class="no-amount scheduled">예정</span>';
+            } else if (isForecast) {
+                amountHtml = '<span class="no-amount forecasted">예상</span>';
+            } else {
+                // 혹시 모를 예외 케이스
+                amountHtml = '<span class="no-amount">정보없음</span>';
+            }
+
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
             const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
 
