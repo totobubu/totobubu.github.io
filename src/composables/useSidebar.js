@@ -1,4 +1,5 @@
-// src\composables\useSidebar.js
+// src/composables/useSidebar.js
+
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
@@ -14,7 +15,6 @@ export function useSidebar() {
     const toast = useToast();
 
     const allTickers = ref([]);
-    const popularityData = ref({});
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
@@ -27,12 +27,37 @@ export function useSidebar() {
         toggleMyStock,
     } = useFilterState();
 
+    // --- [핵심 수정] filteredTickers 로직 변경 ---
     const filteredTickers = computed(() => {
         const myBookmarkSymbols = new Set(Object.keys(myBookmarks.value));
-        const query = globalSearchQuery.value?.toLowerCase();
+        const query = globalSearchQuery.value?.toLowerCase().trim();
+        const mainTab = mainFilterTab.value;
+        const subTab = subFilterTab.value;
 
+        let baseList = [];
+
+        // 1. 현재 탭에 따라 기본 목록(baseList)을 먼저 결정합니다.
+        if (mainTab === '북마크') {
+            baseList = allTickers.value.filter((item) =>
+                myBookmarkSymbols.has(item.symbol)
+            );
+        } else if (mainTab === '미국') {
+            baseList = allTickers.value.filter(
+                (item) =>
+                    item.currency === 'USD' &&
+                    !myBookmarkSymbols.has(item.symbol)
+            );
+        } else if (mainTab === '한국') {
+            baseList = allTickers.value.filter(
+                (item) =>
+                    item.currency === 'KRW' &&
+                    !myBookmarkSymbols.has(item.symbol)
+            );
+        }
+
+        // 2. 검색어가 있는 경우, 위에서 정해진 baseList 내에서만 검색합니다.
         if (query) {
-            return allTickers.value.filter(
+            return baseList.filter(
                 (item) =>
                     item.symbol.toLowerCase().includes(query) ||
                     (item.koName &&
@@ -42,48 +67,17 @@ export function useSidebar() {
             );
         }
 
-        const mainTab = mainFilterTab.value;
-        const subTab = subFilterTab.value;
-        let list = [];
-
+        // 3. 검색어가 없는 경우, 기존 로직을 따릅니다.
         if (mainTab === '북마크') {
-            return allTickers.value.filter((item) =>
-                myBookmarkSymbols.has(item.symbol)
-            );
+            return baseList; // 북마크 탭은 이미 필터링 되었으므로 그대로 반환
         }
 
-        const nonBookmarkedTickers = allTickers.value.filter(
-            (item) => !myBookmarkSymbols.has(item.symbol)
-        );
-
-        if (mainTab === '미국') {
-            const usTickers = nonBookmarkedTickers.filter(
-                (item) => item.currency === 'USD'
-            );
-            if (subTab === 'ETF') {
-                list = usTickers.filter(
-                    (item) => item.company || item.underlying
-                );
-            } else {
-                // 주식
-                list = usTickers.filter(
-                    (item) => !item.company && !item.underlying
-                );
-            }
-        } else if (mainTab === '한국') {
-            const krTickers = nonBookmarkedTickers.filter(
-                (item) => item.currency === 'KRW'
-            );
-            if (subTab === 'ETF') {
-                list = krTickers.filter(
-                    (item) => item.company || item.underlying
-                );
-            } else {
-                // 주식
-                list = krTickers.filter(
-                    (item) => !item.company && !item.underlying
-                );
-            }
+        let list = [];
+        if (subTab === 'ETF') {
+            list = baseList.filter((item) => item.company || item.underlying);
+        } else {
+            // 주식
+            list = baseList.filter((item) => !item.company && !item.underlying);
         }
 
         list.sort(
@@ -177,7 +171,6 @@ export function useSidebar() {
         if (!user.value) router.push('/login');
         else toggleMyStock(symbol);
     };
-
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
         if (ticker && typeof ticker === 'string') {

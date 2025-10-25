@@ -212,9 +212,17 @@
             color: #fff;
         }
         &-dayGridMonth-view {
+            .fc-daygrid-day-events {
+                max-height: 250px;
+                overflow-y: auto;
+            }
+            .fc-daygrid-event-harness {
+                max-width: calc(50% - 0.3rem);
+            }
             .fc-h-event {
                 cursor: pointer;
-                width: 50px;
+                width: auto;
+                max-width: 100%;
             }
         }
         &-dayGridWeek-view {

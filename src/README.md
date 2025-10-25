@@ -86,6 +86,10 @@ python scripts/scraper_info.py
 
 python scripts/aggregate_popularity.py
 
+# 13.5 미래 배당 데이터
+
+python scripts/project_future_dividends.py
+
 # 14. 달력 이벤트 데이터 생성
 
 npm run generate-calendar-events
