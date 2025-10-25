@@ -19,8 +19,6 @@
     import RadioButton from 'primevue/radiobutton';
     import SelectButton from 'primevue/selectbutton';
     import Tag from 'primevue/tag';
-    import Slider from 'primevue/slider';
-    import FloatLabel from 'primevue/floatlabel';
     import IftaLabel from 'primevue/iftalabel';
     import ProgressSpinner from 'primevue/progressspinner';
 
@@ -87,6 +85,17 @@
         userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
     );
     const annualGrowthRate = ref(0);
+    
+    // [수정 2] 주가 성장률 옵션을 위한 ref 추가
+    const annualGrowthRateOptions = ref([
+        { label: '-5%', value: -5 },
+        { label: '-3%', value: -3 },
+        { label: '0%', value: 0 },
+        { label: '3%', value: 3 },
+        { label: '5%', value: 5 },
+        { label: '10%', value: 10 },
+    ]);
+
     const currentValue = computed(
         () => (quantity.value || 0) * currentPrice.value
     );
@@ -258,69 +267,78 @@
         <CalculatorLayout>
             <!-- [UI 통합] '평단/수량' 또는 '매수금/수량' UI를 동적으로 교체 -->
             <template #avgPriceAndQuantity>
-                <div class="flex flex-column gap-3">
-                    <div v-if="activeCalculator !== 'yield'">
-                        <InputGroup>
-                            <IftaLabel>
-                                <InputNumber
-                                    v-model="avgPrice"
-                                    :mode="isUSD ? 'currency' : 'decimal'"
-                                    :currency="currency"
-                                    :locale="currencyLocale"
-                                    inputId="avgPrice" />
-                                <label for="avgPrice">평단</label>
-                            </IftaLabel>
-                            <IftaLabel>
-                                <InputNumber
-                                    v-model="quantity"
-                                    suffix=" 주"
-                                    min="1"
-                                    inputId="quantity" />
-                                <label for="quantity">수량</label>
-                            </IftaLabel>
-                        </InputGroup>
-                    </div>
-                    <div v-else>
-                        <InputGroup>
-                            <InputGroupAddon>
-                                <RadioButton
-                                    v-model="yieldCalcMode"
-                                    value="amount" />
-                            </InputGroupAddon>
-                            <IftaLabel>
-                                <InputNumber
-                                    v-model="inputAmount"
-                                    :mode="isUSD ? 'currency' : 'decimal'"
-                                    :currency="currency"
-                                    :locale="currencyLocale"
-                                    :disabled="yieldCalcMode !== 'amount'" />
-                                <label>매수금</label>
-                            </IftaLabel>
-                        </InputGroup>
-                        <InputGroup>
-                            <InputGroupAddon>
-                                <RadioButton
-                                    v-model="yieldCalcMode"
-                                    value="quantity" />
-                            </InputGroupAddon>
-                            <IftaLabel>
-                                <InputNumber
-                                    v-model="quantity"
-                                    suffix=" 주"
-                                    min="1"
-                                    :disabled="yieldCalcMode !== 'quantity'" />
-                                <label>수량</label>
-                            </IftaLabel>
-                        </InputGroup>
-                    </div>
+                <div class="flex flex-col gap-3">
+                    <InputGroup v-if="activeCalculator !== 'yield'">
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="avgPrice"
+                                :mode="isUSD ? 'currency' : 'decimal'"
+                                :currency="currency"
+                                :locale="currencyLocale"
+                                inputId="avgPrice" />
+                            <label for="avgPrice">평단</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup v-else>
+                        <InputGroupAddon>
+                            <RadioButton
+                                v-model="yieldCalcMode"
+                                value="amount" />
+                        </InputGroupAddon>
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="inputAmount"
+                                :mode="isUSD ? 'currency' : 'decimal'"
+                                :currency="currency"
+                                :locale="currencyLocale"
+                                :disabled="yieldCalcMode !== 'amount'" />
+                            <label>매수금</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup v-if="activeCalculator !== 'yield'">
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="quantity"
+                                suffix=" 주"
+                                min="1"
+                                inputId="quantity" />
+                            <label for="quantity">수량</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup v-else>
+                        <InputGroupAddon>
+                            <RadioButton
+                                v-model="yieldCalcMode"
+                                value="quantity" />
+                        </InputGroupAddon>
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="quantity"
+                                suffix=" 주"
+                                min="1"
+                                :disabled="yieldCalcMode !== 'quantity'" />
+                            <label>수량</label>
+                        </IftaLabel>
+                    </InputGroup>
+                    <InputGroup v-if="activeCalculator == 'reinvestment'">
+                        <IftaLabel>
+                            <InputNumber
+                                v-model="targetAsset"
+                                :mode="isUSD ? 'currency' : 'decimal'"
+                                :currency="currency"
+                                :locale="currencyLocale"
+                                :disabled="
+                                    activeCalculator !== 'reinvestment'
+                                " />
+                            <label>목표 자산</label>
+                        </IftaLabel>
+                    </InputGroup>
                 </div>
             </template>
 
             <template #investmentPrincipalAndCurrentValue>
-                <InputGroup
-                    v-if="activeCalculator !== 'yield'"
-                    :class="{ 'p-disabled': activeCalculator === 'yield' }">
-                    <FloatLabel variant="on">
+                <InputGroup v-if="activeCalculator !== 'yield'">
+                    <IftaLabel>
                         <InputNumber
                             :modelValue="investmentPrincipal"
                             :mode="isUSD ? 'currency' : 'decimal'"
@@ -328,8 +346,8 @@
                             :locale="currencyLocale"
                             disabled />
                         <label>투자원금</label>
-                    </FloatLabel>
-                    <FloatLabel variant="on">
+                    </IftaLabel>
+                    <IftaLabel>
                         <InputNumber
                             :modelValue="currentValue"
                             :mode="isUSD ? 'currency' : 'decimal'"
@@ -337,7 +355,7 @@
                             :locale="currencyLocale"
                             disabled />
                         <label>현재가치</label>
-                    </FloatLabel>
+                    </IftaLabel>
                     <Tag
                         :severity="profitLossRate >= 0 ? 'success' : 'danger'"
                         :value="`${profitLossRate.toFixed(2)}%`" />
@@ -346,22 +364,16 @@
 
             <template #accumulatedDividend>
                 <div
-                    class="flex flex-column gap-3"
-                    :class="{ 'p-disabled': activeCalculator !== 'recovery' }">
+                    v-if="activeCalculator == 'recovery'"
+                    class="flex flex-coln gap-3">
                     <InputGroup>
-                        <InputGroupAddon
-                            ><RadioButton
+                        <InputGroupAddon>
+                            <RadioButton
                                 v-model="recoveryCalcMode"
                                 value="amount"
-                                :disabled="activeCalculator !== 'recovery'"
-                        /></InputGroupAddon>
-                        <InputGroupAddon
-                            ><i
-                                :class="
-                                    isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'
-                                "
-                        /></InputGroupAddon>
-                        <FloatLabel variant="on">
+                                :disabled="activeCalculator !== 'recovery'" />
+                        </InputGroupAddon>
+                        <IftaLabel>
                             <InputNumber
                                 v-model="accumulatedDividend"
                                 :mode="isUSD ? 'currency' : 'decimal'"
@@ -371,8 +383,12 @@
                                     recoveryCalcMode !== 'amount' ||
                                     activeCalculator !== 'recovery'
                                 " />
-                            <label>누적 배당금</label>
-                        </FloatLabel>
+                            <label
+                                >누적 배당금
+                                <span v-if="isUSD">$</span>
+                                <span v-else>won</span>
+                            </label>
+                        </IftaLabel>
                     </InputGroup>
                     <InputGroup>
                         <InputGroupAddon
@@ -381,166 +397,93 @@
                                 value="rate"
                                 :disabled="activeCalculator !== 'recovery'"
                         /></InputGroupAddon>
-                        <InputGroupAddon
-                            ><i class="pi pi-percentage"
-                        /></InputGroupAddon>
-                        <InputGroupAddon class="text-xs"
-                            ><span
-                                >{{ recoveryRate.toFixed(2) }} %</span
-                            ></InputGroupAddon
-                        >
-                        <div
-                            class="toto-range w-full p-inputtext"
-                            :disabled="
-                                recoveryCalcMode !== 'rate' ||
-                                activeCalculator !== 'recovery'
-                            ">
-                            <Slider
+                        <IftaLabel>
+                            <InputNumber
                                 v-model="recoveryRate"
-                                :min="0"
-                                :max="99.99"
-                                :step="0.01"
-                                class="w-full"
+                                suffix=" %"
                                 :disabled="
                                     recoveryCalcMode !== 'rate' ||
                                     activeCalculator !== 'recovery'
                                 " />
-                        </div>
+                            <label>원금 회수율</label>
+                        </IftaLabel>
                     </InputGroup>
                 </div>
-            </template>
-
-            <template #targetAsset>
-                <InputGroup
-                    :class="{
-                        'p-disabled': activeCalculator !== 'reinvestment',
-                    }">
-                    <IftaLabel>
-                        <InputNumber
-                            v-model="targetAsset"
-                            :mode="isUSD ? 'currency' : 'decimal'"
-                            :currency="currency"
-                            :locale="currencyLocale"
-                            :disabled="activeCalculator !== 'reinvestment'" />
-                        <label>목표 자산</label>
-                    </IftaLabel>
-                </InputGroup>
             </template>
 
             <template #annualGrowthRate>
-                <InputGroup
-                    :class="{
-                        'p-disabled': activeCalculator !== 'reinvestment',
-                    }">
-                    <InputGroupAddon><span>주가 성장률</span></InputGroupAddon>
-                    <InputGroupAddon class="text-xs"
-                        ><span>{{ annualGrowthRate }} %</span></InputGroupAddon
-                    >
-                    <div class="p-inputtext toto-range w-full">
-                        <Slider
-                            v-model="annualGrowthRate"
-                            :min="-15"
-                            :max="15"
-                            :step="1"
-                            class="w-full"
-                            :disabled="activeCalculator !== 'reinvestment'" />
-                    </div>
-                </InputGroup>
+                <div class="p-inputgroup"
+                    v-if="activeCalculator == 'reinvestment'">
+                    <span class="p-iftalabel">
+                        <span class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
+                            <span class="p-inputtext p-component p-filled p-inputnumber-input">
+                                <SelectButton
+                                    v-model="annualGrowthRate"
+                                    :options="annualGrowthRateOptions"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    :disabled="activeCalculator !== 'reinvestment'"
+                                    size="small"
+                                    fluid
+                                />
+                            </span>
+                        </span>
+                        <label>주가 성장률</label>
+                    </span>
+                </div>
             </template>
 
-            <!-- <template #investmentAmount>
-                <div
-                    class="flex flex-column gap-3"
-                    :class="{ 'p-disabled': activeCalculator !== 'yield' }">
-                    <InputGroup>
-                        <InputGroupAddon
-                            ><RadioButton
-                                v-model="yieldCalcMode"
-                                value="amount"
-                                :disabled="activeCalculator !== 'yield'"
-                        /></InputGroupAddon>
-                        <InputGroupAddon
-                            ><i
-                                :class="
-                                    isUSD ? 'pi pi-dollar' : 'pi pi-won-sign'
-                                "
-                        /></InputGroupAddon>
-                        <InputNumber
-                            v-model="inputAmount"
-                            placeholder="투자 금액"
-                            mode="currency"
-                            :currency="currency"
-                            :locale="currencyLocale"
-                            :disabled="
-                                yieldCalcMode !== 'amount' ||
-                                activeCalculator !== 'yield'
-                            " />
-                    </InputGroup>
-                    <InputGroup>
-                        <InputGroupAddon
-                            ><RadioButton
-                                v-model="yieldCalcMode"
-                                value="quantity"
-                                :disabled="activeCalculator !== 'yield'"
-                        /></InputGroupAddon>
-                        <InputGroupAddon
-                            ><i class="pi pi-box"
-                        /></InputGroupAddon>
-                        <InputNumber
-                            v-model="quantity"
-                            suffix=" 주"
-                            class="w-full"
-                            :disabled="
-                                yieldCalcMode !== 'quantity' ||
-                                activeCalculator !== 'yield'
-                            " />
-                    </InputGroup>
-                </div>
-            </template> -->
             <template #periodSelect>
-                <InputGroup class="toto-reference-period">
-                    <IftaLabel>
-                        <SelectButton
-                            v-model="period"
-                            :options="periodOptions"
-                            optionLabel="label"
-                            optionValue="value" />
-                        <label
-                            ><span>前 배당금 참고 기간</span
-                            ><Tag severity="contrast">{{
-                                period === 'ALL' ? '전체' : `최근 ${period}회`
-                            }}</Tag></label
-                        >
-                    </IftaLabel>
-                </InputGroup>
+                <div class="p-inputgroup">
+                    <span class="p-iftalabel">
+                        <span
+                            class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
+                            <span
+                                class="p-inputtext p-component p-filled p-inputnumber-input">
+                                <SelectButton
+                                    v-model="period"
+                                    :options="periodOptions"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    size="small"
+                                    fluid />
+                            </span>
+                        </span>
+                        <label>前 배당금 참고 기간</label>
+                    </span>
+                </div>
             </template>
 
             <template #taxSelect>
-                <InputGroup>
-                    <IftaLabel>
-                        <SelectButton
-                            v-model="applyTax"
-                            :options="taxOptions"
-                            optionValue="value"
-                            dataKey="value">
-                            <template #option="slotProps"
-                                ><span>{{
-                                    slotProps.option.label
-                                }}</span></template
-                            >
-                        </SelectButton>
-                        <label
-                            ><span>세금 적용</span
-                            ><Tag severity="contrast">{{
-                                applyTax ? '세후' : '세전'
-                            }}</Tag></label
-                        >
-                    </IftaLabel>
-                </InputGroup>
+                <div class="p-inputgroup">
+                    <span class="p-iftalabel">
+                        <span
+                            class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
+                            <span
+                                class="p-inputtext p-component p-filled p-inputnumber-input">
+                                <SelectButton
+                                    v-model="applyTax"
+                                    :options="taxOptions"
+                                    optionValue="value"
+                                    size="small"
+                                    dataKey="value"
+                                    fluid>
+                                    <template #option="slotProps">
+                                        <span>{{
+                                            slotProps.option.label
+                                        }}</span>
+                                    </template>
+                                </SelectButton>
+                            </span>
+                        </span>
+                        <label>세금 적용</label>
+                    </span>
+                </div>
             </template>
 
             <template #resultsDividend>
-                <div class="p-datatable p-component p-datatable-gridlines">
+                <div
+                    class="p-datatable p-component p-datatable-gridlines p-datatable-sm">
                     <div class="p-datatable-table-container">
                         <table class="p-datatable-table">
                             <thead class="p-datatable-thead">
@@ -555,10 +498,8 @@
                                 <tr>
                                     <th class="text-center">0 %</th>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-success p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-green-500">
+                                            {{
                                                 (
                                                     dividendStats.max || 0
                                                 ).toLocaleString(
@@ -569,14 +510,12 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-warn p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-yellow-500">
+                                            {{
                                                 (
                                                     dividendStats.avg || 0
                                                 ).toLocaleString(
@@ -587,14 +526,12 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-danger p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-red-500">
+                                            {{
                                                 (
                                                     dividendStats.min || 0
                                                 ).toLocaleString(
@@ -605,17 +542,15 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="text-center">15 %</th>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-success p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-green-500">
+                                            {{
                                                 (
                                                     (dividendStats.max || 0) *
                                                     0.85
@@ -627,14 +562,12 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-warn p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-yellow-500">
+                                            {{
                                                 (
                                                     (dividendStats.avg || 0) *
                                                     0.85
@@ -646,14 +579,12 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                     <td class="text-center">
-                                        <button
-                                            class="p-button p-component p-button-sm p-button-danger p-button-text"
-                                            disabled>
-                                            <span class="p-button-label">{{
+                                        <span class="text-red-500">
+                                            {{
                                                 (
                                                     (dividendStats.min || 0) *
                                                     0.85
@@ -665,8 +596,8 @@
                                                         maximumFractionDigits: 4,
                                                     }
                                                 )
-                                            }}</span>
-                                        </button>
+                                            }}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -676,26 +607,20 @@
             </template>
             <template #resultsRecovery>
                 <div
-                    class="p-datatable p-component p-datatable-gridlines"
+                    class="p-datatable p-component p-datatable-gridlines p-datatable-sm"
                     v-if="activeCalculator === 'recovery'">
                     <div class="p-datatable-table-container">
                         <table class="p-datatable-table">
                             <tbody class="p-datatable-tbody">
                                 <tr>
-                                    <th
-                                        rowspan="2"
-                                        class="text-center"
-                                        style="width: 25%">
-                                        재투자
-                                    </th>
-                                    <th class="text-center" style="width: 25%">
-                                        <i class="pi pi-circle"></i>
+                                    <th class="text-center">
+                                        재투자 <i class="pi pi-circle"></i>
                                     </th>
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
                                             <span
-                                                class="text-green-500 font-bold"
+                                                class="text-green-500"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.hope_reinvest,
@@ -710,7 +635,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.hope_reinvest,
@@ -723,9 +648,8 @@
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span
-                                                class="text-yellow-500 font-bold"
-                                                >{{
+                                            <span class="text-yellow-500">
+                                                {{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.avg_reinvest,
                                                         true
@@ -739,7 +663,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.avg_reinvest,
@@ -753,7 +677,7 @@
                                         <div
                                             class="flex flex-column align-items-center">
                                             <span
-                                                class="text-red-500 font-bold"
+                                                class="text-red-500"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.despair_reinvest,
@@ -768,7 +692,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.despair_reinvest,
@@ -781,12 +705,12 @@
                                 </tr>
                                 <tr>
                                     <th class="text-center">
-                                        <i class="pi pi-times"></i>
+                                        재투자 <i class="pi pi-times"></i>
                                     </th>
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span class="font-bold">{{
+                                            <span class="text-green-500">{{
                                                 formatMonthsToYears(
                                                     recoveryTimes?.hope_no_reinvest,
                                                     true
@@ -799,7 +723,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.hope_no_reinvest,
@@ -812,7 +736,7 @@
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span class="font-bold">{{
+                                            <span class="text-yellow-500">{{
                                                 formatMonthsToYears(
                                                     recoveryTimes?.avg_no_reinvest,
                                                     true
@@ -825,7 +749,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.avg_no_reinvest,
@@ -838,7 +762,7 @@
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span class="font-bold">{{
+                                            <span class="text-red-500">{{
                                                 formatMonthsToYears(
                                                     recoveryTimes?.despair_no_reinvest,
                                                     true
@@ -851,7 +775,7 @@
                                                         true
                                                     ).date
                                                 "
-                                                class="text-sm text-surface-500 dark:text-surface-400"
+                                                class="text-surface-500 dark:text-surface-400"
                                                 >{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.despair_no_reinvest,
@@ -878,25 +802,25 @@
                                 <tr>
                                     <th class="text-center">기간</th>
                                     <td class="text-center">
-                                        <Tag severity="success">{{
+                                        <span class="text-green-500">{{
                                             formatMonthsToYears(
                                                 goalAchievementTimes?.hope
                                             )?.duration
-                                        }}</Tag>
+                                        }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <Tag severity="warning">{{
+                                        <span class="text-yellow-500">{{
                                             formatMonthsToYears(
                                                 goalAchievementTimes?.avg
                                             )?.duration
-                                        }}</Tag>
+                                        }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <Tag severity="danger">{{
+                                        <span class="text-red-500">{{
                                             formatMonthsToYears(
                                                 goalAchievementTimes?.despair
                                             )?.duration
-                                        }}</Tag>
+                                        }}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1337,7 +1261,6 @@
                     /></template>
                 </Card>
             </template>
-           
         </CalculatorLayout>
     </div>
     <div
