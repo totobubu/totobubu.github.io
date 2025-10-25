@@ -17,18 +17,20 @@
         &-option {
             width: 100%;
             @include bp.media-breakpoint-up('sm') {
-                
-    flex: 0 0 auto;
-    padding: 0.5rem;
-    width: 50%;
+                flex: 0 0 auto;
+                padding: 0.5rem;
+                width: 50%;
             }
         }
         &-result {
             width: 100%;
             @include bp.media-breakpoint-up('sm') {
-    flex: 0 0 auto;
-    padding: 0.5rem;
-    width: 50%;
+                flex: 0 0 auto;
+                padding: 0.5rem;
+                width: 50%;
+            }
+            table {
+                font-size: .7rem;
             }
         }
     }
