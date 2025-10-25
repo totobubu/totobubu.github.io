@@ -1,6 +1,7 @@
 <!-- src/components/calculators/StockCalculatorsUnified.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
+    import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useDividendStats } from '@/composables/useDividendStats';
     import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
     import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
@@ -10,7 +11,7 @@
     import VChart from 'vue-echarts';
 
     // PrimeVue Imports
-    import CalculatorLayout from './CalculatorLayout.vue'; // CalculatorLayout.vue를 다시 사용합니다.
+    import CalculatorLayout from './CalculatorLayout.vue';
     import Button from 'primevue/button';
     import Card from 'primevue/card';
     import InputGroup from 'primevue/inputgroup';
@@ -28,6 +29,8 @@
         tickerInfo: Object,
         userBookmark: Object,
     });
+
+    const { isMobile } = useBreakpoint();
 
     const emit = defineEmits(['update-header-info']);
 
@@ -48,7 +51,6 @@
         { label: '최근 5회', value: '5' },
         { label: '최근 10회', value: '10' },
         { label: '최근 20회', value: '20' },
-        // { label: '전체 기간', value: 'ALL' },
     ]);
     const applyTax = ref(true);
     const taxOptions = ref([
@@ -84,10 +86,9 @@
     const targetAsset = ref(
         userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
     );
-    const annualGrowthRate = ref(0);
     
-    // [수정 2] 주가 성장률 옵션을 위한 ref 추가
-    const annualGrowthRateOptions = ref([
+    // [핵심 수정 1] X축으로 사용할 주가 성장률 옵션 정의
+    const allAnnualGrowthRateOptions = ref([
         { label: '-5%', value: -5 },
         { label: '-3%', value: -3 },
         { label: '0%', value: 0 },
@@ -95,6 +96,9 @@
         { label: '5%', value: 5 },
         { label: '10%', value: 10 },
     ]);
+    // 기존 annualGrowthRate ref는 더 이상 UI와 연결되지 않으므로 제거하거나 유지해도 무방
+    const annualGrowthRate = ref(0);
+
 
     const currentValue = computed(
         () => (quantity.value || 0) * currentPrice.value
@@ -147,15 +151,14 @@
             theme: chartTheme,
         });
 
+    // [핵심 수정 2] useReinvestmentChart에 allAnnualGrowthRateOptions 전달
     const { goalAchievementTimes, chartOptions: reinvestmentChartOptions } =
         useReinvestmentChart({
             currentAssets: currentValue,
             targetAmount: targetAsset,
             payoutsPerYear,
             dividendStats,
-            annualGrowthRateScenario: computed(
-                () => annualGrowthRate.value / 100
-            ),
+            allAnnualGrowthRateOptions, // 새로운 옵션 배열 전달
             applyTax,
             currentPrice,
             currency,
@@ -263,9 +266,8 @@
 </script>
 
 <template>
-    <div v-if="isReady">
+    <div v-if="isReady" :class="isMobile ? 'p-2' : ''">
         <CalculatorLayout>
-            <!-- [UI 통합] '평단/수량' 또는 '매수금/수량' UI를 동적으로 교체 -->
             <template #avgPriceAndQuantity>
                 <div class="flex flex-col gap-3">
                     <InputGroup v-if="activeCalculator !== 'yield'">
@@ -408,28 +410,6 @@
                             <label>원금 회수율</label>
                         </IftaLabel>
                     </InputGroup>
-                </div>
-            </template>
-
-            <template #annualGrowthRate>
-                <div class="p-inputgroup"
-                    v-if="activeCalculator == 'reinvestment'">
-                    <span class="p-iftalabel">
-                        <span class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
-                            <span class="p-inputtext p-component p-filled p-inputnumber-input">
-                                <SelectButton
-                                    v-model="annualGrowthRate"
-                                    :options="annualGrowthRateOptions"
-                                    optionLabel="label"
-                                    optionValue="value"
-                                    :disabled="activeCalculator !== 'reinvestment'"
-                                    size="small"
-                                    fluid
-                                />
-                            </span>
-                        </span>
-                        <label>주가 성장률</label>
-                    </span>
                 </div>
             </template>
 
@@ -619,15 +599,12 @@
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span
-                                                class="text-green-500"
-                                                >{{
+                                            <span class="text-green-500">{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.hope_reinvest,
                                                         true
                                                     ).duration
-                                                }}</span
-                                            >
+                                            }}</span>
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
@@ -676,15 +653,12 @@
                                     <td class="text-center">
                                         <div
                                             class="flex flex-column align-items-center">
-                                            <span
-                                                class="text-red-500"
-                                                >{{
+                                            <span class="text-red-500">{{
                                                     formatMonthsToYears(
                                                         recoveryTimes?.despair_reinvest,
                                                         true
                                                     ).duration
-                                                }}</span
-                                            >
+                                            }}</span>
                                             <span
                                                 v-if="
                                                     formatMonthsToYears(
@@ -1245,20 +1219,23 @@
 
             <template #resultsChart>
                 <Card v-if="activeCalculator === 'recovery'">
-                    <template #content
-                        ><v-chart
+                    <template #content>
+                        <v-chart
                             :option="recoveryChartOptions"
                             autoresize
-                            style="height: 300px"
-                    /></template>
+                            style="height: 300px" 
+                        />
+                    </template>
                 </Card>
                 <Card v-if="activeCalculator === 'reinvestment'">
-                    <template #content
-                        ><v-chart
+                    <template #content>
+                        <!-- [핵심 수정 4] 차트 높이 450px로 변경 -->
+                        <v-chart
                             :option="reinvestmentChartOptions"
                             autoresize
-                            style="height: 300px"
-                    /></template>
+                            style="height: 450px"
+                        />
+                    </template>
                 </Card>
             </template>
         </CalculatorLayout>
