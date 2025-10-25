@@ -156,9 +156,17 @@ export function useStockData() {
             }
         } catch (err) {
             console.error(`Failed to load data for ${sanitizedTicker}:`, err);
-            error.value =
-                err.message ||
-                `${sanitizedTicker.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
+
+            // [핵심 수정] 에러 메시지를 분기 처리
+            if (err.message.includes('500')) {
+                // API 서버 에러인 경우
+                error.value = `${sanitizedTicker.toUpperCase()}의 실시간 시세 정보를 가져오는 데 실패했습니다. 잠시 후 다시 시도해주세요.`;
+            } else {
+                // 그 외 다른 에러 (nav.json에 없는 티커 등)
+                error.value =
+                    err.message ||
+                    `${sanitizedTicker.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
+            }
         } finally {
             isLoading.value = false;
         }

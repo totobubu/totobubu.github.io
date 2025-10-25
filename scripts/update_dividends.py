@@ -1,15 +1,58 @@
-# scripts\update_dividends.py
 import os
 import json
 import yfinance as yf
-from datetime import datetime
 from tqdm import tqdm
 import pandas as pd
+# [핵심 추가] 병렬 처리를 위한 라이브러리 import
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 ROOT_DIR = os.getcwd()
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
+
+# [핵심 추가] 단일 종목을 처리하는 함수를 별도로 분리
+def process_symbol(symbol_data):
+    symbol, all_dividends_df, ticker_info_map = symbol_data
+    try:
+        sanitized_symbol = symbol.replace(".", "-").lower()
+        file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+
+        with open(file_path, "r", encoding="utf-8") as f:
+            existing_data = json.load(f)
+
+        backtest_data = existing_data.get("backtestData", [])
+        backtest_map = {item["date"]: item for item in backtest_data}
+        
+        currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
+        original_backtest_data_str = json.dumps(backtest_data, sort_keys=True)
+
+        if symbol in all_dividends_df.columns:
+            symbol_dividends = all_dividends_df[symbol][all_dividends_df[symbol] > 0]
+
+            for date, amount in symbol_dividends.items():
+                date_str = date.strftime("%Y-%m-%d")
+                new_amount = int(round(amount)) if currency == "KRW" else float(amount)
+
+                if date_str not in backtest_map:
+                    backtest_map[date_str] = {"date": date_str}
+
+                backtest_map[date_str]["amount"] = new_amount
+
+        final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
+
+        if original_backtest_data_str != json.dumps(final_backtest_data, sort_keys=True):
+            existing_data["backtestData"] = final_backtest_data
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(existing_data, f, indent=2, ensure_ascii=False)
+            # 변경된 경우 symbol을 반환
+            return symbol
+    except Exception as e:
+        # 에러가 발생한 경우 에러 메시지와 함께 symbol 반환
+        return (symbol, str(e))
+    
+    # 변경되지 않은 경우 None 반환
+    return None
 
 
 def main():
@@ -20,6 +63,7 @@ def main():
         with open(NAV_FILE_PATH, "r", encoding="utf-8") as f:
             nav_data = json.load(f)
     except FileNotFoundError:
+        print(f"❌ Error: {NAV_FILE_PATH} not found.")
         return
 
     all_tickers_info = nav_data.get("nav", [])
@@ -29,10 +73,14 @@ def main():
 
     print(f"Analyzing {len(active_symbols)} active tickers for dividend updates...")
 
-    # yfinance에서 모든 티커의 배당 정보를 한 번에 가져옴
     try:
         data = yf.download(
-            active_symbols, actions=True, progress=True, auto_adjust=True, period="max"
+            active_symbols, 
+            actions=True, 
+            progress=True, 
+            auto_adjust=True, 
+            period="max",
+            timeout=30 # 타임아웃 시간 30초로 설정
         )
         if data.empty or "Dividends" not in data.columns:
             print("No dividend data found from yfinance.")
@@ -43,57 +91,30 @@ def main():
         return
 
     updated_count = 0
-    for symbol in tqdm(active_symbols, desc="Merging dividend data"):
-        try:
-            sanitized_symbol = symbol.replace(".", "-").lower()
-            file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+    error_count = 0
+    
+    # [핵심 수정] 병렬 처리 실행
+    # 각 프로세스에 전달할 데이터 묶음 생성
+    tasks = [(symbol, all_dividends_df, ticker_info_map) for symbol in active_symbols]
 
-            with open(file_path, "r", encoding="utf-8") as f:
-                existing_data = json.load(f)
+    # ProcessPoolExecutor를 사용하여 병렬로 작업 처리
+    with ProcessPoolExecutor() as executor:
+        # tqdm을 사용하여 진행 상황 표시
+        results = list(tqdm(executor.map(process_symbol, tasks), total=len(tasks), desc="Merging dividend data"))
 
-            backtest_data = existing_data.get("backtestData", [])
-            backtest_map = {item["date"]: item for item in backtest_data}
-
-            currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
-            # 원본 데이터를 복사하여 비교용으로 보관
-            original_backtest_data_str = json.dumps(backtest_data, sort_keys=True)
-
-            if symbol in all_dividends_df.columns:
-                symbol_dividends = all_dividends_df[symbol][
-                    all_dividends_df[symbol] > 0
-                ]
-
-                for date, amount in symbol_dividends.items():
-                    date_str = date.strftime("%Y-%m-%d")
-                    new_amount = (
-                        int(round(amount)) if currency == "KRW" else float(amount)
-                    )
-
-                    if date_str not in backtest_map:
-                        backtest_map[date_str] = {"date": date_str}
-
-                    # amount 필드는 항상 최신 yfinance 값으로 업데이트
-                    backtest_map[date_str]["amount"] = new_amount
-
-                    # [핵심 수정] amount가 추가되었으므로, 해당 날짜의 'expected' 키를 삭제합니다.
-                    if "expected" in backtest_map[date_str]:
-                        del backtest_map[date_str]["expected"]
-
-            final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
-
-            # 변경 사항이 있을 때만 저장
-            if original_backtest_data_str != json.dumps(
-                final_backtest_data, sort_keys=True
-            ):
-                existing_data["backtestData"] = final_backtest_data
-                with open(file_path, "w", encoding="utf-8") as f:
-                    json.dump(existing_data, f, indent=2, ensure_ascii=False)
+    for result in results:
+        if result is not None:
+            if isinstance(result, tuple): # 에러가 반환된 경우
+                symbol, error_msg = result
+                tqdm.write(f"  ❌ Error processing {symbol}: {error_msg}")
+                error_count += 1
+            else: # 성공적으로 업데이트된 경우
                 updated_count += 1
 
-        except Exception as e:
-            tqdm.write(f"  ❌ Error processing {symbol}: {e}")
-
-    print(f"\n--- Dividend Merge Finished. Total files updated: {updated_count} ---")
+    print(f"\n--- Dividend Merge Finished. ---")
+    print(f"✅ Successfully updated: {updated_count} files")
+    if error_count > 0:
+        print(f"❌ Failed to process: {error_count} files")
 
 
 if __name__ == "__main__":
