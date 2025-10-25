@@ -21,7 +21,7 @@
         "52Week": "99.5 - 203.25",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "regularMarketPrice": {
                 "value": 183.09,
@@ -4870,7 +4870,7 @@
             "low": 18.350000381469727,
             "close": 20.770000457763672,
             "volume": 1124400,
-            "amount": 6,
+            "amount": 6.0,
             "amountFixed": 6,
             "yield": 0.32432432432432434
         },
@@ -6745,7 +6745,7 @@
             "low": 36.119998931884766,
             "close": 36.45000076293945,
             "volume": 1541200,
-            "amount": 5,
+            "amount": 5.0,
             "amountFixed": 5,
             "yield": 0.30278005630589483
         },
@@ -31659,7 +31659,11 @@
             "high": 195.19630432128906,
             "low": 190.91000366210938,
             "close": 191.9499969482422,
-            "volume": 816082
+            "volume": 816109
+        },
+        {
+            "date": "2026-06-05",
+            "forecasted": true
         }
     ]
 }
