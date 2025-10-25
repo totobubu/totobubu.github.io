@@ -1,6 +1,8 @@
 // src/composables/charts/useReinvestmentChart.js
+
 import { computed } from 'vue';
 import { createNumericFormatter } from '@/utils/formatters.js';
+import { formatMonthsToYears } from '@/utils/date.js';
 
 export function useReinvestmentChart(options) {
     const {
@@ -8,35 +10,31 @@ export function useReinvestmentChart(options) {
         targetAmount,
         payoutsPerYear,
         dividendStats,
-        annualGrowthRateScenario,
-        applyTax, // goalAchievementTimes 대신 applyTax 받기
+        allAnnualGrowthRateOptions, // [수정 1] 새로운 props
+        applyTax,
         currentPrice,
         theme,
         currency = 'USD',
     } = options;
-    const { textColor, textColorSecondary, surfaceBorder } = theme;
+    
+    const { textColor, textColorSecondary, surfaceBorder } = theme.value;
     const formatCurrency = createNumericFormatter(currency);
 
-    // --- [핵심 수정] goalAchievementTimes 계산 로직을 이 파일로 이동 ---
-    const goalAchievementTimes = computed(() => {
+    // [수정 2] 모든 성장률 시나리오에 대한 계산 로직
+    const allGoalAchievementTimes = computed(() => {
         if (
+            !allAnnualGrowthRateOptions?.value ||
             !dividendStats.value ||
-            (dividendStats.value.avg === 0 && dividendStats.value.max === 0)
+            !payoutsPerYear.value ||
+            currentPrice.value <= 0
         ) {
-            return { hope: Infinity, avg: Infinity, despair: Infinity };
+            return [];
         }
 
-        const calculateMonths = (dividendPerShare) => {
-            if (targetAmount.value <= currentAssets.value) return -1;
-            if (
-                currentAssets.value <= 0 ||
-                dividendPerShare <= 0 ||
-                currentPrice.value <= 0 ||
-                payoutsPerYear.value <= 0
-            ) {
-                return Infinity;
-            }
-            // 여기서 applyTax.value를 직접 사용
+        const calculateMonths = (dividendPerShare, growthRate) => {
+            if (targetAmount.value <= currentAssets.value) return 0;
+            if (currentAssets.value <= 0 || dividendPerShare <= 0) return Infinity;
+
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
                 : dividendPerShare;
@@ -44,79 +42,57 @@ export function useReinvestmentChart(options) {
 
             let assetValue = currentAssets.value;
             let months = 0;
-            const monthlyGrowthRate =
-                (1 + annualGrowthRateScenario.value) ** (1 / 12) - 1;
+            const monthlyGrowthRate = (1 + growthRate) ** (1 / 12) - 1;
             const monthlyPayouts = payoutsPerYear.value / 12;
 
             while (assetValue < targetAmount.value) {
-                if (months > 1200) return Infinity;
+                if (months > 1200) return Infinity; // 100년 초과 시 무한으로 처리
                 assetValue *= 1 + monthlyGrowthRate;
                 const currentShares = assetValue / currentPrice.value;
-                const dividendReceived =
-                    currentShares * finalDividendPerShare * monthlyPayouts;
-                assetValue += dividendReceived;
+                assetValue += currentShares * finalDividendPerShare * monthlyPayouts;
                 months++;
             }
             return months;
         };
 
-        return {
-            hope: calculateMonths(dividendStats.value.max),
-            avg: calculateMonths(dividendStats.value.avg),
-            despair: calculateMonths(dividendStats.value.min),
-        };
-    });
-    // --- // ---
-
-    const calculateGrowthPath = (dividendPerShare, maxMonths) => {
-        if (
-            currentAssets.value <= 0 ||
-            dividendPerShare <= 0 ||
-            currentPrice.value <= 0 ||
-            payoutsPerYear.value <= 0
-        )
-            return [];
-        let assetValue = currentAssets.value,
-            months = 0;
-        const monthlyGrowthRate =
-            (1 + annualGrowthRateScenario.value) ** (1 / 12) - 1;
-        const monthlyPayouts = payoutsPerYear.value / 12;
-        const path = [[0, assetValue]];
-        while (months < maxMonths) {
-            months++;
-            assetValue *= 1 + monthlyGrowthRate;
-            assetValue +=
-                (assetValue / currentPrice.value) *
-                dividendPerShare *
-                monthlyPayouts;
-            path.push([months, assetValue]);
-            if (assetValue >= targetAmount.value) break;
-        }
-        return path;
-    };
-
-    const chartOptions = computed(() => {
-        if (
-            !dividendStats.value ||
-            !goalAchievementTimes.value ||
-            !isFinite(goalAchievementTimes.value.avg) ||
-            goalAchievementTimes.value.avg <= 0
-        ) {
+        return allAnnualGrowthRateOptions.value.map((option) => {
+            const growthRate = option.value / 100;
             return {
-                title: {
-                    text: '계산 불가',
-                    left: 'center',
-                    top: 'center',
-                    textStyle: { color: textColorSecondary },
-                },
+                rateLabel: option.label,
+                hope: calculateMonths(dividendStats.value.max, growthRate),
+                avg: calculateMonths(dividendStats.value.avg, growthRate),
+                despair: calculateMonths(dividendStats.value.min, growthRate),
+            };
+        });
+    });
+
+    // [수정 3] ECharts 옵션을 막대 차트로 재구성
+    const chartOptions = computed(() => {
+        if (!allGoalAchievementTimes.value || allGoalAchievementTimes.value.length === 0) {
+            return {
+                title: { text: '계산 불가', left: 'center', top: 'center', textStyle: { color: textColorSecondary } },
             };
         }
-        const avgMonths = Math.ceil(goalAchievementTimes.value.avg);
+
+        const finiteTimes = allGoalAchievementTimes.value.flatMap(item => [item.hope, item.avg, item.despair]).filter(t => isFinite(t) && t > 0);
+        if (finiteTimes.length === 0 && targetAmount.value <= currentAssets.value) {
+            return {
+                title: { text: '이미 목표를 달성했습니다.', left: 'center', top: 'center', textStyle: { color: textColor, fontSize: 20 } },
+            };
+        }
+        
         return {
             tooltip: {
                 trigger: 'axis',
-                formatter: (params) =>
-                    `${params[0].value[0]}개월 후<br/>${params.map((p) => `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value[1])}</strong>`).join('<br/>')}`,
+                axisPointer: { type: 'shadow' },
+                formatter: (params) => {
+                    let tooltipHtml = `주가 성장률: <strong>${params[0].name}</strong><br/>`;
+                    params.forEach(p => {
+                        const duration = formatMonthsToYears(p.value)?.duration || '계산 불가';
+                        tooltipHtml += `${p.marker} ${p.seriesName}: <strong>${duration}</strong><br/>`;
+                    });
+                    return tooltipHtml;
+                }
             },
             legend: {
                 data: ['희망', '평균', '절망'],
@@ -125,79 +101,65 @@ export function useReinvestmentChart(options) {
             },
             grid: {
                 left: '3%',
-                right: '10%',
+                right: '4%',
                 bottom: '10%',
                 containLabel: true,
             },
             xAxis: {
-                type: 'value',
-                min: 0,
-                max: avgMonths,
-                axisLabel: {
-                    color: textColorSecondary,
-                    formatter: '{value}개월',
-                },
-                splitLine: {
-                    lineStyle: { color: surfaceBorder, type: 'dashed' },
-                },
+                type: 'category',
+                data: allGoalAchievementTimes.value.map(item => item.rateLabel),
+                axisLabel: { color: textColorSecondary },
             },
             yAxis: {
-                type: 'log',
+                type: 'value',
                 axisLabel: {
                     color: textColorSecondary,
-                    formatter: (val) => `$${(val / 1000).toFixed(0)}k`,
+                    formatter: (value) => `${value}개월`,
                 },
-                splitLine: {
-                    lineStyle: { color: surfaceBorder, type: 'dashed' },
+                splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
+                axisBreak: { // Axis Break 기능 활성화
+                    enabled: true,
+                    interval: 0, 
+                    style: {
+                        color: textColorSecondary,
+                        width: 1,
+                        lineDash: [4, 2],
+                    },
                 },
             },
             series: [
                 {
                     name: '희망',
-                    type: 'line',
-                    showSymbol: false,
-                    data: calculateGrowthPath(
-                        dividendStats.value.max,
-                        avgMonths
-                    ),
-                    lineStyle: { color: '#22c55e' },
+                    type: 'bar',
+                    barGap: 0,
+                    itemStyle: { color: '#22c55e' },
+                    data: allGoalAchievementTimes.value.map(item => isFinite(item.hope) ? item.hope : null),
                 },
                 {
                     name: '평균',
-                    type: 'line',
-                    showSymbol: false,
-                    data: calculateGrowthPath(
-                        dividendStats.value.avg,
-                        avgMonths
-                    ),
-                    lineStyle: { color: '#eab308' },
+                    type: 'bar',
+                    itemStyle: { color: '#eab308' },
+                    data: allGoalAchievementTimes.value.map(item => isFinite(item.avg) ? item.avg : null),
                 },
                 {
                     name: '절망',
-                    type: 'line',
-                    showSymbol: false,
-                    data: calculateGrowthPath(
-                        dividendStats.value.min,
-                        avgMonths
-                    ),
-                    lineStyle: { color: '#ef4444' },
+                    type: 'bar',
+                    itemStyle: { color: '#ef4444' },
+                    data: allGoalAchievementTimes.value.map(item => isFinite(item.despair) ? item.despair : null),
                 },
             ],
-            graphic: [
-                {
-                    type: 'text',
-                    left: 'center',
-                    top: 'center',
-                    style: {
-                        text:
-                            targetAmount.value > currentAssets.value
-                                ? ''
-                                : '목표 달성 완료',
-                        fill: textColor,
-                        fontSize: 20,
-                    },
-                },
-            ],
+        };
+    });
+    
+    // [수정 4] 요약 테이블용 데이터는 0% 성장률 기준으로 제공
+    const goalAchievementTimes = computed(() => {
+        if (!allGoalAchievementTimes.value) return { hope: Infinity, avg: Infinity, despair: Infinity };
+        const zeroGrowthData = allGoalAchievementTimes.value.find(item => item.rateLabel === '0%');
+        if (!zeroGrowthData) return { hope: Infinity, avg: Infinity, despair: Infinity };
+        return {
+            hope: zeroGrowthData.hope,
+            avg: zeroGrowthData.avg,
+            despair: zeroGrowthData.despair,
         };
     });
 

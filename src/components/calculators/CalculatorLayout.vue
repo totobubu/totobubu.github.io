@@ -20,11 +20,11 @@ const { deviceType } = useBreakpoint();
             <slot name="annualGrowthRate"></slot>
             <slot name="priceInfo"></slot>
             <slot name="investmentAmount"></slot>
+            <slot name="resultsDividend"></slot>
         </div>
 
         <!-- 결과 영역: 테이블과 차트를 위한 분리된 슬롯 -->
         <div class="calculator-result">
-            <slot name="resultsDividend"></slot>
             <slot name="resultsRecovery"></slot>
             <slot name="resultsReinvestment"></slot>
             <slot name="resultsYield"></slot>
