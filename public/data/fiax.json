@@ -5895,12 +5895,12 @@
             "volume": 4516
         },
         {
-            "date": "2025-11-20",
-            "expected": true
-        },
-        {
-            "date": "2025-12-18",
-            "expected": true
+            "date": "2025-10-24",
+            "open": 18.082000732421875,
+            "high": 18.110000610351562,
+            "low": 18.040000915527344,
+            "close": 18.079999923706055,
+            "volume": 8601
         }
     ],
     "tickerInfo": {
@@ -5913,19 +5913,32 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-10-23 17:18:43 KST",
-        "regularMarketPrice": 18.041,
+        "Update": "2025-10-25 05:54:59 KST",
+        "regularMarketPrice": 18.08,
         "englishName": "Nicholas Fixed Income Alternative ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5652,
-        "AvgVolume": 18234,
+        "Volume": 8601,
+        "AvgVolume": 17515,
         "sharesOutstanding": null,
         "52Week": "17.6 - 19.65",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.041,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5652,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 18234,
+                "change": "down"
+            }
+        }
     }
 }
