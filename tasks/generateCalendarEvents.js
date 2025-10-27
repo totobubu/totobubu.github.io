@@ -2,7 +2,6 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import { format, startOfDay } from 'date-fns';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
@@ -23,18 +22,24 @@ async function generateCalendarEvents() {
 
         for (const fileName of jsonFiles) {
             try {
-                const data = JSON.parse(
-                    await fs.readFile(path.join(DATA_DIR, fileName), 'utf-8')
-                );
-                const backtestData = data.backtestData || [];
-                if (backtestData.length === 0) continue;
-
                 const tickerSymbol = path
                     .basename(fileName, '.json')
                     .toUpperCase()
                     .replace(/-/g, '.');
                 const tickerInfo = tickerInfoMap.get(tickerSymbol);
-                if (!tickerInfo) continue;
+
+                if (!tickerInfo || tickerInfo.upcoming) {
+                    continue;
+                }
+
+                const data = JSON.parse(
+                    await fs.readFile(path.join(DATA_DIR, fileName), 'utf-8')
+                );
+                const backtestData = data.backtestData;
+
+                if (!Array.isArray(backtestData) || backtestData.length === 0) {
+                    continue;
+                }
 
                 const currency = tickerInfo.currency || 'USD';
 
@@ -58,11 +63,8 @@ async function generateCalendarEvents() {
                     if (amount !== undefined) {
                         event.amount = amount;
                         hasEvent = true;
-                    } else if (entry.scheduled === true) {
-                        event.isScheduled = true; // '예정' 플래그
-                        hasEvent = true;
-                    } else if (entry.forecasted === true) {
-                        event.isForecast = true; // '예상' 플래그
+                    } else if (entry.expected === true) {
+                        event.isExpected = true;
                         hasEvent = true;
                     }
 
@@ -71,7 +73,6 @@ async function generateCalendarEvents() {
                         if (!eventsByDate[dateStr][currency])
                             eventsByDate[dateStr][currency] = [];
 
-                        // 중복 추가 방지
                         if (
                             !eventsByDate[dateStr][currency].some(
                                 (e) => e.ticker === tickerSymbol
@@ -82,7 +83,8 @@ async function generateCalendarEvents() {
                     }
                 });
             } catch (e) {
-                console.error(`Error processing ${fileName}:`, e);
+                // 개별 파일 오류는 전체 실행을 중단시키지 않도록 console.error로 변경
+                console.error(`Error processing ${fileName}:`, e.message);
             }
         }
 
