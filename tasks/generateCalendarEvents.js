@@ -28,7 +28,6 @@ async function generateCalendarEvents() {
                     .replace(/-/g, '.');
                 const tickerInfo = tickerInfoMap.get(tickerSymbol);
 
-                // [핵심 수정 1] nav.json에 정보가 없거나, "upcoming": true 인 종목은 건너뜁니다.
                 if (!tickerInfo || tickerInfo.upcoming) {
                     continue;
                 }
@@ -38,7 +37,6 @@ async function generateCalendarEvents() {
                 );
                 const backtestData = data.backtestData;
 
-                // [핵심 수정 2] backtestData가 배열이 아닐 경우를 대비한 안전장치 추가
                 if (!Array.isArray(backtestData) || backtestData.length === 0) {
                     continue;
                 }

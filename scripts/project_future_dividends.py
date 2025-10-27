@@ -63,7 +63,7 @@ def main():
         if not data or "backtestData" not in data or "tickerInfo" not in data:
             continue
 
-        ticker_info = data["tickerInfo"]
+        # "upcoming": true 이거나 frequency 정보가 없으면 건너뛰기
         if ticker_info.get("upcoming") or not ticker_info.get("frequency"):
             continue
 
