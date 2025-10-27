@@ -131,7 +131,7 @@
                 eventClass,
                 koName,
                 currency,
-                isScheduled,
+                isExpected,
                 isForecast,
             } = arg.event.extendedProps;
             const currencySymbol = currency === 'KRW' ? '₩' : '$';
@@ -147,7 +147,7 @@
             let amountHtml;
             if (amount != null) {
                 amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
-            } else if (isScheduled) {
+            } else if (isExpected) {
                 amountHtml = '<span class="no-amount scheduled">예정</span>';
             } else if (isForecast) {
                 amountHtml = '<span class="no-amount forecasted">예상</span>';
