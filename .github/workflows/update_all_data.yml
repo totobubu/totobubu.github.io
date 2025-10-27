@@ -1,11 +1,11 @@
 # .github/workflows/update_all_data.yml
 
-name: Update All Ticker Data (Daily)
+name: Update All Ticker Data (Daily on Weekdays)
 
 on:
-    # 매일 UTC 20:00 (한국 시간 오전 5시)에 실행
+    # [수정] 월-금요일, UTC 22:00 (한국 시간 오전 7시)에 실행
     schedule:
-        - cron: '0 20 * * *'
+        - cron: '0 22 * * 1-5'
     workflow_dispatch:
 
 permissions:
@@ -40,17 +40,11 @@ jobs:
                   pip install -r requirements.txt
 
             # --- 데이터 업데이트 파이프라인 ---
+            # (이하 스텝은 동일하게 유지)
             - name: 1. Get date information
               id: get_date_info
               run: |
                   echo "DAY_OF_MONTH=$(date +'%d')" >> $GITHUB_OUTPUT
-
-            # - name: 2. Fetch top tickers (Monthly)
-            #   if: steps.get_date_info.outputs.DAY_OF_MONTH == '01'
-            #   run: |
-            #       python scripts/fetch_top_tickers.py
-            #       python scripts/fetch_us_etfs.py
-            #       python scripts/fetch_kr_etfs.py
 
             - name: 3. Update exchange rate data
               run: node scripts/fetch_all_exchange_rates.js
@@ -113,9 +107,8 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git pull
+                  git pull --rebase
                   git add .
-                  # [핵심 수정] 커밋 메시지에 변경된 파일 목록을 포함
                   COMMIT_MSG="⚙️ Auto: Update all ticker data
 
                   Changed files:
