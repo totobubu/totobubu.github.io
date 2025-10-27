@@ -78,6 +78,10 @@ python scripts/update_dividends.py
 
 python scripts/scraper_dividend.py
 
+# 10.5
+
+python scripts/clean_data.py
+
 # 11. 최신 기업 정보(시가총액 등) 업데이트
 
 python scripts/scraper_info.py

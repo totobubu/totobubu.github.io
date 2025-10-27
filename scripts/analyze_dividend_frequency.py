@@ -1,7 +1,7 @@
-# scripts\analyze_dividend_frequency.py
+# scripts/analyze_dividend_frequency.py
 import os
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from collections import Counter
 from tqdm import tqdm
 
@@ -27,8 +27,10 @@ MONTH_INITIALS = {
 
 
 def analyze_frequency_and_group(dividend_dates):
-    if len(dividend_dates) < 3:
+    # [핵심 수정] 최소 2회 이상의 배당 기록이 있어야 간격 계산이 가능
+    if len(dividend_dates) < 2:
         return None, None
+
     intervals = [
         (dividend_dates[i] - dividend_dates[i - 1]).days
         for i in range(1, len(dividend_dates))
@@ -38,46 +40,48 @@ def analyze_frequency_and_group(dividend_dates):
 
     def get_interval_group(days):
         if 4 <= days <= 10:
-            return 7
+            return 7  # 매주
         if 25 <= days <= 35:
-            return 30
+            return 30  # 매월
         if 81 <= days <= 101:
-            return 91
+            return 91  # 분기
         if 335 <= days <= 395:
-            return 365
+            return 365  # 매년
         return None
 
     grouped_intervals = [get_interval_group(i) for i in intervals]
-    if not any(grouped_intervals):
+    valid_groups = [g for g in grouped_intervals if g is not None]
+
+    if not valid_groups:
         return None, None
 
-    mode_interval = Counter(g for g in grouped_intervals if g is not None).most_common(
-        1
-    )[0][0]
+    # 가장 빈번하게 나타나는 간격을 찾음
+    mode_interval = Counter(valid_groups).most_common(1)[0][0]
 
-    frequency = None
-    if mode_interval == 7:
-        frequency = "매주"
-    elif mode_interval == 30:
-        frequency = "매월"
-    elif mode_interval == 91:
-        frequency = "분기"
-    elif mode_interval == 365:
-        frequency = "매년"
+    frequency_map = {
+        7: "매주",
+        30: "매월",
+        91: "분기",
+        365: "매년",
+    }
+    frequency = frequency_map.get(mode_interval)
 
     group = None
+    # 분기 배당일 경우, 최근 4회의 배당 월을 그룹으로 지정
     if frequency == "분기" and len(dividend_dates) >= 4:
         recent_months = sorted(list(set([d.month for d in dividend_dates[-4:]])))
         if len(recent_months) == 4:
-            group = "".join([MONTH_INITIALS[m] for m in recent_months])
+            group = "".join([MONTH_INITIALS.get(m, "?") for m in recent_months])
+
     return frequency, group
 
 
 def main():
-    print("--- Starting Dividend Frequency and Group Analysis (Interval-based) ---")
+    print("--- Starting Dividend Frequency Analysis (Recent 5 Payouts) ---")
 
     nav_sources = {}
     all_tickers_from_nav = []
+    # nav 소스 파일들을 모두 순회하며 티커 목록을 만듦
     market_dirs = [
         d for d in os.listdir(NAV_DIR) if os.path.isdir(os.path.join(NAV_DIR, d))
     ]
@@ -101,8 +105,13 @@ def main():
     updates_to_apply = {}
     for ticker_info in tqdm(all_tickers_from_nav, desc="Analyzing dividend data"):
         symbol = ticker_info.get("symbol")
-        company = ticker_info.get("company")
-        if not symbol or company == "YieldMax":
+
+        # [수정] YieldMax와 upcoming 종목은 분석에서 제외
+        if (
+            not symbol
+            or ticker_info.get("company") == "YieldMax"
+            or ticker_info.get("upcoming")
+        ):
             continue
 
         sanitized_symbol = symbol.replace(".", "-").lower()
@@ -112,21 +121,29 @@ def main():
             with open(data_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            # [핵심 수정] 새로운 시계열 데이터 구조에서 배당 날짜 추출
             backtest_data = data.get("backtestData", [])
-            dividend_entries = [
-                item
-                for item in backtest_data
-                if item.get("amount") is not None or item.get("amountFixed") is not None
-            ]
+            # 실지급된 배당(amount 또는 amountFixed) 내역만 추출하여 날짜순으로 정렬
+            dividend_entries = sorted(
+                [
+                    item
+                    for item in backtest_data
+                    if item.get("amount") is not None
+                    or item.get("amountFixed") is not None
+                ],
+                key=lambda x: x["date"],
+            )
 
             if not dividend_entries:
                 continue
 
-            dividend_dates = sorted(
-                [datetime.strptime(d["date"], "%Y-%m-%d") for d in dividend_entries]
-            )
-            frequency, group = analyze_frequency_and_group(dividend_dates)
+            # --- [핵심 수정] ---
+            # 최신 5회의 배당 기록만 사용하여 분석
+            recent_dividend_dates = [
+                datetime.strptime(d["date"], "%Y-%m-%d") for d in dividend_entries[-5:]
+            ]
+            # --- [수정 끝] ---
+
+            frequency, group = analyze_frequency_and_group(recent_dividend_dates)
 
             if frequency:
                 updates_to_apply[symbol] = {"frequency": frequency, "group": group}
@@ -134,6 +151,7 @@ def main():
         except (FileNotFoundError, json.JSONDecodeError):
             continue
 
+    # 변경 사항을 nav 소스 파일에 적용
     changed_file_count, updated_ticker_count = 0, 0
     for file_path, tickers in nav_sources.items():
         has_changed = False
@@ -141,21 +159,25 @@ def main():
             symbol = ticker.get("symbol")
             if symbol in updates_to_apply:
                 update_info = updates_to_apply[symbol]
+
+                # 기존 정보와 달라졌을 경우에만 업데이트
                 is_freq_updated = ticker.get("frequency") != update_info["frequency"]
-                is_group_updated = (
-                    update_info["group"] and ticker.get("group") != update_info["group"]
-                )
+                is_group_updated = ticker.get("group") != update_info["group"]
 
                 if is_freq_updated or is_group_updated:
                     ticker["frequency"] = update_info["frequency"]
                     if update_info["group"]:
                         ticker["group"] = update_info["group"]
+                    # 새로운 그룹 정보가 없으면 기존 그룹 정보 삭제
                     elif "group" in ticker:
                         del ticker["group"]
-                    has_changed, updated_ticker_count = True, updated_ticker_count + 1
+
+                    has_changed = True
+                    updated_ticker_count += 1
 
         if has_changed:
             try:
+                # 변경된 파일만 다시 저장
                 with open(file_path, "w", encoding="utf-8") as f:
                     json.dump(tickers, f, indent=4, ensure_ascii=False)
                 changed_file_count += 1
@@ -166,9 +188,7 @@ def main():
         f"\n🎉 Analysis complete. Updated {updated_ticker_count} tickers in {changed_file_count} files."
     )
     if len(all_tickers_from_nav) > 0 and updated_ticker_count == 0:
-        print(
-            " (No new frequency information to update or YieldMax tickers were skipped)"
-        )
+        print(" (No new frequency information to update.)")
 
 
 if __name__ == "__main__":
