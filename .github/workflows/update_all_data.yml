@@ -73,6 +73,9 @@ jobs:
             - name: 9. Process and enrich dividend history
               run: python scripts/scraper_dividend.py
 
+            - name: 9.5. Clean and sanitize historical data
+              run: python scripts/clean_data.py
+
             - name: 10. Update latest ticker info
               run: python scripts/scraper_info.py
 
