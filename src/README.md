@@ -105,3 +105,11 @@ npm run format:nav
 
 3. 개발 서버 실행
    npm run dev
+
+git ls-files -z public/data | xargs -0 git update-index --assume-unchanged
+
+git ls-files -z public/data | xargs -0 git update-index --no-assume-unchanged
+
+git ls-files -v | grep '^h'
+→ h 로 표시된 파일이 assume-unchanged 처리된 것들입니다.
+(보통 맨 앞에 H → 추적 중, h → 무시 중)
