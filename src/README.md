@@ -113,3 +113,5 @@ git ls-files -z public/data | xargs -0 git update-index --no-assume-unchanged
 git ls-files -v | grep '^h'
 → h 로 표시된 파일이 assume-unchanged 처리된 것들입니다.
 (보통 맨 앞에 H → 추적 중, h → 무시 중)
+
+python scripts/clean_data.py
