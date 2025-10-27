@@ -10,102 +10,114 @@ const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json');
 
 async function generateCalendarEvents() {
     console.log('--- Regenerating calendar-events.json from data files ---');
+
+    let navData;
     try {
-        const navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
-        const tickerInfoMap = new Map(
-            navData.nav.map((item) => [item.symbol, { ...item }])
-        );
-        const eventsByDate = {};
-        const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
-            file.endsWith('.json')
-        );
-
-        for (const fileName of jsonFiles) {
-            try {
-                const tickerSymbol = path
-                    .basename(fileName, '.json')
-                    .toUpperCase()
-                    .replace(/-/g, '.');
-                const tickerInfo = tickerInfoMap.get(tickerSymbol);
-
-                if (!tickerInfo || tickerInfo.upcoming) {
-                    continue;
-                }
-
-                const data = JSON.parse(
-                    await fs.readFile(path.join(DATA_DIR, fileName), 'utf-8')
-                );
-                const backtestData = data.backtestData;
-
-                if (!Array.isArray(backtestData) || backtestData.length === 0) {
-                    continue;
-                }
-
-                const currency = tickerInfo.currency || 'USD';
-
-                backtestData.forEach((entry) => {
-                    if (!entry.date) return;
-
-                    const dateStr = entry.date;
-                    const event = {
-                        ticker: tickerSymbol,
-                        koName: tickerInfo.koName,
-                        frequency: tickerInfo.frequency,
-                        group: tickerInfo.group,
-                    };
-                    let hasEvent = false;
-
-                    const amount =
-                        entry.amountFixed !== undefined
-                            ? entry.amountFixed
-                            : entry.amount;
-
-                    if (amount !== undefined) {
-                        event.amount = amount;
-                        hasEvent = true;
-                    } else if (entry.expected === true) {
-                        event.isExpected = true;
-                        hasEvent = true;
-                    }
-
-                    if (hasEvent) {
-                        if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
-                        if (!eventsByDate[dateStr][currency])
-                            eventsByDate[dateStr][currency] = [];
-
-                        if (
-                            !eventsByDate[dateStr][currency].some(
-                                (e) => e.ticker === tickerSymbol
-                            )
-                        ) {
-                            eventsByDate[dateStr][currency].push(event);
-                        }
-                    }
-                });
-            } catch (e) {
-                // 개별 파일 오류는 전체 실행을 중단시키지 않도록 console.error로 변경
-                console.error(`Error processing ${fileName}:`, e.message);
-            }
-        }
-
-        const sortedEventsByDate = Object.keys(eventsByDate)
-            .sort()
-            .reduce((acc, key) => {
-                acc[key] = eventsByDate[key];
-                return acc;
-            }, {});
-
-        await fs.writeFile(
-            OUTPUT_FILE,
-            JSON.stringify(sortedEventsByDate, null, 2)
-        );
-        console.log(
-            `🎉 Successfully generated calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
-        );
+        navData = JSON.parse(await fs.readFile(NAV_FILE_PATH, 'utf-8'));
     } catch (error) {
-        console.error('❌ Error generating calendar-events.json:', error);
+        console.error(
+            '❌ Critical Error: Failed to load nav.json. Aborting.',
+            error
+        );
         process.exit(1);
     }
+
+    const tickerInfoMap = new Map(
+        navData.nav.map((item) => [item.symbol, { ...item }])
+    );
+    const eventsByDate = {};
+    const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
+        file.endsWith('.json')
+    );
+
+    for (const fileName of jsonFiles) {
+        // [핵심 수정] try...catch를 파일 읽기 및 파싱 부분에만 적용
+        let data;
+        try {
+            const fileContent = await fs.readFile(
+                path.join(DATA_DIR, fileName),
+                'utf-8'
+            );
+            data = JSON.parse(fileContent);
+        } catch (e) {
+            // 파일 읽기/파싱 오류 시 해당 파일만 건너뛰고 계속 진행
+            console.error(`Error processing ${fileName}: ${e.message}`);
+            continue; // 다음 파일로 넘어감
+        }
+
+        const backtestData = data.backtestData || [];
+        if (backtestData.length === 0) continue;
+
+        const tickerSymbol = path
+            .basename(fileName, '.json')
+            .toUpperCase()
+            .replace(/-/g, '.');
+        const tickerInfo = tickerInfoMap.get(tickerSymbol);
+
+        if (!tickerInfo || tickerInfo.upcoming) {
+            continue;
+        }
+
+        const currency = tickerInfo.currency || 'USD';
+
+        backtestData.forEach((entry) => {
+            if (!entry || !entry.date) return; // entry가 null/undefined인 경우 방지
+
+            const dateStr = entry.date;
+            const event = {
+                ticker: tickerSymbol,
+                koName: tickerInfo.koName,
+                frequency: tickerInfo.frequency,
+                group: tickerInfo.group,
+            };
+            let hasEvent = false;
+
+            const amount =
+                entry.amountFixed !== undefined
+                    ? entry.amountFixed
+                    : entry.amount;
+
+            if (amount !== undefined) {
+                event.amount = amount;
+                hasEvent = true;
+            } else if (entry.expected === true) {
+                event.isExpected = true;
+                hasEvent = true;
+            } else if (entry.forecasted === true) {
+                event.isForecast = true;
+                hasEvent = true;
+            }
+
+            if (hasEvent) {
+                if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
+                if (!eventsByDate[dateStr][currency])
+                    eventsByDate[dateStr][currency] = [];
+
+                if (
+                    !eventsByDate[dateStr][currency].some(
+                        (e) => e.ticker === tickerSymbol
+                    )
+                ) {
+                    eventsByDate[dateStr][currency].push(event);
+                }
+            }
+        });
+    }
+
+    const sortedEventsByDate = Object.keys(eventsByDate)
+        .sort()
+        .reduce((acc, key) => {
+            acc[key] = eventsByDate[key];
+            return acc;
+        }, {});
+
+    await fs.writeFile(
+        OUTPUT_FILE,
+        JSON.stringify(sortedEventsByDate, null, 2)
+    );
+    console.log(
+        `🎉 Successfully generated calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
+    );
 }
 
 generateCalendarEvents();
