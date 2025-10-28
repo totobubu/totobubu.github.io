@@ -43,7 +43,7 @@
 </script>
 
 <template>
-    <div class="p-4 border-round mb-4" style="background: #f8f9fa">
+    <div class="p-4 border-round mb-4">
         <h3 class="mb-3">👥 가족 멤버 선택:</h3>
         <div class="flex gap-2 flex-wrap">
             <button
@@ -53,7 +53,7 @@
                 :class="
                     selectedIndex === String(index)
                         ? 'bg-primary text-white'
-                        : 'bg-white'
+                        : ''
                 "
                 class="p-3 border-round border-2"
                 style="min-width: 150px; border-color: #ddd">
@@ -84,7 +84,7 @@
                 :class="
                     selectedIndex === String(sortedMembers.length)
                         ? 'bg-primary text-white'
-                        : 'bg-white'
+                        : ''
                 "
                 class="p-3 border-round border-2"
                 style="min-width: 150px; border-color: #ddd">

@@ -9,15 +9,23 @@
 
 .stats-icon-box {
     flex-shrink: 0;
-    background-color: color-mix(in srgb, var(--p-primary-400), transparent 80%);
-    color: var(--p-primary-200);
     border-radius: 0.5rem;
     width: 2rem;
     height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid color-mix(in srgb, var(--p-primary-400), transparent 70%);
+
+    .p-dark & {
+        background-color: color-mix(
+            in srgb,
+            var(--p-primary-400),
+            transparent 80%
+        );
+        color: var(--p-primary-200);
+        border: 1px solid
+            color-mix(in srgb, var(--p-primary-400), transparent 70%);
+    }
 }
 
 .stats-header {
