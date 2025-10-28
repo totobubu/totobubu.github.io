@@ -5,6 +5,7 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
     import { useStockData } from '@/composables/useStockData';
+    import { useLayout } from '@/composables/useLayout';
 
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
@@ -19,6 +20,7 @@
     const router = useRouter();
     const { isDesktop, isMobile } = useBreakpoint();
     const { tickerInfo } = useStockData();
+    const { isDarkMode, toggleDarkMode } = useLayout();
     const visible = ref(false);
 
     const isStandalonePage = computed(() => {
@@ -162,7 +164,14 @@
                 <div id="t-topbar" class="topbar-actions">
                     <Button
                         type="button"
+                        severity="secondary"
+                        :icon="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
+                        @click="toggleDarkMode"
+                        :style="{ marginRight: '0.5rem' }" />
+                    <Button
+                        type="button"
                         icon="pi pi-ellipsis-v"
+                        severity="secondary"
                         @click="toggleMenu"
                         aria-haspopup="true"
                         aria-controls="overlay_tmenu"

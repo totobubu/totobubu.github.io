@@ -58,6 +58,22 @@
         return generateTimeRangeOptions(tickerInfo.value?.periods);
     });
 
+    // tickerInfo가 로드되면 periods의 첫 번째 값을 기본값으로 설정
+    watch(
+        tickerInfo,
+        (info) => {
+            if (
+                info?.periods &&
+                info.periods.length > 0 &&
+                !selectedTimeRange.value
+            ) {
+                // nav.json의 periods 첫 번째 값을 기본값으로 설정
+                selectedTimeRange.value = info.periods[0];
+            }
+        },
+        { immediate: true }
+    );
+
     const displayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
@@ -183,8 +199,6 @@
                 v-model:currentView="currentView"
                 v-model:selectedTimeRange="selectedTimeRange"
                 :viewOptions="viewOptions">
-            
-
                 <!-- [핵심 수정] 이 부분에 v-if를 추가합니다. -->
                 <template #calculators>
                     <StockCalculators

@@ -32,6 +32,7 @@
     import FamilyMemberList from '@/components/asset/FamilyMemberList.vue';
     import AssetViewModeToggle from '@/components/asset/AssetViewModeToggle.vue';
     import AssetListView from '@/components/asset/AssetListView.vue';
+    import AddAssetModal from '@/components/asset/AddAssetModal.vue';
 
     useHead({ title: '자산관리' });
 
@@ -469,7 +470,8 @@
         if (data.type === '증권사') {
             openAddAccountDialog(memberId, data.id);
         } else if (data.type === '계좌') {
-            openAddAssetDialog(memberId, data.brokerageId, data.id);
+            // 기존 Dialog 대신 AddAssetModal 사용
+            openAddAssetModalFromTree(memberId, data.brokerageId, data.id);
         }
     };
 
@@ -646,6 +648,14 @@
         }
     };
 
+    // AddAssetModal 상태
+    const showAddAssetModal = ref(false);
+    const addAssetModalTarget = ref({
+        memberId: null,
+        brokerageId: null,
+        accountId: null,
+    });
+
     // 자산 관련
     const openAddAssetDialog = (memberId, brokerageId, accountId) => {
         assetForm.value = {
@@ -658,6 +668,28 @@
         editMode.value.asset = null;
         selectedNode.value = { data: { brokerageId, accountId } };
         showAssetDialog.value = true;
+    };
+
+    const openAddAssetModalFromTree = (memberId, brokerageId, accountId) => {
+        addAssetModalTarget.value = { memberId, brokerageId, accountId };
+        showAddAssetModal.value = true;
+    };
+
+    const handleAssetSaved = async (data) => {
+        console.log('Asset saved from modal:', data);
+        // TODO: Firestore에 실제로 저장하는 로직 추가
+        toast.add({
+            severity: 'success',
+            summary: '저장 완료',
+            detail: '자산이 저장되었습니다.',
+            life: 3000,
+        });
+
+        // 선택된 멤버의 데이터 다시 로드
+        if (addAssetModalTarget.value.memberId) {
+            delete loadedMemberData.value[addAssetModalTarget.value.memberId];
+            await loadMemberData(addAssetModalTarget.value.memberId);
+        }
     };
 
     const openEditAssetDialog = (memberId, brokerageId, accountId, asset) => {
@@ -1144,5 +1176,11 @@
 
         <!-- Toast -->
         <Toast />
+
+        <!-- Add Asset Modal -->
+        <AddAssetModal
+            v-model:visible="showAddAssetModal"
+            :showAssetType="true"
+            @saved="handleAssetSaved" />
     </div>
 </template>
