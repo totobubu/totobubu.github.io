@@ -36,8 +36,10 @@
         overflow: hidden;
         padding: 0rem;
         text-align: center;
-        background-color: var(--p-surface-950); // ground
-        color: var(--p-text-color);;
+        .p-dark & {
+            background-color: var(--p-surface-950); // ground
+            color: var(--p-text-color);
+        }
         border-radius: 0.5rem;
         gap: 0.25rem;
     }

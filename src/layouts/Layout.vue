@@ -135,10 +135,10 @@
     <div v-if="isStandalonePage" id="t-standalone">
         <RouterView />
     </div>
-    <div v-else id="t-layout">
+    <div v-else id="t-layout" class="dark:bg-surface-950">
         <Toast />
         <ConfirmDialog />
-        <main id="t-grid">
+        <main id="t-grid" class="dark:bg-zinc-900">
             <header id="t-header">
                 <div class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">

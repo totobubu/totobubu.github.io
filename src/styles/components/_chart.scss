@@ -28,9 +28,11 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem;
-    border: 1px solid var(--p-surface-700);
     border-radius: 0.5rem;
-    background-color: var(--p-surface-800);
+    .p-dark & {
+        border: 1px solid var(--p-surface-700);
+        background-color: var(--p-surface-800);
+    }
 }
 
 .activity-icon {
@@ -114,7 +116,6 @@
         font-size: 1rem;
     }
 }
-
 
 .toto-candlestick-chart {
     .p-card-body {

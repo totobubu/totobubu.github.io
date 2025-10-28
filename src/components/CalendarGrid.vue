@@ -200,7 +200,10 @@
 </script>
 
 <template>
-    <Card v-if="isMobile" id="t-calendar-list">
+    <Card
+        v-if="isMobile"
+        id="t-calendar-list"
+        class="dark:bg-zinc-800 dark:text-white">
         <template #header>{{ currentTitle }}</template>
         <template #title>
             <Button icon="pi pi-chevron-left" text @click="prevMonth" />
@@ -215,7 +218,7 @@
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </template>
     </Card>
-    <Panel v-else id="t-calendar-grid">
+    <Panel v-else id="t-calendar-grid" class="dark:bg-zinc-800 dark:text-white">
         <template #header>
             <div class="header-left">
                 <Button label="오늘" class="p-button-sm" @click="goToToday" />
