@@ -1,12 +1,14 @@
 <!-- stock\src\components\StockChartCard.vue -->
 <script setup>
-    import { computed } from 'vue';
+    import { ref, computed } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { getGroupSeverity } from '@/utils/uiHelpers.js';
     import Card from 'primevue/card';
     import SelectButton from 'primevue/selectbutton';
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
+    import Button from 'primevue/button';
+    import AddAssetModal from '@/components/asset/AddAssetModal.vue';
     // import StockCalculators from '@/components/StockCalculators.vue';
 
     const props = defineProps({
@@ -25,6 +27,18 @@
     ]);
     const { isDesktop, isMobile } = useBreakpoint();
     const buttonSize = computed(() => (isMobile.value ? 'small' : null));
+
+    // Asset Modal
+    const showAddAssetModal = ref(false);
+
+    const handleAssetSaved = async (data) => {
+        console.log('Asset saved:', data);
+        // 여기서 Firestore에 저장하는 로직 추가
+    };
+
+    const currentPrice = computed(() => {
+        return props.tickerInfo?.price || 0;
+    });
 
     const localCurrentView = computed({
         get: () => props.currentView,
@@ -94,10 +108,25 @@
                         :dividendHistory="dividendHistory"
                         :tickerInfo="tickerInfo"
                         :userBookmark="userBookmark" /> -->
-                                            <!-- [핵심 수정] 기존 StockCalculators 컴포넌트를 slot으로 변경 -->
+                    <!-- [핵심 수정] 기존 StockCalculators 컴포넌트를 slot으로 변경 -->
                     <slot name="calculators"></slot>
+                    <!--자산관리에 저장-->
+                    <Button
+                        icon="pi pi-wallet"
+                        text
+                        @click="showAddAssetModal = true"
+                        v-tooltip="'자산관리에 저장'" />
+                    <!--// 자산관리에 저장-->
                 </div>
             </div>
         </template>
     </Card>
+
+    <!-- Add Asset Modal -->
+    <AddAssetModal
+        :visible="showAddAssetModal"
+        :ticker="tickerInfo?.symbol || ''"
+        :price="currentPrice"
+        @update:visible="showAddAssetModal = $event"
+        @saved="handleAssetSaved" />
 </template>
