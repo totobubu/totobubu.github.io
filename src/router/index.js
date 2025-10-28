@@ -8,8 +8,8 @@ import StockView from '../pages/StockView.vue';
 import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
-// import MyPageView from '../pages/MyPageView.vue'; // [삭제]
 import BookmarkView from '../pages/BookmarkView.vue';
+import AssetView from '../pages/AssetView.vue';
 import ProfileView from '../pages/ProfileView.vue';
 import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
@@ -58,6 +58,12 @@ const router = createRouter({
             path: '/bookmarks',
             name: 'bookmarks',
             component: BookmarkView,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: '/assets',
+            name: 'assets',
+            component: AssetView,
             meta: { requiresAuth: true },
         },
         {
