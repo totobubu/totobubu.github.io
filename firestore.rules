@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function: 사용자가 인증되었는지 확인
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function: 사용자가 자신의 데이터에만 접근 가능
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // userBookmarks 컬렉션 규칙 (기존)
+    match /userBookmarks/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // userAssets 컬렉션 규칙
+    match /userAssets/{userId} {
+      allow read, write: if isOwner(userId);
+      
+      // 가족 멤버 하위 컬렉션
+      match /familyMembers/{memberId} {
+        allow read, write: if isOwner(userId);
+        
+        // 증권사 하위 컬렉션
+        match /brokerages/{brokerageId} {
+          allow read, write: if isOwner(userId);
+          
+          // 계좌 하위 컬렉션
+          match /accounts/{accountId} {
+            allow read, write: if isOwner(userId);
+            
+            // 자산 하위 컬렉션
+            match /assets/{assetId} {
+              allow read, write: if isOwner(userId);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

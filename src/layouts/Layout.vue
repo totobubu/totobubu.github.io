@@ -30,7 +30,6 @@
         menu.value.toggle(event);
     };
 
-
     const menuItems = computed(() => [
         {
             label: '배당달력',
@@ -68,6 +67,11 @@
                       command: () => router.push('/bookmarks'),
                   },
                   {
+                      label: '자산관리',
+                      icon: 'pi pi-wallet',
+                      command: () => router.push('/assets'),
+                  },
+                  {
                       label: '회원정보 수정',
                       icon: 'pi pi-user-edit',
                       command: () => router.push('/profile'),
@@ -87,7 +91,10 @@
         if (route.name === 'calendar') items.push({ label: '배당달력' });
         else if (route.name === 'bookmarks')
             items.push({ label: '북마크 관리' }); // [수정]
-        else if (route.name === 'profile')
+        else if (route.name === 'assets') {
+            items.push({ label: '자산관리' });
+            // query에 memberId가 있으면 사용자명 표시 (이후 구현)
+        } else if (route.name === 'profile')
             items.push({ label: '회원정보 수정' }); // [수정]
         else if (route.name === 'contact') items.push({ label: '문의하기' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
