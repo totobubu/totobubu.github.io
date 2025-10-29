@@ -1424,7 +1424,7 @@
             "close": 27.170000076293945,
             "volume": 233400,
             "amount": 0.0005,
-            "yield": 0.000018484288876243745
+            "yield": 1.8484288876243745e-5
         },
         {
             "date": "2001-06-18",
@@ -50603,6 +50603,14 @@
             "volume": 86098
         },
         {
+            "date": "2025-10-29",
+            "open": 295.3399963378906,
+            "high": 295.7900085449219,
+            "low": 292.760009765625,
+            "close": 294.4599914550781,
+            "volume": 50884
+        },
+        {
             "date": "2025-12-22",
             "forecasted": true
         },
@@ -50621,27 +50629,39 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 286.28,
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 294.46,
         "englishName": "SPDR NYSE Technology ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3020253952,
-        "Volume": 31654,
-        "AvgVolume": 32771,
+        "marketCap": 3106552832,
+        "Volume": 50884,
+        "AvgVolume": 34414,
         "sharesOutstanding": 10550000,
-        "52Week": "159.43 - 287.21",
-        "Yield": 0.0014321643146569792,
+        "52Week": "159.43 - 295.79",
+        "Yield": 0.0013923792705291041,
         "dividendRate": null,
         "payoutRatio": null,
         "changes": {
+            "regularMarketPrice": {
+                "value": 286.28,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3020253952,
+                "change": "up"
+            },
             "Volume": {
-                "value": 31615,
+                "value": 31654,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 32396,
+                "value": 32771,
                 "change": "up"
+            },
+            "Yield": {
+                "value": 0.0014321643146569792,
+                "change": "down"
             }
         }
     }

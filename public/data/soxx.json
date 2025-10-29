@@ -4352,7 +4352,7 @@
             "close": 18.27666664123535,
             "volume": 98100,
             "amount": 0.001333,
-            "yield": 0.00007115658266391166
+            "yield": 7.115658266391166e-5
         },
         {
             "date": "2003-09-16",
@@ -49029,6 +49029,14 @@
             "volume": 4101969
         },
         {
+            "date": "2025-10-29",
+            "open": 309.7900085449219,
+            "high": 312.7897033691406,
+            "low": 307.0199890136719,
+            "close": 309.6000061035156,
+            "volume": 4399192
+        },
+        {
             "date": "2025-12-16",
             "forecasted": true
         },
@@ -49047,27 +49055,39 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 295.86,
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 309.6,
         "englishName": "iShares Semiconductor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2263328768,
-        "Volume": 4621169,
-        "AvgVolume": 7624331,
+        "marketCap": 2368440064,
+        "Volume": 4399192,
+        "AvgVolume": 7586592,
         "sharesOutstanding": 7650000,
-        "52Week": "148.31 - 298.22",
-        "Yield": 0.010596227945649968,
+        "52Week": "148.31 - 312.7897",
+        "Yield": 0.01012596899224806,
         "dividendRate": null,
         "payoutRatio": null,
         "changes": {
-            "Volume": {
-                "value": 4392396,
+            "regularMarketPrice": {
+                "value": 295.86,
                 "change": "up"
             },
-            "AvgVolume": {
-                "value": 7606915,
+            "marketCap": {
+                "value": 2263328768,
                 "change": "up"
+            },
+            "Volume": {
+                "value": 4621169,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7624331,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010596227945649968,
+                "change": "down"
             }
         }
     }

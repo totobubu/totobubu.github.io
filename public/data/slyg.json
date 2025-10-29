@@ -1424,7 +1424,7 @@
             "close": 18.88249969482422,
             "volume": 4400,
             "amount": 0.00025,
-            "yield": 0.000013206550236116256
+            "yield": 1.3206550236116256e-5
         },
         {
             "date": "2001-06-18",
@@ -50629,6 +50629,14 @@
             "volume": 726571
         },
         {
+            "date": "2025-10-29",
+            "open": 94.94000244140625,
+            "high": 95.54820251464844,
+            "low": 93.29499816894531,
+            "close": 94.05999755859375,
+            "volume": 243965
+        },
+        {
             "date": "2025-12-22",
             "forecasted": true
         },
@@ -50647,27 +50655,39 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 95.75,
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 94.06,
         "englishName": "SPDR S&P 600 Small Cap Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3140600064,
-        "Volume": 122106,
-        "AvgVolume": 108346,
+        "marketCap": 3085167872,
+        "Volume": 243965,
+        "AvgVolume": 118604,
         "sharesOutstanding": 32800000,
         "52Week": "71.62 - 101.62",
-        "Yield": 0.005639686684073108,
+        "Yield": 0.005741016372528174,
         "dividendRate": null,
         "payoutRatio": null,
         "changes": {
+            "regularMarketPrice": {
+                "value": 95.75,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3140600064,
+                "change": "down"
+            },
             "Volume": {
-                "value": 121773,
+                "value": 122106,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 110317,
-                "change": "down"
+                "value": 108346,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.005639686684073108,
+                "change": "up"
             }
         }
     }
