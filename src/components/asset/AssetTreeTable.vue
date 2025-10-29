@@ -70,7 +70,7 @@
                 <Column field="name" header="자산" expander>
                     <template #body="{ node }">
                         <div class="flex align-items-center gap-2">
-                            <i :class="`${node.data.icon} text-primary`"></i>
+                            <i :class="`${node.data.icon}`"></i>
                             <span class="font-semibold">{{
                                 node.data.name
                             }}</span>
@@ -123,8 +123,8 @@
             <Card v-if="(treeData || []).length === 0">
                 <template #content>
                     <div class="flex flex-column align-items-center gap-3 p-4">
-                        <i class="pi pi-inbox text-6xl text-surface-400"></i>
-                        <p class="text-surface-500">등록된 자산이 없습니다.</p>
+                        <i class="pi pi-inbox text-6xl"></i>
+                        <p>등록된 자산이 없습니다.</p>
                         <Button
                             label="첫 번째 증권사 추가하기"
                             icon="pi pi-plus"

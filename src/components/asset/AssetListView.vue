@@ -106,8 +106,7 @@
                 <Card>
                     <template #header>
                         <div class="flex align-items-center gap-2 p-3">
-                            <i
-                                :class="`${brokerage.data.icon} text-primary text-xl`"></i>
+                            <i :class="`${brokerage.data.icon} text-xl`"></i>
                             <h3 class="m-0">{{ brokerage.data.name }}</h3>
                         </div>
                     </template>
@@ -118,8 +117,7 @@
                                 :key="account.key">
                                 <div
                                     class="flex align-items-center gap-2 p-2 border-bottom-1 surface-border">
-                                    <i
-                                        :class="`${account.data.icon} text-primary`"></i>
+                                    <i :class="`${account.data.icon}`"></i>
                                     <span class="font-semibold">{{
                                         account.data.name
                                     }}</span>
@@ -133,8 +131,7 @@
                                     class="p-4 pl-6">
                                     <table class="w-full">
                                         <thead>
-                                            <tr
-                                                class="text-sm text-surface-500 border-bottom-1">
+                                            <tr class="text-sm border-bottom-1">
                                                 <th class="text-left p-2">
                                                     자산
                                                 </th>
@@ -160,7 +157,7 @@
                                                     <div
                                                         class="flex align-items-center gap-2">
                                                         <i
-                                                            :class="`${asset.data.icon} text-primary`"></i>
+                                                            :class="`${asset.data.icon}`"></i>
                                                         <span
                                                             class="font-semibold"
                                                             >{{
@@ -195,9 +192,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div
-                                    v-else
-                                    class="p-4 pl-6 text-surface-500 text-center">
+                                <div v-else class="p-4 pl-6 text-center">
                                     등록된 자산이 없습니다.
                                 </div>
                             </div>
@@ -209,8 +204,8 @@
             <Card v-if="treeData.length === 0">
                 <template #content>
                     <div class="flex flex-column align-items-center gap-3 p-4">
-                        <i class="pi pi-inbox text-6xl text-surface-400"></i>
-                        <p class="text-surface-500">등록된 자산이 없습니다.</p>
+                        <i class="pi pi-inbox text-6xl"></i>
+                        <p>등록된 자산이 없습니다.</p>
                     </div>
                 </template>
             </Card>
@@ -222,8 +217,7 @@
                 <template #content>
                     <table class="w-full">
                         <thead>
-                            <tr
-                                class="text-sm text-surface-500 border-bottom-1">
+                            <tr class="text-sm border-bottom-1">
                                 <th class="text-left p-3">종목</th>
                                 <th class="text-right p-3">평가액</th>
                                 <th class="text-right p-3">보유량</th>
@@ -265,7 +259,7 @@
                                     }}
                                 </td>
                                 <td class="text-right p-3">
-                                    <span class="text-sm text-surface-500">
+                                    <span class="text-sm">
                                         {{ stock.accounts.length }}개
                                     </span>
                                 </td>
@@ -278,8 +272,8 @@
             <Card v-else>
                 <template #content>
                     <div class="flex flex-column align-items-center gap-3 p-4">
-                        <i class="pi pi-inbox text-6xl text-surface-400"></i>
-                        <p class="text-surface-500">등록된 자산이 없습니다.</p>
+                        <i class="pi pi-inbox text-6xl"></i>
+                        <p>등록된 자산이 없습니다.</p>
                     </div>
                 </template>
             </Card>

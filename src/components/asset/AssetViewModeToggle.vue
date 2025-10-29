@@ -24,8 +24,7 @@
 </script>
 
 <template>
-    <div
-        class="flex align-items-center gap-3 mb-4 p-3 bg-surface-50 border-round">
+    <div class="flex align-items-center gap-3 mb-4 p-3 border-round">
         <label class="font-semibold text-sm">View 모드:</label>
         <div class="flex gap-2">
             <button

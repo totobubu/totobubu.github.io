@@ -785,9 +785,9 @@
             <template #content>
                 <div
                     class="flex flex-column align-items-center justify-content-center p-8 gap-4">
-                    <i class="pi pi-wallet text-8xl text-surface-400"></i>
+                    <i class="pi pi-wallet text-8xl"></i>
                     <h4 class="text-2xl font-bold">자산관리를 시작하세요</h4>
-                    <p class="text-surface-500">
+                    <p>
                         가족 구성원을 추가하여 자산을 체계적으로 관리할 수
                         있습니다.
                     </p>
@@ -837,8 +837,7 @@
                         <Column field="name" header="자산" expander>
                             <template #body="{ node }">
                                 <div class="flex align-items-center gap-2">
-                                    <i
-                                        :class="`${node.data.icon} text-primary`"></i>
+                                    <i :class="`${node.data.icon}`"></i>
                                     <span class="font-semibold">{{
                                         node.data.name
                                     }}</span>
@@ -903,11 +902,8 @@
                         <template #content>
                             <div
                                 class="flex flex-column align-items-center gap-3 p-4">
-                                <i
-                                    class="pi pi-inbox text-6xl text-surface-400"></i>
-                                <p class="text-surface-500">
-                                    등록된 자산이 없습니다.
-                                </p>
+                                <i class="pi pi-inbox text-6xl"></i>
+                                <p>등록된 자산이 없습니다.</p>
                                 <Button
                                     label="첫 번째 증권사 추가하기"
                                     icon="pi pi-plus"
@@ -936,14 +932,11 @@
                 <template #content>
                     <div
                         class="flex flex-column align-items-center justify-content-center p-8 gap-4">
-                        <i
-                            class="pi pi-user-plus text-8xl text-surface-400"></i>
+                        <i class="pi pi-user-plus text-8xl"></i>
                         <h4 class="text-2xl font-bold">
                             새로운 가족을 추가하세요
                         </h4>
-                        <p class="text-surface-500">
-                            배우자, 자녀, 부모님 등 가족의 자산을 관리하세요.
-                        </p>
+                        <p>배우자, 자녀, 부모님 등 가족의 자산을 관리하세요.</p>
                         <Button
                             label="가족 추가하기"
                             icon="pi pi-plus"
@@ -1124,7 +1117,7 @@
             <div class="flex flex-column gap-4">
                 <div v-if="uploadTargetAsset">
                     <Tag :value="uploadTargetAsset.data.name" severity="info" />
-                    <p class="text-surface-600">
+                    <p>
                         {{ uploadTargetAsset.data.name }}에 파일을 업로드합니다.
                     </p>
                 </div>
@@ -1139,7 +1132,7 @@
                     chooseLabel="파일 선택"
                     class="w-full">
                     <template #empty>
-                        <p class="text-center text-surface-500">
+                        <p class="text-center">
                             드래그하여 파일을 업로드하거나 클릭하여 선택하세요.
                         </p>
                     </template>
@@ -1149,16 +1142,15 @@
                     <h5 class="font-semibold">업로드 가능한 파일 형식:</h5>
                     <ul class="list-none pl-0">
                         <li class="flex align-items-center gap-2">
-                            <i class="pi pi-file text-primary" /> 입출금 내역
-                            (CSV, XLSX, PDF)
+                            <i class="pi pi-file" /> 입출금 내역 (CSV, XLSX,
+                            PDF)
                         </li>
                         <li class="flex align-items-center gap-2">
-                            <i class="pi pi-file text-primary" /> 매수/매도 내역
-                            (CSV, XLSX, PDF)
+                            <i class="pi pi-file" /> 매수/매도 내역 (CSV, XLSX,
+                            PDF)
                         </li>
                         <li class="flex align-items-center gap-2">
-                            <i class="pi pi-file text-primary" /> 환율 정보
-                            (CSV, XLSX)
+                            <i class="pi pi-file" /> 환율 정보 (CSV, XLSX)
                         </li>
                     </ul>
                 </div>

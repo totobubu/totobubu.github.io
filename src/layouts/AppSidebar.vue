@@ -84,7 +84,7 @@
         <div class="flex-grow-1 overflow-hidden">
             <DataTable
                 v-if="!error"
-                id="toto-search-datatable"
+                id="t-search-datatable"
                 :value="isLoading ? skeletonItems : filteredTickers"
                 v-model:selection="selectedTicker"
                 dataKey="symbol"
@@ -115,7 +115,7 @@
                         검색 결과가 없습니다.
                     </div>
                 </template>
-                <Column frozen class="toto-column-bookmark">
+                <Column frozen class="t-column-bookmark">
                     <template #body="{ data }">
                         <Skeleton
                             v-if="isLoading"
@@ -126,7 +126,7 @@
                             class="pi"
                             :class="
                                 user && myBookmarks[data.symbol]
-                                    ? 'pi-bookmark-fill text-primary'
+                                    ? 'pi-bookmark-fill'
                                     : 'pi-bookmark'
                             "
                             @click.stop="
@@ -138,7 +138,7 @@
                     field="symbol"
                     sortable
                     frozen
-                    class="font-bold toto-column-ticker">
+                    class="font-bold t-column-ticker">
                     <template #header
                         ><span>{{ isMobile ? '' : '티커' }}</span></template
                     >
@@ -147,7 +147,7 @@
                         <span v-else>{{ data.koName || data.symbol }}</span>
                     </template>
                 </Column>
-                <Column field="company" sortable class="toto-column-company">
+                <Column field="company" sortable class="t-column-company">
                     <template #header
                         ><span v-if="!isMobile">회사</span></template
                     >
@@ -162,10 +162,7 @@
                             :company-name="data.company" />
                     </template>
                 </Column>
-                <Column
-                    field="frequency"
-                    sortable
-                    class="toto-column-frequency">
+                <Column field="frequency" sortable class="t-column-frequency">
                     <template #header
                         ><span v-if="!isMobile">지급</span></template
                     >
@@ -177,7 +174,7 @@
                 <Column
                     field="group"
                     sortable
-                    class="toto-column-group"
+                    class="t-column-group"
                     sortField="groupOrder">
                     <template #header
                         ><span v-if="!isMobile">그룹</span></template
@@ -218,9 +215,8 @@
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* 살짝 그림자 효과 */
     }
 
-    /* ... 이하 스타일은 동일 ... */
-    .toto-column-bookmark .p-column-header-content,
-    .toto-column-bookmark .p-column-content {
+    .t-column-bookmark .p-column-header-content,
+    .t-column-bookmark .p-column-content {
         display: flex;
         justify-content: center;
         align-items: center;

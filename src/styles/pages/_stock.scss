@@ -72,7 +72,7 @@
     }
 }
 
-.toto-chart {
+.t-chart {
     @include bp.media-breakpoint-down('lg') {
         border-radius: 0;
         border: 0;
@@ -99,7 +99,7 @@
     }
 }
 
-.toto-history {
+.t-history {
     .p-datatable {
         &-header-cell {
             padding: 0.5rem 0.25rem;
@@ -137,7 +137,7 @@
     }
 }
 
-.toto-stock-history {
+.t-stock-history {
     &-date {
         @include bp.media-breakpoint-only('xs') {
             width: 5rem;

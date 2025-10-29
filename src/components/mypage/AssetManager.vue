@@ -733,7 +733,7 @@
                                             }}</span>
                                             <span
                                                 v-if="account.accountNumber"
-                                                class="text-xs text-surface-500"
+                                                class="text-xs"
                                                 >계좌번호:
                                                 {{
                                                     account.accountNumber
@@ -829,7 +829,7 @@
                                                     }}</span>
                                                     <span
                                                         v-if="asset.symbol"
-                                                        class="text-primary font-semibold"
+                                                        class="font-semibold"
                                                         >{{
                                                             asset.symbol
                                                         }}</span
@@ -874,7 +874,7 @@
                                             </div>
                                             <div
                                                 v-if="asset.notes"
-                                                class="text-xs text-surface-500 mt-1">
+                                                class="text-xs mt-1">
                                                 {{ asset.notes }}
                                             </div>
                                         </div>
@@ -889,10 +889,8 @@
             <Card v-if="familyMembers.length === 0">
                 <template #content>
                     <div class="flex flex-column align-items-center gap-3 p-4">
-                        <i class="pi pi-inbox text-6xl text-surface-400"></i>
-                        <p class="text-surface-500">
-                            등록된 가족 멤버가 없습니다.
-                        </p>
+                        <i class="pi pi-inbox text-6xl"></i>
+                        <p>등록된 가족 멤버가 없습니다.</p>
                         <Button
                             label="첫 번째 가족 멤버 추가하기"
                             icon="pi pi-plus"

@@ -336,21 +336,17 @@
         @update:visible="$emit('update:visible', $event)">
         <template #header>
             <div class="flex align-items-center gap-2">
-                <i class="pi pi-wallet text-primary"></i>
+                <i class="pi pi-wallet"></i>
                 <span class="font-bold text-lg">자산 추가</span>
             </div>
         </template>
 
         <div class="flex flex-column gap-4">
             <!-- Ticker 정보 -->
-            <div v-if="ticker" class="p-3 bg-primary-50 border-round">
+            <div v-if="ticker" class="p-3 border-round">
                 <div class="flex align-items-center justify-content-between">
-                    <span class="font-semibold text-primary"
-                        >Ticker: {{ ticker }}</span
-                    >
-                    <span v-if="price" class="text-primary"
-                        >{{ price.toLocaleString() }} 원</span
-                    >
+                    <span class="font-semibold">Ticker: {{ ticker }}</span>
+                    <span v-if="price">{{ price.toLocaleString() }} 원</span>
                 </div>
             </div>
 
@@ -505,7 +501,7 @@
 
                 <!-- 보유액 자동계산 표시 추가 -->
                 <div class="flex-1 flex flex-column gap-2">
-                    <label class="font-semibold text-sm text-surface-500"
+                    <label class="font-semibold text-sm"
                         >보유액 (자동계산)</label
                     >
                     <InputText
