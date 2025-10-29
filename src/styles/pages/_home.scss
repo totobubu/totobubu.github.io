@@ -60,9 +60,8 @@
             width: 100%;
             max-width: 300px;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             overflow: hidden;
-            gap: calc(var(--tw-spacing) * 5);
             height: calc(var(--tw-spacing) * 16);
             padding-left: calc(var(--tw-spacing) * 4);
             padding-right: calc(var(--tw-spacing) * 6);
@@ -77,15 +76,6 @@
             justify-content: center;
             border-radius: 50%;
             font-size: 1.25rem;
-            &.pi-calendar {
-                background: var(--p-amber-300);
-            }
-            &.pi-user {
-                background: var(--p-emerald-600);
-            }
-            &.pi-history {
-                background: var(--p-rose-300);
-            }
         }
     }
 }

@@ -135,10 +135,10 @@
     <div v-if="isStandalonePage" id="t-standalone">
         <RouterView />
     </div>
-    <div v-else id="t-layout" class="dark:bg-surface-950">
+    <div v-else id="t-layout">
         <Toast />
         <ConfirmDialog />
-        <main id="t-grid" class="dark:bg-zinc-900">
+        <main id="t-grid">
             <header id="t-header">
                 <div class="flex items-center gap-4 min-w-0">
                     <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
@@ -152,11 +152,7 @@
                                     item.label
                                 }}</span>
                             </router-link>
-                            <span
-                                v-else
-                                class="text-surface-500 dark:text-surface-400"
-                                >{{ item.label }}</span
-                            >
+                            <span v-else>{{ item.label }}</span>
                         </template>
                     </Breadcrumb>
                 </div>
@@ -204,7 +200,7 @@
             v-model:visible="visible"
             :position="isMobile ? 'full' : 'right'"
             modal
-            id="toto-search">
+            id="t-search">
             <AppSidebar />
         </Drawer>
     </div>

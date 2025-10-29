@@ -187,7 +187,7 @@
 </script>
 
 <template>
-    <Card class="toto-chart toto-candlestick-chart">
+    <Card class="t-chart t-candlestick-chart">
         <template #content>
             <div class="chart-wrapper">
                 <div class="chart-container" style="height: 500px">
@@ -195,9 +195,7 @@
                         v-if="priceData && priceData.length > 0"
                         :option="chartOption"
                         autoresize />
-                    <div
-                        v-else
-                        class="flex justify-center items-center h-full dark:text-surface-500">
+                    <div v-else class="flex justify-center items-center h-full">
                         <p>주가 데이터가 없습니다.</p>
                     </div>
                 </div>

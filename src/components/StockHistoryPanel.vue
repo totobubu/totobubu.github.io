@@ -47,7 +47,7 @@
 </script>
 
 <template>
-    <div class="toto-history">
+    <div class="t-history">
         <DataTable :value="formattedHistory" stripedRows scrollable>
             <Column
                 v-for="col in columns"
