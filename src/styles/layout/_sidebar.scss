@@ -38,9 +38,6 @@
 
     .p-accordioncontent-content {
         padding: 0.5rem;
-        .p-dark & {
-            background-color: var(--p-zinc-800);
-        }
         gap: 0.3rem;
         display: flex;
         flex-wrap: wrap;
@@ -164,10 +161,6 @@
         &-row-selected {
             > td,
             .p-datatable-frozen-column {
-                .p-dark & {
-                    background-color: var(--p-text-color-inversed, #ffffff);
-                    color: var(--p-text-color-inversed, #000000);
-                }
                 font-weight: 700;
             }
             .toto-column-bookmark .pi-bookmark-fill {

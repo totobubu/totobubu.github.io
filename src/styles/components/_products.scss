@@ -27,9 +27,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    .p-dark & {
-        background-color: var(--p-surface-900);
-    }
 }
 
 .products-table {
@@ -39,29 +36,14 @@
 
 .products-table-mask {
     backdrop-filter: blur(4px) !important;
-    .p-dark & {
-        background-color: color-mix(
-            in srgb,
-            var(--p-surface-900),
-            transparent 80%
-        ) !important;
-    }
 }
 
 .products-table-loading {
-    .p-dark & {
-        color: var(--p-primary-500) !important;
-    }
 }
 
 .products-search {
     font-size: 0.875rem;
     padding: 0.5rem;
-    .p-dark & {
-        background-color: var(--p-surface-900);
-        color: var(--p-surface-0);
-        border: 1px solid var(--p-surface-700);
-    }
 }
 
 @media (min-width: 768px) {
