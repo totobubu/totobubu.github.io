@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TCAF",
+        "koName": null,
+        "longName": null,
+        "company": "T.",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 39.16,
+        "englishName": "T. Rowe Price Capital Appreciation Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1472606,
+        "AvgVolume": 932685,
+        "sharesOutstanding": null,
+        "52Week": "28.28 - 39.34",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.7,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1196463,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 930062,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-06-15",
@@ -1048,7 +1086,7 @@
             "close": 27.079999923706055,
             "volume": 213400,
             "amount": 0.071,
-            "yield": 0.002584637851282489
+            "yield": 0.0025846379
         },
         {
             "date": "2023-12-21",
@@ -3074,7 +3112,7 @@
             "close": 33.650001525878906,
             "volume": 1332000,
             "amount": 0.145,
-            "yield": 0.004327066764035747
+            "yield": 0.0043270668
         },
         {
             "date": "2024-12-24",
@@ -4776,43 +4814,5 @@
             "date": "2025-12-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TCAF",
-        "koName": null,
-        "longName": null,
-        "company": "T.",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 39.16,
-        "englishName": "T. Rowe Price Capital Appreciation Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1472606,
-        "AvgVolume": 932685,
-        "sharesOutstanding": null,
-        "52Week": "28.28 - 39.34",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 38.7,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1196463,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 930062,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "BBJP",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 68.64,
+        "englishName": "JPMorgan BetaBuilders Japan ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3910971,
+        "AvgVolume": 1364359,
+        "sharesOutstanding": null,
+        "52Week": "49.03 - 69.37",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 68.14,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 897757,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1387128,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-06-18",
@@ -1056,7 +1094,7 @@
             "close": 40.86000061035156,
             "volume": 880450,
             "amount": 0.276,
-            "yield": 0.006754772292638624
+            "yield": 0.0067547723
         },
         {
             "date": "2018-12-26",
@@ -3066,7 +3104,7 @@
             "close": 49.5,
             "volume": 221100,
             "amount": 1.132,
-            "yield": 0.02845594205792434
+            "yield": 0.0284559421
         },
         {
             "date": "2019-12-24",
@@ -5084,7 +5122,7 @@
             "close": 54.52000045776367,
             "volume": 285750,
             "amount": 0.628,
-            "yield": 0.03235294026899505
+            "yield": 0.0323529403
         },
         {
             "date": "2020-12-23",
@@ -7094,7 +7132,7 @@
             "close": 55.060001373291016,
             "volume": 376700,
             "amount": 1.59,
-            "yield": 0.040400727474560694
+            "yield": 0.0404007275
         },
         {
             "date": "2021-12-22",
@@ -9104,7 +9142,7 @@
             "close": 45.290000915527344,
             "volume": 560300,
             "amount": 0.68,
-            "yield": 0.05011037611989366
+            "yield": 0.0501103761
         },
         {
             "date": "2022-12-21",
@@ -11106,7 +11144,7 @@
             "close": 51.040000915527344,
             "volume": 1960200,
             "amount": 1.601,
-            "yield": 0.044672932601861795
+            "yield": 0.0446729326
         },
         {
             "date": "2023-12-20",
@@ -13148,7 +13186,7 @@
             "close": 54.290000915527344,
             "volume": 444400,
             "amount": 1.535,
-            "yield": 0.0282845031703037
+            "yield": 0.0282845032
         },
         {
             "date": "2024-12-26",
@@ -14842,43 +14880,5 @@
             "date": "2025-12-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "BBJP",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 68.64,
-        "englishName": "JPMorgan BetaBuilders Japan ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 3910971,
-        "AvgVolume": 1364359,
-        "sharesOutstanding": null,
-        "52Week": "49.03 - 69.37",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 68.14,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 897757,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 1387128,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

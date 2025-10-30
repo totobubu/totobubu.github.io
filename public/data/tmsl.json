@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TMSL",
+        "koName": null,
+        "longName": null,
+        "company": "T.",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 35.42,
+        "englishName": "T. Rowe Price Small-Mid Cap ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 102590,
+        "AvgVolume": 137296,
+        "sharesOutstanding": null,
+        "52Week": "25.887 - 36.06",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.7,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 110552,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 137781,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-06-15",
@@ -1048,7 +1086,7 @@
             "close": 27.39900016784668,
             "volume": 17600,
             "amount": 0.095,
-            "yield": 0.0034086830692256665
+            "yield": 0.0034086831
         },
         {
             "date": "2023-12-21",
@@ -3074,7 +3112,7 @@
             "close": 32.529998779296875,
             "volume": 311000,
             "amount": 0.142,
-            "yield": 0.004367887029571004
+            "yield": 0.004367887
         },
         {
             "date": "2024-12-24",
@@ -4776,43 +4814,5 @@
             "date": "2025-12-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TMSL",
-        "koName": null,
-        "longName": null,
-        "company": "T.",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 35.42,
-        "englishName": "T. Rowe Price Small-Mid Cap ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 102590,
-        "AvgVolume": 137296,
-        "sharesOutstanding": null,
-        "52Week": "25.887 - 36.06",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 35.7,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 110552,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 137781,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

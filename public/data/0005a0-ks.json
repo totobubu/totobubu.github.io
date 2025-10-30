@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0005A0.KS",
+        "koName": "KODEX 미국S&P500데일리커버드콜OTM",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10110,
+        "englishName": "Samsung Kodex Us S&P500 Daily Covered Call ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 116813,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10055,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 117452,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-01-07",
@@ -112,7 +146,7 @@
             "close": 9880,
             "volume": 866631,
             "amount": 114,
-            "yield": 0.011626721060683324
+            "yield": 0.0116267211
         },
         {
             "date": "2025-01-31",
@@ -274,7 +308,7 @@
             "close": 9685,
             "volume": 977988,
             "amount": 90,
-            "yield": 0.021216848673946957
+            "yield": 0.0212168487
         },
         {
             "date": "2025-02-28",
@@ -612,7 +646,7 @@
             "close": 8760,
             "volume": 160803,
             "amount": 105,
-            "yield": 0.03541547277936963
+            "yield": 0.0354154728
         },
         {
             "date": "2025-04-30",
@@ -766,7 +800,7 @@
             "close": 8800,
             "volume": 137708,
             "amount": 108,
-            "yield": 0.04744027303754266
+            "yield": 0.047440273
         },
         {
             "date": "2025-05-30",
@@ -920,7 +954,7 @@
             "close": 8855,
             "volume": 46508,
             "amount": 110,
-            "yield": 0.05921348314606741
+            "yield": 0.0592134831
         },
         {
             "date": "2025-06-30",
@@ -1106,7 +1140,7 @@
             "close": 9275,
             "volume": 80396,
             "amount": 115,
-            "yield": 0.06903225806451613
+            "yield": 0.0690322581
         },
         {
             "date": "2025-07-31",
@@ -1268,7 +1302,7 @@
             "close": 9260,
             "volume": 92093,
             "amount": 116,
-            "yield": 0.0814615797958087
+            "yield": 0.0814615798
         },
         {
             "date": "2025-08-29",
@@ -1446,7 +1480,7 @@
             "close": 9485,
             "volume": 107668,
             "amount": 119,
-            "yield": 0.09183246073298429
+            "yield": 0.0918324607
         },
         {
             "date": "2025-09-30",
@@ -1600,39 +1634,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0005A0.KS",
-        "koName": "KODEX 미국S&P500데일리커버드콜OTM",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 10110.0,
-        "englishName": "Samsung Kodex Us S&P500 Daily Covered Call ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 116813,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10055,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 117452,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

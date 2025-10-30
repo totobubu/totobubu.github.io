@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JMEE",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 63.7,
+        "englishName": "JPMorgan Small & Mid Cap Enhanced Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 66859,
+        "AvgVolume": 100139,
+        "sharesOutstanding": null,
+        "52Week": "48.176 - 66.89",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.52,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 50695,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 101003,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-05-09",
@@ -1232,7 +1270,7 @@
             "close": 46.86000061035156,
             "volume": 12100,
             "amount": 2.39,
-            "yield": 0.050689287861172536
+            "yield": 0.0506892879
         },
         {
             "date": "2022-12-16",
@@ -1258,7 +1296,7 @@
             "close": 45.470001220703125,
             "volume": 15800,
             "amount": 0.661,
-            "yield": 0.06667395349453709
+            "yield": 0.0666739535
         },
         {
             "date": "2022-12-21",
@@ -3260,7 +3298,7 @@
             "close": 53.630001068115234,
             "volume": 36500,
             "amount": 0.67,
-            "yield": 0.0249624907655279
+            "yield": 0.0249624908
         },
         {
             "date": "2023-12-20",
@@ -5302,7 +5340,7 @@
             "close": 61.130001068115234,
             "volume": 112800,
             "amount": 0.575,
-            "yield": 0.00943860829419908
+            "yield": 0.0094386083
         },
         {
             "date": "2024-12-26",
@@ -6996,43 +7034,5 @@
             "date": "2025-12-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JMEE",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 63.7,
-        "englishName": "JPMorgan Small & Mid Cap Enhanced Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 66859,
-        "AvgVolume": 100139,
-        "sharesOutstanding": null,
-        "52Week": "48.176 - 66.89",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 64.52,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 50695,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 101003,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

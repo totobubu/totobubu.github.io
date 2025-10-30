@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CGCV",
+        "koName": null,
+        "longName": null,
+        "company": "Capital",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 30.42,
+        "englishName": "Capital Group Conservative Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 376093,
+        "AvgVolume": 409909,
+        "sharesOutstanding": null,
+        "52Week": "23.929 - 30.8",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.49,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 728904,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 397535,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-27",
@@ -528,7 +566,7 @@
             "close": 27.2549991607666,
             "volume": 37800,
             "amount": 0.082,
-            "yield": 0.003034788993737374
+            "yield": 0.003034789
         },
         {
             "date": "2024-10-01",
@@ -1018,7 +1056,7 @@
             "close": 26.979999542236328,
             "volume": 79900,
             "amount": 0.098,
-            "yield": 0.006696428780500993
+            "yield": 0.0066964288
         },
         {
             "date": "2024-12-27",
@@ -1524,7 +1562,7 @@
             "close": 27.114999771118164,
             "volume": 133700,
             "amount": 0.101,
-            "yield": 0.010516467336118454
+            "yield": 0.0105164673
         },
         {
             "date": "2025-04-01",
@@ -2022,7 +2060,7 @@
             "close": 28.600000381469727,
             "volume": 95500,
             "amount": 0.109,
-            "yield": 0.01366024554892961
+            "yield": 0.0136602455
         },
         {
             "date": "2025-07-01",
@@ -2536,7 +2574,7 @@
             "close": 30.110000610351562,
             "volume": 206900,
             "amount": 0.089,
-            "yield": 0.016004009191980088
+            "yield": 0.0160040092
         },
         {
             "date": "2025-10-01",
@@ -2714,43 +2752,5 @@
             "date": "2026-03-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CGCV",
-        "koName": null,
-        "longName": null,
-        "company": "Capital",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 30.42,
-        "englishName": "Capital Group Conservative Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 376093,
-        "AvgVolume": 409909,
-        "sharesOutstanding": null,
-        "52Week": "23.929 - 30.8",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 30.49,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 728904,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 397535,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

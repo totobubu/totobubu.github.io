@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "SMBS",
+        "koName": null,
+        "longName": null,
+        "company": "Schwab",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 25.83,
+        "englishName": "Schwab Mortgage-Backed Securities ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 626287,
+        "AvgVolume": 390970,
+        "sharesOutstanding": null,
+        "52Week": "24.57 - 26.22",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 393321,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 386167,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-11-19",
@@ -184,7 +222,7 @@
             "close": 24.950000762939453,
             "volume": 16600,
             "amount": 0.125,
-            "yield": 0.005008013004205643
+            "yield": 0.005008013
         },
         {
             "date": "2024-12-23",
@@ -402,7 +440,7 @@
             "close": 24.93000030517578,
             "volume": 60300,
             "amount": 0.131,
-            "yield": 0.010265047053135176
+            "yield": 0.0102650471
         },
         {
             "date": "2025-02-04",
@@ -556,7 +594,7 @@
             "close": 25.465999603271484,
             "volume": 12100,
             "amount": 0.101,
-            "yield": 0.014060654138713755
+            "yield": 0.0140606541
         },
         {
             "date": "2025-03-04",
@@ -726,7 +764,7 @@
             "close": 25.440000534057617,
             "volume": 16000,
             "amount": 0.102,
-            "yield": 0.01807086641312947
+            "yield": 0.0180708664
         },
         {
             "date": "2025-04-02",
@@ -896,7 +934,7 @@
             "close": 25.30500030517578,
             "volume": 215600,
             "amount": 0.027,
-            "yield": 0.019164037393659298
+            "yield": 0.0191640374
         },
         {
             "date": "2025-05-02",
@@ -1066,7 +1104,7 @@
             "close": 24.979999542236328,
             "volume": 264800,
             "amount": 0.112,
-            "yield": 0.023958334212119795
+            "yield": 0.0239583342
         },
         {
             "date": "2025-06-03",
@@ -1228,7 +1266,7 @@
             "close": 25.329999923706055,
             "volume": 305100,
             "amount": 0.108,
-            "yield": 0.027861089019287102
+            "yield": 0.027861089
         },
         {
             "date": "2025-07-02",
@@ -1406,7 +1444,7 @@
             "close": 25.31999969482422,
             "volume": 340600,
             "amount": 0.117,
-            "yield": 0.032555378862578935
+            "yield": 0.0325553789
         },
         {
             "date": "2025-08-04",
@@ -1576,7 +1614,7 @@
             "close": 25.329999923706055,
             "volume": 492400,
             "amount": 0.109,
-            "yield": 0.03683794577490602
+            "yield": 0.0368379458
         },
         {
             "date": "2025-09-03",
@@ -1746,7 +1784,7 @@
             "close": 25.639999389648438,
             "volume": 318200,
             "amount": 0.108,
-            "yield": 0.04056162343045438
+            "yield": 0.0405616234
         },
         {
             "date": "2025-10-02",
@@ -1932,43 +1970,5 @@
             "date": "2026-04-01",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "SMBS",
-        "koName": null,
-        "longName": null,
-        "company": "Schwab",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 25.83,
-        "englishName": "Schwab Mortgage-Backed Securities ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 626287,
-        "AvgVolume": 390970,
-        "sharesOutstanding": null,
-        "52Week": "24.57 - 26.22",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 25.91,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 393321,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 386167,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

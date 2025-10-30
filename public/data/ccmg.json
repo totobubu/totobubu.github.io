@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CCMG",
+        "koName": null,
+        "longName": null,
+        "company": "CCM",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 31.3932,
+        "englishName": "CCM Global Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 8465,
+        "AvgVolume": 42957,
+        "sharesOutstanding": null,
+        "52Week": "24.475 - 31.54",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.3317,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 29735,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 42739,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-01-18",
@@ -384,7 +422,7 @@
             "close": 27.086000442504883,
             "volume": 11500,
             "amount": 0.068,
-            "yield": 0.0025036818991911467
+            "yield": 0.0025036819
         },
         {
             "date": "2024-03-27",
@@ -898,7 +936,7 @@
             "close": 26.989999771118164,
             "volume": 56600,
             "amount": 0.14,
-            "yield": 0.007732342117087526
+            "yield": 0.0077323421
         },
         {
             "date": "2024-06-28",
@@ -1412,7 +1450,7 @@
             "close": 29.079999923706055,
             "volume": 15100,
             "amount": 0.168,
-            "yield": 0.012894375924812266
+            "yield": 0.0128943759
         },
         {
             "date": "2024-09-30",
@@ -1926,7 +1964,7 @@
             "close": 27.200000762939453,
             "volume": 22600,
             "amount": 0.231,
-            "yield": 0.022299780136371926
+            "yield": 0.0222997801
         },
         {
             "date": "2024-12-31",
@@ -2408,7 +2446,7 @@
             "close": 27.756999969482422,
             "volume": 10500,
             "amount": 0.096,
-            "yield": 0.022800717820546372
+            "yield": 0.0228007178
         },
         {
             "date": "2025-03-31",
@@ -2906,7 +2944,7 @@
             "close": 29.180999755859375,
             "volume": 16700,
             "amount": 0.166,
-            "yield": 0.027544704336365
+            "yield": 0.0275447043
         },
         {
             "date": "2025-06-30",
@@ -3420,7 +3458,7 @@
             "close": 30.97100067138672,
             "volume": 6300,
             "amount": 0.177,
-            "yield": 0.021668822714967655
+            "yield": 0.0216688227
         },
         {
             "date": "2025-09-30",
@@ -3598,43 +3636,5 @@
             "date": "2026-03-27",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CCMG",
-        "koName": null,
-        "longName": null,
-        "company": "CCM",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 31.3932,
-        "englishName": "CCM Global Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 8465,
-        "AvgVolume": 42957,
-        "sharesOutstanding": null,
-        "52Week": "24.475 - 31.54",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 31.3317,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 29735,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 42739,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

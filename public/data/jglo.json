@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JGLO",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 69.06,
+        "englishName": "Jpmorgan Global Select Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 132251,
+        "AvgVolume": 201773,
+        "sharesOutstanding": null,
+        "52Week": "51.78 - 69.39",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 68.57,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 89719,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 204254,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-09-14",
@@ -544,7 +582,7 @@
             "close": 51.88999938964844,
             "volume": 1400,
             "amount": 0.17,
-            "yield": 0.00327742439754515
+            "yield": 0.0032774244
         },
         {
             "date": "2023-12-20",
@@ -2538,7 +2576,7 @@
             "close": 62.220001220703125,
             "volume": 81600,
             "amount": 0.824,
-            "yield": 0.015952495234995694
+            "yield": 0.0159524952
         },
         {
             "date": "2024-12-17",
@@ -2588,7 +2626,7 @@
             "close": 61.2599983215332,
             "volume": 50600,
             "amount": 0.377,
-            "yield": 0.019766294160254584
+            "yield": 0.0197662942
         },
         {
             "date": "2024-12-26",
@@ -4282,43 +4320,5 @@
             "date": "2025-12-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JGLO",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 69.06,
-        "englishName": "Jpmorgan Global Select Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 132251,
-        "AvgVolume": 201773,
-        "sharesOutstanding": null,
-        "52Week": "51.78 - 69.39",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 68.57,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 89719,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 204254,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

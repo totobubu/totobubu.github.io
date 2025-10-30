@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FELC",
+        "koName": null,
+        "longName": null,
+        "company": "Fidelity",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 38.24,
+        "englishName": "Fidelity Enhanced Large Cap Core ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1451237,
+        "AvgVolume": 980760,
+        "sharesOutstanding": null,
+        "52Week": "26.9 - 38.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.73,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 681022,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 987973,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-20",
@@ -216,7 +254,7 @@
             "close": 26.65999984741211,
             "volume": 147800,
             "amount": 0.01,
-            "yield": 0.00037453182450392867
+            "yield": 0.0003745318
         },
         {
             "date": "2023-12-29",
@@ -642,7 +680,7 @@
             "close": 28.68000030517578,
             "volume": 295100,
             "amount": 0.089,
-            "yield": 0.003462749194530479
+            "yield": 0.0034627492
         },
         {
             "date": "2024-03-18",
@@ -1180,7 +1218,7 @@
             "close": 30.540000915527344,
             "volume": 286100,
             "amount": 0.079,
-            "yield": 0.005818895034720728
+            "yield": 0.005818895
         },
         {
             "date": "2024-06-24",
@@ -1686,7 +1724,7 @@
             "close": 31.739999771118164,
             "volume": 357200,
             "amount": 0.078,
-            "yield": 0.00806553250932747
+            "yield": 0.0080655325
         },
         {
             "date": "2024-09-23",
@@ -2200,7 +2238,7 @@
             "close": 33.2599983215332,
             "volume": 908000,
             "amount": 0.093,
-            "yield": 0.010666258770772144
+            "yield": 0.0106662588
         },
         {
             "date": "2024-12-23",
@@ -2682,7 +2720,7 @@
             "close": 31.510000228881836,
             "volume": 694900,
             "amount": 0.093,
-            "yield": 0.010990067608513536
+            "yield": 0.0109900676
         },
         {
             "date": "2025-03-24",
@@ -3180,7 +3218,7 @@
             "close": 33.11000061035156,
             "volume": 696000,
             "amount": 0.091,
-            "yield": 0.013021301414860038
+            "yield": 0.0130213014
         },
         {
             "date": "2025-06-23",
@@ -3686,7 +3724,7 @@
             "close": 37.15999984741211,
             "volume": 868100,
             "amount": 0.081,
-            "yield": 0.011742525921293542
+            "yield": 0.0117425259
         },
         {
             "date": "2025-09-22",
@@ -3920,43 +3958,5 @@
             "date": "2026-03-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FELC",
-        "koName": null,
-        "longName": null,
-        "company": "Fidelity",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 38.24,
-        "englishName": "Fidelity Enhanced Large Cap Core ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1451237,
-        "AvgVolume": 980760,
-        "sharesOutstanding": null,
-        "52Week": "26.9 - 38.4",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 37.73,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 681022,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 987973,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

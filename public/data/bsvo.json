@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "BSVO",
+        "koName": null,
+        "longName": null,
+        "company": "EA",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 22.4784,
+        "englishName": "EA Bridgeway Omni Small-Cap Value ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 146885,
+        "AvgVolume": 181357,
+        "sharesOutstanding": null,
+        "52Week": "16.55 - 24.22",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 64855,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 181321,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-03-13",
@@ -1576,7 +1614,7 @@
             "close": 20.649999618530273,
             "volume": 201700,
             "amount": 0.3,
-            "yield": 0.014326647199080464
+            "yield": 0.0143266472
         },
         {
             "date": "2023-12-21",
@@ -3586,7 +3624,7 @@
             "close": 21.399999618530273,
             "volume": 247000,
             "amount": 0.348,
-            "yield": 0.02956204369272787
+            "yield": 0.0295620437
         },
         {
             "date": "2024-12-20",
@@ -5304,43 +5342,5 @@
             "date": "2025-12-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "BSVO",
-        "koName": null,
-        "longName": null,
-        "company": "EA",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 22.4784,
-        "englishName": "EA Bridgeway Omni Small-Cap Value ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 146885,
-        "AvgVolume": 181357,
-        "sharesOutstanding": null,
-        "52Week": "16.55 - 24.22",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 22.95,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 64855,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 181321,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

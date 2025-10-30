@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "448300.KS",
+        "koName": "TIGER 미국나스닥100(H)",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 20760,
+        "englishName": "Mirae Asset Tiger Nasdaq 100 Total Return ETF (H)",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 155953,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20525,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 14353,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 154865,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-25",
@@ -4592,7 +4630,7 @@
             "close": 15620,
             "volume": 105454,
             "amount": 26,
-            "yield": 0.0016645326504481433
+            "yield": 0.0016645327
         },
         {
             "date": "2025-04-30",
@@ -5082,7 +5120,7 @@
             "close": 18640,
             "volume": 79685,
             "amount": 27,
-            "yield": 0.0028464017185821696
+            "yield": 0.0028464017
         },
         {
             "date": "2025-07-31",
@@ -5564,43 +5602,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "448300.KS",
-        "koName": "TIGER 미국나스닥100(H)",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 20760.0,
-        "englishName": "Mirae Asset Tiger Nasdaq 100 Total Return ETF (H)",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 155953,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 20525,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 14353,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 154865,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

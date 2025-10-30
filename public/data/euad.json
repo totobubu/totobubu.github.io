@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "EUAD",
+        "koName": null,
+        "longName": null,
+        "company": "Select",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 44.27,
+        "englishName": "Select STOXX Europe Aerospace & Defense ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 512896,
+        "AvgVolume": 381926,
+        "sharesOutstanding": null,
+        "52Week": "24.24 - 47.64",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.52,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 412327,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 398435,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-10-22",
@@ -384,7 +422,7 @@
             "close": 24.40399932861328,
             "volume": 3200,
             "amount": 0.023,
-            "yield": 0.000942816133158968
+            "yield": 0.0009428161
         },
         {
             "date": "2024-12-31",
@@ -2050,43 +2088,5 @@
             "close": 44.27000045776367,
             "volume": 512896
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "EUAD",
-        "koName": null,
-        "longName": null,
-        "company": "Select",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 44.27,
-        "englishName": "Select STOXX Europe Aerospace & Defense ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 512896,
-        "AvgVolume": 381926,
-        "sharesOutstanding": null,
-        "52Week": "24.24 - 47.64",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 44.52,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 412327,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 398435,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

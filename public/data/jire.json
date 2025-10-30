@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JIRE",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 74.9,
+        "englishName": "JPMorgan International Research Enhanced Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1846440,
+        "AvgVolume": 366835,
+        "sharesOutstanding": null,
+        "52Week": "56.3 - 75.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.84,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 202181,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 372685,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-06-15",
@@ -3050,7 +3088,7 @@
             "close": 57.59000015258789,
             "volume": 60500,
             "amount": 1.599,
-            "yield": 0.050512063342646824
+            "yield": 0.0505120633
         },
         {
             "date": "2023-12-20",
@@ -5092,7 +5130,7 @@
             "close": 58.900001525878906,
             "volume": 133800,
             "amount": 1.771,
-            "yield": 0.03027350427350427
+            "yield": 0.0302735043
         },
         {
             "date": "2024-12-26",
@@ -6786,43 +6824,5 @@
             "date": "2025-12-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JIRE",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 74.9,
-        "englishName": "JPMorgan International Research Enhanced Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1846440,
-        "AvgVolume": 366835,
-        "sharesOutstanding": null,
-        "52Week": "56.3 - 75.6",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 74.84,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 202181,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 372685,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }
