@@ -64,10 +64,10 @@ def clean_duplicate_dividends(backtest_data):
                 continue
 
             prev_value = get_dividend_value(prev_item)
-            # 소수점 6자리 동일 또는 절대 오차 1e-6 이내면 동일 배당으로 간주
+            # 소수점 3자리 동일 또는 절대 오차 0.001 이내면 동일 배당으로 간주
             if prev_value is not None and (
-                round(prev_value, 6) == round(current_value, 6)
-                or abs(prev_value - current_value) < 1e-6
+                round(prev_value, 3) == round(current_value, 3)
+                or abs(prev_value - current_value) < 0.001
             ):
                 if j not in duplicate_indices:
                     duplicate_indices.insert(0, j)
@@ -80,10 +80,10 @@ def clean_duplicate_dividends(backtest_data):
                 break
 
             next_value = get_dividend_value(next_item)
-            # 소수점 6자리 동일 또는 절대 오차 1e-6 이내면 동일 배당으로 간주
+            # 소수점 3자리 동일 또는 절대 오차 0.001 이내면 동일 배당으로 간주
             if next_value is not None and (
-                round(next_value, 6) == round(current_value, 6)
-                or abs(next_value - current_value) < 1e-6
+                round(next_value, 3) == round(current_value, 3)
+                or abs(next_value - current_value) < 0.001
             ):
                 duplicate_indices.append(j)
             else:

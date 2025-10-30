@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "223190.KS",
+        "koName": "KODEX 200가치저변동",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16870,
+        "englishName": "KODEX 200 Intrinsic Value",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 8378,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16745,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8349,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-18",
@@ -1664,7 +1698,7 @@
             "close": 11040,
             "volume": 223,
             "amount": 373,
-            "yield": 0.03386291420789832
+            "yield": 0.0338629142
         },
         {
             "date": "2025-04-30",
@@ -2626,39 +2660,5 @@
             "close": 16870,
             "volume": 2097
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "223190.KS",
-        "koName": "KODEX 200가치저변동",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 16870.0,
-        "englishName": "KODEX 200 Intrinsic Value",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 8378,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 16745,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 8349,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

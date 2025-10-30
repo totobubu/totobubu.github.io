@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0085N0.KS",
+        "koName": "ACE 미국10년국채액티브(H)",
+        "longName": null,
+        "company": "한국투자신탁운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10335,
+        "englishName": "Kim Ace U.S. 10 Year T-Bond Active Etf(H)",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 74790,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10350,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 76629,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-07-22",
@@ -216,7 +250,7 @@
             "close": 10130,
             "volume": 43659,
             "amount": 32,
-            "yield": 0.003155818540433925
+            "yield": 0.0031558185
         },
         {
             "date": "2025-08-29",
@@ -394,7 +428,7 @@
             "close": 10180,
             "volume": 6393,
             "amount": 30,
-            "yield": 0.006087383406971036
+            "yield": 0.0060873834
         },
         {
             "date": "2025-09-30",
@@ -548,39 +582,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0085N0.KS",
-        "koName": "ACE 미국10년국채액티브(H)",
-        "longName": null,
-        "company": "한국투자신탁운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 10335.0,
-        "englishName": "Kim Ace U.S. 10 Year T-Bond Active Etf(H)",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 74790,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10350,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 76629,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

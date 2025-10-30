@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "EQTY",
+        "koName": null,
+        "longName": null,
+        "company": "Kovitz",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 25.98,
+        "englishName": "Kovitz Core Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 30457,
+        "AvgVolume": 41225,
+        "sharesOutstanding": null,
+        "52Week": "20.395 - 26.652",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.5303,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 19099,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 40898,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-12-12",
@@ -104,7 +142,7 @@
             "close": 15.760000228881836,
             "volume": 185400,
             "amount": 0.013,
-            "yield": 0.0008387638130950888
+            "yield": 0.0008387638
         },
         {
             "date": "2022-12-30",
@@ -2098,7 +2136,7 @@
             "close": 19.902000427246094,
             "volume": 5900,
             "amount": 0.051,
-            "yield": 0.0032193160312755298
+            "yield": 0.003219316
         },
         {
             "date": "2023-12-28",
@@ -4116,7 +4154,7 @@
             "close": 24.055999755859375,
             "volume": 91200,
             "amount": 0.078,
-            "yield": 0.0032338307332529536
+            "yield": 0.0032338307
         },
         {
             "date": "2024-12-30",
@@ -5794,43 +5832,5 @@
             "date": "2025-12-26",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "EQTY",
-        "koName": null,
-        "longName": null,
-        "company": "Kovitz",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 25.98,
-        "englishName": "Kovitz Core Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 30457,
-        "AvgVolume": 41225,
-        "sharesOutstanding": null,
-        "52Week": "20.395 - 26.652",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 26.5303,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 19099,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 40898,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

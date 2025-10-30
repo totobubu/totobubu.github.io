@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TGRW",
+        "koName": null,
+        "longName": null,
+        "company": "T.",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 48.03,
+        "englishName": "T. Rowe Price Growth Stock ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5589,
+        "AvgVolume": 10828,
+        "sharesOutstanding": null,
+        "52Week": "30.81 - 48.16",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.3516,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5195,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 10832,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2020-08-05",
@@ -768,7 +806,7 @@
             "close": 29.08099937438965,
             "volume": 3600,
             "amount": 0.06,
-            "yield": 0.0020498803915831643
+            "yield": 0.0020498804
         },
         {
             "date": "2020-12-21",
@@ -6812,7 +6850,7 @@
             "close": 30.25,
             "volume": 13800,
             "amount": 0.003,
-            "yield": 9.810333575816516e-5
+            "yield": 0.0000981033
         },
         {
             "date": "2023-12-21",
@@ -10538,43 +10576,5 @@
             "date": "2025-12-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TGRW",
-        "koName": null,
-        "longName": null,
-        "company": "T.",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 48.03,
-        "englishName": "T. Rowe Price Growth Stock ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 5589,
-        "AvgVolume": 10828,
-        "sharesOutstanding": null,
-        "52Week": "30.81 - 48.16",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 46.3516,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 5195,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 10832,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

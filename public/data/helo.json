@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "HELO",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 65.79,
+        "englishName": "Jpmorgan Hedged Equity Laddered Overlay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 412314,
+        "AvgVolume": 315362,
+        "sharesOutstanding": null,
+        "52Week": "56.11 - 66.01",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.56,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 205957,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 318767,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-09-29",
@@ -456,7 +494,7 @@
             "close": 52.79999923706055,
             "volume": 35200,
             "amount": 0.103,
-            "yield": 0.0019539030579883913
+            "yield": 0.0019539031
         },
         {
             "date": "2023-12-20",
@@ -946,7 +984,7 @@
             "close": 55.58000183105469,
             "volume": 92300,
             "amount": 0.053,
-            "yield": 0.002817919044076566
+            "yield": 0.002817919
         },
         {
             "date": "2024-03-20",
@@ -1484,7 +1522,7 @@
             "close": 58.459999084472656,
             "volume": 142700,
             "amount": 0.084,
-            "yield": 0.004104668975362028
+            "yield": 0.004104669
         },
         {
             "date": "2024-06-26",
@@ -1990,7 +2028,7 @@
             "close": 60.720001220703125,
             "volume": 273700,
             "amount": 0.082,
-            "yield": 0.005299539316904227
+            "yield": 0.0052995393
         },
         {
             "date": "2024-09-25",
@@ -2504,7 +2542,7 @@
             "close": 63.0099983215332,
             "volume": 125500,
             "amount": 0.151,
-            "yield": 0.005899234579062275
+            "yield": 0.0058992346
         },
         {
             "date": "2024-12-26",
@@ -2986,7 +3024,7 @@
             "close": 60.88999938964844,
             "volume": 461400,
             "amount": 0.088,
-            "yield": 0.00663499334740305
+            "yield": 0.0066349933
         },
         {
             "date": "2025-03-26",
@@ -3484,7 +3522,7 @@
             "close": 62.27000045776367,
             "volume": 286400,
             "amount": 0.101,
-            "yield": 0.008131126526147106
+            "yield": 0.0081311265
         },
         {
             "date": "2025-06-25",
@@ -3990,7 +4028,7 @@
             "close": 64.80999755859375,
             "volume": 1704600,
             "amount": 0.127,
-            "yield": 0.00844745373204659
+            "yield": 0.0084474537
         },
         {
             "date": "2025-09-24",
@@ -4208,43 +4246,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "HELO",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 65.79,
-        "englishName": "Jpmorgan Hedged Equity Laddered Overlay ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 412314,
-        "AvgVolume": 315362,
-        "sharesOutstanding": null,
-        "52Week": "56.11 - 66.01",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 65.56,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 205957,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 318767,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

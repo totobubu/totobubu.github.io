@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "RSSL",
+        "koName": null,
+        "longName": null,
+        "company": "Global",
+        "frequency": "분기",
+        "group": "AJOD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 96.7592,
+        "englishName": "Global X Russell 2000 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 13790,
+        "AvgVolume": 8659,
+        "sharesOutstanding": null,
+        "52Week": "67.67 - 98.85",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.9568,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2951,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8714,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-05",
@@ -160,7 +198,7 @@
             "close": 79.48999786376953,
             "volume": 23800,
             "amount": 0.044,
-            "yield": 0.0005531807831725907
+            "yield": 0.0005531808
         },
         {
             "date": "2024-07-05",
@@ -674,7 +712,7 @@
             "close": 85.0999984741211,
             "volume": 48500,
             "amount": 0.302,
-            "yield": 0.004052471435118824
+            "yield": 0.0040524714
         },
         {
             "date": "2024-10-04",
@@ -1156,7 +1194,7 @@
             "close": 86.7699966430664,
             "volume": 114900,
             "amount": 0.516,
-            "yield": 0.009933164463303123
+            "yield": 0.0099331645
         },
         {
             "date": "2024-12-31",
@@ -1670,7 +1708,7 @@
             "close": 74.08000183105469,
             "volume": 12500,
             "amount": 0.168,
-            "yield": 0.01354906663356113
+            "yield": 0.0135490666
         },
         {
             "date": "2025-04-04",
@@ -2168,7 +2206,7 @@
             "close": 87.31999969482422,
             "volume": 16800,
             "amount": 0.293,
-            "yield": 0.015092401833561187
+            "yield": 0.0150924018
         },
         {
             "date": "2025-07-07",
@@ -2682,7 +2720,7 @@
             "close": 95.97000122070312,
             "volume": 37300,
             "amount": 0.355,
-            "yield": 0.016788245856979387
+            "yield": 0.0167882459
         },
         {
             "date": "2025-10-06",
@@ -2836,43 +2874,5 @@
             "date": "2026-04-03",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "RSSL",
-        "koName": null,
-        "longName": null,
-        "company": "Global",
-        "frequency": "분기",
-        "group": "AJOD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 96.7592,
-        "englishName": "Global X Russell 2000 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 13790,
-        "AvgVolume": 8659,
-        "sharesOutstanding": null,
-        "52Week": "67.67 - 98.85",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 97.9568,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 2951,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 8714,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

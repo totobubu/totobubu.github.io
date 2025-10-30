@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "MSOS",
+        "koName": null,
+        "longName": null,
+        "company": "AdvisorShares",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 4.52,
+        "englishName": "AdvisorShares Pure US Cannabis ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4818688,
+        "AvgVolume": 13243242,
+        "sharesOutstanding": null,
+        "52Week": "2.02 - 7.229",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.75,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4760330,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13327517,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2020-09-02",
@@ -2648,7 +2686,7 @@
             "close": 25.360000610351562,
             "volume": 1873600,
             "amount": 0.07,
-            "yield": 0.002842062622214936
+            "yield": 0.0028420626
         },
         {
             "date": "2021-12-27",
@@ -10370,43 +10408,5 @@
             "close": 4.519999980926514,
             "volume": 4818688
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "MSOS",
-        "koName": null,
-        "longName": null,
-        "company": "AdvisorShares",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 4.52,
-        "englishName": "AdvisorShares Pure US Cannabis ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 4818688,
-        "AvgVolume": 13243242,
-        "sharesOutstanding": null,
-        "52Week": "2.02 - 7.229",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 4.75,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 4760330,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 13327517,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,46 @@
 {
+    "tickerInfo": {
+        "Symbol": "PTLC",
+        "koName": null,
+        "longName": null,
+        "company": "Pacer",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 56.49,
+        "englishName": "Pacer Trendpilot US Large Cap ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": 4301713408,
+        "Volume": 131963,
+        "AvgVolume": 168560,
+        "sharesOutstanding": 76150000,
+        "52Week": "47.13 - 56.71",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.65,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 4237747712,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 99806,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 169992,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2015-06-12",
@@ -1112,7 +1154,7 @@
             "close": 23.420000076293945,
             "volume": 104100,
             "amount": 0.059,
-            "yield": 0.0025741710210997527
+            "yield": 0.002574171
         },
         {
             "date": "2015-12-30",
@@ -3130,7 +3172,7 @@
             "close": 23.940000534057617,
             "volume": 108200,
             "amount": 0.258,
-            "yield": 0.013088357101034748
+            "yield": 0.0130883571
         },
         {
             "date": "2016-12-29",
@@ -5140,7 +5182,7 @@
             "close": 28.690000534057617,
             "volume": 267600,
             "amount": 0.277,
-            "yield": 0.01857638938099515
+            "yield": 0.0185763894
         },
         {
             "date": "2017-12-28",
@@ -7134,7 +7176,7 @@
             "close": 28.780000686645508,
             "volume": 582900,
             "amount": 0.287,
-            "yield": 0.019481864771554985
+            "yield": 0.0194818648
         },
         {
             "date": "2018-12-26",
@@ -9152,7 +9194,7 @@
             "close": 33.400001525878906,
             "volume": 197500,
             "amount": 0.368,
-            "yield": 0.019581464426323716
+            "yield": 0.0195814644
         },
         {
             "date": "2019-12-26",
@@ -11154,7 +11196,7 @@
             "close": 32.154998779296875,
             "volume": 227900,
             "amount": 0.352,
-            "yield": 0.022514071616826895
+            "yield": 0.0225140716
         },
         {
             "date": "2020-12-22",
@@ -13188,7 +13230,7 @@
             "close": 41.20000076293945,
             "volume": 42700,
             "amount": 0.305,
-            "yield": 0.007433585402734607
+            "yield": 0.0074335854
         },
         {
             "date": "2021-12-27",
@@ -15198,7 +15240,7 @@
             "close": 37.459999084472656,
             "volume": 112200,
             "amount": 0.471,
-            "yield": 0.020704375919896243
+            "yield": 0.0207043759
         },
         {
             "date": "2022-12-23",
@@ -17224,7 +17266,7 @@
             "close": 43.380001068115234,
             "volume": 133000,
             "amount": 0.51,
-            "yield": 0.011761992454359998
+            "yield": 0.0117619925
         },
         {
             "date": "2023-12-28",
@@ -19242,7 +19284,7 @@
             "close": 54.25,
             "volume": 145600,
             "amount": 0.358,
-            "yield": 0.00654598663356271
+            "yield": 0.0065459866
         },
         {
             "date": "2024-12-30",
@@ -20920,47 +20962,5 @@
             "date": "2025-12-26",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "PTLC",
-        "koName": null,
-        "longName": null,
-        "company": "Pacer",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 56.49,
-        "englishName": "Pacer Trendpilot US Large Cap ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": 4301713408,
-        "Volume": 131963,
-        "AvgVolume": 168560,
-        "sharesOutstanding": 76150000,
-        "52Week": "47.13 - 56.71",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 55.65,
-                "change": "up"
-            },
-            "marketCap": {
-                "value": 4237747712,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 99806,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 169992,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

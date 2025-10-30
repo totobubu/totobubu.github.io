@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "NIHI",
+        "koName": null,
+        "longName": null,
+        "company": null,
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 50.11,
+        "englishName": "NEOS MSCI EAFE High Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 36453,
+        "AvgVolume": 20026,
+        "sharesOutstanding": null,
+        "52Week": "48.871 - 50.486",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.17,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15606,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20028,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-09-17",
@@ -49,7 +87,7 @@
             "volume": 18600,
             "amount": 0.38,
             "amountFixed": 0.3799,
-            "yield": 0.007677849707248195
+            "yield": 0.0076778497
         },
         {
             "date": "2025-09-25",
@@ -211,7 +249,7 @@
             "close": 49.744998931884766,
             "volume": 8900,
             "amountFixed": 0.4026,
-            "yield": 0.015712851646344467,
+            "yield": 0.0157128516,
             "amount": 0.403
         },
         {
@@ -278,43 +316,5 @@
             "date": "2026-04-22",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "NIHI",
-        "koName": null,
-        "longName": null,
-        "company": null,
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 50.11,
-        "englishName": "NEOS MSCI EAFE High Income ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 36453,
-        "AvgVolume": 20026,
-        "sharesOutstanding": null,
-        "52Week": "48.871 - 50.486",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 50.17,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 15606,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 20028,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

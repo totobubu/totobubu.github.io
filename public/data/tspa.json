@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TSPA",
+        "koName": null,
+        "longName": null,
+        "company": "T.",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 43.35,
+        "englishName": "T. Rowe Price US Equity Research ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 151168,
+        "AvgVolume": 155442,
+        "sharesOutstanding": null,
+        "52Week": "30.28 - 43.5299",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.66,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 152747,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 156579,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-06-14",
@@ -1064,7 +1102,7 @@
             "close": 27.09000015258789,
             "volume": 1400,
             "amount": 0.122,
-            "yield": 0.0045135033999564615
+            "yield": 0.0045135034
         },
         {
             "date": "2021-12-21",
@@ -3082,7 +3120,7 @@
             "close": 22.614999771118164,
             "volume": 6200,
             "amount": 0.264,
-            "yield": 0.017019400123725364
+            "yield": 0.0170194001
         },
         {
             "date": "2022-12-21",
@@ -5092,7 +5130,7 @@
             "close": 28.979999542236328,
             "volume": 16800,
             "amount": 0.121,
-            "yield": 0.01309969404543786
+            "yield": 0.013099694
         },
         {
             "date": "2023-12-21",
@@ -7118,7 +7156,7 @@
             "close": 37.540000915527344,
             "volume": 94800,
             "amount": 0.185,
-            "yield": 0.004955799381882141
+            "yield": 0.0049557994
         },
         {
             "date": "2024-12-24",
@@ -8820,43 +8858,5 @@
             "date": "2025-12-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TSPA",
-        "koName": null,
-        "longName": null,
-        "company": "T.",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 43.35,
-        "englishName": "T. Rowe Price US Equity Research ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 151168,
-        "AvgVolume": 155442,
-        "sharesOutstanding": null,
-        "52Week": "30.28 - 43.5299",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 42.66,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 152747,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 156579,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

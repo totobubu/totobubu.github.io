@@ -313,7 +313,7 @@
             <div class="flex align-items-center gap-3">
                 <Checkbox v-model="isAllSelected" :binary="true" />
                 <h1>
-                    ({{ selectedThumbnails.length }} /
+                    썸네일 일괄 생성 ({{ selectedThumbnails.length }} /
                     {{ allThumbnailsData.length }})
                 </h1>
             </div>
@@ -337,11 +337,13 @@
                 <!-- [핵심 수정] 날짜 입력 및 동기화 버튼 -->
                 <InputText v-model="date" placeholder="YY. MM. DD" />
                 <Button
+                    label="데이터 동기화"
                     icon="pi pi-sync"
                     @click="syncDividendData"
                     :loading="isSyncing" />
 
                 <Button
+                    label="선택 이미지 다운로드"
                     icon="pi pi-download"
                     @click="downloadImages"
                     :loading="isDownloading"
