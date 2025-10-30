@@ -55,7 +55,7 @@ $thumbnail-px: 4px;
     height: 100%;
     aspect-ratio: 1 / 1;
 
-    .thumbnail-container {
+    .thumbnail-container-inner {
         width: $thumbnail-size;
         height: $thumbnail-size;
         position: relative;
@@ -147,13 +147,19 @@ $thumbnail-px: 4px;
 
     // with-chart 상태에서만 적용되는 스타일 모음
     &.with-chart {
+        height: auto;
         aspect-ratio: 1 / 1.2;
-        background-color: #ffffff;
 
         // 차트 영역 스타일
 
+        .thumbnail-container {
+            height: auto;
+            aspect-ratio: 1 / 1.2;
+            background-color: #ffffff;
+        }
+
         .segment-label {
-            font-size: $thumbnail-px * 3.5;
+            font-size: $thumbnail-px * 4;
             font-weight: bold;
             color: #ffffff;
             text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
@@ -163,11 +169,17 @@ $thumbnail-px: 4px;
         }
         .chart {
             &-section {
+                position: absolute;
+                top: $thumbnail-size;
+                bottom: 0;
+                left: 0;
+                right: 0;
                 width: 100%;
                 padding: $thumbnail-px * 3 $thumbnail-px * 5;
                 z-index: 2;
                 display: flex;
                 align-items: baseline;
+                justify-content: center;
                 flex-direction: column;
                 gap: $thumbnail-px * 3;
             }
@@ -180,13 +192,6 @@ $thumbnail-px: 4px;
                 gap: $thumbnail-px * 4;
                 font-size: $thumbnail-px * 3;
                 color: #000000;
-                &:last-child {
-                    .chart-bar {
-                        .chart-segment:last-child {
-                            font-size: $thumbnail-px * 4;
-                        }
-                    }
-                }
             }
 
             &-label {

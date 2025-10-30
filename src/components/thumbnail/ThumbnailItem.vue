@@ -93,53 +93,61 @@
         class="thumbnail-item-wrapper"
         :class="{ 'with-chart': data.showChart }">
         <div class="thumbnail-container">
-            <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
-            <div class="header">
-                <img :src="data.logo" alt="Company Logo" class="logo" />
-                <span class="date"
-                    >{{ data.date }}
-                    <span v-if="data.weekNo">({{ data.weekNo }})</span></span
-                >
-            </div>
-            <div class="main-content">
-                <h1 class="ticker" :style="{ color: data.tickerColor }">
-                    {{ data.symbol }}
-                </h1>
-                <h2 class="amount">${{ data.formattedCurrentAmount }}</h2>
-            </div>
-            <div class="footer">
-                <p class="comparison">{{ data.comparisonText }}</p>
-                <p class="description">
-                    {{ data.descriptionLine1 }}<br />{{ data.descriptionLine2 }}
-                </p>
-            </div>
-        </div>
-
-        <!-- 차트 영역 -->
-        <div
-            v-if="data.showChart && chartData.length > 0"
-            class="chart-section">
-            <div v-for="item in chartData" :key="item.month" class="chart-row">
-                <div class="chart-label">
-                    <span class="chart-month">{{ item.month }}</span>
-                    <span class="chart-total">{{
-                        formatAmount(item.total)
-                    }}</span>
+            <div class="thumbnail-container-inner">
+                <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
+                <div class="header">
+                    <img :src="data.logo" alt="Company Logo" class="logo" />
+                    <span class="date"
+                        >{{ data.date }}
+                        <span v-if="data.weekNo"
+                            >({{ data.weekNo }})</span
+                        ></span
+                    >
                 </div>
+                <div class="main-content">
+                    <h1 class="ticker" :style="{ color: data.tickerColor }">
+                        {{ data.symbol }}
+                    </h1>
+                    <h2 class="amount">${{ data.formattedCurrentAmount }}</h2>
+                </div>
+                <div class="footer">
+                    <p class="comparison">{{ data.comparisonText }}</p>
+                    <p class="description">
+                        {{ data.descriptionLine1 }}<br />{{
+                            data.descriptionLine2
+                        }}
+                    </p>
+                </div>
+            </div>
+            <!-- 차트 영역 -->
+            <div
+                v-if="data.showChart && chartData.length > 0"
+                class="chart-section">
                 <div
-                    class="chart-bar"
-                    :style="{ width: `${item.widthRatio}%` }">
-                    <div
-                        v-for="(amount, idx) in item.amounts"
-                        :key="idx"
-                        class="chart-segment"
-                        :style="{
-                            width: `${(amount / item.total) * 100}%`,
-                            backgroundColor: getColor(idx),
-                        }">
-                        <span class="segment-label">{{
-                            formatAmount(amount)
+                    v-for="item in chartData"
+                    :key="item.month"
+                    class="chart-row">
+                    <div class="chart-label">
+                        <span class="chart-month">{{ item.month }}</span>
+                        <span class="chart-total">{{
+                            formatAmount(item.total)
                         }}</span>
+                    </div>
+                    <div
+                        class="chart-bar"
+                        :style="{ width: `${item.widthRatio}%` }">
+                        <div
+                            v-for="(amount, idx) in item.amounts"
+                            :key="idx"
+                            class="chart-segment"
+                            :style="{
+                                width: `${(amount / item.total) * 100}%`,
+                                backgroundColor: getColor(idx),
+                            }">
+                            <span class="segment-label">{{
+                                formatAmount(amount)
+                            }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
