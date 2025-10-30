@@ -143,5 +143,82 @@ $thumbnail-px: 4px;
             opacity: 1;
             line-height: 1.2;
         }
+
+        &.with-chart {
+            bottom: $thumbnail-px * 17 + 80;
+        }
+    }
+
+    // 차트가 있을 때 컨테이너 높이 조정
+    .thumbnail-container.with-chart {
+        height: auto;
+        min-height: $thumbnail-size;
+        padding-bottom: 200px;
+    }
+
+    .main-content.with-chart {
+        top: 40%;
+    }
+
+    // 차트 영역 스타일
+    .chart-section {
+        position: absolute;
+        bottom: $thumbnail-px * 10;
+        left: 0;
+        right: 0;
+        padding: 0 $thumbnail-px * 10;
+        z-index: 2;
+    }
+
+    .chart-row {
+        display: flex;
+        align-items: center;
+        gap: $thumbnail-px * 3;
+        margin-bottom: $thumbnail-px * 4;
+        font-size: $thumbnail-px * 6;
+        color: #ffffff;
+        text-shadow: $thumbnail-px * 1 $thumbnail-px * 1 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .chart-month {
+        min-width: $thumbnail-px * 12;
+        font-weight: bold;
+        font-size: $thumbnail-px * 7;
+    }
+
+    .chart-bar {
+        flex: 1;
+        display: flex;
+        height: $thumbnail-px * 12;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: $thumbnail-px * 1;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .chart-segment {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        transition: min-width 0.2s;
+    }
+
+    .segment-label {
+        font-size: $thumbnail-px * 5;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
+            rgba(0, 0, 0, 0.7);
+        white-space: nowrap;
+        padding: 0 $thumbnail-px * 1;
+    }
+
+    .chart-total {
+        min-width: $thumbnail-px * 20;
+        text-align: right;
+        font-weight: bold;
+        font-size: $thumbnail-px * 7;
     }
 }
