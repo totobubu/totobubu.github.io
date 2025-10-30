@@ -187,13 +187,13 @@ $thumbnail-px: 4px;
     }
 
     .chart-bar {
-        flex: 1;
         display: flex;
         height: $thumbnail-px * 12;
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: $thumbnail-px * 1;
         overflow: hidden;
         position: relative;
+        min-width: 0;
     }
 
     .chart-segment {
@@ -206,7 +206,7 @@ $thumbnail-px: 4px;
     }
 
     .segment-label {
-        font-size: $thumbnail-px * 5;
+        font-size: $thumbnail-px * 4;
         font-weight: bold;
         color: #ffffff;
         text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
@@ -220,5 +220,7 @@ $thumbnail-px: 4px;
         text-align: right;
         font-weight: bold;
         font-size: $thumbnail-px * 7;
+        color: #000000;
+        text-shadow: none;
     }
 }

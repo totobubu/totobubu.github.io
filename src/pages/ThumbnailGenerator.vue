@@ -197,6 +197,7 @@
                         formatCurrentAmount(currentDividend),
                     comparisonText,
                     chartDividends: includeChart.value ? chartDividends : [],
+                    targetDate: includeChart.value ? targetDate : null, // targetDate 전달
                 };
             })
         );
@@ -366,7 +367,12 @@
                     :value="thumb.symbol"
                     class="thumbnail-checkbox" />
                 <ThumbnailItem
-                    :data="{ ...thumb, date, showChart: includeChart }" />
+                    :data="{
+                        ...thumb,
+                        date,
+                        showChart: includeChart,
+                        targetDate: thumb.targetDate,
+                    }" />
             </div>
         </main>
     </div>

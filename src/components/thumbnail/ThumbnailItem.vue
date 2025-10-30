@@ -9,11 +9,37 @@
     const chartData = computed(() => {
         if (!props.data.showChart || !props.data.chartDividends) return [];
 
+        // targetDate 추출 (YYYY-MM-DD 형식)
+        const targetDateStr = props.data.targetDate;
+        let targetDate = null;
+        let targetYearMonth = null;
+
+        if (targetDateStr) {
+            // 날짜 비교를 위해 시간을 00:00:00으로 설정
+            targetDate = new Date(targetDateStr);
+            targetDate.setHours(0, 0, 0, 0);
+            targetYearMonth = `${targetDate.getFullYear().toString().slice(-2)}.${(targetDate.getMonth() + 1).toString().padStart(2, '0')}`;
+        }
+
         // 월별로 그룹화
         const monthlyGroups = {};
         props.data.chartDividends.forEach((dividend) => {
             const date = new Date(dividend.date);
+            // 날짜 비교를 위해 시간을 00:00:00으로 설정
+            date.setHours(0, 0, 0, 0);
             const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+
+            // targetDate가 속한 월의 경우, targetDate 이후의 배당은 제외
+            if (
+                targetYearMonth &&
+                yearMonth === targetYearMonth &&
+                targetDate
+            ) {
+                if (date > targetDate) {
+                    return; // 이 배당은 제외
+                }
+            }
+
             const amount = dividend.amountFixed ?? dividend.amount;
 
             if (!monthlyGroups[yearMonth]) {
@@ -22,20 +48,28 @@
             monthlyGroups[yearMonth].push(amount);
         });
 
-        // 최신 월순으로 정렬
-        return Object.keys(monthlyGroups)
+        // 오래된 월부터 최신 월순으로 정렬 (최신이 아래로)
+        const sortedData = Object.keys(monthlyGroups)
             .sort((a, b) => {
                 const [ya, ma] = a.split('.').map(Number);
                 const [yb, mb] = b.split('.').map(Number);
-                if (ya !== yb) return yb - ya;
-                return mb - ma;
+                if (ya !== yb) return ya - yb;
+                return ma - mb;
             })
-            .slice(0, 3) // 최근 3개월만 표시
+            .slice(-3) // 최근 3개월만 표시 (뒤에서 3개)
             .map((month) => ({
                 month,
                 amounts: monthlyGroups[month],
                 total: monthlyGroups[month].reduce((sum, amt) => sum + amt, 0),
             }));
+
+        // 최대 total 값을 구해서 비율 계산
+        const maxTotal = Math.max(...sortedData.map((item) => item.total), 1);
+
+        return sortedData.map((item) => ({
+            ...item,
+            widthRatio: (item.total / maxTotal) * 100,
+        }));
     });
 
     const weekColors = [
@@ -88,7 +122,9 @@
                     :key="item.month"
                     class="chart-row">
                     <span class="chart-month">{{ item.month }}</span>
-                    <div class="chart-bar">
+                    <div
+                        class="chart-bar"
+                        :style="{ width: `${item.widthRatio}%` }">
                         <div
                             v-for="(amount, idx) in item.amounts"
                             :key="idx"
