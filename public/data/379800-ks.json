@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "379800.KS",
+        "koName": "KODEX 미국S&P500",
+        "longName": "KODEX 미국S&P500",
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 22590,
+        "englishName": "Samsung KODEX S&P500 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 4789516,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22565,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4780636,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-04-09",
@@ -7784,7 +7818,7 @@
             "close": 18150,
             "volume": 4124750,
             "amount": 56,
-            "yield": 0.0030828516377649326
+            "yield": 0.0030828516
         },
         {
             "date": "2025-04-30",
@@ -8274,7 +8308,7 @@
             "close": 20105,
             "volume": 6386992,
             "amount": 104,
-            "yield": 0.007938476804763086
+            "yield": 0.0079384768
         },
         {
             "date": "2025-07-31",
@@ -8741,6 +8775,14 @@
             "volume": 4131707
         },
         {
+            "date": "2025-10-29",
+            "open": 22555,
+            "high": 22630,
+            "low": 22510,
+            "close": 22590,
+            "volume": 2998827
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -8748,43 +8790,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "379800.KS",
-        "koName": "KODEX 미국S&P500",
-        "longName": "KODEX 미국S&P500",
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 22565.0,
-        "englishName": "Samsung KODEX S&P500 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 4780636,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 22475,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 380567,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 4786769,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

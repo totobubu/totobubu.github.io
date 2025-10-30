@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0093B0.KS",
+        "koName": "RISE 엔비디아고정테크100",
+        "longName": null,
+        "company": "KB자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11665,
+        "englishName": "Kb Rise Nvidia Fixed Tech100 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 165947,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11400,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 168015,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-26",
@@ -200,7 +234,7 @@
             "close": 10565,
             "volume": 159022,
             "amount": 4,
-            "yield": 0.00037700282752120643
+            "yield": 0.0003770028
         },
         {
             "date": "2025-09-30",
@@ -329,44 +363,14 @@
             "low": 11370,
             "close": 11400,
             "volume": 83220
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11565,
+            "high": 11680,
+            "low": 11555,
+            "close": 11665,
+            "volume": 25431
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0093B0.KS",
-        "koName": "RISE 엔비디아고정테크100",
-        "longName": null,
-        "company": "KB자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11400.0,
-        "englishName": "Kb Rise Nvidia Fixed Tech100 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 168015,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11415,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 35656,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 171380,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0091P0.KS",
+        "koName": "TIGER 코리아원자력",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12120,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 4082564,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11370,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4140528,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-19",
@@ -367,44 +401,14 @@
             "low": 11105,
             "close": 11370,
             "volume": 1474201
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11950,
+            "high": 12190,
+            "low": 11775,
+            "close": 12120,
+            "volume": 5083619
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0091P0.KS",
-        "koName": "TIGER 코리아원자력",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11370.0,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 4140528,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11230,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 298273,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 4179274,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

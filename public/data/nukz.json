@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "NUKZ",
+        "koName": null,
+        "longName": null,
+        "company": "Range",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 74.52,
+        "englishName": "Range Nuclear Renaissance ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 283361,
+        "AvgVolume": 241457,
+        "sharesOutstanding": null,
+        "52Week": "32.7 - 75.03",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.61,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 173598,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 239550,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-01-24",
@@ -1888,7 +1926,7 @@
             "close": 41.63999938964844,
             "volume": 62300,
             "amount": 0.037,
-            "yield": 0.0008898508506646086
+            "yield": 0.0008898509
         },
         {
             "date": "2024-12-31",
@@ -3545,40 +3583,14 @@
             "low": 71.66999816894531,
             "close": 72.55000305175781,
             "volume": 386022
+        },
+        {
+            "date": "2025-10-29",
+            "open": 72.95999908447266,
+            "high": 75.02999877929688,
+            "low": 72.91500091552734,
+            "close": 74.5199966430664,
+            "volume": 283361
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "NUKZ",
-        "koName": null,
-        "longName": null,
-        "company": "Range",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 70.61,
-        "englishName": "Range Nuclear Renaissance ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 173598,
-        "AvgVolume": 239550,
-        "sharesOutstanding": null,
-        "52Week": "32.7 - 74.29",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 172204,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 240143,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

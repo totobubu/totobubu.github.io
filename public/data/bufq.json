@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "BUFQ",
+        "koName": null,
+        "longName": null,
+        "company": "FT",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 35.52,
+        "englishName": "FT Vest Laddered Nasdaq Buffer ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 791422,
+        "AvgVolume": 133014,
+        "sharesOutstanding": null,
+        "52Week": "26.61 - 35.681",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.28,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 58852,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 133017,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-06-16",
@@ -6759,40 +6797,14 @@
             "low": 35.41999816894531,
             "close": 35.5,
             "volume": 139938
+        },
+        {
+            "date": "2025-10-29",
+            "open": 35.59000015258789,
+            "high": 35.59000015258789,
+            "low": 35.2599983215332,
+            "close": 35.52000045776367,
+            "volume": 791422
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "BUFQ",
-        "koName": null,
-        "longName": null,
-        "company": "FT",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 35.28,
-        "englishName": "FT Vest Laddered Nasdaq Buffer ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 58852,
-        "AvgVolume": 133017,
-        "sharesOutstanding": null,
-        "52Week": "26.61 - 35.681",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 58850,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 132721,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

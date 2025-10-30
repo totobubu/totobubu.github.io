@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "385520.KS",
+        "koName": "KODEX 자율주행액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10425,
+        "englishName": "Samsung Kodex K-Future Car Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 13502,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10255,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13288,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-05-25",
@@ -1832,7 +1866,7 @@
             "close": 10450,
             "volume": 26168,
             "amount": 110,
-            "yield": 0.010436432637571158
+            "yield": 0.0104364326
         },
         {
             "date": "2022-04-29",
@@ -3802,7 +3836,7 @@
             "close": 9670,
             "volume": 6274,
             "amount": 115,
-            "yield": 0.023195876288659795
+            "yield": 0.0231958763
         },
         {
             "date": "2023-04-28",
@@ -5636,7 +5670,7 @@
             "close": 9475,
             "volume": 5002,
             "amount": 100,
-            "yield": 0.010655301012253596
+            "yield": 0.010655301
         },
         {
             "date": "2024-04-30",
@@ -7550,7 +7584,7 @@
             "close": 6975,
             "volume": 26540,
             "amount": 155,
-            "yield": 0.03637660485021398
+            "yield": 0.0363766049
         },
         {
             "date": "2025-04-30",
@@ -8503,44 +8537,18 @@
             "low": 10035,
             "close": 10255,
             "volume": 19894
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10280,
+            "high": 10450,
+            "low": 10275,
+            "close": 10425,
+            "volume": 60771
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "385520.KS",
-        "koName": "KODEX 자율주행액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10255.0,
-        "englishName": "Samsung Kodex K-Future Car Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 13288,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10125,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1153,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 12903,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

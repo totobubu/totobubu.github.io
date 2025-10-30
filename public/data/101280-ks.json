@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "101280.KS",
+        "koName": "KODEX 일본TOPIX100",
+        "longName": "KODEX 일본TOPIX100",
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 26500,
+        "englishName": "KODEX Japan",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 14006,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26550,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13938,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2009-04-17",
@@ -27600,7 +27634,7 @@
             "close": 17135,
             "volume": 116,
             "amount": 154,
-            "yield": 0.008995327102803739
+            "yield": 0.0089953271
         },
         {
             "date": "2023-04-28",
@@ -28458,7 +28492,7 @@
             "close": 16815,
             "volume": 2559,
             "amount": 213,
-            "yield": 0.02128153087851551
+            "yield": 0.0212815309
         },
         {
             "date": "2023-10-31",
@@ -29436,7 +29470,7 @@
             "close": 20165,
             "volume": 30049,
             "amount": 200,
-            "yield": 0.0203248031496063
+            "yield": 0.0203248031
         },
         {
             "date": "2024-04-30",
@@ -31354,7 +31388,7 @@
             "close": 22715,
             "volume": 4432,
             "amount": 247,
-            "yield": 0.028396946564885495
+            "yield": 0.0283969466
         },
         {
             "date": "2025-04-30",
@@ -31844,7 +31878,7 @@
             "close": 22915,
             "volume": 6806,
             "amount": 32,
-            "yield": 0.021050337764218784
+            "yield": 0.0210503378
         },
         {
             "date": "2025-07-31",
@@ -32311,6 +32345,14 @@
             "volume": 10755
         },
         {
+            "date": "2025-10-29",
+            "open": 26550,
+            "high": 26740,
+            "low": 26500,
+            "close": 26500,
+            "volume": 11443
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -32318,39 +32360,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "101280.KS",
-        "koName": "KODEX 일본TOPIX100",
-        "longName": "KODEX 일본TOPIX100",
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 26550.0,
-        "englishName": "KODEX Japan",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 13938,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 1457,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 13762,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

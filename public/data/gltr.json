@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "GLTR",
+        "koName": null,
+        "longName": null,
+        "company": "abrdn",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 169.68,
+        "englishName": "abrdn Physical Precious Metals Basket Shares ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 48541,
+        "AvgVolume": 75885,
+        "sharesOutstanding": null,
+        "52Week": "108.71 - 189.18",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 175.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 53918,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 73123,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2010-10-22",
@@ -30215,36 +30253,14 @@
             "low": 167.52000427246094,
             "close": 169.30999755859375,
             "volume": 103579
+        },
+        {
+            "date": "2025-10-29",
+            "open": 172.44000244140625,
+            "high": 172.5,
+            "low": 169.0399932861328,
+            "close": 169.67999267578125,
+            "volume": 48541
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "GLTR",
-        "koName": null,
-        "longName": null,
-        "company": "abrdn",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 175.02,
-        "englishName": "abrdn Physical Precious Metals Basket Shares ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 53918,
-        "AvgVolume": 73123,
-        "sharesOutstanding": null,
-        "52Week": "108.71 - 189.18",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 73278,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

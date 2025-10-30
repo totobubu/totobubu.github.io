@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "302450.KS",
+        "koName": "RISE 코스피",
+        "longName": "RISE 코스피",
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 42355,
+        "englishName": "KB KBStar Kospi ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 27187,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41685,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 26725,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-07-24",
@@ -1488,7 +1522,7 @@
             "close": 22160,
             "volume": 23625,
             "amount": 390,
-            "yield": 0.017816354499771585
+            "yield": 0.0178163545
         },
         {
             "date": "2019-04-30",
@@ -2482,7 +2516,7 @@
             "close": 20810,
             "volume": 155338,
             "amount": 110,
-            "yield": 0.02390057361376673
+            "yield": 0.0239005736
         },
         {
             "date": "2019-10-31",
@@ -3468,7 +3502,7 @@
             "close": 19330,
             "volume": 3724,
             "amount": 320,
-            "yield": 0.0423882140087878
+            "yield": 0.042388214
         },
         {
             "date": "2020-04-29",
@@ -5430,7 +5464,7 @@
             "close": 31985,
             "volume": 6138,
             "amount": 535,
-            "yield": 0.01669266770670827
+            "yield": 0.0166926677
         },
         {
             "date": "2021-04-30",
@@ -7384,7 +7418,7 @@
             "close": 27190,
             "volume": 506,
             "amount": 280,
-            "yield": 0.03029739776951673
+            "yield": 0.0302973978
         },
         {
             "date": "2022-04-29",
@@ -9354,7 +9388,7 @@
             "close": 25730,
             "volume": 1130,
             "amount": 340,
-            "yield": 0.02437106918238994
+            "yield": 0.0243710692
         },
         {
             "date": "2023-04-28",
@@ -11188,7 +11222,7 @@
             "close": 27770,
             "volume": 340,
             "amount": 390,
-            "yield": 0.01410743353228432
+            "yield": 0.0141074335
         },
         {
             "date": "2024-04-30",
@@ -11686,7 +11720,7 @@
             "close": 28280,
             "volume": 71,
             "amount": 80,
-            "yield": 0.016572637517630464
+            "yield": 0.0165726375
         },
         {
             "date": "2024-07-31",
@@ -13108,7 +13142,7 @@
             "close": 26765,
             "volume": 31028,
             "amount": 120,
-            "yield": 0.025453864869923265
+            "yield": 0.0254538649
         },
         {
             "date": "2025-04-30",
@@ -13598,7 +13632,7 @@
             "close": 33745,
             "volume": 22195,
             "amount": 400,
-            "yield": 0.020560190703218118
+            "yield": 0.0205601907
         },
         {
             "date": "2025-07-31",
@@ -14065,6 +14099,14 @@
             "volume": 29507
         },
         {
+            "date": "2025-10-29",
+            "open": 42245,
+            "high": 42425,
+            "low": 41685,
+            "close": 42355,
+            "volume": 5170
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -14072,43 +14114,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "302450.KS",
-        "koName": "RISE 코스피",
-        "longName": "RISE 코스피",
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 41685.0,
-        "englishName": "KB KBStar Kospi ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 26725,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 41630,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 6221,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 20942,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

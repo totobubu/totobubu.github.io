@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0000H0.KS",
+        "koName": "KODEX 인도Nifty미드캡100",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11240,
+        "englishName": "Samsung Kodex India Nifty Midcap 100 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 8624,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11215,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8679,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-04-08",
@@ -616,7 +650,7 @@
             "close": 10645,
             "volume": 12824,
             "amount": 24,
-            "yield": 0.002244039270687237
+            "yield": 0.0022440393
         },
         {
             "date": "2025-07-31",
@@ -1081,44 +1115,14 @@
             "low": 11210,
             "close": 11215,
             "volume": 3609
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11215,
+            "high": 11245,
+            "low": 11110,
+            "close": 11240,
+            "volume": 4038
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0000H0.KS",
-        "koName": "KODEX 인도Nifty미드캡100",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11215.0,
-        "englishName": "Samsung Kodex India Nifty Midcap 100 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 8679,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11250,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 202,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8661,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

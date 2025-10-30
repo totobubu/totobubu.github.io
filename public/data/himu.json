@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "HIMU",
+        "koName": null,
+        "longName": null,
+        "company": "iShares",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 49.34,
+        "englishName": "iShares High Yield Muni Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 333648,
+        "AvgVolume": 292656,
+        "sharesOutstanding": null,
+        "52Week": "46.11 - 50.96",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.46,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 104782,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 293145,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-10",
@@ -120,7 +158,7 @@
             "close": 50.62300109863281,
             "volume": 235800,
             "amount": 0.118,
-            "yield": 0.00233802253112678
+            "yield": 0.0023380225
         },
         {
             "date": "2025-03-04",
@@ -290,7 +328,7 @@
             "close": 49.459999084472656,
             "volume": 169500,
             "amount": 0.241,
-            "yield": 0.007276043755366109
+            "yield": 0.0072760438
         },
         {
             "date": "2025-04-02",
@@ -460,7 +498,7 @@
             "close": 48.43000030517578,
             "volume": 404600,
             "amount": 0.208,
-            "yield": 0.011728203240942096
+            "yield": 0.0117282032
         },
         {
             "date": "2025-05-02",
@@ -630,7 +668,7 @@
             "close": 48.11000061035156,
             "volume": 179200,
             "amount": 0.192,
-            "yield": 0.01575015608278788
+            "yield": 0.0157501561
         },
         {
             "date": "2025-06-03",
@@ -792,7 +830,7 @@
             "close": 48.290000915527344,
             "volume": 94800,
             "amount": 0.207,
-            "yield": 0.019964865836733788
+            "yield": 0.0199648658
         },
         {
             "date": "2025-07-02",
@@ -970,7 +1008,7 @@
             "close": 47.65999984741211,
             "volume": 230100,
             "amount": 0.191,
-            "yield": 0.024363022933406506
+            "yield": 0.0243630229
         },
         {
             "date": "2025-08-04",
@@ -1140,7 +1178,7 @@
             "close": 47.5,
             "volume": 225300,
             "amount": 0.199,
-            "yield": 0.02858950013230396
+            "yield": 0.0285895001
         },
         {
             "date": "2025-09-03",
@@ -1310,7 +1348,7 @@
             "close": 48.9900016784668,
             "volume": 391900,
             "amount": 0.163,
-            "yield": 0.030987351811813866
+            "yield": 0.0309873518
         },
         {
             "date": "2025-10-02",
@@ -1465,6 +1503,14 @@
             "volume": 126023
         },
         {
+            "date": "2025-10-29",
+            "open": 49.4900016784668,
+            "high": 49.61119842529297,
+            "low": 49.34000015258789,
+            "close": 49.34000015258789,
+            "volume": 333648
+        },
+        {
             "date": "2025-10-31",
             "forecasted": true
         },
@@ -1488,39 +1534,5 @@
             "date": "2026-04-01",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "HIMU",
-        "koName": null,
-        "longName": null,
-        "company": "iShares",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 49.46,
-        "englishName": "iShares High Yield Muni Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 104782,
-        "AvgVolume": 293145,
-        "sharesOutstanding": null,
-        "52Week": "46.11 - 50.96",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 104772,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 294731,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

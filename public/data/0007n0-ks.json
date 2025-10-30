@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0007N0.KS",
+        "koName": "아이엠에셋 200",
+        "longName": "아이엠에셋 200",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 58080,
+        "englishName": "Im Asset - Im Asset 200 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1189,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56840,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1187,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-11",
@@ -1391,44 +1425,14 @@
             "low": 56095,
             "close": 56840,
             "volume": 1159
+        },
+        {
+            "date": "2025-10-29",
+            "open": 57145,
+            "high": 58080,
+            "low": 56715,
+            "close": 58080,
+            "volume": 60705
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0007N0.KS",
-        "koName": "아이엠에셋 200",
-        "longName": "아이엠에셋 200",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 56840.0,
-        "englishName": "Im Asset - Im Asset 200 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1187,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 56225,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 33,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1181,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

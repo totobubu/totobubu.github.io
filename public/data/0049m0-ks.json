@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0049M0.KS",
+        "koName": "ACE 미국배당퀄리티+커버드콜액티브",
+        "longName": null,
+        "company": "한국투자신탁운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11355,
+        "englishName": "Kim Ace US Dividend Quality Plus Covered Call Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 100371,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11410,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 100728,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-05-13",
@@ -256,7 +290,7 @@
             "close": 10060,
             "volume": 39877,
             "amount": 101,
-            "yield": 0.010044753853804078
+            "yield": 0.0100447539
         },
         {
             "date": "2025-06-30",
@@ -442,7 +476,7 @@
             "close": 10485,
             "volume": 98997,
             "amount": 63,
-            "yield": 0.01544256120527307
+            "yield": 0.0154425612
         },
         {
             "date": "2025-07-31",
@@ -604,7 +638,7 @@
             "close": 10580,
             "volume": 97970,
             "amount": 64,
-            "yield": 0.021438645980253877
+            "yield": 0.021438646
         },
         {
             "date": "2025-08-29",
@@ -782,7 +816,7 @@
             "close": 10780,
             "volume": 140097,
             "amount": 65,
-            "yield": 0.026917776757005053
+            "yield": 0.0269177768
         },
         {
             "date": "2025-09-30",
@@ -913,10 +947,6 @@
             "volume": 113723
         },
         {
-            "date": "2025-10-29",
-            "forecasted": true
-        },
-        {
             "date": "2025-11-28",
             "forecasted": true
         },
@@ -940,43 +970,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0049M0.KS",
-        "koName": "ACE 미국배당퀄리티+커버드콜액티브",
-        "longName": null,
-        "company": "한국투자신탁운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11410.0,
-        "englishName": "Kim Ace US Dividend Quality Plus Covered Call Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 100728,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11355,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 24061,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 100565,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

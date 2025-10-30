@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0091M0.KS",
+        "koName": "HANARO 27-06 회사채(AA-이상)액티브",
+        "longName": null,
+        "company": "NH-Amundi자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10020,
+        "englishName": "Nh-Amundi Hanaro 27-06 Corporate Bond (Aa- Or Higher) Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 2334,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10025,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2340,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-26",
@@ -327,36 +361,14 @@
             "low": 10025,
             "close": 10025,
             "volume": 2078
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10020,
+            "high": 10020,
+            "low": 10020,
+            "close": 10020,
+            "volume": 2088
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0091M0.KS",
-        "koName": "HANARO 27-06 회사채(AA-이상)액티브",
-        "longName": null,
-        "company": "NH-Amundi자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10025.0,
-        "englishName": "Nh-Amundi Hanaro 27-06 Corporate Bond (Aa- Or Higher) Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 2340,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 2396,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "328370.KS",
+        "koName": "PLUS 코스피TR",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 22615,
+        "englishName": "Hanwha Plus KOSPI Total Return ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 35499,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22230,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 35411,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-06-25",
@@ -12255,44 +12289,14 @@
             "low": 22000,
             "close": 22230,
             "volume": 7709
+        },
+        {
+            "date": "2025-10-29",
+            "open": 22375,
+            "high": 22615,
+            "low": 22230,
+            "close": 22615,
+            "volume": 9478
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "328370.KS",
-        "koName": "PLUS 코스피TR",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 22230.0,
-        "englishName": "Hanwha Plus KOSPI Total Return ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 35411,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 22185,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 35,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 35262,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

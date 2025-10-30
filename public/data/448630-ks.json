@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "448630.KS",
+        "koName": "RISE 삼성그룹Top3채권혼합",
+        "longName": null,
+        "company": "KB자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11665,
+        "englishName": "Kb Kbstar Samsung Group Fixed Top 3 Equity & Korean Bond Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 68296,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 60966,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 61874,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-29",
@@ -832,7 +870,7 @@
             "close": 10050,
             "volume": 84111,
             "amount": 90,
-            "yield": 0.008955223880597015
+            "yield": 0.0089552239
         },
         {
             "date": "2023-04-28",
@@ -2666,7 +2704,7 @@
             "close": 10145,
             "volume": 17962,
             "amount": 10,
-            "yield": 0.0009852216748768472
+            "yield": 0.0009852217
         },
         {
             "date": "2024-04-30",
@@ -4580,7 +4618,7 @@
             "close": 9835,
             "volume": 10519,
             "amount": 10,
-            "yield": 0.0020376974019358125
+            "yield": 0.0020376974
         },
         {
             "date": "2025-04-30",
@@ -5533,40 +5571,18 @@
             "low": 11470,
             "close": 11640,
             "volume": 238321
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11635,
+            "high": 11925,
+            "low": 11610,
+            "close": 11665,
+            "volume": 314661
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "448630.KS",
-        "koName": "RISE 삼성그룹Top3채권혼합",
-        "longName": null,
-        "company": "KB자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 11520,
-        "englishName": "Kb Kbstar Samsung Group Fixed Top 3 Equity & Korean Bond Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 60966,
-        "AvgVolume": 61874,
-        "sharesOutstanding": null,
-        "52Week": "9500.0 - 11555.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11455,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

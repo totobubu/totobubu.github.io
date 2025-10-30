@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0104H0.KS",
+        "koName": "KoAct 미국나스닥채권혼합50액티브",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10620,
+        "englishName": "Samsungactive Koact Us Nasdaq Balanced 50 Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 322834,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10580,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 324842,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-09-30",
@@ -127,44 +161,14 @@
             "low": 10510,
             "close": 10580,
             "volume": 292714
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10730,
+            "high": 10730,
+            "low": 10580,
+            "close": 10620,
+            "volume": 277722
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0104H0.KS",
-        "koName": "KoAct 미국나스닥채권혼합50액티브",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10580.0,
-        "englishName": "Samsungactive Koact Us Nasdaq Balanced 50 Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 324842,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10530,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 907,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 323630,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "477730.KS",
+        "koName": "KODEX 인도타타그룹",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 8905,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 17516,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8885,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17557,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-05-08",
@@ -464,7 +498,7 @@
             "close": 11150,
             "volume": 253203,
             "amount": 40,
-            "yield": 0.003629764065335753
+            "yield": 0.0036297641
         },
         {
             "date": "2024-07-31",
@@ -2370,7 +2404,7 @@
             "close": 8505,
             "volume": 63555,
             "amount": 106,
-            "yield": 0.016957026713124275
+            "yield": 0.0169570267
         },
         {
             "date": "2025-07-31",
@@ -2835,40 +2869,14 @@
             "low": 8865,
             "close": 8880,
             "volume": 17489
+        },
+        {
+            "date": "2025-10-29",
+            "open": 8880,
+            "high": 8980,
+            "low": 8845,
+            "close": 8905,
+            "volume": 20139
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "477730.KS",
-        "koName": "KODEX 인도타타그룹",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 8885,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 17557,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 70608,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 16754,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

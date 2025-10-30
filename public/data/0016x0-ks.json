@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0016X0.KS",
+        "koName": "SOL 중단기회사채(A-이상)액티브",
+        "longName": "SOL 중단기회사채(A-이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 51295,
+        "englishName": "Shinhan Sol Mid-Short Term Credit Bond (A- Or Higher) Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 80871,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51315,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 82470,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-18",
@@ -1351,40 +1385,14 @@
             "low": 51310,
             "close": 51315,
             "volume": 55897
+        },
+        {
+            "date": "2025-10-29",
+            "open": 51310,
+            "high": 51340,
+            "low": 51280,
+            "close": 51295,
+            "volume": 107107
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0016X0.KS",
-        "koName": "SOL 중단기회사채(A-이상)액티브",
-        "longName": "SOL 중단기회사채(A-이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 51315.0,
-        "englishName": "Shinhan Sol Mid-Short Term Credit Bond (A- Or Higher) Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 82470,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 49576,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 82829,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "269540.KS",
+        "koName": "PLUS 미국S&P500(H)",
+        "longName": "PLUS 미국S&P500(H)",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 27465,
+        "englishName": "Hanwha Investment Trust Management - Arirang S&P 500 ETF Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 8408,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27310,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8361,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-05-16",
@@ -11632,7 +11666,7 @@
             "close": 16935,
             "volume": 7688,
             "amount": 220,
-            "yield": 0.013010053222945003
+            "yield": 0.0130100532
         },
         {
             "date": "2023-04-28",
@@ -13466,7 +13500,7 @@
             "close": 20880,
             "volume": 2915,
             "amount": 100,
-            "yield": 0.004784688995215311
+            "yield": 0.004784689
         },
         {
             "date": "2024-04-30",
@@ -15380,7 +15414,7 @@
             "close": 22110,
             "volume": 2523,
             "amount": 255,
-            "yield": 0.015980193562907946
+            "yield": 0.0159801936
         },
         {
             "date": "2025-04-30",
@@ -16333,44 +16367,18 @@
             "low": 27270,
             "close": 27310,
             "volume": 7323
+        },
+        {
+            "date": "2025-10-29",
+            "open": 27385,
+            "high": 27470,
+            "low": 27380,
+            "close": 27465,
+            "volume": 9732
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "269540.KS",
-        "koName": "PLUS 미국S&P500(H)",
-        "longName": "PLUS 미국S&P500(H)",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 27310.0,
-        "englishName": "Hanwha Investment Trust Management - Arirang S&P 500 ETF Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 8361,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 27405,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1640,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8230,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

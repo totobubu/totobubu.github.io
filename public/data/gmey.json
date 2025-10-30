@@ -9,30 +9,35 @@
         "underlying": "GME",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 46.2734,
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 46.2152,
         "englishName": "Yieldmax Gme Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3571,
-        "AvgVolume": 21679,
+        "Volume": 1954,
+        "AvgVolume": 20613,
         "sharesOutstanding": null,
         "52Week": "44.551 - 56.15",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "changes": {
+            "regularMarketPrice": {
+                "value": 46.2734,
+                "change": "down"
+            },
             "Volume": {
-                "value": 3564,
-                "change": "up"
+                "value": 3571,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 22227,
+                "value": 21679,
                 "change": "down"
             }
         }
     },
+    "dividendTotal": 2.2391,
     "backtestData": [
         {
             "date": "2025-09-09",
@@ -259,7 +264,7 @@
             "close": 46.417999267578125,
             "volume": 8000,
             "amount": 2.239,
-            "yield": 0.04801844196248704
+            "yield": 0.048018442
         },
         {
             "date": "2025-10-17",
@@ -301,7 +306,7 @@
             "low": 44.55110168457031,
             "close": 46.400001525878906,
             "volume": 5574,
-            "yield": 0.06232666666666667,
+            "yield": 0.0623266667,
             "amount": 0.566
         },
         {
@@ -327,6 +332,14 @@
             "low": 46.11000061035156,
             "close": 46.130001068115234,
             "volume": 1069
+        },
+        {
+            "date": "2025-10-29",
+            "open": 46,
+            "high": 46.2151985168457,
+            "low": 45.709999084472656,
+            "close": 46.2151985168457,
+            "volume": 1954
         },
         {
             "date": "2025-10-30",
@@ -432,6 +445,5 @@
             "date": "2026-04-23",
             "forecasted": true
         }
-    ],
-    "dividendTotal": 2.2391
+    ]
 }

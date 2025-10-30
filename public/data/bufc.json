@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "BUFC",
+        "koName": null,
+        "longName": null,
+        "company": "AB",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 40.885,
+        "englishName": "AB Conservative Buffer ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 23130,
+        "AvgVolume": 52859,
+        "sharesOutstanding": null,
+        "52Week": "35.0 - 41.16",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.84,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 43303,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 56784,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-12-13",
@@ -3759,36 +3797,14 @@
             "low": 40.86000061035156,
             "close": 40.900001525878906,
             "volume": 42067
+        },
+        {
+            "date": "2025-10-29",
+            "open": 40.970001220703125,
+            "high": 41.040000915527344,
+            "low": 40.8849983215332,
+            "close": 40.8849983215332,
+            "volume": 23130
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "BUFC",
-        "koName": null,
-        "longName": null,
-        "company": "AB",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 40.84,
-        "englishName": "AB Conservative Buffer ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 43303,
-        "AvgVolume": 56784,
-        "sharesOutstanding": null,
-        "52Week": "35.0 - 41.16",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 56553,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

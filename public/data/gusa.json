@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "GUSA",
+        "koName": null,
+        "longName": null,
+        "company": "Goldman",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 59.4666,
+        "englishName": "Goldman Sachs MarketBeta U.S. 1000 Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 106,
+        "AvgVolume": 209,
+        "sharesOutstanding": null,
+        "52Week": "42.07 - 59.534",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.7386,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 212,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-04-13",
@@ -400,7 +438,7 @@
             "close": 33.85200119018555,
             "volume": 2000,
             "amount": 0.116,
-            "yield": 0.0034678624022191616
+            "yield": 0.0034678624
         },
         {
             "date": "2022-06-27",
@@ -914,7 +952,7 @@
             "close": 31.77899932861328,
             "volume": 100,
             "amount": 0.129,
-            "yield": 0.007709493853678586
+            "yield": 0.0077094939
         },
         {
             "date": "2022-09-27",
@@ -1428,7 +1466,7 @@
             "close": 33.069000244140625,
             "volume": 100,
             "amount": 0.237,
-            "yield": 0.01459279496861854
+            "yield": 0.014592795
         },
         {
             "date": "2022-12-28",
@@ -1918,7 +1956,7 @@
             "close": 34.3390007019043,
             "volume": 0,
             "amount": 0.13,
-            "yield": 0.017822300809297024
+            "yield": 0.0178223008
         },
         {
             "date": "2023-03-28",
@@ -2416,7 +2454,7 @@
             "close": 37.369998931884766,
             "volume": 100,
             "amount": 0.136,
-            "yield": 0.016911961949797275
+            "yield": 0.0169119619
         },
         {
             "date": "2023-06-27",
@@ -2922,7 +2960,7 @@
             "close": 37.45800018310547,
             "volume": 100,
             "amount": 0.125,
-            "yield": 0.020209300985091744
+            "yield": 0.020209301
         },
         {
             "date": "2023-09-26",
@@ -3436,7 +3474,7 @@
             "close": 41.391998291015625,
             "volume": 100,
             "amount": 0.173,
-            "yield": 0.019351566318890717
+            "yield": 0.0193515663
         },
         {
             "date": "2023-12-27",
@@ -3918,7 +3956,7 @@
             "close": 45.275001525878906,
             "volume": 100,
             "amount": 0.135,
-            "yield": 0.01543898346641592
+            "yield": 0.0154389835
         },
         {
             "date": "2024-03-25",
@@ -4424,7 +4462,7 @@
             "close": 46.78099822998047,
             "volume": 400,
             "amount": 0.144,
-            "yield": 0.015218783846788073
+            "yield": 0.0152187838
         },
         {
             "date": "2024-06-25",
@@ -4938,7 +4976,7 @@
             "close": 49.393001556396484,
             "volume": 500,
             "amount": 0.138,
-            "yield": 0.014432781323907835
+            "yield": 0.0144327813
         },
         {
             "date": "2024-09-25",
@@ -5444,7 +5482,7 @@
             "close": 51.638999938964844,
             "volume": 100,
             "amount": 0.173,
-            "yield": 0.014775654077380164
+            "yield": 0.0147756541
         },
         {
             "date": "2024-12-24",
@@ -5934,7 +5972,7 @@
             "close": 49.86000061035156,
             "volume": 100,
             "amount": 0.146,
-            "yield": 0.012053750353850272
+            "yield": 0.0120537504
         },
         {
             "date": "2025-03-26",
@@ -6432,7 +6470,7 @@
             "close": 52.689998626708984,
             "volume": 200,
             "amount": 0.15,
-            "yield": 0.014253179342830958
+            "yield": 0.0142531793
         },
         {
             "date": "2025-06-25",
@@ -6946,7 +6984,7 @@
             "close": 57.459999084472656,
             "volume": 3100,
             "amount": 0.151,
-            "yield": 0.013162007258059332
+            "yield": 0.0131620073
         },
         {
             "date": "2025-09-25",
@@ -7133,6 +7171,14 @@
             "volume": 100
         },
         {
+            "date": "2025-10-28",
+            "open": 59.534000396728516,
+            "high": 59.534000396728516,
+            "low": 59.534000396728516,
+            "close": 59.534000396728516,
+            "volume": 100
+        },
+        {
             "date": "2025-12-24",
             "forecasted": true
         },
@@ -7140,30 +7186,5 @@
             "date": "2026-03-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "GUSA",
-        "koName": null,
-        "longName": null,
-        "company": "Goldman",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 58.7386,
-        "englishName": "Goldman Sachs MarketBeta U.S. 1000 Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 4,
-        "AvgVolume": 212,
-        "sharesOutstanding": null,
-        "52Week": "42.07 - 58.739",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {}
-    }
+    ]
 }

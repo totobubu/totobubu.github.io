@@ -1,4 +1,46 @@
 {
+    "tickerInfo": {
+        "Symbol": "073240.KS",
+        "koName": "금호타이어",
+        "longName": "금호타이어",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 4775,
+        "englishName": "Kumho Tire Co., Inc.",
+        "earningsDate": null,
+        "enterpriseValue": 3235593584640,
+        "marketCap": 1371667824640,
+        "Volume": 0,
+        "AvgVolume": 538488,
+        "sharesOutstanding": 287260287,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4770,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 3234157297664,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1373104111616,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 542362,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2005-02-17",
@@ -3784,7 +3826,7 @@
             "close": 37500.0390625,
             "volume": 72301,
             "amount": 900,
-            "yield": 0.02380949920479993
+            "yield": 0.0238094992
         },
         {
             "date": "2006-12-28",
@@ -5754,7 +5796,7 @@
             "close": 41400.04296875,
             "volume": 36680,
             "amount": 900,
-            "yield": 0.04363631818186553
+            "yield": 0.0436363182
         },
         {
             "date": "2007-12-28",
@@ -40846,54 +40888,16 @@
             "volume": 354763
         },
         {
+            "date": "2025-10-29",
+            "open": 4800,
+            "high": 4825,
+            "low": 4690,
+            "close": 4775,
+            "volume": 481246
+        },
+        {
             "date": "2025-12-26",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "073240.KS",
-        "koName": "금호타이어",
-        "longName": "금호타이어",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 4770.0,
-        "englishName": "Kumho Tire Co., Inc.",
-        "earningsDate": null,
-        "enterpriseValue": 3234157297664,
-        "marketCap": 1373104111616,
-        "Volume": 0,
-        "AvgVolume": 542362,
-        "sharesOutstanding": 287260287,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 4745,
-                "change": "up"
-            },
-            "enterpriseValue": {
-                "value": 3237029871616,
-                "change": "down"
-            },
-            "marketCap": {
-                "value": 1363050102784,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 26791,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 538904,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "266420.KS",
+        "koName": "KODEX 헬스케어",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 19870,
+        "englishName": "KODEX Healthcare",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 88151,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20085,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 85208,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-03-28",
@@ -4016,7 +4050,7 @@
             "close": 15405,
             "volume": 1280,
             "amount": 20,
-            "yield": 0.0013131976362442547
+            "yield": 0.0013131976
         },
         {
             "date": "2019-04-30",
@@ -13714,7 +13748,7 @@
             "close": 15180,
             "volume": 35295,
             "amount": 50,
-            "yield": 0.003348961821835231
+            "yield": 0.0033489618
         },
         {
             "date": "2024-04-30",
@@ -15628,7 +15662,7 @@
             "close": 16835,
             "volume": 18501,
             "amount": 43,
-            "yield": 0.00562273276904474
+            "yield": 0.0056227328
         },
         {
             "date": "2025-04-30",
@@ -16581,44 +16615,18 @@
             "low": 19950,
             "close": 20085,
             "volume": 231621
+        },
+        {
+            "date": "2025-10-29",
+            "open": 20160,
+            "high": 20160,
+            "low": 19780,
+            "close": 19870,
+            "volume": 133284
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "266420.KS",
-        "koName": "KODEX 헬스케어",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 20085.0,
-        "englishName": "KODEX Healthcare",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 85208,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 20240,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 74391,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 82150,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

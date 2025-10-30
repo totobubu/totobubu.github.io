@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "304940.KS",
+        "koName": "KODEX 미국나스닥100선물(H)",
+        "longName": "KODEX 미국나스닥100선물(H)",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 29685,
+        "englishName": "Samsung Kodex Us Nasdaq 100 Futures Etf(H)",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 21575,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29295,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22156,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-08-30",
@@ -13831,44 +13865,14 @@
             "low": 29285,
             "close": 29295,
             "volume": 20739
+        },
+        {
+            "date": "2025-10-29",
+            "open": 29545,
+            "high": 29685,
+            "low": 29535,
+            "close": 29685,
+            "volume": 21011
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "304940.KS",
-        "koName": "KODEX 미국나스닥100선물(H)",
-        "longName": "KODEX 미국나스닥100선물(H)",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 29295.0,
-        "englishName": "Samsung Kodex Us Nasdaq 100 Futures Etf(H)",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 22156,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 29322,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1118,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 21436,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

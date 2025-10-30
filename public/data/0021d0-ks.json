@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0021D0.KS",
+        "koName": "ACE TDF2030액티브",
+        "longName": null,
+        "company": "한국투자신탁운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11080,
+        "englishName": "Korea Investment Trust Management Co, Ltd. - KIM Ace TDF2030 Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 8301,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11075,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8162,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-03-11",
@@ -1239,44 +1273,14 @@
             "low": 11075,
             "close": 11075,
             "volume": 11499
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11075,
+            "high": 11100,
+            "low": 11065,
+            "close": 11080,
+            "volume": 28508
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0021D0.KS",
-        "koName": "ACE TDF2030액티브",
-        "longName": null,
-        "company": "한국투자신탁운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11075.0,
-        "englishName": "Korea Investment Trust Management Co, Ltd. - KIM Ace TDF2030 Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 8162,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11085,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 115,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8266,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

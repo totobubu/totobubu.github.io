@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "454180.KS",
+        "koName": "KIWOOM 차이나내수소비TOP CSI",
+        "longName": null,
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 9420,
+        "englishName": "Kiwoom Kosef China Domestic Consumer Top CSI ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 3638,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9500,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3580,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-04-04",
@@ -1000,7 +1034,7 @@
             "close": 8290,
             "volume": 4011,
             "amount": 60,
-            "yield": 0.007330482590103849
+            "yield": 0.0073304826
         },
         {
             "date": "2023-10-31",
@@ -4382,7 +4416,7 @@
             "close": 8880,
             "volume": 1256,
             "amount": 110,
-            "yield": 0.021146355036171398
+            "yield": 0.021146355
         },
         {
             "date": "2025-07-31",
@@ -4847,36 +4881,14 @@
             "low": 9520,
             "close": 9555,
             "volume": 1435
+        },
+        {
+            "date": "2025-10-29",
+            "open": 9465,
+            "high": 9550,
+            "low": 9420,
+            "close": 9420,
+            "volume": 3797
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "454180.KS",
-        "koName": "KIWOOM 차이나내수소비TOP CSI",
-        "longName": null,
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 9500,
-        "englishName": "Kiwoom Kosef China Domestic Consumer Top CSI ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 3580,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 2461,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

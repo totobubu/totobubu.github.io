@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "433980.KS",
+        "koName": "KODEX TDF2040액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15245,
+        "englishName": "Samsung Kodex Target Date 2040 Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 41858,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15225,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7346,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 40419,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-06-30",
@@ -2840,7 +2878,7 @@
             "close": 11555,
             "volume": 3395,
             "amount": 80,
-            "yield": 0.006926406926406926
+            "yield": 0.0069264069
         },
         {
             "date": "2023-12-28",
@@ -3490,7 +3528,7 @@
             "close": 12245,
             "volume": 4096,
             "amount": 75,
-            "yield": 0.012560777957860616
+            "yield": 0.012560778
         },
         {
             "date": "2024-04-30",
@@ -3988,7 +4026,7 @@
             "close": 12885,
             "volume": 3917,
             "amount": 75,
-            "yield": 0.017726396917148363
+            "yield": 0.0177263969
         },
         {
             "date": "2024-07-31",
@@ -4914,7 +4952,7 @@
             "close": 13850,
             "volume": 25381,
             "amount": 75,
-            "yield": 0.021574973031283712
+            "yield": 0.021574973
         },
         {
             "date": "2025-01-31",
@@ -5412,7 +5450,7 @@
             "close": 13570,
             "volume": 14548,
             "amount": 40,
-            "yield": 0.025046040515653775
+            "yield": 0.0250460405
         },
         {
             "date": "2025-04-30",
@@ -5902,7 +5940,7 @@
             "close": 14200,
             "volume": 31721,
             "amount": 40,
-            "yield": 0.021433591004919185
+            "yield": 0.021433591
         },
         {
             "date": "2025-07-31",
@@ -6369,6 +6407,14 @@
             "volume": 63296
         },
         {
+            "date": "2025-10-29",
+            "open": 15360,
+            "high": 15360,
+            "low": 15235,
+            "close": 15245,
+            "volume": 85157
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -6376,39 +6422,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "433980.KS",
-        "koName": "KODEX TDF2040액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 15225,
-        "englishName": "Samsung Kodex Target Date 2040 Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 7346,
-        "AvgVolume": 40419,
-        "sharesOutstanding": null,
-        "52Week": "12675.0 - 15230.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15145,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "472350.KS",
+        "koName": "1Q 차이나H(H)",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 17275,
+        "englishName": "Hana 1Q China H ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1661,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17005,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1457,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-12-12",
@@ -3599,40 +3633,14 @@
             "low": 17120,
             "close": 17130,
             "volume": 2459
+        },
+        {
+            "date": "2025-10-29",
+            "open": 17365,
+            "high": 17365,
+            "low": 17170,
+            "close": 17275,
+            "volume": 683
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "472350.KS",
-        "koName": "1Q 차이나H(H)",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 17005,
-        "englishName": "Hana 1Q China H ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1457,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 1101,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1441,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

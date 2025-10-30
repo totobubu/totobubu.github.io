@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "AMDL",
+        "koName": null,
+        "longName": null,
+        "company": "GraniteShares",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 25.35,
+        "englishName": "GraniteShares 2x Long AMD Daily ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 16847013,
+        "AvgVolume": 30968678,
+        "sharesOutstanding": null,
+        "52Week": "2.77 - 25.86",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.27,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 22320755,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 31632303,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-03-18",
@@ -3247,40 +3285,14 @@
             "low": 24.170000076293945,
             "close": 24.170000076293945,
             "volume": 16315400
+        },
+        {
+            "date": "2025-10-29",
+            "open": 25.299999237060547,
+            "high": 25.860000610351562,
+            "low": 24.065000534057617,
+            "close": 25.350000381469727,
+            "volume": 16847013
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "AMDL",
-        "koName": null,
-        "longName": null,
-        "company": "GraniteShares",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 23.27,
-        "englishName": "GraniteShares 2x Long AMD Daily ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 22320755,
-        "AvgVolume": 31632303,
-        "sharesOutstanding": null,
-        "52Week": "2.77 - 23.33",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 21938628,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 31782987,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

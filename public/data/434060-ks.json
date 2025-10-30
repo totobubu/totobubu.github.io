@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "434060.KS",
+        "koName": "KODEX TDF2050액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16285,
+        "englishName": "Samsung Kodex Target Date 2050 Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 170309,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16245,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19806,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 167595,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-06-30",
@@ -2840,7 +2878,7 @@
             "close": 11685,
             "volume": 54870,
             "amount": 170,
-            "yield": 0.014598540145985401
+            "yield": 0.0145985401
         },
         {
             "date": "2023-12-28",
@@ -3490,7 +3528,7 @@
             "close": 12635,
             "volume": 40053,
             "amount": 68,
-            "yield": 0.018806795732911892
+            "yield": 0.0188067957
         },
         {
             "date": "2024-04-30",
@@ -3988,7 +4026,7 @@
             "close": 13300,
             "volume": 56480,
             "amount": 70,
-            "yield": 0.02299365434863755
+            "yield": 0.0229936543
         },
         {
             "date": "2024-07-31",
@@ -4914,7 +4952,7 @@
             "close": 14485,
             "volume": 186644,
             "amount": 70,
-            "yield": 0.01913282863041982
+            "yield": 0.0191328286
         },
         {
             "date": "2025-01-31",
@@ -5412,7 +5450,7 @@
             "close": 14055,
             "volume": 97234,
             "amount": 30,
-            "yield": 0.02192951228195087
+            "yield": 0.0219295123
         },
         {
             "date": "2025-04-30",
@@ -5902,7 +5940,7 @@
             "close": 14940,
             "volume": 133586,
             "amount": 35,
-            "yield": 0.018376211159371866
+            "yield": 0.0183762112
         },
         {
             "date": "2025-07-31",
@@ -6369,6 +6407,14 @@
             "volume": 206223
         },
         {
+            "date": "2025-10-29",
+            "open": 16280,
+            "high": 16317,
+            "low": 16230,
+            "close": 16285,
+            "volume": 232407
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -6376,39 +6422,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "434060.KS",
-        "koName": "KODEX TDF2050액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 16245,
-        "englishName": "Samsung Kodex Target Date 2050 Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 19806,
-        "AvgVolume": 167595,
-        "sharesOutstanding": null,
-        "52Week": "12355.0 - 16295.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 16130,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

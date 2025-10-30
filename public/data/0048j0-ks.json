@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0048J0.KS",
+        "koName": "KODEX 미국머니마켓액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 14380,
+        "englishName": "Samsung Kodex US Money Market Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 181187,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14420,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 181874,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-05-13",
@@ -256,7 +290,7 @@
             "close": 13575,
             "volume": 69649,
             "amount": 74,
-            "yield": 0.005453205600589536
+            "yield": 0.0054532056
         },
         {
             "date": "2025-06-30",
@@ -442,7 +476,7 @@
             "close": 13835,
             "volume": 118942,
             "amount": 62,
-            "yield": 0.009784172661870504
+            "yield": 0.0097841727
         },
         {
             "date": "2025-07-31",
@@ -604,7 +638,7 @@
             "close": 13870,
             "volume": 154533,
             "amount": 67,
-            "yield": 0.014567635450304987
+            "yield": 0.0145676355
         },
         {
             "date": "2025-08-29",
@@ -782,7 +816,7 @@
             "close": 13990,
             "volume": 277306,
             "amount": 56,
-            "yield": 0.01837531039375665
+            "yield": 0.0183753104
         },
         {
             "date": "2025-09-30",
@@ -913,10 +947,6 @@
             "volume": 154306
         },
         {
-            "date": "2025-10-29",
-            "forecasted": true
-        },
-        {
             "date": "2025-11-28",
             "forecasted": true
         },
@@ -940,43 +970,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0048J0.KS",
-        "koName": "KODEX 미국머니마켓액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 14420.0,
-        "englishName": "Samsung Kodex US Money Market Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 181874,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14370,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 15871,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 181244,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

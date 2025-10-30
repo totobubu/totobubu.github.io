@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "COWG",
+        "koName": null,
+        "longName": null,
+        "company": "Pacer",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 36.45,
+        "englishName": "Pacer US Large Cap Cash Cows Growth Leaders ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 569763,
+        "AvgVolume": 640942,
+        "sharesOutstanding": null,
+        "52Week": "26.2 - 37.165",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 411341,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 641390,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-12-30",
@@ -456,7 +494,7 @@
             "close": 19.829999923706055,
             "volume": 12000,
             "amount": 0.023,
-            "yield": 0.0011540391193083396
+            "yield": 0.0011540391
         },
         {
             "date": "2023-03-24",
@@ -954,7 +992,7 @@
             "close": 21.020000457763672,
             "volume": 79400,
             "amount": 0.024,
-            "yield": 0.0022552782944276315
+            "yield": 0.0022552783
         },
         {
             "date": "2023-06-23",
@@ -1460,7 +1498,7 @@
             "close": 21.149999618530273,
             "volume": 6300,
             "amount": 0.022,
-            "yield": 0.003213786781869225
+            "yield": 0.0032137868
         },
         {
             "date": "2023-09-22",
@@ -1998,7 +2036,7 @@
             "close": 23.99799919128418,
             "volume": 89100,
             "amount": 0.042,
-            "yield": 0.00461346643656928
+            "yield": 0.0046134664
         },
         {
             "date": "2023-12-28",
@@ -2464,7 +2502,7 @@
             "close": 26.149999618530273,
             "volume": 98200,
             "amount": 0.025,
-            "yield": 0.005178979391265258
+            "yield": 0.0051789794
         },
         {
             "date": "2024-03-22",
@@ -3002,7 +3040,7 @@
             "close": 27.149999618530273,
             "volume": 83400,
             "amount": 0.021,
-            "yield": 0.004072565681890547
+            "yield": 0.0040725657
         },
         {
             "date": "2024-06-28",
@@ -3508,7 +3546,7 @@
             "close": 28.6200008392334,
             "volume": 283700,
             "amount": 0.032,
-            "yield": 0.00416233091632191
+            "yield": 0.0041623309
         },
         {
             "date": "2024-09-27",
@@ -4022,7 +4060,7 @@
             "close": 32.689998626708984,
             "volume": 205100,
             "amount": 0.05,
-            "yield": 0.003882317114371955
+            "yield": 0.0038823171
         },
         {
             "date": "2024-12-30",
@@ -4384,7 +4422,7 @@
             "close": 31.469999313354492,
             "volume": 1099700,
             "amount": 0.005,
-            "yield": 0.004130434684743119
+            "yield": 0.0041304347
         },
         {
             "date": "2025-03-07",
@@ -4890,7 +4928,7 @@
             "close": 35,
             "volume": 826900,
             "amount": 0.008,
-            "yield": 0.003290780141843972
+            "yield": 0.0032907801
         },
         {
             "date": "2025-06-06",
@@ -5388,7 +5426,7 @@
             "close": 35.029998779296875,
             "volume": 678800,
             "amount": 0.036,
-            "yield": 0.0037643678986202527
+            "yield": 0.0037643679
         },
         {
             "date": "2025-09-05",
@@ -5695,6 +5733,14 @@
             "volume": 627506
         },
         {
+            "date": "2025-10-29",
+            "open": 36.70000076293945,
+            "high": 36.720001220703125,
+            "low": 36.230499267578125,
+            "close": 36.45000076293945,
+            "volume": 569763
+        },
+        {
             "date": "2025-12-04",
             "forecasted": true
         },
@@ -5702,39 +5748,5 @@
             "date": "2026-03-04",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "COWG",
-        "koName": null,
-        "longName": null,
-        "company": "Pacer",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 36.43,
-        "englishName": "Pacer US Large Cap Cash Cows Growth Leaders ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 411341,
-        "AvgVolume": 641390,
-        "sharesOutstanding": null,
-        "52Week": "26.2 - 37.165",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 411241,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 642123,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

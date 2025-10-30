@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "214980.KS",
+        "koName": "KODEX 단기채권PLUS",
+        "longName": "KODEX 단기채권PLUS",
+        "company": null,
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 114985,
+        "englishName": "KODEX KRW Cash PLUS",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 53247,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 114990,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 51770,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2015-03-03",
@@ -1656,7 +1690,7 @@
             "close": 100030,
             "volume": 3364,
             "amount": 1479,
-            "yield": 0.014786303424143964
+            "yield": 0.0147863034
         },
         {
             "date": "2015-12-30",
@@ -3626,7 +3660,7 @@
             "close": 100025,
             "volume": 7418,
             "amount": 1376,
-            "yield": 0.028544291141771646
+            "yield": 0.0285442911
         },
         {
             "date": "2016-12-29",
@@ -5556,7 +5590,7 @@
             "close": 100025,
             "volume": 42067,
             "amount": 1320,
-            "yield": 0.026953261684578855
+            "yield": 0.0269532617
         },
         {
             "date": "2017-12-28",
@@ -7486,7 +7520,7 @@
             "close": 100025,
             "volume": 7913,
             "amount": 1785,
-            "yield": 0.03104379124175165
+            "yield": 0.0310437912
         },
         {
             "date": "2018-12-28",
@@ -20304,7 +20338,7 @@
             "close": 114975,
             "volume": 33924,
             "amount": 244,
-            "yield": 0.0021222927720274854
+            "yield": 0.0021222928
         },
         {
             "date": "2025-08-14",
@@ -20474,7 +20508,7 @@
             "close": 114920,
             "volume": 74409,
             "amount": 236,
-            "yield": 0.004175910217930314
+            "yield": 0.0041759102
         },
         {
             "date": "2025-09-15",
@@ -20612,7 +20646,7 @@
             "close": 114925,
             "volume": 53182,
             "amount": 232,
-            "yield": 0.006194536279798156
+            "yield": 0.0061945363
         },
         {
             "date": "2025-10-15",
@@ -20695,6 +20729,14 @@
             "volume": 117614
         },
         {
+            "date": "2025-10-29",
+            "open": 114985,
+            "high": 114995,
+            "low": 114980,
+            "close": 114985,
+            "volume": 29780
+        },
+        {
             "date": "2025-11-14",
             "forecasted": true
         },
@@ -20718,39 +20760,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "214980.KS",
-        "koName": "KODEX 단기채권PLUS",
-        "longName": "KODEX 단기채권PLUS",
-        "company": null,
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 114990.0,
-        "englishName": "KODEX KRW Cash PLUS",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 51770,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 5337,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 50652,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

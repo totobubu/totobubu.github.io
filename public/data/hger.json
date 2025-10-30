@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "HGER",
+        "koName": null,
+        "longName": null,
+        "company": "Harbor",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 26.21,
+        "englishName": "Harbor Commodity All-Weather Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 335190,
+        "AvgVolume": 513353,
+        "sharesOutstanding": null,
+        "52Week": "21.73 - 26.67",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.5,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 287631,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 513996,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-02-10",
@@ -1744,7 +1782,7 @@
             "close": 21.719999313354492,
             "volume": 3800,
             "amount": 0.14,
-            "yield": 0.006465318386474966
+            "yield": 0.0064653184
         },
         {
             "date": "2022-12-22",
@@ -3754,7 +3792,7 @@
             "close": 20.989999771118164,
             "volume": 19500,
             "amount": 1.517,
-            "yield": 0.07845643627636072
+            "yield": 0.0784564363
         },
         {
             "date": "2023-12-22",
@@ -5764,7 +5802,7 @@
             "close": 21.899999618530273,
             "volume": 38800,
             "amount": 0.726,
-            "yield": 0.10270146448392857
+            "yield": 0.1027014645
         },
         {
             "date": "2024-12-23",
@@ -7463,42 +7501,16 @@
             "volume": 285281
         },
         {
+            "date": "2025-10-29",
+            "open": 26.209999084472656,
+            "high": 26.399900436401367,
+            "low": 26.174999237060547,
+            "close": 26.209999084472656,
+            "volume": 335190
+        },
+        {
             "date": "2025-12-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "HGER",
-        "koName": null,
-        "longName": null,
-        "company": "Harbor",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 26.5,
-        "englishName": "Harbor Commodity All-Weather Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 287631,
-        "AvgVolume": 513996,
-        "sharesOutstanding": null,
-        "52Week": "21.73 - 26.67",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 287462,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 511459,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

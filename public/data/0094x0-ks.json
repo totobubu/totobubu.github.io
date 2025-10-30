@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0094X0.KS",
+        "koName": "1Q 샤오미밸류체인액티브",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11080,
+        "englishName": "Hana 1Q Xiaomi Value Chain Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 226579,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11070,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 229605,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-09-02",
@@ -287,44 +321,14 @@
             "low": 11005,
             "close": 11070,
             "volume": 120690
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11005,
+            "high": 11195,
+            "low": 11005,
+            "close": 11080,
+            "volume": 98770
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0094X0.KS",
-        "koName": "1Q 샤오미밸류체인액티브",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11070.0,
-        "englishName": "Hana 1Q Xiaomi Value Chain Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 229605,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11200,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 34417,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 229897,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

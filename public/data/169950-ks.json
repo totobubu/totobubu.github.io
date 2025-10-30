@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "169950.KS",
+        "koName": "KODEX 차이나A50",
+        "longName": "KODEX 차이나A50",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 26430,
+        "englishName": "Kodex FTSE China A50 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 5499,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26700,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5373,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2013-01-21",
@@ -24815,44 +24849,14 @@
             "low": 26365,
             "close": 26700,
             "volume": 8735
+        },
+        {
+            "date": "2025-10-29",
+            "open": 26700,
+            "high": 26830,
+            "low": 26225,
+            "close": 26430,
+            "volume": 5041
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "169950.KS",
-        "koName": "KODEX 차이나A50",
-        "longName": "KODEX 차이나A50",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 26700.0,
-        "englishName": "Kodex FTSE China A50 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 5373,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 26795,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 2848,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 5241,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

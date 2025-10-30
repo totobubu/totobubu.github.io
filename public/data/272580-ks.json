@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "272580.KS",
+        "koName": "TIGER 단기채권액티브",
+        "longName": "TIGER 단기채권액티브",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 56295,
+        "englishName": "Mirae Asset Tiger Money Market Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 32842,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56290,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 32790,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-06-29",
@@ -952,7 +986,7 @@
             "close": 50015,
             "volume": 30,
             "amount": 320,
-            "yield": 0.006397441023590564
+            "yield": 0.006397441
         },
         {
             "date": "2017-12-28",
@@ -2882,7 +2916,7 @@
             "close": 50025,
             "volume": 2659,
             "amount": 885,
-            "yield": 0.024083141800739484
+            "yield": 0.0240831418
         },
         {
             "date": "2018-12-28",
@@ -4844,7 +4878,7 @@
             "close": 50015,
             "volume": 296,
             "amount": 825,
-            "yield": 0.034189743077076874
+            "yield": 0.0341897431
         },
         {
             "date": "2019-12-30",
@@ -6814,7 +6848,7 @@
             "close": 50005,
             "volume": 45156,
             "amount": 535,
-            "yield": 0.010694652673663168
+            "yield": 0.0106946527
         },
         {
             "date": "2020-12-30",
@@ -16089,42 +16123,16 @@
             "volume": 21433
         },
         {
+            "date": "2025-10-29",
+            "open": 56295,
+            "high": 56300,
+            "low": 56290,
+            "close": 56295,
+            "volume": 25409
+        },
+        {
             "date": "2025-12-29",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "272580.KS",
-        "koName": "TIGER 단기채권액티브",
-        "longName": "TIGER 단기채권액티브",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 56290.0,
-        "englishName": "Mirae Asset Tiger Money Market Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 32790,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 2325,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 32715,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

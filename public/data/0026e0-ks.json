@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0026E0.KS",
+        "koName": "KODEX 미국S&P500버퍼3월액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10750,
+        "englishName": "Samsung Kodex Us S&P500 Buffer March Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 12019,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10775,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12532,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-03-25",
@@ -1159,44 +1193,14 @@
             "low": 10710,
             "close": 10775,
             "volume": 6999
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10775,
+            "high": 10775,
+            "low": 10685,
+            "close": 10750,
+            "volume": 6827
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0026E0.KS",
-        "koName": "KODEX 미국S&P500버퍼3월액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10775.0,
-        "englishName": "Samsung Kodex Us S&P500 Buffer March Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 12532,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10760,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 32,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 14820,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

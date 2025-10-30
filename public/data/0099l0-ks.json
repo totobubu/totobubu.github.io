@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0099L0.KS",
+        "koName": "ACE 우량회사채(AA-이상)액티브",
+        "longName": "ACE 우량회사채(AA-이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 100115,
+        "englishName": "Kim Ace High Grade Credit Bond Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 39276,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100165,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 40566,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-09-09",
@@ -247,44 +281,14 @@
             "low": 100145,
             "close": 100165,
             "volume": 587
+        },
+        {
+            "date": "2025-10-29",
+            "open": 100145,
+            "high": 100145,
+            "low": 100095,
+            "close": 100115,
+            "volume": 767
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0099L0.KS",
-        "koName": "ACE 우량회사채(AA-이상)액티브",
-        "longName": "ACE 우량회사채(AA-이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 100165.0,
-        "englishName": "Kim Ace High Grade Credit Bond Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 40566,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 100175,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 13,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 41220,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

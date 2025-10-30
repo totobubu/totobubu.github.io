@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "447620.KS",
+        "koName": "SOL 미국TOP5채권혼합40 Solactive",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15055,
+        "englishName": "Shinhan SOL US TOP5 40 Blended ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 60644,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14875,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4804,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 60582,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-29",
@@ -832,7 +870,7 @@
             "close": 10425,
             "volume": 8958,
             "amount": 2,
-            "yield": 0.00019166267369429804
+            "yield": 0.0001916627
         },
         {
             "date": "2023-04-28",
@@ -2666,7 +2704,7 @@
             "close": 11915,
             "volume": 138738,
             "amount": 8,
-            "yield": 0.0006773920406435225
+            "yield": 0.000677392
         },
         {
             "date": "2024-04-30",
@@ -4580,7 +4618,7 @@
             "close": 12835,
             "volume": 7849,
             "amount": 9,
-            "yield": 0.0013173188686555599
+            "yield": 0.0013173189
         },
         {
             "date": "2025-04-30",
@@ -5533,40 +5571,18 @@
             "low": 14835,
             "close": 14885,
             "volume": 58624
+        },
+        {
+            "date": "2025-10-29",
+            "open": 14995,
+            "high": 15070,
+            "low": 14910,
+            "close": 15055,
+            "volume": 85656
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "447620.KS",
-        "koName": "SOL 미국TOP5채권혼합40 Solactive",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 14875,
-        "englishName": "Shinhan SOL US TOP5 40 Blended ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 4804,
-        "AvgVolume": 60582,
-        "sharesOutstanding": null,
-        "52Week": "12220.0 - 15210.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14680,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

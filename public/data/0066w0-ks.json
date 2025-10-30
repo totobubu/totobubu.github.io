@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0066W0.KS",
+        "koName": "SOL 국제금",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12075,
+        "englishName": "Shinhan Sol Global Gold Fofs ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 418363,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12050,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 399675,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-06-17",
@@ -719,44 +753,14 @@
             "low": 12050,
             "close": 12050,
             "volume": 1199550
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11980,
+            "high": 12105,
+            "low": 11970,
+            "close": 12075,
+            "volume": 637494
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0066W0.KS",
-        "koName": "SOL 국제금",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 12050.0,
-        "englishName": "Shinhan Sol Global Gold Fofs ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 399675,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 12080,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 300787,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 380897,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

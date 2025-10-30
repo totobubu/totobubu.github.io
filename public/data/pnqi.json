@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "PNQI",
+        "koName": null,
+        "longName": null,
+        "company": "Invesco",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 56.7715,
+        "englishName": "Invesco NASDAQ Internet ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 90034,
+        "AvgVolume": 39504,
+        "sharesOutstanding": null,
+        "52Week": "37.75 - 57.22",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.879,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19493,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 38981,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2008-06-13",
@@ -1064,7 +1102,7 @@
             "close": 2.7860000133514404,
             "volume": 12000,
             "amount": 0.0026,
-            "yield": 0.0009372747174279946
+            "yield": 0.0009372747
         },
         {
             "date": "2008-12-22",
@@ -9130,7 +9168,7 @@
             "close": 8.236000061035156,
             "volume": 82000,
             "amount": 0.0044,
-            "yield": 0.0005316578042328804
+            "yield": 0.0005316578
         },
         {
             "date": "2012-12-24",
@@ -19180,7 +19218,7 @@
             "close": 23.579999923706055,
             "volume": 125000,
             "amount": 0.0054,
-            "yield": 0.00023008096114120403
+            "yield": 0.000230081
         },
         {
             "date": "2017-12-19",
@@ -34270,7 +34308,7 @@
             "close": 49.880001068115234,
             "volume": 27000,
             "amount": 0.009,
-            "yield": 0.00018222312434136806
+            "yield": 0.0001822231
         },
         {
             "date": "2025-06-24",
@@ -34983,36 +35021,14 @@
             "low": 56.94409942626953,
             "close": 56.94409942626953,
             "volume": 64306
+        },
+        {
+            "date": "2025-10-29",
+            "open": 56.959999084472656,
+            "high": 56.959999084472656,
+            "low": 56.4900016784668,
+            "close": 56.77149963378906,
+            "volume": 90034
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "PNQI",
-        "koName": null,
-        "longName": null,
-        "company": "Invesco",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 55.879,
-        "englishName": "Invesco NASDAQ Internet ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 19493,
-        "AvgVolume": 38981,
-        "sharesOutstanding": null,
-        "52Week": "37.75 - 57.16",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 39060,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

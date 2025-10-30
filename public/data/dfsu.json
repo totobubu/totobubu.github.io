@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "DFSU",
+        "koName": null,
+        "longName": null,
+        "company": "Dimensional",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 43.37,
+        "englishName": "Dimensional US Sustainability Core 1 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 37974,
+        "AvgVolume": 105028,
+        "sharesOutstanding": null,
+        "52Week": "30.89 - 43.61",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.99,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 88403,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 102468,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-02",
@@ -272,7 +310,7 @@
             "close": 24.759000778198242,
             "volume": 107000,
             "amount": 0.053,
-            "yield": 0.0021457489215758498
+            "yield": 0.0021457489
         },
         {
             "date": "2022-12-21",
@@ -1268,7 +1306,7 @@
             "close": 28.1299991607666,
             "volume": 119700,
             "amount": 0.061,
-            "yield": 0.00539772730197542
+            "yield": 0.0053977273
         },
         {
             "date": "2023-06-22",
@@ -1766,7 +1804,7 @@
             "close": 28.59000015258789,
             "volume": 50000,
             "amount": 0.101,
-            "yield": 0.008836884646042919
+            "yield": 0.0088368846
         },
         {
             "date": "2023-09-20",
@@ -2280,7 +2318,7 @@
             "close": 31.05500030517578,
             "volume": 167600,
             "amount": 0.122,
-            "yield": 0.01216347716276353
+            "yield": 0.0121634772
         },
         {
             "date": "2023-12-20",
@@ -2770,7 +2808,7 @@
             "close": 33.72999954223633,
             "volume": 61600,
             "amount": 0.054,
-            "yield": 0.011250748671476244
+            "yield": 0.0112507487
         },
         {
             "date": "2024-03-20",
@@ -3276,7 +3314,7 @@
             "close": 35.060001373291016,
             "volume": 46700,
             "amount": 0.084,
-            "yield": 0.012067485995687221
+            "yield": 0.012067486
         },
         {
             "date": "2024-06-20",
@@ -3774,7 +3812,7 @@
             "close": 36.349998474121094,
             "volume": 179000,
             "amount": 0.089,
-            "yield": 0.01234567875393675
+            "yield": 0.0123456788
         },
         {
             "date": "2024-09-18",
@@ -4288,7 +4326,7 @@
             "close": 38.98500061035156,
             "volume": 80800,
             "amount": 0.135,
-            "yield": 0.01239119260069858
+            "yield": 0.0123911926
         },
         {
             "date": "2024-12-18",
@@ -4810,7 +4848,7 @@
             "close": 37,
             "volume": 119600,
             "amount": 0.081,
-            "yield": 0.010524892035601367
+            "yield": 0.010524892
         },
         {
             "date": "2025-03-26",
@@ -5308,7 +5346,7 @@
             "close": 38.58000183105469,
             "volume": 79300,
             "amount": 0.099,
-            "yield": 0.010520832915272995
+            "yield": 0.0105208329
         },
         {
             "date": "2025-06-25",
@@ -5814,7 +5852,7 @@
             "close": 42.36000061035156,
             "volume": 95200,
             "amount": 0.099,
-            "yield": 0.009736594438921468
+            "yield": 0.0097365944
         },
         {
             "date": "2025-09-24",
@@ -6017,6 +6055,14 @@
             "volume": 94518
         },
         {
+            "date": "2025-10-29",
+            "open": 43.60960006713867,
+            "high": 43.61000061035156,
+            "low": 43.22560119628906,
+            "close": 43.369998931884766,
+            "volume": 37974
+        },
+        {
             "date": "2025-12-23",
             "forecasted": true
         },
@@ -6024,39 +6070,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "DFSU",
-        "koName": null,
-        "longName": null,
-        "company": "Dimensional",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 42.99,
-        "englishName": "Dimensional US Sustainability Core 1 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 88403,
-        "AvgVolume": 102468,
-        "sharesOutstanding": null,
-        "52Week": "30.89 - 43.1",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 88391,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 101989,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

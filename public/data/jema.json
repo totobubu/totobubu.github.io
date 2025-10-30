@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JEMA",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 50.356,
+        "englishName": "JPMorgan ActiveBuilders Emerging Markets Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 24534,
+        "AvgVolume": 49029,
+        "sharesOutstanding": null,
+        "52Week": "33.442 - 50.6088",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.51,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16881,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 49131,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-03-18",
@@ -1520,7 +1558,7 @@
             "close": 46.63999938964844,
             "volume": 12400,
             "amount": 0.089,
-            "yield": 0.0019115119711112067
+            "yield": 0.001911512
         },
         {
             "date": "2021-12-16",
@@ -1554,7 +1592,7 @@
             "close": 45.869998931884766,
             "volume": 18900,
             "amount": 0.569,
-            "yield": 0.014426660626938502
+            "yield": 0.0144266606
         },
         {
             "date": "2021-12-22",
@@ -1604,7 +1642,7 @@
             "close": 46.7599983215332,
             "volume": 17900,
             "amount": 0.059,
-            "yield": 0.015496001575675239
+            "yield": 0.0154960016
         },
         {
             "date": "2021-12-31",
@@ -3566,7 +3604,7 @@
             "close": 33.970001220703125,
             "volume": 145100,
             "amount": 0.913,
-            "yield": 0.04551092652753499
+            "yield": 0.0455109265
         },
         {
             "date": "2022-12-21",
@@ -5568,7 +5606,7 @@
             "close": 35.59000015258789,
             "volume": 74800,
             "amount": 1.07,
-            "yield": 0.055922167264474715
+            "yield": 0.0559221673
         },
         {
             "date": "2023-12-20",
@@ -7610,7 +7648,7 @@
             "close": 38.040000915527344,
             "volume": 11300,
             "amount": 0.912,
-            "yield": 0.023950209678626346
+            "yield": 0.0239502097
         },
         {
             "date": "2024-12-26",
@@ -9293,42 +9331,16 @@
             "volume": 19033
         },
         {
+            "date": "2025-10-29",
+            "open": 50.58000183105469,
+            "high": 50.60879898071289,
+            "low": 50.250099182128906,
+            "close": 50.35599899291992,
+            "volume": 24534
+        },
+        {
             "date": "2025-12-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JEMA",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 49.51,
-        "englishName": "JPMorgan ActiveBuilders Emerging Markets Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 16881,
-        "AvgVolume": 49131,
-        "sharesOutstanding": null,
-        "52Week": "33.442 - 49.62",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 16874,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 49307,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

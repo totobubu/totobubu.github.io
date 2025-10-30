@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "275290.KS",
+        "koName": "KODEX 가치주",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16515,
+        "englishName": "KODEX MSCI Value",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 5890,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16285,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5899,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-07-12",
@@ -1472,7 +1506,7 @@
             "close": 10325,
             "volume": 1,
             "amount": 150,
-            "yield": 0.014527845036319613
+            "yield": 0.014527845
         },
         {
             "date": "2018-04-30",
@@ -3378,7 +3412,7 @@
             "close": 9250,
             "volume": 3190,
             "amount": 160,
-            "yield": 0.01745771958537916
+            "yield": 0.0174577196
         },
         {
             "date": "2019-04-30",
@@ -5356,7 +5390,7 @@
             "close": 7875,
             "volume": 30847,
             "amount": 170,
-            "yield": 0.04185161699429296
+            "yield": 0.041851617
         },
         {
             "date": "2020-04-29",
@@ -7302,7 +7336,7 @@
             "close": 13430,
             "volume": 89,
             "amount": 280,
-            "yield": 0.020717721050684423
+            "yield": 0.0207177211
         },
         {
             "date": "2021-04-30",
@@ -9232,7 +9266,7 @@
             "close": 11790,
             "volume": 0,
             "amount": 100,
-            "yield": 0.032230703986429174
+            "yield": 0.032230704
         },
         {
             "date": "2022-04-29",
@@ -11130,7 +11164,7 @@
             "close": 10560,
             "volume": 10,
             "amount": 300,
-            "yield": 0.03787878787878788
+            "yield": 0.0378787879
         },
         {
             "date": "2023-04-28",
@@ -12908,7 +12942,7 @@
             "close": 11415,
             "volume": 10,
             "amount": 350,
-            "yield": 0.030959752321981424
+            "yield": 0.0309597523
         },
         {
             "date": "2024-04-30",
@@ -14814,7 +14848,7 @@
             "close": 10235,
             "volume": 33,
             "amount": 348,
-            "yield": 0.0682640586797066
+            "yield": 0.0682640587
         },
         {
             "date": "2025-04-30",
@@ -15767,44 +15801,18 @@
             "low": 16130,
             "close": 16285,
             "volume": 3797
+        },
+        {
+            "date": "2025-10-29",
+            "open": 16300,
+            "high": 16580,
+            "low": 16285,
+            "close": 16515,
+            "volume": 1479
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "275290.KS",
-        "koName": "KODEX 가치주",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 16285.0,
-        "englishName": "KODEX MSCI Value",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 5899,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 16325,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 259,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 5791,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

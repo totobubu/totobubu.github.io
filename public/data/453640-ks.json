@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "453640.KS",
+        "koName": "KODEX 미국S&P500헬스케어",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12695,
+        "englishName": "Samsung Kodex S&P500 Health Care Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 82264,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12805,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 81562,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-03-21",
@@ -624,7 +658,7 @@
             "close": 10480,
             "volume": 4578,
             "amount": 25,
-            "yield": 0.002403846153846154
+            "yield": 0.0024038462
         },
         {
             "date": "2023-08-03",
@@ -1082,7 +1116,7 @@
             "close": 10140,
             "volume": 43776,
             "amount": 35,
-            "yield": 0.0058679706601467
+            "yield": 0.0058679707
         },
         {
             "date": "2023-10-31",
@@ -1580,7 +1614,7 @@
             "close": 11395,
             "volume": 15614,
             "amount": 30,
-            "yield": 0.007832898172323759
+            "yield": 0.0078328982
         },
         {
             "date": "2024-01-31",
@@ -2062,7 +2096,7 @@
             "close": 11710,
             "volume": 16440,
             "amount": 35,
-            "yield": 0.010539629005059023
+            "yield": 0.010539629
         },
         {
             "date": "2024-04-30",
@@ -2560,7 +2594,7 @@
             "close": 12705,
             "volume": 85649,
             "amount": 39,
-            "yield": 0.01095350669818755
+            "yield": 0.0109535067
         },
         {
             "date": "2024-07-31",
@@ -3486,7 +3520,7 @@
             "close": 12530,
             "volume": 20534,
             "amount": 34,
-            "yield": 0.013578274760383386
+            "yield": 0.0135782748
         },
         {
             "date": "2025-01-31",
@@ -3984,7 +4018,7 @@
             "close": 12180,
             "volume": 7727,
             "amount": 37,
-            "yield": 0.014520098441345365
+            "yield": 0.0145200984
         },
         {
             "date": "2025-04-30",
@@ -4474,7 +4508,7 @@
             "close": 11325,
             "volume": 49428,
             "amount": 48,
-            "yield": 0.016725352112676055
+            "yield": 0.0167253521
         },
         {
             "date": "2025-07-31",
@@ -4941,6 +4975,14 @@
             "volume": 61864
         },
         {
+            "date": "2025-10-29",
+            "open": 12675,
+            "high": 12710,
+            "low": 12620,
+            "close": 12695,
+            "volume": 44407
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -4948,35 +4990,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "453640.KS",
-        "koName": "KODEX 미국S&P500헬스케어",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 12805,
-        "englishName": "Samsung Kodex S&P500 Health Care Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 81562,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 58207,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

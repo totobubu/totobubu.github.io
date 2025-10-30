@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CGGE",
+        "koName": null,
+        "longName": null,
+        "company": "Capital",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 31.51,
+        "englishName": "Capital Group Global Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 872077,
+        "AvgVolume": 481392,
+        "sharesOutstanding": null,
+        "52Week": "22.765 - 31.63",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.28,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 437995,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 478351,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-27",
@@ -1016,7 +1054,7 @@
             "close": 25.972999572753906,
             "volume": 20100,
             "amount": 0.089,
-            "yield": 0.00344961250511029
+            "yield": 0.0034496125
         },
         {
             "date": "2024-12-27",
@@ -2689,40 +2727,14 @@
             "low": 31.510000228881836,
             "close": 31.540000915527344,
             "volume": 365755
+        },
+        {
+            "date": "2025-10-29",
+            "open": 31.579999923706055,
+            "high": 31.6299991607666,
+            "low": 31.31999969482422,
+            "close": 31.510000228881836,
+            "volume": 872077
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CGGE",
-        "koName": null,
-        "longName": null,
-        "company": "Capital",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 31.28,
-        "englishName": "Capital Group Global Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 437995,
-        "AvgVolume": 478351,
-        "sharesOutstanding": null,
-        "52Week": "22.765 - 31.34",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 437989,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 473750,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

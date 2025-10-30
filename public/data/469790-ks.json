@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "469790.KS",
+        "koName": "KIWOOM K-테크TOP10",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 18655,
+        "englishName": "Kiwoom Kosef K-Techtop10 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 6511,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17725,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6492,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-10-31",
@@ -2892,7 +2926,7 @@
             "close": 9955,
             "volume": 50,
             "amount": 150,
-            "yield": 0.020060180541624874
+            "yield": 0.0200601805
         },
         {
             "date": "2025-04-30",
@@ -3382,7 +3416,7 @@
             "close": 12635,
             "volume": 4722,
             "amount": 15,
-            "yield": 0.01704996034892942
+            "yield": 0.0170499603
         },
         {
             "date": "2025-07-31",
@@ -3849,6 +3883,14 @@
             "volume": 4242
         },
         {
+            "date": "2025-10-29",
+            "open": 18185,
+            "high": 18675,
+            "low": 18025,
+            "close": 18655,
+            "volume": 21294
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -3856,39 +3898,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "469790.KS",
-        "koName": "KIWOOM K-테크TOP10",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 17725,
-        "englishName": "Kiwoom Kosef K-Techtop10 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 6492,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 4385,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 6461,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

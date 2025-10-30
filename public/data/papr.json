@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "PAPR",
+        "koName": null,
+        "longName": null,
+        "company": "Innovator",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 38.62,
+        "englishName": "Innovator U.S. Equity Power Buffer ETF - April",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 50651,
+        "AvgVolume": 42243,
+        "sharesOutstanding": null,
+        "52Week": "32.74 - 38.6973",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.56,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 24280,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42050,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-04-01",
@@ -1304,7 +1342,7 @@
             "close": 25.825000762939453,
             "volume": 3200,
             "amount": 0.802,
-            "yield": 0.030881787493447853
+            "yield": 0.0308817875
         },
         {
             "date": "2019-11-20",
@@ -13241,36 +13279,14 @@
             "low": 38.61000061035156,
             "close": 38.619998931884766,
             "volume": 50917
+        },
+        {
+            "date": "2025-10-29",
+            "open": 38.63999938964844,
+            "high": 38.69729995727539,
+            "low": 38.56079864501953,
+            "close": 38.619998931884766,
+            "volume": 50651
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "PAPR",
-        "koName": null,
-        "longName": null,
-        "company": "Innovator",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 38.56,
-        "englishName": "Innovator U.S. Equity Power Buffer ETF - April",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 24280,
-        "AvgVolume": 42050,
-        "sharesOutstanding": null,
-        "52Week": "32.74 - 38.62",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 42126,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

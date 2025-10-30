@@ -1,4 +1,34 @@
 {
+    "tickerInfo": {
+        "Symbol": "0086B0.KS",
+        "koName": "TIGER 리츠부동산인프라TOP10액티브",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10150,
+        "englishName": "Mirae Asset Tiger REIT Infra Top 10 Active Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 336255,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "AvgVolume": {
+                "value": 352023,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-07-29",
@@ -264,7 +294,7 @@
             "close": 10330,
             "volume": 442445,
             "amount": 54,
-            "yield": 0.0052350945225399905
+            "yield": 0.0052350945
         },
         {
             "date": "2025-09-15",
@@ -402,7 +432,7 @@
             "close": 10140,
             "volume": 228691,
             "amount": 54,
-            "yield": 0.010650887573964497
+            "yield": 0.0106508876
         },
         {
             "date": "2025-10-15",
@@ -485,6 +515,14 @@
             "volume": 78149
         },
         {
+            "date": "2025-10-29",
+            "open": 10150,
+            "high": 10160,
+            "low": 10130,
+            "close": 10150,
+            "volume": 103668
+        },
+        {
             "date": "2025-11-14",
             "forecasted": true
         },
@@ -508,43 +546,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0086B0.KS",
-        "koName": "TIGER 리츠부동산인프라TOP10액티브",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10150.0,
-        "englishName": "Mirae Asset Tiger REIT Infra Top 10 Active Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 352023,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10135,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 25684,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 355142,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

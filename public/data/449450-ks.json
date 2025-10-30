@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "449450.KS",
+        "koName": "PLUS K방산",
+        "longName": "PLUS K방산",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 57800,
+        "englishName": "ARIRANG Defensive ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1436570,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58715,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 166366,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1487574,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-01-05",
@@ -2456,7 +2494,7 @@
             "close": 16260,
             "volume": 1036260,
             "amount": 50,
-            "yield": 0.0030950170225936243
+            "yield": 0.003095017
         },
         {
             "date": "2024-04-30",
@@ -4370,7 +4408,7 @@
             "close": 36100,
             "volume": 1595067,
             "amount": 100,
-            "yield": 0.004092769440654843
+            "yield": 0.0040927694
         },
         {
             "date": "2025-04-30",
@@ -5323,40 +5361,18 @@
             "low": 57770,
             "close": 58200,
             "volume": 1075604
+        },
+        {
+            "date": "2025-10-29",
+            "open": 58745,
+            "high": 59030,
+            "low": 57015,
+            "close": 57800,
+            "volume": 1169340
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "449450.KS",
-        "koName": "PLUS K방산",
-        "longName": "PLUS K방산",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 58715,
-        "englishName": "ARIRANG Defensive ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 166366,
-        "AvgVolume": 1487574,
-        "sharesOutstanding": null,
-        "52Week": "16120.0 - 59555.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 58210,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "337140.KS",
+        "koName": "KODEX 코스피대형주",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 20415,
+        "englishName": "Samsung Kodex Kospi Largecap Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 16134,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20010,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16004,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-11-14",
@@ -904,7 +938,7 @@
             "close": 9110,
             "volume": 43362,
             "amount": 120,
-            "yield": 0.013208585580627407
+            "yield": 0.0132085856
         },
         {
             "date": "2020-04-29",
@@ -2874,7 +2908,7 @@
             "close": 14970,
             "volume": 4398,
             "amount": 240,
-            "yield": 0.015909844216108717
+            "yield": 0.0159098442
         },
         {
             "date": "2021-04-30",
@@ -6796,7 +6830,7 @@
             "close": 11950,
             "volume": 2415,
             "amount": 250,
-            "yield": 0.020938023450586266
+            "yield": 0.0209380235
         },
         {
             "date": "2023-04-28",
@@ -10544,7 +10578,7 @@
             "close": 12315,
             "volume": 3206,
             "amount": 260,
-            "yield": 0.03947903947903948
+            "yield": 0.0394790395
         },
         {
             "date": "2025-04-30",
@@ -11497,40 +11531,18 @@
             "low": 19800,
             "close": 20010,
             "volume": 38214
+        },
+        {
+            "date": "2025-10-29",
+            "open": 20320,
+            "high": 20415,
+            "low": 20020,
+            "close": 20415,
+            "volume": 37511
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "337140.KS",
-        "koName": "KODEX 코스피대형주",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 20010.0,
-        "englishName": "Samsung Kodex Kospi Largecap Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 16004,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 6689,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 14652,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

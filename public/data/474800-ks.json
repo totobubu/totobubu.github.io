@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "474800.KS",
+        "koName": "KIWOOM 미국원유에너지기업",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11610,
+        "englishName": "Kiwoom Kosef Us Oil&Energy Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 16170,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11890,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15952,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-01-16",
@@ -2476,7 +2510,7 @@
             "close": 10770,
             "volume": 16923,
             "amount": 180,
-            "yield": 0.03525046382189239
+            "yield": 0.0352504638
         },
         {
             "date": "2025-04-30",
@@ -2966,7 +3000,7 @@
             "close": 11110,
             "volume": 25247,
             "amount": 85,
-            "yield": 0.04161073825503356
+            "yield": 0.0416107383
         },
         {
             "date": "2025-07-31",
@@ -3433,6 +3467,14 @@
             "volume": 25229
         },
         {
+            "date": "2025-10-29",
+            "open": 11640,
+            "high": 11690,
+            "low": 11535,
+            "close": 11610,
+            "volume": 12880
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -3440,39 +3482,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "474800.KS",
-        "koName": "KIWOOM 미국원유에너지기업",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 11890,
-        "englishName": "Kiwoom Kosef Us Oil&Energy Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 15952,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 76935,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 14780,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

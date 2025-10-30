@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FETH",
+        "koName": null,
+        "longName": null,
+        "company": "Fidelity",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 38.96,
+        "englishName": "Fidelity Ethereum Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4705666,
+        "AvgVolume": 3765956,
+        "sharesOutstanding": null,
+        "52Week": "14.52 - 48.56",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.22,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3366892,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3749231,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-07-23",
@@ -2551,40 +2589,14 @@
             "low": 40.20000076293945,
             "close": 40.31999969482422,
             "volume": 2629515
+        },
+        {
+            "date": "2025-10-29",
+            "open": 40.18000030517578,
+            "high": 40.229801177978516,
+            "low": 38.3202018737793,
+            "close": 38.959999084472656,
+            "volume": 4705666
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FETH",
-        "koName": null,
-        "longName": null,
-        "company": "Fidelity",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 39.22,
-        "englishName": "Fidelity Ethereum Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 3366892,
-        "AvgVolume": 3749231,
-        "sharesOutstanding": null,
-        "52Week": "14.52 - 48.56",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 3363362,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 3735910,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

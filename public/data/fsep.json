@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FSEP",
+        "koName": null,
+        "longName": null,
+        "company": "FT",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 51.2906,
+        "englishName": "FT Vest U.S. Equity Buffer ETF - September",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12476,
+        "AvgVolume": 57934,
+        "sharesOutstanding": null,
+        "52Week": "40.342 - 51.43",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 22543,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 57843,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2020-09-21",
@@ -10263,36 +10301,14 @@
             "low": 51.29999923706055,
             "close": 51.29999923706055,
             "volume": 18345
+        },
+        {
+            "date": "2025-10-29",
+            "open": 51.41999816894531,
+            "high": 51.429298400878906,
+            "low": 51.220001220703125,
+            "close": 51.29059982299805,
+            "volume": 12476
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FSEP",
-        "koName": null,
-        "longName": null,
-        "company": "FT",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 51.04,
-        "englishName": "FT Vest U.S. Equity Buffer ETF - September",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 22543,
-        "AvgVolume": 57843,
-        "sharesOutstanding": null,
-        "52Week": "40.342 - 51.11",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 60426,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

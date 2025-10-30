@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JGRO",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매주",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 97.72,
+        "englishName": "JPMorgan Active Growth ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 460212,
+        "AvgVolume": 399887,
+        "sharesOutstanding": null,
+        "52Week": "63.33 - 97.9",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.87,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 316034,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 395218,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-08-09",
@@ -752,7 +790,7 @@
             "close": 44.59000015258789,
             "volume": 166400,
             "amount": 0.069,
-            "yield": 0.0015421062220642523
+            "yield": 0.0015421062
         },
         {
             "date": "2022-12-21",
@@ -802,7 +840,7 @@
             "close": 44.4900016784668,
             "volume": 17300,
             "amount": 0.002,
-            "yield": 0.0016088828071952814
+            "yield": 0.0016088828
         },
         {
             "date": "2022-12-30",
@@ -2756,7 +2794,7 @@
             "close": 61.119998931884766,
             "volume": 55700,
             "amount": 0.097,
-            "yield": 0.002758620620536601
+            "yield": 0.0027586206
         },
         {
             "date": "2023-12-20",
@@ -2806,7 +2844,7 @@
             "close": 61.380001068115234,
             "volume": 74900,
             "amount": 0.007,
-            "yield": 0.0017241379438719538
+            "yield": 0.0017241379
         },
         {
             "date": "2023-12-29",
@@ -4800,7 +4838,7 @@
             "close": 83.9800033569336,
             "volume": 214800,
             "amount": 0.083,
-            "yield": 0.0010831628832189309
+            "yield": 0.0010831629
         },
         {
             "date": "2024-12-26",
@@ -6483,6 +6521,14 @@
             "volume": 506824
         },
         {
+            "date": "2025-10-29",
+            "open": 97.69999694824219,
+            "high": 97.9000015258789,
+            "low": 96.94000244140625,
+            "close": 97.72000122070312,
+            "volume": 460212
+        },
+        {
             "date": "2025-11-04",
             "forecasted": true
         },
@@ -6586,39 +6632,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JGRO",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매주",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 94.87,
-        "englishName": "JPMorgan Active Growth ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 316034,
-        "AvgVolume": 395218,
-        "sharesOutstanding": null,
-        "52Week": "63.33 - 95.17",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 314994,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 394834,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "493420.KS",
+        "koName": "SOL 미국배당다우존스2호",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10375,
+        "englishName": "Shinhan Sol US Dividend Equity Total Return ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 56289,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10495,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 59775,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-10-08",
@@ -1296,7 +1330,7 @@
             "close": 9750,
             "volume": 9689,
             "amount": 31,
-            "yield": 0.003123425692695214
+            "yield": 0.0031234257
         },
         {
             "date": "2025-06-13",
@@ -1474,7 +1508,7 @@
             "close": 10140,
             "volume": 114964,
             "amount": 18,
-            "yield": 0.004829965500246427
+            "yield": 0.0048299655
         },
         {
             "date": "2025-07-15",
@@ -1652,7 +1686,7 @@
             "close": 10060,
             "volume": 127937,
             "amount": 16,
-            "yield": 0.006467661691542288
+            "yield": 0.0064676617
         },
         {
             "date": "2025-08-14",
@@ -1822,7 +1856,7 @@
             "close": 10285,
             "volume": 12966,
             "amount": 45,
-            "yield": 0.010679611650485437
+            "yield": 0.0106796117
         },
         {
             "date": "2025-09-15",
@@ -1960,7 +1994,7 @@
             "close": 10250,
             "volume": 22099,
             "amount": 21,
-            "yield": 0.012755598831548198
+            "yield": 0.0127555988
         },
         {
             "date": "2025-10-15",
@@ -2043,6 +2077,14 @@
             "volume": 16346
         },
         {
+            "date": "2025-10-29",
+            "open": 10400,
+            "high": 10415,
+            "low": 10350,
+            "close": 10375,
+            "volume": 15537
+        },
+        {
             "date": "2025-11-14",
             "forecasted": true
         },
@@ -2066,39 +2108,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "493420.KS",
-        "koName": "SOL 미국배당다우존스2호",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 10495,
-        "englishName": "Shinhan Sol US Dividend Equity Total Return ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 59775,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 25385,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 61308,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

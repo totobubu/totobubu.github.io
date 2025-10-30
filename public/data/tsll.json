@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TSLL",
+        "koName": null,
+        "longName": null,
+        "company": "Direxion",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 22.09,
+        "englishName": "Direxion Daily TSLA Bull 2X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 113959454,
+        "AvgVolume": 138246018,
+        "sharesOutstanding": null,
+        "52Week": "6.29 - 41.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 127312606,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 138251595,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-08-09",
@@ -240,7 +278,7 @@
             "close": 27,
             "volume": 853200,
             "amount": 0.015,
-            "yield": 0.0005603287166044777
+            "yield": 0.0005603287
         },
         {
             "date": "2022-09-21",
@@ -690,7 +728,7 @@
             "close": 10.779999732971191,
             "volume": 2981500,
             "amount": 0.036,
-            "yield": 0.004797742187294635
+            "yield": 0.0047977422
         },
         {
             "date": "2022-12-09",
@@ -756,7 +794,7 @@
             "close": 7.510000228881836,
             "volume": 8523900,
             "amount": 0.048,
-            "yield": 0.012058465230207802
+            "yield": 0.0120584652
         },
         {
             "date": "2022-12-21",
@@ -1246,7 +1284,7 @@
             "close": 11.949999809265137,
             "volume": 11131600,
             "amount": 0.042,
-            "yield": 0.012645740342956693
+            "yield": 0.0126457403
         },
         {
             "date": "2023-03-22",
@@ -1752,7 +1790,7 @@
             "close": 17.200000762939453,
             "volume": 25519900,
             "amount": 0.083,
-            "yield": 0.01189591082886808
+            "yield": 0.0118959108
         },
         {
             "date": "2023-06-22",
@@ -2250,7 +2288,7 @@
             "close": 17.049999237060547,
             "volume": 11361700,
             "amount": 0.113,
-            "yield": 0.01997628827713288
+            "yield": 0.0199762883
         },
         {
             "date": "2023-09-20",
@@ -2708,7 +2746,7 @@
             "close": 14.140000343322754,
             "volume": 15373800,
             "amount": 0.273,
-            "yield": 0.042991329005783514
+            "yield": 0.042991329
         },
         {
             "date": "2023-12-11",
@@ -2782,7 +2820,7 @@
             "close": 14.90999984741211,
             "volume": 11953200,
             "amount": 0.125,
-            "yield": 0.04326530668382329
+            "yield": 0.0432653067
         },
         {
             "date": "2023-12-22",
@@ -3256,7 +3294,7 @@
             "close": 7.849999904632568,
             "volume": 13277900,
             "amount": 0.079,
-            "yield": 0.09050632802134735
+            "yield": 0.090506328
         },
         {
             "date": "2024-03-20",
@@ -3794,7 +3832,7 @@
             "close": 8.270000457763672,
             "volume": 30232500,
             "amount": 0.082,
-            "yield": 0.08410513382354662
+            "yield": 0.0841051338
         },
         {
             "date": "2024-06-26",
@@ -4300,7 +4338,7 @@
             "close": 13.100000381469727,
             "volume": 59551800,
             "amount": 0.08,
-            "yield": 0.04881588942332211
+            "yield": 0.0488158894
         },
         {
             "date": "2024-09-25",
@@ -4750,7 +4788,7 @@
             "close": 30.6200008392334,
             "volume": 56835800,
             "amount": 0.3,
-            "yield": 0.02102936527930492
+            "yield": 0.0210293653
         },
         {
             "date": "2024-12-13",
@@ -4808,7 +4846,7 @@
             "close": 31.850000381469727,
             "volume": 55161500,
             "amount": 0.14,
-            "yield": 0.02140836250969189
+            "yield": 0.0214083625
         },
         {
             "date": "2024-12-24",
@@ -5298,7 +5336,7 @@
             "close": 11.850000381469727,
             "volume": 242567000,
             "amount": 0.084,
-            "yield": 0.05965217391304347
+            "yield": 0.0596521739
         },
         {
             "date": "2025-03-26",
@@ -5796,7 +5834,7 @@
             "close": 13.619999885559082,
             "volume": 222724700,
             "amount": 0.09,
-            "yield": 0.051993299168044564
+            "yield": 0.0519932992
         },
         {
             "date": "2025-06-25",
@@ -6302,7 +6340,7 @@
             "close": 19.5,
             "volume": 124061000,
             "amount": 0.089,
-            "yield": 0.037590014539985145
+            "yield": 0.0375900145
         },
         {
             "date": "2025-09-24",
@@ -6505,6 +6543,14 @@
             "volume": 139509184
         },
         {
+            "date": "2025-10-29",
+            "open": 22.219999313354492,
+            "high": 22.510000228881836,
+            "low": 21.260000228881836,
+            "close": 22.09000015258789,
+            "volume": 113959454
+        },
+        {
             "date": "2025-12-23",
             "forecasted": true
         },
@@ -6512,39 +6558,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TSLL",
-        "koName": null,
-        "longName": null,
-        "company": "Direxion",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 19.59,
-        "englishName": "Direxion Daily TSLA Bull 2X Shares",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 127312606,
-        "AvgVolume": 138251595,
-        "sharesOutstanding": null,
-        "52Week": "6.29 - 41.5",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 124935688,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 139573520,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "DFGP",
+        "koName": null,
+        "longName": null,
+        "company": "Dimensional",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 55.375,
+        "englishName": "Dimensional Global Core Plus Fixed Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 106103,
+        "AvgVolume": 178506,
+        "sharesOutstanding": null,
+        "52Week": "51.92 - 56.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.545,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 164543,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 168885,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-08",
@@ -80,7 +118,7 @@
             "close": 51.05799865722656,
             "volume": 15000,
             "amount": 0.004,
-            "yield": 0.00007832386966717346
+            "yield": 0.0000783239
         },
         {
             "date": "2023-11-22",
@@ -234,7 +272,7 @@
             "close": 52.92300033569336,
             "volume": 43500,
             "amount": 0.324,
-            "yield": 0.0062003778929862795
+            "yield": 0.0062003779
         },
         {
             "date": "2023-12-20",
@@ -572,7 +610,7 @@
             "close": 52.56999969482422,
             "volume": 1602000,
             "amount": 0.067,
-            "yield": 0.00749241257310297
+            "yield": 0.0074924126
         },
         {
             "date": "2024-02-22",
@@ -726,7 +764,7 @@
             "close": 52.939998626708984,
             "volume": 54100,
             "amount": 0.141,
-            "yield": 0.010124669699737777
+            "yield": 0.0101246697
         },
         {
             "date": "2024-03-20",
@@ -880,7 +918,7 @@
             "close": 52.07500076293945,
             "volume": 98700,
             "amount": 0.163,
-            "yield": 0.013395937062320515
+            "yield": 0.0133959371
         },
         {
             "date": "2024-04-17",
@@ -1082,7 +1120,7 @@
             "close": 52.939998626708984,
             "volume": 137200,
             "amount": 0.083,
-            "yield": 0.01476307309757732
+            "yield": 0.0147630731
         },
         {
             "date": "2024-05-22",
@@ -1236,7 +1274,7 @@
             "close": 53.29999923706055,
             "volume": 61600,
             "amount": 0.141,
-            "yield": 0.017351254916724932
+            "yield": 0.0173512549
         },
         {
             "date": "2024-06-20",
@@ -1382,7 +1420,7 @@
             "close": 53.45000076293945,
             "volume": 65200,
             "amount": 0.267,
-            "yield": 0.02232645435335334
+            "yield": 0.0223264544
         },
         {
             "date": "2024-07-17",
@@ -1936,7 +1974,7 @@
             "close": 54.27000045776367,
             "volume": 420300,
             "amount": 0.158,
-            "yield": 0.024802208608006752
+            "yield": 0.0248022086
         },
         {
             "date": "2024-10-23",
@@ -2098,7 +2136,7 @@
             "close": 53.4900016784668,
             "volume": 82400,
             "amount": 0.654,
-            "yield": 0.03738562144767443
+            "yield": 0.0373856214
         },
         {
             "date": "2024-11-20",
@@ -2252,7 +2290,7 @@
             "close": 53.209999084472656,
             "volume": 92800,
             "amount": 0.71,
-            "yield": 0.05085446009389671
+            "yield": 0.0508544601
         },
         {
             "date": "2024-12-18",
@@ -2582,7 +2620,7 @@
             "close": 53.125,
             "volume": 110400,
             "amount": 0.021,
-            "yield": 0.045334590661405244
+            "yield": 0.0453345907
         },
         {
             "date": "2025-02-20",
@@ -2776,7 +2814,7 @@
             "close": 53.28499984741211,
             "volume": 109700,
             "amount": 0.031,
-            "yield": 0.041863959956718017
+            "yield": 0.04186396
         },
         {
             "date": "2025-03-26",
@@ -3090,7 +3128,7 @@
             "close": 53.3650016784668,
             "volume": 94500,
             "amount": 0.036,
-            "yield": 0.03939621091062035
+            "yield": 0.0393962109
         },
         {
             "date": "2025-05-21",
@@ -3940,7 +3978,7 @@
             "close": 55.527801513671875,
             "volume": 125478,
             "amount": 0.66,
-            "yield": 0.040872473600895
+            "yield": 0.0408724736
         },
         {
             "date": "2025-10-22",
@@ -3983,6 +4021,14 @@
             "volume": 611418
         },
         {
+            "date": "2025-10-29",
+            "open": 55.59000015258789,
+            "high": 55.595699310302734,
+            "low": 55.35499954223633,
+            "close": 55.375,
+            "volume": 106103
+        },
+        {
             "date": "2025-11-21",
             "forecasted": true
         },
@@ -4006,35 +4052,5 @@
             "date": "2026-04-21",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "DFGP",
-        "koName": null,
-        "longName": null,
-        "company": "Dimensional",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 55.545,
-        "englishName": "Dimensional Global Core Plus Fixed Income ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 164543,
-        "AvgVolume": 168885,
-        "sharesOutstanding": null,
-        "52Week": "51.92 - 56.17",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 167490,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

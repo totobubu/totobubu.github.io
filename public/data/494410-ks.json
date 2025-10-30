@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "494410.KS",
+        "koName": "PLUS 미국S&P500성장주",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 13335,
+        "englishName": "Hanwha Plus S&P 500 Growth ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 15230,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12950,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 14031,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-10-22",
@@ -512,7 +546,7 @@
             "close": 11350,
             "volume": 14950,
             "amount": 15,
-            "yield": 0.00130718954248366
+            "yield": 0.0013071895
         },
         {
             "date": "2025-01-31",
@@ -1010,7 +1044,7 @@
             "close": 10040,
             "volume": 177209,
             "amount": 20,
-            "yield": 0.0035158211953792064
+            "yield": 0.0035158212
         },
         {
             "date": "2025-04-30",
@@ -1500,7 +1534,7 @@
             "close": 11660,
             "volume": 6151,
             "amount": 25,
-            "yield": 0.005080440304826418
+            "yield": 0.0050804403
         },
         {
             "date": "2025-07-31",
@@ -1967,6 +2001,14 @@
             "volume": 62193
         },
         {
+            "date": "2025-10-29",
+            "open": 13295,
+            "high": 13387,
+            "low": 13295,
+            "close": 13335,
+            "volume": 9100
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -1974,39 +2016,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "494410.KS",
-        "koName": "PLUS 미국S&P500성장주",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 12950,
-        "englishName": "Hanwha Plus S&P 500 Growth ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 14031,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 14842,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 14005,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

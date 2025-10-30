@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "DCOR",
+        "koName": null,
+        "longName": null,
+        "company": "Dimensional",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 73.193,
+        "englishName": "Dimensional US Core Equity 1 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 100066,
+        "AvgVolume": 90764,
+        "sharesOutstanding": null,
+        "52Week": "52.845 - 73.67",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.8063,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 46021,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 92564,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-09-13",
@@ -552,7 +590,7 @@
             "close": 53.4900016784668,
             "volume": 63700,
             "amount": 0.213,
-            "yield": 0.004003007022455598
+            "yield": 0.004003007
         },
         {
             "date": "2023-12-20",
@@ -1042,7 +1080,7 @@
             "close": 57.40999984741211,
             "volume": 52600,
             "amount": 0.082,
-            "yield": 0.005179982371343057
+            "yield": 0.0051799824
         },
         {
             "date": "2024-03-20",
@@ -1548,7 +1586,7 @@
             "close": 59.744998931884766,
             "volume": 313900,
             "amount": 0.146,
-            "yield": 0.007391887380622066
+            "yield": 0.0073918874
         },
         {
             "date": "2024-06-20",
@@ -2046,7 +2084,7 @@
             "close": 61.91299819946289,
             "volume": 119300,
             "amount": 0.159,
-            "yield": 0.009660280053193254
+            "yield": 0.0096602801
         },
         {
             "date": "2024-09-18",
@@ -2560,7 +2598,7 @@
             "close": 65.83999633789062,
             "volume": 68800,
             "amount": 0.24,
-            "yield": 0.012727272727272726
+            "yield": 0.0127272727
         },
         {
             "date": "2024-12-18",
@@ -3082,7 +3120,7 @@
             "close": 63,
             "volume": 112200,
             "amount": 0.144,
-            "yield": 0.010936507936507937
+            "yield": 0.0109365079
         },
         {
             "date": "2025-03-26",
@@ -3580,7 +3618,7 @@
             "close": 65.80999755859375,
             "volume": 78300,
             "amount": 0.185,
-            "yield": 0.011107720320881573
+            "yield": 0.0111077203
         },
         {
             "date": "2025-06-25",
@@ -4086,7 +4124,7 @@
             "close": 71.78600311279297,
             "volume": 107300,
             "amount": 0.195,
-            "yield": 0.01059345494875495
+            "yield": 0.0105934549
         },
         {
             "date": "2025-09-24",
@@ -4289,6 +4327,14 @@
             "volume": 70564
         },
         {
+            "date": "2025-10-29",
+            "open": 73.5999984741211,
+            "high": 73.66999816894531,
+            "low": 72.9749984741211,
+            "close": 73.19300079345703,
+            "volume": 100066
+        },
+        {
             "date": "2025-12-23",
             "forecasted": true
         },
@@ -4296,39 +4342,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "DCOR",
-        "koName": null,
-        "longName": null,
-        "company": "Dimensional",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 72.8063,
-        "englishName": "Dimensional US Core Equity 1 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 46021,
-        "AvgVolume": 92564,
-        "sharesOutstanding": null,
-        "52Week": "52.845 - 72.97",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 45977,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 92760,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

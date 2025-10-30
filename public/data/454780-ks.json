@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "454780.KS",
+        "koName": "KIWOOM 종합채권(AA-이상)액티브",
+        "longName": "KIWOOM 종합채권(AA-이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 109255,
+        "englishName": "Kiwoom Heroes Total Market Bond Active Etf Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1281,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 109705,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1271,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-04-11",
@@ -3200,7 +3234,7 @@
             "close": 106555,
             "volume": 1524,
             "amount": 3500,
-            "yield": 0.03287156609532754
+            "yield": 0.0328715661
         },
         {
             "date": "2024-12-30",
@@ -4793,36 +4827,14 @@
             "low": 109310,
             "close": 109395,
             "volume": 633
+        },
+        {
+            "date": "2025-10-29",
+            "open": 109395,
+            "high": 109395,
+            "low": 109250,
+            "close": 109255,
+            "volume": 174
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "454780.KS",
-        "koName": "KIWOOM 종합채권(AA-이상)액티브",
-        "longName": "KIWOOM 종합채권(AA-이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 109705,
-        "englishName": "Kiwoom Heroes Total Market Bond Active Etf Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1271,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 160,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

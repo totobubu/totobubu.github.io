@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "309230.KS",
+        "koName": "ACE 미국WideMoat동일가중",
+        "longName": "ACE 미국WideMoat동일가중",
+        "company": null,
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 29510,
+        "englishName": "Korea Investment Trust Management - Kim Kindex US Wide Moat ETF Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 26298,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29830,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26352,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-10-25",
@@ -10688,7 +10722,7 @@
             "close": 24285,
             "volume": 45829,
             "amount": 90,
-            "yield": 0.0036855036855036856
+            "yield": 0.0036855037
         },
         {
             "date": "2024-04-30",
@@ -11186,7 +11220,7 @@
             "close": 25480,
             "volume": 15905,
             "amount": 100,
-            "yield": 0.007456828885400314
+            "yield": 0.0074568289
         },
         {
             "date": "2024-07-31",
@@ -12112,7 +12146,7 @@
             "close": 28040,
             "volume": 59577,
             "amount": 110,
-            "yield": 0.01412180052956752
+            "yield": 0.0141218005
         },
         {
             "date": "2025-01-31",
@@ -12610,7 +12644,7 @@
             "close": 24910,
             "volume": 11566,
             "amount": 72,
-            "yield": 0.01892542101042502
+            "yield": 0.018925421
         },
         {
             "date": "2025-04-30",
@@ -13100,7 +13134,7 @@
             "close": 27460,
             "volume": 31553,
             "amount": 40,
-            "yield": 0.015179856115107913
+            "yield": 0.0151798561
         },
         {
             "date": "2025-07-31",
@@ -13567,6 +13601,14 @@
             "volume": 28787
         },
         {
+            "date": "2025-10-29",
+            "open": 29830,
+            "high": 29830,
+            "low": 29435,
+            "close": 29510,
+            "volume": 15836
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -13574,43 +13616,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "309230.KS",
-        "koName": "ACE 미국WideMoat동일가중",
-        "longName": "ACE 미국WideMoat동일가중",
-        "company": null,
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 29830.0,
-        "englishName": "Korea Investment Trust Management - Kim Kindex US Wide Moat ETF Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 26352,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 29775,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 2700,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 26438,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

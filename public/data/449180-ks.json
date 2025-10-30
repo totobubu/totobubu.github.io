@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "449180.KS",
+        "koName": "KODEX 미국S&P500(H)",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15735,
+        "englishName": "KODEX S&P500 Futures(H)",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 457442,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15662,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 20223,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 456608,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-12-02",
@@ -808,7 +846,7 @@
             "close": 9905,
             "volume": 18575,
             "amount": 40,
-            "yield": 0.004050632911392405
+            "yield": 0.0040506329
         },
         {
             "date": "2023-04-28",
@@ -1210,7 +1248,7 @@
             "close": 10980,
             "volume": 44152,
             "amount": 38,
-            "yield": 0.007126541799908634
+            "yield": 0.0071265418
         },
         {
             "date": "2023-08-03",
@@ -1668,7 +1706,7 @@
             "close": 9860,
             "volume": 96072,
             "amount": 34,
-            "yield": 0.011370558375634518
+            "yield": 0.0113705584
         },
         {
             "date": "2023-10-31",
@@ -2166,7 +2204,7 @@
             "close": 11675,
             "volume": 114970,
             "amount": 44,
-            "yield": 0.013373339048435491
+            "yield": 0.013373339
         },
         {
             "date": "2024-01-31",
@@ -2648,7 +2686,7 @@
             "close": 12050,
             "volume": 76692,
             "amount": 30,
-            "yield": 0.012121212121212121
+            "yield": 0.0121212121
         },
         {
             "date": "2024-04-30",
@@ -3146,7 +3184,7 @@
             "close": 12815,
             "volume": 170608,
             "amount": 32,
-            "yield": 0.0109460516028147
+            "yield": 0.0109460516
         },
         {
             "date": "2024-07-31",
@@ -4072,7 +4110,7 @@
             "close": 14180,
             "volume": 988824,
             "amount": 35,
-            "yield": 0.012354394634662902
+            "yield": 0.0123543946
         },
         {
             "date": "2025-01-31",
@@ -4570,7 +4608,7 @@
             "close": 12740,
             "volume": 348000,
             "amount": 38,
-            "yield": 0.01328616352201258
+            "yield": 0.0132861635
         },
         {
             "date": "2025-04-30",
@@ -5060,7 +5098,7 @@
             "close": 14595,
             "volume": 261425,
             "amount": 33,
-            "yield": 0.011796982167352537
+            "yield": 0.0117969822
         },
         {
             "date": "2025-07-31",
@@ -5527,6 +5565,14 @@
             "volume": 332685
         },
         {
+            "date": "2025-10-29",
+            "open": 15700,
+            "high": 15735,
+            "low": 15690,
+            "close": 15735,
+            "volume": 232793
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -5534,39 +5580,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "449180.KS",
-        "koName": "KODEX 미국S&P500(H)",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 15662,
-        "englishName": "KODEX S&P500 Futures(H)",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 20223,
-        "AvgVolume": 456608,
-        "sharesOutstanding": null,
-        "52Week": "11165.0 - 15685.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15410,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

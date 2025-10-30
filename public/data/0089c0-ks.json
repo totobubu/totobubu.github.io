@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0089C0.KS",
+        "koName": "KODEX 미국S&P500변동성확대시커버드콜",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11020,
+        "englishName": "Samsung Kodex S&P500 Volatility Contingent Daily Covered Call Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 416910,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10975,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 420531,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-12",
@@ -272,7 +306,7 @@
             "close": 10460,
             "volume": 306843,
             "amount": 15,
-            "yield": 0.0014285714285714286
+            "yield": 0.0014285714
         },
         {
             "date": "2025-09-30",
@@ -401,44 +435,14 @@
             "low": 10950,
             "close": 10975,
             "volume": 239460
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11025,
+            "high": 11040,
+            "low": 10975,
+            "close": 11020,
+            "volume": 12602
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0089C0.KS",
-        "koName": "KODEX 미국S&P500변동성확대시커버드콜",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10975.0,
-        "englishName": "Samsung Kodex S&P500 Volatility Contingent Daily Covered Call Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 420531,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11005,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 891,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 429065,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

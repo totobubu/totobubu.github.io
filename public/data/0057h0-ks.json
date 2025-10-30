@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0057H0.KS",
+        "koName": "PLUS 미국S&P500미국채혼합50액티브",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11455,
+        "englishName": "Hanwha Plus S&P500 Us T-Bill 5050 Blend Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 34401,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11470,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 33308,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-06-10",
@@ -759,44 +793,14 @@
             "low": 11410,
             "close": 11470,
             "volume": 76027
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11810,
+            "high": 11810,
+            "low": 11420,
+            "close": 11455,
+            "volume": 62420
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0057H0.KS",
-        "koName": "PLUS 미국S&P500미국채혼합50액티브",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11470.0,
-        "englishName": "Hanwha Plus S&P500 Us T-Bill 5050 Blend Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 33308,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11420,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 28444,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 32542,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

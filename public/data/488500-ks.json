@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "488500.KS",
+        "koName": "TIGER 미국S&P500동일가중",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11460,
+        "englishName": "Mirae Asset Tiger S&P 500 Equal Weight ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 83886,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11535,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 85850,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-07-23",
@@ -972,7 +1006,7 @@
             "close": 11025,
             "volume": 124973,
             "amount": 50,
-            "yield": 0.0062246278755074425
+            "yield": 0.0062246279
         },
         {
             "date": "2025-01-31",
@@ -1470,7 +1504,7 @@
             "close": 10235,
             "volume": 46659,
             "amount": 43,
-            "yield": 0.011023622047244094
+            "yield": 0.011023622
         },
         {
             "date": "2025-04-30",
@@ -1960,7 +1994,7 @@
             "close": 10880,
             "volume": 75509,
             "amount": 41,
-            "yield": 0.013966225467822911
+            "yield": 0.0139662255
         },
         {
             "date": "2025-07-31",
@@ -2427,6 +2461,14 @@
             "volume": 86968
         },
         {
+            "date": "2025-10-29",
+            "open": 11550,
+            "high": 11555,
+            "low": 11440,
+            "close": 11460,
+            "volume": 33432
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -2434,39 +2476,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "488500.KS",
-        "koName": "TIGER 미국S&P500동일가중",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 11535,
-        "englishName": "Mirae Asset Tiger S&P 500 Equal Weight ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 85850,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 93732,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 91487,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0026S0.KS",
+        "koName": "1Q 미국S&P500",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12040,
+        "englishName": "Hana 1Q U.S. S&P500 Exchange Traded Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 160655,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12020,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 161238,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-03-18",
@@ -248,7 +282,7 @@
             "close": 9680,
             "volume": 352806,
             "amount": 28,
-            "yield": 0.002892561983471074
+            "yield": 0.002892562
         },
         {
             "date": "2025-04-30",
@@ -466,7 +500,7 @@
             "close": 9940,
             "volume": 1064650,
             "amount": 16,
-            "yield": 0.0043890274314214465
+            "yield": 0.0043890274
         },
         {
             "date": "2025-06-13",
@@ -988,7 +1022,7 @@
             "close": 11120,
             "volume": 177944,
             "amount": 28,
-            "yield": 0.006460296096904442
+            "yield": 0.0064602961
         },
         {
             "date": "2025-09-15",
@@ -1207,6 +1241,14 @@
             "volume": 138569
         },
         {
+            "date": "2025-10-29",
+            "open": 12015,
+            "high": 12060,
+            "low": 11995,
+            "close": 12040,
+            "volume": 137255
+        },
+        {
             "date": "2025-12-12",
             "forecasted": true
         },
@@ -1214,43 +1256,5 @@
             "date": "2026-03-12",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0026S0.KS",
-        "koName": "1Q 미국S&P500",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 12020.0,
-        "englishName": "Hana 1Q U.S. S&P500 Exchange Traded Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 161238,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11985,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 14710,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 160197,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

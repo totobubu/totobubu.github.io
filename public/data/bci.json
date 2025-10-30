@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "BCI",
+        "koName": null,
+        "longName": null,
+        "company": "abrdn",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 21.89,
+        "englishName": "abrdn Bloomberg All Commodity Strategy K-1 Free ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 375830,
+        "AvgVolume": 639509,
+        "sharesOutstanding": null,
+        "52Week": "19.18 - 22.28",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 627774,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 624409,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-03-31",
@@ -1456,7 +1494,7 @@
             "close": 23.450000762939453,
             "volume": 14300,
             "amount": 1.228,
-            "yield": 0.052885445147009186
+            "yield": 0.0528854451
         },
         {
             "date": "2017-12-19",
@@ -3482,7 +3520,7 @@
             "close": 22.040000915527344,
             "volume": 97200,
             "amount": 0.243,
-            "yield": 0.010771276850730606
+            "yield": 0.0107712769
         },
         {
             "date": "2018-12-21",
@@ -5492,7 +5530,7 @@
             "close": 22.469999313354492,
             "volume": 60600,
             "amount": 0.334,
-            "yield": 0.025701558146604332
+            "yield": 0.0257015581
         },
         {
             "date": "2019-12-20",
@@ -7518,7 +7556,7 @@
             "close": 21.5,
             "volume": 289900,
             "amount": 0.15,
-            "yield": 0.0070028010955055404
+            "yield": 0.0070028011
         },
         {
             "date": "2020-12-22",
@@ -9536,7 +9574,7 @@
             "close": 22.469999313354492,
             "volume": 715600,
             "amount": 4.468,
-            "yield": 0.20680698682391946
+            "yield": 0.2068069868
         },
         {
             "date": "2021-12-22",
@@ -11530,7 +11568,7 @@
             "close": 21.979999542236328,
             "volume": 821300,
             "amount": 4.408,
-            "yield": 0.4052968107127153
+            "yield": 0.4052968107
         },
         {
             "date": "2022-12-19",
@@ -13532,7 +13570,7 @@
             "close": 19.389999389648438,
             "volume": 803300,
             "amount": 0.761,
-            "yield": 0.26658072009839917
+            "yield": 0.2665807201
         },
         {
             "date": "2023-12-18",
@@ -15566,7 +15604,7 @@
             "close": 19.270000457763672,
             "volume": 1106500,
             "amount": 0.651,
-            "yield": 0.033643410189460335
+            "yield": 0.0336434102
         },
         {
             "date": "2024-12-20",
@@ -17273,42 +17311,16 @@
             "volume": 770080
         },
         {
+            "date": "2025-10-29",
+            "open": 21.90999984741211,
+            "high": 22.049999237060547,
+            "low": 21.854999542236328,
+            "close": 21.889999389648438,
+            "volume": 375830
+        },
+        {
             "date": "2025-12-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "BCI",
-        "koName": null,
-        "longName": null,
-        "company": "abrdn",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 22.1,
-        "englishName": "abrdn Bloomberg All Commodity Strategy K-1 Free ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 627774,
-        "AvgVolume": 624409,
-        "sharesOutstanding": null,
-        "52Week": "19.18 - 22.28",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 595507,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 617267,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "316670.KS",
+        "koName": "KIWOOM 코스닥150",
+        "longName": null,
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 7645,
+        "englishName": "Kiwoom Kosef Kosdaq 150 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 34190,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7670,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 33947,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-01-22",
@@ -3480,7 +3514,7 @@
             "close": 6225,
             "volume": 1286,
             "amount": 40,
-            "yield": 0.006606110652353427
+            "yield": 0.0066061107
         },
         {
             "date": "2020-10-30",
@@ -4466,7 +4500,7 @@
             "close": 7095,
             "volume": 709,
             "amount": 50,
-            "yield": 0.012552301255230125
+            "yield": 0.0125523013
         },
         {
             "date": "2021-04-30",
@@ -6420,7 +6454,7 @@
             "close": 6080,
             "volume": 2408,
             "amount": 10,
-            "yield": 0.009787928221859706
+            "yield": 0.0097879282
         },
         {
             "date": "2022-04-29",
@@ -9246,7 +9280,7 @@
             "close": 5920,
             "volume": 967,
             "amount": 10,
-            "yield": 0.0017035775127768314
+            "yield": 0.0017035775
         },
         {
             "date": "2023-10-31",
@@ -12140,7 +12174,7 @@
             "close": 5905,
             "volume": 230,
             "amount": 10,
-            "yield": 0.0034129692832764505
+            "yield": 0.0034129693
         },
         {
             "date": "2025-04-30",
@@ -13093,44 +13127,18 @@
             "low": 7600,
             "close": 7670,
             "volume": 17304
+        },
+        {
+            "date": "2025-10-29",
+            "open": 7720,
+            "high": 7720,
+            "low": 7590,
+            "close": 7645,
+            "volume": 3716
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "316670.KS",
-        "koName": "KIWOOM 코스닥150",
-        "longName": null,
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 7670.0,
-        "englishName": "Kiwoom Kosef Kosdaq 150 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 33947,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 7690,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 10915,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 33893,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

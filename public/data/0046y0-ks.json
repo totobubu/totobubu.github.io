@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0046Y0.KS",
+        "koName": "ACE 미국배당퀄리티",
+        "longName": null,
+        "company": "한국투자신탁운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11770,
+        "englishName": "Kim Ace US Dividend Quality ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 33872,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11820,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 33754,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-05-13",
@@ -256,7 +290,7 @@
             "close": 10250,
             "volume": 22339,
             "amount": 29,
-            "yield": 0.0028403525954946132
+            "yield": 0.0028403526
         },
         {
             "date": "2025-06-30",
@@ -442,7 +476,7 @@
             "close": 10810,
             "volume": 40311,
             "amount": 9,
-            "yield": 0.003489439853076217
+            "yield": 0.0034894399
         },
         {
             "date": "2025-07-31",
@@ -604,7 +638,7 @@
             "close": 11015,
             "volume": 24009,
             "amount": 16,
-            "yield": 0.004858299595141701
+            "yield": 0.0048582996
         },
         {
             "date": "2025-08-29",
@@ -782,7 +816,7 @@
             "close": 11305,
             "volume": 34974,
             "amount": 16,
-            "yield": 0.006164685160722149
+            "yield": 0.0061646852
         },
         {
             "date": "2025-09-30",
@@ -913,10 +947,6 @@
             "volume": 34855
         },
         {
-            "date": "2025-10-29",
-            "forecasted": true
-        },
-        {
             "date": "2025-11-28",
             "forecasted": true
         },
@@ -940,43 +970,5 @@
             "date": "2026-04-28",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0046Y0.KS",
-        "koName": "ACE 미국배당퀄리티",
-        "longName": null,
-        "company": "한국투자신탁운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11820.0,
-        "englishName": "Kim Ace US Dividend Quality ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 33754,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11800,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 2861,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 33684,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

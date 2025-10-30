@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CAM",
+        "koName": null,
+        "longName": null,
+        "company": "AB",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 25.19,
+        "englishName": "Ab California Intermediate Municipal ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 52762,
+        "AvgVolume": 52676,
+        "sharesOutstanding": null,
+        "52Week": "24.94 - 25.33",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.195,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 30909,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 49793,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-10-06",
@@ -135,36 +173,14 @@
             "low": 25.200000762939453,
             "close": 25.209999084472656,
             "volume": 119232
+        },
+        {
+            "date": "2025-10-29",
+            "open": 25.209999084472656,
+            "high": 25.229000091552734,
+            "low": 25.139999389648438,
+            "close": 25.190000534057617,
+            "volume": 52762
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CAM",
-        "koName": null,
-        "longName": null,
-        "company": "AB",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 25.195,
-        "englishName": "Ab California Intermediate Municipal ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 30909,
-        "AvgVolume": 49793,
-        "sharesOutstanding": null,
-        "52Week": "24.94 - 25.33",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 51142,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -35,6 +35,7 @@
     const isLoading = ref(true);
     const isDownloading = ref(false);
     const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
+    const includeChart = ref(false); // [신규] 차트 포함 여부
     const date = ref('');
     const groups = ref(['All']);
     const selectedGroup = ref('All');
@@ -66,17 +67,33 @@
             filteredThumbnails.value.length > 0 &&
             selectedThumbnails.value.length === filteredThumbnails.value.length,
         set: (value) => {
-            const filteredSymbols = filteredThumbnails.value.map((t) => t.symbol);
+            const filteredSymbols = filteredThumbnails.value.map(
+                (t) => t.symbol
+            );
             if (value) {
-                selectedThumbnails.value = [...new Set([...selectedThumbnails.value, ...filteredSymbols])];
+                selectedThumbnails.value = [
+                    ...new Set([
+                        ...selectedThumbnails.value,
+                        ...filteredSymbols,
+                    ]),
+                ];
             } else {
-                selectedThumbnails.value = selectedThumbnails.value.filter((s) => !filteredSymbols.includes(s));
+                selectedThumbnails.value = selectedThumbnails.value.filter(
+                    (s) => !filteredSymbols.includes(s)
+                );
             }
         },
     });
 
     watch(selectedGroup, () => {
         isAllSelected.value = true;
+    });
+
+    // 차트 포함 옵션이 변경되면 데이터를 다시 동기화
+    watch(includeChart, async () => {
+        if (date.value) {
+            await syncDividendData();
+        }
     });
 
     const formatCurrentAmount = (amount) => {
@@ -87,10 +104,10 @@
         if (decimalPart.length < 4) return Number(amountStr).toFixed(4);
         return amountStr;
     };
-    
+
     // [신규] YY. MM. DD 형식의 날짜를 YYYY-MM-DD로 변환하는 헬퍼 함수
     const parseDateInput = (input) => {
-        const parts = input.split('.').map(s => s.trim());
+        const parts = input.split('.').map((s) => s.trim());
         if (parts.length !== 3) return null;
         const year = `20${parts[0]}`;
         const month = parts[1].padStart(2, '0');
@@ -108,52 +125,86 @@
             return;
         }
 
-        const updatedThumbnails = await Promise.all(allThumbnailsData.value.map(async (thumb) => {
-            const symbol = thumb.symbol;
-            const sanitizedSymbol = symbol.replace(/\./g, '-').toLowerCase();
-            let backtestData = tickerDataCache.get(symbol);
+        const updatedThumbnails = await Promise.all(
+            allThumbnailsData.value.map(async (thumb) => {
+                const symbol = thumb.symbol;
+                const sanitizedSymbol = symbol
+                    .replace(/\./g, '-')
+                    .toLowerCase();
+                let backtestData = tickerDataCache.get(symbol);
 
-            if (!backtestData) {
-                try {
-                    const response = await fetch(joinURL(import.meta.env.BASE_URL, `data/${sanitizedSymbol}.json`));
-                    if(response.ok) {
-                        const data = await response.json();
-                        backtestData = data.backtestData || [];
-                        tickerDataCache.set(symbol, backtestData);
-                    } else {
+                if (!backtestData) {
+                    try {
+                        const response = await fetch(
+                            joinURL(
+                                import.meta.env.BASE_URL,
+                                `data/${sanitizedSymbol}.json`
+                            )
+                        );
+                        if (response.ok) {
+                            const data = await response.json();
+                            backtestData = data.backtestData || [];
+                            tickerDataCache.set(symbol, backtestData);
+                        } else {
+                            backtestData = [];
+                        }
+                    } catch (e) {
+                        console.error(`Failed to fetch data for ${symbol}`, e);
                         backtestData = [];
                     }
-                } catch (e) {
-                    console.error(`Failed to fetch data for ${symbol}`, e);
-                    backtestData = [];
                 }
-            }
-            
-            const allDividends = backtestData
-                .filter(d => d.amount !== undefined || d.amountFixed !== undefined)
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            const currentIndex = allDividends.findIndex(d => d.date === targetDate);
-            
-            const currentDividend = currentIndex !== -1 ? (allDividends[currentIndex].amountFixed ?? allDividends[currentIndex].amount) : 0;
-            const previousDividend = currentIndex > 0 ? (allDividends[currentIndex - 1].amountFixed ?? allDividends[currentIndex - 1].amount) : 0;
-            
-            const diff = currentDividend - previousDividend;
-            const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
+                const allDividends = backtestData
+                    .filter(
+                        (d) =>
+                            d.amount !== undefined ||
+                            d.amountFixed !== undefined
+                    )
+                    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            return {
-                ...thumb,
-                currentDividendAmount: currentDividend,
-                previousDividendAmount: previousDividend,
-                formattedCurrentAmount: formatCurrentAmount(currentDividend),
-                comparisonText,
-            };
-        }));
+                const currentIndex = allDividends.findIndex(
+                    (d) => d.date === targetDate
+                );
+
+                const currentDividend =
+                    currentIndex !== -1
+                        ? (allDividends[currentIndex].amountFixed ??
+                          allDividends[currentIndex].amount)
+                        : 0;
+                const previousDividend =
+                    currentIndex > 0
+                        ? (allDividends[currentIndex - 1].amountFixed ??
+                          allDividends[currentIndex - 1].amount)
+                        : 0;
+
+                const diff = currentDividend - previousDividend;
+                const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
+
+                // 차트용 배당 데이터: 최근 3개월치 배당만 필터링
+                const threeMonthsAgo = new Date(targetDate);
+                threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+                const chartDividends = allDividends.filter(
+                    (d) =>
+                        new Date(d.date) >= threeMonthsAgo &&
+                        new Date(d.date) <= new Date(targetDate)
+                );
+
+                return {
+                    ...thumb,
+                    currentDividendAmount: currentDividend,
+                    previousDividendAmount: previousDividend,
+                    formattedCurrentAmount:
+                        formatCurrentAmount(currentDividend),
+                    comparisonText,
+                    chartDividends: includeChart.value ? chartDividends : [],
+                    targetDate: includeChart.value ? targetDate : null, // targetDate 전달
+                };
+            })
+        );
 
         allThumbnailsData.value = updatedThumbnails;
         isSyncing.value = false;
     };
-
 
     onMounted(async () => {
         const today = new Date();
@@ -163,11 +214,20 @@
             const response = await fetch('/thumbnail.json');
             const configs = await response.json();
 
-            groups.value = ['All', ...new Set(configs.map((c) => c.group).filter(Boolean))];
+            groups.value = [
+                'All',
+                ...new Set(configs.map((c) => c.group).filter(Boolean)),
+            ];
 
             allThumbnailsData.value = configs.map((config) => {
-                const company = companyOptions.value.find((c) => c.name === config.companyName) || {};
-                const background = backgroundOptions.value.find((b) => b.name === config.backgroundName) || {};
+                const company =
+                    companyOptions.value.find(
+                        (c) => c.name === config.companyName
+                    ) || {};
+                const background =
+                    backgroundOptions.value.find(
+                        (b) => b.name === config.backgroundName
+                    ) || {};
 
                 return {
                     ...config,
@@ -175,7 +235,9 @@
                     tickerColor: background.tickerColor,
                     backgroundImageUrl: background.path,
                     // 초기값은 0 또는 JSON 파일 값으로 설정
-                    formattedCurrentAmount: formatCurrentAmount(config.currentDividendAmount || 0),
+                    formattedCurrentAmount: formatCurrentAmount(
+                        config.currentDividendAmount || 0
+                    ),
                     comparisonText: 'LAST $ +0.000000',
                 };
             });
@@ -183,9 +245,11 @@
             isAllSelected.value = true;
             // 페이지 로드 시, 오늘 날짜 기준으로 데이터 자동 동기화
             await syncDividendData();
-
         } catch (error) {
-            console.error('Failed to load or process thumbnail configs:', error);
+            console.error(
+                'Failed to load or process thumbnail configs:',
+                error
+            );
         } finally {
             isLoading.value = false;
         }
@@ -215,8 +279,9 @@
                 const blob = await new Promise((resolve) =>
                     canvas.toBlob(resolve, 'image/png')
                 );
+                const chartSuffix = includeChart.value ? '_chart' : '';
                 zip.file(
-                    `${symbol.toLowerCase()}_${dateForFilename}.png`,
+                    `${symbol.toLowerCase()}_${dateForFilename}${chartSuffix}.png`,
                     blob
                 );
             } catch (error) {
@@ -248,24 +313,35 @@
             <div class="flex align-items-center gap-3">
                 <Checkbox v-model="isAllSelected" :binary="true" />
                 <h1>
-                    썸네일 일괄 생성 ({{ selectedThumbnails.length }} /
+                    ({{ selectedThumbnails.length }} /
                     {{ allThumbnailsData.length }})
                 </h1>
             </div>
             <div class="flex align-items-center gap-3">
-                <SelectButton v-if="groups.length > 1" v-model="selectedGroup" :options="groups" />
-                
+                <SelectButton
+                    v-if="groups.length > 1"
+                    v-model="selectedGroup"
+                    :options="groups" />
+
+                <!-- [신규] 차트 포함 옵션 -->
+                <div class="flex align-items-center gap-2">
+                    <Checkbox
+                        v-model="includeChart"
+                        :binary="true"
+                        inputId="includeChart" />
+                    <label for="includeChart" class="cursor-pointer"
+                        >차트 포함</label
+                    >
+                </div>
+
                 <!-- [핵심 수정] 날짜 입력 및 동기화 버튼 -->
                 <InputText v-model="date" placeholder="YY. MM. DD" />
-                <Button 
-                    label="데이터 동기화" 
-                    icon="pi pi-sync" 
-                    @click="syncDividendData" 
-                    :loading="isSyncing" 
-                />
+                <Button
+                    icon="pi pi-sync"
+                    @click="syncDividendData"
+                    :loading="isSyncing" />
 
                 <Button
-                    label="선택 이미지 다운로드"
                     icon="pi pi-download"
                     @click="downloadImages"
                     :loading="isDownloading"
@@ -288,7 +364,13 @@
                     v-model="selectedThumbnails"
                     :value="thumb.symbol"
                     class="thumbnail-checkbox" />
-                <ThumbnailItem :data="{ ...thumb, date }" />
+                <ThumbnailItem
+                    :data="{
+                        ...thumb,
+                        date,
+                        showChart: includeChart,
+                        targetDate: thumb.targetDate,
+                    }" />
             </div>
         </main>
     </div>

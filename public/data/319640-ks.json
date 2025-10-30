@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "319640.KS",
+        "koName": "TIGER 골드선물(H)",
+        "longName": "TIGER 골드선물(H)",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 24595,
+        "englishName": "Mirae Asset Tiger Gold Futures ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 96588,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24450,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 91407,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-04-09",
@@ -12671,44 +12705,14 @@
             "low": 24450,
             "close": 24450,
             "volume": 345306
+        },
+        {
+            "date": "2025-10-29",
+            "open": 24510,
+            "high": 24680,
+            "low": 24440,
+            "close": 24595,
+            "volume": 244977
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "319640.KS",
-        "koName": "TIGER 골드선물(H)",
-        "longName": "TIGER 골드선물(H)",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 24450.0,
-        "englishName": "Mirae Asset Tiger Gold Futures ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 91407,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 24690,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 29089,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 87180,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

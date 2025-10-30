@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "QLTY",
+        "koName": null,
+        "longName": null,
+        "company": "GMO",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 37.83,
+        "englishName": "GMO U.S. Quality ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1039106,
+        "AvgVolume": 193471,
+        "sharesOutstanding": null,
+        "52Week": "27.47 - 38.08",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.57,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 170721,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 192820,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-15",
@@ -232,7 +270,7 @@
             "close": 26.64699935913086,
             "volume": 41500,
             "amount": 0.041,
-            "yield": 0.0015378844799198257
+            "yield": 0.0015378845
         },
         {
             "date": "2023-12-28",
@@ -730,7 +768,7 @@
             "close": 29.719999313354492,
             "volume": 75900,
             "amount": 0.046,
-            "yield": 0.0029352227325073472
+            "yield": 0.0029352227
         },
         {
             "date": "2024-03-28",
@@ -1244,7 +1282,7 @@
             "close": 31.020000457763672,
             "volume": 240300,
             "amount": 0.053,
-            "yield": 0.00449582539319313
+            "yield": 0.0044958254
         },
         {
             "date": "2024-07-01",
@@ -1758,7 +1796,7 @@
             "close": 32.61000061035156,
             "volume": 186600,
             "amount": 0.06,
-            "yield": 0.0061557399097505365
+            "yield": 0.0061557399
         },
         {
             "date": "2024-10-01",
@@ -2264,7 +2302,7 @@
             "close": 32.08000183105469,
             "volume": 246400,
             "amount": 0.095,
-            "yield": 0.007880856456952212
+            "yield": 0.0078808565
         },
         {
             "date": "2024-12-31",
@@ -2754,7 +2792,7 @@
             "close": 31.260000228881836,
             "volume": 275100,
             "amount": 0.048,
-            "yield": 0.008298217077292752
+            "yield": 0.0082982171
         },
         {
             "date": "2025-04-01",
@@ -3260,7 +3298,7 @@
             "close": 34.29999923706055,
             "volume": 1240000,
             "amount": 0.068,
-            "yield": 0.007935577976318272
+            "yield": 0.007935578
         },
         {
             "date": "2025-07-02",
@@ -3766,7 +3804,7 @@
             "close": 36.189998626708984,
             "volume": 135200,
             "amount": 0.078,
-            "yield": 0.009694444444444445
+            "yield": 0.0096944444
         },
         {
             "date": "2025-10-01",
@@ -3929,6 +3967,14 @@
             "volume": 170930
         },
         {
+            "date": "2025-10-29",
+            "open": 37.869998931884766,
+            "high": 37.970001220703125,
+            "low": 37.650001525878906,
+            "close": 37.83000183105469,
+            "volume": 1039106
+        },
+        {
             "date": "2025-12-30",
             "forecasted": true
         },
@@ -3936,39 +3982,5 @@
             "date": "2026-03-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "QLTY",
-        "koName": null,
-        "longName": null,
-        "company": "GMO",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 37.57,
-        "englishName": "GMO U.S. Quality ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 170721,
-        "AvgVolume": 192820,
-        "sharesOutstanding": null,
-        "52Week": "27.47 - 37.67",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 170714,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 193404,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "AAAU",
+        "koName": null,
+        "longName": null,
+        "company": "Goldman",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 38.95,
+        "englishName": "Goldman Sachs Physical Gold ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5523105,
+        "AvgVolume": 2856540,
+        "sharesOutstanding": null,
+        "52Week": "25.28 - 43.26",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.52,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2783495,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2818421,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-08-15",
@@ -14487,40 +14525,14 @@
             "low": 38.640098571777344,
             "close": 39.09000015258789,
             "volume": 3176262
+        },
+        {
+            "date": "2025-10-29",
+            "open": 39.66999816894531,
+            "high": 39.69499969482422,
+            "low": 38.779998779296875,
+            "close": 38.95000076293945,
+            "volume": 5523105
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "AAAU",
-        "koName": null,
-        "longName": null,
-        "company": "Goldman",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 40.52,
-        "englishName": "Goldman Sachs Physical Gold ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 2783495,
-        "AvgVolume": 2818421,
-        "sharesOutstanding": null,
-        "52Week": "25.28 - 43.26",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 2776015,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 2822076,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

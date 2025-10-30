@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "463250.KS",
+        "koName": "TIGER K방산&우주",
+        "longName": "TIGER K방산&우주",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 31795,
+        "englishName": "Mirae Asset Tiger Space Tech ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 815615,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31720,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 833412,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-07-26",
@@ -1448,7 +1482,7 @@
             "close": 12225,
             "volume": 43760,
             "amount": 50,
-            "yield": 0.004103405826836274
+            "yield": 0.0041034058
         },
         {
             "date": "2024-04-30",
@@ -3362,7 +3396,7 @@
             "close": 20275,
             "volume": 235206,
             "amount": 15,
-            "yield": 0.0031917505524183647
+            "yield": 0.0031917506
         },
         {
             "date": "2025-04-30",
@@ -4315,40 +4349,18 @@
             "low": 31865,
             "close": 32040,
             "volume": 489451
+        },
+        {
+            "date": "2025-10-29",
+            "open": 32200,
+            "high": 32640,
+            "low": 31465,
+            "close": 31795,
+            "volume": 427254
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "463250.KS",
-        "koName": "TIGER K방산&우주",
-        "longName": "TIGER K방산&우주",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 31720,
-        "englishName": "Mirae Asset Tiger Space Tech ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 833412,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 845555,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 831409,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

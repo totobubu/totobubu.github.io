@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "SBIL",
+        "koName": null,
+        "longName": null,
+        "company": "Simplify",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 100.05,
+        "englishName": "Simplify Government Money Market ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 205729,
+        "AvgVolume": 195004,
+        "sharesOutstanding": null,
+        "52Week": "100.01 - 100.495",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.33,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49575,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 202200,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-07-15",
@@ -248,7 +286,7 @@
             "close": 100.01000213623047,
             "volume": 56300,
             "amount": 0.47,
-            "yield": 0.0046990603456752
+            "yield": 0.0046990603
         },
         {
             "date": "2025-08-27",
@@ -418,7 +456,7 @@
             "close": 100.05799865722656,
             "volume": 7300,
             "amount": 0.35,
-            "yield": 0.008198360603092902
+            "yield": 0.0081983606
         },
         {
             "date": "2025-09-26",
@@ -602,41 +640,41 @@
             "high": 100.05999755859375,
             "low": 100.03079986572266,
             "close": 100.02999877929688,
-            "volume": 3029800
+            "volume": 3029800,
+            "amount": 0.34,
+            "yield": 0.0115942025
+        },
+        {
+            "date": "2025-10-29",
+            "open": 100.05000305175781,
+            "high": 100.05000305175781,
+            "low": 100.04170227050781,
+            "close": 100.05000305175781,
+            "volume": 205729
+        },
+        {
+            "date": "2025-11-28",
+            "forecasted": true
+        },
+        {
+            "date": "2025-12-26",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-28",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "SBIL",
-        "koName": null,
-        "longName": null,
-        "company": "Simplify",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 100.33,
-        "englishName": "Simplify Government Money Market ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 49575,
-        "AvgVolume": 202200,
-        "sharesOutstanding": null,
-        "52Week": "100.01 - 100.495",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 49573,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 201973,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

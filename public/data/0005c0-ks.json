@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0005C0.KS",
+        "koName": "RISE 미국S&P500엔화노출(합성 H)",
+        "longName": null,
+        "company": "KB자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11500,
+        "englishName": "Kb Rise Us S&P500 Yen Hedged Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1218,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11530,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1173,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-01-14",
@@ -1519,40 +1553,14 @@
             "low": 11385,
             "close": 11530,
             "volume": 2695
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11550,
+            "high": 11560,
+            "low": 11500,
+            "close": 11500,
+            "volume": 3023
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0005C0.KS",
-        "koName": "RISE 미국S&P500엔화노출(합성 H)",
-        "longName": null,
-        "company": "KB자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11530.0,
-        "englishName": "Kb Rise Us S&P500 Yen Hedged Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1173,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11340,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 1177,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0092B0.KS",
+        "koName": "SOL 한국원자력SMR",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12130,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 657548,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11475,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 662811,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-19",
@@ -367,44 +401,14 @@
             "low": 11175,
             "close": 11475,
             "volume": 420699
+        },
+        {
+            "date": "2025-10-29",
+            "open": 12000,
+            "high": 12190,
+            "low": 11805,
+            "close": 12130,
+            "volume": 737372
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0092B0.KS",
-        "koName": "SOL 한국원자력SMR",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 11475.0,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 662811,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11295,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 93504,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 667989,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

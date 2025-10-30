@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "475300.KS",
+        "koName": "SOL 반도체전공정",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 12455,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 233679,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12070,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 224622,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-02-14",
@@ -2328,7 +2362,7 @@
             "close": 7235,
             "volume": 45882,
             "amount": 40,
-            "yield": 0.005509641873278237
+            "yield": 0.0055096419
         },
         {
             "date": "2025-04-30",
@@ -3281,40 +3315,14 @@
             "low": 11780,
             "close": 11865,
             "volume": 719418
+        },
+        {
+            "date": "2025-10-29",
+            "open": 12040,
+            "high": 12455,
+            "low": 11810,
+            "close": 12455,
+            "volume": 310389
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "475300.KS",
-        "koName": "SOL 반도체전공정",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 12070,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 224622,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 1331411,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 202395,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

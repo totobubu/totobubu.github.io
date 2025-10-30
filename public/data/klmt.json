@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "KLMT",
+        "koName": null,
+        "longName": null,
+        "company": "Invesco",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 31.2117,
+        "englishName": "Invesco MSCI Global Climate 500 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 315,
+        "AvgVolume": 6876,
+        "sharesOutstanding": null,
+        "52Week": "22.625 - 31.33",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.902,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6900,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-26",
@@ -496,7 +534,7 @@
             "close": 26.229999542236328,
             "volume": 0,
             "amount": 0.083,
-            "yield": 0.003164315724304567
+            "yield": 0.0031643157
         },
         {
             "date": "2024-09-24",
@@ -1010,7 +1048,7 @@
             "close": 26.416000366210938,
             "volume": 100,
             "amount": 0.139,
-            "yield": 0.00840399746071942
+            "yield": 0.0084039975
         },
         {
             "date": "2024-12-24",
@@ -1492,7 +1530,7 @@
             "close": 26.45400047302246,
             "volume": 100,
             "amount": 0.121,
-            "yield": 0.012965902845196824
+            "yield": 0.0129659028
         },
         {
             "date": "2025-03-25",
@@ -1990,7 +2028,7 @@
             "close": 27.60300064086914,
             "volume": 100,
             "amount": 0.154,
-            "yield": 0.018005288862115207
+            "yield": 0.0180052889
         },
         {
             "date": "2025-06-24",
@@ -2496,7 +2534,7 @@
             "close": 30.39299964904785,
             "volume": 100,
             "amount": 0.12,
-            "yield": 0.02030072737553331
+            "yield": 0.0203007274
         },
         {
             "date": "2025-09-23",
@@ -2699,6 +2737,22 @@
             "volume": 100
         },
         {
+            "date": "2025-10-28",
+            "open": 31.309999465942383,
+            "high": 31.309999465942383,
+            "low": 31.309999465942383,
+            "close": 31.309999465942383,
+            "volume": 100
+        },
+        {
+            "date": "2025-10-29",
+            "open": 31.329999923706055,
+            "high": 31.329999923706055,
+            "low": 30.959999084472656,
+            "close": 31.211700439453125,
+            "volume": 315
+        },
+        {
             "date": "2025-12-22",
             "forecasted": true
         },
@@ -2706,39 +2760,5 @@
             "date": "2026-03-20",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "KLMT",
-        "koName": null,
-        "longName": null,
-        "company": "Invesco",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-25 05:54:59 KST",
-        "regularMarketPrice": 30.902,
-        "englishName": "Invesco MSCI Global Climate 500 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1,
-        "AvgVolume": 6900,
-        "sharesOutstanding": null,
-        "52Week": "22.625 - 30.902",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 30.4965,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 23,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "273140.KS",
+        "koName": "KODEX 단기변동금리부채권액티브",
+        "longName": "KODEX 단기변동금리부채권액티브",
+        "company": null,
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 114760,
+        "englishName": "KODEX Active FRN",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 3615,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 114750,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3614,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2017-06-29",
@@ -896,7 +930,7 @@
             "close": 100030,
             "volume": 1,
             "amount": 606,
-            "yield": 0.006058182545236429
+            "yield": 0.0060581825
         },
         {
             "date": "2017-12-28",
@@ -2690,7 +2724,7 @@
             "close": 100020,
             "volume": 5,
             "amount": 1640,
-            "yield": 0.022453264020793763
+            "yield": 0.022453264
         },
         {
             "date": "2018-12-28",
@@ -14772,7 +14806,7 @@
             "close": 114645,
             "volume": 1035,
             "amount": 238,
-            "yield": 0.0020764264526260687
+            "yield": 0.0020764265
         },
         {
             "date": "2025-08-14",
@@ -14942,7 +14976,7 @@
             "close": 114640,
             "volume": 5664,
             "amount": 227,
-            "yield": 0.004056352771841061
+            "yield": 0.0040563528
         },
         {
             "date": "2025-09-15",
@@ -15080,7 +15114,7 @@
             "close": 114645,
             "volume": 1636,
             "amount": 228,
-            "yield": 0.006045010467550593
+            "yield": 0.0060450105
         },
         {
             "date": "2025-10-15",
@@ -15163,6 +15197,14 @@
             "volume": 1601
         },
         {
+            "date": "2025-10-29",
+            "open": 114750,
+            "high": 114760,
+            "low": 114750,
+            "close": 114760,
+            "volume": 2630
+        },
+        {
             "date": "2025-11-14",
             "forecasted": true
         },
@@ -15186,39 +15228,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "273140.KS",
-        "koName": "KODEX 단기변동금리부채권액티브",
-        "longName": "KODEX 단기변동금리부채권액티브",
-        "company": null,
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 114750.0,
-        "englishName": "KODEX Active FRN",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 3614,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 114745,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 3599,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

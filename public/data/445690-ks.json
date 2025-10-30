@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "445690.KS",
+        "koName": "BNK 주주가치액티브",
+        "longName": null,
+        "company": "비엔케이자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 20780,
+        "englishName": "Bank Shareholder Yield Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 5707,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20660,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5685,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-10-27",
@@ -5711,40 +5749,14 @@
             "low": 20530,
             "close": 20645,
             "volume": 1841
+        },
+        {
+            "date": "2025-10-29",
+            "open": 20540,
+            "high": 20780,
+            "low": 20490,
+            "close": 20780,
+            "volume": 509
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "445690.KS",
-        "koName": "BNK 주주가치액티브",
-        "longName": null,
-        "company": "비엔케이자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 20660,
-        "englishName": "Bank Shareholder Yield Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 56,
-        "AvgVolume": 5685,
-        "sharesOutstanding": null,
-        "52Week": "12455.0 - 20790.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 20520,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

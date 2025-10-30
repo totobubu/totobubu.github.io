@@ -9,27 +9,35 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 52.4281,
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 52.26,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3148,
-        "AvgVolume": 2550,
+        "Volume": 3659,
+        "AvgVolume": 2525,
         "sharesOutstanding": null,
-        "52Week": "50.609 - 53.13",
+        "52Week": "50.609 - 55.59",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "changes": {
-            "AvgVolume": {
-                "value": 1900,
+            "regularMarketPrice": {
+                "value": 52.4281,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3148,
                 "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2550,
+                "change": "down"
             }
         }
     },
-    "dividendHistory": [],
+    "dividendTotal": 0,
     "backtestData": [
         {
             "date": "2025-08-12",
@@ -94,7 +102,15 @@
             "low": 53.28810119628906,
             "close": 53.28810119628906,
             "volume": 2099
+        },
+        {
+            "date": "2025-10-29",
+            "open": 53.86000061035156,
+            "high": 53.86000061035156,
+            "low": 52.2599983215332,
+            "close": 52.2599983215332,
+            "volume": 3659
         }
     ],
-    "dividendTotal": 0
+    "dividendHistory": []
 }

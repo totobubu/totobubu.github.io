@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0001S0.KS",
+        "koName": "TIGER 26-04 회사채(A+이상)액티브",
+        "longName": "TIGER 26-04 회사채(A+이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 51585,
+        "englishName": "Mirae Asset Tiger 26-04 Corporate Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 12627,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51600,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12201,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-12-24",
@@ -1615,40 +1649,14 @@
             "low": 51590,
             "close": 51600,
             "volume": 31499
+        },
+        {
+            "date": "2025-10-29",
+            "open": 51600,
+            "high": 51600,
+            "low": 51585,
+            "close": 51585,
+            "volume": 20578
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0001S0.KS",
-        "koName": "TIGER 26-04 회사채(A+이상)액티브",
-        "longName": "TIGER 26-04 회사채(A+이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 51600.0,
-        "englishName": "Mirae Asset Tiger 26-04 Corporate Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 12201,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 1142,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 12095,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

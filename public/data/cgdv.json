@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CGDV",
+        "koName": null,
+        "longName": null,
+        "company": "Capital",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 43.19,
+        "englishName": "Capital Group Dividend Value ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3810126,
+        "AvgVolume": 3303656,
+        "sharesOutstanding": null,
+        "52Week": "30.94 - 43.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.85,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3202954,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3293243,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-02-24",
@@ -200,7 +238,7 @@
             "close": 26.25,
             "volume": 89000,
             "amount": 0.029,
-            "yield": 0.0010997345118341324
+            "yield": 0.0010997345
         },
         {
             "date": "2022-03-31",
@@ -698,7 +736,7 @@
             "close": 22.469999313354492,
             "volume": 378600,
             "amount": 0.055,
-            "yield": 0.003689064484465538
+            "yield": 0.0036890645
         },
         {
             "date": "2022-06-30",
@@ -1212,7 +1250,7 @@
             "close": 20.75,
             "volume": 365000,
             "amount": 0.097,
-            "yield": 0.008614945170309163
+            "yield": 0.0086149452
         },
         {
             "date": "2022-09-30",
@@ -1694,7 +1732,7 @@
             "close": 23.530000686645508,
             "volume": 612300,
             "amount": 0.139,
-            "yield": 0.013681060639173015
+            "yield": 0.0136810606
         },
         {
             "date": "2022-12-27",
@@ -2216,7 +2254,7 @@
             "close": 24.700000762939453,
             "volume": 950900,
             "amount": 0.091,
-            "yield": 0.01662621405405806
+            "yield": 0.0166262141
         },
         {
             "date": "2023-03-31",
@@ -2714,7 +2752,7 @@
             "close": 26.809999465942383,
             "volume": 770900,
             "amount": 0.119,
-            "yield": 0.018785151802279965
+            "yield": 0.0187851518
         },
         {
             "date": "2023-06-30",
@@ -3220,7 +3258,7 @@
             "close": 26.6299991607666,
             "volume": 31576600,
             "amount": 0.117,
-            "yield": 0.0212854436204346
+            "yield": 0.0212854436
         },
         {
             "date": "2023-09-29",
@@ -3718,7 +3756,7 @@
             "close": 29.90999984741211,
             "volume": 2238100,
             "amount": 0.167,
-            "yield": 0.016538332310695653
+            "yield": 0.0165383323
         },
         {
             "date": "2023-12-28",
@@ -4224,7 +4262,7 @@
             "close": 32.5,
             "volume": 3053300,
             "amount": 0.1,
-            "yield": 0.018271302081444906
+            "yield": 0.0182713021
         },
         {
             "date": "2024-04-01",
@@ -4730,7 +4768,7 @@
             "close": 33,
             "volume": 1472600,
             "amount": 0.129,
-            "yield": 0.01908212621926056
+            "yield": 0.0190821262
         },
         {
             "date": "2024-07-01",
@@ -5244,7 +5282,7 @@
             "close": 36.439998626708984,
             "volume": 2069100,
             "amount": 0.15,
-            "yield": 0.015028900976638053
+            "yield": 0.015028901
         },
         {
             "date": "2024-10-01",
@@ -5734,7 +5772,7 @@
             "close": 35.900001525878906,
             "volume": 1726500,
             "amount": 0.185,
-            "yield": 0.02044183541137981
+            "yield": 0.0204418354
         },
         {
             "date": "2024-12-27",
@@ -6240,7 +6278,7 @@
             "close": 35.63999938964844,
             "volume": 2309700,
             "amount": 0.107,
-            "yield": 0.016258542635706065
+            "yield": 0.0162585426
         },
         {
             "date": "2025-04-01",
@@ -6738,7 +6776,7 @@
             "close": 39.4900016784668,
             "volume": 3576500,
             "amount": 0.13,
-            "yield": 0.014473684042876345
+            "yield": 0.014473684
         },
         {
             "date": "2025-07-01",
@@ -7252,7 +7290,7 @@
             "close": 42.029998779296875,
             "volume": 2903400,
             "amount": 0.136,
-            "yield": 0.016941851746572662
+            "yield": 0.0169418517
         },
         {
             "date": "2025-10-01",
@@ -7415,6 +7453,14 @@
             "volume": 4078535
         },
         {
+            "date": "2025-10-29",
+            "open": 43.2599983215332,
+            "high": 43.375,
+            "low": 42.970001220703125,
+            "close": 43.189998626708984,
+            "volume": 3810126
+        },
+        {
             "date": "2025-12-30",
             "forecasted": true
         },
@@ -7422,39 +7468,5 @@
             "date": "2026-03-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CGDV",
-        "koName": null,
-        "longName": null,
-        "company": "Capital",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 42.85,
-        "englishName": "Capital Group Dividend Value ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 3202954,
-        "AvgVolume": 3293243,
-        "sharesOutstanding": null,
-        "52Week": "30.94 - 42.975",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 3159166,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 3288807,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

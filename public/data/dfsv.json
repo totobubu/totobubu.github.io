@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "DFSV",
+        "koName": null,
+        "longName": null,
+        "company": "Dimensional",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 31.47,
+        "englishName": "Dimensional US Small Cap Value ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1359513,
+        "AvgVolume": 1269460,
+        "sharesOutstanding": null,
+        "52Week": "23.8 - 34.23",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.13,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 662873,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1303629,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-02-24",
@@ -152,7 +190,7 @@
             "close": 26.26799964904785,
             "volume": 51200,
             "amount": 0.004,
-            "yield": 0.00015096618192302004
+            "yield": 0.0001509662
         },
         {
             "date": "2022-03-23",
@@ -658,7 +696,7 @@
             "close": 22.40999984741211,
             "volume": 884500,
             "amount": 0.045,
-            "yield": 0.002177777777777778
+            "yield": 0.0021777778
         },
         {
             "date": "2022-06-23",
@@ -1156,7 +1194,7 @@
             "close": 23.469999313354492,
             "volume": 225600,
             "amount": 0.07,
-            "yield": 0.005046649719466872
+            "yield": 0.0050466497
         },
         {
             "date": "2022-09-21",
@@ -1670,7 +1708,7 @@
             "close": 24.489999771118164,
             "volume": 996600,
             "amount": 0.105,
-            "yield": 0.009206740678274499
+            "yield": 0.0092067407
         },
         {
             "date": "2022-12-21",
@@ -2160,7 +2198,7 @@
             "close": 24.68000030517578,
             "volume": 412900,
             "amount": 0.058,
-            "yield": 0.011491442114069704
+            "yield": 0.0114914421
         },
         {
             "date": "2023-03-22",
@@ -2666,7 +2704,7 @@
             "close": 25.139999389648438,
             "volume": 268300,
             "amount": 0.1,
-            "yield": 0.0150597607272971
+            "yield": 0.0150597607
         },
         {
             "date": "2023-06-22",
@@ -3164,7 +3202,7 @@
             "close": 25.670000076293945,
             "volume": 285900,
             "amount": 0.102,
-            "yield": 0.0168604656148649
+            "yield": 0.0168604656
         },
         {
             "date": "2023-09-20",
@@ -3678,7 +3716,7 @@
             "close": 29.049999237060547,
             "volume": 485900,
             "amount": 0.115,
-            "yield": 0.016736401495552843
+            "yield": 0.0167364015
         },
         {
             "date": "2023-12-20",
@@ -4168,7 +4206,7 @@
             "close": 28.65999984741211,
             "volume": 425200,
             "amount": 0.055,
-            "yield": 0.01517825630631871
+            "yield": 0.0151782563
         },
         {
             "date": "2024-03-20",
@@ -4674,7 +4712,7 @@
             "close": 28.40999984741211,
             "volume": 483700,
             "amount": 0.114,
-            "yield": 0.017124736235787547
+            "yield": 0.0171247362
         },
         {
             "date": "2024-06-20",
@@ -5172,7 +5210,7 @@
             "close": 30.329999923706055,
             "volume": 821500,
             "amount": 0.099,
-            "yield": 0.01603835990975163
+            "yield": 0.0160383599
         },
         {
             "date": "2024-09-18",
@@ -5686,7 +5724,7 @@
             "close": 31.739999771118164,
             "volume": 814400,
             "amount": 0.137,
-            "yield": 0.01621453086835928
+            "yield": 0.0162145309
         },
         {
             "date": "2024-12-18",
@@ -6208,7 +6246,7 @@
             "close": 28.84000015258789,
             "volume": 1352500,
             "amount": 0.081,
-            "yield": 0.014841597328240768
+            "yield": 0.0148415973
         },
         {
             "date": "2025-03-26",
@@ -6706,7 +6744,7 @@
             "close": 29.190000534057617,
             "volume": 1051300,
             "amount": 0.136,
-            "yield": 0.015550978820834222
+            "yield": 0.0155509788
         },
         {
             "date": "2025-06-25",
@@ -7212,7 +7250,7 @@
             "close": 32.060001373291016,
             "volume": 2099400,
             "amount": 0.142,
-            "yield": 0.015427682004952582
+            "yield": 0.015427682
         },
         {
             "date": "2025-09-24",
@@ -7415,6 +7453,14 @@
             "volume": 1005786
         },
         {
+            "date": "2025-10-29",
+            "open": 31.829999923706055,
+            "high": 32.040000915527344,
+            "low": 31.295000076293945,
+            "close": 31.469999313354492,
+            "volume": 1359513
+        },
+        {
             "date": "2025-12-23",
             "forecasted": true
         },
@@ -7422,39 +7468,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "DFSV",
-        "koName": null,
-        "longName": null,
-        "company": "Dimensional",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 32.13,
-        "englishName": "Dimensional US Small Cap Value ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 662873,
-        "AvgVolume": 1303629,
-        "sharesOutstanding": null,
-        "52Week": "23.8 - 34.23",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 661536,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 1319314,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

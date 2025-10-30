@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0038A0.KS",
+        "koName": "KODEX 미국휴머노이드로봇",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16120,
+        "englishName": "Samsung Kodex Us Humanoid Robot ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 410193,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16000,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 410369,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-04-15",
@@ -576,7 +610,7 @@
             "close": 13175,
             "volume": 563945,
             "amount": 7,
-            "yield": 0.0005291005291005291
+            "yield": 0.0005291005
         },
         {
             "date": "2025-07-31",
@@ -1041,44 +1075,14 @@
             "low": 15910,
             "close": 16000,
             "volume": 517426
+        },
+        {
+            "date": "2025-10-29",
+            "open": 16060,
+            "high": 16170,
+            "low": 16055,
+            "close": 16120,
+            "volume": 637151
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0038A0.KS",
-        "koName": "KODEX 미국휴머노이드로봇",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 16000.0,
-        "englishName": "Samsung Kodex Us Humanoid Robot ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 410369,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15935,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 135201,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 411788,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

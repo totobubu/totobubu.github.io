@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "442260.KS",
+        "koName": "마이티 다이나믹퀀트액티브",
+        "longName": null,
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 19845,
+        "englishName": "DB Mighty Dynamic Quant Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 3009,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19660,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3011,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-10-25",
@@ -1032,7 +1066,7 @@
             "close": 11245,
             "volume": 324,
             "amount": 160,
-            "yield": 0.014375561545372867
+            "yield": 0.0143755615
         },
         {
             "date": "2023-04-28",
@@ -2866,7 +2900,7 @@
             "close": 12810,
             "volume": 11941,
             "amount": 260,
-            "yield": 0.020360219263899765
+            "yield": 0.0203602193
         },
         {
             "date": "2024-04-30",
@@ -4780,7 +4814,7 @@
             "close": 11915,
             "volume": 1418,
             "amount": 275,
-            "yield": 0.045109612141652614
+            "yield": 0.0451096121
         },
         {
             "date": "2025-04-30",
@@ -5733,36 +5767,18 @@
             "low": 19295,
             "close": 19445,
             "volume": 370
+        },
+        {
+            "date": "2025-10-29",
+            "open": 19455,
+            "high": 19845,
+            "low": 19455,
+            "close": 19845,
+            "volume": 528
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "442260.KS",
-        "koName": "마이티 다이나믹퀀트액티브",
-        "longName": null,
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 19660,
-        "englishName": "DB Mighty Dynamic Quant Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 3011,
-        "sharesOutstanding": null,
-        "52Week": "10830.0 - 19660.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 19165,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

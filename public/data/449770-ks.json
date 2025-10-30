@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "449770.KS",
+        "koName": "KIWOOM 미국S&P500",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 19765,
+        "englishName": "Kiwoom Kosef S&P500 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 7129,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19640,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 149,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7067,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-12-20",
@@ -712,7 +750,7 @@
             "close": 10860,
             "volume": 3132,
             "amount": 20,
-            "yield": 0.0018424689083371719
+            "yield": 0.0018424689
         },
         {
             "date": "2023-04-28",
@@ -1114,7 +1152,7 @@
             "close": 11595,
             "volume": 7420,
             "amount": 40,
-            "yield": 0.005161290322580645
+            "yield": 0.0051612903
         },
         {
             "date": "2023-08-03",
@@ -1572,7 +1610,7 @@
             "close": 11140,
             "volume": 332,
             "amount": 20,
-            "yield": 0.0071588366890380315
+            "yield": 0.0071588367
         },
         {
             "date": "2023-10-31",
@@ -2070,7 +2108,7 @@
             "close": 13100,
             "volume": 788,
             "amount": 20,
-            "yield": 0.007601672367920942
+            "yield": 0.0076016724
         },
         {
             "date": "2024-01-31",
@@ -2552,7 +2590,7 @@
             "close": 14065,
             "volume": 9366,
             "amount": 30,
-            "yield": 0.007829181494661922
+            "yield": 0.0078291815
         },
         {
             "date": "2024-04-30",
@@ -3050,7 +3088,7 @@
             "close": 15135,
             "volume": 1658,
             "amount": 20,
-            "yield": 0.00597609561752988
+            "yield": 0.0059760956
         },
         {
             "date": "2024-07-31",
@@ -4472,7 +4510,7 @@
             "close": 15885,
             "volume": 1384,
             "amount": 95,
-            "yield": 0.011002829298962591
+            "yield": 0.0110028293
         },
         {
             "date": "2025-04-30",
@@ -4962,7 +5000,7 @@
             "close": 17620,
             "volume": 13700,
             "amount": 45,
-            "yield": 0.01074964639321075
+            "yield": 0.0107496464
         },
         {
             "date": "2025-07-31",
@@ -5429,6 +5467,14 @@
             "volume": 4479
         },
         {
+            "date": "2025-10-29",
+            "open": 19730,
+            "high": 19790,
+            "low": 19705,
+            "close": 19765,
+            "volume": 10144
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -5436,39 +5482,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "449770.KS",
-        "koName": "KIWOOM 미국S&P500",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 19640,
-        "englishName": "Kiwoom Kosef S&P500 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 149,
-        "AvgVolume": 7067,
-        "sharesOutstanding": null,
-        "52Week": "14315.0 - 19690.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 19405,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

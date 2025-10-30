@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0098N0.KS",
+        "koName": "PLUS 자사주매입고배당주",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10235,
+        "englishName": "Hanwha Investment Trust Management - Hanwha PLUS High Dividend+Buyback ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 936187,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10170,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 955062,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-09-16",
@@ -128,7 +162,7 @@
             "close": 9895,
             "volume": 615397,
             "amount": 35,
-            "yield": 0.0035842293906810036
+            "yield": 0.0035842294
         },
         {
             "date": "2025-10-15",
@@ -209,44 +243,14 @@
             "low": 10115,
             "close": 10170,
             "volume": 464316
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10245,
+            "high": 10275,
+            "low": 10125,
+            "close": 10235,
+            "volume": 456995
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0098N0.KS",
-        "koName": "PLUS 자사주매입고배당주",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10170.0,
-        "englishName": "Hanwha Investment Trust Management - Hanwha PLUS High Dividend+Buyback ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 955062,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10180,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 105956,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 968766,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

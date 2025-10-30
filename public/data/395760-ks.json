@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "395760.KS",
+        "koName": "PLUS ESG성장주액티브",
+        "longName": null,
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 13090,
+        "englishName": "Hanwha Asset Management - Arirang ESG Growth Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1958,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12900,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1975,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-07-30",
@@ -1448,7 +1482,7 @@
             "close": 8460,
             "volume": 199155,
             "amount": 100,
-            "yield": 0.011813349084465446
+            "yield": 0.0118133491
         },
         {
             "date": "2022-04-29",
@@ -3418,7 +3452,7 @@
             "close": 7840,
             "volume": 526,
             "amount": 10,
-            "yield": 0.014021669853409816
+            "yield": 0.0140216699
         },
         {
             "date": "2023-04-28",
@@ -5252,7 +5286,7 @@
             "close": 8735,
             "volume": 1029,
             "amount": 45,
-            "yield": 0.005142857142857143
+            "yield": 0.0051428571
         },
         {
             "date": "2024-04-30",
@@ -7166,7 +7200,7 @@
             "close": 8500,
             "volume": 125,
             "amount": 40,
-            "yield": 0.010053222945002957
+            "yield": 0.0100532229
         },
         {
             "date": "2025-04-30",
@@ -8119,44 +8153,18 @@
             "low": 12805,
             "close": 12900,
             "volume": 454
+        },
+        {
+            "date": "2025-10-29",
+            "open": 13020,
+            "high": 13090,
+            "low": 12955,
+            "close": 13090,
+            "volume": 277
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "395760.KS",
-        "koName": "PLUS ESG성장주액티브",
-        "longName": null,
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 12900.0,
-        "englishName": "Hanwha Asset Management - Arirang ESG Growth Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1975,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 12915,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 104,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1790,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "TOUS",
+        "koName": null,
+        "longName": null,
+        "company": "T.",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 33.88,
+        "englishName": "T. Rowe Price International Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 147968,
+        "AvgVolume": 147310,
+        "sharesOutstanding": null,
+        "52Week": "25.75 - 34.28",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.89,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 580655,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 146860,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-06-15",
@@ -1048,7 +1086,7 @@
             "close": 25.437999725341797,
             "volume": 28200,
             "amount": 0.129,
-            "yield": 0.00502336442628469
+            "yield": 0.0050233644
         },
         {
             "date": "2023-12-21",
@@ -3074,7 +3112,7 @@
             "close": 26.2189998626709,
             "volume": 17400,
             "amount": 0.788,
-            "yield": 0.028822238317559454
+            "yield": 0.0288222383
         },
         {
             "date": "2024-12-24",
@@ -4763,40 +4801,18 @@
             "low": 34.04999923706055,
             "close": 34.04999923706055,
             "volume": 146576
+        },
+        {
+            "date": "2025-10-29",
+            "open": 34.06999969482422,
+            "high": 34.08000183105469,
+            "low": 33.71500015258789,
+            "close": 33.880001068115234,
+            "volume": 147968
+        },
+        {
+            "date": "2025-12-23",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "TOUS",
-        "koName": null,
-        "longName": null,
-        "company": "T.",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 33.89,
-        "englishName": "T. Rowe Price International Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 580655,
-        "AvgVolume": 146860,
-        "sharesOutstanding": null,
-        "52Week": "25.75 - 34.28",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 580651,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 139387,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

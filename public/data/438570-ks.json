@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "438570.KS",
+        "koName": "SOL 국고채10년",
+        "longName": "SOL 국고채10년",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 108930,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1272,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 109270,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 40,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1278,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-09-06",
@@ -2464,7 +2502,7 @@
             "close": 104880,
             "volume": 2430,
             "amount": 3226,
-            "yield": 0.030756030126799505
+            "yield": 0.0307560301
         },
         {
             "date": "2023-12-28",
@@ -4386,7 +4424,7 @@
             "close": 106165,
             "volume": 1753,
             "amount": 3500,
-            "yield": 0.03286847912851575
+            "yield": 0.0328684791
         },
         {
             "date": "2024-12-30",
@@ -5981,42 +6019,16 @@
             "volume": 573
         },
         {
+            "date": "2025-10-29",
+            "open": 109290,
+            "high": 109290,
+            "low": 108930,
+            "close": 108930,
+            "volume": 368
+        },
+        {
             "date": "2025-12-26",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "438570.KS",
-        "koName": "SOL 국고채10년",
-        "longName": "SOL 국고채10년",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 109270,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 40,
-        "AvgVolume": 1278,
-        "sharesOutstanding": null,
-        "52Week": "105870.0 - 112860.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 109590,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

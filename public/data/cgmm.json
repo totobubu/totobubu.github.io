@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CGMM",
+        "koName": null,
+        "longName": null,
+        "company": "Capital",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 28.31,
+        "englishName": "Capital Group U.S. Small and Mid Cap ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1267460,
+        "AvgVolume": 816531,
+        "sharesOutstanding": null,
+        "52Week": "20.57 - 28.86",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.61,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 798318,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 820728,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-01-16",
@@ -904,7 +942,7 @@
             "close": 26.8799991607666,
             "volume": 409600,
             "amount": 0.033,
-            "yield": 0.0012249442964294421
+            "yield": 0.0012249443
         },
         {
             "date": "2025-07-01",
@@ -1577,40 +1615,14 @@
             "low": 28.41349983215332,
             "close": 28.440000534057617,
             "volume": 638632
+        },
+        {
+            "date": "2025-10-29",
+            "open": 28.450000762939453,
+            "high": 28.65999984741211,
+            "low": 28.21500015258789,
+            "close": 28.309999465942383,
+            "volume": 1267460
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CGMM",
-        "koName": null,
-        "longName": null,
-        "company": "Capital",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 28.61,
-        "englishName": "Capital Group U.S. Small and Mid Cap ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 798318,
-        "AvgVolume": 820728,
-        "sharesOutstanding": null,
-        "52Week": "20.57 - 28.81",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 798018,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 816121,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

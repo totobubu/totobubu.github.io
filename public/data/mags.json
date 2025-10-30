@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "MAGS",
+        "koName": null,
+        "longName": null,
+        "company": "Roundhill",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 69.06,
+        "englishName": "Roundhill Magnificent Seven ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4861988,
+        "AvgVolume": 2542648,
+        "sharesOutstanding": null,
+        "52Week": "39.0 - 69.1393",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.86,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3590338,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2464465,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-04-11",
@@ -1449,7 +1487,7 @@
             "volume": 73200,
             "amount": 0.146,
             "amountFixed": 0.145926,
-            "yield": 0.004323733333333334
+            "yield": 0.0043237333
         },
         {
             "date": "2023-12-28",
@@ -3476,7 +3514,7 @@
             "volume": 2565900,
             "amount": 0.44,
             "amountFixed": 0.43968,
-            "yield": 0.0079963625555953
+            "yield": 0.0079963626
         },
         {
             "date": "2024-12-31",
@@ -5133,36 +5171,18 @@
             "low": 67.72000122070312,
             "close": 68.37000274658203,
             "volume": 3420956
+        },
+        {
+            "date": "2025-10-29",
+            "open": 69.0199966430664,
+            "high": 69.13929748535156,
+            "low": 68.29000091552734,
+            "close": 69.05999755859375,
+            "volume": 4861988
+        },
+        {
+            "date": "2025-12-30",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "MAGS",
-        "koName": null,
-        "longName": null,
-        "company": "Roundhill",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 65.86,
-        "englishName": "Roundhill Magnificent Seven ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 3590338,
-        "AvgVolume": 2464465,
-        "sharesOutstanding": null,
-        "52Week": "39.0 - 65.98",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 2435734,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

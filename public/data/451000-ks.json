@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "451000.KS",
+        "koName": "PLUS 종합채권(AA-이상)액티브",
+        "longName": "PLUS 종합채권(AA-이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 115600,
+        "englishName": "Hanwha Arirang Total Market Bond Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1721,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 115760,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1712,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-01-10",
@@ -5231,36 +5265,14 @@
             "low": 115755,
             "close": 115905,
             "volume": 459
+        },
+        {
+            "date": "2025-10-29",
+            "open": 115760,
+            "high": 115760,
+            "low": 115600,
+            "close": 115600,
+            "volume": 58
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "451000.KS",
-        "koName": "PLUS 종합채권(AA-이상)액티브",
-        "longName": "PLUS 종합채권(AA-이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 115760,
-        "englishName": "Hanwha Arirang Total Market Bond Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1712,
-        "sharesOutstanding": null,
-        "52Week": "110980.0 - 117660.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 116085,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

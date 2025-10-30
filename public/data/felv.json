@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FELV",
+        "koName": null,
+        "longName": null,
+        "company": "Fidelity",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 33.63,
+        "englishName": "Fidelity Enhanced Large Cap Value ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 195602,
+        "AvgVolume": 130968,
+        "sharesOutstanding": null,
+        "52Week": "26.48 - 34.13",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.93,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 86287,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 130590,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-20",
@@ -216,7 +254,7 @@
             "close": 26.920000076293945,
             "volume": 102800,
             "amount": 0.012,
-            "yield": 0.00044759419019176007
+            "yield": 0.0004475942
         },
         {
             "date": "2023-12-29",
@@ -642,7 +680,7 @@
             "close": 28.1200008392334,
             "volume": 125300,
             "amount": 0.261,
-            "yield": 0.009725685891273381
+            "yield": 0.0097256859
         },
         {
             "date": "2024-03-18",
@@ -1180,7 +1218,7 @@
             "close": 28.56999969482422,
             "volume": 54900,
             "amount": 0.074,
-            "yield": 0.012145607410099589
+            "yield": 0.0121456074
         },
         {
             "date": "2024-06-24",
@@ -1686,7 +1724,7 @@
             "close": 30.621999740600586,
             "volume": 69000,
             "amount": 0.136,
-            "yield": 0.015789473605450067
+            "yield": 0.0157894736
         },
         {
             "date": "2024-09-23",
@@ -2200,7 +2238,7 @@
             "close": 30.579999923706055,
             "volume": 369500,
             "amount": 0.145,
-            "yield": 0.020877659627421514
+            "yield": 0.0208776596
         },
         {
             "date": "2024-12-23",
@@ -2682,7 +2720,7 @@
             "close": 30.59000015258789,
             "volume": 93100,
             "amount": 0.142,
-            "yield": 0.016289740946298727
+            "yield": 0.0162897409
         },
         {
             "date": "2025-03-24",
@@ -3180,7 +3218,7 @@
             "close": 30.905000686645508,
             "volume": 90700,
             "amount": 0.147,
-            "yield": 0.020760799177835597
+            "yield": 0.0207607992
         },
         {
             "date": "2025-06-23",
@@ -3686,7 +3724,7 @@
             "close": 33.43000030517578,
             "volume": 140000,
             "amount": 0.146,
-            "yield": 0.021373134328358207
+            "yield": 0.0213731343
         },
         {
             "date": "2025-09-22",
@@ -3905,6 +3943,14 @@
             "volume": 123912
         },
         {
+            "date": "2025-10-29",
+            "open": 33.7400016784668,
+            "high": 33.88999938964844,
+            "low": 33.560001373291016,
+            "close": 33.630001068115234,
+            "volume": 195602
+        },
+        {
             "date": "2025-12-19",
             "forecasted": true
         },
@@ -3912,39 +3958,5 @@
             "date": "2026-03-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FELV",
-        "koName": null,
-        "longName": null,
-        "company": "Fidelity",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 33.93,
-        "englishName": "Fidelity Enhanced Large Cap Value ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 86287,
-        "AvgVolume": 130590,
-        "sharesOutstanding": null,
-        "52Week": "26.48 - 34.03",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 86279,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 130495,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

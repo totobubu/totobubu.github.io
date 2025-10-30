@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "SCCR",
+        "koName": null,
+        "longName": null,
+        "company": "Schwab",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 26.08,
+        "englishName": "Schwab Core Bond ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 142066,
+        "AvgVolume": 469318,
+        "sharesOutstanding": null,
+        "52Week": "24.82 - 26.2",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.16,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 186321,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 466131,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-05",
@@ -312,7 +350,7 @@
             "close": 25.56999969482422,
             "volume": 18800,
             "amount": 0.103,
-            "yield": 0.004031311274976376
+            "yield": 0.0040313113
         },
         {
             "date": "2025-04-02",
@@ -482,7 +520,7 @@
             "close": 25.31999969482422,
             "volume": 40400,
             "amount": 0.104,
-            "yield": 0.00814639910440936
+            "yield": 0.0081463991
         },
         {
             "date": "2025-05-02",
@@ -652,7 +690,7 @@
             "close": 25.1299991607666,
             "volume": 44600,
             "amount": 0.099,
-            "yield": 0.012176681664109746
+            "yield": 0.0121766817
         },
         {
             "date": "2025-06-03",
@@ -814,7 +852,7 @@
             "close": 25.530000686645508,
             "volume": 57500,
             "amount": 0.09,
-            "yield": 0.015499021989229563
+            "yield": 0.015499022
         },
         {
             "date": "2025-07-02",
@@ -992,7 +1030,7 @@
             "close": 25.584999084472656,
             "volume": 37100,
             "amount": 0.106,
-            "yield": 0.019609374707797545
+            "yield": 0.0196093747
         },
         {
             "date": "2025-08-04",
@@ -1162,7 +1200,7 @@
             "close": 25.549999237060547,
             "volume": 117200,
             "amount": 0.088,
-            "yield": 0.023091977206175358
+            "yield": 0.0230919772
         },
         {
             "date": "2025-09-03",
@@ -1332,7 +1370,7 @@
             "close": 25.895000457763672,
             "volume": 134100,
             "amount": 0.09,
-            "yield": 0.026254826641522063
+            "yield": 0.0262548266
         },
         {
             "date": "2025-10-02",
@@ -1487,6 +1525,14 @@
             "volume": 162994
         },
         {
+            "date": "2025-10-29",
+            "open": 26.200000762939453,
+            "high": 26.200000762939453,
+            "low": 26.049999237060547,
+            "close": 26.079999923706055,
+            "volume": 142066
+        },
+        {
             "date": "2025-10-31",
             "forecasted": true
         },
@@ -1510,39 +1556,5 @@
             "date": "2026-04-01",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "SCCR",
-        "koName": null,
-        "longName": null,
-        "company": "Schwab",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 26.16,
-        "englishName": "Schwab Core Bond ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 186321,
-        "AvgVolume": 466131,
-        "sharesOutstanding": null,
-        "52Week": "24.82 - 26.19",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 186194,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 463684,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

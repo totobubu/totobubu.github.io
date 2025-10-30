@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FJUN",
+        "koName": null,
+        "longName": null,
+        "company": "FT",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 56.4491,
+        "englishName": "FT Vest U.S. Equity Buffer ETF - June",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 11226,
+        "AvgVolume": 19706,
+        "sharesOutstanding": null,
+        "52Week": "45.43 - 56.665",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.3177,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6209,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20009,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2020-06-22",
@@ -10767,40 +10805,14 @@
             "low": 56.45000076293945,
             "close": 56.478599548339844,
             "volume": 10823
+        },
+        {
+            "date": "2025-10-29",
+            "open": 56.5099983215332,
+            "high": 56.665000915527344,
+            "low": 56.369998931884766,
+            "close": 56.449100494384766,
+            "volume": 11226
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FJUN",
-        "koName": null,
-        "longName": null,
-        "company": "FT",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 56.3177,
-        "englishName": "FT Vest U.S. Equity Buffer ETF - June",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 6209,
-        "AvgVolume": 20009,
-        "sharesOutstanding": null,
-        "52Week": "45.43 - 56.39",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 6208,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 20832,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "453660.KS",
+        "koName": "KODEX 미국S&P500경기소비재",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 18605,
+        "englishName": "Samsung Kodex S&P500 Consumer Discretionary Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 2350,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18520,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2412,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-03-21",
@@ -624,7 +658,7 @@
             "close": 11570,
             "volume": 4645,
             "amount": 13,
-            "yield": 0.0011163589523400601
+            "yield": 0.001116359
         },
         {
             "date": "2023-08-03",
@@ -1082,7 +1116,7 @@
             "close": 10895,
             "volume": 567,
             "amount": 15,
-            "yield": 0.002569986232216613
+            "yield": 0.0025699862
         },
         {
             "date": "2023-10-31",
@@ -1580,7 +1614,7 @@
             "close": 12340,
             "volume": 3904,
             "amount": 11,
-            "yield": 0.0031363088057901087
+            "yield": 0.0031363088
         },
         {
             "date": "2024-01-31",
@@ -2062,7 +2096,7 @@
             "close": 13135,
             "volume": 309,
             "amount": 15,
-            "yield": 0.004089360090874669
+            "yield": 0.0040893601
         },
         {
             "date": "2024-04-30",
@@ -2560,7 +2594,7 @@
             "close": 13890,
             "volume": 403,
             "amount": 14,
-            "yield": 0.003938417472252059
+            "yield": 0.0039384175
         },
         {
             "date": "2024-07-31",
@@ -3486,7 +3520,7 @@
             "close": 17920,
             "volume": 4501,
             "amount": 19,
-            "yield": 0.004312517502100252
+            "yield": 0.0043125175
         },
         {
             "date": "2025-01-31",
@@ -3984,7 +4018,7 @@
             "close": 15385,
             "volume": 500,
             "amount": 35,
-            "yield": 0.006586240626018911
+            "yield": 0.0065862406
         },
         {
             "date": "2025-04-30",
@@ -4474,7 +4508,7 @@
             "close": 16800,
             "volume": 7102,
             "amount": 40,
-            "yield": 0.007468879668049793
+            "yield": 0.0074688797
         },
         {
             "date": "2025-07-31",
@@ -4941,6 +4975,14 @@
             "volume": 1283
         },
         {
+            "date": "2025-10-29",
+            "open": 18605,
+            "high": 18635,
+            "low": 18515,
+            "close": 18605,
+            "volume": 2474
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -4948,35 +4990,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "453660.KS",
-        "koName": "KODEX 미국S&P500경기소비재",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 18520,
-        "englishName": "Samsung Kodex S&P500 Consumer Discretionary Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 2412,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 899,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

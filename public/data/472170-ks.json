@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "472170.KS",
+        "koName": "TIGER 미국테크TOP10채권혼합",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 14280,
+        "englishName": "Mirae Asset Tiger US Tech Top10 Balanced ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 221775,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13975,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 216724,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-12-05",
@@ -128,7 +162,7 @@
             "close": 10260,
             "volume": 184640,
             "amount": 55,
-            "yield": 0.005339805825242718
+            "yield": 0.0053398058
         },
         {
             "date": "2023-12-28",
@@ -2050,7 +2084,7 @@
             "close": 13080,
             "volume": 291484,
             "amount": 240,
-            "yield": 0.017970797454137027
+            "yield": 0.0179707975
         },
         {
             "date": "2024-12-30",
@@ -3643,40 +3677,18 @@
             "low": 14115,
             "close": 14140,
             "volume": 318137
+        },
+        {
+            "date": "2025-10-29",
+            "open": 14210,
+            "high": 14330,
+            "low": 14180,
+            "close": 14280,
+            "volume": 402255
+        },
+        {
+            "date": "2025-12-26",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "472170.KS",
-        "koName": "TIGER 미국테크TOP10채권혼합",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 13975,
-        "englishName": "Mirae Asset Tiger US Tech Top10 Balanced ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 216724,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 353331,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 213543,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

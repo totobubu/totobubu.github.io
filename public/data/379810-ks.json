@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "379810.KS",
+        "koName": "KODEX 미국나스닥100",
+        "longName": "KODEX 미국나스닥100",
+        "company": null,
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 24950,
+        "englishName": "Samsung KODEX US Nasdaq100 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1590596,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24735,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1583246,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2021-04-09",
@@ -7784,7 +7818,7 @@
             "close": 18645,
             "volume": 1004741,
             "amount": 33,
-            "yield": 0.0017699115044247787
+            "yield": 0.0017699115
         },
         {
             "date": "2025-04-30",
@@ -8274,7 +8308,7 @@
             "close": 21535,
             "volume": 1586799,
             "amount": 59,
-            "yield": 0.004258273547789864
+            "yield": 0.0042582735
         },
         {
             "date": "2025-07-31",
@@ -8741,6 +8775,14 @@
             "volume": 1505214
         },
         {
+            "date": "2025-10-29",
+            "open": 24880,
+            "high": 24965,
+            "low": 24795,
+            "close": 24950,
+            "volume": 1517523
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -8748,43 +8790,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "379810.KS",
-        "koName": "KODEX 미국나스닥100",
-        "longName": "KODEX 미국나스닥100",
-        "company": null,
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 24735.0,
-        "englishName": "Samsung KODEX US Nasdaq100 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1583246,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 24670,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 230296,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1572540,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

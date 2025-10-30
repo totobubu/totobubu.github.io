@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "448290.KS",
+        "koName": "TIGER 미국S&P500(H)",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16315,
+        "englishName": "Mirae Asset Tiger S&P500 Total Return ETF (H)",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 170609,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16250,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 39038,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 171133,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-25",
@@ -4592,7 +4630,7 @@
             "close": 13205,
             "volume": 220988,
             "amount": 39,
-            "yield": 0.0029523088569265708
+            "yield": 0.0029523089
         },
         {
             "date": "2025-04-30",
@@ -5082,7 +5120,7 @@
             "close": 15115,
             "volume": 184375,
             "amount": 40,
-            "yield": 0.005231788079470199
+            "yield": 0.0052317881
         },
         {
             "date": "2025-07-31",
@@ -5549,6 +5587,14 @@
             "volume": 154034
         },
         {
+            "date": "2025-10-29",
+            "open": 16295,
+            "high": 16325,
+            "low": 16275,
+            "close": 16315,
+            "volume": 150921
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -5556,39 +5602,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "448290.KS",
-        "koName": "TIGER 미국S&P500(H)",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": "분기",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 16250,
-        "englishName": "Mirae Asset Tiger S&P500 Total Return ETF (H)",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 39038,
-        "AvgVolume": 171133,
-        "sharesOutstanding": null,
-        "52Week": "11625.0 - 16295.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15980,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

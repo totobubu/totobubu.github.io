@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "ARKF",
+        "koName": null,
+        "longName": null,
+        "company": "ARK",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 57.59,
+        "englishName": "ARK Fintech Innovation ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 383149,
+        "AvgVolume": 566162,
+        "sharesOutstanding": null,
+        "52Week": "27.7 - 59.2",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 57.09,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 204933,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 579646,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-02-04",
@@ -1824,7 +1862,7 @@
             "close": 24.211999893188477,
             "volume": 41300,
             "amount": 0.301,
-            "yield": 0.0123664748608474
+            "yield": 0.0123664749
         },
         {
             "date": "2019-12-30",
@@ -3850,7 +3888,7 @@
             "close": 49.25,
             "volume": 1637300,
             "amount": 0.185,
-            "yield": 0.0037290868317667006
+            "yield": 0.0037290868
         },
         {
             "date": "2020-12-30",
@@ -13555,40 +13593,18 @@
             "low": 58.13999938964844,
             "close": 58.13999938964844,
             "volume": 205515
+        },
+        {
+            "date": "2025-10-29",
+            "open": 58.06999969482422,
+            "high": 58.2400016784668,
+            "low": 57.0900993347168,
+            "close": 57.59000015258789,
+            "volume": 383149
+        },
+        {
+            "date": "2025-12-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "ARKF",
-        "koName": null,
-        "longName": null,
-        "company": "ARK",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 57.09,
-        "englishName": "ARK Fintech Innovation ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 204933,
-        "AvgVolume": 579646,
-        "sharesOutstanding": null,
-        "52Week": "27.7 - 59.2",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 204836,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 581773,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

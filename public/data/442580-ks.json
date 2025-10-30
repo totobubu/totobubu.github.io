@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "442580.KS",
+        "koName": "PLUS 글로벌HBM반도체",
+        "longName": "PLUS 글로벌HBM반도체",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 36240,
+        "englishName": "Hanwha PLUS Global HBM Semiconductor ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 23960,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35395,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 17156,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20959,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-09-22",
@@ -3032,7 +3070,7 @@
             "close": 19105,
             "volume": 3104,
             "amount": 200,
-            "yield": 0.010460251046025104
+            "yield": 0.010460251
         },
         {
             "date": "2024-04-30",
@@ -4946,7 +4984,7 @@
             "close": 15665,
             "volume": 1490,
             "amount": 200,
-            "yield": 0.025510204081632654
+            "yield": 0.0255102041
         },
         {
             "date": "2025-04-30",
@@ -5899,40 +5937,18 @@
             "low": 35045,
             "close": 35445,
             "volume": 70594
+        },
+        {
+            "date": "2025-10-29",
+            "open": 35445,
+            "high": 36240,
+            "low": 35420,
+            "close": 36240,
+            "volume": 63953
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "442580.KS",
-        "koName": "PLUS 글로벌HBM반도체",
-        "longName": "PLUS 글로벌HBM반도체",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 35395,
-        "englishName": "Hanwha PLUS Global HBM Semiconductor ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 17156,
-        "AvgVolume": 20959,
-        "sharesOutstanding": null,
-        "52Week": "13540.0 - 38445.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 34355,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

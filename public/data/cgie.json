@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "CGIE",
+        "koName": null,
+        "longName": null,
+        "company": "Capital",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 34.38,
+        "englishName": "Capital Group International Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 437183,
+        "AvgVolume": 301064,
+        "sharesOutstanding": null,
+        "52Week": "26.1 - 34.675",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.31,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 203231,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 301893,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-09-28",
@@ -504,7 +542,7 @@
             "close": 27.68199920654297,
             "volume": 23000,
             "amount": 0.053,
-            "yield": 0.001921682383851078
+            "yield": 0.0019216824
         },
         {
             "date": "2023-12-28",
@@ -1514,7 +1552,7 @@
             "close": 28.648000717163086,
             "volume": 17800,
             "amount": 0.271,
-            "yield": 0.011301011480216297
+            "yield": 0.0113010115
         },
         {
             "date": "2024-07-01",
@@ -2516,7 +2554,7 @@
             "close": 27.81999969482422,
             "volume": 111600,
             "amount": 0.08,
-            "yield": 0.014553314001045058
+            "yield": 0.014553314
         },
         {
             "date": "2024-12-27",
@@ -3518,7 +3556,7 @@
             "close": 32.91999816894531,
             "volume": 203600,
             "amount": 0.272,
-            "yield": 0.010725167680471099
+            "yield": 0.0107251677
         },
         {
             "date": "2025-07-01",
@@ -4191,40 +4229,14 @@
             "low": 34.52000045776367,
             "close": 34.61000061035156,
             "volume": 290410
+        },
+        {
+            "date": "2025-10-29",
+            "open": 34.5099983215332,
+            "high": 34.540000915527344,
+            "low": 34.20000076293945,
+            "close": 34.380001068115234,
+            "volume": 437183
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "CGIE",
-        "koName": null,
-        "longName": null,
-        "company": "Capital",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 34.31,
-        "englishName": "Capital Group International Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 203231,
-        "AvgVolume": 301893,
-        "sharesOutstanding": null,
-        "52Week": "26.1 - 34.61",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 203224,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 304525,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

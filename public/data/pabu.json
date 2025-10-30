@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "PABU",
+        "koName": null,
+        "longName": null,
+        "company": "iShares",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 74.1845,
+        "englishName": "iShares Paris-Aligned Climate Optimized MSCI USA ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3291,
+        "AvgVolume": 71375,
+        "sharesOutstanding": null,
+        "52Week": "52.491 - 74.72",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.2065,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2185,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 72354,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-04-20",
@@ -288,7 +326,7 @@
             "close": 43.50899887084961,
             "volume": 2250000,
             "amount": 0.112,
-            "yield": 0.002574180121506734
+            "yield": 0.0025741801
         },
         {
             "date": "2022-06-10",
@@ -882,7 +920,7 @@
             "close": 40.1609992980957,
             "volume": 100,
             "amount": 0.145,
-            "yield": 0.0063992431585781296
+            "yield": 0.0063992432
         },
         {
             "date": "2022-09-27",
@@ -1324,7 +1362,7 @@
             "close": 43.5099983215332,
             "volume": 300,
             "amount": 0.155,
-            "yield": 0.009460390521646501
+            "yield": 0.0094603905
         },
         {
             "date": "2022-12-14",
@@ -1870,7 +1908,7 @@
             "close": 43.10599899291992,
             "volume": 100,
             "amount": 0.129,
-            "yield": 0.012550457306159597
+            "yield": 0.0125504573
         },
         {
             "date": "2023-03-24",
@@ -2288,7 +2326,7 @@
             "close": 46.77799987792969,
             "volume": 100,
             "amount": 0.091,
-            "yield": 0.013510624687871354
+            "yield": 0.0135106247
         },
         {
             "date": "2023-06-08",
@@ -2898,7 +2936,7 @@
             "close": 46.632999420166016,
             "volume": 4000,
             "amount": 0.164,
-            "yield": 0.014519210170625714
+            "yield": 0.0145192102
         },
         {
             "date": "2023-09-27",
@@ -3380,7 +3418,7 @@
             "close": 51.8489990234375,
             "volume": 23800,
             "amount": 0.175,
-            "yield": 0.010615267786170932
+            "yield": 0.0106152678
         },
         {
             "date": "2023-12-21",
@@ -3878,7 +3916,7 @@
             "close": 56.91999816894531,
             "volume": 98300,
             "amount": 0.135,
-            "yield": 0.012162635529217697
+            "yield": 0.0121626355
         },
         {
             "date": "2024-03-22",
@@ -4328,7 +4366,7 @@
             "close": 58.470001220703125,
             "volume": 400,
             "amount": 0.108,
-            "yield": 0.010028085747839283
+            "yield": 0.0100280857
         },
         {
             "date": "2024-06-12",
@@ -4914,7 +4952,7 @@
             "close": 63.130001068115234,
             "volume": 90000,
             "amount": 0.201,
-            "yield": 0.01238924035676835
+            "yield": 0.0123892404
         },
         {
             "date": "2024-09-26",
@@ -5380,7 +5418,7 @@
             "close": 67.14800262451172,
             "volume": 3100,
             "amount": 0.21,
-            "yield": 0.012356536670904587
+            "yield": 0.0123565367
         },
         {
             "date": "2024-12-18",
@@ -5862,7 +5900,7 @@
             "close": 60.119998931884766,
             "volume": 11700,
             "amount": 0.111,
-            "yield": 0.012728785680908246
+            "yield": 0.0127287857
         },
         {
             "date": "2025-03-19",
@@ -6360,7 +6398,7 @@
             "close": 65.44000244140625,
             "volume": 10000,
             "amount": 0.14,
-            "yield": 0.010142485583693128
+            "yield": 0.0101424856
         },
         {
             "date": "2025-06-17",
@@ -6866,7 +6904,7 @@
             "close": 71.08999633789062,
             "volume": 75000,
             "amount": 0.158,
-            "yield": 0.011528188270253266
+            "yield": 0.0115281883
         },
         {
             "date": "2025-09-17",
@@ -7109,6 +7147,14 @@
             "volume": 3597
         },
         {
+            "date": "2025-10-29",
+            "open": 74.41000366210938,
+            "high": 74.41999816894531,
+            "low": 73.95500183105469,
+            "close": 74.18450164794922,
+            "volume": 3291
+        },
+        {
             "date": "2025-12-16",
             "forecasted": true
         },
@@ -7116,35 +7162,5 @@
             "date": "2026-03-16",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "PABU",
-        "koName": null,
-        "longName": null,
-        "company": "iShares",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 73.2065,
-        "englishName": "iShares Paris-Aligned Climate Optimized MSCI USA ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 2185,
-        "AvgVolume": 72354,
-        "sharesOutstanding": null,
-        "52Week": "52.491 - 73.35",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "AvgVolume": {
-                "value": 72368,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "304770.KS",
+        "koName": "HANARO 코스닥150",
+        "longName": null,
+        "company": "NH-Amundi자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15350,
+        "englishName": "NH Amundi Asset Management - Hanaro Kosdaq 150 ETF Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 7403,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15385,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7356,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2018-08-14",
@@ -1368,7 +1402,7 @@
             "close": 11985,
             "volume": 153,
             "amount": 31,
-            "yield": 0.002617138032925285
+            "yield": 0.002617138
         },
         {
             "date": "2019-04-30",
@@ -3346,7 +3380,7 @@
             "close": 9895,
             "volume": 1248,
             "amount": 55,
-            "yield": 0.00864321608040201
+            "yield": 0.0086432161
         },
         {
             "date": "2020-04-29",
@@ -5308,7 +5342,7 @@
             "close": 14100,
             "volume": 5405,
             "amount": 40,
-            "yield": 0.0027981811822315496
+            "yield": 0.0027981812
         },
         {
             "date": "2021-04-30",
@@ -7262,7 +7296,7 @@
             "close": 12145,
             "volume": 64,
             "amount": 50,
-            "yield": 0.007334963325183374
+            "yield": 0.0073349633
         },
         {
             "date": "2022-04-29",
@@ -9232,7 +9266,7 @@
             "close": 13035,
             "volume": 134,
             "amount": 40,
-            "yield": 0.007179896290386917
+            "yield": 0.0071798963
         },
         {
             "date": "2023-04-28",
@@ -11066,7 +11100,7 @@
             "close": 14405,
             "volume": 520,
             "amount": 20,
-            "yield": 0.001397624039133473
+            "yield": 0.001397624
         },
         {
             "date": "2024-04-30",
@@ -12980,7 +13014,7 @@
             "close": 11860,
             "volume": 470,
             "amount": 15,
-            "yield": 0.0029686174724342664
+            "yield": 0.0029686175
         },
         {
             "date": "2025-04-30",
@@ -13933,44 +13967,18 @@
             "low": 15250,
             "close": 15385,
             "volume": 6884
+        },
+        {
+            "date": "2025-10-29",
+            "open": 15460,
+            "high": 15460,
+            "low": 15220,
+            "close": 15350,
+            "volume": 1315
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "304770.KS",
-        "koName": "HANARO 코스닥150",
-        "longName": null,
-        "company": "NH-Amundi자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 15385.0,
-        "englishName": "NH Amundi Asset Management - Hanaro Kosdaq 150 ETF Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 7356,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15365,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 46,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 7191,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

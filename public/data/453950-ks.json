@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "453950.KS",
+        "koName": "TIGER TSMC파운드리밸류체인",
+        "longName": null,
+        "company": "미래에셋자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 21815,
+        "englishName": "Mirae Asset TIGER TSMC Foundry Value Chain ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 15303,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21155,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15350,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-04-04",
@@ -3888,7 +3922,7 @@
             "close": 13525,
             "volume": 1308,
             "amount": 35,
-            "yield": 0.002579218865143699
+            "yield": 0.0025792189
         },
         {
             "date": "2025-04-30",
@@ -4841,36 +4875,14 @@
             "low": 21575,
             "close": 21640,
             "volume": 10618
+        },
+        {
+            "date": "2025-10-29",
+            "open": 21595,
+            "high": 21965,
+            "low": 21370,
+            "close": 21815,
+            "volume": 25518
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "453950.KS",
-        "koName": "TIGER TSMC파운드리밸류체인",
-        "longName": null,
-        "company": "미래에셋자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 21155,
-        "englishName": "Mirae Asset TIGER TSMC Foundry Value Chain ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 15350,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 11589,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

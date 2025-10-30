@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "447660.KS",
+        "koName": "PLUS 애플채권혼합",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 13220,
+        "englishName": "Hanwha ARIRANG Apple Balanced ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 18708,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13255,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1303,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18188,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-11-29",
@@ -2664,7 +2702,7 @@
             "close": 10880,
             "volume": 6955,
             "amount": 50,
-            "yield": 0.004589261128958238
+            "yield": 0.0045892611
         },
         {
             "date": "2024-04-30",
@@ -3162,7 +3200,7 @@
             "close": 12015,
             "volume": 6311,
             "amount": 50,
-            "yield": 0.00819336337566571
+            "yield": 0.0081933634
         },
         {
             "date": "2024-07-31",
@@ -4088,7 +4126,7 @@
             "close": 12495,
             "volume": 20203,
             "amount": 30,
-            "yield": 0.013627254509018036
+            "yield": 0.0136272545
         },
         {
             "date": "2025-01-31",
@@ -4586,7 +4624,7 @@
             "close": 12240,
             "volume": 7402,
             "amount": 30,
-            "yield": 0.016346546791990192
+            "yield": 0.0163465468
         },
         {
             "date": "2025-04-30",
@@ -5076,7 +5114,7 @@
             "close": 12140,
             "volume": 13373,
             "amount": 20,
-            "yield": 0.013911620294599018
+            "yield": 0.0139116203
         },
         {
             "date": "2025-07-31",
@@ -5543,6 +5581,14 @@
             "volume": 29704
         },
         {
+            "date": "2025-10-29",
+            "open": 13190,
+            "high": 13280,
+            "low": 13170,
+            "close": 13220,
+            "volume": 9929
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -5550,39 +5596,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "447660.KS",
-        "koName": "PLUS 애플채권혼합",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 13255,
-        "englishName": "Hanwha ARIRANG Apple Balanced ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1303,
-        "AvgVolume": 18188,
-        "sharesOutstanding": null,
-        "52Week": "11395.0 - 13560.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 13130,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

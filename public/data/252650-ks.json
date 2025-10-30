@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "252650.KS",
+        "koName": "KODEX 200동일가중",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15525,
+        "englishName": "KODEX 200 EW",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 916,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15445,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 896,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2016-09-20",
@@ -1208,7 +1242,7 @@
             "close": 10350,
             "volume": 2445,
             "amount": 100,
-            "yield": 0.009643201542912247
+            "yield": 0.0096432015
         },
         {
             "date": "2017-04-28",
@@ -3106,7 +3140,7 @@
             "close": 11015,
             "volume": 11384,
             "amount": 160,
-            "yield": 0.023625624716038164
+            "yield": 0.0236256247
         },
         {
             "date": "2018-04-30",
@@ -5044,7 +5078,7 @@
             "close": 10200,
             "volume": 105,
             "amount": 170,
-            "yield": 0.01680672268907563
+            "yield": 0.0168067227
         },
         {
             "date": "2019-04-30",
@@ -7022,7 +7056,7 @@
             "close": 7705,
             "volume": 1,
             "amount": 160,
-            "yield": 0.04282933160285529
+            "yield": 0.0428293316
         },
         {
             "date": "2020-04-29",
@@ -8952,7 +8986,7 @@
             "close": 12695,
             "volume": 167,
             "amount": 190,
-            "yield": 0.015055467511885896
+            "yield": 0.0150554675
         },
         {
             "date": "2021-04-30",
@@ -10906,7 +10940,7 @@
             "close": 11680,
             "volume": 7053,
             "amount": 270,
-            "yield": 0.03968938740293356
+            "yield": 0.0396893874
         },
         {
             "date": "2022-04-29",
@@ -12876,7 +12910,7 @@
             "close": 10320,
             "volume": 6655,
             "amount": 218,
-            "yield": 0.047702834799609
+            "yield": 0.0477028348
         },
         {
             "date": "2023-04-28",
@@ -14694,7 +14728,7 @@
             "close": 11020,
             "volume": 4,
             "amount": 220,
-            "yield": 0.020063839489284085
+            "yield": 0.0200638395
         },
         {
             "date": "2024-04-30",
@@ -16608,7 +16642,7 @@
             "close": 11205,
             "volume": 429,
             "amount": 249,
-            "yield": 0.0420816509645581
+            "yield": 0.042081651
         },
         {
             "date": "2025-04-30",
@@ -17561,44 +17595,18 @@
             "low": 15295,
             "close": 15445,
             "volume": 1267
+        },
+        {
+            "date": "2025-10-29",
+            "open": 15515,
+            "high": 15525,
+            "low": 15365,
+            "close": 15525,
+            "volume": 1369
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "252650.KS",
-        "koName": "KODEX 200동일가중",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 15445.0,
-        "englishName": "KODEX 200 EW",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 896,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15305,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 56,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 890,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

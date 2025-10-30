@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "495750.KS",
+        "koName": "HANARO 코리아밸류업",
+        "longName": null,
+        "company": "NH-Amundi자산운용",
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16315,
+        "englishName": "Nh-Amundi Hanaro Korea Value-Up Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 1918,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15725,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1970,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-11-06",
@@ -920,7 +954,7 @@
             "close": 9840,
             "volume": 0,
             "amount": 165,
-            "yield": 0.01676829268292683
+            "yield": 0.0167682927
         },
         {
             "date": "2025-04-30",
@@ -1402,7 +1436,7 @@
             "close": 12690,
             "volume": 5594,
             "amount": 40,
-            "yield": 0.01624405705229794
+            "yield": 0.0162440571
         },
         {
             "date": "2025-07-31",
@@ -1867,40 +1901,22 @@
             "low": 15810,
             "close": 15905,
             "volume": 389
+        },
+        {
+            "date": "2025-10-29",
+            "open": 16225,
+            "high": 16315,
+            "low": 15980,
+            "close": 16315,
+            "volume": 299
+        },
+        {
+            "date": "2025-10-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "495750.KS",
-        "koName": "HANARO 코리아밸류업",
-        "longName": null,
-        "company": "NH-Amundi자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 15725,
-        "englishName": "Nh-Amundi Hanaro Korea Value-Up Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 1970,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 730,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1981,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

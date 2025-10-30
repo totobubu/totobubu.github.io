@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "225130.KS",
+        "koName": "ACE 골드선물 레버리지(합성 H)",
+        "longName": "ACE 골드선물 레버리지(합성 H)",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 47500,
+        "englishName": "KINDEX Gold Futures Leverage ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 15918,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47175,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15442,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-18",
@@ -2615,44 +2649,14 @@
             "low": 47115,
             "close": 47175,
             "volume": 32552
+        },
+        {
+            "date": "2025-10-29",
+            "open": 47555,
+            "high": 47710,
+            "low": 46955,
+            "close": 47500,
+            "volume": 10805
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "225130.KS",
-        "koName": "ACE 골드선물 레버리지(합성 H)",
-        "longName": "ACE 골드선물 레버리지(합성 H)",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 47175.0,
-        "englishName": "KINDEX Gold Futures Leverage ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 15442,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 47650,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 11596,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 14970,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

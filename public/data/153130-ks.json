@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "153130.KS",
+        "koName": "KODEX 단기채권",
+        "longName": "KODEX 단기채권",
+        "company": null,
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 113565,
+        "englishName": "KODEX KRW Cash",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 15208,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 113580,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15068,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2012-02-22",
@@ -1696,7 +1730,7 @@
             "close": 100030,
             "volume": 53897,
             "amount": 2671,
-            "yield": 0.02670065477083021
+            "yield": 0.0267006548
         },
         {
             "date": "2012-12-28",
@@ -3674,7 +3708,7 @@
             "close": 100065,
             "volume": 69841,
             "amount": 2552,
-            "yield": 0.05219607255284065
+            "yield": 0.0521960726
         },
         {
             "date": "2013-12-30",
@@ -5636,7 +5670,7 @@
             "close": 100015,
             "volume": 41786,
             "amount": 2583,
-            "yield": 0.025826126081087836
+            "yield": 0.0258261261
         },
         {
             "date": "2014-12-30",
@@ -7614,7 +7648,7 @@
             "close": 100060,
             "volume": 25093,
             "amount": 1773,
-            "yield": 0.04355564443555644
+            "yield": 0.0435556444
         },
         {
             "date": "2015-12-30",
@@ -9584,7 +9618,7 @@
             "close": 100020,
             "volume": 21857,
             "amount": 1301,
-            "yield": 0.030733853229354128
+            "yield": 0.0307338532
         },
         {
             "date": "2016-12-29",
@@ -11514,7 +11548,7 @@
             "close": 100025,
             "volume": 19611,
             "amount": 1245,
-            "yield": 0.025453636590852285
+            "yield": 0.0254536366
         },
         {
             "date": "2017-12-28",
@@ -13444,7 +13478,7 @@
             "close": 100035,
             "volume": 38542,
             "amount": 1670,
-            "yield": 0.02913980106962563
+            "yield": 0.0291398011
         },
         {
             "date": "2018-12-28",
@@ -26254,7 +26288,7 @@
             "close": 113620,
             "volume": 11215,
             "amount": 259,
-            "yield": 0.0022749231444883617
+            "yield": 0.0022749231
         },
         {
             "date": "2025-08-14",
@@ -26424,7 +26458,7 @@
             "close": 113560,
             "volume": 13842,
             "amount": 275,
-            "yield": 0.004702359985910532
+            "yield": 0.00470236
         },
         {
             "date": "2025-09-15",
@@ -26562,7 +26596,7 @@
             "close": 113510,
             "volume": 10160,
             "amount": 234,
-            "yield": 0.006753132556605848
+            "yield": 0.0067531326
         },
         {
             "date": "2025-10-15",
@@ -26645,6 +26679,14 @@
             "volume": 13835
         },
         {
+            "date": "2025-10-29",
+            "open": 113580,
+            "high": 113580,
+            "low": 113565,
+            "close": 113565,
+            "volume": 10980
+        },
+        {
             "date": "2025-11-14",
             "forecasted": true
         },
@@ -26668,43 +26710,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "153130.KS",
-        "koName": "KODEX 단기채권",
-        "longName": "KODEX 단기채권",
-        "company": null,
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 113580.0,
-        "englishName": "KODEX KRW Cash",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 15068,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 113585,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1117,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 15021,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

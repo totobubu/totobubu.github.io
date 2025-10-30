@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0091C0.KS",
+        "koName": "KODEX 미국10년국채액티브(H)",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 10200,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 345509,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10190,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 350217,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-08-19",
@@ -288,7 +322,7 @@
             "close": 10155,
             "volume": 492627,
             "amount": 48,
-            "yield": 0.004733727810650888
+            "yield": 0.0047337278
         },
         {
             "date": "2025-10-15",
@@ -369,44 +403,14 @@
             "low": 10180,
             "close": 10190,
             "volume": 133681
+        },
+        {
+            "date": "2025-10-29",
+            "open": 10190,
+            "high": 10205,
+            "low": 10190,
+            "close": 10200,
+            "volume": 291789
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0091C0.KS",
-        "koName": "KODEX 미국10년국채액티브(H)",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 10190.0,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 350217,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10192,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 43987,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 353505,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

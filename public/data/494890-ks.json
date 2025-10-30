@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "494890.KS",
+        "koName": "KODEX 200액티브",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "분기",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 16570,
+        "englishName": "Samsung Kodex 200 Active Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 190088,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15955,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 184030,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-10-29",
@@ -968,7 +1002,7 @@
             "close": 9810,
             "volume": 487221,
             "amount": 120,
-            "yield": 0.012219959266802444
+            "yield": 0.0122199593
         },
         {
             "date": "2025-04-30",
@@ -1458,7 +1492,7 @@
             "close": 12730,
             "volume": 106673,
             "amount": 48,
-            "yield": 0.013317479191438763
+            "yield": 0.0133174792
         },
         {
             "date": "2025-07-31",
@@ -1923,40 +1957,22 @@
             "low": 16060,
             "close": 16225,
             "volume": 199960
+        },
+        {
+            "date": "2025-10-29",
+            "open": 16395,
+            "high": 16575,
+            "low": 16220,
+            "close": 16570,
+            "volume": 437994
+        },
+        {
+            "date": "2025-10-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "494890.KS",
-        "koName": "KODEX 200액티브",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 15955,
-        "englishName": "Samsung Kodex 200 Active Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 184030,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 223410,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 180681,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

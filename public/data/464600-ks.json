@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "464600.KS",
+        "koName": "SOL 자동차소부장Fn",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11160,
+        "englishName": "Shinhan Bnp Paribas Asset Management Co. Ltd - Shinhan SOL Automobile Mat and Equipment ETF Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 12385,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10875,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12202,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-08-22",
@@ -1336,7 +1370,7 @@
             "close": 10250,
             "volume": 1380,
             "amount": 70,
-            "yield": 0.006951340615690168
+            "yield": 0.0069513406
         },
         {
             "date": "2024-04-30",
@@ -3250,7 +3284,7 @@
             "close": 8330,
             "volume": 3386,
             "amount": 60,
-            "yield": 0.015606242496998799
+            "yield": 0.0156062425
         },
         {
             "date": "2025-04-30",
@@ -4203,40 +4237,18 @@
             "low": 10905,
             "close": 10990,
             "volume": 8278
+        },
+        {
+            "date": "2025-10-29",
+            "open": 11160,
+            "high": 11160,
+            "low": 10990,
+            "close": 11160,
+            "volume": 12672
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "464600.KS",
-        "koName": "SOL 자동차소부장Fn",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 10875,
-        "englishName": "Shinhan Bnp Paribas Asset Management Co. Ltd - Shinhan SOL Automobile Mat and Equipment ETF Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 12202,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 20430,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 11944,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

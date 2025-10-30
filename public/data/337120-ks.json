@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "337120.KS",
+        "koName": "KODEX 멀티팩터",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 19415,
+        "englishName": "Samsung Kodex Multi Factor ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 35,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19105,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 33,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-11-14",
@@ -904,7 +938,7 @@
             "close": 8935,
             "volume": 148188,
             "amount": 125,
-            "yield": 0.013888888888888888
+            "yield": 0.0138888889
         },
         {
             "date": "2020-04-29",
@@ -2866,7 +2900,7 @@
             "close": 15140,
             "volume": 1944,
             "amount": 250,
-            "yield": 0.0165016501650165
+            "yield": 0.0165016502
         },
         {
             "date": "2021-04-30",
@@ -4820,7 +4854,7 @@
             "close": 12895,
             "volume": 200,
             "amount": 180,
-            "yield": 0.03358063256540414
+            "yield": 0.0335806326
         },
         {
             "date": "2022-04-29",
@@ -6718,7 +6752,7 @@
             "close": 11920,
             "volume": 6,
             "amount": 230,
-            "yield": 0.0344972654606647
+            "yield": 0.0344972655
         },
         {
             "date": "2023-04-28",
@@ -8432,7 +8466,7 @@
             "close": 12935,
             "volume": 0,
             "amount": 243,
-            "yield": 0.0187862388867414
+            "yield": 0.0187862389
         },
         {
             "date": "2024-04-30",
@@ -10234,7 +10268,7 @@
             "close": 12240,
             "volume": 16,
             "amount": 288,
-            "yield": 0.04332925336597307
+            "yield": 0.0433292534
         },
         {
             "date": "2025-04-30",
@@ -11131,40 +11165,18 @@
             "low": 19015,
             "close": 19105,
             "volume": 181
+        },
+        {
+            "date": "2025-10-29",
+            "open": 19260,
+            "high": 19420,
+            "low": 19235,
+            "close": 19415,
+            "volume": 22
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "337120.KS",
-        "koName": "KODEX 멀티팩터",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 19105.0,
-        "englishName": "Samsung Kodex Multi Factor ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 33,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 19205,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 60,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

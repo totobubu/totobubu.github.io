@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "450910.KS",
+        "koName": "SOL 코스닥150",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15045,
+        "englishName": "Shinhan Sol Kosdaq 150 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 2132,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14985,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 68,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2111,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-01-31",
@@ -2328,7 +2366,7 @@
             "close": 14195,
             "volume": 253,
             "amount": 18,
-            "yield": 0.0012779552715654952
+            "yield": 0.0012779553
         },
         {
             "date": "2024-04-30",
@@ -4242,7 +4280,7 @@
             "close": 11645,
             "volume": 71,
             "amount": 19,
-            "yield": 0.0031951640759930915
+            "yield": 0.0031951641
         },
         {
             "date": "2025-04-30",
@@ -5195,40 +5233,18 @@
             "low": 14965,
             "close": 15090,
             "volume": 2176
+        },
+        {
+            "date": "2025-10-29",
+            "open": 15215,
+            "high": 15215,
+            "low": 14915,
+            "close": 15045,
+            "volume": 992
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "450910.KS",
-        "koName": "SOL 코스닥150",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 14985,
-        "englishName": "Shinhan Sol Kosdaq 150 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 68,
-        "AvgVolume": 2111,
-        "sharesOutstanding": null,
-        "52Week": "10290.0 - 15070.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14585,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

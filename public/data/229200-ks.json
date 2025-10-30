@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "229200.KS",
+        "koName": "KODEX 코스닥150",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15325,
+        "englishName": "KODEX KOSDAQ 150",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 8975940,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15420,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8967341,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2015-10-01",
@@ -1136,7 +1170,7 @@
             "close": 10605,
             "volume": 365701,
             "amount": 40,
-            "yield": 0.003743565746373421
+            "yield": 0.0037435657
         },
         {
             "date": "2016-04-29",
@@ -3122,7 +3156,7 @@
             "close": 9420,
             "volume": 735095,
             "amount": 97,
-            "yield": 0.014405888538380651
+            "yield": 0.0144058885
         },
         {
             "date": "2017-04-28",
@@ -5028,7 +5062,7 @@
             "close": 15230,
             "volume": 958484,
             "amount": 60,
-            "yield": 0.010335747202106648
+            "yield": 0.0103357472
         },
         {
             "date": "2018-04-30",
@@ -6966,7 +7000,7 @@
             "close": 12065,
             "volume": 1146614,
             "amount": 150,
-            "yield": 0.012536564981195153
+            "yield": 0.012536565
         },
         {
             "date": "2019-04-30",
@@ -8944,7 +8978,7 @@
             "close": 9945,
             "volume": 3842977,
             "amount": 120,
-            "yield": 0.02694610778443114
+            "yield": 0.0269461078
         },
         {
             "date": "2020-04-29",
@@ -10914,7 +10948,7 @@
             "close": 14070,
             "volume": 6572075,
             "amount": 140,
-            "yield": 0.009779951100244499
+            "yield": 0.0097799511
         },
         {
             "date": "2021-04-30",
@@ -12868,7 +12902,7 @@
             "close": 12175,
             "volume": 6331196,
             "amount": 70,
-            "yield": 0.017128874388254486
+            "yield": 0.0171288744
         },
         {
             "date": "2022-04-29",
@@ -14838,7 +14872,7 @@
             "close": 12980,
             "volume": 11953530,
             "amount": 50,
-            "yield": 0.009573195053849222
+            "yield": 0.0095731951
         },
         {
             "date": "2023-04-28",
@@ -16672,7 +16706,7 @@
             "close": 14395,
             "volume": 9308133,
             "amount": 20,
-            "yield": 0.0013986013986013986
+            "yield": 0.0013986014
         },
         {
             "date": "2024-04-30",
@@ -18586,7 +18620,7 @@
             "close": 11800,
             "volume": 7191963,
             "amount": 44,
-            "yield": 0.005439864003399915
+            "yield": 0.005439864
         },
         {
             "date": "2025-04-30",
@@ -19539,44 +19573,18 @@
             "low": 15240,
             "close": 15420,
             "volume": 9486502
+        },
+        {
+            "date": "2025-10-29",
+            "open": 15475,
+            "high": 15490,
+            "low": 15210,
+            "close": 15325,
+            "volume": 9621204
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "229200.KS",
-        "koName": "KODEX 코스닥150",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 15420.0,
-        "englishName": "KODEX KOSDAQ 150",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 8967341,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15430,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1010129,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8841026,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

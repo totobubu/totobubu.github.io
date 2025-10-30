@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0017Y0.KS",
+        "koName": "1Q 종합채권(AA-이상)액티브",
+        "longName": "1Q 종합채권(AA-이상)액티브",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 101000,
+        "englishName": "Hana 1Q Total Market Bond (AA- Or Higher) Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 672,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101225,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 670,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-25",
@@ -1311,44 +1345,14 @@
             "low": 101100,
             "close": 101225,
             "volume": 233
+        },
+        {
+            "date": "2025-10-29",
+            "open": 101180,
+            "high": 101180,
+            "low": 101000,
+            "close": 101000,
+            "volume": 16
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0017Y0.KS",
-        "koName": "1Q 종합채권(AA-이상)액티브",
-        "longName": "1Q 종합채권(AA-이상)액티브",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 101225.0,
-        "englishName": "Hana 1Q Total Market Bond (AA- Or Higher) Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 670,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 101100,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 282,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 663,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

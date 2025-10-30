@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "MSLC",
+        "koName": null,
+        "longName": null,
+        "company": "Morgan",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 55.735,
+        "englishName": "Morgan Stanley Pathway Large Cap Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 58717,
+        "AvgVolume": 79745,
+        "sharesOutstanding": null,
+        "52Week": "39.981 - 55.99",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.237,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 50026,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 79879,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-12-11",
@@ -1759,40 +1797,14 @@
             "low": 55.7599983215332,
             "close": 55.88869857788086,
             "volume": 56335
+        },
+        {
+            "date": "2025-10-29",
+            "open": 55.779998779296875,
+            "high": 55.9900016784668,
+            "low": 55.66680145263672,
+            "close": 55.73500061035156,
+            "volume": 58717
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "MSLC",
-        "koName": null,
-        "longName": null,
-        "company": "Morgan",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 55.237,
-        "englishName": "Morgan Stanley Pathway Large Cap Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 50026,
-        "AvgVolume": 79879,
-        "sharesOutstanding": null,
-        "52Week": "39.981 - 55.34",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 49991,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 79979,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

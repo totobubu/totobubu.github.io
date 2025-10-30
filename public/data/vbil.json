@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "VBIL",
+        "koName": null,
+        "longName": null,
+        "company": "Vanguard",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 75.62,
+        "englishName": "Vanguard 0-3 Month Treasury Bill ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 710124,
+        "AvgVolume": 1237537,
+        "sharesOutstanding": null,
+        "52Week": "75.01 - 75.64",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.585,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2061383,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1218745,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-02-12",
@@ -272,7 +310,7 @@
             "close": 75.20999908447266,
             "volume": 584800,
             "amount": 0.227,
-            "yield": 0.0030178143620864743
+            "yield": 0.0030178144
         },
         {
             "date": "2025-04-02",
@@ -442,7 +480,7 @@
             "close": 75.26499938964844,
             "volume": 843100,
             "amount": 0.215,
-            "yield": 0.0058729735245013955
+            "yield": 0.0058729735
         },
         {
             "date": "2025-05-02",
@@ -612,7 +650,7 @@
             "close": 75.31999969482422,
             "volume": 1229500,
             "amount": 0.223,
-            "yield": 0.00882782402543172
+            "yield": 0.008827824
         },
         {
             "date": "2025-06-03",
@@ -774,7 +812,7 @@
             "close": 75.33000183105469,
             "volume": 921400,
             "amount": 0.241,
-            "yield": 0.01202708055194156
+            "yield": 0.0120270806
         },
         {
             "date": "2025-07-02",
@@ -952,7 +990,7 @@
             "close": 75.37000274658203,
             "volume": 1554700,
             "amount": 0.248,
-            "yield": 0.015311131192075389
+            "yield": 0.0153111312
         },
         {
             "date": "2025-08-04",
@@ -1122,7 +1160,7 @@
             "close": 75.37000274658203,
             "volume": 1141700,
             "amount": 0.254,
-            "yield": 0.018678695294541907
+            "yield": 0.0186786953
         },
         {
             "date": "2025-09-03",
@@ -1292,7 +1330,7 @@
             "close": 75.38500213623047,
             "volume": 1497400,
             "amount": 0.244,
-            "yield": 0.02191562828592559
+            "yield": 0.0219156283
         },
         {
             "date": "2025-10-02",
@@ -1447,6 +1485,14 @@
             "volume": 1446452
         },
         {
+            "date": "2025-10-29",
+            "open": 75.61730194091797,
+            "high": 75.62000274658203,
+            "low": 75.61000061035156,
+            "close": 75.62000274658203,
+            "volume": 710124
+        },
+        {
             "date": "2025-10-31",
             "forecasted": true
         },
@@ -1470,39 +1516,5 @@
             "date": "2026-04-01",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "VBIL",
-        "koName": null,
-        "longName": null,
-        "company": "Vanguard",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 75.585,
-        "englishName": "Vanguard 0-3 Month Treasury Bill ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 2061383,
-        "AvgVolume": 1218745,
-        "sharesOutstanding": null,
-        "52Week": "75.01 - 75.64",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 2058369,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 1202067,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

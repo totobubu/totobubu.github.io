@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "491510.KS",
+        "koName": "파워 K-주주가치액티브",
+        "longName": null,
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 13650,
+        "englishName": "Kyobo Axa Power K-Shareholder Value Active ETF Co., Ltd.",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 2041,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13420,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2498,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-09-24",
@@ -1144,7 +1178,7 @@
             "close": 10345,
             "volume": 102,
             "amount": 344,
-            "yield": 0.033824975417895774
+            "yield": 0.0338249754
         },
         {
             "date": "2025-04-30",
@@ -2097,40 +2131,14 @@
             "low": 13500,
             "close": 13585,
             "volume": 257
+        },
+        {
+            "date": "2025-10-29",
+            "open": 13635,
+            "high": 13700,
+            "low": 13565,
+            "close": 13650,
+            "volume": 101
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "491510.KS",
-        "koName": "파워 K-주주가치액티브",
-        "longName": null,
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 13420,
-        "englishName": "Kyobo Axa Power K-Shareholder Value Active ETF Co., Ltd.",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 2498,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 364,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2698,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FENI",
+        "koName": null,
+        "longName": null,
+        "company": "Fidelity",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 35.75,
+        "englishName": "Fidelity Enhanced International ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 818223,
+        "AvgVolume": 903151,
+        "sharesOutstanding": null,
+        "52Week": "26.214 - 36.13",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 530741,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 903164,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-20",
@@ -640,7 +678,7 @@
             "close": 28.059999465942383,
             "volume": 24700,
             "amount": 0.234,
-            "yield": 0.008315565212346063
+            "yield": 0.0083155652
         },
         {
             "date": "2024-03-18",
@@ -1178,7 +1216,7 @@
             "close": 28.270000457763672,
             "volume": 53200,
             "amount": 0.277,
-            "yield": 0.018005638305529707
+            "yield": 0.0180056383
         },
         {
             "date": "2024-06-24",
@@ -1684,7 +1722,7 @@
             "close": 29.639999389648438,
             "volume": 99100,
             "amount": 0.161,
-            "yield": 0.022550336147803395
+            "yield": 0.0225503361
         },
         {
             "date": "2024-09-23",
@@ -2198,7 +2236,7 @@
             "close": 27.520000457763672,
             "volume": 212700,
             "amount": 0.159,
-            "yield": 0.03061901321622559
+            "yield": 0.0306190132
         },
         {
             "date": "2024-12-23",
@@ -2680,7 +2718,7 @@
             "close": 30.440000534057617,
             "volume": 439000,
             "amount": 0.22,
-            "yield": 0.026910407891145936
+            "yield": 0.0269104079
         },
         {
             "date": "2025-03-24",
@@ -3178,7 +3216,7 @@
             "close": 32.029998779296875,
             "volume": 406700,
             "amount": 0.344,
-            "yield": 0.035955403130438074
+            "yield": 0.0359554031
         },
         {
             "date": "2025-06-23",
@@ -3684,7 +3722,7 @@
             "close": 35.029998779296875,
             "volume": 563600,
             "amount": 0.169,
-            "yield": 0.03005994966298243
+            "yield": 0.0300599497
         },
         {
             "date": "2025-09-22",
@@ -3903,6 +3941,14 @@
             "volume": 636788
         },
         {
+            "date": "2025-10-29",
+            "open": 36.040000915527344,
+            "high": 36.07979965209961,
+            "low": 35.637001037597656,
+            "close": 35.75,
+            "volume": 818223
+        },
+        {
             "date": "2025-12-19",
             "forecasted": true
         },
@@ -3910,39 +3956,5 @@
             "date": "2026-03-19",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FENI",
-        "koName": null,
-        "longName": null,
-        "company": "Fidelity",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-27 06:13:43 KST",
-        "regularMarketPrice": 35.55,
-        "englishName": "Fidelity Enhanced International ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 530741,
-        "AvgVolume": 903164,
-        "sharesOutstanding": null,
-        "52Week": "26.214 - 36.13",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 530730,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 906484,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

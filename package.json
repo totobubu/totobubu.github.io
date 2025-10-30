@@ -17,8 +17,10 @@
         "lint:eslint": "eslint . --fix",
         "lint": "npm-run-all lint:*",
         "format:data": "prettier --write \"public/data/**/*.json\"",
-        "format:nav": "prettier --write \"public/nav/**/*.json\" \"public/*.json\"",
-        "format": "prettier --write src/"
+        "format:nav": "prettier --write \"public/nav/**/*.json\"",
+        "format:public": "prettier --write \"public/*.json\"",
+        "format": "prettier --write src/",
+        "data:sort-keys": "node tasks/sortDataKeys.js"
     },
     "dependencies": {
         "@fullcalendar/core": "^6.1.19",

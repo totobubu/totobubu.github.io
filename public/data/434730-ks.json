@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "434730.KS",
+        "koName": "HANARO 원자력iSelect",
+        "longName": "HANARO 원자력iSelect",
+        "company": null,
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 51030,
+        "englishName": "Nh-Amundi Hanaro Nuclear Power Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 737301,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48155,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 130583,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 734544,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-06-28",
@@ -1672,7 +1710,7 @@
             "close": 10595,
             "volume": 58379,
             "amount": 75,
-            "yield": 0.007075471698113208
+            "yield": 0.0070754717
         },
         {
             "date": "2023-04-28",
@@ -3506,7 +3544,7 @@
             "close": 16370,
             "volume": 95914,
             "amount": 130,
-            "yield": 0.007985257985257985
+            "yield": 0.007985258
         },
         {
             "date": "2024-04-30",
@@ -5420,7 +5458,7 @@
             "close": 21270,
             "volume": 218575,
             "amount": 190,
-            "yield": 0.015380918048546022
+            "yield": 0.015380918
         },
         {
             "date": "2025-04-30",
@@ -6373,40 +6411,18 @@
             "low": 47395,
             "close": 48500,
             "volume": 819829
+        },
+        {
+            "date": "2025-10-29",
+            "open": 49740,
+            "high": 51030,
+            "low": 49440,
+            "close": 51030,
+            "volume": 1622428
+        },
+        {
+            "date": "2026-04-29",
+            "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "434730.KS",
-        "koName": "HANARO 원자력iSelect",
-        "longName": "HANARO 원자력iSelect",
-        "company": null,
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-28 09:41:10 KST",
-        "regularMarketPrice": 48155,
-        "englishName": "Nh-Amundi Hanaro Nuclear Power Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 130583,
-        "AvgVolume": 734544,
-        "sharesOutstanding": null,
-        "52Week": "16365.0 - 48315.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 46710,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 0,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

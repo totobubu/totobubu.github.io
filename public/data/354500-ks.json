@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "354500.KS",
+        "koName": "ACE 코스닥150",
+        "longName": null,
+        "company": "한국투자신탁운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15450,
+        "englishName": "Kim Kindex KOSDAQ150 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 14289,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15525,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13838,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-06-19",
@@ -1656,7 +1690,7 @@
             "close": 11930,
             "volume": 3355,
             "amount": 40,
-            "yield": 0.00336417157275021
+            "yield": 0.0033641716
         },
         {
             "date": "2025-04-30",
@@ -2609,44 +2643,14 @@
             "low": 15335,
             "close": 15525,
             "volume": 38878
+        },
+        {
+            "date": "2025-10-29",
+            "open": 15495,
+            "high": 15520,
+            "low": 15310,
+            "close": 15450,
+            "volume": 22750
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "354500.KS",
-        "koName": "ACE 코스닥150",
-        "longName": null,
-        "company": "한국투자신탁운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 15525.0,
-        "englishName": "Kim Kindex KOSDAQ150 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 13838,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15515,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 2574,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 13190,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

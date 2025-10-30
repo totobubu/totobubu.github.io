@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "423920.KS",
+        "koName": "TIGER 미국필라델피아반도체레버리지(합성)",
+        "longName": "TIGER 미국필라델피아반도체레버리지(합성)",
+        "company": null,
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 42460,
+        "englishName": "Mirae Asset Tiger Synth-Us Phlx Semiconductor Sector Leverage Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 127874,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41215,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 128990,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-04-19",
@@ -4360,7 +4394,7 @@
             "close": 25200,
             "volume": 253794,
             "amount": 35,
-            "yield": 0.0013744354997054782
+            "yield": 0.0013744355
         },
         {
             "date": "2024-07-31",
@@ -5286,7 +5320,7 @@
             "close": 28140,
             "volume": 137659,
             "amount": 49,
-            "yield": 0.004688877137317116
+            "yield": 0.0046888771
         },
         {
             "date": "2025-01-31",
@@ -5784,7 +5818,7 @@
             "close": 15275,
             "volume": 249800,
             "amount": 20,
-            "yield": 0.010069101678183614
+            "yield": 0.0100691017
         },
         {
             "date": "2025-04-30",
@@ -6274,7 +6308,7 @@
             "close": 25350,
             "volume": 60314,
             "amount": 10,
-            "yield": 0.006417322834645669
+            "yield": 0.0064173228
         },
         {
             "date": "2025-07-31",
@@ -6741,6 +6775,14 @@
             "volume": 112398
         },
         {
+            "date": "2025-10-29",
+            "open": 42400,
+            "high": 42530,
+            "low": 41405,
+            "close": 42460,
+            "volume": 127093
+        },
+        {
             "date": "2025-10-30",
             "forecasted": true
         },
@@ -6748,43 +6790,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "423920.KS",
-        "koName": "TIGER 미국필라델피아반도체레버리지(합성)",
-        "longName": "TIGER 미국필라델피아반도체레버리지(합성)",
-        "company": null,
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-29 07:45:38 KST",
-        "regularMarketPrice": 41215.0,
-        "englishName": "Mirae Asset Tiger Synth-Us Phlx Semiconductor Sector Leverage Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 128990,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 41250,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 27902,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 127252,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }
