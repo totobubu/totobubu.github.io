@@ -3,9 +3,13 @@
 name: Update All Ticker Data (Daily on Weekdays)
 
 on:
-    # [수정] 월-금요일, UTC 22:00 (한국 시간 오전 7시)에 실행
+    # 하루 2회 실행: 미국 증시 마감 후, 한국 증시 마감 후
+    # - 미국: UTC 21:00 또는 22:00 (서머타임 여부에 따라)
+    # - 한국: UTC 07:30 (연중 동일)
     schedule:
-        - cron: '0 22 * * 1-5'
+        - cron: '0 21 * * 1-5' # UTC 21:00 (미국 서머타임 적용 시: 오전 6시 KST)
+        - cron: '0 22 * * 1-5' # UTC 22:00 (미국 서머타임 미적용 시: 오전 7시 KST)
+        - cron: '30 7 * * 1-5' # UTC 07:30 (오후 4시 30분 KST, 한국 증시 마감 후)
     workflow_dispatch:
 
 permissions:
@@ -39,62 +43,122 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
+            # --- 서머타임 감지 및 스킵 로직 ---
+            - name: Check if should run
+              id: check_time
+              run: |
+                  # 현재 UTC 시간과 월 정보
+                  UTC_HOUR=$(date -u +%H)
+                  UTC_MONTH=$(date -u +%m)
+                  UTC_DOW=$(date -u +%u)  # 1-7 (Mon-Sun)
+
+                  # 한국 증시 마감 후 (UTC 07:30)인 경우 항상 실행
+                  if [ "$UTC_HOUR" = "07" ] || [ "$UTC_HOUR" = "7" ]; then
+                    echo "should_run=true" >> $GITHUB_OUTPUT
+                    echo "schedule_type=kr_market" >> $GITHUB_OUTPUT
+                    exit 0
+                  fi
+
+                  # 미국 증시 마감 후 (UTC 21:00 또는 22:00)인 경우
+                  if [ "$UTC_HOUR" = "21" ] || [ "$UTC_HOUR" = "22" ]; then
+                    # 서머타임 기간 체크 (3월 2주째 일요일 이후 ~ 11월 1주째 일요일 이전)
+                    # 간단히 월로 판단 (3-10월: 서머타임 적용, UTC 21:00)
+                    # 11-2월: 서머타임 미적용, UTC 22:00
+                    if [ "$UTC_MONTH" -ge 3 ] && [ "$UTC_MONTH" -le 10 ]; then
+                      # 서머타임 적용 기간: UTC 21:00만 실행
+                      if [ "$UTC_HOUR" = "21" ]; then
+                        echo "should_run=true" >> $GITHUB_OUTPUT
+                        echo "schedule_type=us_market_dst" >> $GITHUB_OUTPUT
+                      else
+                        echo "should_run=false" >> $GITHUB_OUTPUT
+                      fi
+                    else
+                      # 서머타임 미적용 기간: UTC 22:00만 실행
+                      if [ "$UTC_HOUR" = "22" ]; then
+                        echo "should_run=true" >> $GITHUB_OUTPUT
+                        echo "schedule_type=us_market_std" >> $GITHUB_OUTPUT
+                      else
+                        echo "should_run=false" >> $GITHUB_OUTPUT
+                      fi
+                    fi
+                  else
+                    # 예상하지 못한 시간대
+                    echo "should_run=false" >> $GITHUB_OUTPUT
+                  fi
+
             # --- 데이터 업데이트 파이프라인 ---
             # (이하 스텝은 동일하게 유지)
             - name: 1. Get date information
               id: get_date_info
+              if: steps.check_time.outputs.should_run == 'true'
               run: |
                   echo "DAY_OF_MONTH=$(date +'%d')" >> $GITHUB_OUTPUT
 
             - name: 3. Update exchange rate data
+              if: steps.check_time.outputs.should_run == 'true'
               run: node scripts/fetch_all_exchange_rates.js
 
             - name: 4. Sync IPO dates and upcoming status
+              if: steps.check_time.outputs.should_run == 'true'
               run: npm run add-ipo-dates
 
             - name: 5. Analyze and add dividend frequency
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/analyze_dividend_frequency.py
 
             - name: 6. Generate final nav.json
+              if: steps.check_time.outputs.should_run == 'true'
               run: npm run generate-nav
 
             - name: 7. Update historical price data
+              if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
 
             - name: 8. Update historical dividend data
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/update_dividends.py
 
             - name: 9. Process and enrich dividend history
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/scraper_dividend.py
 
             - name: 9.5. Clean and sanitize historical data
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/clean_data.py
 
             - name: 10. Update latest ticker info
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/scraper_info.py
 
             - name: 11. Aggregate bookmark popularity
+              if: steps.check_time.outputs.should_run == 'true'
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
               run: python scripts/aggregate_popularity.py
 
             - name: 11.5. Project future expected dividend dates
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/project_future_dividends.py
 
             - name: 12. Generate calendar events data
+              if: steps.check_time.outputs.should_run == 'true'
               run: npm run generate-calendar-events
 
             - name: 13. Generate sidebar tickers data
+              if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/generate_sidebar_tickers.py
 
             - name: 14. Format all generated data files
+              if: steps.check_time.outputs.should_run == 'true'
               run: |
                   npm run format:data
                   npm run format:nav
+                  npm run format:public
 
             # --- 변경 사항 커밋 및 푸시 ---
             - name: Check for file changes
               id: git_status
+              if: steps.check_time.outputs.should_run == 'true'
               run: |
                   if [[ -n "$(git status --porcelain)" ]]; then
                     echo "changes=true" >> $GITHUB_OUTPUT
@@ -103,13 +167,13 @@ jobs:
                   fi
 
             - name: Commit and push changes
-              if: steps.git_status.outputs.changes == 'true'
+              if: steps.check_time.outputs.should_run == 'true' && steps.git_status.outputs.changes == 'true'
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   # git pull --rebase
                   git add .
-                  COMMIT_MSG="⚙️ Auto: Update all ticker data
+                  COMMIT_MSG="⚙️ Auto: Update all ticker data (${{ steps.check_time.outputs.schedule_type }})
 
                   Changed files:
                   $(git status --porcelain)"
