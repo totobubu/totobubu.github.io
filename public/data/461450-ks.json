@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "461450.KS",
+        "koName": "KODEX 코스닥글로벌",
+        "longName": null,
+        "company": "삼성자산운용",
+        "frequency": "매년",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15180,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 3070,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14877,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2940,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-06-30",
@@ -1520,7 +1554,7 @@
             "close": 11435,
             "volume": 198,
             "amount": 25,
-            "yield": 0.0021862702229995625
+            "yield": 0.0021862702
         },
         {
             "date": "2024-04-30",
@@ -3434,7 +3468,7 @@
             "close": 10965,
             "volume": 81,
             "amount": 52,
-            "yield": 0.00702234382124943
+            "yield": 0.0070223438
         },
         {
             "date": "2025-04-30",
@@ -4400,39 +4434,5 @@
             "date": "2026-04-29",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "461450.KS",
-        "koName": "KODEX 코스닥글로벌",
-        "longName": null,
-        "company": "삼성자산운용",
-        "frequency": "매년",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 15180.0,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 3070,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14877,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 2940,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

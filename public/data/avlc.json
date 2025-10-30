@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "AVLC",
+        "koName": null,
+        "longName": null,
+        "company": "Avantis",
+        "frequency": "분기",
+        "group": "MJSD",
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 78.56,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 17860,
+        "AvgVolume": 36285,
+        "sharesOutstanding": null,
+        "52Week": "55.467 - 78.89",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.64,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25972,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 36506,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-09-28",
@@ -456,7 +494,7 @@
             "close": 55.2760009765625,
             "volume": 600,
             "amount": 0.21,
-            "yield": 0.0038015929330042085
+            "yield": 0.0038015929
         },
         {
             "date": "2023-12-19",
@@ -970,7 +1008,7 @@
             "close": 61.553001403808594,
             "volume": 24700,
             "amount": 0.177,
-            "yield": 0.006277372107404547
+            "yield": 0.0062773721
         },
         {
             "date": "2024-03-22",
@@ -1484,7 +1522,7 @@
             "close": 62.7599983215332,
             "volume": 28900,
             "amount": 0.174,
-            "yield": 0.008892058941879529
+            "yield": 0.0088920589
         },
         {
             "date": "2024-06-25",
@@ -1990,7 +2028,7 @@
             "close": 65.61000061035156,
             "volume": 4400,
             "amount": 0.155,
-            "yield": 0.010911473262879536
+            "yield": 0.0109114733
         },
         {
             "date": "2024-09-24",
@@ -2472,7 +2510,7 @@
             "close": 69.45999908447266,
             "volume": 11300,
             "amount": 0.228,
-            "yield": 0.013569067186157116
+            "yield": 0.0135690672
         },
         {
             "date": "2024-12-18",
@@ -2994,7 +3032,7 @@
             "close": 66.31999969482422,
             "volume": 161800,
             "amount": 0.178,
-            "yield": 0.011099365545922227
+            "yield": 0.0110993655
         },
         {
             "date": "2025-03-26",
@@ -3492,7 +3530,7 @@
             "close": 69.73899841308594,
             "volume": 21200,
             "amount": 0.198,
-            "yield": 0.013430257429187315
+            "yield": 0.0134302574
         },
         {
             "date": "2025-06-25",
@@ -3998,7 +4036,7 @@
             "close": 76.30000305175781,
             "volume": 33800,
             "amount": 0.136,
-            "yield": 0.011644548437324117
+            "yield": 0.0116445484
         },
         {
             "date": "2025-09-24",
@@ -4216,43 +4254,5 @@
             "date": "2026-03-23",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "AVLC",
-        "koName": null,
-        "longName": null,
-        "company": "Avantis",
-        "frequency": "분기",
-        "group": "MJSD",
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 78.56,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 17860,
-        "AvgVolume": 36285,
-        "sharesOutstanding": null,
-        "52Week": "55.467 - 78.89",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 77.64,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 25972,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 36506,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

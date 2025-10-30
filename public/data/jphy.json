@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "JPHY",
+        "koName": null,
+        "longName": null,
+        "company": "JPMorgan",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 50.895,
+        "englishName": "Jpmorgan Active High Yield ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 17849,
+        "AvgVolume": 24246,
+        "sharesOutstanding": null,
+        "52Week": "50.134 - 51.15",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.9167,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7310,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 24139,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-06-25",
@@ -216,7 +254,7 @@
             "close": 50.2599983215332,
             "volume": 79900,
             "amount": 0.313,
-            "yield": 0.006235059666195757
+            "yield": 0.0062350597
         },
         {
             "date": "2025-08-04",
@@ -386,7 +424,7 @@
             "close": 50.540000915527344,
             "volume": 11200,
             "amount": 0.281,
-            "yield": 0.011769367656689046
+            "yield": 0.0117693677
         },
         {
             "date": "2025-09-03",
@@ -556,7 +594,7 @@
             "close": 50.82500076293945,
             "volume": 10300,
             "amount": 0.263,
-            "yield": 0.01689668729050002
+            "yield": 0.0168966873
         },
         {
             "date": "2025-10-02",
@@ -742,43 +780,5 @@
             "date": "2026-04-01",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "JPHY",
-        "koName": null,
-        "longName": null,
-        "company": "JPMorgan",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 50.895,
-        "englishName": "Jpmorgan Active High Yield ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 17849,
-        "AvgVolume": 24246,
-        "sharesOutstanding": null,
-        "52Week": "50.134 - 51.15",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 50.9167,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 7310,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 24139,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

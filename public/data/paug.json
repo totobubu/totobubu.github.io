@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "PAUG",
+        "koName": null,
+        "longName": null,
+        "company": "Innovator",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 42.86,
+        "englishName": "Innovator U.S. Equity Power Buffer ETF - August",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 73542,
+        "AvgVolume": 191525,
+        "sharesOutstanding": null,
+        "52Week": "34.78 - 42.97",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.75,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 27598,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 191535,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2019-08-06",
@@ -600,7 +638,7 @@
             "close": 25.450000762939453,
             "volume": 47700,
             "amount": 0.342,
-            "yield": 0.013364595465444494
+            "yield": 0.0133645955
         },
         {
             "date": "2019-11-20",
@@ -12546,43 +12584,5 @@
             "close": 42.86000061035156,
             "volume": 73542
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "PAUG",
-        "koName": null,
-        "longName": null,
-        "company": "Innovator",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 42.86,
-        "englishName": "Innovator U.S. Equity Power Buffer ETF - August",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 73542,
-        "AvgVolume": 191525,
-        "sharesOutstanding": null,
-        "52Week": "34.78 - 42.97",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 42.75,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 27598,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 191535,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

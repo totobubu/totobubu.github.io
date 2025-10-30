@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "422260.KS",
+        "koName": "VITA MZ소비액티브",
+        "longName": null,
+        "company": "이베스트자산운용",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 9835,
+        "englishName": "Kivam Vita Mz Consumption Active ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 2826,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10000,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3275,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-03-29",
@@ -6384,7 +6418,7 @@
             "close": 10330,
             "volume": 26188,
             "amount": 61,
-            "yield": 0.005896568390526825
+            "yield": 0.0058965684
         },
         {
             "date": "2025-07-31",
@@ -6858,39 +6892,5 @@
             "close": 9835,
             "volume": 845
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "422260.KS",
-        "koName": "VITA MZ소비액티브",
-        "longName": null,
-        "company": "이베스트자산운용",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 9835.0,
-        "englishName": "Kivam Vita Mz Consumption Active ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 2826,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 10000,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 3275,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

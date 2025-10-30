@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "0080X0.KS",
+        "koName": "SOL 미국S&P500미국채혼합50",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 11070,
+        "englishName": "Shinhan Sol S&P500 Us Treasury Bond Blended 50 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 142093,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11080,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 141577,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2025-07-15",
@@ -344,7 +378,7 @@
             "close": 10475,
             "volume": 124387,
             "amount": 36,
-            "yield": 0.0034367541766109786
+            "yield": 0.0034367542
         },
         {
             "date": "2025-09-15",
@@ -482,7 +516,7 @@
             "close": 10815,
             "volume": 136428,
             "amount": 16,
-            "yield": 0.004674157303370787
+            "yield": 0.0046741573
         },
         {
             "date": "2025-10-15",
@@ -596,39 +630,5 @@
             "date": "2026-04-14",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "0080X0.KS",
-        "koName": "SOL 미국S&P500미국채혼합50",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 11070.0,
-        "englishName": "Shinhan Sol S&P500 Us Treasury Bond Blended 50 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 142093,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11080,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 141577,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

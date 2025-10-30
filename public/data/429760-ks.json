@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "429760.KS",
+        "koName": "PLUS 미국S&P500",
+        "longName": null,
+        "company": null,
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 18305,
+        "englishName": "Hanwha Arirang S&P 500 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 7666,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18255,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 34,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7387,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2022-05-31",
@@ -1816,7 +1854,7 @@
             "close": 10260,
             "volume": 1815,
             "amount": 130,
-            "yield": 0.01270772238514174
+            "yield": 0.0127077224
         },
         {
             "date": "2023-04-28",
@@ -3650,7 +3688,7 @@
             "close": 13120,
             "volume": 189329,
             "amount": 150,
-            "yield": 0.011437285550895921
+            "yield": 0.0114372856
         },
         {
             "date": "2024-04-30",
@@ -4148,7 +4186,7 @@
             "close": 14090,
             "volume": 3432,
             "amount": 50,
-            "yield": 0.014250089063056644
+            "yield": 0.0142500891
         },
         {
             "date": "2024-07-31",
@@ -5074,7 +5112,7 @@
             "close": 16160,
             "volume": 3042,
             "amount": 50,
-            "yield": 0.01845585973546601
+            "yield": 0.0184558597
         },
         {
             "date": "2025-01-31",
@@ -5572,7 +5610,7 @@
             "close": 14665,
             "volume": 60932,
             "amount": 38,
-            "yield": 0.023024523160762943
+            "yield": 0.0230245232
         },
         {
             "date": "2025-04-30",
@@ -6062,7 +6100,7 @@
             "close": 16280,
             "volume": 4140,
             "amount": 40,
-            "yield": 0.013893967093235832
+            "yield": 0.0138939671
         },
         {
             "date": "2025-07-31",
@@ -6544,43 +6582,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "429760.KS",
-        "koName": "PLUS 미국S&P500",
-        "longName": null,
-        "company": null,
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 18305.0,
-        "englishName": "Hanwha Arirang S&P 500 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 7666,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 18255,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 34,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 7387,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

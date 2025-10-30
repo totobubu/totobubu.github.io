@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "DFGX",
+        "koName": null,
+        "longName": null,
+        "company": "Dimensional",
+        "frequency": "매월",
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 54.41,
+        "englishName": "Dimensional Global Ex US Core Fixed Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 149831,
+        "AvgVolume": 107073,
+        "sharesOutstanding": null,
+        "52Week": "50.988 - 54.73",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 54.57,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 92902,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 106170,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-11-08",
@@ -80,7 +118,7 @@
             "close": 50.99800109863281,
             "volume": 36000,
             "amount": 0.003,
-            "yield": 5.878894908414372e-5
+            "yield": 0.0000587889
         },
         {
             "date": "2023-11-22",
@@ -234,7 +272,7 @@
             "close": 52.564998626708984,
             "volume": 21100,
             "amount": 0.254,
-            "yield": 0.0048933739101293065
+            "yield": 0.0048933739
         },
         {
             "date": "2023-12-20",
@@ -572,7 +610,7 @@
             "close": 52.290000915527344,
             "volume": 27800,
             "amount": 0.036,
-            "yield": 0.0055926704220938175
+            "yield": 0.0055926704
         },
         {
             "date": "2024-02-22",
@@ -726,7 +764,7 @@
             "close": 52.625,
             "volume": 22100,
             "amount": 0.163,
-            "yield": 0.008668377606084372
+            "yield": 0.0086683776
         },
         {
             "date": "2024-03-20",
@@ -880,7 +918,7 @@
             "close": 52.16299819946289,
             "volume": 72100,
             "amount": 0.132,
-            "yield": 0.011266526450895181
+            "yield": 0.0112665265
         },
         {
             "date": "2024-04-17",
@@ -1378,7 +1416,7 @@
             "close": 52.849998474121094,
             "volume": 44500,
             "amount": 0.357,
-            "yield": 0.017911297006510944
+            "yield": 0.017911297
         },
         {
             "date": "2024-07-17",
@@ -2092,7 +2130,7 @@
             "close": 52.880001068115234,
             "volume": 44800,
             "amount": 0.853,
-            "yield": 0.03401437720846144
+            "yield": 0.0340143772
         },
         {
             "date": "2024-11-20",
@@ -2246,7 +2284,7 @@
             "close": 52.56999969482422,
             "volume": 120800,
             "amount": 0.869,
-            "yield": 0.05064638930190602
+            "yield": 0.0506463893
         },
         {
             "date": "2024-12-18",
@@ -2576,7 +2614,7 @@
             "close": 52.29999923706055,
             "volume": 77000,
             "amount": 0.018,
-            "yield": 0.04638899489724114
+            "yield": 0.0463889949
         },
         {
             "date": "2025-02-20",
@@ -2770,7 +2808,7 @@
             "close": 51.95000076293945,
             "volume": 73500,
             "amount": 0.017,
-            "yield": 0.04328387023353975
+            "yield": 0.0432838702
         },
         {
             "date": "2025-03-26",
@@ -4004,43 +4042,5 @@
             "date": "2026-04-24",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "DFGX",
-        "koName": null,
-        "longName": null,
-        "company": "Dimensional",
-        "frequency": "매월",
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 54.41,
-        "englishName": "Dimensional Global Ex US Core Fixed Income ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 149831,
-        "AvgVolume": 107073,
-        "sharesOutstanding": null,
-        "52Week": "50.988 - 54.73",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 54.57,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 92902,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 106170,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

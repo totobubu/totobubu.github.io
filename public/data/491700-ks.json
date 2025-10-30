@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "491700.KS",
+        "koName": "HK 200",
+        "longName": "HK 200",
+        "company": null,
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 57527,
+        "englishName": "HK Ks200 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 349,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55325,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 354,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-09-10",
@@ -1688,7 +1722,7 @@
             "close": 44740,
             "volume": 5544,
             "amount": 318,
-            "yield": 0.0071929427731282514
+            "yield": 0.0071929428
         },
         {
             "date": "2025-07-31",
@@ -2162,39 +2196,5 @@
             "close": 57527,
             "volume": 268
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "491700.KS",
-        "koName": "HK 200",
-        "longName": "HK 200",
-        "company": null,
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 57527.0,
-        "englishName": "HK Ks200 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 349,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 55325,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 354,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

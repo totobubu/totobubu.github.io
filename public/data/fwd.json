@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "FWD",
+        "koName": null,
+        "longName": null,
+        "company": "AB",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 110.94,
+        "englishName": "AB Disruptors ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 194797,
+        "AvgVolume": 96953,
+        "sharesOutstanding": null,
+        "52Week": "59.03 - 111.39",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.74,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 74790,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 97576,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2023-03-22",
@@ -3512,7 +3550,7 @@
             "close": 83.54000091552734,
             "volume": 172900,
             "amount": 1.498,
-            "yield": 0.01731791907514451
+            "yield": 0.0173179191
         },
         {
             "date": "2024-12-18",
@@ -4682,7 +4720,7 @@
             "close": 90.39800262451172,
             "volume": 87900,
             "amount": 0.006,
-            "yield": 0.016534740711719516
+            "yield": 0.0165347407
         },
         {
             "date": "2025-07-23",
@@ -5244,43 +5282,5 @@
             "close": 110.94000244140625,
             "volume": 194797
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "FWD",
-        "koName": null,
-        "longName": null,
-        "company": "AB",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 110.94,
-        "englishName": "AB Disruptors ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 194797,
-        "AvgVolume": 96953,
-        "sharesOutstanding": null,
-        "52Week": "59.03 - 111.39",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 106.74,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 74790,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 97576,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }

@@ -1,4 +1,38 @@
 {
+    "tickerInfo": {
+        "Symbol": "476030.KS",
+        "koName": "SOL 미국나스닥100",
+        "longName": null,
+        "company": "신한자산운용",
+        "frequency": "분기",
+        "group": "JAJO",
+        "underlying": null,
+        "market": "KOSPI",
+        "currency": "KRW",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 15740,
+        "englishName": "Shinhan Sol Nasdaq100 Etf",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 0,
+        "AvgVolume": 47014,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15230,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42542,
+                "change": "up"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-03-12",
@@ -768,7 +802,7 @@
             "close": 11165,
             "volume": 23448,
             "amount": 15,
-            "yield": 0.0013501350135013501
+            "yield": 0.001350135
         },
         {
             "date": "2024-07-31",
@@ -1694,7 +1728,7 @@
             "close": 13160,
             "volume": 45458,
             "amount": 25,
-            "yield": 0.004911220249338874
+            "yield": 0.0049112202
         },
         {
             "date": "2025-01-31",
@@ -2192,7 +2226,7 @@
             "close": 11755,
             "volume": 29737,
             "amount": 16,
-            "yield": 0.006881903143585387
+            "yield": 0.0068819031
         },
         {
             "date": "2025-04-30",
@@ -2682,7 +2716,7 @@
             "close": 13570,
             "volume": 24352,
             "amount": 20,
-            "yield": 0.007418288652221814
+            "yield": 0.0074182887
         },
         {
             "date": "2025-07-31",
@@ -3164,39 +3198,5 @@
             "date": "2026-01-30",
             "forecasted": true
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "476030.KS",
-        "koName": "SOL 미국나스닥100",
-        "longName": null,
-        "company": "신한자산운용",
-        "frequency": "분기",
-        "group": "JAJO",
-        "underlying": null,
-        "market": "KOSPI",
-        "currency": "KRW",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 15740.0,
-        "englishName": "Shinhan Sol Nasdaq100 Etf",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 0,
-        "AvgVolume": 47014,
-        "sharesOutstanding": null,
-        "52Week": null,
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 15230,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 42542,
-                "change": "up"
-            }
-        }
-    }
+    ]
 }

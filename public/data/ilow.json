@@ -1,4 +1,42 @@
 {
+    "tickerInfo": {
+        "Symbol": "ILOW",
+        "koName": null,
+        "longName": null,
+        "company": "AB",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NYSE",
+        "currency": "USD",
+        "Update": "2025-10-30 08:04:46 KST",
+        "regularMarketPrice": 42.216,
+        "englishName": "AB International Low Volatility Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 87515,
+        "AvgVolume": 93832,
+        "sharesOutstanding": null,
+        "52Week": "33.4 - 43.64",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.65,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 34522,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 94481,
+                "change": "down"
+            }
+        }
+    },
     "backtestData": [
         {
             "date": "2024-07-15",
@@ -880,7 +918,7 @@
             "close": 34.84000015258789,
             "volume": 261900,
             "amount": 0.265,
-            "yield": 0.0074354658961349115
+            "yield": 0.0074354659
         },
         {
             "date": "2024-12-18",
@@ -2610,43 +2648,5 @@
             "close": 42.215999603271484,
             "volume": 87515
         }
-    ],
-    "tickerInfo": {
-        "Symbol": "ILOW",
-        "koName": null,
-        "longName": null,
-        "company": "AB",
-        "frequency": null,
-        "group": null,
-        "underlying": null,
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-10-30 08:04:46 KST",
-        "regularMarketPrice": 42.216,
-        "englishName": "AB International Low Volatility Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 87515,
-        "AvgVolume": 93832,
-        "sharesOutstanding": null,
-        "52Week": "33.4 - 43.64",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
-        "changes": {
-            "regularMarketPrice": {
-                "value": 42.65,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 34522,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 94481,
-                "change": "down"
-            }
-        }
-    }
+    ]
 }
