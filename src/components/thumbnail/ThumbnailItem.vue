@@ -89,29 +89,35 @@
 </script>
 
 <template>
-    <div class="thumbnail-item-wrapper">
-        <div
-            class="thumbnail-container"
-            :class="{ 'with-chart': data.showChart }">
-            <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
-            <div class="header">
-                <img :src="data.logo" alt="Company Logo" class="logo" />
-                <span class="date"
-                    >{{ data.date }}
-                    <span v-if="data.weekNo">({{ data.weekNo }})</span></span
-                >
-            </div>
-            <div class="main-content" :class="{ 'with-chart': data.showChart }">
-                <h1 class="ticker" :style="{ color: data.tickerColor }">
-                    {{ data.symbol }}
-                </h1>
-                <h2 class="amount">${{ data.formattedCurrentAmount }}</h2>
-            </div>
-            <div class="footer" :class="{ 'with-chart': data.showChart }">
-                <p class="comparison">{{ data.comparisonText }}</p>
-                <p class="description">
-                    {{ data.descriptionLine1 }}<br />{{ data.descriptionLine2 }}
-                </p>
+    <div
+        class="thumbnail-item-wrapper"
+        :class="{ 'with-chart': data.showChart }">
+        <div class="thumbnail-container">
+            <div class="thumbnail-container-inner">
+                <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
+                <div class="header">
+                    <img :src="data.logo" alt="Company Logo" class="logo" />
+                    <span class="date"
+                        >{{ data.date }}
+                        <span v-if="data.weekNo"
+                            >({{ data.weekNo }})</span
+                        ></span
+                    >
+                </div>
+                <div class="main-content">
+                    <h1 class="ticker" :style="{ color: data.tickerColor }">
+                        {{ data.symbol }}
+                    </h1>
+                    <h2 class="amount">${{ data.formattedCurrentAmount }}</h2>
+                </div>
+                <div class="footer">
+                    <p class="comparison">{{ data.comparisonText }}</p>
+                    <p class="description">
+                        {{ data.descriptionLine1 }}<br />{{
+                            data.descriptionLine2
+                        }}
+                    </p>
+                </div>
             </div>
             <!-- 차트 영역 -->
             <div
@@ -121,7 +127,12 @@
                     v-for="item in chartData"
                     :key="item.month"
                     class="chart-row">
-                    <span class="chart-month">{{ item.month }}</span>
+                    <div class="chart-label">
+                        <span class="chart-month">{{ item.month }}</span>
+                        <span class="chart-total">{{
+                            formatAmount(item.total)
+                        }}</span>
+                    </div>
                     <div
                         class="chart-bar"
                         :style="{ width: `${item.widthRatio}%` }">
@@ -138,9 +149,6 @@
                             }}</span>
                         </div>
                     </div>
-                    <span class="chart-total">{{
-                        formatAmount(item.total)
-                    }}</span>
                 </div>
             </div>
         </div>

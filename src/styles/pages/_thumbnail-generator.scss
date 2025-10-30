@@ -40,7 +40,6 @@ $thumbnail-px: 4px;
 
 .thumbnail-wrapper {
     position: relative;
-    aspect-ratio: 1 / 1;
     overflow: hidden;
 }
 
@@ -54,8 +53,9 @@ $thumbnail-px: 4px;
 .thumbnail-item-wrapper {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
 
-    .thumbnail-container {
+    .thumbnail-container-inner {
         width: $thumbnail-size;
         height: $thumbnail-size;
         position: relative;
@@ -143,84 +143,103 @@ $thumbnail-px: 4px;
             opacity: 1;
             line-height: 1.2;
         }
-
-        &.with-chart {
-            bottom: $thumbnail-px * 17 + 80;
-        }
     }
 
-    // 차트가 있을 때 컨테이너 높이 조정
-    .thumbnail-container.with-chart {
+    // with-chart 상태에서만 적용되는 스타일 모음
+    &.with-chart {
         height: auto;
-        min-height: $thumbnail-size;
-        padding-bottom: 200px;
-    }
+        aspect-ratio: 1 / 1.2;
 
-    .main-content.with-chart {
-        top: 40%;
-    }
+        // 차트 영역 스타일
 
-    // 차트 영역 스타일
-    .chart-section {
-        position: absolute;
-        bottom: $thumbnail-px * 10;
-        left: 0;
-        right: 0;
-        padding: 0 $thumbnail-px * 10;
-        z-index: 2;
-    }
+        .thumbnail-container {
+            height: auto;
+            aspect-ratio: 1 / 1.2;
+            background-color: #ffffff;
+        }
 
-    .chart-row {
-        display: flex;
-        align-items: center;
-        gap: $thumbnail-px * 3;
-        margin-bottom: $thumbnail-px * 4;
-        font-size: $thumbnail-px * 6;
-        color: #ffffff;
-        text-shadow: $thumbnail-px * 1 $thumbnail-px * 1 0 rgba(0, 0, 0, 0.5);
-    }
+        .segment-label {
+            font-size: $thumbnail-px * 4;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
+                rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            padding: 0 $thumbnail-px * 1;
+        }
+        .chart {
+            &-section {
+                position: absolute;
+                top: $thumbnail-size;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                padding: $thumbnail-px * 3 $thumbnail-px * 5;
+                z-index: 2;
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
+                flex-direction: column;
+                gap: $thumbnail-px * 3;
+            }
 
-    .chart-month {
-        min-width: $thumbnail-px * 12;
-        font-weight: bold;
-        font-size: $thumbnail-px * 7;
-    }
+            &-row {
+                display: grid;
+                width: 100%;
+                align-items: center;
+                grid-template-columns: 120px 1fr;
+                gap: $thumbnail-px * 4;
+                font-size: $thumbnail-px * 3;
+                color: #000000;
+            }
 
-    .chart-bar {
-        display: flex;
-        height: $thumbnail-px * 12;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: $thumbnail-px * 1;
-        overflow: hidden;
-        position: relative;
-        min-width: 0;
-    }
+            &-label {
+                display: flex;
+                align-items: center;
+                gap: $thumbnail-px * 2;
+            }
 
-    .chart-segment {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 0;
-        transition: min-width 0.2s;
-    }
+            &-month {
+                display: inline-block;
+                font-weight: bold;
+                font-size: $thumbnail-px * 4;
+            }
 
-    .segment-label {
-        font-size: $thumbnail-px * 4;
-        font-weight: bold;
-        color: #ffffff;
-        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
-            rgba(0, 0, 0, 0.7);
-        white-space: nowrap;
-        padding: 0 $thumbnail-px * 1;
-    }
+            &-total {
+                text-align: left;
+                font-weight: bold;
+                font-size: $thumbnail-px * 5;
+                color: #000000;
+                text-shadow: none;
+            }
 
-    .chart-total {
-        min-width: $thumbnail-px * 20;
-        text-align: right;
-        font-weight: bold;
-        font-size: $thumbnail-px * 7;
-        color: #000000;
-        text-shadow: none;
+            &-bar {
+                display: flex;
+                height: $thumbnail-px * 8;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: $thumbnail-px * 1;
+                overflow: hidden;
+                position: relative;
+                min-width: 0;
+            }
+
+            &-segment {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+                transition: min-width 0.2s;
+                &[style*='rgb(251, 188, 4);'] {
+                    .segment-label {
+                        color: #000000;
+
+                        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
+                            rgba(255, 255, 255, 0.7);
+                    }
+                }
+            }
+        }
     }
 }
