@@ -6,6 +6,115 @@ from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
 from tqdm import tqdm
 
 
+def parse_date(date_str):
+    """날짜 문자열을 datetime 객체로 변환"""
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d")
+    except (ValueError, TypeError):
+        return None
+
+
+def get_dividend_value(item):
+    """항목의 배당 값 반환 (amountFixed 우선, 없으면 amount)"""
+    if "amountFixed" in item:
+        return item.get("amountFixed")
+    elif "amount" in item:
+        return item.get("amount")
+    return None
+
+
+def clean_duplicate_dividends(backtest_data):
+    """
+    중복 배당 데이터 정리
+    1. 같은 날짜에 amountFixed와 amount가 모두 있으면 둘 다 유지
+    2. 연속된 날짜에 동일한 배당이 있을 때 amountFixed가 있는 항목만 유지하고, 나머지의 amount 제거
+    """
+    if not backtest_data:
+        return backtest_data
+
+    # 날짜순으로 정렬
+    sorted_data = sorted(backtest_data, key=lambda x: x.get("date", ""))
+
+    # 모든 항목을 복사하여 처리
+    cleaned_data = [item.copy() for item in sorted_data]
+
+    # 각 항목의 배당 값과 amountFixed 여부를 확인
+    i = 0
+    while i < len(cleaned_data):
+        current = cleaned_data[i]
+        current_date = parse_date(current.get("date"))
+
+        if not current_date:
+            i += 1
+            continue
+
+        current_value = get_dividend_value(current)
+        if current_value is None:
+            i += 1
+            continue
+
+        # 같은 배당 값을 가진 연속된 항목들의 인덱스 찾기
+        duplicate_indices = [i]
+
+        # 이전 날짜 확인 (최대 7일 이내)
+        for j in range(max(0, i - 7), i):
+            prev_item = cleaned_data[j]
+            prev_date = parse_date(prev_item.get("date"))
+            if not prev_date or (current_date - prev_date).days > 7:
+                continue
+
+            prev_value = get_dividend_value(prev_item)
+            # 소수점 6자리 동일 또는 절대 오차 1e-6 이내면 동일 배당으로 간주
+            if prev_value is not None and (
+                round(prev_value, 6) == round(current_value, 6)
+                or abs(prev_value - current_value) < 1e-6
+            ):
+                if j not in duplicate_indices:
+                    duplicate_indices.insert(0, j)
+
+        # 다음 날짜 확인 (최대 7일 이내)
+        for j in range(i + 1, len(cleaned_data)):
+            next_item = cleaned_data[j]
+            next_date = parse_date(next_item.get("date"))
+            if not next_date or (next_date - current_date).days > 7:
+                break
+
+            next_value = get_dividend_value(next_item)
+            # 소수점 6자리 동일 또는 절대 오차 1e-6 이내면 동일 배당으로 간주
+            if next_value is not None and (
+                round(next_value, 6) == round(current_value, 6)
+                or abs(next_value - current_value) < 1e-6
+            ):
+                duplicate_indices.append(j)
+            else:
+                break
+
+        # 중복 그룹이 2개 이상이면 처리
+        if len(duplicate_indices) > 1:
+            # amountFixed가 있는 항목 찾기
+            fixed_indices = [
+                idx for idx in duplicate_indices if "amountFixed" in cleaned_data[idx]
+            ]
+
+            if fixed_indices:
+                # amountFixed가 있는 항목은 유지 (1번 규칙: 같은 날짜에 amountFixed와 amount가 모두 있어도 둘 다 유지)
+                # amountFixed가 없는 항목에서만 amount 제거
+                for idx in duplicate_indices:
+                    if idx not in fixed_indices:
+                        # amountFixed가 없고 amount만 있는 항목에서 amount 제거
+                        cleaned_data[idx].pop("amount", None)
+            else:
+                # amountFixed가 없으면 첫 번째만 유지, 나머지에서 amount 제거
+                first_idx = min(duplicate_indices)
+                for idx in duplicate_indices:
+                    if idx != first_idx:
+                        cleaned_data[idx].pop("amount", None)
+
+        i += 1
+
+    return cleaned_data
+
+
 def calculate_yields(backtest_data):
     if not backtest_data:
         return []
@@ -49,7 +158,8 @@ def calculate_yields(backtest_data):
             )
 
             if dividends_in_past_year > 0:
-                current_item["yield"] = dividends_in_past_year / price_raw
+                # 소수점 아래 10자리로 반올림하여 불필요한 미세 변경 방지
+                current_item["yield"] = round(dividends_in_past_year / price_raw, 10)
 
     for item in backtest_data:
         item.pop("date_obj", None)
@@ -72,12 +182,16 @@ def main():
             data.get("backtestData", []), sort_keys=True
         )
 
-        # 배당 데이터가 있는 경우에만 배당률 계산 실행
+        # 배당 데이터가 있는 경우에만 처리
         if any(
             item.get("amount") is not None or item.get("amountFixed") is not None
             for item in data["backtestData"]
         ):
-            new_backtest_data = calculate_yields(data["backtestData"])
+            # 1단계: 중복 배당 데이터 정리
+            cleaned_data = clean_duplicate_dividends(data["backtestData"])
+
+            # 2단계: 배당률 계산
+            new_backtest_data = calculate_yields(cleaned_data)
             new_backtest_data_str = json.dumps(new_backtest_data, sort_keys=True)
 
             if original_backtest_data_str != new_backtest_data_str:
