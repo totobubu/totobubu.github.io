@@ -16,9 +16,9 @@
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "npm-run-all lint:*",
-        "format:data": "node tasks/formatData.js \"public/data/**/*.json\"",
-        "format:nav": "node tasks/formatData.js \"public/nav/**/*.json\"",
-        "format:public": "node tasks/formatData.js \"public/*.json\"",
+        "format:data": "prettier --write \"public/data/**/*.json\"",
+        "format:nav": "prettier --write \"public/nav/**/*.json\"",
+        "format:public": "prettier --write \"public/*.json\"",
         "format": "prettier --write src/"
     },
     "dependencies": {
