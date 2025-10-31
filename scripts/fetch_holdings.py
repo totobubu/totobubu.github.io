@@ -1,0 +1,267 @@
+"""
+ETF Holdings 데이터 수집 및 JSON 파일 업데이트 스크립트
+
+이 스크립트는:
+1. nav.json에서 holdings: true인 ETF만 선택적으로 처리합니다
+2. Yahoo Finance에서 ETF의 Top Holdings 정보를 가져옵니다
+3. public/data/{ticker}.json의 backtestData에 holdings를 추가/업데이트합니다
+4. 각 날짜의 backtestData 항목에 holdings를 포함시켜 시계열로 관리합니다
+
+사용법:
+  - 특정 티커: python fetch_holdings.py SPY
+  - 모든 holdings 티커: python fetch_holdings.py
+  
+holdings 추적 티커 추가:
+  nav.json에서 해당 티커에 "holdings": true 필드를 추가하세요.
+"""
+
+import yfinance as yf
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+import time
+
+
+def sanitize_ticker_for_filename(ticker):
+    """티커를 파일명으로 변환 (점을 하이픈으로 변경)"""
+    return ticker.replace('.', '-').lower()
+
+
+def fetch_etf_holdings(ticker_symbol):
+    """
+    Yahoo Finance에서 ETF Holdings 정보를 가져옵니다.
+    
+    Args:
+        ticker_symbol: ETF 티커 심볼
+        
+    Returns:
+        holdings 리스트 또는 None
+    """
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        
+        # 최신 yfinance API 사용: get_funds_data()
+        try:
+            funds_data = ticker.get_funds_data()
+            
+            # top_holdings 속성 확인
+            if hasattr(funds_data, 'top_holdings'):
+                top_holdings = funds_data.top_holdings
+                
+                # top_holdings가 DataFrame인 경우
+                if hasattr(top_holdings, 'to_dict'):
+                    holdings_list = []
+                    
+                    # DataFrame을 반복하면서 데이터 추출
+                    for symbol, row in top_holdings.iterrows():
+                        name = row.get('Name', '')
+                        holding_percent = row.get('Holding Percent', 0)
+                        
+                        holdings_list.append({
+                            'symbol': symbol,
+                            'name': name,
+                            'weight': round(float(holding_percent) * 100, 2) if holding_percent else 0
+                        })
+                    
+                    if holdings_list:
+                        print(f"[OK] {ticker_symbol}: {len(holdings_list)}개의 holdings 데이터 수집 성공")
+                        return holdings_list
+        except Exception as e:
+            print(f"[DEBUG] get_funds_data() 실패: {e}")
+        
+        print(f"[WARNING] {ticker_symbol}: Holdings 데이터를 찾을 수 없습니다.")
+        return None
+        
+    except Exception as e:
+        print(f"[ERROR] {ticker_symbol}: Holdings 데이터 수집 실패 - {str(e)}")
+        return None
+
+
+def update_json_with_holdings(ticker_symbol, data_dir='public/data'):
+    """
+    JSON 파일의 backtestData에 holdings 데이터를 추가/업데이트합니다.
+    
+    Args:
+        ticker_symbol: ETF 티커 심볼
+        data_dir: JSON 파일이 있는 디렉토리
+        
+    Returns:
+        성공 여부 (bool)
+    """
+    try:
+        # 파일 경로 설정
+        sanitized_ticker = sanitize_ticker_for_filename(ticker_symbol)
+        json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+        
+        if not json_path.exists():
+            print(f"[WARNING] {ticker_symbol}: JSON 파일이 존재하지 않습니다 - {json_path}")
+            return False
+        
+        # 기존 JSON 읽기
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Holdings 데이터 가져오기
+        holdings_data = fetch_etf_holdings(ticker_symbol)
+        
+        if holdings_data is None:
+            return False
+        
+        # 현재 날짜
+        today = datetime.now().strftime('%Y-%m-%d')
+        
+        # backtestData가 없으면 생성
+        if 'backtestData' not in data:
+            data['backtestData'] = []
+        
+        # 오늘 날짜의 backtestData 항목 찾기
+        existing_entry = None
+        for entry in data['backtestData']:
+            if entry.get('date') == today:
+                existing_entry = entry
+                break
+        
+        if existing_entry is not None:
+            # 기존 항목에 holdings 추가/업데이트
+            existing_entry['holdings'] = holdings_data
+            print(f"[UPDATE] {ticker_symbol}: {today} backtestData에 holdings 업데이트")
+        else:
+            # 새 항목 생성 (주가 데이터는 나중에 업데이트됨)
+            new_entry = {
+                'date': today,
+                'holdings': holdings_data
+            }
+            data['backtestData'].append(new_entry)
+            # 날짜순 정렬
+            data['backtestData'].sort(key=lambda x: x.get('date', ''))
+            print(f"[ADD] {ticker_symbol}: {today} backtestData에 holdings 추가")
+        
+        # 기존 holdings 대분류가 있으면 제거 (마이그레이션)
+        if 'holdings' in data:
+            del data['holdings']
+            print(f"[MIGRATE] {ticker_symbol}: 기존 holdings 대분류 제거")
+        
+        # JSON 파일 저장
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        
+        # holdings가 있는 backtestData 항목 수 계산
+        holdings_count = sum(1 for entry in data['backtestData'] if 'holdings' in entry)
+        print(f"[SAVE] {ticker_symbol}: JSON 파일 저장 완료 (총 {holdings_count}개 날짜에 holdings 데이터)")
+        return True
+        
+    except Exception as e:
+        print(f"[ERROR] {ticker_symbol}: JSON 업데이트 실패 - {str(e)}")
+        return False
+
+
+def process_single_ticker(ticker_symbol, data_dir='public/data'):
+    """단일 티커 처리"""
+    print(f"\n{'='*60}")
+    print(f"처리 중: {ticker_symbol}")
+    print(f"{'='*60}")
+    
+    success = update_json_with_holdings(ticker_symbol, data_dir)
+    
+    if success:
+        print(f"[OK] {ticker_symbol} 처리 완료")
+    else:
+        print(f"[ERROR] {ticker_symbol} 처리 실패")
+    
+    return success
+
+
+def load_nav_data(nav_path='public/nav.json'):
+    """nav.json에서 holdings 추적 대상 티커 목록 가져오기"""
+    try:
+        with open(nav_path, 'r', encoding='utf-8') as f:
+            nav_data = json.load(f)
+        
+        # holdings: true인 티커만 필터링
+        holdings_tickers = [
+            item['symbol'] 
+            for item in nav_data.get('nav', []) 
+            if item.get('holdings', False) is True
+        ]
+        
+        return holdings_tickers
+    except Exception as e:
+        print(f"[ERROR] nav.json 로드 실패: {e}")
+        return []
+
+
+def process_all_tickers(data_dir='public/data'):
+    """nav.json에서 holdings: true인 티커만 처리"""
+    
+    # nav.json에서 holdings 티커 목록 로드
+    holdings_tickers = load_nav_data()
+    
+    if not holdings_tickers:
+        print(f"[WARNING] nav.json에 holdings: true인 티커가 없습니다.")
+        print(f"[INFO] nav.json에 'holdings': true를 추가하세요.")
+        return
+    
+    print(f"\n[INFO] nav.json에서 {len(holdings_tickers)}개의 holdings 추적 티커 발견")
+    print(f"[INFO] 티커 목록: {', '.join(holdings_tickers)}")
+    
+    success_count = 0
+    fail_count = 0
+    skip_count = 0
+    
+    for ticker in holdings_tickers:
+        # JSON 파일이 존재하는지 확인
+        sanitized_ticker = sanitize_ticker_for_filename(ticker)
+        json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+        
+        if not json_path.exists():
+            print(f"\n[SKIP] {ticker}: JSON 파일이 없습니다 - {json_path}")
+            skip_count += 1
+            continue
+        
+        success = process_single_ticker(ticker, data_dir)
+        
+        if success:
+            success_count += 1
+        else:
+            fail_count += 1
+        
+        # API 요청 제한을 위한 대기
+        time.sleep(1)
+    
+    print(f"\n{'='*60}")
+    print(f"전체 처리 완료")
+    print(f"{'='*60}")
+    print(f"[OK] 성공: {success_count}개")
+    print(f"[ERROR] 실패: {fail_count}개")
+    print(f"[SKIP] 건너뜀: {skip_count}개")
+    print(f"[INFO] 총: {len(holdings_tickers)}개")
+
+
+if __name__ == '__main__':
+    import sys
+    
+    # 스크립트 디렉토리의 상위 디렉토리로 이동 (프로젝트 루트)
+    script_dir = Path(__file__).parent.parent
+    os.chdir(script_dir)
+    
+    print("=" * 60)
+    print("ETF Holdings 데이터 수집 스크립트")
+    print("=" * 60)
+    
+    if len(sys.argv) > 1:
+        # 특정 티커 처리
+        ticker = sys.argv[1].upper()
+        process_single_ticker(ticker)
+    else:
+        # 모든 티커 처리
+        print("\n모든 ETF의 holdings 데이터를 수집합니다...")
+        print("특정 티커만 처리하려면: python fetch_holdings.py TICKER")
+        print()
+        
+        response = input("계속하시겠습니까? (y/n): ")
+        if response.lower() == 'y':
+            process_all_tickers()
+        else:
+            print("취소되었습니다.")
+
