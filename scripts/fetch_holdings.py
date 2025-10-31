@@ -78,9 +78,40 @@ def fetch_etf_holdings(ticker_symbol):
         return None
 
 
+def compare_holdings(holdings1, holdings2):
+    """
+    두 holdings 데이터가 동일한지 비교
+    
+    Args:
+        holdings1: 첫 번째 holdings 리스트
+        holdings2: 두 번째 holdings 리스트
+        
+    Returns:
+        bool: 동일하면 True
+    """
+    if holdings1 is None or holdings2 is None:
+        return False
+    
+    if len(holdings1) != len(holdings2):
+        return False
+    
+    # symbol 기준으로 정렬하여 비교
+    sorted1 = sorted(holdings1, key=lambda x: x.get('symbol', ''))
+    sorted2 = sorted(holdings2, key=lambda x: x.get('symbol', ''))
+    
+    for h1, h2 in zip(sorted1, sorted2):
+        if (h1.get('symbol') != h2.get('symbol') or
+            h1.get('name') != h2.get('name') or
+            abs(h1.get('weight', 0) - h2.get('weight', 0)) > 0.01):  # 0.01% 차이 허용
+            return False
+    
+    return True
+
+
 def update_json_with_holdings(ticker_symbol, data_dir='public/data'):
     """
     JSON 파일의 backtestData에 holdings 데이터를 추가/업데이트합니다.
+    직전 데이터와 동일한 경우 추가하지 않습니다.
     
     Args:
         ticker_symbol: ETF 티커 심볼
@@ -115,6 +146,24 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data'):
         if 'backtestData' not in data:
             data['backtestData'] = []
         
+        # 날짜순 정렬 (오래된 것부터)
+        data['backtestData'].sort(key=lambda x: x.get('date', ''))
+        
+        # holdings가 있는 가장 최근 항목 찾기 (오늘 이전)
+        latest_holdings = None
+        latest_holdings_date = None
+        for entry in reversed(data['backtestData']):
+            entry_date = entry.get('date', '')
+            if entry_date < today and 'holdings' in entry:
+                latest_holdings = entry['holdings']
+                latest_holdings_date = entry_date
+                break
+        
+        # 직전 데이터와 비교
+        if latest_holdings and compare_holdings(latest_holdings, holdings_data):
+            print(f"[SKIP] {ticker_symbol}: {today} holdings가 직전({latest_holdings_date})과 동일하여 건너뜀")
+            return True  # 성공으로 처리 (에러는 아님)
+        
         # 오늘 날짜의 backtestData 항목 찾기
         existing_entry = None
         for entry in data['backtestData']:
@@ -125,7 +174,10 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data'):
         if existing_entry is not None:
             # 기존 항목에 holdings 추가/업데이트
             existing_entry['holdings'] = holdings_data
-            print(f"[UPDATE] {ticker_symbol}: {today} backtestData에 holdings 업데이트")
+            if latest_holdings_date:
+                print(f"[UPDATE] {ticker_symbol}: {today} backtestData에 holdings 업데이트 (변화 있음, 직전: {latest_holdings_date})")
+            else:
+                print(f"[UPDATE] {ticker_symbol}: {today} backtestData에 holdings 업데이트")
         else:
             # 새 항목 생성 (주가 데이터는 나중에 업데이트됨)
             new_entry = {
@@ -135,7 +187,10 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data'):
             data['backtestData'].append(new_entry)
             # 날짜순 정렬
             data['backtestData'].sort(key=lambda x: x.get('date', ''))
-            print(f"[ADD] {ticker_symbol}: {today} backtestData에 holdings 추가")
+            if latest_holdings_date:
+                print(f"[ADD] {ticker_symbol}: {today} backtestData에 holdings 추가 (변화 있음, 직전: {latest_holdings_date})")
+            else:
+                print(f"[ADD] {ticker_symbol}: {today} backtestData에 holdings 추가 (최초)")
         
         # 기존 holdings 대분류가 있으면 제거 (마이그레이션)
         if 'holdings' in data:
