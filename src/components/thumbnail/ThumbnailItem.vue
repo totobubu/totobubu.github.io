@@ -64,7 +64,8 @@
             }));
 
         // 최대 total 값을 구해서 비율 계산
-        const maxTotal = Math.max(...sortedData.map((item) => item.total), 1);
+        const totals = sortedData.map((item) => item.total);
+        const maxTotal = totals.length > 0 ? Math.max(...totals) : 1;
 
         return sortedData.map((item) => ({
             ...item,
