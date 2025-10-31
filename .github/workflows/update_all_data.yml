@@ -117,6 +117,13 @@ jobs:
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run generate-nav
 
+            - name: 6.5. Auto-detect and update holdings for new tickers
+              if: steps.check_time.outputs.should_run == 'true'
+              run: |
+                  echo "🔍 Holdings 자동 감지 시작..."
+                  python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+                  echo "✅ Holdings 자동 감지 완료"
+
             - name: 7. Update historical price data
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
