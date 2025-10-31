@@ -12,9 +12,16 @@ import { parseYYMMDD } from '@/utils/date.js';
  */
 export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
     const payoutsPerYear = computed(() => {
-        // ... (이 부분은 수정할 필요 없습니다)
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return 0;
+
+        const freq = tickerInfo.value?.frequency;
+        
+        // 주배당/월배당의 경우 과거 데이터가 충분하지 않으면 frequency 정보를 우선 사용
+        if (freq === '매주') return 52;
+        if (freq === '매월') return 12;
+        
+        // 분기/연배당의 경우 과거 1년간 실제 배당 횟수 계산
         const oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
@@ -24,9 +31,8 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
 
         if (pastYearDividends.length > 0) return pastYearDividends.length;
 
-        const freq = tickerInfo.value?.frequency;
+        // fallback: frequency 정보 사용
         if (freq === '분기') return 4;
-        if (freq === '매주') return 52;
         return 12;
     });
 
