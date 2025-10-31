@@ -845,6 +845,32 @@
             "volume": 45166
         },
         {
+            "date": "2025-11-01",
+            "holdings": [
+                {
+                    "symbol": "NFLX",
+                    "name": "Netflix Inc",
+                    "weight": 20.03,
+                    "type": "equity"
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund",
+                    "weight": 5.70,
+                    "type": "cash"
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "64110L106 TRS 072026 NM",
+                    "name": "NETFLIX INC COM SWAP",
+                    "weight": 100.13,
+                    "type": "swap",
+                    "underlying": "NFLX"
+                }
+            ]
+        },
+        {
             "date": "2025-11-03",
             "expected": true
         },
