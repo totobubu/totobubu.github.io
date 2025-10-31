@@ -72,6 +72,13 @@ def analyze_frequency_and_group(dividend_dates):
         recent_months = sorted(list(set([d.month for d in dividend_dates[-4:]])))
         if len(recent_months) == 4:
             group = "".join([MONTH_INITIALS.get(m, "?") for m in recent_months])
+    # 매주 배당일 경우, 가장 많이 나타나는 요일을 그룹으로 지정
+    elif frequency == "매주" and len(dividend_dates) >= 2:
+        weekday_map = {0: "월", 1: "화", 2: "수", 3: "목", 4: "금"}
+        weekdays = [d.weekday() for d in dividend_dates]
+        most_common_weekday = Counter(weekdays).most_common(1)[0][0]
+        if most_common_weekday in weekday_map:
+            group = weekday_map[most_common_weekday]
 
     return frequency, group
 
