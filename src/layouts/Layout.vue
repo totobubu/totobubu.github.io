@@ -22,14 +22,15 @@
     const visible = ref(false);
 
     const isStandalonePage = computed(() => {
-        return ['/', '/thumbnail-generator'].includes(route.path);
+        return ['/', '/thumbnail-generator', '/blog-generator'].includes(
+            route.path
+        );
     });
 
     const menu = ref();
     const toggleMenu = (event) => {
         menu.value.toggle(event);
     };
-
 
     const menuItems = computed(() => [
         {
@@ -91,6 +92,8 @@
             items.push({ label: '회원정보 수정' }); // [수정]
         else if (route.name === 'contact') items.push({ label: '문의하기' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
+        else if (route.name === 'blog-generator')
+            items.push({ label: '블로그 생성기' });
         else if (route.name === 'stock-detail' && tickerInfo.value) {
             const info = tickerInfo.value;
             if (info.market) {
