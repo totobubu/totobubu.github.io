@@ -12665,7 +12665,7 @@
             "longName": "KoAct 글로벌친환경전력인프라액티브",
             "ipoDate": "2024-01-19",
             "logo": null,
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "475080.KS",
@@ -13748,7 +13748,7 @@
             "ipoDate": "2024-10-02",
             "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "490600.KS",
@@ -13759,7 +13759,7 @@
             "ipoDate": "2024-09-24",
             "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "491010.KS",
@@ -13841,7 +13841,7 @@
             "ipoDate": "2024-10-02",
             "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "491630.KS",
@@ -14398,6 +14398,7 @@
             "underlying": "AAPL",
             "ipoDate": "2025-02-20",
             "market": "NASDAQ",
+            "group": "월",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M"]
@@ -14819,6 +14820,7 @@
             "underlying": "AMD",
             "ipoDate": "2025-08-20",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -14827,6 +14829,7 @@
             "symbol": "AMDW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "AMD",
             "ipoDate": "2025-07-24",
             "market": "NASDAQ",
@@ -14904,6 +14907,7 @@
             "underlying": "AMD",
             "ipoDate": "2025-09-16",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -14920,6 +14924,7 @@
             "symbol": "AMZW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "AMZN",
             "ipoDate": "2025-06-18",
             "market": "NASDAQ",
@@ -15309,6 +15314,7 @@
             "symbol": "AVGW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "AVGO",
             "ipoDate": "2025-07-24",
             "market": "NASDAQ",
@@ -15452,6 +15458,7 @@
             "underlying": "AMZN",
             "ipoDate": "2025-09-16",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -15690,6 +15697,17 @@
             "group": "MJSD",
             "logo": null,
             "periods": ["5Y", "10Y", "15Y", "20Y"]
+        },
+        {
+            "symbol": "BBYY",
+            "company": "GraniteShares",
+            "frequency": "매주",
+            "group": "금",
+            "ipoDate": "2025-10-22",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": "logos/graniteshares.png",
+            "periods": []
         },
         {
             "symbol": "BCI",
@@ -15995,6 +16013,7 @@
             "frequency": "매주",
             "ipoDate": "2025-06-17",
             "market": "NYSE",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/nicholas.webp",
             "periods": []
@@ -16122,6 +16141,7 @@
             "symbol": "BRKW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "BRK.B",
             "ipoDate": "2025-06-18",
             "market": "NASDAQ",
@@ -16436,8 +16456,10 @@
             "market": "NYSE",
             "currency": "USD",
             "ipoDate": "2020-03-19",
+            "frequency": "분기",
+            "group": "MJOD",
             "logo": null,
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "periods": ["5Y"]
         },
         {
             "symbol": "CAT",
@@ -16612,7 +16634,7 @@
             "ipoDate": "2023-09-28",
             "frequency": "매월",
             "logo": null,
-            "periods": ["1Y"]
+            "periods": ["1Y", "2Y"]
         },
         {
             "symbol": "CGCP",
@@ -16759,7 +16781,7 @@
             "ipoDate": "2023-09-28",
             "frequency": "매월",
             "logo": null,
-            "periods": ["1Y"]
+            "periods": ["1Y", "2Y"]
         },
         {
             "symbol": "CGUS",
@@ -17023,6 +17045,7 @@
             "underlying": "COIN",
             "ipoDate": "2025-06-04",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
@@ -17039,6 +17062,7 @@
             "symbol": "COIW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "COIN",
             "ipoDate": "2025-02-19",
             "market": "NASDAQ",
@@ -17167,6 +17191,7 @@
             "underlying": "COIN",
             "ipoDate": "2025-07-29",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -17347,10 +17372,9 @@
             "currency": "USD",
             "company": "Simplify",
             "ipoDate": "2022-03-08",
-            "frequency": "분기",
-            "group": "MJAS",
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "CTAS",
@@ -18956,6 +18980,7 @@
             "frequency": "매주",
             "ipoDate": "2025-09-18",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -19385,6 +19410,17 @@
             "currency": "USD",
             "logo": "logos/yieldmax.png",
             "periods": ["6M", "1Y"]
+        },
+        {
+            "symbol": "FBYY",
+            "company": "GraniteShares",
+            "frequency": "매주",
+            "group": "금",
+            "ipoDate": "2025-10-22",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": "logos/graniteshares.png",
+            "periods": []
         },
         {
             "symbol": "FCOM",
@@ -20609,6 +20645,17 @@
             "periods": ["10Y"]
         },
         {
+            "symbol": "GDXW",
+            "company": "Roundhill Investments",
+            "frequency": "매주",
+            "group": "월",
+            "upcoming": true,
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": "logos/roundhill-investments.svg",
+            "periods": []
+        },
+        {
             "symbol": "GDXY",
             "company": "YieldMax",
             "frequency": "매주",
@@ -20737,14 +20784,26 @@
             "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
+            "symbol": "GLDW",
+            "company": "Roundhill Investments",
+            "frequency": "매주",
+            "group": "월",
+            "ipoDate": "2017-01-27",
+            "market": "NASDAQ",
+            "currency": "USD",
+            "logo": "logos/roundhill-investments.svg",
+            "periods": []
+        },
+        {
             "symbol": "GLDY",
             "company": "Defiance",
             "frequency": "매주",
             "ipoDate": "2025-04-02",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "GLOV",
@@ -20850,6 +20909,7 @@
             "symbol": "GOOW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "GOOGL",
             "ipoDate": "2025-07-24",
             "market": "NASDAQ",
@@ -21314,6 +21374,7 @@
             "underlying": "HIMS",
             "ipoDate": "2025-08-19",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -21392,6 +21453,7 @@
             "underlying": "HOOD",
             "ipoDate": "2025-08-19",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -21400,6 +21462,7 @@
             "symbol": "HOOW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "HOOD",
             "ipoDate": "2025-06-18",
             "market": "NASDAQ",
@@ -21425,6 +21488,7 @@
             "frequency": "매주",
             "ipoDate": "2025-09-30",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -22889,6 +22953,7 @@
             "frequency": "매주",
             "ipoDate": "2023-11-01",
             "market": "NYSE",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": ["6M", "1Y"]
@@ -23327,6 +23392,7 @@
             "company": "JPMorgan",
             "ipoDate": "2022-08-09",
             "frequency": "매주",
+            "group": "화",
             "logo": "logos/jpmorgan.png",
             "periods": ["6M", "1Y"]
         },
@@ -24185,6 +24251,7 @@
             "frequency": "매주",
             "ipoDate": "2025-04-23",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": []
@@ -24397,6 +24464,7 @@
             "underlying": "META",
             "ipoDate": "2025-06-18",
             "market": "NASDAQ",
+            "group": "월",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": []
@@ -24686,6 +24754,7 @@
             "symbol": "MSFW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "MSFT",
             "ipoDate": "2025-07-24",
             "market": "NASDAQ",
@@ -24710,6 +24779,7 @@
             "underlying": "MSTR",
             "ipoDate": "2025-06-04",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
@@ -24739,6 +24809,7 @@
             "underlying": "MSTR",
             "ipoDate": "2025-05-02",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -24764,6 +24835,7 @@
             "symbol": "MSTW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "MSTR",
             "ipoDate": "2025-07-24",
             "market": "NASDAQ",
@@ -24839,6 +24911,7 @@
             "underlying": "MSTR",
             "ipoDate": "2025-09-22",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -24935,6 +25008,7 @@
             "symbol": "NFLW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "NFLX",
             "ipoDate": "2025-06-18",
             "market": "NASDAQ",
@@ -25185,6 +25259,7 @@
             "symbol": "NVDW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "NVDA",
             "ipoDate": "2025-02-19",
             "market": "NASDAQ",
@@ -25211,6 +25286,7 @@
             "underlying": "NVDA",
             "ipoDate": "2025-05-28",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
@@ -25232,6 +25308,7 @@
             "underlying": "NVDA",
             "ipoDate": "2025-05-13",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -25903,6 +25980,7 @@
             "underlying": "PLTR",
             "ipoDate": "2025-08-19",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -25919,6 +25997,7 @@
             "symbol": "PLTW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "PLTR",
             "ipoDate": "2025-02-19",
             "market": "NASDAQ",
@@ -25945,6 +26024,7 @@
             "underlying": "PLTR",
             "ipoDate": "2025-09-22",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -26407,6 +26487,7 @@
             "frequency": "매주",
             "ipoDate": "2024-03-07",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M", "1Y"]
@@ -26479,6 +26560,7 @@
             "frequency": "매주",
             "ipoDate": "2025-09-18",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -26587,6 +26669,7 @@
             "underlying": "QQQ",
             "ipoDate": "2023-09-14",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": ["6M", "1Y"]
@@ -26753,6 +26836,7 @@
             "frequency": "매주",
             "ipoDate": "2024-09-10",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M", "1Y"]
@@ -27783,6 +27867,7 @@
             "underlying": "SMCI",
             "ipoDate": "2025-08-20",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": []
@@ -27904,6 +27989,7 @@
             "frequency": "매주",
             "ipoDate": "2025-09-30",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -29154,6 +29240,7 @@
             "underlying": "QQQ",
             "ipoDate": "2025-02-26",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": ["6M"]
@@ -29223,6 +29310,7 @@
             "underlying": "TSLA",
             "ipoDate": "2025-06-04",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/rex.webp",
             "periods": []
@@ -29250,6 +29338,7 @@
             "symbol": "TSLW",
             "company": "Roundhill Investments",
             "frequency": "매주",
+            "group": "월",
             "underlying": "TSLA",
             "ipoDate": "2025-02-19",
             "market": "NASDAQ",
@@ -29330,6 +29419,7 @@
             "underlying": "TSLA",
             "ipoDate": "2024-12-18",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": ["6M"]
@@ -29696,6 +29786,7 @@
             "frequency": "매주",
             "ipoDate": "2024-05-10",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": ["6M", "1Y"]
@@ -30752,6 +30843,7 @@
             "frequency": "매주",
             "ipoDate": "2023-09-19",
             "market": "NYSE",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/defiance.png",
             "periods": ["6M", "1Y"]
@@ -30772,6 +30864,7 @@
             "frequency": "매주",
             "ipoDate": "2025-03-06",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M"]
@@ -30853,6 +30946,7 @@
             "frequency": "매주",
             "ipoDate": "2025-09-04",
             "market": "NASDAQ",
+            "group": "화",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": []
@@ -30966,6 +31060,7 @@
             "frequency": "매주",
             "ipoDate": "2025-05-13",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": []
@@ -30986,6 +31081,7 @@
             "frequency": "매주",
             "ipoDate": "2024-03-07",
             "market": "NASDAQ",
+            "group": "목",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M", "1Y"]
@@ -31383,6 +31479,7 @@
             "frequency": "매주",
             "ipoDate": "2024-01-18",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M", "1Y"]
@@ -31403,6 +31500,7 @@
             "frequency": "매주",
             "ipoDate": "2024-09-04",
             "market": "NASDAQ",
+            "group": "수",
             "currency": "USD",
             "logo": "logos/roundhill-investments.svg",
             "periods": ["6M", "1Y"]
@@ -31458,6 +31556,7 @@
             "underlying": "SPY",
             "ipoDate": "2025-04-03",
             "market": "NASDAQ",
+            "group": "금",
             "currency": "USD",
             "logo": "logos/graniteshares.png",
             "periods": ["6M"]

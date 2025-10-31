@@ -1,0 +1,85 @@
+# .github/workflows/backfill_market_cap.yml
+
+name: Backfill Historical Market Cap (Daily 250 tickers)
+
+on:
+    # 매일 UTC 09:00 (KST 18:00) 실행 - 하루 250개씩 과거 데이터 채우기
+    schedule:
+        - cron: '0 9 * * *'
+    workflow_dispatch:
+        inputs:
+            start_index:
+                description: 'Start index (default: auto-calculated based on date)'
+                required: false
+                default: ''
+            batch_size:
+                description: 'Batch size (default: 200)'
+                required: false
+                default: '200'
+
+permissions:
+    contents: write
+
+jobs:
+    backfill:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout main branch
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Node.js dependencies
+              run: npm install
+
+            - name: Calculate batch parameters
+              id: calc_batch
+              run: |
+                  # 수동 실행 시 입력값 사용, 아니면 날짜 기반으로 계산
+                  if [ -n "${{ github.event.inputs.start_index }}" ]; then
+                    START_IDX=${{ github.event.inputs.start_index }}
+                    BATCH_SIZE=${{ github.event.inputs.batch_size }}
+                  else
+                    # 날짜 기반 자동 계산 (미국 시장만 200개씩 순환)
+                    # FMP API는 NASDAQ/NYSE만 지원
+                    DAY_OF_YEAR=$(date -u +%j)
+                    BATCH_SIZE=200
+                    # 배치 인덱스만 계산 (실제 티커 수는 스크립트에서 필터링)
+                    BATCH_INDEX=$(( DAY_OF_YEAR % 10 ))  # 대략 10 배치 순환
+                    START_IDX=$(( BATCH_INDEX * BATCH_SIZE ))
+                  fi
+                  
+                  echo "start_index=$START_IDX" >> $GITHUB_OUTPUT
+                  echo "batch_size=$BATCH_SIZE" >> $GITHUB_OUTPUT
+                  echo "📊 Batch start index: $START_IDX"
+                  echo "📊 Batch size: $BATCH_SIZE"
+
+            - name: Backfill historical market cap data
+              env:
+                  FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+              run: |
+                  node tasks/backfillMarketCap.js ${{ steps.calc_batch.outputs.start_index }} ${{ steps.calc_batch.outputs.batch_size }}
+
+            - name: Check for file changes
+              id: git_status
+              run: |
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    echo "changes=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changes=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit and push changes
+              if: steps.git_status.outputs.changes == 'true'
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  COMMIT_MSG="📈 Auto: Backfill market cap data (batch ${{ steps.calc_batch.outputs.start_index }})"
+                  git commit -m "$COMMIT_MSG"
+                  git push
+
