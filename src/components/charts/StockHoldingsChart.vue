@@ -40,7 +40,115 @@ const selectedHoldings = computed(() => {
     return props.holdingsData[selectedDateIndex.value]?.data || [];
 });
 
-// 차트 옵션
+// 선택된 날짜의 레버리지 익스포저 데이터
+const selectedLeverageExposure = computed(() => {
+    if (!props.holdingsData || selectedDateIndex.value === null) return [];
+    return props.holdingsData[selectedDateIndex.value]?.leverage_exposure || [];
+});
+
+// 총 익스포저 계산
+const totalExposure = computed(() => {
+    const holdingsTotal = selectedHoldings.value.reduce((sum, h) => sum + h.weight, 0);
+    const leverageTotal = selectedLeverageExposure.value.reduce((sum, h) => sum + h.weight, 0);
+    return holdingsTotal + leverageTotal;
+});
+
+// 레버리지 익스포저 차트 옵션
+const leverageChartOptions = computed(() => {
+    if (!selectedLeverageExposure.value || selectedLeverageExposure.value.length === 0) {
+        return null;
+    }
+
+    const leverage = selectedLeverageExposure.value;
+    const sortedLeverage = [...leverage].sort((a, b) => b.weight - a.weight);
+
+    return {
+        title: {
+            text: `레버리지 익스포저 (총 ${leverageTotal.value.toFixed(2)}%)`,
+            left: 'center',
+            textStyle: {
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#ee6666'
+            },
+            subtext: '파생상품을 통한 간접 노출',
+            subtextStyle: {
+                fontSize: 12,
+                color: '#999'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            formatter: (params) => {
+                const item = params[0];
+                const holding = sortedLeverage[item.dataIndex];
+                return `
+                    <strong>${holding.symbol}</strong><br/>
+                    ${holding.name}<br/>
+                    익스포저: <strong>${holding.weight}%</strong><br/>
+                    ${holding.underlying ? `기초자산: ${holding.underlying}` : ''}
+                `;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: '20%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            name: '익스포저 (%)',
+            nameLocation: 'middle',
+            nameGap: 30,
+            axisLabel: {
+                formatter: '{value}%'
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: sortedLeverage.map(h => h.type === 'swap' ? 'SWAP' : h.symbol),
+            inverse: true,
+            axisLabel: {
+                fontSize: 12
+            }
+        },
+        series: [
+            {
+                name: '익스포저',
+                type: 'bar',
+                data: sortedLeverage.map(h => h.weight),
+                itemStyle: {
+                    color: '#ee6666',
+                    borderRadius: [0, 5, 5, 0]
+                },
+                label: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{c}%',
+                    fontSize: 11
+                },
+                barMaxWidth: 30
+            }
+        ]
+    };
+});
+
+// 레버리지 총합
+const leverageTotal = computed(() => {
+    return selectedLeverageExposure.value.reduce((sum, h) => sum + h.weight, 0);
+});
+
+// 실제 자산 총합
+const holdingsTotal = computed(() => {
+    return selectedHoldings.value.reduce((sum, h) => sum + h.weight, 0);
+});
+
+// 차트 옵션 (실제 보유 자산)
 const chartOptions = computed(() => {
     if (!selectedHoldings.value || selectedHoldings.value.length === 0) {
         return null;
@@ -53,11 +161,16 @@ const chartOptions = computed(() => {
 
     return {
         title: {
-            text: `Top Holdings (${dateOptions.value.find(d => d.value === selectedDateIndex.value)?.label || ''})`,
+            text: `실제 보유 자산 (총 ${holdingsTotal.value.toFixed(2)}%)`,
             left: 'center',
             textStyle: {
                 fontSize: 16,
                 fontWeight: 'bold'
+            },
+            subtext: '펀드가 직접 보유한 주식 및 현금',
+            subtextStyle: {
+                fontSize: 12,
+                color: '#999'
             }
         },
         tooltip: {
@@ -247,20 +360,77 @@ const timeSeriesChartOptions = computed(() => {
             </div>
         </div>
 
+        <!-- 총 익스포저 요약 (레버리지가 있을 때만 표시) -->
+        <div v-if="selectedLeverageExposure.length > 0" class="exposure-summary">
+            <div class="summary-card">
+                <div class="summary-label">실제 보유 자산</div>
+                <div class="summary-value">{{ holdingsTotal.toFixed(2) }}%</div>
+            </div>
+            <div class="summary-divider">+</div>
+            <div class="summary-card leverage">
+                <div class="summary-label">레버리지 익스포저</div>
+                <div class="summary-value">{{ leverageTotal.toFixed(2) }}%</div>
+            </div>
+            <div class="summary-divider">=</div>
+            <div class="summary-card total">
+                <div class="summary-label">총 익스포저</div>
+                <div class="summary-value">{{ totalExposure.toFixed(2) }}%</div>
+            </div>
+        </div>
+
+        <!-- 레버리지 익스포저 차트 (있을 때만 표시) -->
+        <div v-if="leverageChartOptions" class="chart-wrapper leverage-chart">
+            <VChart :option="leverageChartOptions" autoresize style="height: 400px;" />
+            <div class="chart-note">
+                <i class="pi pi-info-circle"></i>
+                <span>레버리지 익스포저는 파생상품(스왑 등)을 통한 간접 노출로, 실제 보유 자산은 아닙니다.</span>
+            </div>
+        </div>
+
         <!-- 현재 선택된 날짜의 Holdings 차트 -->
         <div v-if="chartOptions" class="chart-wrapper">
             <VChart :option="chartOptions" autoresize style="height: 500px;" />
         </div>
         
+        <!-- 레버리지 익스포저 테이블 (있을 때만 표시) -->
+        <div v-if="selectedLeverageExposure.length > 0" class="holdings-table-wrapper">
+            <h3>🔴 레버리지 익스포저 상세 정보</h3>
+            <table class="holdings-table leverage-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>식별자</th>
+                        <th>종목명</th>
+                        <th>타입</th>
+                        <th>기초자산</th>
+                        <th>익스포저 (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr 
+                        v-for="(holding, index) in selectedLeverageExposure.slice().sort((a, b) => b.weight - a.weight)" 
+                        :key="holding.symbol">
+                        <td>{{ index + 1 }}</td>
+                        <td><strong>{{ holding.symbol }}</strong></td>
+                        <td>{{ holding.name }}</td>
+                        <td><span class="type-badge">{{ holding.type?.toUpperCase() || 'N/A' }}</span></td>
+                        <td>{{ holding.underlying || '-' }}</td>
+                        <td>{{ holding.weight }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <!-- Holdings 데이터 테이블 -->
         <div v-if="selectedHoldings.length > 0" class="holdings-table-wrapper">
-            <h3>Holdings 상세 정보</h3>
+            <h3>📊 실제 보유 자산 상세 정보</h3>
             <table class="holdings-table">
                 <thead>
                     <tr>
                         <th>순위</th>
                         <th>티커</th>
                         <th>종목명</th>
+                        <th>타입</th>
                         <th>비중 (%)</th>
                     </tr>
                 </thead>
@@ -271,6 +441,7 @@ const timeSeriesChartOptions = computed(() => {
                         <td>{{ index + 1 }}</td>
                         <td><strong>{{ holding.symbol }}</strong></td>
                         <td>{{ holding.name }}</td>
+                        <td><span class="type-badge" :class="holding.type">{{ holding.type?.toUpperCase() || 'N/A' }}</span></td>
                         <td>{{ holding.weight }}%</td>
                     </tr>
                 </tbody>
@@ -313,6 +484,74 @@ const timeSeriesChartOptions = computed(() => {
     }
 }
 
+.exposure-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .summary-card {
+        flex: 1;
+        padding: 1rem 1.5rem;
+        background: white;
+        border-radius: 0.5rem;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &.leverage {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+
+            .summary-label {
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        &.total {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+
+            .summary-label {
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: var(--text-color-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+    }
+
+    .summary-divider {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        opacity: 0.8;
+
+        @media (max-width: 768px) {
+            transform: rotate(90deg);
+            font-size: 1.2rem;
+        }
+    }
+}
+
 .date-selector {
     display: flex;
     align-items: center;
@@ -342,6 +581,29 @@ const timeSeriesChartOptions = computed(() => {
     &.timeseries-chart {
         margin-top: 1rem;
     }
+
+    &.leverage-chart {
+        border: 2px solid #ee6666;
+        background: linear-gradient(to bottom, #fff5f5 0%, white 100%);
+    }
+
+    .chart-note {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        margin-top: 1rem;
+        background: #fff3cd;
+        border-left: 4px solid #ff6b6b;
+        border-radius: 0.25rem;
+        font-size: 0.85rem;
+        color: #856404;
+
+        i {
+            color: #ff6b6b;
+            font-size: 1rem;
+        }
+    }
 }
 
 .holdings-table-wrapper {
@@ -359,6 +621,23 @@ const timeSeriesChartOptions = computed(() => {
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    &.leverage-table {
+        border: 2px solid #ee6666;
+        
+        thead {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            
+            th {
+                color: white;
+                border-bottom: 2px solid #ff5252;
+            }
+        }
+
+        tbody tr:hover {
+            background: #fff5f5;
+        }
+    }
 
     thead {
         background: var(--surface-100);
@@ -405,6 +684,54 @@ const timeSeriesChartOptions = computed(() => {
                 font-weight: 600;
                 color: var(--primary-color);
             }
+        }
+    }
+
+    .type-badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        background: var(--surface-200);
+        color: var(--text-color-secondary);
+
+        &.equity {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        &.cash {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        &.swap {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        &.option {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        &.treasury,
+        &.treasury_note,
+        &.treasury_bill {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        &.money_market {
+            background: #e1f5fe;
+            color: #0277bd;
+        }
+
+        &.other {
+            background: #f5f5f5;
+            color: #616161;
         }
     }
 }
