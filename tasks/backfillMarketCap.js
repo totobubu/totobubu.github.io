@@ -181,8 +181,10 @@ async function main() {
         process.exit(1);
     }
 
+    // 🔥 FMP API는 미국 시장(NASDAQ, NYSE)만 지원
     const activeTickers = navData.nav
         .filter((t) => t.symbol && !t.upcoming)
+        .filter((t) => t.market === 'NASDAQ' || t.market === 'NYSE')
         .map((t) => t.symbol);
 
     if (activeTickers.length === 0) {
@@ -190,15 +192,26 @@ async function main() {
         return;
     }
 
-    console.log(`📊 Total active tickers: ${activeTickers.length}`);
+    const totalTickers = navData.nav.filter((t) => !t.upcoming).length;
+    console.log(`📊 Total active tickers: ${totalTickers}`);
+    console.log(`🇺🇸 US market tickers (NASDAQ/NYSE): ${activeTickers.length}`);
+    console.log(`⚠️  Korean market tickers will use Yahoo Finance only\n`);
 
     // 배치 범위 계산
     const startIdx = batchStart;
     const endIdx = Math.min(startIdx + batchSize, activeTickers.length);
     const tickersBatch = activeTickers.slice(startIdx, endIdx);
 
+    if (tickersBatch.length === 0) {
+        console.log(`⚠️  No tickers to process in this batch range`);
+        console.log(`💡 This might be because:`);
+        console.log(`   - All tickers in this range are Korean market (not supported by FMP)`);
+        console.log(`   - Start index is beyond available US tickers`);
+        return;
+    }
+
     console.log(`\n🔄 Batch range: ${startIdx} to ${endIdx - 1}`);
-    console.log(`📊 Processing ${tickersBatch.length} tickers`);
+    console.log(`📊 Processing ${tickersBatch.length} US market tickers`);
     console.log(`⏱️  Estimated time: ~${Math.ceil((tickersBatch.length * API_DELAY) / 1000 / 60)} minutes`);
     console.log(
         `\n💡 Tip: Run in batches to stay within API limits (250/day)`

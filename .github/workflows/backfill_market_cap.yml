@@ -44,12 +44,12 @@ jobs:
                     START_IDX=${{ github.event.inputs.start_index }}
                     BATCH_SIZE=${{ github.event.inputs.batch_size }}
                   else
-                    # 날짜 기반 자동 계산 (250개씩 순환)
+                    # 날짜 기반 자동 계산 (미국 시장만 200개씩 순환)
+                    # FMP API는 NASDAQ/NYSE만 지원
                     DAY_OF_YEAR=$(date -u +%j)
-                    TOTAL_TICKERS=3041
                     BATCH_SIZE=200
-                    TOTAL_BATCHES=$(( (TOTAL_TICKERS + BATCH_SIZE - 1) / BATCH_SIZE ))
-                    BATCH_INDEX=$(( DAY_OF_YEAR % TOTAL_BATCHES ))
+                    # 배치 인덱스만 계산 (실제 티커 수는 스크립트에서 필터링)
+                    BATCH_INDEX=$(( DAY_OF_YEAR % 10 ))  # 대략 10 배치 순환
                     START_IDX=$(( BATCH_INDEX * BATCH_SIZE ))
                   fi
                   
