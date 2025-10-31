@@ -12,7 +12,6 @@
         "build": "vite build",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "update-data": "node tasks/updateHistoricalData.js",
-        "backfill-market-cap": "node tasks/backfillMarketCap.js",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
