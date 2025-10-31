@@ -121,6 +121,10 @@ jobs:
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
 
+            - name: 7.5. Update daily market capitalization (Yahoo Finance)
+              if: steps.check_time.outputs.should_run == 'true'
+              run: python scripts/update_market_cap.py
+
             - name: 8. Update historical dividend data
               if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/update_dividends.py
