@@ -124,6 +124,13 @@ jobs:
                   python scripts/auto_detect_holdings.py --api --exclude-kr --yes
                   echo "✅ Holdings 자동 감지 완료"
 
+            - name: 6.6. Fetch ETF holdings data
+              if: steps.check_time.outputs.should_run == 'true'
+              run: |
+                  echo "📊 ETF Holdings 데이터 수집 시작..."
+                  echo "y" | python scripts/fetch_holdings.py
+                  echo "✅ ETF Holdings 데이터 수집 완료"
+
             - name: 7. Update historical price data
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
