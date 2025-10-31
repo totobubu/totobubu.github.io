@@ -1,0 +1,586 @@
+// 블로그 생성기 페이지 스타일
+// 라이트 모드 강제 적용
+.blog-generator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    min-height: 100vh;
+    color: #333333;
+
+    * {
+        color: #333333;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666666;
+        }
+    }
+
+    .input-card {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+
+            .ticker-input {
+                flex: 1;
+                min-width: 250px;
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    color: #333333;
+                }
+
+                .ticker-field {
+                    width: 100%;
+                    font-size: 1.1rem;
+                    padding: 0.75rem;
+                    border: 1px solid #d0d0d0;
+                    border-radius: 4px;
+                    background: #ffffff;
+                    color: #333333;
+
+                    &:focus {
+                        outline: none;
+                        border-color: #667eea;
+                        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                    }
+
+                    &:disabled {
+                        background: #f0f0f0;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+
+            .generate-button {
+                padding: 0.75rem 2rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+                background: #667eea;
+                color: #ffffff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover:not(:disabled) {
+                    background: #5568d3;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                }
+
+                &:disabled {
+                    background: #cccccc;
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .error-message {
+            padding: 1rem;
+            background: #fee;
+            border: 1px solid #fcc;
+            border-radius: 4px;
+            color: #c33;
+            font-weight: 500;
+        }
+    }
+
+    .loading-container {
+        text-align: center;
+        padding: 3rem;
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        p {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #666666;
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .blog-result {
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-bottom: 1.5rem;
+
+            .action-btn {
+                padding: 0.75rem 1.5rem;
+                background: #ffffff;
+                border: 1px solid #667eea;
+                color: #667eea;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: #667eea;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .blog-preview {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+            .blog-header-banner {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                text-align: center;
+
+                h1 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin: 0;
+                }
+            }
+
+            .blog-section {
+                margin-bottom: 3rem;
+
+                .section-title {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    color: #d32f2f;
+                    margin-bottom: 0.5rem;
+                }
+
+                .section-subtitle {
+                    font-size: 1.3rem;
+                    color: #666666;
+                    margin-bottom: 1.5rem;
+                }
+
+                .info-card {
+                    margin-bottom: 1.5rem;
+                    background: #f8f9fa;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #e0e0e0;
+
+                    .info-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        background: #ffffff;
+
+                        tbody {
+                            tr {
+                                border-bottom: 1px solid #e0e0e0;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                th {
+                                    text-align: left;
+                                    padding: 0.75rem;
+                                    font-weight: 600;
+                                    color: #666666;
+                                    width: 150px;
+                                    background: #f8f9fa;
+                                }
+
+                                td {
+                                    padding: 0.75rem;
+                                    color: #333333;
+
+                                    &.highlight {
+                                        font-weight: 700;
+                                        font-size: 1.1rem;
+                                    }
+
+                                    .positive {
+                                        color: #4caf50;
+                                    }
+
+                                    .negative {
+                                        color: #f44336;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .dividend-info {
+                    .dividend-main {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 2rem;
+                        margin-bottom: 2rem;
+                        padding: 1.5rem;
+                        background: linear-gradient(
+                            135deg,
+                            #667eea15 0%,
+                            #764ba215 100%
+                        );
+                        border-radius: 8px;
+
+                        .dividend-amount,
+                        .dividend-yield {
+                            text-align: center;
+
+                            .label {
+                                display: block;
+                                font-size: 0.9rem;
+                                color: #666666;
+                                margin-bottom: 0.5rem;
+                            }
+
+                            .amount,
+                            .yield {
+                                display: block;
+                                font-size: 2rem;
+                                font-weight: 700;
+                                color: #667eea;
+                            }
+                        }
+                    }
+
+                    .dividend-dates {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 1rem;
+
+                        .date-item {
+                            padding: 1rem;
+                            background: #ffffff;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 8px;
+
+                            .label {
+                                display: block;
+                                font-size: 0.9rem;
+                                color: #666666;
+                                margin-bottom: 0.3rem;
+                            }
+
+                            .value {
+                                display: block;
+                                font-size: 1.1rem;
+                                font-weight: 600;
+                                color: #333333;
+                            }
+                        }
+                    }
+                }
+
+                .chart-card,
+                .table-card {
+                    margin-top: 1.5rem;
+                    background: #f8f9fa;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #e0e0e0;
+
+                    h3 {
+                        margin-top: 0;
+                        margin-bottom: 1rem;
+                        color: #333333;
+                    }
+
+                    .chart-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                        flex-wrap: wrap;
+                        gap: 0.5rem;
+
+                        h3 {
+                            margin: 0;
+                        }
+
+                        .holdings-info {
+                            display: flex;
+                            gap: 0.5rem;
+                            align-items: center;
+                            font-size: 0.9rem;
+
+                            .info-badge {
+                                background: #667eea;
+                                color: white;
+                                padding: 0.3rem 0.8rem;
+                                border-radius: 12px;
+                                font-weight: 500;
+                            }
+
+                            .info-date {
+                                color: #666666;
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+
+                .data-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    background: #ffffff;
+                    border-radius: 4px;
+                    overflow: hidden;
+
+                    thead {
+                        background: #f0f0f0;
+
+                        th {
+                            padding: 0.75rem;
+                            text-align: left;
+                            font-weight: 600;
+                            color: #333333;
+                            border-bottom: 2px solid #d0d0d0;
+                        }
+                    }
+
+                    tbody {
+                        tr {
+                            &:nth-child(even) {
+                                background: #f9f9f9;
+                            }
+
+                            &.new-holding {
+                                background: #e3f2fd !important;
+                            }
+
+                            td {
+                                padding: 0.75rem;
+                                color: #333333;
+                                border-bottom: 1px solid #e0e0e0;
+                            }
+                        }
+                    }
+
+                    &.holdings-comparison {
+                        .weight-cell {
+                            font-weight: 600;
+                            text-align: right;
+                        }
+
+                        .change-cell {
+                            text-align: right;
+                            font-weight: 600;
+
+                            .change-positive {
+                                color: #d32f2f;
+
+                                .change-arrow {
+                                    font-size: 0.9em;
+                                }
+                            }
+
+                            .change-negative {
+                                color: #1976d2;
+
+                                .change-arrow {
+                                    font-size: 0.9em;
+                                }
+                            }
+
+                            .change-neutral {
+                                color: #666666;
+                            }
+
+                            .change-percent {
+                                font-size: 0.85em;
+                                color: #666666;
+                                margin-left: 0.25rem;
+                            }
+
+                            .new-badge {
+                                display: inline-block;
+                                background: #4caf50;
+                                color: white;
+                                padding: 0.2rem 0.5rem;
+                                border-radius: 3px;
+                                font-size: 0.75rem;
+                                font-weight: bold;
+                            }
+
+                            .no-data {
+                                color: #999999;
+                            }
+                        }
+                    }
+                }
+
+                .comparison-info {
+                    margin-bottom: 1rem;
+                    padding: 0.75rem;
+                    background: #f0f7ff;
+                    border-left: 3px solid #667eea;
+                    border-radius: 4px;
+
+                    .comparison-label {
+                        font-size: 0.95rem;
+                        color: #333333;
+                        font-weight: 500;
+                    }
+                }
+
+                .conclusion-card {
+                    background: #f8f9fa;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #e0e0e0;
+
+                    p {
+                        font-size: 1.1rem;
+                        line-height: 1.8;
+                        margin-bottom: 1rem;
+                        color: #333333;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+
+            .disclaimer {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1.5rem;
+                background: #fff3cd;
+                border: 1px solid #ffc107;
+                border-radius: 8px;
+                margin-top: 2rem;
+
+                .icon {
+                    font-size: 1.5rem;
+                }
+
+                p {
+                    margin: 0;
+                    color: #856404;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+
+        .page-header .page-title {
+            font-size: 2rem;
+        }
+
+        .input-card .input-group {
+            flex-direction: column;
+            align-items: stretch;
+
+            .ticker-input {
+                min-width: 100%;
+            }
+
+            .generate-button {
+                width: 100%;
+            }
+        }
+
+        .blog-result {
+            .action-buttons {
+                flex-direction: column;
+
+                .action-btn {
+                    width: 100%;
+                }
+            }
+
+            .blog-preview {
+                padding: 1rem;
+
+                .blog-section {
+                    .info-card .info-table {
+                        tbody tr {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.3rem;
+
+                            th {
+                                width: 100%;
+                                background: #f0f0f0;
+                            }
+
+                            td {
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .dividend-info {
+                        .dividend-main {
+                            grid-template-columns: 1fr;
+                            gap: 1rem;
+                        }
+
+                        .dividend-dates {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+
+                    .data-table {
+                        font-size: 0.9rem;
+
+                        thead th,
+                        tbody td {
+                            padding: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

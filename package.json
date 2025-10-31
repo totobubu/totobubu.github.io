@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "add:etf": "python scripts/add_etfs_by_provider.py",
+        "backfill-market-cap": "python scripts/backfill_market_cap_approximate.py",
         "generate-nav": "node tasks/generateNav.js",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
         "watch-nav": "nodemon --watch public/nav --ext json --exec \"npm run generate-nav\"",
@@ -12,7 +13,6 @@
         "build": "vite build",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "update-data": "node tasks/updateHistoricalData.js",
-        "backfill-market-cap": "node tasks/backfillMarketCap.js",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",

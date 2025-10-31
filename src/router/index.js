@@ -14,6 +14,7 @@ import ProfileView from '../pages/ProfileView.vue';
 import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
 import ThumbnailGenerator from '../pages/ThumbnailGenerator.vue';
+import BlogGeneratorView from '../pages/BlogGeneratorView.vue';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -76,6 +77,11 @@ const router = createRouter({
             path: '/thumbnail-generator',
             name: 'thumbnail-generator',
             component: ThumbnailGenerator,
+        },
+        {
+            path: '/blog-generator',
+            name: 'blog-generator',
+            component: BlogGeneratorView,
         },
         {
             path: '/contact',
