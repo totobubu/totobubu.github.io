@@ -40,38 +40,6 @@
     "dividendTotal": 8.928,
     "backtestData": [
         {
-            "date": "2025-02-19",
-            "holdings": [
-                {
-                    "symbol": "AAPL",
-                    "name": "Apple Inc",
-                    "weight": 20.03,
-                    "type": "equity",
-                    "shares": 39184,
-                    "market_value": 10594178.0
-                },
-                {
-                    "symbol": "FGXXX",
-                    "name": "First American Government Obligations Fund 12/01/2031",
-                    "weight": 10.58,
-                    "type": "money_market",
-                    "shares": 5595434,
-                    "market_value": 5595434.0
-                }
-            ],
-            "leverage_exposure": [
-                {
-                    "symbol": "037833100 TRS 031926 NM",
-                    "name": "APPLE INC WEEKLYPAY SWAP NM",
-                    "weight": 100.17,
-                    "type": "swap",
-                    "shares": 195925,
-                    "market_value": 52972242.0,
-                    "underlying": "APPL"
-                }
-            ]
-        },
-        {
             "date": "2025-02-20",
             "open": 50.31999969482422,
             "high": 50.50400161743164,
@@ -1584,7 +1552,7 @@
             "volume": 27351
         },
         {
-            "date": "2025-11-01",
+            "date": "2025-10-31",
             "holdings": [
                 {
                     "symbol": "AAPL",
@@ -1596,7 +1564,12 @@
                     "name": "First American Government Obligs X",
                     "weight": 10.95
                 }
-            ]
+            ],
+            "open": 44.11000061035156,
+            "high": 43.13999938964844,
+            "low": 42.439998626708984,
+            "close": 42.720001220703125,
+            "volume": 17674
         },
         {
             "date": "2025-11-03",
