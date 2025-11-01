@@ -9,15 +9,12 @@
 
 .stats-icon-box {
     flex-shrink: 0;
-    background-color: color-mix(in srgb, var(--p-primary-400), transparent 80%);
-    color: var(--p-primary-200);
     border-radius: 0.5rem;
     width: 2rem;
     height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid color-mix(in srgb, var(--p-primary-400), transparent 70%);
 }
 
 .stats-header {
@@ -31,7 +28,6 @@
     font-size: 1.25rem;
     font-weight: 300;
     line-height: 1.25;
-    color: var(--p-surface-0);
 }
 
 .stats-content {
@@ -45,11 +41,9 @@
     font-size: 1.875rem;
     font-weight: 500;
     line-height: 1.25;
-    color: var(--p-surface-0);
 }
 
 .stats-subtitle {
-    color: var(--p-surface-400);
     font-size: 0.875rem;
     line-height: 1.25;
 }

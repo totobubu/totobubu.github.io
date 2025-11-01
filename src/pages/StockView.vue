@@ -15,7 +15,7 @@
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
-    import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
+    // import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
@@ -52,8 +52,8 @@
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
         // Holdings 데이터가 있을 때 자산 탭 추가
-        if (holdingsData.value && holdingsData.value.length > 0)
-            options.push('자산');
+        // if (holdingsData.value && holdingsData.value.length > 0)
+        //     options.push('자산');
         return options;
     });
 
@@ -62,6 +62,22 @@
     const timeRangeOptions = computed(() => {
         return generateTimeRangeOptions(tickerInfo.value?.periods);
     });
+
+    // tickerInfo가 로드되면 periods의 첫 번째 값을 기본값으로 설정
+    watch(
+        tickerInfo,
+        (info) => {
+            if (
+                info?.periods &&
+                info.periods.length > 0 &&
+                !selectedTimeRange.value
+            ) {
+                // nav.json의 periods 첫 번째 값을 기본값으로 설정
+                selectedTimeRange.value = info.periods[0];
+            }
+        },
+        { immediate: true }
+    );
 
     const displayData = computed(() => {
         if (!dividendHistory.value || dividendHistory.value.length === 0)
@@ -146,7 +162,7 @@
 
 <template>
     <!-- 템플릿 부분은 변경 없이 그대로 유지됩니다 -->
-    <div class="card">
+    <div>
         <!-- Skeleton UI -->
         <div v-if="isLoading" class="flex flex-column gap-5">
             <div id="t-stock-header">
@@ -161,7 +177,7 @@
         <!-- Error UI -->
         <div v-else-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
-            <p class="text-red-500 text-xl mt-4">{{ error }}</p>
+            <p class="text-xl mt-4 text-red-500">{{ error }}</p>
         </div>
         <!-- Upcoming UI -->
         <div
@@ -169,11 +185,9 @@
             class="flex flex-column gap-5">
             <StockHeader :info="tickerInfo" />
             <div class="text-center my-8">
-                <i class="pi pi-box text-5xl dark:text-surface-500" />
+                <i class="pi pi-box text-5xl" />
                 <p class="text-xl mt-4">출시 예정 종목입니다.</p>
-                <p class="dark:text-surface-500">
-                    데이터가 집계되면 차트와 상세 정보가 표시됩니다.
-                </p>
+                <p>데이터가 집계되면 차트와 상세 정보가 표시됩니다.</p>
             </div>
         </div>
         <div v-else-if="tickerInfo" class="flex flex-column gap-5">
@@ -188,8 +202,6 @@
                 v-model:currentView="currentView"
                 v-model:selectedTimeRange="selectedTimeRange"
                 :viewOptions="viewOptions">
-            
-
                 <!-- [핵심 수정] 이 부분에 v-if를 추가합니다. -->
                 <template #calculators>
                     <StockCalculators
@@ -230,23 +242,23 @@
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
 
-            <div v-if="currentView === '자산'">
+            <!-- <div v-if="currentView === '자산'">
                 <StockHoldingsChart
                     v-if="holdingsData && holdingsData.length > 0"
                     :holdings-data="holdingsData" />
                 <div v-else class="text-center p-4">
                     Holdings 데이터가 없습니다.
                 </div>
-            </div>
+            </div> -->
 
             <span
                 v-if="tickerInfo.Update"
-                class="dark:text-surface-500 dark:text-surface-400 text-center">
+                class="text-center">
                 업데이트: {{ tickerInfo.Update }}
             </span>
         </div>
         <div v-else class="text-center mt-8">
-            <i class="pi pi-inbox text-5xl dark:text-surface-500" />
+            <i class="pi pi-inbox text-5xl" />
             <p class="text-xl mt-4">표시할 데이터가 없습니다.</p>
         </div>
     </div>

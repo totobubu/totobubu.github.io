@@ -28,9 +28,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem;
-    border: 1px solid var(--p-surface-700);
     border-radius: 0.5rem;
-    background-color: var(--p-surface-800);
 }
 
 .activity-icon {
@@ -105,7 +103,7 @@
         overflow-x: hidden;
     }
 }
-.toto-chart-header {
+.t-chart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,8 +113,7 @@
     }
 }
 
-
-.toto-candlestick-chart {
+.t-candlestick-chart {
     .p-card-body {
         padding: 0;
     }

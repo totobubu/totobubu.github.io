@@ -86,7 +86,7 @@
     const targetAsset = ref(
         userBookmark.value?.targetAsset || (isUSD.value ? 100000 : 100000000)
     );
-    
+
     // [핵심 수정 1] X축으로 사용할 주가 성장률 옵션 정의
     const allAnnualGrowthRateOptions = ref([
         { label: '-5%', value: -5 },
@@ -98,7 +98,6 @@
     ]);
     // 기존 annualGrowthRate ref는 더 이상 UI와 연결되지 않으므로 제거하거나 유지해도 무방
     const annualGrowthRate = ref(0);
-
 
     const currentValue = computed(
         () => (quantity.value || 0) * currentPrice.value
@@ -600,10 +599,10 @@
                                         <div
                                             class="flex flex-column align-items-center">
                                             <span class="text-green-500">{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes?.hope_reinvest,
-                                                        true
-                                                    ).duration
+                                                formatMonthsToYears(
+                                                    recoveryTimes?.hope_reinvest,
+                                                    true
+                                                ).duration
                                             }}</span>
                                             <span
                                                 v-if="
@@ -654,10 +653,10 @@
                                         <div
                                             class="flex flex-column align-items-center">
                                             <span class="text-red-500">{{
-                                                    formatMonthsToYears(
-                                                        recoveryTimes?.despair_reinvest,
-                                                        true
-                                                    ).duration
+                                                formatMonthsToYears(
+                                                    recoveryTimes?.despair_reinvest,
+                                                    true
+                                                ).duration
                                             }}</span>
                                             <span
                                                 v-if="
@@ -1223,8 +1222,7 @@
                         <v-chart
                             :option="recoveryChartOptions"
                             autoresize
-                            style="height: 300px" 
-                        />
+                            style="height: 300px" />
                     </template>
                 </Card>
                 <Card v-if="activeCalculator === 'reinvestment'">
@@ -1233,8 +1231,7 @@
                         <v-chart
                             :option="reinvestmentChartOptions"
                             autoresize
-                            style="height: 450px"
-                        />
+                            style="height: 450px" />
                     </template>
                 </Card>
             </template>

@@ -4,6 +4,7 @@
 @forward 'abstracts/variables';
 @forward 'abstracts/mixins';
 @forward 'abstracts/functions';
+@forward 'abstracts/theme';
 
 @use 'base/reset';
 @use 'base/globals';
@@ -24,3 +25,5 @@
 @use 'pages/stock';
 @use 'pages/backtester';
 @use 'pages/thumbnail-generator';
+
+@use 'abstracts/theme';
