@@ -45,7 +45,36 @@
             "high": 52.02899932861328,
             "low": 50.79999923706055,
             "close": 51.816001892089844,
-            "volume": 12000
+            "volume": 12000,
+            "holdings": [
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 20.03,
+                    "type": "equity",
+                    "shares": 32591,
+                    "market_value": 12046611.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.48,
+                    "type": "money_market",
+                    "shares": 3900010,
+                    "market_value": 3900010.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "11135F101 TRS 082526 NM",
+                    "name": "BROADCOM INC SWAP NM",
+                    "weight": 100.13,
+                    "type": "swap",
+                    "shares": 162930,
+                    "market_value": 60223815.0,
+                    "underlying": "BROA"
+                }
+            ]
         },
         {
             "date": "2025-07-25",

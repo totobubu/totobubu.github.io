@@ -45,7 +45,35 @@
             "high": 55,
             "low": 43.099998474121094,
             "close": 44.2400016784668,
-            "volume": 48000
+            "volume": 48000,
+            "holdings": [
+                {
+                    "symbol": "PLTR",
+                    "name": "Palantir Technologies Inc",
+                    "weight": 19.9,
+                    "type": "equity",
+                    "shares": 297876,
+                    "market_value": 59715201.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.37,
+                    "type": "money_market",
+                    "shares": 7108203,
+                    "market_value": 7108203.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "69608A108 TRS 031926 NM",
+                    "name": "PALANTIR TECHNOLOGIES INC WEEKLYPAY SWAP NM",
+                    "weight": 100.2,
+                    "type": "swap",
+                    "shares": 1499680,
+                    "market_value": 300640849.0
+                }
+            ]
         },
         {
             "date": "2025-02-20",

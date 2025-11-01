@@ -45,7 +45,35 @@
             "high": 52,
             "low": 50.470001220703125,
             "close": 50.709999084472656,
-            "volume": 9000
+            "volume": 9000,
+            "holdings": [
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc",
+                    "weight": 20.0,
+                    "type": "equity",
+                    "shares": 42546,
+                    "market_value": 11963509.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 11.1,
+                    "type": "money_market",
+                    "shares": 6638779,
+                    "market_value": 6638779.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "02079K305 TRS 082526 NM",
+                    "name": "GOOGLE SWAP NM",
+                    "weight": 100.01,
+                    "type": "swap",
+                    "shares": 212722,
+                    "market_value": 59815299.0
+                }
+            ]
         },
         {
             "date": "2025-07-25",

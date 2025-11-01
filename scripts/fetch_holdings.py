@@ -168,6 +168,29 @@ def classify_yieldmax_asset(security_name, cusip):
     return 'other'
 
 
+def is_roundhill_etf(ticker_symbol):
+    """
+    Roundhill ETF인지 확인합니다.
+    
+    Args:
+        ticker_symbol: 티커 심볼
+        
+    Returns:
+        bool: Roundhill ETF이면 True
+    """
+    # Roundhill ETF 목록 (수동 입력으로 처리)
+    roundhill_tickers = [
+        'NFLW', 'AAPW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
+        'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
+        'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+        'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
+        'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
+        'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
+    ]
+    
+    return ticker_symbol.upper() in roundhill_tickers
+
+
 def is_yieldmax_etf(ticker_symbol):
     """
     YieldMax ETF인지 확인합니다.
@@ -196,7 +219,9 @@ def is_yieldmax_etf(ticker_symbol):
 def fetch_etf_holdings(ticker_symbol):
     """
     ETF Holdings 정보를 가져옵니다.
-    YieldMax ETF는 공식 웹사이트에서, 기타 ETF는 Yahoo Finance에서 가져옵니다.
+    - Roundhill ETF: 수동 입력으로 처리 (건너뜀)
+    - YieldMax ETF: 공식 웹사이트에서 스크래핑
+    - 기타 ETF: Yahoo Finance 사용
     
     Args:
         ticker_symbol: ETF 티커 심볼
@@ -204,6 +229,12 @@ def fetch_etf_holdings(ticker_symbol):
     Returns:
         holdings 리스트 또는 None
     """
+    # Roundhill ETF는 수동 입력으로 처리
+    if is_roundhill_etf(ticker_symbol):
+        print(f"[SKIP] {ticker_symbol}: Roundhill ETF - 수동 입력으로 처리하세요")
+        print(f"[INFO] 사용: python scripts/add_roundhill_holdings.py {ticker_symbol} \"날짜\"")
+        return None
+    
     # YieldMax ETF인 경우 공식 웹사이트에서 스크래핑
     if is_yieldmax_etf(ticker_symbol):
         print(f"[INFO] {ticker_symbol}: YieldMax ETF 감지 - 공식 웹사이트에서 데이터 수집")

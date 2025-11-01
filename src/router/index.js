@@ -9,7 +9,7 @@ import SignUpView from '../pages/SignupView.vue';
 import LoginView from '../pages/LoginView.vue';
 import PasswordResetView from '../pages/PasswordResetView.vue';
 import BookmarkView from '../pages/BookmarkView.vue';
-import AssetView from '../pages/AssetView.vue';
+// import AssetView from '../pages/AssetView.vue';
 import ProfileView from '../pages/ProfileView.vue';
 import ContactView from '../pages/ContactView.vue';
 import NotFound from '../pages/NotFound.vue';
@@ -61,12 +61,12 @@ const router = createRouter({
             component: BookmarkView,
             meta: { requiresAuth: true },
         },
-        {
-            path: '/assets',
-            name: 'assets',
-            component: AssetView,
-            meta: { requiresAuth: true },
-        },
+        // {
+        //     path: '/assets',
+        //     name: 'assets',
+        //     component: AssetView,
+        //     meta: { requiresAuth: true },
+        // },
         {
             path: '/profile',
             name: 'profile',

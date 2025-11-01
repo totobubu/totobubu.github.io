@@ -45,7 +45,36 @@
             "high": 51.904998779296875,
             "low": 50.93899917602539,
             "close": 51.349998474121094,
-            "volume": 6400
+            "volume": 6400,
+            "holdings": [
+                {
+                    "symbol": "TSLA",
+                    "name": "Tesla Inc",
+                    "weight": 25.24,
+                    "type": "equity",
+                    "shares": 90334,
+                    "market_value": 41242891.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.44,
+                    "type": "money_market",
+                    "shares": 3992148,
+                    "market_value": 3992148.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "88160R101 TRS 031926 NM",
+                    "name": "TESLA INC WEEKLYPAY SWAP NM",
+                    "weight": 94.61,
+                    "type": "swap",
+                    "shares": 338558,
+                    "market_value": 154572040.0,
+                    "underlying": "TESL"
+                }
+            ]
         },
         {
             "date": "2025-02-20",
