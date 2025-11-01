@@ -5,6 +5,7 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
     import { useStockData } from '@/composables/useStockData';
+    import { useLayout } from '@/composables/useLayout';
 
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
@@ -19,6 +20,7 @@
     const router = useRouter();
     const { isDesktop, isMobile } = useBreakpoint();
     const { tickerInfo } = useStockData();
+    const { isDarkMode, toggleDarkMode } = useLayout();
     const visible = ref(false);
 
     const isStandalonePage = computed(() => {
@@ -68,6 +70,11 @@
                       icon: 'pi pi-bookmark',
                       command: () => router.push('/bookmarks'),
                   },
+                  //   {
+                  //       label: '자산관리',
+                  //       icon: 'pi pi-wallet',
+                  //       command: () => router.push('/assets'),
+                  //   },
                   {
                       label: '회원정보 수정',
                       icon: 'pi pi-user-edit',
@@ -88,7 +95,10 @@
         if (route.name === 'calendar') items.push({ label: '배당달력' });
         else if (route.name === 'bookmarks')
             items.push({ label: '북마크 관리' }); // [수정]
-        else if (route.name === 'profile')
+        else if (route.name === 'assets') {
+            // items.push({ label: '자산관리' });
+            // query에 memberId가 있으면 사용자명 표시 (이후 구현)
+        } else if (route.name === 'profile')
             items.push({ label: '회원정보 수정' }); // [수정]
         else if (route.name === 'contact') items.push({ label: '문의하기' });
         else if (route.name === 'backtester') items.push({ label: '백테스터' });
@@ -146,11 +156,7 @@
                                     item.label
                                 }}</span>
                             </router-link>
-                            <span
-                                v-else
-                                class="text-surface-500 dark:text-surface-400"
-                                >{{ item.label }}</span
-                            >
+                            <span v-else>{{ item.label }}</span>
                         </template>
                     </Breadcrumb>
                 </div>
@@ -158,7 +164,14 @@
                 <div id="t-topbar" class="topbar-actions">
                     <Button
                         type="button"
+                        severity="secondary"
+                        :icon="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
+                        @click="toggleDarkMode"
+                        :style="{ marginRight: '0.5rem' }" />
+                    <Button
+                        type="button"
                         icon="pi pi-ellipsis-v"
+                        severity="secondary"
                         @click="toggleMenu"
                         aria-haspopup="true"
                         aria-controls="overlay_tmenu"
@@ -191,7 +204,7 @@
             v-model:visible="visible"
             :position="isMobile ? 'full' : 'right'"
             modal
-            id="toto-search">
+            id="t-search">
             <AppSidebar />
         </Drawer>
     </div>

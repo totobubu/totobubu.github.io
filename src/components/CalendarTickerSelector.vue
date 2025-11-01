@@ -2,7 +2,7 @@
 <template>
     <div class="p-calendar-search">
         <ScrollPanel style="height: 100%">
-            <Accordion :activeIndex="[0]" id="toto-calendar-toggle">
+            <Accordion :activeIndex="[0]" id="t-calendar-toggle">
                 <AccordionPanel
                     v-for="group in filteredGroupedTickers"
                     :key="group.company"

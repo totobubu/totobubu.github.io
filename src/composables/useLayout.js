@@ -423,6 +423,14 @@ export function useLayout() {
         appState.value.surface = value;
     }
 
+    function toggleDarkMode() {
+        appState.value.darkMode = !appState.value.darkMode;
+    }
+
+    function setDarkMode(value) {
+        appState.value.darkMode = value;
+    }
+
     function updateColors(type, colorName) {
         if (type === 'primary') {
             setPrimary(colorName);
@@ -449,6 +457,8 @@ export function useLayout() {
         surface,
         setPrimary,
         setSurface,
+        toggleDarkMode,
+        setDarkMode,
         updateColors,
     };
 }

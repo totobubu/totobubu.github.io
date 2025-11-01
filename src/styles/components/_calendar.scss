@@ -4,8 +4,6 @@
 @use '../functions/breakpoints' as bp;
 
 #t-calendar-list {
-    background: var(--p-zinc-800);
-    color: #fff;
     overflow: hidden;
     height: 100%;
 
@@ -95,8 +93,6 @@
             }
 
             &-cushion {
-                background-color: var(--p-zinc-950);
-                color: #fff;
                 border-radius: 8px;
             }
         }
@@ -104,8 +100,6 @@
 }
 
 #t-calendar-grid {
-    background: var(--p-zinc-800);
-    color: #fff;
     overflow: hidden;
     height: 100%;
 

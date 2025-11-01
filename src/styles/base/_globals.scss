@@ -1,8 +1,8 @@
 // src/styles/base/_globals.scss
-@use "../abstracts/variables" as vars;
-@use "../abstracts/mixins" as mx;
-@use "../functions/breakpoints" as bp;
-@import "primeicons/primeicons.css";
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mx;
+@use '../functions/breakpoints' as bp;
+@import 'primeicons/primeicons.css';
 
 html {
     box-sizing: border-box;
@@ -18,7 +18,5 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: var(--p-surface-950); // ground
     color: var(--p-text-color);
 }
-

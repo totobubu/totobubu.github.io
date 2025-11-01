@@ -12,6 +12,11 @@ import {
     collection,
     addDoc,
     serverTimestamp,
+    getDoc,
+    doc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
 } from 'firebase/firestore';
 import { getAnalytics } from 'firebase/analytics';
 
@@ -45,4 +50,9 @@ export {
     collection,
     addDoc,
     serverTimestamp,
+    getDoc,
+    doc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
 };

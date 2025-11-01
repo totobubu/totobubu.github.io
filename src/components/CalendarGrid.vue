@@ -200,7 +200,9 @@
 </script>
 
 <template>
-    <Card v-if="isMobile" id="t-calendar-list">
+    <Card
+        v-if="isMobile"
+        id="t-calendar-list">
         <template #header>{{ currentTitle }}</template>
         <template #title>
             <Button icon="pi pi-chevron-left" text @click="prevMonth" />

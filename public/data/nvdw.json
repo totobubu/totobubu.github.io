@@ -45,7 +45,35 @@
             "high": 50.630001068115234,
             "low": 49.2400016784668,
             "close": 49.891998291015625,
-            "volume": 10100
+            "volume": 10100,
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 20.03,
+                    "type": "equity",
+                    "shares": 132664,
+                    "market_value": 26863133.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 5.0,
+                    "type": "money_market",
+                    "shares": 6704479,
+                    "market_value": 6704479.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "67066G104 TRS 031926 NM",
+                    "name": "NVIDIA CORP WEEKLYPAY SWAP NM",
+                    "weight": 100.17,
+                    "type": "swap",
+                    "shares": 663375,
+                    "market_value": 134326803.0
+                }
+            ]
         },
         {
             "date": "2025-02-20",
