@@ -8,7 +8,7 @@
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button';
-    import AddAssetModal from '@/components/asset/AddAssetModal.vue';
+    // import AddAssetModal from '@/components/asset/AddAssetModal.vue';
     // import StockCalculators from '@/components/StockCalculators.vue';
 
     const props = defineProps({
@@ -29,12 +29,12 @@
     const buttonSize = computed(() => (isMobile.value ? 'small' : null));
 
     // Asset Modal
-    const showAddAssetModal = ref(false);
+    // const showAddAssetModal = ref(false);
 
-    const handleAssetSaved = async (data) => {
-        console.log('Asset saved:', data);
-        // 여기서 Firestore에 저장하는 로직 추가
-    };
+    // const handleAssetSaved = async (data) => {
+    //     console.log('Asset saved:', data);
+    //     // 여기서 Firestore에 저장하는 로직 추가
+    // };
 
     const currentPrice = computed(() => {
         return props.tickerInfo?.price || 0;
@@ -111,11 +111,11 @@
                     <!-- [핵심 수정] 기존 StockCalculators 컴포넌트를 slot으로 변경 -->
                     <slot name="calculators"></slot>
                     <!--자산관리에 저장-->
-                    <Button
+                    <!-- <Button
                         icon="pi pi-wallet"
                         text
                         @click="showAddAssetModal = true"
-                        v-tooltip="'자산관리에 저장'" />
+                        v-tooltip="'자산관리에 저장'" /> -->
                     <!--// 자산관리에 저장-->
                 </div>
             </div>
@@ -123,10 +123,10 @@
     </Card>
 
     <!-- Add Asset Modal -->
-    <AddAssetModal
+    <!-- <AddAssetModal
         :visible="showAddAssetModal"
         :ticker="tickerInfo?.symbol || ''"
         :price="currentPrice"
         @update:visible="showAddAssetModal = $event"
-        @saved="handleAssetSaved" />
+        @saved="handleAssetSaved" /> -->
 </template>

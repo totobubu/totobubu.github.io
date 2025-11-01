@@ -15,7 +15,7 @@
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
-    import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
+    // import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
@@ -52,8 +52,8 @@
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
         // Holdings 데이터가 있을 때 자산 탭 추가
-        if (holdingsData.value && holdingsData.value.length > 0)
-            options.push('자산');
+        // if (holdingsData.value && holdingsData.value.length > 0)
+        //     options.push('자산');
         return options;
     });
 
@@ -162,7 +162,7 @@
 
 <template>
     <!-- 템플릿 부분은 변경 없이 그대로 유지됩니다 -->
-    <div class="card">
+    <div>
         <!-- Skeleton UI -->
         <div v-if="isLoading" class="flex flex-column gap-5">
             <div id="t-stock-header">
@@ -242,14 +242,14 @@
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
 
-            <div v-if="currentView === '자산'">
+            <!-- <div v-if="currentView === '자산'">
                 <StockHoldingsChart
                     v-if="holdingsData && holdingsData.length > 0"
                     :holdings-data="holdingsData" />
                 <div v-else class="text-center p-4">
                     Holdings 데이터가 없습니다.
                 </div>
-            </div>
+            </div> -->
 
             <span
                 v-if="tickerInfo.Update"

@@ -8,11 +8,11 @@
 
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
-    import AssetManager from '@/components/mypage/AssetManager.vue';
+    // import AssetManager from '@/components/mypage/AssetManager.vue';
 
     const activeTabIndex = ref(0);
 
-    const tabTitles = ['북마크', '가족 자산 관리', '회원정보 수정'];
+    const tabTitles = ['북마크', '회원정보 수정'];
 
     const pageTitle = computed(() => {
         const currentTabName = tabTitles[activeTabIndex.value];
@@ -41,9 +41,9 @@
             <TabPanel header="북마크">
                 <BookmarkManager />
             </TabPanel>
-            <TabPanel header="가족 자산 관리">
+            <!-- <TabPanel header="가족 자산 관리">
                 <AssetManager />
-            </TabPanel>
+            </TabPanel> -->
             <TabPanel header="회원정보 수정">
                 <ProfileSettings />
             </TabPanel>
