@@ -242,7 +242,6 @@
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
 
-            <span v-if="tickerInfo.Update" class="text-center">
             <div v-if="currentView === '자산'">
                 <StockHoldingsChart
                     v-if="holdingsData && holdingsData.length > 0"

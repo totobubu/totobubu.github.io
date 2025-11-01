@@ -33,6 +33,8 @@
     import AssetViewModeToggle from '@/components/asset/AssetViewModeToggle.vue';
     import AssetListView from '@/components/asset/AssetListView.vue';
     import AddAssetModal from '@/components/asset/AddAssetModal.vue';
+    import BrokerageUploadDialog from '@/components/asset/BrokerageUploadDialog.vue';
+    import StockMappingDialog from '@/components/asset/StockMappingDialog.vue';
 
     useHead({ title: '자산관리' });
 
@@ -76,9 +78,15 @@
     const showAccountDialog = ref(false);
     const showAssetDialog = ref(false);
     const showUploadDialog = ref(false);
+    const showBrokerageUploadDialog = ref(false);
+    const showStockMappingDialog = ref(false);
 
     // 업로드 대상 자산
     const uploadTargetAsset = ref(null);
+    
+    // 거래내역서 업로드 데이터
+    const uploadedTransactionData = ref(null);
+    const uploadBrokerage = ref(null);
 
     // 폼 데이터
     const memberForm = ref({ name: '', relationship: '본인' });
@@ -764,6 +772,179 @@
             });
         }
     };
+
+    // 거래내역서 업로드 다이얼로그 열기
+    const openBrokerageUploadDialog = () => {
+        showBrokerageUploadDialog.value = true;
+    };
+
+    // 거래내역서 업로드 완료 처리
+    const handleTransactionUploadComplete = async (data) => {
+        uploadedTransactionData.value = data;
+        uploadBrokerage.value = data.brokerage;
+
+        // 증권사가 존재하는지 확인
+        const memberId = selectedMember.value.id;
+        const memberData = loadedMemberData.value[memberId];
+
+        let brokerageId = null;
+
+        // 증권사 찾기 또는 생성
+        if (memberData?.brokerages) {
+            const existingBrokerage = memberData.brokerages.find(
+                (b) => b.name === data.brokerageName
+            );
+            if (existingBrokerage) {
+                brokerageId = existingBrokerage.id;
+            }
+        }
+
+        // 증권사가 없으면 생성
+        if (!brokerageId) {
+            try {
+                brokerageId = await addBrokerage(user.value.uid, memberId, {
+                    name: data.brokerageName,
+                });
+                toast.add({
+                    severity: 'success',
+                    summary: '성공',
+                    detail: `${data.brokerageName}이(가) 추가되었습니다.`,
+                    life: 3000,
+                });
+            } catch (error) {
+                console.error('증권사 생성 실패:', error);
+                toast.add({
+                    severity: 'error',
+                    summary: '오류',
+                    detail: '증권사 생성에 실패했습니다.',
+                    life: 3000,
+                });
+                return;
+            }
+        }
+
+        // 계좌 생성
+        try {
+            const accountId = await addAccount(
+                user.value.uid,
+                memberId,
+                brokerageId,
+                {
+                    name: data.accountName,
+                    accountNumber: data.accountNumber,
+                }
+            );
+
+            uploadedTransactionData.value.accountId = accountId;
+            uploadedTransactionData.value.brokerageId = brokerageId;
+
+            toast.add({
+                severity: 'success',
+                summary: '성공',
+                detail: '계좌가 등록되었습니다.',
+                life: 3000,
+            });
+
+            // 종목명 매핑 다이얼로그 열기
+            showStockMappingDialog.value = true;
+        } catch (error) {
+            console.error('계좌 생성 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '계좌 생성에 실패했습니다.',
+                life: 3000,
+            });
+        }
+    };
+
+    // 종목명 매핑 완료 처리
+    const handleMappingComplete = async (mappingMap) => {
+        const memberId = selectedMember.value.id;
+        const brokerageId = uploadedTransactionData.value.brokerageId;
+        const accountId = uploadedTransactionData.value.accountId;
+        const transactions = uploadedTransactionData.value.extractedData.transactions;
+
+        toast.add({
+            severity: 'info',
+            summary: '처리 중',
+            detail: '거래내역을 등록하고 있습니다...',
+            life: 5000,
+        });
+
+        try {
+            // 거래내역을 종목별로 그룹화하여 자산으로 등록
+            const assetMap = new Map();
+
+            transactions.forEach((transaction) => {
+                const mapping = mappingMap.get(transaction.stock_name);
+                if (!mapping) return; // 매핑되지 않은 종목은 스킵
+
+                const ticker = mapping.systemTicker;
+
+                if (!assetMap.has(ticker)) {
+                    assetMap.set(ticker, {
+                        type: '주식',
+                        symbol: ticker,
+                        amount: 0,
+                        currency: 'USD',
+                        notes: `${transaction.stock_name}\n자동 등록됨`,
+                        transactions: [],
+                    });
+                }
+
+                const asset = assetMap.get(ticker);
+                asset.amount += transaction.quantity || 0;
+                asset.transactions.push(transaction);
+            });
+
+            // 각 종목을 자산으로 등록
+            let successCount = 0;
+            for (const [ticker, assetData] of assetMap.entries()) {
+                try {
+                    await addAsset(
+                        user.value.uid,
+                        memberId,
+                        brokerageId,
+                        accountId,
+                        {
+                            type: assetData.type,
+                            symbol: assetData.symbol,
+                            amount: assetData.amount,
+                            currency: assetData.currency,
+                            notes: assetData.notes,
+                        }
+                    );
+                    successCount++;
+                } catch (error) {
+                    console.error(`자산 등록 실패 (${ticker}):`, error);
+                }
+            }
+
+            // 데이터 새로고침
+            delete loadedMemberData.value[memberId];
+            await loadMemberData(memberId);
+
+            toast.add({
+                severity: 'success',
+                summary: '완료',
+                detail: `${successCount}개의 자산이 등록되었습니다.`,
+                life: 5000,
+            });
+
+            // 초기화
+            uploadedTransactionData.value = null;
+            uploadBrokerage.value = null;
+        } catch (error) {
+            console.error('거래내역 등록 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역 등록에 실패했습니다.',
+                life: 3000,
+            });
+        }
+    };
 </script>
 
 <template>
@@ -813,7 +994,12 @@
             <AssetViewModeToggle v-model:mode="viewMode" />
 
             <!-- 증권사 추가 버튼 -->
-            <div class="flex justify-content-end mb-3">
+            <div class="flex justify-content-end gap-2 mb-3">
+                <Button
+                    label="거래내역서 업로드"
+                    icon="pi pi-upload"
+                    severity="success"
+                    @click="openBrokerageUploadDialog" />
                 <Button
                     label="증권사 추가"
                     icon="pi pi-plus"
@@ -1174,5 +1360,20 @@
             v-model:visible="showAddAssetModal"
             :showAssetType="true"
             @saved="handleAssetSaved" />
+
+        <!-- 거래내역서 업로드 다이얼로그 -->
+        <BrokerageUploadDialog
+            v-if="selectedMember"
+            v-model:visible="showBrokerageUploadDialog"
+            :memberId="selectedMember.id"
+            @upload-complete="handleTransactionUploadComplete" />
+
+        <!-- 종목명 매핑 다이얼로그 -->
+        <StockMappingDialog
+            v-if="uploadedTransactionData"
+            v-model:visible="showStockMappingDialog"
+            :transactions="uploadedTransactionData.extractedData.transactions"
+            :brokerage="uploadBrokerage"
+            @mapping-complete="handleMappingComplete" />
     </div>
 </template>
