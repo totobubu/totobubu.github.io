@@ -18,7 +18,7 @@ holdings 추적 티커 추가:
 import yfinance as yf
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import time
 import requests
@@ -332,13 +332,24 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
         sanitized_ticker = sanitize_ticker_for_filename(ticker_symbol)
         json_path = Path(data_dir) / f"{sanitized_ticker}.json"
         
+        # 파일이 없으면 기본 구조로 생성
         if not json_path.exists():
-            print(f"[WARNING] {ticker_symbol}: JSON 파일이 존재하지 않습니다 - {json_path}")
-            return False
-        
-        # 기존 JSON 읽기
-        with open(json_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+            print(f"[INFO] {ticker_symbol}: 새 JSON 파일 생성 - {json_path}")
+            data = {
+                "tickerInfo": {},
+                "backtestData": []
+            }
+        else:
+            # 기존 JSON 읽기
+            with open(json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            # tickerInfo가 없으면 추가 (기존 파일 구조 보정)
+            if "tickerInfo" not in data:
+                data = {
+                    "tickerInfo": {},
+                    "backtestData": data.get("backtestData", [])
+                }
         
         # Holdings 데이터 가져오기
         holdings_data = fetch_etf_holdings(ticker_symbol)
@@ -346,8 +357,18 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
         if holdings_data is None:
             return False
         
-        # 현재 날짜
-        today = datetime.now().strftime('%Y-%m-%d')
+        # 현재 날짜 (주말이면 가장 가까운 이전 영업일로 조정)
+        now = datetime.now()
+        
+        # 토요일(5)이면 -1일, 일요일(6)이면 -2일
+        if now.weekday() == 5:  # 토요일
+            now = now - timedelta(days=1)
+            print(f"[INFO] {ticker_symbol}: 토요일 실행 감지, 금요일({now.strftime('%Y-%m-%d')})로 날짜 조정")
+        elif now.weekday() == 6:  # 일요일
+            now = now - timedelta(days=2)
+            print(f"[INFO] {ticker_symbol}: 일요일 실행 감지, 금요일({now.strftime('%Y-%m-%d')})로 날짜 조정")
+        
+        today = now.strftime('%Y-%m-%d')
         
         # backtestData가 없으면 생성
         if 'backtestData' not in data:
@@ -413,9 +434,18 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
             del data['holdings']
             print(f"[MIGRATE] {ticker_symbol}: 기존 holdings 대분류 제거")
         
-        # JSON 파일 저장
+        # JSON 저장 (순서 보장: tickerInfo → backtestData)
+        ordered_data = {
+            "tickerInfo": data.get("tickerInfo", {}),
+            "backtestData": data.get("backtestData", [])
+        }
+        # dividendTotal 등 다른 필드가 있으면 추가
+        for key in data:
+            if key not in ["tickerInfo", "backtestData"]:
+                ordered_data[key] = data[key]
+        
         with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
+            json.dump(ordered_data, f, indent=4, ensure_ascii=False)
         
         # holdings가 있는 backtestData 항목 수 계산
         holdings_count = sum(1 for entry in data['backtestData'] if 'holdings' in entry)

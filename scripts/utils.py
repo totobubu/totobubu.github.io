@@ -18,6 +18,24 @@ def load_json_file(file_path):
 
 def save_json_file(file_path, data, indent=2):
     try:
+        # JSON 순서 보장: tickerInfo → backtestData → 기타
+        if isinstance(data, dict):
+            ordered_data = {}
+            # 1순위: tickerInfo
+            if "tickerInfo" in data:
+                ordered_data["tickerInfo"] = data["tickerInfo"]
+            # 2순위: dividendTotal (있는 경우)
+            if "dividendTotal" in data:
+                ordered_data["dividendTotal"] = data["dividendTotal"]
+            # 3순위: backtestData
+            if "backtestData" in data:
+                ordered_data["backtestData"] = data["backtestData"]
+            # 나머지 필드들
+            for key in data:
+                if key not in ["tickerInfo", "dividendTotal", "backtestData"]:
+                    ordered_data[key] = data[key]
+            data = ordered_data
+        
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=indent, ensure_ascii=False)
         return True

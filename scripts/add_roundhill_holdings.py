@@ -46,34 +46,55 @@ import re
 def parse_date(date_str):
     """
     다양한 날짜 형식을 YYYY-MM-DD로 변환
+    주말인 경우 자동으로 가장 가까운 이전 영업일로 조정
     
     예시:
       2/19/25 -> 2025-02-19
       02/19/2025 -> 2025-02-19
       2025-02-19 -> 2025-02-19
     """
+    from datetime import datetime, timedelta
+    
     date_str = date_str.strip()
     
     # 이미 YYYY-MM-DD 형식
     if re.match(r'^\d{4}-\d{2}-\d{2}$', date_str):
-        return date_str
-    
+        parsed_date = date_str
     # M/D/YY 또는 MM/DD/YYYY 형식
-    parts = date_str.split('/')
-    if len(parts) == 3:
-        month, day, year = parts
-        
-        # 2자리 년도를 4자리로 변환
-        if len(year) == 2:
-            year = f"20{year}"
-        
-        # 월/일을 2자리로 패딩
-        month = month.zfill(2)
-        day = day.zfill(2)
-        
-        return f"{year}-{month}-{day}"
+    elif '/' in date_str:
+        parts = date_str.split('/')
+        if len(parts) == 3:
+            month, day, year = parts
+            
+            # 2자리 년도를 4자리로 변환
+            if len(year) == 2:
+                year = f"20{year}"
+            
+            # 월/일을 2자리로 패딩
+            month = month.zfill(2)
+            day = day.zfill(2)
+            
+            parsed_date = f"{year}-{month}-{day}"
+        else:
+            raise ValueError(f"날짜 형식을 인식할 수 없습니다: {date_str}")
+    else:
+        raise ValueError(f"날짜 형식을 인식할 수 없습니다: {date_str}")
     
-    raise ValueError(f"날짜 형식을 인식할 수 없습니다: {date_str}")
+    # 주말 체크 및 조정
+    date_obj = datetime.strptime(parsed_date, '%Y-%m-%d')
+    original_date = parsed_date
+    
+    # 토요일(5)이면 -1일, 일요일(6)이면 -2일
+    if date_obj.weekday() == 5:  # 토요일
+        date_obj = date_obj - timedelta(days=1)
+        parsed_date = date_obj.strftime('%Y-%m-%d')
+        print(f"[INFO] 토요일 날짜 감지, 금요일({parsed_date})로 조정 (원래: {original_date})")
+    elif date_obj.weekday() == 6:  # 일요일
+        date_obj = date_obj - timedelta(days=2)
+        parsed_date = date_obj.strftime('%Y-%m-%d')
+        print(f"[INFO] 일요일 날짜 감지, 금요일({parsed_date})로 조정 (원래: {original_date})")
+    
+    return parsed_date
 
 
 def classify_asset(security_name, identifier):
