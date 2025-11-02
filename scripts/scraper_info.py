@@ -1,6 +1,7 @@
 # scripts/scraper_info.py
 import time
 import json
+import sys
 import yfinance as yf
 from datetime import datetime
 from tqdm import tqdm
@@ -28,8 +29,10 @@ def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
 
 
 def process_single_ticker_info(info):
-    if not info or info.get("regularMarketPrice") is None:
-        return None
+    # Yahoo Finance에서 정보를 못 가져온 경우에도 기본 구조는 반환
+    # (신규 상장 ETF의 경우 정보가 없을 수 있음)
+    if not info:
+        return {}  # 빈 dict 반환 (None이 아님)
 
     current_price = info.get("regularMarketPrice") or info.get("previousClose")
     yield_val = (
@@ -71,11 +74,30 @@ def main():
     nav_data = load_json_file("public/nav.json")
     if not nav_data:
         return
-
-    print("\n--- Starting Daily Ticker Info Update (RAW DATA) ---")
+    
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        print(f"\n--- Starting Ticker Info Update for specific tickers: {', '.join(target_tickers)} ---")
+    else:
+        print("\n--- Starting Daily Ticker Info Update (RAW DATA) ---")
+    
     active_tickers_from_nav = [
         item for item in nav_data.get("nav", []) if not item.get("upcoming")
     ]
+    
+    # 특정 티커만 처리하는 경우 필터링
+    if target_tickers:
+        active_tickers_from_nav = [
+            item for item in active_tickers_from_nav 
+            if item["symbol"] in target_tickers
+        ]
+        if not active_tickers_from_nav:
+            print(f"❌ 지정한 티커를 nav.json에서 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
+        print(f"📌 {len(active_tickers_from_nav)}개 티커 처리 예정")
+    
     active_symbols = [item["symbol"] for item in active_tickers_from_nav]
 
     batch_size = 100
@@ -99,11 +121,15 @@ def main():
         ticker_symbol = info_from_nav.get("symbol")
         raw_dynamic_info = all_bulk_info.get(ticker_symbol)
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
-        if not dynamic_info:
-            continue
+        # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
         existing_data = load_json_file(file_path) or {}
+        
+        # 파일이 새로 생성되는 경우, tickerInfo를 먼저 배치하기 위해 순서 보장
+        if not existing_data:
+            existing_data = {"tickerInfo": {}, "backtestData": []}
+        
         old_info = existing_data.get("tickerInfo", {})
 
         new_info = {
@@ -121,9 +147,11 @@ def main():
         new_info.update(dynamic_info)
 
         changes = {}
+        old_update = old_info.get("Update") if old_info else None
         if (
             old_info
-            and old_info.get("Update", "").split(" ")[0] != now_kst_str.split(" ")[0]
+            and old_update
+            and old_update.split(" ")[0] != now_kst_str.split(" ")[0]
         ):
             for key, new_val in dynamic_info.items():
                 old_val = old_info.get(key)
@@ -158,4 +186,13 @@ def main():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] in ['-h', '--help']:
+        print("""
+사용법:
+  python scripts/scraper_info.py              # 모든 티커 업데이트
+  python scripts/scraper_info.py UX           # UX 티커만 업데이트
+  python scripts/scraper_info.py UX NVDY TSLY  # 여러 티커 업데이트
+        """)
+        sys.exit(0)
+    
     main()

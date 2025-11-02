@@ -58,6 +58,7 @@ async function fetchAndMergePriceData(ticker) {
         let existingData = {};
         let backtestMap = new Map();
         let lastPriceDate = null;
+        let isNewFile = false;
 
         try {
             const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -73,7 +74,12 @@ async function fetchAndMergePriceData(ticker) {
                 lastPriceDate = datesWithPrice[datesWithPrice.length - 1];
             }
         } catch (error) {
-            /* 파일 없으면 진행 */
+            /* 파일 없으면 기본 구조로 초기화 */
+            isNewFile = true;
+            existingData = {
+                tickerInfo: {},
+                backtestData: []
+            };
         }
 
         const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
@@ -102,10 +108,15 @@ async function fetchAndMergePriceData(ticker) {
             JSON.stringify(existingData.backtestData) !==
             JSON.stringify(finalBacktestData)
         ) {
-            existingData.backtestData = finalBacktestData;
-            await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+            // tickerInfo가 먼저 오도록 순서 보장
+            const orderedData = {
+                tickerInfo: existingData.tickerInfo || {},
+                backtestData: finalBacktestData
+            };
+            
+            await fs.writeFile(filePath, JSON.stringify(orderedData, null, 2));
             console.log(
-                `✅ [${symbol}] Price data updated. Added/merged ${newPriceData.length} records.`
+                `✅ [${symbol}] Price data updated. Added/merged ${newPriceData.length} records.${isNewFile ? ' (NEW FILE)' : ''}`
             );
         }
 
