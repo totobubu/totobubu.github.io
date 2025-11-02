@@ -815,5 +815,5 @@
 </template>
 
 <style scoped lang="scss">
-    @import '@/styles/pages/blog-generator';
+    @import '@/styles/pages/_blog-generator';
 </style>
