@@ -1,4 +1,3 @@
-cat <<EOT > .gitignore
 # Python
 venv/
 __pycache__/
@@ -52,6 +51,8 @@ dist-ssr
 .env.local
 .env.*.local
 
+# Firebase
+service-account-key.json
 
 # Selenium/Chrome Profile
 /chrome_profile/

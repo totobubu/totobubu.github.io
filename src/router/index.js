@@ -1,22 +1,24 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../pages/HomeView.vue';
-import CalendarView from '../pages/CalendarView.vue';
-import BacktesterView from '../pages/BacktesterView.vue';
-// import BacktesterViewKR from '../pages/BacktesterViewKR.vue';
-import StockView from '../pages/StockView.vue';
-import SignUpView from '../pages/SignupView.vue';
-import LoginView from '../pages/LoginView.vue';
-import PasswordResetView from '../pages/PasswordResetView.vue';
-import BookmarkView from '../pages/BookmarkView.vue';
-// import AssetView from '../pages/AssetView.vue';
-import ProfileView from '../pages/ProfileView.vue';
-import ContactView from '../pages/ContactView.vue';
-import NotFound from '../pages/NotFound.vue';
-import ThumbnailGenerator from '../pages/ThumbnailGenerator.vue';
-import BlogGeneratorView from '../pages/BlogGeneratorView.vue';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+
+// 홈 페이지는 즉시 로드 (초기 화면)
+import HomeView from '../pages/HomeView.vue';
+
+// 나머지 페이지는 lazy loading으로 필요할 때만 로드
+const CalendarView = () => import('../pages/CalendarView.vue');
+const BacktesterView = () => import('../pages/BacktesterView.vue');
+const StockView = () => import('../pages/StockView.vue');
+const SignUpView = () => import('../pages/SignupView.vue');
+const LoginView = () => import('../pages/LoginView.vue');
+const PasswordResetView = () => import('../pages/PasswordResetView.vue');
+const BookmarkView = () => import('../pages/BookmarkView.vue');
+const ProfileView = () => import('../pages/ProfileView.vue');
+const ContactView = () => import('../pages/ContactView.vue');
+const NotFound = () => import('../pages/NotFound.vue');
+const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
+const BlogGeneratorView = () => import('../pages/BlogGeneratorView.vue');
 
 const getCurrentUser = () => {
     return new Promise((resolve, reject) => {

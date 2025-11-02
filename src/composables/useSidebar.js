@@ -15,6 +15,7 @@ export function useSidebar() {
     const toast = useToast();
 
     const allTickers = ref([]);
+    const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
     const error = ref(null);
     const selectedTicker = ref(null);
@@ -88,18 +89,64 @@ export function useSidebar() {
         return list.slice(0, 30);
     });
 
+    // 시장별 데이터 lazy loading
+    const loadMarketData = async (marketKey) => {
+        if (loadedMarkets.value.has(marketKey)) return;
+
+        const fileMap = {
+            'kr-stocks': 'sidebar-tickers-kr-stocks.json',
+            'kr-etfs': 'sidebar-tickers-kr-etfs.json',
+            'us-stocks': 'sidebar-tickers-us-stocks.json',
+            'us-etfs': 'sidebar-tickers-us-etfs.json',
+        };
+
+        const fileName = fileMap[marketKey];
+        if (!fileName) return;
+
+        try {
+            const response = await fetch(
+                joinURL(import.meta.env.BASE_URL, fileName)
+            );
+            if (!response.ok)
+                throw new Error(`${fileName} could not be loaded.`);
+
+            const data = await response.json();
+            allTickers.value = [...allTickers.value, ...data];
+            loadedMarkets.value.add(marketKey);
+        } catch (err) {
+            console.error(`Failed to load ${fileName}:`, err);
+            throw err;
+        }
+    };
+
     const loadSidebarData = async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            // [핵심 수정] sidebar-tickers.json 파일 하나만 로드
-            const response = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
-            );
-            if (!response.ok)
-                throw new Error('sidebar-tickers.json could not be loaded.');
+            // 초기 로드: 현재 탭에 따라 필요한 데이터만 로드
+            const mainTab = mainFilterTab.value;
+            const subTab = subFilterTab.value;
 
-            allTickers.value = await response.json();
+            const marketsToLoad = [];
+            if (mainTab === '한국') {
+                marketsToLoad.push(
+                    subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks'
+                );
+            } else if (mainTab === '미국') {
+                marketsToLoad.push(
+                    subTab === 'ETF' ? 'us-etfs' : 'us-stocks'
+                );
+            } else if (mainTab === '북마크') {
+                // 북마크는 모든 시장이 필요할 수 있으므로 모두 로드
+                marketsToLoad.push(
+                    'kr-stocks',
+                    'kr-etfs',
+                    'us-stocks',
+                    'us-etfs'
+                );
+            }
+
+            await Promise.all(marketsToLoad.map((m) => loadMarketData(m)));
 
             const currentTickerSymbol = route.params.ticker
                 ?.toUpperCase()
@@ -114,6 +161,36 @@ export function useSidebar() {
             console.error(err);
         } finally {
             isLoading.value = false;
+        }
+    };
+
+    // 탭 변경 시 필요한 데이터를 추가로 로드
+    const loadAdditionalData = async () => {
+        const mainTab = mainFilterTab.value;
+        const subTab = subFilterTab.value;
+
+        const marketsToLoad = [];
+        if (mainTab === '한국') {
+            const market = subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks';
+            if (!loadedMarkets.value.has(market)) {
+                marketsToLoad.push(market);
+            }
+        } else if (mainTab === '미국') {
+            const market = subTab === 'ETF' ? 'us-etfs' : 'us-stocks';
+            if (!loadedMarkets.value.has(market)) {
+                marketsToLoad.push(market);
+            }
+        }
+
+        if (marketsToLoad.length > 0) {
+            isLoading.value = true;
+            try {
+                await Promise.all(marketsToLoad.map((m) => loadMarketData(m)));
+            } catch (err) {
+                console.error('Failed to load additional data:', err);
+            } finally {
+                isLoading.value = false;
+            }
         }
     };
 
@@ -182,9 +259,11 @@ export function useSidebar() {
 
     watch(mainFilterTab, () => {
         globalSearchQuery.value = null;
+        loadAdditionalData();
     });
     watch(subFilterTab, () => {
         globalSearchQuery.value = null;
+        loadAdditionalData();
     });
 
     return {
