@@ -12,7 +12,6 @@
         "Update": "2025-11-02 10:34:27 KST",
         "changes": {}
     },
-    "dividendTotal": 9.0069,
     "backtestData": [
         {
             "date": "2024-05-02",
@@ -3155,6 +3154,71 @@
             "volume": 597801
         },
         {
+            "date": "2025-11-03",
+            "holdings": [
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 27.53,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 23.6,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 21.1,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 17.36,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 15.06,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.9,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QP5",
+                    "name": "United States Treasury Bill 11/06/2025",
+                    "weight": 6.88,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 6.82,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "TSLA  251107P00410000",
+                    "name": "TESLA  I PUT OPT 11/25 410",
+                    "weight": 0.47,
+                    "type": "option"
+                },
+                {
+                    "symbol": "TSLA  251121P00355000",
+                    "name": "TSLA US 11/21/25 P355",
+                    "weight": 0.42,
+                    "type": "option"
+                }
+            ]
+        },
+        {
             "date": "2025-11-06",
             "expected": true
         },
@@ -3258,5 +3322,6 @@
             "date": "2026-04-30",
             "forecasted": true
         }
-    ]
+    ],
+    "dividendTotal": 9.0069
 }
