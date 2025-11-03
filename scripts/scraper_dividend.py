@@ -196,8 +196,18 @@ def main():
 
             if original_backtest_data_str != new_backtest_data_str:
                 data["backtestData"] = new_backtest_data
+                
+                # 로컬 저장
                 if save_json_file(file_path, data):
                     updated_count += 1
+                    
+                    # R2 업로드 시도
+                    try:
+                        from scripts.r2_helper import upload_json_to_r2
+                        r2_key = file_path.replace("\\", "/").split("public/", 1)[1]
+                        upload_json_to_r2(data, r2_key)
+                    except:
+                        pass
 
     print(f"\n--- Yield Calculation Finished. Total files updated: {updated_count} ---")
 
