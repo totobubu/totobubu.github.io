@@ -12,7 +12,6 @@
         "Update": "2025-11-02 10:34:27 KST",
         "changes": {}
     },
-    "dividendTotal": 19.4091,
     "backtestData": [
         {
             "date": "2023-10-11",
@@ -4293,6 +4292,71 @@
             "volume": 110451
         },
         {
+            "date": "2025-11-03",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 26.03,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 26.02,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 16.39,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QP5",
+                    "name": "United States Treasury Bill 11/06/2025",
+                    "weight": 14.72,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 11.45,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "XYZ   251121C00075000",
+                    "name": "XYZ US 11/21/25 C75",
+                    "weight": 7.79,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 5.42,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "XYZ   251107C00085000",
+                    "name": "XYZ US 11/07/25 C85",
+                    "weight": 0.86,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XYZ   251107C00084000",
+                    "name": "XYZ US 11/07/25 C84",
+                    "weight": 0.5,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XYZ   251107C00086000",
+                    "name": "BLOCK  I CLL OPT 11/25 86",
+                    "weight": 0.42,
+                    "type": "option"
+                }
+            ]
+        },
+        {
             "date": "2025-11-06",
             "expected": true
         },
@@ -4396,5 +4460,6 @@
             "date": "2026-04-30",
             "forecasted": true
         }
-    ]
+    ],
+    "dividendTotal": 19.4091
 }
