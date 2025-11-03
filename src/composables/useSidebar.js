@@ -4,6 +4,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
 import { useFilterState } from '@/composables/useFilterState';
+import { getDataUrl } from '@/utils/dataUrl';
 import { user } from '../store/auth';
 import { db } from '@/firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
@@ -104,9 +105,7 @@ export function useSidebar() {
         if (!fileName) return;
 
         try {
-            const response = await fetch(
-                joinURL(import.meta.env.BASE_URL, fileName)
-            );
+            const response = await fetch(getDataUrl(fileName));
             if (!response.ok)
                 throw new Error(`${fileName} could not be loaded.`);
 

@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
+import { getDataUrl } from '@/utils/dataUrl';
 
 const allDividendData = ref([]);
 const allTickerProperties = ref(new Map());
@@ -19,7 +20,6 @@ const loadAllData = async () => {
         error.value = null;
         try {
             // 분할된 파일들을 병렬로 로드
-            const baseUrl = import.meta.env.BASE_URL || '/';
             const [
                 eventsResponse,
                 krStocksResponse,
@@ -27,11 +27,11 @@ const loadAllData = async () => {
                 usStocksResponse,
                 usEtfsResponse,
             ] = await Promise.all([
-                fetch(joinURL(baseUrl, 'calendar-events.json')),
-                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-stocks.json')),
-                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-etfs.json')),
-                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-stocks.json')),
-                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-etfs.json')),
+                fetch(getDataUrl('calendar-events.json')),
+                fetch(getDataUrl('sidebar/sidebar-tickers-kr-stocks.json')),
+                fetch(getDataUrl('sidebar/sidebar-tickers-kr-etfs.json')),
+                fetch(getDataUrl('sidebar/sidebar-tickers-us-stocks.json')),
+                fetch(getDataUrl('sidebar/sidebar-tickers-us-etfs.json')),
             ]);
 
             if (!eventsResponse.ok)

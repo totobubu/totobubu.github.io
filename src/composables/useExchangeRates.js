@@ -1,6 +1,7 @@
 // src\composables\useExchangeRates.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
+import { getDataUrl } from '@/utils/dataUrl';
 
 const exchangeRates = ref([]);
 let isLoaded = false;
@@ -13,7 +14,7 @@ async function loadRates() {
     isLoadingPromise = (async () => {
         try {
             const response = await fetch(
-                joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')
+                getDataUrl('exchange-rates.json')
             );
             if (!response.ok)
                 throw new Error('Failed to load exchange rates file');

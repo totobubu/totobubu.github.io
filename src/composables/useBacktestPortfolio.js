@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { joinURL } from 'ufo';
+import { getDataUrl } from '@/utils/dataUrl';
 
 export function useBacktestPortfolio(country = 'US') {
     const route = useRoute();
@@ -38,7 +39,7 @@ export function useBacktestPortfolio(country = 'US') {
 
     const loadNavData = async () => {
         try {
-            const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
+            const navUrl = getDataUrl('nav.json');
             const response = await fetch(navUrl);
             const navData = await response.json();
 

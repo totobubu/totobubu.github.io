@@ -18,6 +18,7 @@
 <script setup>
     import { ref, computed, watch } from 'vue';
     import { joinURL } from 'ufo';
+    import { getDataUrl } from '@/utils/dataUrl';
 
     const props = defineProps({
         logoSrc: {
@@ -34,9 +35,8 @@
 
     const fullLogoSrc = computed(() => {
         if (!props.logoSrc) return '';
-        // 이 코드는 이제 정상적으로 작동합니다.
-        // 예: joinURL('/', 'logos/yieldmax.png') -> '/logos/yieldmax.png' (올바른 경로)
-        return joinURL(import.meta.env.BASE_URL, props.logoSrc);
+        // R2 또는 로컬에서 로고 로드
+        return getDataUrl(props.logoSrc);
     });
 
     // 이미지 로딩 실패 시 호출될 함수
