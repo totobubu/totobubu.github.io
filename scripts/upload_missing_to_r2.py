@@ -6,16 +6,16 @@ import os
 import hashlib
 from pathlib import Path
 from tqdm import tqdm
-from r2_helper import upload_file_to_r2, get_r2_client, load_r2_config
+from r2_helper import upload_file_to_r2, get_r2_client, load_r2_config, R2_AVAILABLE
 
 
 def calculate_file_hash(file_path):
     """
     파일의 MD5 해시 계산 (R2의 ETag와 비교용)
-    
+
     Args:
         file_path: 로컬 파일 경로
-        
+
     Returns:
         str: MD5 해시 (소문자 hex)
     """
@@ -43,6 +43,12 @@ def get_r2_files(prefix=""):
     """
     try:
         s3_client, bucket_name = get_r2_client()
+
+        if not s3_client or not bucket_name:
+            print(
+                "[WARNING] R2 클라이언트를 초기화할 수 없습니다. R2 업로드를 건너뜁니다."
+            )
+            return {}
 
         print(f"[INFO] R2에서 '{prefix}' 파일 목록 조회 중...")
 
@@ -83,14 +89,14 @@ def get_local_files(local_dir, file_pattern="*.json"):
         return {}
 
     files = {}
-    
+
     # 모든 파일을 찾을지, 특정 패턴만 찾을지 결정
     if file_pattern == "*":
         file_list = local_path.rglob("*")
         file_list = [f for f in file_list if f.is_file()]
     else:
         file_list = local_path.rglob(file_pattern)
-    
+
     for file_path in file_list:
         # R2 키 생성
         path_str = str(file_path).replace("\\", "/")
@@ -103,12 +109,8 @@ def get_local_files(local_dir, file_pattern="*.json"):
         # 파일 정보 수집
         file_hash = calculate_file_hash(str(file_path))
         file_size = file_path.stat().st_size
-        
-        files[r2_key] = {
-            "path": str(file_path),
-            "hash": file_hash,
-            "size": file_size
-        }
+
+        files[r2_key] = {"path": str(file_path), "hash": file_hash, "size": file_size}
 
     print(f"[OK] 로컬에 {len(files)}개 파일 발견")
     return files
@@ -119,6 +121,10 @@ def upload_missing_files():
     print("=" * 60)
     print("  R2 동기화 스크립트 (누락/변경 파일 감지)")
     print("=" * 60)
+
+    if not R2_AVAILABLE:
+        print("[WARNING] boto3가 설치되지 않았습니다. R2 업로드를 건너뜁니다.")
+        return
 
     try:
         config = load_r2_config()
@@ -137,11 +143,11 @@ def upload_missing_files():
     files_to_upload = []
     missing_count = 0
     changed_count = 0
-    
+
     for r2_key, file_info in local_data_files.items():
         local_path = file_info["path"]
         local_hash = file_info["hash"]
-        
+
         if r2_key not in r2_data_files:
             # 누락된 파일
             files_to_upload.append((r2_key, local_path, "missing"))
@@ -177,7 +183,7 @@ def upload_missing_files():
 
     if os.path.exists("public/nav.json"):
         local_nav_hash = calculate_file_hash("public/nav.json")
-        
+
         if "nav.json" not in r2_files:
             print("   -> nav.json 누락 - 업로드 중...")
             if upload_file_to_r2("public/nav.json", "nav.json"):
@@ -204,11 +210,11 @@ def upload_missing_files():
         sidebar_to_upload = []
         sidebar_missing = 0
         sidebar_changed = 0
-        
+
         for r2_key, file_info in local_sidebar_files.items():
             local_path = file_info["path"]
             local_hash = file_info["hash"]
-            
+
             if r2_key not in r2_sidebar_files:
                 sidebar_to_upload.append((r2_key, local_path, "missing"))
                 sidebar_missing += 1
@@ -237,14 +243,17 @@ def upload_missing_files():
     print("\n[4/5] calendar-events.json 확인 중...")
     if os.path.exists("public/calendar-events.json"):
         local_calendar_hash = calculate_file_hash("public/calendar-events.json")
-        
+
         if "calendar-events.json" not in r2_files:
             print("   -> calendar-events.json 누락 - 업로드 중...")
             if upload_file_to_r2("public/calendar-events.json", "calendar-events.json"):
                 print("   -> 성공")
             else:
                 print("   -> 실패")
-        elif local_calendar_hash and r2_files["calendar-events.json"]["etag"] != local_calendar_hash:
+        elif (
+            local_calendar_hash
+            and r2_files["calendar-events.json"]["etag"] != local_calendar_hash
+        ):
             print("   -> calendar-events.json 변경됨 - 업로드 중...")
             if upload_file_to_r2("public/calendar-events.json", "calendar-events.json"):
                 print("   -> 성공")
@@ -264,11 +273,11 @@ def upload_missing_files():
         logos_to_upload = []
         logos_missing = 0
         logos_changed = 0
-        
+
         for r2_key, file_info in local_logos_files.items():
             local_path = file_info["path"]
             local_hash = file_info["hash"]
-            
+
             if r2_key not in r2_logos_files:
                 logos_to_upload.append((r2_key, local_path, "missing"))
                 logos_missing += 1
@@ -280,7 +289,9 @@ def upload_missing_files():
             print(f"   -> 누락: {logos_missing}개, 변경: {logos_changed}개")
             success_logo = 0
             fail_logo = 0
-            for r2_key, local_path, status in tqdm(logos_to_upload, desc="Uploading logos"):
+            for r2_key, local_path, status in tqdm(
+                logos_to_upload, desc="Uploading logos"
+            ):
                 if upload_file_to_r2(local_path, r2_key):
                     success_logo += 1
                 else:
@@ -301,7 +312,7 @@ def upload_missing_files():
     print("\n[최종 확인]")
     final_r2_files = get_r2_files()
     final_r2_data_files = [k for k in final_r2_files if k.startswith("data/")]
-    
+
     print(f"R2 총 파일 수: {len(final_r2_files)}개")
     print(f"R2 data 파일 수: {len(final_r2_data_files)}개")
     print(f"로컬 data 파일 수: {len(local_data_files)}개")
