@@ -8,16 +8,16 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const POPULARITY_FILE_PATH = path.join(PUBLIC_DIR, 'popularity.json');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'sidebar-tickers.json'); // 호환성을 위해 유지
 const OUTPUT_FILES = {
-    krStocks: path.join(PUBLIC_DIR, 'sidebar-tickers-kr-stocks.json'),
-    krEtfs: path.join(PUBLIC_DIR, 'sidebar-tickers-kr-etfs.json'),
-    usStocks: path.join(PUBLIC_DIR, 'sidebar-tickers-us-stocks.json'),
-    usEtfs: path.join(PUBLIC_DIR, 'sidebar-tickers-us-etfs.json'),
+    krStocks: path.join(PUBLIC_DIR, 'sidebar', 'sidebar-tickers-kr-stocks.json'),
+    krEtfs: path.join(PUBLIC_DIR, 'sidebar', 'sidebar-tickers-kr-etfs.json'),
+    usStocks: path.join(PUBLIC_DIR, 'sidebar', 'sidebar-tickers-us-stocks.json'),
+    usEtfs: path.join(PUBLIC_DIR, 'sidebar', 'sidebar-tickers-us-etfs.json'),
 };
 const POPULARITY_OUTPUT_FILES = {
-    krStocks: path.join(PUBLIC_DIR, 'popularity-kr-stocks.json'),
-    krEtfs: path.join(PUBLIC_DIR, 'popularity-kr-etfs.json'),
-    usStocks: path.join(PUBLIC_DIR, 'popularity-us-stocks.json'),
-    usEtfs: path.join(PUBLIC_DIR, 'popularity-us-etfs.json'),
+    krStocks: path.join(PUBLIC_DIR, 'popularity', 'popularity-kr-stocks.json'),
+    krEtfs: path.join(PUBLIC_DIR, 'popularity', 'popularity-kr-etfs.json'),
+    usStocks: path.join(PUBLIC_DIR, 'popularity', 'popularity-us-stocks.json'),
+    usEtfs: path.join(PUBLIC_DIR, 'popularity', 'popularity-us-etfs.json'),
 };
 
 const getTickerFromFilename = (filename) => {

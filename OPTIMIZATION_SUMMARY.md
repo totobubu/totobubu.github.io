@@ -6,16 +6,16 @@ sidebar-tickers.json 파일을 시장별로 분할하여 초기 로딩 속도를
 ## ✅ 완료된 작업
 
 ### 1. 데이터 분할 (시장별 4개 파일)
-- `sidebar-tickers-kr-stocks.json`: 한국 개별주식 (784개, 163 KB) [2개 popularity 포함]
-- `sidebar-tickers-kr-etfs.json`: 한국 ETF (561개, 130 KB) [6개 popularity 포함]
-- `sidebar-tickers-us-stocks.json`: 미국 개별주식 (539개, 84 KB) [6개 popularity 포함]
-- `sidebar-tickers-us-etfs.json`: 미국 ETF (1158개, 227 KB) [77개 popularity 포함]
+- `public/sidebar/sidebar-tickers-kr-stocks.json`: 한국 개별주식 (784개, 163 KB) [2개 popularity 포함]
+- `public/sidebar/sidebar-tickers-kr-etfs.json`: 한국 ETF (561개, 130 KB) [6개 popularity 포함]
+- `public/sidebar/sidebar-tickers-us-stocks.json`: 미국 개별주식 (539개, 84 KB) [6개 popularity 포함]
+- `public/sidebar/sidebar-tickers-us-etfs.json`: 미국 ETF (1158개, 227 KB) [77개 popularity 포함]
 
 **추가: Popularity 데이터 분할**
-- `popularity-kr-stocks.json`: 한국 주식 인기도 (0.04 KB)
-- `popularity-kr-etfs.json`: 한국 ETF 인기도 (0.11 KB)
-- `popularity-us-stocks.json`: 미국 주식 인기도 (0.07 KB)
-- `popularity-us-etfs.json`: 미국 ETF 인기도 (0.98 KB)
+- `public/popularity/popularity-kr-stocks.json`: 한국 주식 인기도 (0.04 KB)
+- `public/popularity/popularity-kr-etfs.json`: 한국 ETF 인기도 (0.11 KB)
+- `public/popularity/popularity-us-stocks.json`: 미국 주식 인기도 (0.07 KB)
+- `public/popularity/popularity-us-etfs.json`: 미국 ETF 인기도 (0.98 KB)
 
 ### 2. 파일 크기 최적화
 - **null/undefined 필드 제거**: 불필요한 null 값을 가진 필드를 제거하여 파일 크기 **28% 감소**
@@ -29,8 +29,8 @@ sidebar-tickers.json 파일을 시장별로 분할하여 초기 로딩 속도를
 - 이미 로드된 파일은 재로드하지 않음 (캐싱)
 
 **예시:**
-- 미국 > 주식 탭: `sidebar-tickers-us-stocks.json` (84 KB)만 로드
-- 미국 > ETF 탭: `sidebar-tickers-us-etfs.json` (227 KB)만 추가 로드
+- 미국 > 주식 탭: `public/sidebar/sidebar-tickers-us-stocks.json` (84 KB)만 로드
+- 미국 > ETF 탭: `public/sidebar/sidebar-tickers-us-etfs.json` (227 KB)만 추가 로드
 - 한국 탭 전환 시: 해당 파일들만 추가 로드
 
 ### 4. 캘린더 데이터 최적화
