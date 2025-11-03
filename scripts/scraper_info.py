@@ -8,8 +8,6 @@ from tqdm import tqdm
 from utils import (
     load_json_file,
     save_json_file,
-    save_json_with_r2,
-    load_json_with_r2,
     sanitize_ticker_for_filename,
     get_kst_now,
 )
@@ -73,7 +71,7 @@ def process_single_ticker_info(info):
 
 
 def main():
-    nav_data = load_json_with_r2("public/nav.json")
+    nav_data = load_json_file("public/nav.json")
     if not nav_data:
         return
     
@@ -126,7 +124,7 @@ def main():
         # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
-        existing_data = load_json_with_r2(file_path) or {}
+        existing_data = load_json_file(file_path) or {}
         
         # 파일이 새로 생성되는 경우, tickerInfo를 먼저 배치하기 위해 순서 보장
         if not existing_data:
@@ -179,8 +177,18 @@ def main():
             continue
 
         existing_data["tickerInfo"] = new_info
-        if save_json_with_r2(file_path, existing_data):
+        
+        # 로컬 저장
+        if save_json_file(file_path, existing_data):
             total_changed_files += 1
+            
+            # R2 업로드 시도
+            try:
+                from scripts.r2_helper import upload_json_to_r2
+                r2_key = f"data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+                upload_json_to_r2(existing_data, r2_key)
+            except:
+                pass  # R2 실패해도 로컬 저장은 성공
 
     print(
         f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
