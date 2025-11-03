@@ -151,6 +151,46 @@ def upload_json_to_r2(data, key):
         return False
 
 
+def download_file_from_r2(r2_key, local_file_path):
+    """R2에서 파일 다운로드"""
+    s3_client, bucket_name = get_r2_client()
+    if not s3_client:
+        return False
+    
+    try:
+        # 디렉토리 생성
+        local_path = Path(local_file_path)
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # 파일 다운로드
+        s3_client.download_file(bucket_name, r2_key, str(local_file_path))
+        return True
+    except Exception as e:
+        print(f"[ERROR] R2 다운로드 실패 ({r2_key}): {e}")
+        return False
+
+
+def list_r2_files(prefix=""):
+    """R2 버킷에서 파일 목록 가져오기"""
+    s3_client, bucket_name = get_r2_client()
+    if not s3_client:
+        return []
+    
+    try:
+        files = []
+        paginator = s3_client.get_paginator("list_objects_v2")
+        
+        for page in paginator.paginate(Bucket=bucket_name, Prefix=prefix):
+            if "Contents" in page:
+                for obj in page["Contents"]:
+                    files.append(obj["Key"])
+        
+        return files
+    except Exception as e:
+        print(f"[ERROR] R2 파일 목록 조회 실패: {e}")
+        return []
+
+
 def save_json_with_r2(file_path, data):
     """로컬 저장 + R2 업로드"""
     from scripts.utils import save_json_file
