@@ -8,6 +8,8 @@ from tqdm import tqdm
 from utils import (
     load_json_file,
     save_json_file,
+    save_json_with_r2,
+    load_json_with_r2,
     sanitize_ticker_for_filename,
     get_kst_now,
 )
@@ -71,7 +73,7 @@ def process_single_ticker_info(info):
 
 
 def main():
-    nav_data = load_json_file("public/nav.json")
+    nav_data = load_json_with_r2("public/nav.json")
     if not nav_data:
         return
     
@@ -124,7 +126,7 @@ def main():
         # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
         file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
-        existing_data = load_json_file(file_path) or {}
+        existing_data = load_json_with_r2(file_path) or {}
         
         # 파일이 새로 생성되는 경우, tickerInfo를 먼저 배치하기 위해 순서 보장
         if not existing_data:
@@ -177,7 +179,7 @@ def main():
             continue
 
         existing_data["tickerInfo"] = new_info
-        if save_json_file(file_path, existing_data):
+        if save_json_with_r2(file_path, existing_data):
             total_changed_files += 1
 
     print(

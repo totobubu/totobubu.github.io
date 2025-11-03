@@ -1,6 +1,7 @@
 // src/composables/useStockData.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
+import { getDataUrl } from '@/utils/dataUrl';
 
 const tickerInfo = ref(null);
 const dividendHistory = ref([]);
@@ -14,7 +15,7 @@ let navDataCache = null;
 const loadNavData = async () => {
     if (navDataCache) return navDataCache;
     try {
-        const navUrl = joinURL(import.meta.env.BASE_URL, 'nav.json');
+        const navUrl = getDataUrl('nav.json');
         const navResponse = await fetch(navUrl);
         if (!navResponse.ok) throw new Error('nav.json not found');
         navDataCache = await navResponse.json();
@@ -75,10 +76,7 @@ export function useStockData() {
 
             const originalTickerSymbol = navInfo.symbol;
             const staticDataResponse = await fetch(
-                joinURL(
-                    import.meta.env.BASE_URL,
-                    `data/${sanitizedTicker}.json`
-                )
+                getDataUrl(`data/${sanitizedTicker}.json`)
             );
 
             if (staticDataResponse.ok) {

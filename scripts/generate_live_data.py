@@ -3,6 +3,7 @@ import os
 import json
 import yfinance as yf
 import pandas as pd
+from utils import save_json_with_r2
 
 # --- 경로 설정 ---
 ROOT_DIR = os.getcwd()
@@ -71,8 +72,8 @@ def main():
             item["yield"] = 0.0
 
     try:
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_live_data, f, indent=2)
+        # 로컬과 R2 둘 다 저장
+        save_json_with_r2(OUTPUT_FILE, all_live_data, indent=2)
         print(
             f"Successfully generated {OUTPUT_FILE} with {len(all_live_data)} tickers."
         )

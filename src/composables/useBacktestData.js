@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
 import { addBusinessDays } from '@/services/backtester/utils.js';
+import { getDataUrl } from '@/utils/dataUrl';
 
 export function useBacktestData() {
     const adjustedDateMessage = ref('');
@@ -138,7 +139,7 @@ export function useBacktestData() {
         const holidays = [];
 
         const [exchangeResponse] = await Promise.all([
-            fetch(joinURL(import.meta.env.BASE_URL, 'exchange-rates.json')),
+            fetch(getDataUrl('exchange-rates.json')),
         ]);
 
         if (!exchangeResponse.ok)

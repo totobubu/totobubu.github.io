@@ -2,7 +2,7 @@
 import os
 import json
 from datetime import datetime, timedelta
-from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
+from utils import load_json_file, save_json_file, load_json_with_r2, save_json_with_r2, sanitize_ticker_for_filename
 from tqdm import tqdm
 
 
@@ -174,7 +174,7 @@ def main():
 
     for filename in tqdm(files, desc="Calculating Yields"):
         file_path = os.path.join("public/data", filename)
-        data = load_json_file(file_path)
+        data = load_json_with_r2(file_path)
         if not data or "backtestData" not in data:
             continue
 
@@ -196,7 +196,7 @@ def main():
 
             if original_backtest_data_str != new_backtest_data_str:
                 data["backtestData"] = new_backtest_data
-                if save_json_file(file_path, data):
+                if save_json_with_r2(file_path, data):
                     updated_count += 1
 
     print(f"\n--- Yield Calculation Finished. Total files updated: {updated_count} ---")
