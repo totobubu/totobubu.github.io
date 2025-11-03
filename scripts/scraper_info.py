@@ -177,8 +177,18 @@ def main():
             continue
 
         existing_data["tickerInfo"] = new_info
+        
+        # 로컬 저장
         if save_json_file(file_path, existing_data):
             total_changed_files += 1
+            
+            # R2 업로드 시도
+            try:
+                from scripts.r2_helper import upload_json_to_r2
+                r2_key = f"data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+                upload_json_to_r2(existing_data, r2_key)
+            except:
+                pass  # R2 실패해도 로컬 저장은 성공
 
     print(
         f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"

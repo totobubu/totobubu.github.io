@@ -2,27 +2,48 @@
 
 import os
 import json
+import sys
 import firebase_admin
 from firebase_admin import credentials, firestore
 
 
 def main():
+    # Windows 콘솔에서 한글 출력을 위한 UTF-8 인코딩 설정
+    if sys.stdout.encoding != "utf-8":
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except (AttributeError, ValueError):
+            # Python < 3.7 또는 이미 reconfigure된 경우 무시
+            pass
     print("--- Starting Popularity Aggregation ---")
 
-    # GitHub Actions에서 시크릿을 환경 변수로 주입받아 사용
+    # Firebase 인증: 환경 변수(GitHub Actions) 또는 로컬 파일
     service_account_info = os.environ.get("FIRESTORE_SA_KEY")
-    if not service_account_info:
-        print("Error: FIRESTORE_SA_KEY environment variable not set.")
-        return
+    if service_account_info:
+        # GitHub Actions: 환경 변수에서 JSON 문자열 로드
+        try:
+            cred = credentials.Certificate(json.loads(service_account_info))
+            firebase_admin.initialize_app(cred)
+        except Exception as e:
+            print(f"Error initializing Firebase from environment: {e}")
+            return
+    else:
+        # 로컬 개발: 파일에서 로드
+        local_key_path = "service-account-key.json"
+        if not os.path.exists(local_key_path):
+            print("Error: No authentication method found.")
+            print("  - Environment variable FIRESTORE_SA_KEY not set")
+            print(f"  - Local file {local_key_path} not found")
+            return
+        try:
+            cred = credentials.Certificate(local_key_path)
+            firebase_admin.initialize_app(cred)
+        except Exception as e:
+            print(f"Error initializing Firebase from file: {e}")
+            return
 
-    try:
-        cred = credentials.Certificate(json.loads(service_account_info))
-        firebase_admin.initialize_app(cred)
-        db = firestore.client()
-        print("Firebase connection successful.")
-    except Exception as e:
-        print(f"Error initializing Firebase: {e}")
-        return
+    db = firestore.client()
+    print("Firebase connection successful.")
 
     popularity_counts = {}
     users_ref = db.collection("userBookmarks")
