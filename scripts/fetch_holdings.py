@@ -229,11 +229,9 @@ def fetch_etf_holdings(ticker_symbol):
     Returns:
         holdings 리스트 또는 None
     """
-    # Roundhill ETF는 수동 입력으로 처리
+    # Roundhill ETF는 수동 입력으로 처리 (빈 리스트 반환하여 에러로 처리하지 않음)
     if is_roundhill_etf(ticker_symbol):
-        print(f"[SKIP] {ticker_symbol}: Roundhill ETF - 수동 입력으로 처리하세요")
-        print(f"[INFO] 사용: python scripts/add_roundhill_holdings.py {ticker_symbol} \"날짜\"")
-        return None
+        return []  # 빈 리스트 반환으로 성공 처리
     
     # YieldMax ETF인 경우 공식 웹사이트에서 스크래핑
     if is_yieldmax_etf(ticker_symbol):
@@ -357,6 +355,10 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
         if holdings_data is None:
             return False
         
+        # 빈 리스트는 성공으로 처리 (Roundhill ETF 등 수동 입력 대상)
+        if isinstance(holdings_data, list) and len(holdings_data) == 0:
+            return True
+        
         # 현재 날짜 (주말이면 가장 가까운 이전 영업일로 조정)
         now = datetime.now()
         
@@ -479,11 +481,11 @@ def load_nav_data(nav_path='public/nav.json'):
         with open(nav_path, 'r', encoding='utf-8') as f:
             nav_data = json.load(f)
         
-        # holdings: true인 티커만 필터링
+        # holdings: true이고 upcoming이 아닌 티커만 필터링
         holdings_tickers = [
             item['symbol'] 
             for item in nav_data.get('nav', []) 
-            if item.get('holdings', False) is True
+            if item.get('holdings', False) is True and not item.get('upcoming', False)
         ]
         
         return holdings_tickers
