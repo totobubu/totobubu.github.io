@@ -19,6 +19,7 @@ const loadAllData = async () => {
         error.value = null;
         try {
             // 분할된 파일들을 병렬로 로드
+            const baseUrl = import.meta.env.BASE_URL || '/';
             const [
                 eventsResponse,
                 krStocksResponse,
@@ -26,33 +27,11 @@ const loadAllData = async () => {
                 usStocksResponse,
                 usEtfsResponse,
             ] = await Promise.all([
-                fetch(
-                    joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
-                ),
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        'sidebar-tickers-kr-stocks.json'
-                    )
-                ),
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        'sidebar-tickers-kr-etfs.json'
-                    )
-                ),
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        'sidebar-tickers-us-stocks.json'
-                    )
-                ),
-                fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
-                        'sidebar-tickers-us-etfs.json'
-                    )
-                ),
+                fetch(joinURL(baseUrl, 'calendar-events.json')),
+                fetch(joinURL(baseUrl, 'sidebar-tickers-kr-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar-tickers-kr-etfs.json')),
+                fetch(joinURL(baseUrl, 'sidebar-tickers-us-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar-tickers-us-etfs.json')),
             ]);
 
             if (!eventsResponse.ok)
