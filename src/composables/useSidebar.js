@@ -94,10 +94,10 @@ export function useSidebar() {
         if (loadedMarkets.value.has(marketKey)) return;
 
         const fileMap = {
-            'kr-stocks': 'sidebar-tickers-kr-stocks.json',
-            'kr-etfs': 'sidebar-tickers-kr-etfs.json',
-            'us-stocks': 'sidebar-tickers-us-stocks.json',
-            'us-etfs': 'sidebar-tickers-us-etfs.json',
+            'kr-stocks': 'sidebar/sidebar-tickers-kr-stocks.json',
+            'kr-etfs': 'sidebar/sidebar-tickers-kr-etfs.json',
+            'us-stocks': 'sidebar/sidebar-tickers-us-stocks.json',
+            'us-etfs': 'sidebar/sidebar-tickers-us-etfs.json',
         };
 
         const fileName = fileMap[marketKey];

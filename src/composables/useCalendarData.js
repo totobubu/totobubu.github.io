@@ -28,29 +28,29 @@ const loadAllData = async () => {
                 usEtfsResponse,
             ] = await Promise.all([
                 fetch(joinURL(baseUrl, 'calendar-events.json')),
-                fetch(joinURL(baseUrl, 'sidebar-tickers-kr-stocks.json')),
-                fetch(joinURL(baseUrl, 'sidebar-tickers-kr-etfs.json')),
-                fetch(joinURL(baseUrl, 'sidebar-tickers-us-stocks.json')),
-                fetch(joinURL(baseUrl, 'sidebar-tickers-us-etfs.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-etfs.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-etfs.json')),
             ]);
 
             if (!eventsResponse.ok)
                 throw new Error('calendar-events.json could not be loaded.');
             if (!krStocksResponse.ok)
                 throw new Error(
-                    'sidebar-tickers-kr-stocks.json could not be loaded.'
+                    'sidebar/sidebar-tickers-kr-stocks.json could not be loaded.'
                 );
             if (!krEtfsResponse.ok)
                 throw new Error(
-                    'sidebar-tickers-kr-etfs.json could not be loaded.'
+                    'sidebar/sidebar-tickers-kr-etfs.json could not be loaded.'
                 );
             if (!usStocksResponse.ok)
                 throw new Error(
-                    'sidebar-tickers-us-stocks.json could not be loaded.'
+                    'sidebar/sidebar-tickers-us-stocks.json could not be loaded.'
                 );
             if (!usEtfsResponse.ok)
                 throw new Error(
-                    'sidebar-tickers-us-etfs.json could not be loaded.'
+                    'sidebar/sidebar-tickers-us-etfs.json could not be loaded.'
                 );
 
             const eventsByDate = await eventsResponse.json();
