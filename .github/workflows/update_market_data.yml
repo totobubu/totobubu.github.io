@@ -128,6 +128,13 @@ jobs:
                   npm run format:nav
                   npm run format:public
 
+            - name: 15. Upload missing files to R2
+              if: steps.check_time.outputs.should_run == 'true'
+              run: |
+                  echo "📤 R2에 변경/누락된 파일 동기화 중..."
+                  python scripts/upload_missing_to_r2.py
+                  echo "✅ R2 동기화 완료"
+
             # --- 변경 사항 커밋 및 푸시 ---
             - name: Check for file changes
               id: git_status
