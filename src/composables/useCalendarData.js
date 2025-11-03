@@ -18,21 +18,56 @@ const loadAllData = async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const [eventsResponse, tickersResponse] = await Promise.all([
-                fetch(
-                    joinURL(import.meta.env.BASE_URL, 'calendar-events.json')
-                ),
-                fetch(
-                    joinURL(import.meta.env.BASE_URL, 'sidebar-tickers.json')
-                ),
+            // 분할된 파일들을 병렬로 로드
+            const baseUrl = import.meta.env.BASE_URL || '/';
+            const [
+                eventsResponse,
+                krStocksResponse,
+                krEtfsResponse,
+                usStocksResponse,
+                usEtfsResponse,
+            ] = await Promise.all([
+                fetch(joinURL(baseUrl, 'calendar-events.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-kr-etfs.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-stocks.json')),
+                fetch(joinURL(baseUrl, 'sidebar/sidebar-tickers-us-etfs.json')),
             ]);
+
             if (!eventsResponse.ok)
                 throw new Error('calendar-events.json could not be loaded.');
-            if (!tickersResponse.ok)
-                throw new Error('sidebar-tickers.json could not be loaded.');
+            if (!krStocksResponse.ok)
+                throw new Error(
+                    'sidebar/sidebar-tickers-kr-stocks.json could not be loaded.'
+                );
+            if (!krEtfsResponse.ok)
+                throw new Error(
+                    'sidebar/sidebar-tickers-kr-etfs.json could not be loaded.'
+                );
+            if (!usStocksResponse.ok)
+                throw new Error(
+                    'sidebar/sidebar-tickers-us-stocks.json could not be loaded.'
+                );
+            if (!usEtfsResponse.ok)
+                throw new Error(
+                    'sidebar/sidebar-tickers-us-etfs.json could not be loaded.'
+                );
 
             const eventsByDate = await eventsResponse.json();
-            const sidebarTickers = await tickersResponse.json();
+            const [krStocks, krEtfs, usStocks, usEtfs] = await Promise.all([
+                krStocksResponse.json(),
+                krEtfsResponse.json(),
+                usStocksResponse.json(),
+                usEtfsResponse.json(),
+            ]);
+
+            // 모든 tickers를 하나의 배열로 합치기
+            const sidebarTickers = [
+                ...krStocks,
+                ...krEtfs,
+                ...usStocks,
+                ...usEtfs,
+            ];
 
             const flatEvents = [];
             for (const date in eventsByDate) {
