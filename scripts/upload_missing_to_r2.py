@@ -6,7 +6,7 @@ import os
 import hashlib
 from pathlib import Path
 from tqdm import tqdm
-from r2_config import upload_file_to_r2, get_r2_client, load_r2_config
+from r2_helper import upload_file_to_r2, get_r2_client, load_r2_config
 
 
 def calculate_file_hash(file_path):
