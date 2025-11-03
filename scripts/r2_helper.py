@@ -58,6 +58,78 @@ def get_r2_client():
         return None, None
 
 
+def load_r2_config():
+    """R2 설정 로드"""
+    # 환경변수에서 R2 설정 로드
+    account_id = os.getenv('R2_ACCOUNT_ID')
+    access_key_id = os.getenv('R2_ACCESS_KEY_ID')
+    secret_access_key = os.getenv('R2_SECRET_ACCESS_KEY')
+    bucket_name = os.getenv('R2_BUCKET_NAME')
+    public_url = os.getenv('R2_PUBLIC_URL', '')
+    
+    # 환경변수가 없으면 .env.r2 파일에서 로드
+    if not all([account_id, access_key_id, secret_access_key, bucket_name]):
+        env_file = Path(__file__).parent.parent / '.env.r2'
+        if env_file.exists():
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        os.environ[key] = value
+            
+            account_id = os.getenv('R2_ACCOUNT_ID')
+            access_key_id = os.getenv('R2_ACCESS_KEY_ID')
+            secret_access_key = os.getenv('R2_SECRET_ACCESS_KEY')
+            bucket_name = os.getenv('R2_BUCKET_NAME')
+            public_url = os.getenv('R2_PUBLIC_URL', '')
+    
+    if not all([account_id, access_key_id, secret_access_key, bucket_name]):
+        raise ValueError("R2 설정이 완전하지 않습니다.")
+    
+    return {
+        'account_id': account_id,
+        'access_key_id': access_key_id,
+        'secret_access_key': secret_access_key,
+        'bucket_name': bucket_name,
+        'public_url': public_url
+    }
+
+
+def upload_file_to_r2(local_file_path, r2_key):
+    """파일을 R2에 업로드"""
+    s3_client, bucket_name = get_r2_client()
+    if not s3_client:
+        return False
+    
+    try:
+        # 파일 확장자에 따른 Content-Type 설정
+        ext = Path(local_file_path).suffix.lower()
+        content_type_map = {
+            '.json': 'application/json',
+            '.svg': 'image/svg+xml',
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.webp': 'image/webp',
+            '.ico': 'image/x-icon',
+        }
+        content_type = content_type_map.get(ext, 'application/octet-stream')
+        
+        with open(local_file_path, 'rb') as f:
+            s3_client.put_object(
+                Bucket=bucket_name,
+                Key=r2_key,
+                Body=f.read(),
+                ContentType=content_type,
+                CacheControl='public, max-age=300'
+            )
+        return True
+    except Exception as e:
+        print(f"[ERROR] R2 업로드 실패 ({r2_key}): {e}")
+        return False
+
+
 def upload_json_to_r2(data, key):
     """JSON 데이터를 R2에 업로드"""
     s3_client, bucket_name = get_r2_client()
