@@ -24,7 +24,6 @@
         "payoutRatio": null,
         "changes": {}
     },
-    "dividendTotal": 16.344,
     "backtestData": [
         {
             "date": "2025-02-19",
@@ -40,7 +39,7 @@
                     "weight": 25.24,
                     "type": "equity",
                     "shares": 90334,
-                    "market_value": 41242891.0
+                    "market_value": 41242891
                 },
                 {
                     "symbol": "FGXXX",
@@ -48,7 +47,7 @@
                     "weight": 2.44,
                     "type": "money_market",
                     "shares": 3992148,
-                    "market_value": 3992148.0
+                    "market_value": 3992148
                 }
             ],
             "leverage_exposure": [
@@ -58,7 +57,7 @@
                     "weight": 94.61,
                     "type": "swap",
                     "shares": 338558,
-                    "market_value": 154572040.0,
+                    "market_value": 154572040,
                     "underlying": "TESL"
                 }
             ]
@@ -1585,7 +1584,12 @@
         },
         {
             "date": "2025-11-03",
-            "expected": true
+            "expected": true,
+            "open": 38,
+            "high": 39.689998626708984,
+            "low": 37.7400016784668,
+            "close": 39.13999938964844,
+            "volume": 468352
         },
         {
             "date": "2025-11-10",

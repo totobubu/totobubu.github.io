@@ -10,7 +10,7 @@
         "market": "NASDAQ",
         "currency": "USD",
         "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 68.0,
+        "regularMarketPrice": 68,
         "englishName": "Roundhill GOOGL WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -24,7 +24,6 @@
         "payoutRatio": null,
         "changes": {}
     },
-    "dividendTotal": 7.163,
     "backtestData": [
         {
             "date": "2025-07-24",
@@ -645,7 +644,12 @@
         },
         {
             "date": "2025-11-03",
-            "expected": true
+            "expected": true,
+            "open": 67.44000244140625,
+            "high": 68.09140014648438,
+            "low": 66.8218002319336,
+            "close": 67.86000061035156,
+            "volume": 26514
         },
         {
             "date": "2025-11-10",

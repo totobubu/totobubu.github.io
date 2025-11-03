@@ -24,7 +24,6 @@
         "payoutRatio": null,
         "changes": {}
     },
-    "dividendTotal": 15.695,
     "backtestData": [
         {
             "date": "2025-02-19",
@@ -40,15 +39,15 @@
                     "weight": 20.03,
                     "type": "equity",
                     "shares": 132664,
-                    "market_value": 26863133.0
+                    "market_value": 26863133
                 },
                 {
                     "symbol": "FGXXX",
                     "name": "First American Government Obligations Fund 12/01/2031",
-                    "weight": 5.0,
+                    "weight": 5,
                     "type": "money_market",
                     "shares": 6704479,
-                    "market_value": 6704479.0
+                    "market_value": 6704479
                 }
             ],
             "leverage_exposure": [
@@ -58,7 +57,7 @@
                     "weight": 100.17,
                     "type": "swap",
                     "shares": 663375,
-                    "market_value": 134326803.0
+                    "market_value": 134326803
                 }
             ]
         },
@@ -1584,7 +1583,12 @@
         },
         {
             "date": "2025-11-03",
-            "expected": true
+            "expected": true,
+            "open": 52.119998931884766,
+            "high": 53.060001373291016,
+            "low": 51.599998474121094,
+            "close": 51.7400016784668,
+            "volume": 295888
         },
         {
             "date": "2025-11-10",

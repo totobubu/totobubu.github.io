@@ -24,7 +24,6 @@
         "payoutRatio": null,
         "changes": {}
     },
-    "dividendTotal": 0,
     "backtestData": [
         {
             "date": "2025-08-12",
@@ -116,7 +115,12 @@
         },
         {
             "date": "2025-11-03",
-            "expected": true
+            "expected": true,
+            "open": 51,
+            "high": 51.970001220703125,
+            "low": 50.52000045776367,
+            "close": 50.52000045776367,
+            "volume": 35668
         },
         {
             "date": "2025-11-10",
@@ -218,6 +222,5 @@
             "date": "2026-04-27",
             "forecasted": true
         }
-    ],
-    "dividendHistory": []
+    ]
 }

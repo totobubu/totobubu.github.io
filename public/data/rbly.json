@@ -24,7 +24,6 @@
         "payoutRatio": null,
         "changes": {}
     },
-    "dividendTotal": 6.1404,
     "backtestData": [
         {
             "date": "2025-07-29",
@@ -676,7 +675,7 @@
                 {
                     "symbol": "Cash&Other",
                     "name": "Cash & Other",
-                    "weight": 2.0,
+                    "weight": 2,
                     "type": "cash"
                 },
                 {
@@ -709,7 +708,12 @@
                     "weight": 0.01,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 41.380001068115234,
+            "high": 41.68000030517578,
+            "low": 39.619998931884766,
+            "close": 40.08639907836914,
+            "volume": 9825
         },
         {
             "date": "2025-11-06",
