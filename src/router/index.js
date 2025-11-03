@@ -91,10 +91,17 @@ const router = createRouter({
             component: ContactView,
         },
         {
-            path: '/:ticker',
+            path: '/stock/:ticker',
             name: 'stock-detail',
             component: StockView,
             props: true,
+        },
+        {
+            path: '/:ticker',
+            redirect: (to) => {
+                // /:ticker를 /stock/:ticker로 리다이렉트
+                return { name: 'stock-detail', params: { ticker: to.params.ticker } };
+            },
         },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
