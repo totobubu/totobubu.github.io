@@ -12,10 +12,19 @@ NAV_DIR = os.path.join(PUBLIC_DIR, "nav")
 
 EXCHANGE_MAP = {
     "NYSE Arca": "NYSE",
-    "NASDAQ": "NASDAQ",
+    "NYSEArca": "NYSE",
     "NYSE": "NYSE",
+    "New York Stock Exchange": "NYSE",
+    "NASDAQ": "NASDAQ",
+    "NasdaqGS": "NASDAQ",
+    "NasdaqGM": "NASDAQ",
+    "NasdaqCM": "NASDAQ",
+    "Nasdaq": "NASDAQ",
+    "NASDAQ Global Select": "NASDAQ",
     "BATS": "NASDAQ",
+    "BZX": "NASDAQ",  # Cboe BZX (BATS)
     "AMEX": "NYSE",
+    "PCX": "NYSE",  # NYSE Pacific
 }
 DEFAULT_US_MARKET = "NYSE"  # 대부분의 ETF는 NYSE Arca에 상장
 
@@ -72,6 +81,7 @@ def enrich_with_yfinance(etf_list):
 
     enriched_etfs = []
     symbols = [etf["symbol"] for etf in etf_list]
+    exchange_stats = {"NYSE": 0, "NASDAQ": 0, "Unknown": 0, "Failed": 0}
 
     with ThreadPoolExecutor(max_workers=5) as executor:
         future_to_symbol = {
@@ -93,15 +103,36 @@ def enrich_with_yfinance(etf_list):
 
             try:
                 info = future.result()
-                exchange = info.get("exchange")
-                original_etf["market"] = EXCHANGE_MAP.get(exchange, DEFAULT_US_MARKET)
+                exchange = info.get("exchange", "")
+                
+                # 거래소 매핑
+                if exchange in EXCHANGE_MAP:
+                    market = EXCHANGE_MAP[exchange]
+                    exchange_stats[market] += 1
+                else:
+                    # 거래소 정보가 없거나 매핑되지 않은 경우
+                    market = DEFAULT_US_MARKET
+                    exchange_stats["Unknown"] += 1
+                    print(f"\n  ⚠️ {symbol}: Unknown exchange '{exchange}' -> defaulting to {DEFAULT_US_MARKET}")
+                
+                original_etf["market"] = market
+                
                 # yfinance의 longName이 더 정확할 수 있으므로 업데이트
                 if info.get("longName"):
                     original_etf["longName"] = info.get("longName")
                 enriched_etfs.append(original_etf)
-            except Exception:
+            except Exception as e:
                 original_etf["market"] = DEFAULT_US_MARKET
+                exchange_stats["Failed"] += 1
+                print(f"\n  ❌ {symbol}: Failed to fetch data ({str(e)[:50]}) -> defaulting to {DEFAULT_US_MARKET}")
                 enriched_etfs.append(original_etf)
+
+    # 통계 출력
+    print(f"\n📊 Exchange Distribution:")
+    print(f"  - NYSE: {exchange_stats['NYSE']}")
+    print(f"  - NASDAQ: {exchange_stats['NASDAQ']}")
+    print(f"  - Unknown exchange: {exchange_stats['Unknown']}")
+    print(f"  - Failed to fetch: {exchange_stats['Failed']}")
 
     return enriched_etfs
 
@@ -114,6 +145,7 @@ def save_new_etfs_to_nav(new_etf_list):
     print(f"Updating nav source files with {len(new_etf_list)} new ETFs...")
     files_to_update = {}
     total_added_count = 0
+    market_counts = {"NYSE": 0, "NASDAQ": 0}
 
     for etf in tqdm(new_etf_list, desc="Processing ETFs"):
         symbol, market = etf.get("symbol"), etf.get("market")
@@ -144,15 +176,24 @@ def save_new_etfs_to_nav(new_etf_list):
 
             files_to_update[file_path][symbol] = new_ticker_info
             total_added_count += 1
+            if market in market_counts:
+                market_counts[market] += 1
 
     if total_added_count == 0:
         print("  -> No new ETFs to add.")
         return
 
+    print(f"\n📁 Files to update by market:")
     for file_path, tickers_dict in files_to_update.items():
         sorted_tickers = sorted(tickers_dict.values(), key=lambda x: x["symbol"])
         save_json_file(file_path, sorted_tickers)
-        print(f"  -> Updated file: {os.path.relpath(file_path, ROOT_DIR)}")
+        rel_path = os.path.relpath(file_path, ROOT_DIR)
+        added_count = sum(1 for t in sorted_tickers if t["symbol"] in [e["symbol"] for e in new_etf_list])
+        print(f"  ✓ {rel_path} (+{added_count} tickers)")
+    
+    print(f"\n📊 Market Distribution:")
+    print(f"  - NYSE: {market_counts['NYSE']} ETFs")
+    print(f"  - NASDAQ: {market_counts['NASDAQ']} ETFs")
 
 
 def main():
