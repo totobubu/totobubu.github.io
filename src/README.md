@@ -2,120 +2,177 @@
 
 ## 1. 초기 환경 설정
 
-### # 1-1. Python 가상 환경 설정
+### 1-1. Python 가상 환경 설정
 
 프로젝트 루트에서 아래 명령어를 실행하여 파이썬 가상 환경을 생성하고 활성화합니다.
 
-#```bash
-
+```bash
 # '.venv' 라는 이름의 가상 환경 생성
-
 python3 -m venv .venv
 
 # 가상 환경 활성화 (Windows - Git Bash or WSL)
-
 source .venv/bin/activate
 
 # 가상 환경 활성화 (Windows - Command Prompt)
+.venv\Scripts\activate
 
-# .venv\Scripts\activate
+# 가상 환경 활성화 (Windows - PowerShell)
+.venv\Scripts\Activate.ps1
+```
 
-# 1-2. 필수 라이브러리 설치
+### 1-2. 필수 라이브러리 설치
 
 프로젝트에 필요한 Node.js와 Python 라이브러리를 설치합니다.
 
+```bash
 # Python 라이브러리 설치
-
 pip install -r requirements.txt
 
 # Node.js 라이브러리 설치
-
 npm install
+```
 
-# 2. 데이터 업데이트 파이프라인
+## 2. 로컬에서 전체 데이터 업데이트 (한번에 실행)
 
-데이터를 최신 상태로 유지하기 위한 스크립트 실행 순서입니다. GitHub Actions에서 매일 자동으로 실행되지만, 로컬에서 수동으로 실행할 수도 있습니다.
+GitHub Actions와 동일한 모든 작업을 로컬에서 한번에 실행할 수 있습니다.
 
-# 1. (선택) KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
+### 방법 1: PowerShell 스크립트 실행 (권장)
 
+```powershell
+# PowerShell에서 실행
+.\scripts\update_all_local.ps1
+```
+
+**처음 실행 시 권한 오류가 발생한다면:**
+```powershell
+# PowerShell을 관리자 권한으로 열고 실행
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### 방법 2: 배치 파일 실행
+
+```bash
+# 명령 프롬프트 또는 PowerShell에서 실행
+.\scripts\update_all_local.bat
+
+# 또는 탐색기에서 update_all_local.bat 파일을 더블클릭
+```
+
+### 실행되는 작업 순서
+
+1. 💱 환율 데이터 업데이트
+2. 📅 IPO 날짜 동기화
+3. 📊 배당 빈도 분석
+4. 🗂️ nav.json 생성
+5. 🔍 Holdings 자동 감지
+6. 📊 ETF Holdings 데이터 수집
+7. 📈 히스토리 가격 데이터 업데이트
+8. 💰 시가총액 업데이트
+9. 💵 배당 데이터 업데이트
+10. 📝 배당 히스토리 처리
+11. 🧹 히스토리 데이터 정리
+12. ℹ️ 최신 티커 정보 업데이트
+13. ⭐ 북마크 인기도 집계 (선택사항)
+14. 🔮 미래 배당 날짜 예측
+15. 📆 캘린더 이벤트 생성
+16. 📋 사이드바 티커 생성
+17. ✨ 데이터 파일 포맷팅
+
+⏱️ **소요 시간**: 약 10~30분
+
+## 3. 데이터 업데이트 파이프라인 (개별 실행)
+
+개별 스크립트를 하나씩 실행하고 싶을 때 사용합니다. 위의 전체 업데이트 스크립트가 아닌 특정 작업만 실행하려면 아래 순서를 따르세요.
+
+### 3-1. (선택) 종목 추가/업데이트
+
+```bash
+# KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
 python scripts/fetch_top_tickers.py
 python scripts/fetch_us_etfs.py
 python scripts/fetch_kr_etfs.py
 
-# 2. (선택) 특정 운용사의 모든 ETF 종목 추가
-
+# 특정 운용사의 모든 ETF 종목 추가
 npm run add:etf "Roundhill"
 
-# 3. (선택) 한국 주식 전체 목록 업데이트
-
+# 한국 주식 전체 목록 업데이트
 python scripts/fetch_kr_tickers.py
+```
 
-# 4. 환율 데이터 업데이트
+### 3-2. 필수 데이터 업데이트
 
+```bash
+# 1. 환율 데이터 업데이트
 node scripts/fetch_all_exchange_rates.js
 
-# 5. IPO 날짜 동기화 및 'upcoming' 상태 업데이트
-
+# 2. IPO 날짜 동기화 및 'upcoming' 상태 업데이트
 npm run add-ipo-dates
 
-# 6. 배당 주기(frequency) 및 그룹(group) 자동 분석
-
+# 3. 배당 주기(frequency) 및 그룹(group) 자동 분석
 python scripts/analyze_dividend_frequency.py
 
-# 7. 최종 nav.json 파일 생성
-
+# 4. 최종 nav.json 파일 생성
 npm run generate-nav
 
-# 8. 주가 데이터 증분 업데이트 (Node.js)
+# 5. Holdings 자동 감지
+python scripts/auto_detect_holdings.py --api --exclude-kr --yes
 
+# 6. ETF Holdings 데이터 수집
+echo y | python scripts/fetch_holdings.py
+
+# 7. 주가 데이터 증분 업데이트
 npm run update-data
 
-# 9. 배당 데이터 증분 업데이트 (Python)
+# 8. 시가총액 업데이트
+python scripts/update_market_cap.py
 
+# 9. 배당 데이터 증분 업데이트
 python scripts/update_dividends.py
 
-# 10. 배당 내역 배당률
-
+# 10. 배당 내역 및 배당률 처리
 python scripts/scraper_dividend.py
 
-# 10.5
-
+# 11. 히스토리 데이터 정리
 python scripts/clean_data.py
 
-# 11. 최신 기업 정보(시가총액 등) 업데이트
-
+# 12. 최신 기업 정보(시가총액 등) 업데이트
 python scripts/scraper_info.py
 
 # 13. 북마크 인기 데이터 집계 (FIRESTORE_SA_KEY 환경 변수 필요)
-
 python scripts/aggregate_popularity.py
 
-# 13.5 미래 배당 데이터
-
+# 14. 미래 배당 날짜 예측
 python scripts/project_future_dividends.py
 
-# 14. 달력 이벤트 데이터 생성
-
+# 15. 달력 이벤트 데이터 생성
 npm run generate-calendar-events
 
-# 15. 사이드바 목록 데이터 생성
-
+# 16. 사이드바 목록 데이터 생성
 python scripts/generate_sidebar_tickers.py
 
-# 16. 생성된 모든 JSON 파일 포맷팅
-
+# 17. 생성된 모든 JSON 파일 포맷팅
 npm run format:data
 npm run format:nav
+npm run format:public
+```
 
-3. 개발 서버 실행
-   npm run dev
+## 4. 개발 서버 실행
 
+```bash
+npm run dev
+```
+
+## 5. Git 관련 유용한 명령어
+
+```bash
+# public/data 폴더의 변경사항을 Git에서 무시하기 (대용량 데이터 파일)
 git ls-files -z public/data | xargs -0 git update-index --assume-unchanged
 
+# 다시 추적하기
 git ls-files -z public/data | xargs -0 git update-index --no-assume-unchanged
 
+# 무시 중인 파일 확인
 git ls-files -v | grep '^h'
-→ h 로 표시된 파일이 assume-unchanged 처리된 것들입니다.
-(보통 맨 앞에 H → 추적 중, h → 무시 중)
-
-python scripts/clean_data.py
+# → h로 표시된 파일이 assume-unchanged 처리된 파일들
+# (H: 추적 중, h: 무시 중)
+```
