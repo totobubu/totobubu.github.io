@@ -3,12 +3,9 @@
 name: Update Market Data (Twice Daily)
 
 on:
-    # 하루 2회 실행: 미국 증시 마감 후, 한국 증시 마감 후
-    # - 미국: UTC 21:00 또는 22:00 (서머타임 여부에 따라)
-    # - 한국: UTC 07:30 (연중 동일)
+    # [V1 테스트] 한국 증시 마감 후만 실행 (오전)
+    # - 한국: UTC 07:30 (오후 4시 30분 KST, 한국 증시 마감 후)
     schedule:
-        - cron: '0 21 * * 1-5' # UTC 21:00 (미국 서머타임 적용 시: 오전 6시 KST)
-        - cron: '0 22 * * 1-5' # UTC 22:00 (미국 서머타임 미적용 시: 오전 7시 KST)
         - cron: '30 7 * * 1-5' # UTC 07:30 (오후 4시 30분 KST, 한국 증시 마감 후)
     workflow_dispatch:
 
@@ -102,14 +99,10 @@ jobs:
                     echo "should_run=false" >> $GITHUB_OUTPUT
                   fi
 
-            # --- 시장 데이터 업데이트 파이프라인 (가격 및 시가총액 중심) ---
+            # --- 시장 데이터 업데이트 파이프라인 (가격 중심) ---
             - name: 7. Update historical price data
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
-
-            - name: 7.5. Update daily market capitalization (Yahoo Finance)
-              if: steps.check_time.outputs.should_run == 'true'
-              run: python scripts/update_market_cap.py
 
             - name: 11. Aggregate bookmark popularity
               if: steps.check_time.outputs.should_run == 'true'
@@ -121,12 +114,12 @@ jobs:
               if: steps.check_time.outputs.should_run == 'true'
               run: python scripts/generate_sidebar_tickers.py
 
-            - name: 14. Format all generated data files
+            - name: 14. Format changed files only
               if: steps.check_time.outputs.should_run == 'true'
               run: |
-                  npm run format:data
-                  npm run format:nav
-                  npm run format:public
+                  echo "📝 변경된 파일만 포맷 중..."
+                  npm run format:changed
+                  echo "✅ 포맷 완료"
 
             - name: 15. Upload changed files to R2 (Git-based, fast)
               if: steps.check_time.outputs.should_run == 'true'
