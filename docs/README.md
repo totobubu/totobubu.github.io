@@ -27,6 +27,7 @@
 ## 💰 시가총액 (Market Cap)
 
 - **[MARKET_CAP_GUIDE.md](./MARKET_CAP_GUIDE.md)** - 시가총액 데이터 통합 가이드 ⭐
+- **[RATE_LIMIT_ISSUE.md](./RATE_LIMIT_ISSUE.md)** - Yahoo Finance Rate Limit 문제 해결 🔧
 
 ---
 

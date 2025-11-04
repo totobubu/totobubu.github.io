@@ -317,81 +317,92 @@ def update_ticker_info():
 # Step 3: 시가총액 업데이트 (update_market_cap)
 # ============================================================================
 def update_market_cap():
-    """시가총액 업데이트"""
+    """시가총액 업데이트 (Rate Limit 방지)"""
     print("\n" + "=" * 80)
     print("💰 STEP 3: 시가총액 업데이트")
     print("=" * 80)
     
     today_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"📅 오늘 날짜: {today_str}\n")
+    print(f"📅 오늘 날짜: {today_str}")
+    print(f"⚠️  Rate Limit 방지: 개별 처리 + 대기 시간 적용\n")
     
-    BATCH_SIZE = 100
     updated_count = 0
     skipped_count = 0
+    rate_limit_count = 0
     
-    # 배치 처리
-    for i in tqdm(range(0, len(active_symbols), BATCH_SIZE), desc="시가총액 배치 수집"):
-        batch = active_symbols[i:i + BATCH_SIZE]
-        
+    # 개별 처리 (Rate Limit 방지)
+    for symbol in tqdm(active_symbols, desc="시가총액 개별 수집"):
         try:
-            # 배치로 시가총액 가져오기
-            tickers = yf.Tickers(" ".join(batch))
+            # 개별 Ticker 객체로 처리 (Rate Limit 회피)
+            ticker_obj = yf.Ticker(symbol)
             
-            for symbol in batch:
-                try:
-                    ticker_obj = tickers.tickers.get(symbol)
+            try:
+                info = ticker_obj.info
+                market_cap = info.get("marketCap") if info else None
+            except Exception as e:
+                error_msg = str(e)
+                if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
+                    rate_limit_count += 1
+                    # Rate Limit 발생 시 대기 후 재시도
+                    time.sleep(3)
+                    try:
+                        info = ticker_obj.info
+                        market_cap = info.get("marketCap") if info else None
+                    except:
+                        market_cap = None
+                else:
                     market_cap = None
+            
+            if market_cap:
+                # 파일 업데이트
+                sanitized_symbol = sanitize_ticker_for_filename(symbol)
+                file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+                
+                if os.path.exists(file_path):
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
                     
-                    if ticker_obj and ticker_obj.info:
-                        market_cap = ticker_obj.info.get("marketCap")
-                    
-                    if market_cap:
-                        # 파일 업데이트
-                        sanitized_symbol = sanitize_ticker_for_filename(symbol)
-                        file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+                    backtest_data = data.get("backtestData", [])
+                    if backtest_data:
+                        # 오늘 날짜 데이터 찾기
+                        today_entry = None
+                        for entry in backtest_data:
+                            if entry.get("date") == today_str:
+                                today_entry = entry
+                                break
                         
-                        if os.path.exists(file_path):
-                            with open(file_path, "r", encoding="utf-8") as f:
-                                data = json.load(f)
+                        if today_entry and "marketCap" not in today_entry:
+                            today_entry["marketCap"] = market_cap
                             
-                            backtest_data = data.get("backtestData", [])
-                            if backtest_data:
-                                # 오늘 날짜 데이터 찾기
-                                today_entry = None
-                                for entry in backtest_data:
-                                    if entry.get("date") == today_str:
-                                        today_entry = entry
-                                        break
-                                
-                                if today_entry and "marketCap" not in today_entry:
-                                    today_entry["marketCap"] = market_cap
-                                    
-                                    with open(file_path, "w", encoding="utf-8") as f:
-                                        json.dump(data, f, ensure_ascii=False, indent=2)
-                                    
-                                    updated_count += 1
-                                else:
-                                    skipped_count += 1
-                            else:
-                                skipped_count += 1
+                            with open(file_path, "w", encoding="utf-8") as f:
+                                json.dump(data, f, ensure_ascii=False, indent=2)
+                            
+                            updated_count += 1
                         else:
                             skipped_count += 1
                     else:
                         skipped_count += 1
-                
-                except Exception as e:
-                    tqdm.write(f"  ❌ {symbol}: {e}")
+                else:
                     skipped_count += 1
+            else:
+                skipped_count += 1
+            
+            # Rate Limit 방지: 100개마다 추가 대기
+            if (active_symbols.index(symbol) + 1) % 100 == 0:
+                time.sleep(2)
         
         except Exception as e:
-            tqdm.write(f"  ❌ 배치 오류: {e}")
-            skipped_count += len(batch)
-        
-        # 다음 배치 전 대기
-        if i + BATCH_SIZE < len(active_symbols):
-            time.sleep(1)
+            error_msg = str(e)
+            if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
+                rate_limit_count += 1
+            skipped_count += 1
     
-    print(f"\n✅ 시가총액 업데이트 완료: {updated_count}개 업데이트, {skipped_count}개 스킵\n")
+    print(f"\n✅ 시가총액 업데이트 완료:")
+    print(f"   - 업데이트: {updated_count}개")
+    print(f"   - 스킵: {skipped_count}개")
+    if rate_limit_count > 0:
+        print(f"   - Rate Limit 발생: {rate_limit_count}개 (재시도 적용)\n")
+    
     return updated_count
 
 
