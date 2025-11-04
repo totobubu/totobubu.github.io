@@ -82,6 +82,7 @@ $color-quarterly: var(--p-fuchsia-400);
         .stock-item-week {
             &.freq-monthly {
                 background-color: $color-monthly;
+                color: #000;
             }
             &.freq-quarterly {
                 background-color: $color-quarterly;
@@ -107,6 +108,7 @@ $color-quarterly: var(--p-fuchsia-400);
     &-dayGridMonth-view {
         .freq-monthly {
             background-color: $color-monthly;
+            color: #000;
         }
         .freq-quarterly {
             background-color: $color-quarterly;
