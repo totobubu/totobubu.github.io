@@ -9,19 +9,7 @@
         "underlying": "BRK.B",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-04 21:59:50 KST",
-        "regularMarketPrice": 45.4341,
-        "englishName": "YieldMax BRK.B Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 2384,
-        "AvgVolume": 18720,
-        "sharesOutstanding": null,
-        "52Week": "45.28 - 50.66",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-11-05 02:56:14 KST",
         "changes": {}
     },
     "backtestData": [
@@ -1008,6 +996,71 @@
             "low": 45.43410110473633,
             "close": 45.43410110473633,
             "volume": 2384
+        },
+        {
+            "date": "2025-11-04",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 39.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 27.98,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 25.35,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 4.1,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 3.17,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QP5",
+                    "name": "United States Treasury Bill 11/06/2025",
+                    "weight": 1.65,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.18,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "BRKB  251121C00490000",
+                    "name": "BRKB US 11/21/25 C490",
+                    "weight": 0.39,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BRKB  251107C00487500",
+                    "name": "BRKB US 11/07/25 C487.5",
+                    "weight": 0.01,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BRKB  251107C00492500",
+                    "name": "BRKB US 11/07/25 C492.5",
+                    "weight": 0.01,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-11-06",
