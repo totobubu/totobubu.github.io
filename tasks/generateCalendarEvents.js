@@ -6,10 +6,40 @@ import path from 'path';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
-const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json');
+const CALENDAR_DIR = path.join(PUBLIC_DIR, 'calendar');
+const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json'); // 호환성을 위해 유지
+
+// 한국 ETF 브랜드명 목록
+const koreanEtfBrands = [
+    'KODEX',
+    'TIGER',
+    'KBSTAR',
+    'ACE',
+    'ARIRANG',
+    'HANARO',
+    'SOL',
+    'PLUS',
+    'RISE',
+    'TIMEFOLIO',
+    'KOSEF',
+    'KINDEX',
+    'TRUE',
+    'FOCUS',
+    'SMART',
+    'QV',
+    'TREX',
+    'HK ',
+];
 
 async function generateCalendarEvents() {
     console.log('--- Regenerating calendar-events.json from data files ---');
+
+    // calendar 디렉토리 생성
+    try {
+        await fs.mkdir(CALENDAR_DIR, { recursive: true });
+    } catch (e) {
+        // 이미 존재하면 무시
+    }
 
     let navData;
     try {
@@ -23,9 +53,29 @@ async function generateCalendarEvents() {
     }
 
     const tickerInfoMap = new Map(
-        navData.nav.map((item) => [item.symbol, { ...item }])
+        navData.nav.map((item) => {
+            // ETF 판단 로직
+            let isEtf = !!(item.company || item.underlying);
+            if (!isEtf && item.koName) {
+                isEtf = koreanEtfBrands.some((brand) =>
+                    item.koName.startsWith(brand)
+                );
+            }
+            return [item.symbol, { ...item, isEtf }];
+        })
     );
+
+    // 카테고리별 이벤트 저장
+    const eventsByCategory = {
+        'kr-stocks': {},
+        'kr-etfs': {},
+        'us-stocks': {},
+        'us-etfs': {},
+    };
+
+    // 호환성을 위한 전체 이벤트
     const eventsByDate = {};
+
     const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
         file.endsWith('.json')
     );
@@ -59,11 +109,27 @@ async function generateCalendarEvents() {
         }
 
         const currency = tickerInfo.currency || 'USD';
+        const isEtf = tickerInfo.isEtf || false;
+
+        // 카테고리 결정
+        let category;
+        if (currency === 'KRW' && isEtf) category = 'kr-etfs';
+        else if (currency === 'KRW' && !isEtf) category = 'kr-stocks';
+        else if (currency === 'USD' && isEtf) category = 'us-etfs';
+        else category = 'us-stocks';
+
+        // backtestData에서 배당 관련 필드가 있는 날짜만 처리
+        // (project_future_dividends.py가 이미 forecasted 데이터를 생성함)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
 
         backtestData.forEach((entry) => {
-            if (!entry || !entry.date) return; // entry가 null/undefined인 경우 방지
+            if (!entry || !entry.date) return;
 
             const dateStr = entry.date;
+            const entryDate = new Date(dateStr);
+            const isFuture = entryDate >= today;
+
             const event = {
                 ticker: tickerSymbol,
                 koName: tickerInfo.koName,
@@ -77,22 +143,39 @@ async function generateCalendarEvents() {
                     ? entry.amountFixed
                     : entry.amount;
 
-            if (amount !== undefined) {
+            // 1. 과거/현재: amount 또는 amountFixed가 있는 경우 (실제 지급된 배당)
+            // 2. 미래: expected 또는 forecasted가 true인 경우 (예정된 배당)
+            if (amount !== undefined && amount !== null) {
+                // 지나간 일정의 "amountFixed" or "amount"
                 event.amount = amount;
                 hasEvent = true;
-            } else if (entry.expected === true) {
+            } else if (isFuture && entry.expected === true) {
+                // 미래의 "expected": true
                 event.isExpected = true;
                 hasEvent = true;
-            } else if (entry.forecasted === true) {
-                event.isForecast = true;
+            } else if (isFuture && entry.forecasted === true) {
+                // 미래의 "forecasted": true (project_future_dividends.py가 생성)
+                event.isExpected = true;
                 hasEvent = true;
             }
 
             if (hasEvent) {
+                // 카테고리별 파일에 추가
+                if (!eventsByCategory[category][dateStr]) {
+                    eventsByCategory[category][dateStr] = [];
+                }
+                if (
+                    !eventsByCategory[category][dateStr].some(
+                        (e) => e.ticker === tickerSymbol
+                    )
+                ) {
+                    eventsByCategory[category][dateStr].push(event);
+                }
+
+                // 호환성을 위한 전체 파일에도 추가
                 if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
                 if (!eventsByDate[dateStr][currency])
                     eventsByDate[dateStr][currency] = [];
-
                 if (
                     !eventsByDate[dateStr][currency].some(
                         (e) => e.ticker === tickerSymbol
@@ -102,8 +185,38 @@ async function generateCalendarEvents() {
                 }
             }
         });
+
+        // project_future_dividends.py가 이미 forecasted 데이터를 생성하므로
+        // 여기서는 backtestData의 forecasted 필드만 읽어서 처리하면 됨
     }
 
+    // 카테고리별 파일 정렬 및 저장
+    const outputFiles = {
+        'kr-stocks': path.join(CALENDAR_DIR, 'calendar-events-kr-stocks.json'),
+        'kr-etfs': path.join(CALENDAR_DIR, 'calendar-events-kr-etfs.json'),
+        'us-stocks': path.join(CALENDAR_DIR, 'calendar-events-us-stocks.json'),
+        'us-etfs': path.join(CALENDAR_DIR, 'calendar-events-us-etfs.json'),
+    };
+
+    for (const [category, filePath] of Object.entries(outputFiles)) {
+        const sortedEvents = Object.keys(eventsByCategory[category])
+            .sort()
+            .reduce((acc, key) => {
+                acc[key] = eventsByCategory[category][key];
+                return acc;
+            }, {});
+
+        await fs.writeFile(filePath, JSON.stringify(sortedEvents, null, 2));
+        const eventCount = Object.values(sortedEvents).reduce(
+            (sum, events) => sum + events.length,
+            0
+        );
+        console.log(
+            `  ✓ ${category}: ${Object.keys(sortedEvents).length} dates, ${eventCount} events → ${path.basename(filePath)}`
+        );
+    }
+
+    // 호환성을 위한 전체 파일도 저장
     const sortedEventsByDate = Object.keys(eventsByDate)
         .sort()
         .reduce((acc, key) => {
@@ -116,7 +229,7 @@ async function generateCalendarEvents() {
         JSON.stringify(sortedEventsByDate, null, 2)
     );
     console.log(
-        `🎉 Successfully generated calendar-events.json with ${Object.keys(sortedEventsByDate).length} dates.`
+        `🎉 Successfully generated calendar events files with ${Object.keys(sortedEventsByDate).length} total dates.`
     );
 }
 
