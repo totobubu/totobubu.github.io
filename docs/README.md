@@ -38,6 +38,12 @@
 
 ---
 
+## 🎫 티커 관리
+
+- **[TICKER_MANAGEMENT_GUIDE.md](./TICKER_MANAGEMENT_GUIDE.md)** - 새로운 주식/ETF 추가 가이드 ⭐
+
+---
+
 ## 💼 거래 데이터
 
 - **[README_TRANSACTION_UPLOAD.md](./README_TRANSACTION_UPLOAD.md)** - 거래 내역 업로드 가이드
@@ -72,9 +78,10 @@
 
 ### 📊 데이터 관리
 데이터 수집 및 관리:
-1. [MARKET_CAP_README.md](./MARKET_CAP_README.md) - 시가총액 데이터
-2. [README_HOLDINGS.md](./README_HOLDINGS.md) - Holdings 데이터
-3. [README_TRANSACTION_UPLOAD.md](./README_TRANSACTION_UPLOAD.md) - 거래 데이터
+1. [TICKER_MANAGEMENT_GUIDE.md](./TICKER_MANAGEMENT_GUIDE.md) - 티커 추가 ⭐
+2. [MARKET_CAP_README.md](./MARKET_CAP_README.md) - 시가총액 데이터
+3. [README_HOLDINGS.md](./README_HOLDINGS.md) - Holdings 데이터
+4. [README_TRANSACTION_UPLOAD.md](./README_TRANSACTION_UPLOAD.md) - 거래 데이터
 
 ---
 
