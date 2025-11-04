@@ -73,6 +73,9 @@ jobs:
                   echo "y" | python scripts/fetch_holdings.py
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
+            - name: 7. Update daily market capitalization (Yahoo Finance)
+              run: python scripts/update_market_cap.py
+
             - name: 8. Update historical dividend data
               run: python scripts/update_dividends.py
 

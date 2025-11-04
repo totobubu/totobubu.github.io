@@ -108,7 +108,7 @@ jobs:
               run: npm run update-data
 
             # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 ---
-            - name: 2. [V2 PIPELINE] Update all market data (market_cap, popularity, sidebar)
+            - name: 2. [V2 PIPELINE] Update all market data (popularity, sidebar)
               if: steps.check_time.outputs.should_run == 'true'
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}

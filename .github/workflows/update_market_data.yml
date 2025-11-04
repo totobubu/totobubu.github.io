@@ -102,14 +102,10 @@ jobs:
                     echo "should_run=false" >> $GITHUB_OUTPUT
                   fi
 
-            # --- 시장 데이터 업데이트 파이프라인 (가격 및 시가총액 중심) ---
+            # --- 시장 데이터 업데이트 파이프라인 (가격 중심) ---
             - name: 7. Update historical price data
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
-
-            - name: 7.5. Update daily market capitalization (Yahoo Finance)
-              if: steps.check_time.outputs.should_run == 'true'
-              run: python scripts/update_market_cap.py
 
             - name: 11. Aggregate bookmark popularity
               if: steps.check_time.outputs.should_run == 'true'
