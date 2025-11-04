@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import pandas as pd
 import FinanceDataReader as fdr
@@ -6,6 +7,17 @@ import requests
 import yfinance as yf
 from tqdm import tqdm
 import time
+
+# Windows 콘솔 한글 출력 문제 해결
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except AttributeError:
+        # Python 3.7 이전 버전
+        import codecs
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
 # --- 경로 설정 ---
 ROOT_DIR = os.getcwd()

@@ -1,10 +1,22 @@
 import os
+import sys
 import json
 import yfinance as yf
 from tqdm import tqdm
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from utils import load_json_file, save_json_file
+
+# Windows 콘솔 한글 출력 문제 해결
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except AttributeError:
+        # Python 3.7 이전 버전
+        import codecs
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
 ROOT_DIR = os.getcwd()
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
