@@ -64,13 +64,16 @@
                         <span class="hidden">{{ slotProps.option.label }}</span>
                     </template>
                 </SelectButton>
-
-                <SelectButton
-                    v-if="mainFilterTab === '미국' || mainFilterTab === '한국'"
-                    v-model="subFilterTab"
-                    :options="subFilterOptions"
-                    size="small"
-                    class="w-full" />
+                <div class="flex w-full">
+                    <SelectButton
+                        v-if="
+                            mainFilterTab === '미국' || mainFilterTab === '한국'
+                        "
+                        v-model="subFilterTab"
+                        :options="subFilterOptions"
+                        size="small"
+                        class="w-full" />
+                </div>
             </div>
 
             <FilterInput
