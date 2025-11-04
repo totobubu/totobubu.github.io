@@ -4,25 +4,34 @@
         "koName": "PLUS TDF2060액티브",
         "longName": null,
         "company": null,
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 17265.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 17365.0,
         "englishName": "Hanwha Arirang TDF 2060 Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 33787,
+        "Volume": 1703,
         "AvgVolume": 16805,
         "sharesOutstanding": null,
         "52Week": "13185.0 - 18000.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17265.0,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 33787,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6412,6 +6421,14 @@
             "low": 17200,
             "close": 17265,
             "volume": 33787
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

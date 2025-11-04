@@ -4,25 +4,34 @@
         "koName": "TIGER 차이나HSCEI",
         "longName": null,
         "company": "미래에셋자산운용",
-        "frequency": "매년",
-        "group": null,
+        "frequency": "분기",
+        "group": "AJOD",
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 14055.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 14250.0,
         "englishName": "Mirae Asset Tiger China H-Share ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9537,
+        "Volume": 255,
         "AvgVolume": 24536,
         "sharesOutstanding": null,
         "52Week": "10450.0 - 14630.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14055.0,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9537,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18196,6 +18205,14 @@
             "low": 13850,
             "close": 14055,
             "volume": 9712
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }
