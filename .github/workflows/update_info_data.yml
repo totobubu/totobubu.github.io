@@ -3,9 +3,9 @@
 name: Update Info Data (Daily at 1 AM KST)
 
 on:
-    # 하루 1회 실행: 한국시간 새벽 1시 (UTC 16:00)
+    # [V1 테스트] 월/수/금 실행: 한국시간 새벽 1시 (UTC 16:00)
     schedule:
-        - cron: '0 16 * * *' # UTC 16:00 = KST 01:00 (다음날)
+        - cron: '0 16 * * 1,3,5' # UTC 16:00 = KST 01:00 (월/수/금)
     workflow_dispatch:
 
 permissions:
@@ -73,6 +73,9 @@ jobs:
                   echo "y" | python scripts/fetch_holdings.py
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
+            - name: 7. Update daily market capitalization (Yahoo Finance)
+              run: python scripts/update_market_cap.py
+
             - name: 8. Update historical dividend data
               run: python scripts/update_dividends.py
 
@@ -91,11 +94,11 @@ jobs:
             - name: 12. Generate calendar events data
               run: npm run generate-calendar-events
 
-            - name: 14. Format all generated data files
+            - name: 14. Format changed files only
               run: |
-                  npm run format:data
-                  npm run format:nav
-                  npm run format:public
+                  echo "📝 변경된 파일만 포맷 중..."
+                  npm run format:changed
+                  echo "✅ 포맷 완료"
 
             - name: 15. Upload changed files to R2 (Git-based, fast)
               run: |
