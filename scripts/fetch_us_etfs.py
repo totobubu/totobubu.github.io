@@ -30,20 +30,40 @@ DEFAULT_US_MARKET = "NYSE"  # 대부분의 ETF는 NYSE Arca에 상장
 
 # 제공해주신 데이터를 파싱하여 Python 리스트로 변환
 PREDEFINED_ETF_TEXT = """
-
 """
 
 
 def parse_predefined_list():
+    """
+    PREDEFINED_ETF_TEXT에서 티커 심볼 파싱
+
+    지원 형식:
+    1. 심볼만: "AAPL"
+    2. 심볼\t이름: "AAPL\tApple Inc."
+    """
     etfs = []
     lines = PREDEFINED_ETF_TEXT.strip().split("\n")
+
     for line in lines:
+        line = line.strip()
+        if not line:  # 빈 줄 건너뛰기
+            continue
+
         parts = line.split("\t")
+        symbol = parts[0].strip()
+
+        if not symbol:  # 심볼이 비어있으면 건너뛰기
+            continue
+
+        # 기본 ETF 정보
+        etf_info = {"symbol": symbol}
+
+        # 탭으로 구분된 이름이 있는 경우
         if len(parts) >= 2:
-            symbol = parts[0].strip()
-            # 운용사 이름 추출 (Vanguard, iShares, SPDR, Schwab 등)
             name = parts[1].strip()
             company = name.split(" ")[0]
+
+            # 알려진 운용사인지 확인
             if company in [
                 "SPDR",
                 "Invesco",
@@ -69,9 +89,13 @@ def parse_predefined_list():
             elif "iShares" in name:
                 company = "iShares"
             else:
-                company = name.split(" ")[0]  # 기본적으로 첫 단어를 운용사로 가정
+                company = name.split(" ")[0]
 
-            etfs.append({"symbol": symbol, "company": company, "longName": name})
+            etf_info["company"] = company
+            etf_info["longName"] = name
+
+        etfs.append(etf_info)
+
     return etfs
 
 
@@ -104,7 +128,7 @@ def enrich_with_yfinance(etf_list):
             try:
                 info = future.result()
                 exchange = info.get("exchange", "")
-                
+
                 # 거래소 매핑
                 if exchange in EXCHANGE_MAP:
                     market = EXCHANGE_MAP[exchange]
@@ -113,10 +137,12 @@ def enrich_with_yfinance(etf_list):
                     # 거래소 정보가 없거나 매핑되지 않은 경우
                     market = DEFAULT_US_MARKET
                     exchange_stats["Unknown"] += 1
-                    print(f"\n  ⚠️ {symbol}: Unknown exchange '{exchange}' -> defaulting to {DEFAULT_US_MARKET}")
-                
+                    print(
+                        f"\n  ⚠️ {symbol}: Unknown exchange '{exchange}' -> defaulting to {DEFAULT_US_MARKET}"
+                    )
+
                 original_etf["market"] = market
-                
+
                 # yfinance의 longName이 더 정확할 수 있으므로 업데이트
                 if info.get("longName"):
                     original_etf["longName"] = info.get("longName")
@@ -124,7 +150,9 @@ def enrich_with_yfinance(etf_list):
             except Exception as e:
                 original_etf["market"] = DEFAULT_US_MARKET
                 exchange_stats["Failed"] += 1
-                print(f"\n  ❌ {symbol}: Failed to fetch data ({str(e)[:50]}) -> defaulting to {DEFAULT_US_MARKET}")
+                print(
+                    f"\n  ❌ {symbol}: Failed to fetch data ({str(e)[:50]}) -> defaulting to {DEFAULT_US_MARKET}"
+                )
                 enriched_etfs.append(original_etf)
 
     # 통계 출력
@@ -188,9 +216,13 @@ def save_new_etfs_to_nav(new_etf_list):
         sorted_tickers = sorted(tickers_dict.values(), key=lambda x: x["symbol"])
         save_json_file(file_path, sorted_tickers)
         rel_path = os.path.relpath(file_path, ROOT_DIR)
-        added_count = sum(1 for t in sorted_tickers if t["symbol"] in [e["symbol"] for e in new_etf_list])
+        added_count = sum(
+            1
+            for t in sorted_tickers
+            if t["symbol"] in [e["symbol"] for e in new_etf_list]
+        )
         print(f"  ✓ {rel_path} (+{added_count} tickers)")
-    
+
     print(f"\n📊 Market Distribution:")
     print(f"  - NYSE: {market_counts['NYSE']} ETFs")
     print(f"  - NASDAQ: {market_counts['NASDAQ']} ETFs")

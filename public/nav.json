@@ -2577,10 +2577,9 @@
             "koName": "KT",
             "longName": "KT",
             "ipoDate": "2000-01-04",
-            "frequency": "분기",
-            "group": "FMJS",
+            "frequency": "매월",
             "logo": null,
-            "periods": ["5Y", "10Y", "15Y", "20Y"]
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "030520.KQ",
@@ -14110,7 +14109,7 @@
             "currency": "KRW",
             "ipoDate": "2024-11-04",
             "logo": null,
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "495230.KS",
@@ -14227,7 +14226,7 @@
             "currency": "KRW",
             "ipoDate": "2024-11-04",
             "logo": null,
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "496770.KS",
@@ -14417,8 +14416,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2022-08-10",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "AAPD",
@@ -14426,6 +14426,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-08-10",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -14446,6 +14449,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-08-09",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -14556,6 +14562,8 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2025-09-09",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -14576,6 +14584,8 @@
             "currency": "USD",
             "company": "American",
             "ipoDate": "2016-11-07",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -14705,8 +14715,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2008-07-14",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "AFL",
@@ -14747,6 +14759,7 @@
             "currency": "USD",
             "company": "SoFi",
             "ipoDate": "2025-09-03",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -14756,8 +14769,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2016-05-10",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "AGQ",
@@ -14794,6 +14808,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-05-15",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -14803,6 +14820,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-05-15",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -14834,6 +14854,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-07-25",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -14865,8 +14886,9 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2024-12-03",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "AIYY",
@@ -14991,6 +15013,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-02-12",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15105,6 +15129,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-04-03",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15127,6 +15153,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-08",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15145,6 +15174,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-07",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15180,8 +15212,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-03-18",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "ANEL",
@@ -15189,6 +15222,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-04",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -15397,8 +15431,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2011-03-03",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "ARKB",
@@ -15548,8 +15583,11 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2018-08-28",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "FMAD",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "AVB",
@@ -15619,6 +15657,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -15641,8 +15680,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-08-22",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "AVIG",
@@ -15671,6 +15711,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-10",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15704,6 +15747,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-10",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -15749,6 +15795,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-24",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -15819,6 +15866,8 @@
             "currency": "USD",
             "company": "Aztlan",
             "ipoDate": "2022-08-22",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -15898,8 +15947,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2022-12-13",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "BAC",
@@ -16038,8 +16088,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "1999-11-23",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y", "20Y"]
         },
         {
             "symbol": "BBIN",
@@ -16145,13 +16197,22 @@
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "BE",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2018-07-25",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "BEEX",
             "market": "NYSE",
             "currency": "USD",
             "company": "Beehive",
             "ipoDate": "2024-12-16",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "BEN",
@@ -16309,8 +16370,10 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2022-06-21",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["1Y", "2Y"]
         },
         {
             "symbol": "BITO",
@@ -16396,8 +16459,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2021-07-14",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "BKIE",
@@ -16511,6 +16575,22 @@
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
+            "symbol": "BMNR",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2025-06-05",
+            "logo": null,
+            "periods": []
+        },
+        {
+            "symbol": "BMNU",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2025-09-26",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "BMY",
             "market": "NYSE",
             "currency": "USD",
@@ -16571,6 +16651,9 @@
             "currency": "USD",
             "company": "SonicShares",
             "ipoDate": "2021-08-04",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
             "periods": []
         },
@@ -16580,6 +16663,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-04-23",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -16589,6 +16674,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-04-23",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -16598,8 +16685,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2011-10-06",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "BOND",
@@ -16654,6 +16742,14 @@
             "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "BRK.A",
+            "market": "NYSE",
+            "currency": "USD",
+            "upcoming": true,
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "BRKC",
             "company": "YieldMax",
             "frequency": "매주",
@@ -16672,6 +16768,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-12-17",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -16681,6 +16779,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-12-11",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -16714,8 +16814,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2013-04-10",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "BSCP",
@@ -16885,8 +16988,9 @@
             "currency": "USD",
             "company": "STKd",
             "ipoDate": "2024-10-16",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "BUFC",
@@ -16945,6 +17049,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-09-03",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -16965,6 +17070,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2021-03-04",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -17180,8 +17287,10 @@
             "currency": "USD",
             "company": "Carbon",
             "ipoDate": "2024-04-16",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "CCSO",
@@ -17189,6 +17298,8 @@
             "currency": "USD",
             "company": "Carbon",
             "ipoDate": "2022-09-21",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -17434,6 +17545,8 @@
             "currency": "USD",
             "company": "CoreValues",
             "ipoDate": "2023-10-17",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -17508,8 +17621,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-04-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "CHD",
@@ -17528,8 +17644,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2009-12-01",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "CHPY",
@@ -17636,8 +17753,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2024-09-25",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "CLOI",
@@ -17656,8 +17775,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2019-04-16",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "CLOZ",
@@ -17817,8 +17937,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2009-02-09",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "COM",
@@ -17826,8 +17947,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-03-30",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "COMB",
@@ -17835,6 +17959,8 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2017-07-14",
+            "holdings": false,
+            "frequency": "매년",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -17844,8 +17970,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-09-04",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "CONL",
@@ -18006,6 +18133,14 @@
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "CPNG",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2021-03-11",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "CPRT",
             "market": "NASDAQ",
             "currency": "USD",
@@ -18031,8 +18166,9 @@
             "currency": "USD",
             "company": "USCF",
             "ipoDate": "2025-01-22",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "CQQQ",
@@ -18125,8 +18261,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-11-12",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "CRWV",
@@ -18155,6 +18292,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-06-25",
+            "holdings": true,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -18175,6 +18313,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-06-25",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -18204,8 +18343,11 @@
             "currency": "USD",
             "company": "Proshares",
             "ipoDate": "2009-07-14",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "CSX",
@@ -18279,8 +18421,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2011-06-15",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "CVNA",
@@ -18297,6 +18442,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-05-29",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -18352,8 +18498,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2016-11-10",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "CWI",
@@ -18383,6 +18532,7 @@
             "currency": "USD",
             "company": "Digital",
             "ipoDate": "2025-08-06",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -18403,8 +18553,9 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2021-04-15",
+            "holdings": true,
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "DARP",
@@ -18412,6 +18563,8 @@
             "currency": "USD",
             "company": "Grizzle",
             "ipoDate": "2021-12-17",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -18430,8 +18583,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2014-10-23",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "DAY",
@@ -18516,8 +18670,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-06-21",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "DDOG",
@@ -18566,8 +18723,9 @@
             "currency": "USD",
             "company": "Hashdex",
             "ipoDate": "2022-09-16",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "DELL",
@@ -18740,8 +18898,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-05-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "DFEV",
@@ -19098,8 +19259,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2013-03-12",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "DIVB",
@@ -19119,6 +19282,7 @@
             "currency": "USD",
             "company": "Dana",
             "ipoDate": "2025-09-16",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -19151,8 +19315,9 @@
             "currency": "USD",
             "company": "Sound",
             "ipoDate": "2021-01-04",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "DJIA",
@@ -19160,8 +19325,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2022-02-24",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "DKNG",
@@ -19190,6 +19357,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-07-31",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -19199,8 +19367,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-02-14",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "DLN",
@@ -19261,8 +19430,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-06-21",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "DON",
@@ -19303,8 +19475,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-08-20",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "DPZ",
@@ -19347,8 +19522,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-05-29",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "DRIV",
@@ -19356,8 +19534,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2018-04-17",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "DRKY",
@@ -19365,6 +19544,7 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2025-10-08",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -19374,8 +19554,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-07-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "DRSK",
@@ -19395,8 +19578,10 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2019-10-07",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "DRV",
@@ -19404,8 +19589,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-07-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "DSI",
@@ -19437,8 +19625,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2020-10-29",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "DTD",
@@ -19491,6 +19680,7 @@
             "currency": "USD",
             "company": "Dana",
             "ipoDate": "2025-09-16",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -19522,8 +19712,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-05-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "DUST",
@@ -19531,8 +19724,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2010-12-08",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "DVA",
@@ -19703,8 +19899,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-12-30",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "EDIV",
@@ -19736,8 +19935,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-12-30",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "EEM",
@@ -19877,6 +20079,8 @@
             "currency": "USD",
             "company": "NestYield",
             "ipoDate": "2024-12-30",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -19886,6 +20090,8 @@
             "currency": "USD",
             "company": "NestYield",
             "ipoDate": "2024-12-27",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -19895,6 +20101,8 @@
             "currency": "USD",
             "company": "NestYield",
             "ipoDate": "2024-12-27",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -19904,8 +20112,9 @@
             "currency": "USD",
             "company": "Even",
             "ipoDate": "2024-04-02",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "EINC",
@@ -19913,8 +20122,11 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2012-03-14",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "FMAN",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "EIPI",
@@ -19955,6 +20167,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-03-27",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -19964,6 +20178,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-03-26",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -19995,8 +20211,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2020-06-03",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "EMBX",
@@ -20004,8 +20222,9 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2012-07-09",
+            "holdings": true,
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "EMC",
@@ -20013,8 +20232,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2023-05-15",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "EMCS",
@@ -20242,8 +20462,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-11-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "ERY",
@@ -20251,8 +20474,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-11-19",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "ES",
@@ -20327,6 +20553,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2018-10-17",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -20389,8 +20617,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2024-06-07",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "ETHU",
@@ -20409,8 +20638,9 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2024-07-23",
+            "holdings": false,
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "ETN",
@@ -20440,6 +20670,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-09-03",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -20481,8 +20712,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2014-01-22",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "EUSA",
@@ -20535,8 +20769,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2006-10-16",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "EW",
@@ -20847,8 +21083,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-11-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "FBCG",
@@ -20867,8 +21106,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2022-12-13",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "FBND",
@@ -20944,8 +21184,9 @@
             "currency": "USD",
             "company": "Pinnacle",
             "ipoDate": "2022-12-30",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "FCX",
@@ -20964,6 +21205,8 @@
             "currency": "USD",
             "company": "Tactical",
             "ipoDate": "2023-04-20",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -21313,8 +21556,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2016-09-13",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "FIS",
@@ -21379,6 +21623,8 @@
             "currency": "USD",
             "company": "FolioBeyond",
             "ipoDate": "2025-01-23",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -21626,6 +21872,7 @@
             "currency": "USD",
             "company": "Free",
             "ipoDate": "2025-06-10",
+            "holdings": true,
             "logo": null,
             "periods": []
         },
@@ -21834,6 +22081,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-07-23",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -21855,6 +22103,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-07-23",
+            "holdings": true,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -22158,8 +22407,9 @@
             "currency": "USD",
             "company": "Sound",
             "ipoDate": "2021-01-04",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "FXH",
@@ -22434,6 +22684,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-07",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -22443,6 +22696,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-16",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -22539,8 +22795,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2010-08-25",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y"]
         },
         {
             "symbol": "GLL",
@@ -22548,8 +22806,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2008-12-03",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "GLOV",
@@ -22625,6 +22884,9 @@
             "currency": "USD",
             "company": "GammaRoad",
             "ipoDate": "2024-09-17",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
             "periods": []
         },
@@ -22654,8 +22916,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2010-11-04",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
-            "periods": []
+            "periods": ["10Y"]
         },
         {
             "symbol": "GOOG",
@@ -22711,6 +22975,8 @@
             "currency": "USD",
             "company": "Unusual",
             "ipoDate": "2023-02-07",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -22798,7 +23064,16 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2025-06-05",
+            "holdings": true,
             "logo": "logos/vaneck.webp",
+            "periods": []
+        },
+        {
+            "symbol": "GRAB",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2020-12-01",
+            "logo": null,
             "periods": []
         },
         {
@@ -22807,8 +23082,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2011-12-08",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "GRID",
@@ -22839,8 +23115,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2017-03-07",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "GRNY",
@@ -22927,6 +23205,8 @@
             "currency": "USD",
             "company": "Gotham",
             "ipoDate": "2020-12-29",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -23005,8 +23285,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-05-29",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "GVI",
@@ -23025,6 +23308,8 @@
             "currency": "USD",
             "company": "Gotham",
             "ipoDate": "2022-06-08",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -23056,6 +23341,8 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2025-06-17",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -23065,6 +23352,7 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2025-07-23",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -23097,8 +23385,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2008-11-11",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "HAS",
@@ -23117,6 +23407,8 @@
             "currency": "USD",
             "company": "Residential",
             "ipoDate": "2022-03-01",
+            "holdings": true,
+            "frequency": "분기",
             "logo": null,
             "periods": []
         },
@@ -23147,6 +23439,8 @@
             "currency": "USD",
             "company": "Hilton",
             "ipoDate": "2025-06-11",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -23167,6 +23461,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2023-06-22",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -23245,8 +23542,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2019-10-31",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "HF",
@@ -23254,6 +23552,8 @@
             "currency": "USD",
             "company": "DGA",
             "ipoDate": "2023-08-03",
+            "holdings": false,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -23263,6 +23563,7 @@
             "currency": "USD",
             "company": "Unlimited",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -23272,6 +23573,7 @@
             "currency": "USD",
             "company": "Unlimited",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -23281,6 +23583,8 @@
             "currency": "USD",
             "company": "Unlimited",
             "ipoDate": "2022-10-11",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -23290,8 +23594,9 @@
             "currency": "USD",
             "company": "TradersAI",
             "ipoDate": "2024-10-24",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "HFXI",
@@ -23321,8 +23626,10 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2019-11-07",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "HIBS",
@@ -23330,8 +23637,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2019-11-07",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "HIG",
@@ -23394,8 +23704,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-03-13",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "HIPS",
@@ -23503,8 +23814,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-03-19",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "HOOY",
@@ -23688,8 +24000,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2021-07-14",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "HYEM",
@@ -23697,8 +24010,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2012-05-14",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "HYG",
@@ -23728,8 +24043,10 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2013-05-23",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "HYLB",
@@ -24308,8 +24625,10 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2013-11-13",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "IGIB",
@@ -24659,8 +24978,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2010-03-11",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "INFL",
@@ -24713,8 +25035,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-02-13",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "INVH",
@@ -24733,8 +25056,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-03-26",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "IONQ",
@@ -24751,8 +25075,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-03-12",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "IONZ",
@@ -24760,6 +25085,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-06-24",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -24865,7 +25191,16 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-21",
+            "holdings": false,
             "logo": "logos/defiance.png",
+            "periods": []
+        },
+        {
+            "symbol": "IREM",
+            "market": "NYSE",
+            "currency": "USD",
+            "upcoming": true,
+            "logo": null,
             "periods": []
         },
         {
@@ -24874,8 +25209,10 @@
             "currency": "USD",
             "company": "iREIT",
             "ipoDate": "2024-03-06",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "IRM",
@@ -24917,8 +25254,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2013-06-26",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y"]
         },
         {
             "symbol": "ISRG",
@@ -24946,6 +25285,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-10-07",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -25656,8 +25996,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2013-10-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "JEDI",
@@ -25665,6 +26008,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-26",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -25914,7 +26258,18 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2013-10-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
+            "periods": ["5Y", "10Y"]
+        },
+        {
+            "symbol": "JOBY",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2020-11-09",
+            "logo": null,
             "periods": []
         },
         {
@@ -25923,8 +26278,10 @@
             "currency": "USD",
             "company": "ATAC",
             "ipoDate": "2021-07-16",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "JPEF",
@@ -26022,6 +26379,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-07-25",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -26065,8 +26423,9 @@
             "currency": "USD",
             "company": "Adasina",
             "ipoDate": "2020-12-10",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "JTEK",
@@ -26280,8 +26639,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2011-10-06",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "KOMP",
@@ -26301,8 +26661,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2013-04-10",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "KR",
@@ -26333,8 +26696,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2016-07-12",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "KVUE",
@@ -26370,6 +26734,14 @@
             "periods": ["10Y", "15Y"]
         },
         {
+            "symbol": "KYLD",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2025-11-03",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "L",
             "market": "NYSE",
             "currency": "USD",
@@ -26386,8 +26758,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-05-28",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "LABU",
@@ -26400,13 +26775,23 @@
             "periods": ["5Y"]
         },
         {
+            "symbol": "LAES",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2023-05-23",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "LBAY",
             "market": "NYSE",
             "currency": "USD",
             "company": "Leatherback",
             "ipoDate": "2020-11-17",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "LCDL",
@@ -26414,8 +26799,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-04-22",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "LCTU",
@@ -26461,6 +26847,14 @@
             "holdings": false,
             "logo": null,
             "periods": ["5Y", "10Y", "15Y", "20Y"]
+        },
+        {
+            "symbol": "LEU",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "1998-07-23",
+            "logo": null,
+            "periods": []
         },
         {
             "symbol": "LFGY",
@@ -26569,8 +26963,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-08-08",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "LLYZ",
@@ -26578,6 +26973,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-03",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -26587,6 +26983,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-07-17",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -26607,6 +27005,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-16",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -26627,6 +27026,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-08-06",
+            "holdings": true,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -26636,6 +27036,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-08-08",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -26668,6 +27069,7 @@
             "currency": "USD",
             "company": "Tidal",
             "ipoDate": "2025-05-28",
+            "holdings": true,
             "logo": null,
             "periods": []
         },
@@ -26699,8 +27101,9 @@
             "currency": "USD",
             "company": "PEO",
             "ipoDate": "2025-01-28",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "LRCX",
@@ -27101,6 +27504,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-06-11",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27110,6 +27516,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-06-06",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27143,8 +27552,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-05-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "MFUT",
@@ -27152,8 +27564,9 @@
             "currency": "USD",
             "company": "Cambria",
             "ipoDate": "2024-05-29",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MGC",
@@ -27217,8 +27630,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-01-08",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "MILN",
@@ -27226,8 +27642,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2016-05-06",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "MINT",
@@ -27268,8 +27685,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2008-01-10",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "MLPA",
@@ -27374,8 +27793,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2007-09-05",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "MORT",
@@ -27383,8 +27804,11 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2011-08-17",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "AJOD",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "MOS",
@@ -27403,6 +27827,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2015-07-14",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -27423,6 +27849,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-21",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -27443,8 +27870,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-03-07",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MRK",
@@ -27518,6 +27946,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-06-10",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -27527,6 +27956,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-08",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27536,8 +27968,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-03-18",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "MSFO",
@@ -27569,6 +28002,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-09-07",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27648,6 +28084,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-06-10",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -27689,8 +28126,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-08-15",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MSTY",
@@ -27800,6 +28238,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-18",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27809,8 +28250,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-11-12",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MUNI",
@@ -27829,6 +28271,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-10",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -27838,8 +28283,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-03-07",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MVV",
@@ -27847,8 +28293,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-06-21",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "NACP",
@@ -27856,8 +28305,11 @@
             "currency": "USD",
             "company": "Tidal",
             "ipoDate": "2018-07-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "NAIL",
@@ -27865,8 +28317,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2015-08-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "NANC",
@@ -27874,6 +28329,8 @@
             "currency": "USD",
             "company": "Unusual",
             "ipoDate": "2023-02-07",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -27883,6 +28340,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-10-07",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -28014,6 +28472,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28023,6 +28484,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-03",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28097,6 +28561,7 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2025-05-14",
+            "holdings": true,
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -28115,6 +28580,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -28135,6 +28601,8 @@
             "currency": "USD",
             "company": "Aztlan",
             "ipoDate": "2023-11-30",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -28266,6 +28734,8 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2023-08-22",
+            "holdings": false,
+            "frequency": "매년",
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -28286,6 +28756,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2023-09-13",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28305,6 +28778,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2023-09-13",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28353,8 +28829,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-12-03",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "NVR",
@@ -28494,6 +28971,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-06-24",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -28503,6 +28981,8 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2025-03-05",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -28568,8 +29048,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2021-01-13",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "ORCL",
@@ -28588,8 +29069,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-02-07",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "ORLY",
@@ -28606,6 +29088,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-25",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -28702,6 +29185,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-03-27",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28721,6 +29206,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-03-27",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -28879,6 +29366,7 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
             "periods": []
         },
@@ -28997,8 +29485,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2020-06-25",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "PFG",
@@ -29139,8 +29629,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-11-15",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "PIT",
@@ -29148,6 +29641,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2022-12-22",
+            "holdings": false,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -29235,6 +29730,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-12-12",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -29244,8 +29741,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2018-02-05",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "PLTR",
@@ -29262,6 +29760,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-12-11",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -29297,7 +29798,16 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-06-06",
+            "holdings": true,
             "logo": "logos/defiance.png",
+            "periods": []
+        },
+        {
+            "symbol": "PLUG",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "1999-10-29",
+            "logo": null,
             "periods": []
         },
         {
@@ -29414,6 +29924,7 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2025-10-28",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -29592,8 +30103,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-06-21",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "PSX",
@@ -29621,8 +30135,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-09-04",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "PTLC",
@@ -29804,11 +30319,20 @@
             "periods": ["6M"]
         },
         {
+            "symbol": "QBTS",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2020-12-11",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "QBTZ",
             "market": "NYSE",
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-07",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -29818,6 +30342,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-06-25",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -29827,8 +30352,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-04-03",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "QCMU",
@@ -29836,6 +30362,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-06-25",
+            "holdings": true,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -29947,8 +30474,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-07-13",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "QLD",
@@ -30003,6 +30533,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-08-07",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -30036,6 +30567,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-03-08",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -30104,6 +30638,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-03-07",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -30158,6 +30694,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-21",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -30225,6 +30762,8 @@
             "currency": "USD",
             "company": "VistaShares",
             "ipoDate": "2025-05-06",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -30257,8 +30796,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2020-09-23",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "RAAX",
@@ -30266,6 +30807,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2018-04-10",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -30279,6 +30822,14 @@
             "holdings": false,
             "logo": null,
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
+        },
+        {
+            "symbol": "RBLX",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2021-03-10",
+            "logo": null,
+            "periods": []
         },
         {
             "symbol": "RBLY",
@@ -30345,8 +30896,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-03-25",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RDTY",
@@ -30401,6 +30953,9 @@
             "currency": "USD",
             "company": "Intelligent",
             "ipoDate": "2023-06-13",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "AJOD",
             "logo": null,
             "periods": []
         },
@@ -30466,6 +31021,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-07-17",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -30486,8 +31044,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2010-07-14",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "REZ",
@@ -30518,6 +31079,9 @@
             "currency": "USD",
             "company": "Rockefeller",
             "ipoDate": "2024-10-28",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "AJSD",
             "logo": null,
             "periods": []
         },
@@ -30536,8 +31100,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-04-01",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RGTZ",
@@ -30545,6 +31110,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-10-09",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -30564,8 +31130,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-01-03",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RISR",
@@ -30573,8 +31140,10 @@
             "currency": "USD",
             "company": "FolioBeyond",
             "ipoDate": "2021-10-01",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "RJF",
@@ -30588,13 +31157,22 @@
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "RKLB",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2020-11-24",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "RKLX",
             "market": "NYSE",
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-03-13",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RL",
@@ -30613,8 +31191,10 @@
             "currency": "USD",
             "company": "Rockefeller",
             "ipoDate": "2024-08-13",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "RMD",
@@ -30633,8 +31213,10 @@
             "currency": "USD",
             "company": "Rockefeller",
             "ipoDate": "2024-08-13",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "RMOP",
@@ -30642,8 +31224,10 @@
             "currency": "USD",
             "company": "Rockefeller",
             "ipoDate": "2024-08-13",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "RNTY",
@@ -30728,6 +31312,9 @@
             "currency": "USD",
             "company": "ATAC",
             "ipoDate": "2020-11-17",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
             "periods": []
         },
@@ -30748,8 +31335,11 @@
             "currency": "USD",
             "company": "RPAR",
             "ipoDate": "2019-12-13",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "RPG",
@@ -30781,8 +31371,9 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2024-12-18",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RSBT",
@@ -30790,8 +31381,9 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2023-02-08",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "RSBY",
@@ -30799,8 +31391,9 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2024-08-21",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RSG",
@@ -30819,8 +31412,9 @@
             "currency": "USD",
             "company": "Rockefeller",
             "ipoDate": "2024-10-11",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "RSP",
@@ -30852,6 +31446,8 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2023-12-05",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -30873,6 +31469,8 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2023-09-06",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -30882,6 +31480,7 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2025-05-30",
+            "holdings": true,
             "logo": null,
             "periods": []
         },
@@ -30891,8 +31490,9 @@
             "currency": "USD",
             "company": "Return",
             "ipoDate": "2024-05-29",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "RTH",
@@ -30900,8 +31500,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2001-05-17",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y", "20Y"]
         },
         {
             "symbol": "RTX",
@@ -30920,8 +31522,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-04-22",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RVTY",
@@ -30976,8 +31579,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2007-01-25",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "RWO",
@@ -31004,6 +31610,14 @@
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "RXRX",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2021-04-16",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "RYLD",
             "market": "NYSE",
             "currency": "USD",
@@ -31020,6 +31634,9 @@
             "currency": "USD",
             "company": "Schwab",
             "ipoDate": "2021-11-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/schwab.svg",
             "periods": []
         },
@@ -31177,8 +31794,10 @@
             "currency": "USD",
             "company": "Schwab",
             "ipoDate": "2019-10-11",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/schwab.svg",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "SCHK",
@@ -31323,8 +31942,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2008-11-25",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "SCUS",
@@ -31332,8 +31952,10 @@
             "currency": "USD",
             "company": "Schwab",
             "ipoDate": "2024-08-13",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/schwab.svg",
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "SCYB",
@@ -31386,8 +32008,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2010-02-11",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SDS",
@@ -31395,8 +32020,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2006-07-13",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "SDTY",
@@ -31487,8 +32115,9 @@
             "currency": "USD",
             "company": "SoFi",
             "ipoDate": "2019-04-11",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "SFYF",
@@ -31496,8 +32125,9 @@
             "currency": "USD",
             "company": "SoFi",
             "ipoDate": "2019-05-08",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "SFYX",
@@ -31505,8 +32135,9 @@
             "currency": "USD",
             "company": "SoFi",
             "ipoDate": "2019-04-11",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "SGOL",
@@ -31535,6 +32166,7 @@
             "currency": "USD",
             "company": "SMART",
             "ipoDate": "2025-08-20",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -31544,6 +32176,8 @@
             "currency": "USD",
             "company": "Schwab",
             "ipoDate": "2025-06-12",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/schwab.svg",
             "periods": []
         },
@@ -31586,8 +32220,9 @@
             "currency": "USD",
             "company": "MicroSectors",
             "ipoDate": "2023-02-22",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "SHOP",
@@ -31616,6 +32251,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-08-06",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -31625,6 +32261,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-08-06",
+            "holdings": true,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -31634,6 +32271,8 @@
             "currency": "USD",
             "company": "Gotham",
             "ipoDate": "2023-11-06",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -31676,8 +32315,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2014-01-14",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "SHYG",
@@ -31728,8 +32369,11 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2019-03-05",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SJM",
@@ -31815,8 +32459,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2006-10-17",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "SLYG",
@@ -31848,8 +32494,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2008-02-28",
+            "holdings": false,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "SMBS",
@@ -31890,8 +32538,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-12-13",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "SMCO",
@@ -31899,6 +32548,8 @@
             "currency": "USD",
             "company": "Hilton",
             "ipoDate": "2023-11-29",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -31908,8 +32559,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-08-21",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "SMCY",
@@ -31930,8 +32582,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-04-01",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "SMDV",
@@ -31962,8 +32615,9 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2024-08-28",
+            "holdings": true,
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "SMIG",
@@ -32028,8 +32682,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2007-05-09",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "SMOT",
@@ -32037,6 +32693,8 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2022-10-06",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
             "periods": []
         },
@@ -32055,8 +32713,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-08-21",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "SMTH",
@@ -32141,8 +32800,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2016-09-16",
+            "holdings": true,
             "logo": null,
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "SNTH",
@@ -32150,8 +32810,9 @@
             "currency": "USD",
             "company": "MRP",
             "ipoDate": "2025-03-11",
+            "holdings": false,
             "logo": null,
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "SO",
@@ -32170,6 +32831,16 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2011-11-15",
+            "holdings": true,
+            "frequency": "매년",
+            "logo": null,
+            "periods": ["10Y"]
+        },
+        {
+            "symbol": "SOFI",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2021-01-04",
             "logo": null,
             "periods": []
         },
@@ -32179,8 +32850,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-01-16",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "SOLV",
@@ -32197,6 +32869,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-06-24",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -32274,8 +32947,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2016-06-10",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SPDW",
@@ -32305,8 +32981,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2012-07-19",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "SPG",
@@ -32483,8 +33161,10 @@
             "currency": "USD",
             "company": "SP",
             "ipoDate": "2020-12-30",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y"]
         },
         {
             "symbol": "SPSB",
@@ -32503,8 +33183,10 @@
             "currency": "USD",
             "company": "SP",
             "ipoDate": "2019-12-31",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "SPSM",
@@ -32580,8 +33262,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2014-05-28",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SPXL",
@@ -32601,6 +33286,8 @@
             "currency": "USD",
             "company": "Azoria",
             "ipoDate": "2025-07-08",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
             "periods": []
         },
@@ -32610,8 +33297,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-11-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SPXT",
@@ -32619,8 +33309,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2015-09-24",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SPXU",
@@ -32628,8 +33321,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2009-06-25",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "SPY",
@@ -32697,6 +33393,7 @@
             "currency": "USD",
             "company": "SPDR",
             "ipoDate": "2025-10-23",
+            "holdings": false,
             "logo": "logos/spdr.jpg",
             "periods": []
         },
@@ -32765,8 +33462,10 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2015-03-17",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "SRLN",
@@ -32797,8 +33496,9 @@
             "currency": "USD",
             "company": "Schwab",
             "ipoDate": "2022-08-04",
+            "holdings": true,
             "logo": "logos/schwab.svg",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "STE",
@@ -32839,6 +33539,7 @@
             "currency": "USD",
             "company": "SMART",
             "ipoDate": "2025-08-20",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -32950,8 +33651,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2011-10-04",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "SW",
@@ -33125,8 +33827,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2008-05-22",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "TBXU",
@@ -33134,6 +33839,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-02",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33271,8 +33977,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-12-30",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "TEL",
@@ -33311,6 +34020,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-02",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33353,6 +34063,8 @@
             "currency": "USD",
             "company": "Blueprint",
             "ipoDate": "2023-07-12",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -33407,8 +34119,10 @@
             "currency": "USD",
             "company": "SoFi",
             "ipoDate": "2023-11-15",
+            "holdings": true,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y"]
         },
         {
             "symbol": "THYF",
@@ -33439,6 +34153,8 @@
             "currency": "USD",
             "company": "Clockwise",
             "ipoDate": "2022-01-28",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -33603,8 +34319,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-04-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "TNA",
@@ -33623,8 +34342,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2014-03-27",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "TOPT",
@@ -33677,8 +34399,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-05-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "TPR",
@@ -33744,6 +34469,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-30",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -33795,8 +34521,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2023-08-28",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "TSII",
@@ -33817,8 +34544,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2022-08-09",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "TSLA",
@@ -33847,8 +34575,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2023-08-28",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "TSLS",
@@ -33856,6 +34585,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2022-08-10",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33865,6 +34597,7 @@
             "currency": "USD",
             "company": "Azoria",
             "ipoDate": "2025-09-30",
+            "holdings": false,
             "logo": null,
             "periods": []
         },
@@ -33911,8 +34644,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-11-12",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "TSMW",
@@ -33933,6 +34667,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33955,6 +34692,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-10-03",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33986,6 +34726,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-02",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -33995,6 +34736,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-01",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -34046,6 +34788,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-02",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -34055,6 +34798,7 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-10-02",
+            "holdings": false,
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -34086,8 +34830,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-04-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "TYL",
@@ -34106,8 +34853,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-04-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "TZA",
@@ -34115,8 +34865,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2008-11-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "UAL",
@@ -34165,8 +34918,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2018-04-19",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "UBRL",
@@ -34174,8 +34930,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2024-09-04",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "UBT",
@@ -34183,8 +34940,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2010-01-21",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "UCO",
@@ -34192,8 +34952,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2008-11-25",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "UCON",
@@ -34212,8 +34973,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2010-02-11",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "UDR",
@@ -34313,11 +35077,22 @@
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
+            "symbol": "UNTC",
+            "market": "NYSE",
+            "currency": "USD",
+            "ipoDate": "2024-07-09",
+            "logo": null,
+            "periods": []
+        },
+        {
             "symbol": "UPAR",
             "market": "NYSE",
             "currency": "USD",
             "company": "UPAR",
             "ipoDate": "2022-01-04",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
             "periods": []
         },
@@ -34361,6 +35136,9 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2024-06-26",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -34403,8 +35181,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2010-02-11",
+            "holdings": false,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "USB",
@@ -34608,8 +35389,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2017-05-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "UVXY",
@@ -34617,8 +35401,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2011-10-04",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "UWM",
@@ -34626,8 +35411,11 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2007-01-25",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "UX",
@@ -34645,6 +35433,7 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2025-07-15",
+            "holdings": false,
             "logo": "logos/proshares.png",
             "periods": []
         },
@@ -34850,8 +35639,10 @@
             "currency": "USD",
             "company": "Academy",
             "ipoDate": "2023-08-02",
+            "holdings": false,
+            "frequency": "매월",
             "logo": null,
-            "periods": []
+            "periods": ["1Y", "2Y"]
         },
         {
             "symbol": "VEU",
@@ -35057,6 +35848,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-08-08",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -35066,8 +35858,9 @@
             "currency": "USD",
             "company": "ProShares",
             "ipoDate": "2011-01-04",
+            "holdings": false,
             "logo": "logos/proshares.png",
-            "periods": []
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "VLO",
@@ -35142,8 +35935,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2009-08-14",
+            "holdings": true,
+            "frequency": "매년",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["10Y", "15Y"]
         },
         {
             "symbol": "VNQ",
@@ -35384,8 +36179,9 @@
             "currency": "USD",
             "company": "GraniteShares",
             "ipoDate": "2025-03-25",
+            "holdings": false,
             "logo": "logos/graniteshares.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "VRTX",
@@ -35436,6 +36232,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-07-22",
+            "holdings": true,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -35746,8 +36543,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2018-11-29",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "WAT",
@@ -35805,8 +36605,10 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2019-11-07",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "WEBS",
@@ -35814,8 +36616,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2019-11-07",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "WEC",
@@ -35846,6 +36651,9 @@
             "currency": "USD",
             "company": "Peerless",
             "ipoDate": "2024-05-16",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
             "periods": []
         },
@@ -35933,8 +36741,11 @@
             "currency": "USD",
             "company": "Impact",
             "ipoDate": "2018-08-30",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "WPAY",
@@ -36302,8 +37113,9 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2024-10-22",
+            "holdings": true,
             "logo": "logos/defiance.png",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "XME",
@@ -36359,8 +37171,10 @@
             "currency": "USD",
             "company": "VanEck",
             "ipoDate": "2011-07-13",
+            "holdings": true,
+            "frequency": "매월",
             "logo": "logos/vaneck.webp",
-            "periods": []
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "XNTK",
@@ -36417,6 +37231,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-04-23",
+            "holdings": true,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -36426,6 +37242,8 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2025-04-23",
+            "holdings": false,
+            "frequency": "분기",
             "logo": "logos/direxion.png",
             "periods": []
         },
@@ -36458,6 +37276,7 @@
             "currency": "USD",
             "company": "Defiance",
             "ipoDate": "2025-09-04",
+            "holdings": false,
             "logo": "logos/defiance.png",
             "periods": []
         },
@@ -36524,6 +37343,8 @@
             "currency": "USD",
             "company": "Acruence",
             "ipoDate": "2021-04-22",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -36577,6 +37398,8 @@
             "currency": "USD",
             "company": "God",
             "ipoDate": "2022-10-11",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
@@ -36586,8 +37409,11 @@
             "currency": "USD",
             "company": "Direxion",
             "ipoDate": "2009-12-03",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "MJSD",
             "logo": "logos/direxion.png",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "YBIT",
@@ -36714,6 +37540,9 @@
             "currency": "USD",
             "company": "Global",
             "ipoDate": "2024-12-18",
+            "holdings": true,
+            "frequency": "분기",
+            "group": "AJOD",
             "logo": null,
             "periods": []
         },
@@ -36743,6 +37572,8 @@
             "currency": "USD",
             "company": "Zega",
             "ipoDate": "2021-07-07",
+            "holdings": true,
+            "frequency": "매년",
             "logo": null,
             "periods": []
         },
