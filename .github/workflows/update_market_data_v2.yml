@@ -4,13 +4,11 @@
 name: Update Market Data V2 (Optimized Pipeline)
 
 on:
-    # 하루 2회 실행: 기존 워크플로우와 30분 차이
-    # - 미국: UTC 21:30 또는 22:30
-    # - 한국: UTC 08:00
+    # [V2 테스트] 미국 증시 마감 후만 실행 (오후)
+    # - 미국: UTC 21:30 또는 22:30 (서머타임 여부에 따라)
     schedule:
-        - cron: '30 21 * * 1-5' # UTC 21:30
-        - cron: '30 22 * * 1-5' # UTC 22:30
-        - cron: '0 8 * * 1-5' # UTC 08:00 (KST 17:00)
+        - cron: '30 21 * * 1-5' # UTC 21:30 (서머타임 적용 시: 오전 6시 30분 KST)
+        - cron: '30 22 * * 1-5' # UTC 22:30 (서머타임 미적용 시: 오전 7시 30분 KST)
     workflow_dispatch:
 
 permissions:

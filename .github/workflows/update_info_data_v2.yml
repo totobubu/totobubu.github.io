@@ -4,9 +4,9 @@
 name: Update Info Data V2 (Optimized Pipeline)
 
 on:
-    # 하루 1회 실행: 한국시간 새벽 2시 (UTC 17:00) - 기존 워크플로우와 1시간 차이
+    # [V2 테스트] 화/목/토 실행: 한국시간 새벽 2시 (UTC 17:00)
     schedule:
-        - cron: '0 17 * * *' # UTC 17:00 = KST 02:00
+        - cron: '0 17 * * 2,4,6' # UTC 17:00 = KST 02:00 (화/목/토)
     workflow_dispatch:
 
 permissions:
