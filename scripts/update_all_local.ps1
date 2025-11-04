@@ -44,16 +44,17 @@ try {
     Write-Host "✅ ETF Holdings 데이터 수집 완료" -ForegroundColor Green
     Write-Host ""
 
-    # 7. 히스토리 가격 데이터 업데이트
-    Write-Host "📈 7. 히스토리 가격 데이터 업데이트 중..." -ForegroundColor Cyan
-    npm run update-data
-    Write-Host "✅ 히스토리 가격 데이터 업데이트 완료" -ForegroundColor Green
-    Write-Host ""
-
-    # 7.5. 시가총액 업데이트
-    Write-Host "💰 7.5. 시가총액 업데이트 중..." -ForegroundColor Cyan
+    # 7. 시가총액 업데이트 (매일 실행)
+    Write-Host "💰 7. 시가총액 업데이트 중..." -ForegroundColor Cyan
     python scripts/update_market_cap.py
     Write-Host "✅ 시가총액 업데이트 완료" -ForegroundColor Green
+    Write-Host ""
+
+    # 7.5. 히스토리 가격 데이터 업데이트 (선택적 - 필요시만)
+    Write-Host "📈 7.5. 히스토리 가격 데이터 업데이트 중..." -ForegroundColor Cyan
+    Write-Host "⚠️  이 작업은 시간이 오래 걸립니다 (약 3-5분)" -ForegroundColor Yellow
+    npm run update-data
+    Write-Host "✅ 히스토리 가격 데이터 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
     # 8. 배당 데이터 업데이트
@@ -108,12 +109,10 @@ try {
     Write-Host "✅ 사이드바 티커 생성 완료" -ForegroundColor Green
     Write-Host ""
 
-    # 14. 생성된 데이터 파일 포맷팅
-    Write-Host "✨ 14. 데이터 파일 포맷팅 중..." -ForegroundColor Cyan
-    npm run format:data
-    npm run format:nav
-    npm run format:public
-    Write-Host "✅ 데이터 파일 포맷팅 완료" -ForegroundColor Green
+    # 14. 변경된 파일만 포맷팅 (Git 기반)
+    Write-Host "✨ 14. 변경된 파일만 포맷팅 중..." -ForegroundColor Cyan
+    npm run format:changed
+    Write-Host "✅ 포맷팅 완료" -ForegroundColor Green
     Write-Host ""
 
     Write-Host "🎉 전체 데이터 업데이트 완료!" -ForegroundColor Green

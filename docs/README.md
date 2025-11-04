@@ -8,6 +8,7 @@
 
 - **[WORKFLOW_GUIDE.md](./WORKFLOW_GUIDE.md)** - V1 vs V2 비교, 테스트 스케줄, 최적화 요약 ⭐
 - **[DEPLOY_WORKFLOW_GUIDE.md](./DEPLOY_WORKFLOW_GUIDE.md)** - Deploy 워크플로우 & 자동 R2 업로드
+- **[LOCAL_VS_GITHUB_WORKFLOWS.md](./LOCAL_VS_GITHUB_WORKFLOWS.md)** - 로컬 스크립트 vs GitHub Actions 비교 🔄
 
 ---
 
