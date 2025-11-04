@@ -27,21 +27,56 @@ def get_git_changed_files():
         # GitHub Actions 환경 변수 확인
         github_before = os.environ.get("GITHUB_BEFORE_SHA")
         github_after = os.environ.get("GITHUB_AFTER_SHA")
+        github_event = os.environ.get("GITHUB_EVENT_NAME")
         
         changed_files = []
         
         # GitHub Actions 환경: push된 커밋의 변경사항 확인
         if github_before and github_after and github_before != "0000000000000000000000000000000000000000":
             print(f"   [GitHub Actions] 커밋 비교: {github_before[:7]}..{github_after[:7]}")
-            result = subprocess.run(
-                ["git", "diff", "--name-only", "--diff-filter=AM", github_before, github_after],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            for line in result.stdout.strip().split("\n"):
-                if line.strip():
-                    changed_files.append(line.strip())
+            
+            # 먼저 커밋이 존재하는지 확인
+            try:
+                result = subprocess.run(
+                    ["git", "diff", "--name-only", "--diff-filter=AM", github_before, github_after],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                for line in result.stdout.strip().split("\n"):
+                    if line.strip():
+                        changed_files.append(line.strip())
+            except subprocess.CalledProcessError as e:
+                # fetch-depth가 부족하거나 커밋을 찾을 수 없는 경우
+                print(f"   ⚠️ 커밋 비교 실패 (exit code {e.returncode}): {e.stderr[:100] if e.stderr else 'Unknown'}")
+                print(f"   → 대체 방법: 최근 커밋의 변경사항 사용")
+                
+                # 대체: HEAD의 변경사항 확인
+                try:
+                    result = subprocess.run(
+                        ["git", "diff", "--name-only", "--diff-filter=AM", "HEAD~1", "HEAD"],
+                        capture_output=True,
+                        text=True,
+                        check=False
+                    )
+                    if result.returncode == 0:
+                        for line in result.stdout.strip().split("\n"):
+                            if line.strip():
+                                changed_files.append(line.strip())
+                    else:
+                        # HEAD~1도 없으면 모든 파일 업로드
+                        print(f"   → HEAD~1도 없음. git show로 최근 커밋 확인")
+                        result = subprocess.run(
+                            ["git", "show", "--name-only", "--pretty=format:", "--diff-filter=AM", "HEAD"],
+                            capture_output=True,
+                            text=True,
+                            check=False
+                        )
+                        for line in result.stdout.strip().split("\n"):
+                            if line.strip():
+                                changed_files.append(line.strip())
+                except Exception as inner_e:
+                    print(f"   ⚠️ 대체 방법도 실패: {inner_e}")
         else:
             # 로컬 환경: 먼저 git status 시도
             result = subprocess.run(
