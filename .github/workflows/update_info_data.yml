@@ -3,9 +3,9 @@
 name: Update Info Data (Daily at 1 AM KST)
 
 on:
-    # 하루 1회 실행: 한국시간 새벽 1시 (UTC 16:00)
+    # [V1 테스트] 월/수/금 실행: 한국시간 새벽 1시 (UTC 16:00)
     schedule:
-        - cron: '0 16 * * *' # UTC 16:00 = KST 01:00 (다음날)
+        - cron: '0 16 * * 1,3,5' # UTC 16:00 = KST 01:00 (월/수/금)
     workflow_dispatch:
 
 permissions:
