@@ -72,7 +72,7 @@ jobs:
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
             # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 ---
-            - name: 6. [V2 PIPELINE] Update all info data (dividends, info, frequency, projection)
+            - name: 6. [V2 PIPELINE] Update all info data (dividends, info, market_cap, frequency, projection)
               run: |
                   echo "🚀 통합 정보성 데이터 파이프라인 시작..."
                   python scripts/info_data_pipeline.py

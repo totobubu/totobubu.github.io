@@ -10,7 +10,6 @@ import os
 import json
 import time
 import sys
-import yfinance as yf
 from datetime import datetime
 from pathlib import Path
 from tqdm import tqdm
@@ -108,126 +107,14 @@ def initialize():
 
 
 # ============================================================================
-# Step 1: 시가총액 업데이트 (update_market_cap)
-# ============================================================================
-def get_current_market_cap_batch(symbols):
-    """Yahoo Finance에서 여러 티커의 시가총액 배치로 가져오기"""
-    try:
-        tickers = yf.Tickers(" ".join(symbols))
-        market_caps = {}
-        
-        for symbol in symbols:
-            try:
-                ticker_obj = tickers.tickers.get(symbol)
-                if ticker_obj and ticker_obj.info:
-                    market_cap = ticker_obj.info.get("marketCap")
-                    market_caps[symbol] = market_cap if market_cap else None
-                else:
-                    market_caps[symbol] = None
-            except Exception:
-                market_caps[symbol] = None
-        
-        return market_caps
-    
-    except Exception as e:
-        print(f"❌ 배치 가져오기 오류: {e}")
-        return {symbol: None for symbol in symbols}
-
-
-def update_ticker_market_cap(symbol, today_str, market_cap):
-    """특정 티커의 오늘 날짜 backtestData에 marketCap 추가"""
-    sanitized_symbol = symbol.replace(".", "-").lower()
-    file_path = DATA_DIR / f"{sanitized_symbol}.json"
-    
-    if not file_path.exists():
-        return False
-    
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        
-        backtest_data = data.get("backtestData", [])
-        if not backtest_data:
-            return False
-        
-        # 오늘 날짜 데이터 찾기
-        today_entry = None
-        for entry in backtest_data:
-            if entry.get("date") == today_str:
-                today_entry = entry
-                break
-        
-        if not today_entry:
-            return False
-        
-        # 이미 marketCap이 있으면 스킵
-        if "marketCap" in today_entry and today_entry["marketCap"] is not None:
-            return False
-        
-        # marketCap이 None이면 스킵
-        if market_cap is None:
-            return False
-        
-        # marketCap 추가
-        today_entry["marketCap"] = market_cap
-        
-        # 파일 저장
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        
-        return True
-    
-    except Exception as e:
-        return False
-
-
-def update_market_cap():
-    """시가총액 업데이트"""
-    print("\n" + "=" * 80)
-    print("💰 STEP 1: 시가총액 업데이트")
-    print("=" * 80)
-    
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"📅 오늘 날짜: {today_str}")
-    print(f"💡 Yahoo Finance 사용 (무료, 무제한)\n")
-    
-    BATCH_SIZE = 100
-    updated_count = 0
-    skipped_count = 0
-    
-    # 배치 처리
-    for i in tqdm(range(0, len(active_symbols), BATCH_SIZE), desc="시가총액 배치 수집"):
-        batch = active_symbols[i:i + BATCH_SIZE]
-        
-        # 배치로 시가총액 가져오기
-        market_caps = get_current_market_cap_batch(batch)
-        
-        # 각 티커 업데이트
-        for symbol in batch:
-            market_cap = market_caps.get(symbol)
-            result = update_ticker_market_cap(symbol, today_str, market_cap)
-            if result:
-                updated_count += 1
-            else:
-                skipped_count += 1
-        
-        # 다음 배치 전 대기
-        if i + BATCH_SIZE < len(active_symbols):
-            time.sleep(1)
-    
-    print(f"\n✅ 시가총액 업데이트 완료: {updated_count}개 업데이트, {skipped_count}개 스킵\n")
-    return updated_count
-
-
-# ============================================================================
-# Step 2: 인기도 집계 (aggregate_popularity)
+# Step 1: 인기도 집계 (aggregate_popularity)
 # ============================================================================
 def aggregate_popularity():
     """Firestore에서 북마크 데이터를 집계하여 인기도 생성"""
     global popularity_dict
     
     print("\n" + "=" * 80)
-    print("⭐ STEP 2: 인기도 집계")
+    print("⭐ STEP 1: 인기도 집계")
     print("=" * 80)
     
     if not FIREBASE_AVAILABLE:
@@ -369,7 +256,7 @@ def select_top_tickers(all_tickers, popularity_dict):
 def generate_sidebar_tickers():
     """사이드바 티커 파일 생성"""
     print("\n" + "=" * 80)
-    print("📂 STEP 3: 사이드바 티커 생성")
+    print("📂 STEP 2: 사이드바 티커 생성")
     print("=" * 80)
     
     all_tickers_from_nav = nav_data.get("nav", [])
@@ -423,13 +310,10 @@ def main():
     if not initialize():
         return
     
-    # Step 1: 시가총액 업데이트
-    marketcap_updates = update_market_cap()
-    
-    # Step 2: 인기도 집계
+    # Step 1: 인기도 집계
     popularity_count = aggregate_popularity()
     
-    # Step 3: 사이드바 티커 생성
+    # Step 2: 사이드바 티커 생성
     sidebar_count = generate_sidebar_tickers()
     
     # 완료
@@ -437,7 +321,6 @@ def main():
     print("\n" + "=" * 80)
     print("🎉 시장 데이터 통합 파이프라인 완료")
     print("=" * 80)
-    print(f"💰 시가총액: {marketcap_updates}개 업데이트")
     print(f"⭐ 인기도: {popularity_count}개 티커")
     print(f"📂 사이드바: {sidebar_count}개 카테고리")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")

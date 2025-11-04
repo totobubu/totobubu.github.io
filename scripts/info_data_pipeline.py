@@ -314,7 +314,89 @@ def update_ticker_info():
 
 
 # ============================================================================
-# Step 3: 배당 빈도 분석 (analyze_dividend_frequency)
+# Step 3: 시가총액 업데이트 (update_market_cap)
+# ============================================================================
+def update_market_cap():
+    """시가총액 업데이트"""
+    print("\n" + "=" * 80)
+    print("💰 STEP 3: 시가총액 업데이트")
+    print("=" * 80)
+    
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    print(f"📅 오늘 날짜: {today_str}\n")
+    
+    BATCH_SIZE = 100
+    updated_count = 0
+    skipped_count = 0
+    
+    # 배치 처리
+    for i in tqdm(range(0, len(active_symbols), BATCH_SIZE), desc="시가총액 배치 수집"):
+        batch = active_symbols[i:i + BATCH_SIZE]
+        
+        try:
+            # 배치로 시가총액 가져오기
+            tickers = yf.Tickers(" ".join(batch))
+            
+            for symbol in batch:
+                try:
+                    ticker_obj = tickers.tickers.get(symbol)
+                    market_cap = None
+                    
+                    if ticker_obj and ticker_obj.info:
+                        market_cap = ticker_obj.info.get("marketCap")
+                    
+                    if market_cap:
+                        # 파일 업데이트
+                        sanitized_symbol = sanitize_ticker_for_filename(symbol)
+                        file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+                        
+                        if os.path.exists(file_path):
+                            with open(file_path, "r", encoding="utf-8") as f:
+                                data = json.load(f)
+                            
+                            backtest_data = data.get("backtestData", [])
+                            if backtest_data:
+                                # 오늘 날짜 데이터 찾기
+                                today_entry = None
+                                for entry in backtest_data:
+                                    if entry.get("date") == today_str:
+                                        today_entry = entry
+                                        break
+                                
+                                if today_entry and "marketCap" not in today_entry:
+                                    today_entry["marketCap"] = market_cap
+                                    
+                                    with open(file_path, "w", encoding="utf-8") as f:
+                                        json.dump(data, f, ensure_ascii=False, indent=2)
+                                    
+                                    updated_count += 1
+                                else:
+                                    skipped_count += 1
+                            else:
+                                skipped_count += 1
+                        else:
+                            skipped_count += 1
+                    else:
+                        skipped_count += 1
+                
+                except Exception as e:
+                    tqdm.write(f"  ❌ {symbol}: {e}")
+                    skipped_count += 1
+        
+        except Exception as e:
+            tqdm.write(f"  ❌ 배치 오류: {e}")
+            skipped_count += len(batch)
+        
+        # 다음 배치 전 대기
+        if i + BATCH_SIZE < len(active_symbols):
+            time.sleep(1)
+    
+    print(f"\n✅ 시가총액 업데이트 완료: {updated_count}개 업데이트, {skipped_count}개 스킵\n")
+    return updated_count
+
+
+# ============================================================================
+# Step 4: 배당 빈도 분석 (analyze_dividend_frequency)
 # ============================================================================
 MONTH_INITIALS = {
     1: "J", 2: "F", 3: "M", 4: "A", 5: "M", 6: "J",
@@ -531,10 +613,13 @@ def main():
     # Step 2: 티커 정보 업데이트
     info_updates = update_ticker_info()
     
-    # Step 3: 배당 빈도 분석
+    # Step 3: 시가총액 업데이트
+    marketcap_updates = update_market_cap()
+    
+    # Step 4: 배당 빈도 분석
     frequency_updates = analyze_dividend_frequency()
     
-    # Step 4: 미래 배당일 예측
+    # Step 5: 미래 배당일 예측
     projection_updates = project_future_dividends()
     
     # 완료
@@ -544,6 +629,7 @@ def main():
     print("=" * 80)
     print(f"📊 배당 데이터: {dividend_updates}개 파일 업데이트")
     print(f"📋 티커 정보: {info_updates}개 파일 업데이트")
+    print(f"💰 시가총액: {marketcap_updates}개 업데이트")
     print(f"📅 배당 빈도: {frequency_updates}개 티커 업데이트")
     print(f"🔮 배당일 예측: {projection_updates}개 파일 업데이트")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
