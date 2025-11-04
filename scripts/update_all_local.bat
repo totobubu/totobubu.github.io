@@ -47,18 +47,19 @@ if errorlevel 1 goto error
 echo ✅ ETF Holdings 데이터 수집 완료
 echo.
 
-REM 7. 히스토리 가격 데이터 업데이트
-echo 📈 7. 히스토리 가격 데이터 업데이트 중...
-call npm run update-data
-if errorlevel 1 goto error
-echo ✅ 히스토리 가격 데이터 업데이트 완료
-echo.
-
-REM 7.5. 시가총액 업데이트
-echo 💰 7.5. 시가총액 업데이트 중...
+REM 7. 시가총액 업데이트 (매일 실행)
+echo 💰 7. 시가총액 업데이트 중...
 python scripts/update_market_cap.py
 if errorlevel 1 goto error
 echo ✅ 시가총액 업데이트 완료
+echo.
+
+REM 7.5. 히스토리 가격 데이터 업데이트 (선택적 - 필요시만)
+echo 📈 7.5. 히스토리 가격 데이터 업데이트 중...
+echo ⚠️  이 작업은 시간이 오래 걸립니다 (약 3-5분)
+call npm run update-data
+if errorlevel 1 goto error
+echo ✅ 히스토리 가격 데이터 업데이트 완료
 echo.
 
 REM 8. 배당 데이터 업데이트
@@ -121,13 +122,11 @@ if errorlevel 1 goto error
 echo ✅ 사이드바 티커 생성 완료
 echo.
 
-REM 14. 생성된 데이터 파일 포맷팅
-echo ✨ 14. 데이터 파일 포맷팅 중...
-call npm run format:data
-call npm run format:nav
-call npm run format:public
+REM 14. 변경된 파일만 포맷팅 (Git 기반)
+echo ✨ 14. 변경된 파일만 포맷팅 중...
+call npm run format:changed
 if errorlevel 1 goto error
-echo ✅ 데이터 파일 포맷팅 완료
+echo ✅ 포맷팅 완료
 echo.
 
 echo 🎉 전체 데이터 업데이트 완료!
