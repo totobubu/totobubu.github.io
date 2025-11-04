@@ -12,6 +12,10 @@ on:
 permissions:
     contents: write
 
+concurrency:
+    group: 'data-updates' # 모든 데이터 업데이트 워크플로우를 하나의 그룹으로 묶음
+    cancel-in-progress: false # 진행 중인 작업은 취소하지 않고 대기
+
 jobs:
     update-info-v2:
         runs-on: ubuntu-latest
@@ -120,4 +124,19 @@ jobs:
                   Changed files:
                   $(git status --porcelain)"
                   git commit -m "$COMMIT_MSG"
-                  git push
+                  
+                  # 푸시 재시도 로직 (최대 3번)
+                  for i in 1 2 3; do
+                    if git push; then
+                      echo "✅ 푸시 성공!"
+                      exit 0
+                    else
+                      echo "⚠️ 푸시 실패 (시도 $i/3). 원격 변경사항 가져오는 중..."
+                      git pull --rebase origin main
+                      if [ $i -eq 3 ]; then
+                        echo "❌ 3번 시도 후 푸시 실패"
+                        exit 1
+                      fi
+                      sleep 5
+                    fi
+                  done
