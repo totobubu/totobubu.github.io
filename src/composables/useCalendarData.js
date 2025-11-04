@@ -19,80 +19,103 @@ const loadAllData = async () => {
         isLoading.value = true;
         error.value = null;
         try {
-            // 분할된 파일들을 병렬로 로드
+            // 달력 이벤트 파일만 로드 (sidebar 파일은 불필요 - 모든 티커 표시해야 함)
             const [
-                eventsResponse,
-                krStocksResponse,
-                krEtfsResponse,
-                usStocksResponse,
-                usEtfsResponse,
+                krStocksEventsResponse,
+                krEtfsEventsResponse,
+                usStocksEventsResponse,
+                usEtfsEventsResponse,
             ] = await Promise.all([
-                fetch(getDataUrl('calendar-events.json')),
-                fetch(getDataUrl('sidebar/sidebar-tickers-kr-stocks.json')),
-                fetch(getDataUrl('sidebar/sidebar-tickers-kr-etfs.json')),
-                fetch(getDataUrl('sidebar/sidebar-tickers-us-stocks.json')),
-                fetch(getDataUrl('sidebar/sidebar-tickers-us-etfs.json')),
+                fetch(getDataUrl('calendar/calendar-events-kr-stocks.json')),
+                fetch(getDataUrl('calendar/calendar-events-kr-etfs.json')),
+                fetch(getDataUrl('calendar/calendar-events-us-stocks.json')),
+                fetch(getDataUrl('calendar/calendar-events-us-etfs.json')),
             ]);
 
-            if (!eventsResponse.ok)
-                throw new Error('calendar-events.json could not be loaded.');
-            if (!krStocksResponse.ok)
-                throw new Error(
-                    'sidebar/sidebar-tickers-kr-stocks.json could not be loaded.'
-                );
-            if (!krEtfsResponse.ok)
-                throw new Error(
-                    'sidebar/sidebar-tickers-kr-etfs.json could not be loaded.'
-                );
-            if (!usStocksResponse.ok)
-                throw new Error(
-                    'sidebar/sidebar-tickers-us-stocks.json could not be loaded.'
-                );
-            if (!usEtfsResponse.ok)
-                throw new Error(
-                    'sidebar/sidebar-tickers-us-etfs.json could not be loaded.'
-                );
+            if (!krStocksEventsResponse.ok)
+                throw new Error('calendar-events-kr-stocks.json could not be loaded.');
+            if (!krEtfsEventsResponse.ok)
+                throw new Error('calendar-events-kr-etfs.json could not be loaded.');
+            if (!usStocksEventsResponse.ok)
+                throw new Error('calendar-events-us-stocks.json could not be loaded.');
+            if (!usEtfsEventsResponse.ok)
+                throw new Error('calendar-events-us-etfs.json could not be loaded.');
 
-            const eventsByDate = await eventsResponse.json();
-            const [krStocks, krEtfs, usStocks, usEtfs] = await Promise.all([
-                krStocksResponse.json(),
-                krEtfsResponse.json(),
-                usStocksResponse.json(),
-                usEtfsResponse.json(),
+            const [
+                krStocksEvents,
+                krEtfsEvents,
+                usStocksEvents,
+                usEtfsEvents,
+            ] = await Promise.all([
+                krStocksEventsResponse.json(),
+                krEtfsEventsResponse.json(),
+                usStocksEventsResponse.json(),
+                usEtfsEventsResponse.json(),
             ]);
 
-            // 모든 tickers를 하나의 배열로 합치기
-            const sidebarTickers = [
-                ...krStocks,
-                ...krEtfs,
-                ...usStocks,
-                ...usEtfs,
-            ];
-
+            // 분할된 이벤트 파일들을 하나로 합치고, 동시에 티커 속성 정보 수집
             const flatEvents = [];
-            for (const date in eventsByDate) {
-                const dayData = eventsByDate[date];
-                if (dayData.USD)
-                    dayData.USD.forEach((event) =>
-                        flatEvents.push({ ...event, date, currency: 'USD' })
-                    );
-                if (dayData.KRW)
-                    dayData.KRW.forEach((event) =>
-                        flatEvents.push({ ...event, date, currency: 'KRW' })
-                    );
+            const tickerPropertiesMap = new Map();
+            
+            // KR Stocks (currency: KRW, isEtf: false)
+            for (const date in krStocksEvents) {
+                krStocksEvents[date].forEach((event) => {
+                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: false });
+                    // 티커 속성 정보 저장
+                    if (!tickerPropertiesMap.has(event.ticker)) {
+                        tickerPropertiesMap.set(event.ticker, {
+                            currency: 'KRW',
+                            isEtf: false,
+                            koName: event.koName,
+                        });
+                    }
+                });
             }
+            
+            // KR ETFs (currency: KRW, isEtf: true)
+            for (const date in krEtfsEvents) {
+                krEtfsEvents[date].forEach((event) => {
+                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: true });
+                    if (!tickerPropertiesMap.has(event.ticker)) {
+                        tickerPropertiesMap.set(event.ticker, {
+                            currency: 'KRW',
+                            isEtf: true,
+                            koName: event.koName,
+                        });
+                    }
+                });
+            }
+            
+            // US Stocks (currency: USD, isEtf: false)
+            for (const date in usStocksEvents) {
+                usStocksEvents[date].forEach((event) => {
+                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: false });
+                    if (!tickerPropertiesMap.has(event.ticker)) {
+                        tickerPropertiesMap.set(event.ticker, {
+                            currency: 'USD',
+                            isEtf: false,
+                            koName: event.koName,
+                        });
+                    }
+                });
+            }
+            
+            // US ETFs (currency: USD, isEtf: true)
+            for (const date in usEtfsEvents) {
+                usEtfsEvents[date].forEach((event) => {
+                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: true });
+                    if (!tickerPropertiesMap.has(event.ticker)) {
+                        tickerPropertiesMap.set(event.ticker, {
+                            currency: 'USD',
+                            isEtf: true,
+                            koName: event.koName,
+                        });
+                    }
+                });
+            }
+            
             allDividendData.value = flatEvents;
-
-            allTickerProperties.value = new Map(
-                sidebarTickers.map((t) => [
-                    t.symbol,
-                    {
-                        currency: t.currency,
-                        isEtf: !!(t.company || t.underlying),
-                        koName: t.koName,
-                    },
-                ])
-            );
+            allTickerProperties.value = tickerPropertiesMap;
             isDataLoaded = true;
             resolve();
         } catch (err) {
@@ -128,39 +151,32 @@ export function useCalendarData() {
                 (event) => !myTickerSet.has(event.ticker)
             );
 
-            // [핵심 수정] 국가 필터링
+            // [핵심 수정] 국가 필터링 (event에 이미 currency 정보가 있음)
             if (mainTab === '미국') {
                 filteredEvents = filteredEvents.filter(
-                    (event) =>
-                        allTickerProperties.value.get(event.ticker)
-                            ?.currency === 'USD'
+                    (event) => event.currency === 'USD'
                 );
             } else if (mainTab === '한국') {
                 filteredEvents = filteredEvents.filter(
-                    (event) =>
-                        allTickerProperties.value.get(event.ticker)
-                            ?.currency === 'KRW'
+                    (event) => event.currency === 'KRW'
                 );
             }
 
-            // [핵심 수정] 소분류 필터링 (국가 필터링 후에 적용)
+            // [핵심 수정] 소분류 필터링 (event에 이미 isEtf 정보가 있음)
             if (subTab === 'ETF') {
                 filteredEvents = filteredEvents.filter(
-                    (event) =>
-                        allTickerProperties.value.get(event.ticker)?.isEtf
+                    (event) => event.isEtf === true
                 );
             } else if (subTab === '주식') {
                 filteredEvents = filteredEvents.filter(
-                    (event) =>
-                        !allTickerProperties.value.get(event.ticker)?.isEtf
+                    (event) => event.isEtf === false
                 );
             }
         }
 
         const grouped = {};
         for (const div of filteredEvents) {
-            const props = allTickerProperties.value.get(div.ticker);
-            if (props) div.koName = props.koName;
+            // koName은 이미 event에 포함되어 있음
             if (!grouped[div.date]) grouped[div.date] = [];
             grouped[div.date].push(div);
         }

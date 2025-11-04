@@ -17,35 +17,70 @@ from r2_helper import upload_file_to_r2, load_r2_config, R2_AVAILABLE
 def get_git_changed_files():
     """
     Git에서 변경된 파일 목록 가져오기
+    - GitHub Actions 환경: push된 커밋의 변경사항 확인
+    - 로컬 환경: git status로 변경사항 확인
     
     Returns:
         list: 변경된 파일 경로 목록
     """
     try:
-        # git status --porcelain으로 변경된 파일 가져오기
-        result = subprocess.run(
-            ["git", "status", "--porcelain"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
+        # GitHub Actions 환경 변수 확인
+        github_before = os.environ.get("GITHUB_BEFORE_SHA")
+        github_after = os.environ.get("GITHUB_AFTER_SHA")
         
         changed_files = []
-        for line in result.stdout.strip().split("\n"):
-            if not line:
-                continue
+        
+        # GitHub Actions 환경: push된 커밋의 변경사항 확인
+        if github_before and github_after and github_before != "0000000000000000000000000000000000000000":
+            print(f"   [GitHub Actions] 커밋 비교: {github_before[:7]}..{github_after[:7]}")
+            result = subprocess.run(
+                ["git", "diff", "--name-only", "--diff-filter=AM", github_before, github_after],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            for line in result.stdout.strip().split("\n"):
+                if line.strip():
+                    changed_files.append(line.strip())
+        else:
+            # 로컬 환경: 먼저 git status 시도
+            result = subprocess.run(
+                ["git", "status", "--porcelain"],
+                capture_output=True,
+                text=True,
+                check=True
+            )
             
-            # 상태 코드와 파일명 분리
-            # 예: " M public/data/aapl.json" → "public/data/aapl.json"
-            #     "?? public/data/new.json" → "public/data/new.json"
-            parts = line.strip().split(maxsplit=1)
-            if len(parts) == 2:
-                status_code = parts[0]
-                file_path = parts[1]
+            for line in result.stdout.strip().split("\n"):
+                if not line:
+                    continue
                 
-                # 삭제된 파일은 제외 (D)
-                if "D" not in status_code:
-                    changed_files.append(file_path)
+                # 상태 코드와 파일명 분리
+                # 예: " M public/data/aapl.json" → "public/data/aapl.json"
+                #     "?? public/data/new.json" → "public/data/new.json"
+                parts = line.strip().split(maxsplit=1)
+                if len(parts) == 2:
+                    status_code = parts[0]
+                    file_path = parts[1]
+                    
+                    # 삭제된 파일은 제외 (D)
+                    if "D" not in status_code:
+                        changed_files.append(file_path)
+            
+            # git status에 변경사항이 없으면 마지막 커밋의 변경사항 확인
+            if not changed_files:
+                try:
+                    result = subprocess.run(
+                        ["git", "diff", "--name-only", "--diff-filter=AM", "HEAD~1", "HEAD"],
+                        capture_output=True,
+                        text=True,
+                        check=True
+                    )
+                    for line in result.stdout.strip().split("\n"):
+                        if line.strip():
+                            changed_files.append(line.strip())
+                except subprocess.CalledProcessError:
+                    pass  # HEAD~1이 없을 수 있음 (첫 커밋)
         
         return changed_files
     

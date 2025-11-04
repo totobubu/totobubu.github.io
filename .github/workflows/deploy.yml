@@ -47,10 +47,13 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
-            # 2.5. R2에 변경된 데이터 파일 업로드
+            # 2.5. R2에 변경된 데이터 파일 업로드 (public/ 폴더 내부 파일만)
             - name: Upload changed data files to R2
+              env:
+                  GITHUB_BEFORE_SHA: ${{ github.event.before }}
+                  GITHUB_AFTER_SHA: ${{ github.sha }}
               run: |
-                  echo "📤 변경된 데이터 파일을 R2에 업로드 중..."
+                  echo "📤 변경된 public/ 폴더 내부 파일을 R2에 업로드 중..."
                   python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
                   echo "✅ R2 업로드 완료 (또는 스킵)"
 

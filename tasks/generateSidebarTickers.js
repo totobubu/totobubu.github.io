@@ -28,7 +28,10 @@ async function generateSidebarTickers() {
     console.log('--- Starting to generate sidebar-tickers.json ---');
     try {
         const yieldMap = new Map();
+        const marketCapMap = new Map();
         const allDataFiles = await fs.readdir(DATA_DIR);
+        
+        console.log('📊 Loading marketCap and yield data from data files...');
         for (const file of allDataFiles) {
             if (file.endsWith('.json')) {
                 const filePath = path.join(DATA_DIR, file);
@@ -36,12 +39,27 @@ async function generateSidebarTickers() {
                     const content = await fs.readFile(filePath, 'utf-8');
                     const data = JSON.parse(content);
                     const tickerSymbol = getTickerFromFilename(file);
+                    
+                    // Yield 정보 수집
                     if (data.tickerInfo && data.tickerInfo.Yield) {
                         yieldMap.set(tickerSymbol, data.tickerInfo.Yield);
+                    }
+                    
+                    // MarketCap 정보 수집 (backtestData의 마지막 항목에서)
+                    if (data.backtestData && data.backtestData.length > 0) {
+                        // 최신 데이터부터 역순으로 찾기
+                        for (let i = data.backtestData.length - 1; i >= 0; i--) {
+                            if (data.backtestData[i].marketCap) {
+                                marketCapMap.set(tickerSymbol, data.backtestData[i].marketCap);
+                                break;
+                            }
+                        }
                     }
                 } catch (e) {}
             }
         }
+        console.log(`  ✓ Loaded marketCap for ${marketCapMap.size} tickers`);
+        console.log(`  ✓ Loaded yield for ${yieldMap.size} tickers`);
 
         // popularity.json 로드
         let popularityMap = new Map();
@@ -65,11 +83,25 @@ async function generateSidebarTickers() {
         const navData = JSON.parse(navContent);
         const dayOrder = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
 
+        // 한국 ETF 브랜드명 목록
+        const koreanEtfBrands = [
+            'KODEX', 'TIGER', 'KBSTAR', 'ACE', 'ARIRANG', 'HANARO',
+            'SOL', 'PLUS', 'RISE', 'TIMEFOLIO', 'KOSEF', 'KINDEX',
+            'TRUE', 'FOCUS', 'SMART', 'QV', 'TREX', 'HK '
+        ];
+
         const sidebarTickers = navData.nav
             .filter((item) => !item.upcoming)
             .map((item) => {
                 const tickerSymbol = item.symbol;
-                const isEtf = !!(item.company || item.underlying);
+                
+                // ETF 판단: company/underlying 필드가 있거나, 한국 ETF 브랜드명으로 시작하는 경우
+                let isEtf = !!(item.company || item.underlying);
+                if (!isEtf && item.koName) {
+                    isEtf = koreanEtfBrands.some(brand => 
+                        item.koName.startsWith(brand)
+                    );
+                }
                 
                 // null/undefined 값을 가진 필드는 제외하여 파일 크기 최적화
                 const ticker = {
@@ -92,7 +124,10 @@ async function generateSidebarTickers() {
                     ticker.groupOrder = 999;
                 }
                 if (item.underlying) ticker.underlying = item.underlying;
-                if (item.marketCap) ticker.marketCap = item.marketCap;
+                
+                // data 파일에서 가져온 marketCap 사용
+                const marketCapValue = marketCapMap.get(tickerSymbol);
+                if (marketCapValue) ticker.marketCap = marketCapValue;
                 
                 const yieldValue = yieldMap.get(tickerSymbol);
                 if (yieldValue) ticker.yield = yieldValue;
@@ -106,18 +141,44 @@ async function generateSidebarTickers() {
                 return ticker;
             });
 
-        // 시장별로 분할
-        const krStocks = sidebarTickers.filter(
-            (t) => t.currency === 'KRW' && !t.isEtf
+        // 상위 50개 선택 함수 (popularity 상위 20개 + marketCap 상위 30개)
+        const selectTop50 = (tickers) => {
+            const MAX_TICKERS = 50;
+            const POPULARITY_LIMIT = 20;
+            
+            // popularity가 있는 티커들을 popularity 순으로 정렬
+            const popularTickers = tickers
+                .filter((t) => t.popularity && t.popularity > 0)
+                .sort((a, b) => b.popularity - a.popularity);
+            
+            // 상위 20개 선택 (없으면 있는 만큼만)
+            const topPopular = popularTickers.slice(0, POPULARITY_LIMIT);
+            const selectedSymbols = new Set(topPopular.map((t) => t.symbol));
+            
+            // 나머지 티커들 (popularity에 포함되지 않은 것들)
+            const remainingTickers = tickers
+                .filter((t) => !selectedSymbols.has(t.symbol))
+                .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0));
+            
+            // 50개가 될 때까지 추가
+            const needed = MAX_TICKERS - topPopular.length;
+            const topByMarketCap = remainingTickers.slice(0, needed);
+            
+            return [...topPopular, ...topByMarketCap];
+        };
+
+        // 시장별로 분할 후 상위 50개 선택
+        const krStocks = selectTop50(
+            sidebarTickers.filter((t) => t.currency === 'KRW' && !t.isEtf)
         );
-        const krEtfs = sidebarTickers.filter(
-            (t) => t.currency === 'KRW' && t.isEtf
+        const krEtfs = selectTop50(
+            sidebarTickers.filter((t) => t.currency === 'KRW' && t.isEtf)
         );
-        const usStocks = sidebarTickers.filter(
-            (t) => t.currency === 'USD' && !t.isEtf
+        const usStocks = selectTop50(
+            sidebarTickers.filter((t) => t.currency === 'USD' && !t.isEtf)
         );
-        const usEtfs = sidebarTickers.filter(
-            (t) => t.currency === 'USD' && t.isEtf
+        const usEtfs = selectTop50(
+            sidebarTickers.filter((t) => t.currency === 'USD' && t.isEtf)
         );
 
         // 시장별 인기도 데이터 생성
