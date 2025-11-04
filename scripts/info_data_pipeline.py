@@ -22,6 +22,7 @@ from utils import (
     save_json_file,
     sanitize_ticker_for_filename,
     get_kst_now,
+    should_skip_update_timestamp,
 )
 
 # 경로 설정
@@ -290,7 +291,17 @@ def update_ticker_info():
             compare_old = {k: v for k, v in old_info.items() if k not in ["Update", "changes"]}
             compare_new = {k: v for k, v in new_info.items() if k not in ["Update", "changes"]}
             
-            if json.dumps(compare_old, sort_keys=True) != json.dumps(compare_new, sort_keys=True):
+            data_changed = json.dumps(compare_old, sort_keys=True) != json.dumps(compare_new, sort_keys=True)
+            
+            # 정책: 데이터 변경이 없고 3시간 이내 업데이트면 Update 필드 유지
+            if should_skip_update_timestamp(old_info.get("Update"), data_changed):
+                new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
+                # 데이터 변경이 없으면 저장하지 않음
+                if not data_changed:
+                    continue
+            
+            # 데이터 변경이 있거나, 3시간 초과 시 저장
+            if data_changed or not should_skip_update_timestamp(old_info.get("Update"), data_changed):
                 existing_data["tickerInfo"] = new_info
                 save_json_file(file_path, existing_data)
                 total_changed_files += 1
