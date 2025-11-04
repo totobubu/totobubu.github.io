@@ -18,30 +18,6 @@ DATA_DIR = PUBLIC_DIR / "data"
 NAV_FILE = PUBLIC_DIR / "nav.json"
 
 
-def get_current_market_cap_batch(symbols):
-    """Yahoo Finance에서 여러 티커의 현재 시가총액을 배치로 가져오기"""
-    try:
-        tickers = yf.Tickers(" ".join(symbols))
-        market_caps = {}
-        
-        for symbol in symbols:
-            try:
-                ticker_obj = tickers.tickers.get(symbol)
-                if ticker_obj and ticker_obj.info:
-                    market_cap = ticker_obj.info.get("marketCap")
-                    market_caps[symbol] = market_cap if market_cap else None
-                else:
-                    market_caps[symbol] = None
-            except Exception:
-                market_caps[symbol] = None
-        
-        return market_caps
-    
-    except Exception as e:
-        print(f"❌ Batch fetch error: {e}")
-        return {symbol: None for symbol in symbols}
-
-
 def update_ticker_market_cap(symbol, today_str, market_cap):
     """특정 티커의 오늘 날짜 backtestData에 marketCap 추가"""
     sanitized_symbol = symbol.replace(".", "-").lower()
@@ -116,39 +92,56 @@ def main():
     today_str = datetime.now().strftime("%Y-%m-%d")
     print(f"📊 Total active tickers: {len(active_tickers)}")
     print(f"📅 Today's date: {today_str}")
-    print(f"💡 Using Yahoo Finance (free, no limits)\n")
+    print(f"⚠️  Rate Limit 방지: 개별 처리 + 대기 시간 적용\n")
 
-    # 배치 크기 (Yahoo Finance는 제한 없지만 안정성을 위해 100개씩)
-    BATCH_SIZE = 100
     updated_count = 0
     skipped_count = 0
+    rate_limit_count = 0
 
-    # 배치로 처리
-    for i in tqdm(
-        range(0, len(active_tickers), BATCH_SIZE),
-        desc="Fetching market caps in batches"
-    ):
-        batch = active_tickers[i:i + BATCH_SIZE]
-        
-        # 배치로 시가총액 가져오기
-        market_caps = get_current_market_cap_batch(batch)
-        
-        # 각 티커 업데이트
-        for symbol in batch:
-            market_cap = market_caps.get(symbol)
+    # 개별 처리 (Rate Limit 방지)
+    for idx, symbol in enumerate(tqdm(active_tickers, desc="시가총액 개별 수집")):
+        try:
+            # 개별 Ticker로 처리
+            ticker_obj = yf.Ticker(symbol)
+            
+            try:
+                info = ticker_obj.info
+                market_cap = info.get("marketCap") if info else None
+            except Exception as e:
+                error_msg = str(e)
+                if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
+                    rate_limit_count += 1
+                    # Rate Limit 발생 시 대기 후 재시도
+                    time.sleep(3)
+                    try:
+                        info = ticker_obj.info
+                        market_cap = info.get("marketCap") if info else None
+                    except:
+                        market_cap = None
+                else:
+                    market_cap = None
+            
             result = update_ticker_market_cap(symbol, today_str, market_cap)
             if result:
                 updated_count += 1
             else:
                 skipped_count += 1
+            
+            # Rate Limit 방지: 100개마다 추가 대기
+            if (idx + 1) % 100 == 0:
+                time.sleep(2)
         
-        # 다음 배치 전 잠시 대기 (API 안정성)
-        if i + BATCH_SIZE < len(active_tickers):
-            time.sleep(1)
+        except Exception as e:
+            error_msg = str(e)
+            if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
+                rate_limit_count += 1
+            skipped_count += 1
 
     print("\n" + "=" * 70)
     print(f"✅ Successfully updated: {updated_count} tickers")
     print(f"⏭️  Skipped: {skipped_count} tickers")
+    if rate_limit_count > 0:
+        print(f"⚠️  Rate Limit 발생: {rate_limit_count}개 (재시도 적용)")
     print("=" * 70)
 
 
