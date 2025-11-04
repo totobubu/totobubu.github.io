@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 12810.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 12885,
         "englishName": "KINDEX MSCI Philippines ETF(Synth)",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4880,
+        "Volume": 36,
         "AvgVolume": 1031,
         "sharesOutstanding": null,
-        "52Week": "12660.0 - 14980.0",
+        "52Week": "12700.0 - 14980.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12810,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4880,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17104,6 +17113,14 @@
             "low": 12660,
             "close": 12810,
             "volume": 4880
+        },
+        {
+            "date": "2025-11-04",
+            "open": 12885,
+            "high": 13025,
+            "low": 12820,
+            "close": 13025,
+            "volume": 226
         }
     ]
 }

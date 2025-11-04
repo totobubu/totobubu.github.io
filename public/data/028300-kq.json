@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 47150.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 58100,
         "englishName": "HLB Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 6519919214592,
-        "marketCap": 6184875065344,
-        "Volume": 745151,
+        "enterpriseValue": 6329715916800,
+        "marketCap": 7621235441664,
+        "Volume": 845580,
         "AvgVolume": 602529,
         "sharesOutstanding": 131174445,
         "52Week": "36150.0 - 97600.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47150,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 6519919214592,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6184875065344,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 745151,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37202,6 +37219,15 @@
             "close": 47150,
             "volume": 745151,
             "marketCap": 6184875065344
+        },
+        {
+            "date": "2025-11-04",
+            "open": 55800,
+            "high": 58700,
+            "low": 54800,
+            "close": 56300,
+            "volume": 3015210,
+            "marketCap": 7319534436352
         }
     ]
 }

@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 100700.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 99300,
         "englishName": "ST Pharm Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2029395771392,
-        "Volume": 205614,
+        "marketCap": 2001181736960,
+        "Volume": 13400,
         "AvgVolume": 178220,
         "sharesOutstanding": 20152888,
         "52Week": "66600.0 - 108500.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100700,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2029395771392,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 205614,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20631,6 +20644,15 @@
             "close": 100700,
             "volume": 209435,
             "marketCap": 2029395771392
+        },
+        {
+            "date": "2025-11-04",
+            "open": 99900,
+            "high": 102700,
+            "low": 98900,
+            "close": 101100,
+            "volume": 121809,
+            "marketCap": 2046525833216
         },
         {
             "date": "2025-12-26",

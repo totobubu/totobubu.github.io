@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 5165.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 5140,
         "englishName": "Mirae Asset Tiger US Dollar Inverse 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11750,
+        "Volume": 2003,
         "AvgVolume": 25004,
         "sharesOutstanding": null,
         "52Week": "4930.0 - 5905.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5165,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11750,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17104,6 +17113,14 @@
             "low": 5140,
             "close": 5165,
             "volume": 11750
+        },
+        {
+            "date": "2025-11-04",
+            "open": 5150,
+            "high": 5150,
+            "low": 5090,
+            "close": 5095,
+            "volume": 11342
         }
     ]
 }

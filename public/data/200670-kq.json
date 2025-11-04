@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 50800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 50200,
         "englishName": "Humedix Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 467325911040,
-        "marketCap": 526314569728,
-        "Volume": 116542,
+        "enterpriseValue": 472027561984,
+        "marketCap": 520098250752,
+        "Volume": 8601,
         "AvgVolume": 177053,
         "sharesOutstanding": 10360523,
         "52Week": "25400.0 - 77200.0",
         "Yield": null,
-        "dividendRate": 480.0,
+        "dividendRate": 480,
         "payoutRatio": 0.0863,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 467325911040,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 526314569728,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 116542,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23973,6 +23990,15 @@
             "close": 50800,
             "volume": 116257,
             "marketCap": 526314569728
+        },
+        {
+            "date": "2025-11-04",
+            "open": 50700,
+            "high": 52700,
+            "low": 50000,
+            "close": 51500,
+            "volume": 100093,
+            "marketCap": 535639031808
         }
     ]
 }

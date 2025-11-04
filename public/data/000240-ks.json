@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 23350.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 23150,
         "englishName": "Hankook & Company Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 2237494198272,
-        "marketCap": 2211668557824,
-        "Volume": 59216,
+        "enterpriseValue": 2218550624256,
+        "marketCap": 2192724983808,
+        "Volume": 4437,
         "AvgVolume": 78133,
         "sharesOutstanding": 94718144,
         "52Week": "13360.0 - 26750.0",
         "Yield": null,
-        "dividendRate": 1090.0,
+        "dividendRate": 1090,
         "payoutRatio": 0.3155,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23350,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2237494198272,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2211668557824,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 59216,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58267,6 +58284,15 @@
             "close": 23350,
             "volume": 53686,
             "marketCap": 2211668557824
+        },
+        {
+            "date": "2025-11-04",
+            "open": 23150,
+            "high": 23300,
+            "low": 22000,
+            "close": 22850,
+            "volume": 30624,
+            "marketCap": 2178517303296
         }
     ]
 }

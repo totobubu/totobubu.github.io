@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21875.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21885,
         "englishName": "KINDEX US Internet ETF(Synth H)",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10560,
+        "Volume": 101,
         "AvgVolume": 970,
         "sharesOutstanding": null,
         "52Week": "15330.0 - 22545.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21875,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10560,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15576,6 +15585,14 @@
             "low": 21875,
             "close": 21875,
             "volume": 10560
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21885,
+            "high": 22145,
+            "low": 21880,
+            "close": 21985,
+            "volume": 917
         }
     ]
 }

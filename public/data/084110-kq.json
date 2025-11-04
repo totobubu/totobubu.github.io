@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 54000.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 54800,
         "englishName": "Huons Global Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 657721131008,
-        "Volume": 38816,
+        "marketCap": 667465154560,
+        "Volume": 2570,
         "AvgVolume": 72416,
         "sharesOutstanding": 12180021,
         "52Week": "27600.0 - 60600.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 54000,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 657721131008,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 38816,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41676,6 +41689,15 @@
             "close": 54000,
             "volume": 38816,
             "marketCap": 657721131008
+        },
+        {
+            "date": "2025-11-04",
+            "open": 54000,
+            "high": 57700,
+            "low": 53600,
+            "close": 56900,
+            "volume": 45752,
+            "marketCap": 690607161344
         }
     ]
 }

@@ -4,25 +4,34 @@
         "koName": "TIGER 차이나휴머노이드로봇",
         "longName": null,
         "company": "미래에셋자산운용",
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 13215.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 13275,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3160089,
+        "Volume": 99253,
         "AvgVolume": 2142013,
         "sharesOutstanding": null,
         "52Week": "8930.0 - 15020.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13215,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3160089,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -884,6 +893,22 @@
             "low": 13100,
             "close": 13215,
             "volume": 3157707
+        },
+        {
+            "date": "2025-11-04",
+            "open": 13225,
+            "high": 13330,
+            "low": 13070,
+            "close": 13115,
+            "volume": 979665
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

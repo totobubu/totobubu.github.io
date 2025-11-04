@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 14300.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 14340,
         "englishName": "KODEX SYNTH-ChiNext",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 237719,
+        "Volume": 1957,
         "AvgVolume": 167086,
         "sharesOutstanding": null,
         "52Week": "7970.0 - 14970.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14300,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 237719,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17400,6 +17409,14 @@
             "low": 14025,
             "close": 14300,
             "volume": 237719
+        },
+        {
+            "date": "2025-11-04",
+            "open": 14305,
+            "high": 14410,
+            "low": 14250,
+            "close": 14340,
+            "volume": 71845
         }
     ]
 }

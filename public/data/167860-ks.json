@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 110725.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 109880,
         "englishName": "KOSEF 10yr KTB Leverage",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1528,
+        "Volume": 26,
         "AvgVolume": 830,
         "sharesOutstanding": null,
         "52Week": "108770.0 - 123430.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 110725,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1528,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25272,6 +25281,14 @@
             "low": 110725,
             "close": 110725,
             "volume": 1528
+        },
+        {
+            "date": "2025-11-04",
+            "open": 109975,
+            "high": 109995,
+            "low": 109520,
+            "close": 109975,
+            "volume": 243
         },
         {
             "date": "2025-12-26",

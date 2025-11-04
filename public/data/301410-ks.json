@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 4425.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 4380,
         "englishName": "Hanwha Plus KOSDAQ 150 Futures Inverse ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 892,
+        "Volume": 206,
         "AvgVolume": 3543,
         "sharesOutstanding": null,
-        "52Week": "4420.0 - 6755.0",
+        "52Week": "4380.0 - 6755.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4425,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 892,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14168,6 +14177,14 @@
             "low": 4420,
             "close": 4425,
             "volume": 892
+        },
+        {
+            "date": "2025-11-04",
+            "open": 4380,
+            "high": 4390,
+            "low": 4275,
+            "close": 4285,
+            "volume": 1851
         }
     ]
 }

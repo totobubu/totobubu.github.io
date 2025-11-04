@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 263000.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 265000,
         "englishName": "Hugel, Inc.",
-        "earningsDate": "2025-08-06",
-        "enterpriseValue": 2406615613440,
-        "marketCap": 2839635296256,
-        "Volume": 66233,
+        "earningsDate": "2025-11-04",
+        "enterpriseValue": 2417412800512,
+        "marketCap": 2861229408256,
+        "Volume": 4422,
         "AvgVolume": 68603,
         "sharesOutstanding": 10797092,
         "52Week": "229000.0 - 392000.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 263000,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 2406615613440,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 2839635296256,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 66233,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21715,6 +21732,15 @@
             "close": 263000,
             "volume": 67894,
             "marketCap": 2839635296256
+        },
+        {
+            "date": "2025-11-04",
+            "open": 264000,
+            "high": 271500,
+            "low": 263000,
+            "close": 266500,
+            "volume": 34012,
+            "marketCap": 2893620707328
         }
     ]
 }

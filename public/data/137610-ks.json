@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 5245.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 5280,
         "englishName": "Mirae Asset TIGER Agriculture ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11608,
+        "Volume": 552,
         "AvgVolume": 13577,
         "sharesOutstanding": null,
         "52Week": "5000.0 - 6030.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5245,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11608,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28904,6 +28913,14 @@
             "low": 5210,
             "close": 5245,
             "volume": 11608
+        },
+        {
+            "date": "2025-11-04",
+            "open": 5275,
+            "high": 5300,
+            "low": 5275,
+            "close": 5300,
+            "volume": 10544
         }
     ]
 }

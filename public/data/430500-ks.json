@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 115800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 115515,
         "englishName": "Kiwoom Kosef Tips Kis ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 520,
+        "Volume": 2,
         "AvgVolume": 1116,
         "sharesOutstanding": null,
         "52Week": "113405.0 - 118460.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 115800,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 520,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6572,6 +6581,14 @@
             "low": 115800,
             "close": 115800,
             "volume": 520
+        },
+        {
+            "date": "2025-11-04",
+            "open": 115515,
+            "high": 115590,
+            "low": 115335,
+            "close": 115575,
+            "volume": 133
         }
     ]
 }

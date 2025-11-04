@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 7880.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 7800,
         "englishName": "Danal Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 705305837568,
-        "marketCap": 526328823808,
-        "Volume": 3702157,
+        "enterpriseValue": 693283061760,
+        "marketCap": 520985378816,
+        "Volume": 364365,
         "AvgVolume": 9071241,
         "sharesOutstanding": 66792995,
         "52Week": "2420.0 - 11450.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7880,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 705305837568,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 526328823808,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3702157,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -47281,6 +47298,15 @@
             "close": 7880,
             "volume": 3687746,
             "marketCap": 526328823808
+        },
+        {
+            "date": "2025-11-04",
+            "open": 7810,
+            "high": 7950,
+            "low": 7700,
+            "close": 7800,
+            "volume": 1387054,
+            "marketCap": 522321231872
         }
     ]
 }

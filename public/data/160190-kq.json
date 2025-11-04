@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 62200.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 59500,
         "englishName": null,
         "earningsDate": null,
-        "enterpriseValue": 1620430422016,
-        "marketCap": 1734633586688,
-        "Volume": 1324546,
+        "enterpriseValue": 1737559900160,
+        "marketCap": 1659335999488,
+        "Volume": 69296,
         "AvgVolume": 548369,
         "sharesOutstanding": 27888000,
         "52Week": "6940.0 - 70000.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 62200,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1620430422016,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1734633586688,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1324546,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2958,6 +2975,15 @@
             "close": 62200,
             "volume": 1338645,
             "marketCap": 1734633586688
+        },
+        {
+            "date": "2025-11-04",
+            "open": 60000,
+            "high": 60900,
+            "low": 58500,
+            "close": 59400,
+            "volume": 232230,
+            "marketCap": 1656547180544
         }
     ]
 }

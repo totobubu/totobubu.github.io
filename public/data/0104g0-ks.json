@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 11535.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 11105,
         "englishName": "Hanwha Plus Korea Defense Leverage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 261412,
+        "Volume": 67065,
         "AvgVolume": 215360,
         "sharesOutstanding": null,
         "52Week": "8130.0 - 11630.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11535,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 261412,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -184,6 +193,14 @@
             "low": 11040,
             "close": 11535,
             "volume": 261410
+        },
+        {
+            "date": "2025-11-04",
+            "open": 11265,
+            "high": 11325,
+            "low": 10900,
+            "close": 10955,
+            "volume": 145294
         }
     ]
 }

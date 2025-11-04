@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 13720.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 13575,
         "englishName": "Nat Games Co.,Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 701259317248,
-        "marketCap": 872276099072,
-        "Volume": 422305,
+        "enterpriseValue": 723511279616,
+        "marketCap": 863057477632,
+        "Volume": 12947,
         "AvgVolume": 151226,
         "sharesOutstanding": 63576976,
         "52Week": "11450.0 - 18420.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13720,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 701259317248,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 872276099072,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 422305,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18375,6 +18392,15 @@
             "close": 13720,
             "volume": 422305,
             "marketCap": 872276099072
+        },
+        {
+            "date": "2025-11-04",
+            "open": 13590,
+            "high": 13950,
+            "low": 13510,
+            "close": 13880,
+            "volume": 91728,
+            "marketCap": 881176870912
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 8720.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 8715,
         "englishName": "KB Asset Management Co., Ltd. - US Treasury Long Bond Futures ETF Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3935,
+        "Volume": 880,
         "AvgVolume": 3191,
         "sharesOutstanding": null,
         "52Week": "8110.0 - 8945.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8720,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3935,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16488,6 +16497,14 @@
             "low": 8720,
             "close": 8720,
             "volume": 3935
+        },
+        {
+            "date": "2025-11-04",
+            "open": 8715,
+            "high": 8730,
+            "low": 8710,
+            "close": 8710,
+            "volume": 8929
         }
     ]
 }

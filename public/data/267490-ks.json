@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 5870.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 5875,
         "englishName": "KB RISE US Treasury Long Bond Futures Leverage ETF (Synth H)",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1178,
+        "Volume": 200,
         "AvgVolume": 5491,
         "sharesOutstanding": null,
         "52Week": "5180.0 - 6275.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5870,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1178,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16488,6 +16497,14 @@
             "low": 5870,
             "close": 5870,
             "volume": 1178
+        },
+        {
+            "date": "2025-11-04",
+            "open": 5875,
+            "high": 5875,
+            "low": 5860,
+            "close": 5860,
+            "volume": 104
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 42960.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 42540,
         "englishName": "KOSEF F-200 Leverage",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 57968,
+        "Volume": 60657,
         "AvgVolume": 34948,
         "sharesOutstanding": null,
-        "52Week": "11340.0 - 42960.0",
+        "52Week": "11340.0 - 43060.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57968,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17688,6 +17697,14 @@
             "low": 40475,
             "close": 42960,
             "volume": 57968
+        },
+        {
+            "date": "2025-11-04",
+            "open": 42915,
+            "high": 43060,
+            "low": 41370,
+            "close": 41430,
+            "volume": 314323
         }
     ]
 }

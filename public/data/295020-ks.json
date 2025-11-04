@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 55810.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 55980,
         "englishName": "KB Asset Management -KB KBTAR KTB 10Y Futures Inverse ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 258,
+        "Volume": 2,
         "AvgVolume": 67667,
         "sharesOutstanding": null,
-        "52Week": "52580.0 - 55810.0",
+        "52Week": "52580.0 - 55980.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55810,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 258,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14488,6 +14497,14 @@
             "low": 55715,
             "close": 55810,
             "volume": 258
+        },
+        {
+            "date": "2025-11-04",
+            "open": 55980,
+            "high": 56085,
+            "low": 55980,
+            "close": 56065,
+            "volume": 13
         }
     ]
 }

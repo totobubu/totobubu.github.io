@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 34860.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 34645,
         "englishName": "Tiger 200 Total Return",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 51267,
+        "Volume": 4368,
         "AvgVolume": 2868,
         "sharesOutstanding": null,
-        "52Week": "13220.0 - 34860.0",
+        "52Week": "13220.0 - 34945.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34860,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 51267,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -192,6 +201,14 @@
             "low": 33830,
             "close": 34860,
             "volume": 51267
+        },
+        {
+            "date": "2025-11-04",
+            "open": 34860,
+            "high": 34945,
+            "low": 34220,
+            "close": 34225,
+            "volume": 40662
         }
     ]
 }

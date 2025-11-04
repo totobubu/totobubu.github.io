@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 35100.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 35000,
         "englishName": "AprilBio Co.,Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 656125001728,
-        "marketCap": 790718644224,
-        "Volume": 1199783,
+        "enterpriseValue": 701142794240,
+        "marketCap": 788465844224,
+        "Volume": 174323,
         "AvgVolume": 952901,
         "sharesOutstanding": 22527596,
         "52Week": "11980.0 - 36750.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35100,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 656125001728,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 790718644224,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1199783,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7197,6 +7214,15 @@
             "close": 35100,
             "volume": 1205702,
             "marketCap": 790718644224
+        },
+        {
+            "date": "2025-11-04",
+            "open": 35100,
+            "high": 37250,
+            "low": 34450,
+            "close": 36900,
+            "volume": 1067246,
+            "marketCap": 833521057792
         }
     ]
 }

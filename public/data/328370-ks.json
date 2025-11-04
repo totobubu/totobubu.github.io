@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 23400.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 23215,
         "englishName": "Hanwha Plus KOSPI Total Return ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2772,
+        "Volume": 203,
         "AvgVolume": 35650,
         "sharesOutstanding": null,
         "52Week": "12620.0 - 23400.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23400,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2772,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12312,6 +12321,14 @@
             "low": 22880,
             "close": 23400,
             "volume": 2772
+        },
+        {
+            "date": "2025-11-04",
+            "open": 23400,
+            "high": 23400,
+            "low": 22975,
+            "close": 22975,
+            "volume": 918
         }
     ]
 }

@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 24750.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 24300,
         "englishName": "NatureCell Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1594767572992,
-        "Volume": 349164,
+        "marketCap": 1565771825152,
+        "Volume": 62392,
         "AvgVolume": 847379,
         "sharesOutstanding": 64435056,
         "52Week": "15260.0 - 39350.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24750,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1594767572992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 349164,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37977,6 +37990,15 @@
             "close": 24750,
             "volume": 349164,
             "marketCap": 1594767572992
+        },
+        {
+            "date": "2025-11-04",
+            "open": 24350,
+            "high": 24750,
+            "low": 24050,
+            "close": 24600,
+            "volume": 206644,
+            "marketCap": 1585102323712
         }
     ]
 }

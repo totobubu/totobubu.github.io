@@ -4,25 +4,34 @@
         "koName": "KODEX 차이나H",
         "longName": "KODEX 차이나H",
         "company": null,
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 24485.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 24310,
         "englishName": "KODEX China H",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 39777,
+        "Volume": 109,
         "AvgVolume": 14469,
         "sharesOutstanding": null,
         "52Week": "17910.0 - 25380.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24485,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 39777,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32372,6 +32381,22 @@
             "low": 24120,
             "close": 24485,
             "volume": 39776
+        },
+        {
+            "date": "2025-11-04",
+            "open": 24655,
+            "high": 24700,
+            "low": 24220,
+            "close": 24515,
+            "volume": 3459
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

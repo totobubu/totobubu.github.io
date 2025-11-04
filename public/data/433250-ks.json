@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 17840.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 17725,
         "englishName": "Hyundai Unicorn R&D Active Etf",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 24,
+        "Volume": 5,
         "AvgVolume": 38,
         "sharesOutstanding": null,
-        "52Week": "10165.0 - 17840.0",
+        "52Week": "10165.0 - 17795.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17840,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 24,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6376,6 +6385,14 @@
             "low": 17405,
             "close": 17840,
             "volume": 24
+        },
+        {
+            "date": "2025-11-04",
+            "open": 17795,
+            "high": 17795,
+            "low": 17630,
+            "close": 17650,
+            "volume": 19
         }
     ]
 }

@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 138800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 138100,
         "englishName": "Hanwha Ocean Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 46282726965248,
-        "marketCap": 42527927304192,
-        "Volume": 3899772,
+        "enterpriseValue": 46650403848192,
+        "marketCap": 42313451569152,
+        "Volume": 497193,
         "AvgVolume": 3058459,
         "sharesOutstanding": 306397187,
         "52Week": "26650.0 - 151600.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 138800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 46282726965248,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 42527927304192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3899772,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55663,6 +55680,15 @@
             "close": 138800,
             "volume": 3935536,
             "marketCap": 42527927304192
+        },
+        {
+            "date": "2025-11-04",
+            "open": 138800,
+            "high": 138900,
+            "low": 135000,
+            "close": 136100,
+            "volume": 1463247,
+            "marketCap": 41670015975424
         },
         {
             "date": "2025-12-29",

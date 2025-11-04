@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 55970.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 55715,
         "englishName": "Hanwha Plus KTB 10 Year Futures ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 806,
+        "Volume": 6,
         "AvgVolume": 724,
         "sharesOutstanding": null,
         "52Week": "54660.0 - 57765.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55970,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 806,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14952,6 +14961,14 @@
             "low": 55970,
             "close": 55970,
             "volume": 806
+        },
+        {
+            "date": "2025-11-04",
+            "open": 55715,
+            "high": 55770,
+            "low": 55640,
+            "close": 55770,
+            "volume": 555
         }
     ]
 }

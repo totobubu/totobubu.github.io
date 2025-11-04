@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 42850.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 43460,
         "englishName": "Mirae Asset Tiger Synth-India Leverage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3593,
+        "Volume": 1699,
         "AvgVolume": 4254,
         "sharesOutstanding": null,
         "52Week": "35250.0 - 47010.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42850,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3593,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18376,6 +18385,14 @@
             "low": 42800,
             "close": 42850,
             "volume": 3593
+        },
+        {
+            "date": "2025-11-04",
+            "open": 42855,
+            "high": 43965,
+            "low": 42405,
+            "close": 43965,
+            "volume": 4566
         }
     ]
 }

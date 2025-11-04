@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 219000.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 225000,
         "englishName": "HD Hyundai Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 39576928256000,
-        "marketCap": 15476386168832,
-        "Volume": 258295,
+        "enterpriseValue": 40566289072128,
+        "marketCap": 15900396748800,
+        "Volume": 45205,
         "AvgVolume": 199279,
         "sharesOutstanding": 70668430,
         "52Week": "66300.0 - 237000.0",
         "Yield": null,
-        "dividendRate": 3600.0,
+        "dividendRate": 3600,
         "payoutRatio": 0.4988,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 219000,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 39576928256000,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 15476386168832,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 258295,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18747,6 +18764,15 @@
             "close": 219000,
             "volume": 273552,
             "marketCap": 15476386168832
+        },
+        {
+            "date": "2025-11-04",
+            "open": 230000,
+            "high": 230000,
+            "low": 212500,
+            "close": 213000,
+            "volume": 147752,
+            "marketCap": 15123044368384
         },
         {
             "date": "2025-12-26",

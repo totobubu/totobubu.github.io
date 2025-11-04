@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 59900.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 59800,
         "englishName": "F&F Co., Ltd",
         "earningsDate": null,
-        "enterpriseValue": 2415792488448,
-        "marketCap": 2250908631040,
-        "Volume": 118797,
+        "enterpriseValue": 2363183595520,
+        "marketCap": 2247150796800,
+        "Volume": 10716,
         "AvgVolume": 65635,
         "sharesOutstanding": 37577773,
         "52Week": "47250.0 - 83500.0",
         "Yield": null,
-        "dividendRate": 1700.0,
+        "dividendRate": 1700,
         "payoutRatio": 0.1906,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59900,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2415792488448,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2250908631040,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 118797,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9828,6 +9845,15 @@
             "close": 59900,
             "volume": 118797,
             "marketCap": 2250908631040
+        },
+        {
+            "date": "2025-11-04",
+            "open": 59500,
+            "high": 60000,
+            "low": 59000,
+            "close": 59400,
+            "volume": 30380,
+            "marketCap": 2239635128320
         },
         {
             "date": "2025-12-26",

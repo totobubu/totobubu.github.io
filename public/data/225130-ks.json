@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 48600.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 48200,
         "englishName": "KINDEX Gold Futures Leverage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14860,
+        "Volume": 500,
         "AvgVolume": 16363,
         "sharesOutstanding": null,
         "52Week": "23100.0 - 58200.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48600,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14860,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2672,6 +2681,14 @@
             "low": 47380,
             "close": 48600,
             "volume": 14860
+        },
+        {
+            "date": "2025-11-04",
+            "open": 48250,
+            "high": 48250,
+            "low": 47635,
+            "close": 47645,
+            "volume": 3514
         }
     ]
 }

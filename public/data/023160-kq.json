@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 29000.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 28400,
         "englishName": "Tae Kwang Corporation",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 750150025216,
-        "Volume": 674139,
+        "marketCap": 734629658624,
+        "Volume": 54943,
         "AvgVolume": 460600,
         "sharesOutstanding": 25867242,
         "52Week": "12200.0 - 32300.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 750150025216,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 674139,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56357,6 +56370,15 @@
             "close": 29000,
             "volume": 673452,
             "marketCap": 750150025216
+        },
+        {
+            "date": "2025-11-04",
+            "open": 28950,
+            "high": 29000,
+            "low": 27550,
+            "close": 27600,
+            "volume": 190861,
+            "marketCap": 713935880192
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 15890.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 16000,
         "englishName": "ARIRANG KOSDAQ150",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1712,
+        "Volume": 71,
         "AvgVolume": 108,
         "sharesOutstanding": null,
-        "52Week": "11275.0 - 15890.0",
+        "52Week": "11275.0 - 16000.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15890,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1712,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -576,6 +585,14 @@
             "low": 15515,
             "close": 15890,
             "volume": 1712
+        },
+        {
+            "date": "2025-11-04",
+            "open": 16000,
+            "high": 16415,
+            "low": 15965,
+            "close": 16362,
+            "volume": 2016
         }
     ]
 }

@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 7610.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 7830,
         "englishName": "Creative & Innovative System Corporation",
         "earningsDate": null,
-        "enterpriseValue": 439001939968,
-        "marketCap": 588734857216,
-        "Volume": 402135,
+        "enterpriseValue": 442096484352,
+        "marketCap": 605754818560,
+        "Volume": 71942,
         "AvgVolume": 325754,
         "sharesOutstanding": 77363318,
         "52Week": "6240.0 - 11390.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7610,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 439001939968,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 588734857216,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 402135,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19365,6 +19382,15 @@
             "close": 7610,
             "volume": 402135,
             "marketCap": 588734857216
+        },
+        {
+            "date": "2025-11-04",
+            "open": 7800,
+            "high": 7870,
+            "low": 7650,
+            "close": 7660,
+            "volume": 237649,
+            "marketCap": 592603054080
         }
     ]
 }

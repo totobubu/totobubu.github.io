@@ -9,20 +9,25 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 105265.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 105265,
         "englishName": "KOSEF MSB",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 797,
+        "Volume": 0,
         "AvgVolume": 3430,
         "sharesOutstanding": null,
         "52Week": "102825.0 - 106335.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 797,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30918,6 +30923,14 @@
             "low": 105250,
             "close": 105265,
             "volume": 797
+        },
+        {
+            "date": "2025-11-04",
+            "open": 105235,
+            "high": 105245,
+            "low": 105235,
+            "close": 105235,
+            "volume": 2034
         },
         {
             "date": "2025-12-26",

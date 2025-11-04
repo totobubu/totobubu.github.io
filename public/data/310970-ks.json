@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 26060.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 25860,
         "englishName": "Tiger MSCI Korea Total Return",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17095,
+        "Volume": 2495,
         "AvgVolume": 83,
         "sharesOutstanding": null,
-        "52Week": "9920.0 - 26060.0",
+        "52Week": "9920.0 - 26125.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26060,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17095,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -192,6 +201,14 @@
             "low": 25100,
             "close": 26060,
             "volume": 17095
+        },
+        {
+            "date": "2025-11-04",
+            "open": 26060,
+            "high": 26125,
+            "low": 25500,
+            "close": 25535,
+            "volume": 10709
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 16765.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 16885,
         "englishName": "KODEX USD Futures",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36517,
+        "Volume": 13194,
         "AvgVolume": 54820,
         "sharesOutstanding": null,
         "52Week": "14680.0 - 17690.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16765,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 36517,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2664,6 +2673,14 @@
             "low": 16720,
             "close": 16765,
             "volume": 36517
+        },
+        {
+            "date": "2025-11-04",
+            "open": 16825,
+            "high": 17030,
+            "low": 16820,
+            "close": 17015,
+            "volume": 31419
         }
     ]
 }

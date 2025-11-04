@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 133700.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 133300,
         "englishName": "KT&G Corporation",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 14679863721984,
-        "marketCap": 14422686826496,
-        "Volume": 248230,
+        "enterpriseValue": 14625927069696,
+        "marketCap": 14379536875520,
+        "Volume": 20467,
         "AvgVolume": 380239,
         "sharesOutstanding": 107873496,
         "52Week": "94600.0 - 149400.0",
         "Yield": null,
-        "dividendRate": 5600.0,
+        "dividendRate": 5600,
         "payoutRatio": 0.42509997,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 133700,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 14679863721984,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14422686826496,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 248230,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58269,6 +58286,15 @@
             "close": 133700,
             "volume": 272545,
             "marketCap": 14422686826496
+        },
+        {
+            "date": "2025-11-04",
+            "open": 132700,
+            "high": 136000,
+            "low": 132100,
+            "close": 135000,
+            "volume": 129622,
+            "marketCap": 14606071234560
         }
     ]
 }

@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 10990.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 11010,
         "englishName": "Macquarie Korea Infrastructure Fund",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3835993522176,
-        "Volume": 2129846,
+        "marketCap": 3842974416896,
+        "Volume": 163112,
         "AvgVolume": 1033108,
         "sharesOutstanding": 349044000,
         "52Week": "10270.0 - 12070.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10990,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3835993522176,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2129846,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43630,6 +43643,15 @@
             "close": 10990,
             "volume": 2145411,
             "marketCap": 3835993522176
+        },
+        {
+            "date": "2025-11-04",
+            "open": 10990,
+            "high": 11120,
+            "low": 10950,
+            "close": 11115,
+            "volume": 786589,
+            "marketCap": 3876133535744
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 16875.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 16995,
         "englishName": "Mirae Asset Tiger US Dollar Leverage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 934,
+        "Volume": 20,
         "AvgVolume": 2154,
         "sharesOutstanding": null,
         "52Week": "14750.0 - 17745.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16875,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 934,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2664,6 +2673,14 @@
             "low": 16825,
             "close": 16875,
             "volume": 934
+        },
+        {
+            "date": "2025-11-04",
+            "open": 16995,
+            "high": 17145,
+            "low": 16995,
+            "close": 17135,
+            "volume": 108
         }
     ]
 }

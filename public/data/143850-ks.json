@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 71960.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 71880,
         "englishName": "Mirae Asset TIGER S&P500 Futures ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 25083,
+        "Volume": 750,
         "AvgVolume": 15834,
         "sharesOutstanding": null,
         "52Week": "51900.0 - 72725.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 25083,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27872,6 +27881,14 @@
             "low": 71960,
             "close": 71960,
             "volume": 24780
+        },
+        {
+            "date": "2025-11-04",
+            "open": 71925,
+            "high": 71925,
+            "low": 71735,
+            "close": 71770,
+            "volume": 2421
         }
     ]
 }

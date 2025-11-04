@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21050.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21200,
         "englishName": "Jeju Semiconductor Corp.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 709029330944,
-        "Volume": 948700,
+        "marketCap": 714081828864,
+        "Volume": 123809,
         "AvgVolume": 1144029,
         "sharesOutstanding": 33683104,
         "52Week": "7710.0 - 24150.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21050,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 709029330944,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 948700,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46008,6 +46021,15 @@
             "close": 21050,
             "volume": 977854,
             "marketCap": 709029330944
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21500,
+            "high": 21500,
+            "low": 20500,
+            "close": 20500,
+            "volume": 433108,
+            "marketCap": 693871968256
         }
     ]
 }

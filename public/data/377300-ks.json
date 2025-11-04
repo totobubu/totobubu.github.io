@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 51800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 51500,
         "englishName": "Kakao Pay Corp.",
         "earningsDate": null,
-        "enterpriseValue": 2979729506304,
-        "marketCap": 7000103059456,
-        "Volume": 535328,
+        "enterpriseValue": 2912233717760,
+        "marketCap": 6959561441280,
+        "Volume": 33516,
         "AvgVolume": 830053,
         "sharesOutstanding": 135137122,
         "52Week": "21200.0 - 114000.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2979729506304,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 7000103059456,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 535328,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8808,6 +8825,15 @@
             "close": 51800,
             "volume": 547494,
             "marketCap": 7000103059456
+        },
+        {
+            "date": "2025-11-04",
+            "open": 52000,
+            "high": 52700,
+            "low": 51200,
+            "close": 51900,
+            "volume": 186166,
+            "marketCap": 7013616582656
         }
     ]
 }

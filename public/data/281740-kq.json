@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 14830.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 15150,
         "englishName": "Lake Materials Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 1138421137408,
-        "marketCap": 974783512576,
-        "Volume": 307071,
+        "enterpriseValue": 1151567265792,
+        "marketCap": 995817226240,
+        "Volume": 63936,
         "AvgVolume": 375283,
         "sharesOutstanding": 65730510,
         "52Week": "9790.0 - 20400.0",
         "Yield": null,
-        "dividendRate": 50.0,
+        "dividendRate": 50,
         "payoutRatio": 0.2165,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14830,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 1138421137408,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 974783512576,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 307071,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12507,6 +12524,15 @@
             "close": 14830,
             "volume": 307071,
             "marketCap": 974783512576
+        },
+        {
+            "date": "2025-11-04",
+            "open": 15180,
+            "high": 15420,
+            "low": 14770,
+            "close": 14890,
+            "volume": 213377,
+            "marketCap": 981356576768
         }
     ]
 }

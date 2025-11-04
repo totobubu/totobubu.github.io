@@ -4,25 +4,34 @@
         "koName": "TIGER 토탈월드스탁액티브",
         "longName": null,
         "company": "미래에셋자산운용",
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 11625.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 11635,
         "englishName": "Mirae Asset Tiger Total World Stock Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 123730,
+        "Volume": 13139,
         "AvgVolume": 318295,
         "sharesOutstanding": null,
         "52Week": "9900.0 - 11825.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11625,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 123730,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -740,6 +749,22 @@
             "low": 11600,
             "close": 11625,
             "volume": 123729
+        },
+        {
+            "date": "2025-11-04",
+            "open": 11620,
+            "high": 11665,
+            "low": 11610,
+            "close": 11655,
+            "volume": 56577
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

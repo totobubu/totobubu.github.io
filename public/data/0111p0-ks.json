@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 10385.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 10425,
         "englishName": "Hana 1Q Nasdaq100 Blend 50 Active Etf",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 403391,
+        "Volume": 13259,
         "AvgVolume": 513687,
         "sharesOutstanding": null,
         "52Week": "9800.0 - 10520.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10385,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 403391,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -184,6 +193,14 @@
             "low": 10365,
             "close": 10385,
             "volume": 403381
+        },
+        {
+            "date": "2025-11-04",
+            "open": 10420,
+            "high": 10455,
+            "low": 10405,
+            "close": 10450,
+            "volume": 82767
         }
     ]
 }

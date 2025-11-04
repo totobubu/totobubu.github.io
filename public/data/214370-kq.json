@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 62200.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 61600,
         "englishName": "Caregen Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3039762841600,
-        "Volume": 144083,
+        "marketCap": 3010440200192,
+        "Volume": 13788,
         "AvgVolume": 146095,
         "sharesOutstanding": 48870784,
         "52Week": "16280.0 - 71300.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 62200,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3039762841600,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 144083,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19447,6 +19460,15 @@
             "close": 62200,
             "volume": 145576,
             "marketCap": 3039762841600
+        },
+        {
+            "date": "2025-11-04",
+            "open": 61600,
+            "high": 63500,
+            "low": 60000,
+            "close": 63300,
+            "volume": 55434,
+            "marketCap": 3093520711680
         }
     ]
 }

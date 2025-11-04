@@ -4,25 +4,30 @@
         "koName": "KODEX 인도Nifty미드캡100",
         "longName": null,
         "company": "삼성자산운용",
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 11100.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 11100,
         "englishName": "Samsung Kodex India Nifty Midcap 100 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2413,
+        "Volume": 98,
         "AvgVolume": 8940,
         "sharesOutstanding": null,
         "52Week": "9725.0 - 11355.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 2413,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1140,6 +1145,22 @@
             "low": 11050,
             "close": 11100,
             "volume": 2413
+        },
+        {
+            "date": "2025-11-04",
+            "open": 11100,
+            "high": 11235,
+            "low": 11100,
+            "close": 11215,
+            "volume": 4774
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

@@ -9,20 +9,25 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 50075.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 50075,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21,
+        "Volume": 0,
         "AvgVolume": 5566,
         "sharesOutstanding": null,
         "52Week": "50000.0 - 50220.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 21,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -424,6 +429,14 @@
             "low": 50075,
             "close": 50075,
             "volume": 21
+        },
+        {
+            "date": "2025-11-04",
+            "open": 50040,
+            "high": 50045,
+            "low": 50040,
+            "close": 50045,
+            "volume": 8
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 12385.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 12195,
         "englishName": "Samsung Kodex 200 Long kosdaq150 short Futures Etf",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 959,
+        "Volume": 1313,
         "AvgVolume": 1960,
         "sharesOutstanding": null,
-        "52Week": "8455.0 - 12400.0",
+        "52Week": "8455.0 - 12345.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12385,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 959,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10024,6 +10033,14 @@
             "low": 12135,
             "close": 12385,
             "volume": 959
+        },
+        {
+            "date": "2025-11-04",
+            "open": 12170,
+            "high": 12280,
+            "low": 11760,
+            "close": 11760,
+            "volume": 3956
         }
     ]
 }

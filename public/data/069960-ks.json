@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 79800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 80300,
         "englishName": "Hyundai Department Store Co. Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 4760068947968,
-        "marketCap": 1726328209408,
-        "Volume": 74698,
+        "enterpriseValue": 4738435776512,
+        "marketCap": 1737144795136,
+        "Volume": 2359,
         "AvgVolume": 87431,
         "sharesOutstanding": 21633186,
         "52Week": "41500.0 - 90600.0",
         "Yield": null,
-        "dividendRate": 1900.0,
+        "dividendRate": 1900,
         "payoutRatio": 0.1982,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 79800,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4760068947968,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1726328209408,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 74698,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -51460,6 +51477,15 @@
             "close": 79800,
             "volume": 74697,
             "marketCap": 1726328209408
+        },
+        {
+            "date": "2025-11-04",
+            "open": 79300,
+            "high": 83400,
+            "low": 79300,
+            "close": 82700,
+            "volume": 37888,
+            "marketCap": 1795554410496
         }
     ]
 }

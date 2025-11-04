@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 44110.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 44225,
         "englishName": "Hanwha Plus US Nasdaq Tech ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1375,
+        "Volume": 14,
         "AvgVolume": 4045,
         "sharesOutstanding": null,
         "52Week": "27125.0 - 45600.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44110,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1375,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15250,6 +15259,14 @@
             "low": 43340,
             "close": 44110,
             "volume": 1375
+        },
+        {
+            "date": "2025-11-04",
+            "open": 44110,
+            "high": 44235,
+            "low": 43970,
+            "close": 44155,
+            "volume": 833
         }
     ]
 }

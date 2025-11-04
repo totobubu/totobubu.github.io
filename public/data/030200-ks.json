@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 49200.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 48650,
         "englishName": "KT Corporation",
         "earningsDate": "2025-11-07",
-        "enterpriseValue": 20478861246464,
-        "marketCap": 11861876539392,
-        "Volume": 370969,
+        "enterpriseValue": 20490963910656,
+        "marketCap": 11729274667008,
+        "Volume": 51972,
         "AvgVolume": 367808,
         "sharesOutstanding": 241095063,
         "52Week": "40900.0 - 59200.0",
         "Yield": null,
-        "dividendRate": 2400.0,
+        "dividendRate": 2400,
         "payoutRatio": 0.42580003,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49200,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 20478861246464,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11861876539392,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 370969,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58262,11 +58279,21 @@
             "marketCap": 11861876539392
         },
         {
-            "date": "2026-01-29",
+            "date": "2025-11-04",
+            "amount": 600,
+            "open": 48750,
+            "high": 48850,
+            "low": 48500,
+            "close": 48550,
+            "volume": 169242,
+            "marketCap": 11693110329344
+        },
+        {
+            "date": "2026-02-04",
             "forecasted": true
         },
         {
-            "date": "2026-04-29",
+            "date": "2026-05-04",
             "forecasted": true
         }
     ]

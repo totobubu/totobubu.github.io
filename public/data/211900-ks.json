@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21240.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21125,
         "englishName": "KODEX Dividend Growth",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 57179,
+        "Volume": 9049,
         "AvgVolume": 37807,
         "sharesOutstanding": null,
         "52Week": "14645.0 - 21830.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57179,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21146,6 +21155,14 @@
             "low": 21160,
             "close": 21240,
             "volume": 57152
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21200,
+            "high": 21215,
+            "low": 20990,
+            "close": 20995,
+            "volume": 26742
         }
     ]
 }

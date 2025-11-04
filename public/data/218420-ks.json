@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 14595.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 14605,
         "englishName": "KODEX SYNTH-US Energy",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14532,
+        "Volume": 14,
         "AvgVolume": 16537,
         "sharesOutstanding": null,
         "52Week": "12840.0 - 16140.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14595,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 14532,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20440,6 +20449,14 @@
             "low": 14560,
             "close": 14595,
             "volume": 14532
+        },
+        {
+            "date": "2025-11-04",
+            "open": 14605,
+            "high": 14710,
+            "low": 14565,
+            "close": 14710,
+            "volume": 3860
         }
     ]
 }

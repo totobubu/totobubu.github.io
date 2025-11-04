@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 44000.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 41550,
         "englishName": "Lunit Inc.",
         "earningsDate": null,
-        "enterpriseValue": 1302899720192,
-        "marketCap": 1282596405248,
-        "Volume": 402154,
+        "enterpriseValue": 1333507260416,
+        "marketCap": 1211179073536,
+        "Volume": 113879,
         "AvgVolume": 182151,
         "sharesOutstanding": 29149918,
         "52Week": "35900.0 - 85800.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44000,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1302899720192,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1282596405248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 402154,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7242,6 +7259,15 @@
             "close": 44000,
             "volume": 407884,
             "marketCap": 1282596405248
+        },
+        {
+            "date": "2025-11-04",
+            "open": 43450,
+            "high": 43500,
+            "low": 40000,
+            "close": 41950,
+            "volume": 262955,
+            "marketCap": 1221381586944
         }
     ]
 }

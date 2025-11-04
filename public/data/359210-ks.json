@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21545.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21490,
         "englishName": "Samsung Kodex Kospi Total Return ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 88401,
+        "Volume": 4859,
         "AvgVolume": 18822,
         "sharesOutstanding": null,
-        "52Week": "11610.0 - 21545.0",
+        "52Week": "11610.0 - 21645.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21545,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 88401,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10200,6 +10209,14 @@
             "low": 21045,
             "close": 21545,
             "volume": 88401
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21615,
+            "high": 21645,
+            "low": 21210,
+            "close": 21245,
+            "volume": 22756
         }
     ]
 }

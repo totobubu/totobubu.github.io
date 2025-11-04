@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 8700.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 8755,
         "englishName": "KINDEX MSCI Indonesia ETF(Synth)",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 25311,
+        "Volume": 7049,
         "AvgVolume": 47445,
         "sharesOutstanding": null,
         "52Week": "7450.0 - 10525.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8700,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25311,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17432,6 +17441,14 @@
             "low": 8595,
             "close": 8700,
             "volume": 25308
+        },
+        {
+            "date": "2025-11-04",
+            "open": 8645,
+            "high": 8805,
+            "low": 8645,
+            "close": 8800,
+            "volume": 25979
         }
     ]
 }

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21395.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21350,
         "englishName": "Nh-Amundi Hanaro Global Luxury S&P ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1573,
+        "Volume": 80,
         "AvgVolume": 3147,
         "sharesOutstanding": null,
         "52Week": "16140.0 - 22075.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21395,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1573,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10576,6 +10585,14 @@
             "low": 21315,
             "close": 21395,
             "volume": 1573
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21350,
+            "high": 21400,
+            "low": 21270,
+            "close": 21330,
+            "volume": 3399
         }
     ]
 }

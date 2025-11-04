@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 12035.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 12055,
         "englishName": "KB KBSTAR U.S. Preferred Securities Ice Trust ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6818,
+        "Volume": 364,
         "AvgVolume": 9080,
         "sharesOutstanding": null,
         "52Week": "10580.0 - 12425.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12035,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6818,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10552,6 +10561,14 @@
             "low": 12000,
             "close": 12035,
             "volume": 6818
+        },
+        {
+            "date": "2025-11-04",
+            "open": 12035,
+            "high": 12075,
+            "low": 11985,
+            "close": 12015,
+            "volume": 3864
         }
     ]
 }

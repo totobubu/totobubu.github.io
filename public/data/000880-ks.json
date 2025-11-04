@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 97800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 96900,
         "englishName": "Hanwha Corporation",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 37774828765184,
-        "marketCap": 7590114230272,
-        "Volume": 311504,
+        "enterpriseValue": 37927895695360,
+        "marketCap": 7529512828928,
+        "Volume": 37235,
         "AvgVolume": 325402,
         "sharesOutstanding": 69375482,
         "52Week": "26000.0 - 113500.0",
         "Yield": null,
-        "dividendRate": 800.0,
+        "dividendRate": 800,
         "payoutRatio": 0.061,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 37774828765184,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 7590114230272,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 311504,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58255,6 +58272,15 @@
             "close": 97800,
             "volume": 302118,
             "marketCap": 7590114230272
+        },
+        {
+            "date": "2025-11-04",
+            "open": 97200,
+            "high": 97600,
+            "low": 94700,
+            "close": 94900,
+            "volume": 174656,
+            "marketCap": 7374104952832
         },
         {
             "date": "2025-12-26",

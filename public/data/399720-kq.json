@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 56500.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 56150,
         "englishName": "Gaonchips Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 606170775552,
-        "marketCap": 655423700992,
-        "Volume": 205744,
+        "enterpriseValue": 644452122624,
+        "marketCap": 651363614720,
+        "Volume": 33071,
         "AvgVolume": 107353,
         "sharesOutstanding": 11600420,
         "52Week": "27450.0 - 61500.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 606170775552,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 655423700992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 205744,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7611,6 +7628,15 @@
             "close": 56500,
             "volume": 210786,
             "marketCap": 655423700992
+        },
+        {
+            "date": "2025-11-04",
+            "open": 57800,
+            "high": 57900,
+            "low": 55200,
+            "close": 55400,
+            "volume": 75470,
+            "marketCap": 643823304704
         }
     ]
 }

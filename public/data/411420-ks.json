@@ -4,25 +4,34 @@
         "koName": "KODEX 미국나스닥AI테크액티브",
         "longName": null,
         "company": "삼성자산운용",
-        "frequency": null,
+        "frequency": "분기",
         "group": null,
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 21160.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 21230,
         "englishName": "Samsung Kodex US Metaverse Nasdaq Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 51519,
+        "Volume": 3573,
         "AvgVolume": 47882,
         "sharesOutstanding": null,
         "52Week": "10915.0 - 21680.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21160,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 51519,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7398,6 +7407,22 @@
             "low": 21095,
             "close": 21160,
             "volume": 51519
+        },
+        {
+            "date": "2025-11-04",
+            "open": 21260,
+            "high": 21260,
+            "low": 21145,
+            "close": 21190,
+            "volume": 40642
+        },
+        {
+            "date": "2026-01-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-30",
+            "forecasted": true
         }
     ]
 }

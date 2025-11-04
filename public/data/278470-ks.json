@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 272500.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 269500,
         "englishName": "APR Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 9440706166784,
-        "marketCap": 10199854219264,
-        "Volume": 517619,
+        "enterpriseValue": 10095742156800,
+        "marketCap": 10087562215424,
+        "Volume": 39777,
         "AvgVolume": 554691,
         "sharesOutstanding": 37430655,
         "52Week": "39700.0 - 274500.0",
         "Yield": null,
-        "dividendRate": 7180.0,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "dividendRate": 7180,
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 272500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 9440706166784,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 10199854219264,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 517619,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3690,6 +3707,15 @@
             "close": 272500,
             "volume": 517617,
             "marketCap": 10199854219264
+        },
+        {
+            "date": "2025-11-04",
+            "open": 270500,
+            "high": 276000,
+            "low": 267000,
+            "close": 271750,
+            "volume": 196530,
+            "marketCap": 10162423201792
         }
     ]
 }

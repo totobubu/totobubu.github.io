@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 43800.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 43700,
         "englishName": "Studio Dragon Corporation",
         "earningsDate": null,
-        "enterpriseValue": 1320368078848,
-        "marketCap": 1316562272256,
-        "Volume": 232220,
+        "enterpriseValue": 1267765739520,
+        "marketCap": 1313556398080,
+        "Volume": 16856,
         "AvgVolume": 122526,
         "sharesOutstanding": 30058498,
         "52Week": "36300.0 - 57000.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1320368078848,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1316562272256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 232220,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17466,6 +17483,15 @@
             "close": 43800,
             "volume": 232220,
             "marketCap": 1316562272256
+        },
+        {
+            "date": "2025-11-04",
+            "open": 43750,
+            "high": 44050,
+            "low": 43100,
+            "close": 43800,
+            "volume": 47902,
+            "marketCap": 1319568015360
         }
     ]
 }

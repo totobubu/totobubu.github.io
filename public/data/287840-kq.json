@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 59400.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 60900,
         "englishName": "IntoCell, Inc.",
         "earningsDate": null,
-        "enterpriseValue": 861417832448,
-        "marketCap": 881947443200,
-        "Volume": 907774,
+        "enterpriseValue": 805604163584,
+        "marketCap": 904218869760,
+        "Volume": 115244,
         "AvgVolume": 468075,
         "sharesOutstanding": 14847600,
-        "52Week": "21400.0 - 65000.0",
+        "52Week": "21400.0 - 63600.0",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
-        "changes": {}
+        "payoutRatio": 0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59400,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 861417832448,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 881947443200,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 907774,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1005,6 +1022,15 @@
             "close": 59400,
             "volume": 916096,
             "marketCap": 881947443200
+        },
+        {
+            "date": "2025-11-04",
+            "open": 60000,
+            "high": 63800,
+            "low": 59300,
+            "close": 61500,
+            "volume": 561617,
+            "marketCap": 919066443776
         }
     ]
 }

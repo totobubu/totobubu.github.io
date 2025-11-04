@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-03 17:13:15 KST",
-        "regularMarketPrice": 51600.0,
+        "Update": "2025-11-04 09:34:57 KST",
+        "regularMarketPrice": 52400,
         "englishName": "TSE Co., Ltd",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 556532826112,
-        "Volume": 81788,
+        "marketCap": 565161230336,
+        "Volume": 4986,
         "AvgVolume": 75480,
         "sharesOutstanding": 10785520,
         "52Week": "35000.0 - 57300.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51600,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 556532826112,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 81788,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32759,6 +32772,15 @@
             "close": 51600,
             "volume": 81788,
             "marketCap": 556532826112
+        },
+        {
+            "date": "2025-11-04",
+            "open": 51900,
+            "high": 53200,
+            "low": 51500,
+            "close": 51600,
+            "volume": 31144,
+            "marketCap": 558689943552
         },
         {
             "date": "2025-12-26",
