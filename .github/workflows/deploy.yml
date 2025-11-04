@@ -3,51 +3,79 @@
 name: Build and Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main # main 브랜치에 push가 발생할 때마다 실행
-  workflow_dispatch:
+    push:
+        branches:
+            - main # main 브랜치에 push가 발생할 때마다 실행
+    workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+    contents: read
+    pages: write
+    id-token: write
 
 concurrency:
-  group: "pages" # 배포 관련 작업들을 "pages"라는 그룹으로 묶습니다.
-  cancel-in-progress: true # 새로운 워크플로우가 시작되면, 이미 진행 중인 동일 그룹의 작업을 취소합니다.
+    group: 'pages' # 배포 관련 작업들을 "pages"라는 그룹으로 묶습니다.
+    cancel-in-progress: true # 새로운 워크플로우가 시작되면, 이미 진행 중인 동일 그룹의 작업을 취소합니다.
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-22.04
+    build-and-deploy:
+        runs-on: ubuntu-22.04
 
-    steps:
-      # 1. 최신 코드(데이터 포함) 가져오기
-      - name: Checkout
-        uses: actions/checkout@v4
+        steps:
+            # 1. 최신 코드(데이터 포함) 가져오기
+            - name: Checkout
+              uses: actions/checkout@v4
 
-      # 2. Vue 앱 빌드
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Build Vue App
+            # 2. Python 설정 (R2 업로드용)
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+                  cache: 'pip'
+                  cache-dependency-path: 'requirements.txt'
 
-        run: |
-          npm install
-          npm run build
+            - name: Install Python dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
 
-      # 3. 새로고침 404 방지 처리
-      - name: Prepare 404 page
-        run: cp dist/index.html dist/404.html
+            - name: Setup R2 environment variables
+              run: |
+                  echo "R2_ACCOUNT_ID=${{ secrets.R2_ACCOUNT_ID }}" >> $GITHUB_ENV
+                  echo "R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+                  echo "R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+                  echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
+                  echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
-      # 4. Pages 배포 준비 및 실행
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./dist"
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+            # 2.5. R2에 변경된 데이터 파일 업로드
+            - name: Upload changed data files to R2
+              run: |
+                  echo "📤 변경된 데이터 파일을 R2에 업로드 중..."
+                  python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
+                  echo "✅ R2 업로드 완료 (또는 스킵)"
+
+            # 3. Vue 앱 빌드
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+            - name: Build Vue App
+
+              run: |
+                  npm install
+                  npm run build
+
+            # 4. 새로고침 404 방지 처리
+            - name: Prepare 404 page
+              run: cp dist/index.html dist/404.html
+
+            # 5. Pages 배포 준비 및 실행
+            - name: Setup Pages
+              uses: actions/configure-pages@v5
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: './dist'
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
