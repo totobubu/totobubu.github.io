@@ -102,11 +102,11 @@ def should_skip_update_timestamp(old_update_str, data_changed):
         # 시간 차이 계산
         time_diff = now_kst - old_update_time
 
-        # 3시간 이내면 Update 필드 유지 (skip)
-        if time_diff <= timedelta(hours=3):
+        # 4시간 이내면 Update 필드 유지 (skip)
+        if time_diff <= timedelta(hours=4):
             return True
 
-        # 3시간 초과면 Update 필드 갱신
+        # 4시간 초과면 Update 필드 갱신
         return False
 
     except (ValueError, AttributeError):
