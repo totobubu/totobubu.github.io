@@ -6,38 +6,27 @@
 
 ## 🚀 워크플로우 관련
 
-### 성능 비교 & 최적화
-- **[WORKFLOW_COMPARISON.md](./WORKFLOW_COMPARISON.md)** - V1 vs V2 워크플로우 비교
-- **[WORKFLOW_TEST_SCHEDULE.md](./WORKFLOW_TEST_SCHEDULE.md)** - V1/V2 비교 테스트 스케줄 (1주일)
-- **[OPTIMIZATION_SUMMARY.md](./OPTIMIZATION_SUMMARY.md)** - 전체 최적화 요약
+- **[WORKFLOW_GUIDE.md](./WORKFLOW_GUIDE.md)** - V1 vs V2 비교, 테스트 스케줄, 최적화 요약 ⭐
+- **[DEPLOY_WORKFLOW_GUIDE.md](./DEPLOY_WORKFLOW_GUIDE.md)** - Deploy 워크플로우 & 자동 R2 업로드
 
 ---
 
 ## 📝 Format & Update 정책
 
-### Format 최적화
-- **[FORMAT_OPTIMIZATION.md](./FORMAT_OPTIMIZATION.md)** - Prettier 캐시 기반 최적화 (구버전)
-- **[FORMAT_OPTIMIZATION_V2.md](./FORMAT_OPTIMIZATION_V2.md)** - Git 변경사항 기반 스마트 포맷 (현재 버전) ⭐
-
-### Update 정책
+- **[FORMAT_GUIDE.md](./FORMAT_GUIDE.md)** - Git 기반 스마트 포맷 가이드 ⭐
 - **[UPDATE_POLICY.md](./UPDATE_POLICY.md)** - tickerInfo Update 필드 관리 정책 (4시간 규칙)
 
 ---
 
 ## ☁️ R2 (Cloudflare) 관련
 
-### R2 업로드
-- **[R2_UPLOAD_OPTIMIZATION.md](./R2_UPLOAD_OPTIMIZATION.md)** - Git 기반 초고속 업로드 최적화 ⭐
-- **[MANUAL_R2_UPLOAD_GUIDE.md](./MANUAL_R2_UPLOAD_GUIDE.md)** - 수동 R2 업로드 가이드 (3가지 모드)
-- **[README_R2_SCRIPTS.md](./README_R2_SCRIPTS.md)** - R2 스크립트 사용 가이드
-- **[TEST_R2_INTEGRATION.md](./TEST_R2_INTEGRATION.md)** - R2 통합 테스트 가이드
+- **[R2_GUIDE.md](./R2_GUIDE.md)** - R2 업로드 통합 가이드 (스크립트, 최적화, 워크플로우) ⭐
 
 ---
 
 ## 💰 시가총액 (Market Cap)
 
-- **[MARKET_CAP_README.md](./MARKET_CAP_README.md)** - 시가총액 데이터 관리 상세 가이드
-- **[README_MARKET_CAP.md](./README_MARKET_CAP.md)** - 시가총액 업데이트 간단 가이드
+- **[MARKET_CAP_GUIDE.md](./MARKET_CAP_GUIDE.md)** - 시가총액 데이터 통합 가이드 ⭐
 
 ---
 
