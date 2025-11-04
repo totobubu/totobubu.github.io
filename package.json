@@ -18,10 +18,10 @@
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "npm-run-all lint:*",
-        "format:data": "prettier --write \"public/data/**/*.json\"",
-        "format:nav": "prettier --write \"public/nav/**/*.json\"",
-        "format:public": "prettier --write \"public/*.json\"",
-        "format": "prettier --write src/",
+        "format:data": "prettier --write --cache --cache-location .prettier-cache \"public/data/**/*.json\"",
+        "format:nav": "prettier --write --cache --cache-location .prettier-cache \"public/nav/**/*.json\"",
+        "format:public": "prettier --write --cache --cache-location .prettier-cache \"public/*.json\"",
+        "format": "prettier --write --cache --cache-location .prettier-cache src/",
         "data:sort-keys": "node tasks/sortDataKeys.js"
     },
     "dependencies": {
