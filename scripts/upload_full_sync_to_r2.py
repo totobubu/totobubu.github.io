@@ -1,6 +1,26 @@
-# scripts/upload_missing_to_r2.py
+# scripts/upload_full_sync_to_r2.py
 """
-R2에 누락되거나 변경된 파일을 찾아서 업로드
+R2 전체 동기화 스크립트 (수동 실행용)
+
+⚠️ 주의: 이 스크립트는 워크플로우에서 사용하지 않습니다!
+         일반적인 경우 upload_changed_to_r2.py를 사용하세요.
+
+용도:
+  1. 초기 전체 업로드 (새 프로젝트 또는 R2 초기화)
+  2. R2-로컬 동기화 검증 및 복구
+  3. Git 히스토리 없이 전체 동기화가 필요한 경우
+
+작동 방식:
+  - R2의 모든 파일 목록 조회 (느림)
+  - 로컬의 모든 파일 MD5 해시 계산 (매우 느림)
+  - 해시 비교 후 누락/변경된 파일 업로드
+
+성능:
+  - 소요 시간: 3-15분 (파일 수에 따라)
+  - 일반적인 워크플로우에는 upload_changed_to_r2.py 사용 권장 (10배 빠름)
+
+사용법:
+  python scripts/upload_full_sync_to_r2.py
 """
 import os
 import hashlib
