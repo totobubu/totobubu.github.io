@@ -1,461 +1,473 @@
 {
-    "tickerInfo": {
-        "Symbol": "CRCO",
-        "koName": null,
-        "longName": null,
-        "company": "YieldMax",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "CRCL",
-        "market": "NYSE",
-        "currency": "USD",
-        "Update": "2025-11-04 09:34:57 KST",
-        "changes": {}
+  "tickerInfo": {
+    "Symbol": "CRCO",
+    "koName": null,
+    "longName": null,
+    "company": "YieldMax",
+    "frequency": "매주",
+    "group": "목",
+    "underlying": "CRCL",
+    "market": "NYSE",
+    "currency": "USD",
+    "Update": "2025-11-04 21:59:50 KST",
+    "regularMarketPrice": 40.1321,
+    "englishName": "YieldMax CRCL Option Income Strategy ETF",
+    "earningsDate": null,
+    "enterpriseValue": null,
+    "marketCap": null,
+    "Volume": 42125,
+    "AvgVolume": 45384,
+    "sharesOutstanding": null,
+    "52Week": "40.0 - 57.31",
+    "Yield": null,
+    "dividendRate": null,
+    "payoutRatio": null,
+    "changes": {}
+  },
+  "backtestData": [
+    {
+      "date": "2025-09-29",
+      "open": 50,
+      "high": 50,
+      "low": 50,
+      "close": 50,
+      "volume": 0
     },
-    "backtestData": [
+    {
+      "date": "2025-09-30",
+      "open": 50.04999923706055,
+      "high": 50.04999923706055,
+      "low": 49.209999084472656,
+      "close": 49.209999084472656,
+      "volume": 800
+    },
+    {
+      "date": "2025-10-01",
+      "open": 50.04999923706055,
+      "high": 50.29999923706055,
+      "low": 48.090999603271484,
+      "close": 48.090999603271484,
+      "volume": 2900
+    },
+    {
+      "date": "2025-10-02",
+      "open": 49.97999954223633,
+      "high": 54.18000030517578,
+      "low": 49.599998474121094,
+      "close": 53.99399948120117,
+      "volume": 16600
+    },
+    {
+      "date": "2025-10-03",
+      "open": 53.4900016784668,
+      "high": 55.15999984741211,
+      "low": 52.59000015258789,
+      "close": 52.89799880981445,
+      "volume": 5100
+    },
+    {
+      "date": "2025-10-06",
+      "open": 54.84000015258789,
+      "high": 54.84000015258789,
+      "low": 53.040000915527344,
+      "close": 53.744998931884766,
+      "volume": 4200
+    },
+    {
+      "date": "2025-10-07",
+      "open": 55.400001525878906,
+      "high": 56.18000030517578,
+      "low": 53.86000061035156,
+      "close": 54.220001220703125,
+      "volume": 2300
+    },
+    {
+      "date": "2025-10-08",
+      "open": 53.79999923706055,
+      "high": 55.220001220703125,
+      "low": 53.56999969482422,
+      "close": 54.59000015258789,
+      "volume": 5800
+    },
+    {
+      "date": "2025-10-09",
+      "open": 54.72999954223633,
+      "high": 55.70500183105469,
+      "low": 53.92499923706055,
+      "close": 55.18899917602539,
+      "volume": 1800
+    },
+    {
+      "date": "2025-10-10",
+      "open": 57.310001373291016,
+      "high": 57.310001373291016,
+      "low": 49.17100143432617,
+      "close": 49.17100143432617,
+      "volume": 5600
+    },
+    {
+      "date": "2025-10-13",
+      "open": 49.81999969482422,
+      "high": 50.61000061035156,
+      "low": 49.736000061035156,
+      "close": 49.891998291015625,
+      "volume": 1300
+    },
+    {
+      "date": "2025-10-14",
+      "open": 48.09000015258789,
+      "high": 49.26599884033203,
+      "low": 47.58000183105469,
+      "close": 49.26599884033203,
+      "volume": 4200
+    },
+    {
+      "date": "2025-10-15",
+      "open": 50.25,
+      "high": 51.93000030517578,
+      "low": 49.97999954223633,
+      "close": 50.11090087890625,
+      "volume": 26548
+    },
+    {
+      "date": "2025-10-16",
+      "amountFixed": 2.4795,
+      "open": 47.650001525878906,
+      "high": 48.29199981689453,
+      "low": 45.45000076293945,
+      "close": 45.542999267578125,
+      "volume": 11200,
+      "amount": 2.48,
+      "yield": 0.0520356751
+    },
+    {
+      "date": "2025-10-17",
+      "open": 45,
+      "high": 45.25,
+      "low": 44,
+      "close": 44.79199981689453,
+      "volume": 9900
+    },
+    {
+      "date": "2025-10-20",
+      "open": 47.029998779296875,
+      "high": 47.33000183105469,
+      "low": 45.5099983215332,
+      "close": 46.86000061035156,
+      "volume": 610800
+    },
+    {
+      "date": "2025-10-21",
+      "open": 45.439998626708984,
+      "high": 46.332801818847656,
+      "low": 44.93000030517578,
+      "close": 46.17169952392578,
+      "volume": 22507
+    },
+    {
+      "date": "2025-10-22",
+      "open": 45.400001525878906,
+      "high": 45.970001220703125,
+      "low": 43.63209915161133,
+      "close": 44.31999969482422,
+      "volume": 59908
+    },
+    {
+      "date": "2025-10-23",
+      "amountFixed": 0.8908,
+      "open": 43.630001068115234,
+      "high": 45.08000183105469,
+      "low": 43.05009841918945,
+      "close": 44.790000915527344,
+      "volume": 35988,
+      "yield": 0.077247305,
+      "amount": 0.891
+    },
+    {
+      "date": "2025-10-24",
+      "open": 46.459999084472656,
+      "high": 47.720001220703125,
+      "low": 45.39759826660156,
+      "close": 47.430599212646484,
+      "volume": 52267
+    },
+    {
+      "date": "2025-10-27",
+      "open": 48.970001220703125,
+      "high": 48.79999923706055,
+      "low": 46.7400016784668,
+      "close": 47.93109893798828,
+      "volume": 20750
+    },
+    {
+      "date": "2025-10-28",
+      "open": 48,
+      "high": 48.2400016784668,
+      "low": 46.380001068115234,
+      "close": 46.435298919677734,
+      "volume": 22536
+    },
+    {
+      "date": "2025-10-29",
+      "open": 46.52000045776367,
+      "high": 46.34000015258789,
+      "low": 44.53499984741211,
+      "close": 44.96889877319336,
+      "volume": 79251
+    },
+    {
+      "date": "2025-10-30",
+      "amountFixed": 1.0779,
+      "open": 43.369998931884766,
+      "high": 43.27000045776367,
+      "low": 40.90999984741211,
+      "close": 40.90999984741211,
+      "volume": 43891,
+      "yield": 0.1025639868
+    },
+    {
+      "date": "2025-10-31",
+      "holdings": [
         {
-            "date": "2025-09-29",
-            "open": 50,
-            "high": 50,
-            "low": 50,
-            "close": 50,
-            "volume": 0
+          "symbol": "912797RG4",
+          "name": "United States Treasury Bill 08/06/2026",
+          "weight": 36.37,
+          "type": "treasury_bill"
         },
         {
-            "date": "2025-09-30",
-            "open": 50.04999923706055,
-            "high": 50.04999923706055,
-            "low": 49.209999084472656,
-            "close": 49.209999084472656,
-            "volume": 800
+          "symbol": "912797RF6",
+          "name": "United States Treasury Bill 07/09/2026",
+          "weight": 35.39,
+          "type": "treasury_bill"
         },
         {
-            "date": "2025-10-01",
-            "open": 50.04999923706055,
-            "high": 50.29999923706055,
-            "low": 48.090999603271484,
-            "close": 48.090999603271484,
-            "volume": 2900
+          "symbol": "912797SL2",
+          "name": "United States Treasury Bill 04/09/2026",
+          "weight": 34.04,
+          "type": "treasury_bill"
         },
         {
-            "date": "2025-10-02",
-            "open": 49.97999954223633,
-            "high": 54.18000030517578,
-            "low": 49.599998474121094,
-            "close": 53.99399948120117,
-            "volume": 16600
+          "symbol": "CRCL  251121C00130000",
+          "name": "CRCL US 11/21/25 C130",
+          "weight": 8.25,
+          "type": "option"
         },
         {
-            "date": "2025-10-03",
-            "open": 53.4900016784668,
-            "high": 55.15999984741211,
-            "low": 52.59000015258789,
-            "close": 52.89799880981445,
-            "volume": 5100
+          "symbol": "Cash&Other",
+          "name": "Cash & Other",
+          "weight": 1.83,
+          "type": "cash"
         },
         {
-            "date": "2025-10-06",
-            "open": 54.84000015258789,
-            "high": 54.84000015258789,
-            "low": 53.040000915527344,
-            "close": 53.744998931884766,
-            "volume": 4200
+          "symbol": "CRCL  251031C00162500",
+          "name": "CRCL US 10/31/25 C162.5",
+          "weight": 0.08,
+          "type": "option"
         },
         {
-            "date": "2025-10-07",
-            "open": 55.400001525878906,
-            "high": 56.18000030517578,
-            "low": 53.86000061035156,
-            "close": 54.220001220703125,
-            "volume": 2300
+          "symbol": "CRCL  251031C00152500",
+          "name": "CRCL US 10/31/25 C152.5",
+          "weight": 0.01,
+          "type": "option"
         },
         {
-            "date": "2025-10-08",
-            "open": 53.79999923706055,
-            "high": 55.220001220703125,
-            "low": 53.56999969482422,
-            "close": 54.59000015258789,
-            "volume": 5800
+          "symbol": "CRCL  251031C00140000",
+          "name": "CRCL US 10/31/25 C140",
+          "weight": 0.02,
+          "type": "option"
         },
         {
-            "date": "2025-10-09",
-            "open": 54.72999954223633,
-            "high": 55.70500183105469,
-            "low": 53.92499923706055,
-            "close": 55.18899917602539,
-            "volume": 1800
+          "symbol": "CRCL  251031C00148000",
+          "name": "CRCL US 10/31/25 C148",
+          "weight": 0.08,
+          "type": "option"
         },
         {
-            "date": "2025-10-10",
-            "open": 57.310001373291016,
-            "high": 57.310001373291016,
-            "low": 49.17100143432617,
-            "close": 49.17100143432617,
-            "volume": 5600
-        },
-        {
-            "date": "2025-10-13",
-            "open": 49.81999969482422,
-            "high": 50.61000061035156,
-            "low": 49.736000061035156,
-            "close": 49.891998291015625,
-            "volume": 1300
-        },
-        {
-            "date": "2025-10-14",
-            "open": 48.09000015258789,
-            "high": 49.26599884033203,
-            "low": 47.58000183105469,
-            "close": 49.26599884033203,
-            "volume": 4200
-        },
-        {
-            "date": "2025-10-15",
-            "open": 50.25,
-            "high": 51.93000030517578,
-            "low": 49.97999954223633,
-            "close": 50.11090087890625,
-            "volume": 26548
-        },
-        {
-            "date": "2025-10-16",
-            "amountFixed": 2.4795,
-            "open": 47.650001525878906,
-            "high": 48.29199981689453,
-            "low": 45.45000076293945,
-            "close": 45.542999267578125,
-            "volume": 11200,
-            "amount": 2.48,
-            "yield": 0.0520356751
-        },
-        {
-            "date": "2025-10-17",
-            "open": 45,
-            "high": 45.25,
-            "low": 44,
-            "close": 44.79199981689453,
-            "volume": 9900
-        },
-        {
-            "date": "2025-10-20",
-            "open": 47.029998779296875,
-            "high": 47.33000183105469,
-            "low": 45.5099983215332,
-            "close": 46.86000061035156,
-            "volume": 610800
-        },
-        {
-            "date": "2025-10-21",
-            "open": 45.439998626708984,
-            "high": 46.332801818847656,
-            "low": 44.93000030517578,
-            "close": 46.17169952392578,
-            "volume": 22507
-        },
-        {
-            "date": "2025-10-22",
-            "open": 45.400001525878906,
-            "high": 45.970001220703125,
-            "low": 43.63209915161133,
-            "close": 44.31999969482422,
-            "volume": 59908
-        },
-        {
-            "date": "2025-10-23",
-            "amountFixed": 0.8908,
-            "open": 43.630001068115234,
-            "high": 45.08000183105469,
-            "low": 43.05009841918945,
-            "close": 44.790000915527344,
-            "volume": 35988,
-            "yield": 0.077247305,
-            "amount": 0.891
-        },
-        {
-            "date": "2025-10-24",
-            "open": 46.459999084472656,
-            "high": 47.720001220703125,
-            "low": 45.39759826660156,
-            "close": 47.430599212646484,
-            "volume": 52267
-        },
-        {
-            "date": "2025-10-27",
-            "open": 48.970001220703125,
-            "high": 48.79999923706055,
-            "low": 46.7400016784668,
-            "close": 47.93109893798828,
-            "volume": 20750
-        },
-        {
-            "date": "2025-10-28",
-            "open": 48,
-            "high": 48.2400016784668,
-            "low": 46.380001068115234,
-            "close": 46.435298919677734,
-            "volume": 22536
-        },
-        {
-            "date": "2025-10-29",
-            "open": 46.52000045776367,
-            "high": 46.34000015258789,
-            "low": 44.53499984741211,
-            "close": 44.96889877319336,
-            "volume": 79251
-        },
-        {
-            "date": "2025-10-30",
-            "amountFixed": 1.0779,
-            "open": 43.369998931884766,
-            "high": 43.27000045776367,
-            "low": 40.90999984741211,
-            "close": 40.90999984741211,
-            "volume": 43891,
-            "yield": 0.1025639868
-        },
-        {
-            "date": "2025-10-31",
-            "holdings": [
-                {
-                    "symbol": "912797RG4",
-                    "name": "United States Treasury Bill 08/06/2026",
-                    "weight": 36.37,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "912797RF6",
-                    "name": "United States Treasury Bill 07/09/2026",
-                    "weight": 35.39,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "912797SL2",
-                    "name": "United States Treasury Bill 04/09/2026",
-                    "weight": 34.04,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "CRCL  251121C00130000",
-                    "name": "CRCL US 11/21/25 C130",
-                    "weight": 8.25,
-                    "type": "option"
-                },
-                {
-                    "symbol": "Cash&Other",
-                    "name": "Cash & Other",
-                    "weight": 1.83,
-                    "type": "cash"
-                },
-                {
-                    "symbol": "CRCL  251031C00162500",
-                    "name": "CRCL US 10/31/25 C162.5",
-                    "weight": 0.08,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251031C00152500",
-                    "name": "CRCL US 10/31/25 C152.5",
-                    "weight": 0.01,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251031C00140000",
-                    "name": "CRCL US 10/31/25 C140",
-                    "weight": 0.02,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251031C00148000",
-                    "name": "CRCL US 10/31/25 C148",
-                    "weight": 0.08,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251031C00147000",
-                    "name": "CRCL US 10/31/25 C147",
-                    "weight": 0.11,
-                    "type": "option"
-                }
-            ],
-            "open": 42.45000076293945,
-            "high": 43.040000915527344,
-            "low": 41.83000183105469,
-            "close": 42.33039855957031,
-            "volume": 44594
-        },
-        {
-            "date": "2025-11-03",
-            "holdings": [
-                {
-                    "symbol": "912797RG4",
-                    "name": "United States Treasury Bill 08/06/2026",
-                    "weight": 33.88,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "912797RF6",
-                    "name": "United States Treasury Bill 07/09/2026",
-                    "weight": 32.97,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "912797SL2",
-                    "name": "United States Treasury Bill 04/09/2026",
-                    "weight": 31.7,
-                    "type": "treasury_bill"
-                },
-                {
-                    "symbol": "CRCL  251121C00130000",
-                    "name": "CRCL US 11/21/25 C130",
-                    "weight": 4.4,
-                    "type": "option"
-                },
-                {
-                    "symbol": "31846V336",
-                    "name": "First American Government Obligations Fund 12/01/2031",
-                    "weight": 3.43,
-                    "type": "money_market"
-                },
-                {
-                    "symbol": "CRCL  251107C00127000",
-                    "name": "CIRCLE I CLL OPT 11/25 127",
-                    "weight": 2.09,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251107C00140000",
-                    "name": "CIRCLE I CLL OPT 11/25 140",
-                    "weight": 1.83,
-                    "type": "option"
-                },
-                {
-                    "symbol": "Cash&Other",
-                    "name": "Cash & Other",
-                    "weight": 1.09,
-                    "type": "cash"
-                },
-                {
-                    "symbol": "2CRCL 251107P00127010",
-                    "name": "CRCL 11/07/2025 127.01 P",
-                    "weight": 2.64,
-                    "type": "option"
-                },
-                {
-                    "symbol": "CRCL  251107C00130000",
-                    "name": "CRCL US 11/07/25 C130",
-                    "weight": 3.48,
-                    "type": "option"
-                }
-            ],
-            "open": 42.279998779296875,
-            "high": 41.626800537109375,
-            "low": 40,
-            "close": 40.13209915161133,
-            "volume": 42125
-        },
-        {
-            "date": "2025-11-06",
-            "expected": true
-        },
-        {
-            "date": "2025-11-13",
-            "expected": true
-        },
-        {
-            "date": "2025-11-20",
-            "expected": true
-        },
-        {
-            "date": "2025-11-26",
-            "expected": true
-        },
-        {
-            "date": "2025-12-04",
-            "expected": true
-        },
-        {
-            "date": "2025-12-11",
-            "expected": true
-        },
-        {
-            "date": "2025-12-18",
-            "expected": true
-        },
-        {
-            "date": "2025-12-24",
-            "expected": true
-        },
-        {
-            "date": "2025-12-31",
-            "forecasted": true
-        },
-        {
-            "date": "2026-01-08",
-            "forecasted": true
-        },
-        {
-            "date": "2026-01-15",
-            "forecasted": true
-        },
-        {
-            "date": "2026-01-22",
-            "forecasted": true
-        },
-        {
-            "date": "2026-01-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-02-05",
-            "forecasted": true
-        },
-        {
-            "date": "2026-02-12",
-            "forecasted": true
-        },
-        {
-            "date": "2026-02-19",
-            "forecasted": true
-        },
-        {
-            "date": "2026-02-26",
-            "forecasted": true
-        },
-        {
-            "date": "2026-03-05",
-            "forecasted": true
-        },
-        {
-            "date": "2026-03-12",
-            "forecasted": true
-        },
-        {
-            "date": "2026-03-19",
-            "forecasted": true
-        },
-        {
-            "date": "2026-03-26",
-            "forecasted": true
-        },
-        {
-            "date": "2026-04-02",
-            "forecasted": true
-        },
-        {
-            "date": "2026-04-09",
-            "forecasted": true
-        },
-        {
-            "date": "2026-04-16",
-            "forecasted": true
-        },
-        {
-            "date": "2026-04-23",
-            "forecasted": true
-        },
-        {
-            "date": "2026-04-30",
-            "forecasted": true
+          "symbol": "CRCL  251031C00147000",
+          "name": "CRCL US 10/31/25 C147",
+          "weight": 0.11,
+          "type": "option"
         }
-    ]
+      ],
+      "open": 42.45000076293945,
+      "high": 43.040000915527344,
+      "low": 41.83000183105469,
+      "close": 42.33039855957031,
+      "volume": 44594
+    },
+    {
+      "date": "2025-11-03",
+      "holdings": [
+        {
+          "symbol": "912797RG4",
+          "name": "United States Treasury Bill 08/06/2026",
+          "weight": 33.88,
+          "type": "treasury_bill"
+        },
+        {
+          "symbol": "912797RF6",
+          "name": "United States Treasury Bill 07/09/2026",
+          "weight": 32.97,
+          "type": "treasury_bill"
+        },
+        {
+          "symbol": "912797SL2",
+          "name": "United States Treasury Bill 04/09/2026",
+          "weight": 31.7,
+          "type": "treasury_bill"
+        },
+        {
+          "symbol": "CRCL  251121C00130000",
+          "name": "CRCL US 11/21/25 C130",
+          "weight": 4.4,
+          "type": "option"
+        },
+        {
+          "symbol": "31846V336",
+          "name": "First American Government Obligations Fund 12/01/2031",
+          "weight": 3.43,
+          "type": "money_market"
+        },
+        {
+          "symbol": "CRCL  251107C00127000",
+          "name": "CIRCLE I CLL OPT 11/25 127",
+          "weight": 2.09,
+          "type": "option"
+        },
+        {
+          "symbol": "CRCL  251107C00140000",
+          "name": "CIRCLE I CLL OPT 11/25 140",
+          "weight": 1.83,
+          "type": "option"
+        },
+        {
+          "symbol": "Cash&Other",
+          "name": "Cash & Other",
+          "weight": 1.09,
+          "type": "cash"
+        },
+        {
+          "symbol": "2CRCL 251107P00127010",
+          "name": "CRCL 11/07/2025 127.01 P",
+          "weight": 2.64,
+          "type": "option"
+        },
+        {
+          "symbol": "CRCL  251107C00130000",
+          "name": "CRCL US 11/07/25 C130",
+          "weight": 3.48,
+          "type": "option"
+        }
+      ],
+      "open": 42.279998779296875,
+      "high": 41.626800537109375,
+      "low": 40,
+      "close": 40.13209915161133,
+      "volume": 42125
+    },
+    {
+      "date": "2025-11-06",
+      "expected": true
+    },
+    {
+      "date": "2025-11-13",
+      "expected": true
+    },
+    {
+      "date": "2025-11-20",
+      "expected": true
+    },
+    {
+      "date": "2025-11-26",
+      "expected": true
+    },
+    {
+      "date": "2025-12-04",
+      "expected": true
+    },
+    {
+      "date": "2025-12-11",
+      "expected": true
+    },
+    {
+      "date": "2025-12-18",
+      "expected": true
+    },
+    {
+      "date": "2025-12-24",
+      "expected": true
+    },
+    {
+      "date": "2025-12-31",
+      "forecasted": true
+    },
+    {
+      "date": "2026-01-08",
+      "forecasted": true
+    },
+    {
+      "date": "2026-01-15",
+      "forecasted": true
+    },
+    {
+      "date": "2026-01-22",
+      "forecasted": true
+    },
+    {
+      "date": "2026-01-29",
+      "forecasted": true
+    },
+    {
+      "date": "2026-02-05",
+      "forecasted": true
+    },
+    {
+      "date": "2026-02-12",
+      "forecasted": true
+    },
+    {
+      "date": "2026-02-19",
+      "forecasted": true
+    },
+    {
+      "date": "2026-02-26",
+      "forecasted": true
+    },
+    {
+      "date": "2026-03-05",
+      "forecasted": true
+    },
+    {
+      "date": "2026-03-12",
+      "forecasted": true
+    },
+    {
+      "date": "2026-03-19",
+      "forecasted": true
+    },
+    {
+      "date": "2026-03-26",
+      "forecasted": true
+    },
+    {
+      "date": "2026-04-02",
+      "forecasted": true
+    },
+    {
+      "date": "2026-04-09",
+      "forecasted": true
+    },
+    {
+      "date": "2026-04-16",
+      "forecasted": true
+    },
+    {
+      "date": "2026-04-23",
+      "forecasted": true
+    },
+    {
+      "date": "2026-04-30",
+      "forecasted": true
+    }
+  ]
 }
