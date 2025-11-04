@@ -87,11 +87,11 @@ jobs:
             - name: 9. Generate calendar events data (JS)
               run: npm run generate-calendar-events
 
-            - name: 10. Format all generated data files
+            - name: 10. Format changed files only
               run: |
-                  npm run format:data
-                  npm run format:nav
-                  npm run format:public
+                  echo "📝 변경된 파일만 포맷 중..."
+                  npm run format:changed
+                  echo "✅ 포맷 완료"
 
             - name: 11. Upload changed files to R2 (Git-based, fast)
               run: |
