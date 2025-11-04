@@ -1,22 +1,23 @@
-# .github/workflows/update_market_data.yml
+# .github/workflows/update_market_data_v2.yml
+# [V2] 통합 파이프라인 버전 - 속도 비교용
 
-name: Update Market Data (Twice Daily)
+name: Update Market Data V2 (Optimized Pipeline)
 
 on:
-    # 하루 2회 실행: 미국 증시 마감 후, 한국 증시 마감 후
-    # - 미국: UTC 21:00 또는 22:00 (서머타임 여부에 따라)
-    # - 한국: UTC 07:30 (연중 동일)
+    # 하루 2회 실행: 기존 워크플로우와 30분 차이
+    # - 미국: UTC 21:30 또는 22:30
+    # - 한국: UTC 08:00
     schedule:
-        - cron: '0 21 * * 1-5' # UTC 21:00 (미국 서머타임 적용 시: 오전 6시 KST)
-        - cron: '0 22 * * 1-5' # UTC 22:00 (미국 서머타임 미적용 시: 오전 7시 KST)
-        - cron: '30 7 * * 1-5' # UTC 07:30 (오후 4시 30분 KST, 한국 증시 마감 후)
+        - cron: '30 21 * * 1-5' # UTC 21:30
+        - cron: '30 22 * * 1-5' # UTC 22:30
+        - cron: '0 8 * * 1-5' # UTC 08:00 (KST 17:00)
     workflow_dispatch:
 
 permissions:
     contents: write
 
 jobs:
-    update-market:
+    update-market-v2:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout main branch
@@ -56,7 +57,7 @@ jobs:
             - name: Check if should run
               id: check_time
               run: |
-                  # 수동 실행(workflow_dispatch)인 경우 항상 실행
+                  # 수동 실행인 경우 항상 실행
                   if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
                     echo "should_run=true" >> $GITHUB_OUTPUT
                     echo "schedule_type=manual" >> $GITHUB_OUTPUT
@@ -66,22 +67,21 @@ jobs:
                   # 현재 UTC 시간과 월 정보
                   UTC_HOUR=$(date -u +%H)
                   UTC_MONTH=$(date -u +%m)
-                  UTC_DOW=$(date -u +%u)  # 1-7 (Mon-Sun)
+                  UTC_DOW=$(date -u +%u)
 
-                  # 한국 증시 마감 후 (UTC 07:30)인 경우 항상 실행
-                  if [ "$UTC_HOUR" = "07" ] || [ "$UTC_HOUR" = "7" ]; then
+                  # 한국 증시 마감 후 (UTC 08:00)인 경우 항상 실행
+                  if [ "$UTC_HOUR" = "08" ] || [ "$UTC_HOUR" = "8" ]; then
                     echo "should_run=true" >> $GITHUB_OUTPUT
                     echo "schedule_type=kr_market" >> $GITHUB_OUTPUT
                     exit 0
                   fi
 
-                  # 미국 증시 마감 후 (UTC 21:00 또는 22:00)인 경우
+                  # 미국 증시 마감 후 (UTC 21:30 또는 22:30)인 경우
                   if [ "$UTC_HOUR" = "21" ] || [ "$UTC_HOUR" = "22" ]; then
-                    # 서머타임 기간 체크 (3월 2주째 일요일 이후 ~ 11월 1주째 일요일 이전)
-                    # 간단히 월로 판단 (3-10월: 서머타임 적용, UTC 21:00)
-                    # 11-2월: 서머타임 미적용, UTC 22:00
+                    # 서머타임 기간 체크 (3-10월: 서머타임 적용, UTC 21:30)
+                    # 11-2월: 서머타임 미적용, UTC 22:30
                     if [ "$UTC_MONTH" -ge 3 ] && [ "$UTC_MONTH" -le 10 ]; then
-                      # 서머타임 적용 기간: UTC 21:00만 실행
+                      # 서머타임 적용 기간: UTC 21:30만 실행
                       if [ "$UTC_HOUR" = "21" ]; then
                         echo "should_run=true" >> $GITHUB_OUTPUT
                         echo "schedule_type=us_market_dst" >> $GITHUB_OUTPUT
@@ -89,7 +89,7 @@ jobs:
                         echo "should_run=false" >> $GITHUB_OUTPUT
                       fi
                     else
-                      # 서머타임 미적용 기간: UTC 22:00만 실행
+                      # 서머타임 미적용 기간: UTC 22:30만 실행
                       if [ "$UTC_HOUR" = "22" ]; then
                         echo "should_run=true" >> $GITHUB_OUTPUT
                         echo "schedule_type=us_market_std" >> $GITHUB_OUTPUT
@@ -102,33 +102,29 @@ jobs:
                     echo "should_run=false" >> $GITHUB_OUTPUT
                   fi
 
-            # --- 시장 데이터 업데이트 파이프라인 (가격 및 시가총액 중심) ---
-            - name: 7. Update historical price data
+            # --- [V2] 통합 파이프라인: 단 2개의 스텝으로 시장 데이터 완료 ---
+            - name: 1. Update historical price data (JS)
               if: steps.check_time.outputs.should_run == 'true'
               run: npm run update-data
 
-            - name: 7.5. Update daily market capitalization (Yahoo Finance)
-              if: steps.check_time.outputs.should_run == 'true'
-              run: python scripts/update_market_cap.py
-
-            - name: 11. Aggregate bookmark popularity
+            # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 ---
+            - name: 2. [V2 PIPELINE] Update all market data (market_cap, popularity, sidebar)
               if: steps.check_time.outputs.should_run == 'true'
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
-              run: python scripts/aggregate_popularity.py
+              run: |
+                  echo "🚀 통합 시장 데이터 파이프라인 시작..."
+                  python scripts/market_data_pipeline.py
+                  echo "✅ 통합 시장 데이터 파이프라인 완료"
 
-            - name: 13. Generate sidebar tickers data
-              if: steps.check_time.outputs.should_run == 'true'
-              run: python scripts/generate_sidebar_tickers.py
-
-            - name: 14. Format all generated data files
+            - name: 3. Format all generated data files
               if: steps.check_time.outputs.should_run == 'true'
               run: |
                   npm run format:data
                   npm run format:nav
                   npm run format:public
 
-            - name: 15. Upload changed files to R2 (Git-based, fast)
+            - name: 4. Upload changed files to R2 (Git-based, fast)
               if: steps.check_time.outputs.should_run == 'true'
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
@@ -152,10 +148,9 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  COMMIT_MSG="📈 Auto: Update market data (${{ steps.check_time.outputs.schedule_type }})
+                  COMMIT_MSG="📈 Auto: Update market data V2 (optimized pipeline - ${{ steps.check_time.outputs.schedule_type }})
 
                   Changed files:
                   $(git status --porcelain)"
                   git commit -m "$COMMIT_MSG"
                   git push
-
