@@ -289,6 +289,63 @@ V2: 통합 파이프라인 실행 시간
 
 ---
 
+## 📊 Holdings 워크플로우
+
+### 개요
+
+Holdings 수집은 시간이 오래 걸리지만 자주 변경되지 않아 별도 워크플로우로 분리했습니다.
+
+### 워크플로우 파일
+
+**파일**: `.github/workflows/update_holdings.yml`
+
+**실행 빈도**: 매주 일요일 새벽 3시 (KST)
+
+### 실행 스텝
+
+```yaml
+1. Auto-detect holdings for new tickers
+   → python scripts/auto_detect_holdings.py
+
+2. Fetch ETF holdings data (23분+)
+   → python scripts/fetch_holdings.py
+
+3. Format changed files
+   → npm run format:changed
+
+4. Upload to R2
+   → python scripts/upload_changed_to_r2.py
+
+5. Commit and push
+```
+
+### Holdings 변경 빈도
+
+| ETF 유형 | 변경 빈도 | 예시 |
+|---------|---------|------|
+| **인덱스 ETF** | 월 1-2회 | SPY, QQQ, VOO |
+| **액티브 ETF** | 주 1-2회 | TSLY, NVDY, APLY |
+| **테마 ETF** | 월 1-2회 | MAGS, WEED, CHAT |
+| **레버리지 ETF** | 일 1회+ | SQQQ, TQQQ |
+
+### 최적화 효과
+
+**Before (매일 실행):**
+```
+Info 워크플로우: 2시간 31분 (Holdings 23분 포함)
+실제 변화: 주 1-2회
+불필요한 실행: 5-6일/주
+```
+
+**After (주 1회 실행):**
+```
+Info 워크플로우: ~1시간 (Holdings 제거)
+Holdings 워크플로우: 30분 (주 1회)
+총 시간 절약: 월 6-8시간
+```
+
+---
+
 ## 🚀 테스트 후 결정 기준
 
 ### V2 채택 조건

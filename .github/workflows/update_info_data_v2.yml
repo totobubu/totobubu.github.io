@@ -63,42 +63,32 @@ jobs:
             - name: 3. Generate final nav.json (JS)
               run: npm run generate-nav
 
-            - name: 4. Auto-detect and update holdings (Python)
-              run: |
-                  echo "🔍 Holdings 자동 감지 시작..."
-                  python scripts/auto_detect_holdings.py --api --exclude-kr --yes
-                  echo "✅ Holdings 자동 감지 완료"
-
-            - name: 5. Fetch ETF holdings data (Python)
-              run: |
-                  echo "📊 ETF Holdings 데이터 수집 시작..."
-                  echo "y" | python scripts/fetch_holdings.py
-                  echo "✅ ETF Holdings 데이터 수집 완료"
-
+            # Holdings 수집은 별도 워크플로우로 분리 (update_holdings.yml)
+            
             # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 (중복 API 호출 제거) ---
-            - name: 6. [V2 OPTIMIZED] Update all info data (dividends, info+marketCap, frequency, projection)
+            - name: 4. [V2 OPTIMIZED] Update all info data (dividends, info+marketCap, frequency, projection)
               run: |
                   echo "🚀 최적화된 통합 정보성 데이터 파이프라인 시작..."
                   echo "✨ 중복 API 호출 제거: marketCap을 티커 정보와 함께 처리"
                   python scripts/info_data_pipeline.py
                   echo "✅ 최적화된 통합 정보성 데이터 파이프라인 완료"
 
-            - name: 7. Process and enrich dividend history (scraper_dividend)
+            - name: 5. Process and enrich dividend history (scraper_dividend)
               run: python scripts/scraper_dividend.py
 
-            - name: 8. Clean and sanitize historical data
+            - name: 6. Clean and sanitize historical data
               run: python scripts/clean_data.py
 
-            - name: 9. Generate calendar events data (JS)
+            - name: 7. Generate calendar events data (JS)
               run: npm run generate-calendar-events
 
-            - name: 10. Format changed files only
+            - name: 8. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 11. Upload changed files to R2 (Git-based, fast)
+            - name: 9. Upload changed files to R2 (Git-based, fast)
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
                   python scripts/upload_changed_to_r2.py
