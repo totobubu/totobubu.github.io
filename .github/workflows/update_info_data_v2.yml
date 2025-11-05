@@ -76,19 +76,18 @@ jobs:
             - name: 5. Process and enrich dividend history (scraper_dividend)
               run: python scripts/scraper_dividend.py
 
-            - name: 6. Clean and sanitize historical data
-              run: python scripts/clean_data.py
-
-            - name: 7. Generate calendar events data (JS)
+            # clean_data.py는 1회성 정리 작업이므로 필요 시 수동 실행
+            
+            - name: 6. Generate calendar events data (JS)
               run: npm run generate-calendar-events
 
-            - name: 8. Format changed files only
+            - name: 7. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 9. Upload changed files to R2 (Git-based, fast)
+            - name: 8. Upload changed files to R2 (Git-based, fast)
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
                   python scripts/upload_changed_to_r2.py
