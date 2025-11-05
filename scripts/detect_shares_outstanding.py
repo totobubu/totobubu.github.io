@@ -132,8 +132,8 @@ def main():
                 old_value = ticker.get("sharesOutstanding")
                 new_value = shares_status[symbol]
                 
-                # 값이 변경되었거나 없었으면 업데이트
-                if old_value != new_value:
+                # 값이 변경되었거나 없었으면 업데이트 (null은 덮어쓰기)
+                if old_value is None or old_value != new_value:
                     ticker["sharesOutstanding"] = new_value
                     has_changed = True
                     updated_tickers += 1

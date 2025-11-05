@@ -39,6 +39,9 @@ def main():
     tickers_to_update = []
     batch_size = 100
 
+    # sharesOutstanding 데이터도 함께 수집
+    shares_data = {}
+    
     for i in tqdm(
         range(0, len(all_symbols), batch_size),
         desc=f"Checking for {provider_name} ETFs",
@@ -48,9 +51,15 @@ def main():
 
         for symbol, ticker_obj in tickers_info.tickers.items():
             try:
-                fund_family = ticker_obj.fast_info.get("fund_family", "").lower()
+                info = ticker_obj.info
+                fund_family = info.get("fund_family", "").lower()
+                
                 if provider_name_lower in fund_family:
                     tickers_to_update.append(symbol)
+                    
+                    # sharesOutstanding 확인
+                    shares = info.get("sharesOutstanding")
+                    shares_data[symbol] = shares is not None and shares > 0
             except Exception:
                 continue
 
@@ -78,15 +87,25 @@ def main():
             except (IOError, json.JSONDecodeError):
                 nav_sources[file_path] = []
 
-    # 전체 소스에서 티커를 찾아 company 정보 업데이트
+    # 전체 소스에서 티커를 찾아 company 및 sharesOutstanding 정보 업데이트
     for file_path, tickers in nav_sources.items():
         file_has_changed = False
         for ticker_data in tickers:
-            if ticker_data["symbol"] in tickers_to_update:
+            symbol = ticker_data["symbol"]
+            if symbol in tickers_to_update:
+                # company 업데이트
                 if ticker_data.get("company") != provider_name:
                     ticker_data["company"] = provider_name
                     file_has_changed = True
                     updated_count += 1
+                
+                # sharesOutstanding 업데이트
+                if symbol in shares_data:
+                    old_shares = ticker_data.get("sharesOutstanding")
+                    new_shares = shares_data[symbol]
+                    if old_shares != new_shares:
+                        ticker_data["sharesOutstanding"] = new_shares
+                        file_has_changed = True
 
         if file_has_changed:
             tickers.sort(key=lambda x: x["symbol"])
