@@ -30,7 +30,7 @@
     } = useSidebar();
 
     const { isMobile } = useBreakpoint();
-    const skeletonItems = ref(new Array(25));
+    const skeletonItems = ref(new Array(50));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
     // 로그인 상태에 따라 북마크 옵션 표시
