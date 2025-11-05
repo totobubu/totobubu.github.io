@@ -17,7 +17,7 @@ Roundhill 웹사이트에서 복사한 Holdings 데이터를 JSON에 등록합�
      python scripts/add_roundhill_holdings.py AAPW "2/19/25" --stdin
 
   4. 전체 파일 일괄 처리 (추천!)
-     python scripts/add_roundhill_holdings.py --batch roundhill_251105.txt
+    python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_251105.txt
 
      파일 형식:
        TICKER1

@@ -37,7 +37,6 @@ def get_last_dividend_date(file_path):
 
 
 def main():
-    print("--- Starting Incremental Dividend Update (Optimized) ---")
     os.makedirs(DATA_DIR, exist_ok=True)
 
     try:
@@ -49,6 +48,20 @@ def main():
 
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
+    
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    import sys
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        print(f"--- [Specific Mode] Dividend Update for: {', '.join(target_tickers)} ---")
+        active_tickers_info = [t for t in active_tickers_info if t["symbol"] in target_tickers]
+        if not active_tickers_info:
+            print(f"❌ 지정한 티커를 nav.json에서 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
+    else:
+        print("--- [Full Mode] Incremental Dividend Update (Optimized) ---")
+    
     ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
     active_symbols = list(ticker_info_map.keys())
 
