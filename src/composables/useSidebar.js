@@ -16,6 +16,7 @@ export function useSidebar() {
     const toast = useToast();
 
     const allTickers = ref([]);
+    const allTickersForSearch = ref([]); // 전체 검색용 (모든 티커)
     const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
     const error = ref(null);
@@ -29,6 +30,61 @@ export function useSidebar() {
         toggleMyStock,
     } = useFilterState();
 
+    // 전체 티커 로드 (nav.json에서 - 검색용)
+    const loadAllTickersForSearch = async () => {
+        if (allTickersForSearch.value.length > 0) return; // 이미 로드됨
+        
+        try {
+            const response = await fetch(getDataUrl('nav.json'));
+            if (!response.ok) throw new Error('nav.json could not be loaded.');
+            const navData = await response.json();
+            
+            // 한국 ETF 브랜드명 목록
+            const koreanEtfBrands = [
+                'KODEX', 'TIGER', 'KBSTAR', 'ACE', 'ARIRANG', 'HANARO',
+                'SOL', 'PLUS', 'RISE', 'TIMEFOLIO', 'KOSEF', 'KINDEX',
+                'TRUE', 'FOCUS', 'SMART', 'QV', 'TREX', 'HK '
+            ];
+            
+            const dayOrder = { '월': 1, '화': 2, '수': 3, '목': 4, '금': 5 };
+            
+            allTickersForSearch.value = navData.nav
+                .filter((item) => !item.upcoming)
+                .map((item) => {
+                    let isEtf = !!(item.company || item.underlying);
+                    if (!isEtf && item.koName) {
+                        isEtf = koreanEtfBrands.some(brand => 
+                            item.koName.startsWith(brand)
+                        );
+                    }
+                    
+                    const ticker = {
+                        symbol: item.symbol,
+                        currency: item.currency || 'USD',
+                        market: item.market,
+                        isEtf,
+                    };
+                    
+                    if (item.koName) ticker.koName = item.koName;
+                    if (item.longName) ticker.longName = item.longName;
+                    if (item.company) ticker.company = item.company;
+                    if (item.logo) ticker.logo = item.logo;
+                    if (item.frequency) ticker.frequency = item.frequency;
+                    if (item.group) {
+                        ticker.group = item.group;
+                        ticker.groupOrder = dayOrder[item.group] ?? 999;
+                    } else {
+                        ticker.groupOrder = 999;
+                    }
+                    if (item.underlying) ticker.underlying = item.underlying;
+                    
+                    return ticker;
+                });
+        } catch (err) {
+            console.error('Failed to load all tickers for search:', err);
+        }
+    };
+
     // --- [핵심 수정] filteredTickers 로직 변경 ---
     const filteredTickers = computed(() => {
         const myBookmarkSymbols = new Set(Object.keys(myBookmarks.value));
@@ -38,7 +94,46 @@ export function useSidebar() {
 
         let baseList = [];
 
-        // 1. 현재 탭에 따라 기본 목록(baseList)을 먼저 결정합니다.
+        // 1. 검색어가 있는 경우: 전체 티커에서 검색 (allTickersForSearch 사용)
+        if (query) {
+            // 검색은 전체 티커에서 수행 (이미 로드된 경우에만)
+            if (allTickersForSearch.value.length === 0) {
+                // 아직 로드되지 않았으면 빈 배열 반환 (watch에서 로드됨)
+                return [];
+            }
+            
+            const searchResults = allTickersForSearch.value.filter(
+                (item) =>
+                    item.symbol.toLowerCase().includes(query) ||
+                    (item.koName &&
+                        item.koName.toLowerCase().includes(query)) ||
+                    (item.longName &&
+                        item.longName.toLowerCase().includes(query))
+            );
+            
+            // 북마크 제외
+            let filtered = searchResults.filter(
+                (item) => !myBookmarkSymbols.has(item.symbol)
+            );
+            
+            // 국가 필터링
+            if (mainTab === '미국') {
+                filtered = filtered.filter((item) => item.currency === 'USD');
+            } else if (mainTab === '한국') {
+                filtered = filtered.filter((item) => item.currency === 'KRW');
+            }
+            
+            // ETF/주식 필터링
+            if (subTab === 'ETF') {
+                filtered = filtered.filter((item) => item.company || item.underlying);
+            } else if (subTab === '주식') {
+                filtered = filtered.filter((item) => !item.company && !item.underlying);
+            }
+            
+            return filtered;
+        }
+
+        // 2. 검색어가 없는 경우: 현재 탭에 따라 기본 목록(baseList)을 결정
         if (mainTab === '북마크') {
             baseList = allTickers.value.filter((item) =>
                 myBookmarkSymbols.has(item.symbol)
@@ -54,18 +149,6 @@ export function useSidebar() {
                 (item) =>
                     item.currency === 'KRW' &&
                     !myBookmarkSymbols.has(item.symbol)
-            );
-        }
-
-        // 2. 검색어가 있는 경우, 위에서 정해진 baseList 내에서만 검색합니다.
-        if (query) {
-            return baseList.filter(
-                (item) =>
-                    item.symbol.toLowerCase().includes(query) ||
-                    (item.koName &&
-                        item.koName.toLowerCase().includes(query)) ||
-                    (item.longName &&
-                        item.longName.toLowerCase().includes(query))
             );
         }
 
@@ -255,6 +338,13 @@ export function useSidebar() {
     };
 
     onMounted(loadSidebarData);
+
+    // 검색어가 변경될 때 전체 티커 로드
+    watch(globalSearchQuery, (newQuery) => {
+        if (newQuery && newQuery.trim()) {
+            loadAllTickersForSearch();
+        }
+    });
 
     watch(mainFilterTab, () => {
         globalSearchQuery.value = null;
