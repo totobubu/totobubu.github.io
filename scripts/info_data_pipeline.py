@@ -228,9 +228,9 @@ def process_single_ticker_info(info):
 
 
 def update_ticker_info():
-    """티커 정보 업데이트"""
+    """티커 정보 업데이트 + marketCap을 backtestData에 추가 (통합)"""
     print("\n" + "=" * 80)
-    print("📋 STEP 2: 티커 정보 업데이트")
+    print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 (통합)")
     print("=" * 80)
     
     batch_size = 100
@@ -245,10 +245,12 @@ def update_ticker_info():
             time.sleep(1)
     
     total_changed_files = 0
+    marketcap_added_count = 0
     now_kst_str = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
+    today_str = datetime.now().strftime("%Y-%m-%d")
     
     # 개별 티커 처리
-    for symbol in tqdm(active_symbols, desc="티커 정보 처리"):
+    for symbol in tqdm(active_symbols, desc="티커 정보 + 시가총액 처리"):
         try:
             info_from_nav = ticker_info_map[symbol]
             raw_dynamic_info = all_bulk_info.get(symbol)
@@ -293,15 +295,31 @@ def update_ticker_info():
             
             data_changed = json.dumps(compare_old, sort_keys=True) != json.dumps(compare_new, sort_keys=True)
             
+            # [추가] marketCap을 backtestData에도 추가 (중복 API 호출 제거)
+            market_cap = dynamic_info.get("marketCap")
+            backtest_data_changed = False
+            if market_cap:
+                backtest_data = existing_data.get("backtestData", [])
+                today_entry = None
+                for entry in backtest_data:
+                    if entry.get("date") == today_str:
+                        today_entry = entry
+                        break
+                
+                if today_entry and "marketCap" not in today_entry:
+                    today_entry["marketCap"] = market_cap
+                    backtest_data_changed = True
+                    marketcap_added_count += 1
+            
             # 정책: 데이터 변경이 없고 3시간 이내 업데이트면 Update 필드 유지
             if should_skip_update_timestamp(old_info.get("Update"), data_changed):
                 new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
-                # 데이터 변경이 없으면 저장하지 않음
-                if not data_changed:
+                # 데이터 변경이 없고 marketCap도 추가 안됐으면 저장하지 않음
+                if not data_changed and not backtest_data_changed:
                     continue
             
-            # 데이터 변경이 있거나, 3시간 초과 시 저장
-            if data_changed or not should_skip_update_timestamp(old_info.get("Update"), data_changed):
+            # 데이터 변경이 있거나, marketCap이 추가되거나, 3시간 초과 시 저장
+            if data_changed or backtest_data_changed or not should_skip_update_timestamp(old_info.get("Update"), data_changed):
                 existing_data["tickerInfo"] = new_info
                 save_json_file(file_path, existing_data)
                 total_changed_files += 1
@@ -309,105 +327,13 @@ def update_ticker_info():
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
     
-    print(f"\n✅ 티커 정보 업데이트 완료: {total_changed_files}개 파일 변경\n")
+    print(f"\n✅ 티커 정보 업데이트 완료: {total_changed_files}개 파일 변경")
+    print(f"   💰 시가총액 추가: {marketcap_added_count}개\n")
     return total_changed_files
 
 
 # ============================================================================
-# Step 3: 시가총액 업데이트 (update_market_cap)
-# ============================================================================
-def update_market_cap():
-    """시가총액 업데이트 (Rate Limit 방지)"""
-    print("\n" + "=" * 80)
-    print("💰 STEP 3: 시가총액 업데이트")
-    print("=" * 80)
-    
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"📅 오늘 날짜: {today_str}")
-    print(f"⚠️  Rate Limit 방지: 개별 처리 + 대기 시간 적용\n")
-    
-    updated_count = 0
-    skipped_count = 0
-    rate_limit_count = 0
-    
-    # 개별 처리 (Rate Limit 방지)
-    for symbol in tqdm(active_symbols, desc="시가총액 개별 수집"):
-        try:
-            # 개별 Ticker 객체로 처리 (Rate Limit 회피)
-            ticker_obj = yf.Ticker(symbol)
-            
-            try:
-                info = ticker_obj.info
-                market_cap = info.get("marketCap") if info else None
-            except Exception as e:
-                error_msg = str(e)
-                if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
-                    rate_limit_count += 1
-                    # Rate Limit 발생 시 대기 후 재시도
-                    time.sleep(3)
-                    try:
-                        info = ticker_obj.info
-                        market_cap = info.get("marketCap") if info else None
-                    except:
-                        market_cap = None
-                else:
-                    market_cap = None
-            
-            if market_cap:
-                # 파일 업데이트
-                sanitized_symbol = sanitize_ticker_for_filename(symbol)
-                file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
-                
-                if os.path.exists(file_path):
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    
-                    backtest_data = data.get("backtestData", [])
-                    if backtest_data:
-                        # 오늘 날짜 데이터 찾기
-                        today_entry = None
-                        for entry in backtest_data:
-                            if entry.get("date") == today_str:
-                                today_entry = entry
-                                break
-                        
-                        if today_entry and "marketCap" not in today_entry:
-                            today_entry["marketCap"] = market_cap
-                            
-                            with open(file_path, "w", encoding="utf-8") as f:
-                                json.dump(data, f, ensure_ascii=False, indent=2)
-                            
-                            updated_count += 1
-                        else:
-                            skipped_count += 1
-                    else:
-                        skipped_count += 1
-                else:
-                    skipped_count += 1
-            else:
-                skipped_count += 1
-            
-            # Rate Limit 방지: 100개마다 추가 대기
-            if (active_symbols.index(symbol) + 1) % 100 == 0:
-                time.sleep(2)
-        
-        except Exception as e:
-            error_msg = str(e)
-            if "Too Many Requests" in error_msg or "Rate limit" in error_msg:
-                rate_limit_count += 1
-            skipped_count += 1
-    
-    print(f"\n✅ 시가총액 업데이트 완료:")
-    print(f"   - 업데이트: {updated_count}개")
-    print(f"   - 스킵: {skipped_count}개")
-    if rate_limit_count > 0:
-        print(f"   - Rate Limit 발생: {rate_limit_count}개 (재시도 적용)\n")
-    
-    return updated_count
-
-
-# ============================================================================
-# Step 4: 배당 빈도 분석 (analyze_dividend_frequency)
+# Step 3: 배당 빈도 분석 (analyze_dividend_frequency)
 # ============================================================================
 MONTH_INITIALS = {
     1: "J", 2: "F", 3: "M", 4: "A", 5: "M", 6: "J",
@@ -621,29 +547,26 @@ def main():
     # Step 1: 배당 데이터 업데이트
     dividend_updates = update_dividends()
     
-    # Step 2: 티커 정보 업데이트
+    # Step 2: 티커 정보 + 시가총액 업데이트 (통합, 중복 API 호출 제거)
     info_updates = update_ticker_info()
     
-    # Step 3: 시가총액 업데이트
-    marketcap_updates = update_market_cap()
-    
-    # Step 4: 배당 빈도 분석
+    # Step 3: 배당 빈도 분석
     frequency_updates = analyze_dividend_frequency()
     
-    # Step 5: 미래 배당일 예측
+    # Step 4: 미래 배당일 예측
     projection_updates = project_future_dividends()
     
     # 완료
     elapsed_time = time.time() - start_time
     print("\n" + "=" * 80)
-    print("🎉 정보성 데이터 통합 파이프라인 완료")
+    print("🎉 정보성 데이터 통합 파이프라인 완료 (최적화됨)")
     print("=" * 80)
     print(f"📊 배당 데이터: {dividend_updates}개 파일 업데이트")
-    print(f"📋 티커 정보: {info_updates}개 파일 업데이트")
-    print(f"💰 시가총액: {marketcap_updates}개 업데이트")
+    print(f"📋 티커 정보 + 시가총액: {info_updates}개 파일 업데이트")
     print(f"📅 배당 빈도: {frequency_updates}개 티커 업데이트")
     print(f"🔮 배당일 예측: {projection_updates}개 파일 업데이트")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
+    print(f"✨ 최적화: 중복 API 호출 제거로 성능 향상")
     print("=" * 80)
 
 
