@@ -23,6 +23,14 @@
     const { isDarkMode, toggleDarkMode } = useLayout();
     const visible = ref(false);
 
+    // 관리자 여부 확인 (이메일 기반)
+    const isAdmin = computed(() => {
+        if (!user.value || !user.value.email) return false;
+        // 관리자 이메일 목록 (필요시 수정)
+        const adminEmails = ['totobubu@gmail.com'];
+        return adminEmails.includes(user.value.email);
+    });
+
     const isStandalonePage = computed(() => {
         return ['/', '/thumbnail-generator', '/blog-generator'].includes(
             route.path
@@ -163,6 +171,7 @@
                 <!-- [핵심 수정 2] Top Bar UI 통일 -->
                 <div id="t-topbar" class="topbar-actions">
                     <Button
+                        v-if="isAdmin"
                         type="button"
                         severity="secondary"
                         :icon="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"

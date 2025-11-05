@@ -1,7 +1,7 @@
 <!-- src/layouts/AppSidebar.vue -->
 
 <script setup>
-    import { computed, ref } from 'vue';
+    import { computed, ref, watch } from 'vue';
     import { useSidebar } from '@/composables/useSidebar.js';
     import { useBreakpoint } from '@/composables/useBreakpoint.js';
     import { getGroupSeverity } from '@/utils/uiHelpers.js';
@@ -33,11 +33,31 @@
     const skeletonItems = ref(new Array(25));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
-    const mainFilterOptions = ref([
-        { label: '북마크', value: '북마크', icon: 'pi pi-bookmark' },
-        { label: '미국', value: '미국', flagSrc: '/flags/us.svg' },
-        { label: '한국', value: '한국', flagSrc: '/flags/kr.svg' },
-    ]);
+    // 로그인 상태에 따라 북마크 옵션 표시
+    const mainFilterOptions = computed(() => {
+        const options = [
+            { label: '미국', value: '미국', flagSrc: '/flags/us.svg' },
+            { label: '한국', value: '한국', flagSrc: '/flags/kr.svg' },
+        ];
+        
+        // 로그인한 경우에만 북마크 옵션 추가
+        if (user.value) {
+            options.unshift({
+                label: '북마크',
+                value: '북마크',
+                icon: 'pi pi-bookmark',
+            });
+        }
+        
+        return options;
+    });
+
+    // 로그아웃 시 북마크 탭에 있으면 미국 탭으로 전환
+    watch(user, (newUser) => {
+        if (!newUser && mainFilterTab.value === '북마크') {
+            mainFilterTab.value = '미국';
+        }
+    });
 
     const subFilterOptions = ref(['ETF', '주식']);
 </script>
