@@ -67,10 +67,6 @@ def update_ticker_market_cap(symbol, today_str, market_cap):
 
 
 def main():
-    print("=" * 70)
-    print("📈 Daily Market Cap Update (Yahoo Finance)")
-    print("=" * 70)
-
     # nav.json에서 활성 티커 목록 가져오기
     try:
         with open(NAV_FILE, "r", encoding="utf-8") as f:
@@ -84,6 +80,23 @@ def main():
         for t in nav_data.get("nav", [])
         if t.get("symbol") and not t.get("upcoming", False)
     ]
+    
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    import sys
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        active_tickers = [t for t in active_tickers if t in target_tickers]
+        if not active_tickers:
+            print(f"❌ 지정한 티커를 nav.json에서 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
+        print("=" * 70)
+        print(f"📈 [Specific Mode] Market Cap Update: {', '.join(target_tickers)}")
+        print("=" * 70)
+    else:
+        print("=" * 70)
+        print("📈 [Full Mode] Daily Market Cap Update (Yahoo Finance)")
+        print("=" * 70)
 
     if not active_tickers:
         print("⚠️  No active tickers found in nav.json")
