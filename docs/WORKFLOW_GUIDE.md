@@ -1,309 +1,150 @@
-# 워크플로우 가이드 (V1 vs V2 비교 & 테스트)
+# 워크플로우 가이드
 
 ## 📋 목차
 
-1. [V1 vs V2 비교](#v1-vs-v2-비교)
-2. [테스트 스케줄](#테스트-스케줄)
-3. [최적화 요약](#최적화-요약)
-4. [성능 측정 방법](#성능-측정-방법)
+1. [워크플로우 개요](#워크플로우-개요)
+2. [Info Data 워크플로우](#info-data-워크플로우)
+3. [Holdings 워크플로우](#holdings-워크플로우)
+4. [최적화 내역](#최적화-내역)
+5. [성능 개선 효과](#성능-개선-효과)
 
 ---
 
-## 🔍 V1 vs V2 비교
+## 🔍 워크플로우 개요
 
-### 개요
+현재 프로젝트는 2개의 주요 데이터 업데이트 워크플로우로 구성되어 있습니다:
 
-기존 V1 워크플로우를 최적화하여 V2 버전을 생성했습니다.
-1주일간 병렬 실행하여 성능을 비교합니다.
+| 워크플로우 | 파일 | 실행 빈도 | 실행 시간 | 소요 시간 |
+|-----------|------|----------|-----------|----------|
+| **Info Data** | `update_info_data.yml` | 매일 | 새벽 2시 (KST) | ~25분 |
+| **Holdings** | `update_holdings.yml` | 주 1회 | 일요일 새벽 3시 (KST) | ~30분 |
 
 ---
 
 ## 📊 Info Data 워크플로우
 
-### **V1** (update_info_data.yml)
-
-```
-실행: 월/수/금 새벽 1시 (KST)
-스텝: 약 15개
-
-주요 특징:
-- 각 스크립트를 개별적으로 순차 실행
-- yfinance를 매번 import
-- nav.json을 각 스크립트에서 반복 로드
-
-개별 스크립트:
-├─ update_dividends.py
-├─ scraper_info.py
-├─ update_market_cap.py
-├─ analyze_dividend_frequency.py
-└─ project_future_dividends.py
-```
-
-### **V2** (update_info_data_v2.yml)
-
-```
-실행: 화/목/토 새벽 2시 (KST)
-스텝: 약 11개 (27% 감소)
-
-주요 특징:
-- 통합 파이프라인: info_data_pipeline.py
-- yfinance를 1회만 import
-- nav.json을 1회만 로드
-- 배치 처리 최적화
-
-통합 파이프라인 (5-in-1):
-└─ info_data_pipeline.py
-   ├─ STEP 1: 배당 데이터 업데이트
-   ├─ STEP 2: 티커 정보 업데이트
-   ├─ STEP 3: 시가총액 업데이트
-   ├─ STEP 4: 배당 빈도 분석
-   └─ STEP 5: 미래 배당일 예측
-```
-
-**예상 개선**: 30-40% 빠름 ⚡
-
----
-
-## 📈 Market Data 워크플로우
-
-### **V1** (update_market_data.yml)
-
-```
-실행: 월~금 오후 4:30 (한국 장 마감 후)
-스텝: 약 8개
-
-주요 특징:
-- 각 스크립트를 개별적으로 실행
-- yfinance를 매번 import
-
-개별 스크립트:
-├─ update_market_cap.py (V2에서는 Info로 이동)
-├─ aggregate_popularity.py
-└─ generate_sidebar_tickers.py
-```
-
-### **V2** (update_market_data_v2.yml)
-
-```
-실행: 월~금 오전 6:30/7:30 (미국 장 마감 후)
-스텝: 약 5개 (38% 감소)
-
-주요 특징:
-- 통합 파이프라인: market_data_pipeline.py
-- Firebase 1회 연결
-- 메모리에서 데이터 공유
-
-통합 파이프라인 (2-in-1):
-└─ market_data_pipeline.py
-   ├─ STEP 1: 인기도 집계
-   └─ STEP 2: 사이드바 티커 생성
-```
-
-**예상 개선**: 30-50% 빠름 ⚡
-
----
-
-## 🧪 테스트 스케줄 (1주일)
-
-V1과 V2를 분리하여 성능 비교:
-
-### Info Data
-
-| 버전   | 실행 요일 | 실행 시간 | Cron             |
-| ------ | --------- | --------- | ---------------- |
-| **V1** | 월/수/금  | 새벽 2시  | `0 17 * * 1,3,5` |
-| **V2** | 화/목/토  | 새벽 2시  | `0 17 * * 2,4,6` |
-
-### Market Data
-
-| 버전   | 실행 시점    | 실행 시간      | Cron                             |
-| ------ | ------------ | -------------- | -------------------------------- |
-| **V1** | 한국 장 마감 | 오후 4:30      | `30 7 * * 1-5`                   |
-| **V2** | 미국 장 마감 | 오전 6:30/7:30 | `30 21 * * 1-5`, `30 22 * * 1-5` |
-
-**특징**:
-
-- 요일/시간이 겹치지 않음 ✅
-- 독립적으로 비교 가능
-- 주 3회씩 실행 (동일 빈도)
-
----
-
-## 📅 이번 주 예상 스케줄
-
-```
-월요일:
-  02:00 - Info V1 실행 ⚡
-  06:30 - Market V2 실행 ⚡ (미국장 마감 후, 서머타임)
-  16:30 - Market V1 실행 ⚡ (한국장 마감 후)
-
-화요일:
-  02:00 - Info V2 실행 ⚡
-  06:30 - Market V2 실행 ⚡ (미국장 마감 후, 서머타임)
-  16:30 - Market V1 실행 ⚡ (한국장 마감 후)
-
-수요일:
-  02:00 - Info V1 실행 ⚡
-  06:30 - Market V2 실행 ⚡ (미국장 마감 후, 서머타임)
-  16:30 - Market V1 실행 ⚡ (한국장 마감 후)
-
-목요일:
-  02:00 - Info V2 실행 ⚡
-  06:30 - Market V2 실행 ⚡ (미국장 마감 후, 서머타임)
-  16:30 - Market V1 실행 ⚡ (한국장 마감 후)
-
-금요일:
-  02:00 - Info V1 실행 ⚡
-  06:30 - Market V2 실행 ⚡ (미국장 마감 후, 서머타임)
-  16:30 - Market V1 실행 ⚡ (한국장 마감 후)
-
-토요일:
-  02:00 - Info V2 실행 ⚡
-```
-
----
-
-## 🎯 핵심 개선사항
-
-### 1. 통합 파이프라인
-
-| 항목            | V1 (기존)         | V2 (최적화)       |
-| --------------- | ----------------- | ----------------- |
-| Info 데이터     | 5개 개별 스크립트 | 1개 통합 스크립트 |
-| Market 데이터   | 2개 개별 스크립트 | 1개 통합 스크립트 |
-| yfinance import | 매 스크립트마다   | 1회만             |
-| nav.json 로드   | 매 스크립트마다   | 1회만             |
-
-### 2. 메모리 효율성
-
-```python
-# V1: 각 스크립트마다 반복
-import yfinance as yf
-nav_data = json.load(open("nav.json"))
-
-# V2: 한 번만 로드, 메모리에서 재사용
-import yfinance as yf  # 1회
-nav_data = load_once()  # 1회
-# → 이후 모든 함수에서 재사용
-```
-
-### 3. 배치 처리
-
-```python
-# V1: 티커별로 개별 호출
-for ticker in tickers:
-    yf.Ticker(ticker).info  # API 호출 N회
-
-# V2: 배치로 한 번에 처리
-yf.Tickers(all_tickers).info  # API 호출 1회
-```
-
-### 4. Git 기반 최적화
-
-```yaml
-# Format (90% 빠름)
-- npm run format:changed # 변경된 것만
-
-# R2 업로드 (90% 빠름)
-- python scripts/upload_changed_to_r2.py # 변경된 것만
-```
-
----
-
-## 📊 성능 측정 방법
-
-### 1. 총 실행 시간 (Actions 탭)
-
-```
-V1: update_info_data.yml 실행 시간 기록
-V2: update_info_data_v2.yml 실행 시간 기록
-```
-
-### 2. 개별 스텝 시간
-
-```
-V1: 각 Python 스크립트 실행 시간 합계
-V2: 통합 파이프라인 실행 시간
-```
-
-### 3. 비교 지표
-
-**속도**:
-
-- [ ] V1 평균 실행 시간
-- [ ] V2 평균 실행 시간
-- [ ] 개선율 계산
-
-**안정성**:
-
-- [ ] V1 성공률
-- [ ] V2 성공률
-- [ ] 에러 발생 빈도
-
-**효율성**:
-
-- [ ] 불필요한 파일 변경 여부
-- [ ] R2 업로드 시간
-- [ ] Git 커밋 크기
-
----
-
-## 🎯 예상 결과
-
-| 워크플로우  | V1 예상 시간 | V2 예상 시간 | 개선율  |
-| ----------- | ------------ | ------------ | ------- |
-| Info Data   | 10-15분      | 6-10분       | ~30-40% |
-| Market Data | 5-8분        | 3-5분        | ~30-50% |
-
----
-
-## 📝 전체 최적화 요약
-
-### 주요 개선사항
-
-| 항목                  | Before    | After          | 개선율 |
-| --------------------- | --------- | -------------- | ------ |
-| **Info 워크플로우**   | 15개 스텝 | 11개 스텝      | 27%    |
-| **Market 워크플로우** | 8개 스텝  | 5개 스텝       | 38%    |
-| **R2 업로드**         | 3-5분     | 15초           | 90% ⚡ |
-| **Format**            | 30초      | 3초            | 90% ⚡ |
-| **Update 정책**       | 매번 변경 | 변경 시만 갱신 | 최소화 |
-
-### 기술적 개선
-
-1. **통합 파이프라인**
-    - yfinance 1회 import
-    - nav.json 1회 로드
-    - 배치 처리 최적화
-
-2. **Git 기반 처리**
-    - Format: 변경된 파일만
-    - R2 업로드: 변경된 파일만
-    - 해시 계산 불필요
-
-3. **스마트 업데이트**
-    - Update 필드: 데이터 변경 시에만 갱신
-    - 불필요한 파일 변경 최소화
-
-**총 예상 시간 절약**: 월 4-5시간! 🎊
-
----
-
-## 📊 Holdings 워크플로우
-
 ### 개요
 
-Holdings 수집은 시간이 오래 걸리지만 자주 변경되지 않아 별도 워크플로우로 분리했습니다.
+**파일**: `.github/workflows/update_info_data.yml`
 
-### 워크플로우 파일
+**실행 빈도**: 매일 새벽 2시 (KST)
+
+**목적**: 배당 데이터, 티커 정보, 시가총액 등 정보성 데이터 업데이트
+
+### 워크플로우 구조
+
+```
+1. 초기화
+   ├─ Checkout
+   ├─ Node.js Setup
+   └─ Python Setup
+
+2. 기본 데이터
+   ├─ Exchange rate 업데이트
+   ├─ IPO dates 동기화
+   └─ nav.json 생성
+
+3. 통합 파이프라인 (핵심)
+   └─ info_data_pipeline.py (5-in-1)
+      ├─ 배당 데이터 업데이트
+      ├─ 티커 정보 + 시가총액 업데이트
+      ├─ 배당 빈도 분석
+      ├─ 미래 배당일 예측
+      └─ (모든 작업을 한 번에 처리)
+
+4. 부가 작업
+   ├─ 배당 히스토리 처리
+   └─ 캘린더 이벤트 생성
+
+5. 최종 처리
+   ├─ 변경 파일 포맷팅
+   ├─ R2 업로드
+   └─ Git 커밋 & 푸시
+```
+
+### 주요 특징
+
+#### 1. 통합 파이프라인
+
+기존에 5개의 개별 스크립트를 1개의 통합 파이프라인으로 처리:
+
+```python
+# 통합 파이프라인: scripts/info_data_pipeline.py
+def main():
+    # 1. nav.json을 1회만 로드
+    nav_data = load_nav_json()
+    
+    # 2. yfinance를 1회만 import
+    import yfinance as yf
+    
+    # 3. 모든 작업을 순차 처리
+    update_dividends(nav_data, yf)
+    update_ticker_info(nav_data, yf)  # marketCap 포함
+    analyze_dividend_frequency(nav_data)
+    project_future_dividends(nav_data)
+```
+
+**장점:**
+- ✅ 중복 API 호출 제거 (marketCap을 tickerInfo와 함께 처리)
+- ✅ yfinance를 1회만 import (메모리 효율)
+- ✅ nav.json을 1회만 로드 (I/O 최적화)
+- ✅ 배치 처리로 네트워크 오버헤드 감소
+
+#### 2. Git 기반 최적화
+
+```yaml
+# 변경된 파일만 포맷팅 (90% 빠름)
+- npm run format:changed
+
+# 변경된 파일만 R2 업로드 (90% 빠름)
+- python scripts/upload_changed_to_r2.py
+```
+
+#### 3. 스마트 업데이트
+
+`Update` 필드는 데이터 변경 시에만 갱신:
+
+```python
+# scripts/scraper_info.py
+data_changed = json.dumps(old_data) != json.dumps(new_data)
+
+if not data_changed:
+    # 데이터 변경이 없으면 Update 필드 유지하고 저장 안함
+    continue
+```
+
+### 스텝별 소요 시간 (참고)
+
+| 스텝 | 소요 시간 | 비고 |
+|------|----------|------|
+| 초기화 | ~7분 | Checkout, Setup |
+| Exchange rate | 0초 | - |
+| IPO dates | 8초 | - |
+| Generate nav.json | 17초 | - |
+| **통합 파이프라인** | **13-14분** | 핵심 데이터 처리 |
+| Dividend history | 3분 | - |
+| Calendar events | 21초 | - |
+| Format | 3-12분 | 변경 파일 수 의존 |
+| R2 upload | 16-28분 | 변경 파일 수 의존 |
+| Commit & push | ~30초 | - |
+
+**순수 처리 시간**: ~24분 (포맷/R2 제외)
+
+---
+
+## 📈 Holdings 워크플로우
+
+### 개요
 
 **파일**: `.github/workflows/update_holdings.yml`
 
 **실행 빈도**: 매주 일요일 새벽 3시 (KST)
 
-### 실행 스텝
+**목적**: ETF Holdings 데이터 수집
 
-```yaml
+### 워크플로우 구조
+
+```
 1. Auto-detect holdings for new tickers
    → python scripts/auto_detect_holdings.py
 
@@ -328,7 +169,9 @@ Holdings 수집은 시간이 오래 걸리지만 자주 변경되지 않아 별�
 | **테마 ETF** | 월 1-2회 | MAGS, WEED, CHAT |
 | **레버리지 ETF** | 일 1회+ | SQQQ, TQQQ |
 
-### 최적화 효과
+### 분리 이유
+
+Holdings 수집은 시간이 오래 걸리지만 자주 변경되지 않아 별도 워크플로우로 분리:
 
 **Before (매일 실행):**
 ```
@@ -339,135 +182,267 @@ Info 워크플로우: 2시간 31분 (Holdings 23분 포함)
 
 **After (주 1회 실행):**
 ```
-Info 워크플로우: ~1시간 (Holdings 제거)
+Info 워크플로우: ~45분 (Holdings 제거)
 Holdings 워크플로우: 30분 (주 1회)
 총 시간 절약: 월 6-8시간
 ```
 
 ---
 
-## 🚀 테스트 후 결정 기준
+## 🎯 최적화 내역
 
-### V2 채택 조건
+### 1. 통합 파이프라인
 
-- ✅ 속도: V1 대비 20% 이상 빠름
-- ✅ 안정성: 성공률 95% 이상
-- ✅ 정확성: 데이터 정확도 100%
-- ✅ 에러: 심각한 에러 0건
-
-### 테스트 종료 후
-
-**V2가 더 나은 경우**:
+#### Before (개별 스크립트)
 
 ```yaml
-# V1 비활성화 (schedule 제거)
-# V2를 메인으로 승격 (매일 실행)
+- name: Update market cap
+  run: python scripts/update_market_cap.py      # 17분
+
+- name: Update dividends
+  run: python scripts/update_dividends.py       # 17분
+
+- name: Update ticker info
+  run: python scripts/scraper_info.py           # 10분
+
+- name: Dividend frequency
+  run: python scripts/analyze_dividend_frequency.py  # 2분
+
+- name: Project future dividends
+  run: python scripts/project_future_dividends.py    # 2분
 ```
 
-**V1이 더 안정적인 경우**:
+**문제점:**
+- 각 스크립트마다 yfinance를 import
+- 각 스크립트마다 nav.json을 로드
+- 같은 티커에 대해 API를 여러 번 호출 (marketCap과 tickerInfo를 따로)
+
+#### After (통합 파이프라인)
 
 ```yaml
-# V1 유지
-# V2 개선 작업 진행
+- name: Update all info data
+  run: python scripts/info_data_pipeline.py     # 14분
 ```
+
+**개선:**
+- ✅ yfinance 1회 import
+- ✅ nav.json 1회 로드
+- ✅ marketCap과 tickerInfo를 함께 처리 (중복 API 호출 제거)
+- ✅ 48분 → 14분 (68% 단축)
+
+### 2. Git 기반 처리
+
+#### Before (전체 파일 처리)
+
+```yaml
+# 모든 파일 포맷팅
+- run: npm run format           # 5분
+
+# 모든 파일 해시 계산 후 업로드
+- run: python scripts/upload_all_to_r2.py  # 10분
+```
+
+#### After (변경 파일만 처리)
+
+```yaml
+# 변경된 파일만 포맷팅
+- run: npm run format:changed   # 3초
+
+# 변경된 파일만 업로드 (Git 기반)
+- run: python scripts/upload_changed_to_r2.py  # 15초
+```
+
+**개선:**
+- ✅ 해시 계산 불필요 (Git으로 변경 감지)
+- ✅ 변경 파일만 처리
+- ✅ 90% 이상 빠름
+
+### 3. Update 필드 정책
+
+#### Before (항상 업데이트)
+
+```python
+# 4시간마다 Update 필드 갱신
+if last_update > 4_hours_ago:
+    new_info["Update"] = now()  # 매번 변경
+```
+
+**문제:** 데이터 변경이 없어도 파일이 수정되어 불필요한 업로드 발생
+
+#### After (변경 시만 업데이트)
+
+```python
+# 데이터 변경 시에만 Update 필드 갱신
+data_changed = old_data != new_data
+
+if data_changed:
+    new_info["Update"] = now()
+else:
+    continue  # 저장하지 않음
+```
+
+**개선:**
+- ✅ 불필요한 파일 변경 제거
+- ✅ R2 업로드 파일 수 감소
+- ✅ Git 커밋 크기 최소화
+
+### 4. Holdings 분리
+
+#### Before
+
+```yaml
+# Info 워크플로우에 포함 (매일)
+- name: Fetch holdings
+  run: python scripts/fetch_holdings.py  # 23분
+```
+
+**문제:** Holdings는 자주 변경되지 않는데 매일 수집
+
+#### After
+
+```yaml
+# 별도 워크플로우 (주 1회)
+# update_holdings.yml
+schedule:
+  - cron: '0 18 * * 0'  # 일요일만
+```
+
+**개선:**
+- ✅ 불필요한 실행 제거 (주 7회 → 1회)
+- ✅ Info 워크플로우 속도 향상
 
 ---
 
-## 🔄 복구 방법
+## 📊 성능 개선 효과
 
-테스트 종료 후 원래대로 돌리려면:
+### 실행 시간 비교
 
-```yaml
-# Info Data: 매일 실행으로 복구
-- cron: '0 16 * * *' # V1
-- cron: '0 17 * * *' # V2
+#### Info Data 워크플로우 (순수 처리 시간)
 
-# Market Data: 하루 2-3회로 복구
-# (기존 cron 표현식으로 되돌림)
+| 항목 | Before (V1) | After (통합) | 개선 |
+|------|------------|-------------|------|
+| **순수 처리** | 56분 33초 | 24분 13초 | **57% 단축** ⚡ |
+| 핵심 데이터 | 43분 23초 | 13분 42초 | **68% 단축** ⚡ |
+| 스텝 수 | 12개 | 8개 | **33% 감소** |
+
+**시간 절약: 32분 20초**
+
+#### 전체 실행 시간 (참고)
+
+| 항목 | Before | After | 비고 |
+|------|--------|-------|------|
+| 순수 처리 | 56분 | 24분 | 워크플로우 성능 |
+| 포맷팅 | 12분 | 3분 | 변경 파일 수 의존 |
+| R2 업로드 | 28분 | 16분 | 변경 파일 수 의존 |
+| **총 시간** | **1시간 37분** | **44분** | - |
+
+### 월간 비용 절감
+
+**순수 처리 시간 기준:**
+
+| 항목 | Before (V1) | After (통합) | 절감 |
+|------|------------|-------------|------|
+| 일일 | 56분 33초 | 24분 13초 | 32분 20초 |
+| 월간 | 20시간 44분 | 8시간 52분 | **11시간 52분** |
+| GitHub Actions 비용 | $X | $0.43X | **57% 절감** |
+
+**Holdings 분리 효과:**
+
+| 항목 | Before | After | 절감 |
+|------|--------|-------|------|
+| 일일 | 23분 × 7일 = 161분 | 30분 × 1일 = 30분 | 131분 |
+| 월간 | 10시간 44분 | 2시간 | **8시간 44분** |
+
+**총 절감: 월 20시간 36분** 🎉
+
+### 주요 개선사항
+
+| 항목 | Before | After | 개선율 |
+|------|--------|-------|--------|
+| **API 호출** | 중복 다수 | 최적화 | 중복 제거 |
+| **메모리 사용** | 높음 | 낮음 | 최적화 |
+| **파일 변경** | 불필요한 변경 많음 | 최소화 | 데이터 변경 시만 |
+| **실행 빈도** | Holdings 매일 | Holdings 주 1회 | 86% 감소 |
+
+---
+
+## 🔧 기술적 개선
+
+### 1. 통합 파이프라인
+
+```python
+# scripts/info_data_pipeline.py
+
+def main():
+    # 1회만 로드
+    nav_data = load_nav_json()
+    import yfinance as yf
+    
+    # 순차 처리
+    update_dividends(nav_data, yf)
+    update_ticker_info(nav_data, yf)  # marketCap 포함
+    analyze_dividend_frequency(nav_data)
+    project_future_dividends(nav_data)
+```
+
+### 2. Git 기반 변경 감지
+
+```bash
+# 변경된 파일만 가져오기
+git diff --name-only HEAD
+
+# 변경된 파일만 포맷팅
+npm run format:changed
+
+# 변경된 파일만 R2 업로드
+python scripts/upload_changed_to_r2.py
+```
+
+### 3. 배치 처리
+
+```python
+# Before: 티커별 개별 호출
+for ticker in tickers:
+    yf.Ticker(ticker).info  # N회 호출
+
+# After: 배치 처리
+tickers = yf.Tickers(' '.join(all_tickers))
+tickers.tickers  # 1회 호출
 ```
 
 ---
 
 ## 📚 관련 문서
 
-- [UPDATE_POLICY.md](./UPDATE_POLICY.md) - Update 필드 정책 (데이터 변경 시에만 갱신)
+- [V1_V2_COMPARISON.md](./V1_V2_COMPARISON.md) - V1과 V2 상세 비교 (참고용)
+- [UPDATE_POLICY.md](./UPDATE_POLICY.md) - Update 필드 정책
 - [FORMAT_GUIDE.md](./FORMAT_GUIDE.md) - Git 기반 스마트 포맷
-- [R2_GUIDE.md](./R2_GUIDE.md) - R2 업로드 최적화
-- [DEPLOY_WORKFLOW_GUIDE.md](./DEPLOY_WORKFLOW_GUIDE.md) - 배포 워크플로우
+- [README_HOLDINGS.md](./README_HOLDINGS.md) - Holdings 시스템 가이드
 
 ---
 
 ## 💡 요약
 
-### V1 (기존)
+### 현재 워크플로우
 
-- ✅ 검증된 안정성
-- ⚠️ 느린 실행 시간
-- ⚠️ 중복 작업 많음
+**Info Data** (매일):
+- ✅ 통합 파이프라인으로 최적화
+- ✅ 중복 API 호출 제거
+- ✅ 57% 빠른 처리 속도
 
-### V2 (최적화)
+**Holdings** (주 1회):
+- ✅ 별도 워크플로우로 분리
+- ✅ 불필요한 실행 제거
+- ✅ 월 8시간 절약
 
-- ✅ 30-50% 빠름
-- ✅ 효율적인 처리
-- ⚠️ 새로운 방식 (검증 중)
+### 주요 성과
 
-**테스트 기간**: 1주일  
-**결정 시점**: 테스트 완료 후  
-**목표**: 더 빠르고 안정적인 워크플로우 🚀
+- ⚡ **순수 처리 시간 57% 단축** (56분 → 24분)
+- 💰 **월 20시간 이상 절약**
+- 🔧 **스텝 33% 감소** (12개 → 8개)
+- 📊 **데이터 일관성 향상** (중복 제거)
 
 ---
 
-## ✅ 최종 체크리스트
-
-### 1주일 테스트 완료 후 확인
-
-#### 성능
-
-- [ ] V1 평균 실행 시간 측정
-- [ ] V2 평균 실행 시간 측정
-- [ ] 속도 개선율 계산 (목표: 20% 이상)
-
-#### 안정성
-
-- [ ] V1 성공률 확인
-- [ ] V2 성공률 확인 (목표: 95% 이상)
-- [ ] 에러 로그 분석
-- [ ] 타임아웃 발생 여부
-
-#### 데이터 정확성
-
-- [ ] V1 생성 데이터 검증
-- [ ] V2 생성 데이터 검증
-- [ ] 두 버전 데이터 비교 (동일해야 함)
-- [ ] 누락된 필드 없는지 확인
-
-#### 효율성
-
-- [ ] 불필요한 파일 변경 여부
-- [ ] Git 커밋 크기 비교
-- [ ] R2 업로드 파일 수
-- [ ] 로그 가독성
-
-### 결정 기준
-
-**V2 채택 조건** (모두 만족 시):
-
-- ✅ 속도: V1 대비 20% 이상 빠름
-- ✅ 안정성: 성공률 95% 이상
-- ✅ 정확성: 데이터 100% 일치
-- ✅ 에러: 심각한 에러 0건
-
-**액션 플랜**:
-
-```
-V2 채택 → V1 비활성화 → V2를 메인으로 승격
-V1 유지 → V2 개선 작업 → 재테스트
-```
-
-### 최종 정리 (V2 채택 시)
-
-- [ ] V1 워크플로우 schedule 제거 (workflow_dispatch만 유지)
-- [ ] V2 워크플로우를 매일 실행으로 변경
-- [ ] 문서 업데이트 (V2가 메인임을 명시)
-- [ ] 개별 스크립트 정리 (보관 또는 제거)
-- [ ] README 업데이트
+**Last Updated**: 2025-11-05  
+**Version**: 1.0.0 (통합 완료)

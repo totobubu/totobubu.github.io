@@ -3,9 +3,9 @@
 name: Update Info Data (Daily at 2 AM KST)
 
 on:
-    # [V1 테스트] 월/수/금 실행: 한국시간 새벽 2시 (UTC 17:00)
+    # 매일 실행: 한국시간 새벽 2시 (UTC 17:00)
     schedule:
-        - cron: '0 17 * * 1,3,5' # UTC 17:00 = KST 02:00 (월/수/금)
+        - cron: '0 17 * * *' # UTC 17:00 = KST 02:00 (매일)
     workflow_dispatch:
 
 permissions:
@@ -53,47 +53,40 @@ jobs:
                   echo "✅ R2 환경변수 설정 완료"
 
             # --- 정보성 데이터 업데이트 파이프라인 ---
-            - name: 3. Update exchange rate data
+            - name: 1. Update exchange rate data
               run: node scripts/fetch_all_exchange_rates.js
 
-            - name: 4. Sync IPO dates and upcoming status
+            - name: 2. Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
 
-            - name: 5. Analyze and add dividend frequency
-              run: python scripts/analyze_dividend_frequency.py
-
-            - name: 6. Generate final nav.json
+            - name: 3. Generate final nav.json
               run: npm run generate-nav
 
             # Holdings 수집은 별도 워크플로우로 분리 (update_holdings.yml)
             
-            - name: 7. Update daily market capitalization (Yahoo Finance)
-              run: python scripts/update_market_cap.py
+            # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 (중복 API 호출 제거) ---
+            - name: 4. Update all info data (dividends, info+marketCap, frequency, projection)
+              run: |
+                  echo "🚀 통합 정보성 데이터 파이프라인 시작..."
+                  echo "✨ 중복 API 호출 제거: marketCap을 티커 정보와 함께 처리"
+                  python scripts/info_data_pipeline.py
+                  echo "✅ 통합 정보성 데이터 파이프라인 완료"
 
-            - name: 8. Update historical dividend data
-              run: python scripts/update_dividends.py
-
-            - name: 9. Process and enrich dividend history
+            - name: 5. Process and enrich dividend history
               run: python scripts/scraper_dividend.py
 
             # clean_data.py는 1회성 정리 작업이므로 필요 시 수동 실행
             
-            - name: 10. Update latest ticker info
-              run: python scripts/scraper_info.py
-
-            - name: 11. Project future expected dividend dates
-              run: python scripts/project_future_dividends.py
-
-            - name: 12. Generate calendar events data
+            - name: 6. Generate calendar events data
               run: npm run generate-calendar-events
 
-            - name: 13. Format changed files only
+            - name: 7. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 14. Upload changed files to R2 (Git-based, fast)
+            - name: 8. Upload changed files to R2 (Git-based, fast)
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
                   python scripts/upload_changed_to_r2.py
