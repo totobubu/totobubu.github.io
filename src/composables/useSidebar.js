@@ -33,38 +33,53 @@ export function useSidebar() {
     // 전체 티커 로드 (nav.json에서 - 검색용)
     const loadAllTickersForSearch = async () => {
         if (allTickersForSearch.value.length > 0) return; // 이미 로드됨
-        
+
         try {
             const response = await fetch(getDataUrl('nav.json'));
             if (!response.ok) throw new Error('nav.json could not be loaded.');
             const navData = await response.json();
-            
+
             // 한국 ETF 브랜드명 목록
             const koreanEtfBrands = [
-                'KODEX', 'TIGER', 'KBSTAR', 'ACE', 'ARIRANG', 'HANARO',
-                'SOL', 'PLUS', 'RISE', 'TIMEFOLIO', 'KOSEF', 'KINDEX',
-                'TRUE', 'FOCUS', 'SMART', 'QV', 'TREX', 'HK '
+                'KODEX',
+                'TIGER',
+                'KBSTAR',
+                'ACE',
+                'ARIRANG',
+                'HANARO',
+                'SOL',
+                'PLUS',
+                'RISE',
+                'TIMEFOLIO',
+                'KOSEF',
+                'KINDEX',
+                'TRUE',
+                'FOCUS',
+                'SMART',
+                'QV',
+                'TREX',
+                'HK ',
             ];
-            
-            const dayOrder = { '월': 1, '화': 2, '수': 3, '목': 4, '금': 5 };
-            
+
+            const dayOrder = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
+
             allTickersForSearch.value = navData.nav
                 .filter((item) => !item.upcoming)
                 .map((item) => {
                     let isEtf = !!(item.company || item.underlying);
                     if (!isEtf && item.koName) {
-                        isEtf = koreanEtfBrands.some(brand => 
+                        isEtf = koreanEtfBrands.some((brand) =>
                             item.koName.startsWith(brand)
                         );
                     }
-                    
+
                     const ticker = {
                         symbol: item.symbol,
                         currency: item.currency || 'USD',
                         market: item.market,
                         isEtf,
                     };
-                    
+
                     if (item.koName) ticker.koName = item.koName;
                     if (item.longName) ticker.longName = item.longName;
                     if (item.company) ticker.company = item.company;
@@ -77,7 +92,7 @@ export function useSidebar() {
                         ticker.groupOrder = 999;
                     }
                     if (item.underlying) ticker.underlying = item.underlying;
-                    
+
                     return ticker;
                 });
         } catch (err) {
@@ -101,7 +116,7 @@ export function useSidebar() {
                 // 아직 로드되지 않았으면 빈 배열 반환 (watch에서 로드됨)
                 return [];
             }
-            
+
             const searchResults = allTickersForSearch.value.filter(
                 (item) =>
                     item.symbol.toLowerCase().includes(query) ||
@@ -110,26 +125,30 @@ export function useSidebar() {
                     (item.longName &&
                         item.longName.toLowerCase().includes(query))
             );
-            
+
             // 북마크 제외
             let filtered = searchResults.filter(
                 (item) => !myBookmarkSymbols.has(item.symbol)
             );
-            
+
             // 국가 필터링
             if (mainTab === '미국') {
                 filtered = filtered.filter((item) => item.currency === 'USD');
             } else if (mainTab === '한국') {
                 filtered = filtered.filter((item) => item.currency === 'KRW');
             }
-            
+
             // ETF/주식 필터링
             if (subTab === 'ETF') {
-                filtered = filtered.filter((item) => item.company || item.underlying);
+                filtered = filtered.filter(
+                    (item) => item.company || item.underlying
+                );
             } else if (subTab === '주식') {
-                filtered = filtered.filter((item) => !item.company && !item.underlying);
+                filtered = filtered.filter(
+                    (item) => !item.company && !item.underlying
+                );
             }
-            
+
             return filtered;
         }
 
@@ -170,7 +189,7 @@ export function useSidebar() {
                 (b.popularity || 0) - (a.popularity || 0) ||
                 (b.marketCap || 0) - (a.marketCap || 0)
         );
-        return list.slice(0, 30);
+        return list.slice(0, 50);
     });
 
     // 시장별 데이터 lazy loading
@@ -211,13 +230,9 @@ export function useSidebar() {
 
             const marketsToLoad = [];
             if (mainTab === '한국') {
-                marketsToLoad.push(
-                    subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks'
-                );
+                marketsToLoad.push(subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks');
             } else if (mainTab === '미국') {
-                marketsToLoad.push(
-                    subTab === 'ETF' ? 'us-etfs' : 'us-stocks'
-                );
+                marketsToLoad.push(subTab === 'ETF' ? 'us-etfs' : 'us-stocks');
             } else if (mainTab === '북마크') {
                 // 북마크는 모든 시장이 필요할 수 있으므로 모두 로드
                 marketsToLoad.push(

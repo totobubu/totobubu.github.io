@@ -105,7 +105,7 @@ try {
 
     # 13. 사이드바 티커 데이터 생성
     Write-Host "📋 13. 사이드바 티커 생성 중..." -ForegroundColor Cyan
-    python scripts/generate_sidebar_tickers.py
+    npm run generate-sidebar-tickers
     Write-Host "✅ 사이드바 티커 생성 완료" -ForegroundColor Green
     Write-Host ""
 

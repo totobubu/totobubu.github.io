@@ -116,7 +116,7 @@ jobs:
 
             - name: 13. Generate sidebar tickers data
               if: steps.check_time.outputs.should_run == 'true'
-              run: python scripts/generate_sidebar_tickers.py
+              run: npm run generate-sidebar-tickers
 
             - name: 14. Format changed files only
               if: steps.check_time.outputs.should_run == 'true'

@@ -117,7 +117,7 @@ echo.
 
 REM 13. 사이드바 티커 데이터 생성
 echo 📋 13. 사이드바 티커 생성 중...
-python scripts/generate_sidebar_tickers.py
+call npm run generate-sidebar-tickers
 if errorlevel 1 goto error
 echo ✅ 사이드바 티커 생성 완료
 echo.
