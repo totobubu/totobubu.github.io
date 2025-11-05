@@ -19,7 +19,7 @@ NAV_FILE = PUBLIC_DIR / "nav.json"
 
 
 def update_ticker_market_cap(symbol, today_str, market_cap):
-    """특정 티커의 오늘 날짜 backtestData에 marketCap 추가"""
+    """특정 티커의 최근 날짜 backtestData에 marketCap 추가"""
     sanitized_symbol = symbol.replace(".", "-").lower()
     file_path = DATA_DIR / f"{sanitized_symbol}.json"
 
@@ -41,10 +41,16 @@ def update_ticker_market_cap(symbol, today_str, market_cap):
                 today_entry = entry
                 break
 
+        # 오늘 날짜가 없으면 가장 최근 항목 찾기 (날짜 역순 정렬)
         if not today_entry:
-            return False
+            # 날짜순으로 정렬된 backtestData에서 가장 최근 항목 찾기
+            sorted_data = sorted(backtest_data, key=lambda x: x.get("date", ""), reverse=True)
+            if sorted_data:
+                today_entry = sorted_data[0]  # 가장 최근 항목
+            else:
+                return False
 
-        # 이미 marketCap이 있으면 스킵
+        # 이미 marketCap이 있으면 스킵 (같은 날짜에 중복 추가 방지)
         if "marketCap" in today_entry and today_entry["marketCap"] is not None:
             return False
 
@@ -104,7 +110,7 @@ def main():
 
     today_str = datetime.now().strftime("%Y-%m-%d")
     print(f"📊 Total active tickers: {len(active_tickers)}")
-    print(f"📅 Today's date: {today_str}")
+    print(f"📅 Today's date: {today_str} (없으면 최근 날짜에 추가)")
     print(f"⚠️  Rate Limit 방지: 개별 처리 + 대기 시간 적용\n")
 
     updated_count = 0

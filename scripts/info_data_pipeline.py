@@ -306,6 +306,12 @@ def update_ticker_info():
                         today_entry = entry
                         break
                 
+                # 오늘 날짜가 없으면 가장 최근 항목 찾기
+                if not today_entry:
+                    sorted_data = sorted(backtest_data, key=lambda x: x.get("date", ""), reverse=True)
+                    if sorted_data:
+                        today_entry = sorted_data[0]  # 가장 최근 항목
+                
                 if today_entry and "marketCap" not in today_entry:
                     today_entry["marketCap"] = market_cap
                     backtest_data_changed = True
