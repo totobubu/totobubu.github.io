@@ -311,18 +311,18 @@ def update_ticker_info():
                     backtest_data_changed = True
                     marketcap_added_count += 1
             
-            # 정책: 데이터 변경이 없고 3시간 이내 업데이트면 Update 필드 유지
-            if should_skip_update_timestamp(old_info.get("Update"), data_changed):
-                new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
-                # 데이터 변경이 없고 marketCap도 추가 안됐으면 저장하지 않음
-                if not data_changed and not backtest_data_changed:
-                    continue
+            # 전체 변경 여부 = tickerInfo 변경 또는 backtestData 변경
+            any_data_changed = data_changed or backtest_data_changed
             
-            # 데이터 변경이 있거나, marketCap이 추가되거나, 3시간 초과 시 저장
-            if data_changed or backtest_data_changed or not should_skip_update_timestamp(old_info.get("Update"), data_changed):
-                existing_data["tickerInfo"] = new_info
-                save_json_file(file_path, existing_data)
-                total_changed_files += 1
+            # 정책: 데이터 변경이 없으면 Update 필드 유지하고 저장 안함
+            if should_skip_update_timestamp(old_info.get("Update"), any_data_changed):
+                new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
+                continue  # 데이터 변경이 없으면 저장하지 않음
+            
+            # 데이터 변경이 있으면 Update 필드 갱신하고 저장
+            existing_data["tickerInfo"] = new_info
+            save_json_file(file_path, existing_data)
+            total_changed_files += 1
         
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")

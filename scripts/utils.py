@@ -76,8 +76,8 @@ def should_skip_update_timestamp(old_update_str, data_changed):
 
     정책:
     - 데이터 변경이 있으면 항상 Update 필드 갱신 (False 반환)
-    - 데이터 변경이 없고, 마지막 업데이트가 3시간 이내면 Update 필드 유지 (True 반환)
-    - 데이터 변경이 없고, 마지막 업데이트가 3시간 초과면 Update 필드 갱신 (False 반환)
+    - 데이터 변경이 없으면 항상 Update 필드 유지 (True 반환)
+    - 기존 Update 필드가 없으면 새로 생성 (False 반환)
     """
     # 데이터 변경이 있으면 항상 Update 필드 갱신
     if data_changed:
@@ -87,28 +87,5 @@ def should_skip_update_timestamp(old_update_str, data_changed):
     if not old_update_str:
         return False
 
-    try:
-        # "2024-01-01 12:00:00 KST" 형식에서 시간 파싱
-        update_time_str = old_update_str.replace(" KST", "").strip()
-        old_update_time = datetime.strptime(update_time_str, "%Y-%m-%d %H:%M:%S")
-
-        # KST 시간대로 변환 (UTC+9)
-        kst_tz = timezone(timedelta(hours=9))
-        old_update_time = old_update_time.replace(tzinfo=kst_tz)
-
-        # 현재 KST 시간
-        now_kst = get_kst_now()
-
-        # 시간 차이 계산
-        time_diff = now_kst - old_update_time
-
-        # 4시간 이내면 Update 필드 유지 (skip)
-        if time_diff <= timedelta(hours=4):
-            return True
-
-        # 4시간 초과면 Update 필드 갱신
-        return False
-
-    except (ValueError, AttributeError):
-        # 파싱 실패 시 안전하게 갱신
-        return False
+    # 데이터 변경이 없고 기존 Update가 있으면 그대로 유지
+    return True
