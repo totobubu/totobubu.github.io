@@ -176,28 +176,25 @@ def main():
             compare_new, sort_keys=True
         )
 
-        # 정책: 데이터 변경이 없고 3시간 이내 업데이트면 Update 필드 유지
+        # 정책: 데이터 변경이 없으면 Update 필드 유지하고 저장 안함
         if should_skip_update_timestamp(old_info.get("Update"), data_changed):
             new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
-            # 데이터 변경이 없으면 저장하지 않음
-            if not data_changed:
-                continue
+            continue  # 데이터 변경이 없으면 저장하지 않음
 
-        # 데이터 변경이 있거나, 3시간 초과 시 저장
-        if data_changed or not should_skip_update_timestamp(old_info.get("Update"), data_changed):
-            existing_data["tickerInfo"] = new_info
+        # 데이터 변경이 있으면 Update 필드 갱신하고 저장
+        existing_data["tickerInfo"] = new_info
+        
+        # 로컬 저장
+        if save_json_file(file_path, existing_data):
+            total_changed_files += 1
             
-            # 로컬 저장
-            if save_json_file(file_path, existing_data):
-                total_changed_files += 1
-                
-                # R2 업로드 시도
-                try:
-                    from scripts.r2_helper import upload_json_to_r2
-                    r2_key = f"data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
-                    upload_json_to_r2(existing_data, r2_key)
-                except:
-                    pass  # R2 실패해도 로컬 저장은 성공
+            # R2 업로드 시도
+            try:
+                from scripts.r2_helper import upload_json_to_r2
+                r2_key = f"data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+                upload_json_to_r2(existing_data, r2_key)
+            except:
+                pass  # R2 실패해도 로컬 저장은 성공
 
     print(
         f"\n--- Ticker Info Update Finished. Total files updated: {total_changed_files} ---"
