@@ -116,7 +116,35 @@
             "high": 49.387001037597656,
             "low": 46.440799713134766,
             "close": 47.65999984741211,
-            "volume": 18239
+            "volume": 18239,
+            "holdings": [
+                {
+                    "symbol": "ARM",
+                    "name": "ARM Holdings PLC",
+                    "weight": 20.29,
+                    "type": "equity",
+                    "shares": 3594,
+                    "market_value": 577663.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 10.15,
+                    "type": "money_market",
+                    "shares": 288919,
+                    "market_value": 288919.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "042068205 TRS 112426 NM",
+                    "name": "ARM HOLDINGS PLC SWAP NM",
+                    "weight": 101.44,
+                    "type": "swap",
+                    "shares": 17965,
+                    "market_value": 2887514.0
+                }
+            ]
         },
         {
             "date": "2025-11-10",

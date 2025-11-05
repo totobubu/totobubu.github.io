@@ -19,7 +19,36 @@
             "high": 50.93899917602539,
             "low": 50.3380012512207,
             "close": 50.73500061035156,
-            "volume": 5800
+            "volume": 5800,
+            "holdings": [
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 20.03,
+                    "type": "equity",
+                    "shares": 17003,
+                    "market_value": 8745152.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 12.02,
+                    "type": "money_market",
+                    "shares": 5249276,
+                    "market_value": 5249276.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "594918104 TRS 082526 NM",
+                    "name": "MICROSOFT INC SWAP NM",
+                    "weight": 100.18,
+                    "type": "swap",
+                    "shares": 85030,
+                    "market_value": 43733479.0,
+                    "underlying": "MICR"
+                }
+            ]
         },
         {
             "date": "2025-07-25",

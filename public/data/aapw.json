@@ -14,6 +14,38 @@
     },
     "backtestData": [
         {
+            "date": "2025-02-19",
+            "holdings": [
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 20.01,
+                    "type": "equity",
+                    "shares": 40681,
+                    "market_value": 10985497.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 12.52,
+                    "type": "money_market",
+                    "shares": 6873088,
+                    "market_value": 6873088.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "037833100 TRS 031926 NM",
+                    "name": "APPLE INC WEEKLYPAY SWAP NM",
+                    "weight": 100.07,
+                    "type": "swap",
+                    "shares": 203406,
+                    "market_value": 54927756.0,
+                    "underlying": "APPL"
+                }
+            ]
+        },
+        {
             "date": "2025-02-20",
             "open": 50.31999969482422,
             "high": 50.50400161743164,

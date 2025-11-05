@@ -1607,7 +1607,51 @@
             "high": 28.42169952392578,
             "low": 28.354999542236328,
             "close": 28.42169952392578,
-            "volume": 4901
+            "volume": 4901,
+            "holdings": [
+                {
+                    "symbol": "U/U CN",
+                    "name": "Sprott Physical Uranium Trust",
+                    "weight": 19.82,
+                    "type": "other",
+                    "shares": 21656,
+                    "market_value": 395005.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 15.44,
+                    "type": "money_market",
+                    "shares": 307606,
+                    "market_value": 307606.0
+                },
+                {
+                    "symbol": "GBP",
+                    "name": "BRITISH POUNDS",
+                    "weight": 0.25,
+                    "type": "other",
+                    "shares": 3822,
+                    "market_value": 4986.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "BP37WP1 TRS 030326 NM",
+                    "name": "SPROTT PHYSICAL URANIUM TR SWAP NM",
+                    "weight": 69.39,
+                    "type": "swap",
+                    "shares": 75799,
+                    "market_value": 1382573.0
+                },
+                {
+                    "symbol": "BF50RG4 TRS 030426 NM",
+                    "name": "YELLOW CAKE PLC SWAP NM",
+                    "weight": 10.33,
+                    "type": "swap",
+                    "shares": 28364,
+                    "market_value": 205756.0
+                }
+            ]
         }
     ]
 }
