@@ -42,7 +42,7 @@ def get_shares_outstanding_batch(symbols):
         return shares_data
     
     except Exception as e:
-        print(f"❌ Batch fetch error: {e}")
+        print(f"[ERROR] Batch fetch error: {e}")
         return {symbol: None for symbol in symbols}
 
 
@@ -96,11 +96,17 @@ def backfill_ticker_approximate(symbol, shares_outstanding):
 
 
 def main():
+    import sys
+    import io
+    # Windows에서 UTF-8 출력을 위한 설정
+    if sys.platform == 'win32':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    
     print("=" * 80)
-    print("📊 Backfill Historical Market Cap (Approximate Values)")
+    print("[Backfill] Historical Market Cap (Approximate Values)")
     print("=" * 80)
-    print("💡 Formula: marketCap ≈ sharesOutstanding (current) × close (historical)")
-    print("⚠️  Note: This is an approximation (85~95% accuracy)")
+    print("[Formula] marketCap ≈ sharesOutstanding (current) × close (historical)")
+    print("[Note] This is an approximation (85~95% accuracy)")
     print("=" * 80)
 
     # nav.json에서 활성 티커 목록 가져오기
@@ -108,7 +114,7 @@ def main():
         with open(NAV_FILE, "r", encoding="utf-8") as f:
             nav_data = json.load(f)
     except FileNotFoundError:
-        print(f"❌ Error: nav.json not found at {NAV_FILE}")
+        print(f"[ERROR] nav.json not found at {NAV_FILE}")
         return
 
     active_tickers = [
@@ -118,19 +124,30 @@ def main():
     ]
 
     if not active_tickers:
-        print("⚠️  No active tickers found in nav.json")
+        print("[WARNING] No active tickers found in nav.json")
         return
 
-    print(f"\n📊 Total active tickers: {len(active_tickers)}")
-    
-    # 사용자 확인
-    print("\n⚠️  WARNING: This will calculate approximate marketCap for ALL historical data.")
-    print("⚠️  Existing marketCap values will be preserved.")
-    response = input("\nProceed? (yes/no): ").strip().lower()
-    
-    if response != "yes":
-        print("❌ Aborted by user.")
-        return
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    import sys
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        active_tickers = [t for t in active_tickers if t in target_tickers]
+        if not active_tickers:
+            print(f"[ERROR] 지정한 티커를 nav.json에서 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
+        print(f"[INFO] [Specific Mode] Processing {len(active_tickers)} ticker(s): {', '.join(target_tickers)}")
+    else:
+        print(f"\n[INFO] [Full Mode] Total active tickers: {len(active_tickers)}")
+        
+        # 사용자 확인
+        print("\n[WARNING] This will calculate approximate marketCap for ALL historical data.")
+        print("[WARNING] Existing marketCap values will be preserved.")
+        response = input("\nProceed? (yes/no): ").strip().lower()
+        
+        if response != "yes":
+            print("[ABORT] Aborted by user.")
+            return
 
     print("\n" + "=" * 80)
     print("Starting backfill process...")
@@ -175,18 +192,18 @@ def main():
 
     # 최종 결과
     print("\n" + "=" * 80)
-    print("📊 Backfill Complete!")
+    print("[COMPLETE] Backfill Complete!")
     print("=" * 80)
-    print(f"✅ Success: {results['success']} tickers")
-    print(f"ℹ️  Already filled: {results['already_filled']} tickers")
-    print(f"⚠️  No shares data: {results['no_shares']} tickers")
-    print(f"⚠️  No file: {results['no_file']} tickers")
-    print(f"⚠️  No backtest data: {results['no_data']} tickers")
-    print(f"❌ Error: {results['error']} tickers")
-    print(f"\n📝 Total entries updated: {results['total_entries_updated']:,}")
+    print(f"[SUCCESS] Success: {results['success']} tickers")
+    print(f"[INFO] Already filled: {results['already_filled']} tickers")
+    print(f"[WARNING] No shares data: {results['no_shares']} tickers")
+    print(f"[WARNING] No file: {results['no_file']} tickers")
+    print(f"[WARNING] No backtest data: {results['no_data']} tickers")
+    print(f"[ERROR] Error: {results['error']} tickers")
+    print(f"\n[INFO] Total entries updated: {results['total_entries_updated']:,}")
     print("=" * 80)
     
-    print("\n💡 Next steps:")
+    print("\n[INFO] Next steps:")
     print("1. Check a few ticker files to verify the data")
     print("2. Future data will be collected automatically (daily)")
     print("3. Run this script again only if you add new tickers")
