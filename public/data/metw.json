@@ -855,7 +855,35 @@
             "high": 36.85499954223633,
             "low": 35.83000183105469,
             "close": 35.88999938964844,
-            "volume": 78415
+            "volume": 78415,
+            "holdings": [
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc",
+                    "weight": 20.14,
+                    "type": "equity",
+                    "shares": 17173,
+                    "market_value": 10772966.0
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 9.79,
+                    "type": "money_market",
+                    "shares": 5235457,
+                    "market_value": 5235457.0
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "30303M102 TRS 072026 NM",
+                    "name": "META PLATFORMS INC SWAP NM",
+                    "weight": 100.71,
+                    "type": "swap",
+                    "shares": 85877,
+                    "market_value": 53872359.0
+                }
+            ]
         },
         {
             "date": "2025-11-10",

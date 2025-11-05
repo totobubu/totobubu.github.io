@@ -10,8 +10,26 @@ DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 
 
 def main():
-    print("--- Starting Data Cleaning Process ---")
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    import sys
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        print(f"--- [Specific Mode] Data Cleaning for: {', '.join(target_tickers)} ---")
+    else:
+        print("--- [Full Mode] Starting Data Cleaning Process ---")
+    
     files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
+    
+    # 특정 티커만 필터링
+    if target_tickers:
+        files = [
+            f for f in files 
+            if f.replace(".json", "").replace("-", ".").upper() in target_tickers
+        ]
+        if not files:
+            print(f"❌ 지정한 티커의 JSON 파일을 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
 
     today = datetime.now()
     # 문제 2: 오늘로부터 7일 전 날짜를 기준으로 설정

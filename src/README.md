@@ -44,6 +44,7 @@ GitHub Actions와 동일한 모든 작업을 로컬에서 한번에 실행할 �
 ```
 
 **처음 실행 시 권한 오류가 발생한다면:**
+
 ```powershell
 # PowerShell을 관리자 권한으로 열고 실행
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -111,7 +112,9 @@ node scripts/fetch_all_exchange_rates.js
 npm run add-ipo-dates
 
 # 3. 배당 주기(frequency) 및 그룹(group) 자동 분석
-python scripts/analyze_dividend_frequency.py
+python scripts/analyze_dividend_frequency.py           # 전체
+python scripts/analyze_dividend_frequency.py WEED      # 개별 티커
+python scripts/analyze_dividend_frequency.py WEED MAGS # 여러 티커
 
 # 4. 최종 nav.json 파일 생성
 npm run generate-nav
@@ -123,28 +126,42 @@ python scripts/auto_detect_holdings.py --api --exclude-kr --yes
 echo y | python scripts/fetch_holdings.py
 
 # 7. 주가 데이터 증분 업데이트
-npm run update-data
+npm run update-data              # 전체
+npm run update-data WEED         # 개별 티커
+npm run update-data WEED MAGS    # 여러 티커
 
 # 8. 시가총액 업데이트
-python scripts/update_market_cap.py
+python scripts/update_market_cap.py           # 전체
+python scripts/update_market_cap.py WEED      # 개별 티커
+python scripts/update_market_cap.py WEED MAGS # 여러 티커
 
 # 9. 배당 데이터 증분 업데이트
-python scripts/update_dividends.py
+python scripts/update_dividends.py           # 전체
+python scripts/update_dividends.py WEED      # 개별 티커
+python scripts/update_dividends.py WEED MAGS # 여러 티커
 
 # 10. 배당 내역 및 배당률 처리
-python scripts/scraper_dividend.py
+python scripts/scraper_dividend.py           # 전체
+python scripts/scraper_dividend.py WEED      # 개별 티커
+python scripts/scraper_dividend.py WEED MAGS # 여러 티커
 
 # 11. 히스토리 데이터 정리
-python scripts/clean_data.py
+python scripts/clean_data.py           # 전체
+python scripts/clean_data.py WEED      # 개별 티커
+python scripts/clean_data.py WEED MAGS # 여러 티커
 
 # 12. 최신 기업 정보(시가총액 등) 업데이트
-python scripts/scraper_info.py
+python scripts/scraper_info.py           # 전체
+python scripts/scraper_info.py WEED      # 개별 티커
+python scripts/scraper_info.py WEED MAGS # 여러 티커
 
 # 13. 북마크 인기 데이터 집계 (FIRESTORE_SA_KEY 환경 변수 필요)
 python scripts/aggregate_popularity.py
 
 # 14. 미래 배당 날짜 예측
-python scripts/project_future_dividends.py
+python scripts/project_future_dividends.py           # 전체
+python scripts/project_future_dividends.py WEED      # 개별 티커
+python scripts/project_future_dividends.py WEED MAGS # 여러 티커
 
 # 15. 달력 이벤트 데이터 생성
 npm run generate-calendar-events

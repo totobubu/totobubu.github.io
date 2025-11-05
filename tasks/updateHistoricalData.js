@@ -78,7 +78,7 @@ async function fetchAndMergePriceData(ticker) {
             isNewFile = true;
             existingData = {
                 tickerInfo: {},
-                backtestData: []
+                backtestData: [],
             };
         }
 
@@ -111,9 +111,9 @@ async function fetchAndMergePriceData(ticker) {
             // tickerInfo가 먼저 오도록 순서 보장
             const orderedData = {
                 tickerInfo: existingData.tickerInfo || {},
-                backtestData: finalBacktestData
+                backtestData: finalBacktestData,
             };
-            
+
             await fs.writeFile(filePath, JSON.stringify(orderedData, null, 2));
             console.log(
                 `✅ [${symbol}] Price data updated. Added/merged ${newPriceData.length} records.${isNewFile ? ' (NEW FILE)' : ''}`
@@ -136,12 +136,38 @@ async function main() {
     const navDataContent = await fs.readFile(NAV_FILE_PATH, 'utf-8');
     const navData = JSON.parse(navDataContent);
 
-    const tickersToFetch = [
+    // 커맨드라인 인자로 특정 티커 지정 가능
+    const targetSymbols = process.argv.slice(2).map((s) => s.toUpperCase());
+
+    let tickersToFetch = [
         ...navData.nav,
         { symbol: 'SPY', ipoDate: '1993-01-22' },
         { symbol: 'QQQ', ipoDate: '1999-03-10' },
         { symbol: 'DIA', ipoDate: '1998-01-14' },
     ].filter((item) => !item.upcoming);
+
+    // 특정 티커만 필터링
+    if (targetSymbols.length > 0) {
+        tickersToFetch = tickersToFetch.filter((t) =>
+            targetSymbols.includes(t.symbol.toUpperCase())
+        );
+        console.log(
+            `[Specific Mode] Updating ${targetSymbols.length} symbol(s): ${targetSymbols.join(', ')}`
+        );
+
+        // 지정한 티커가 nav.json에 없는 경우 경고
+        const foundSymbols = tickersToFetch.map((t) => t.symbol.toUpperCase());
+        const notFoundSymbols = targetSymbols.filter(
+            (s) => !foundSymbols.includes(s)
+        );
+        if (notFoundSymbols.length > 0) {
+            console.warn(
+                `⚠️  Warning: Symbol(s) not found in nav.json: ${notFoundSymbols.join(', ')}`
+            );
+        }
+    } else {
+        console.log(`[Full Mode] Updating all symbols`);
+    }
 
     const uniqueTickers = Array.from(
         new Map(tickersToFetch.map((t) => [t.symbol, t])).values()

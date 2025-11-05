@@ -84,7 +84,14 @@ def analyze_frequency_and_group(dividend_dates):
 
 
 def main():
-    print("--- Starting Dividend Frequency Analysis (Recent 5 Payouts) ---")
+    # 커맨드라인 인자로 특정 티커 지정 가능
+    import sys
+    target_tickers = []
+    if len(sys.argv) > 1:
+        target_tickers = [arg.upper() for arg in sys.argv[1:]]
+        print(f"--- [Specific Mode] Dividend Frequency Analysis for: {', '.join(target_tickers)} ---")
+    else:
+        print("--- [Full Mode] Dividend Frequency Analysis (Recent 5 Payouts) ---")
 
     nav_sources = {}
     all_tickers_from_nav = []
@@ -104,6 +111,16 @@ def main():
                     all_tickers_from_nav.extend(tickers)
             except (IOError, json.JSONDecodeError) as e:
                 print(f"Warning: Could not read or parse {file_path}: {e}")
+
+    # 특정 티커만 필터링
+    if target_tickers:
+        all_tickers_from_nav = [
+            t for t in all_tickers_from_nav 
+            if t.get("symbol") in target_tickers
+        ]
+        if not all_tickers_from_nav:
+            print(f"❌ 지정한 티커를 nav 파일에서 찾을 수 없습니다: {', '.join(target_tickers)}")
+            return
 
     print(
         f"Found {len(all_tickers_from_nav)} tickers from nav source files to analyze."
