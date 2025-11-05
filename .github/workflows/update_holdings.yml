@@ -1,33 +1,27 @@
-# .github/workflows/update_info_data_v2.yml
-# [V2] 통합 파이프라인 버전 - 속도 비교용
+# .github/workflows/update_holdings.yml
+# Holdings 전용 워크플로우 - 주 1회 실행
 
-name: Update Info Data V2 (Optimized Pipeline)
+name: Update Holdings Data (Weekly)
 
 on:
-    # [V2 테스트] 화/목/토 실행: 한국시간 새벽 2시 (UTC 17:00)
+    # 매주 일요일 새벽 3시 (KST) 실행
     schedule:
-        - cron: '0 17 * * 2,4,6' # UTC 17:00 = KST 02:00 (화/목/토)
+        - cron: '0 18 * * 0' # UTC 18:00 = KST 03:00 (일요일)
     workflow_dispatch:
 
 permissions:
     contents: write
 
 concurrency:
-    group: 'data-updates' # 모든 데이터 업데이트 워크플로우를 하나의 그룹으로 묶음
-    cancel-in-progress: false # 진행 중인 작업은 취소하지 않고 대기
+    group: 'data-updates'
+    cancel-in-progress: false
 
 jobs:
-    update-info-v2:
+    update-holdings:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout main branch
               uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
-                  cache: 'npm'
 
             - name: Set up Python
               uses: actions/setup-python@v5
@@ -35,9 +29,6 @@ jobs:
                   python-version: '3.11'
                   cache: 'pip'
                   cache-dependency-path: 'requirements.txt'
-
-            - name: Install Node.js dependencies
-              run: npm install
 
             - name: Install Python dependencies
               run: |
@@ -53,43 +44,29 @@ jobs:
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
                   echo "✅ R2 환경변수 설정 완료"
 
-            # --- [V2] 통합 파이프라인: 단 3개의 스텝으로 정보성 데이터 완료 ---
-            - name: 1. Update exchange rate data (JS)
-              run: node scripts/fetch_all_exchange_rates.js
-
-            - name: 2. Sync IPO dates and upcoming status (JS)
-              run: npm run add-ipo-dates
-
-            - name: 3. Generate final nav.json (JS)
-              run: npm run generate-nav
-
-            # Holdings 수집은 별도 워크플로우로 분리 (update_holdings.yml)
-            
-            # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 (중복 API 호출 제거) ---
-            - name: 4. [V2 OPTIMIZED] Update all info data (dividends, info+marketCap, frequency, projection)
+            # --- Holdings 수집 파이프라인 ---
+            - name: 1. Auto-detect holdings for new tickers
               run: |
-                  echo "🚀 최적화된 통합 정보성 데이터 파이프라인 시작..."
-                  echo "✨ 중복 API 호출 제거: marketCap을 티커 정보와 함께 처리"
-                  python scripts/info_data_pipeline.py
-                  echo "✅ 최적화된 통합 정보성 데이터 파이프라인 완료"
+                  echo "🔍 Holdings 자동 감지 시작..."
+                  python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+                  echo "✅ Holdings 자동 감지 완료"
 
-            - name: 5. Process and enrich dividend history (scraper_dividend)
-              run: python scripts/scraper_dividend.py
+            - name: 2. Fetch ETF holdings data (23분 소요)
+              run: |
+                  echo "📊 ETF Holdings 데이터 수집 시작 (주 1회)..."
+                  echo "y" | python scripts/fetch_holdings.py
+                  echo "✅ ETF Holdings 데이터 수집 완료"
 
-            # clean_data.py는 1회성 정리 작업이므로 필요 시 수동 실행
-            
-            - name: 6. Generate calendar events data (JS)
-              run: npm run generate-calendar-events
-
-            - name: 7. Format changed files only
+            - name: 3. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
+                  npm install
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 8. Upload changed files to R2 (Git-based, fast)
+            - name: 4. Upload changed files to R2
               run: |
-                  echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
+                  echo "📤 R2에 변경된 파일 업로드 중..."
                   python scripts/upload_changed_to_r2.py
                   echo "✅ R2 업로드 완료"
 
@@ -109,7 +86,7 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  COMMIT_MSG="ℹ️ Auto: Update info data V2 (optimized pipeline)
+                  COMMIT_MSG="📊 Auto: Update holdings data (weekly)
 
                   Changed files:
                   $(git status --porcelain)"
@@ -130,3 +107,4 @@ jobs:
                       sleep 5
                     fi
                   done
+

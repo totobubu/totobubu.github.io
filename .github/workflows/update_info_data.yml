@@ -65,18 +65,8 @@ jobs:
             - name: 6. Generate final nav.json
               run: npm run generate-nav
 
-            - name: 6.5. Auto-detect and update holdings for new tickers
-              run: |
-                  echo "🔍 Holdings 자동 감지 시작..."
-                  python scripts/auto_detect_holdings.py --api --exclude-kr --yes
-                  echo "✅ Holdings 자동 감지 완료"
-
-            - name: 6.6. Fetch ETF holdings data
-              run: |
-                  echo "📊 ETF Holdings 데이터 수집 시작..."
-                  echo "y" | python scripts/fetch_holdings.py
-                  echo "✅ ETF Holdings 데이터 수집 완료"
-
+            # Holdings 수집은 별도 워크플로우로 분리 (update_holdings.yml)
+            
             - name: 7. Update daily market capitalization (Yahoo Finance)
               run: python scripts/update_market_cap.py
 
@@ -86,25 +76,24 @@ jobs:
             - name: 9. Process and enrich dividend history
               run: python scripts/scraper_dividend.py
 
-            - name: 9.5. Clean and sanitize historical data
-              run: python scripts/clean_data.py
-
+            # clean_data.py는 1회성 정리 작업이므로 필요 시 수동 실행
+            
             - name: 10. Update latest ticker info
               run: python scripts/scraper_info.py
 
-            - name: 11.5. Project future expected dividend dates
+            - name: 11. Project future expected dividend dates
               run: python scripts/project_future_dividends.py
 
             - name: 12. Generate calendar events data
               run: npm run generate-calendar-events
 
-            - name: 14. Format changed files only
+            - name: 13. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 15. Upload changed files to R2 (Git-based, fast)
+            - name: 14. Upload changed files to R2 (Git-based, fast)
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중 (Git 기반)..."
                   python scripts/upload_changed_to_r2.py

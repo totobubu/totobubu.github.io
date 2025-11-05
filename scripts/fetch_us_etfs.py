@@ -158,9 +158,15 @@ def enrich_with_yfinance(etf_list):
                 # yfinance의 longName이 더 정확할 수 있으므로 업데이트
                 if info.get("longName"):
                     original_etf["longName"] = info.get("longName")
+                
+                # sharesOutstanding 확인 및 추가
+                shares = info.get("sharesOutstanding")
+                original_etf["sharesOutstanding"] = shares is not None and shares > 0
+                
                 enriched_etfs.append(original_etf)
             except Exception as e:
                 original_etf["market"] = DEFAULT_US_MARKET
+                original_etf["sharesOutstanding"] = False  # 실패 시 false로 설정
                 exchange_stats["Failed"] += 1
                 print(
                     f"\n  ❌ {symbol}: Failed to fetch data ({str(e)[:50]}) -> defaulting to {DEFAULT_US_MARKET}"
