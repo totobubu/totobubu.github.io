@@ -164,7 +164,8 @@ def save_new_etfs_to_nav(new_etf_list):
                 "market": market,
                 "currency": "KRW",
                 "koName": name,
-                "longName": name
+                "longName": name,
+                "sharesOutstanding": None  # 추후 검토 필요 (FinanceDataReader 미제공)
             }
             
             files_to_update[file_path][symbol] = new_ticker_info
