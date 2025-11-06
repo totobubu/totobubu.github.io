@@ -605,21 +605,23 @@ AMAZON.COM INC	15.01%
 
 ## 🔧 자동 업데이트 워크플로우
 
-### 주간 자동 수집 (일요일)
+### 매일 자동 수집 (새벽 3시 30분)
 
 **GitHub Actions**: `.github/workflows/update_holdings.yml`
+
+**실행 시간**: 매일 새벽 3시 30분 (KST)
 
 **처리:**
 
 1. **Auto-detect** - 새로운 티커 자동 감지
 2. **Yahoo Finance** (23분) - YieldMax 57개 + 일반 ETF ~900개
-3. **Playwright 스크래핑** (3-5분) ⚡ - Roundhill 41개 (완전 자동!)
+3. **Playwright 스크래핑** (3-5분) ⚡ - Roundhill 43개 (완전 자동!)
 4. **Format & Upload** - 변경 파일만 처리
 5. **Commit & Push** - 자동 커밋
 
 **결과:**
 - ✅ YieldMax 57개 → 자동 수집
-- ✅ **Roundhill 41개 → Playwright 자동 스크래핑** ⚡ NEW!
+- ✅ **Roundhill 43개 → Playwright 자동 스크래핑** ⚡ (100% 성공!)
 - ✅ 일반 ETF ~900개 → Yahoo Finance (88% 성공)
 - ✅ **수동 작업: 0%** 🎉
 
