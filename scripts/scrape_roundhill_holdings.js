@@ -145,17 +145,36 @@ async function scrapeRoundhillHoldings(ticker, browser) {
             console.log('⚠️ 날짜 추출 실패');
         }
 
-        // Holdings 데이터 추출 (모달 내 테이블)
+        // Holdings 데이터 추출 (모달 또는 메인 페이지)
         const holdings = await page.evaluate(() => {
-            // 1. 모달 내 데스크톱 테이블 찾기 (우선순위)
+            // 1. 모달 내 데스크톱 테이블 찾기 (View All 클릭 후)
             let holdingsTable = document.querySelector('#fullHoldingsTablex');
             
-            // 2. 모달 내 모바일 테이블 찾기 (fallback)
+            // 2. 모달 내 모바일 테이블 (View All 클릭 후)
             if (!holdingsTable) {
                 holdingsTable = document.querySelector('.modaltablemobile');
             }
             
-            // 3. 헤더로 테이블 찾기 (최종 fallback)
+            // 3. 메인 페이지 Holdings 테이블 (MAGS, WEED 등 - View All 버튼 없음)
+            if (!holdingsTable) {
+                // 데스크톱용
+                const tbody = document.querySelector('#fund-topTenHoldings');
+                if (tbody) {
+                    holdingsTable = tbody.closest('table');
+                    console.log('✅ 메인 페이지 Holdings 테이블 발견 (fund-topTenHoldings)');
+                }
+            }
+            
+            // 4. 메인 페이지 모바일 테이블
+            if (!holdingsTable) {
+                const tbody = document.querySelector('.fund-topTenHoldings-mobile');
+                if (tbody) {
+                    holdingsTable = tbody.closest('table');
+                    console.log('✅ 메인 페이지 모바일 Holdings 테이블 발견');
+                }
+            }
+            
+            // 5. 헤더로 테이블 찾기 (최종 fallback)
             if (!holdingsTable) {
                 const tables = Array.from(document.querySelectorAll('table'));
                 for (const table of tables) {
@@ -164,9 +183,11 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                     
                     if (
                         (headerText.includes('ticker') && headerText.includes('name')) ||
-                        (headerText.includes('identifier') && headerText.includes('shares'))
+                        (headerText.includes('identifier') && headerText.includes('shares')) ||
+                        (headerText.includes('name') && headerText.includes('weight'))
                     ) {
                         holdingsTable = table;
+                        console.log('✅ Holdings 테이블 발견 (헤더 매칭)');
                         break;
                     }
                 }
@@ -176,8 +197,6 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                 console.log('⚠️ Holdings 테이블을 찾을 수 없습니다');
                 return [];
             }
-            
-            console.log('✅ Holdings 테이블 발견:', holdingsTable.id || holdingsTable.className);
             
             // Holdings 테이블의 데이터 행만 추출
             const rows = Array.from(holdingsTable.querySelectorAll('tbody tr'));
