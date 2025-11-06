@@ -128,17 +128,47 @@ async function scrapeRoundhillHoldings(ticker, browser) {
             console.log(`📅 날짜: ${asOfDate}`);
         }
 
-        // Holdings 데이터 추출 (모달 내 테이블)
-        const holdings = await page.evaluate(() => {
-            // 1. 모달 내 데스크톱 테이블 찾기 (우선순위)
-            let holdingsTable = document.querySelector('#fullHoldingsTablex');
+        // Holdings 데이터 추출 (모달 또는 메인 페이지)
+        const holdingsInfo = await page.evaluate(() => {
+            let holdingsTable = null;
+            let source = '';
             
-            // 2. 모달 내 모바일 테이블 찾기 (fallback)
-            if (!holdingsTable) {
-                holdingsTable = document.querySelector('.modaltablemobile');
+            // 1. 메인 페이지 Holdings 테이블 우선 (MAGS, WEED 등 - View All 버튼 없음)
+            // 데스크톱용
+            const mainTbody = document.querySelector('#fund-topTenHoldings');
+            if (mainTbody) {
+                holdingsTable = mainTbody.closest('table');
+                source = 'Main Page Desktop (#fund-topTenHoldings)';
             }
             
-            // 3. 헤더로 테이블 찾기 (최종 fallback)
+            // 2. 메인 페이지 모바일 테이블
+            if (!holdingsTable) {
+                const mainTbodyMobile = document.querySelector('.fund-topTenHoldings-mobile');
+                if (mainTbodyMobile) {
+                    holdingsTable = mainTbodyMobile.closest('table');
+                    source = 'Main Page Mobile (.fund-topTenHoldings-mobile)';
+                }
+            }
+            
+            // 3. 모달 내 데스크톱 테이블 찾기 (View All 클릭 후)
+            if (!holdingsTable) {
+                const modalTable = document.querySelector('#fullHoldingsTablex');
+                if (modalTable) {
+                    holdingsTable = modalTable;
+                    source = 'Modal Desktop (#fullHoldingsTablex)';
+                }
+            }
+            
+            // 4. 모달 내 모바일 테이블 (View All 클릭 후)
+            if (!holdingsTable) {
+                const modalMobile = document.querySelector('.modaltablemobile');
+                if (modalMobile) {
+                    holdingsTable = modalMobile;
+                    source = 'Modal Mobile (.modaltablemobile)';
+                }
+            }
+            
+            // 5. 헤더로 테이블 찾기 (최종 fallback)
             if (!holdingsTable) {
                 const tables = Array.from(document.querySelectorAll('table'));
                 for (const table of tables) {
@@ -147,22 +177,24 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                     
                     if (
                         (headerText.includes('ticker') && headerText.includes('name')) ||
-                        (headerText.includes('identifier') && headerText.includes('shares'))
+                        (headerText.includes('identifier') && headerText.includes('shares')) ||
+                        (headerText.includes('name') && headerText.includes('weight'))
                     ) {
                         holdingsTable = table;
+                        source = 'Header Match';
                         break;
                     }
                 }
             }
             
             if (!holdingsTable) {
-                return [];
+                return { holdings: [], source: 'Not Found' };
             }
             
             // Holdings 테이블의 데이터 행만 추출
             const rows = Array.from(holdingsTable.querySelectorAll('tbody tr'));
             
-            return rows.map(row => {
+            const processedRows = rows.map(row => {
                 const cells = Array.from(row.querySelectorAll('td'));
                 
                 // 빈 행 필터링: 모든 셀이 비어있으면 무시
@@ -202,9 +234,13 @@ async function scrapeRoundhillHoldings(ticker, browser) {
 
                 return data;
             }).filter(item => item !== null);
+            
+            return { holdings: processedRows, source: source };
         });
 
-        console.log(`✅ Holdings 데이터 추출: ${holdings.length}개`);
+        console.log(`✅ Holdings 데이터 추출: ${holdingsInfo.holdings.length}개 (출처: ${holdingsInfo.source})`);
+        
+        const holdings = holdingsInfo.holdings;
 
         if (holdings.length === 0) {
             console.log('⚠️ 추출된 holdings가 없습니다.');
