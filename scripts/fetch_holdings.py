@@ -542,19 +542,44 @@ def process_all_tickers(data_dir='public/data'):
     print(f"[SKIP] 건너뜀: {skip_count}개")
     print(f"[INFO] 총: {len(holdings_tickers)}개")
     
-    # 실패한 티커 목록 저장
+    # 실패한 티커 목록 저장 (단, 별도 스크립트로 자동화된 티커는 제외)
     if failed_tickers:
+        # Roundhill, ARK, iShares 등 별도 자동화 티커 목록
+        ROUNDHILL_ETFS = [
+            'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
+            'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
+            'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+            'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
+            'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
+            'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
+        ]
+        
+        ARK_ETFS = ['ARKK', 'ARKQ', 'ARKW', 'ARKG', 'ARKF', 'ARKX', 'PRNT', 'IZRL', 'ARKT', 'ARKB']
+        
+        ISHARES_ETFS = ['IBIT', 'ETHA', 'GARP', 'GSG']
+        
+        # 자동화된 제공자의 티커 제외
+        AUTOMATED_TICKERS = set(ROUNDHILL_ETFS + ARK_ETFS + ISHARES_ETFS)
+        
+        # 실제로 실패한 티커만 필터링 (자동화된 티커 제외)
+        truly_failed = [t for t in failed_tickers if t not in AUTOMATED_TICKERS]
+        
         failed_log_path = Path('scripts') / 'failed_holdings_tickers.txt'
         with open(failed_log_path, 'w', encoding='utf-8') as f:
-            f.write(f"실패한 티커 목록 ({len(failed_tickers)}개)\n")
+            f.write(f"실패한 티커 목록 ({len(truly_failed)}개)\n")
             f.write(f"생성 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write("="*60 + "\n\n")
-            for ticker in sorted(failed_tickers):
+            f.write("주의: Roundhill, ARK, iShares 티커는 별도 자동화되어 제외됨\n\n")
+            for ticker in sorted(truly_failed):
                 f.write(f"{ticker}\n")
         
         print(f"\n[INFO] 실패한 티커 목록이 저장되었습니다: {failed_log_path}")
+        print(f"[INFO] Yahoo Finance 실패: {len(failed_tickers)}개")
+        print(f"[INFO] 자동화 제외: {len(failed_tickers) - len(truly_failed)}개 (Roundhill/ARK/iShares)")
+        print(f"[INFO] 실제 실패: {len(truly_failed)}개")
         print(f"[INFO] 실패 원인: Yahoo Finance API는 모든 ETF의 holdings를 제공하지 않습니다.")
-        print(f"[INFO] 샘플: {', '.join(failed_tickers[:10])}")
+        if truly_failed:
+            print(f"[INFO] 샘플: {', '.join(truly_failed[:10])}")
 
 
 if __name__ == '__main__':
