@@ -465,7 +465,7 @@ VGIT, VGLT, VGSH, VMBS, VTEB, VTEC, VTEI, VTES, VTIP, VWOB 등
 | **ProShares**   | 10개     | 50% ⚠️  | Yahoo Finance   | 레버리지  |
 | **PIMCO**       | 11개     | 9% ❌   | -               | 채권 전문 |
 
-**전체 성공률: 86%** (ARK 추가!) 🎉
+**전체 성공률: 86.4%** (iShares 추가!) 🎉
 
 ---
 
@@ -820,6 +820,7 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 - `scripts/fetch_holdings.py` - 자동 수집 메인 스크립트 (Yahoo Finance)
 - `scripts/scrape_roundhill_holdings_playwright.js` - Roundhill 자동 스크래핑 (Playwright) ⚡
 - `scripts/scrape_ark_holdings.js` - ARK CSV 다운로드 (fetch) ⚡
+- `scripts/scrape_ishares_holdings.py` - iShares JSON API + CSV (requests) ⚡
 - `scripts/add_roundhill_holdings.py` - Holdings 데이터 등록 스크립트
 
 ### 컴포넌트
@@ -847,9 +848,11 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 - ✅ 모달에서 전체 Holdings 데이터 추출
 - ✅ **ARK 완전 자동화**: CSV 직접 다운로드 ⚡
 - ✅ 10개 ARK ETF, 350개 Holdings 자동 수집
+- ✅ **iShares 자동화**: JSON API + CSV ⚡
+- ✅ 4개 iShares ETF (IBIT, ETHA, GARP, GSG) 자동 수집
 - ✅ 데이터 비교 로직 추가 (중복 방지)
 - ✅ Holdings 워크플로우에 통합
-- ✅ 전체 성공률 86% 달성
+- ✅ 전체 성공률 86.4% 달성
 
 ### 2025-11-05
 
@@ -982,13 +985,14 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 ```
 📊 통계
-  - 총 1,058개 ETF 추적
-  - 성공률: 86% (ARK 추가!) 🎉
+  - 총 1,062개 ETF 추적
+  - 성공률: 86.4% (iShares 추가!) 🎉
 
 ✅ 완전 자동 수집
   - YieldMax: 57개 (100%, 웹 스크래핑)
   - Roundhill: 43개 (100%, Playwright 자동) ⚡
-  - ARK: 10개 (100%, CSV 직접 다운로드) ⚡ NEW!
+  - ARK: 10개 (100%, CSV 직접 다운로드) ⚡
+  - iShares: 4개 (100%, JSON API + CSV) ⚡ NEW!
   - 일반 ETF: ~800개 (88%, Yahoo Finance)
 
 ✅ 주요 기능
