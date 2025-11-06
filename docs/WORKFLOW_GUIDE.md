@@ -153,19 +153,31 @@ if not data_changed:
    - YieldMax: 57개 (웹 스크래핑)
    - 일반 ETF: ~900개 (Yahoo Finance API)
 
-3. Scrape Roundhill holdings (Playwright - 3-5분) ⚡ NEW!
+3. Scrape Roundhill holdings (Playwright - 3-5분) ⚡
    → node scripts/scrape_roundhill_holdings_playwright.js --all
    → python scripts/add_roundhill_holdings.py --batch
-   - Roundhill: 41개 (완전 자동화)
+   - Roundhill: 43개 (완전 자동화)
    - 데이터 중복 자동 비교
 
-4. Format changed files
+4. Download ARK holdings CSV (10초) ⚡
+   → node scripts/scrape_ark_holdings.js --all
+   → python scripts/add_roundhill_holdings.py --batch
+   - ARK: 10개 (CSV 직접 다운로드)
+   - 총 350개 Holdings
+
+5. Download iShares holdings (JSON API + CSV - 20초) ⚡ NEW!
+   → python scripts/scrape_ishares_holdings.py --all
+   → python scripts/add_roundhill_holdings.py --batch
+   - iShares: 4개 (IBIT, ETHA, GARP, GSG)
+   - 총 162개 Holdings
+
+6. Format changed files
    → npm run format:changed
 
-5. Upload to R2
+7. Upload to R2
    → python scripts/upload_changed_to_r2.py
 
-6. Commit and push
+8. Commit and push
 ```
 
 ### Holdings 변경 빈도
