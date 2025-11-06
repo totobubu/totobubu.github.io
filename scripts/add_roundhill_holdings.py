@@ -278,6 +278,34 @@ def parse_holdings_data(data_text):
     return holdings
 
 
+def compare_holdings(old_holdings, new_holdings):
+    """
+    두 holdings 데이터가 동일한지 비교
+    
+    Args:
+        old_holdings: 기존 holdings 리스트
+        new_holdings: 새 holdings 리스트
+    
+    Returns:
+        True if 동일, False if 다름
+    """
+    if len(old_holdings) != len(new_holdings):
+        return False
+    
+    # 비교를 위해 정렬 (symbol 기준)
+    old_sorted = sorted(old_holdings, key=lambda x: x.get('symbol', ''))
+    new_sorted = sorted(new_holdings, key=lambda x: x.get('symbol', ''))
+    
+    for old, new in zip(old_sorted, new_sorted):
+        # 주요 필드만 비교 (timestamp 등은 제외)
+        if (old.get('symbol') != new.get('symbol') or
+            old.get('name') != new.get('name') or
+            old.get('weight') != new.get('weight')):
+            return False
+    
+    return True
+
+
 def update_json_file(ticker, date, holdings):
     """
     JSON 파일에 holdings 데이터 추가
@@ -308,6 +336,10 @@ def update_json_file(ticker, date, holdings):
     # 날짜순 정렬
     data["backtestData"].sort(key=lambda x: x.get("date", ""))
 
+    # 100% 이상인 경우 분리
+    leverage_holdings = [h for h in holdings if h["type"] in ["swap"]]
+    regular_holdings = [h for h in holdings if h["type"] not in ["swap"]]
+
     # 해당 날짜의 항목 찾기
     existing_entry = None
     for entry in data["backtestData"]:
@@ -315,12 +347,18 @@ def update_json_file(ticker, date, holdings):
             existing_entry = entry
             break
 
-    # 100% 이상인 경우 분리
-    leverage_holdings = [h for h in holdings if h["type"] in ["swap"]]
-    regular_holdings = [h for h in holdings if h["type"] not in ["swap"]]
-
     if existing_entry:
-        # 기존 항목 업데이트
+        # 기존 데이터와 비교
+        existing_regular = existing_entry.get("holdings", [])
+        existing_leverage = existing_entry.get("leverage_exposure", [])
+        
+        # 데이터가 완전히 동일한지 확인
+        if (compare_holdings(existing_regular, regular_holdings) and
+            compare_holdings(existing_leverage, leverage_holdings)):
+            print(f"\n[SKIP] {ticker}: {date} - 기존 데이터와 동일함 (변경 없음)")
+            return False
+        
+        # 데이터가 다르면 업데이트
         if regular_holdings:
             existing_entry["holdings"] = regular_holdings
         if leverage_holdings:

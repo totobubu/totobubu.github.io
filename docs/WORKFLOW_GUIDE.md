@@ -148,16 +148,24 @@ if not data_changed:
 1. Auto-detect holdings for new tickers
    → python scripts/auto_detect_holdings.py
 
-2. Fetch ETF holdings data (23분+)
+2. Fetch ETF holdings (Yahoo Finance - 23분)
    → python scripts/fetch_holdings.py
+   - YieldMax: 57개 (웹 스크래핑)
+   - 일반 ETF: ~900개 (Yahoo Finance API)
 
-3. Format changed files
+3. Scrape Roundhill holdings (Playwright - 3-5분) ⚡ NEW!
+   → node scripts/scrape_roundhill_holdings_playwright.js --all
+   → python scripts/add_roundhill_holdings.py --batch
+   - Roundhill: 41개 (완전 자동화)
+   - 데이터 중복 자동 비교
+
+4. Format changed files
    → npm run format:changed
 
-4. Upload to R2
+5. Upload to R2
    → python scripts/upload_changed_to_r2.py
 
-5. Commit and push
+6. Commit and push
 ```
 
 ### Holdings 변경 빈도
