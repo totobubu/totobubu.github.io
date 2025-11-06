@@ -174,10 +174,10 @@ if not data_changed:
 6. Format changed files
    → npm run format:changed
 
-6. Upload to R2
+7. Upload to R2
    → python scripts/upload_changed_to_r2.py
 
-7. Commit and push
+8. Commit and push
 ```
 
 ### Holdings 변경 빈도
