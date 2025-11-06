@@ -453,10 +453,10 @@ VGIT, VGLT, VGSH, VMBS, VTEB, VTEC, VTEI, VTES, VTIP, VWOB 등
 | --------------- | -------- | ------- | --------------- | --------- |
 | **YieldMax**    | 57개     | 100% ⚡ | 웹 스크래핑     | 완벽 지원 |
 | **Roundhill**   | 43개     | 100% ⚡ | Playwright 자동 | 완전 자동화 |
-| **ARK**         | 10개     | 100% ⚡ | CSV 다운로드    | 완전 자동화 ⚡ |
+| **ARK**         | 10개     | 100% ⚡ | CSV 다운로드    | 완전 자동화 |
+| **iShares**     | 233개    | 88% ⚡  | JSON API + CSV  | 완전 자동화 ⚡ |
 | **Dimensional** | 25개     | 100% ⚡ | Yahoo Finance   | -         |
 | **First Trust** | 38개     | 100% ⚡ | Yahoo Finance   | -         |
-| **iShares**     | 229개    | 87% ✅  | Yahoo Finance   | 채권 제외 |
 | **Vanguard**    | 83개     | 67% ⚠️  | Yahoo Finance   | 채권 다수 |
 | **Invesco**     | 70개     | 67% ⚠️  | Yahoo Finance   | 채권 포함 |
 | **SPDR**        | 70개     | 53% ⚠️  | Yahoo Finance   | 채권 다수 |
@@ -617,16 +617,18 @@ AMAZON.COM INC	15.01%
 1. **Auto-detect** - 새로운 티커 자동 감지
 2. **Yahoo Finance** (23분) - YieldMax 57개 + 일반 ETF ~900개
 3. **Playwright 스크래핑** (3-5분) ⚡ - Roundhill 43개 (완전 자동!)
-4. **ARK CSV 다운로드** (10초) ⚡ - ARK 10개 (CSV 직접) NEW!
-5. **Format & Upload** - 변경 파일만 처리
-6. **Commit & Push** - 자동 커밋
+4. **ARK CSV 다운로드** (10초) ⚡ - ARK 10개 (CSV 직접)
+5. **iShares JSON API + CSV** (20초) ⚡ - iShares 4개 NEW!
+6. **Format & Upload** - 변경 파일만 처리
+7. **Commit & Push** - 자동 커밋
 
 **결과:**
 - ✅ YieldMax 57개 → 자동 수집
 - ✅ **Roundhill 43개 → Playwright 자동 스크래핑** ⚡ (100%)
-- ✅ **ARK 10개 → CSV 직접 다운로드** ⚡ (100%) NEW!
+- ✅ **ARK 10개 → CSV 직접 다운로드** ⚡ (100%)
+- ✅ **iShares 4개 → JSON API + CSV** ⚡ (100%) NEW!
 - ✅ 일반 ETF ~900개 → Yahoo Finance (88% 성공)
-- ✅ **총 자동화: ~910개** 🎉
+- ✅ **총 자동화: ~914개** 🎉
 - ✅ **수동 작업: 0%** 🎉
 
 ---
