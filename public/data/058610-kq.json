@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 33250,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 32250.0,
         "englishName": "SPG Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 737397243904,
+        "marketCap": 715219861504,
         "Volume": 0,
-        "AvgVolume": 398414,
+        "AvgVolume": 422109,
         "sharesOutstanding": 22177360,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33250,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 737397243904,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 398414,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -51878,7 +51891,8 @@
             "high": 34300,
             "low": 31900,
             "close": 32250,
-            "volume": 414253
+            "volume": 414253,
+            "marketCap": 715219861504
         }
     ]
 }

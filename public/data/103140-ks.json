@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 103800,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 102400.0,
         "englishName": "Poongsan Corporation",
         "earningsDate": null,
-        "enterpriseValue": 3689763569664,
-        "marketCap": 2835222102016,
+        "enterpriseValue": 3493100781568,
+        "marketCap": 2796982108160,
         "Volume": 0,
-        "AvgVolume": 311873,
+        "AvgVolume": 313510,
         "sharesOutstanding": 27314278,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2600,
+        "dividendRate": 2600.0,
         "payoutRatio": 0.3667,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 3689763569664,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2835222102016,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 311873,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38412,7 +38429,8 @@
             "high": 107900,
             "low": 101500,
             "close": 102400,
-            "volume": 279559
+            "volume": 279559,
+            "marketCap": 2796982108160
         },
         {
             "date": "2026-02-27",

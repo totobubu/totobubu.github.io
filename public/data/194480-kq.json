@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 39400,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 37650.0,
         "englishName": "Devsisters corporation",
         "earningsDate": null,
-        "enterpriseValue": 355440623616,
-        "marketCap": 432012099584,
+        "enterpriseValue": 346120552448,
+        "marketCap": 412823748608,
         "Volume": 0,
-        "AvgVolume": 82283,
+        "AvgVolume": 84171,
         "sharesOutstanding": 10964774,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39400,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 355440623616,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 432012099584,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 82283,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24416,7 +24433,8 @@
             "high": 40200,
             "low": 37450,
             "close": 37650,
-            "volume": 71332
+            "volume": 71332,
+            "marketCap": 412823748608
         },
         {
             "date": "2025-12-26",

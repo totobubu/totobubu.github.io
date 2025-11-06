@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 262000,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 252000.0,
         "englishName": "Peptron, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 6084527915008,
+        "marketCap": 5852294021120,
         "Volume": 0,
-        "AvgVolume": 178356,
+        "AvgVolume": 182773,
         "sharesOutstanding": 23223389,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 262000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6084527915008,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 178356,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22703,7 +22716,8 @@
             "high": 264500,
             "low": 252000,
             "close": 252000,
-            "volume": 136407
+            "volume": 136407,
+            "marketCap": 5852294021120
         }
     ]
 }

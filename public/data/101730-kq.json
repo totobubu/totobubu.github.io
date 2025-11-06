@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 7070,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 6820.0,
         "englishName": "Wemade Max Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 589177946112,
+        "marketCap": 568344182784,
         "Volume": 0,
-        "AvgVolume": 64625,
+        "AvgVolume": 67017,
         "sharesOutstanding": 83334931,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7070,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 589177946112,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 64625,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36349,7 +36362,8 @@
             "high": 7130,
             "low": 6800,
             "close": 6820,
-            "volume": 47969
+            "volume": 47969,
+            "marketCap": 568344182784
         }
     ]
 }

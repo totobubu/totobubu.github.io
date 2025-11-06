@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 100300,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 103600.0,
         "englishName": "Hanjin Kal",
         "earningsDate": "2025-08-20",
-        "enterpriseValue": 7331272720384,
-        "marketCap": 6652120530944,
+        "enterpriseValue": 7137399930880,
+        "marketCap": 6870983507968,
         "Volume": 0,
-        "AvgVolume": 77815,
+        "AvgVolume": 76912,
         "sharesOutstanding": 66322235,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 360,
+        "dividendRate": 360.0,
         "payoutRatio": 0.0554,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100300,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 7331272720384,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6652120530944,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 77815,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26804,7 +26821,8 @@
             "high": 104900,
             "low": 100300,
             "close": 103600,
-            "volume": 104111
+            "volume": 104111,
+            "marketCap": 6870983507968
         },
         {
             "date": "2025-12-26",

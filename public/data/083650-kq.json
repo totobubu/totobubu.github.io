@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 45200,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 42300.0,
         "englishName": "BHI Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1398584508416,
+        "marketCap": 1308852224000,
         "Volume": 0,
-        "AvgVolume": 1190768,
+        "AvgVolume": 1194229,
         "sharesOutstanding": 30942134,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45200,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1398584508416,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1190768,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44151,7 +44164,8 @@
             "high": 46600,
             "low": 42050,
             "close": 42300,
-            "volume": 1094655
+            "volume": 1094655,
+            "marketCap": 1308852224000
         },
         {
             "date": "2025-12-29",

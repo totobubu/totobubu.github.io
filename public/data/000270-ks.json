@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 111000,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 112000.0,
         "englishName": "Kia Corporation",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 27020884967424,
-        "marketCap": 43269564137472,
+        "enterpriseValue": 25695510069248,
+        "marketCap": 43659382751232,
         "Volume": 0,
-        "AvgVolume": 926037,
+        "AvgVolume": 939787,
         "sharesOutstanding": 389815901,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 6500,
+        "dividendRate": 6500.0,
         "payoutRatio": 0.294,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 111000,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27020884967424,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 43269564137472,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 926037,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58247,7 +58264,8 @@
             "high": 113200,
             "low": 110250,
             "close": 112000,
-            "volume": 865031
+            "volume": 865031,
+            "marketCap": 43659382751232
         },
         {
             "date": "2026-03-18",

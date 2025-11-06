@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 24750,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 23650.0,
         "englishName": "Mirae Asset Securities Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 32782537457664,
-        "marketCap": 12339533316096,
+        "enterpriseValue": 32264408793088,
+        "marketCap": 11835298283520,
         "Volume": 0,
-        "AvgVolume": 2964976,
+        "AvgVolume": 3084416,
         "sharesOutstanding": 439146160,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 250,
+        "dividendRate": 250.0,
         "payoutRatio": 0.1205,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24750,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 32782537457664,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12339533316096,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2964976,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58245,7 +58262,8 @@
             "high": 25550,
             "low": 22100,
             "close": 23650,
-            "volume": 16762646
+            "volume": 16762646,
+            "marketCap": 11835298283520
         },
         {
             "date": "2026-03-27",

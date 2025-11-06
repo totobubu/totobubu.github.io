@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 12500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 12470.0,
         "englishName": "INCAR FINANCIAL SERVICE Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 539096252416,
-        "marketCap": 608170344448,
+        "enterpriseValue": 554178904064,
+        "marketCap": 606710726656,
         "Volume": 0,
-        "AvgVolume": 144601,
+        "AvgVolume": 145587,
         "sharesOutstanding": 48653629,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 100,
+        "dividendRate": 100.0,
         "payoutRatio": 0.0721,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 539096252416,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 608170344448,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 144601,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18847,7 +18864,8 @@
             "high": 12720,
             "low": 12150,
             "close": 12470,
-            "volume": 138322
+            "volume": 138322,
+            "marketCap": 606710726656
         },
         {
             "date": "2025-12-26",

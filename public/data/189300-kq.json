@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 43300,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 41800.0,
         "englishName": "Intellian Technologies, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 445991649280,
+        "marketCap": 430541602816,
         "Volume": 0,
-        "AvgVolume": 73355,
+        "AvgVolume": 74370,
         "sharesOutstanding": 10300038,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43300,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 445991649280,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 73355,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19948,7 +19961,8 @@
             "high": 44100,
             "low": 41600,
             "close": 41800,
-            "volume": 126027
+            "volume": 126027,
+            "marketCap": 430541602816
         },
         {
             "date": "2025-12-26",

@@ -9,20 +9,29 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 24250,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 24250.0,
         "englishName": "SFA Engineering Corporation",
         "earningsDate": null,
-        "enterpriseValue": 1275774763008,
+        "enterpriseValue": 1255871086592,
         "marketCap": 689520967680,
         "Volume": 0,
-        "AvgVolume": 85545,
+        "AvgVolume": 87736,
         "sharesOutstanding": 28433854,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 380,
+        "dividendRate": 380.0,
         "payoutRatio": 0.1625,
-        "changes": {}
+        "changes": {
+            "enterpriseValue": {
+                "value": 1275774763008,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 85545,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -53423,7 +53432,8 @@
             "high": 24700,
             "low": 23900,
             "close": 24250,
-            "volume": 64108
+            "volume": 64108,
+            "marketCap": 689520967680
         }
     ]
 }

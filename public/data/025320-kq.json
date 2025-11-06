@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 6150,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 6110.0,
         "englishName": "Synopex Inc.",
         "earningsDate": null,
-        "enterpriseValue": 560876355584,
-        "marketCap": 539391295488,
+        "enterpriseValue": 530283266048,
+        "marketCap": 535883087872,
         "Volume": 0,
-        "AvgVolume": 391098,
+        "AvgVolume": 416488,
         "sharesOutstanding": 87705904,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6150,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 560876355584,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 539391295488,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 391098,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56082,7 +56099,8 @@
             "high": 6370,
             "low": 6090,
             "close": 6110,
-            "volume": 335121
+            "volume": 335121,
+            "marketCap": 535883087872
         },
         {
             "date": "2025-12-26",

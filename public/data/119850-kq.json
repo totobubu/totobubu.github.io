@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 41250,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 40500.0,
         "englishName": "GnCenergy Co., Ltd",
         "earningsDate": null,
-        "enterpriseValue": 645278334976,
-        "marketCap": 640319815680,
+        "enterpriseValue": 618113269760,
+        "marketCap": 628677672960,
         "Volume": 0,
-        "AvgVolume": 627067,
+        "AvgVolume": 662632,
         "sharesOutstanding": 15522905,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 100,
+        "dividendRate": 100.0,
         "payoutRatio": 0.0365,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41250,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 645278334976,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 640319815680,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 627067,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26679,7 +26696,8 @@
             "high": 43100,
             "low": 40400,
             "close": 40500,
-            "volume": 596619
+            "volume": 596619,
+            "marketCap": 628677672960
         },
         {
             "date": "2025-12-26",

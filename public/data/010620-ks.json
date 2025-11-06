@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 211500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 208000.0,
         "englishName": "Hd Hyundai Mipo Co.,Ltd.",
         "earningsDate": "2025-11-03",
-        "enterpriseValue": 8552789835776,
-        "marketCap": 8435528630272,
+        "enterpriseValue": 8074178330624,
+        "marketCap": 8295933804544,
         "Volume": 0,
-        "AvgVolume": 366815,
+        "AvgVolume": 376824,
         "sharesOutstanding": 39884298,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1190,
+        "dividendRate": 1190.0,
         "payoutRatio": 0.3216,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 211500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 8552789835776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8435528630272,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 366815,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58240,7 +58257,8 @@
             "high": 219500,
             "low": 205500,
             "close": 208000,
-            "volume": 282198
+            "volume": 282198,
+            "marketCap": 8295933804544
         }
     ]
 }

@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 12680,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 12340.0,
         "englishName": "Chabiotech Co.,Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 1829139644416,
-        "marketCap": 969084043264,
+        "enterpriseValue": 1821544022016,
+        "marketCap": 943099084800,
         "Volume": 0,
-        "AvgVolume": 292431,
+        "AvgVolume": 303022,
         "sharesOutstanding": 76426183,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12680,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1829139644416,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 969084043264,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 292431,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36914,7 +36931,8 @@
             "high": 12770,
             "low": 12260,
             "close": 12340,
-            "volume": 386225
+            "volume": 386225,
+            "marketCap": 943099084800
         }
     ]
 }

@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 26250,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 26150.0,
         "englishName": "Seegene, Inc.",
         "earningsDate": "2025-08-08",
-        "enterpriseValue": 817081090048,
-        "marketCap": 1210449920000,
+        "enterpriseValue": 807858601984,
+        "marketCap": 1205838675968,
         "Volume": 0,
-        "AvgVolume": 171821,
+        "AvgVolume": 181543,
         "sharesOutstanding": 46112381,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 800,
+        "dividendRate": 800.0,
         "payoutRatio": 3.4782999,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26250,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 817081090048,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1210449920000,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 171821,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33553,7 +33570,8 @@
             "high": 26600,
             "low": 25850,
             "close": 26150,
-            "volume": 168308
+            "volume": 168308,
+            "marketCap": 1205838675968
         },
         {
             "date": "2025-12-26",

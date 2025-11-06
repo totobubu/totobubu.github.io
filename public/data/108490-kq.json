@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 242500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 216000.0,
         "englishName": "ROBOTIS Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 3459981246464,
-        "marketCap": 3252645789696,
+        "enterpriseValue": 3113963225088,
+        "marketCap": 2897201856512,
         "Volume": 0,
-        "AvgVolume": 1684899,
+        "AvgVolume": 1734880,
         "sharesOutstanding": 13412972,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 242500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 3459981246464,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3252645789696,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1684899,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15529,7 +15546,8 @@
             "high": 255500,
             "low": 213000,
             "close": 216000,
-            "volume": 1347696
+            "volume": 1347696,
+            "marketCap": 2897201856512
         }
     ]
 }

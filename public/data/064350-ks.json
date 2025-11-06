@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 214500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 212000.0,
         "englishName": "Hyundai Rotem Company",
         "earningsDate": "2025-11-03",
-        "enterpriseValue": 24048591437824,
-        "marketCap": 23411021578240,
+        "enterpriseValue": 22799422849024,
+        "marketCap": 23138167422976,
         "Volume": 0,
-        "AvgVolume": 762886,
+        "AvgVolume": 753853,
         "sharesOutstanding": 109142293,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 200,
+        "dividendRate": 200.0,
         "payoutRatio": 0.0365,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 214500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 24048591437824,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23411021578240,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 762886,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26551,7 +26568,8 @@
             "high": 221000,
             "low": 209000,
             "close": 212000,
-            "volume": 570038
+            "volume": 570038,
+            "marketCap": 23138167422976
         }
     ]
 }

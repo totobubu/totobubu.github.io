@@ -9,20 +9,33 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 72400,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 71900.0,
         "englishName": "Soop Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 771559849984,
+        "marketCap": 766231379968,
         "Volume": 0,
-        "AvgVolume": 46688,
+        "AvgVolume": 46949,
         "sharesOutstanding": 10656904,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72400,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 771559849984,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 46688,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48503,7 +48516,8 @@
             "high": 72900,
             "low": 71200,
             "close": 71900,
-            "volume": 25803
+            "volume": 25803,
+            "marketCap": 766231379968
         },
         {
             "date": "2025-12-26",

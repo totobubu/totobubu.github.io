@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 116500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 114500.0,
         "englishName": "Yuhan Corporation",
         "earningsDate": null,
-        "enterpriseValue": 9075489243136,
-        "marketCap": 8714313531392,
+        "enterpriseValue": 8783225946112,
+        "marketCap": 8565084389376,
         "Volume": 0,
-        "AvgVolume": 319811,
+        "AvgVolume": 335231,
         "sharesOutstanding": 73790935,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 500,
+        "dividendRate": 500.0,
         "payoutRatio": 0.4669,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 116500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 9075489243136,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8714313531392,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 319811,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58252,7 +58269,8 @@
             "high": 117500,
             "low": 114000,
             "close": 114500,
-            "volume": 391854
+            "volume": 391854,
+            "marketCap": 8565084389376
         },
         {
             "date": "2025-12-26",

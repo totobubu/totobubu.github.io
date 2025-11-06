@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 57300,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 59300.0,
         "englishName": "Youngone Corporation",
         "earningsDate": null,
-        "enterpriseValue": 2040746082304,
-        "marketCap": 2438694436864,
+        "enterpriseValue": 2010953940992,
+        "marketCap": 2523814690816,
         "Volume": 0,
-        "AvgVolume": 44025,
+        "AvgVolume": 44877,
         "sharesOutstanding": 42560112,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2100,
+        "dividendRate": 2100.0,
         "payoutRatio": 0.1609,
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 57300,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 2040746082304,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2438694436864,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 44025,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36110,7 +36127,8 @@
             "high": 60000,
             "low": 57300,
             "close": 59300,
-            "volume": 66640
+            "volume": 66640,
+            "marketCap": 2523814690816
         }
     ]
 }

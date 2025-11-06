@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 35300,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 34500.0,
         "englishName": "Cafe24 Corp.",
         "earningsDate": null,
-        "enterpriseValue": 732651716608,
-        "marketCap": 853489352704,
+        "enterpriseValue": 703637946368,
+        "marketCap": 834146795520,
         "Volume": 0,
-        "AvgVolume": 134099,
+        "AvgVolume": 133586,
         "sharesOutstanding": 24178169,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35300,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 732651716608,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 853489352704,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 134099,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17078,7 +17095,8 @@
             "high": 36000,
             "low": 34000,
             "close": 34500,
-            "volume": 68686
+            "volume": 68686,
+            "marketCap": 834146795520
         }
     ]
 }

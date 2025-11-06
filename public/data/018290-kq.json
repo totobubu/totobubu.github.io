@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 24500,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 23550.0,
         "englishName": "VT Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 833202946048,
-        "marketCap": 869566906368,
+        "enterpriseValue": 804808949760,
+        "marketCap": 835849027584,
         "Volume": 0,
-        "AvgVolume": 476916,
+        "AvgVolume": 473211,
         "sharesOutstanding": 35492527,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 833202946048,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 869566906368,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 476916,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56019,7 +56036,8 @@
             "high": 24800,
             "low": 23400,
             "close": 23550,
-            "volume": 373628
+            "volume": 373628,
+            "marketCap": 835849027584
         }
     ]
 }

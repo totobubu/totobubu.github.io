@@ -9,20 +9,37 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-06 03:03:10 KST",
-        "regularMarketPrice": 20850,
+        "Update": "2025-11-07 02:36:34 KST",
+        "regularMarketPrice": 20650.0,
         "englishName": "JS Link, Inc.",
         "earningsDate": null,
-        "enterpriseValue": 558255898624,
-        "marketCap": 579396370432,
+        "enterpriseValue": 578569371648,
+        "marketCap": 573838655488,
         "Volume": 0,
-        "AvgVolume": 362872,
+        "AvgVolume": 366364,
         "sharesOutstanding": 27788797,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {}
+        "payoutRatio": 0.0,
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20850,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 558255898624,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 579396370432,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 362872,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30532,7 +30549,8 @@
             "high": 21000,
             "low": 20200,
             "close": 20650,
-            "volume": 176223
+            "volume": 176223,
+            "marketCap": 573838655488
         }
     ]
 }
