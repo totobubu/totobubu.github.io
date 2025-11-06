@@ -236,7 +236,7 @@ await page.goto(url, {
 
 **파일**: `.github/workflows/update_holdings.yml`
 
-**실행**: 매주 일요일 새벽 3시 (KST)
+**실행**: 매일 새벽 3시 30분 (KST)
 
 **워크플로우 구조:**
 

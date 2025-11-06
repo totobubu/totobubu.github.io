@@ -17,7 +17,7 @@
 | 워크플로우 | 파일 | 실행 빈도 | 실행 시간 | 소요 시간 |
 |-----------|------|----------|-----------|----------|
 | **Info Data** | `update_info_data.yml` | 매일 | 새벽 2시 (KST) | ~25분 |
-| **Holdings** | `update_holdings.yml` | 주 1회 | 일요일 새벽 3시 (KST) | ~30분 |
+| **Holdings** | `update_holdings.yml` | 매일 | 새벽 3시 30분 (KST) | ~30분 |
 
 ---
 
@@ -138,9 +138,9 @@ if not data_changed:
 
 **파일**: `.github/workflows/update_holdings.yml`
 
-**실행 빈도**: 매주 일요일 새벽 3시 (KST)
+**실행 빈도**: 매일 새벽 3시 30분 (KST)
 
-**목적**: ETF Holdings 데이터 수집
+**목적**: ETF Holdings 데이터 수집 (완전 자동화)
 
 ### 워크플로우 구조
 
@@ -179,21 +179,24 @@ if not data_changed:
 
 ### 분리 이유
 
-Holdings 수집은 시간이 오래 걸리지만 자주 변경되지 않아 별도 워크플로우로 분리:
+Holdings 수집은 시간이 오래 걸리므로 별도 워크플로우로 분리:
 
-**Before (매일 실행):**
+**Before (Info에 포함):**
 ```
 Info 워크플로우: 2시간 31분 (Holdings 23분 포함)
-실제 변화: 주 1-2회
-불필요한 실행: 5-6일/주
 ```
 
-**After (주 1회 실행):**
+**After (별도 워크플로우):**
 ```
-Info 워크플로우: ~45분 (Holdings 제거)
-Holdings 워크플로우: 30분 (주 1회)
-총 시간 절약: 월 6-8시간
+Info 워크플로우: ~45분 (Holdings 제거, 새벽 2시)
+Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 ```
+
+**장점:**
+- ✅ Info Data가 빠르게 완료 (45분)
+- ✅ Holdings는 여유 시간대 실행
+- ✅ Concurrency 그룹으로 순차 실행 보장
+- ✅ 완전 자동화 (Roundhill 포함)
 
 ---
 

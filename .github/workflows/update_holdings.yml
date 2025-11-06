@@ -1,12 +1,12 @@
 # .github/workflows/update_holdings.yml
-# Holdings 전용 워크플로우 - 주 1회 실행
+# Holdings 전용 워크플로우 - 매일 실행
 
-name: Update Holdings Data (Weekly)
+name: Update Holdings Data (Daily at 3:30 AM KST)
 
 on:
-    # 매주 일요일 새벽 3시 (KST) 실행
+    # 매일 새벽 3시 30분 (KST) 실행
     schedule:
-        - cron: '0 18 * * 0' # UTC 18:00 = KST 03:00 (일요일)
+        - cron: '30 18 * * *' # UTC 18:30 = KST 03:30 (매일)
     workflow_dispatch:
 
 permissions:
@@ -65,13 +65,13 @@ jobs:
 
             - name: 2. Fetch ETF holdings data (Yahoo Finance - 23분 소요)
               run: |
-                  echo "📊 ETF Holdings 데이터 수집 시작 (Yahoo Finance)..."
+                  echo "📊 ETF Holdings 데이터 수집 시작 (Yahoo Finance - 매일)..."
                   echo "y" | python scripts/fetch_holdings.py
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
             - name: 3. Scrape Roundhill holdings (Playwright - 3-5분 소요)
               run: |
-                  echo "🎭 Roundhill ETF Holdings 자동 스크래핑 시작..."
+                  echo "🎭 Roundhill ETF Holdings 자동 스크래핑 시작 (매일)..."
                   node scripts/scrape_roundhill_holdings_playwright.js --all
                   
                   # 스크래핑한 배치 파일을 Python으로 등록
@@ -112,7 +112,7 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  COMMIT_MSG="📊 Auto: Update holdings data (weekly)
+                  COMMIT_MSG="📊 Auto: Update holdings data (daily)
 
                   Changed files:
                   $(git status --porcelain)"
