@@ -23,6 +23,12 @@ jobs:
             - name: Checkout main branch
               uses: actions/checkout@v4
 
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
@@ -30,10 +36,16 @@ jobs:
                   cache: 'pip'
                   cache-dependency-path: 'requirements.txt'
 
+            - name: Install Node.js dependencies
+              run: npm install
+
             - name: Install Python dependencies
               run: |
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
+
+            - name: Install Playwright browsers
+              run: npx playwright install chromium
 
             - name: Setup R2 environment variables
               run: |
@@ -51,20 +63,34 @@ jobs:
                   python scripts/auto_detect_holdings.py --api --exclude-kr --yes
                   echo "✅ Holdings 자동 감지 완료"
 
-            - name: 2. Fetch ETF holdings data (23분 소요)
+            - name: 2. Fetch ETF holdings data (Yahoo Finance - 23분 소요)
               run: |
-                  echo "📊 ETF Holdings 데이터 수집 시작 (주 1회)..."
+                  echo "📊 ETF Holdings 데이터 수집 시작 (Yahoo Finance)..."
                   echo "y" | python scripts/fetch_holdings.py
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
-            - name: 3. Format changed files only
+            - name: 3. Scrape Roundhill holdings (Playwright - 3-5분 소요)
+              run: |
+                  echo "🎭 Roundhill ETF Holdings 자동 스크래핑 시작..."
+                  node scripts/scrape_roundhill_holdings_playwright.js --all
+                  
+                  # 스크래핑한 배치 파일을 Python으로 등록
+                  BATCH_FILE=$(ls -t public/holdings/roundhill_*_playwright.txt 2>/dev/null | head -1)
+                  if [ -f "$BATCH_FILE" ]; then
+                    echo "📦 배치 파일 발견: $BATCH_FILE"
+                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    echo "✅ Roundhill Holdings 등록 완료"
+                  else
+                    echo "⚠️ Roundhill 배치 파일을 찾을 수 없습니다. 스크래핑 실패 가능성"
+                  fi
+
+            - name: 4. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
-                  npm install
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 4. Upload changed files to R2
+            - name: 5. Upload changed files to R2
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중..."
                   python scripts/upload_changed_to_r2.py
