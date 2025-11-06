@@ -1,28 +1,320 @@
 {
-  "tickerInfo": {
-    "Symbol": "ARKX",
-    "koName": null,
-    "longName": null,
-    "company": "ARK ETF Trust",
-    "frequency": null,
-    "group": null,
-    "underlying": null,
-    "market": "NASDAQ",
-    "currency": "USD",
-    "Update": "2025-11-06 13:01:49 KST",
-    "regularMarketPrice": 29.74,
-    "englishName": "ARK Space Exploration & Innovation ETF",
-    "earningsDate": null,
-    "enterpriseValue": null,
-    "marketCap": null,
-    "Volume": 290731,
-    "AvgVolume": 336869,
-    "sharesOutstanding": null,
-    "52Week": "15.075 - 32.252",
-    "Yield": null,
-    "dividendRate": null,
-    "payoutRatio": null,
-    "changes": {}
-  },
-  "backtestData": []
+    "tickerInfo": {
+        "Symbol": "ARKX",
+        "koName": null,
+        "longName": null,
+        "company": "ARK ETF Trust",
+        "frequency": null,
+        "group": null,
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "Update": "2025-11-06 13:01:49 KST",
+        "regularMarketPrice": 29.74,
+        "englishName": "ARK Space Exploration & Innovation ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 290731,
+        "AvgVolume": 336869,
+        "sharesOutstanding": null,
+        "52Week": "15.075 - 32.252",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "changes": {}
+    },
+    "backtestData": [
+        {
+            "date": "2025-11-05",
+            "holdings": [
+                {
+                    "symbol": "KTOS",
+                    "name": "KRATOS DEFENSE & SECURITY",
+                    "weight": 520646.0,
+                    "type": "other",
+                    "shares": 46972682
+                },
+                {
+                    "symbol": "AVAV",
+                    "name": "AEROVIRONMENT INC",
+                    "weight": 120398.0,
+                    "type": "other",
+                    "shares": 43954901
+                },
+                {
+                    "symbol": "RKLB UQ",
+                    "name": "ROCKET LAB",
+                    "weight": 774171.0,
+                    "type": "other",
+                    "shares": 43794853
+                },
+                {
+                    "symbol": "TER",
+                    "name": "TERADYNE INC",
+                    "weight": 223971.0,
+                    "type": "other",
+                    "shares": 39340506
+                },
+                {
+                    "symbol": "LHX",
+                    "name": "L3HARRIS TECHNOLOGIES INC",
+                    "weight": 130882.0,
+                    "type": "other",
+                    "shares": 38102367
+                },
+                {
+                    "symbol": "ACHR",
+                    "name": "ARCHER AVIATION INC-A",
+                    "weight": 2724913.0,
+                    "type": "other",
+                    "shares": 26050168
+                },
+                {
+                    "symbol": "PLTR",
+                    "name": "PALANTIR TECHNOLOGIES INC-A",
+                    "weight": 131047.0,
+                    "type": "other",
+                    "shares": 24995904
+                },
+                {
+                    "symbol": "AMD",
+                    "name": "ADVANCED MICRO DEVICES",
+                    "weight": 95343.0,
+                    "type": "other",
+                    "shares": 23840517
+                },
+                {
+                    "symbol": "IRDM",
+                    "name": "IRIDIUM COMMUNICATIONS INC",
+                    "weight": 1162005.0,
+                    "type": "other",
+                    "shares": 20706929
+                },
+                {
+                    "symbol": "DE",
+                    "name": "DEERE & CO",
+                    "weight": 44143.0,
+                    "type": "other",
+                    "shares": 20672166
+                },
+                {
+                    "symbol": "TRMB",
+                    "name": "TRIMBLE INC",
+                    "weight": 258707.0,
+                    "type": "other",
+                    "shares": 20334370
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "AMAZON.COM INC",
+                    "weight": 71895.0,
+                    "type": "other",
+                    "shares": 17924861
+                },
+                {
+                    "symbol": "JOBY",
+                    "name": "JOBY AVIATION INC",
+                    "weight": 907266.0,
+                    "type": "other",
+                    "shares": 13391246
+                },
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA CORP",
+                    "weight": 66574.0,
+                    "type": "other",
+                    "shares": 13227588
+                },
+                {
+                    "symbol": "HO",
+                    "name": "THALES SA",
+                    "weight": 38929.0,
+                    "type": "other",
+                    "shares": 11039060
+                },
+                {
+                    "symbol": "6301",
+                    "name": "KOMATSU LTD",
+                    "weight": 311475.0,
+                    "type": "other",
+                    "shares": 10317622
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "ALPHABET INC-CL C",
+                    "weight": 36647.0,
+                    "type": "other",
+                    "shares": 10190064
+                },
+                {
+                    "symbol": "BWXT",
+                    "name": "BWX TECHNOLOGIES INC",
+                    "weight": 46871.0,
+                    "type": "other",
+                    "shares": 9392479
+                },
+                {
+                    "symbol": "SRTA",
+                    "name": "STRATA CRITICAL MEDICAL INC",
+                    "weight": 1819933.0,
+                    "type": "other",
+                    "shares": 8590083
+                },
+                {
+                    "symbol": "GRMN UN",
+                    "name": "GARMIN LTD",
+                    "weight": 31225.0,
+                    "type": "other",
+                    "shares": 6415176
+                },
+                {
+                    "symbol": "ESLT",
+                    "name": "ELBIT SYSTEMS LTD",
+                    "weight": 12915.0,
+                    "type": "other",
+                    "shares": 6109699
+                },
+                {
+                    "symbol": "TDY",
+                    "name": "TELEDYNE TECHNOLOGIES INC",
+                    "weight": 11415.0,
+                    "type": "other",
+                    "shares": 5835348
+                },
+                {
+                    "symbol": "HEI",
+                    "name": "HEICO CORP",
+                    "weight": 17641.0,
+                    "type": "other",
+                    "shares": 5577554
+                },
+                {
+                    "symbol": "LUNR",
+                    "name": "INTUITIVE MACHINES INC",
+                    "weight": 533602.0,
+                    "type": "other",
+                    "shares": 5549460
+                },
+                {
+                    "symbol": "AIR",
+                    "name": "AIRBUS SE",
+                    "weight": 21500.0,
+                    "type": "other",
+                    "shares": 5253805
+                },
+                {
+                    "symbol": "SNPS",
+                    "name": "SYNOPSYS INC",
+                    "weight": 12327.0,
+                    "type": "other",
+                    "shares": 5132346
+                },
+                {
+                    "symbol": "HON",
+                    "name": "HONEYWELL INTERNATIONAL INC",
+                    "weight": 26039.0,
+                    "type": "other",
+                    "shares": 5115621
+                },
+                {
+                    "symbol": "DASH",
+                    "name": "DOORDASH INC - A",
+                    "weight": 21081.0,
+                    "type": "other",
+                    "shares": 5057964
+                },
+                {
+                    "symbol": "2618",
+                    "name": "JD LOGISTICS INC",
+                    "weight": 3087225.0,
+                    "type": "other",
+                    "shares": 4979811
+                },
+                {
+                    "symbol": "DSY FP",
+                    "name": "DASSAULT SYSTEMES SE",
+                    "weight": 179073.0,
+                    "type": "other",
+                    "shares": 4942270
+                },
+                {
+                    "symbol": "PRNT",
+                    "name": "THE 3D PRINTING ETF",
+                    "weight": 142696.0,
+                    "type": "other",
+                    "shares": 3300558
+                },
+                {
+                    "symbol": "LMT",
+                    "name": "LOCKHEED MARTIN CORP",
+                    "weight": 5817.0,
+                    "type": "other",
+                    "shares": 2821128
+                },
+                {
+                    "symbol": "SOLS",
+                    "name": "SOLSTICE ADV MATERIALS INC",
+                    "weight": 5859.0,
+                    "type": "other",
+                    "shares": 255745
+                }
+            ]
+        },
+        {
+            "date": "2025-11-06",
+            "holdings": [
+                {
+                    "symbol": "KTOS",
+                    "name": "Kratos Defense & Security Solutions Inc",
+                    "weight": 10.42
+                },
+                {
+                    "symbol": "RKLB",
+                    "name": "Rocket Lab Corp",
+                    "weight": 8.6
+                },
+                {
+                    "symbol": "AVAV",
+                    "name": "AeroVironment Inc",
+                    "weight": 8.41
+                },
+                {
+                    "symbol": "LHX",
+                    "name": "L3Harris Technologies Inc",
+                    "weight": 7.05
+                },
+                {
+                    "symbol": "TER",
+                    "name": "Teradyne Inc",
+                    "weight": 6.31
+                },
+                {
+                    "symbol": "PLTR",
+                    "name": "Palantir Technologies Inc Ordinary Shares - Class A",
+                    "weight": 5.67
+                },
+                {
+                    "symbol": "ACHR",
+                    "name": "Archer Aviation Inc Class A",
+                    "weight": 5.52
+                },
+                {
+                    "symbol": "TRMB",
+                    "name": "Trimble Inc",
+                    "weight": 4.45
+                },
+                {
+                    "symbol": "IRDM",
+                    "name": "Iridium Communications Inc",
+                    "weight": 4.21
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 3.35
+                }
+            ]
+        }
+    ]
 }
