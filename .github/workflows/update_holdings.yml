@@ -99,13 +99,28 @@ jobs:
                     echo "⚠️ ARK 배치 파일을 찾을 수 없습니다."
                   fi
 
-            - name: 5. Format changed files only
+            - name: 5. Download iShares holdings (JSON API + CSV - 20초 소요)
+              run: |
+                  echo "📥 iShares ETF Holdings 수집 시작 (JSON API + CSV)..."
+                  python scripts/scrape_ishares_holdings.py --all
+                  
+                  # 수집한 배치 파일을 Python으로 등록
+                  BATCH_FILE=$(ls -t public/holdings/ishares_*_csv.txt 2>/dev/null | head -1)
+                  if [ -f "$BATCH_FILE" ]; then
+                    echo "📦 iShares 배치 파일 발견: $BATCH_FILE"
+                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    echo "✅ iShares Holdings 등록 완료"
+                  else
+                    echo "⚠️ iShares 배치 파일을 찾을 수 없습니다."
+                  fi
+
+            - name: 6. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 6. Upload changed files to R2
+            - name: 7. Upload changed files to R2
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중..."
                   python scripts/upload_changed_to_r2.py

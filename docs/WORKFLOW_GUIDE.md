@@ -159,13 +159,19 @@ if not data_changed:
    - Roundhill: 43개 (완전 자동화)
    - 데이터 중복 자동 비교
 
-4. Download ARK holdings CSV (10초) ⚡ NEW!
+4. Download ARK holdings CSV (10초) ⚡
    → node scripts/scrape_ark_holdings.js --all
    → python scripts/add_roundhill_holdings.py --batch
    - ARK: 10개 (CSV 직접 다운로드)
    - 총 350개 Holdings
 
-5. Format changed files
+5. Download iShares holdings (JSON API + CSV - 20초) ⚡ NEW!
+   → python scripts/scrape_ishares_holdings.py --all
+   → python scripts/add_roundhill_holdings.py --batch
+   - iShares: 4개 (IBIT, ETHA, GARP, GSG)
+   - 총 162개 Holdings
+
+6. Format changed files
    → npm run format:changed
 
 6. Upload to R2
