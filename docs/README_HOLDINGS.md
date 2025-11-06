@@ -452,7 +452,8 @@ VGIT, VGLT, VGSH, VMBS, VTEB, VTEC, VTEI, VTES, VTIP, VWOB 등
 | Company         | 전체 ETF | 성공률  | 주요 방식       | 비고      |
 | --------------- | -------- | ------- | --------------- | --------- |
 | **YieldMax**    | 57개     | 100% ⚡ | 웹 스크래핑     | 완벽 지원 |
-| **Roundhill**   | 41개     | 100% ⚡ | Playwright 자동 | 완전 자동화 ⚡ |
+| **Roundhill**   | 43개     | 100% ⚡ | Playwright 자동 | 완전 자동화 |
+| **ARK**         | 10개     | 100% ⚡ | CSV 다운로드    | 완전 자동화 ⚡ |
 | **Dimensional** | 25개     | 100% ⚡ | Yahoo Finance   | -         |
 | **First Trust** | 38개     | 100% ⚡ | Yahoo Finance   | -         |
 | **iShares**     | 229개    | 87% ✅  | Yahoo Finance   | 채권 제외 |
@@ -464,7 +465,7 @@ VGIT, VGLT, VGSH, VMBS, VTEB, VTEC, VTEI, VTES, VTIP, VWOB 등
 | **ProShares**   | 10개     | 50% ⚠️  | Yahoo Finance   | 레버리지  |
 | **PIMCO**       | 11개     | 9% ❌   | -               | 채권 전문 |
 
-**전체 성공률: 100%** (Roundhill 자동화 완료!) 🎉
+**전체 성공률: 86%** (ARK 추가!) 🎉
 
 ---
 
@@ -616,13 +617,16 @@ AMAZON.COM INC	15.01%
 1. **Auto-detect** - 새로운 티커 자동 감지
 2. **Yahoo Finance** (23분) - YieldMax 57개 + 일반 ETF ~900개
 3. **Playwright 스크래핑** (3-5분) ⚡ - Roundhill 43개 (완전 자동!)
-4. **Format & Upload** - 변경 파일만 처리
-5. **Commit & Push** - 자동 커밋
+4. **ARK CSV 다운로드** (10초) ⚡ - ARK 10개 (CSV 직접) NEW!
+5. **Format & Upload** - 변경 파일만 처리
+6. **Commit & Push** - 자동 커밋
 
 **결과:**
 - ✅ YieldMax 57개 → 자동 수집
-- ✅ **Roundhill 43개 → Playwright 자동 스크래핑** ⚡ (100% 성공!)
+- ✅ **Roundhill 43개 → Playwright 자동 스크래핑** ⚡ (100%)
+- ✅ **ARK 10개 → CSV 직접 다운로드** ⚡ (100%) NEW!
 - ✅ 일반 ETF ~900개 → Yahoo Finance (88% 성공)
+- ✅ **총 자동화: ~910개** 🎉
 - ✅ **수동 작업: 0%** 🎉
 
 ---
@@ -813,7 +817,8 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 - `scripts/fetch_holdings.py` - 자동 수집 메인 스크립트 (Yahoo Finance)
 - `scripts/scrape_roundhill_holdings_playwright.js` - Roundhill 자동 스크래핑 (Playwright) ⚡
-- `scripts/add_roundhill_holdings.py` - Roundhill 데이터 등록 스크립트
+- `scripts/scrape_ark_holdings.js` - ARK CSV 다운로드 (fetch) ⚡
+- `scripts/add_roundhill_holdings.py` - Holdings 데이터 등록 스크립트
 
 ### 컴포넌트
 
@@ -838,9 +843,11 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 - ✅ **Roundhill 완전 자동화**: Playwright 스크래핑 구현 🎉
 - ✅ "View All +" 버튼 자동 클릭
 - ✅ 모달에서 전체 Holdings 데이터 추출
+- ✅ **ARK 완전 자동화**: CSV 직접 다운로드 ⚡
+- ✅ 10개 ARK ETF, 350개 Holdings 자동 수집
 - ✅ 데이터 비교 로직 추가 (중복 방지)
 - ✅ Holdings 워크플로우에 통합
-- ✅ 전체 성공률 100% 달성
+- ✅ 전체 성공률 86% 달성
 
 ### 2025-11-05
 
@@ -973,13 +980,14 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 ```
 📊 통계
-  - 총 1,048개 ETF 추적
-  - 성공률: 100% (Roundhill 자동화 완료!) 🎉
+  - 총 1,058개 ETF 추적
+  - 성공률: 86% (ARK 추가!) 🎉
 
 ✅ 완전 자동 수집
   - YieldMax: 57개 (100%, 웹 스크래핑)
-  - Roundhill: 41개 (100%, Playwright 자동) ⚡ NEW!
-  - 일반 ETF: ~789개 (87%, Yahoo Finance)
+  - Roundhill: 43개 (100%, Playwright 자동) ⚡
+  - ARK: 10개 (100%, CSV 직접 다운로드) ⚡ NEW!
+  - 일반 ETF: ~800개 (88%, Yahoo Finance)
 
 ✅ 주요 기능
   - 완전 자동화 (수동 작업 0%)
@@ -990,7 +998,7 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 ⚠️ 알려진 제약
   - 채권 ETF: Yahoo Finance API 한계 (~120개)
-  - 원자재 ETF: 데이터 미제공 (~25개)
+  - 원자재 ETF: 데이터 미제공 (~20개)
 
 → Production Ready! 🚀 (완전 자동화 달성!)
 ```

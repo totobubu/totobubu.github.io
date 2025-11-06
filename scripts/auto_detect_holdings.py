@@ -336,6 +336,119 @@ def process_all_nav_files(
     print(f"\n[INFO] holdings 필드 없음 = 아직 체크 안한 신규 티커")
 
 
+def process_specific_tickers(tickers, check_api=True, force_recheck=False):
+    """
+    특정 티커들만 처리
+    
+    Args:
+        tickers: 처리할 티커 리스트
+        check_api: API로 실제 확인할지 여부
+        force_recheck: 기존 holdings 필드 무시하고 재확인
+    """
+    nav_dir = Path("public/nav")
+    
+    if not nav_dir.exists():
+        print(f"[ERROR] {nav_dir} 디렉토리가 없습니다.")
+        return
+    
+    print(f"[INFO] 처리할 티커: {len(tickers)}개")
+    print(f"[INFO] 티커 목록: {', '.join(tickers)}")
+    
+    total_modified = 0
+    total_added = 0
+    total_removed = 0
+    
+    # 모든 nav 파일 찾기
+    json_files = list(nav_dir.rglob("*.json"))
+    
+    for ticker in tickers:
+        found = False
+        
+        # 각 파일에서 해당 티커 찾기
+        for file_path in json_files:
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                
+                if not isinstance(data, list):
+                    continue
+                
+                # 티커 찾기
+                ticker_idx = None
+                for i, item in enumerate(data):
+                    if item.get("symbol", "") == ticker:
+                        ticker_idx = i
+                        break
+                
+                if ticker_idx is not None:
+                    found = True
+                    print(f"\n[TICKER] {ticker} (파일: {file_path.relative_to(nav_dir)})")
+                    
+                    item = data[ticker_idx]
+                    
+                    # holdings 확인
+                    if check_api:
+                        print(f"  [CHECK] holdings 확인 중...", end=" ")
+                        has_holdings = check_holdings_available(ticker)
+                        
+                        # 기존 값과 비교
+                        old_value = item.get("holdings", None)
+                        item["holdings"] = has_holdings
+                        
+                        if has_holdings:
+                            print(f"✓ (holdings: true)")
+                        else:
+                            print(f"✗ (holdings: false)")
+                        
+                        # 변경 여부 확인
+                        if old_value != has_holdings:
+                            data[ticker_idx] = item
+                            
+                            # 파일 저장
+                            with open(file_path, "w", encoding="utf-8") as f:
+                                json.dump(data, f, indent=4, ensure_ascii=False)
+                            
+                            print(f"  [SAVE] holdings: {old_value} → {has_holdings}")
+                            total_modified += 1
+                            if has_holdings:
+                                total_added += 1
+                            else:
+                                total_removed += 1
+                        else:
+                            print(f"  [SKIP] 변경 없음 (holdings: {has_holdings})")
+                    else:
+                        # 빠른 모드: API 확인 없이 true로 설정
+                        old_value = item.get("holdings", None)
+                        item["holdings"] = True
+                        
+                        if old_value != True:
+                            data[ticker_idx] = item
+                            
+                            with open(file_path, "w", encoding="utf-8") as f:
+                                json.dump(data, f, indent=4, ensure_ascii=False)
+                            
+                            print(f"  [SAVE] holdings: {old_value} → True (빠른 모드)")
+                            total_modified += 1
+                            total_added += 1
+                        else:
+                            print(f"  [SKIP] 이미 holdings: true")
+                    
+                    break
+            
+            except Exception as e:
+                continue
+        
+        if not found:
+            print(f"\n[WARNING] {ticker}: nav 파일에서 찾을 수 없음")
+    
+    print(f"\n{'='*60}")
+    print(f"특정 티커 처리 완료")
+    print(f"{'='*60}")
+    print(f"[OK] 업데이트: {total_modified}개 티커")
+    print(f"[OK] holdings: true - {total_added}개 티커")
+    print(f"[OK] holdings: false - {total_removed}개 티커")
+
+
 if __name__ == "__main__":
     import sys
     import os
@@ -348,7 +461,7 @@ if __name__ == "__main__":
     print("Holdings 자동 감지 및 추가 스크립트")
     print("=" * 60)
     print("\n사용법:")
-    print("  python auto_detect_holdings.py [옵션]")
+    print("  python auto_detect_holdings.py [옵션] [티커1] [티커2] ...")
     print("\n옵션:")
     print("  --fast          : 빠른 모드 (API 확인 없이 ETF 운용사만 확인)")
     print("  --api           : API 확인 모드 (실제 holdings 여부 확인, 느림)")
@@ -356,6 +469,9 @@ if __name__ == "__main__":
     print("  --market NYSE   : 특정 시장만 처리")
     print("  --exclude-kr    : 한국 시장(KOSPI, KOSDAQ) 제외")
     print("  --yes           : 자동 확인 (입력 대기 없음)")
+    print("\n예시:")
+    print("  python auto_detect_holdings.py --api ARKK ARKQ  # 특정 티커만")
+    print("  python auto_detect_holdings.py --api --yes      # 전체 티커")
     print()
 
     check_api = "--api" in sys.argv
@@ -369,7 +485,37 @@ if __name__ == "__main__":
         idx = sys.argv.index("--market")
         if idx + 1 < len(sys.argv):
             market_filter = sys.argv[idx + 1]
+    
+    # 옵션이 아닌 인자들을 티커로 간주
+    tickers = []
+    skip_next = False
+    for i, arg in enumerate(sys.argv[1:]):
+        if skip_next:
+            skip_next = False
+            continue
+        
+        if arg.startswith("--"):
+            if arg == "--market":
+                skip_next = True
+            continue
+        
+        # 옵션이 아닌 인자는 티커
+        tickers.append(arg.upper())
+    
+    # 특정 티커가 지정된 경우
+    if tickers:
+        print(f"\n[모드] 특정 티커 처리 ({len(tickers)}개)")
+        
+        if not check_api and not fast_mode:
+            check_api = True  # 특정 티커는 기본적으로 API 확인
+        else:
+            check_api = check_api or not fast_mode
+        
+        print(f"[INFO] API 확인 모드: {check_api}")
+        process_specific_tickers(tickers, check_api=check_api, force_recheck=force_recheck)
+        sys.exit(0)
 
+    # 전체 파일 처리 모드
     if not check_api and not fast_mode:
         print("모드를 선택하세요:")
         print("  1. 빠른 모드 (ETF 운용사 기준, API 호출 없음)")

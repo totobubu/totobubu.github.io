@@ -84,13 +84,28 @@ jobs:
                     echo "⚠️ Roundhill 배치 파일을 찾을 수 없습니다. 스크래핑 실패 가능성"
                   fi
 
-            - name: 4. Format changed files only
+            - name: 4. Download ARK holdings CSV (10초 소요)
+              run: |
+                  echo "📥 ARK ETF Holdings CSV 다운로드 시작..."
+                  node scripts/scrape_ark_holdings.js --all
+                  
+                  # 다운로드한 배치 파일을 Python으로 등록
+                  BATCH_FILE=$(ls -t public/holdings/ark_*_csv.txt 2>/dev/null | head -1)
+                  if [ -f "$BATCH_FILE" ]; then
+                    echo "📦 ARK 배치 파일 발견: $BATCH_FILE"
+                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    echo "✅ ARK Holdings 등록 완료"
+                  else
+                    echo "⚠️ ARK 배치 파일을 찾을 수 없습니다."
+                  fi
+
+            - name: 5. Format changed files only
               run: |
                   echo "📝 변경된 파일만 포맷 중..."
                   npm run format:changed
                   echo "✅ 포맷 완료"
 
-            - name: 5. Upload changed files to R2
+            - name: 6. Upload changed files to R2
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중..."
                   python scripts/upload_changed_to_r2.py
