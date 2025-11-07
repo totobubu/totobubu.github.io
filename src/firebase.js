@@ -4,8 +4,10 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signInWithPopup,
     onAuthStateChanged,
     signOut,
+    GoogleAuthProvider,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -37,6 +39,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 const db = getFirestore(app);
 
 export {
@@ -45,8 +49,10 @@ export {
     analytics,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signInWithPopup,
     onAuthStateChanged,
     signOut,
+    googleProvider,
     collection,
     addDoc,
     serverTimestamp,

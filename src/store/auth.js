@@ -2,6 +2,7 @@
 
 import { ref, watch } from 'vue';
 import { auth, signOut } from '../firebase';
+import router from '../router';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
     useFilterState,
@@ -17,6 +18,7 @@ const { myBookmarks, mainFilterTab } = useFilterState();
 
 export const handleSignOut = async () => {
     await signOut(auth);
+    await router.push({ name: 'login', query: { from: 'logout' } });
 };
 
 onAuthStateChanged(auth, async (firebaseUser) => {
