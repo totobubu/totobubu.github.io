@@ -21,7 +21,7 @@ import { db } from '@/firebase';
  *   - relationship: string (본인, 배우자, 자녀, 부모 등)
  *
  * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}
- *   - name: string (KB증권, 미래에셋 등)
+ *   - name: string (kb자산운용, 미래에셋 등)
  *
  * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}/accounts/{accountId}
  *   - name: string
