@@ -59,13 +59,13 @@ def main():
     args = parser.parse_args()
 
     if not R2_AVAILABLE:
-        print("❌ boto3가 설치되어 있지 않습니다. 먼저 'pip install boto3' 를 실행하세요.")
+        print("[ERROR] boto3가 설치되어 있지 않습니다. 먼저 'pip install boto3' 를 실행하세요.")
         return 1
 
     try:
         config = load_r2_config()
     except Exception as exc:
-        print(f"❌ R2 설정을 로드할 수 없습니다: {exc}")
+        print(f"[ERROR] R2 설정을 로드할 수 없습니다: {exc}")
         return 1
 
     local_keys = collect_local_logo_keys()
@@ -80,7 +80,7 @@ def main():
 
     stale_keys = sorted(r2_keys - local_keys)
     if not stale_keys:
-        print("✅ R2와 로컬 logos 폴더가 이미 일치합니다.")
+        print("[OK] R2와 로컬 logos 폴더가 이미 일치합니다.")
         return 0
 
     print("\n[DRY-RUN] 삭제 대상 (R2에만 존재):")
@@ -99,14 +99,14 @@ def main():
     print("\n[APPLY] R2에서 불필요한 파일 삭제 중...")
     s3_client, bucket_name = get_r2_client()
     if not s3_client:
-        print("❌ R2 클라이언트를 초기화할 수 없습니다.")
+        print("[ERROR] R2 클라이언트를 초기화할 수 없습니다.")
         return 1
 
     deleted, failures = delete_r2_objects(s3_client, bucket_name, stale_keys)
-    print(f"✅ 삭제 완료: {deleted}개")
+    print(f"[OK] 삭제 완료: {deleted}개")
 
     if failures:
-        print("⚠️ 삭제 실패 항목")
+        print("[WARN] 삭제 실패 항목")
         for failure in failures:
             print(f"  - {failure.get('Key')}: {failure.get('Code')} ({failure.get('Message')})")
 
