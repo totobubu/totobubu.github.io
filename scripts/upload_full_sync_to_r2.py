@@ -23,6 +23,7 @@ R2 전체 동기화 스크립트 (수동 실행용)
   python scripts/upload_full_sync_to_r2.py
 """
 import os
+import argparse
 import hashlib
 from pathlib import Path
 from tqdm import tqdm
@@ -136,7 +137,7 @@ def get_local_files(local_dir, file_pattern="*.json"):
     return files
 
 
-def upload_missing_files():
+def upload_missing_files(target_sections):
     """누락되거나 변경된 파일 업로드"""
     print("=" * 60)
     print("  R2 동기화 스크립트 (누락/변경 파일 감지)")
@@ -154,174 +155,202 @@ def upload_missing_files():
         print(f"[ERROR] R2 설정을 로드할 수 없습니다: {e}")
         return
 
+    run_all = "all" in target_sections
+
+    local_data_files = {}
+
     # 1. public/data 폴더 체크
-    print("[1/5] public/data 폴더 비교 중...")
-    r2_data_files = get_r2_files("data/")
-    local_data_files = get_local_files("public/data")
+    if run_all or "data" in target_sections:
+        print("[1/5] public/data 폴더 비교 중...")
+        r2_data_files = get_r2_files("data/")
+        local_data_files = get_local_files("public/data")
 
-    # 누락되거나 변경된 파일 찾기
-    files_to_upload = []
-    missing_count = 0
-    changed_count = 0
+        # 누락되거나 변경된 파일 찾기
+        files_to_upload = []
+        missing_count = 0
+        changed_count = 0
 
-    for r2_key, file_info in local_data_files.items():
-        local_path = file_info["path"]
-        local_hash = file_info["hash"]
-
-        if r2_key not in r2_data_files:
-            # 누락된 파일
-            files_to_upload.append((r2_key, local_path, "missing"))
-            missing_count += 1
-        elif local_hash and r2_data_files[r2_key]["etag"] != local_hash:
-            # 변경된 파일 (해시가 다름)
-            files_to_upload.append((r2_key, local_path, "changed"))
-            changed_count += 1
-
-    print(f"[INFO] 누락된 파일: {missing_count}개")
-    print(f"[INFO] 변경된 파일: {changed_count}개")
-    print(f"[INFO] 업로드 대상: {len(files_to_upload)}개\n")
-
-    # 파일 업로드
-    if files_to_upload:
-        success_count = 0
-        fail_count = 0
-
-        for r2_key, local_path, status in tqdm(files_to_upload, desc="Uploading files"):
-            if upload_file_to_r2(local_path, r2_key):
-                success_count += 1
-            else:
-                fail_count += 1
-                tqdm.write(f"[FAIL] {r2_key}")
-
-        print(f"\n   -> 성공: {success_count}, 실패: {fail_count}")
-    else:
-        print("   -> 업로드할 파일 없음")
-
-    # 2. nav.json 체크
-    print("\n[2/5] nav.json 확인 중...")
-    r2_files = get_r2_files()
-
-    if os.path.exists("public/nav.json"):
-        local_nav_hash = calculate_file_hash("public/nav.json")
-
-        if "nav.json" not in r2_files:
-            print("   -> nav.json 누락 - 업로드 중...")
-            if upload_file_to_r2("public/nav.json", "nav.json"):
-                print("   -> 성공")
-            else:
-                print("   -> 실패")
-        elif local_nav_hash and r2_files["nav.json"]["etag"] != local_nav_hash:
-            print("   -> nav.json 변경됨 - 업로드 중...")
-            if upload_file_to_r2("public/nav.json", "nav.json"):
-                print("   -> 성공")
-            else:
-                print("   -> 실패")
-        else:
-            print("   -> 변경사항 없음")
-    else:
-        print("   -> 파일 없음")
-
-    # 3. sidebar 폴더 체크
-    print("\n[3/5] sidebar 폴더 확인 중...")
-    if os.path.exists("public/sidebar"):
-        r2_sidebar_files = get_r2_files("sidebar/")
-        local_sidebar_files = get_local_files("public/sidebar")
-
-        sidebar_to_upload = []
-        sidebar_missing = 0
-        sidebar_changed = 0
-
-        for r2_key, file_info in local_sidebar_files.items():
+        for r2_key, file_info in local_data_files.items():
             local_path = file_info["path"]
             local_hash = file_info["hash"]
 
-            if r2_key not in r2_sidebar_files:
-                sidebar_to_upload.append((r2_key, local_path, "missing"))
-                sidebar_missing += 1
-            elif local_hash and r2_sidebar_files[r2_key]["etag"] != local_hash:
-                sidebar_to_upload.append((r2_key, local_path, "changed"))
-                sidebar_changed += 1
+            if r2_key not in r2_data_files:
+                # 누락된 파일
+                files_to_upload.append((r2_key, local_path, "missing"))
+                missing_count += 1
+            elif local_hash and r2_data_files[r2_key]["etag"] != local_hash:
+                # 변경된 파일 (해시가 다름)
+                files_to_upload.append((r2_key, local_path, "changed"))
+                changed_count += 1
 
-        if sidebar_to_upload:
-            print(f"   -> 누락: {sidebar_missing}개, 변경: {sidebar_changed}개")
-            success_sidebar = 0
-            fail_sidebar = 0
-            for r2_key, local_path, status in sidebar_to_upload:
-                if upload_file_to_r2(local_path, r2_key):
-                    success_sidebar += 1
-                    print(f"   -> {r2_key} ({status}) 업로드 성공")
-                else:
-                    fail_sidebar += 1
-                    print(f"   -> {r2_key} ({status}) 업로드 실패")
-            print(f"   -> 성공: {success_sidebar}, 실패: {fail_sidebar}")
-        else:
-            print("   -> 변경사항 없음")
-    else:
-        print("   -> 폴더 없음")
+        print(f"[INFO] 누락된 파일: {missing_count}개")
+        print(f"[INFO] 변경된 파일: {changed_count}개")
+        print(f"[INFO] 업로드 대상: {len(files_to_upload)}개\n")
 
-    # 4. calendar-events.json 체크
-    print("\n[4/5] calendar-events.json 확인 중...")
-    if os.path.exists("public/calendar-events.json"):
-        local_calendar_hash = calculate_file_hash("public/calendar-events.json")
+        # 파일 업로드
+        if files_to_upload:
+            success_count = 0
+            fail_count = 0
 
-        if "calendar-events.json" not in r2_files:
-            print("   -> calendar-events.json 누락 - 업로드 중...")
-            if upload_file_to_r2("public/calendar-events.json", "calendar-events.json"):
-                print("   -> 성공")
-            else:
-                print("   -> 실패")
-        elif (
-            local_calendar_hash
-            and r2_files["calendar-events.json"]["etag"] != local_calendar_hash
-        ):
-            print("   -> calendar-events.json 변경됨 - 업로드 중...")
-            if upload_file_to_r2("public/calendar-events.json", "calendar-events.json"):
-                print("   -> 성공")
-            else:
-                print("   -> 실패")
-        else:
-            print("   -> 변경사항 없음")
-    else:
-        print("   -> 파일 없음")
-
-    # 5. logos 폴더 체크
-    print("\n[5/5] logos 폴더 확인 중...")
-    if os.path.exists("public/logos"):
-        r2_logos_files = get_r2_files("logos/")
-        local_logos_files = get_local_files("public/logos", "*")  # 모든 파일
-
-        logos_to_upload = []
-        logos_missing = 0
-        logos_changed = 0
-
-        for r2_key, file_info in local_logos_files.items():
-            local_path = file_info["path"]
-            local_hash = file_info["hash"]
-
-            if r2_key not in r2_logos_files:
-                logos_to_upload.append((r2_key, local_path, "missing"))
-                logos_missing += 1
-            elif local_hash and r2_logos_files[r2_key]["etag"] != local_hash:
-                logos_to_upload.append((r2_key, local_path, "changed"))
-                logos_changed += 1
-
-        if logos_to_upload:
-            print(f"   -> 누락: {logos_missing}개, 변경: {logos_changed}개")
-            success_logo = 0
-            fail_logo = 0
             for r2_key, local_path, status in tqdm(
-                logos_to_upload, desc="Uploading logos"
+                files_to_upload, desc="Uploading files"
             ):
                 if upload_file_to_r2(local_path, r2_key):
-                    success_logo += 1
+                    success_count += 1
                 else:
-                    fail_logo += 1
-                    tqdm.write(f"[FAIL] {r2_key} ({status})")
-            print(f"   -> 성공: {success_logo}, 실패: {fail_logo}")
+                    fail_count += 1
+                    tqdm.write(f"[FAIL] {r2_key}")
+
+            print(f"\n   -> 성공: {success_count}, 실패: {fail_count}")
         else:
-            print("   -> 변경사항 없음")
+            print("   -> 업로드할 파일 없음")
     else:
-        print("   -> 폴더 없음")
+        print("[1/5] public/data 폴더 비교 건너뜀 (요청 대상 아님)")
+
+    # 2. nav.json 체크
+    r2_files = None
+    if run_all or "nav" in target_sections:
+        print("\n[2/5] nav.json 확인 중...")
+        r2_files = get_r2_files()
+
+        if os.path.exists("public/nav.json"):
+            local_nav_hash = calculate_file_hash("public/nav.json")
+
+            if "nav.json" not in r2_files:
+                print("   -> nav.json 누락 - 업로드 중...")
+                if upload_file_to_r2("public/nav.json", "nav.json"):
+                    print("   -> 성공")
+                else:
+                    print("   -> 실패")
+            elif local_nav_hash and r2_files["nav.json"]["etag"] != local_nav_hash:
+                print("   -> nav.json 변경됨 - 업로드 중...")
+                if upload_file_to_r2("public/nav.json", "nav.json"):
+                    print("   -> 성공")
+                else:
+                    print("   -> 실패")
+            else:
+                print("   -> 변경사항 없음")
+        else:
+            print("   -> 파일 없음")
+    else:
+        print("\n[2/5] nav.json 확인 건너뜀 (요청 대상 아님)")
+
+    # 3. sidebar 폴더 체크
+    if run_all or "sidebar" in target_sections:
+        print("\n[3/5] sidebar 폴더 확인 중...")
+        if os.path.exists("public/sidebar"):
+            r2_sidebar_files = get_r2_files("sidebar/")
+            local_sidebar_files = get_local_files("public/sidebar")
+
+            sidebar_to_upload = []
+            sidebar_missing = 0
+            sidebar_changed = 0
+
+            for r2_key, file_info in local_sidebar_files.items():
+                local_path = file_info["path"]
+                local_hash = file_info["hash"]
+
+                if r2_key not in r2_sidebar_files:
+                    sidebar_to_upload.append((r2_key, local_path, "missing"))
+                    sidebar_missing += 1
+                elif local_hash and r2_sidebar_files[r2_key]["etag"] != local_hash:
+                    sidebar_to_upload.append((r2_key, local_path, "changed"))
+                    sidebar_changed += 1
+
+            if sidebar_to_upload:
+                print(f"   -> 누락: {sidebar_missing}개, 변경: {sidebar_changed}개")
+                success_sidebar = 0
+                fail_sidebar = 0
+                for r2_key, local_path, status in sidebar_to_upload:
+                    if upload_file_to_r2(local_path, r2_key):
+                        success_sidebar += 1
+                        print(f"   -> {r2_key} ({status}) 업로드 성공")
+                    else:
+                        fail_sidebar += 1
+                        print(f"   -> {r2_key} ({status}) 업로드 실패")
+                print(f"   -> 성공: {success_sidebar}, 실패: {fail_sidebar}")
+            else:
+                print("   -> 변경사항 없음")
+        else:
+            print("   -> 폴더 없음")
+    else:
+        print("\n[3/5] sidebar 폴더 확인 건너뜀 (요청 대상 아님)")
+
+    # 4. calendar-events.json 체크
+    if run_all or "calendar" in target_sections:
+        print("\n[4/5] calendar-events.json 확인 중...")
+        if os.path.exists("public/calendar-events.json"):
+            if r2_files is None:
+                r2_files = get_r2_files()
+            local_calendar_hash = calculate_file_hash("public/calendar-events.json")
+
+            if "calendar-events.json" not in r2_files:
+                print("   -> calendar-events.json 누락 - 업로드 중...")
+                if upload_file_to_r2(
+                    "public/calendar-events.json", "calendar-events.json"
+                ):
+                    print("   -> 성공")
+                else:
+                    print("   -> 실패")
+            elif (
+                local_calendar_hash
+                and r2_files["calendar-events.json"]["etag"] != local_calendar_hash
+            ):
+                print("   -> calendar-events.json 변경됨 - 업로드 중...")
+                if upload_file_to_r2(
+                    "public/calendar-events.json", "calendar-events.json"
+                ):
+                    print("   -> 성공")
+                else:
+                    print("   -> 실패")
+            else:
+                print("   -> 변경사항 없음")
+        else:
+            print("   -> 파일 없음")
+    else:
+        print("\n[4/5] calendar-events.json 확인 건너뜀 (요청 대상 아님)")
+
+    # 5. logos 폴더 체크
+    if run_all or "logos" in target_sections:
+        print("\n[5/5] logos 폴더 확인 중...")
+        if os.path.exists("public/logos"):
+            r2_logos_files = get_r2_files("logos/")
+            local_logos_files = get_local_files("public/logos", "*")  # 모든 파일
+
+            logos_to_upload = []
+            logos_missing = 0
+            logos_changed = 0
+
+            for r2_key, file_info in local_logos_files.items():
+                local_path = file_info["path"]
+                local_hash = file_info["hash"]
+
+                if r2_key not in r2_logos_files:
+                    logos_to_upload.append((r2_key, local_path, "missing"))
+                    logos_missing += 1
+                elif local_hash and r2_logos_files[r2_key]["etag"] != local_hash:
+                    logos_to_upload.append((r2_key, local_path, "changed"))
+                    logos_changed += 1
+
+            if logos_to_upload:
+                print(f"   -> 누락: {logos_missing}개, 변경: {logos_changed}개")
+                success_logo = 0
+                fail_logo = 0
+                for r2_key, local_path, status in tqdm(
+                    logos_to_upload, desc="Uploading logos"
+                ):
+                    if upload_file_to_r2(local_path, r2_key):
+                        success_logo += 1
+                    else:
+                        fail_logo += 1
+                        tqdm.write(f"[FAIL] {r2_key} ({status})")
+                print(f"   -> 성공: {success_logo}, 실패: {fail_logo}")
+            else:
+                print("   -> 변경사항 없음")
+        else:
+            print("   -> 폴더 없음")
+    else:
+        print("\n[5/5] logos 폴더 확인 건너뜀 (요청 대상 아님)")
 
     # 최종 결과
     print("\n" + "=" * 60)
@@ -330,22 +359,51 @@ def upload_missing_files():
 
     # 최종 파일 수 확인
     print("\n[최종 확인]")
-    final_r2_files = get_r2_files()
-    final_r2_data_files = [k for k in final_r2_files if k.startswith("data/")]
 
-    print(f"R2 총 파일 수: {len(final_r2_files)}개")
-    print(f"R2 data 파일 수: {len(final_r2_data_files)}개")
-    print(f"로컬 data 파일 수: {len(local_data_files)}개")
+    if run_all or "data" in target_sections:
+        final_r2_files = get_r2_files()
+        final_r2_data_files = [k for k in final_r2_files if k.startswith("data/")]
 
-    if len(final_r2_data_files) >= len(local_data_files):
-        print("\n[OK] 모든 파일이 R2에 동기화되었습니다!")
-        print(f"\n예시 URL:")
-        print(f"  - {config['public_url']}/nav.json")
-        print(f"  - {config['public_url']}/data/005930-ks.json")
-    else:
-        missing_count = len(local_data_files) - len(final_r2_data_files)
-        print(f"\n[WARNING] 여전히 {missing_count}개 파일이 누락되어 있을 수 있습니다.")
+        print(f"R2 총 파일 수: {len(final_r2_files)}개")
+        print(f"R2 data 파일 수: {len(final_r2_data_files)}개")
+        print(f"로컬 data 파일 수: {len(local_data_files)}개")
+
+        if len(final_r2_data_files) >= len(local_data_files):
+            print("\n[OK] 모든 파일이 R2에 동기화되었습니다!")
+            print(f"\n예시 URL:")
+            print(f"  - {config['public_url']}/nav.json")
+            print(f"  - {config['public_url']}/data/005930-ks.json")
+        else:
+            missing_count = len(local_data_files) - len(final_r2_data_files)
+            print(
+                f"\n[WARNING] 여전히 {missing_count}개 파일이 누락되어 있을 수 있습니다."
+            )
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="R2 전체 동기화 스크립트 (부분 동기화 지원)"
+    )
+    parser.add_argument(
+        "--target",
+        "-t",
+        action="append",
+        choices=["all", "data", "nav", "sidebar", "calendar", "logos"],
+        help="동기화할 섹션 선택 (여러 번 지정 가능). 지정하지 않으면 all",
+    )
+
+    args = parser.parse_args()
+    if not args.target:
+        return {"all"}
+
+    targets = set(args.target)
+    if "all" in targets and len(targets) > 1:
+        print("[WARNING] 'all'과 다른 타겟이 함께 지정되었습니다. 'all'만 사용합니다.")
+        return {"all"}
+
+    return targets
 
 
 if __name__ == "__main__":
-    upload_missing_files()
+    selected_targets = parse_arguments()
+    upload_missing_files(selected_targets)
