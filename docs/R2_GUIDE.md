@@ -56,24 +56,32 @@ for file in upload_targets:
 
 ---
 
-### 2. `upload_full_sync_to_r2.py` (🔧 전체 동기화)
+### 2. `upload_full_sync_to_r2.py` (🔧 전체/부분 동기화)
 
-**R2 전체 동기화 및 검증**
+**R2 전체 또는 선택 영역 동기화 및 검증**
 
 ```bash
+# 전체 비교 (기본)
 python scripts/upload_full_sync_to_r2.py
+
+# logos 폴더만 비교/업로드
+python scripts/upload_full_sync_to_r2.py --target logos
+
+# 여러 영역 동시 지정
+python scripts/upload_full_sync_to_r2.py --target logos --target sidebar
 ```
 
 **특징**:
-- 🐌 **느림** (3-15분)
-- R2의 모든 파일과 비교
-- 모든 파일의 MD5 해시 계산
-- 누락/변경된 파일 자동 감지
+- 🐌 **느림** (3-15분) — 전체 대상일 때
+- 🎯 **선택 동기화 지원**: `--target` 인자를 이용해 `data`, `nav`, `sidebar`, `calendar`, `logos` 중 필요한 영역만 검사/업로드
+- R2의 대상 파일들과 비교
+- 대상 파일의 MD5 해시 계산
+- 누락/변경된 파일 자동 감지 후 업로드
 
 **언제 사용**:
-- 🆕 초기 전체 업로드
-- 🔄 R2-로컬 동기화 검증
-- 🚨 R2 파일 누락 의심 시
+- 🆕 초기 전체 업로드 (`--target` 생략 또는 `--target all`)
+- 🔄 R2-로컬 동기화 검증 (필요한 영역만 골라서 빠르게 수행 가능)
+- 🚨 R2 파일 누락 의심 시 특정 영역 점검 (`--target logos` 등)
 - 🔧 Git 히스토리 없는 환경
 
 ---
@@ -284,8 +292,11 @@ python scripts/upload_specific_to_r2.py public/nav.json
 ### 시나리오 4: R2 검증
 
 ```bash
-# R2에 파일이 제대로 있는지 확인
+# R2에 파일이 제대로 있는지 확인 (전체)
 python scripts/upload_full_sync_to_r2.py
+
+# logos 폴더만 빠르게 검증/업로드
+python scripts/upload_full_sync_to_r2.py --target logos
 
 # 출력:
 # [INFO] 누락된 파일: 0개
@@ -440,6 +451,9 @@ python scripts/upload_changed_to_r2.py  # ⚡ 빠름!
 ```bash
 # 초기 설정 (1회)
 python scripts/upload_full_sync_to_r2.py  # 🔧 전체 동기화
+
+# logos 등 일부 영역만 재검증/업로드
+python scripts/upload_full_sync_to_r2.py --target logos  # 🎯 부분 동기화
 
 # 특정 파일만
 python scripts/upload_specific_to_r2.py public/nav.json  # 🎯 개별
