@@ -2,8 +2,16 @@
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
-import axios from 'axios';
+import { load } from 'cheerio';
 import { imageSize } from 'image-size';
+
+const { ReadableStream: PolyfillReadableStream } = await import('web-streams-polyfill');
+
+if (typeof globalThis.ReadableStream === 'undefined') {
+    globalThis.ReadableStream = PolyfillReadableStream;
+}
+
+const { default: axios } = await import('axios');
 
 const ROOT_DIR = process.cwd();
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
@@ -14,6 +22,11 @@ const REPORT_PATH = path.join(PUBLIC_DIR, 'missing-logos-fetch-report.json');
 const REQUEST_TIMEOUT_MS = 15_000;
 const REQUEST_DELAY_MS = 150;
 const MAX_CONCURRENT_DOWNLOADS = 5;
+const INVESTING_BASE_URL = 'https://www.investing.com';
+const DEFAULT_HEADERS = {
+    'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+};
 const US_MARKETS = new Set(['NASDAQ', 'NYSE', 'AMEX', 'NYSEARCA', 'NYSE ARCA']);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -104,13 +117,116 @@ function resolveExtension(contentType, fallbackExt) {
     return fallbackExt;
 }
 
+function buildInvestingSearchUrl(query) {
+    return `${INVESTING_BASE_URL}/search/?q=${encodeURIComponent(query)}`;
+}
+
+function normalizeInvestingUrl(href) {
+    if (!href) return null;
+    if (href.startsWith('http://') || href.startsWith('https://')) {
+        return href;
+    }
+    try {
+        return new URL(href, INVESTING_BASE_URL).toString();
+    } catch (error) {
+        return null;
+    }
+}
+
+async function fetchInvestingLogo(item) {
+    const symbol = (item.symbol || '').trim();
+    if (!symbol) {
+        return null;
+    }
+
+    const searchUrl = buildInvestingSearchUrl(symbol);
+    const searchResponse = await axios.get(searchUrl, {
+        timeout: REQUEST_TIMEOUT_MS,
+        headers: {
+            ...DEFAULT_HEADERS,
+            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        },
+        validateStatus: (status) => status >= 200 && status < 500,
+    });
+
+    if (searchResponse.status >= 400 || !searchResponse.data) {
+        throw new Error(`검색 응답 오류 (HTTP ${searchResponse.status})`);
+    }
+
+    const $ = load(searchResponse.data);
+    const firstAnchor = $('.searchSectionMain a').first();
+    const href = normalizeInvestingUrl(firstAnchor.attr('href'));
+
+    if (!href) {
+        throw new Error('검색 결과 링크 없음');
+    }
+
+    const detailResponse = await axios.get(href, {
+        timeout: REQUEST_TIMEOUT_MS,
+        headers: {
+            ...DEFAULT_HEADERS,
+            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        },
+        validateStatus: (status) => status >= 200 && status < 500,
+    });
+
+    if (detailResponse.status >= 400 || !detailResponse.data) {
+        throw new Error(`상세 페이지 응답 오류 (HTTP ${detailResponse.status})`);
+    }
+
+    const $$ = load(detailResponse.data);
+    const candidateContainers = $$('div.font-sans-v2').filter((_, el) => {
+        const className = $$(el).attr('class') || '';
+        return className.includes('md:flex');
+    });
+
+    let svgHtml = candidateContainers.first().find('svg').first().toString();
+
+    if (!svgHtml) {
+        svgHtml = $$('div.font-sans-v2 svg').first().toString();
+    }
+
+    if (!svgHtml) {
+        svgHtml = $$('svg').first().toString();
+    }
+
+    if (!svgHtml) {
+        throw new Error('SVG 요소를 찾을 수 없습니다.');
+    }
+
+    const buffer = Buffer.from(svgHtml, 'utf8');
+
+    let width;
+    let height;
+    let isSquare = false;
+    try {
+        const dimension = imageSize(buffer);
+        width = dimension?.width;
+        height = dimension?.height;
+        if (width && height) {
+            const ratio = width / height;
+            isSquare = Math.abs(ratio - 1) < 0.02;
+        }
+    } catch (error) {
+        // SVG 크기 파악 실패는 치명적 오류가 아니므로 무시
+    }
+
+    return {
+        buffer,
+        ext: 'svg',
+        provider: 'Investing.com (SVG)',
+        width,
+        height,
+        isSquare,
+    };
+}
+
 async function downloadLogo(candidate) {
     const response = await axios.get(candidate.url, {
         responseType: 'arraybuffer',
         timeout: REQUEST_TIMEOUT_MS,
         headers: {
-            'User-Agent':
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+            ...DEFAULT_HEADERS,
             Accept: 'image/svg+xml,image/png,image/webp,image/*;q=0.8,*/*;q=0.5',
         },
         validateStatus: (status) => status >= 200 && status < 500,
@@ -239,6 +355,35 @@ async function processItem(item, existingLogoNames) {
                 isSquare: false,
             },
         };
+    }
+
+    try {
+        const investingLogo = await fetchInvestingLogo(item);
+        if (investingLogo) {
+            const fileName = `${normalizedName}.${investingLogo.ext}`;
+            const filePath = path.join(LOGOS_DIR, fileName);
+            await fs.writeFile(filePath, investingLogo.buffer);
+            existingLogoNames.add(normalizedName);
+
+            return {
+                symbol: item.symbol,
+                normalizedName,
+                status: investingLogo.isSquare
+                    ? 'downloaded_square'
+                    : 'downloaded_non_square',
+                provider: investingLogo.provider,
+                file: `logos/${fileName}`,
+                meta: {
+                    width: investingLogo.width,
+                    height: investingLogo.height,
+                    isSquare: investingLogo.isSquare,
+                },
+            };
+        }
+    } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(`⚠️  ${item.symbol} (Investing.com) 다운로드 실패: ${message}`);
+        await sleep(REQUEST_DELAY_MS);
     }
 
     return {
