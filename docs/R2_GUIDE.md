@@ -113,6 +113,30 @@ python scripts/upload_specific_to_r2.py "public/data/0*.json"
 
 ---
 
+### 4. `cleanup_r2_logos.py` (🧹 R2 불필요 로고 정리)
+
+**R2 `logos/`에만 남아 있는 파일 삭제**
+
+```bash
+# 삭제 대상 미리보기 (기본: dry-run)
+python scripts/cleanup_r2_logos.py
+
+# 실제 삭제 수행 (--apply 필수)
+python scripts/cleanup_r2_logos.py --apply
+```
+
+**특징**:
+- 🔍 로컬 `public/logos`와 R2 `logos/`를 비교해 orphan 파일 목록 생성
+- 🛡️ 기본은 dry-run으로 단순 보고만 수행 (최대 20개까지 목록 표시)
+- 🗑️ `--apply` 옵션을 주면 R2에서만 존재하는 파일을 일괄 삭제
+
+**언제 사용**:
+- R2에 오래된 로고가 쌓여 용량이 낭비될 때
+- 로컬에서 로고 파일을 정리한 뒤 R2도 동일하게 정리하고 싶을 때
+- 전체 동기화 후에도 R2 파일 수가 더 많은 경우
+
+---
+
 ## ⚡ 최적화 설명
 
 ### Before (느림 🐌)
@@ -345,6 +369,7 @@ python scripts/upload_full_sync_to_r2.py --target logos
 | **초기 설정** | `upload_full_sync_to_r2.py` | 10분 🔧 |
 | **nav.json만** | `upload_specific_to_r2.py` | 3초 🎯 |
 | **R2 검증** | `upload_full_sync_to_r2.py` | 5분 🔍 |
+| **로고 정리** | `cleanup_r2_logos.py` | 1~2분 🧹 |
 | **워크플로우** | `upload_changed_to_r2.py` | 자동 ✅ |
 
 **기억**: 99%의 경우 `upload_changed_to_r2.py`만 사용! 🚀
@@ -454,6 +479,12 @@ python scripts/upload_full_sync_to_r2.py  # 🔧 전체 동기화
 
 # logos 등 일부 영역만 재검증/업로드
 python scripts/upload_full_sync_to_r2.py --target logos  # 🎯 부분 동기화
+
+# R2에만 남은 로고 삭제 (dry-run)
+python scripts/cleanup_r2_logos.py  # 🧹 삭제 전 검토
+
+# 실제 삭제
+python scripts/cleanup_r2_logos.py --apply
 
 # 특정 파일만
 python scripts/upload_specific_to_r2.py public/nav.json  # 🎯 개별
