@@ -8,14 +8,23 @@
 
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
-    // import AssetManager from '@/components/mypage/AssetManager.vue';
+    import AssetManager from '@/components/mypage/AssetManager.vue';
+    import { useAdmin } from '@/composables/useAdmin';
 
     const activeTabIndex = ref(0);
 
-    const tabTitles = ['북마크', '회원정보 수정'];
+    const { isAdmin } = useAdmin();
+
+    const tabTitles = computed(() => {
+        const baseTabs = ['북마크', '회원정보 수정'];
+        return isAdmin.value
+            ? ['북마크', '가족 자산 관리', '회원정보 수정']
+            : baseTabs;
+    });
 
     const pageTitle = computed(() => {
-        const currentTabName = tabTitles[activeTabIndex.value];
+        const currentTabName =
+            tabTitles.value[activeTabIndex.value] || '마이페이지';
         return `${currentTabName} | 마이페이지`;
     });
 
@@ -41,9 +50,9 @@
             <TabPanel header="북마크">
                 <BookmarkManager />
             </TabPanel>
-            <!-- <TabPanel header="가족 자산 관리">
+            <TabPanel v-if="isAdmin" header="가족 자산 관리">
                 <AssetManager />
-            </TabPanel> -->
+            </TabPanel>
             <TabPanel header="회원정보 수정">
                 <ProfileSettings />
             </TabPanel>
