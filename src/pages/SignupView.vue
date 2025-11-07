@@ -2,8 +2,13 @@
 <script setup>
     import { ref } from 'vue';
     import { useHead } from '@vueuse/head';
-    import { auth } from '../firebase';
-    import { createUserWithEmailAndPassword } from 'firebase/auth';
+    import { auth, googleProvider } from '../firebase';
+    import {
+        createUserWithEmailAndPassword,
+        signInWithPopup,
+        setPersistence,
+        browserLocalPersistence,
+    } from 'firebase/auth';
     import { useRouter } from 'vue-router';
     import Message from 'primevue/message';
     import { useToast } from 'primevue/usetoast';
@@ -15,6 +20,7 @@
 
     const errorMessage = ref('');
     const isLoading = ref(false);
+    const isGoogleLoading = ref(false);
 
     useHead({
         title: '회원가입',
@@ -52,6 +58,32 @@
                 errorMessage.value = '회원가입 중 오류가 발생했습니다.';
             }
             isLoading.value = false; // 에러 발생 시에만 로딩 상태 해제
+        }
+    };
+
+    const signUpWithGoogle = async () => {
+        errorMessage.value = '';
+        isGoogleLoading.value = true;
+        try {
+            await setPersistence(auth, browserLocalPersistence);
+            await signInWithPopup(auth, googleProvider);
+
+            toast.add({
+                severity: 'success',
+                summary: 'Google 계정 연결',
+                detail: '북마크 페이지로 이동합니다.',
+                life: 3000,
+            });
+
+            setTimeout(() => {
+                router.push('/bookmarks');
+            }, 1500);
+        } catch (err) {
+            console.error('구글 회원가입 실패:', err.code);
+            if (err.code !== 'auth/popup-closed-by-user') {
+                errorMessage.value = '구글 로그인 중 오류가 발생했습니다.';
+            }
+            isGoogleLoading.value = false;
         }
     };
 </script>
@@ -109,6 +141,12 @@
                         @click="signUp"
                         label="회원가입"
                         :loading="isLoading" />
+                    <Button
+                        label="Google로 계속하기"
+                        icon="pi pi-google"
+                        severity="secondary"
+                        :loading="isGoogleLoading"
+                        @click="signUpWithGoogle" />
                     <Button
                         label="로그인"
                         severity="secondary"
