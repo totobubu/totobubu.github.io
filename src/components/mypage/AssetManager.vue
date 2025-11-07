@@ -945,7 +945,7 @@
                 <InputText
                     id="brokerageName"
                     v-model="brokerageForm.name"
-                    placeholder="예: KB증권, 미래에셋" />
+                    placeholder="예: kb자산운용, 미래에셋" />
             </div>
             <template #footer>
                 <Button
