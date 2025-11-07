@@ -15,14 +15,67 @@ const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 const koreanEtfBrandMap = {
     미래에셋자산운용: 'korea-tiger',
     삼성자산운용: 'korea-kodex',
-    kb자산운용: 'korea-kbstar',
+    kb증권: 'korea-kbsec',
+    kb자산운용: 'korea-kbsec',
+
     한국투자신탁운용: 'korea-ace',
-    엔에이치아문디자산운용: 'korea-HANARO',
-    신한자산운용: 'korea-SOL',
+    엔에이치아문디자산운용: 'korea-hanaro',
+    'NH-Amundi자산운용': 'korea-hanaro',
+
+    신한자산운용: 'korea-sol',
     타임폴리오자산운용: 'korea-time',
     비엔케이자산운용: 'korea-bnk',
+    키움증권: 'korea-kiwoom',
+    키움투자자산운용: 'korea-kiwoom',
+    한화자산운용: 'korea-hanwha',
+
+    대신자산운용: 'korea-daishin',
+    '대신 증권': 'korea-daishin',
+    흥국자산운용: 'korea-heungkuk',
     // 필요한 다른 운용사들을 여기에 추가할 수 있습니다.
 };
+
+const koreanEtfCompanyPatterns = [
+    { regex: /\bTIGER\b|미래에셋/iu, company: '미래에셋자산운용' },
+    { regex: /\bKODEX\b/iu, company: '삼성자산운용' },
+    {
+        regex: /\bKBSTAR\b|\bKB STAR\b|KB스타/iu,
+        company: 'KB자산운용',
+    },
+    {
+        regex: /\bACE\b|\bKINDEX\b|한국투자/iu,
+        company: '한국투자신탁운용',
+    },
+    { regex: /\bHANARO\b/iu, company: '엔에이치아문디자산운용' },
+    { regex: /\bSOL\b/iu, company: '신한자산운용' },
+    { regex: /TIMEFOLIO/iu, company: '타임폴리오자산운용' },
+    { regex: /\bBNK\b/iu, company: '비엔케이자산운용' },
+    { regex: /ARIRANG/iu, company: '한화자산운용' },
+    { regex: /KOSEF/iu, company: '한국투자신탁운용' },
+    { regex: /KIWOOM|키움/iu, company: '키움증권' },
+    { regex: /\bRISE\b/iu, company: 'kb자산운용' },
+    { regex: /\bPLUS\b/iu, company: '한화자산운용' },
+];
+
+function resolveKoreanBrandLogoKey(companyName) {
+    if (!companyName) return null;
+    const key = companyName.toLowerCase();
+    return koreanEtfBrandMap[key] || koreanEtfBrandMap[companyName] || null;
+}
+
+function inferKoreanEtfCompany(ticker) {
+    const target = [ticker.company, ticker.koName, ticker.longName]
+        .filter(Boolean)
+        .join(' ');
+    if (!target) return null;
+
+    for (const { regex, company } of koreanEtfCompanyPatterns) {
+        if (regex.test(target)) {
+            return company;
+        }
+    }
+    return null;
+}
 // --- // ---
 
 function normalizeToFilename(name) {
@@ -109,14 +162,28 @@ async function generateNavJson() {
     const finalTickersPromises = allTickers.map(async (ticker) => {
         let processedTicker = { ...ticker };
 
+        if (
+            (!processedTicker.company || processedTicker.company === null) &&
+            ['KOSPI', 'KOSDAQ'].includes(
+                (processedTicker.market || '').toUpperCase()
+            )
+        ) {
+            const inferredCompany = inferKoreanEtfCompany(processedTicker);
+            if (inferredCompany) {
+                processedTicker.company = inferredCompany;
+            }
+        }
+
         // --- [핵심 수정 2] 로고 검색 이름 결정 로직 수정 ---
         let nameForLogoSearch;
-        if (ticker.company && koreanEtfBrandMap[ticker.company]) {
+        const brandKey = resolveKoreanBrandLogoKey(processedTicker.company);
+        if (brandKey) {
             // 매핑 객체에 한국 운용사 이름이 있으면, 매핑된 영어 이름을 사용
-            nameForLogoSearch = koreanEtfBrandMap[ticker.company];
+            nameForLogoSearch = brandKey;
         } else {
             // 그 외의 경우(미국 ETF, 로고 없는 종목 등) 기존 로직 사용
-            nameForLogoSearch = ticker.company || ticker.symbol;
+            nameForLogoSearch =
+                processedTicker.company || processedTicker.symbol;
         }
         // --- // ---
 
@@ -163,7 +230,13 @@ async function generateNavJson() {
                     (today - startDate) / (1000 * 60 * 60 * 24 * 365.25);
 
                 let masterPeriods = [
-                    '6M', '1Y', '3Y', '5Y', '10Y', '15Y', '20Y',
+                    '6M',
+                    '1Y',
+                    '3Y',
+                    '5Y',
+                    '10Y',
+                    '15Y',
+                    '20Y',
                 ];
 
                 // --- [핵심 수정] ---
