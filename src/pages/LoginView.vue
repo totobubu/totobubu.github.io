@@ -6,11 +6,12 @@
     import { useRouter, useRoute } from 'vue-router';
     import {
         signInWithEmailAndPassword,
+        signInWithPopup,
         setPersistence,
         browserLocalPersistence,
         browserSessionPersistence,
     } from 'firebase/auth';
-    import { auth } from '../firebase';
+    import { auth, googleProvider } from '../firebase';
 
     import Message from 'primevue/message';
     import Checkbox from 'primevue/checkbox';
@@ -28,10 +29,13 @@
 
     const errorMessage = ref('');
     const successMessage = ref('');
+    const isGoogleLoading = ref(false);
 
     onMounted(() => {
         if (route.query.from === 'signup') {
             successMessage.value = '회원가입이 완료되었습니다. 로그인해주세요.';
+        } else if (route.query.from === 'logout') {
+            successMessage.value = '로그아웃되었습니다.';
         }
     });
 
@@ -48,7 +52,6 @@
             await signInWithEmailAndPassword(auth, email.value, password.value);
 
             router.push('/bookmarks');
-
         } catch (err) {
             console.error('로그인 실패:', err.code);
             if (
@@ -60,6 +63,29 @@
             } else {
                 errorMessage.value = '로그인 중 오류가 발생했습니다.';
             }
+        }
+    };
+
+    const onGoogleLogin = async () => {
+        errorMessage.value = '';
+        successMessage.value = '';
+        isGoogleLoading.value = true;
+        try {
+            const persistenceType = rememberMe.value
+                ? browserLocalPersistence
+                : browserSessionPersistence;
+
+            await setPersistence(auth, persistenceType);
+            await signInWithPopup(auth, googleProvider);
+
+            router.push('/bookmarks');
+        } catch (err) {
+            console.error('구글 로그인 실패:', err.code);
+            if (err.code !== 'auth/popup-closed-by-user') {
+                errorMessage.value = '구글 로그인 중 오류가 발생했습니다.';
+            }
+        } finally {
+            isGoogleLoading.value = false;
         }
     };
 </script>
@@ -133,6 +159,12 @@
 
                 <div class="flex flex-column gap-3 mt-3">
                     <Button @click="onLogin" label="로그인" />
+                    <Button
+                        :loading="isGoogleLoading"
+                        icon="pi pi-google"
+                        label="Google로 계속하기"
+                        severity="secondary"
+                        @click="onGoogleLogin" />
                     <Button
                         label="회원가입"
                         severity="secondary"
