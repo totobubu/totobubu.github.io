@@ -9,6 +9,7 @@ const navDir = path.join(publicDir, 'nav');
 const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
 const outputFile = path.join(publicDir, 'nav.json');
+const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 
 // --- [핵심 수정 1] 한국 ETF 운용사 이름과 로고 파일명 매핑 객체 추가 ---
 const koreanEtfBrandMap = {
@@ -76,6 +77,7 @@ async function processAndPushTickers(filePath, market, allTickers) {
 
 async function generateNavJson() {
     let allTickers = [];
+    const failedLogoMatches = [];
     const navEntries = await fs.readdir(navDir, { withFileTypes: true });
 
     for (const entry of navEntries) {
@@ -128,6 +130,13 @@ async function generateNavJson() {
                 `🔸 ${ticker.symbol}: 로고 없음. 검색 시도한 이름: "${normalizedName}"`
             );
             processedTicker.logo = null;
+            failedLogoMatches.push({
+                symbol: ticker.symbol,
+                company: ticker.company || null,
+                market: ticker.market || null,
+                searchName: nameForLogoSearch,
+                normalizedSearchName: normalizedName,
+            });
         }
 
         const dataFilePath = path.join(
@@ -192,6 +201,27 @@ async function generateNavJson() {
     console.log(
         `\n🎉 nav.json 파일 생성 완료! (총 ${finalTickers.length}개 티커, periods 재생성 완료)`
     );
+
+    try {
+        const failedSummary = {
+            generatedAt: new Date().toISOString(),
+            count: failedLogoMatches.length,
+            items: failedLogoMatches,
+        };
+        await fs.writeFile(
+            missingLogosFile,
+            JSON.stringify(failedSummary, null, 2)
+        );
+        console.log(
+            failedLogoMatches.length
+                ? `⚠️ 매칭 실패 로고 ${failedLogoMatches.length}건이 ${missingLogosFile} 에 기록되었습니다.`
+                : `✅ 모든 로고가 성공적으로 매칭되어 ${missingLogosFile} 에 빈 목록이 저장되었습니다.`
+        );
+    } catch (error) {
+        console.error(
+            `❌ 로고 매칭 실패 내역 저장 중 오류 발생: ${error.message}`
+        );
+    }
 }
 
 generateNavJson();
