@@ -192,7 +192,7 @@ async function processItem(item, existingLogoNames) {
                 return {
                     symbol: item.symbol,
                     normalizedName,
-                    status: 'downloaded',
+                    status: 'downloaded_square',
                     provider: candidate.provider,
                     file: `logos/${fileName}`,
                     meta: {
@@ -276,7 +276,7 @@ async function main() {
         processItem(item, existingLogoNames)
     );
 
-    const downloadedSquare = results.filter((r) => r.status === 'downloaded');
+    const downloadedSquare = results.filter((r) => r.status === 'downloaded_square');
     const downloadedNonSquare = results.filter(
         (r) => r.status === 'downloaded_non_square'
     );

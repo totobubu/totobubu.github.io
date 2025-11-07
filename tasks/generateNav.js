@@ -8,6 +8,8 @@ const publicDir = path.join(rootDir, 'public');
 const navDir = path.join(publicDir, 'nav');
 const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
+const logosCompanyDir = path.join(logosDir, 'company');
+const logosKoreaDir = path.join(logosDir, 'korea');
 const outputFile = path.join(publicDir, 'nav.json');
 const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 
@@ -28,12 +30,211 @@ const koreanEtfBrandMap = {
     키움증권: 'korea-kiwoom',
     키움투자자산운용: 'korea-kiwoom',
     한화자산운용: 'korea-hanwha',
+    한화: 'korea-hanwha',
+    '한화생명': 'korea-hanwha',
+    '한화생명보험': 'korea-hanwha',
+    '한화투자증권': 'korea-hanwha',
+    '한화솔루션': 'korea-hanwha',
+    '한화시스템': 'korea-hanwha',
+    '한화에어로스페이스': 'korea-hanwha',
+    '한화호텔앤드리조트': 'korea-hanwha',
+    '한화손해보험': 'korea-hanwha',
+    '한화생명보험주식회사': 'korea-hanwha',
+    '한화생명보험㈜': 'korea-hanwha',
+    sk: 'korea-sk',
+    'sk하이닉스': 'korea-sk',
+    'sk이노베이션': 'korea-sk',
+    'sk텔레콤': 'korea-sk',
+    'sk이노베이션㈜': 'korea-sk',
+    'sk케미칼': 'korea-sk',
+    'skc': 'korea-sk',
+    'sk바이오팜': 'korea-sk',
+    'sk바이오사이언스': 'korea-sk',
+    'sk네트웍스': 'korea-sk',
+    'sk디스커버리': 'korea-sk',
+    'sk가스': 'korea-sk',
+    'sk증권': 'korea-sk',
+    'sk에너지': 'korea-sk',
+    'sk실트론': 'korea-sk',
+    'sk인천석유화학': 'korea-sk',
+    'sk종합화학': 'korea-sk',
+    삼성: 'korea-samsung',
+    '삼성전자': 'korea-samsung',
+    '삼성생명': 'korea-samsung',
+    '삼성화재': 'korea-samsung',
+    '삼성카드': 'korea-samsung',
+    '삼성증권': 'korea-samsung',
+    '삼성물산': 'korea-samsung',
+    '삼성sdi': 'korea-samsung',
+    '삼성바이오로직스': 'korea-samsung',
+    '삼성엔지니어링': 'korea-samsung',
+    '삼성전기': 'korea-samsung',
+    '삼성중공업': 'korea-samsung',
+    'samsung electronics': 'korea-samsung',
+    'samsung life insurance': 'korea-samsung',
+    'samsung sdi': 'korea-samsung',
+    포스코: 'korea-posco',
+    '포스코홀딩스': 'korea-posco',
+    '포스코인터내셔널': 'korea-posco',
+    '포스코퓨처엠': 'korea-posco',
+    'posco holdings': 'korea-posco',
+    'posco international': 'korea-posco',
+    두산: 'korea-doosan',
+    '두산에너빌리티': 'korea-doosan',
+    '두산밥캣': 'korea-doosan',
+    '두산퓨얼셀': 'korea-doosan',
+    '두산퓨얼셀㈜': 'korea-doosan',
+    doosan: 'korea-doosan',
+    교보: 'korea-kyobo',
+    '교보증권': 'korea-kyobo',
+    '교보생명': 'korea-kyobo',
+    '교보라이프플래닛': 'korea-kyobo',
+    '교보악사자산운용': 'korea-kyobo',
+    'kyobo securities': 'korea-kyobo',
+    'kyobo life': 'korea-kyobo',
+    롯데: 'korea-lotte',
+    '롯데케미칼': 'korea-lotte',
+    '롯데칠성': 'korea-lotte',
+    '롯데제과': 'korea-lotte',
+    '롯데쇼핑': 'korea-lotte',
+    '롯데렌탈': 'korea-lotte',
+    '롯데하이마트': 'korea-lotte',
+    '롯데정밀화학': 'korea-lotte',
+    '롯데손해보험': 'korea-lotte',
+    '롯데홈쇼핑': 'korea-lotte',
+    'lotte chemical': 'korea-lotte',
+    'lotte shopping': 'korea-lotte',
+    cj: 'korea-cj',
+    'cj제일제당': 'korea-cj',
+    'cj대한통운': 'korea-cj',
+    'cj프레시웨이': 'korea-cj',
+    'cj올리브영': 'korea-cj',
+    'cj올리브네트웍스': 'korea-cj',
+    'cj씨지브이': 'korea-cj',
+    'cj헬로': 'korea-cj',
+    'cj푸드빌': 'korea-cj',
+    'cj라이브시티': 'korea-cj',
+    'cj logistics': 'korea-cj',
+    'cj cheiljedang': 'korea-cj',
 
     대신자산운용: 'korea-daishin',
     '대신 증권': 'korea-daishin',
     흥국자산운용: 'korea-heungkuk',
+    lg: 'korea-lg',
+    'lg전자': 'korea-lg',
+    'lg화학': 'korea-lg',
+    'lg이노텍': 'korea-lg',
+    'lg에너지솔루션': 'korea-lg',
+    'lg생활건강': 'korea-lg',
+    '㈜lg': 'korea-lg',
+    gs: 'korea-gs',
+    'gs리테일': 'korea-gs',
+    'gs리테일㈜': 'korea-gs',
+    'gs건설': 'korea-gs',
+    'gs에너지': 'korea-gs',
+    'gs칼텍스': 'korea-gs',
+    'gs그룹': 'korea-gs',
+    'gs리테일주식회사': 'korea-gs',
     // 필요한 다른 운용사들을 여기에 추가할 수 있습니다.
 };
+
+const koreanCorporateBrandPatterns = [
+    {
+        regex: /^(?:㈜)?\s*(?:lg|엘지)(?:\s|\b)/iu,
+        brandKey: 'korea-lg',
+    },
+    {
+        regex: /^(?:gs|지에스)(?:\s|\b)/iu,
+        brandKey: 'korea-gs',
+    },
+    {
+        regex: /^(?:한화)(?:\s|\b)/iu,
+        brandKey: 'korea-hanwha',
+    },
+    {
+        regex: /^(?:sk)(?:\s|\b)/iu,
+        brandKey: 'korea-sk',
+    },
+    {
+        regex: /^(?:삼성|samsung)(?:\s|\b)/iu,
+        brandKey: 'korea-samsung',
+    },
+    {
+        regex: /^(?:포스코|posco)(?:\s|\b)/iu,
+        brandKey: 'korea-posco',
+    },
+    {
+        regex: /^(?:두산|doosan)(?:\s|\b)/iu,
+        brandKey: 'korea-doosan',
+    },
+    {
+        regex: /^(?:교보|kyobo)(?:\s|\b)/iu,
+        brandKey: 'korea-kyobo',
+    },
+    {
+        regex: /^(?:롯데|lotte)(?:\s|\b)/iu,
+        brandKey: 'korea-lotte',
+    },
+    {
+        regex: /^(?:cj)(?:\s|\b)/iu,
+        brandKey: 'korea-cj',
+    },
+];
+
+const globalBrandLogoMap = new Map(
+    [
+        ['SPDR', 'company-spdr'],
+        ['SPDR ETFs', 'company-spdr'],
+        ['SPDR STATE STREET GLOBAL ADVISORS', 'company-spdr'],
+        ['STATE STREET GLOBAL ADVISORS', 'company-spdr'],
+        ['GOLDMAN SACHS', 'company-goldman-sachs'],
+        ['GOLDMAN', 'company-goldman-sachs'],
+        ['GOLDMAN SACHS GROUP', 'company-goldman-sachs'],
+        ['GOLDMAN SACHS ASSET MANAGEMENT', 'company-goldman-sachs'],
+        ['GOLDMAN SACHS ACCESS', 'company-goldman-sachs'],
+        ['ARK', 'company-ark'],
+        ['ARK ETF TRUST', 'company-ark'],
+        ['ARK INVESTMENT MANAGEMENT', 'company-ark'],
+        ['JPMORGAN', 'company-jpmorgan'],
+        ['J.P. MORGAN', 'company-jpmorgan'],
+        ['JPMORGAN CHASE', 'company-jpmorgan'],
+        ['JPMORGAN CHASE & CO.', 'company-jpmorgan'],
+        ['JPMAM', 'company-jpmorgan'],
+        ['J.P. MORGAN ASSET MANAGEMENT', 'company-jpmorgan'],
+        ['TIDAL', 'company-tidal'],
+        ['TIDAL ETF SERVICES', 'company-tidal'],
+        ['TIDAL FINANCIAL GROUP', 'company-tidal'],
+        ['DIREXION', 'company-direxion'],
+        ['DIREXION FUNDS', 'company-direxion'],
+        ['YIELDMAX', 'company-yieldmax'],
+        ['YIELDMAX ETFs', 'company-yieldmax'],
+        ['DEFIANCE', 'company-defiance'],
+        ['DEFIANCE ETFs', 'company-defiance'],
+        ['FIRST TRUST', 'company-first-trust'],
+        ['FIRST TRUST ADVISORS', 'company-first-trust'],
+        ['FIRST TRUST PORTFOLIO', 'company-first-trust'],
+        ['FIRST TRUST PORTFOLIOS', 'company-first-trust'],
+        ['FT', 'company-first-trust'],
+        ['FIRST', 'company-first-trust'],
+    ].map(([key, value]) => [key.toLowerCase(), value])
+);
+
+const globalCompanyAliasMap = new Map(
+    [
+        ['ACCESS', 'Goldman Sachs'],
+        ['GOLDMAN SACHS ACCESS', 'Goldman Sachs'],
+        ['GOLDMAN SACHS ASSET MANAGEMENT', 'Goldman Sachs'],
+        ['GOLDMAN SACHS GROUP', 'Goldman Sachs'],
+        ['GOLDMAN SACHS', 'Goldman Sachs'],
+        ['GOLDMAN', 'Goldman Sachs'],
+        ['FIRST', 'First Trust'],
+    ].map(([key, value]) => [key.toLowerCase(), value])
+);
+
+function resolveCompanyAlias(companyName) {
+    if (!companyName) return null;
+    return globalCompanyAliasMap.get(companyName.toLowerCase()) || null;
+}
 
 const koreanEtfCompanyPatterns = [
     { regex: /\bTIGER\b|미래에셋/iu, company: '미래에셋자산운용' },
@@ -60,7 +261,25 @@ const koreanEtfCompanyPatterns = [
 function resolveKoreanBrandLogoKey(companyName) {
     if (!companyName) return null;
     const key = companyName.toLowerCase();
-    return koreanEtfBrandMap[key] || koreanEtfBrandMap[companyName] || null;
+    if (koreanEtfBrandMap[key]) {
+        return koreanEtfBrandMap[key];
+    }
+    if (koreanEtfBrandMap[companyName]) {
+        return koreanEtfBrandMap[companyName];
+    }
+
+    for (const { regex, brandKey } of koreanCorporateBrandPatterns) {
+        if (regex.test(companyName)) {
+            return brandKey;
+        }
+    }
+
+    return null;
+}
+
+function resolveGlobalBrandLogoKey(companyName) {
+    if (!companyName) return null;
+    return globalBrandLogoMap.get(companyName.trim().toLowerCase()) || null;
 }
 
 function inferKoreanEtfCompany(ticker) {
@@ -83,22 +302,55 @@ function normalizeToFilename(name) {
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
-function findLogoFile(normalizedName) {
+function findLogoFile(normalizedName, category = 'company') {
     if (!normalizedName) return null;
+
     const supportedExtensions = [
         '.svg',
         '.png',
         '.webp',
         '.jpg',
         '.jpeg',
-        'ico',
+        '.ico',
     ];
-    for (const ext of supportedExtensions) {
-        const filePath = path.join(logosDir, `${normalizedName}${ext}`);
-        if (existsSync(filePath)) {
-            return `logos/${normalizedName}${ext}`;
+
+    const searchTargets = [];
+
+    const addTarget = (dir, relativePrefix) => {
+        if (!dir) return;
+        if (searchTargets.some((target) => target.dir === dir)) return;
+        searchTargets.push({ dir, relativePrefix });
+    };
+
+    if (category === 'korea') {
+        addTarget(logosKoreaDir, 'logos/korea/');
+    }
+
+    if (category === 'company') {
+        addTarget(logosCompanyDir, 'logos/company/');
+    }
+
+    addTarget(logosDir, 'logos/');
+
+    for (const { dir, relativePrefix } of searchTargets) {
+        const candidateNames = new Set([normalizedName]);
+
+        if (normalizedName && !normalizedName.startsWith('company-')) {
+            if (dir === logosCompanyDir || dir === logosDir) {
+                candidateNames.add(`company-${normalizedName}`);
+            }
+        }
+
+        for (const name of candidateNames) {
+            for (const ext of supportedExtensions) {
+                const filePath = path.join(dir, `${name}${ext}`);
+                if (existsSync(filePath)) {
+                    return `${relativePrefix}${name}${ext}`;
+                }
+            }
         }
     }
+
     return null;
 }
 
@@ -162,6 +414,11 @@ async function generateNavJson() {
     const finalTickersPromises = allTickers.map(async (ticker) => {
         let processedTicker = { ...ticker };
 
+        const alias = resolveCompanyAlias(processedTicker.company);
+        if (alias) {
+            processedTicker.company = alias;
+        }
+
         if (
             (!processedTicker.company || processedTicker.company === null) &&
             ['KOSPI', 'KOSDAQ'].includes(
@@ -176,19 +433,30 @@ async function generateNavJson() {
 
         // --- [핵심 수정 2] 로고 검색 이름 결정 로직 수정 ---
         let nameForLogoSearch;
-        const brandKey = resolveKoreanBrandLogoKey(processedTicker.company);
-        if (brandKey) {
+        let logoCategory = 'company';
+        const koreanBrandKey = resolveKoreanBrandLogoKey(
+            processedTicker.company
+        );
+        if (koreanBrandKey) {
             // 매핑 객체에 한국 운용사 이름이 있으면, 매핑된 영어 이름을 사용
-            nameForLogoSearch = brandKey;
+            nameForLogoSearch = koreanBrandKey;
+            logoCategory = 'korea';
         } else {
-            // 그 외의 경우(미국 ETF, 로고 없는 종목 등) 기존 로직 사용
-            nameForLogoSearch =
-                processedTicker.company || processedTicker.symbol;
+            const globalBrandKey = resolveGlobalBrandLogoKey(
+                processedTicker.company
+            );
+            if (globalBrandKey) {
+                nameForLogoSearch = globalBrandKey;
+            } else {
+                // 그 외의 경우(미국 ETF, 로고 없는 종목 등) 기존 로직 사용
+                nameForLogoSearch =
+                    processedTicker.company || processedTicker.symbol;
+            }
         }
         // --- // ---
 
         const normalizedName = normalizeToFilename(nameForLogoSearch);
-        const logoPath = findLogoFile(normalizedName);
+        const logoPath = findLogoFile(normalizedName, logoCategory);
 
         if (logoPath) {
             processedTicker.logo = logoPath;
