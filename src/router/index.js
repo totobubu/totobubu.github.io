@@ -7,6 +7,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import HomeView from '../pages/HomeView.vue';
 
 // 나머지 페이지는 lazy loading으로 필요할 때만 로드
+import { ADMIN_EMAILS, isAdminEmail } from '@/config/admin';
+
 const CalendarView = () => import('../pages/CalendarView.vue');
 const BacktesterView = () => import('../pages/BacktesterView.vue');
 const StockView = () => import('../pages/StockView.vue');
@@ -14,6 +16,7 @@ const SignUpView = () => import('../pages/SignupView.vue');
 const LoginView = () => import('../pages/LoginView.vue');
 const PasswordResetView = () => import('../pages/PasswordResetView.vue');
 const BookmarkView = () => import('../pages/BookmarkView.vue');
+const AssetView = () => import('../pages/AssetView.vue');
 const ProfileView = () => import('../pages/ProfileView.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
@@ -63,12 +66,12 @@ const router = createRouter({
             component: BookmarkView,
             meta: { requiresAuth: true },
         },
-        // {
-        //     path: '/assets',
-        //     name: 'assets',
-        //     component: AssetView,
-        //     meta: { requiresAuth: true },
-        // },
+        {
+            path: '/assets',
+            name: 'assets',
+            component: AssetView,
+            meta: { requiresAuth: true, adminOnly: true },
+        },
         {
             path: '/profile',
             name: 'profile',
@@ -100,7 +103,10 @@ const router = createRouter({
             path: '/:ticker',
             redirect: (to) => {
                 // /:ticker를 /stock/:ticker로 리다이렉트
-                return { name: 'stock-detail', params: { ticker: to.params.ticker } };
+                return {
+                    name: 'stock-detail',
+                    params: { ticker: to.params.ticker },
+                };
             },
         },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
@@ -111,9 +117,13 @@ router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     const isAuthPage = ['login', 'signup', 'password-reset'].includes(to.name);
     const user = await getCurrentUser();
+    const isAdminUser = !!user && isAdminEmail(user.email || '');
+    const requiresAdmin = to.matched.some((record) => record.meta.adminOnly);
 
     if (requiresAuth && !user) {
         next({ name: 'login', query: { redirect: to.fullPath } });
+    } else if (requiresAdmin && !isAdminUser) {
+        next({ name: 'bookmarks' });
     } else if (isAuthPage && user) {
         next({ name: 'bookmarks' }); // 로그인/회원가입 페이지에 이미 로그인된 사용자가 접근 시 /bookmarks 로 이동
     } else {

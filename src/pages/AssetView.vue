@@ -83,7 +83,7 @@
 
     // 업로드 대상 자산
     const uploadTargetAsset = ref(null);
-    
+
     // 거래내역서 업로드 데이터
     const uploadedTransactionData = ref(null);
     const uploadBrokerage = ref(null);
@@ -863,7 +863,8 @@
         const memberId = selectedMember.value.id;
         const brokerageId = uploadedTransactionData.value.brokerageId;
         const accountId = uploadedTransactionData.value.accountId;
-        const transactions = uploadedTransactionData.value.extractedData.transactions;
+        const transactions =
+            uploadedTransactionData.value.extractedData.transactions;
 
         toast.add({
             severity: 'info',
@@ -1185,7 +1186,7 @@
                     <InputText
                         id="brokerageName"
                         v-model="brokerageForm.name"
-                        placeholder="예: KB증권, 미래에셋" />
+                        placeholder="예: kb자산운용, 미래에셋" />
                 </div>
             </div>
             <template #footer>

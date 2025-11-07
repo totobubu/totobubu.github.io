@@ -4,6 +4,7 @@
     import { RouterView, useRoute, useRouter } from 'vue-router';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
+    import { useAdmin } from '@/composables/useAdmin';
     import { useStockData } from '@/composables/useStockData';
     import { useLayout } from '@/composables/useLayout';
 
@@ -24,12 +25,7 @@
     const visible = ref(false);
 
     // 관리자 여부 확인 (이메일 기반)
-    const isAdmin = computed(() => {
-        if (!user.value || !user.value.email) return false;
-        // 관리자 이메일 목록 (필요시 수정)
-        const adminEmails = ['totobubu@gmail.com'];
-        return adminEmails.includes(user.value.email);
-    });
+    const { isAdmin } = useAdmin();
 
     const isStandalonePage = computed(() => {
         return ['/', '/thumbnail-generator', '/blog-generator'].includes(
@@ -78,11 +74,15 @@
                       icon: 'pi pi-bookmark',
                       command: () => router.push('/bookmarks'),
                   },
-                  //   {
-                  //       label: '자산관리',
-                  //       icon: 'pi pi-wallet',
-                  //       command: () => router.push('/assets'),
-                  //   },
+                  ...(isAdmin.value
+                      ? [
+                            {
+                                label: '자산관리',
+                                icon: 'pi pi-wallet',
+                                command: () => router.push('/assets'),
+                            },
+                        ]
+                      : []),
                   {
                       label: '회원정보 수정',
                       icon: 'pi pi-user-edit',
@@ -104,7 +104,7 @@
         else if (route.name === 'bookmarks')
             items.push({ label: '북마크 관리' }); // [수정]
         else if (route.name === 'assets') {
-            // items.push({ label: '자산관리' });
+            items.push({ label: '자산관리' });
             // query에 memberId가 있으면 사용자명 표시 (이후 구현)
         } else if (route.name === 'profile')
             items.push({ label: '회원정보 수정' }); // [수정]
