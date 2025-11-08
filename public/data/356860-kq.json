@@ -9,20 +9,25 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-08 02:49:53 KST",
+        "Update": "2025-11-09 02:36:27 KST",
         "regularMarketPrice": 63400.0,
         "englishName": "TLB Co., Ltd",
         "earningsDate": null,
         "enterpriseValue": 658038063104,
         "marketCap": 616414773248,
         "Volume": 387696,
-        "AvgVolume": 558298,
+        "AvgVolume": 552670,
         "sharesOutstanding": 9722630,
         "52Week": "10650.0 - 75900.0",
         "Yield": null,
         "dividendRate": 400.0,
         "payoutRatio": 0.25280002,
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 558298,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10818,7 +10823,8 @@
         },
         {
             "date": "2025-12-26",
-            "forecasted": true
+            "forecasted": true,
+            "marketCap": 616414773248
         }
     ]
 }
