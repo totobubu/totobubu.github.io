@@ -273,7 +273,11 @@ def update_ticker_info():
                 "Update": now_kst_str,
             }
             new_info.update(dynamic_info)
-            
+            # 기존 이벤트(예: frequencyChanges, weekdayChanges, splits 등)는 보존
+            existing_events = existing_data.get("tickerInfo", {}).get("events", {})
+            if existing_events:
+                new_info["events"] = existing_events
+
             # 변경사항 추적
             changes = {}
             old_update = old_info.get("Update") if old_info else None

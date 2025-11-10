@@ -103,13 +103,16 @@
         overflow-x: hidden;
     }
 }
-.t-chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .p-tag {
-        padding: var(--p-togglebutton-padding);
-        font-size: 1rem;
+.t-chart {
+    background-color: inherit !important;
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .p-tag {
+            padding: var(--p-togglebutton-padding);
+            font-size: 1rem;
+        }
     }
 }
 

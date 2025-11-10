@@ -39,6 +39,21 @@ const marketNameMap = {
     ASE: 'NYSE',
 };
 
+const truncateDecimals = (value, digits = 2) => {
+    if (typeof value !== 'number') return value;
+    const factor = 10 ** digits;
+    const scaled = value * factor;
+    return (scaled >= 0 ? Math.floor(scaled) : Math.ceil(scaled)) / factor;
+};
+
+const isUsdUsMarket = (currency, market) => {
+    if (currency !== 'USD') return false;
+    const normalizedMarket = (market || '').toUpperCase();
+    return ['NASDAQ', 'NYSE', 'AMEX'].some((keyword) =>
+        normalizedMarket.includes(keyword)
+    );
+};
+
 export function useStockData() {
     const loadData = async (sanitizedTicker) => {
         if (!sanitizedTicker) {
@@ -83,6 +98,21 @@ export function useStockData() {
                 const staticData = await staticDataResponse.json();
                 const fullBacktestData = staticData.backtestData || [];
 
+                const inferredCurrency =
+                    staticData.tickerInfo?.currency || navInfo.currency || null;
+                const inferredMarket =
+                    staticData.tickerInfo?.market || navInfo.market || null;
+                const applyUsdPriceTruncation = isUsdUsMarket(
+                    inferredCurrency,
+                    inferredMarket
+                );
+                const formatPriceField = (value) => {
+                    if (value == null) return null;
+                    return applyUsdPriceTruncation
+                        ? truncateDecimals(value, 2)
+                        : value;
+                };
+
                 const pricesWithIndex = fullBacktestData.map((p, i) => ({
                     ...p,
                     index: i,
@@ -111,15 +141,15 @@ export function useStockData() {
                                     ? item.amountFixed
                                     : item.amount,
                             배당률: item.yield,
-                            전일종가: prevDayData ? prevDayData.close : null,
-                            당일시가: item.open,
-                            당일종가: item.close,
-                            익일종가: nextDayData ? nextDayData.close : null,
+                            전일종가: formatPriceField(prevDayData?.close),
+                            당일시가: formatPriceField(item.open),
+                            당일종가: formatPriceField(item.close),
+                            익일종가: formatPriceField(nextDayData?.close),
                         };
                     })
                     .reverse();
 
-                backtestData.value = fullBacktestData
+                const cleanedBacktestData = fullBacktestData
                     .filter((d) => d.close != null)
                     .map(({ date, open, high, low, close, volume }) => ({
                         date,
@@ -129,6 +159,13 @@ export function useStockData() {
                         close,
                         volume,
                     }));
+
+                backtestData.value = cleanedBacktestData;
+                const latestClose =
+                    cleanedBacktestData.length > 0
+                        ? cleanedBacktestData[cleanedBacktestData.length - 1]
+                              .close
+                        : null;
                 
                 // Holdings 데이터 로드 - backtestData에서 추출
                 // 기존 holdings 대분류 지원 (마이그레이션 기간)
@@ -146,9 +183,23 @@ export function useStockData() {
                 }
                 
                 tickerInfo.value = {
-                    ...(staticData.tickerInfo || {}),
                     ...navInfo,
+                    ...(staticData.tickerInfo || {}),
                 };
+                if (latestClose) {
+                    if (
+                        !tickerInfo.value.regularMarketPrice ||
+                        tickerInfo.value.regularMarketPrice <= 0
+                    ) {
+                        tickerInfo.value.regularMarketPrice = latestClose;
+                    }
+                    if (
+                        !tickerInfo.value.price ||
+                        tickerInfo.value.price <= 0
+                    ) {
+                        tickerInfo.value.price = latestClose;
+                    }
+                }
             }
 
             const liveDataResponse = await fetch(
