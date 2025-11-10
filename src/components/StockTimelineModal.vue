@@ -1,6 +1,7 @@
 <script setup>
     import { computed, ref } from 'vue';
     import Dialog from 'primevue/dialog';
+    import Drawer from 'primevue/drawer';
     import Timeline from 'primevue/timeline';
     import Tag from 'primevue/tag';
     import { useBreakpoint } from '@/composables/useBreakpoint';
@@ -129,8 +130,7 @@
         const frequencyLabel = mapFrequency(frequencyValue);
         const group =
             groupValue ||
-            (typeof frequencyValue === 'string' &&
-            frequencyValue.includes('주')
+            (typeof frequencyValue === 'string' && frequencyValue.includes('주')
                 ? fallbackGroup
                 : null);
         const { key: weekdayKey, label: weekdayLabel } = getWeekdayInfo(group);
@@ -142,6 +142,36 @@
         };
     };
 
+    const eventTypeLabelMap = {
+        frequency: '지급기간변경',
+        'frequency-group': '배당월변경',
+        weekday: '배당요일변경',
+        split: '주식분할',
+        'reverse-split': '주식병합',
+    };
+
+    const getEventTypeLabel = (eventType) =>
+        eventTypeLabelMap[eventType] || '지급기간변경';
+
+    const getEventTypeSeverity = (eventType) => {
+        switch (eventType) {
+            case 'weekday':
+                return 'info';
+            case 'frequency-group':
+                return 'contrast';
+            case 'split':
+                return 'primary';
+            case 'reverse-split':
+                return 'danger';
+            default:
+                return 'secondary';
+        }
+    };
+
+    const timelineAlign = computed(() =>
+        isMobile.value ? 'left' : 'alternate'
+    );
+
     const timelineItems = computed(() => {
         if (!props.events || props.events.length === 0) return [];
 
@@ -152,25 +182,61 @@
         let fallbackGroup = props.fallbackGroup ?? null;
 
         return sorted.map((event) => {
-            const toInfo = buildDisplayInfo(event.to, event.toGroup, fallbackGroup);
-            const fromInfo = buildDisplayInfo(
-                event.from,
-                event.fromGroup,
-                fallbackGroup
-            );
+            const eventType = event.eventType || 'frequency';
+            let toInfo = {
+                frequencyLabel: '',
+                weekdayKey: null,
+                weekdayLabel: null,
+            };
+            let fromInfo = {
+                frequencyLabel: '',
+                weekdayKey: null,
+                weekdayLabel: null,
+            };
 
-            const item = {
+            if (eventType === 'split' || eventType === 'reverse-split') {
+                fromInfo = {
+                    frequencyLabel: event.ratio
+                        ? `비율 ${event.ratio}`
+                        : eventTypeLabelMap[eventType] || '',
+                    weekdayKey: null,
+                    weekdayLabel: null,
+                };
+                toInfo = {
+                    frequencyLabel:
+                        eventType === 'reverse-split'
+                            ? '병합 완료'
+                            : '분할 완료',
+                    weekdayKey: null,
+                    weekdayLabel: null,
+                };
+            } else {
+                toInfo = buildDisplayInfo(
+                    event.to,
+                    event.toGroup,
+                    fallbackGroup
+                );
+                fromInfo = buildDisplayInfo(
+                    event.from,
+                    event.fromGroup,
+                    fallbackGroup
+                );
+                fallbackGroup = fromInfo.weekdayLabel
+                    ? fromInfo.weekdayLabel
+                    : fallbackGroup;
+            }
+
+            return {
                 date: formatEventDate(event.date),
                 icon: event.icon || 'pi pi-refresh',
                 color: event.color || '#6366F1',
                 from: fromInfo,
                 to: toInfo,
+                eventType,
+                eventTypeLabel: getEventTypeLabel(eventType),
+                eventTypeSeverity: getEventTypeSeverity(eventType),
+                ratio: event.ratio,
             };
-
-            fallbackGroup = fromInfo.weekdayLabel
-                ? fromInfo.weekdayLabel
-                : fallbackGroup;
-            return item;
         });
     });
 
@@ -184,78 +250,137 @@
             :open="open"
             :visible="visible"
             :has-events="hasEvents" />
+
+        <Drawer
+            v-if="isMobile"
+            v-model:visible="visible"
+            position="full"
+            :header="header"
+            class="timeline-drawer"
+            modal>
+            <div v-if="hasEvents">
+                <Timeline :value="timelineItems" align="left" layout="vertical">
+                    <template #opposite="slotProps">
+                        {{ slotProps.item.date }}
+                    </template>
+
+                    <template #marker="slotProps">
+                        {{ slotProps.item.eventTypeLabel }}
+                    </template>
+                    <template #content="slotProps">
+                        <template
+                            v-if="
+                                slotProps.item.from.frequencyLabel &&
+                                slotProps.item.from.frequencyLabel.includes(
+                                    '주배당'
+                                ) &&
+                                slotProps.item.from.weekdayKey
+                            ">
+                            <span class="text-sm timeline-label">
+                                {{ slotProps.item.from.frequencyLabel }}
+                            </span>
+                            <Tag
+                                :data-p="slotProps.item.from.weekdayKey"
+                                class="p-tag-rounded timeline-weekday-tag">
+                                {{ slotProps.item.from.weekdayLabel }}
+                            </Tag>
+                        </template>
+                        <Tag
+                            v-else-if="slotProps.item.from.frequencyLabel"
+                            severity="secondary">
+                            {{ slotProps.item.from.frequencyLabel }}
+                        </Tag>
+                        <i class="pi pi-arrow-right"></i>
+                        <template
+                            v-if="
+                                slotProps.item.to.frequencyLabel &&
+                                slotProps.item.to.frequencyLabel.includes(
+                                    '주배당'
+                                ) &&
+                                slotProps.item.to.weekdayKey
+                            ">
+                            <span class="text-sm timeline-label">
+                                {{ slotProps.item.to.frequencyLabel }}
+                            </span>
+                            <Tag
+                                :data-p="slotProps.item.to.weekdayKey"
+                                class="p-tag-rounded timeline-weekday-tag">
+                                {{ slotProps.item.to.weekdayLabel }}
+                            </Tag>
+                        </template>
+                        <Tag
+                            v-else-if="slotProps.item.to.frequencyLabel"
+                            severity="secondary">
+                            {{ slotProps.item.to.frequencyLabel }}
+                        </Tag>
+                    </template>
+                </Timeline>
+            </div>
+            <div v-else class="text-center py-4 text-500">
+                <slot name="empty">표시할 이벤트가 없습니다.</slot>
+            </div>
+        </Drawer>
+
         <Dialog
+            v-else
             v-model:visible="visible"
             :header="header"
             modal
-            class="timeline-dialog"
-            :style="{ width: isMobile ? '90vw' : '30rem' }">
+            class="timeline-dialog">
             <div v-if="hasEvents">
                 <Timeline :value="timelineItems" align="alternate">
                     <template #opposite="slotProps">
-                        <small class="text-sm text-500">{{
-                            slotProps.item.date
-                        }}</small>
-                    </template>
-                    <template #content="slotProps">
-                        <div class="flex align-items-center gap-2 timeline-entry">
-                            <div class="flex align-items-center gap-2">
-                                <template
-                                    v-if="
-                                        slotProps.item.from.frequencyLabel &&
-                                        slotProps.item.from.frequencyLabel.includes(
-                                            '주배당'
-                                        ) &&
-                                        slotProps.item.from.weekdayKey
-                                    ">
-                                    <span class="text-sm">{{
-                                        slotProps.item.from.frequencyLabel
-                                    }}</span>
-                                    <Tag
-                                        :data-p="slotProps.item.from.weekdayKey"
-                                        class="p-tag-rounded">
-                                        {{ slotProps.item.from.weekdayLabel }}
-                                    </Tag>
-                                </template>
-                                <Tag
-                                    v-else-if="slotProps.item.from.frequencyLabel"
-                                    severity="secondary">
-                                    {{ slotProps.item.from.frequencyLabel }}
-                                </Tag>
-                            </div>
-                            <i class="pi pi-arrow-right text-500 text-sm"></i>
-                            <div class="flex align-items-center gap-2">
-                                <template
-                                    v-if="
-                                        slotProps.item.to.frequencyLabel &&
-                                        slotProps.item.to.frequencyLabel.includes(
-                                            '주배당'
-                                        ) &&
-                                        slotProps.item.to.weekdayKey
-                                    ">
-                                    <span class="text-sm">{{
-                                        slotProps.item.to.frequencyLabel
-                                    }}</span>
-                                    <Tag
-                                        :data-p="slotProps.item.to.weekdayKey"
-                                        class="p-tag-rounded">
-                                        {{ slotProps.item.to.weekdayLabel }}
-                                    </Tag>
-                                </template>
-                                <Tag
-                                    v-else-if="slotProps.item.to.frequencyLabel"
-                                    severity="secondary">
-                                    {{ slotProps.item.to.frequencyLabel }}
-                                </Tag>
-                            </div>
-                        </div>
+                        {{ slotProps.item.date }}
                     </template>
                     <template #marker="slotProps">
-                        <span
-                            class="timeline-marker"
-                            :style="{ backgroundColor: slotProps.item.color }">
-                            <i :class="slotProps.item.icon"></i>
-                        </span>
+                        {{ slotProps.item.eventTypeLabel }}
+                    </template>
+                    <template #content="slotProps">
+                        <template
+                            v-if="
+                                slotProps.item.from.frequencyLabel &&
+                                slotProps.item.from.frequencyLabel.includes(
+                                    '주배당'
+                                ) &&
+                                slotProps.item.from.weekdayKey
+                            ">
+                            <Tag severity="secondary">
+                                {{ slotProps.item.from.frequencyLabel }}
+                            </Tag>
+                            <Tag
+                                :data-p="slotProps.item.from.weekdayKey"
+                                class="p-tag-rounded timeline-weekday-tag">
+                                {{ slotProps.item.from.weekdayLabel }}
+                            </Tag>
+                        </template>
+                        <Tag
+                            v-else-if="slotProps.item.from.frequencyLabel"
+                            severity="secondary">
+                            {{ slotProps.item.from.frequencyLabel }}
+                        </Tag>
+                        <i class="pi pi-arrow-right"></i>
+                        <template
+                            v-if="
+                                slotProps.item.to.frequencyLabel &&
+                                slotProps.item.to.frequencyLabel.includes(
+                                    '주배당'
+                                ) &&
+                                slotProps.item.to.weekdayKey
+                            ">
+                            <Tag severity="secondary">
+                                {{ slotProps.item.to.frequencyLabel }}
+                            </Tag>
+                            <Tag
+                                :data-p="slotProps.item.to.weekdayKey"
+                                class="p-tag-rounded timeline-weekday-tag">
+                                {{ slotProps.item.to.weekdayLabel }}
+                            </Tag>
+                        </template>
+                        <Tag
+                            v-else-if="slotProps.item.to.frequencyLabel"
+                            severity="secondary">
+                            {{ slotProps.item.to.frequencyLabel }}
+                        </Tag>
                     </template>
                 </Timeline>
             </div>
@@ -265,18 +390,3 @@
         </Dialog>
     </span>
 </template>
-
-<style scoped>
-    .timeline-dialog :deep(.p-dialog-content) {
-        padding-top: 0;
-    }
-    .timeline-marker {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        color: #ffffff;
-    }
-</style>

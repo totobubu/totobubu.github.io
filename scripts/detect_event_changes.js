@@ -23,9 +23,13 @@ const DATA_DIR = path.join(ROOT_DIR, 'public', 'data');
 const NAV_PATH = path.join(ROOT_DIR, 'public', 'nav.json');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'scripts', 'output');
 const DEFAULT_OUTPUT = path.join(OUTPUT_DIR, 'events-report.json');
-const DEFAULT_CONFIG_TEMPLATE = path.join(OUTPUT_DIR, 'events-config-template.json');
+const DEFAULT_CONFIG_TEMPLATE = path.join(
+    OUTPUT_DIR,
+    'events-config-template.json'
+);
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const args = Object.fromEntries(
     process.argv.slice(2).map((arg) => {
@@ -35,11 +39,16 @@ const args = Object.fromEntries(
 );
 
 const requestedSymbols = args.symbol
-    ? args.symbol.split(',').map((s) => s.trim().toUpperCase()).filter(Boolean)
+    ? args.symbol
+          .split(',')
+          .map((s) => s.trim().toUpperCase())
+          .filter(Boolean)
     : null;
 const requestedCompany = args.company || null;
 const outputPath = args.output ? path.resolve(args.output) : DEFAULT_OUTPUT;
-const templatePath = args.template ? path.resolve(args.template) : DEFAULT_CONFIG_TEMPLATE;
+const templatePath = args.template
+    ? path.resolve(args.template)
+    : DEFAULT_CONFIG_TEMPLATE;
 
 async function loadNav() {
     const raw = await fs.readFile(NAV_PATH, 'utf8');
@@ -75,6 +84,11 @@ function classifyInterval(days) {
 
     return { label: '장기', perYear: null };
 }
+
+const parseIsoDateUTC = (dateStr) => {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(Date.UTC(year, (month || 1) - 1, day || 1));
+};
 
 function buildSegments(events) {
     if (events.length < 2) return [];
@@ -126,7 +140,25 @@ function buildSegments(events) {
         const { startIndex, endIndex, intervals, classification } = segment;
         const startEvent = events[startIndex];
         const endEvent = events[endIndex];
-        const avgDays = intervals.reduce((sum, v) => sum + v, 0) / intervals.length;
+        const avgDays =
+            intervals.reduce((sum, v) => sum + v, 0) / intervals.length;
+        const eventSlice = events.slice(startIndex, endIndex + 1);
+        const weekdayCounts = eventSlice.reduce((acc, event) => {
+            const weekdayIndex = parseIsoDateUTC(event.date).getUTCDay();
+            const weekday = WEEKDAYS[weekdayIndex];
+            acc[weekday] = (acc[weekday] || 0) + 1;
+            return acc;
+        }, {});
+        let dominantWeekday = null;
+        let dominantCount = 0;
+        Object.entries(weekdayCounts).forEach(([weekday, count]) => {
+            if (count > dominantCount) {
+                dominantWeekday = weekday;
+                dominantCount = count;
+            }
+        });
+        const weekdayRatio =
+            eventSlice.length > 0 ? dominantCount / eventSlice.length : 0;
         return {
             startDate: startEvent.date,
             endDate: endEvent.date,
@@ -134,6 +166,8 @@ function buildSegments(events) {
             avgDays: Number(avgDays.toFixed(1)),
             classification,
             isReliable: intervals.length >= MIN_SEGMENT_INTERVALS,
+            weekday: dominantWeekday,
+            weekdayRatio: Number(weekdayRatio.toFixed(3)),
         };
     });
 }
@@ -147,7 +181,10 @@ async function detectForTicker(ticker, navInfo) {
         const json = JSON.parse(raw);
 
         const dividendEvents = (json.backtestData || [])
-            .filter((item) => item.amount !== undefined || item.amountFixed !== undefined)
+            .filter(
+                (item) =>
+                    item.amount !== undefined || item.amountFixed !== undefined
+            )
             .map((item) => ({
                 date: item.date,
                 amount:
@@ -174,7 +211,8 @@ async function detectForTicker(ticker, navInfo) {
                     to: next.classification.label,
                     previousAvgDays: prev.avgDays,
                     nextAvgDays: next.avgDays,
-                    confidence: prev.isReliable && next.isReliable ? 'high' : 'low',
+                    confidence:
+                        prev.isReliable && next.isReliable ? 'high' : 'low',
                 });
             }
         }
@@ -187,13 +225,118 @@ async function detectForTicker(ticker, navInfo) {
                 type: inferSplitType(item.split),
             }));
 
+        const filteredSplits = splits.filter(
+            (split) => !isNeutralSplit(split.ratio)
+        );
+
+        const existingFrequencyChanges = Array.isArray(
+            json.tickerInfo?.events?.frequencyChanges
+        )
+            ? json.tickerInfo.events.frequencyChanges
+            : [];
+        const existingSplits = Array.isArray(
+            json.tickerInfo?.events?.splits
+        )
+            ? json.tickerInfo.events.splits
+            : [];
+        const existingWeekdayChanges = Array.isArray(
+            json.tickerInfo?.events?.weekdayChanges
+        )
+            ? json.tickerInfo.events.weekdayChanges
+            : [];
+
+        const existingFrequencySignatures = new Set(
+            existingFrequencyChanges.map((change) =>
+                [
+                    change.date || '',
+                    change.from || '',
+                    change.to || '',
+                ].join('|')
+            )
+        );
+        const existingSplitSignatures = new Set(
+            existingSplits.map((split) =>
+                [
+                    split.date || '',
+                    split.ratio || '',
+                    split.type || '',
+                ].join('|')
+            )
+        );
+
+        const filteredFrequencyChanges = frequencyChanges.filter((change) => {
+            const signature = [
+                change.date || '',
+                change.from || '',
+                change.to || '',
+            ].join('|');
+            return !existingFrequencySignatures.has(signature);
+        });
+
+        const newSplits = filteredSplits.filter((split) => {
+            const signature = [
+                split.date || '',
+                split.ratio || '',
+                split.type || '',
+            ].join('|');
+            return !existingSplitSignatures.has(signature);
+        });
+
+        const weekdayChanges = [];
+        for (let i = 1; i < baseSegments.length; i += 1) {
+            const prev = baseSegments[i - 1];
+            const next = baseSegments[i];
+            if (
+                prev.classification.label === next.classification.label &&
+                prev.weekday &&
+                next.weekday &&
+                prev.weekday !== next.weekday
+            ) {
+                const confidence =
+                    prev.isReliable &&
+                    next.isReliable &&
+                    prev.weekdayRatio >= 0.6 &&
+                    next.weekdayRatio >= 0.6
+                        ? 'high'
+                        : 'low';
+                weekdayChanges.push({
+                    date: next.startDate,
+                    from: prev.weekday,
+                    to: next.weekday,
+                    previousRatio: prev.weekdayRatio,
+                    nextRatio: next.weekdayRatio,
+                    confidence,
+                });
+            }
+        }
+
+        const existingWeekdaySignatures = new Set(
+            existingWeekdayChanges.map((change) =>
+                [
+                    change.date || '',
+                    change.from || '',
+                    change.to || '',
+                ].join('|')
+            )
+        );
+
+        const filteredWeekdayChanges = weekdayChanges.filter((change) => {
+            const signature = [
+                change.date || '',
+                change.from || '',
+                change.to || '',
+            ].join('|');
+            return !existingWeekdaySignatures.has(signature);
+        });
+
         return {
             symbol: ticker,
             company: navInfo?.company,
             frequency: navInfo?.frequency,
             detectedSegments: segments,
-            detectedFrequencyChanges: frequencyChanges,
-            detectedSplits: splits,
+            detectedFrequencyChanges: filteredFrequencyChanges,
+            detectedSplits: newSplits,
+            detectedWeekdayChanges: filteredWeekdayChanges,
             eventCount: dividendEvents.length,
         };
     } catch (error) {
@@ -213,6 +356,15 @@ function inferSplitType(ratioStr) {
     return 'split';
 }
 
+function isNeutralSplit(ratioStr) {
+    if (!ratioStr) return false;
+    const [num, denom] = ratioStr.split(':').map(Number);
+    if (!Number.isFinite(num) || !Number.isFinite(denom) || denom === 0) {
+        return false;
+    }
+    return Math.abs(num - denom) < 1e-9;
+}
+
 async function ensureOutputDir(filePath) {
     const dir = path.dirname(filePath);
     await fs.mkdir(dir, { recursive: true });
@@ -223,7 +375,8 @@ async function main() {
     const filteredNav = navItems.filter((item) => {
         if (item.upcoming) return false;
         if (requestedCompany && item.company !== requestedCompany) return false;
-        if (requestedSymbols) return requestedSymbols.includes(item.symbol.toUpperCase());
+        if (requestedSymbols)
+            return requestedSymbols.includes(item.symbol.toUpperCase());
         return true;
     });
 
@@ -248,6 +401,7 @@ async function main() {
             segmentCount: r.detectedSegments.length,
             frequencyChangeCount: r.detectedFrequencyChanges.length,
             splitCount: r.detectedSplits.length,
+            weekdayChangeCount: r.detectedWeekdayChanges.length,
         }));
 
     await ensureOutputDir(outputPath);
@@ -272,21 +426,37 @@ async function main() {
         .filter((r) => !r.error)
         .map((r) => ({
             symbol: r.symbol,
-            frequencyChanges: (r.detectedFrequencyChanges || []).map((change) => ({
-                date: change.date,
-                from: change.from,
-                to: change.to,
-                confidence: change.confidence,
-                apply: false,
-            })),
+            frequencyChanges: (r.detectedFrequencyChanges || []).map(
+                (change) => ({
+                    date: change.date,
+                    from: change.from,
+                    to: change.to,
+                    confidence: change.confidence,
+                    apply: false,
+                })
+            ),
             splits: (r.detectedSplits || []).map((split) => ({
                 date: split.date,
                 ratio: split.ratio,
                 type: split.type,
                 apply: false,
             })),
+            weekdayChanges: (r.detectedWeekdayChanges || []).map((change) => ({
+                date: change.date,
+                from: change.from,
+                to: change.to,
+                confidence: change.confidence,
+                previousRatio: change.previousRatio,
+                nextRatio: change.nextRatio,
+                apply: false,
+            })),
         }))
-        .filter((entry) => entry.frequencyChanges.length > 0 || entry.splits.length > 0);
+        .filter(
+            (entry) =>
+                entry.frequencyChanges.length > 0 ||
+                entry.splits.length > 0 ||
+                entry.weekdayChanges.length > 0
+        );
 
     if (templateEntries.length > 0) {
         await ensureOutputDir(templatePath);
@@ -305,7 +475,10 @@ async function main() {
     }
 
     const changed = summaries.filter(
-        (s) => s.frequencyChangeCount > 0 || s.splitCount > 0
+        (s) =>
+            s.frequencyChangeCount > 0 ||
+            s.splitCount > 0 ||
+            s.weekdayChangeCount > 0
     );
 
     console.log(`📄 보고서 생성: ${outputPath}`);
@@ -314,16 +487,20 @@ async function main() {
             `📝 검토용 템플릿 생성: ${templatePath} (엔트리 ${templateEntries.length}개)`
         );
     } else {
-        console.log('ℹ️ 적용 가능한 이벤트가 없어 템플릿은 생성하지 않았습니다.');
+        console.log(
+            'ℹ️ 적용 가능한 이벤트가 없어 템플릿은 생성하지 않았습니다.'
+        );
     }
     console.log(
-        `   ▶ 주기/분할 이벤트 감지된 종목: ${changed.length}개 / 전체 ${summaries.length}개`
+        `   ▶ 이벤트 감지된 종목: ${changed.length}개 / 전체 ${summaries.length}개`
     );
 
     const errors = results.filter((r) => r.error);
     if (errors.length > 0) {
         console.warn('⚠️  처리 중 오류가 발생한 종목이 있습니다:');
-        errors.forEach((err) => console.warn(`   - ${err.symbol}: ${err.error}`));
+        errors.forEach((err) =>
+            console.warn(`   - ${err.symbol}: ${err.error}`)
+        );
     }
 }
 
@@ -331,4 +508,3 @@ main().catch((error) => {
     console.error('❌ 스크립트 실행 중 오류 발생:', error);
     process.exit(1);
 });
-

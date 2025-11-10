@@ -63,9 +63,60 @@
         }))
     );
 
-    const timelineRawEvents = computed(
-        () => props.tickerInfo?.events?.frequencyChanges || []
-    );
+    const timelineRawEvents = computed(() => {
+        const events = [];
+        const frequencyEvents =
+            props.tickerInfo?.events?.frequencyChanges || [];
+        frequencyEvents.forEach((event) => {
+            const hasGroupChange =
+                event.fromGroup &&
+                event.toGroup &&
+                event.fromGroup !== event.toGroup;
+            events.push({
+                icon: 'pi pi-refresh',
+                color: '#6366F1',
+                eventType: hasGroupChange ? 'frequency-group' : 'frequency',
+                ...event,
+            });
+        });
+
+        const weekdayEvents = props.tickerInfo?.events?.weekdayChanges || [];
+        if (weekdayEvents.length > 0) {
+            const weeklyLabel =
+                props.tickerInfo?.frequency &&
+                props.tickerInfo.frequency.includes('주')
+                    ? props.tickerInfo.frequency
+                    : '매주';
+            weekdayEvents.forEach((event) => {
+                events.push({
+                    date: event.date,
+                    from: event.fromFrequency || weeklyLabel,
+                    to: event.toFrequency || weeklyLabel,
+                    fromGroup: event.from,
+                    toGroup: event.to,
+                    icon: 'pi pi-calendar',
+                    color: '#22c55e',
+                    eventType: 'weekday',
+                });
+            });
+        }
+
+        const splitEvents = props.tickerInfo?.events?.splits || [];
+        splitEvents.forEach((event) => {
+            const eventType =
+                event.type === 'reverse-split' ? 'reverse-split' : 'split';
+            events.push({
+                date: event.date,
+                ratio: event.ratio,
+                type: event.type,
+                icon: 'pi pi-chart-line',
+                color: eventType === 'reverse-split' ? '#f97316' : '#0ea5e9',
+                eventType,
+            });
+        });
+
+        return events;
+    });
     const hasTimelineEvents = computed(
         () => timelineRawEvents.value.length > 0
     );
