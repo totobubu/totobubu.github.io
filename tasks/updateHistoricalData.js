@@ -49,6 +49,75 @@ async function fetchHistoricalData(symbol, fromDate) {
     }
 }
 
+async function fetchSplitEvents(symbol, fromDate) {
+    const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
+    const period2 = Math.floor(Date.now() / 1000);
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=div,splits`;
+
+    try {
+        const { data } = await axios.get(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0' },
+        });
+
+        if (data.chart.error)
+            throw new Error(
+                data.chart.error.description || `Unknown error for ${symbol}`
+            );
+
+        const result = data.chart.result?.[0];
+        if (!result || !result.events || !result.events.splits) return [];
+
+        return Object.values(result.events.splits)
+            .map((event) => {
+                const numerator = Number(event.numerator);
+                const denominator = Number(event.denominator);
+                if (!numerator || !denominator || numerator === denominator) {
+                    return null;
+                }
+                const ratio = `${numerator}:${denominator}`;
+                const type = numerator > denominator ? 'reverse-split' : 'split';
+                return {
+                    date: new Date(event.date * 1000).toISOString().split('T')[0],
+                    ratio,
+                    type,
+                };
+            })
+            .filter(Boolean);
+    } catch (error) {
+        console.error(`Split API Error for ${symbol}: ${error.message}`);
+        return [];
+    }
+}
+
+async function mergeSplitEvents(existingData, newSplits) {
+    const existingSplits = existingData?.tickerInfo?.events?.splits || [];
+    const splitMap = new Map(
+        existingSplits.map((event) => [
+            `${event.date}|${event.ratio}|${event.type}`,
+            event,
+        ])
+    );
+
+    newSplits.forEach((event) => {
+        const signature = `${event.date}|${event.ratio}|${event.type}`;
+        if (!splitMap.has(signature)) {
+            splitMap.set(signature, event);
+        }
+    });
+
+    const finalSplits = Array.from(splitMap.values()).sort((a, b) =>
+        a.date.localeCompare(b.date)
+    );
+
+    existingData.tickerInfo = {
+        ...(existingData.tickerInfo || {}),
+        events: {
+            ...(existingData.tickerInfo?.events || {}),
+            splits: finalSplits,
+        },
+    };
+}
+
 async function fetchAndMergePriceData(ticker) {
     const { symbol, ipoDate } = ticker;
     const sanitizedSymbol = sanitizeTickerForFilename(symbol);
@@ -86,39 +155,78 @@ async function fetchAndMergePriceData(ticker) {
         if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
 
         const from = startDate.toISOString().split('T')[0];
-        if (new Date(from) > new Date()) return { success: true, symbol };
 
-        // [핵심] axios 함수 호출
+        const oldBacktestStr = JSON.stringify(existingData.backtestData || []);
+        const existingSplits =
+            existingData?.tickerInfo?.events?.splits || [];
+        const oldSplitsStr = JSON.stringify(existingSplits);
+
+        // 가격 데이터 병합
         const newPriceData = await fetchHistoricalData(symbol, from);
+        let finalBacktestData = existingData.backtestData || [];
 
-        if (newPriceData.length === 0) return { success: true, symbol };
+        if (newPriceData.length > 0) {
+            newPriceData.forEach((p) => {
+                const existingEntry = backtestMap.get(p.date) || { date: p.date };
+                backtestMap.set(p.date, { ...existingEntry, ...p });
+            });
 
-        // [핵심] 기존 데이터와 병합 (기존의 amount, amountFixed 등 보존)
-        newPriceData.forEach((p) => {
-            const existingEntry = backtestMap.get(p.date) || { date: p.date };
-            backtestMap.set(p.date, { ...existingEntry, ...p });
-        });
-
-        const finalBacktestData = Array.from(backtestMap.values()).sort(
-            (a, b) => a.date.localeCompare(b.date)
-        );
-
-        // 변경 사항이 있을 때만 저장
-        if (
-            JSON.stringify(existingData.backtestData) !==
-            JSON.stringify(finalBacktestData)
-        ) {
-            // tickerInfo가 먼저 오도록 순서 보장
-            const orderedData = {
-                tickerInfo: existingData.tickerInfo || {},
-                backtestData: finalBacktestData,
-            };
-
-            await fs.writeFile(filePath, JSON.stringify(orderedData, null, 2));
-            console.log(
-                `✅ [${symbol}] Price data updated. Added/merged ${newPriceData.length} records.${isNewFile ? ' (NEW FILE)' : ''}`
+            finalBacktestData = Array.from(backtestMap.values()).sort((a, b) =>
+                a.date.localeCompare(b.date)
             );
         }
+
+        const backtestChanged =
+            JSON.stringify(finalBacktestData) !== oldBacktestStr;
+
+        // 분할/병합 데이터 병합
+        const splitStartDate = existingSplits.length
+            ? existingSplits.reduce((latest, event) =>
+                  event.date > latest ? event.date : latest
+              , existingSplits[0].date)
+            : ipoDate || '1990-01-01';
+
+        const splitEvents = await fetchSplitEvents(symbol, splitStartDate);
+
+        const splitMap = new Map(
+            existingSplits.map((event) => [
+                `${event.date}|${event.ratio}|${event.type}`,
+                event,
+            ])
+        );
+
+        splitEvents.forEach((event) => {
+            const signature = `${event.date}|${event.ratio}|${event.type}`;
+            if (!splitMap.has(signature)) {
+                splitMap.set(signature, event);
+            }
+        });
+
+        const finalSplits = Array.from(splitMap.values()).sort((a, b) =>
+            a.date.localeCompare(b.date)
+        );
+
+        const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
+
+        if (!backtestChanged && !splitsChanged) {
+            return { success: true, symbol };
+        }
+
+        const tickerInfo = { ...(existingData.tickerInfo || {}) };
+        tickerInfo.events = {
+            ...(tickerInfo.events || {}),
+            splits: finalSplits,
+        };
+
+        existingData.tickerInfo = tickerInfo;
+        existingData.backtestData = finalBacktestData;
+
+        await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        console.log(
+            `✅ [${symbol}] Updated. Prices: ${backtestChanged ? 'Y' : 'N'}, Splits: ${splitsChanged ? 'Y' : 'N'}${
+                isNewFile ? ' (NEW FILE)' : ''
+            }`
+        );
 
         return { success: true, symbol };
     } catch (error) {
