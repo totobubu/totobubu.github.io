@@ -170,6 +170,36 @@ def download_file_from_r2(r2_key, local_file_path):
         return False
 
 
+def delete_r2_files(keys):
+    """R2에서 여러 파일 삭제"""
+    s3_client, bucket_name = get_r2_client()
+    if not s3_client:
+        return [], list(keys or [])
+
+    keys = [key for key in keys if key]
+    if not keys:
+        return [], []
+
+    deleted = []
+    errors = []
+    chunk_size = 1000
+
+    for index in range(0, len(keys), chunk_size):
+        chunk = keys[index : index + chunk_size]
+        try:
+            response = s3_client.delete_objects(
+                Bucket=bucket_name,
+                Delete={"Objects": [{"Key": key} for key in chunk], "Quiet": True},
+            )
+            deleted.extend(obj.get("Key") for obj in response.get("Deleted", []))
+            errors.extend(err.get("Key") for err in response.get("Errors", []))
+        except Exception as exc:
+            print(f"[ERROR] R2 삭제 실패 ({len(chunk)}개 묶음): {exc}")
+            errors.extend(chunk)
+
+    return deleted, errors
+
+
 def list_r2_files(prefix=""):
     """R2 버킷에서 파일 목록 가져오기"""
     s3_client, bucket_name = get_r2_client()

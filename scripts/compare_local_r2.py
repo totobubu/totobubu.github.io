@@ -11,7 +11,12 @@ MD5 해시 계산 없이 빠른 비교가 가능합니다.
 import os
 from pathlib import Path
 from collections import defaultdict
-from r2_helper import get_r2_client, R2_AVAILABLE, upload_file_to_r2
+from r2_helper import (
+    get_r2_client,
+    R2_AVAILABLE,
+    upload_file_to_r2,
+    delete_r2_files,
+)
 
 
 def get_r2_files_with_size(prefix=""):
@@ -95,14 +100,23 @@ def get_local_files_with_size(local_dir, file_pattern="*.json"):
 
 def format_size(size_bytes):
     """파일 크기를 읽기 쉬운 형식으로 변환"""
-    for unit in ['B', 'KB', 'MB', 'GB']:
+    for unit in ["B", "KB", "MB", "GB"]:
         if size_bytes < 1024.0:
             return f"{size_bytes:.1f} {unit}"
         size_bytes /= 1024.0
     return f"{size_bytes:.1f} TB"
 
 
-def compare_and_show_diff():
+COMPARE_TARGETS = [
+    ("data", "data/", "public/data", "*.json"),
+    ("sidebar", "sidebar/", "public/sidebar", "*.json"),
+    ("calendar", "calendar/", "public/calendar", "*.json"),
+    ("logos", "logos/", "public/logos", "*"),
+    ("nav", "", "public/nav.json", None),
+]
+
+
+def compare_and_show_diff(target_names=None):
     """로컬과 R2 비교 및 차이점 표시"""
     print("=" * 70)
     print("  로컬 ↔ R2 빠른 비교 (파일명 + 파일크기)")
@@ -112,22 +126,25 @@ def compare_and_show_diff():
         print("[WARNING] boto3가 설치되지 않았습니다.")
         return
 
-    # 비교할 디렉토리 목록
-    compare_targets = [
-        ("data/", "public/data", "*.json"),
-        ("sidebar/", "public/sidebar", "*.json"),
-        ("calendar/", "public/calendar", "*.json"),  # calendar 폴더 전체
-        ("logos/", "public/logos", "*"),
-        ("", "public/nav.json", None),  # 단일 파일
-    ]
+    if target_names:
+        target_names = {name.strip().lower() for name in target_names}
+        invalid = target_names.difference({name for name, *_ in COMPARE_TARGETS})
+        if invalid:
+            print(f"[ERROR] 알 수 없는 비교 대상: {', '.join(sorted(invalid))}")
+            print("가능한 대상:", ", ".join(name for name, *_ in COMPARE_TARGETS))
+            return
 
     all_diffs = []
+    r2_only_files = []
     total_missing = 0
     total_changed = 0
     total_extra = 0
 
     # 1. 폴더 단위 비교
-    for r2_prefix, local_path, pattern in compare_targets:
+    for target_name, r2_prefix, local_path, pattern in COMPARE_TARGETS:
+        if target_names and target_name not in target_names:
+            continue
+
         if pattern is None:
             # 단일 파일 처리
             if not os.path.exists(local_path):
@@ -150,25 +167,29 @@ def compare_and_show_diff():
 
             if r2_key not in r2_files:
                 print(f"  ❌ 누락: {r2_key} (로컬: {format_size(local_size)})")
-                all_diffs.append({
-                    "type": "missing",
-                    "r2_key": r2_key,
-                    "local_path": local_path,
-                    "local_size": local_size,
-                    "r2_size": None
-                })
+                all_diffs.append(
+                    {
+                        "type": "missing",
+                        "r2_key": r2_key,
+                        "local_path": local_path,
+                        "local_size": local_size,
+                        "r2_size": None,
+                    }
+                )
                 total_missing += 1
             elif r2_files[r2_key] != local_size:
                 print(f"  ⚠️  크기 불일치: {r2_key}")
                 print(f"      로컬: {format_size(local_size)}")
                 print(f"      R2:   {format_size(r2_files[r2_key])}")
-                all_diffs.append({
-                    "type": "changed",
-                    "r2_key": r2_key,
-                    "local_path": local_path,
-                    "local_size": local_size,
-                    "r2_size": r2_files[r2_key]
-                })
+                all_diffs.append(
+                    {
+                        "type": "changed",
+                        "r2_key": r2_key,
+                        "local_path": local_path,
+                        "local_size": local_size,
+                        "r2_size": r2_files[r2_key],
+                    }
+                )
                 total_changed += 1
             else:
                 print(f"  ✅ 동일 ({format_size(local_size)})")
@@ -179,7 +200,8 @@ def compare_and_show_diff():
                 print(f"\n[비교] {r2_prefix} (로컬 폴더 없음)")
                 continue
 
-            print(f"\n[비교] {r2_prefix}")
+            display_name = r2_prefix or target_name
+            print(f"\n[비교] {display_name}")
             print("-" * 70)
 
             # R2 파일 목록 조회
@@ -190,48 +212,53 @@ def compare_and_show_diff():
             # local_files의 r2_key는 이미 전체 경로를 포함 (예: data/xxx.json)
             folder_missing = 0
             folder_changed = 0
-            
+
             for r2_key, file_info in local_files.items():
                 local_size = file_info["size"]
 
                 # r2_key가 이미 전체 경로를 포함하므로 r2_prefix를 다시 붙이지 않음
                 if r2_key not in r2_files:
                     print(f"  ❌ 누락: {r2_key} ({format_size(local_size)})")
-                    all_diffs.append({
-                        "type": "missing",
-                        "r2_key": r2_key,
-                        "local_path": file_info["path"],
-                        "local_size": local_size,
-                        "r2_size": None
-                    })
+                    all_diffs.append(
+                        {
+                            "type": "missing",
+                            "r2_key": r2_key,
+                            "local_path": file_info["path"],
+                            "local_size": local_size,
+                            "r2_size": None,
+                        }
+                    )
                     total_missing += 1
                     folder_missing += 1
                 elif r2_files[r2_key] != local_size:
                     print(f"  ⚠️  크기 불일치: {r2_key}")
                     print(f"      로컬: {format_size(local_size)}")
                     print(f"      R2:   {format_size(r2_files[r2_key])}")
-                    all_diffs.append({
-                        "type": "changed",
-                        "r2_key": r2_key,
-                        "local_path": file_info["path"],
-                        "local_size": local_size,
-                        "r2_size": r2_files[r2_key]
-                    })
+                    all_diffs.append(
+                        {
+                            "type": "changed",
+                            "r2_key": r2_key,
+                            "local_path": file_info["path"],
+                            "local_size": local_size,
+                            "r2_size": r2_files[r2_key],
+                        }
+                    )
                     total_changed += 1
                     folder_changed += 1
-            
+
             # 폴더 요약 출력 (불일치가 없으면 표시)
             if folder_missing == 0 and folder_changed == 0:
                 print(f"  ✅ 모든 파일 동일 ({len(local_files)}개)")
 
             # R2에만 있는 파일 (추가)
             local_keys = {k: v for k, v in local_files.items()}
-            folder_extra = 0
             for r2_key, r2_size in r2_files.items():
                 if r2_key not in local_keys:
                     print(f"  ℹ️  R2에만 존재: {r2_key} ({format_size(r2_size)})")
                     total_extra += 1
-                    folder_extra += 1
+                    r2_only_files.append(
+                        {"r2_key": r2_key, "r2_size": r2_size, "prefix": r2_prefix}
+                    )
 
     # 요약
     print("\n" + "=" * 70)
@@ -242,13 +269,12 @@ def compare_and_show_diff():
     print(f"  R2에만 존재: {total_extra}개")
     print(f"  총 차이: {total_missing + total_changed}개")
 
-    # 업로드 옵션 제공
-    if all_diffs:
+    # 후속 조치 제공
+    if all_diffs or r2_only_files:
         print("\n" + "=" * 70)
-        print("  업로드 옵션")
+        print("  후속 조치")
         print("=" * 70)
 
-        # 타입별로 그룹화
         missing_files = [d for d in all_diffs if d["type"] == "missing"]
         changed_files = [d for d in all_diffs if d["type"] == "changed"]
 
@@ -261,33 +287,75 @@ def compare_and_show_diff():
             print(f"\n[크기 불일치 파일] ({len(changed_files)}개)")
             for i, diff in enumerate(changed_files, 1):
                 print(f"  {i}. {diff['r2_key']}")
-                print(f"     로컬: {format_size(diff['local_size'])} → R2: {format_size(diff['r2_size'])})")
+                print(
+                    f"     로컬: {format_size(diff['local_size'])} → R2: {format_size(diff['r2_size'])})"
+                )
 
-        # 업로드 확인
-        print("\n" + "-" * 70)
-        response = input(f"\n업로드할까요? (y/n): ").strip().lower()
+        if r2_only_files:
+            print(f"\n[R2 전용 파일] ({len(r2_only_files)}개)")
+            for i, diff in enumerate(r2_only_files, 1):
+                print(f"  {i}. {diff['r2_key']} ({format_size(diff['r2_size'])})")
 
-        if response == 'y':
-            print("\n업로드 시작...")
-            success_count = 0
-            fail_count = 0
+        if all_diffs:
+            print("\n" + "-" * 70)
+            response = input(f"\n업로드할까요? (y/n): ").strip().lower()
 
-            for diff in all_diffs:
-                print(f"  업로드 중: {diff['r2_key']}...", end=" ")
-                if upload_file_to_r2(diff['local_path'], diff['r2_key']):
-                    print("✅")
-                    success_count += 1
-                else:
-                    print("❌")
-                    fail_count += 1
+            if response == "y":
+                print("\n업로드 시작...")
+                success_count = 0
+                fail_count = 0
 
-            print(f"\n업로드 완료: 성공 {success_count}개, 실패 {fail_count}개")
-        else:
-            print("\n업로드를 건너뜁니다.")
+                for diff in all_diffs:
+                    print(f"  업로드 중: {diff['r2_key']}...", end=" ")
+                    if upload_file_to_r2(diff["local_path"], diff["r2_key"]):
+                        print("✅")
+                        success_count += 1
+                    else:
+                        print("❌")
+                        fail_count += 1
+
+                print(f"\n업로드 완료: 성공 {success_count}개, 실패 {fail_count}개")
+            else:
+                print("\n업로드를 건너뜁니다.")
+
+        if r2_only_files:
+            delete_response = (
+                input("\nR2에만 있는 파일을 삭제할까요? (y/n): ").strip().lower()
+            )
+            if delete_response == "y":
+                print("\n삭제 시작...")
+                keys = [diff["r2_key"] for diff in r2_only_files]
+                deleted, errors = delete_r2_files(keys)
+                if deleted:
+                    print(f"  ✅ 삭제 완료 ({len(deleted)}개)")
+                    for key in deleted:
+                        print(f"    - {key}")
+                if errors:
+                    print(f"  ❌ 삭제 실패 ({len(errors)}개)")
+                    for key in errors:
+                        print(f"    - {key}")
+                if not deleted and not errors:
+                    print("  ⚠️ 삭제할 파일이 없습니다.")
+            else:
+                print("\n삭제를 건너뜁니다.")
     else:
         print("\n✅ 로컬과 R2가 동기화되어 있습니다!")
 
 
 if __name__ == "__main__":
-    compare_and_show_diff()
+    import argparse
 
+    parser = argparse.ArgumentParser(
+        description="로컬과 R2의 특정 폴더/파일을 빠르게 비교합니다."
+    )
+    parser.add_argument(
+        "targets",
+        nargs="*",
+        help=(
+            "비교할 대상 이름 (여러 개 지정 가능). "
+            "가능한 값: " + ", ".join(name for name, *_ in COMPARE_TARGETS)
+        ),
+    )
+
+    args = parser.parse_args()
+    compare_and_show_diff(args.targets or None)
