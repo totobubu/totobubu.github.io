@@ -10,6 +10,7 @@
     import Tag from 'primevue/tag';
     import Button from 'primevue/button';
     import AddAssetModal from '@/components/asset/AddAssetModal.vue';
+    import StockTimelineModal from '@/components/StockTimelineModal.vue';
     // import StockCalculators from '@/components/StockCalculators.vue';
 
     const { isAdmin } = useAdmin();
@@ -61,6 +62,13 @@
             code: opt.value,
         }))
     );
+
+    const timelineRawEvents = computed(
+        () => props.tickerInfo?.events?.frequencyChanges || []
+    );
+    const hasTimelineEvents = computed(
+        () => timelineRawEvents.value.length > 0
+    );
 </script>
 
 <template>
@@ -98,6 +106,18 @@
                     </template>
                 </div>
                 <div class="flex align-items-center gap-2" v-if="tickerInfo">
+                    <StockTimelineModal
+                        v-if="hasTimelineEvents"
+                        :events="timelineRawEvents"
+                        :fallback-group="tickerInfo.group">
+                        <template #trigger="{ open }">
+                            <Button
+                                icon="pi pi-calendar"
+                                text
+                                v-tooltip="'이벤트 타임라인'"
+                                @click="open()" />
+                        </template>
+                    </StockTimelineModal>
                     <Tag v-if="tickerInfo.frequency" severity="secondary">{{
                         tickerInfo.frequency
                     }}</Tag>
@@ -128,3 +148,5 @@
         @update:visible="showAddAssetModal = $event"
         @saved="handleAssetSaved" />
 </template>
+
+<style scoped></style>

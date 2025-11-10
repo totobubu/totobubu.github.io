@@ -149,3 +149,21 @@
         }
     }
 }
+
+.timeline-dialog {
+    .p-timeline {
+        &-event {
+            justify-content: flex-start;
+            align-items: center;
+            &-opposite {
+                flex-basis: 100px;
+            }
+            &-separator {
+                flex-basis: 2rem;
+            }
+            &-content {
+                flex-basis: 100%;
+            }
+        }
+    }
+}
