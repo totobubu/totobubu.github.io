@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 19820.0,
+        "regularMarketPrice": 19820,
         "englishName": "HMM Co.,Ltd",
         "earningsDate": null,
         "enterpriseValue": 10144442220544,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 1025039496,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 600.0,
+        "dividendRate": 600,
         "payoutRatio": 0.1599,
         "changes": {
             "Volume": {
                 "value": 1363637,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2016-04-20",
+                    "ratio": "1:7",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58246,6 +58255,14 @@
             "close": 19820,
             "volume": 1293166,
             "marketCap": 20316281634816
+        },
+        {
+            "date": "2025-11-10",
+            "open": 19820,
+            "high": 20200,
+            "low": 19700,
+            "close": 20100,
+            "volume": 750295
         },
         {
             "date": "2026-02-25",

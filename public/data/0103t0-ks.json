@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 10140.0,
+        "regularMarketPrice": 10140,
         "englishName": "Hana 1Q K Sovereign Ai Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 425827,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -221,6 +224,14 @@
             "low": 9985,
             "close": 10140,
             "volume": 425728
+        },
+        {
+            "date": "2025-11-10",
+            "open": 10190,
+            "high": 10400,
+            "low": 10160,
+            "close": 10220,
+            "volume": 320042
         }
     ]
 }

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 47650.0,
+        "regularMarketPrice": 47650,
         "englishName": "Snt Dynamics Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": 802390736896,
@@ -20,13 +20,37 @@
         "sharesOutstanding": 22393851,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2000.0,
+        "dividendRate": 2000,
         "payoutRatio": 0.5461,
         "changes": {
             "Volume": {
                 "value": 104160,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2000-04-28",
+                    "ratio": "1:5",
+                    "type": "split"
+                },
+                {
+                    "date": "2003-03-31",
+                    "ratio": "10:25",
+                    "type": "split"
+                },
+                {
+                    "date": "2006-03-24",
+                    "ratio": "1:5",
+                    "type": "split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.03:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58270,6 +58294,14 @@
             "close": 47650,
             "volume": 104160,
             "marketCap": 1067067047936
+        },
+        {
+            "date": "2025-11-10",
+            "open": 47650,
+            "high": 48500,
+            "low": 47400,
+            "close": 47900,
+            "volume": 37102
         },
         {
             "date": "2025-12-26",

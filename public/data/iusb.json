@@ -10,7 +10,16 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2016-07-25",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -23264,7 +23273,7 @@
             "high": 46.72999954223633,
             "low": 46.64500045776367,
             "close": 46.72999954223633,
-            "volume": 2580186
+            "volume": 2581086
         },
         {
             "date": "2025-12-03",

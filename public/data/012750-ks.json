@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 74400.0,
+        "regularMarketPrice": 74400,
         "englishName": "S-1 Corporation",
         "earningsDate": "2025-10-31",
         "enterpriseValue": 1730798551040,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 33810239,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2700.0,
+        "dividendRate": 2700,
         "payoutRatio": 0.4885,
         "changes": {
             "Volume": {
                 "value": 70903,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58275,6 +58278,14 @@
             "close": 74400,
             "volume": 70903,
             "marketCap": 2515481919488
+        },
+        {
+            "date": "2025-11-10",
+            "open": 75600,
+            "high": 75900,
+            "low": 73900,
+            "close": 75700,
+            "volume": 35193
         },
         {
             "date": "2025-12-26",

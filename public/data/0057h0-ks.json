@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11455.0,
+        "regularMarketPrice": 11455,
         "englishName": "Hanwha Plus S&P500 Us T-Bill 5050 Blend Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 44245,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -855,6 +858,14 @@
             "low": 11370,
             "close": 11455,
             "volume": 44286
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11455,
+            "high": 11485,
+            "low": 11440,
+            "close": 11450,
+            "volume": 113597
         }
     ]
 }

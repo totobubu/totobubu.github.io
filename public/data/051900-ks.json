@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 289000.0,
+        "regularMarketPrice": 289000,
         "englishName": "LG H&H Co., Ltd.",
         "earningsDate": "2025-11-10",
         "enterpriseValue": 4040577777664,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 14659785,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 4500.0,
+        "dividendRate": 4500,
         "payoutRatio": 0.508,
         "changes": {
             "Volume": {
                 "value": 78161,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -55204,6 +55207,14 @@
             "close": 289000,
             "volume": 78161,
             "marketCap": 4490867507200
+        },
+        {
+            "date": "2025-11-10",
+            "open": 292500,
+            "high": 293000,
+            "low": 286500,
+            "close": 288500,
+            "volume": 40898
         }
     ]
 }

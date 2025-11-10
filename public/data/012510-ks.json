@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 82800.0,
+        "regularMarketPrice": 82800,
         "englishName": "Douzone Bizon Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 2528461455360,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 28028674,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 477.0,
+        "dividendRate": 477,
         "payoutRatio": 0.2399,
         "changes": {
             "Volume": {
                 "value": 1587404,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2002-04-22",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2009-11-18",
+                    "ratio": "1:7.13542",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-02-28",
+                    "ratio": "0.7054:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58254,6 +58273,14 @@
             "close": 82800,
             "volume": 1411404,
             "marketCap": 2320774201344
+        },
+        {
+            "date": "2025-11-10",
+            "open": 82800,
+            "high": 87000,
+            "low": 81700,
+            "close": 84400,
+            "volume": 472186
         },
         {
             "date": "2026-03-27",

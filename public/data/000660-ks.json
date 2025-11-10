@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 580000.0,
+        "regularMarketPrice": 580000,
         "englishName": "SK hynix Inc.",
         "earningsDate": "2025-10-28",
         "enterpriseValue": 396425011658752,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 690412123,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1500.0,
+        "dividendRate": 1500,
         "payoutRatio": 0.048699997,
         "changes": {
             "Volume": {
                 "value": 4970826,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-04-14",
+                    "ratio": "1:21",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58292,6 +58301,14 @@
             "close": 580000,
             "volume": 4789397,
             "marketCap": 400439027695616
+        },
+        {
+            "date": "2025-11-10",
+            "open": 584000,
+            "high": 615000,
+            "low": 581000,
+            "close": 612000,
+            "volume": 4370110
         },
         {
             "date": "2025-11-28",

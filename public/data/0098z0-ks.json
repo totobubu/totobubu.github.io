@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 48010.0,
+        "regularMarketPrice": 48010,
         "englishName": "Vi Focus 200 Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 1199,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -261,6 +264,14 @@
             "low": 47010,
             "close": 48010,
             "volume": 1199
+        },
+        {
+            "date": "2025-11-10",
+            "open": 48535,
+            "high": 48790,
+            "low": 48535,
+            "close": 48695,
+            "volume": 6
         }
     ]
 }

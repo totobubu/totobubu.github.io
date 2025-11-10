@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 264000.0,
+        "regularMarketPrice": 264000,
         "englishName": "Hyundai Motor Company",
         "earningsDate": "2025-10-30",
         "enterpriseValue": 206376265580544,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 202006914,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 10000.0,
+        "dividendRate": 10000,
         "payoutRatio": 0.23959999,
         "changes": {
             "Volume": {
                 "value": 717994,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58303,6 +58306,14 @@
             "close": 264000,
             "volume": 717994,
             "marketCap": 64716164562944
+        },
+        {
+            "date": "2025-11-10",
+            "open": 266500,
+            "high": 274000,
+            "low": 265000,
+            "close": 272000,
+            "volume": 585943
         },
         {
             "date": "2025-11-28",

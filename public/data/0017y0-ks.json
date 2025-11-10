@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 99505.0,
+        "regularMarketPrice": 99505,
         "englishName": "Hana 1Q Total Market Bond (AA- Or Higher) Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 121,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1405,6 +1408,14 @@
             "low": 99505,
             "close": 99505,
             "volume": 121
+        },
+        {
+            "date": "2025-11-10",
+            "open": 99505,
+            "high": 99670,
+            "low": 99370,
+            "close": 99410,
+            "volume": 158
         }
     ]
 }

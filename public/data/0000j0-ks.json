@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 25375.0,
+        "regularMarketPrice": 25375,
         "englishName": "Hanwha Plus Hanwha Group ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 530501,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1711,6 +1714,14 @@
             "low": 24410,
             "close": 25375,
             "volume": 530490
+        },
+        {
+            "date": "2025-11-10",
+            "open": 25535,
+            "high": 26150,
+            "low": 25390,
+            "close": 26085,
+            "volume": 111648
         }
     ]
 }

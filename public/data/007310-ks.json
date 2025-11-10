@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 386000.0,
+        "regularMarketPrice": 386000,
         "englishName": "Otoki Corporation",
         "earningsDate": null,
         "enterpriseValue": 1679871574016,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 3439327,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 9000.0,
+        "dividendRate": 9000,
         "payoutRatio": 0.27,
         "changes": {
             "Volume": {
                 "value": 6517,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58275,6 +58278,14 @@
             "close": 386000,
             "volume": 6333,
             "marketCap": 1327580184576
+        },
+        {
+            "date": "2025-11-10",
+            "open": 389500,
+            "high": 391500,
+            "low": 386000,
+            "close": 390500,
+            "volume": 4525
         },
         {
             "date": "2026-03-13",

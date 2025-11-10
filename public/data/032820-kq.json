@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 4225.0,
+        "regularMarketPrice": 4225,
         "englishName": "Woori Technology, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,15 @@
                 "value": 6315734,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2007-06-15",
+                    "ratio": "0.1:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56033,6 +56042,14 @@
             "close": 4225,
             "volume": 6284049,
             "marketCap": 699360346112
+        },
+        {
+            "date": "2025-11-10",
+            "open": 4200,
+            "high": 4295,
+            "low": 4140,
+            "close": 4265,
+            "volume": 3500993
         }
     ]
 }

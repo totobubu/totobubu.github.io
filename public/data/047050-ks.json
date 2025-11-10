@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 51600.0,
+        "regularMarketPrice": 51600,
         "englishName": "Posco International Corporation",
         "earningsDate": null,
         "enterpriseValue": 14648265932800,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 170444487,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2400.0,
+        "dividendRate": 2400,
         "payoutRatio": 0.6043,
         "changes": {
             "Volume": {
                 "value": 349868,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -55387,6 +55390,14 @@
             "close": 51600,
             "volume": 349868,
             "marketCap": 8794935394304
+        },
+        {
+            "date": "2025-11-10",
+            "open": 51900,
+            "high": 53000,
+            "low": 51100,
+            "close": 52700,
+            "volume": 232102
         }
     ]
 }

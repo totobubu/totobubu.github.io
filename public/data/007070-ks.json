@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 20150.0,
+        "regularMarketPrice": 20150,
         "englishName": "GS Retail Co., Ltd.",
         "earningsDate": "2025-11-06",
         "enterpriseValue": 4271760998400,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 83565590,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 500.0,
-        "payoutRatio": 0.0,
+        "dividendRate": 500,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 1120048,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2024-11-22",
+                    "ratio": "0.9878:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-12-05",
+                    "ratio": "0.9878:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-12-23",
+                    "ratio": "0.808283:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -30705,6 +30724,14 @@
             "close": 20150,
             "volume": 1120048,
             "marketCap": 1683846725632
+        },
+        {
+            "date": "2025-11-10",
+            "open": 19870,
+            "high": 20950,
+            "low": 19770,
+            "close": 20800,
+            "volume": 436534
         },
         {
             "date": "2026-02-27",

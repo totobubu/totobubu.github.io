@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 102600.0,
+        "regularMarketPrice": 102600,
         "englishName": "SM Entertainment Co., Ltd.",
         "earningsDate": "2025-11-05",
         "enterpriseValue": 2360618516480,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 22894690,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 400.0,
+        "dividendRate": 400,
         "payoutRatio": 0.033099998,
         "changes": {
             "Volume": {
                 "value": 161464,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2005-07-08",
+                    "ratio": "2.1242:1.1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-03-16",
+                    "ratio": "1.1:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56343,6 +56357,14 @@
             "close": 102600,
             "volume": 161464,
             "marketCap": 2348995313664
+        },
+        {
+            "date": "2025-11-10",
+            "open": 102800,
+            "high": 103500,
+            "low": 100400,
+            "close": 102600,
+            "volume": 141789
         },
         {
             "date": "2025-12-26",

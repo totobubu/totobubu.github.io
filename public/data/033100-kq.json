@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 36550.0,
+        "regularMarketPrice": 36550,
         "englishName": "Cheryong Electric Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": 476769845248,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 16062409,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1000.0,
+        "dividendRate": 1000,
         "payoutRatio": 0.2641,
         "changes": {
             "Volume": {
                 "value": 197192,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2004-12-29",
+                    "ratio": "1.05851:1.0609",
+                    "type": "split"
+                },
+                {
+                    "date": "2006-12-27",
+                    "ratio": "1.03:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56188,6 +56202,14 @@
             "close": 36550,
             "volume": 197192,
             "marketCap": 587081056256
+        },
+        {
+            "date": "2025-11-10",
+            "open": 36250,
+            "high": 37250,
+            "low": 35950,
+            "close": 37150,
+            "volume": 88352
         },
         {
             "date": "2025-12-26",

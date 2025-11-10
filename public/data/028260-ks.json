@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 214000.0,
+        "regularMarketPrice": 214000,
         "englishName": "Samsung C&T Corporation",
         "earningsDate": "2025-10-28",
         "enterpriseValue": 40939523407872,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 162168982,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2600.0,
+        "dividendRate": 2600,
         "payoutRatio": 0.2116,
         "changes": {
             "Volume": {
                 "value": 231688,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2020-05-13",
+                    "ratio": "0.985:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-04-18",
+                    "ratio": "0.99:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -24063,6 +24077,14 @@
             "close": 214000,
             "volume": 231688,
             "marketCap": 34907944386560
+        },
+        {
+            "date": "2025-11-10",
+            "open": 220500,
+            "high": 227500,
+            "low": 218000,
+            "close": 226000,
+            "volume": 334073
         },
         {
             "date": "2025-12-26",

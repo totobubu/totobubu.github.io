@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 128400.0,
+        "regularMarketPrice": 128400,
         "englishName": "GC Biopharma Corp.",
         "earningsDate": null,
         "enterpriseValue": 2689900478464,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 11413178,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1500.0,
+        "dividendRate": 1500,
         "payoutRatio": 0.2325,
         "changes": {
             "Volume": {
                 "value": 79331,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2013-06-07",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58262,6 +58271,14 @@
             "close": 128400,
             "volume": 78215,
             "marketCap": 1465452068864
+        },
+        {
+            "date": "2025-11-10",
+            "open": 129000,
+            "high": 131900,
+            "low": 128600,
+            "close": 131800,
+            "volume": 38494
         },
         {
             "date": "2025-12-26",

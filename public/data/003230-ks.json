@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 1296000.0,
+        "regularMarketPrice": 1296000,
         "englishName": "Samyang Foods Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 9924950097920,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 7458128,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 4400.0,
+        "dividendRate": 4400,
         "payoutRatio": 0.077199996,
         "changes": {
             "Volume": {
                 "value": 25357,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58265,6 +58268,14 @@
             "close": 1296000,
             "volume": 25357,
             "marketCap": 9665733722112
+        },
+        {
+            "date": "2025-11-10",
+            "open": 1311000,
+            "high": 1314000,
+            "low": 1281000,
+            "close": 1307000,
+            "volume": 23193
         }
     ]
 }

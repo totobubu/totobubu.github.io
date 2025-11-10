@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 24600.0,
+        "regularMarketPrice": 24600,
         "englishName": "Hankook & Company Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 2336948224000,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 94718144,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1090.0,
+        "dividendRate": 1090,
         "payoutRatio": 0.3155,
         "changes": {
             "Volume": {
                 "value": 80865,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2000-01-04",
+                    "ratio": "1.03:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58280,6 +58289,14 @@
             "close": 24600,
             "volume": 77129,
             "marketCap": 2330066419712
+        },
+        {
+            "date": "2025-11-10",
+            "open": 24800,
+            "high": 28600,
+            "low": 24750,
+            "close": 27850,
+            "volume": 484192
         }
     ]
 }

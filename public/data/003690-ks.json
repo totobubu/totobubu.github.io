@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11200.0,
+        "regularMarketPrice": 11200,
         "englishName": "Korean Reinsurance Company",
         "earningsDate": "2025-08-14",
         "enterpriseValue": -6399180406784,
@@ -20,13 +20,52 @@
         "sharesOutstanding": 176721031,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 515.0,
+        "dividendRate": 515,
         "payoutRatio": 0.26860002,
         "changes": {
             "Volume": {
                 "value": 443097,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2008-03-28",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2010-03-30",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-03-29",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2013-12-27",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-12-12",
+                    "ratio": "1.2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2023-11-20",
+                    "ratio": "1.2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2024-11-06",
+                    "ratio": "1.2:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -44793,6 +44832,14 @@
             "close": 11200,
             "volume": 443097,
             "marketCap": 1979275411456
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11200,
+            "high": 12130,
+            "low": 11190,
+            "close": 11990,
+            "volume": 615408
         },
         {
             "date": "2026-04-01",

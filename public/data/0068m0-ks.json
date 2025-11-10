@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11385.0,
+        "regularMarketPrice": 11385,
         "englishName": "Samsung Kodex Us S&P500 Buffer June Active Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 2468,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -773,6 +776,14 @@
             "low": 11340,
             "close": 11385,
             "volume": 2468
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11390,
+            "high": 11425,
+            "low": 11390,
+            "close": 11425,
+            "volume": 1714
         }
     ]
 }

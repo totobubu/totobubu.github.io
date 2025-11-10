@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 259500.0,
+        "regularMarketPrice": 259500,
         "englishName": "SK Gas Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 5425697128448,
@@ -20,13 +20,52 @@
         "sharesOutstanding": 8990046,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 8000.0,
+        "dividendRate": 8000,
         "payoutRatio": 0.27879998,
         "changes": {
             "Volume": {
                 "value": 12713,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2013-12-27",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2014-12-29",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2015-12-29",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2016-12-28",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-12-27",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2019-12-27",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58276,6 +58315,14 @@
             "close": 259500,
             "volume": 13137,
             "marketCap": 2332916973568
+        },
+        {
+            "date": "2025-11-10",
+            "open": 259500,
+            "high": 269000,
+            "low": 259500,
+            "close": 264000,
+            "volume": 20369
         }
     ]
 }

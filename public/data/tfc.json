@@ -10,7 +10,36 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "1983-07-01",
+                    "ratio": "5:4",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "1985-04-29",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "1987-06-23",
+                    "ratio": "3:2",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "1989-07-03",
+                    "ratio": "3:2",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "1998-08-04",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -103856,6 +103885,14 @@
             "low": 43.82500076293945,
             "close": 44.0099983215332,
             "volume": 5263901
+        },
+        {
+            "date": "2025-11-07",
+            "open": 43.75,
+            "high": 44.7400016784668,
+            "low": 43.630001068115234,
+            "close": 44.7400016784668,
+            "volume": 6731000
         },
         {
             "date": "2026-02-06",

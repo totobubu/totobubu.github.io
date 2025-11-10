@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 918000.0,
+        "regularMarketPrice": 918000,
         "englishName": "Doosan Corporation",
         "earningsDate": null,
         "enterpriseValue": 32982423306240,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 13562516,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2000.0,
-        "payoutRatio": 0.0,
+        "dividendRate": 2000,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 159271,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2019-09-27",
+                    "ratio": "0.906006:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58282,6 +58291,14 @@
             "close": 918000,
             "volume": 156364,
             "marketCap": 14716831268864
+        },
+        {
+            "date": "2025-11-10",
+            "open": 924000,
+            "high": 962000,
+            "low": 897000,
+            "close": 944000,
+            "volume": 89704
         },
         {
             "date": "2026-04-02",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 222500.0,
+        "regularMarketPrice": 222500,
         "englishName": "Samsung Electro-Mechanics Co., Ltd.",
         "earningsDate": "2025-10-29",
         "enterpriseValue": 16566165962752,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 72693696,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1800.0,
+        "dividendRate": 1800,
         "payoutRatio": 0.2507,
         "changes": {
             "Volume": {
                 "value": 603457,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58269,6 +58272,14 @@
             "close": 222500,
             "volume": 587100,
             "marketCap": 16460606865408
+        },
+        {
+            "date": "2025-11-10",
+            "open": 224500,
+            "high": 226500,
+            "low": 218000,
+            "close": 225500,
+            "volume": 332403
         },
         {
             "date": "2025-12-26",

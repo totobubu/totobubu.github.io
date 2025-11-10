@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 99685.0,
+        "regularMarketPrice": 99685,
         "englishName": "Kim Ace High Grade Credit Bond Active Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 25864,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -341,6 +344,14 @@
             "low": 99680,
             "close": 99685,
             "volume": 25864
+        },
+        {
+            "date": "2025-11-10",
+            "open": 99630,
+            "high": 99705,
+            "low": 99625,
+            "close": 99660,
+            "volume": 54021
         }
     ]
 }

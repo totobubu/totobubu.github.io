@@ -10,7 +10,31 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2015-07-29",
+                    "ratio": "1.2:1.14597",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2016-12-28",
+                    "ratio": "1.02:1.1235",
+                    "type": "split"
+                },
+                {
+                    "date": "2017-12-27",
+                    "ratio": "1.05:1.07",
+                    "type": "split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.07:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -23985,6 +24009,14 @@
             "close": 48350,
             "volume": 117754,
             "marketCap": 500931297280
+        },
+        {
+            "date": "2025-11-10",
+            "open": 48600,
+            "high": 48600,
+            "low": 47250,
+            "close": 48450,
+            "volume": 97643
         }
     ]
 }

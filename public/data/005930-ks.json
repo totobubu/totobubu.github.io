@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 97900.0,
+        "regularMarketPrice": 97900,
         "englishName": "Samsung Electronics Co., Ltd.",
         "earningsDate": "2025-10-29",
         "enterpriseValue": 560150775595008,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 5876745450,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1480.0,
+        "dividendRate": 1480,
         "payoutRatio": 0.32459998,
         "changes": {
             "Volume": {
                 "value": 23936861,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2018-05-04",
+                    "ratio": "50:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2018-05-16",
+                    "ratio": "50:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58330,6 +58344,14 @@
             "close": 97900,
             "volume": 22877249,
             "marketCap": 636675952738304
+        },
+        {
+            "date": "2025-11-10",
+            "open": 98600,
+            "high": 101000,
+            "low": 97900,
+            "close": 100900,
+            "volume": 20397612
         },
         {
             "date": "2025-12-29",

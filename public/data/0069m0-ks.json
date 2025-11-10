@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 12225.0,
+        "regularMarketPrice": 12225,
         "englishName": "Hana 1Q Nasdaq 100 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 127012,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -775,6 +778,14 @@
             "low": 12125,
             "close": 12225,
             "volume": 127089
+        },
+        {
+            "date": "2025-11-10",
+            "open": 12240,
+            "high": 12295,
+            "low": 12175,
+            "close": 12255,
+            "volume": 479754
         }
     ]
 }

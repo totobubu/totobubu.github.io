@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 29800.0,
+        "regularMarketPrice": 29800,
         "englishName": "LOTTE Corporation",
         "earningsDate": null,
         "enterpriseValue": 12737771995136,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 70805300,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1200.0,
-        "payoutRatio": 0.0,
+        "dividendRate": 1200,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 236922,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2016-04-27",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-10-30",
+                    "ratio": "2.5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58068,6 +58082,14 @@
             "close": 29800,
             "volume": 227250,
             "marketCap": 2131253133312
+        },
+        {
+            "date": "2025-11-10",
+            "open": 30500,
+            "high": 31800,
+            "low": 30500,
+            "close": 31300,
+            "volume": 535468
         },
         {
             "date": "2026-03-27",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 68800.0,
+        "regularMarketPrice": 68800,
         "englishName": "Lotte Chemical Corporation",
         "earningsDate": null,
         "enterpriseValue": 15204349902848,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 42167147,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1500.0,
+        "dividendRate": 1500,
         "payoutRatio": 1.4049001,
         "changes": {
             "Volume": {
                 "value": 130032,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58279,6 +58282,14 @@
             "close": 68800,
             "volume": 130032,
             "marketCap": 2901099675648
+        },
+        {
+            "date": "2025-11-10",
+            "open": 69700,
+            "high": 74400,
+            "low": 69100,
+            "close": 73700,
+            "volume": 159936
         }
     ]
 }

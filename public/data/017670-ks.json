@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 53400.0,
+        "regularMarketPrice": 53400,
         "englishName": "SK Telecom Co., Ltd.",
         "earningsDate": "2025-10-30",
         "enterpriseValue": null,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 212982275,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 3320.0,
+        "dividendRate": 3320,
         "payoutRatio": 0.5823,
         "changes": {
             "Volume": {
                 "value": 1164417,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2000-04-24",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2021-10-28",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2021-11-29",
+                    "ratio": "3.03681:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58320,6 +58339,14 @@
             "close": 53400,
             "volume": 902399,
             "marketCap": 11373253754880
+        },
+        {
+            "date": "2025-11-10",
+            "open": 53800,
+            "high": 54400,
+            "low": 53600,
+            "close": 54300,
+            "volume": 823542
         },
         {
             "date": "2025-11-28",

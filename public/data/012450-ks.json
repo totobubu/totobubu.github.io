@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 923000.0,
+        "regularMarketPrice": 923000,
         "englishName": "Hanwha Aerospace Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 57498786594816,
@@ -27,6 +27,15 @@
                 "value": 255527,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2024-08-29",
+                    "ratio": "0.90028:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58256,6 +58265,14 @@
             "close": 923000,
             "volume": 246989,
             "marketCap": 47487230410752
+        },
+        {
+            "date": "2025-11-10",
+            "open": 935000,
+            "high": 984000,
+            "low": 927000,
+            "close": 966000,
+            "volume": 138627
         },
         {
             "date": "2025-12-26",

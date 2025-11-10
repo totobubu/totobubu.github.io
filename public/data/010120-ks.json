@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 440000.0,
+        "regularMarketPrice": 440000,
         "englishName": "LS ELECTRIC Co., Ltd.",
         "earningsDate": "2025-10-22",
         "enterpriseValue": 13626800865280,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 29704551,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2900.0,
+        "dividendRate": 2900,
         "payoutRatio": 0.3696,
         "changes": {
             "Volume": {
                 "value": 295147,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-04-16",
+                    "ratio": "1:3.67",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58266,6 +58275,14 @@
             "close": 440000,
             "volume": 289243,
             "marketCap": 13070002814976
+        },
+        {
+            "date": "2025-11-10",
+            "open": 437000,
+            "high": 484500,
+            "low": 433500,
+            "close": 478500,
+            "volume": 330162
         },
         {
             "date": "2025-12-26",

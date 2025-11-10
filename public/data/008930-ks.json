@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 39000.0,
+        "regularMarketPrice": 39000,
         "englishName": "Hanmi Science Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 2780505571328,
@@ -20,13 +20,97 @@
         "sharesOutstanding": 67713706,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 300.0,
+        "dividendRate": 300,
         "payoutRatio": 0.2232,
         "changes": {
             "Volume": {
                 "value": 101711,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2005-12-28",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2009-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2010-07-01",
+                    "ratio": "0.25:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2011-12-28",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-04-26",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2013-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2014-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2015-12-29",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-02-15",
+                    "ratio": "1.07:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-12-27",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2019-12-27",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2020-12-29",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2021-12-29",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-12-28",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -44796,6 +44880,14 @@
             "close": 39000,
             "volume": 98845,
             "marketCap": 2640834461696
+        },
+        {
+            "date": "2025-11-10",
+            "open": 39000,
+            "high": 39800,
+            "low": 38950,
+            "close": 39600,
+            "volume": 54139
         },
         {
             "date": "2025-12-26",

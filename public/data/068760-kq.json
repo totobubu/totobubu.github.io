@@ -10,7 +10,61 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2014-12-29",
+                    "ratio": "1.05:1.277741",
+                    "type": "split"
+                },
+                {
+                    "date": "2015-12-29",
+                    "ratio": "1.03:1.240525",
+                    "type": "split"
+                },
+                {
+                    "date": "2016-12-28",
+                    "ratio": "1.05:1.181452",
+                    "type": "split"
+                },
+                {
+                    "date": "2017-12-27",
+                    "ratio": "1.02:1.158287",
+                    "type": "split"
+                },
+                {
+                    "date": "2019-12-27",
+                    "ratio": "1.05:1.10313",
+                    "type": "split"
+                },
+                {
+                    "date": "2020-12-29",
+                    "ratio": "1.02:1.0815",
+                    "type": "split"
+                },
+                {
+                    "date": "2021-12-29",
+                    "ratio": "1.03:1.05",
+                    "type": "split"
+                },
+                {
+                    "date": "2022-12-28",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2023-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2024-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -43827,6 +43881,14 @@
             "close": 62100,
             "volume": 200210,
             "marketCap": 2696564178944
+        },
+        {
+            "date": "2025-11-10",
+            "open": 62600,
+            "high": 63000,
+            "low": 60000,
+            "close": 62200,
+            "volume": 120780
         }
     ]
 }

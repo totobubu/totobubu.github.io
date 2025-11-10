@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11330.0,
+        "regularMarketPrice": 11330,
         "englishName": "Kb Rise Us S&P500 Yen Hedged Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 15200,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1613,6 +1616,14 @@
             "low": 11250,
             "close": 11330,
             "volume": 15210
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11665,
+            "high": 11665,
+            "low": 11285,
+            "close": 11345,
+            "volume": 10518
         }
     ]
 }

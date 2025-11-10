@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 247500.0,
+        "regularMarketPrice": 247500,
         "englishName": "SK Inc.",
         "earningsDate": "2025-08-14",
         "enterpriseValue": 128015803613184,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 54520348,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 7000.0,
+        "dividendRate": 7000,
         "payoutRatio": 2.3663,
         "changes": {
             "Volume": {
                 "value": 224221,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -35481,6 +35484,14 @@
             "close": 247500,
             "volume": 224221,
             "marketCap": 13493785853952
+        },
+        {
+            "date": "2025-11-10",
+            "open": 256000,
+            "high": 273500,
+            "low": 255500,
+            "close": 271000,
+            "volume": 499447
         }
     ]
 }

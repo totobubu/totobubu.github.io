@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 8390.0,
+        "regularMarketPrice": 8390,
         "englishName": "Asiana Airlines, Inc.",
         "earningsDate": null,
         "enterpriseValue": 7092755234816,
@@ -21,12 +21,21 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 115811,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2021-01-15",
+                    "ratio": "0.3333:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -57832,6 +57841,14 @@
             "close": 8390,
             "volume": 115811,
             "marketCap": 1727570378752
+        },
+        {
+            "date": "2025-11-10",
+            "open": 8410,
+            "high": 8640,
+            "low": 8400,
+            "close": 8590,
+            "volume": 99472
         },
         {
             "date": "2025-12-26",

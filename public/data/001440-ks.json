@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 24750.0,
+        "regularMarketPrice": 24750,
         "englishName": "Taihan Cable & Solution Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 4636017688576,
@@ -21,12 +21,46 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 14412718,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2002-04-22",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-10-19",
+                    "ratio": "14.29:100",
+                    "type": "split"
+                },
+                {
+                    "date": "2015-02-17",
+                    "ratio": "1:5",
+                    "type": "split"
+                },
+                {
+                    "date": "2022-02-03",
+                    "ratio": "0.2:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2022-02-07",
+                    "ratio": "0.2:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2023-05-16",
+                    "ratio": "1:10",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58235,6 +58269,14 @@
             "close": 24750,
             "volume": 14230457,
             "marketCap": 4597773500416
+        },
+        {
+            "date": "2025-11-10",
+            "open": 24850,
+            "high": 25150,
+            "low": 23450,
+            "close": 24850,
+            "volume": 5571466
         },
         {
             "date": "2025-12-29",

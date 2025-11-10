@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 30500.0,
+        "regularMarketPrice": 30500,
         "englishName": "Hyundai Steel Company",
         "earningsDate": "2025-10-30",
         "enterpriseValue": 12583244398592,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 131545739,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 750.0,
+        "dividendRate": 750,
         "payoutRatio": 0.4978,
         "changes": {
             "Volume": {
                 "value": 287650,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58275,6 +58278,14 @@
             "close": 30500,
             "volume": 276605,
             "marketCap": 4012144852992
+        },
+        {
+            "date": "2025-11-10",
+            "open": 30800,
+            "high": 32200,
+            "low": 30600,
+            "close": 31900,
+            "volume": 355899
         },
         {
             "date": "2026-03-27",

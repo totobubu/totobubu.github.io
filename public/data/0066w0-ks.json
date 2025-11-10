@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 12390.0,
+        "regularMarketPrice": 12390,
         "englishName": "Shinhan Sol Global Gold Fofs ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 445934,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -813,6 +816,14 @@
             "low": 12240,
             "close": 12390,
             "volume": 450736
+        },
+        {
+            "date": "2025-11-10",
+            "open": 12500,
+            "high": 12540,
+            "low": 12390,
+            "close": 12540,
+            "volume": 377122
         }
     ]
 }

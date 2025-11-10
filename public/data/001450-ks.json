@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 28250.0,
+        "regularMarketPrice": 28250,
         "englishName": "Hyundai Marine & Fire Insurance Co., Ltd.",
         "earningsDate": "2025-08-13",
         "enterpriseValue": -27671803199488,
@@ -21,12 +21,21 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 534977,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2004-07-13",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58272,6 +58281,14 @@
             "close": 28250,
             "volume": 486547,
             "marketCap": 2215209598976
+        },
+        {
+            "date": "2025-11-10",
+            "open": 28600,
+            "high": 29500,
+            "low": 28550,
+            "close": 29150,
+            "volume": 497807
         },
         {
             "date": "2026-03-27",

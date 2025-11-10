@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 46300.0,
+        "regularMarketPrice": 46300,
         "englishName": "Hanall Biopharma Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 2342784860160,
@@ -21,12 +21,21 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 1049787,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2006-05-03",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58224,6 +58233,14 @@
             "close": 46300,
             "volume": 1049787,
             "marketCap": 2349949779968
+        },
+        {
+            "date": "2025-11-10",
+            "open": 45650,
+            "high": 45950,
+            "low": 43050,
+            "close": 43750,
+            "volume": 826915
         }
     ]
 }

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 39650.0,
+        "regularMarketPrice": 39650,
         "englishName": "Soulbrain Holdings Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 1230205222912,
@@ -20,13 +20,37 @@
         "sharesOutstanding": 20082893,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 220.0,
+        "dividendRate": 220,
         "payoutRatio": 0.22799999,
         "changes": {
             "Volume": {
                 "value": 73682,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2004-05-06",
+                    "ratio": "2:0.580889",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2005-12-28",
+                    "ratio": "1.03:0.56397",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2006-12-27",
+                    "ratio": "1.02:0.552912",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2020-07-01",
+                    "ratio": "0.552912:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56098,6 +56122,14 @@
             "close": 39650,
             "volume": 72905,
             "marketCap": 796286648320
+        },
+        {
+            "date": "2025-11-10",
+            "open": 40300,
+            "high": 41250,
+            "low": 39850,
+            "close": 40850,
+            "volume": 34267
         },
         {
             "date": "2026-03-27",
