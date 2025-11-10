@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 112500.0,
+        "regularMarketPrice": 112500,
         "englishName": "OCI Holdings Company Ltd.",
         "earningsDate": "2025-11-11",
         "enterpriseValue": 3503665184768,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 18707917,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2200.0,
+        "dividendRate": 2200,
         "payoutRatio": 4.2126,
         "changes": {
             "Volume": {
                 "value": 133515,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2023-04-27",
+                    "ratio": "0.688179:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-04-29",
+                    "ratio": "0.9978:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58263,6 +58277,14 @@
             "close": 112500,
             "volume": 131020,
             "marketCap": 2104640536576
+        },
+        {
+            "date": "2025-11-10",
+            "open": 113000,
+            "high": 113800,
+            "low": 110400,
+            "close": 112000,
+            "volume": 80625
         },
         {
             "date": "2025-12-26",

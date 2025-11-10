@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 166100.0,
+        "regularMarketPrice": 166100,
         "englishName": "CJ Corporation",
         "earningsDate": null,
         "enterpriseValue": 33915530117120,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 27058455,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 3000.0,
+        "dividendRate": 3000,
         "payoutRatio": 1.3117999,
         "changes": {
             "Volume": {
                 "value": 104206,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2007-09-03",
+                    "ratio": "0.63:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.15:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58275,6 +58289,14 @@
             "close": 166100,
             "volume": 99941,
             "marketCap": 4494409596928
+        },
+        {
+            "date": "2025-11-10",
+            "open": 168100,
+            "high": 176700,
+            "low": 167000,
+            "close": 176100,
+            "volume": 167250
         },
         {
             "date": "2026-04-03",

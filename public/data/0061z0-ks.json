@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 50485.0,
+        "regularMarketPrice": 50485,
         "englishName": "Kb Rise Short Term Specialized Bank Bond Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 1776,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -773,6 +776,14 @@
             "low": 50485,
             "close": 50485,
             "volume": 1776
+        },
+        {
+            "date": "2025-11-10",
+            "open": 50485,
+            "high": 50490,
+            "low": 50485,
+            "close": 50490,
+            "volume": 871
         }
     ]
 }

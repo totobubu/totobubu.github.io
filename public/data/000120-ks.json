@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 83400.0,
+        "regularMarketPrice": 83400,
         "englishName": "CJ Logistics Corporation",
         "earningsDate": null,
         "enterpriseValue": 5077393211392,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 19945129,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 800.0,
+        "dividendRate": 800,
         "payoutRatio": 0.071100004,
         "changes": {
             "Volume": {
                 "value": 118096,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2001-08-03",
+                    "ratio": "1:6",
+                    "type": "split"
+                },
+                {
+                    "date": "2009-04-22",
+                    "ratio": "0.5678:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58231,6 +58245,14 @@
             "close": 83400,
             "volume": 115245,
             "marketCap": 1663423610880
+        },
+        {
+            "date": "2025-11-10",
+            "open": 84500,
+            "high": 91700,
+            "low": 84200,
+            "close": 91700,
+            "volume": 375410
         },
         {
             "date": "2026-03-27",

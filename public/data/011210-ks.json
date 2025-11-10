@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 54100.0,
+        "regularMarketPrice": 54100,
         "englishName": "Hyundai Wia Corporation",
         "earningsDate": "2025-10-31",
         "enterpriseValue": 1840269754368,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 26597745,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1100.0,
+        "dividendRate": 1100,
         "payoutRatio": 0.2051,
         "changes": {
             "Volume": {
                 "value": 80285,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -32601,6 +32604,14 @@
             "close": 54100,
             "volume": 77753,
             "marketCap": 1438937907200
+        },
+        {
+            "date": "2025-11-10",
+            "open": 54800,
+            "high": 56600,
+            "low": 54300,
+            "close": 56200,
+            "volume": 71446
         },
         {
             "date": "2026-03-26",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 47400.0,
+        "regularMarketPrice": 47400,
         "englishName": "Dongwon Industries Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 4486370164736,
@@ -20,13 +20,52 @@
         "sharesOutstanding": 44146210,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1650.0,
+        "dividendRate": 1650,
         "payoutRatio": 0.3439,
         "changes": {
             "Volume": {
                 "value": 40778,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-01-22",
+                    "ratio": "0.549143:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2022-09-15",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-11-03",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-11-28",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2023-07-31",
+                    "ratio": "0.93:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-04-30",
+                    "ratio": "0.775:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-12-30",
+                    "ratio": "1.1:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58278,6 +58317,14 @@
             "close": 47400,
             "volume": 40778,
             "marketCap": 2092530270208
+        },
+        {
+            "date": "2025-11-10",
+            "open": 47300,
+            "high": 48800,
+            "low": 47300,
+            "close": 48500,
+            "volume": 78345
         }
     ]
 }

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 127200.0,
+        "regularMarketPrice": 127200,
         "englishName": "HANMI Semiconductor Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 12226508357632,
@@ -20,13 +20,37 @@
         "sharesOutstanding": 94853002,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 720.0,
+        "dividendRate": 720,
         "payoutRatio": 0.3211,
         "changes": {
             "Volume": {
                 "value": 1620158,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2006-10-11",
+                    "ratio": "1.619048:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2007-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-04-12",
+                    "ratio": "2.5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-04-06",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -45226,6 +45250,14 @@
             "close": 127200,
             "volume": 1608139,
             "marketCap": 12065301331968
+        },
+        {
+            "date": "2025-11-10",
+            "open": 128000,
+            "high": 131500,
+            "low": 124000,
+            "close": 130100,
+            "volume": 1138196
         },
         {
             "date": "2026-03-06",

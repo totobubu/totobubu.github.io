@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 97625.0,
+        "regularMarketPrice": 97625,
         "englishName": "KIM ACE FTSE WGBI Korean Government Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 164,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1445,6 +1448,14 @@
             "low": 97625,
             "close": 97625,
             "volume": 164
+        },
+        {
+            "date": "2025-11-10",
+            "open": 97625,
+            "high": 97810,
+            "low": 97460,
+            "close": 97460,
+            "volume": 138
         }
     ]
 }

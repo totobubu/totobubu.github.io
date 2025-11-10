@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 26250.0,
+        "regularMarketPrice": 26250,
         "englishName": "Hanwha Solutions Corporation",
         "earningsDate": "2025-11-05",
         "enterpriseValue": 18079931170816,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 169348279,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 300.0,
-        "payoutRatio": 0.0,
+        "dividendRate": 300,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 2070480,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2023-03-31",
+                    "ratio": "0.898651:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58262,6 +58271,14 @@
             "close": 26250,
             "volume": 2016643,
             "marketCap": 4498878103552
+        },
+        {
+            "date": "2025-11-10",
+            "open": 26450,
+            "high": 26650,
+            "low": 26100,
+            "close": 26600,
+            "volume": 772714
         },
         {
             "date": "2025-12-26",

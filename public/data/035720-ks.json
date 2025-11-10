@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 62800.0,
+        "regularMarketPrice": 62800,
         "englishName": "Kakao Corp.",
         "earningsDate": "2025-11-07",
         "enterpriseValue": 25670509920256,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 439675076,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 68.0,
+        "dividendRate": 68,
         "payoutRatio": 0.1508,
         "changes": {
             "Volume": {
                 "value": 9719245,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2021-04-15",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-05-16",
+                    "ratio": "0.9927:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-05-02",
+                    "ratio": "0.9956:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58004,6 +58023,14 @@
             "close": 62800,
             "volume": 9656837,
             "marketCap": 27611593965568
+        },
+        {
+            "date": "2025-11-10",
+            "open": 63400,
+            "high": 66400,
+            "low": 62200,
+            "close": 62300,
+            "volume": 7553554
         },
         {
             "date": "2026-03-06",

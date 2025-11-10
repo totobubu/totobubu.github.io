@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 110900.0,
+        "regularMarketPrice": 110900,
         "englishName": "SKC Co., Ltd.",
         "earningsDate": "2025-11-05",
         "enterpriseValue": 7528659288064,
@@ -21,12 +21,15 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 474966,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58245,6 +58248,14 @@
             "close": 110900,
             "volume": 464920,
             "marketCap": 3778206498816
+        },
+        {
+            "date": "2025-11-10",
+            "open": 113000,
+            "high": 119600,
+            "low": 111000,
+            "close": 119200,
+            "volume": 405022
         },
         {
             "date": "2025-12-26",

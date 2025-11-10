@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 192000.0,
+        "regularMarketPrice": 192000,
         "englishName": "SHINSEGAE Inc.",
         "earningsDate": null,
         "enterpriseValue": 8254496178176,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 8767681,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 4500.0,
+        "dividendRate": 4500,
         "payoutRatio": 1.3821001,
         "changes": {
             "Volume": {
                 "value": 89481,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2011-02-01",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2011-06-10",
+                    "ratio": "0.261:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58277,6 +58291,14 @@
             "close": 192000,
             "volume": 89481,
             "marketCap": 1683394789376
+        },
+        {
+            "date": "2025-11-10",
+            "open": 193900,
+            "high": 205000,
+            "low": 193000,
+            "close": 204000,
+            "volume": 83445
         },
         {
             "date": "2026-03-27",

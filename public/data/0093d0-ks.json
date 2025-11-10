@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 12730.0,
+        "regularMarketPrice": 12730,
         "englishName": "Samsungactive Koact Palantir Value Chain Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 169896,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -421,6 +424,14 @@
             "low": 12625,
             "close": 12730,
             "volume": 170002
+        },
+        {
+            "date": "2025-11-10",
+            "open": 12730,
+            "high": 12960,
+            "low": 12730,
+            "close": 12865,
+            "volume": 120065
         }
     ]
 }

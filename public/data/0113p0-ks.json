@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 100305.0,
+        "regularMarketPrice": 100305,
         "englishName": "Heungkuk Hk Money Market Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 14,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -221,6 +224,14 @@
             "low": 100300,
             "close": 100305,
             "volume": 13
+        },
+        {
+            "date": "2025-11-10",
+            "open": 100315,
+            "high": 100315,
+            "low": 100310,
+            "close": 100315,
+            "volume": 11
         }
     ]
 }

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11370.0,
+        "regularMarketPrice": 11370,
         "englishName": "Kb Rise Nvidia Fixed Tech100 Etf",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 13081,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -423,6 +426,14 @@
             "low": 11270,
             "close": 11370,
             "volume": 13110
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11370,
+            "high": 11480,
+            "low": 11360,
+            "close": 11445,
+            "volume": 24572
         }
     ]
 }

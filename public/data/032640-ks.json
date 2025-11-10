@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 15710.0,
+        "regularMarketPrice": 15710,
         "englishName": "LG Uplus Corp.",
         "earningsDate": "2025-11-05",
         "enterpriseValue": 11738250477568,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 429828352,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 650.0,
+        "dividendRate": 650,
         "payoutRatio": 0.6013,
         "changes": {
             "Volume": {
                 "value": 1533908,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -57556,6 +57559,14 @@
             "close": 15710,
             "volume": 1596940,
             "marketCap": 6752603471872
+        },
+        {
+            "date": "2025-11-10",
+            "open": 15980,
+            "high": 16500,
+            "low": 15880,
+            "close": 16330,
+            "volume": 1453097
         }
     ]
 }

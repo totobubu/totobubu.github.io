@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 404000.0,
+        "regularMarketPrice": 404000,
         "englishName": "KCC Corporation",
         "earningsDate": null,
         "enterpriseValue": 7195720679424,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 7354171,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 10000.0,
+        "dividendRate": 10000,
         "payoutRatio": 0.0825,
         "changes": {
             "Volume": {
                 "value": 23945,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2019-12-30",
+                    "ratio": "0.841799:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58300,6 +58309,14 @@
             "close": 404000,
             "volume": 23945,
             "marketCap": 2971085045760
+        },
+        {
+            "date": "2025-11-10",
+            "open": 407500,
+            "high": 436500,
+            "low": 407000,
+            "close": 431000,
+            "volume": 34298
         }
     ]
 }

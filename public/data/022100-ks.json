@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 25400.0,
+        "regularMarketPrice": 25400,
         "englishName": "Posco Dx Company Ltd.",
         "earningsDate": null,
         "enterpriseValue": 3787485609984,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 151822519,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 125.0,
+        "dividendRate": 125,
         "payoutRatio": 0.2432,
         "changes": {
             "Volume": {
                 "value": 1102565,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2006-04-10",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56142,6 +56151,14 @@
             "close": 25400,
             "volume": 1095133,
             "marketCap": 3856291856384
+        },
+        {
+            "date": "2025-11-10",
+            "open": 25500,
+            "high": 26150,
+            "low": 25100,
+            "close": 25950,
+            "volume": 564496
         },
         {
             "date": "2026-03-27",

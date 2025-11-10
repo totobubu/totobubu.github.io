@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 146800.0,
+        "regularMarketPrice": 146800,
         "englishName": "Youngone Holdings Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 2573077577728,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 11604898,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 5350.0,
+        "dividendRate": 5350,
         "payoutRatio": 0.23,
         "changes": {
             "Volume": {
                 "value": 47580,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2009-07-01",
+                    "ratio": "0.2:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58282,6 +58291,14 @@
             "close": 146800,
             "volume": 47580,
             "marketCap": 1703599013888
+        },
+        {
+            "date": "2025-11-10",
+            "open": 146400,
+            "high": 154400,
+            "low": 144800,
+            "close": 152700,
+            "volume": 16117
         }
     ]
 }

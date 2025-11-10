@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 11950.0,
+        "regularMarketPrice": 11950,
         "englishName": "Hana 1Q U.S. S&P500 Exchange Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 144653,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1299,6 +1302,14 @@
             "low": 11860,
             "close": 11950,
             "volume": 144653
+        },
+        {
+            "date": "2025-11-10",
+            "open": 11995,
+            "high": 12015,
+            "low": 11945,
+            "close": 11975,
+            "volume": 180380
         },
         {
             "date": "2025-12-12",

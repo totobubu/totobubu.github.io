@@ -10,7 +10,16 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2024-07-12",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -44216,6 +44225,14 @@
             "close": 160000,
             "volume": 149442,
             "marketCap": 12000000212992
+        },
+        {
+            "date": "2025-11-10",
+            "open": 161200,
+            "high": 166900,
+            "low": 161100,
+            "close": 166800,
+            "volume": 136717
         },
         {
             "date": "2026-03-27",

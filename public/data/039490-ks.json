@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 281500.0,
+        "regularMarketPrice": 281500,
         "englishName": "Kiwoom Securities Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 6684777906176,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 25146271,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 7500.0,
+        "dividendRate": 7500,
         "payoutRatio": 0.23799999,
         "changes": {
             "Volume": {
                 "value": 104052,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -48130,6 +48133,14 @@
             "close": 281500,
             "volume": 108218,
             "marketCap": 7078675480576
+        },
+        {
+            "date": "2025-11-10",
+            "open": 290000,
+            "high": 309500,
+            "low": 288500,
+            "close": 305500,
+            "volume": 133776
         },
         {
             "date": "2025-12-26",

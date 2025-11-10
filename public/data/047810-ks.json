@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 97000.0,
+        "regularMarketPrice": 97000,
         "englishName": "Korea Aerospace Industries, Ltd.",
         "earningsDate": null,
         "enterpriseValue": 11351537745920,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 97475107,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 500.0,
+        "dividendRate": 500,
         "payoutRatio": 0.2926,
         "changes": {
             "Volume": {
                 "value": 664128,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -31798,6 +31801,14 @@
             "close": 97000,
             "volume": 664128,
             "marketCap": 9455085289472
+        },
+        {
+            "date": "2025-11-10",
+            "open": 98300,
+            "high": 101600,
+            "low": 97500,
+            "close": 101200,
+            "volume": 389511
         },
         {
             "date": "2026-03-31",

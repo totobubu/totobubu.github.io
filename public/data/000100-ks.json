@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 115300.0,
+        "regularMarketPrice": 115300,
         "englishName": "Yuhan Corporation",
         "earningsDate": null,
         "enterpriseValue": 8693299019776,
@@ -20,13 +20,92 @@
         "sharesOutstanding": 73790935,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 500.0,
+        "dividendRate": 500,
         "payoutRatio": 0.4669,
         "changes": {
             "Volume": {
                 "value": 489136,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2005-12-28",
+                    "ratio": "1.049898:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2006-12-27",
+                    "ratio": "1.0499:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2007-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2008-12-29",
+                    "ratio": "1.049971:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2009-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2010-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2016-12-28",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2018-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2019-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2020-04-08",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2020-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2021-12-29",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-12-28",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2023-12-27",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58268,6 +58347,14 @@
             "close": 115300,
             "volume": 479609,
             "marketCap": 8625465589760
+        },
+        {
+            "date": "2025-11-10",
+            "open": 116000,
+            "high": 116400,
+            "low": 114100,
+            "close": 114600,
+            "volume": 254600
         },
         {
             "date": "2025-12-26",

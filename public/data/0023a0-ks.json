@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 28240.0,
+        "regularMarketPrice": 28240,
         "englishName": "Shinhan Sol US Quantum Computing Top10 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 1016337,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1333,6 +1336,14 @@
             "low": 27885,
             "close": 28240,
             "volume": 1016064
+        },
+        {
+            "date": "2025-11-10",
+            "open": 28500,
+            "high": 29000,
+            "low": 28480,
+            "close": 28910,
+            "volume": 822303
         }
     ]
 }

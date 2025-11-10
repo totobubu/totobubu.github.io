@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 46600.0,
+        "regularMarketPrice": 46600,
         "englishName": "Oscotec Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,15 @@
                 "value": 270780,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2009-12-29",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -41686,6 +41695,14 @@
             "close": 46600,
             "volume": 270780,
             "marketCap": 1782365028352
+        },
+        {
+            "date": "2025-11-10",
+            "open": 47300,
+            "high": 47650,
+            "low": 45250,
+            "close": 45400,
+            "volume": 197606
         },
         {
             "date": "2025-12-29",

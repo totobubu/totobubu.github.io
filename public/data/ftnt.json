@@ -10,7 +10,21 @@
         "market": "NASDAQ",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2011-06-02",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-06-23",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -36170,7 +36184,7 @@
             "high": 81.9800033569336,
             "low": 79.55000305175781,
             "close": 81.79000091552734,
-            "volume": 7062926
+            "volume": 7152628
         }
     ]
 }

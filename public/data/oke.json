@@ -10,7 +10,31 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "1990-03-01",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2001-06-12",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-06-04",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2014-02-03",
+                    "ratio": "11422:10000",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 63600.0,
+        "regularMarketPrice": 63600,
         "englishName": "CJ ENM CO., Ltd.",
         "earningsDate": "2025-11-06",
         "enterpriseValue": 4009415671808,
@@ -21,12 +21,21 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 61286,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2010-12-29",
+                    "ratio": "1.02:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56063,6 +56072,14 @@
             "close": 63600,
             "volume": 58425,
             "marketCap": 1319372324864
+        },
+        {
+            "date": "2025-11-10",
+            "open": 64700,
+            "high": 66000,
+            "low": 64000,
+            "close": 66000,
+            "volume": 28413
         },
         {
             "date": "2025-12-26",

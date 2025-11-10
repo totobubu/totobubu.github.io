@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 33850.0,
+        "regularMarketPrice": 33850,
         "englishName": "SL Corporation",
         "earningsDate": null,
         "enterpriseValue": 1139698302976,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 46055462,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1200.0,
+        "dividendRate": 1200,
         "payoutRatio": 0.18290001,
         "changes": {
             "Volume": {
                 "value": 103854,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2002-07-30",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2003-12-01",
+                    "ratio": "1.5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-05-16",
+                    "ratio": "0.964:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58278,6 +58297,14 @@
             "close": 33850,
             "volume": 101256,
             "marketCap": 1558977445888
+        },
+        {
+            "date": "2025-11-10",
+            "open": 34100,
+            "high": 35150,
+            "low": 33950,
+            "close": 34950,
+            "volume": 84030
         },
         {
             "date": "2025-12-26",

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 72000.0,
+        "regularMarketPrice": 72000,
         "englishName": "JYP Entertainment Corporation",
         "earningsDate": null,
         "enterpriseValue": 2215428751360,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 33133059,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 534.0,
+        "dividendRate": 534,
         "payoutRatio": 0.1038,
         "changes": {
             "Volume": {
                 "value": 489406,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2007-07-27",
+                    "ratio": "0.02:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2008-04-10",
+                    "ratio": "5:0.2",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2010-09-06",
+                    "ratio": "0.2:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -44605,6 +44624,14 @@
             "close": 72000,
             "volume": 489406,
             "marketCap": 2385580392448
+        },
+        {
+            "date": "2025-11-10",
+            "open": 73200,
+            "high": 73300,
+            "low": 71600,
+            "close": 72600,
+            "volume": 308617
         },
         {
             "date": "2025-12-26",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 126800.0,
+        "regularMarketPrice": 126800,
         "englishName": "Hanwha Ocean Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 41809325588480,
@@ -21,12 +21,21 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 4418401,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2016-12-23",
+                    "ratio": "1:10",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -55692,6 +55701,14 @@
             "close": 126800,
             "volume": 4372836,
             "marketCap": 38851162669056
+        },
+        {
+            "date": "2025-11-10",
+            "open": 128100,
+            "high": 130500,
+            "low": 124600,
+            "close": 129300,
+            "volume": 1726315
         },
         {
             "date": "2025-12-29",

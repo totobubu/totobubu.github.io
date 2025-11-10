@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 8300.0,
+        "regularMarketPrice": 8300,
         "englishName": "Mirae Asset Tiger US AI Big Tech 10 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 875,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1445,6 +1448,14 @@
             "low": 8170,
             "close": 8300,
             "volume": 876
+        },
+        {
+            "date": "2025-11-10",
+            "open": 8215,
+            "high": 8345,
+            "low": 8215,
+            "close": 8310,
+            "volume": 1561
         }
     ]
 }

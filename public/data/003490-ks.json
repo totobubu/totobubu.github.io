@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 21700.0,
+        "regularMarketPrice": 21700,
         "englishName": "Korean Airlines Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": 22508350734336,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 368220610,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 750.0,
+        "dividendRate": 750,
         "payoutRatio": 0.2031,
         "changes": {
             "Volume": {
                 "value": 1032573,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2013-08-01",
+                    "ratio": "80.5403:100",
+                    "type": "split"
+                },
+                {
+                    "date": "2013-09-16",
+                    "ratio": "0.805403:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58249,6 +58263,14 @@
             "close": 21700,
             "volume": 1032573,
             "marketCap": 7990387146752
+        },
+        {
+            "date": "2025-11-10",
+            "open": 21850,
+            "high": 22100,
+            "low": 21750,
+            "close": 21950,
+            "volume": 932349
         },
         {
             "date": "2025-12-26",

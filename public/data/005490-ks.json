@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 299000.0,
+        "regularMarketPrice": 299000,
         "englishName": "POSCO Holdings Inc.",
         "earningsDate": "2025-10-27",
         "enterpriseValue": 42399501910016,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 75620779,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 10000.0,
+        "dividendRate": 10000,
         "payoutRatio": 1.0941,
         "changes": {
             "Volume": {
                 "value": 255971,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58335,6 +58338,14 @@
             "close": 299000,
             "volume": 255971,
             "marketCap": 22610612060160
+        },
+        {
+            "date": "2025-11-10",
+            "open": 300000,
+            "high": 305500,
+            "low": 298250,
+            "close": 303000,
+            "volume": 170578
         },
         {
             "date": "2025-11-26",

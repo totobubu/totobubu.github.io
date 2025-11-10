@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 30050.0,
+        "regularMarketPrice": 30050,
         "englishName": "Wonik Holdings Co., Ltd",
         "earningsDate": null,
         "enterpriseValue": 2980037525504,
@@ -21,12 +21,15 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 2298347,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -55975,6 +55978,14 @@
             "close": 30050,
             "volume": 2280087,
             "marketCap": 2295309271040
+        },
+        {
+            "date": "2025-11-10",
+            "open": 31900,
+            "high": 32300,
+            "low": 30050,
+            "close": 32050,
+            "volume": 1366812
         }
     ]
 }

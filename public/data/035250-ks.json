@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 16840.0,
+        "regularMarketPrice": 16840,
         "englishName": "Kangwon Land, Inc.",
         "earningsDate": "2025-11-04",
         "enterpriseValue": 2638931296256,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 200405684,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1170.0,
+        "dividendRate": 1170,
         "payoutRatio": 0.6919,
         "changes": {
             "Volume": {
                 "value": 365739,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-11-04",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2003-12-29",
+                    "ratio": "1.07:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -54012,6 +54026,14 @@
             "close": 16840,
             "volume": 365739,
             "marketCap": 3374831632384
+        },
+        {
+            "date": "2025-11-10",
+            "open": 17010,
+            "high": 17300,
+            "low": 16950,
+            "close": 17280,
+            "volume": 340735
         },
         {
             "date": "2026-04-03",

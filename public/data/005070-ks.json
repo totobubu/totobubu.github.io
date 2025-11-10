@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 50700.0,
+        "regularMarketPrice": 50700,
         "englishName": "Cosmo Advanced Materials & Technology Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 1023178047488,
@@ -21,12 +21,26 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 582800,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2007-12-26",
+                    "ratio": "1:3",
+                    "type": "split"
+                },
+                {
+                    "date": "2018-05-16",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -44752,6 +44766,14 @@
             "close": 50700,
             "volume": 574686,
             "marketCap": 1647699034112
+        },
+        {
+            "date": "2025-11-10",
+            "open": 50900,
+            "high": 52700,
+            "low": 49650,
+            "close": 52500,
+            "volume": 289232
         }
     ]
 }

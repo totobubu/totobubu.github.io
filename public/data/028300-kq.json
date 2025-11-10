@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 47600.0,
+        "regularMarketPrice": 47600,
         "englishName": "HLB Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 6388744454144,
@@ -21,12 +21,41 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 960849,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2010-12-10",
+                    "ratio": "0.125:2.294551",
+                    "type": "split"
+                },
+                {
+                    "date": "2020-06-05",
+                    "ratio": "1.1:2.085956",
+                    "type": "split"
+                },
+                {
+                    "date": "2021-03-15",
+                    "ratio": "2:1.042978",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2022-12-28",
+                    "ratio": "1.042978:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2023-08-02",
+                    "ratio": "1.05:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -37243,6 +37272,14 @@
             "close": 47600,
             "volume": 942450,
             "marketCap": 6243903602688
+        },
+        {
+            "date": "2025-11-10",
+            "open": 51500,
+            "high": 51500,
+            "low": 48700,
+            "close": 49000,
+            "volume": 665884
         }
     ]
 }

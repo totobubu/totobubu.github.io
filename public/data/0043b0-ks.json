@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 101590.0,
+        "regularMarketPrice": 101590,
         "englishName": "Mirae Asset Tiger Money Market Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 112765,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1093,6 +1096,14 @@
             "low": 100200,
             "close": 101590,
             "volume": 113287
+        },
+        {
+            "date": "2025-11-10",
+            "open": 101595,
+            "high": 101600,
+            "low": 101595,
+            "close": 101597,
+            "volume": 156755
         }
     ]
 }

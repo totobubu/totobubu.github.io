@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 45600.0,
+        "regularMarketPrice": 45600,
         "englishName": "PSK HOLDINGS Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,25 @@
                 "value": 155817,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-12-29",
+                    "ratio": "1.05:0.41069",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2007-02-14",
+                    "ratio": "1.50002:0.27379",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2019-03-28",
+                    "ratio": "0.27379:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -55911,6 +55930,14 @@
             "close": 45600,
             "volume": 155817,
             "marketCap": 983245258752
+        },
+        {
+            "date": "2025-11-10",
+            "open": 45800,
+            "high": 45900,
+            "low": 43950,
+            "close": 45300,
+            "volume": 137669
         },
         {
             "date": "2025-12-26",

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 7000.0,
+        "regularMarketPrice": 7000,
         "englishName": "Ananti Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,15 @@
                 "value": 1725358,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2018-04-30",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56031,6 +56040,14 @@
             "close": 7000,
             "volume": 1701137,
             "marketCap": 606406377472
+        },
+        {
+            "date": "2025-11-10",
+            "open": 6720,
+            "high": 7120,
+            "low": 6720,
+            "close": 6970,
+            "volume": 1250406
         }
     ]
 }

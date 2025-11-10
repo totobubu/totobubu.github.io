@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 51175.0,
+        "regularMarketPrice": 51175,
         "englishName": "Shinhan Sol Mid-Short Term Credit Bond (A- Or Higher) Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 84667,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1445,6 +1448,14 @@
             "low": 51175,
             "close": 51175,
             "volume": 84667
+        },
+        {
+            "date": "2025-11-10",
+            "open": 51180,
+            "high": 51185,
+            "low": 51150,
+            "close": 51165,
+            "volume": 78495
         }
     ]
 }

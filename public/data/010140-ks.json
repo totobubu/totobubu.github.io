@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 26300.0,
+        "regularMarketPrice": 26300,
         "englishName": "Samsung Heavy Industries Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 24710081413120,
@@ -21,12 +21,15 @@
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0.0,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 7660523,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58249,6 +58252,14 @@
             "close": 26300,
             "volume": 7392826,
             "marketCap": 22464155353088
+        },
+        {
+            "date": "2025-11-10",
+            "open": 27050,
+            "high": 27300,
+            "low": 26550,
+            "close": 27000,
+            "volume": 3566065
         },
         {
             "date": "2025-12-29",

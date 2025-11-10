@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 3800.0,
+        "regularMarketPrice": 3800,
         "englishName": "Pan Ocean Co., Ltd.",
         "earningsDate": "2025-11-03",
         "enterpriseValue": 5442424012800,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 534569512,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 120.0,
+        "dividendRate": 120,
         "payoutRatio": 0.219,
         "changes": {
             "Volume": {
                 "value": 2002191,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2008-12-04",
+                    "ratio": "1:10",
+                    "type": "split"
+                },
+                {
+                    "date": "2013-12-24",
+                    "ratio": "10:100",
+                    "type": "split"
+                },
+                {
+                    "date": "2015-07-27",
+                    "ratio": "1:1.25",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -40318,6 +40337,14 @@
             "close": 3800,
             "volume": 2049907,
             "marketCap": 2031364079616
+        },
+        {
+            "date": "2025-11-10",
+            "open": 3810,
+            "high": 3845,
+            "low": 3765,
+            "close": 3825,
+            "volume": 1067855
         },
         {
             "date": "2025-12-26",

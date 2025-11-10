@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 382000.0,
+        "regularMarketPrice": 382000,
         "englishName": "LG Chem, Ltd.",
         "earningsDate": "2025-10-31",
         "enterpriseValue": 55169052049408,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 70592342,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1000.0,
-        "payoutRatio": 0.0,
+        "dividendRate": 1000,
+        "payoutRatio": 0,
         "changes": {
             "Volume": {
                 "value": 259098,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -55202,6 +55205,14 @@
             "close": 382000,
             "volume": 276986,
             "marketCap": 28443196522496
+        },
+        {
+            "date": "2025-11-10",
+            "open": 385500,
+            "high": 401000,
+            "low": 375500,
+            "close": 399500,
+            "volume": 224569
         },
         {
             "date": "2026-03-27",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 74400.0,
+        "regularMarketPrice": 74400,
         "englishName": "S-Oil Corporation",
         "earningsDate": "2025-11-03",
         "enterpriseValue": null,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 112582792,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1625.0,
+        "dividendRate": 1625,
         "payoutRatio": 1.9095,
         "changes": {
             "Volume": {
                 "value": 258400,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2001-12-03",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58296,6 +58305,14 @@
             "close": 74400,
             "volume": 248560,
             "marketCap": 8547181527040
+        },
+        {
+            "date": "2025-11-10",
+            "open": 75700,
+            "high": 79900,
+            "low": 74800,
+            "close": 79250,
+            "volume": 551442
         },
         {
             "date": "2025-11-14",

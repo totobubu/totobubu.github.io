@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 23700.0,
+        "regularMarketPrice": 23700,
         "englishName": "Hancom Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,25 @@
                 "value": 167953,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2004-11-18",
+                    "ratio": "0.1:2",
+                    "type": "split"
+                },
+                {
+                    "date": "2005-12-09",
+                    "ratio": "10:0.2",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2006-11-14",
+                    "ratio": "0.2:1",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -55392,6 +55411,14 @@
             "close": 23700,
             "volume": 165289,
             "marketCap": 572520988672
+        },
+        {
+            "date": "2025-11-10",
+            "open": 23800,
+            "high": 24600,
+            "low": 23700,
+            "close": 24500,
+            "volume": 99152
         },
         {
             "date": "2025-12-26",

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 31750.0,
+        "regularMarketPrice": 31750,
         "englishName": "Dongsung FineTec Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -22,7 +22,16 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-08-22",
+                    "ratio": "1.32275:1",
+                    "type": "reverse-split"
+                }
+            ]
+        }
     },
     "backtestData": [
         {

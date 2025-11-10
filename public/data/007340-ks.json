@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 23300.0,
+        "regularMarketPrice": 23300,
         "englishName": "DN Automotive Corporation",
         "earningsDate": null,
         "enterpriseValue": 3213698269184,
@@ -20,13 +20,37 @@
         "sharesOutstanding": 51762270,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1100.0,
+        "dividendRate": 1100,
         "payoutRatio": 0.0774,
         "changes": {
             "Volume": {
                 "value": 101624,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2002-04-29",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2017-11-29",
+                    "ratio": "0.421208:1",
+                    "type": "split"
+                },
+                {
+                    "date": "2024-10-07",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2024-10-08",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58287,6 +58311,14 @@
             "close": 23300,
             "volume": 98793,
             "marketCap": 1206060974080
+        },
+        {
+            "date": "2025-11-10",
+            "open": 23550,
+            "high": 24250,
+            "low": 23300,
+            "close": 23900,
+            "volume": 89172
         }
     ]
 }

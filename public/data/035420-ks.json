@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 260000.0,
+        "regularMarketPrice": 260000,
         "englishName": "NAVER Corporation",
         "earningsDate": "2025-11-05",
         "enterpriseValue": 37486772355072,
@@ -20,13 +20,37 @@
         "sharesOutstanding": 149337222,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1130.0,
+        "dividendRate": 1130,
         "payoutRatio": 0.0864,
         "changes": {
             "Volume": {
                 "value": 1648859,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2004-02-26",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2006-07-14",
+                    "ratio": "3:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2013-08-01",
+                    "ratio": "68.49:100",
+                    "type": "split"
+                },
+                {
+                    "date": "2018-10-12",
+                    "ratio": "5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -51642,6 +51666,14 @@
             "close": 260000,
             "volume": 1648859,
             "marketCap": 38827674566656
+        },
+        {
+            "date": "2025-11-10",
+            "open": 263500,
+            "high": 264000,
+            "low": 258000,
+            "close": 260250,
+            "volume": 859449
         },
         {
             "date": "2026-02-27",

@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 50505.0,
+        "regularMarketPrice": 50505,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
@@ -27,6 +27,9 @@
                 "value": 1017,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -917,6 +920,14 @@
             "low": 50475,
             "close": 50505,
             "volume": 1017
+        },
+        {
+            "date": "2025-11-10",
+            "open": 50490,
+            "high": 50490,
+            "low": 50485,
+            "close": 50485,
+            "volume": 5
         }
     ]
 }

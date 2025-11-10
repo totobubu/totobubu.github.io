@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 61900.0,
+        "regularMarketPrice": 61900,
         "englishName": "Hyundai Engineering & Construction Co.,Ltd.",
         "earningsDate": "2025-10-31",
         "enterpriseValue": 8662637608960,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 111355765,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 600.0,
+        "dividendRate": 600,
         "payoutRatio": 0.1565,
         "changes": {
             "Volume": {
                 "value": 1701306,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2000-01-04",
+                    "ratio": "1.01:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2001-07-06",
+                    "ratio": "1:5.99",
+                    "type": "split"
+                },
+                {
+                    "date": "2004-01-13",
+                    "ratio": "1:9.05",
+                    "type": "split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58262,6 +58281,14 @@
             "close": 61900,
             "volume": 1696282,
             "marketCap": 6892921815040
+        },
+        {
+            "date": "2025-11-10",
+            "open": 62100,
+            "high": 63700,
+            "low": 61900,
+            "close": 62900,
+            "volume": 672954
         },
         {
             "date": "2026-03-24",

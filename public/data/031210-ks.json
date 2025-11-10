@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 51800.0,
+        "regularMarketPrice": 51800,
         "englishName": "Seoul Guarantee Insurance Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": -4249579421696,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 69821598,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2865.0,
+        "dividendRate": 2865,
         "payoutRatio": 0.9209,
         "changes": {
             "Volume": {
                 "value": 110397,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -1462,6 +1465,14 @@
             "close": 51800,
             "volume": 110397,
             "marketCap": 3616758824960
+        },
+        {
+            "date": "2025-11-10",
+            "open": 52000,
+            "high": 55800,
+            "low": 51800,
+            "close": 55600,
+            "volume": 134002
         }
     ]
 }

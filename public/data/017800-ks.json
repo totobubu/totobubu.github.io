@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 71200.0,
+        "regularMarketPrice": 71200,
         "englishName": "Hyundai Elevator Co., Ltd",
         "earningsDate": null,
         "enterpriseValue": 2951502364672,
@@ -20,13 +20,22 @@
         "sharesOutstanding": 36105062,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 5000.0,
+        "dividendRate": 5000,
         "payoutRatio": 0.6121,
         "changes": {
             "Volume": {
                 "value": 193776,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2020-07-02",
+                    "ratio": "1.5:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58268,6 +58277,14 @@
             "close": 71200,
             "volume": 193776,
             "marketCap": 2570680532992
+        },
+        {
+            "date": "2025-11-10",
+            "open": 71400,
+            "high": 75400,
+            "low": 71400,
+            "close": 74800,
+            "volume": 197873
         }
     ]
 }

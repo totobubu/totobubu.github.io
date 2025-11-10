@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 26850.0,
+        "regularMarketPrice": 26850,
         "englishName": "Dong Suh Companies Inc.",
         "earningsDate": null,
         "enterpriseValue": 1909918007296,
@@ -20,13 +20,32 @@
         "sharesOutstanding": 98672523,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1140.0,
+        "dividendRate": 1140,
         "payoutRatio": 0.6163,
         "changes": {
             "Volume": {
                 "value": 61923,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2003-06-30",
+                    "ratio": "10:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2012-11-28",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                },
+                {
+                    "date": "2013-11-27",
+                    "ratio": "1.68975:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -58014,6 +58033,14 @@
             "close": 26850,
             "volume": 61923,
             "marketCap": 2649357287424
+        },
+        {
+            "date": "2025-11-10",
+            "open": 27250,
+            "high": 27750,
+            "low": 26950,
+            "close": 27700,
+            "volume": 58396
         }
     ]
 }

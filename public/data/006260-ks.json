@@ -10,7 +10,7 @@
         "market": "KOSPI",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 202000.0,
+        "regularMarketPrice": 202000,
         "englishName": "LS Corp.",
         "earningsDate": null,
         "enterpriseValue": 14667134009344,
@@ -20,13 +20,16 @@
         "sharesOutstanding": 27347538,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 1650.0,
+        "dividendRate": 1650,
         "payoutRatio": 0.2201,
         "changes": {
             "Volume": {
                 "value": 276406,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": []
         }
     },
     "backtestData": [
@@ -58275,6 +58278,14 @@
             "close": 202000,
             "volume": 272092,
             "marketCap": 5524202455040
+        },
+        {
+            "date": "2025-11-10",
+            "open": 205000,
+            "high": 216500,
+            "low": 204500,
+            "close": 215000,
+            "volume": 185123
         },
         {
             "date": "2026-02-27",

@@ -10,7 +10,7 @@
         "market": "KOSDAQ",
         "currency": "KRW",
         "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 262000.0,
+        "regularMarketPrice": 262000,
         "englishName": "EO Technics Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 3097521815552,
@@ -20,13 +20,27 @@
         "sharesOutstanding": 12102153,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 500.0,
+        "dividendRate": 500,
         "payoutRatio": 0.1436,
         "changes": {
             "Volume": {
                 "value": 116593,
                 "change": "down"
             }
+        },
+        "events": {
+            "splits": [
+                {
+                    "date": "2001-12-27",
+                    "ratio": "1.2:1.3",
+                    "type": "split"
+                },
+                {
+                    "date": "2002-12-27",
+                    "ratio": "1.3:1",
+                    "type": "reverse-split"
+                }
+            ]
         }
     },
     "backtestData": [
@@ -56370,6 +56384,14 @@
             "close": 262000,
             "volume": 114074,
             "marketCap": 3170764062720
+        },
+        {
+            "date": "2025-11-10",
+            "open": 264000,
+            "high": 286500,
+            "low": 258000,
+            "close": 279500,
+            "volume": 129308
         },
         {
             "date": "2025-12-26",
