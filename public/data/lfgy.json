@@ -10,7 +10,10 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -2167,7 +2170,7 @@
                 {
                     "symbol": "2IBIT 251219C00010010",
                     "name": "IBIT 12/19/2025 10.01 C",
-                    "weight": 6.0,
+                    "weight": 6,
                     "type": "option"
                 },
                 {
@@ -2224,7 +2227,12 @@
                     "weight": 4.06,
                     "type": "other"
                 }
-            ]
+            ],
+            "open": 33.40999984741211,
+            "high": 33.40999984741211,
+            "low": 32.26250076293945,
+            "close": 32.40999984741211,
+            "volume": 159605
         },
         {
             "date": "2025-11-12",

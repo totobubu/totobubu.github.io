@@ -10,7 +10,10 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -738,7 +741,12 @@
                     "weight": 0.03,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 33.75,
+            "high": 33.75,
+            "low": 32.890201568603516,
+            "close": 33.4541015625,
+            "volume": 1814
         },
         {
             "date": "2025-11-13",

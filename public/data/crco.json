@@ -10,7 +10,10 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -647,7 +650,7 @@
                 {
                     "symbol": "912797RF6",
                     "name": "United States Treasury Bill 07/09/2026",
-                    "weight": 38.0,
+                    "weight": 38,
                     "type": "treasury_bill"
                 },
                 {
@@ -698,7 +701,12 @@
                     "weight": 0.8,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 36.66999816894531,
+            "high": 36.11000061035156,
+            "low": 34.82809829711914,
+            "close": 35.31999969482422,
+            "volume": 16195
         },
         {
             "date": "2025-11-13",
