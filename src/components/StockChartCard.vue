@@ -2,14 +2,17 @@
 <script setup>
     import { ref, computed } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useAdmin } from '@/composables/useAdmin';
     import { getGroupSeverity } from '@/utils/uiHelpers.js';
     import Card from 'primevue/card';
     import SelectButton from 'primevue/selectbutton';
     import Dropdown from 'primevue/dropdown';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button';
-    // import AddAssetModal from '@/components/asset/AddAssetModal.vue';
+    import AddAssetModal from '@/components/asset/AddAssetModal.vue';
     // import StockCalculators from '@/components/StockCalculators.vue';
+
+    const { isAdmin } = useAdmin();
 
     const props = defineProps({
         tickerInfo: Object,
@@ -29,12 +32,12 @@
     const buttonSize = computed(() => (isMobile.value ? 'small' : null));
 
     // Asset Modal
-    // const showAddAssetModal = ref(false);
+    const showAddAssetModal = ref(false);
 
-    // const handleAssetSaved = async (data) => {
-    //     console.log('Asset saved:', data);
-    //     // 여기서 Firestore에 저장하는 로직 추가
-    // };
+    const handleAssetSaved = async (data) => {
+        console.log('Asset saved:', data);
+        // 여기서 Firestore에 저장하는 로직 추가
+    };
 
     const currentPrice = computed(() => {
         return props.tickerInfo?.price || 0;
@@ -63,10 +66,10 @@
 <template>
     <Card class="t-chart">
         <template #content>
-            <div class="t-chart-header mb-4">
-                <div
-                    class="flex gap-2"
-                    :class="isMobile ? 'flex-column' : 'flex-grow-1'">
+            <div
+                class="t-chart-header"
+                :class="isMobile ? 'flex-column gap-2' : 'flex-grow-1'">
+                <div class="flex gap-2">
                     <SelectButton
                         v-if="viewOptions && viewOptions.length > 1"
                         v-model="localCurrentView"
@@ -103,19 +106,14 @@
                         :severity="getGroupSeverity(tickerInfo.group)"
                         >{{ tickerInfo.group }}</Tag
                     >
-                    <!-- <StockCalculators
-                        v-if="dividendHistory && dividendHistory.length > 0"
-                        :dividendHistory="dividendHistory"
-                        :tickerInfo="tickerInfo"
-                        :userBookmark="userBookmark" /> -->
-                    <!-- [핵심 수정] 기존 StockCalculators 컴포넌트를 slot으로 변경 -->
                     <slot name="calculators"></slot>
                     <!--자산관리에 저장-->
-                    <!-- <Button
+                    <Button
+                        v-if="isAdmin"
                         icon="pi pi-wallet"
                         text
                         @click="showAddAssetModal = true"
-                        v-tooltip="'자산관리에 저장'" /> -->
+                        v-tooltip="'자산관리에 저장'" />
                     <!--// 자산관리에 저장-->
                 </div>
             </div>
@@ -123,10 +121,10 @@
     </Card>
 
     <!-- Add Asset Modal -->
-    <!-- <AddAssetModal
+    <AddAssetModal
         :visible="showAddAssetModal"
         :ticker="tickerInfo?.symbol || ''"
         :price="currentPrice"
         @update:visible="showAddAssetModal = $event"
-        @saved="handleAssetSaved" /> -->
+        @saved="handleAssetSaved" />
 </template>
