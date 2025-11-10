@@ -10,7 +10,16 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "frequencyChanges": [
+                {
+                    "date": "2025-10-16",
+                    "from": "4주",
+                    "to": "매주"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -4650,12 +4659,82 @@
                     "type": "option"
                 }
             ],
-            "open": 9.699999809265137,
+            "open": 9.75,
             "high": 9.84000015258789,
             "low": 9.649999618530273,
             "close": 9.649999618530273,
             "volume": 30311,
-            "yield": 0.613072177
+            "yield": 0.6099282051
+        },
+        {
+            "date": "2025-11-07",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 35.36,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 21.6,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 21.21,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 10.7,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 8.69,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "PYPL  260116C00067500",
+                    "name": "PYPL US 01/16/26 C67.5",
+                    "weight": 6.09,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 4.04,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "PYPL  251114C00071000",
+                    "name": "PYPL US 11/14/25 C71",
+                    "weight": 0.24,
+                    "type": "option"
+                },
+                {
+                    "symbol": "PYPL  251114C00072000",
+                    "name": "PYPL US 11/14/25 C72",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "PYPL  251114C00069000",
+                    "name": "PYPL US 11/14/25 C69",
+                    "weight": 0.33,
+                    "type": "option"
+                }
+            ],
+            "open": 9.479999542236328,
+            "high": 9.699999809265137,
+            "low": 9.479999542236328,
+            "close": 9.630000114440918,
+            "volume": 71002
         },
         {
             "date": "2025-11-13",

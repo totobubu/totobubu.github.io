@@ -10,7 +10,16 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "frequencyChanges": [
+                {
+                    "date": "2025-10-16",
+                    "from": "4주",
+                    "to": "매주"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -1362,6 +1371,76 @@
             "close": 59.189998626708984,
             "volume": 406100,
             "yield": 0.5185
+        },
+        {
+            "date": "2025-11-07",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 47.5,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 16.59,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 16.35,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 15.59,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 8.27,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 7.65,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HOOD  251219C00145000",
+                    "name": "HOOD US 12/19/25 C145",
+                    "weight": 4.53,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.34,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HOOD  251114C00145000",
+                    "name": "ROBINHOO CLL OPT 11/25 145",
+                    "weight": 0.15,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HOOD  251114C00144000",
+                    "name": "ROBINHOO CLL OPT 11/25 144",
+                    "weight": 0.09,
+                    "type": "option"
+                }
+            ],
+            "open": 57.38999938964844,
+            "high": 60.880001068115234,
+            "low": 56.06999969482422,
+            "close": 60.040000915527344,
+            "volume": 423857
         },
         {
             "date": "2025-11-13",

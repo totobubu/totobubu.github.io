@@ -10,7 +10,16 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "frequencyChanges": [
+                {
+                    "date": "2025-10-16",
+                    "from": "4주",
+                    "to": "매주"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -4797,6 +4806,76 @@
             "close": 11.670000076293945,
             "volume": 37480,
             "yield": 0.3528720697
+        },
+        {
+            "date": "2025-11-07",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 27.47,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 20.44,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 18.41,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 16.28,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 15.64,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.78,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "XOM   251219C00115000",
+                    "name": "XOM US 12/19/25 C115",
+                    "weight": 2.59,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XOM   251114C00119000",
+                    "name": "EXXON MO CLL OPT 11/25 119",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XOM   251107C00119000",
+                    "name": "XOM US 11/07/25 C119",
+                    "weight": 0.01,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XOM   251107C00116000",
+                    "name": "XOM US 11/07/25 C116",
+                    "weight": 0.08,
+                    "type": "option"
+                }
+            ],
+            "open": 11.640000343322754,
+            "high": 11.819899559020996,
+            "low": 11.6899995803833,
+            "close": 11.779999732971191,
+            "volume": 50012
         },
         {
             "date": "2025-11-13",

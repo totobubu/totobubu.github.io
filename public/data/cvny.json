@@ -10,7 +10,16 @@
         "market": "NYSE",
         "currency": "USD",
         "Update": "2025-11-05 10:34:22 KST",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "frequencyChanges": [
+                {
+                    "date": "2025-10-16",
+                    "from": "4주",
+                    "to": "매주"
+                }
+            ]
+        }
     },
     "backtestData": [
         {
@@ -1908,6 +1917,76 @@
             "close": 30.450000762939453,
             "volume": 45264,
             "yield": 0.7861185835
+        },
+        {
+            "date": "2025-11-07",
+            "holdings": [
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 31.19,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 25.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 21.74,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 17.66,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "CVNA  251219C00300000",
+                    "name": "CVNA US 12/19/25 C300",
+                    "weight": 7.82,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 4.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 3.08,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "CVNA  251114C00320000",
+                    "name": "CARVANA  CLL OPT 11/25 320",
+                    "weight": 0.28,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.26,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "CVNA  251114C00325000",
+                    "name": "CARVANA  CLL OPT 11/25 325",
+                    "weight": 0.13,
+                    "type": "option"
+                }
+            ],
+            "open": 29.549999237060547,
+            "high": 31.559999465942383,
+            "low": 29.549999237060547,
+            "close": 31.549999237060547,
+            "volume": 24315
         },
         {
             "date": "2025-11-13",
