@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 220500,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 214000.0,
         "englishName": "Sam Chun Dang Pharm. Co., Ltd",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 5128272740352,
+        "marketCap": 4977099014144,
         "Volume": 0,
         "AvgVolume": 164145,
         "sharesOutstanding": 23257472,
@@ -22,14 +22,18 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 148513,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": []
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 220500,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 5128272740352,
+                "change": "down"
+            }
         }
     },
     "backtestData": [
@@ -54034,7 +54038,8 @@
             "high": 221500,
             "low": 211500,
             "close": 214500,
-            "volume": 114726
+            "volume": 114726,
+            "marketCap": 4977099014144
         },
         {
             "date": "2025-12-29",

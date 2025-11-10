@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 45600,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 45400.0,
         "englishName": "PSK HOLDINGS Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 983245258752,
+        "marketCap": 978932793344,
         "Volume": 0,
         "AvgVolume": 236918,
         "sharesOutstanding": 21562395,
@@ -22,12 +22,6 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 155817,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -46,6 +40,16 @@
                     "type": "split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45600,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 983245258752,
+                "change": "down"
+            }
         }
     },
     "backtestData": [
@@ -55937,7 +55941,8 @@
             "high": 45900,
             "low": 43950,
             "close": 45300,
-            "volume": 137669
+            "volume": 137669,
+            "marketCap": 978932793344
         },
         {
             "date": "2025-12-26",

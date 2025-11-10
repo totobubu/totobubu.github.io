@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 46600,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 45500.0,
         "englishName": "Oscotec Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1782365028352,
+        "marketCap": 1740291964928,
         "Volume": 0,
         "AvgVolume": 248993,
         "sharesOutstanding": 38248176,
@@ -22,12 +22,6 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 270780,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -36,6 +30,16 @@
                     "type": "reverse-split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46600,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1782365028352,
+                "change": "down"
+            }
         }
     },
     "backtestData": [
@@ -41702,7 +41706,8 @@
             "high": 47650,
             "low": 45250,
             "close": 45400,
-            "volume": 197606
+            "volume": 197606,
+            "marketCap": 1740291964928
         },
         {
             "date": "2025-12-29",

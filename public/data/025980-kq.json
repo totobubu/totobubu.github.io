@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 7000,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 6940.0,
         "englishName": "Ananti Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 606406377472,
+        "marketCap": 601208586240,
         "Volume": 0,
         "AvgVolume": 1876888,
         "sharesOutstanding": 86629478,
@@ -22,12 +22,6 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 1725358,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -36,6 +30,16 @@
                     "type": "reverse-split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 606406377472,
+                "change": "down"
+            }
         }
     },
     "backtestData": [
@@ -56047,7 +56051,8 @@
             "high": 7120,
             "low": 6720,
             "close": 6970,
-            "volume": 1250406
+            "volume": 1250406,
+            "marketCap": 601208586240
         }
     ]
 }

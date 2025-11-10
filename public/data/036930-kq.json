@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 29250,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 30000.0,
         "englishName": "JUSUNG ENGINEERING Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1336547213312,
+        "marketCap": 1370817560576,
         "Volume": 0,
         "AvgVolume": 405224,
         "sharesOutstanding": 45693922,
@@ -22,14 +22,18 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 459266,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": []
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29250,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1336547213312,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -56363,7 +56367,8 @@
             "high": 30200,
             "low": 29100,
             "close": 29950,
-            "volume": 243708
+            "volume": 243708,
+            "marketCap": 1370817560576
         },
         {
             "date": "2025-12-26",

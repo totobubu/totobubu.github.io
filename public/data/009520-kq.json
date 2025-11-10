@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 14780,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 15640.0,
         "englishName": "POSCO M-TECH Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 615432716288,
+        "marketCap": 651242700800,
         "Volume": 0,
         "AvgVolume": 652141,
         "sharesOutstanding": 41639559,
@@ -22,12 +22,6 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 398448,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -36,6 +30,16 @@
                     "type": "reverse-split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14780,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 615432716288,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -56304,7 +56308,8 @@
             "high": 15880,
             "low": 14860,
             "close": 15660,
-            "volume": 460441
+            "volume": 460441,
+            "marketCap": 651242700800
         },
         {
             "date": "2026-03-27",

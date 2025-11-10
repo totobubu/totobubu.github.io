@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 4225,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 4265.0,
         "englishName": "Woori Technology, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 699360346112,
+        "marketCap": 705981513728,
         "Volume": 0,
         "AvgVolume": 17121868,
         "sharesOutstanding": 165529068,
@@ -22,12 +22,6 @@
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
-        "changes": {
-            "Volume": {
-                "value": 6315734,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -36,6 +30,16 @@
                     "type": "split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4225,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 699360346112,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -56049,7 +56053,8 @@
             "high": 4295,
             "low": 4140,
             "close": 4265,
-            "volume": 3500993
+            "volume": 3500993,
+            "marketCap": 705981513728
         }
     ]
 }

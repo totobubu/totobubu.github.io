@@ -9,27 +9,31 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 253500,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 248500.0,
         "englishName": "LG Innotek Co., Ltd.",
         "earningsDate": "2025-10-30",
         "enterpriseValue": 6896138321920,
-        "marketCap": 5998952579072,
+        "marketCap": 5880630214656,
         "Volume": 0,
         "AvgVolume": 246690,
         "sharesOutstanding": 23664507,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 2090,
+        "dividendRate": 2090.0,
         "payoutRatio": 0.1712,
-        "changes": {
-            "Volume": {
-                "value": 365032,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": []
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 253500,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 5998952579072,
+                "change": "down"
+            }
         }
     },
     "backtestData": [
@@ -38470,7 +38474,8 @@
             "high": 257000,
             "low": 242000,
             "close": 248500,
-            "volume": 180063
+            "volume": 180063,
+            "marketCap": 5880630214656
         },
         {
             "date": "2026-03-27",

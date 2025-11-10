@@ -9,12 +9,12 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 306000,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 315000.0,
         "englishName": "Samsung SDI Co., Ltd.",
         "earningsDate": "2025-10-28",
         "enterpriseValue": 33372252405760,
-        "marketCap": 23892110344192,
+        "marketCap": 24594819842048,
         "Volume": 0,
         "AvgVolume": 697536,
         "sharesOutstanding": 77254139,
@@ -22,14 +22,18 @@
         "Yield": null,
         "dividendRate": 977.13,
         "payoutRatio": 1.3123,
-        "changes": {
-            "Volume": {
-                "value": 939050,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": []
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 306000,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 23892110344192,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -58293,7 +58297,8 @@
             "high": 316000,
             "low": 303000,
             "close": 314250,
-            "volume": 404574
+            "volume": 404574,
+            "marketCap": 24594819842048
         },
         {
             "date": "2025-12-26",

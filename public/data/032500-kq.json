@@ -9,25 +9,19 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 15960,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 16170.0,
         "englishName": "Kmw Inc.",
         "earningsDate": null,
-        "enterpriseValue": 695983603712,
-        "marketCap": 635541323776,
+        "enterpriseValue": 657755537408,
+        "marketCap": 643903717376,
         "Volume": 0,
         "AvgVolume": 215856,
         "sharesOutstanding": 39820883,
         "52Week": null,
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": 0,
-        "changes": {
-            "Volume": {
-                "value": 346739,
-                "change": "down"
-            }
-        },
+        "payoutRatio": 0.0,
         "events": {
             "splits": [
                 {
@@ -36,6 +30,20 @@
                     "type": "reverse-split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15960,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 695983603712,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 635541323776,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -56379,7 +56387,8 @@
             "high": 16360,
             "low": 15800,
             "close": 16140,
-            "volume": 100433
+            "volume": 100433,
+            "marketCap": 643903717376
         }
     ]
 }

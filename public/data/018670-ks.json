@@ -9,25 +9,19 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-10 02:30:39 KST",
-        "regularMarketPrice": 259500,
+        "Update": "2025-11-11 02:40:33 KST",
+        "regularMarketPrice": 265000.0,
         "englishName": "SK Gas Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": 5425697128448,
-        "marketCap": 2332916973568,
+        "marketCap": 2382362312704,
         "Volume": 0,
         "AvgVolume": 11072,
         "sharesOutstanding": 8990046,
         "52Week": null,
         "Yield": null,
-        "dividendRate": 8000,
+        "dividendRate": 8000.0,
         "payoutRatio": 0.27879998,
-        "changes": {
-            "Volume": {
-                "value": 12713,
-                "change": "down"
-            }
-        },
         "events": {
             "splits": [
                 {
@@ -66,6 +60,16 @@
                     "type": "reverse-split"
                 }
             ]
+        },
+        "changes": {
+            "regularMarketPrice": {
+                "value": 259500,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 2332916973568,
+                "change": "up"
+            }
         }
     },
     "backtestData": [
@@ -58322,7 +58326,8 @@
             "high": 269000,
             "low": 259500,
             "close": 264000,
-            "volume": 20369
+            "volume": 20369,
+            "marketCap": 2382362312704
         }
     ]
 }
