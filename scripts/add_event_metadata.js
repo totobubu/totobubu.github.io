@@ -19,6 +19,7 @@ const DATA_DIR = path.join(ROOT_DIR, 'public', 'data');
  *  - symbol: 티커 심볼 (nav.json 기준)
  *  - frequencyChanges: [{ date: 'YYYY-MM-DD', from: '4주', to: '매주' }]
  *  - splits: [{ date: 'YYYY-MM-DD', ratio: '1:5', type: 'split' }]
+ *  - weekdayChanges: [{ date: 'YYYY-MM-DD', from: '목', to: '수' }]
  *
  * 필요에 따라 다른 카테고리를 추가할 수 있습니다.
  *
@@ -31,6 +32,7 @@ const DEFAULT_CONFIG = [
         symbol: 'ULTY',
         frequencyChanges: [{ date: '2024-09-18', from: '4주', to: '매주' }],
         splits: [],
+        weekdayChanges: [],
     },
 ];
 
@@ -67,6 +69,11 @@ const loadExternalConfig = (configPath) => {
         ratio: event.ratio,
         type: event.type,
     });
+    const normalizeWeekday = (event) => ({
+        date: event.date,
+        from: event.from,
+        to: event.to,
+    });
 
     return entries
         .map((entry) => {
@@ -76,18 +83,23 @@ const loadExternalConfig = (configPath) => {
             const splits = (entry.splits || [])
                 .filter((item) => item.apply === true || item.apply === undefined)
                 .map(normalizeSplit);
+            const weekdayChanges = (entry.weekdayChanges || [])
+                .filter((item) => item.apply === true || item.apply === undefined)
+                .map(normalizeWeekday);
 
             return {
                 symbol: entry.symbol,
                 frequencyChanges,
                 splits,
+                weekdayChanges,
             };
         })
         .filter(
             (entry) =>
                 entry.symbol &&
                 ((entry.frequencyChanges && entry.frequencyChanges.length > 0) ||
-                    (entry.splits && entry.splits.length > 0))
+                    (entry.splits && entry.splits.length > 0) ||
+                    (entry.weekdayChanges && entry.weekdayChanges.length > 0))
         );
 };
 
@@ -156,6 +168,16 @@ for (const entry of CONFIG) {
             json.tickerInfo.events.splits = dedupeByKeys(
                 [...existing, ...entry.splits],
                 ['date', 'ratio', 'type']
+            ).sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+
+        if (entry.weekdayChanges?.length) {
+            const existing = Array.isArray(json.tickerInfo.events.weekdayChanges)
+                ? json.tickerInfo.events.weekdayChanges
+                : [];
+            json.tickerInfo.events.weekdayChanges = dedupeByKeys(
+                [...existing, ...entry.weekdayChanges],
+                ['date', 'from', 'to']
             ).sort((a, b) => new Date(a.date) - new Date(b.date));
         }
 
