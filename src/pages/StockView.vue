@@ -83,7 +83,7 @@
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
         const range = selectedTimeRange.value;
-        if (!range || range === 'ALL' || currentView.value === '목록')
+        if (!range || range === 'ALL')
             return dividendHistory.value;
 
         const now = new Date();
