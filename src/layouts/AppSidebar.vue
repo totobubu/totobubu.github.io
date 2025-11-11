@@ -73,7 +73,7 @@
                     aria-labelledby="main-filter-tabs"
                     size="small"
                     :allowEmpty="false"
-                    class="w-full">
+                    class="p-button-flag">
                     <template #option="slotProps">
                         <i
                             v-if="slotProps.option.icon"
@@ -93,7 +93,7 @@
                         :options="subFilterOptions"
                         size="small"
                         :allowEmpty="false"
-                        class="w-full" />
+                        class="p-button-sub-filter" />
                 </div>
             </div>
 

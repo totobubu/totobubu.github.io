@@ -48,7 +48,10 @@
                 목: 'thu',
                 금: 'fri',
             };
-            const weekdayLabels = extractWeekdayLabels(group, entry.group2 || null);
+            const weekdayLabels = extractWeekdayLabels(
+                group,
+                entry.group2 || null
+            );
             const primaryGroup = weekdayLabels[0];
             if (!primaryGroup) return 'freq-default';
             return `freq-${groupMap[primaryGroup] || 'default'}`;
@@ -165,7 +168,7 @@
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span> <span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {

@@ -202,25 +202,6 @@ $font-sizes: map.merge(
     ),
     $font-sizes
 );
-//      - weight
-$weight-light: 400;
-$weight-regular: 400;
-$weight-medium: 700;
-$weight-bold: 700;
-// $weight-light: 300;
-// $weight-regular: 400;
-// $weight-medium: 500;
-// $weight-bold: 600;
-$font-weights: () !default;
-$font-weights: map.merge(
-    (
-        'light': $weight-light,
-        'regular': $weight-regular,
-        'medium': $weight-medium,
-        'bold': $weight-bold,
-    ),
-    $font-weights
-);
 
 //      - letter-spacing
 $letter-spacing: 0 !default;
