@@ -9,7 +9,6 @@
     height: 100dvh;
     flex-direction: row;
     overflow: hidden;
-    padding: 0.25rem;
     -tw-bg-opacity: 1;
     gap: 1rem;
 }
@@ -40,6 +39,10 @@
     overflow-y: auto;
     flex: 1 1 0%;
 
+    @include bp.media-breakpoint-only('xs') {
+        padding: 0 1rem 0.5rem;
+    }
+
     @include bp.media-breakpoint-down('lg') {
         display: flex;
         flex-direction: column;
@@ -53,4 +56,7 @@
 
 // 641 이상
 @include bp.media-breakpoint-up('sm') {
+    #t-layout {
+        padding: 0.25rem;
+    }
 }
