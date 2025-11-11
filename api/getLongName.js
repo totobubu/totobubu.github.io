@@ -1,7 +1,7 @@
 // api/getLongName.js
 
 import yahooFinance from 'yahoo-finance2';
-import { createApiHandler } from './_utils/api-handler';
+import { createApiHandler } from './_utils/api-handler.js';
 
 function normalizeSymbols(input) {
     if (!input) return [];
