@@ -273,7 +273,7 @@
 
             // API 호출
             const response = await axios.post(
-                '/api/parsePdfTransaction.js',
+                '/api/parsePdfTransaction',
                 formData,
                 {
                     headers: {
