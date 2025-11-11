@@ -9,7 +9,12 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 1rem;
+    @include bp.media-breakpoint-only('xs') {
+        padding: 0.5rem 1rem;
+    }
+    @include bp.media-breakpoint-up('sm') {
+        padding: 1rem;
+    }
 }
 
 #t-breadcrumb {

@@ -177,9 +177,8 @@ $disabled-color: $color-mid-light !default;
 
 // Fonts
 //      - family
-$font-family-base: 
-    // "SUIT",
-    'NotoSansKR', 'malgun gothic', Arial, sans-serif !default;
+$font-family-base: 'Nanum Gothic Coding', monospace !default;
+// $font-family-legacy: 'NotoSansKR', 'malgun gothic', Arial, sans-serif !default;
 $font-family-en: 'Roboto', sans-serif !default;
 $font-family-title: $font-family-base !default;
 $font-family-mobile: $font-family-base !default;
@@ -202,25 +201,6 @@ $font-sizes: map.merge(
         '2xl': $font-size-2xl,
     ),
     $font-sizes
-);
-//      - weight
-$weight-light: 400;
-$weight-regular: 400;
-$weight-medium: 700;
-$weight-bold: 700;
-// $weight-light: 300;
-// $weight-regular: 400;
-// $weight-medium: 500;
-// $weight-bold: 600;
-$font-weights: () !default;
-$font-weights: map.merge(
-    (
-        'light': $weight-light,
-        'regular': $weight-regular,
-        'medium': $weight-medium,
-        'bold': $weight-bold,
-    ),
-    $font-weights
 );
 
 //      - letter-spacing
