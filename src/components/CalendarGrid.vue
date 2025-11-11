@@ -48,7 +48,10 @@
                 목: 'thu',
                 금: 'fri',
             };
-            const weekdayLabels = extractWeekdayLabels(group, entry.group2 || null);
+            const weekdayLabels = extractWeekdayLabels(
+                group,
+                entry.group2 || null
+            );
             const primaryGroup = weekdayLabels[0];
             if (!primaryGroup) return 'freq-default';
             return `freq-${groupMap[primaryGroup] || 'default'}`;
@@ -151,10 +154,10 @@
             let amountHtml;
             if (amount != null) {
                 amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
-            } else if (isExpected) {
-                amountHtml = '<span class="no-amount scheduled">예정</span>';
             } else if (isForecast) {
                 amountHtml = '<span class="no-amount forecasted">예상</span>';
+            } else if (isExpected) {
+                amountHtml = '<span class="no-amount scheduled">예정</span>';
             } else {
                 // 혹시 모를 예외 케이스
                 amountHtml = '<span class="no-amount">정보없음</span>';
@@ -165,7 +168,7 @@
 
             if (arg.view.type === 'listWeek') {
                 return {
-                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span> <span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
                 return {
@@ -173,7 +176,7 @@
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><span>${displayName}</span> ${amountHtml}</div></div>`,
                 };
             }
         },

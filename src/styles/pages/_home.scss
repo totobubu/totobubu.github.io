@@ -5,12 +5,10 @@
 
 #t-home {
     height: 100vh;
-    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 4rem;
 
     .logo {
         overflow: hidden;
@@ -22,8 +20,14 @@
             width: 100%;
         }
     }
+    @include bp.media-breakpoint-up('md') {
+        padding: 2rem;
+        gap: 4rem;
+    }
     @include bp.media-breakpoint-down('md') {
+        padding: 1rem;
         overflow-y: auto;
+        gap: 2rem;
     }
 }
 .t-home {
@@ -41,14 +45,15 @@
     &-link {
         width: 100%;
         display: grid;
-        gap: 1.5rem;
         @include bp.media-breakpoint-down('md') {
+            gap: 0.5rem;
             grid-template-columns: repeat(1, minmax(0, 1fr));
             .p-button {
                 justify-self: center;
             }
         }
         @include bp.media-breakpoint-up('md') {
+            gap: 1.5rem;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             .p-button {
                 &:nth-child(2n + 1) {
@@ -58,18 +63,32 @@
         }
         .p-button {
             width: 100%;
-            max-width: 300px;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            height: calc(var(--tw-spacing) * 16);
-            padding-left: calc(var(--tw-spacing) * 4);
-            padding-right: calc(var(--tw-spacing) * 6);
-            padding-block: calc(var(--tw-spacing) * 6);
+            @include bp.media-breakpoint-up('md') {
+                max-width: 300px;
+                height: calc(var(--tw-spacing) * 16);
+                padding-left: calc(var(--tw-spacing) * 4);
+                padding-right: calc(var(--tw-spacing) * 6);
+                padding-block: calc(var(--tw-spacing) * 6);
+            }
+            @include bp.media-breakpoint-down('md') {
+                height: calc(var(--tw-spacing) * 12);
+                padding-left: calc(var(--tw-spacing) * 3);
+                padding-right: calc(var(--tw-spacing) * 4);
+                padding-block: calc(var(--tw-spacing) * 4);
+            }
         }
         .p-button-icon {
-            width: calc(var(--tw-spacing) * 10);
-            height: calc(var(--tw-spacing) * 10);
+            @include bp.media-breakpoint-up('md') {
+                width: calc(var(--tw-spacing) * 10);
+                height: calc(var(--tw-spacing) * 10);
+            }
+            @include bp.media-breakpoint-down('md') {
+                width: calc(var(--tw-spacing) * 6);
+                height: calc(var(--tw-spacing) * 6);
+            }
             display: flex;
             flex-shrink: 0;
             align-items: center;

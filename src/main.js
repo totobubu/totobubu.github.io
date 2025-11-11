@@ -46,37 +46,49 @@ use([
 ]);
 // --- // ---
 
-// --- [핵심 수정 2] 기존 Chart.js 관련 코드 모두 삭제 ---
-// ChartJS.register(...) 블록 전체를 삭제합니다.
-// --- // ---
-
 const MyPreset = definePreset(Lara, {
-    // ... (기존 MyPreset 코드는 그대로 유지)
     semantic: {
         primary: {
-            50: '{zinc.50}',
-            100: '{zinc.100}',
-            200: '{zinc.200}',
-            300: '{zinc.300}',
-            400: '{zinc.400}',
-            500: '{zinc.500}',
-            600: '{zinc.600}',
-            700: '{zinc.700}',
-            800: '{zinc.800}',
-            900: '{zinc.900}',
-            950: '{zinc.950}',
+            50: '#fff9eb',
+            100: '#ffeec5',
+            200: '#ffe09e',
+            300: '#ffd177',
+            400: '#f6bf54',
+            500: '#d4af37', // gold base
+            600: '#b8942c',
+            700: '#9d7b23',
+            800: '#80621a',
+            900: '#634913',
+            950: '#452f0c',
         },
         colorScheme: {
-            dark: {
+            light: {
                 primary: {
-                    color: '{zinc.50}',
-                    inverseColor: '{zinc.950}',
-                    hoverColor: '{zinc.100}',
-                    activeColor: '{zinc.200}',
+                    color: '#d4af37',
+                    inverseColor: '#1f2937',
+                    hoverColor: '#e6c75f',
+                    activeColor: '#b8942c',
                 },
                 highlight: {
-                    background: 'rgba(250, 250, 250, .16)',
-                    focusBackground: 'rgba(250, 250, 250, .24)',
+                    background: 'rgba(212, 175, 55, 0.12)',
+                    focusBackground: 'rgba(212, 175, 55, 0.18)',
+                    color: '#1f2937',
+                    focusColor: '#111827',
+                },
+                formField: {
+                    hoverBorderColor: '{primary.hoverColor}',
+                },
+            },
+            dark: {
+                primary: {
+                    color: '#f6e7b4',
+                    inverseColor: '#111827',
+                    hoverColor: '#f1d77c',
+                    activeColor: '#d4af37',
+                },
+                highlight: {
+                    background: 'rgba(246, 231, 180, 0.16)',
+                    focusBackground: 'rgba(246, 231, 180, 0.24)',
                     color: 'rgba(255,255,255,.87)',
                     focusColor: 'rgba(255,255,255,.87)',
                 },
@@ -95,6 +107,15 @@ const MyPreset = definePreset(Lara, {
     components: {
         card: {
             colorScheme: {
+                light: {
+                    root: {
+                        background: '{surface.0}',
+                        color: '{surface.900}',
+                    },
+                    subtitle: {
+                        color: '{surface.500}',
+                    },
+                },
                 dark: {
                     root: {
                         background: '{surface.900}',

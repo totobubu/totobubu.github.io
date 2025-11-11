@@ -6,7 +6,6 @@
     import BacktesterResults from '@/components/backtester/BacktesterResults.vue';
     import { runBacktest } from '@/services/backtester/engine.js';
     import { useToast } from 'primevue/usetoast';
-    import Toast from 'primevue/toast';
     import Message from 'primevue/message';
     import Skeleton from 'primevue/skeleton'; // [신규] Skeleton import
     import { useBacktestData } from '@/composables/useBacktestData.js';
@@ -56,7 +55,6 @@
 
 <template>
     <div id="t-backtester">
-        <Toast />
         <BacktesterControls
             @run="handleRun"
             :is-loading="isLoading"

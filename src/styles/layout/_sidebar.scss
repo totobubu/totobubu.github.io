@@ -19,7 +19,7 @@
 #t-calendar-toggle {
     .p-accordionheader {
         padding: 0.75rem 1rem;
-        font-weight: 400;
+
         color: var(--p-text-color-inversed, #ffffff);
         gap: 0.5rem;
 
@@ -32,7 +32,6 @@
 
         i {
             font-style: normal;
-            font-weight: 500;
         }
     }
 
@@ -86,7 +85,7 @@
     }
     .p-drawer-content {
         width: 100%;
-        padding-top: 1em;
+        padding: 0.5rem;
     }
     .t-column-company {
         width: 0.5rem;
@@ -101,6 +100,21 @@
     }
     .p-drawer-full & {
         width: calc(100vw - 5.5rem);
+    }
+    button {
+        padding: 0;
+    }
+    .p-button-flag {
+        width: 15rem;
+        button {
+            width: 1rem;
+        }
+    }
+    .p-button-sub-filter {
+        width: 8rem;
+        button {
+            width: 2rem;
+        }
     }
 }
 
@@ -194,10 +208,10 @@
         }
 
         &-company {
-            width: 2.5rem;
+            width: 2rem;
 
             @include bp.media-breakpoint-down('md') {
-                width: 3rem;
+                width: 2.25rem;
             }
         }
 
@@ -237,7 +251,7 @@
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    font-weight: 500;
+
     text-align: center;
     overflow: hidden; /* 로고가 튀어나가는 것을 방지 */
     border-radius: 0.5rem;

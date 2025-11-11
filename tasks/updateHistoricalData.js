@@ -11,6 +11,18 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
 
+const normalizeNumericValue = (value) => {
+    if (value === null || value === undefined) return value;
+    if (typeof value !== 'number') {
+        const parsed = Number(value);
+        if (Number.isNaN(parsed)) return value;
+        value = parsed;
+    }
+    if (!Number.isFinite(value)) return null;
+    if (Number.isInteger(value)) return value;
+    return Number(value.toFixed(6));
+};
+
 // [핵심] axios를 사용하여 Yahoo Finance API를 직접 호출하는 함수
 async function fetchHistoricalData(symbol, fromDate) {
     const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
@@ -162,7 +174,14 @@ async function fetchAndMergePriceData(ticker) {
         const oldSplitsStr = JSON.stringify(existingSplits);
 
         // 가격 데이터 병합
-        const newPriceData = await fetchHistoricalData(symbol, from);
+        const newPriceData = (await fetchHistoricalData(symbol, from)).map((p) => ({
+            ...p,
+            open: normalizeNumericValue(p.open),
+            high: normalizeNumericValue(p.high),
+            low: normalizeNumericValue(p.low),
+            close: normalizeNumericValue(p.close),
+            volume: normalizeNumericValue(p.volume),
+        }));
         let finalBacktestData = existingData.backtestData || [];
 
         if (newPriceData.length > 0) {
