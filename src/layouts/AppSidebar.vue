@@ -121,23 +121,32 @@
                 :class="{ 'p-datatable-loading': isLoading }"
                 class="h-full">
                 <template #empty>
-                    <div
-                        v-if="mainFilterTab === '북마크'"
-                        class="text-center p-4">
-                        <p v-if="!user" class="mb-2">
-                            로그인 후 종목을 북마크에 추가해 보세요.
-                        </p>
-                        <p
-                            v-else-if="Object.keys(myBookmarks).length === 0"
-                            class="mb-2">
-                            아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
-                            아이콘을 클릭하여 추가하세요.
-                        </p>
-                        <p v-else>검색 결과가 없습니다.</p>
+                    <div v-if="isLoading" class="p-4">
+                        <div class="flex flex-column gap-3">
+                            <Skeleton height="1.5rem" />
+                            <Skeleton height="1.5rem" />
+                            <Skeleton height="1.5rem" />
+                        </div>
                     </div>
-                    <div v-else class="text-center p-4">
-                        검색 결과가 없습니다.
-                    </div>
+                    <template v-else>
+                        <div
+                            v-if="mainFilterTab === '북마크'"
+                            class="text-center p-4">
+                            <p v-if="!user" class="mb-2">
+                                로그인 후 종목을 북마크에 추가해 보세요.
+                            </p>
+                            <p
+                                v-else-if="Object.keys(myBookmarks).length === 0"
+                                class="mb-2">
+                                아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
+                                아이콘을 클릭하여 추가하세요.
+                            </p>
+                            <p v-else>검색 결과가 없습니다.</p>
+                        </div>
+                        <div v-else class="text-center p-4">
+                            검색 결과가 없습니다.
+                        </div>
+                    </template>
                 </template>
                 <Column frozen class="t-column-bookmark">
                     <template #body="{ data }">
