@@ -1,39 +1,48 @@
 {
-  "redirects": [
-    {
-      "source": "/stock/:ticker",
-      "destination": "/:ticker",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/:path((?!api/|.*\\.).*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*\\.json)",
-      "headers": [
+    "redirects": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, stale-while-revalidate=86400"
+            "source": "/stock/:ticker",
+            "destination": "/:ticker",
+            "permanent": true
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/:path((?!api/|.*\\.).*)",
+            "destination": "/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Cross-Origin-Opener-Policy",
+                    "value": "same-origin-allow-popups"
+                }
+            ]
         },
         {
-          "key": "Content-Type",
-          "value": "application/json; charset=utf-8"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
+            "source": "/(.*\\.json)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=3600, stale-while-revalidate=86400"
+                },
+                {
+                    "key": "Content-Type",
+                    "value": "application/json; charset=utf-8"
+                }
+            ]
+        },
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
