@@ -155,6 +155,7 @@ async function generateCalendarEvents() {
                 hasEvent = true;
             } else if (isFuture && entry.forecasted === true) {
                 // 미래의 "forecasted": true (project_future_dividends.py가 생성)
+                event.isForecast = true;
                 event.isExpected = true;
                 hasEvent = true;
             }
