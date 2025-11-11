@@ -154,10 +154,10 @@
             let amountHtml;
             if (amount != null) {
                 amountHtml = `<span>${currencySymbol}${amountStr}</span>`;
-            } else if (isExpected) {
-                amountHtml = '<span class="no-amount scheduled">예정</span>';
             } else if (isForecast) {
                 amountHtml = '<span class="no-amount forecasted">예상</span>';
+            } else if (isExpected) {
+                amountHtml = '<span class="no-amount scheduled">예정</span>';
             } else {
                 // 혹시 모를 예외 케이스
                 amountHtml = '<span class="no-amount">정보없음</span>';
@@ -176,7 +176,7 @@
                 };
             } else {
                 return {
-                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><b>${displayName}</b> ${amountHtml}</div></div>`,
+                    html: `<div class="stock-item-month ${eventClass}" data-action="view" title="상세 보기"><div class="fc-event-title"><span>${displayName}</span> ${amountHtml}</div></div>`,
                 };
             }
         },
