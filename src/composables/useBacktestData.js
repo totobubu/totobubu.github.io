@@ -1,6 +1,7 @@
 // src/composables/useBacktestData.js
 import { ref } from 'vue';
 import { joinURL } from 'ufo';
+import { getDataUrl } from '@/utils/dataUrl';
 import { addBusinessDays } from '@/services/backtester/utils.js';
 
 export function useBacktestData() {
@@ -30,8 +31,7 @@ export function useBacktestData() {
         const tickerDataPromises = symbolsToFetch.map(async (symbol) => {
             try {
                 const response = await fetch(
-                    joinURL(
-                        import.meta.env.BASE_URL,
+                    getDataUrl(
                         `data/${symbol.toLowerCase().replace(/\./g, '-')}.json`
                     )
                 );

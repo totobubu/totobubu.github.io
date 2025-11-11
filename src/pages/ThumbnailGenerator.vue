@@ -11,7 +11,7 @@
     import Checkbox from 'primevue/checkbox';
     import InputText from 'primevue/inputtext';
     import SelectButton from 'primevue/selectbutton';
-    import { joinURL } from 'ufo';
+    import { getAssetUrl, getDataUrl } from '@/utils/dataUrl';
 
     useHead({
         title: '썸네일 일괄 생성기',
@@ -41,8 +41,8 @@
     const selectedGroup = ref('All');
 
     const companyOptions = ref([
-        { name: 'YieldMax', logo: '/logos/yieldmax.png' },
-        { name: 'Roundhill', logo: '/logos/roundhill.svg' },
+        { name: 'YieldMax', logo: getAssetUrl('logos/yieldmax.png') },
+        { name: 'Roundhill', logo: getAssetUrl('logos/roundhill.svg') },
     ]);
     const backgroundOptions = ref([
         { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
@@ -136,10 +136,7 @@
                 if (!backtestData) {
                     try {
                         const response = await fetch(
-                            joinURL(
-                                import.meta.env.BASE_URL,
-                                `data/${sanitizedSymbol}.json`
-                            )
+                            getDataUrl(`data/${sanitizedSymbol}.json`)
                         );
                         if (response.ok) {
                             const data = await response.json();
