@@ -1,10 +1,90 @@
 # scripts/project_future_dividends.py
 
 import os
+import re
 import json
+from collections import Counter
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
+DAY_NAME_TO_INDEX = {
+    "월": 0,
+    "화": 1,
+    "수": 2,
+    "목": 3,
+    "금": 4,
+    "MON": 0,
+    "TUE": 1,
+    "WED": 2,
+    "THU": 3,
+    "FRI": 4,
+}
+
+
+def parse_weekly_frequency(frequency_value):
+    if not frequency_value or not isinstance(frequency_value, str):
+        return None
+    normalized = frequency_value.replace(" ", "")
+    if normalized == "매주":
+        return 1
+    weekly_match = re.match(r"^주(\d+)회$", normalized)
+    if weekly_match:
+        occurrences = int(weekly_match.group(1))
+        if occurrences > 0:
+            return occurrences
+    if "주" in normalized:
+        return 1
+    return None
+
+
+def parse_group_to_weekdays(group_value):
+    if not group_value:
+        return []
+    weekdays = set()
+    raw_parts = re.split(r"[\/,\s·]+", str(group_value))
+    for part in raw_parts:
+        label = part.strip()
+        if not label:
+            continue
+        upper_label = label.upper()
+        if label in DAY_NAME_TO_INDEX:
+            weekdays.add(DAY_NAME_TO_INDEX[label])
+        elif upper_label in DAY_NAME_TO_INDEX:
+            weekdays.add(DAY_NAME_TO_INDEX[upper_label])
+    return sorted(weekdays)
+
+
+def infer_weekdays_from_entries(entries, desired_count=None, sample_size=20):
+    if not entries:
+        return []
+    sorted_entries = sorted(entries, key=lambda x: x["date"], reverse=True)
+    recent_entries = sorted_entries[:sample_size]
+    weekday_counts = Counter()
+    for item in recent_entries:
+        try:
+            day = datetime.strptime(item["date"], "%Y-%m-%d").weekday()
+        except (KeyError, ValueError):
+            continue
+        weekday_counts[day] += 1
+    if not weekday_counts:
+        return []
+    weekdays = [day for day, _ in weekday_counts.most_common()]
+    if desired_count:
+        weekdays = weekdays[:desired_count]
+    return sorted(weekdays)
+
+
+def get_next_weekly_date(current_date, weekdays):
+    if not weekdays:
+        return current_date
+    weekdays = sorted(set(weekdays))
+    current_weekday = current_date.weekday()
+    for target in weekdays:
+        delta = target - current_weekday
+        if delta > 0:
+            return current_date + timedelta(days=delta)
+    days_ahead = (7 - current_weekday) + weekdays[0]
+    return current_date + timedelta(days=days_ahead)
 
 # --- 경로 설정 ---
 PUBLIC_DIR = "public"
@@ -109,15 +189,24 @@ def main():
 
         future_projections = []
         existing_dates = {item["date"] for item in cleaned_backtest_data}
+        weekly_occurrences = parse_weekly_frequency(frequency)
+        weekly_schedule = []
+        if weekly_occurrences:
+            weekly_schedule = parse_group_to_weekdays(group)
+            if weekly_occurrences and len(weekly_schedule) < weekly_occurrences:
+                inferred = infer_weekdays_from_entries(
+                    known_entries, desired_count=weekly_occurrences
+                )
+                for day in inferred:
+                    if day not in weekly_schedule:
+                        weekly_schedule.append(day)
+            weekly_schedule = sorted(set(weekly_schedule))
+            if weekly_occurrences and len(weekly_schedule) > weekly_occurrences:
+                weekly_schedule = weekly_schedule[:weekly_occurrences]
 
         while True:  # 무한 루프로 변경 후 내부에서 break 조건 처리
-            if frequency == "매주":
-                next_date += timedelta(days=7)
-                if group in ["월", "화", "수", "목", "금"]:
-                    day_map = {"월": 0, "화": 1, "수": 2, "목": 3, "금": 4}
-                    target_weekday = day_map[group]
-                    days_ahead = target_weekday - next_date.weekday()
-                    next_date += timedelta(days=days_ahead)
+            if weekly_schedule:
+                next_date = get_next_weekly_date(next_date, weekly_schedule)
             elif frequency == "매월":
                 next_date += relativedelta(months=1)
             elif frequency == "분기":

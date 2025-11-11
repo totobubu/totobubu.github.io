@@ -12,6 +12,7 @@
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
     import Panel from 'primevue/panel';
+    import { extractWeekdayLabels } from '@/utils/uiHelpers.js';
 
     const props = defineProps({
         dividendsByDate: Object,
@@ -39,7 +40,7 @@
         const { frequency, group } = entry;
         if (frequency === '매월') return 'freq-monthly';
         if (frequency === '분기') return 'freq-quarterly';
-        if (frequency === '매주') {
+        if (frequency && frequency.includes('주')) {
             const groupMap = {
                 월: 'mon',
                 화: 'tue',
@@ -47,7 +48,10 @@
                 목: 'thu',
                 금: 'fri',
             };
-            return `freq-${groupMap[group] || 'default'}`;
+            const weekdayLabels = extractWeekdayLabels(group, entry.group2 || null);
+            const primaryGroup = weekdayLabels[0];
+            if (!primaryGroup) return 'freq-default';
+            return `freq-${groupMap[primaryGroup] || 'default'}`;
         }
         return 'freq-default';
     };
@@ -200,9 +204,7 @@
 </script>
 
 <template>
-    <Card
-        v-if="isMobile"
-        id="t-calendar-list">
+    <Card v-if="isMobile" id="t-calendar-list">
         <template #header>{{ currentTitle }}</template>
         <template #title>
             <Button icon="pi pi-chevron-left" text @click="prevMonth" />
