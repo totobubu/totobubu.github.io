@@ -9,6 +9,7 @@
 import os
 import json
 import time
+import math
 import yfinance as yf
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -190,7 +191,30 @@ def process_single_ticker_info(info):
     """티커 정보 가공"""
     if not info:
         return {}
-    
+
+    def normalize_number(value):
+        if value is None:
+            return None
+        if isinstance(value, bool):
+            return int(value)
+        if isinstance(value, (int,)):
+            return value
+        if isinstance(value, float):
+            if not pd.notna(value):
+                return None
+            if value.is_integer():
+                return int(value)
+            return round(value, 6)
+        try:
+            parsed = float(value)
+            if math.isnan(parsed) or math.isinf(parsed):
+                return None
+            if parsed.is_integer():
+                return int(parsed)
+            return round(parsed, 6)
+        except Exception:
+            return value
+
     current_price = info.get("regularMarketPrice") or info.get("previousClose")
     yield_val = (
         (info.get("trailingAnnualDividendRate", 0) / current_price)
@@ -212,18 +236,18 @@ def process_single_ticker_info(info):
     )
     
     return {
-        "regularMarketPrice": info.get("regularMarketPrice"),
+        "regularMarketPrice": normalize_number(info.get("regularMarketPrice")),
         "englishName": info.get("longName"),
         "earningsDate": earnings_date,
-        "enterpriseValue": info.get("enterpriseValue"),
-        "marketCap": info.get("marketCap"),
-        "Volume": info.get("volume"),
-        "AvgVolume": info.get("averageVolume"),
-        "sharesOutstanding": info.get("sharesOutstanding"),
+        "enterpriseValue": normalize_number(info.get("enterpriseValue")),
+        "marketCap": normalize_number(info.get("marketCap")),
+        "Volume": normalize_number(info.get("volume")),
+        "AvgVolume": normalize_number(info.get("averageVolume")),
+        "sharesOutstanding": normalize_number(info.get("sharesOutstanding")),
         "52Week": fifty_two_week_range,
-        "Yield": yield_val,
-        "dividendRate": info.get("dividendRate"),
-        "payoutRatio": info.get("payoutRatio"),
+        "Yield": normalize_number(yield_val),
+        "dividendRate": normalize_number(info.get("dividendRate")),
+        "payoutRatio": normalize_number(info.get("payoutRatio")),
     }
 
 
