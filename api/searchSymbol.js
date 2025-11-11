@@ -1,7 +1,7 @@
 // api/searchSymbol.js
 
 import axios from 'axios';
-import { createApiHandler } from './_utils/api-handler';
+import { createApiHandler } from './_utils/api-handler.js';
 
 const YF_SEARCH_URL = 'https://query1.finance.yahoo.com/v1/finance/search';
 const YF_HEADERS = {
