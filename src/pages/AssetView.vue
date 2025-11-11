@@ -12,8 +12,6 @@
     } from '@/composables/useAssetFirestore';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
-    import ConfirmDialog from 'primevue/confirmdialog';
-    import Toast from 'primevue/toast';
 
     import Card from 'primevue/card';
     import Button from 'primevue/button';
@@ -1349,13 +1347,6 @@
                     @click="showUploadDialog = false" />
             </template>
         </Dialog>
-
-        <!-- ConfirmDialog -->
-        <ConfirmDialog />
-
-        <!-- Toast -->
-        <Toast />
-
         <!-- Add Asset Modal -->
         <AddAssetModal
             v-model:visible="showAddAssetModal"
