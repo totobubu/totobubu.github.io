@@ -144,12 +144,12 @@
 </script>
 
 <template>
+    <Toast />
+    <ConfirmDialog />
     <div v-if="isStandalonePage" id="t-standalone">
         <RouterView />
     </div>
     <div v-else id="t-layout">
-        <Toast />
-        <ConfirmDialog />
         <main id="t-grid">
             <header id="t-header">
                 <div class="flex items-center gap-4 min-w-0">
