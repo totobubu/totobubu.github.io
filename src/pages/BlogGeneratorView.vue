@@ -117,6 +117,23 @@
             반기: 'Semi-Annually',
             매년: 'Annually',
         };
+        const frequencyEn = (() => {
+            if (!frequency) return 'Quarterly';
+            if (frequencyMap[frequency]) return frequencyMap[frequency];
+            if (typeof frequency === 'string') {
+                const normalized = frequency.replace(/\s+/g, '');
+                const weeklyMatch = normalized.match(/^주(\d+)회$/);
+                if (weeklyMatch) {
+                    const occurrences = Number(weeklyMatch[1]);
+                    if (!Number.isNaN(occurrences) && occurrences > 0) {
+                        return occurrences === 1
+                            ? 'Weekly'
+                            : `${occurrences}x Weekly`;
+                    }
+                }
+            }
+            return 'Quarterly';
+        })();
 
         // 연간 배당수익률 계산
         const annualYield = recentDividend.yield
@@ -148,7 +165,7 @@
                 },
                 history: dividendHistory.slice(0, 12),
                 frequency: frequency,
-                frequencyEn: frequencyMap[frequency] || 'Quarterly',
+                frequencyEn: frequencyEn,
             },
             holdings: latestHoldings,
             holdingsInfo: {

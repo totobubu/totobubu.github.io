@@ -74,7 +74,18 @@
             .slice(0, -1);
     };
 
-    const mapFrequency = (value) => frequencyLabelMap[value] || value || '';
+    const mapFrequency = (value) => {
+        if (!value) return '';
+        if (frequencyLabelMap[value]) return frequencyLabelMap[value];
+        if (typeof value === 'string') {
+            const normalized = value.replace(/\s+/g, '');
+            const weeklyMatch = normalized.match(/^주(\d+)회$/);
+            if (weeklyMatch) {
+                return `주 ${weeklyMatch[1]}회 배당`;
+            }
+        }
+        return value;
+    };
 
     const composeLabel = (frequencyValue, groupValue) => {
         const freqLabel = mapFrequency(frequencyValue);
