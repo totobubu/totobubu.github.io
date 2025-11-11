@@ -1,6 +1,6 @@
 <!-- /components\mypage\ProfileSettings.vue -->
 <script setup>
-    import { ref, onMounted, onUnmounted } from 'vue';
+    import { ref, onMounted, onUnmounted, computed } from 'vue';
     import { useRouter } from 'vue-router';
     import { auth, db } from '@/firebase'; // signOut은 직접 사용하지 않으므로 제거 가능
     import { isRecentlyAuthenticated, user } from '@/store/auth';
@@ -9,6 +9,8 @@
         deleteUser,
         EmailAuthProvider,
         reauthenticateWithCredential,
+        GoogleAuthProvider,
+        reauthenticateWithPopup,
     } from 'firebase/auth';
     import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 
@@ -34,6 +36,7 @@
 
     const isLoading = ref({
         auth: false,
+        google: false,
         displayName: false,
         password: false,
         reset: false,
@@ -54,7 +57,29 @@
         isRecentlyAuthenticated.value = false;
     });
 
+    const usesPasswordProvider = computed(() => {
+        return (
+            !!user.value &&
+            !!auth.currentUser?.providerData?.some(
+                (provider) => provider.providerId === 'password'
+            )
+        );
+    });
+
+    const usesGoogleProvider = computed(() => {
+        return (
+            !!user.value &&
+            !!auth.currentUser?.providerData?.some(
+                (provider) => provider.providerId === 'google.com'
+            )
+        );
+    });
+
     const handleReauth = async () => {
+        if (!usesPasswordProvider.value) {
+            authError.value = '이 계정은 비밀번호 인증을 지원하지 않습니다.';
+            return;
+        }
         if (!currentPassword.value) {
             authError.value = '비밀번호를 입력해주세요.';
             return;
@@ -68,11 +93,42 @@
         try {
             await reauthenticateWithCredential(auth.currentUser, credential);
             isRecentlyAuthenticated.value = true;
+            authError.value = '';
         } catch (error) {
             authError.value = '비밀번호가 올바르지 않습니다.';
         } finally {
             isLoading.value.auth = false;
             currentPassword.value = '';
+        }
+    };
+
+    const handleGoogleReauth = async () => {
+        if (!usesGoogleProvider.value) {
+            authError.value = '구글 인증이 연결된 계정이 아닙니다.';
+            return;
+        }
+
+        authError.value = '';
+        isLoading.value.google = true;
+        try {
+            const provider = new GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+            await reauthenticateWithPopup(auth.currentUser, provider);
+            isRecentlyAuthenticated.value = true;
+            authError.value = '';
+        } catch (error) {
+            if (error?.code === 'auth/popup-closed-by-user') {
+                authError.value = '인증이 취소되었습니다. 다시 시도해주세요.';
+            } else if (error?.code === 'auth/user-mismatch') {
+                authError.value =
+                    '현재 로그인한 계정과 다른 구글 계정입니다. 동일한 계정으로 인증해주세요.';
+            } else {
+                console.error('Google reauth error:', error);
+                authError.value =
+                    '구글 인증에 실패했습니다. 잠시 후 다시 시도해주세요.';
+            }
+        } finally {
+            isLoading.value.google = false;
         }
     };
 
@@ -211,35 +267,50 @@
                             class="flex-grow" />
                     </InputGroup>
 
-                    <div
-                        v-if="!isRecentlyAuthenticated"
-                        class="flex flex-column gap-3">
-                        <InputGroup>
-                            <InputGroupAddon>
-                                <i class="pi pi-key" />
-                            </InputGroupAddon>
-                            <Password
-                                v-model="currentPassword"
-                                placeholder="현재 비밀번호"
-                                :feedback="false"
-                                toggleMask
-                                @keyup.enter="handleReauth" />
-                            <InputGroupAddon>
+                    <div v-if="!isRecentlyAuthenticated">
+                        <div class="flex flex-column gap-3">
+                            <div v-if="usesPasswordProvider" class="flex flex-column gap-3">
+                                <InputGroup>
+                                    <InputGroupAddon>
+                                        <i class="pi pi-key" />
+                                    </InputGroupAddon>
+                                    <Password
+                                        v-model="currentPassword"
+                                        placeholder="현재 비밀번호"
+                                        :feedback="false"
+                                        toggleMask
+                                        @keyup.enter="handleReauth" />
+                                    <InputGroupAddon>
+                                        <Button
+                                            label="인증"
+                                            @click="handleReauth"
+                                            :loading="isLoading.auth" />
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </div>
+
+                            <div v-if="usesGoogleProvider" class="flex flex-column gap-2">
                                 <Button
-                                    label="인증"
-                                    @click="handleReauth"
-                                    :loading="isLoading.auth" />
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <Message
-                            v-if="authError"
-                            severity="error"
-                            :closable="false"
-                            >{{ authError }}</Message
-                        >
-                        <Message severity="info" :closable="false">
-                            정보 변경 및 탈퇴를 위해 비밀번호 인증이 필요합니다.
-                        </Message>
+                                    label="구글 계정으로 인증"
+                                    icon="pi pi-google"
+                                    severity="info"
+                                    @click="handleGoogleReauth"
+                                    :loading="isLoading.google" />
+                                <small class="text-sm">
+                                    구글 로그인으로 가입한 계정은 위 버튼을 사용해 인증을 완료해주세요.
+                                </small>
+                            </div>
+
+                            <Message
+                                v-if="authError"
+                                severity="error"
+                                :closable="false"
+                                >{{ authError }}</Message
+                            >
+                            <Message severity="info" :closable="false">
+                                정보 변경 및 탈퇴를 위해 최근 인증이 필요합니다.
+                            </Message>
+                        </div>
                     </div>
 
                     <div v-else class="flex flex-column gap-3">
