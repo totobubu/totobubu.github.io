@@ -20,7 +20,7 @@
     });
 
     const emit = defineEmits(['view-ticker']);
-    const { toggleMyStock } = useFilterState();
+    const { toggleMyStock, myBookmarks } = useFilterState();
     const { isMobile } = useBreakpoint();
     const fullCalendar = ref(null);
     const currentTitle = ref('');
@@ -124,7 +124,12 @@
                 const { action } = actionElement.dataset;
                 const { ticker } = info.event.extendedProps;
                 if (action === 'view') emit('view-ticker', ticker);
-                else if (action === 'remove') toggleMyStock(ticker);
+                else if (action === 'bookmark-add') {
+                    if (!myBookmarks.value?.[ticker]) {
+                        toggleMyStock(ticker);
+                        fullCalendar.value?.getApi().refetchEvents();
+                    }
+                }
             }
         },
         eventContent: (arg) => {
@@ -164,15 +169,24 @@
             }
 
             const viewButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="view" title="상세 보기"><span class="pi pi-link"></span></button>`;
-            const removeButtonHtml = `<button class="p-button p-component p-button-icon-only p-button-text p-button-sm" data-action="remove" title="북마크 제거"><span class="pi pi-times"></span></button>`;
 
             if (arg.view.type === 'listWeek') {
                 return {
                     html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span> <span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
+                const isBookmarked = !!myBookmarks.value?.[ticker];
+                const bookmarkButtonHtml = `<button class="p-button p-component p-button-text p-button-sm bookmark-action" data-action="bookmark-add" title="${
+                    isBookmarked
+                        ? '이미 북마크에 추가되었습니다.'
+                        : '북마크 추가'
+                }" ${isBookmarked ? 'disabled' : ''}><span class="pi ${
+                    isBookmarked ? 'pi-check' : 'pi-bookmark'
+                }"></span><span class="bookmark-label hidden">${
+                    isBookmarked ? '추가됨' : '북마크 추가'
+                }</span></button>`;
                 return {
-                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${removeButtonHtml}</span></div>`,
+                    html: `<div class="stock-item-week ${eventClass}"><span class="ticker-name">${displayName}</span><span class="amount-text">${amountHtml}</span><span class="actions">${viewButtonHtml}${bookmarkButtonHtml}</span></div>`,
                 };
             } else {
                 return {
@@ -195,6 +209,14 @@
     // [핵심 수정] props가 변경되면 refetchEvents를 호출하여 캘린더를 다시 그림
     watch(
         [() => props.dividendsByDate, () => props.holidays],
+        () => {
+            fullCalendar.value?.getApi().refetchEvents();
+        },
+        { deep: true }
+    );
+
+    watch(
+        myBookmarks,
         () => {
             fullCalendar.value?.getApi().refetchEvents();
         },
