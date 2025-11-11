@@ -1,15 +1,14 @@
 import os
 import tempfile
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 
 from scripts.extract_toss_transactions import extract_transactions_from_pdf
 
 app = Flask(__name__)
 
 
-@app.after_request
-def apply_cors(response):
+def _apply_cors(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
@@ -19,19 +18,19 @@ def apply_cors(response):
 @app.route("/api/parsePdfTransaction", methods=["POST", "OPTIONS"])
 def parse_pdf_transaction():
     if request.method == "OPTIONS":
-        return ("", 204)
+        return _apply_cors(make_response("", 204))
 
     if request.method != "POST":
-        return jsonify({"error": "Method not allowed"}), 405
+        return _apply_cors(jsonify({"error": "Method not allowed"})), 405
 
     upload = request.files.get("file")
     brokerage = request.form.get("brokerage")
 
     if upload is None or upload.filename == "":
-        return jsonify({"error": "파일이 없습니다."}), 400
+        return _apply_cors(jsonify({"error": "파일이 없습니다."})), 400
 
     if not brokerage:
-        return jsonify({"error": "증권사 정보가 없습니다."}), 400
+        return _apply_cors(jsonify({"error": "증권사 정보가 없습니다."})), 400
 
     suffix = os.path.splitext(upload.filename)[1] or ".pdf"
     temp_file_path = None
@@ -42,22 +41,26 @@ def parse_pdf_transaction():
             temp_file_path = tmp.name
 
         if brokerage == "toss":
+            app.logger.info("토스 거래내역서 파싱 시작")
             result = extract_transactions_from_pdf(temp_file_path, verbose=False)
+            app.logger.info(
+                "토스 거래내역서 파싱 완료: 거래수=%s",
+                result.get("total_count"),
+            )
         else:
-            return jsonify({"error": "지원하지 않는 증권사입니다."}), 400
+            return _apply_cors(jsonify({"error": "지원하지 않는 증권사입니다."})), 400
 
-        return jsonify(result)
+        return _apply_cors(jsonify(result))
     except Exception as exc:
         app.logger.exception("PDF 파싱 오류")
-        return (
+        return _apply_cors(
             jsonify(
                 {
                     "error": "PDF 파싱에 실패했습니다.",
                     "details": str(exc),
                 }
-            ),
-            500,
-        )
+            )
+        ), 500
     finally:
         if temp_file_path and os.path.exists(temp_file_path):
             try:
