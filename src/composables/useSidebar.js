@@ -277,6 +277,18 @@ export function useSidebar() {
             if (!loadedMarkets.value.has(market)) {
                 marketsToLoad.push(market);
             }
+        } else if (mainTab === '북마크') {
+            const bookmarkMarkets = [
+                'kr-stocks',
+                'kr-etfs',
+                'us-stocks',
+                'us-etfs',
+            ];
+            bookmarkMarkets.forEach((market) => {
+                if (!loadedMarkets.value.has(market)) {
+                    marketsToLoad.push(market);
+                }
+            });
         }
 
         if (marketsToLoad.length > 0) {

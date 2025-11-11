@@ -70,17 +70,32 @@
                     : rawValue;
 
                 return {
+                    key: item.key,
                     label: item.label,
                     value: displayValue,
+                    rawValue,
                     changeInfo: props.info.changes?.[item.key],
                 };
             })
-            .filter(
-                (item) =>
-                    item.value !== null &&
-                    item.value !== undefined &&
-                    item.value !== 'N/A'
-            );
+            .filter((item) => {
+                if (
+                    item.rawValue === null ||
+                    item.rawValue === undefined ||
+                    item.rawValue === 'N/A' ||
+                    item.value === 'N/A'
+                ) {
+                    return false;
+                }
+
+                if (
+                    item.key === 'sharesOutstanding' &&
+                    Number(item.rawValue) === 0
+                ) {
+                    return false;
+                }
+
+                return true;
+            });
     });
 
     const getChangeIcon = (change) =>

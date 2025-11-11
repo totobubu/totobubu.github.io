@@ -11,7 +11,14 @@ const normalizeGroupValue = (group) => {
         const tokens = splitWeekdayTokens(group);
         return tokens.length > 0 ? tokens[0] : null;
     }
-    if (typeof group === 'object') {
+    if (Array.isArray(group)) {
+        const values = group
+            .flatMap((value) =>
+                typeof value === 'string' ? splitWeekdayTokens(value) : []
+            )
+            .filter(Boolean);
+        if (values.length > 0) return values[0];
+    } else if (typeof group === 'object') {
         const values = Object.values(group)
             .flatMap((value) =>
                 typeof value === 'string' ? splitWeekdayTokens(value) : []
@@ -51,7 +58,14 @@ export const extractWeekdayLabels = (group, group2) => {
         });
     }
 
-    if (group && typeof group === 'object') {
+    if (Array.isArray(group)) {
+        group.forEach((value) => {
+            if (typeof value !== 'string') return;
+            splitWeekdayTokens(value).forEach((token) => {
+                if (!labels.includes(token)) labels.push(token);
+            });
+        });
+    } else if (group && typeof group === 'object') {
         Object.values(group).forEach((value) => {
             if (typeof value !== 'string') return;
             splitWeekdayTokens(value).forEach((token) => {
