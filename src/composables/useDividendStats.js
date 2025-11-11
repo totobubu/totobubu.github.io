@@ -16,9 +16,24 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
             return 0;
 
         const freq = tickerInfo.value?.frequency;
-        
-        // 주배당/월배당의 경우 과거 데이터가 충분하지 않으면 frequency 정보를 우선 사용
-        if (freq === '매주') return 52;
+
+        const getWeeklyPayouts = (freqValue) => {
+            if (!freqValue || typeof freqValue !== 'string') return null;
+            const normalized = freqValue.replace(/\s+/g, '');
+            if (normalized === '매주') return 52;
+            const weeklyMatch = normalized.match(/^주(\d+)회$/);
+            if (weeklyMatch) {
+                const occurrences = Number(weeklyMatch[1]);
+                if (!Number.isNaN(occurrences) && occurrences > 0) {
+                    return 52 * occurrences;
+                }
+            }
+            if (normalized.includes('주')) return 52;
+            return null;
+        };
+
+        const weeklyPayouts = getWeeklyPayouts(freq);
+        if (weeklyPayouts) return weeklyPayouts;
         if (freq === '매월') return 12;
         
         // 분기/연배당의 경우 과거 1년간 실제 배당 횟수 계산

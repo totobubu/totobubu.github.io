@@ -92,8 +92,11 @@
         let cutoffDate;
 
         // --- [핵심 수정] ---
-        // '매주' 배당일 경우, 오늘 날짜 기준 '월(M)' 단위로 필터링
-        if (tickerInfo.value?.frequency === '매주') {
+        // 주 단위 배당일 경우, 오늘 날짜 기준 '월(M)' 단위로 필터링
+        const frequencyValue = tickerInfo.value?.frequency || '';
+        const isWeeklyDividend =
+            typeof frequencyValue === 'string' && frequencyValue.includes('주');
+        if (isWeeklyDividend) {
             cutoffDate = new Date();
             let monthsToSubtract = 0;
             if (unit === 'M') {
