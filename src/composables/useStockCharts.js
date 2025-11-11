@@ -49,7 +49,8 @@ export function useStockCharts(options) {
         if (currentView.value === '배당') {
             const freq = tickerInfo.value.frequency;
             if (freq === '매년') return useAnnualChart(sharedOptions);
-            if (freq === '매주') return useWeeklyChart(sharedOptions);
+            if (typeof freq === 'string' && freq.includes('주'))
+                return useWeeklyChart(sharedOptions);
             if (freq === '분기')
                 return useQuarterlyChart({
                     ...sharedOptions,

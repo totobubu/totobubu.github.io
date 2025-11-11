@@ -4,16 +4,15 @@
     import { computed, ref, watch } from 'vue';
     import { useSidebar } from '@/composables/useSidebar.js';
     import { useBreakpoint } from '@/composables/useBreakpoint.js';
-    import { getGroupSeverity } from '@/utils/uiHelpers.js';
     import { user } from '../store/auth';
 
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
-    import Tag from 'primevue/tag';
     import Skeleton from 'primevue/skeleton';
     import SelectButton from 'primevue/selectbutton';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
+    import WeekdayRotatingTag from '@/components/WeekdayRotatingTag.vue';
 
     const {
         isLoading,
@@ -39,7 +38,7 @@
             { label: '미국', value: '미국', flagSrc: '/flags/us.svg' },
             { label: '한국', value: '한국', flagSrc: '/flags/kr.svg' },
         ];
-        
+
         // 로그인한 경우에만 북마크 옵션 추가
         if (user.value) {
             options.unshift({
@@ -48,7 +47,7 @@
                 icon: 'pi pi-bookmark',
             });
         }
-        
+
         return options;
     });
 
@@ -73,6 +72,7 @@
                     optionValue="value"
                     aria-labelledby="main-filter-tabs"
                     size="small"
+                    :allowEmpty="false"
                     class="w-full">
                     <template #option="slotProps">
                         <i
@@ -92,6 +92,7 @@
                         v-model="subFilterTab"
                         :options="subFilterOptions"
                         size="small"
+                        :allowEmpty="false"
                         class="w-full" />
                 </div>
             </div>
@@ -204,10 +205,11 @@
                     >
                     <template #body="{ data }">
                         <Skeleton v-if="isLoading"></Skeleton>
-                        <Tag
-                            v-else-if="data.group"
-                            :value="data.group"
-                            :severity="getGroupSeverity(data.group)" />
+                        <WeekdayRotatingTag
+                            v-else
+                            :labels="data.groupLabels"
+                            :fallback="data.group"
+                            :interval="1600" />
                     </template>
                 </Column>
             </DataTable>

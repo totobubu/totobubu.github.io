@@ -3,7 +3,10 @@
     import { ref, computed } from 'vue';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useAdmin } from '@/composables/useAdmin';
-    import { getGroupSeverity } from '@/utils/uiHelpers.js';
+    import {
+        getGroupSeverity,
+        extractWeekdayLabels,
+    } from '@/utils/uiHelpers.js';
     import Card from 'primevue/card';
     import SelectButton from 'primevue/selectbutton';
     import Dropdown from 'primevue/dropdown';
@@ -61,6 +64,16 @@
             name: opt.label,
             code: opt.value,
         }))
+    );
+
+    const weekdayTags = computed(() =>
+        extractWeekdayLabels(
+            props.tickerInfo?.group,
+            props.tickerInfo?.group2 || null
+        )
+    );
+    const primaryWeekday = computed(
+        () => weekdayTags.value[0] || props.tickerInfo?.group || null
     );
 
     const timelineRawEvents = computed(() => {
@@ -160,7 +173,7 @@
                     <StockTimelineModal
                         v-if="hasTimelineEvents"
                         :events="timelineRawEvents"
-                        :fallback-group="tickerInfo.group">
+                        :fallback-group="primaryWeekday">
                         <template #trigger="{ open }">
                             <Button
                                 icon="pi pi-calendar"
@@ -172,8 +185,16 @@
                     <Tag v-if="tickerInfo.frequency" severity="secondary">{{
                         tickerInfo.frequency
                     }}</Tag>
+                    <template v-if="weekdayTags.length > 0">
+                        <Tag
+                            v-for="weekday in weekdayTags"
+                            :key="weekday"
+                            :severity="getGroupSeverity(weekday)"
+                            >{{ weekday }}</Tag
+                        >
+                    </template>
                     <Tag
-                        v-if="tickerInfo.group"
+                        v-else-if="tickerInfo.group"
                         :severity="getGroupSeverity(tickerInfo.group)"
                         >{{ tickerInfo.group }}</Tag
                     >
