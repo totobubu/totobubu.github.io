@@ -832,5 +832,5 @@
 </template>
 
 <style scoped lang="scss">
-    @import '@/styles/pages/_blog-generator';
+    @use '@/styles/pages/blog-generator';
 </style>
