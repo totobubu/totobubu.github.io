@@ -37,7 +37,6 @@ DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 US_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "us_holidays.json")
 KR_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "kr_holidays.json")
-ISIN_RECORDS_PATH = os.path.join(DATA_DIR, "isin_records.json")
 
 # 글로벌 상태 (한 번만 로드)
 nav_data = None
@@ -568,7 +567,6 @@ def update_isin_records():
     nav_changed = False
     missing_output_path = os.path.join(PUBLIC_DIR, "missing_isin.json")
     run_timestamp = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
-    isin_records = []
 
     for symbol in tqdm(active_symbols, desc="ISIN 보강"):
         ticker_meta = ticker_info_map.get(symbol, {})
@@ -577,19 +575,7 @@ def update_isin_records():
         )
         data = load_json_file(file_path)
 
-        record = {
-            "symbol": symbol,
-            "koName": ticker_meta.get("koName"),
-            "market": ticker_meta.get("market"),
-            "currency": ticker_meta.get("currency"),
-            "status": "pending",
-            "source": None,
-            "isin": None,
-            "checkedAt": run_timestamp,
-        }
-
         if not data:
-            record["status"] = "missing"
             missing_records.append(
                 {
                     "symbol": symbol,
@@ -598,7 +584,6 @@ def update_isin_records():
                     "currency": ticker_meta.get("currency"),
                 }
             )
-            isin_records.append(record)
             continue
 
         ticker_info = data.get("tickerInfo", {})
@@ -609,26 +594,24 @@ def update_isin_records():
         existing_isin = ticker_info.get("isin")
         # "-"는 유효하지 않은 ISIN이므로 다시 찾아봐야 함
         if existing_isin and existing_isin != "-":
-            record["isin"] = existing_isin
-            record["source"] = ticker_info.get("isinSource") or "existing"
-            record["status"] = "found"
-            isin_records.append(record)
+            continue
+        # 사용자가 명시적으로 None을 설정한 경우 재시도 생략
+        if "isin" in ticker_info and existing_isin is None:
             continue
         
         # 기존 ISIN이 "-"인 경우 제거하고 다시 찾기
         file_changed = False
         if existing_isin == "-":
             ticker_info["isin"] = None
+            # 기존 isinSource 제거
             ticker_info.pop("isinSource", None)
             file_changed = True
 
         new_isin = None
-        isin_source = None
 
         yf_isin = fetch_isin_from_yfinance(symbol)
         if yf_isin:
             new_isin = yf_isin
-            isin_source = "yfinance"
             yfinance_hits += 1
         elif is_korean_symbol(symbol, ticker_meta):
             krx_isin = fetch_isin_from_krx(
@@ -638,24 +621,20 @@ def update_isin_records():
             )
             if krx_isin:
                 new_isin = krx_isin
-                isin_source = "krx"
                 krx_hits += 1
+        
         if new_isin:
-            if (
-                ticker_info.get("isin") != new_isin
-                or ticker_info.get("isinSource") != isin_source
-            ):
+            if ticker_info.get("isin") != new_isin:
                 ticker_info["isin"] = new_isin
-                ticker_info["isinSource"] = isin_source
+                # 기존 isinSource 제거
+                ticker_info.pop("isinSource", None)
                 file_changed = True
                 nav_entry = ticker_info_map.get(symbol)
                 if nav_entry is not None:
                     nav_entry["isin"] = new_isin
-                    nav_entry["isinSource"] = isin_source
+                    # nav.json에서도 isinSource 제거
+                    nav_entry.pop("isinSource", None)
                     nav_changed = True
-            record["isin"] = new_isin
-            record["source"] = isin_source
-            record["status"] = "found"
         else:
             if "isin" not in ticker_info:
                 ticker_info["isin"] = None
@@ -669,15 +648,12 @@ def update_isin_records():
                     "currency": ticker_meta.get("currency"),
                 }
             )
-            record["status"] = "missing"
 
         if file_changed:
             data["tickerInfo"] = ticker_info
             save_json_file(file_path, data)
             if new_isin:
                 updated_files += 1
-
-        isin_records.append(record)
 
     if nav_changed:
         save_json_file(NAV_FILE_PATH, nav_data)
@@ -693,14 +669,6 @@ def update_isin_records():
         print(f"   ⚠️  KRX/수동 확인 필요: {len(missing_records)}개")
     elif os.path.exists(missing_output_path):
         os.remove(missing_output_path)
-
-    save_json_file(
-        ISIN_RECORDS_PATH,
-        {
-            "generatedAt": run_timestamp,
-            "records": isin_records,
-        },
-    )
 
     print(
         f"\n✅ ISIN 업데이트 완료: {updated_files}개 (yfinance: {yfinance_hits}개, KRX: {krx_hits}개)"
