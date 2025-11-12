@@ -10,7 +10,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: var(--surface-50);
     border-radius: 0.5rem;
     gap: 1rem;
 
@@ -38,7 +37,6 @@
     .summary-card {
         flex: 1;
         padding: 1rem 1.5rem;
-        background: white;
         border-radius: 0.5rem;
         text-align: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -107,7 +105,6 @@
 }
 
 .chart-wrapper {
-    background: white;
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -150,7 +147,6 @@
 .holdings-table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -173,15 +169,11 @@
     }
 
     thead {
-        background: var(--surface-100);
-
         th {
             padding: 0.75rem 1rem;
             text-align: left;
-
             font-size: 0.9rem;
-            color: var(--text-color-secondary);
-            border-bottom: 2px solid var(--surface-200);
+            border-bottom: 2px solid var(--surface-200, rgba(0, 0, 0, 0.08));
 
             &:last-child {
                 text-align: right;
@@ -191,11 +183,11 @@
 
     tbody {
         tr {
-            border-bottom: 1px solid var(--surface-100);
+            border-bottom: 1px solid var(--surface-100, rgba(0, 0, 0, 0.08));
             transition: background-color 0.2s;
 
             &:hover {
-                background: var(--surface-50);
+                background: var(--surface-50, rgba(0, 0, 0, 0.04));
             }
 
             &:last-child {
@@ -206,6 +198,7 @@
         td {
             padding: 0.75rem 1rem;
             font-size: 0.9rem;
+            color: var(--text-color);
 
             &:first-child {
                 color: var(--text-color-secondary);
