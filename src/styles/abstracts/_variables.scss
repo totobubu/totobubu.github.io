@@ -11,43 +11,15 @@ $grid-breakpoints: (
     xl: 1280px,
     xxl: 1536px,
 );
-/*
-tiny
-small
-medium
-large
-huge
-*/
 
 // Grids
 $min-width: 350px !default;
 $max-width: 1600px !default;
-$wrapper-spacing: 42px !default;
-$spacing-lg: 50px !default;
-$spacing: 20px !default;
-$spacing-sm: 15px !default;
-$mobile-spacing: $spacing;
-
-// Resources
-$url: '../resources' !default;
-$url-img: '../resources/img' !default;
-$url-img-common: '../resources/img/common' !default;
-$url-img-layout: '../resources/img/layout' !default;
 
 // Colors
-
-$primary-color: #4a86e8;
-$text-color: #e2e8f0;
-$p-surface-ground: var(--p-surface-950);
-$surface-border: #334155;
-
 $color-transparent: transparent !default;
 $color-white: #ffffff !default;
 $color-light: #f7f7f7 !default;
-//$color-mid-x-light: #e5e5e5 !default;
-//$color-mid-light :  #d9d9d9 !default;
-//$color-gray :       #f7f8f9 !default;
-//$color-mid-dark :   #666666 !default;
 $color-mid-x-light: #d9d9d9 !default;
 $color-mid-light: #f7f8f9 !default;
 $color-gray: #666666 !default;
@@ -172,48 +144,8 @@ $light-bg-colors: map.merge(
     $light-bg-colors
 );
 
-$placeholder-color: $color-mid-dark !default;
-$disabled-color: $color-mid-light !default;
-
 // Fonts
-//      - family
 $font-family-base: 'Nanum Gothic Coding', monospace !default;
-// $font-family-legacy: 'NotoSansKR', 'malgun gothic', Arial, sans-serif !default;
-$font-family-en: 'Roboto', sans-serif !default;
-$font-family-title: $font-family-base !default;
-$font-family-mobile: $font-family-base !default;
-//      - size
-$font-size-body: 16px !default;
-$font-size-xs: 0.75rem !default;
-$font-size-sm: 0.875rem !default;
-$font-size-base: 1rem !default;
-$font-size-lg: 1.125rem !default;
-$font-size-xl: 1.625rem !default;
-$font-size-2xl: 1.875rem !default;
-$font-sizes: () !default;
-$font-sizes: map.merge(
-    (
-        'xs': $font-size-xs,
-        'sm': $font-size-sm,
-        'base': $font-size-base,
-        'lg': $font-size-lg,
-        'xl': $font-size-xl,
-        '2xl': $font-size-2xl,
-    ),
-    $font-sizes
-);
-
-//      - letter-spacing
-$letter-spacing: 0 !default;
-$letter-spacing-mobile: 0 !default;
-$letter-spacing-en: 0 !default;
-
-// Border
-$border-color: $color-mid-light;
-$border: 1px solid $border-color;
-$border-radius-sm: 4px;
-$border-radius: 6px;
-$border-radius-lg: 8px;
 
 // toto variables
 :root {

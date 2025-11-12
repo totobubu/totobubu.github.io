@@ -73,10 +73,25 @@
                 {{ uploadError }}
             </Message>
 
-            <ProgressBar
-                v-if="isProcessing"
-                mode="indeterminate"
-                class="h-1rem" />
+            <div v-if="isProcessing" class="flex flex-column gap-2">
+                <Skeleton height="1rem" />
+                <Skeleton height="1rem" />
+                <Skeleton height="1rem" />
+            </div>
+
+            <Message
+                v-else-if="analysisComplete && extractedData"
+                severity="success"
+                :closable="false">
+                <div class="flex flex-column gap-1">
+                    <span class="text-sm text-color-secondary"
+                        >분석이 완료되었습니다.</span
+                    >
+                    <strong
+                        >거래 건수: {{ extractedData.total_count }}건</strong
+                    >
+                </div>
+            </Message>
         </div>
 
         <!-- Step 3: 계좌 정보 확인 -->
@@ -142,11 +157,17 @@
                     @click="currentStep = 'select'"
                     :disabled="isProcessing" />
                 <Button
-                    v-if="currentStep === 'upload'"
+                    v-if="currentStep === 'upload' && !analysisComplete"
                     label="분석하기"
                     @click="analyzeFile"
                     :disabled="!selectedFile || isProcessing"
                     :loading="isProcessing" />
+                <Button
+                    v-if="currentStep === 'upload' && analysisComplete"
+                    label="결과 확인"
+                    icon="pi pi-check"
+                    @click="currentStep = 'confirm'"
+                    :disabled="isProcessing" />
 
                 <Button
                     v-if="currentStep === 'confirm'"
@@ -171,7 +192,7 @@
     import FileUpload from 'primevue/fileupload';
     import Button from 'primevue/button';
     import Message from 'primevue/message';
-    import ProgressBar from 'primevue/progressbar';
+    import Skeleton from 'primevue/skeleton';
     import InputText from 'primevue/inputtext';
     import axios from 'axios';
 
@@ -234,12 +255,15 @@
     const isProcessing = ref(false);
     const uploadError = ref(null);
     const extractedData = ref(null);
+    const analysisComplete = ref(false);
     const accountName = ref('');
 
     // 파일 선택
     const onFileSelect = (event) => {
         selectedFile.value = event.files[0];
         uploadError.value = null;
+        analysisComplete.value = false;
+        extractedData.value = null;
     };
 
     // 파일 크기 포맷팅
@@ -264,6 +288,8 @@
 
         isProcessing.value = true;
         uploadError.value = null;
+        analysisComplete.value = false;
+        extractedData.value = null;
 
         try {
             // FormData 생성
@@ -273,7 +299,7 @@
 
             // API 호출
             const response = await axios.post(
-                '/api/parsePdfTransaction.js',
+                '/api/parsePdfTransaction',
                 formData,
                 {
                     headers: {
@@ -283,18 +309,18 @@
             );
 
             extractedData.value = response.data;
+            analysisComplete.value = true;
 
             // 계좌 이름 자동 생성
             if (extractedData.value?.metadata?.account_number) {
                 accountName.value = `${getBrokerageInfo(selectedBrokerage.value).name} ${extractedData.value.metadata.account_number}`;
             }
-
-            currentStep.value = 'confirm';
         } catch (error) {
             console.error('PDF 분석 실패:', error);
             uploadError.value =
                 error.response?.data?.error ||
                 'PDF 분석에 실패했습니다. 다시 시도해주세요.';
+            analysisComplete.value = false;
         } finally {
             isProcessing.value = false;
         }
@@ -333,6 +359,7 @@
             uploadError.value = null;
             extractedData.value = null;
             accountName.value = '';
+            analysisComplete.value = false;
         }, 300);
     };
 
@@ -346,6 +373,7 @@
                 uploadError.value = null;
                 extractedData.value = null;
                 accountName.value = '';
+                analysisComplete.value = false;
             }, 300);
         }
     });

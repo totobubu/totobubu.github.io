@@ -19,6 +19,7 @@ export function useSidebar() {
     const allTickersForSearch = ref([]); // 전체 검색용 (모든 티커)
     const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
+    const hasInitialLoadCompleted = ref(false);
     const error = ref(null);
     const selectedTicker = ref(null);
 
@@ -98,6 +99,28 @@ export function useSidebar() {
         } catch (err) {
             console.error('Failed to load all tickers for search:', err);
         }
+    };
+
+    const ensureAllTickersForSearchLoaded = async () => {
+        if (allTickersForSearch.value.length === 0) {
+            await loadAllTickersForSearch();
+        }
+    };
+
+    const fallbackTickersByMarket = async (marketKey) => {
+        await ensureAllTickersForSearchLoaded();
+
+        const filterMap = {
+            'kr-stocks': (item) => item.currency === 'KRW' && !item.isEtf,
+            'kr-etfs': (item) => item.currency === 'KRW' && item.isEtf,
+            'us-stocks': (item) => item.currency === 'USD' && !item.isEtf,
+            'us-etfs': (item) => item.currency === 'USD' && item.isEtf,
+        };
+
+        const filterFn = filterMap[marketKey];
+        if (!filterFn) return [];
+
+        return allTickersForSearch.value.filter(filterFn);
     };
 
     // --- [핵심 수정] filteredTickers 로직 변경 ---
@@ -212,11 +235,42 @@ export function useSidebar() {
                 throw new Error(`${fileName} could not be loaded.`);
 
             const data = await response.json();
-            allTickers.value = [...allTickers.value, ...data];
+
+            let marketTickers = Array.isArray(data) ? data : [];
+            if (marketTickers.length === 0) {
+                marketTickers = await fallbackTickersByMarket(marketKey);
+            }
+
+            if (marketTickers.length > 0) {
+                const existingSymbols = new Set(
+                    allTickers.value.map((item) => item.symbol)
+                );
+                const deduped = marketTickers.filter(
+                    (item) => !existingSymbols.has(item.symbol)
+                );
+                allTickers.value = [...allTickers.value, ...deduped];
+            } else {
+                console.warn(
+                    `[Sidebar] No tickers available for market '${marketKey}'.`
+                );
+            }
+
             loadedMarkets.value.add(marketKey);
         } catch (err) {
             console.error(`Failed to load ${fileName}:`, err);
-            throw err;
+            const fallback = await fallbackTickersByMarket(marketKey);
+            if (fallback.length > 0) {
+                const existingSymbols = new Set(
+                    allTickers.value.map((item) => item.symbol)
+                );
+                const deduped = fallback.filter(
+                    (item) => !existingSymbols.has(item.symbol)
+                );
+                allTickers.value = [...allTickers.value, ...deduped];
+                loadedMarkets.value.add(marketKey);
+            } else {
+                throw err;
+            }
         }
     };
 
@@ -258,6 +312,7 @@ export function useSidebar() {
             console.error(err);
         } finally {
             isLoading.value = false;
+            hasInitialLoadCompleted.value = true;
         }
     };
 
@@ -384,6 +439,7 @@ export function useSidebar() {
 
     return {
         isLoading,
+        hasInitialLoadCompleted,
         error,
         selectedTicker,
         globalSearchQuery,

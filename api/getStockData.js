@@ -1,7 +1,7 @@
 // api/getStockData.js
 
 import yahooFinance from 'yahoo-finance2';
-import { createApiHandler } from './_utils/api-handler';
+import { createApiHandler } from './_utils/api-handler.js';
 
 function sanitizeForJSON(data) {
     if (data === null || typeof data !== 'object') {

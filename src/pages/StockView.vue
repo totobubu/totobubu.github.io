@@ -15,7 +15,7 @@
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
-    // import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
+    import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
@@ -52,8 +52,8 @@
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
         // Holdings 데이터가 있을 때 자산 탭 추가
-        // if (holdingsData.value && holdingsData.value.length > 0)
-        //     options.push('자산');
+        if (holdingsData.value && holdingsData.value.length > 0)
+            options.push('자산');
         return options;
     });
 
@@ -72,8 +72,13 @@
                 info.periods.length > 0 &&
                 !selectedTimeRange.value
             ) {
-                // nav.json의 periods 첫 번째 값을 기본값으로 설정
-                selectedTimeRange.value = info.periods[0];
+                const preferred =
+                    info.periods.find(
+                        (period) =>
+                            period &&
+                            period.toString().toUpperCase().includes('5Y')
+                    ) || info.periods[0];
+                selectedTimeRange.value = preferred;
             }
         },
         { immediate: true }
@@ -83,8 +88,7 @@
         if (!dividendHistory.value || dividendHistory.value.length === 0)
             return [];
         const range = selectedTimeRange.value;
-        if (!range || range === 'ALL')
-            return dividendHistory.value;
+        if (!range || range === 'ALL') return dividendHistory.value;
 
         const now = new Date();
         const val = parseInt(range);
@@ -245,18 +249,16 @@
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
 
-            <!-- <div v-if="currentView === '자산'">
+            <div v-if="currentView === '자산'">
                 <StockHoldingsChart
                     v-if="holdingsData && holdingsData.length > 0"
                     :holdings-data="holdingsData" />
                 <div v-else class="text-center p-4">
                     Holdings 데이터가 없습니다.
                 </div>
-            </div> -->
+            </div>
 
-            <span
-                v-if="tickerInfo.Update"
-                class="text-center">
+            <span v-if="tickerInfo.Update" class="text-center">
                 업데이트: {{ tickerInfo.Update }}
             </span>
         </div>
