@@ -54,8 +54,8 @@
                         <div class="flex flex-column gap-3">
                             <!-- 종목 정보 -->
                             <div
-                                class="flex justify-content-between align-items-start">
-                                <div>
+                                class="flex justify-content-between align-items-start gap-3">
+                                <div class="flex flex-column gap-1">
                                     <h4 class="m-0 mb-2">
                                         {{ stock.stock_name }}
                                     </h4>
@@ -68,28 +68,51 @@
                                         </div>
                                     </div>
                                 </div>
-                                <Tag
-                                    v-if="stock.mappedTicker"
-                                    value="매핑 완료"
-                                    severity="success"
-                                    icon="pi pi-check" />
+                                <div class="flex gap-2">
+                                    <Tag
+                                        v-if="stock.mappedTicker"
+                                        value="매핑 완료"
+                                        severity="success"
+                                        icon="pi pi-check" />
+                                    <Tag
+                                        v-else-if="stock.isPending"
+                                        value="보류됨"
+                                        severity="warning"
+                                        icon="pi pi-clock" />
+                                </div>
                             </div>
 
                             <!-- 매핑 폼 -->
-                            <div v-if="!stock.mappedTicker" class="flex gap-2">
-                                <span class="p-input-icon-left flex-1">
-                                    <i class="pi pi-search" />
-                                    <InputText
-                                        v-model="stock.searchQuery"
-                                        placeholder="시스템 티커 검색 (예: AAPL, TSLA)"
-                                        class="w-full"
-                                        @input="onSearchTicker(stock)" />
-                                </span>
-                                <Button
-                                    icon="pi pi-check"
-                                    label="매핑"
-                                    :disabled="!stock.selectedTicker"
-                                    @click="mapStock(stock)" />
+                            <div
+                                v-if="!stock.mappedTicker"
+                                class="flex flex-column gap-2">
+                                <div class="flex gap-2">
+                                    <span class="p-input-icon-left flex-1">
+                                        <i class="pi pi-search" />
+                                        <InputText
+                                            v-model="stock.searchQuery"
+                                            placeholder="티커를 입력하거나 비워둔 채 검색하세요"
+                                            class="w-full"
+                                            :disabled="stock.isProcessing" />
+                                    </span>
+                                    <Button
+                                        icon="pi pi-check"
+                                        :label="stock.selectedTicker ? '저장' : '매핑하기'"
+                                        :loading="stock.isProcessing && !stock.isPending"
+                                        :disabled="stock.isProcessing"
+                                        @click="handleMappingAction(stock)" />
+                                    <Button
+                                        label="나중에 하기"
+                                        severity="secondary"
+                                        :disabled="stock.isProcessing || stock.isPending"
+                                        @click="deferStock(stock)" />
+                                </div>
+                                <Message
+                                    v-if="stock.statusMessage"
+                                    severity="warn"
+                                    :closable="false">
+                                    {{ stock.statusMessage }}
+                                </Message>
                             </div>
 
                             <!-- 검색 결과 -->
@@ -187,11 +210,12 @@
     import Tag from 'primevue/tag';
     import Chip from 'primevue/chip';
     import Skeleton from 'primevue/skeleton';
-    import { searchSymbol } from '@/composables/useStockMapping';
     import {
+        searchSymbol,
         getStockMapping,
         saveStockMapping,
         deleteStockMapping,
+        savePendingStockMapping,
     } from '@/composables/useStockMapping';
     import { user } from '@/store/auth';
 
@@ -222,7 +246,13 @@
     // 매핑되지 않은 종목 추출 및 구조화
     const unmappedStocks = ref([]);
 
-    // 매핑된 종목 수
+    // 처리된 종목 수 (매핑 또는 보류)
+    const processedCount = computed(() => {
+        return unmappedStocks.value.filter(
+            (s) => s.mappedTicker || s.isPending
+        ).length;
+    });
+
     const mappedCount = computed(() => {
         return unmappedStocks.value.filter((s) => s.mappedTicker).length;
     });
@@ -230,7 +260,7 @@
     // 진행률
     const progressPercentage = computed(() => {
         if (unmappedStocks.value.length === 0) return 100;
-        return (mappedCount.value / unmappedStocks.value.length) * 100;
+        return (processedCount.value / unmappedStocks.value.length) * 100;
     });
 
     // 거래내역에서 고유 종목 추출
@@ -250,6 +280,9 @@
                     selectedTicker: null,
                     mappedTicker: null,
                     mappedInfo: null,
+                    isPending: false,
+                    statusMessage: '',
+                    isProcessing: false,
                 });
             }
             stockMap.get(key).count++;
@@ -274,18 +307,39 @@
     };
 
     // 티커 검색
-    const onSearchTicker = async (stock) => {
-        if (!stock.searchQuery || stock.searchQuery.length < 2) {
-            stock.searchResults = [];
+    const searchTickerSuggestions = async (stock) => {
+        const query =
+            (stock.searchQuery && stock.searchQuery.trim()) ||
+            stock.stock_name;
+
+        if (!query) {
+            stock.statusMessage = '검색할 키워드를 입력해주세요.';
             return;
         }
 
+        stock.isProcessing = true;
+        stock.statusMessage = '';
+
         try {
-            const results = await searchSymbol(stock.searchQuery);
+            const results = await searchSymbol(query);
             stock.searchResults = results;
+
+            if (!results || results.length === 0) {
+                stock.statusMessage =
+                    '일치하는 시스템 티커를 찾지 못했습니다. 필요하면 나중에 하기를 눌러 관리자 검토 목록에 추가하세요.';
+            } else {
+                stock.statusMessage =
+                    '검색 결과에서 티커를 선택한 뒤 매핑하기 버튼을 다시 눌러 저장하세요.';
+                if (results.length === 1) {
+                    selectTicker(stock, results[0]);
+                }
+            }
         } catch (error) {
             console.error('티커 검색 실패:', error);
+            stock.statusMessage = '검색 중 오류가 발생했습니다. 다시 시도해주세요.';
             stock.searchResults = [];
+        } finally {
+            stock.isProcessing = false;
         }
     };
 
@@ -296,11 +350,13 @@
             name: result.name,
             exchange: result.exchange,
         };
+        stock.statusMessage = '선택된 티커를 저장하려면 매핑하기 버튼을 눌러주세요.';
     };
 
-    // 종목 매핑
-    const mapStock = async (stock) => {
-        if (!stock.selectedTicker) return;
+    // 매핑 저장
+    const persistMapping = async (stock) => {
+        stock.isProcessing = true;
+        stock.statusMessage = '';
 
         try {
             await saveStockMapping(
@@ -318,8 +374,56 @@
             stock.searchQuery = '';
             stock.searchResults = [];
             stock.selectedTicker = null;
+            stock.isPending = false;
+            stock.statusMessage = '매핑이 저장되었습니다.';
         } catch (error) {
             console.error('매핑 저장 실패:', error);
+            stock.statusMessage =
+                '매핑 저장에 실패했습니다. 잠시 후 다시 시도해주세요.';
+        } finally {
+            stock.isProcessing = false;
+        }
+    };
+
+    const handleMappingAction = async (stock) => {
+        if (stock.isProcessing) return;
+
+        if (stock.selectedTicker) {
+            await persistMapping(stock);
+        } else {
+            await searchTickerSuggestions(stock);
+        }
+    };
+
+    const deferStock = async (stock) => {
+        if (stock.isProcessing || stock.isPending) return;
+
+        stock.isProcessing = true;
+        stock.statusMessage = '';
+
+        try {
+            await savePendingStockMapping(
+                props.brokerage,
+                stock.stock_name,
+                {
+                    brokerageTicker: stock.ticker,
+                    query: stock.searchQuery || stock.stock_name,
+                    reason: 'user_deferred',
+                    status: 'waiting',
+                },
+                user.value?.uid
+            );
+
+            stock.isPending = true;
+            stock.searchResults = [];
+            stock.selectedTicker = null;
+            stock.statusMessage =
+                '보류 목록에 추가되었습니다. 원본 정보로 거래내역이 등록됩니다.';
+        } catch (error) {
+            console.error('보류 처리 실패:', error);
+            stock.statusMessage = '보류 처리에 실패했습니다. 다시 시도해주세요.';
+        } finally {
+            stock.isProcessing = false;
         }
     };
 
@@ -329,6 +433,8 @@
             await deleteStockMapping(props.brokerage, stock.stock_name);
             stock.mappedTicker = null;
             stock.mappedInfo = null;
+            stock.isPending = false;
+            stock.statusMessage = '';
         } catch (error) {
             console.error('매핑 해제 실패:', error);
         }
@@ -339,12 +445,13 @@
         // 매핑 정보를 거래내역에 적용
         const mappingMap = new Map();
         unmappedStocks.value.forEach((stock) => {
-            if (stock.mappedTicker) {
-                mappingMap.set(stock.stock_name, {
-                    systemTicker: stock.mappedTicker,
-                    info: stock.mappedInfo,
-                });
-            }
+            mappingMap.set(stock.stock_name, {
+                status: stock.mappedTicker ? 'mapped' : 'pending',
+                systemTicker: stock.mappedTicker || null,
+                info: stock.mappedInfo,
+                originalTicker: stock.ticker,
+                originalName: stock.stock_name,
+            });
         });
 
         emit('mapping-complete', mappingMap);
