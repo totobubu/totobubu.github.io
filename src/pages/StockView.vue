@@ -7,7 +7,6 @@
     import { useFilterState } from '@/composables/useFilterState';
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useStockCharts } from '@/composables/useStockCharts.js';
-    import { useAdmin } from '@/composables/useAdmin.js';
     import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
     import VChart from 'vue-echarts';
 
@@ -21,7 +20,6 @@
     const route = useRoute();
     const { myBookmarks } = useFilterState();
     const { isDesktop, deviceType } = useBreakpoint();
-    const { isAdmin } = useAdmin();
 
     const {
         tickerInfo,
@@ -54,11 +52,7 @@
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
         // Holdings 데이터가 있을 때 자산 탭 추가
-        if (
-            isAdmin.value &&
-            holdingsData.value &&
-            holdingsData.value.length > 0
-        )
+        if (holdingsData.value && holdingsData.value.length > 0)
             options.push('자산');
         return options;
     });

@@ -93,29 +93,75 @@
 }
 .filter-button-group {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     gap: 0.5rem;
-    img {
-        width: 2rem;
+
+    .bookmark-toggle {
+        min-width: 6rem;
     }
+
+    .market-select {
+        flex: 1;
+    }
+
+    // .flag-icon {
+    //     width: 2rem;
+    //     height: auto;
+    //     object-fit: cover;
+    //     border-radius: 999px;
+    // }
+
     .p-drawer-full & {
         width: calc(100vw - 5.5rem);
     }
-    button {
-        padding: 0;
-    }
-    .p-button-flag {
-        width: 15rem;
-        button {
-            width: 1rem;
-        }
-    }
-    .p-button-sub-filter {
-        width: 8rem;
-        button {
-            width: 2rem;
-        }
-    }
+}
+
+:deep(.p-selectbutton) {
+    display: flex;
+}
+:deep(.p-selectbutton .p-togglebutton) {
+    flex: 1;
+    justify-content: center;
+}
+:deep(.p-selectbutton .p-button-label) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* [핵심 추가] 깃발 아이콘 스타일링 */
+.flag-icon {
+    height: 2rem; /* 버튼 높이에 맞게 조절 */
+    width: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* 살짝 그림자 효과 */
+}
+.select-option-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.t-column-bookmark .p-column-header-content,
+.t-column-bookmark .p-column-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
+    text-align: center;
+}
+.p-column-header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.select-option-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 #t-search-datatable {

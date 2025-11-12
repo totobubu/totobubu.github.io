@@ -311,44 +311,54 @@
     const MAX_SEGMENTS = 12;
 
     // 차트 옵션 (실제 보유 자산)
-    const chartOptions = computed(() => {
+    const pieSegments = computed(() => {
         if (!selectedHoldings.value || selectedHoldings.value.length === 0) {
-            return null;
+            return [];
         }
 
-        const holdings = selectedHoldings.value
+        const parsed = selectedHoldings.value
             .map((holding) => ({
                 ...holding,
                 weight: Number.parseFloat(holding.weight),
             }))
-            .filter((holding) => holding.weight > 0);
+            .filter(
+                (holding) => !Number.isNaN(holding.weight) && holding.weight > 0
+            )
+            .sort((a, b) => b.weight - a.weight);
 
-        if (holdings.length === 0) return null;
-
-        // 데이터 정렬 (비중이 높은 순서대로)
-        const sortedHoldings = [...holdings].sort(
-            (a, b) => b.weight - a.weight
-        );
-
-        const topHoldings = sortedHoldings.slice(0, MAX_SEGMENTS);
-        const others = sortedHoldings.slice(MAX_SEGMENTS);
+        const topHoldings = parsed.slice(0, MAX_SEGMENTS);
+        const others = parsed.slice(MAX_SEGMENTS);
         const othersTotal = others.reduce(
             (sum, holding) => sum + holding.weight,
             0
         );
 
-        if (others.length > 0 && othersTotal > 0) {
-            topHoldings.push({
-                symbol: 'OTHERS',
-                name: '기타',
-                weight: Number(othersTotal.toFixed(2)),
-                type: 'others',
+        if (othersTotal > 0) {
+            const existingIndex = topHoldings.findIndex((holding) => {
+                const symbolUpper = holding.symbol?.toUpperCase();
+                const nameUpper = holding.name?.toUpperCase();
+                return (
+                    symbolUpper === 'OTHERS' ||
+                    nameUpper === 'OTHERS' ||
+                    holding.name === '기타'
+                );
             });
+
+            if (existingIndex >= 0) {
+                topHoldings[existingIndex].weight = Number(
+                    (topHoldings[existingIndex].weight + othersTotal).toFixed(2)
+                );
+            } else {
+                topHoldings.push({
+                    symbol: 'OTHERS',
+                    name: '기타',
+                    weight: Number(othersTotal.toFixed(2)),
+                    type: 'others',
+                });
+            }
         }
 
-        const isDarkTheme =
-            document.documentElement.classList.contains('p-dark');
-        const pieData = topHoldings.map((holding) => {
+        return topHoldings.map((holding) => {
             const rawName = holding.name?.trim();
             const rawSymbol = holding.symbol?.trim();
             const isYieldmax =
@@ -358,7 +368,7 @@
                 resolveSymbolByName(rawName) ||
                 (isYieldmax && resolveSymbolByName(`${rawName} etf`));
 
-            const displayName =
+            const displaySymbol =
                 resolvedSymbol ||
                 (isYieldmax && rawName) ||
                 rawSymbol ||
@@ -366,17 +376,81 @@
                 '알 수 없음';
 
             return {
-                value: Number(holding.weight.toFixed(2)),
-                name: displayName,
-                originalName: rawName,
-                symbol: rawSymbol,
-                type: holding.type,
+                ...holding,
+                rawName,
+                rawSymbol,
+                resolvedSymbol,
+                displaySymbol,
+                weight: Number(holding.weight.toFixed(2)),
             };
         });
+    });
+
+    const pieChartHeight = computed(() => {
+        if (!isMobile.value) return '500px';
+        const segmentCount = pieSegments.value.length || 0;
+        const lines = Math.ceil(segmentCount / 3);
+        const extra = Math.max(lines - 1, 0) * 24;
+        return `${410 + extra}px`;
+    });
+
+    const chartOptions = computed(() => {
+        const segments = pieSegments.value;
+        if (!segments || segments.length === 0) return null;
+
+        const isDarkTheme =
+            document.documentElement.classList.contains('p-dark');
+        const isMobileMode = isMobile.value;
+
+        const pieData = segments.map((segment) => ({
+            value: segment.weight,
+            name: segment.displaySymbol,
+            originalName: segment.rawName,
+            symbol: segment.resolvedSymbol || segment.rawSymbol,
+            type: segment.type,
+        }));
 
         const pieDataMap = new Map(
             pieData.map((item) => [item.name, item.value])
         );
+
+        const legendConfig = isMobileMode
+            ? {
+                  show: true,
+                  orient: 'horizontal',
+                  bottom: -4,
+                  left: 'center',
+                  itemWidth: 10,
+                  itemHeight: 10,
+                  itemGap: 10,
+                  icon: 'circle',
+                  textStyle: {
+                      color: isDarkTheme ? '#e2e8f0' : '#1f2937',
+                      fontSize: 10,
+                  },
+                  formatter: (name) => {
+                      const value = pieDataMap.get(name);
+                      if (value == null) return name;
+                      return `${name} (${value.toFixed(2)}%)`;
+                  },
+              }
+            : {
+                  orient: 'vertical',
+                  right: '5%',
+                  top: 'center',
+                  align: 'left',
+                  itemWidth: 12,
+                  itemHeight: 12,
+                  textStyle: {
+                      color: isDarkTheme ? '#e2e8f0' : '#1f2937',
+                      fontSize: 12,
+                  },
+                  formatter: (name) => {
+                      const value = pieDataMap.get(name);
+                      if (value == null) return name;
+                      return `${name}  (${value.toFixed(2)}%)`;
+                  },
+              };
 
         return {
             title: {
@@ -413,45 +487,33 @@
                 `;
                 },
             },
-            legend: {
-                orient: 'vertical',
-                right: isMobile.value ? undefined : '5%',
-                bottom: isMobile.value ? 0 : undefined,
-                left: isMobile.value ? 'center' : undefined,
-                top: isMobile.value ? undefined : 'center',
-                align: 'left',
-                textStyle: {
-                    color: isDarkTheme ? '#e2e8f0' : '#1f2937',
-                    fontSize: 12,
-                },
-                formatter: (name) => {
-                    const value = pieDataMap.get(name);
-                    if (value == null) return name;
-                    return `${name}  (${value.toFixed(2)}%)`;
-                },
-            },
+            legend: legendConfig,
             series: [
                 {
                     name: '비중',
                     type: 'pie',
-                    radius: isMobile.value ? ['40%', '75%'] : ['35%', '70%'],
-                    center: isMobile.value ? ['50%', '50%'] : ['35%', '50%'],
+                    radius: isMobileMode ? ['40%', '75%'] : ['35%', '70%'],
+                    center: isMobileMode ? ['50%', '50%'] : ['35%', '50%'],
                     data: pieData,
                     label: {
                         formatter: (params) => {
-                            if (isMobile.value) {
-                                return `${params.data.symbol || params.name}\n${params.percent}%`;
+                            if (isMobileMode) {
+                                return `${params.name}\n${params.percent}%`;
                             }
-                            return '{b}\n{d}%';
+                            const displayName = params.name;
+                            const percent = params.percent.toFixed(2);
+                            return `${displayName}\n${percent}%`;
                         },
                         color: isDarkTheme ? '#f8fafc' : '#1f2937',
-                        fontSize: isMobile.value ? 10 : 12,
+                        fontSize: isMobileMode ? 10 : 14,
+                        lineHeight: isMobileMode ? 14 : 18,
+                        fontWeight: isMobileMode ? 500 : 600,
                         overflow: 'truncate',
-                        width: isMobile.value ? 60 : undefined,
+                        width: isMobileMode ? 68 : undefined,
                     },
                     labelLine: {
-                        length: isMobile.value ? 12 : 18,
-                        length2: isMobile.value ? 6 : 12,
+                        length: isMobileMode ? 12 : 20,
+                        length2: isMobileMode ? 6 : 16,
                         smooth: true,
                     },
                     itemStyle: {
@@ -621,7 +683,7 @@
 </script>
 
 <template>
-    <div class="holdings-chart-container">
+    <div class="holdings-chart-container" id="t-stock-holdings">
         <!-- 날짜 선택 드롭다운 (데이터가 있을 때만 표시) -->
         <div v-if="dateOptions.length > 0" class="controls-section">
             <div class="date-selector">
@@ -662,7 +724,10 @@
 
         <!-- 현재 선택된 날짜의 Holdings 차트 -->
         <div v-if="chartOptions" class="chart-wrapper">
-            <VChart :option="chartOptions" autoresize style="height: 500px" />
+            <VChart
+                :option="chartOptions"
+                autoresize
+                :style="{ height: pieChartHeight }" />
         </div>
 
         <!-- 시계열 비교 차트 (5개 이상 데이터가 있을 때) -->

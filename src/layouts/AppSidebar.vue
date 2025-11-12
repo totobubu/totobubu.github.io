@@ -9,7 +9,8 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Skeleton from 'primevue/skeleton';
-    import SelectButton from 'primevue/selectbutton';
+    import Button from 'primevue/button';
+    import Select from 'primevue/select';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
     import WeekdayRotatingTag from '@/components/WeekdayRotatingTag.vue';
@@ -24,7 +25,6 @@
         subFilterTab,
         myBookmarks,
         filteredTickers,
-        hasResults,
         handleStockBookmarkClick,
         onRowSelect,
         handleTickerRequest,
@@ -34,24 +34,78 @@
     const skeletonItems = ref(new Array(50));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
 
-    // 로그인 상태에 따라 북마크 옵션 표시
-    const mainFilterOptions = computed(() => {
-        const options = [
-            { label: '미국', value: '미국', flagSrc: '/flags/us.svg' },
-            { label: '한국', value: '한국', flagSrc: '/flags/kr.svg' },
-        ];
+    const groupedMarketOptions = [
+        {
+            label: '미국',
+            code: 'US',
+            flagSrc: '/flags/us.svg',
+            items: [
+                {
+                    label: '미국 ETF',
+                    value: { main: '미국', sub: 'ETF' },
+                },
+                {
+                    label: '미국 개별 주식',
+                    value: { main: '미국', sub: '주식' },
+                },
+            ],
+        },
+        {
+            label: '한국',
+            code: 'KR',
+            flagSrc: '/flags/kr.svg',
+            items: [
+                {
+                    label: '한국 ETF',
+                    value: { main: '한국', sub: 'ETF' },
+                },
+                {
+                    label: '한국 개별 주식',
+                    value: { main: '한국', sub: '주식' },
+                },
+            ],
+        },
+    ];
 
-        // 로그인한 경우에만 북마크 옵션 추가
-        if (user.value) {
-            options.unshift({
-                label: '북마크',
-                value: '북마크',
-                icon: 'pi pi-bookmark',
-            });
-        }
+    const isBookmarkActive = computed(
+        () => mainFilterTab.value === '북마크' && !!user.value
+    );
 
-        return options;
+    const selectedMarketOption = computed({
+        get() {
+            if (
+                mainFilterTab.value === '미국' ||
+                mainFilterTab.value === '한국'
+            ) {
+                const group = groupedMarketOptions.find(
+                    (g) => g.label === mainFilterTab.value
+                );
+                if (!group) return null;
+                return (
+                    group.items.find(
+                        (item) =>
+                            item.value.sub === subFilterTab.value &&
+                            item.value.main === mainFilterTab.value
+                    ) || null
+                );
+            }
+            return groupedMarketOptions[0].items[0];
+        },
+        set(option) {
+            if (option && option.value) {
+                mainFilterTab.value = option.value.main;
+                subFilterTab.value = option.value.sub;
+            }
+        },
     });
+
+    const handleBookmarkClick = () => {
+        if (!user.value) {
+            return;
+        }
+        mainFilterTab.value = '북마크';
+        subFilterTab.value = groupedMarketOptions[0].items[0].value.sub;
+    };
 
     // 로그아웃 시 북마크 탭에 있으면 미국 탭으로 전환
     watch(user, (newUser) => {
@@ -59,44 +113,40 @@
             mainFilterTab.value = '미국';
         }
     });
-
-    const subFilterOptions = ref(['ETF', '주식']);
 </script>
 
 <template>
     <div class="h-full flex flex-column gap-2">
         <div class="flex flex-column gap-2 p-0">
             <div class="filter-button-group">
-                <SelectButton
-                    v-model="mainFilterTab"
-                    :options="mainFilterOptions"
-                    optionLabel="label"
-                    optionValue="value"
-                    aria-labelledby="main-filter-tabs"
+                <Button
+                    v-if="user"
+                    label="북마크"
+                    icon="pi pi-bookmark"
                     size="small"
-                    :allowEmpty="false"
-                    class="p-button-flag">
-                    <template #option="slotProps">
-                        <i
-                            v-if="slotProps.option.icon"
-                            :class="slotProps.option.icon"></i>
-                        <img
-                            v-if="slotProps.option.flagSrc"
-                            :src="slotProps.option.flagSrc" />
-                        <span class="hidden">{{ slotProps.option.label }}</span>
+                    :outlined="!isBookmarkActive"
+                    :severity="isBookmarkActive ? 'primary' : 'secondary'"
+                    class="bookmark-toggle"
+                    @click="handleBookmarkClick" />
+                <Select
+                    v-model="selectedMarketOption"
+                    :options="groupedMarketOptions"
+                    optionLabel="label"
+                    optionGroupLabel="label"
+                    optionGroupChildren="items"
+                    placeholder="시장 / 자산군 선택"
+                    class="market-select">
+                    <template #optiongroup="slotProps">
+                        <div class="select-option-group">
+                            <img
+                                v-if="slotProps.option.flagSrc"
+                                :src="slotProps.option.flagSrc"
+                                :alt="slotProps.option.label"
+                                class="flag-icon" />
+                            <span>{{ slotProps.option.label }}</span>
+                        </div>
                     </template>
-                </SelectButton>
-                <div class="flex w-full">
-                    <SelectButton
-                        v-if="
-                            mainFilterTab === '미국' || mainFilterTab === '한국'
-                        "
-                        v-model="subFilterTab"
-                        :options="subFilterOptions"
-                        size="small"
-                        :allowEmpty="false"
-                        class="p-button-sub-filter" />
-                </div>
+                </Select>
             </div>
 
             <FilterInput
@@ -140,7 +190,9 @@
                                 로그인 후 종목을 북마크에 추가해 보세요.
                             </p>
                             <p
-                                v-else-if="Object.keys(myBookmarks).length === 0"
+                                v-else-if="
+                                    Object.keys(myBookmarks).length === 0
+                                "
                                 class="mb-2">
                                 아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
                                 아이콘을 클릭하여 추가하세요.
@@ -229,42 +281,3 @@
         </div>
     </div>
 </template>
-
-<style scoped>
-    :deep(.p-selectbutton) {
-        display: flex;
-    }
-    :deep(.p-selectbutton .p-togglebutton) {
-        flex: 1;
-        justify-content: center;
-    }
-    :deep(.p-selectbutton .p-button-label) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    /* [핵심 추가] 깃발 아이콘 스타일링 */
-    .flag-icon {
-        height: 1.25rem; /* 버튼 높이에 맞게 조절 */
-        width: auto;
-        border-radius: 3px;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* 살짝 그림자 효과 */
-    }
-
-    .t-column-bookmark .p-column-header-content,
-    .t-column-bookmark .p-column-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .p-datatable-loading :deep(.p-datatable-tbody > tr > td) {
-        text-align: center;
-    }
-    .p-column-header-content {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-</style>
