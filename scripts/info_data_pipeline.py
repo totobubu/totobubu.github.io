@@ -124,15 +124,17 @@ def fetch_isin_from_yfinance(symbol, raw_info=None):
     try:
         if raw_info and isinstance(raw_info, dict):
             isin_candidate = raw_info.get("isin")
-            if isin_candidate:
+            if isin_candidate and isin_candidate != "-":
                 return isin_candidate
         ticker_obj = yf.Ticker(symbol)
         isin_candidate = getattr(ticker_obj, "isin", None)
-        if isin_candidate:
+        if isin_candidate and isin_candidate != "-":
             return isin_candidate
         info = ticker_obj.info
         if isinstance(info, dict):
-            return info.get("isin")
+            isin_candidate = info.get("isin")
+            if isin_candidate and isin_candidate != "-":
+                return isin_candidate
     except Exception:
         return None
     return None
@@ -605,12 +607,20 @@ def update_isin_records():
             data["tickerInfo"] = ticker_info
 
         existing_isin = ticker_info.get("isin")
-        if existing_isin:
+        # "-"는 유효하지 않은 ISIN이므로 다시 찾아봐야 함
+        if existing_isin and existing_isin != "-":
             record["isin"] = existing_isin
             record["source"] = ticker_info.get("isinSource") or "existing"
             record["status"] = "found"
             isin_records.append(record)
             continue
+        
+        # 기존 ISIN이 "-"인 경우 제거하고 다시 찾기
+        file_changed = False
+        if existing_isin == "-":
+            ticker_info["isin"] = None
+            ticker_info.pop("isinSource", None)
+            file_changed = True
 
         new_isin = None
         isin_source = None
@@ -630,8 +640,6 @@ def update_isin_records():
                 new_isin = krx_isin
                 isin_source = "krx"
                 krx_hits += 1
-
-        file_changed = False
         if new_isin:
             if (
                 ticker_info.get("isin") != new_isin
