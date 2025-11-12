@@ -37,6 +37,7 @@ DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 US_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "us_holidays.json")
 KR_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "kr_holidays.json")
+ISIN_RECORDS_PATH = os.path.join(DATA_DIR, "isin_records.json")
 
 # 글로벌 상태 (한 번만 로드)
 nav_data = None
@@ -60,36 +61,36 @@ KRX_DEFAULT_HEADERS = {
 def initialize():
     """공통 데이터 로드 (한 번만 실행)"""
     global nav_data, ticker_info_map, active_symbols, us_holidays, kr_holidays
-    
+
     print("=" * 80)
     print("🚀 정보성 데이터 통합 파이프라인 시작")
     print("=" * 80)
-    
+
     # nav.json 로드
     print("\n[1/3] nav.json 로드 중...")
     nav_data = load_json_file(NAV_FILE_PATH)
     if not nav_data:
         print("❌ nav.json을 찾을 수 없습니다.")
         return False
-    
+
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
     ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
     active_symbols = list(ticker_info_map.keys())
-    
+
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
-    
+
     # 휴일 데이터 로드
     print("\n[2/3] 휴일 데이터 로드 중...")
     us_holidays = set(h["date"] for h in load_json_file(US_HOLIDAYS_PATH) or [])
     kr_holidays = set(h["date"] for h in load_json_file(KR_HOLIDAYS_PATH) or [])
     print(f"   ✓ 미국 휴일: {len(us_holidays)}일, 한국 휴일: {len(kr_holidays)}일")
-    
+
     # 데이터 디렉토리 확인
     print("\n[3/3] 데이터 디렉토리 확인 중...")
     os.makedirs(DATA_DIR, exist_ok=True)
     print(f"   ✓ 데이터 디렉토리: {DATA_DIR}")
-    
+
     print("\n✅ 초기화 완료\n")
     return True
 
@@ -261,62 +262,71 @@ def update_dividends():
     print("\n" + "=" * 80)
     print("📊 STEP 1: 배당 데이터 업데이트")
     print("=" * 80)
-    
+
     updated_count = 0
-    
+
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
             sanitized_symbol = sanitize_ticker_for_filename(symbol)
             file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
-            
+
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
-            
+
             # 다운로드 시작일 설정
             if last_div_date_str:
-                start_date = datetime.strptime(last_div_date_str, "%Y-%m-%d") + timedelta(days=1)
+                start_date = datetime.strptime(
+                    last_div_date_str, "%Y-%m-%d"
+                ) + timedelta(days=1)
                 start_date_str = start_date.strftime("%Y-%m-%d")
             else:
-                start_date_str = ticker_info_map.get(symbol, {}).get("ipoDate", "1990-01-01")
-            
+                start_date_str = ticker_info_map.get(symbol, {}).get(
+                    "ipoDate", "1990-01-01"
+                )
+
             # 이미 최신이면 건너뛰기
-            if datetime.strptime(start_date_str, "%Y-%m-%d").date() > datetime.now().date():
+            if (
+                datetime.strptime(start_date_str, "%Y-%m-%d").date()
+                > datetime.now().date()
+            ):
                 continue
-            
+
             # yfinance에서 배당 데이터 다운로드
             ticker_obj = yf.Ticker(symbol)
-            new_dividends_df = ticker_obj.dividends[ticker_obj.dividends.index >= start_date_str]
-            
+            new_dividends_df = ticker_obj.dividends[
+                ticker_obj.dividends.index >= start_date_str
+            ]
+
             if new_dividends_df.empty:
                 continue
-            
+
             # 기존 데이터와 병합
             existing_data = load_json_file(file_path) or {"backtestData": []}
             backtest_data = existing_data.get("backtestData", [])
             backtest_map = {item["date"]: item for item in backtest_data}
             original_data_str = json.dumps(backtest_data, sort_keys=True)
             currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
-            
+
             for date, amount in new_dividends_df.items():
                 date_str = date.strftime("%Y-%m-%d")
                 new_amount = int(round(amount)) if currency == "KRW" else float(amount)
-                
+
                 if date_str not in backtest_map:
                     backtest_map[date_str] = {"date": date_str}
-                
+
                 backtest_map[date_str]["amount"] = new_amount
-            
+
             final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
-            
+
             # 변경사항이 있을 때만 저장
             if original_data_str != json.dumps(final_backtest_data, sort_keys=True):
                 existing_data["backtestData"] = final_backtest_data
                 save_json_file(file_path, existing_data, indent=4)
                 updated_count += 1
-        
+
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
-    
+
     print(f"\n✅ 배당 데이터 업데이트 완료: {updated_count}개 파일 변경\n")
     return updated_count
 
@@ -374,20 +384,20 @@ def process_single_ticker_info(info):
         if current_price and info.get("trailingAnnualDividendRate")
         else None
     )
-    
+
     earnings_ts = info.get("earningsTimestamp")
     earnings_date = (
         datetime.fromtimestamp(earnings_ts).strftime("%Y-%m-%d")
         if earnings_ts
         else None
     )
-    
+
     fifty_two_week_range = (
         f"{info.get('fiftyTwoWeekLow')} - {info.get('fiftyTwoWeekHigh')}"
         if info.get("fiftyTwoWeekLow") and info.get("fiftyTwoWeekHigh")
         else None
     )
-    
+
     return {
         "regularMarketPrice": normalize_number(info.get("regularMarketPrice")),
         "englishName": info.get("longName"),
@@ -410,34 +420,41 @@ def update_ticker_info():
     print("\n" + "=" * 80)
     print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 (통합)")
     print("=" * 80)
-    
+
     batch_size = 100
     all_bulk_info = {}
-    
+
     # 배치로 정보 가져오기
-    for i in tqdm(range(0, len(active_symbols), batch_size), desc="티커 정보 배치 수집"):
+    for i in tqdm(
+        range(0, len(active_symbols), batch_size), desc="티커 정보 배치 수집"
+    ):
         batch = active_symbols[i : i + batch_size]
         batch_info = fetch_bulk_ticker_info_batch(batch)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
             time.sleep(1)
-    
+
     total_changed_files = 0
     marketcap_added_count = 0
     now_kst_str = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
     today_str = datetime.now().strftime("%Y-%m-%d")
-    
+
     # 개별 티커 처리
     for symbol in tqdm(active_symbols, desc="티커 정보 + 시가총액 처리"):
         try:
             info_from_nav = ticker_info_map[symbol]
             raw_dynamic_info = all_bulk_info.get(symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
-            
-            file_path = os.path.join(DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json")
-            existing_data = load_json_file(file_path) or {"tickerInfo": {}, "backtestData": []}
+
+            file_path = os.path.join(
+                DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
+            )
+            existing_data = load_json_file(file_path) or {
+                "tickerInfo": {},
+                "backtestData": [],
+            }
             old_info = existing_data.get("tickerInfo", {})
-            
+
             new_info = {
                 "Symbol": symbol,
                 "koName": info_from_nav.get("koName"),
@@ -459,7 +476,11 @@ def update_ticker_info():
             # 변경사항 추적
             changes = {}
             old_update = old_info.get("Update") if old_info else None
-            if old_info and old_update and old_update.split(" ")[0] != now_kst_str.split(" ")[0]:
+            if (
+                old_info
+                and old_update
+                and old_update.split(" ")[0] != now_kst_str.split(" ")[0]
+            ):
                 for key, new_val in dynamic_info.items():
                     old_val = old_info.get(key)
                     if old_val is not None and isinstance(new_val, (int, float)):
@@ -470,13 +491,19 @@ def update_ticker_info():
             elif old_info:
                 changes = old_info.get("changes", {})
             new_info["changes"] = changes
-            
+
             # 변경 여부 확인
-            compare_old = {k: v for k, v in old_info.items() if k not in ["Update", "changes"]}
-            compare_new = {k: v for k, v in new_info.items() if k not in ["Update", "changes"]}
-            
-            data_changed = json.dumps(compare_old, sort_keys=True) != json.dumps(compare_new, sort_keys=True)
-            
+            compare_old = {
+                k: v for k, v in old_info.items() if k not in ["Update", "changes"]
+            }
+            compare_new = {
+                k: v for k, v in new_info.items() if k not in ["Update", "changes"]
+            }
+
+            data_changed = json.dumps(compare_old, sort_keys=True) != json.dumps(
+                compare_new, sort_keys=True
+            )
+
             # [추가] marketCap을 backtestData에도 추가 (중복 API 호출 제거)
             market_cap = dynamic_info.get("marketCap")
             backtest_data_changed = False
@@ -487,34 +514,36 @@ def update_ticker_info():
                     if entry.get("date") == today_str:
                         today_entry = entry
                         break
-                
+
                 # 오늘 날짜가 없으면 가장 최근 항목 찾기
                 if not today_entry:
-                    sorted_data = sorted(backtest_data, key=lambda x: x.get("date", ""), reverse=True)
+                    sorted_data = sorted(
+                        backtest_data, key=lambda x: x.get("date", ""), reverse=True
+                    )
                     if sorted_data:
                         today_entry = sorted_data[0]  # 가장 최근 항목
-                
+
                 if today_entry and "marketCap" not in today_entry:
                     today_entry["marketCap"] = market_cap
                     backtest_data_changed = True
                     marketcap_added_count += 1
-            
+
             # 전체 변경 여부 = tickerInfo 변경 또는 backtestData 변경
             any_data_changed = data_changed or backtest_data_changed
-            
+
             # 정책: 데이터 변경이 없으면 Update 필드 유지하고 저장 안함
             if should_skip_update_timestamp(old_info.get("Update"), any_data_changed):
                 new_info["Update"] = old_info.get("Update")  # 기존 Update 유지
                 continue  # 데이터 변경이 없으면 저장하지 않음
-            
+
             # 데이터 변경이 있으면 Update 필드 갱신하고 저장
             existing_data["tickerInfo"] = new_info
             save_json_file(file_path, existing_data)
             total_changed_files += 1
-        
+
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
-    
+
     print(f"\n✅ 티커 정보 업데이트 완료: {total_changed_files}개 파일 변경")
     print(f"   💰 시가총액 추가: {marketcap_added_count}개\n")
     return total_changed_files
@@ -536,13 +565,38 @@ def update_isin_records():
     missing_records = []
     nav_changed = False
     missing_output_path = os.path.join(PUBLIC_DIR, "missing_isin.json")
+    run_timestamp = get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST")
+    isin_records = []
 
     for symbol in tqdm(active_symbols, desc="ISIN 보강"):
         ticker_meta = ticker_info_map.get(symbol, {})
-        file_path = os.path.join(DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json")
+        file_path = os.path.join(
+            DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
+        )
         data = load_json_file(file_path)
 
+        record = {
+            "symbol": symbol,
+            "koName": ticker_meta.get("koName"),
+            "market": ticker_meta.get("market"),
+            "currency": ticker_meta.get("currency"),
+            "status": "pending",
+            "source": None,
+            "isin": None,
+            "checkedAt": run_timestamp,
+        }
+
         if not data:
+            record["status"] = "missing"
+            missing_records.append(
+                {
+                    "symbol": symbol,
+                    "koName": ticker_meta.get("koName"),
+                    "market": ticker_meta.get("market"),
+                    "currency": ticker_meta.get("currency"),
+                }
+            )
+            isin_records.append(record)
             continue
 
         ticker_info = data.get("tickerInfo", {})
@@ -552,6 +606,10 @@ def update_isin_records():
 
         existing_isin = ticker_info.get("isin")
         if existing_isin:
+            record["isin"] = existing_isin
+            record["source"] = ticker_info.get("isinSource") or "existing"
+            record["status"] = "found"
+            isin_records.append(record)
             continue
 
         new_isin = None
@@ -575,7 +633,10 @@ def update_isin_records():
 
         file_changed = False
         if new_isin:
-            if ticker_info.get("isin") != new_isin or ticker_info.get("isinSource") != isin_source:
+            if (
+                ticker_info.get("isin") != new_isin
+                or ticker_info.get("isinSource") != isin_source
+            ):
                 ticker_info["isin"] = new_isin
                 ticker_info["isinSource"] = isin_source
                 file_changed = True
@@ -584,6 +645,9 @@ def update_isin_records():
                     nav_entry["isin"] = new_isin
                     nav_entry["isinSource"] = isin_source
                     nav_changed = True
+            record["isin"] = new_isin
+            record["source"] = isin_source
+            record["status"] = "found"
         else:
             if "isin" not in ticker_info:
                 ticker_info["isin"] = None
@@ -597,12 +661,15 @@ def update_isin_records():
                     "currency": ticker_meta.get("currency"),
                 }
             )
+            record["status"] = "missing"
 
         if file_changed:
             data["tickerInfo"] = ticker_info
             save_json_file(file_path, data)
             if new_isin:
                 updated_files += 1
+
+        isin_records.append(record)
 
     if nav_changed:
         save_json_file(NAV_FILE_PATH, nav_data)
@@ -611,13 +678,21 @@ def update_isin_records():
         save_json_file(
             missing_output_path,
             {
-                "generatedAt": get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST"),
+                "generatedAt": run_timestamp,
                 "missing": missing_records,
             },
         )
         print(f"   ⚠️  KRX/수동 확인 필요: {len(missing_records)}개")
     elif os.path.exists(missing_output_path):
         os.remove(missing_output_path)
+
+    save_json_file(
+        ISIN_RECORDS_PATH,
+        {
+            "generatedAt": run_timestamp,
+            "records": isin_records,
+        },
+    )
 
     print(
         f"\n✅ ISIN 업데이트 완료: {updated_files}개 (yfinance: {yfinance_hits}개, KRX: {krx_hits}개)"
@@ -638,8 +713,18 @@ def update_isin_records():
 # Step 4: 배당 빈도 분석 (analyze_dividend_frequency)
 # ============================================================================
 MONTH_INITIALS = {
-    1: "J", 2: "F", 3: "M", 4: "A", 5: "M", 6: "J",
-    7: "J", 8: "A", 9: "S", 10: "O", 11: "N", 12: "D",
+    1: "J",
+    2: "F",
+    3: "M",
+    4: "A",
+    5: "M",
+    6: "J",
+    7: "J",
+    8: "A",
+    9: "S",
+    10: "O",
+    11: "N",
+    12: "D",
 }
 
 
@@ -647,11 +732,14 @@ def analyze_frequency_and_group(dividend_dates):
     """배당 빈도와 그룹 분석"""
     if len(dividend_dates) < 2:
         return None, None
-    
-    intervals = [(dividend_dates[i] - dividend_dates[i - 1]).days for i in range(1, len(dividend_dates))]
+
+    intervals = [
+        (dividend_dates[i] - dividend_dates[i - 1]).days
+        for i in range(1, len(dividend_dates))
+    ]
     if not intervals:
         return None, None
-    
+
     def get_interval_group(days):
         if 4 <= days <= 10:
             return 7
@@ -662,18 +750,18 @@ def analyze_frequency_and_group(dividend_dates):
         if 335 <= days <= 395:
             return 365
         return None
-    
+
     grouped_intervals = [get_interval_group(days) for days in intervals]
     grouped_intervals = [g for g in grouped_intervals if g is not None]
-    
+
     if not grouped_intervals:
         return None, None
-    
+
     most_common_interval = Counter(grouped_intervals).most_common(1)[0][0]
-    
+
     frequency_map = {7: "매주", 30: "매월", 91: "분기", 365: "매년"}
     frequency = frequency_map.get(most_common_interval)
-    
+
     if most_common_interval == 7:
         weekday_counts = Counter(d.weekday() for d in dividend_dates)
         most_common_weekday = weekday_counts.most_common(1)[0][0]
@@ -682,8 +770,10 @@ def analyze_frequency_and_group(dividend_dates):
     else:
         month_counts = Counter(d.month for d in dividend_dates)
         top_months = sorted(month_counts.items(), key=lambda x: x[1], reverse=True)[:3]
-        group = "".join(MONTH_INITIALS[m] for m, _ in sorted(top_months, key=lambda x: x[0]))
-    
+        group = "".join(
+            MONTH_INITIALS[m] for m, _ in sorted(top_months, key=lambda x: x[0])
+        )
+
     return frequency, group
 
 
@@ -692,37 +782,46 @@ def analyze_dividend_frequency():
     print("\n" + "=" * 80)
     print("📅 STEP 4: 배당 빈도 분석")
     print("=" * 80)
-    
+
     updated_count = 0
-    
+
     for ticker_info in tqdm(nav_data.get("nav", []), desc="배당 빈도 분석"):
         symbol = ticker_info.get("symbol")
         if not symbol or ticker_info.get("upcoming"):
             continue
-        
-        file_path = os.path.join(DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json")
+
+        file_path = os.path.join(
+            DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
+        )
         data = load_json_file(file_path)
-        
+
         if not data or "backtestData" not in data:
             continue
-        
+
         dividend_entries = [
-            item for item in data["backtestData"]
-            if ("amount" in item or "amountFixed" in item) and not item.get("forecasted")
+            item
+            for item in data["backtestData"]
+            if ("amount" in item or "amountFixed" in item)
+            and not item.get("forecasted")
         ]
-        
+
         if len(dividend_entries) < 2:
             continue
-        
-        dividend_dates = [datetime.strptime(item["date"], "%Y-%m-%d") for item in dividend_entries]
+
+        dividend_dates = [
+            datetime.strptime(item["date"], "%Y-%m-%d") for item in dividend_entries
+        ]
         frequency, group = analyze_frequency_and_group(dividend_dates)
-        
+
         if frequency and group:
-            if ticker_info.get("frequency") != frequency or ticker_info.get("group") != group:
+            if (
+                ticker_info.get("frequency") != frequency
+                or ticker_info.get("group") != group
+            ):
                 ticker_info["frequency"] = frequency
                 ticker_info["group"] = group
                 updated_count += 1
-    
+
     # nav.json 저장
     save_json_file(NAV_FILE_PATH, nav_data)
     print(f"\n✅ 배당 빈도 분석 완료: {updated_count}개 티커 업데이트\n")
@@ -748,48 +847,51 @@ def project_future_dividends():
     print("\n" + "=" * 80)
     print("🔮 STEP 5: 미래 배당일 예측")
     print("=" * 80)
-    
+
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
-    
+
     files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
     updated_count = 0
-    
+
     for filename in tqdm(files, desc="미래 배당일 예측"):
         file_path = os.path.join(DATA_DIR, filename)
         data = load_json_file(file_path)
-        
+
         if not data or "backtestData" not in data or "tickerInfo" not in data:
             continue
-        
+
         ticker_info = data["tickerInfo"]
         if ticker_info.get("upcoming") or not ticker_info.get("frequency"):
             continue
-        
+
         original_data_str = json.dumps(data["backtestData"], sort_keys=True)
-        
+
         # forecasted 제거
-        cleaned_backtest_data = [item for item in data["backtestData"] if not item.get("forecasted")]
-        
+        cleaned_backtest_data = [
+            item for item in data["backtestData"] if not item.get("forecasted")
+        ]
+
         known_entries = [
-            item for item in cleaned_backtest_data
+            item
+            for item in cleaned_backtest_data
             if "amount" in item or "amountFixed" in item or item.get("expected")
         ]
-        
+
         if not known_entries:
             continue
-        
+
         last_known_date_str = max(item["date"] for item in known_entries)
         next_date = datetime.strptime(last_known_date_str, "%Y-%m-%d")
-        
+
         frequency = ticker_info["frequency"]
         group = ticker_info.get("group")
         currency = ticker_info.get("currency", "USD")
         holiday_set = kr_holidays if currency == "KRW" else us_holidays
-        
+
         future_projections = []
         existing_dates = {item["date"] for item in cleaned_backtest_data}
-        
+
         while True:
             if frequency == "매주":
                 next_date += timedelta(days=7)
@@ -806,31 +908,31 @@ def project_future_dividends():
                 next_date += relativedelta(years=1)
             else:
                 break
-            
+
             if next_date < today:
                 continue
-            
+
             if next_date >= limit_date:
                 break
-            
+
             adjusted_date = get_previous_business_day(next_date, holiday_set)
             date_str = adjusted_date.strftime("%Y-%m-%d")
-            
+
             if date_str not in existing_dates:
                 future_projections.append({"date": date_str, "forecasted": True})
                 existing_dates.add(date_str)
-        
+
         if not future_projections:
             continue
-        
+
         final_backtest_data = cleaned_backtest_data + future_projections
         final_backtest_data.sort(key=lambda x: x["date"])
         data["backtestData"] = final_backtest_data
-        
+
         if original_data_str != json.dumps(data["backtestData"], sort_keys=True):
             save_json_file(file_path, data)
             updated_count += 1
-    
+
     print(f"\n✅ 미래 배당일 예측 완료: {updated_count}개 파일 업데이트\n")
     return updated_count
 
@@ -841,26 +943,26 @@ def project_future_dividends():
 def main():
     """통합 파이프라인 실행"""
     start_time = time.time()
-    
+
     # 초기화
     if not initialize():
         return
-    
+
     # Step 1: 배당 데이터 업데이트
     dividend_updates = update_dividends()
-    
+
     # Step 2: 티커 정보 + 시가총액 업데이트 (통합, 중복 API 호출 제거)
     info_updates = update_ticker_info()
 
     # Step 3: ISIN 데이터 업데이트
     isin_result = update_isin_records()
-    
+
     # Step 4: 배당 빈도 분석
     frequency_updates = analyze_dividend_frequency()
-    
+
     # Step 5: 미래 배당일 예측
     projection_updates = project_future_dividends()
-    
+
     # 완료
     elapsed_time = time.time() - start_time
     print("\n" + "=" * 80)
@@ -882,4 +984,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
