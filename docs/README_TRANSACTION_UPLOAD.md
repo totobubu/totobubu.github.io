@@ -17,11 +17,9 @@
    ↓
 5. 계좌번호 자동 추출 및 계좌 등록
    ↓
-6. 종목명 매핑 (토스 종목명 → 시스템 티커)
+6. ISIN 기반 자산 자동 등록
    ↓
-7. 거래내역을 자산으로 등록
-   ↓
-8. 완료!
+7. 완료!
 ```
 
 ## 📁 파일 구조
@@ -36,70 +34,37 @@
     - Step 2: PDF 파일 업로드
     - Step 3: 추출된 계좌 정보 확인
 
-#### `src/components/asset/StockMappingDialog.vue`
-
-- **역할**: 토스 종목명을 시스템 티커와 매핑
-- **특징**:
-    - 자동 종목 검색
-    - 매핑 정보는 Firestore에 공유 저장
-    - A 사용자가 매핑하면 B 사용자는 확인만 필요
-
 ### 2. API
 
-#### `api/parsePdfTransaction.js`
+#### `api/parsePdfTransaction.py`
 
 - **역할**: PDF 파일을 받아서 파싱
 - **지원 증권사**: 토스증권
 - **처리 과정**:
-    1. formidable로 파일 파싱
-    2. Python 스크립트 호출
+    1. 업로드된 파일을 임시 경로에 저장
+    2. Python 파서 호출
     3. JSON 결과 반환
 
 ### 3. Python 스크립트
 
-#### `scripts/extract_toss_transactions.py`
+#### `api/toss_extractor.py`
 
 - **역할**: 토스 증권 PDF에서 거래 데이터 추출
 - **추출 정보**:
     - 계좌번호, 발급번호, 거래 기간
     - 거래 내역 (날짜, 종목명, 수량, 단가 등)
 - **모드**:
-    - API 모드: JSON만 출력
+    - API 모드: JSON 반환
     - 로컬 모드: 통계 및 샘플 출력
 
-### 4. Composables
-
-#### `src/composables/useStockMapping.js`
-
-- **역할**: 종목명 매핑 관리
-- **Firestore 구조**:
-
-```javascript
-stockMappings/{brokerage}_{stockName}/
-  - brokerage: "toss"
-  - brokerageStockName: "일드맥스 M7 옵션 인컴 ETF"
-  - brokerageTicker: "US88636J6423"
-  - systemTicker: "YMAG"
-  - stockInfo: { name, exchange }
-  - createdAt: timestamp
-  - createdBy: userId
-```
-
-- **주요 함수**:
-    - `getStockMapping()`: 매핑 조회
-    - `saveStockMapping()`: 매핑 저장 (공용)
-    - `deleteStockMapping()`: 매핑 삭제
-    - `searchSymbol()`: 티커 검색
-    - `batchGetStockMappings()`: 배치 조회
-
-### 5. 통합
+### 4. 통합
 
 #### `src/pages/AssetView.vue`
 
 - **추가된 기능**:
     - "거래내역서 업로드" 버튼
-    - `handleTransactionUploadComplete()`: 계좌 자동 등록
-    - `handleMappingComplete()`: 거래내역을 자산으로 등록
+    - `handleTransactionUploadComplete()`: 계좌 및 계좌 구조 자동 등록
+    - `registerTransactionsByIsin()`: 추출된 ISIN으로 자산 등록 및 메모 기록
 
 ## 🔐 Firestore 데이터 구조
 
@@ -114,24 +79,10 @@ userAssets/{userId}/familyMembers/{memberId}/
       - accountNumber: "130-01-006341"
       assets/{assetId}/
         - type: "주식"
-        - symbol: "YMAG"
+        - symbol: "US88636J6423"
         - amount: 184
         - currency: "USD"
-        - notes: "일드맥스 M7 옵션 인컴 ETF\n자동 등록됨"
-```
-
-### 공유 매핑 구조
-
-```
-stockMappings/{mappingId}/
-  - brokerage: "toss"
-  - brokerageStockName: "일드맥스 M7 옵션 인컴 ETF"
-  - brokerageTicker: "US88636J6423"
-  - systemTicker: "YMAG"
-  - stockInfo: { name, exchange }
-  - createdAt: timestamp
-  - createdBy: userId
-  - updatedAt: timestamp
+        - notes: "ISIN: US88636J6423\n원본 종목명: 일드맥스 M7 옵션 인컴 ETF\n토스 거래내역서 기반 자동 등록"
 ```
 
 ## 🚀 사용 방법
@@ -143,7 +94,7 @@ stockMappings/{mappingId}/
 pip install pdfplumber tabulate
 
 # Node 패키지 설치
-npm install formidable
+npm install
 ```
 
 ### 2. PDF 업로드
@@ -154,14 +105,7 @@ npm install formidable
 4. PDF 파일 업로드
 5. 추출된 계좌 정보 확인 후 "등록하기"
 
-### 3. 종목명 매핑
-
-1. 자동으로 종목명 매핑 화면 표시
-2. 각 종목에 대해 시스템 티커 검색
-3. 올바른 티커 선택 후 "매핑"
-4. 모든 종목 매핑 완료 후 "완료"
-
-### 4. 완료
+### 3. 완료
 
 - 자산 목록에서 자동 등록된 자산 확인
 - TreeTable에서 계층 구조 확인
@@ -184,11 +128,10 @@ def extract_transactions_from_pdf(pdf_path):
 
 2. **API 핸들러 추가**
 
-```javascript
-// api/parsePdfTransaction.js
-case 'kb':
-    result = await parseKbPdf(file.filepath);
-    break;
+```python
+# api/parsePdfTransaction.py
+if brokerage == "kb":
+    result = extract_kb_transactions(temp_file_path)
 ```
 
 3. **증권사 옵션 추가**
@@ -211,7 +154,7 @@ const brokerageOptions = [
 - ✅ 거래 일자
 - ✅ 거래 구분 (구매/판매)
 - ✅ 종목명 (한글)
-- ✅ 종목 티커 (US...)
+- ✅ 종목 코드 (ISIN, US…)
 - ✅ 환율
 - ✅ 거래 수량
 - ✅ 거래 대금 (원화/달러)
@@ -227,23 +170,23 @@ const brokerageOptions = [
 - 증권사가 없으면 자동으로 추가
 - 계좌 이름은 사용자가 수정 가능
 
-### 2. 종목명 매핑 공유
+### 2. ISIN 기반 자산 자동 분류
 
-- Firestore에 공용 컬렉션으로 저장
-- A 사용자가 매핑하면 B 사용자도 활용
-- 매핑 정보는 언제든 수정/삭제 가능
+- PDF에서 추출한 ISIN(또는 토스 종목 코드)을 바로 활용
+- 별도 매핑 작업 없이 자산 심볼과 수량 계산
+- 원본 종목명을 메모에 기록하여 추적 가능
 
 ### 3. 거래내역 자동 등록
 
 - 종목별로 그룹화하여 자산 등록
-- 총 보유 수량 자동 계산
-- 거래 메모에 원본 종목명 기록
+- 총 보유 수량 자동 계산 (매도 거래는 음수 반영)
+- 처리 결과를 토스트로 안내
 
 ### 4. 에러 처리
 
 - 파싱 실패 시 사용자 친화적 메시지
-- 매핑 스킵 가능 (나중에 수동 등록)
 - 부분 실패 시 성공한 항목만 등록
+- 로그를 통해 상세 원인 확인 가능
 
 ## 🐛 트러블슈팅
 
@@ -252,11 +195,6 @@ const brokerageOptions = [
 - Python이 설치되어 있는지 확인
 - pdfplumber 패키지가 설치되어 있는지 확인
 - PDF 파일 형식이 올바른지 확인 (스캔 PDF는 지원 안함)
-
-### 종목 검색 안됨
-
-- searchSymbol API가 정상 작동하는지 확인
-- 정확한 티커 또는 회사명으로 검색
 
 ### 자산 등록 실패
 
@@ -268,11 +206,9 @@ const brokerageOptions = [
 
 - [ ] 다른 증권사 지원 (KB, 미래에셋, 삼성 등)
 - [ ] 배당 내역 자동 등록
-- [ ] 매도 거래 처리 (수량 차감)
-- [ ] 거래 히스토리 관리
-- [ ] Excel 파일 지원
-- [ ] CSV 파일 지원
-- [ ] 자동 매핑 추천 (AI 활용)
+- [ ] 매도 거래 처리 고도화 (거래 히스토리 보관)
+- [ ] Excel/CSV 파일 지원
+- [ ] ISIN 미존재 거래 처리 로직 고도화
 
 ## 🙏 감사의 말
 
