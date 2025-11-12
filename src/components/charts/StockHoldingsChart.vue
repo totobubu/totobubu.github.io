@@ -1,8 +1,9 @@
 <!-- src/components/charts/StockHoldingsChart.vue -->
 <script setup>
-    import { ref, computed, watch } from 'vue';
+    import { ref, computed, watch, onMounted } from 'vue';
     import VChart from 'vue-echarts';
     import Dropdown from 'primevue/dropdown';
+    import { useBreakpoint } from '@/composables/useBreakpoint.js';
 
     const props = defineProps({
         holdingsData: {
@@ -11,6 +12,139 @@
             default: () => [],
         },
     });
+
+    const longNameSymbolMap = ref(new Map());
+    const symbolMapReady = ref(false);
+    let loadSymbolMapPromise = null;
+
+    const { isMobile } = useBreakpoint();
+
+    const normalizeName = (value) => {
+        return value
+            ? value
+                  .toLowerCase()
+                  .replace(/™/g, '')
+                  .replace(/\./g, ' ')
+                  .replace(/[^a-z0-9]+/g, ' ')
+                  .trim()
+            : '';
+    };
+
+    const addSymbolMapEntry = (map, name, symbol) => {
+        if (!name || !symbol) return;
+        const normalized = normalizeName(name);
+        if (!normalized) return;
+        if (!map.has(normalized)) {
+            map.set(normalized, symbol);
+        }
+    };
+
+    const generateYieldmaxSynonyms = (underlying) => {
+        if (!underlying) return [];
+        const raw = underlying.trim();
+        const sanitized = raw.replace(/[^a-zA-Z0-9]/g, '');
+        const variants = new Set([
+            raw,
+            sanitized,
+            sanitized.toUpperCase(),
+            sanitized.toLowerCase(),
+        ]);
+        const prefixes = ['Yieldmax', 'YieldMax', 'YieldMaxTM', 'YieldmaxTM'];
+        const suffixes = [
+            'Option Income Strategy ETF',
+            'Option Income Strategy ETFs',
+            'Option Income ETF',
+            'Option Income ETFs',
+        ];
+        const results = [];
+        variants.forEach((variant) => {
+            prefixes.forEach((prefix) => {
+                suffixes.forEach((suffix) => {
+                    results.push(`${prefix} ${variant} ${suffix}`);
+                });
+            });
+        });
+        return results;
+    };
+
+    const ensureSymbolMapLoaded = async () => {
+        if (symbolMapReady.value) return;
+        if (!loadSymbolMapPromise) {
+            loadSymbolMapPromise = fetch('/nav.json')
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load nav metadata');
+                    }
+                    return response.json();
+                })
+                .then((payload) => {
+                    const items = Array.isArray(payload)
+                        ? payload
+                        : Array.isArray(payload?.nav)
+                          ? payload.nav
+                          : [];
+
+                    const map = new Map();
+                    items.forEach((item) => {
+                        addSymbolMapEntry(map, item.longName, item.symbol);
+                        addSymbolMapEntry(map, item.englishName, item.symbol);
+                        addSymbolMapEntry(map, item.koName, item.symbol);
+
+                        if (
+                            item.company === 'YieldMax' &&
+                            item.underlying &&
+                            item.symbol
+                        ) {
+                            generateYieldmaxSynonyms(item.underlying).forEach(
+                                (synonym) =>
+                                    addSymbolMapEntry(map, synonym, item.symbol)
+                            );
+                        }
+                    });
+                    longNameSymbolMap.value = map;
+                    symbolMapReady.value = true;
+                })
+                .catch((error) => {
+                    console.error(
+                        '[Holdings] Failed to build symbol map:',
+                        error
+                    );
+                });
+        }
+        await loadSymbolMapPromise;
+    };
+
+    onMounted(() => {
+        ensureSymbolMapLoaded();
+    });
+
+    const resolveSymbolByName = (name) => {
+        if (!name) return null;
+        const normalized = normalizeName(name);
+        if (!normalized) return null;
+        return longNameSymbolMap.value.get(normalized) || null;
+    };
+
+    const resolveDisplaySymbol = (holding) => {
+        const resolved = resolveSymbolByName(holding?.name);
+        if (resolved) return resolved;
+        if (
+            holding?.symbol &&
+            /^[A-Z.\-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
+        ) {
+            return holding.symbol.toUpperCase();
+        }
+        return holding?.symbol ?? '';
+    };
+
+    const shouldShowRawIdentifier = (holding, displaySymbol) => {
+        if (!holding?.symbol) return false;
+        if (!displaySymbol) return false;
+        return (
+            displaySymbol !== holding.symbol &&
+            !/^[A-Z.\-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
+        );
+    };
 
     // 선택된 날짜 인덱스 (기본값: 최신 데이터)
     const selectedDateIndex = ref(null);
@@ -214,12 +348,35 @@
 
         const isDarkTheme =
             document.documentElement.classList.contains('p-dark');
-        const pieData = topHoldings.map((holding) => ({
-            value: Number(holding.weight.toFixed(2)),
-            name: `${holding.symbol} (${holding.weight.toFixed(2)}%)`,
-            originalName: holding.name,
-            type: holding.type,
-        }));
+        const pieData = topHoldings.map((holding) => {
+            const rawName = holding.name?.trim();
+            const rawSymbol = holding.symbol?.trim();
+            const isYieldmax =
+                rawName && rawName.toLowerCase().includes('yieldmax');
+
+            const resolvedSymbol =
+                resolveSymbolByName(rawName) ||
+                (isYieldmax && resolveSymbolByName(`${rawName} etf`));
+
+            const displayName =
+                resolvedSymbol ||
+                (isYieldmax && rawName) ||
+                rawSymbol ||
+                rawName ||
+                '알 수 없음';
+
+            return {
+                value: Number(holding.weight.toFixed(2)),
+                name: displayName,
+                originalName: rawName,
+                symbol: rawSymbol,
+                type: holding.type,
+            };
+        });
+
+        const pieDataMap = new Map(
+            pieData.map((item) => [item.name, item.value])
+        );
 
         return {
             title: {
@@ -241,37 +398,61 @@
                     const holding = params.data;
                     return `
                     <strong>${params.name}</strong><br/>
-                    ${holding.originalName || ''}<br/>
+                    ${
+                        holding.originalName &&
+                        holding.originalName !== params.name
+                            ? `${holding.originalName}<br/>`
+                            : ''
+                    }
+                    ${
+                        holding.symbol && holding.symbol !== params.name
+                            ? `티커: ${holding.symbol}<br/>`
+                            : ''
+                    }
                     비중: <strong>${params.value}%</strong>
                 `;
                 },
             },
             legend: {
                 orient: 'vertical',
-                right: '5%',
-                top: 'center',
+                right: isMobile.value ? undefined : '5%',
+                bottom: isMobile.value ? 0 : undefined,
+                left: isMobile.value ? 'center' : undefined,
+                top: isMobile.value ? undefined : 'center',
                 align: 'left',
                 textStyle: {
                     color: isDarkTheme ? '#e2e8f0' : '#1f2937',
                     fontSize: 12,
                 },
-                formatter: (name) => name,
+                formatter: (name) => {
+                    const value = pieDataMap.get(name);
+                    if (value == null) return name;
+                    return `${name}  (${value.toFixed(2)}%)`;
+                },
             },
             series: [
                 {
                     name: '비중',
                     type: 'pie',
-                    radius: ['35%', '70%'],
-                    center: ['35%', '50%'],
+                    radius: isMobile.value ? ['40%', '75%'] : ['35%', '70%'],
+                    center: isMobile.value ? ['50%', '50%'] : ['35%', '50%'],
                     data: pieData,
                     label: {
-                        formatter: '{b}\n{d}%',
+                        formatter: (params) => {
+                            if (isMobile.value) {
+                                return `${params.data.symbol || params.name}\n${params.percent}%`;
+                            }
+                            return '{b}\n{d}%';
+                        },
                         color: isDarkTheme ? '#f8fafc' : '#1f2937',
-                        fontSize: 12,
+                        fontSize: isMobile.value ? 10 : 12,
+                        overflow: 'truncate',
+                        width: isMobile.value ? 60 : undefined,
                     },
                     labelLine: {
-                        length: 18,
-                        length2: 12,
+                        length: isMobile.value ? 12 : 18,
+                        length2: isMobile.value ? 6 : 12,
+                        smooth: true,
                     },
                     itemStyle: {
                         borderRadius: 6,
@@ -334,6 +515,9 @@
             };
         });
 
+        const isDarkTheme =
+            document.documentElement.classList.contains('p-dark');
+
         return {
             title: {
                 text: 'Top 5 Holdings 비중 변화',
@@ -341,6 +525,7 @@
                 textStyle: {
                     fontSize: 16,
                     fontWeight: 'bold',
+                    color: isDarkTheme ? '#f8fafc' : '#0f172a',
                 },
             },
             tooltip: {
@@ -357,6 +542,9 @@
                 data: top5Symbols,
                 top: '10%',
                 left: 'center',
+                textStyle: {
+                    color: isDarkTheme ? '#e2e8f0' : '#1f2937',
+                },
             },
             grid: {
                 left: '3%',
@@ -372,6 +560,18 @@
                 axisLabel: {
                     rotate: 45,
                     fontSize: 11,
+                    color: isDarkTheme ? '#cbd5f5' : '#475569',
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: isDarkTheme ? '#334155' : '#94a3b8',
+                    },
+                },
+                axisTick: {
+                    alignWithLabel: true,
+                    lineStyle: {
+                        color: isDarkTheme ? '#334155' : '#94a3b8',
+                    },
                 },
             },
             yAxis: {
@@ -379,9 +579,43 @@
                 name: '비중 (%)',
                 axisLabel: {
                     formatter: '{value}%',
+                    color: isDarkTheme ? '#cbd5f5' : '#475569',
+                },
+                nameTextStyle: {
+                    color: isDarkTheme ? '#e2e8f0' : '#475569',
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: isDarkTheme ? '#334155' : '#94a3b8',
+                    },
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed',
+                        color: isDarkTheme
+                            ? 'rgba(148, 163, 184, 0.18)'
+                            : 'rgba(148, 163, 184, 0.35)',
+                    },
                 },
             },
-            series: series,
+            series: series.map((item) => ({
+                ...item,
+                lineStyle: {
+                    ...item.lineStyle,
+                    width: 2,
+                },
+                emphasis: {
+                    focus: 'series',
+                },
+                itemStyle: {
+                    opacity: 0.95,
+                },
+                label: {
+                    show: false,
+                    color: isDarkTheme ? '#f8fafc' : '#0f172a',
+                },
+            })),
         };
     });
 </script>
@@ -426,6 +660,21 @@
             </div>
         </div>
 
+        <!-- 현재 선택된 날짜의 Holdings 차트 -->
+        <div v-if="chartOptions" class="chart-wrapper">
+            <VChart :option="chartOptions" autoresize style="height: 500px" />
+        </div>
+
+        <!-- 시계열 비교 차트 (5개 이상 데이터가 있을 때) -->
+        <div
+            v-if="timeSeriesChartOptions && props.holdingsData.length >= 2"
+            class="chart-wrapper timeseries-chart">
+            <VChart
+                :option="timeSeriesChartOptions"
+                autoresize
+                style="height: 400px" />
+        </div>
+
         <!-- 레버리지 익스포저 차트 (있을 때만 표시) -->
         <div v-if="leverageChartOptions" class="chart-wrapper leverage-chart">
             <VChart
@@ -439,11 +688,6 @@
                     실제 보유 자산은 아닙니다.</span
                 >
             </div>
-        </div>
-
-        <!-- 현재 선택된 날짜의 Holdings 차트 -->
-        <div v-if="chartOptions" class="chart-wrapper">
-            <VChart :option="chartOptions" autoresize style="height: 500px" />
         </div>
 
         <!-- 레버리지 익스포저 테이블 (있을 때만 표시) -->
@@ -470,7 +714,17 @@
                         :key="holding.symbol">
                         <td>{{ index + 1 }}</td>
                         <td>
-                            <strong>{{ holding.symbol }}</strong>
+                            <strong>{{ resolveDisplaySymbol(holding) }}</strong>
+                            <span
+                                v-if="
+                                    shouldShowRawIdentifier(
+                                        holding,
+                                        resolveDisplaySymbol(holding)
+                                    )
+                                "
+                                class="text-xs text-color-secondary ml-2">
+                                {{ holding.symbol }}
+                            </span>
                         </td>
                         <td>{{ holding.name }}</td>
                         <td>
@@ -506,7 +760,17 @@
                         :key="holding.symbol">
                         <td>{{ index + 1 }}</td>
                         <td>
-                            <strong>{{ holding.symbol }}</strong>
+                            <strong>{{ resolveDisplaySymbol(holding) }}</strong>
+                            <span
+                                v-if="
+                                    shouldShowRawIdentifier(
+                                        holding,
+                                        resolveDisplaySymbol(holding)
+                                    )
+                                "
+                                class="text-xs text-color-secondary ml-2">
+                                {{ holding.symbol }}
+                            </span>
                         </td>
                         <td>{{ holding.name }}</td>
                         <td>
@@ -518,16 +782,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- 시계열 비교 차트 (5개 이상 데이터가 있을 때) -->
-        <div
-            v-if="timeSeriesChartOptions && props.holdingsData.length >= 5"
-            class="chart-wrapper timeseries-chart">
-            <VChart
-                :option="timeSeriesChartOptions"
-                autoresize
-                style="height: 400px" />
         </div>
 
         <!-- 데이터 없음 메시지 -->
