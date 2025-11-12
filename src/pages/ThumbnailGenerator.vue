@@ -41,7 +41,10 @@
     const selectedGroup = ref('All');
 
     const companyOptions = ref([
-        { name: 'YieldMax', logo: getAssetUrl('logos/yieldmax.png') },
+        {
+            name: 'YieldMax',
+            logo: getAssetUrl('logos/company/company-yieldmax.png'),
+        },
         { name: 'Roundhill', logo: getAssetUrl('logos/roundhill.svg') },
     ]);
     const backgroundOptions = ref([
