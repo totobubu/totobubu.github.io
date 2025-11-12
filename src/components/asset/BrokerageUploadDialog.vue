@@ -73,10 +73,11 @@
                 {{ uploadError }}
             </Message>
 
-            <ProgressBar
-                v-if="isProcessing"
-                mode="indeterminate"
-                class="h-1rem" />
+            <div v-if="isProcessing" class="flex flex-column gap-2">
+                <Skeleton height="1rem" />
+                <Skeleton height="1rem" />
+                <Skeleton height="1rem" />
+            </div>
 
             <Message
                 v-else-if="analysisComplete && extractedData"
@@ -86,7 +87,9 @@
                     <span class="text-sm text-color-secondary"
                         >분석이 완료되었습니다.</span
                     >
-                    <strong>거래 건수: {{ extractedData.total_count }}건</strong>
+                    <strong
+                        >거래 건수: {{ extractedData.total_count }}건</strong
+                    >
                 </div>
             </Message>
         </div>
@@ -189,7 +192,7 @@
     import FileUpload from 'primevue/fileupload';
     import Button from 'primevue/button';
     import Message from 'primevue/message';
-    import ProgressBar from 'primevue/progressbar';
+    import Skeleton from 'primevue/skeleton';
     import InputText from 'primevue/inputtext';
     import axios from 'axios';
 

@@ -16,6 +16,7 @@
 
     const {
         isLoading,
+        hasInitialLoadCompleted,
         error,
         selectedTicker,
         globalSearchQuery,
@@ -23,6 +24,7 @@
         subFilterTab,
         myBookmarks,
         filteredTickers,
+        hasResults,
         handleStockBookmarkClick,
         onRowSelect,
         handleTickerRequest,
@@ -121,7 +123,9 @@
                 :class="{ 'p-datatable-loading': isLoading }"
                 class="h-full">
                 <template #empty>
-                    <div v-if="isLoading" class="p-4">
+                    <div
+                        v-if="!hasInitialLoadCompleted || isLoading"
+                        class="p-4">
                         <div class="flex flex-column gap-3">
                             <Skeleton height="1.5rem" />
                             <Skeleton height="1.5rem" />

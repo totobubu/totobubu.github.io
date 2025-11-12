@@ -19,6 +19,7 @@ export function useSidebar() {
     const allTickersForSearch = ref([]); // 전체 검색용 (모든 티커)
     const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
+    const hasInitialLoadCompleted = ref(false);
     const error = ref(null);
     const selectedTicker = ref(null);
 
@@ -258,6 +259,7 @@ export function useSidebar() {
             console.error(err);
         } finally {
             isLoading.value = false;
+            hasInitialLoadCompleted.value = true;
         }
     };
 
@@ -384,6 +386,7 @@ export function useSidebar() {
 
     return {
         isLoading,
+        hasInitialLoadCompleted,
         error,
         selectedTicker,
         globalSearchQuery,
