@@ -3,7 +3,12 @@ import tempfile
 
 from flask import Flask, request, jsonify, make_response
 
-from scripts.extract_toss_transactions import extract_transactions_from_pdf
+try:
+    # 패키지 컨텍스트 (서버리스 환경 등)
+    from .toss_extractor import extract_transactions_from_pdf
+except ImportError:  # pragma: no cover - 로컬 직접 실행 대비
+    # 모듈 단독 실행 시 경로 보정
+    from toss_extractor import extract_transactions_from_pdf
 
 app = Flask(__name__)
 
