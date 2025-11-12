@@ -127,6 +127,45 @@
             background: linear-gradient(to bottom, #fff5f5 0%, white 100%);
         }
 
+        .holdings-chart-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            .chart-title {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--text-color);
+                margin: 0;
+            }
+
+            .chart-subtitle {
+                margin: 0;
+                font-size: 0.9rem;
+                color: var(--text-color-secondary);
+            }
+        }
+
+        .chart-content {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+
+            .chart-canvas {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 2 / 1;
+
+                @include bp.media-breakpoint-only('xs') {
+                    height: auto;
+                    aspect-ratio: 1 / 1.25;
+                    width: 100%;
+                }
+            }
+        }
+
         .chart-note {
             display: flex;
             align-items: center;
@@ -187,6 +226,11 @@
                 &:last-child {
                     text-align: right;
                 }
+
+                &.legend-indicator-header {
+                    width: 3.25rem;
+                    text-align: center;
+                }
             }
         }
 
@@ -208,10 +252,6 @@
                 padding: 0.75rem 1rem;
                 font-size: 0.9rem;
                 color: var(--text-color);
-
-                &:first-child {
-                    color: var(--text-color-secondary);
-                }
 
                 &:last-child {
                     text-align: right;
@@ -266,6 +306,43 @@
             &.other {
                 background: #f5f5f5;
                 color: #616161;
+            }
+        }
+
+        .legend-indicator-cell {
+            width: 3.25rem;
+            text-align: center;
+        }
+
+        .legend-color-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--surface-border, rgba(0, 0, 0, 0.12));
+        }
+
+        .holding-name-cell {
+            .holding-name {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+
+                .name-text {
+                    font-weight: 600;
+                    color: var(--text-color);
+                }
+
+                .ticker-text {
+                    font-size: 0.75rem;
+                    color: var(--text-color-secondary);
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+
+                    .alt-symbol {
+                        margin-left: 0.25rem;
+                    }
+                }
             }
         }
     }

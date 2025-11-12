@@ -386,13 +386,85 @@
         });
     });
 
-    const pieChartHeight = computed(() => {
-        if (!isMobile.value) return '500px';
-        const segmentCount = pieSegments.value.length || 0;
-        const lines = Math.ceil(segmentCount / 3);
-        const extra = Math.max(lines - 1, 0) * 24;
-        return `${410 + extra}px`;
+    // ECharts 기본 색상 팔레트
+    const defaultColorPalette = [
+        '#5470c6',
+        '#91cc75',
+        '#fac858',
+        '#ee6666',
+        '#73c0de',
+        '#3ba272',
+        '#fc8452',
+        '#9a60b4',
+        '#ea7ccc',
+        '#ff9f7f',
+        '#ffdb5c',
+        '#ff6e76',
+        '#e690d1',
+        '#7899d1',
+        '#7bcfcc',
+        '#c4ccd3',
+    ];
+
+    // 범례 데이터 (차트와 분리)
+    const legendData = computed(() => {
+        const segments = pieSegments.value;
+        if (!segments || segments.length === 0) return [];
+
+        return segments.map((segment, index) => {
+            const originalName =
+                segment.rawName && segment.rawName.length > 0
+                    ? segment.rawName
+                    : segment.displaySymbol ||
+                      segment.rawSymbol ||
+                      '알 수 없음';
+            const fallbackDisplay =
+                segment.displaySymbol && segment.displaySymbol.length > 0
+                    ? segment.displaySymbol
+                    : segment.rawSymbol || '';
+            return {
+                value: segment.weight,
+                name: originalName,
+                originalName,
+                displaySymbol: fallbackDisplay,
+                symbol: segment.resolvedSymbol || segment.rawSymbol,
+                type: segment.type,
+                color: defaultColorPalette[index % defaultColorPalette.length],
+            };
+        });
     });
+
+    const legendColorMap = computed(() => {
+        const map = new Map();
+        legendData.value.forEach((item) => {
+            if (item.originalName) {
+                map.set(item.originalName.trim(), item.color);
+            }
+            if (item.displaySymbol) {
+                map.set(item.displaySymbol.trim(), item.color);
+            }
+            if (item.symbol) {
+                map.set(item.symbol.trim(), item.color);
+            }
+        });
+        return map;
+    });
+
+    const getLegendColor = (holding) => {
+        const nameKey = holding.name?.trim();
+        if (nameKey && legendColorMap.value.has(nameKey)) {
+            return legendColorMap.value.get(nameKey);
+        }
+        const symbolKey = holding.symbol?.trim();
+        if (symbolKey && legendColorMap.value.has(symbolKey)) {
+            return legendColorMap.value.get(symbolKey);
+        }
+        const displaySymbol = resolveDisplaySymbol(holding);
+        if (displaySymbol && legendColorMap.value.has(displaySymbol)) {
+            return legendColorMap.value.get(displaySymbol);
+        }
+        return 'var(--surface-400, #94a3b8)';
+    };
 
     const chartOptions = computed(() => {
         const segments = pieSegments.value;
@@ -402,114 +474,86 @@
             document.documentElement.classList.contains('p-dark');
         const isMobileMode = isMobile.value;
 
-        const pieData = segments.map((segment) => ({
-            value: segment.weight,
-            name: segment.displaySymbol,
-            originalName: segment.rawName,
-            symbol: segment.resolvedSymbol || segment.rawSymbol,
-            type: segment.type,
+        const pieData = legendData.value.map((item) => ({
+            value: item.value,
+            name: item.name,
+            originalName: item.originalName,
+            displaySymbol: item.displaySymbol,
+            symbol: item.symbol,
+            type: item.type,
         }));
 
-        const pieDataMap = new Map(
-            pieData.map((item) => [item.name, item.value])
-        );
-
-        const legendConfig = isMobileMode
-            ? {
-                  show: true,
-                  orient: 'horizontal',
-                  bottom: -4,
-                  left: 'center',
-                  itemWidth: 10,
-                  itemHeight: 10,
-                  itemGap: 10,
-                  icon: 'circle',
-                  textStyle: {
-                      color: isDarkTheme ? '#e2e8f0' : '#1f2937',
-                      fontSize: 10,
-                  },
-                  formatter: (name) => {
-                      const value = pieDataMap.get(name);
-                      if (value == null) return name;
-                      return `${name} (${value.toFixed(2)}%)`;
-                  },
-              }
-            : {
-                  orient: 'vertical',
-                  right: '5%',
-                  top: 'center',
-                  align: 'left',
-                  itemWidth: 12,
-                  itemHeight: 12,
-                  textStyle: {
-                      color: isDarkTheme ? '#e2e8f0' : '#1f2937',
-                      fontSize: 12,
-                  },
-                  formatter: (name) => {
-                      const value = pieDataMap.get(name);
-                      if (value == null) return name;
-                      return `${name}  (${value.toFixed(2)}%)`;
-                  },
-              };
-
         return {
-            title: {
-                text: `실제 보유 자산 (총 ${holdingsTotal.value.toFixed(2)}%)`,
-                left: 'center',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'bold',
-                },
-                subtext: '펀드가 직접 보유한 주식 및 현금',
-                subtextStyle: {
-                    fontSize: 12,
-                    color: '#999',
-                },
-            },
             tooltip: {
                 trigger: 'item',
+                confine: true,
+                position: (point, params, dom, rect, size) => {
+                    const margin = 12;
+                    let [x, y] = point;
+                    const { contentSize, viewSize } = size;
+                    const boxWidth = contentSize[0];
+                    const boxHeight = contentSize[1];
+                    const viewWidth = viewSize[0];
+                    const viewHeight = viewSize[1];
+
+                    if (x + boxWidth + margin > viewWidth) {
+                        x = viewWidth - boxWidth - margin;
+                    }
+                    if (y + boxHeight + margin > viewHeight) {
+                        y = viewHeight - boxHeight - margin;
+                    }
+
+                    x = Math.max(margin, x);
+                    y = Math.max(margin, y);
+                    return [x, y];
+                },
                 formatter: (params) => {
                     const holding = params.data;
                     return `
-                    <strong>${params.name}</strong><br/>
+                    <strong>${holding.originalName}</strong><br/>
                     ${
-                        holding.originalName &&
-                        holding.originalName !== params.name
-                            ? `${holding.originalName}<br/>`
-                            : ''
-                    }
-                    ${
-                        holding.symbol && holding.symbol !== params.name
-                            ? `티커: ${holding.symbol}<br/>`
-                            : ''
+                        holding.displaySymbol &&
+                        holding.displaySymbol !== holding.originalName
+                            ? `티커: ${holding.displaySymbol}<br/>`
+                            : holding.symbol &&
+                                holding.symbol !== holding.originalName
+                              ? `티커: ${holding.symbol}<br/>`
+                              : ''
                     }
                     비중: <strong>${params.value}%</strong>
                 `;
                 },
             },
-            legend: legendConfig,
+            legend: {
+                show: false, // 범례를 차트에서 숨김
+            },
+            color: defaultColorPalette, // 색상 팔레트 설정
             series: [
                 {
                     name: '비중',
                     type: 'pie',
-                    radius: isMobileMode ? ['40%', '75%'] : ['35%', '70%'],
-                    center: isMobileMode ? ['50%', '50%'] : ['35%', '50%'],
+                    radius: isMobileMode ? ['40%', '75%'] : ['35%', '65%'],
+                    center: ['50%', '50%'],
                     data: pieData,
                     label: {
                         formatter: (params) => {
+                            const { data } = params;
+                            const dataType = (data.type || '')
+                                .toString()
+                                .toLowerCase();
+                            const baseName = data.originalName || params.name;
+                            const percentText = `${params.percent.toFixed(2)}%`;
                             if (isMobileMode) {
-                                return `${params.name}\n${params.percent}%`;
+                                return `${baseName}\n${percentText}`;
                             }
-                            const displayName = params.name;
-                            const percent = params.percent.toFixed(2);
-                            return `${displayName}\n${percent}%`;
+                            return `${baseName}\n${percentText}`;
                         },
                         color: isDarkTheme ? '#f8fafc' : '#1f2937',
-                        fontSize: isMobileMode ? 10 : 14,
-                        lineHeight: isMobileMode ? 14 : 18,
+                        fontSize: isMobileMode ? 10 : 16,
+                        lineHeight: isMobileMode ? 14 : 22,
                         fontWeight: isMobileMode ? 500 : 600,
                         overflow: 'truncate',
-                        width: isMobileMode ? 68 : undefined,
+                        width: isMobileMode ? 68 : 200,
                     },
                     labelLine: {
                         length: isMobileMode ? 12 : 20,
@@ -724,10 +768,73 @@
 
         <!-- 현재 선택된 날짜의 Holdings 차트 -->
         <div v-if="chartOptions" class="chart-wrapper">
-            <VChart
-                :option="chartOptions"
-                autoresize
-                :style="{ height: pieChartHeight }" />
+            <div class="holdings-chart-header">
+                <h2 class="chart-title">
+                    실제 보유 자산 (총 {{ holdingsTotal.toFixed(2) }}%)
+                </h2>
+                <p class="chart-subtitle">펀드가 직접 보유한 주식 및 현금</p>
+            </div>
+            <div class="chart-content">
+                <div class="chart-canvas">
+                    <VChart :option="chartOptions" autoresize />
+                </div>
+            </div>
+        </div>
+
+        <!-- Holdings 데이터 테이블 -->
+        <div v-if="selectedHoldings.length > 0" class="holdings-table-wrapper">
+            <h3>📊 실제 보유 자산 상세 정보</h3>
+            <table class="holdings-table">
+                <thead>
+                    <tr>
+                        <th class="legend-indicator-header"></th>
+                        <th>종목명</th>
+                        <th>타입</th>
+                        <th>비중 (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        v-for="holding in selectedHoldings
+                            .slice()
+                            .sort((a, b) => b.weight - a.weight)"
+                        :key="holding.symbol">
+                        <td class="legend-indicator-cell">
+                            <span
+                                class="legend-color-dot"
+                                :style="{
+                                    backgroundColor: getLegendColor(holding),
+                                }"></span>
+                        </td>
+                        <td class="holding-name-cell">
+                            <div class="holding-name">
+                                <span class="name-text">{{
+                                    holding.name
+                                }}</span>
+                                <span class="ticker-text">
+                                    {{ resolveDisplaySymbol(holding) }}
+                                    <span
+                                        v-if="
+                                            shouldShowRawIdentifier(
+                                                holding,
+                                                resolveDisplaySymbol(holding)
+                                            )
+                                        "
+                                        class="alt-symbol"
+                                        >({{ holding.symbol }})</span
+                                    >
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="type-badge" :class="holding.type">{{
+                                holding.type?.toUpperCase() || 'N/A'
+                            }}</span>
+                        </td>
+                        <td>{{ holding.weight }}%</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- 시계열 비교 차트 (5개 이상 데이터가 있을 때) -->
@@ -791,58 +898,32 @@
                                 {{ holding.symbol }}
                             </span>
                         </td>
-                        <td>{{ holding.name }}</td>
+                        <td class="holding-name-cell">
+                            <div class="holding-name">
+                                <span class="name-text">{{
+                                    holding.name
+                                }}</span>
+                                <span class="ticker-text">
+                                    {{ resolveDisplaySymbol(holding) }}
+                                    <span
+                                        v-if="
+                                            shouldShowRawIdentifier(
+                                                holding,
+                                                resolveDisplaySymbol(holding)
+                                            )
+                                        "
+                                        class="alt-symbol"
+                                        >({{ holding.symbol }})</span
+                                    >
+                                </span>
+                            </div>
+                        </td>
                         <td>
                             <span class="type-badge">{{
                                 holding.type?.toUpperCase() || 'N/A'
                             }}</span>
                         </td>
                         <td>{{ holding.underlying || '-' }}</td>
-                        <td>{{ holding.weight }}%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Holdings 데이터 테이블 -->
-        <div v-if="selectedHoldings.length > 0" class="holdings-table-wrapper">
-            <h3>📊 실제 보유 자산 상세 정보</h3>
-            <table class="holdings-table">
-                <thead>
-                    <tr>
-                        <th>순위</th>
-                        <th>티커</th>
-                        <th>종목명</th>
-                        <th>타입</th>
-                        <th>비중 (%)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="(holding, index) in selectedHoldings
-                            .slice()
-                            .sort((a, b) => b.weight - a.weight)"
-                        :key="holding.symbol">
-                        <td>{{ index + 1 }}</td>
-                        <td>
-                            <strong>{{ resolveDisplaySymbol(holding) }}</strong>
-                            <span
-                                v-if="
-                                    shouldShowRawIdentifier(
-                                        holding,
-                                        resolveDisplaySymbol(holding)
-                                    )
-                                "
-                                class="text-xs text-color-secondary ml-2">
-                                {{ holding.symbol }}
-                            </span>
-                        </td>
-                        <td>{{ holding.name }}</td>
-                        <td>
-                            <span class="type-badge" :class="holding.type">{{
-                                holding.type?.toUpperCase() || 'N/A'
-                            }}</span>
-                        </td>
                         <td>{{ holding.weight }}%</td>
                     </tr>
                 </tbody>

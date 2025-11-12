@@ -72,8 +72,13 @@
                 info.periods.length > 0 &&
                 !selectedTimeRange.value
             ) {
-                // nav.json의 periods 첫 번째 값을 기본값으로 설정
-                selectedTimeRange.value = info.periods[0];
+                const preferred =
+                    info.periods.find(
+                        (period) =>
+                            period &&
+                            period.toString().toUpperCase().includes('5Y')
+                    ) || info.periods[0];
+                selectedTimeRange.value = preferred;
             }
         },
         { immediate: true }
