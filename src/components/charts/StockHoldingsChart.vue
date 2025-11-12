@@ -174,18 +174,52 @@
         return selectedHoldings.value.reduce((sum, h) => sum + h.weight, 0);
     });
 
+    const MAX_SEGMENTS = 12;
+
     // 차트 옵션 (실제 보유 자산)
     const chartOptions = computed(() => {
         if (!selectedHoldings.value || selectedHoldings.value.length === 0) {
             return null;
         }
 
-        const holdings = selectedHoldings.value;
+        const holdings = selectedHoldings.value
+            .map((holding) => ({
+                ...holding,
+                weight: Number.parseFloat(holding.weight),
+            }))
+            .filter((holding) => holding.weight > 0);
+
+        if (holdings.length === 0) return null;
 
         // 데이터 정렬 (비중이 높은 순서대로)
         const sortedHoldings = [...holdings].sort(
             (a, b) => b.weight - a.weight
         );
+
+        const topHoldings = sortedHoldings.slice(0, MAX_SEGMENTS);
+        const others = sortedHoldings.slice(MAX_SEGMENTS);
+        const othersTotal = others.reduce(
+            (sum, holding) => sum + holding.weight,
+            0
+        );
+
+        if (others.length > 0 && othersTotal > 0) {
+            topHoldings.push({
+                symbol: 'OTHERS',
+                name: '기타',
+                weight: Number(othersTotal.toFixed(2)),
+                type: 'others',
+            });
+        }
+
+        const isDarkTheme =
+            document.documentElement.classList.contains('p-dark');
+        const pieData = topHoldings.map((holding) => ({
+            value: Number(holding.weight.toFixed(2)),
+            name: `${holding.symbol} (${holding.weight.toFixed(2)}%)`,
+            originalName: holding.name,
+            type: holding.type,
+        }));
 
         return {
             title: {
@@ -202,75 +236,58 @@
                 },
             },
             tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow',
-                },
+                trigger: 'item',
                 formatter: (params) => {
-                    const item = params[0];
-                    const holding = sortedHoldings[item.dataIndex];
+                    const holding = params.data;
                     return `
-                    <strong>${holding.symbol}</strong><br/>
-                    ${holding.name}<br/>
-                    비중: <strong>${holding.weight}%</strong>
+                    <strong>${params.name}</strong><br/>
+                    ${holding.originalName || ''}<br/>
+                    비중: <strong>${params.value}%</strong>
                 `;
                 },
             },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                top: '15%',
-                containLabel: true,
-            },
-            xAxis: {
-                type: 'value',
-                name: '비중 (%)',
-                nameLocation: 'middle',
-                nameGap: 30,
-                axisLabel: {
-                    formatter: '{value}%',
-                },
-            },
-            yAxis: {
-                type: 'category',
-                data: sortedHoldings.map((h) => h.symbol),
-                inverse: true,
-                axisLabel: {
+            legend: {
+                orient: 'vertical',
+                right: '5%',
+                top: 'center',
+                align: 'left',
+                textStyle: {
+                    color: isDarkTheme ? '#e2e8f0' : '#1f2937',
                     fontSize: 12,
                 },
+                formatter: (name) => name,
             },
             series: [
                 {
                     name: '비중',
-                    type: 'bar',
-                    data: sortedHoldings.map((h) => h.weight),
-                    itemStyle: {
-                        color: (params) => {
-                            // 비중에 따라 색상 그라데이션
-                            const colors = [
-                                '#5470c6',
-                                '#91cc75',
-                                '#fac858',
-                                '#ee6666',
-                                '#73c0de',
-                                '#3ba272',
-                                '#fc8452',
-                                '#9a60b4',
-                                '#ea7ccc',
-                                '#dd6b66',
-                            ];
-                            return colors[params.dataIndex % colors.length];
-                        },
-                        borderRadius: [0, 5, 5, 0],
-                    },
+                    type: 'pie',
+                    radius: ['35%', '70%'],
+                    center: ['35%', '50%'],
+                    data: pieData,
                     label: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{c}%',
-                        fontSize: 11,
+                        formatter: '{b}\n{d}%',
+                        color: isDarkTheme ? '#f8fafc' : '#1f2937',
+                        fontSize: 12,
                     },
-                    barMaxWidth: 30,
+                    labelLine: {
+                        length: 18,
+                        length2: 12,
+                    },
+                    itemStyle: {
+                        borderRadius: 6,
+                        borderColor: isDarkTheme ? '#1f2937' : '#ffffff',
+                        borderWidth: 2,
+                    },
+                    emphasis: {
+                        scale: true,
+                        scaleSize: 8,
+                        focus: 'self',
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.35)',
+                        },
+                    },
                 },
             ],
         };
