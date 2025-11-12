@@ -140,10 +140,10 @@ export const searchSymbol = async (searchQuery) => {
     try {
         const response = await axios.get('/api/searchSymbol.js', {
             params: {
-                q: searchQuery,
+                query: searchQuery,
             },
         });
-        return response.data.results || [];
+        return response.data?.results || response.data || [];
     } catch (error) {
         console.error('티커 검색 실패:', error);
         return [];
