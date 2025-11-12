@@ -2,6 +2,7 @@
     import { computed } from 'vue';
     import VChart from 'vue-echarts';
     import Button from 'primevue/button';
+    import Skeleton from 'primevue/skeleton';
     // [핵심 수정] 경로를 './'로 변경합니다.
     import BacktesterSummaryTable from './BacktesterSummaryTable.vue';
     import BacktesterResultDetails from './BacktesterResultDetails.vue';
@@ -223,11 +224,21 @@
 </script>
 
 <template>
-    <div
-        v-if="isLoading"
-        class="flex justify-content-center align-items-center"
-        style="height: 400px">
-        <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+    <div v-if="isLoading" class="mt-4">
+        <div class="surface-card border-round p-4">
+            <div class="flex justify-content-end mb-3">
+                <Skeleton width="12rem" height="2.5rem" />
+            </div>
+            <Skeleton height="500px" class="mb-4 border-round" />
+            <div class="grid">
+                <div class="col-12">
+                    <Skeleton height="220px" class="border-round" />
+                </div>
+                <div class="col-12">
+                    <Skeleton height="260px" class="border-round" />
+                </div>
+            </div>
+        </div>
     </div>
     <div v-else-if="result && !result.error" class="mt-4">
         <div class="surface-card border-round">

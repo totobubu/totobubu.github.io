@@ -2,7 +2,7 @@
 <script setup>
     import { ref, computed, nextTick } from 'vue';
     import { useHead } from '@vueuse/head';
-    import { joinURL } from 'ufo';
+    import { getDataUrl } from '@/utils/dataUrl';
     import VChart from 'vue-echarts';
     import JSZip from 'jszip';
 
@@ -37,10 +37,7 @@
             const sanitizedTicker = sanitizeTickerForFilename(tickerSymbol);
 
             // 로컬 데이터에서 배당금 정보 가져오기 (기존 프로젝트 방식 사용)
-            const dataUrl = joinURL(
-                import.meta.env.BASE_URL,
-                `data/${sanitizedTicker}.json`
-            );
+            const dataUrl = getDataUrl(`data/${sanitizedTicker}.json`);
             const localDataResponse = await fetch(dataUrl);
 
             if (!localDataResponse.ok) {
@@ -832,5 +829,5 @@
 </template>
 
 <style scoped lang="scss">
-    @import '@/styles/pages/_blog-generator';
+    @use '@/styles/pages/blog-generator';
 </style>

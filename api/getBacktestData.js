@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createApiHandler } from './_utils/api-handler';
+import { createApiHandler } from './_utils/api-handler.js';
 
 const YF_HEADERS = {
     'User-Agent':

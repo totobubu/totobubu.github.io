@@ -19,7 +19,7 @@ import './styles/style.scss';
 // --- [핵심 수정 1] ECharts 전역 등록 ---
 import { use } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { BarChart, LineChart, CandlestickChart } from 'echarts/charts';
+import { BarChart, LineChart, CandlestickChart, PieChart } from 'echarts/charts';
 import {
     TitleComponent,
     TooltipComponent,
@@ -36,6 +36,7 @@ use([
     BarChart,
     LineChart,
     CandlestickChart,
+    PieChart,
     TitleComponent,
     TooltipComponent,
     LegendComponent,

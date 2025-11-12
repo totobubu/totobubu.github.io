@@ -4,6 +4,10 @@
 @use '../functions/breakpoints' as bp;
 
 #t-backtester {
+    .col-12 > .col-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
     &-controls {
         display: flex;
         flex-direction: column;

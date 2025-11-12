@@ -121,9 +121,7 @@
             sortField="date"
             :sortOrder="-1">
             <template v-if="isMobile">
-                <Column
-                    header="지급일/종목/배당금"
-                    style="width: 7rem; font-size: 0.8em">
+                <Column header="지급일/종목/배당금">
                     <template #body="{ data }">
                         {{ data.date }}
                         <br />
