@@ -445,7 +445,7 @@ jobs:
           python-version: '3.11'
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-workflow.txt
       
       - name: Fetch top tickers
         run: python scripts/fetch_top_tickers.py
