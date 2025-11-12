@@ -1,4 +1,9 @@
 {
+    "functions": {
+        "api/**/*.py": {
+            "excludeFiles": "{scripts,public,data,tmp}/**"
+        }
+    },
     "redirects": [
         {
             "source": "/stock/:ticker",
