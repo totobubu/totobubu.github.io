@@ -10,11 +10,15 @@ import os
 import json
 import time
 import math
+import requests
 import yfinance as yf
+from urllib.parse import urlencode
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
 from collections import Counter
+from bs4 import BeautifulSoup
+from requests.exceptions import RequestException
 import pandas as pd
 
 # 공통 유틸리티
@@ -40,6 +44,14 @@ ticker_info_map = {}
 active_symbols = []
 us_holidays = set()
 kr_holidays = set()
+
+# ISIN 관련 상수
+KRX_SEARCH_URL = "https://isin.krx.co.kr/srch/srch.do"
+KRX_SEARCH_LOCALE = "ko_KR"
+KRX_DEFAULT_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+}
 
 
 # ============================================================================
@@ -80,6 +92,147 @@ def initialize():
     
     print("\n✅ 초기화 완료\n")
     return True
+
+
+# ============================================================================
+# ISIN 유틸 함수
+# ============================================================================
+def is_korean_symbol(symbol, ticker_meta):
+    """한국 시장 티커인지 여부 판단"""
+    if not symbol:
+        return False
+    symbol_upper = symbol.upper()
+    market = (ticker_meta or {}).get("market", "")
+    return symbol_upper.endswith((".KS", ".KQ", ".KO")) or market.upper() in {
+        "KOSPI",
+        "KOSDAQ",
+        "KONEX",
+        "KRX",
+    }
+
+
+def get_base_ticker_code(symbol):
+    """티커에서 시장 접미사를 제거한 기본 코드 추출"""
+    if not symbol:
+        return ""
+    return symbol.split(".")[0].replace("-", "").upper()
+
+
+def fetch_isin_from_yfinance(symbol, raw_info=None):
+    """yfinance에서 ISIN 추출"""
+    try:
+        if raw_info and isinstance(raw_info, dict):
+            isin_candidate = raw_info.get("isin")
+            if isin_candidate:
+                return isin_candidate
+        ticker_obj = yf.Ticker(symbol)
+        isin_candidate = getattr(ticker_obj, "isin", None)
+        if isin_candidate:
+            return isin_candidate
+        info = ticker_obj.info
+        if isinstance(info, dict):
+            return info.get("isin")
+    except Exception:
+        return None
+    return None
+
+
+def extract_isin_from_table_row(row_cells):
+    """표 셀 리스트에서 ISIN 형태 문자열 추출"""
+    for cell in row_cells:
+        normalized = cell.strip()
+        if len(normalized) == 12 and normalized.startswith("KR"):
+            return normalized
+    return None
+
+
+def fetch_isin_from_krx(symbol, ko_name=None, session=None):
+    """KRX ISIN 페이지에서 ISIN 추출"""
+    session = session or requests.Session()
+    try:
+        session.get(
+            KRX_SEARCH_URL,
+            params={"method": "srchList", "locale": KRX_SEARCH_LOCALE},
+            headers=KRX_DEFAULT_HEADERS,
+            timeout=10,
+        )
+    except RequestException:
+        return None
+
+    search_candidates = []
+    if ko_name:
+        search_candidates.append(ko_name)
+        search_candidates.append(ko_name.replace(" ", ""))
+    base_code = get_base_ticker_code(symbol)
+    if base_code:
+        search_candidates.append(base_code)
+
+    seen_candidates = set()
+    for candidate in search_candidates:
+        if not candidate or candidate in seen_candidates:
+            continue
+        seen_candidates.add(candidate)
+        payload = {
+            "curSh": "1",
+            "gubunRadio": "1",
+            "isur_nm1": candidate,
+            "isur_nm": candidate,
+            "searchRadio": "1",
+            "searchDateRadio": "4",
+            "std_cd_grnt_start_dd": "",
+            "std_cd_grnt_end_dd": "",
+            "pageIndex": "1",
+            "currentPage": "1",
+            "pageSize": "30",
+            "locale": KRX_SEARCH_LOCALE,
+        }
+        try:
+            encoded_payload = urlencode(payload, encoding="euc-kr")
+            response = session.post(
+                f"{KRX_SEARCH_URL}?method=srchList",
+                data=encoded_payload,
+                headers={
+                    **KRX_DEFAULT_HEADERS,
+                    "Content-Type": "application/x-www-form-urlencoded; charset=EUC-KR",
+                    "Referer": f"{KRX_SEARCH_URL}?method=srchList&locale={KRX_SEARCH_LOCALE}",
+                },
+                timeout=10,
+            )
+            html = response.content.decode("euc-kr", errors="ignore")
+        except RequestException:
+            continue
+
+        soup = BeautifulSoup(html, "html.parser")
+        candidate_tables = soup.find_all("table")
+        result_table = None
+        for table in candidate_tables:
+            headers = [th.get_text(strip=True) for th in table.find_all("th")]
+            if headers and any("표준" in header for header in headers):
+                result_table = table
+                break
+
+        if not result_table:
+            continue
+
+        for row in result_table.find_all("tr"):
+            cells = [td.get_text(strip=True) for td in row.find_all("td")]
+            if not cells:
+                continue
+
+            row_text = "".join(cells)
+            if base_code and base_code in row_text:
+                isin_candidate = extract_isin_from_table_row(cells)
+                if isin_candidate:
+                    return isin_candidate
+
+            if ko_name:
+                normalized_ko = ko_name.replace(" ", "")
+                if normalized_ko and normalized_ko in row_text.replace(" ", ""):
+                    isin_candidate = extract_isin_from_table_row(cells)
+                    if isin_candidate:
+                        return isin_candidate
+
+    return None
 
 
 # ============================================================================
@@ -248,6 +401,7 @@ def process_single_ticker_info(info):
         "Yield": normalize_number(yield_val),
         "dividendRate": normalize_number(info.get("dividendRate")),
         "payoutRatio": normalize_number(info.get("payoutRatio")),
+        "isin": info.get("isin"),
     }
 
 
@@ -367,7 +521,121 @@ def update_ticker_info():
 
 
 # ============================================================================
-# Step 3: 배당 빈도 분석 (analyze_dividend_frequency)
+# Step 3: ISIN 데이터 업데이트
+# ============================================================================
+def update_isin_records():
+    """ISIN 데이터 업데이트 (yfinance 우선, KRX 백업)"""
+    print("\n" + "=" * 80)
+    print("🔍 STEP 3: ISIN 데이터 업데이트")
+    print("=" * 80)
+
+    session = requests.Session()
+    updated_files = 0
+    yfinance_hits = 0
+    krx_hits = 0
+    missing_records = []
+    nav_changed = False
+    missing_output_path = os.path.join(PUBLIC_DIR, "missing_isin.json")
+
+    for symbol in tqdm(active_symbols, desc="ISIN 보강"):
+        ticker_meta = ticker_info_map.get(symbol, {})
+        file_path = os.path.join(DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json")
+        data = load_json_file(file_path)
+
+        if not data:
+            continue
+
+        ticker_info = data.get("tickerInfo", {})
+        if ticker_info is None:
+            ticker_info = {}
+            data["tickerInfo"] = ticker_info
+
+        existing_isin = ticker_info.get("isin")
+        if existing_isin:
+            continue
+
+        new_isin = None
+        isin_source = None
+
+        yf_isin = fetch_isin_from_yfinance(symbol)
+        if yf_isin:
+            new_isin = yf_isin
+            isin_source = "yfinance"
+            yfinance_hits += 1
+        elif is_korean_symbol(symbol, ticker_meta):
+            krx_isin = fetch_isin_from_krx(
+                symbol,
+                ticker_meta.get("koName"),
+                session=session,
+            )
+            if krx_isin:
+                new_isin = krx_isin
+                isin_source = "krx"
+                krx_hits += 1
+
+        file_changed = False
+        if new_isin:
+            if ticker_info.get("isin") != new_isin or ticker_info.get("isinSource") != isin_source:
+                ticker_info["isin"] = new_isin
+                ticker_info["isinSource"] = isin_source
+                file_changed = True
+                nav_entry = ticker_info_map.get(symbol)
+                if nav_entry is not None:
+                    nav_entry["isin"] = new_isin
+                    nav_entry["isinSource"] = isin_source
+                    nav_changed = True
+        else:
+            if "isin" not in ticker_info:
+                ticker_info["isin"] = None
+                file_changed = True
+
+            missing_records.append(
+                {
+                    "symbol": symbol,
+                    "koName": ticker_meta.get("koName"),
+                    "market": ticker_meta.get("market"),
+                    "currency": ticker_meta.get("currency"),
+                }
+            )
+
+        if file_changed:
+            data["tickerInfo"] = ticker_info
+            save_json_file(file_path, data)
+            if new_isin:
+                updated_files += 1
+
+    if nav_changed:
+        save_json_file(NAV_FILE_PATH, nav_data)
+
+    if missing_records:
+        save_json_file(
+            missing_output_path,
+            {
+                "generatedAt": get_kst_now().strftime("%Y-%m-%d %H:%M:%S KST"),
+                "missing": missing_records,
+            },
+        )
+        print(f"   ⚠️  KRX/수동 확인 필요: {len(missing_records)}개")
+    elif os.path.exists(missing_output_path):
+        os.remove(missing_output_path)
+
+    print(
+        f"\n✅ ISIN 업데이트 완료: {updated_files}개 (yfinance: {yfinance_hits}개, KRX: {krx_hits}개)"
+    )
+    if not missing_records:
+        print("   ✅ 누락된 ISIN 없음")
+    print()
+
+    return {
+        "updated": updated_files,
+        "missing": len(missing_records),
+        "yfinance": yfinance_hits,
+        "krx": krx_hits,
+    }
+
+
+# ============================================================================
+# Step 4: 배당 빈도 분석 (analyze_dividend_frequency)
 # ============================================================================
 MONTH_INITIALS = {
     1: "J", 2: "F", 3: "M", 4: "A", 5: "M", 6: "J",
@@ -422,7 +690,7 @@ def analyze_frequency_and_group(dividend_dates):
 def analyze_dividend_frequency():
     """배당 빈도 분석 및 nav.json 업데이트"""
     print("\n" + "=" * 80)
-    print("📅 STEP 3: 배당 빈도 분석")
+    print("📅 STEP 4: 배당 빈도 분석")
     print("=" * 80)
     
     updated_count = 0
@@ -462,7 +730,7 @@ def analyze_dividend_frequency():
 
 
 # ============================================================================
-# Step 4: 미래 배당일 예측 (project_future_dividends)
+# Step 5: 미래 배당일 예측 (project_future_dividends)
 # ============================================================================
 def get_previous_business_day(date, holiday_set):
     """이전 영업일 찾기"""
@@ -478,7 +746,7 @@ def get_previous_business_day(date, holiday_set):
 def project_future_dividends():
     """미래 배당일 예측"""
     print("\n" + "=" * 80)
-    print("🔮 STEP 4: 미래 배당일 예측")
+    print("🔮 STEP 5: 미래 배당일 예측")
     print("=" * 80)
     
     today = datetime.now()
@@ -583,11 +851,14 @@ def main():
     
     # Step 2: 티커 정보 + 시가총액 업데이트 (통합, 중복 API 호출 제거)
     info_updates = update_ticker_info()
+
+    # Step 3: ISIN 데이터 업데이트
+    isin_result = update_isin_records()
     
-    # Step 3: 배당 빈도 분석
+    # Step 4: 배당 빈도 분석
     frequency_updates = analyze_dividend_frequency()
     
-    # Step 4: 미래 배당일 예측
+    # Step 5: 미래 배당일 예측
     projection_updates = project_future_dividends()
     
     # 완료
@@ -597,6 +868,11 @@ def main():
     print("=" * 80)
     print(f"📊 배당 데이터: {dividend_updates}개 파일 업데이트")
     print(f"📋 티커 정보 + 시가총액: {info_updates}개 파일 업데이트")
+    print(
+        "🧾 ISIN 업데이트: "
+        f"{isin_result['updated']}개 "
+        f"(누락 {isin_result['missing']}개, yfinance {isin_result['yfinance']}개, KRX {isin_result['krx']}개)"
+    )
     print(f"📅 배당 빈도: {frequency_updates}개 티커 업데이트")
     print(f"🔮 배당일 예측: {projection_updates}개 파일 업데이트")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
