@@ -13,7 +13,9 @@
         "changes": {},
         "events": {
             "splits": []
-        }
+        },
+        "isin": "US7615622062",
+        "isinSource": "yfinance"
     },
     "backtestData": [
         {
@@ -979,7 +981,8 @@
             "high": 13.0295,
             "low": 12.72,
             "close": 12.72,
-            "volume": 6574
+            "volume": 6574,
+            "yield": 0.2533899614
         },
         {
             "date": "2025-11-18",
@@ -1079,6 +1082,10 @@
         },
         {
             "date": "2026-05-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
             "forecasted": true
         }
     ]
