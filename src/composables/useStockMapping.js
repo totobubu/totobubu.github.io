@@ -151,6 +151,48 @@ export const searchSymbol = async (searchQuery) => {
 };
 
 /**
+ * 미매핑 종목 보류 저장
+ */
+export const savePendingStockMapping = async (
+    brokerage,
+    stockName,
+    pendingData,
+    userId
+) => {
+    try {
+        const mappingKey = getMappingKey(brokerage, stockName);
+        const pendingRef = doc(db, 'stockMappingsPending', mappingKey);
+        const existingDoc = await getDoc(pendingRef);
+        const now = new Date();
+
+        const data = {
+            brokerage,
+            brokerageStockName: stockName,
+            brokerageTicker: pendingData?.brokerageTicker ?? null,
+            lastQuery: pendingData?.query ?? null,
+            reason: pendingData?.reason ?? 'pending',
+            status: pendingData?.status ?? 'waiting',
+            updatedAt: now,
+        };
+
+        if (userId) {
+            data.updatedBy = userId;
+        }
+
+        if (!existingDoc.exists()) {
+            data.createdAt = now;
+            if (userId) {
+                data.createdBy = userId;
+            }
+        }
+
+        await setDoc(pendingRef, data, { merge: true });
+    } catch (error) {
+        console.error('보류 종목 저장 실패:', error);
+    }
+};
+
+/**
  * 여러 종목명을 한 번에 매핑 (배치)
  */
 export const batchGetStockMappings = async (brokerage, stockNames) => {
