@@ -25,8 +25,8 @@ source .venv/bin/activate
 프로젝트에 필요한 Node.js와 Python 라이브러리를 설치합니다.
 
 ```bash
-# Python 라이브러리 설치
-pip install -r requirements.txt
+# Python 라이브러리 설치 (데이터 생성/워크플로우 용)
+pip install -r requirements-workflow.txt
 
 # Node.js 라이브러리 설치
 npm install
