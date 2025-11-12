@@ -43,8 +43,6 @@
             }
 
             &-title {
-                font-size: 0.875rem;
-
                 color: #fff;
                 vertical-align: middle;
                 padding-top: 0;
@@ -111,14 +109,6 @@
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
-            }
-            h2 {
-                font-size: 1rem;
-            }
-            .p-button,
-            .p-togglebutton {
-                padding: 0.3125rem 0.5rem;
-                font-size: 0.7rem;
             }
             .p-button-icon-only {
                 width: auto;
@@ -189,11 +179,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
             padding: 0.3em;
-            span {
-                font-size: 0.8em;
-            }
         }
         &-holiday-name {
             display: flex;
