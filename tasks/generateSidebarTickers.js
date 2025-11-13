@@ -36,7 +36,6 @@ async function generateSidebarTickers() {
     console.log('--- Starting to generate sidebar-tickers.json ---');
     try {
         const yieldMap = new Map();
-        const marketCapMap = new Map();
         const allDataFiles = await fs.readdir(DATA_DIR);
         const groupLabelsMap = new Map();
 
@@ -77,9 +76,7 @@ async function generateSidebarTickers() {
             return [];
         };
 
-        console.log(
-            '📊 Loading marketCap, yield and group data from data files...'
-        );
+        console.log('📊 Loading yield and group data from data files...');
         for (const file of allDataFiles) {
             if (file.endsWith('.json')) {
                 const filePath = path.join(DATA_DIR, file);
@@ -93,24 +90,6 @@ async function generateSidebarTickers() {
                         yieldMap.set(tickerSymbol, data.tickerInfo.Yield);
                     }
 
-                    // MarketCap 정보 수집 (backtestData의 마지막 항목에서)
-                    if (data.backtestData && data.backtestData.length > 0) {
-                        // 최신 데이터부터 역순으로 찾기
-                        for (
-                            let i = data.backtestData.length - 1;
-                            i >= 0;
-                            i--
-                        ) {
-                            if (data.backtestData[i].marketCap) {
-                                marketCapMap.set(
-                                    tickerSymbol,
-                                    data.backtestData[i].marketCap
-                                );
-                                break;
-                            }
-                        }
-                    }
-
                     // Group 라벨 정보 수집
                     if (data.tickerInfo && data.tickerInfo.group) {
                         const labels = parseGroupLabels(data.tickerInfo.group);
@@ -121,7 +100,6 @@ async function generateSidebarTickers() {
                 } catch (e) {}
             }
         }
-        console.log(`  ✓ Loaded marketCap for ${marketCapMap.size} tickers`);
         console.log(`  ✓ Loaded yield for ${yieldMap.size} tickers`);
         console.log(
             `  ✓ Loaded weekday groups for ${groupLabelsMap.size} tickers`
@@ -214,10 +192,6 @@ async function generateSidebarTickers() {
                     }
                 }
 
-                // data 파일에서 가져온 marketCap 사용
-                const marketCapValue = marketCapMap.get(tickerSymbol);
-                if (marketCapValue) ticker.marketCap = marketCapValue;
-
                 const yieldValue = yieldMap.get(tickerSymbol);
                 if (yieldValue) ticker.yield = yieldValue;
 
@@ -230,30 +204,29 @@ async function generateSidebarTickers() {
                 return ticker;
             });
 
-        // 상위 50개 선택 함수 (popularity 상위 20개 + marketCap 상위 30개)
+        // 상위 50개 선택 함수 (선호도 기반)
         const selectTop50 = (tickers) => {
             const MAX_TICKERS = 50;
-            const POPULARITY_LIMIT = 20;
+            const sortedByPopularity = [...tickers].sort(
+                (a, b) => (b.popularity || 0) - (a.popularity || 0)
+            );
 
-            // popularity가 있는 티커들을 popularity 순으로 정렬
-            const popularTickers = tickers
-                .filter((t) => t.popularity && t.popularity > 0)
-                .sort((a, b) => b.popularity - a.popularity);
+            const topByPopularity = sortedByPopularity.slice(0, MAX_TICKERS);
+            if (topByPopularity.length >= MAX_TICKERS) {
+                return topByPopularity;
+            }
 
-            // 상위 20개 선택 (없으면 있는 만큼만)
-            const topPopular = popularTickers.slice(0, POPULARITY_LIMIT);
-            const selectedSymbols = new Set(topPopular.map((t) => t.symbol));
+            const selectedSymbols = new Set(
+                topByPopularity.map((t) => t.symbol)
+            );
+            const remainingTickers = tickers.filter(
+                (t) => !selectedSymbols.has(t.symbol)
+            );
 
-            // 나머지 티커들 (popularity에 포함되지 않은 것들)
-            const remainingTickers = tickers
-                .filter((t) => !selectedSymbols.has(t.symbol))
-                .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0));
-
-            // 50개가 될 때까지 추가
-            const needed = MAX_TICKERS - topPopular.length;
-            const topByMarketCap = remainingTickers.slice(0, needed);
-
-            return [...topPopular, ...topByMarketCap];
+            return [
+                ...topByPopularity,
+                ...remainingTickers.slice(0, MAX_TICKERS - topByPopularity.length),
+            ];
         };
 
         // 시장별로 분할 후 상위 50개 선택

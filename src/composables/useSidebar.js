@@ -207,11 +207,7 @@ export function useSidebar() {
             list = baseList.filter((item) => !item.company && !item.underlying);
         }
 
-        list.sort(
-            (a, b) =>
-                (b.popularity || 0) - (a.popularity || 0) ||
-                (b.marketCap || 0) - (a.marketCap || 0)
-        );
+        list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
         return list.slice(0, 50);
     });
 
