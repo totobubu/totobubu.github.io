@@ -150,27 +150,9 @@ export function useSidebar() {
             );
 
             // 북마크 제외
-            let filtered = searchResults.filter(
+            const filtered = searchResults.filter(
                 (item) => !myBookmarkSymbols.has(item.symbol)
             );
-
-            // 국가 필터링
-            if (mainTab === '미국') {
-                filtered = filtered.filter((item) => item.currency === 'USD');
-            } else if (mainTab === '한국') {
-                filtered = filtered.filter((item) => item.currency === 'KRW');
-            }
-
-            // ETF/주식 필터링
-            if (subTab === 'ETF') {
-                filtered = filtered.filter(
-                    (item) => item.company || item.underlying
-                );
-            } else if (subTab === '주식') {
-                filtered = filtered.filter(
-                    (item) => !item.company && !item.underlying
-                );
-            }
 
             return filtered;
         }
@@ -210,6 +192,10 @@ export function useSidebar() {
         list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
         return list.slice(0, 50);
     });
+
+    const isSearchActive = computed(
+        () => !!(globalSearchQuery.value && globalSearchQuery.value.trim())
+    );
 
     // 시장별 데이터 lazy loading
     const loadMarketData = async (marketKey) => {
@@ -439,6 +425,7 @@ export function useSidebar() {
         error,
         selectedTicker,
         globalSearchQuery,
+        isSearchActive,
         mainFilterTab,
         subFilterTab,
         myBookmarks,

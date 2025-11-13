@@ -22,6 +22,7 @@
         selectedTicker,
         globalSearchQuery,
         mainFilterTab,
+        isSearchActive,
         subFilterTab,
         myBookmarks,
         filteredTickers,
@@ -131,6 +132,7 @@
                 <Select
                     v-model="selectedMarketOption"
                     :options="groupedMarketOptions"
+                    :disabled="isSearchActive"
                     optionLabel="label"
                     optionGroupLabel="label"
                     optionGroupChildren="items"
