@@ -10,6 +10,7 @@ const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
 const logosCompanyDir = path.join(logosDir, 'company');
 const logosKoreaDir = path.join(logosDir, 'korea');
+const logosBrandDir = path.join(logosDir, 'brand');
 const outputFile = path.join(publicDir, 'nav.json');
 const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 const brandMappingFile = path.join(publicDir, 'nav', 'kr-brand.json');
@@ -330,6 +331,10 @@ function findLogoFile(normalizedName, category = 'company') {
         addTarget(logosKoreaDir, 'logos/korea/');
     }
 
+    if (category === 'brand') {
+        addTarget(logosBrandDir, 'logos/brand/');
+    }
+
     if (category === 'company') {
         addTarget(logosCompanyDir, 'logos/company/');
     }
@@ -449,7 +454,7 @@ async function generateNavJson() {
         if (brandSlugFromMapping) {
             logoAttempts.push({
                 name: `brand-${brandSlugFromMapping}`,
-                category: 'korea',
+                category: 'brand',
             });
         }
 
@@ -468,7 +473,7 @@ async function generateNavJson() {
             if (corporateBrandSlug) {
                 logoAttempts.push({
                     name: `brand-${corporateBrandSlug}`,
-                    category: 'korea',
+                    category: 'brand',
                 });
             }
         }
