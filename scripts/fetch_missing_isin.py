@@ -79,6 +79,18 @@ INVESTING_SUFFIXES = (
 
 KOREAN_SUFFIXES = (".KS", ".KQ")
 
+SUFFIX_TO_MARKET = {
+    ".KS": "KOSPI",
+    ".KQ": "KOSDAQ",
+}
+
+NAV_DIR = ROOT_DIR / "public" / "nav"
+SIDEBAR_FILES = [
+    ROOT_DIR / "public" / "sidebar-tickers.json",
+    ROOT_DIR / "public" / "sidebar" / "sidebar-tickers-kr-stocks.json",
+    ROOT_DIR / "public" / "sidebar" / "sidebar-tickers-kr-etfs.json",
+]
+
 
 class FetchError(Exception):
     """Raised when ISIN cannot be fetched for a symbol."""
@@ -127,7 +139,256 @@ def format_symbol_for_fetch(symbol: str) -> str:
     return symbol
 
 
-def fetch_isin_via_requests(symbol: str) -> str:
+def extract_suffix(symbol: str) -> Optional[str]:
+    upper_symbol = symbol.upper()
+    for suffix in SUFFIX_TO_MARKET:
+        if upper_symbol.endswith(suffix):
+            return suffix
+    return None
+
+
+def determine_market_from_symbol(symbol: str) -> Optional[str]:
+    suffix = extract_suffix(symbol)
+    if not suffix:
+        return None
+    return SUFFIX_TO_MARKET.get(suffix)
+
+
+def nav_filename_for_symbol(symbol: str) -> str:
+    if not symbol:
+        return "unknown.json"
+    first_char = symbol[0].lower()
+    if first_char.isalnum():
+        return f"{first_char}.json"
+    return "unknown.json"
+
+
+def load_json_array(path: Path) -> list:
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8") as fp:
+        return json.load(fp)
+
+
+def dump_json(path: Path, payload) -> None:
+    with path.open("w", encoding="utf-8") as fp:
+        json.dump(payload, fp, indent=4, ensure_ascii=False)
+        fp.write("\n")
+
+
+def update_nav_root(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> Optional[dict]:
+    nav_path = ROOT_DIR / "public" / "nav.json"
+    if not nav_path.exists():
+        return None
+
+    with nav_path.open(encoding="utf-8") as fp:
+        payload = json.load(fp)
+
+    nav_entries = payload.get("nav")
+    if not isinstance(nav_entries, list):
+        return None
+
+    changed = False
+    resolved_entry_ref: Optional[dict] = None
+    for entry in nav_entries:
+        if not isinstance(entry, dict):
+            continue
+
+        if entry.get("symbol") == original_symbol:
+            entry["symbol"] = resolved_symbol
+            if new_market:
+                entry["market"] = new_market
+            changed = True
+            resolved_entry_ref = entry
+        elif entry.get("symbol") == resolved_symbol:
+            if new_market and entry.get("market") != new_market:
+                entry["market"] = new_market
+                changed = True
+            resolved_entry_ref = entry
+
+    if changed:
+        dump_json(nav_path, payload)
+
+    if resolved_entry_ref is not None:
+        return json.loads(json.dumps(resolved_entry_ref))
+
+    return None
+
+
+def update_sidebar_files(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> None:
+    for path in SIDEBAR_FILES:
+        if not path.exists():
+            continue
+
+        with path.open(encoding="utf-8") as fp:
+            try:
+                entries = json.load(fp)
+            except json.JSONDecodeError:
+                continue
+
+        if not isinstance(entries, list):
+            continue
+
+        changed = False
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+
+            if entry.get("symbol") == original_symbol:
+                entry["symbol"] = resolved_symbol
+                if new_market:
+                    entry["market"] = new_market
+                changed = True
+            elif entry.get("symbol") == resolved_symbol:
+                if new_market and entry.get("market") != new_market:
+                    entry["market"] = new_market
+                    changed = True
+
+        if changed:
+            dump_json(path, entries)
+
+
+def remove_from_nav_market(market: str, symbol: str) -> Optional[dict]:
+    market_dir = NAV_DIR / market
+    if not market_dir.exists():
+        return None
+
+    for json_file in sorted(market_dir.glob("*.json")):
+        entries = load_json_array(json_file)
+        if not isinstance(entries, list):
+            continue
+
+        for idx, entry in enumerate(entries):
+            if isinstance(entry, dict) and entry.get("symbol") == symbol:
+                removed = entries.pop(idx)
+                dump_json(json_file, entries)
+                return removed
+    return None
+
+
+def add_to_nav_market(market: str, symbol: str, entry: dict) -> None:
+    market_dir = NAV_DIR / market
+    market_dir.mkdir(parents=True, exist_ok=True)
+
+    filename = nav_filename_for_symbol(symbol)
+    target_path = market_dir / filename
+    entries = load_json_array(target_path)
+    if not isinstance(entries, list):
+        entries = []
+
+    # Remove duplicates of the resolved symbol if present
+    entries = [
+        existing for existing in entries if not (isinstance(existing, dict) and existing.get("symbol") == symbol)
+    ]
+
+    entries.append(entry)
+    try:
+        entries.sort(key=lambda item: item.get("symbol", ""))
+    except Exception:
+        pass
+
+    dump_json(target_path, entries)
+
+
+def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> None:
+    old_slug = symbol_to_slug(original_symbol)
+    new_slug = symbol_to_slug(resolved_symbol)
+    old_path = DATA_DIR / f"{old_slug}.json"
+    new_path = DATA_DIR / f"{new_slug}.json"
+
+    target_path = new_path
+    if old_path.exists() and old_path != new_path:
+        if new_path.exists():
+            print(
+                f"[WARN] {original_symbol}: target data file {new_path} already exists; skipping rename",
+                file=sys.stderr,
+            )
+        else:
+            old_path.rename(new_path)
+    elif not old_path.exists() and not new_path.exists():
+        print(f"[WARN] {original_symbol}: data file not found for market update", file=sys.stderr)
+        return
+
+    if new_path.exists():
+        target_path = new_path
+    else:
+        target_path = old_path
+
+    try:
+        with target_path.open(encoding="utf-8") as fp:
+            data = json.load(fp)
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"[WARN] {resolved_symbol}: failed to load data file {target_path} ({exc})", file=sys.stderr)
+        return
+
+    ticker_info = data.get("tickerInfo")
+    if isinstance(ticker_info, dict):
+        ticker_info["Symbol"] = resolved_symbol
+        if new_market:
+            ticker_info["market"] = new_market
+    else:
+        print(f"[WARN] {resolved_symbol}: tickerInfo missing in {target_path}", file=sys.stderr)
+
+    with target_path.open("w", encoding="utf-8") as fp:
+        json.dump(data, fp, indent=4, ensure_ascii=False)
+        fp.write("\n")
+
+
+def apply_market_adjustments(original_symbol: str, resolved_symbol: str) -> None:
+    old_suffix = extract_suffix(original_symbol)
+    new_suffix = extract_suffix(resolved_symbol)
+
+    if not new_suffix or old_suffix == new_suffix:
+        return
+
+    old_market = SUFFIX_TO_MARKET.get(old_suffix) if old_suffix else None
+    new_market = SUFFIX_TO_MARKET.get(new_suffix)
+
+    if not new_market or old_market == new_market:
+        return
+
+    relocate_data_file(original_symbol, resolved_symbol, new_market)
+    resolved_entry = update_nav_root(original_symbol, resolved_symbol, new_market)
+    update_sidebar_files(original_symbol, resolved_symbol, new_market)
+
+    removed_entry = remove_from_nav_market(old_market, original_symbol) if old_market else None
+    entry_to_add = removed_entry or resolved_entry
+    if entry_to_add:
+        if not isinstance(entry_to_add, dict):
+            entry_to_add = {"symbol": resolved_symbol}
+        entry_to_add = json.loads(json.dumps(entry_to_add))
+        entry_to_add["symbol"] = resolved_symbol
+        entry_to_add.pop("market", None)
+        add_to_nav_market(new_market, resolved_symbol, entry_to_add)
+
+
+def remove_symbols_from_missing(*symbols: str) -> None:
+    if not symbols:
+        return
+
+    symbols_set = {symbol for symbol in symbols if symbol}
+    if not symbols_set:
+        return
+
+    if not MISSING_PATH.exists():
+        return
+
+    with MISSING_PATH.open(encoding="utf-8") as fp:
+        payload = json.load(fp)
+
+    missing = payload.get("missing")
+    if not isinstance(missing, list):
+        return
+
+    new_missing = [entry for entry in missing if entry.get("symbol") not in symbols_set]
+    if len(new_missing) == len(missing):
+        return
+
+    payload["missing"] = new_missing
+    dump_json(MISSING_PATH, payload)
+
+
+def fetch_isin_via_requests(symbol: str) -> tuple[str, str]:
     errors: list[str] = []
     for candidate in generate_symbol_variants(symbol):
         formatted_symbol = format_symbol_for_fetch(candidate)
@@ -160,12 +421,12 @@ def fetch_isin_via_requests(symbol: str) -> str:
 
         if candidate != symbol:
             print(f"[INFO] {symbol}: fetched using alternate suffix {candidate}")
-        return isin
+        return isin, candidate
 
     raise FetchError("; ".join(errors) if errors else f"{symbol}: failed to fetch ISIN")
 
 
-def fetch_isin_via_playwright(symbol: str) -> str:
+def fetch_isin_via_playwright(symbol: str) -> tuple[str, str]:
     if not sync_playwright:
         raise FetchError("Playwright is not available.")
 
@@ -213,14 +474,14 @@ def fetch_isin_via_playwright(symbol: str) -> str:
 
         if candidate != symbol:
             print(f"[INFO] {symbol}: fetched via Playwright using alternate suffix {candidate}")
-        return isin
+        return isin, candidate
 
     if last_error:
         raise last_error
     raise FetchError(f"{symbol}: Playwright did not fetch ISIN")
 
 
-def fetch_isin(symbol: str) -> str:
+def fetch_isin(symbol: str) -> tuple[str, str]:
     errors: list[str] = []
 
     if sync_playwright:
@@ -257,6 +518,12 @@ def update_data_file(symbol: str, isin: str) -> bool:
         print(f"[WARN] {symbol}: tickerInfo missing or not a dict in {json_path}", file=sys.stderr)
         return False
 
+    new_market = determine_market_from_symbol(symbol)
+    if ticker_info.get("Symbol") != symbol:
+        ticker_info["Symbol"] = symbol
+    if new_market and ticker_info.get("market") != new_market:
+        ticker_info["market"] = new_market
+
     previous = ticker_info.get("isin")
     if previous == isin:
         print(f"[SKIP] {symbol}: ISIN already set to {isin}")
@@ -279,15 +546,18 @@ def update_data_file(symbol: str, isin: str) -> bool:
 def process_symbols(symbols: Iterable[str]) -> None:
     for idx, symbol in enumerate(symbols, start=1):
         try:
-            isin = fetch_isin(symbol)
+            isin, resolved_symbol = fetch_isin(symbol)
         except FetchError as exc:
             print(f"[ERROR] {exc}", file=sys.stderr)
             continue
-        except requests.RequestException as exc:
-            print(f"[ERROR] {symbol}: request failed ({exc})", file=sys.stderr)
-            continue
 
-        update_data_file(symbol, isin)
+        target_symbol = resolved_symbol
+        if resolved_symbol != symbol:
+            apply_market_adjustments(symbol, resolved_symbol)
+            print(f"[INFO] {symbol}: remapped to {resolved_symbol} after suffix correction")
+
+        update_data_file(target_symbol, isin)
+        remove_symbols_from_missing(symbol, resolved_symbol)
 
         if REQUEST_SLEEP_SECONDS:
             time.sleep(REQUEST_SLEEP_SECONDS)
