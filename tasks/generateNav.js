@@ -10,6 +10,7 @@ const dataDir = path.join(publicDir, 'data');
 const logosDir = path.join(publicDir, 'logos');
 const logosCompanyDir = path.join(logosDir, 'company');
 const logosKoreaDir = path.join(logosDir, 'korea');
+const logosBrandDir = path.join(logosDir, 'brand');
 const outputFile = path.join(publicDir, 'nav.json');
 const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 const brandMappingFile = path.join(publicDir, 'nav', 'kr-brand.json');
@@ -306,8 +307,18 @@ async function loadSymbolBrandMap() {
     }
 }
 
-function findLogoFile(normalizedName, category = 'company') {
+function findLogoFile(normalizedName, options = {}) {
     if (!normalizedName) return null;
+
+    let category = 'company';
+    let market = null;
+
+    if (typeof options === 'string') {
+        category = options;
+    } else if (options && typeof options === 'object') {
+        category = options.category || 'company';
+        market = options.market || null;
+    }
 
     const supportedExtensions = [
         '.svg',
@@ -322,12 +333,46 @@ function findLogoFile(normalizedName, category = 'company') {
 
     const addTarget = (dir, relativePrefix) => {
         if (!dir) return;
+        try {
+            if (!existsSync(dir)) return;
+        } catch (error) {
+            return;
+        }
         if (searchTargets.some((target) => target.dir === dir)) return;
         searchTargets.push({ dir, relativePrefix });
     };
 
+    if (market) {
+        const normalizedMarket = market.toString().trim().toLowerCase();
+        if (normalizedMarket) {
+            const marketRootDir = path.join(logosDir, normalizedMarket);
+            addTarget(marketRootDir, `logos/${normalizedMarket}/`);
+
+            if (category === 'brand') {
+                addTarget(
+                    path.join(marketRootDir, 'brand'),
+                    `logos/${normalizedMarket}/brand/`
+                );
+            } else if (category === 'company') {
+                addTarget(
+                    path.join(marketRootDir, 'company'),
+                    `logos/${normalizedMarket}/company/`
+                );
+            } else if (category === 'korea') {
+                addTarget(
+                    path.join(marketRootDir, 'korea'),
+                    `logos/${normalizedMarket}/korea/`
+                );
+            }
+        }
+    }
+
     if (category === 'korea') {
         addTarget(logosKoreaDir, 'logos/korea/');
+    }
+
+    if (category === 'brand') {
+        addTarget(logosBrandDir, 'logos/brand/');
     }
 
     if (category === 'company') {
@@ -449,7 +494,7 @@ async function generateNavJson() {
         if (brandSlugFromMapping) {
             logoAttempts.push({
                 name: `brand-${brandSlugFromMapping}`,
-                category: 'korea',
+                category: 'brand',
             });
         }
 
@@ -468,7 +513,7 @@ async function generateNavJson() {
             if (corporateBrandSlug) {
                 logoAttempts.push({
                     name: `brand-${corporateBrandSlug}`,
-                    category: 'korea',
+                    category: 'brand',
                 });
             }
         }
@@ -504,7 +549,10 @@ async function generateNavJson() {
             attemptDedup.add(dedupKey);
             attemptedKeys.push(dedupKey);
 
-            const logoPath = findLogoFile(normalizedName, attempt.category);
+            const logoPath = findLogoFile(normalizedName, {
+                category: attempt.category,
+                market: processedTicker.market,
+            });
             if (logoPath) {
                 resolvedLogoPath = logoPath;
                 break;
