@@ -53,6 +53,14 @@ KRX_DEFAULT_HEADERS = {
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 }
 
+# 환경 변수 기반 동작 제어
+SKIP_ISIN_FETCH = os.environ.get("SKIP_ISIN_FETCH", "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+
 
 # ============================================================================
 # 초기화
@@ -555,6 +563,12 @@ def update_ticker_info():
 # ============================================================================
 def update_isin_records():
     """ISIN 데이터 업데이트 (yfinance 우선, KRX 백업)"""
+    if SKIP_ISIN_FETCH:
+        print("\n" + "=" * 80)
+        print("⏭️ STEP 3: ISIN 데이터 업데이트 (환경 변수 설정으로 스킵)")
+        print("=" * 80)
+        return {"updated": 0, "missing": 0, "yfinance": 0, "krx": 0}
+
     print("\n" + "=" * 80)
     print("🔍 STEP 3: ISIN 데이터 업데이트")
     print("=" * 80)
@@ -600,7 +614,7 @@ def update_isin_records():
         # 사용자가 명시적으로 None을 설정한 경우 재시도 생략
         if "isin" in ticker_info and existing_isin is None:
             continue
-        
+
         # 기존 ISIN이 "-"인 경우 제거하고 다시 찾기
         file_changed = False
         if existing_isin == "-":
@@ -624,7 +638,7 @@ def update_isin_records():
             if krx_isin:
                 new_isin = krx_isin
                 krx_hits += 1
-        
+
         if new_isin:
             if ticker_info.get("isin") != new_isin:
                 ticker_info["isin"] = new_isin
