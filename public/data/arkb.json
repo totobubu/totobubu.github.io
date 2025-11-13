@@ -9,8 +9,7 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-09 02:36:27 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": [
                 {
@@ -19,7 +18,9 @@
                     "type": "reverse-split"
                 }
             ]
-        }
+        },
+        "changes": {},
+        "isin": "US0409191022"
     },
     "backtestData": [
         {
@@ -3740,11 +3741,45 @@
                     "shares": 4229004935
                 }
             ],
-            "open": 35.290000915527344,
-            "high": 35.30009841918945,
-            "low": 34.76499938964844,
-            "close": 35.209999084472656,
+            "open": 35.290001,
+            "high": 35.300098,
+            "low": 34.764999,
+            "close": 35.209999,
             "volume": 4054931
+        },
+        {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "BTC",
+                    "name": "BITCOIN",
+                    "weight": 40898,
+                    "type": "other",
+                    "shares": 4229004935
+                }
+            ],
+            "open": 34.73,
+            "high": 34.759998,
+            "low": 34.09,
+            "close": 34.139999,
+            "volume": 2026952
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "BTC",
+                    "name": "BITCOIN",
+                    "weight": 41894,
+                    "type": "other",
+                    "shares": 4311364890
+                }
+            ],
+            "open": 34.810001,
+            "high": 34.84,
+            "low": 33.490002,
+            "close": 33.73,
+            "volume": 4163366
         }
     ]
 }

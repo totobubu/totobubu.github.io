@@ -20,7 +20,8 @@
                 }
             ],
             "splits": []
-        }
+        },
+        "isin": null
     },
     "backtestData": [
         {
@@ -1059,15 +1060,155 @@
                     "type": "option"
                 }
             ],
-            "open": 39.619998931884766,
-            "high": 39.619998931884766,
-            "low": 39.05440139770508,
-            "close": 39.05440139770508,
+            "open": 39.619999,
+            "high": 39.619999,
+            "low": 39.054401,
+            "close": 39.054401,
             "volume": 2575
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 43.01,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 42.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 32.95,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 4.4,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "RBLX  251219C00130000",
+                    "name": "RBLX US 12/19/25 C130",
+                    "weight": 1.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.04,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "RBLX  251114C00115000",
+                    "name": "RBLX US 11/14/25 C115",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00116000",
+                    "name": "RBLX US 11/14/25 C116",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00114000",
+                    "name": "RBLX US 11/14/25 C114",
+                    "weight": 0.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00118000",
+                    "name": "RBLX US 11/14/25 C118",
+                    "weight": 0.01,
+                    "type": "option"
+                }
+            ],
+            "open": 38.84,
+            "high": 38.98,
+            "low": 38.632,
+            "close": 38.901199,
+            "volume": 3083
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 43.19,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 42.33,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 36.85,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.06,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "RBLX  251219C00130000",
+                    "name": "RBLX US 12/19/25 C130",
+                    "weight": 0.86,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.63,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "RBLX  251114C00114000",
+                    "name": "RBLX US 11/14/25 C114",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00115000",
+                    "name": "RBLX US 11/14/25 C115",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00116000",
+                    "name": "RBLX US 11/14/25 C116",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX  251114C00118000",
+                    "name": "RBLX US 11/14/25 C118",
+                    "weight": 0.01,
+                    "type": "option"
+                }
+            ],
+            "open": 38.811501,
+            "high": 38.994999,
+            "low": 38.521599,
+            "close": 38.7925,
+            "volume": 1647
+        },
+        {
             "date": "2025-11-13",
-            "expected": true
+            "amountfixed": 0.4166
         },
         {
             "date": "2025-11-20",

@@ -9,8 +9,7 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "frequencyChanges": [
                 {
@@ -20,7 +19,9 @@
                 }
             ],
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US88636R6696"
     },
     "backtestData": [
         {
@@ -2162,15 +2163,116 @@
                     "type": "money_market"
                 }
             ],
-            "open": 29.93000030517578,
-            "high": 30.389999389648438,
-            "low": 29.93000030517578,
-            "close": 30.239999771118164,
+            "open": 29.93,
+            "high": 30.389999,
+            "low": 29.93,
+            "close": 30.24,
             "volume": 16881
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "88636R800",
+                    "name": "YieldMaxTM PLTR Option Income Strategy ETF",
+                    "weight": 20.43,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636R404",
+                    "name": "YieldMax HOOD Option Income Strategy ETF",
+                    "weight": 19.55,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88634T477",
+                    "name": "YieldMax AMD Option Income Strategy ETF",
+                    "weight": 19.5,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88634T782",
+                    "name": "YieldMax NFLX Option Income Strategy ETF",
+                    "weight": 19.45,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636V421",
+                    "name": "Yieldmax RDDT Option Income Strategy ETF",
+                    "weight": 19.23,
+                    "type": "other"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.84,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.01,
+                    "type": "cash"
+                }
+            ],
+            "open": 30,
+            "high": 30.27,
+            "low": 29.934999,
+            "close": 30.095301,
+            "volume": 19195
+        },
+        {
             "date": "2025-11-12",
-            "expected": true
+            "amountFixed": 0.4539,
+            "holdings": [
+                {
+                    "symbol": "88636R800",
+                    "name": "YieldMaxTM PLTR Option Income Strategy ETF",
+                    "weight": 20.65,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88634T782",
+                    "name": "YieldMax NFLX Option Income Strategy ETF",
+                    "weight": 20.06,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636V421",
+                    "name": "Yieldmax RDDT Option Income Strategy ETF",
+                    "weight": 19.88,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636R404",
+                    "name": "YieldMax HOOD Option Income Strategy ETF",
+                    "weight": 19.55,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88634T477",
+                    "name": "YieldMax AMD Option Income Strategy ETF",
+                    "weight": 19.53,
+                    "type": "other"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.88,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 1.54,
+                    "type": "cash"
+                }
+            ],
+            "open": 29.809999,
+            "high": 29.950001,
+            "low": 29.51,
+            "close": 29.889999,
+            "volume": 39517
         },
         {
             "date": "2025-11-19",

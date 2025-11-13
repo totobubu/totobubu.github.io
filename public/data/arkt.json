@@ -9,11 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-09 02:36:27 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US00214Q8722"
     },
     "backtestData": [
         {
@@ -278,11 +279,45 @@
                     "shares": 3710139
                 }
             ],
-            "open": 19.540000915527344,
-            "high": 19.75029945373535,
-            "low": 19.54010009765625,
-            "close": 19.75029945373535,
+            "open": 19.540001,
+            "high": 19.750299,
+            "low": 19.5401,
+            "close": 19.750299,
             "volume": 337
+        },
+        {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "ARKK",
+                    "name": "ARK INNOVATION ETF",
+                    "weight": 45946,
+                    "type": "other",
+                    "shares": 3710139
+                }
+            ],
+            "open": 19.6,
+            "high": 19.6,
+            "low": 19.360001,
+            "close": 19.474501,
+            "volume": 9763
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "ARKK",
+                    "name": "ARK INNOVATION ETF",
+                    "weight": 45946,
+                    "type": "other",
+                    "shares": 3769869
+                }
+            ],
+            "open": 19.4,
+            "high": 19.538099,
+            "low": 19.280001,
+            "close": 19.538099,
+            "volume": 6450
         }
     ]
 }

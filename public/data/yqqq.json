@@ -9,8 +9,7 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "frequencyChanges": [
                 {
@@ -20,7 +19,9 @@
                 }
             ],
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US88636J4519"
     },
     "backtestData": [
         {
@@ -2988,15 +2989,155 @@
                     "type": "option"
                 }
             ],
-            "open": 12.359999656677246,
-            "high": 12.390000343322754,
-            "low": 12.239999771118164,
-            "close": 12.239999771118164,
+            "open": 12.36,
+            "high": 12.39,
+            "low": 12.24,
+            "close": 12.24,
             "volume": 143623
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 24.47,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 22.43,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 16.88,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 14.92,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 10.38,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 6.71,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 6.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "QQQ   260116P00635000",
+                    "name": "QQQ US 01/16/26 P635",
+                    "weight": 4.25,
+                    "type": "option"
+                },
+                {
+                    "symbol": "QQQ   251121C00750000",
+                    "name": "QQQ US 11/21/25 C750",
+                    "weight": 0,
+                    "type": "option"
+                },
+                {
+                    "symbol": "QQQ   251114P00609000",
+                    "name": "INVESCO  PUT OPT 11/25 609",
+                    "weight": 0.02,
+                    "type": "option"
+                }
+            ],
+            "open": 12.28,
+            "high": 12.3699,
+            "low": 12.28,
+            "close": 12.2991,
+            "volume": 12489
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 25.53,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 23.4,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 17.62,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 11.02,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 10.83,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 7,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 6.9,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "QQQ   260116P00635000",
+                    "name": "QQQ US 01/16/26 P635",
+                    "weight": 4.34,
+                    "type": "option"
+                },
+                {
+                    "symbol": "QQQ   251121C00750000",
+                    "name": "QQQ US 11/21/25 C750",
+                    "weight": 0,
+                    "type": "option"
+                },
+                {
+                    "symbol": "QQQ   251114P00609000",
+                    "name": "QQQ US 11/14/25 P609",
+                    "weight": 0.02,
+                    "type": "option"
+                }
+            ],
+            "open": 12.2,
+            "high": 12.37,
+            "low": 12.2,
+            "close": 12.305,
+            "volume": 19710
+        },
+        {
             "date": "2025-11-13",
-            "expected": true
+            "amountFixed": 0.1048
         },
         {
             "date": "2025-11-20",

@@ -9,11 +9,12 @@
         "underlying": "NVDA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US7615623052"
     },
     "backtestData": [
         {
@@ -1011,14 +1012,28 @@
         {
             "date": "2025-11-10",
             "open": 31.5,
-            "high": 32.06399917602539,
-            "low": 31.299999237060547,
-            "close": 32.060001373291016,
+            "high": 32.063999,
+            "low": 31.299999,
+            "close": 32.060001,
             "volume": 122666
         },
         {
             "date": "2025-11-11",
-            "amountFixed": 0.3084
+            "amountFixed": 0.3084,
+            "open": 31.43,
+            "high": 31.458401,
+            "low": 31.014999,
+            "close": 31.219999,
+            "volume": 74649,
+            "yield": 0.1835825644
+        },
+        {
+            "date": "2025-11-12",
+            "open": 31.360001,
+            "high": 31.299999,
+            "low": 30.744801,
+            "close": 31.129999,
+            "volume": 71488
         },
         {
             "date": "2025-11-18",
@@ -1118,6 +1133,10 @@
         },
         {
             "date": "2026-05-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
             "forecasted": true
         }
     ]

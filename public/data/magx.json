@@ -9,11 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US77926X7003"
     },
     "backtestData": [
         {
@@ -3468,11 +3469,43 @@
         },
         {
             "date": "2025-11-10",
-            "open": 59.119998931884766,
-            "high": 60.37269973754883,
-            "low": 58.810001373291016,
-            "close": 59.90999984741211,
-            "volume": 88585
+            "open": 59.119999,
+            "high": 60.3727,
+            "low": 58.810001,
+            "close": 59.91,
+            "volume": 88585,
+            "leverage_exposure": [
+                {
+                    "symbol": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "name": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "weight": 199.59,
+                    "type": "swap"
+                }
+            ]
+        },
+        {
+            "date": "2025-11-11",
+            "open": 59.349998,
+            "high": 59.799999,
+            "low": 58.799999,
+            "close": 59.68,
+            "volume": 39203,
+            "leverage_exposure": [
+                {
+                    "symbol": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "name": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "weight": 199.54,
+                    "type": "swap"
+                }
+            ]
+        },
+        {
+            "date": "2025-11-12",
+            "open": 60.330002,
+            "high": 60.330002,
+            "low": 57.570702,
+            "close": 58.5,
+            "volume": 55834
         }
     ]
 }

@@ -9,11 +9,12 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US7615622062"
     },
     "backtestData": [
         {
@@ -966,15 +967,29 @@
         },
         {
             "date": "2025-11-10",
-            "open": 13.578900337219238,
-            "high": 13.578900337219238,
-            "low": 12.862500190734863,
-            "close": 13.039999961853027,
+            "open": 13.5789,
+            "high": 13.5789,
+            "low": 12.8625,
+            "close": 13.04,
             "volume": 17998
         },
         {
             "date": "2025-11-11",
-            "amountFixed": 0.0879
+            "amountFixed": 0.0879,
+            "open": 12.95,
+            "high": 13.0295,
+            "low": 12.72,
+            "close": 12.72,
+            "volume": 6574,
+            "yield": 0.2533899614
+        },
+        {
+            "date": "2025-11-12",
+            "open": 12.79,
+            "high": 12.6611,
+            "low": 12.015,
+            "close": 12.16,
+            "volume": 16954
         },
         {
             "date": "2025-11-18",
@@ -1074,6 +1089,10 @@
         },
         {
             "date": "2026-05-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
             "forecasted": true
         }
     ]

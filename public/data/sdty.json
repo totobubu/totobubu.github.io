@@ -9,11 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US88636R5607"
     },
     "backtestData": [
         {
@@ -1919,15 +1920,104 @@
                     "type": "treasury_bill"
                 }
             ],
-            "open": 45.630001068115234,
-            "high": 45.970001220703125,
-            "low": 45.630001068115234,
-            "close": 45.88359832763672,
+            "open": 45.630001,
+            "high": 45.970001,
+            "low": 45.630001,
+            "close": 45.883598,
             "volume": 10052
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "4SPX  251219C01000260",
+                    "name": "SPX 12/19/2025 1000.26 C",
+                    "weight": 89.69,
+                    "type": "option"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 4.48,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.44,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.81,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 0.18,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 0.18,
+                    "type": "treasury_bill"
+                }
+            ],
+            "open": 45.921501,
+            "high": 46.099899,
+            "low": 45.880001,
+            "close": 46.058601,
+            "volume": 14592
+        },
+        {
             "date": "2025-11-12",
-            "expected": true
+            "amountFixed": 0.2851,
+            "holdings": [
+                {
+                    "symbol": "4SPX  251219C01000260",
+                    "name": "SPX 12/19/2025 1000.26 C",
+                    "weight": 84.01,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 7.28,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 4.19,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.15,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 0.17,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 0.17,
+                    "type": "treasury_bill"
+                }
+            ],
+            "open": 45.779999,
+            "high": 45.919998,
+            "low": 45.703899,
+            "close": 45.835201,
+            "volume": 15757
         },
         {
             "date": "2025-11-19",

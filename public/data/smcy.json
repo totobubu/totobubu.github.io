@@ -20,7 +20,8 @@
                 }
             ],
             "splits": []
-        }
+        },
+        "isin": null
     },
     "backtestData": [
         {
@@ -2835,15 +2836,155 @@
                     "type": "option"
                 }
             ],
-            "open": 11.859999656677246,
-            "high": 11.895000457763672,
-            "low": 11.515000343322754,
-            "close": 11.600000381469727,
+            "open": 11.86,
+            "high": 11.895,
+            "low": 11.515,
+            "close": 11.6,
             "volume": 736704
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 47.95,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 34.17,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 31.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 8.04,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.58,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 1.19,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.43,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "SMCI  251121C00052000",
+                    "name": "SMCI US 11/21/25 C52",
+                    "weight": 0.31,
+                    "type": "option"
+                },
+                {
+                    "symbol": "SMCI  260116C00044000",
+                    "name": "SMCI US 01/16/26 C44",
+                    "weight": 0.19,
+                    "type": "option"
+                },
+                {
+                    "symbol": "SMCI  251114C00044000",
+                    "name": "SMCI US 11/14/25 C44",
+                    "weight": 0.19,
+                    "type": "option"
+                }
+            ],
+            "open": 11.6,
+            "high": 11.6,
+            "low": 11.18,
+            "close": 11.24,
+            "volume": 555120
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 49.36,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 35.17,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 32.54,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 8.28,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "SMCI  260116C00044000",
+                    "name": "SMCI US 01/16/26 C44",
+                    "weight": 6.87,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 5.89,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.44,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "SMCI  251114C00044000",
+                    "name": "SMCI US 11/14/25 C44",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "SMCI  251114C00047000",
+                    "name": "SMCI US 11/14/25 C47",
+                    "weight": 0.01,
+                    "type": "option"
+                },
+                {
+                    "symbol": "SMCI  251114C00048000",
+                    "name": "SMCI US 11/14/25 C48",
+                    "weight": 0,
+                    "type": "option"
+                }
+            ],
+            "open": 11.34,
+            "high": 11.41,
+            "low": 10.925,
+            "close": 11,
+            "volume": 1183259
+        },
+        {
             "date": "2025-11-13",
-            "expected": true
+            "amountFixed": 0.217
         },
         {
             "date": "2025-11-20",

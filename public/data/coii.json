@@ -9,11 +9,12 @@
         "underlying": "COIN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US7615621072"
     },
     "backtestData": [
         {
@@ -965,15 +966,29 @@
         },
         {
             "date": "2025-11-10",
-            "open": 21.809999465942383,
-            "high": 21.819900512695312,
-            "low": 21.280099868774414,
-            "close": 21.6299991607666,
+            "open": 21.809999,
+            "high": 21.819901,
+            "low": 21.2801,
+            "close": 21.629999,
             "volume": 25937
         },
         {
             "date": "2025-11-11",
-            "amountFixed": 0.1341
+            "amountFixed": 0.1341,
+            "open": 21.290001,
+            "high": 21.43,
+            "low": 20.8389,
+            "close": 20.8389,
+            "volume": 8463,
+            "yield": 0.2569703966
+        },
+        {
+            "date": "2025-11-12",
+            "open": 21.030001,
+            "high": 21.0786,
+            "low": 20.65,
+            "close": 20.7635,
+            "volume": 6057
         },
         {
             "date": "2025-11-18",
@@ -1073,6 +1088,10 @@
         },
         {
             "date": "2026-05-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
             "forecasted": true
         }
     ]

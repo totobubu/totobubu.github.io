@@ -13,7 +13,8 @@
         "changes": {},
         "events": {
             "splits": []
-        }
+        },
+        "isin": null
     },
     "backtestData": [
         {
@@ -744,13 +745,153 @@
             ],
             "open": 33.75,
             "high": 33.75,
-            "low": 32.890201568603516,
-            "close": 33.4541015625,
+            "low": 32.890202,
+            "close": 33.454102,
             "volume": 1814
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 50.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 32.75,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 30.69,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS  251219C00046000",
+                    "name": "HIMS US 12/19/25 C46",
+                    "weight": 6.45,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.62,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 0.64,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS  251114C00045000",
+                    "name": "HIMS US 11/14/25 C45",
+                    "weight": 0.34,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00048000",
+                    "name": "HIMS US 11/14/25 C48",
+                    "weight": 0.23,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00045500",
+                    "name": "HIMS US 11/14/25 C45.5",
+                    "weight": 0.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00046500",
+                    "name": "HIMS US 11/14/25 C46.5",
+                    "weight": 0.02,
+                    "type": "option"
+                }
+            ],
+            "open": 32.77,
+            "high": 33.32,
+            "low": 32.528198,
+            "close": 32.528198,
+            "volume": 1484
+        },
+        {
+            "date": "2025-11-12",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 51.74,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 33.58,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 31.47,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS  251219C00046000",
+                    "name": "HIMS US 12/19/25 C46",
+                    "weight": 5.18,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.66,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 0.66,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS  251114C00045000",
+                    "name": "HIMS US 11/14/25 C45",
+                    "weight": 0.15,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00048000",
+                    "name": "HIMS US 11/14/25 C48",
+                    "weight": 0.13,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00045500",
+                    "name": "HIMS US 11/14/25 C45.5",
+                    "weight": 0.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251114C00046500",
+                    "name": "HIMS US 11/14/25 C46.5",
+                    "weight": 0.01,
+                    "type": "option"
+                }
+            ],
+            "open": 32.75,
+            "high": 32.799999,
+            "low": 31.92,
+            "close": 32.128799,
+            "volume": 14573
+        },
+        {
             "date": "2025-11-13",
-            "expected": true
+            "amountfixed": 0.6787
         },
         {
             "date": "2025-11-20",

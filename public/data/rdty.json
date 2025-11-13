@@ -9,11 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US88636R5524"
     },
     "backtestData": [
         {
@@ -1672,15 +1673,80 @@
                     "type": "cash"
                 }
             ],
-            "open": 42.65599822998047,
-            "high": 42.8578987121582,
-            "low": 42.18000030517578,
-            "close": 42.613399505615234,
+            "open": 42.655998,
+            "high": 42.857899,
+            "low": 42.18,
+            "close": 42.6134,
             "volume": 11774
         },
         {
+            "date": "2025-11-11",
+            "holdings": [
+                {
+                    "symbol": "4RUT  251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 97.15,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 19.44,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.38,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 16.78,
+                    "type": "cash"
+                }
+            ],
+            "open": 42.5275,
+            "high": 42.694801,
+            "low": 42.439999,
+            "close": 42.694801,
+            "volume": 4404
+        },
+        {
             "date": "2025-11-12",
-            "expected": true
+            "amountFixed": 0.4571,
+            "holdings": [
+                {
+                    "symbol": "4RUT  251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 98.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 19.6,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.38,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 17.8,
+                    "type": "cash"
+                }
+            ],
+            "open": 42.421299,
+            "high": 42.5499,
+            "low": 42.07,
+            "close": 42.1842,
+            "volume": 3839
         },
         {
             "date": "2025-11-19",

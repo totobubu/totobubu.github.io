@@ -9,11 +9,12 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-05 10:34:22 KST",
-        "changes": {},
+        "Update": "2025-11-13 02:35:02 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {},
+        "isin": "US7615624043"
     },
     "backtestData": [
         {
@@ -966,15 +967,29 @@
         },
         {
             "date": "2025-11-10",
-            "open": 28.329999923706055,
-            "high": 29.040000915527344,
-            "low": 27.958999633789062,
-            "close": 28.889999389648438,
+            "open": 28.33,
+            "high": 29.040001,
+            "low": 27.959,
+            "close": 28.889999,
             "volume": 137076
         },
         {
             "date": "2025-11-11",
-            "amountFixed": 0.4191
+            "amountFixed": 0.4191,
+            "open": 28.49,
+            "high": 28.4785,
+            "low": 27.9034,
+            "close": 28.360001,
+            "volume": 77343,
+            "yield": 0.1982695683
+        },
+        {
+            "date": "2025-11-12",
+            "open": 28.370001,
+            "high": 28.048901,
+            "low": 27.15,
+            "close": 27.540001,
+            "volume": 76200
         },
         {
             "date": "2025-11-18",
@@ -1074,6 +1089,10 @@
         },
         {
             "date": "2026-05-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
             "forecasted": true
         }
     ]
