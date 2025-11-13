@@ -578,10 +578,12 @@ def update_isin_records():
         if not data:
             missing_records.append(
                 {
-                    "symbol": symbol,
-                    "koName": ticker_meta.get("koName"),
-                    "market": ticker_meta.get("market"),
-                    "currency": ticker_meta.get("currency"),
+                    key: value
+                    for key, value in {
+                        "symbol": symbol,
+                        "koName": ticker_meta.get("koName"),
+                    }.items()
+                    if value is not None
                 }
             )
             continue
@@ -642,10 +644,12 @@ def update_isin_records():
 
             missing_records.append(
                 {
-                    "symbol": symbol,
-                    "koName": ticker_meta.get("koName"),
-                    "market": ticker_meta.get("market"),
-                    "currency": ticker_meta.get("currency"),
+                    key: value
+                    for key, value in {
+                        "symbol": symbol,
+                        "koName": ticker_meta.get("koName"),
+                    }.items()
+                    if value is not None
                 }
             )
 
