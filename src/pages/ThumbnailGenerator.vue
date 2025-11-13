@@ -45,7 +45,12 @@
             name: 'YieldMax',
             logo: getAssetUrl('logos/company/company-yieldmax.png'),
         },
-        { name: 'Roundhill', logo: getAssetUrl('logos/roundhill.svg') },
+        {
+            name: 'Roundhill',
+            logo: getAssetUrl(
+                'logos/company/company-roundhill-investments.svg'
+            ),
+        },
     ]);
     const backgroundOptions = ref([
         { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
