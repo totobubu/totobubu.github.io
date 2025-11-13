@@ -66,6 +66,8 @@ jobs:
             
             # --- [핵심] 통합 파이프라인으로 여러 스텝을 한 번에 처리 (중복 API 호출 제거) ---
             - name: 4. Update all info data (dividends, info+marketCap, frequency, projection)
+              env:
+                  SKIP_ISIN_FETCH: "true"
               run: |
                   echo "🚀 통합 정보성 데이터 파이프라인 시작..."
                   echo "✨ 중복 API 호출 제거: marketCap을 티커 정보와 함께 처리"
