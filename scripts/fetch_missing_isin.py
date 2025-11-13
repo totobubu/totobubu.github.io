@@ -40,6 +40,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 MISSING_PATH = ROOT_DIR / "public" / "missing_isin.json"
 DATA_DIR = ROOT_DIR / "public" / "data"
 BASE_URL = "http://stockevents.app/kr/stock/{symbol}"
+# BASE_URL = "https://kr.investing.com/etfs/{symbol}"
 REQUEST_TIMEOUT = 10
 REQUEST_SLEEP_SECONDS = 0.5
 HEADERS = {
@@ -68,6 +69,16 @@ REQUEST_SESSION = (
 )
 REQUEST_SESSION.headers.update(HEADERS)
 
+INVESTING_SUFFIXES = (
+    ".KS",
+    ".KQ",
+    ".KOSPI",
+    ".KOSDAQ",
+    ".KR",
+)
+
+KOREAN_SUFFIXES = (".KS", ".KQ")
+
 
 class FetchError(Exception):
     """Raised when ISIN cannot be fetched for a symbol."""
@@ -88,65 +99,125 @@ def symbol_to_slug(symbol: str) -> str:
     return slug
 
 
-def fetch_isin_via_requests(symbol: str) -> str:
-    url = BASE_URL.format(symbol=symbol)
-    response = REQUEST_SESSION.get(url, timeout=REQUEST_TIMEOUT)
+def normalize_symbol_for_investing(symbol: str) -> str:
+    upper_symbol = symbol.upper()
+    for suffix in INVESTING_SUFFIXES:
+        if upper_symbol.endswith(suffix):
+            return symbol[: -len(suffix)]
+    return symbol
 
-    if response.status_code != 200:
-        raise FetchError(f"{symbol}: unexpected status code {response.status_code}")
 
-    soup = BeautifulSoup(response.text, "lxml")
-    target_div = None
-    for div in soup.find_all("div", class_="font-semibold"):
-        if div.get_text(strip=True) == "ISIN":
-            target_div = div.find_next_sibling("div")
+def generate_symbol_variants(symbol: str) -> list[str]:
+    variants: list[str] = [symbol]
+    upper_symbol = symbol.upper()
+    for suffix in KOREAN_SUFFIXES:
+        if upper_symbol.endswith(suffix):
+            base = symbol[: -len(suffix)]
+            for alt_suffix in KOREAN_SUFFIXES:
+                candidate = f"{base}{alt_suffix}"
+                if candidate not in variants:
+                    variants.append(candidate)
             break
+    return variants
 
-    if target_div is None:
-        raise FetchError(f"{symbol}: failed to locate ISIN element")
 
-    isin = target_div.get_text(strip=True)
-    if not isin:
-        raise FetchError(f"{symbol}: ISIN element is empty")
+def format_symbol_for_fetch(symbol: str) -> str:
+    if "investing.com" in BASE_URL:
+        return normalize_symbol_for_investing(symbol)
+    return symbol
 
-    return isin
+
+def fetch_isin_via_requests(symbol: str) -> str:
+    errors: list[str] = []
+    for candidate in generate_symbol_variants(symbol):
+        formatted_symbol = format_symbol_for_fetch(candidate)
+        url = BASE_URL.format(symbol=formatted_symbol)
+        try:
+            response = REQUEST_SESSION.get(url, timeout=REQUEST_TIMEOUT)
+        except requests.RequestException as exc:
+            errors.append(f"{candidate}: request failed ({exc})")
+            continue
+
+        if response.status_code != 200:
+            errors.append(f"{candidate}: unexpected status code {response.status_code}")
+            continue
+
+        soup = BeautifulSoup(response.text, "lxml")
+        target_div = None
+        for div in soup.find_all("div", class_="font-semibold"):
+            if div.get_text(strip=True) == "ISIN":
+                target_div = div.find_next_sibling("div")
+                break
+
+        if target_div is None:
+            errors.append(f"{candidate}: failed to locate ISIN element")
+            continue
+
+        isin = target_div.get_text(strip=True)
+        if not isin:
+            errors.append(f"{candidate}: ISIN element is empty")
+            continue
+
+        if candidate != symbol:
+            print(f"[INFO] {symbol}: fetched using alternate suffix {candidate}")
+        return isin
+
+    raise FetchError("; ".join(errors) if errors else f"{symbol}: failed to fetch ISIN")
 
 
 def fetch_isin_via_playwright(symbol: str) -> str:
     if not sync_playwright:
         raise FetchError("Playwright is not available.")
 
-    url = BASE_URL.format(symbol=symbol)
+    last_error: FetchError | None = None
+    for candidate in generate_symbol_variants(symbol):
+        formatted_symbol = format_symbol_for_fetch(candidate)
+        url = BASE_URL.format(symbol=formatted_symbol)
 
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = None
-            try:
-                context = browser.new_context(
-                    user_agent=HEADERS["User-Agent"],
-                    locale="ko-KR",
-                )
-                page = context.new_page()
-                page.goto(url, wait_until="networkidle", timeout=REQUEST_TIMEOUT * 1000)
-                locator = page.locator("div.font-semibold", has_text="ISIN")
-                if locator.count() == 0:
-                    raise FetchError(f"{symbol}: failed to locate ISIN label via Playwright")
+        try:
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = None
+                try:
+                    context = browser.new_context(
+                        user_agent=HEADERS["User-Agent"],
+                        locale="ko-KR",
+                    )
+                    page = context.new_page()
+                    page.goto(url, wait_until="networkidle", timeout=REQUEST_TIMEOUT * 1000)
+                    locator = page.locator("div.font-semibold", has_text="ISIN")
+                    if locator.count() == 0:
+                        raise FetchError(f"{candidate}: failed to locate ISIN label via Playwright")
 
-                isin_value = locator.first.evaluate(
-                    "el => (el.nextElementSibling && el.nextElementSibling.textContent) || ''"
-                )
-            finally:
-                if context is not None:
-                    context.close()
-                browser.close()
-    except PlaywrightTimeoutError as exc:  # pragma: no cover - runtime error handling
-        raise FetchError(f"{symbol}: Playwright navigation timeout") from exc
+                    isin_value = locator.first.evaluate(
+                        "el => (el.nextElementSibling && el.nextElementSibling.textContent) || ''"
+                    )
+                finally:
+                    if context is not None:
+                        context.close()
+                    browser.close()
+        except PlaywrightTimeoutError as exc:  # pragma: no cover - runtime error handling
+            last_error = FetchError(f"{candidate}: Playwright navigation timeout")
+            continue
+        except FetchError as exc:
+            last_error = exc
+            continue
+        except Exception as exc:  # pragma: no cover - unexpected Playwright failure
+            last_error = FetchError(f"{candidate}: Playwright error {exc}")
+            continue
 
-    isin = (isin_value or "").strip()
-    if not isin:
-        raise FetchError(f"{symbol}: Playwright did not yield an ISIN value")
-    return isin
+        isin = (isin_value or "").strip()
+        if not isin:
+            last_error = FetchError(f"{candidate}: Playwright did not yield an ISIN value")
+            continue
+
+        if candidate != symbol:
+            print(f"[INFO] {symbol}: fetched via Playwright using alternate suffix {candidate}")
+        return isin
+
+    if last_error:
+        raise last_error
+    raise FetchError(f"{symbol}: Playwright did not fetch ISIN")
 
 
 def fetch_isin(symbol: str) -> str:
