@@ -39,6 +39,28 @@ SIDEBAR_DIR = PUBLIC_DIR / "sidebar"
 NAV_FILE = PUBLIC_DIR / "nav.json"
 POPULARITY_FILE = PUBLIC_DIR / "popularity.json"
 
+# 브랜드명 기반 ETF 탐지 (한국)
+KOREAN_ETF_BRANDS = {
+    "KODEX",
+    "TIGER",
+    "KBSTAR",
+    "ACE",
+    "ARIRANG",
+    "HANARO",
+    "SOL",
+    "PLUS",
+    "RISE",
+    "TIMEFOLIO",
+    "KOSEF",
+    "KINDEX",
+    "TRUE",
+    "FOCUS",
+    "SMART",
+    "QV",
+    "TREX",
+    "HK",
+}
+
 # 글로벌 상태
 nav_data = None
 active_symbols = []
@@ -230,6 +252,27 @@ def _determine_group_order(group_value, day_order):
     return 999
 
 
+def infer_is_etf(ticker_info):
+    value = ticker_info.get("isEtf")
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "yes", "etf"}:
+            return True
+        if lowered in {"false", "no", "stock"}:
+            return False
+    # 회사명이나 기초자산 정보가 있으면 ETF로 간주
+    if ticker_info.get("company") or ticker_info.get("underlying"):
+        return True
+    ko_name = ticker_info.get("koName") or ""
+    for brand in KOREAN_ETF_BRANDS:
+        if ko_name.upper().startswith(brand):
+            return True
+    # 기본값: 주식으로 간주
+    return False
+
+
 def enrich_ticker_data(ticker_info):
     """티커 정보에 data 파일의 정보 추가"""
     symbol = ticker_info.get("symbol")
@@ -260,6 +303,8 @@ def enrich_ticker_data(ticker_info):
         primary_group = group_labels[0]
     else:
         primary_group = group_value
+
+    is_etf = infer_is_etf(ticker_info)
     
     enriched = {
         "symbol": symbol,
@@ -273,15 +318,29 @@ def enrich_ticker_data(ticker_info):
         "price": price,
         "groupOrder": group_order,
         "currency": ticker_info.get("currency"),
-        "underlying": ticker_info.get("underlying"),
         "market": ticker_info.get("market"),
-        "marketCap": market_cap_raw,
-        "isEtf": ticker_info.get("isEtf"),
+        "isEtf": is_etf,
         "popularity": 0,
     }
+
+    if market_cap_raw is not None:
+        enriched["marketCap"] = market_cap_raw
     
-    if group_labels:
-        enriched["groupLabels"] = group_labels
+    optional_nullables = {
+        "koName",
+        "longName",
+        "company",
+        "logo",
+        "frequency",
+        "group",
+        "yield",
+        "price",
+        "currency",
+        "market",
+    }
+    for key in list(enriched.keys()):
+        if key in optional_nullables and enriched[key] is None:
+            enriched.pop(key, None)
     
     return enriched
 
