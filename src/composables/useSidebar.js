@@ -146,14 +146,24 @@ export function useSidebar() {
                 return [];
             }
 
-            const searchResults = allTickersForSearch.value.filter(
-                (item) =>
-                    item.symbol.toLowerCase().includes(query) ||
-                    (item.koName &&
-                        item.koName.toLowerCase().includes(query)) ||
-                    (item.longName &&
-                        item.longName.toLowerCase().includes(query))
-            );
+            const searchResults = allTickersForSearch.value.filter((item) => {
+                const symbolLower = (item.symbol || '').toLowerCase();
+                const matchIndex = symbolLower.indexOf(query);
+                const dotIndex = symbolLower.indexOf('.');
+                const matchesSymbol =
+                    query.includes('.') ||
+                    (matchIndex !== -1 &&
+                        (dotIndex === -1 || matchIndex < dotIndex));
+
+                const matchesKoName =
+                    item.koName &&
+                    item.koName.toLowerCase().includes(query);
+                const matchesLongName =
+                    item.longName &&
+                    item.longName.toLowerCase().includes(query);
+
+                return matchesSymbol || matchesKoName || matchesLongName;
+            });
 
             // 북마크 제외
             const filtered = searchResults.filter(
