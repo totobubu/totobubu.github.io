@@ -1,6 +1,6 @@
 // api/getExchangeRate.js (임시 복구 버전)
 
-import yahooFinance from 'yahoo-finance2';
+import yahooFinance from '../lib/yahooFinanceClient.js';
 
 export default async function handler(request, response) {
     // 모든 Origin을 허용하도록 설정 (가장 간단한 해결책)

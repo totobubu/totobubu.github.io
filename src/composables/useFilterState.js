@@ -39,17 +39,18 @@ export const loadMyBookmarksFromFirestore = async (userId) => {
 };
 
 const toggleMyStock = (symbol) => {
-    if (!symbol) return;
+    if (!symbol) return null;
     if (myBookmarks.value[symbol]) {
         delete myBookmarks.value[symbol];
-    } else {
-        myBookmarks.value[symbol] = {
-            avgPrice: 0,
-            quantity: 0,
-            accumulatedDividend: 0,
-            targetAsset: 0,
-        };
+        return 'removed';
     }
+    myBookmarks.value[symbol] = {
+        avgPrice: 0,
+        quantity: 0,
+        accumulatedDividend: 0,
+        targetAsset: 0,
+    };
+    return 'added';
 };
 
 const updateBookmarkDetails = (symbol, details) => {

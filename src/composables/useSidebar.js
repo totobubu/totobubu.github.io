@@ -17,6 +17,7 @@ export function useSidebar() {
 
     const allTickers = ref([]);
     const allTickersForSearch = ref([]); // 전체 검색용 (모든 티커)
+    const isLoadingAllTickers = ref(false);
     const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
     const hasInitialLoadCompleted = ref(false);
@@ -33,7 +34,10 @@ export function useSidebar() {
 
     // 전체 티커 로드 (nav.json에서 - 검색용)
     const loadAllTickersForSearch = async () => {
-        if (allTickersForSearch.value.length > 0) return; // 이미 로드됨
+        if (allTickersForSearch.value.length > 0 || isLoadingAllTickers.value)
+            return; // 이미 로드 중이거나 로드됨
+
+        isLoadingAllTickers.value = true;
 
         try {
             const response = await fetch(getDataUrl('nav.json'));
@@ -98,6 +102,8 @@ export function useSidebar() {
                 });
         } catch (err) {
             console.error('Failed to load all tickers for search:', err);
+        } finally {
+            isLoadingAllTickers.value = false;
         }
     };
 
@@ -140,39 +146,28 @@ export function useSidebar() {
                 return [];
             }
 
-            const searchResults = allTickersForSearch.value.filter(
-                (item) =>
-                    item.symbol.toLowerCase().includes(query) ||
-                    (item.koName &&
-                        item.koName.toLowerCase().includes(query)) ||
-                    (item.longName &&
-                        item.longName.toLowerCase().includes(query))
-            );
+            const searchResults = allTickersForSearch.value.filter((item) => {
+                const symbolLower = (item.symbol || '').toLowerCase();
+                const matchIndex = symbolLower.indexOf(query);
+                const dotIndex = symbolLower.indexOf('.');
+                const matchesSymbol =
+                    query.includes('.') ||
+                    (matchIndex !== -1 &&
+                        (dotIndex === -1 || matchIndex < dotIndex));
+
+                const matchesKoName =
+                    item.koName && item.koName.toLowerCase().includes(query);
+                const matchesLongName =
+                    item.longName &&
+                    item.longName.toLowerCase().includes(query);
+
+                return matchesSymbol || matchesKoName || matchesLongName;
+            });
 
             // 북마크 제외
-            let filtered = searchResults.filter(
+            return searchResults.filter(
                 (item) => !myBookmarkSymbols.has(item.symbol)
             );
-
-            // 국가 필터링
-            if (mainTab === '미국') {
-                filtered = filtered.filter((item) => item.currency === 'USD');
-            } else if (mainTab === '한국') {
-                filtered = filtered.filter((item) => item.currency === 'KRW');
-            }
-
-            // ETF/주식 필터링
-            if (subTab === 'ETF') {
-                filtered = filtered.filter(
-                    (item) => item.company || item.underlying
-                );
-            } else if (subTab === '주식') {
-                filtered = filtered.filter(
-                    (item) => !item.company && !item.underlying
-                );
-            }
-
-            return filtered;
         }
 
         // 2. 검색어가 없는 경우: 현재 탭에 따라 기본 목록(baseList)을 결정
@@ -210,6 +205,13 @@ export function useSidebar() {
         list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
         return list.slice(0, 50);
     });
+
+    const isSearchActive = computed(
+        () => !!(globalSearchQuery.value && globalSearchQuery.value.trim())
+    );
+    const isSearchLoading = computed(
+        () => isSearchActive.value && isLoadingAllTickers.value
+    );
 
     // 시장별 데이터 lazy loading
     const loadMarketData = async (marketKey) => {
@@ -405,8 +407,35 @@ export function useSidebar() {
     };
 
     const handleStockBookmarkClick = (symbol) => {
-        if (!user.value) router.push('/login');
-        else toggleMyStock(symbol);
+        if (!symbol) return;
+
+        if (!user.value) {
+            toast.add({
+                severity: 'warn',
+                summary: '로그인 필요',
+                detail: '북마크를 사용하려면 로그인해 주세요.',
+                life: 2500,
+            });
+            router.push('/login');
+            return;
+        }
+
+        const result = toggleMyStock(symbol);
+        if (result === 'added') {
+            toast.add({
+                severity: 'success',
+                summary: '북마크 추가',
+                detail: `'${symbol}'을(를) 북마크에 추가했습니다.`,
+                life: 2000,
+            });
+        } else if (result === 'removed') {
+            toast.add({
+                severity: 'info',
+                summary: '북마크 해제',
+                detail: `'${symbol}' 북마크를 해제했습니다.`,
+                life: 2000,
+            });
+        }
     };
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
@@ -439,6 +468,8 @@ export function useSidebar() {
         error,
         selectedTicker,
         globalSearchQuery,
+        isSearchActive,
+        isSearchLoading,
         mainFilterTab,
         subFilterTab,
         myBookmarks,

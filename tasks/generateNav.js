@@ -13,7 +13,6 @@ const logosKoreaDir = path.join(logosDir, 'korea');
 const logosBrandDir = path.join(logosDir, 'brand');
 const outputFile = path.join(publicDir, 'nav.json');
 const missingLogosFile = path.join(publicDir, 'missing-logos.json');
-const brandMappingFile = path.join(publicDir, 'nav', 'kr-brand.json');
 
 // --- [핵심 수정 1] 한국 ETF 운용사 이름과 로고 파일명 매핑 객체 추가 ---
 const koreanEtfBrandByCompany = {
@@ -260,53 +259,6 @@ function normalizeToFilename(name) {
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
-function sanitizeBrandSlug(value) {
-    const normalized = normalizeToFilename(value);
-    if (!normalized) return null;
-    return normalized.replace(/^brand-/, '').replace(/^etf-/, '');
-}
-
-async function loadSymbolBrandMap() {
-    try {
-        const fileContent = await fs.readFile(brandMappingFile, 'utf8');
-        const parsed = JSON.parse(fileContent);
-        const symbolToBrand = new Map();
-
-        const registerMapping = (brandValue, symbols) => {
-            const brandSlug = sanitizeBrandSlug(brandValue);
-            if (!brandSlug || !Array.isArray(symbols)) {
-                return;
-            }
-
-            symbols.forEach((symbol) => {
-                if (typeof symbol !== 'string') return;
-                const trimmed = symbol.trim().toUpperCase();
-                if (!trimmed) return;
-                symbolToBrand.set(trimmed, brandSlug);
-            });
-        };
-
-        if (Array.isArray(parsed?.brands)) {
-            parsed.brands.forEach((entry) => {
-                if (!entry) return;
-                const brandValue = entry.slug || entry.brand || entry.name;
-                registerMapping(brandValue, entry.symbols);
-            });
-        } else if (parsed && typeof parsed === 'object') {
-            Object.entries(parsed).forEach(([brandValue, symbols]) => {
-                registerMapping(brandValue, symbols);
-            });
-        }
-
-        return symbolToBrand;
-    } catch (error) {
-        if (error.code !== 'ENOENT') {
-            console.warn(`⚠️ brand.json 로드 실패: ${error.message}`);
-        }
-        return new Map();
-    }
-}
-
 function findLogoFile(normalizedName, options = {}) {
     if (!normalizedName) return null;
 
@@ -434,7 +386,6 @@ async function processAndPushTickers(filePath, market, allTickers) {
 async function generateNavJson() {
     let allTickers = [];
     const failedLogoMatches = [];
-    const symbolBrandMap = await loadSymbolBrandMap();
     const navEntries = await fs.readdir(navDir, { withFileTypes: true });
 
     for (const entry of navEntries) {
@@ -471,9 +422,6 @@ async function generateNavJson() {
             processedTicker.company = alias;
         }
 
-        const symbolKey = (processedTicker.symbol || ticker.symbol || '')
-            .toUpperCase()
-            .trim();
         const marketUpper = (processedTicker.market || '').toUpperCase();
 
         if (
@@ -487,54 +435,71 @@ async function generateNavJson() {
         }
 
         const logoAttempts = [];
+        const pushAttempt = (name, category = 'company') => {
+            if (!name) return;
+            logoAttempts.push({ name, category });
+        };
 
-        const brandSlugFromMapping = symbolKey
-            ? symbolBrandMap.get(symbolKey)
-            : null;
-        if (brandSlugFromMapping) {
-            logoAttempts.push({
-                name: `brand-${brandSlugFromMapping}`,
-                category: 'brand',
-            });
-        }
+        const pushBrandAttempt = (brandValue) => {
+            if (!brandValue) return;
+            const trimmed = brandValue.toString().trim();
+            if (!trimmed) return;
+            const lower = trimmed.toLowerCase();
+
+            if (lower.startsWith('brand-')) {
+                pushAttempt(lower, 'brand');
+                return;
+            }
+            if (lower.startsWith('etf-')) {
+                pushAttempt(lower, 'korea');
+                return;
+            }
+            if (lower.startsWith('company-')) {
+                pushAttempt(lower, 'company');
+                return;
+            }
+
+            const normalized = normalizeToFilename(trimmed);
+            if (normalized) {
+                pushAttempt(`brand-${normalized}`, 'brand');
+            }
+        };
+
+        // 1) 브랜드 우선
+        pushBrandAttempt(processedTicker.brand);
 
         if (['KOSPI', 'KOSDAQ'].includes(marketUpper)) {
             const etfBrandSlug =
                 resolveKoreanEtfBrandSlugFromTicker(processedTicker);
             if (etfBrandSlug) {
-                logoAttempts.push({
-                    name: `etf-${etfBrandSlug}`,
-                    category: 'korea',
-                });
+                pushAttempt(`etf-${etfBrandSlug}`, 'korea');
             }
 
             const corporateBrandSlug =
                 resolveKoreanCorporateBrandSlugFromTicker(processedTicker);
             if (corporateBrandSlug) {
-                logoAttempts.push({
-                    name: `brand-${corporateBrandSlug}`,
-                    category: 'brand',
-                });
+                pushAttempt(`brand-${corporateBrandSlug}`, 'brand');
             }
         }
 
+        // 2) 운용사/회사 기반
         const globalBrandKey = resolveGlobalBrandLogoKey(
             processedTicker.company
         );
         if (globalBrandKey) {
-            logoAttempts.push({
-                name: globalBrandKey,
-                category: 'company',
-            });
+            pushAttempt(globalBrandKey, 'company');
+        }
+
+        if (processedTicker.company) {
+            pushAttempt(processedTicker.company, 'company');
+        }
+
+        // 3) 티커 심볼 기반
+        if (processedTicker.symbol) {
+            pushAttempt(processedTicker.symbol, 'company');
         }
 
         const fallbackName = processedTicker.company || processedTicker.symbol;
-        if (fallbackName) {
-            logoAttempts.push({
-                name: fallbackName,
-                category: 'company',
-            });
-        }
 
         let resolvedLogoPath = null;
         const attemptedKeys = [];
