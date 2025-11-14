@@ -120,41 +120,46 @@
     <div class="h-full flex flex-column gap-2">
         <div class="flex flex-column gap-2 p-0">
             <div class="filter-button-group">
-                <Button
-                    v-if="user"
-                    label="북마크"
-                    icon="pi pi-bookmark"
-                    size="small"
-                    :outlined="!isBookmarkActive"
-                    :severity="isBookmarkActive ? 'primary' : 'secondary'"
-                    class="bookmark-toggle"
-                    @click="handleBookmarkClick" />
-                <Select
-                    v-model="selectedMarketOption"
-                    :options="groupedMarketOptions"
-                    :disabled="isSearchActive"
-                    optionLabel="label"
-                    optionGroupLabel="label"
-                    optionGroupChildren="items"
-                    placeholder="시장 / 자산군 선택"
-                    class="market-select">
-                    <template #optiongroup="slotProps">
-                        <div class="select-option-group">
-                            <img
-                                v-if="slotProps.option.flagSrc"
-                                :src="slotProps.option.flagSrc"
-                                :alt="slotProps.option.label"
-                                class="flag-icon" />
-                            <span>{{ slotProps.option.label }}</span>
-                        </div>
-                    </template>
-                </Select>
+                <template v-if="isSearchActive">
+                    <Message
+                        severity="contrast"
+                        class="w-full flex justify-content-center"
+                        >전체 검색 중입니다.</Message
+                    >
+                </template>
+                <template v-else>
+                    <Button
+                        v-if="user"
+                        label="북마크"
+                        icon="pi pi-bookmark"
+                        size="small"
+                        :outlined="!isBookmarkActive"
+                        :severity="isBookmarkActive ? 'primary' : 'secondary'"
+                        class="bookmark-toggle"
+                        @click="handleBookmarkClick" />
+                    <Select
+                        v-model="selectedMarketOption"
+                        :options="groupedMarketOptions"
+                        optionLabel="label"
+                        optionGroupLabel="label"
+                        optionGroupChildren="items"
+                        placeholder="시장 / 자산군 선택"
+                        class="market-select">
+                        <template #optiongroup="slotProps">
+                            <div class="select-option-group">
+                                <img
+                                    v-if="slotProps.option.flagSrc"
+                                    :src="slotProps.option.flagSrc"
+                                    :alt="slotProps.option.label"
+                                    class="flag-icon" />
+                                <span>{{ slotProps.option.label }}</span>
+                            </div>
+                        </template>
+                    </Select>
+                </template>
             </div>
 
-            <FilterInput
-                v-if="mainFilterTab !== '북마크'"
-                v-model="globalSearchQuery"
-                title="전체 주식 검색" />
+            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
@@ -192,10 +197,10 @@
                                 로그인 후 종목을 북마크에 추가해 보세요.
                             </p>
                             <p
+                                class="mb-2"
                                 v-else-if="
                                     Object.keys(myBookmarks).length === 0
-                                "
-                                class="mb-2">
+                                ">
                                 아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
                                 아이콘을 클릭하여 추가하세요.
                             </p>
