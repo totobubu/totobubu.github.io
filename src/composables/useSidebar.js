@@ -527,7 +527,10 @@ export function useSidebar() {
         }
 
         const result = toggleMyStock(payload);
-        const displaySymbol = payload.symbol || payload.isin || '알 수 없음';
+        const isKoreanTicker = (payload.currency || '').toUpperCase() === 'KRW';
+        const displaySymbol = isKoreanTicker
+            ? payload.koName || payload.symbol || payload.isin || '알 수 없음'
+            : payload.symbol || payload.koName || payload.isin || '알 수 없음';
         if (result === 'added') {
             toast.add({
                 severity: 'success',

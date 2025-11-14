@@ -36,8 +36,12 @@
     const { isMobile } = useBreakpoint();
     const skeletonItems = ref(new Array(50));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
+    const forceSearchSkeleton = ref(false);
     const isTableLoading = computed(
-        () => isLoading.value || isSearchLoading.value
+        () =>
+            isLoading.value ||
+            isSearchLoading.value ||
+            forceSearchSkeleton.value
     );
 
     const groupedMarketOptions = [
@@ -119,6 +123,27 @@
             mainFilterTab.value = '미국';
         }
     });
+
+    watch(
+        () => (globalSearchQuery.value || '').trim(),
+        (value) => {
+            forceSearchSkeleton.value = !!value;
+        }
+    );
+
+    watch(
+        filteredTickers,
+        () => {
+            if (
+                forceSearchSkeleton.value &&
+                !isSearchLoading.value &&
+                (filteredTickers.value?.length || 0) > 0
+            ) {
+                forceSearchSkeleton.value = false;
+            }
+        },
+        { flush: 'post' }
+    );
 </script>
 
 <template>
