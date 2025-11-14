@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import yahooFinance from 'yahoo-finance2';
+import yahooFinance from '../lib/yahooFinanceClient.js';
 
 const dataDir = path.join(process.cwd(), 'public', 'data');
 const backupDir = path.join(process.cwd(), 'backups', 'longname');

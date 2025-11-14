@@ -22,10 +22,13 @@
         selectedTicker,
         globalSearchQuery,
         mainFilterTab,
+        isSearchActive,
+        isSearchLoading,
         subFilterTab,
         myBookmarks,
         filteredTickers,
         handleStockBookmarkClick,
+        isTickerBookmarked,
         onRowSelect,
         handleTickerRequest,
     } = useSidebar();
@@ -33,6 +36,13 @@
     const { isMobile } = useBreakpoint();
     const skeletonItems = ref(new Array(50));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
+    const forceSearchSkeleton = ref(false);
+    const isTableLoading = computed(
+        () =>
+            isLoading.value ||
+            isSearchLoading.value ||
+            forceSearchSkeleton.value
+    );
 
     const groupedMarketOptions = [
         {
@@ -113,46 +123,73 @@
             mainFilterTab.value = '미국';
         }
     });
+
+    watch(
+        () => (globalSearchQuery.value || '').trim(),
+        (value) => {
+            forceSearchSkeleton.value = !!value;
+        }
+    );
+
+    watch(
+        filteredTickers,
+        () => {
+            if (
+                forceSearchSkeleton.value &&
+                !isSearchLoading.value &&
+                (filteredTickers.value?.length || 0) > 0
+            ) {
+                forceSearchSkeleton.value = false;
+            }
+        },
+        { flush: 'post' }
+    );
 </script>
 
 <template>
     <div class="h-full flex flex-column gap-2">
         <div class="flex flex-column gap-2 p-0">
             <div class="filter-button-group">
-                <Button
-                    v-if="user"
-                    label="북마크"
-                    icon="pi pi-bookmark"
-                    size="small"
-                    :outlined="!isBookmarkActive"
-                    :severity="isBookmarkActive ? 'primary' : 'secondary'"
-                    class="bookmark-toggle"
-                    @click="handleBookmarkClick" />
-                <Select
-                    v-model="selectedMarketOption"
-                    :options="groupedMarketOptions"
-                    optionLabel="label"
-                    optionGroupLabel="label"
-                    optionGroupChildren="items"
-                    placeholder="시장 / 자산군 선택"
-                    class="market-select">
-                    <template #optiongroup="slotProps">
-                        <div class="select-option-group">
-                            <img
-                                v-if="slotProps.option.flagSrc"
-                                :src="slotProps.option.flagSrc"
-                                :alt="slotProps.option.label"
-                                class="flag-icon" />
-                            <span>{{ slotProps.option.label }}</span>
-                        </div>
-                    </template>
-                </Select>
+                <template v-if="isSearchActive">
+                    <Message
+                        severity="contrast"
+                        class="w-full flex justify-content-center"
+                        >전체 검색 중입니다.</Message
+                    >
+                </template>
+                <template v-else>
+                    <Button
+                        v-if="user"
+                        label="북마크"
+                        icon="pi pi-bookmark"
+                        size="small"
+                        :outlined="!isBookmarkActive"
+                        :severity="isBookmarkActive ? 'primary' : 'secondary'"
+                        class="bookmark-toggle"
+                        @click="handleBookmarkClick" />
+                    <Select
+                        v-model="selectedMarketOption"
+                        :options="groupedMarketOptions"
+                        optionLabel="label"
+                        optionGroupLabel="label"
+                        optionGroupChildren="items"
+                        placeholder="시장 / 자산군 선택"
+                        class="market-select">
+                        <template #optiongroup="slotProps">
+                            <div class="select-option-group">
+                                <img
+                                    v-if="slotProps.option.flagSrc"
+                                    :src="slotProps.option.flagSrc"
+                                    :alt="slotProps.option.label"
+                                    class="flag-icon" />
+                                <span>{{ slotProps.option.label }}</span>
+                            </div>
+                        </template>
+                    </Select>
+                </template>
             </div>
 
-            <FilterInput
-                v-if="mainFilterTab !== '북마크'"
-                v-model="globalSearchQuery"
-                title="전체 주식 검색" />
+            <FilterInput v-model="globalSearchQuery" title="전체 주식 검색" />
         </div>
 
         <div v-if="error" class="text-red-500 p-4">{{ error }}</div>
@@ -161,7 +198,7 @@
             <DataTable
                 v-if="!error"
                 id="t-search-datatable"
-                :value="isLoading ? skeletonItems : filteredTickers"
+                :value="isTableLoading ? skeletonItems : filteredTickers"
                 v-model:selection="selectedTicker"
                 dataKey="symbol"
                 selectionMode="single"
@@ -170,11 +207,11 @@
                 scrollable
                 scrollHeight="flex"
                 :size="tableSize"
-                :class="{ 'p-datatable-loading': isLoading }"
+                :class="{ 'p-datatable-loading': isTableLoading }"
                 class="h-full">
                 <template #empty>
                     <div
-                        v-if="!hasInitialLoadCompleted || isLoading"
+                        v-if="!hasInitialLoadCompleted || isTableLoading"
                         class="p-4">
                         <div class="flex flex-column gap-3">
                             <Skeleton height="1.5rem" />
@@ -190,10 +227,10 @@
                                 로그인 후 종목을 북마크에 추가해 보세요.
                             </p>
                             <p
+                                class="mb-2"
                                 v-else-if="
                                     Object.keys(myBookmarks).length === 0
-                                "
-                                class="mb-2">
+                                ">
                                 아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
                                 아이콘을 클릭하여 추가하세요.
                             </p>
@@ -207,20 +244,16 @@
                 <Column frozen class="t-column-bookmark">
                     <template #body="{ data }">
                         <Skeleton
-                            v-if="isLoading"
+                            v-if="isTableLoading"
                             shape="circle"
                             size="1rem"></Skeleton>
                         <i
                             v-else
-                            class="pi"
-                            :class="
-                                user && myBookmarks[data.symbol]
-                                    ? 'pi-bookmark-fill'
-                                    : 'pi-bookmark'
-                            "
-                            @click.stop="
-                                handleStockBookmarkClick(data.symbol)
-                            "></i>
+                            class="pi pi-bookmark"
+                            :class="{
+                                'is-active': user && isTickerBookmarked(data),
+                            }"
+                            @click.stop="handleStockBookmarkClick(data)"></i>
                     </template>
                 </Column>
                 <Column
@@ -232,7 +265,7 @@
                         ><span>{{ isMobile ? '' : '티커' }}</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <span v-else>{{ data.koName || data.symbol }}</span>
                     </template>
                 </Column>
@@ -242,7 +275,7 @@
                     >
                     <template #body="{ data }">
                         <Skeleton
-                            v-if="isLoading"
+                            v-if="isTableLoading"
                             width="3rem"
                             height="3rem"></Skeleton>
                         <CompanyLogo
@@ -256,7 +289,7 @@
                         ><span v-if="!isMobile">지급</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <span v-else>{{ data.frequency }}</span>
                     </template>
                 </Column>
@@ -269,7 +302,7 @@
                         ><span v-if="!isMobile">그룹</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <WeekdayRotatingTag
                             v-else
                             :labels="data.groupLabels"

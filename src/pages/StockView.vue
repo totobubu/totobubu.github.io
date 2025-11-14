@@ -162,9 +162,18 @@
         { immediate: true }
     );
 
-    const currentUserBookmark = computed(
-        () => myBookmarks.value[tickerSymbol.value.toUpperCase()] || null
-    );
+    const currentUserBookmark = computed(() => {
+        const isin = tickerInfo.value?.isin;
+        if (isin && myBookmarks.value[isin]) {
+            return myBookmarks.value[isin];
+        }
+        const symbol = tickerSymbol.value.toUpperCase();
+        return (
+            Object.values(myBookmarks.value || {}).find(
+                (entry) => entry?.symbol === symbol
+            ) || null
+        );
+    });
 </script>
 
 <template>

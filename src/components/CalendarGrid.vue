@@ -13,6 +13,10 @@
     import Card from 'primevue/card';
     import Panel from 'primevue/panel';
     import { extractWeekdayLabels } from '@/utils/uiHelpers.js';
+    import {
+        resolveInstrumentByIsin,
+        resolveInstrumentBySymbol,
+    } from '@/store/instruments';
 
     const props = defineProps({
         dividendsByDate: Object,
@@ -25,6 +29,55 @@
     const fullCalendar = ref(null);
     const currentTitle = ref('');
     const currentView = ref(isMobile.value ? 'listWeek' : 'dayGridMonth');
+
+    const bookmarkEntries = computed(() =>
+        Object.values(myBookmarks.value || {})
+    );
+    const bookmarkedIsins = computed(() => {
+        const set = new Set();
+        bookmarkEntries.value.forEach((entry) => {
+            if (entry?.isin) set.add(entry.isin.toUpperCase());
+        });
+        return set;
+    });
+    const bookmarkedSymbols = computed(() => {
+        const set = new Set();
+        bookmarkEntries.value.forEach((entry) => {
+            if (entry?.symbol) set.add(entry.symbol.toUpperCase());
+        });
+        return set;
+    });
+    const isEntryBookmarked = (entry) => {
+        if (!entry) return false;
+        if (entry.isin && bookmarkedIsins.value.has(entry.isin.toUpperCase()))
+            return true;
+        const symbol = entry.ticker || entry.symbol;
+        if (symbol) {
+            return bookmarkedSymbols.value.has(symbol.toUpperCase());
+        }
+        return false;
+    };
+    const resolveEventInstrument = (entry) => {
+        if (!entry) return null;
+        const isin = entry.isin ? entry.isin.toUpperCase() : null;
+        const symbol = entry.ticker || entry.symbol;
+        const normalizedSymbol = symbol ? symbol.toUpperCase() : null;
+
+        const instrument =
+            (isin && resolveInstrumentByIsin(isin)) ||
+            (normalizedSymbol && resolveInstrumentBySymbol(normalizedSymbol));
+
+        if (instrument) return instrument;
+
+        if (!isin && !normalizedSymbol) return null;
+
+        return {
+            isin,
+            symbol: normalizedSymbol,
+            market: entry.market || null,
+            currency: entry.currency || null,
+        };
+    };
 
     const viewOptions = computed(() =>
         isMobile.value
@@ -122,11 +175,15 @@
             const actionElement = info.jsEvent.target.closest('[data-action]');
             if (actionElement) {
                 const { action } = actionElement.dataset;
-                const { ticker } = info.event.extendedProps;
+                const eventData = info.event.extendedProps;
+                const { ticker } = eventData;
                 if (action === 'view') emit('view-ticker', ticker);
                 else if (action === 'bookmark-add') {
-                    if (!myBookmarks.value?.[ticker]) {
-                        toggleMyStock(ticker);
+                    if (!isEntryBookmarked(eventData)) {
+                        const instrument = resolveEventInstrument(eventData);
+                        if (instrument?.isin || instrument?.symbol) {
+                            toggleMyStock(instrument);
+                        }
                         fullCalendar.value?.getApi().refetchEvents();
                     }
                 }
@@ -175,7 +232,7 @@
                     html: `<div class="stock-item-list ${eventClass}"><span class="data"><span class="ticker-name">${displayName}</span> <span class="amount-text">${amountHtml}</span></span><span class="actions">${viewButtonHtml}</span></div>`,
                 };
             } else if (arg.view.type === 'dayGridWeek') {
-                const isBookmarked = !!myBookmarks.value?.[ticker];
+                const isBookmarked = isEntryBookmarked(arg.event.extendedProps);
                 const bookmarkButtonHtml = `<button class="p-button p-component p-button-text p-button-sm bookmark-action" data-action="bookmark-add" title="${
                     isBookmarked
                         ? '이미 북마크에 추가되었습니다.'
