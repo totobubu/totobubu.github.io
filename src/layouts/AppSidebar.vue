@@ -23,6 +23,7 @@
         globalSearchQuery,
         mainFilterTab,
         isSearchActive,
+        isSearchLoading,
         subFilterTab,
         myBookmarks,
         filteredTickers,
@@ -34,6 +35,9 @@
     const { isMobile } = useBreakpoint();
     const skeletonItems = ref(new Array(50));
     const tableSize = computed(() => (isMobile.value ? 'small' : null));
+    const isTableLoading = computed(
+        () => isLoading.value || isSearchLoading.value
+    );
 
     const groupedMarketOptions = [
         {
@@ -168,7 +172,7 @@
             <DataTable
                 v-if="!error"
                 id="t-search-datatable"
-                :value="isLoading ? skeletonItems : filteredTickers"
+                :value="isTableLoading ? skeletonItems : filteredTickers"
                 v-model:selection="selectedTicker"
                 dataKey="symbol"
                 selectionMode="single"
@@ -177,11 +181,11 @@
                 scrollable
                 scrollHeight="flex"
                 :size="tableSize"
-                :class="{ 'p-datatable-loading': isLoading }"
+                :class="{ 'p-datatable-loading': isTableLoading }"
                 class="h-full">
                 <template #empty>
                     <div
-                        v-if="!hasInitialLoadCompleted || isLoading"
+                        v-if="!hasInitialLoadCompleted || isTableLoading"
                         class="p-4">
                         <div class="flex flex-column gap-3">
                             <Skeleton height="1.5rem" />
@@ -214,7 +218,7 @@
                 <Column frozen class="t-column-bookmark">
                     <template #body="{ data }">
                         <Skeleton
-                            v-if="isLoading"
+                            v-if="isTableLoading"
                             shape="circle"
                             size="1rem"></Skeleton>
                         <i
@@ -239,7 +243,7 @@
                         ><span>{{ isMobile ? '' : '티커' }}</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <span v-else>{{ data.koName || data.symbol }}</span>
                     </template>
                 </Column>
@@ -249,7 +253,7 @@
                     >
                     <template #body="{ data }">
                         <Skeleton
-                            v-if="isLoading"
+                            v-if="isTableLoading"
                             width="3rem"
                             height="3rem"></Skeleton>
                         <CompanyLogo
@@ -263,7 +267,7 @@
                         ><span v-if="!isMobile">지급</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <span v-else>{{ data.frequency }}</span>
                     </template>
                 </Column>
@@ -276,7 +280,7 @@
                         ><span v-if="!isMobile">그룹</span></template
                     >
                     <template #body="{ data }">
-                        <Skeleton v-if="isLoading"></Skeleton>
+                        <Skeleton v-if="isTableLoading"></Skeleton>
                         <WeekdayRotatingTag
                             v-else
                             :labels="data.groupLabels"

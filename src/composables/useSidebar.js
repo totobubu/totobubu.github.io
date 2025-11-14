@@ -202,6 +202,9 @@ export function useSidebar() {
     const isSearchActive = computed(
         () => !!(globalSearchQuery.value && globalSearchQuery.value.trim())
     );
+    const isSearchLoading = computed(
+        () => isSearchActive.value && isLoadingAllTickers.value
+    );
 
     // 시장별 데이터 lazy loading
     const loadMarketData = async (marketKey) => {
@@ -432,6 +435,7 @@ export function useSidebar() {
         selectedTicker,
         globalSearchQuery,
         isSearchActive,
+        isSearchLoading,
         mainFilterTab,
         subFilterTab,
         myBookmarks,
