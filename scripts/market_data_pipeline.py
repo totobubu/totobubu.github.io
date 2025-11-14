@@ -19,6 +19,7 @@ from tqdm import tqdm
 try:
     import firebase_admin
     from firebase_admin import credentials, firestore
+
     FIREBASE_AVAILABLE = True
 except ImportError:
     FIREBASE_AVAILABLE = False
@@ -87,7 +88,6 @@ CATEGORIES = {
 }
 
 MAX_TICKERS = 50
-POPULARITY_LIMIT = 20
 
 
 # ============================================================================
@@ -96,11 +96,11 @@ POPULARITY_LIMIT = 20
 def initialize():
     """공통 데이터 로드"""
     global nav_data, active_symbols
-    
+
     print("=" * 80)
     print("📈 시장 데이터 통합 파이프라인 시작")
     print("=" * 80)
-    
+
     # nav.json 로드
     print("\n[1/2] nav.json 로드 중...")
     try:
@@ -109,22 +109,22 @@ def initialize():
     except FileNotFoundError:
         print(f"❌ nav.json을 찾을 수 없습니다: {NAV_FILE}")
         return False
-    
+
     active_symbols = [
         t["symbol"]
         for t in nav_data.get("nav", [])
         if t.get("symbol") and not t.get("upcoming", False)
     ]
-    
+
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
-    
+
     # 디렉토리 확인
     print("\n[2/2] 디렉토리 확인 중...")
     os.makedirs(DATA_DIR, exist_ok=True)
     os.makedirs(SIDEBAR_DIR, exist_ok=True)
     print(f"   ✓ 데이터 디렉토리: {DATA_DIR}")
     print(f"   ✓ 사이드바 디렉토리: {SIDEBAR_DIR}")
-    
+
     print("\n✅ 초기화 완료\n")
     return True
 
@@ -135,17 +135,17 @@ def initialize():
 def aggregate_popularity():
     """Firestore에서 북마크 데이터를 집계하여 인기도 생성"""
     global popularity_dict
-    
+
     print("\n" + "=" * 80)
     print("⭐ STEP 1: 인기도 집계")
     print("=" * 80)
-    
+
     if not FIREBASE_AVAILABLE:
         print("⚠️  Firebase 라이브러리 없음. 인기도 업데이트 건너뜀\n")
         # 기존 파일 로드
         popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
         return 0
-    
+
     # Firebase 인증
     service_account_info = os.environ.get("FIRESTORE_SA_KEY")
     if service_account_info:
@@ -169,15 +169,15 @@ def aggregate_popularity():
             print(f"❌ Firebase 로컬 파일 인증 실패: {e}")
             popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
             return 0
-    
+
     db = firestore.client()
     print("✓ Firebase 연결 성공")
-    
+
     # 인기도 집계
     popularity_counts = {}
     users_ref = db.collection("userBookmarks")
     docs = users_ref.stream()
-    
+
     total_bookmarks = 0
     for doc in docs:
         user_data = doc.to_dict()
@@ -185,14 +185,14 @@ def aggregate_popularity():
         for symbol in bookmarks.keys():
             popularity_counts[symbol] = popularity_counts.get(symbol, 0) + 1
             total_bookmarks += 1
-    
+
     print(f"✓ 총 북마크: {total_bookmarks}개")
-    
+
     # 인기도 순 정렬
     sorted_popularity = sorted(
         popularity_counts.items(), key=lambda item: item[1], reverse=True
     )
-    
+
     # 파일 저장
     popularity_dict = dict(sorted_popularity)
     try:
@@ -201,7 +201,7 @@ def aggregate_popularity():
         print(f"✓ 인기도 파일 저장: {POPULARITY_FILE}")
     except Exception as e:
         print(f"❌ 파일 저장 실패: {e}")
-    
+
     print(f"\n✅ 인기도 집계 완료: {len(popularity_dict)}개 티커\n")
     return len(popularity_dict)
 
@@ -218,17 +218,17 @@ def _split_weekday_tokens(value):
 def _extract_group_labels(group_value):
     if not group_value:
         return []
-    
+
     labels = []
     iterable = []
-    
+
     if isinstance(group_value, dict):
         iterable = group_value.values()
     elif isinstance(group_value, (list, tuple, set)):
         iterable = group_value
     else:
         iterable = [group_value]
-    
+
     for item in iterable:
         if isinstance(item, str):
             for token in _split_weekday_tokens(item):
@@ -240,11 +240,7 @@ def _extract_group_labels(group_value):
 def _determine_group_order(group_value, day_order):
     labels = _extract_group_labels(group_value)
     if labels:
-        valid_orders = [
-            day_order[label]
-            for label in labels
-            if label in day_order
-        ]
+        valid_orders = [day_order[label] for label in labels if label in day_order]
         if valid_orders:
             return min(valid_orders)
     if isinstance(group_value, str):
@@ -277,24 +273,24 @@ def enrich_ticker_data(ticker_info):
     """티커 정보에 data 파일의 정보 추가"""
     symbol = ticker_info.get("symbol")
     day_order = {"월": 1, "화": 2, "수": 3, "목": 4, "금": 5}
-    
+
     file_path = DATA_DIR / f"{sanitize_ticker_for_filename(symbol)}.json"
     data_file_content = load_json_file(str(file_path))
-    
+
     market_cap_raw = None
     yield_val = None
     price = None
-    
+
     if data_file_content and "tickerInfo" in data_file_content:
         info = data_file_content["tickerInfo"]
         market_cap_raw = info.get("marketCap")
         yield_val = info.get("Yield")
         price = info.get("regularMarketPrice")
-    
+
     group_value = ticker_info.get("group")
     group_labels = _extract_group_labels(group_value)
     group_order = _determine_group_order(group_value, day_order)
-    
+
     # 사이드바에서 사용할 수 있도록 대표 그룹 라벨 지정
     primary_group = None
     if isinstance(group_value, str):
@@ -305,7 +301,7 @@ def enrich_ticker_data(ticker_info):
         primary_group = group_value
 
     is_etf = infer_is_etf(ticker_info)
-    
+
     enriched = {
         "symbol": symbol,
         "koName": ticker_info.get("koName"),
@@ -325,7 +321,7 @@ def enrich_ticker_data(ticker_info):
 
     if market_cap_raw is not None:
         enriched["marketCap"] = market_cap_raw
-    
+
     optional_nullables = {
         "koName",
         "longName",
@@ -341,37 +337,26 @@ def enrich_ticker_data(ticker_info):
     for key in list(enriched.keys()):
         if key in optional_nullables and enriched[key] is None:
             enriched.pop(key, None)
-    
+
     return enriched
 
 
 def select_top_tickers(all_tickers, popularity_dict):
-    """popularity 상위 20개 + marketCap 상위 30개 선택"""
-    # popularity 값 업데이트
+    """popularity를 우선으로 정렬하고 부족한 부분은 시가총액으로 보강"""
     for ticker in all_tickers:
         symbol = ticker["symbol"]
         ticker["popularity"] = popularity_dict.get(symbol, 0)
-    
-    # popularity가 있는 티커들 정렬
-    popular_tickers = [t for t in all_tickers if t["popularity"] > 0]
-    popular_tickers.sort(key=lambda x: x["popularity"], reverse=True)
-    
-    # 상위 20개 선택
-    top_popular = popular_tickers[:POPULARITY_LIMIT]
-    selected_symbols = {t["symbol"] for t in top_popular}
-    
-    # 나머지 티커들
-    remaining_tickers = [t for t in all_tickers if t["symbol"] not in selected_symbols]
-    
-    # marketCap 순 정렬
-    remaining_tickers.sort(key=lambda x: (x.get("marketCap") or 0), reverse=True)
-    
-    # 50개까지 채우기
-    needed = MAX_TICKERS - len(top_popular)
-    top_by_marketcap = remaining_tickers[:needed]
-    
-    result = top_popular + top_by_marketcap
-    return result
+
+    def sort_key(ticker):
+        popularity = ticker.get("popularity") or 0
+        return (
+            0 if popularity > 0 else 1,
+            -popularity,
+            ticker.get("symbol") or "",
+        )
+
+    sorted_tickers = sorted(all_tickers, key=sort_key)
+    return sorted_tickers[:MAX_TICKERS]
 
 
 def generate_sidebar_tickers():
@@ -379,9 +364,9 @@ def generate_sidebar_tickers():
     print("\n" + "=" * 80)
     print("📂 STEP 2: 사이드바 티커 생성")
     print("=" * 80)
-    
+
     all_tickers_from_nav = nav_data.get("nav", [])
-    
+
     # 모든 티커 enrichment
     print("\n📊 티커 데이터 enrichment 중...")
     all_enriched_tickers = []
@@ -389,33 +374,33 @@ def generate_sidebar_tickers():
         symbol = ticker_info.get("symbol")
         if not symbol or ticker_info.get("upcoming"):
             continue
-        
+
         enriched = enrich_ticker_data(ticker_info)
         all_enriched_tickers.append(enriched)
-    
+
     # 카테고리별 처리
     print("\n📂 카테고리별 파일 생성 중...")
     for category_name, config in CATEGORIES.items():
         print(f"\n  {category_name} 처리 중...")
-        
+
         # 카테고리 필터링
         category_tickers = [t for t in all_enriched_tickers if config["filter"](t)]
         print(f"    - 카테고리 내 총 티커: {len(category_tickers)}개")
-        
+
         # 상위 50개 선택
         top_tickers = select_top_tickers(category_tickers, popularity_dict)
         print(f"    - 선택된 티커: {len(top_tickers)}개")
-        
+
         # 인기 티커 수
         popular_count = sum(1 for t in top_tickers if t["popularity"] > 0)
         print(f"    - 인기 티커: {popular_count}개")
         print(f"    - 시가총액 기준 티커: {len(top_tickers) - popular_count}개")
-        
+
         # 파일 저장
         output_path = SIDEBAR_DIR / config["file"]
         save_json_file(str(output_path), top_tickers)
         print(f"    ✓ 저장 완료: {config['file']}")
-    
+
     print(f"\n✅ 사이드바 티커 생성 완료\n")
     return len(CATEGORIES)
 
@@ -426,17 +411,17 @@ def generate_sidebar_tickers():
 def main():
     """통합 파이프라인 실행"""
     start_time = time.time()
-    
+
     # 초기화
     if not initialize():
         return
-    
+
     # Step 1: 인기도 집계
     popularity_count = aggregate_popularity()
-    
+
     # Step 2: 사이드바 티커 생성
     sidebar_count = generate_sidebar_tickers()
-    
+
     # 완료
     elapsed_time = time.time() - start_time
     print("\n" + "=" * 80)
@@ -450,4 +435,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
