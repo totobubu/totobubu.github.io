@@ -39,6 +39,7 @@ DATA_DIR = PUBLIC_DIR / "data"
 SIDEBAR_DIR = PUBLIC_DIR / "sidebar"
 NAV_FILE = PUBLIC_DIR / "nav.json"
 POPULARITY_FILE = PUBLIC_DIR / "popularity.json"
+SYMBOL_ISIN_FILE = PUBLIC_DIR / "symbol-to-isin.json"
 
 # 브랜드명 기반 ETF 탐지 (한국)
 KOREAN_ETF_BRANDS = {
@@ -66,6 +67,7 @@ KOREAN_ETF_BRANDS = {
 nav_data = None
 active_symbols = []
 popularity_dict = {}
+symbol_to_isin = {}
 
 # 사이드바 카테고리 설정
 CATEGORIES = {
@@ -95,8 +97,8 @@ MAX_TICKERS = 50
 # ============================================================================
 def initialize():
     """공통 데이터 로드"""
-    global nav_data, active_symbols
-
+    global nav_data, active_symbols, symbol_to_isin
+    
     print("=" * 80)
     print("📈 시장 데이터 통합 파이프라인 시작")
     print("=" * 80)
@@ -115,7 +117,25 @@ def initialize():
         for t in nav_data.get("nav", [])
         if t.get("symbol") and not t.get("upcoming", False)
     ]
+    symbol_to_isin = {}
+    for ticker in nav_data.get("nav", []):
+        symbol = ticker.get("symbol")
+        isin = ticker.get("isin")
+        if (
+            symbol
+            and isin
+            and not ticker.get("upcoming", False)
+        ):
+            symbol_to_isin[symbol.upper()] = isin.upper()
 
+    symbol_isin_snapshot = load_json_file(str(SYMBOL_ISIN_FILE)) or []
+    if isinstance(symbol_isin_snapshot, list):
+        for entry in symbol_isin_snapshot:
+            symbol = (entry.get("symbol") or "").upper()
+            isin = (entry.get("isin") or "").upper()
+            if symbol and isin:
+                symbol_to_isin[symbol] = isin
+    
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
 
     # 디렉토리 확인
@@ -127,6 +147,63 @@ def initialize():
 
     print("\n✅ 초기화 완료\n")
     return True
+
+
+def is_probable_isin(value):
+    if not isinstance(value, str):
+        return False
+    candidate = value.strip().upper()
+    if len(candidate) != 12:
+        return False
+    return candidate[:2].isalpha() and candidate.isalnum()
+
+
+def resolve_candidate_to_isin(candidate):
+    if not candidate:
+        return None
+    if isinstance(candidate, str):
+        token = candidate.strip().upper()
+        if is_probable_isin(token):
+            return token
+        return symbol_to_isin.get(token)
+    return None
+
+
+def normalize_popularity_map(raw_map):
+    normalized = {}
+    if not isinstance(raw_map, dict):
+        return normalized
+
+    for key, count in raw_map.items():
+        isin = resolve_candidate_to_isin(key)
+        if not isin:
+            continue
+        try:
+            numeric_count = int(count)
+        except (TypeError, ValueError):
+            continue
+        normalized[isin] = normalized.get(isin, 0) + max(numeric_count, 0)
+
+    return normalized
+
+
+def extract_isin_from_bookmark(key, payload):
+    # 1) payload 내부에서 우선 탐색
+    if isinstance(payload, dict):
+        for field in ("isin", "ISIN", "assetIsin"):
+            isin_candidate = payload.get(field)
+            resolved = resolve_candidate_to_isin(isin_candidate)
+            if resolved:
+                return resolved
+
+        for field in ("symbol", "Symbol"):
+            symbol_candidate = payload.get(field)
+            resolved = resolve_candidate_to_isin(symbol_candidate)
+            if resolved:
+                return resolved
+
+    # 2) 기존 키 기반으로 확인
+    return resolve_candidate_to_isin(key)
 
 
 # ============================================================================
@@ -142,10 +219,12 @@ def aggregate_popularity():
 
     if not FIREBASE_AVAILABLE:
         print("⚠️  Firebase 라이브러리 없음. 인기도 업데이트 건너뜀\n")
-        # 기존 파일 로드
-        popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
-        return 0
-
+        # 기존 파일 로드 (ISIN 기준으로 정규화)
+        popularity_dict = normalize_popularity_map(
+            load_json_file(str(POPULARITY_FILE)) or {}
+        )
+        return len(popularity_dict)
+    
     # Firebase 인증
     service_account_info = os.environ.get("FIRESTORE_SA_KEY")
     if service_account_info:
@@ -154,22 +233,28 @@ def aggregate_popularity():
             firebase_admin.initialize_app(cred)
         except Exception as e:
             print(f"❌ Firebase 환경변수 인증 실패: {e}")
-            popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
-            return 0
+            popularity_dict = normalize_popularity_map(
+                load_json_file(str(POPULARITY_FILE)) or {}
+            )
+            return len(popularity_dict)
     else:
         local_key_path = "service-account-key.json"
         if not os.path.exists(local_key_path):
             print("⚠️  Firebase 인증 정보 없음. 인기도 업데이트 건너뜀\n")
-            popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
-            return 0
+            popularity_dict = normalize_popularity_map(
+                load_json_file(str(POPULARITY_FILE)) or {}
+            )
+            return len(popularity_dict)
         try:
             cred = credentials.Certificate(local_key_path)
             firebase_admin.initialize_app(cred)
         except Exception as e:
             print(f"❌ Firebase 로컬 파일 인증 실패: {e}")
-            popularity_dict = load_json_file(str(POPULARITY_FILE)) or {}
-            return 0
-
+            popularity_dict = normalize_popularity_map(
+                load_json_file(str(POPULARITY_FILE)) or {}
+            )
+            return len(popularity_dict)
+    
     db = firestore.client()
     print("✓ Firebase 연결 성공")
 
@@ -179,15 +264,22 @@ def aggregate_popularity():
     docs = users_ref.stream()
 
     total_bookmarks = 0
+    skipped_entries = 0
     for doc in docs:
         user_data = doc.to_dict()
         bookmarks = user_data.get("bookmarks", {})
-        for symbol in bookmarks.keys():
-            popularity_counts[symbol] = popularity_counts.get(symbol, 0) + 1
+        if not isinstance(bookmarks, dict):
+            continue
+        for key, payload in bookmarks.items():
+            isin = extract_isin_from_bookmark(key, payload)
+            if not isin:
+                skipped_entries += 1
+                continue
+            popularity_counts[isin] = popularity_counts.get(isin, 0) + 1
             total_bookmarks += 1
-
-    print(f"✓ 총 북마크: {total_bookmarks}개")
-
+    
+    print(f"✓ 총 북마크: {total_bookmarks}개 (스킵: {skipped_entries}개)")
+    
     # 인기도 순 정렬
     sorted_popularity = sorted(
         popularity_counts.items(), key=lambda item: item[1], reverse=True
@@ -280,13 +372,19 @@ def enrich_ticker_data(ticker_info):
     market_cap_raw = None
     yield_val = None
     price = None
-
+    isin = None
+    
     if data_file_content and "tickerInfo" in data_file_content:
         info = data_file_content["tickerInfo"]
         market_cap_raw = info.get("marketCap")
         yield_val = info.get("Yield")
         price = info.get("regularMarketPrice")
-
+        isin = info.get("isin")
+    
+    if not isin:
+        # ISIN이 없는 자산은 노출하지 않음
+        return None
+    
     group_value = ticker_info.get("group")
     group_labels = _extract_group_labels(group_value)
     group_order = _determine_group_order(group_value, day_order)
@@ -301,9 +399,10 @@ def enrich_ticker_data(ticker_info):
         primary_group = group_value
 
     is_etf = infer_is_etf(ticker_info)
-
+    
     enriched = {
         "symbol": symbol,
+        "isin": isin,
         "koName": ticker_info.get("koName"),
         "longName": ticker_info.get("longName"),
         "company": ticker_info.get("company"),
@@ -321,7 +420,7 @@ def enrich_ticker_data(ticker_info):
 
     if market_cap_raw is not None:
         enriched["marketCap"] = market_cap_raw
-
+    
     optional_nullables = {
         "koName",
         "longName",
@@ -337,15 +436,15 @@ def enrich_ticker_data(ticker_info):
     for key in list(enriched.keys()):
         if key in optional_nullables and enriched[key] is None:
             enriched.pop(key, None)
-
+    
     return enriched
 
 
 def select_top_tickers(all_tickers, popularity_dict):
     """popularity를 우선으로 정렬하고 부족한 부분은 시가총액으로 보강"""
     for ticker in all_tickers:
-        symbol = ticker["symbol"]
-        ticker["popularity"] = popularity_dict.get(symbol, 0)
+        popularity_key = ticker.get("isin") or ticker.get("symbol")
+        ticker["popularity"] = popularity_dict.get(popularity_key, 0)
 
     def sort_key(ticker):
         popularity = ticker.get("popularity") or 0
@@ -376,7 +475,22 @@ def generate_sidebar_tickers():
             continue
 
         enriched = enrich_ticker_data(ticker_info)
-        all_enriched_tickers.append(enriched)
+        if enriched:
+            all_enriched_tickers.append(enriched)
+    
+    symbol_isin_map = {}
+    for ticker in all_enriched_tickers:
+        symbol_upper = (ticker.get("symbol") or "").upper()
+        isin_value = ticker.get("isin")
+        if not symbol_upper or not isin_value:
+            continue
+        symbol_isin_map[symbol_upper] = {
+            "symbol": symbol_upper,
+            "isin": isin_value,
+            "market": ticker.get("market"),
+            "currency": ticker.get("currency"),
+        }
+    save_json_file(str(SYMBOL_ISIN_FILE), list(symbol_isin_map.values()))
 
     # 카테고리별 처리
     print("\n📂 카테고리별 파일 생성 중...")

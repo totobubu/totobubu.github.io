@@ -211,8 +211,8 @@
             source.targetAsset || (isUSD.value ? 100000 : 100000000);
     };
     const saveToBookmark = () => {
-        if (user.value && props.tickerInfo?.symbol) {
-            updateBookmarkDetails(props.tickerInfo.symbol, {
+        if (user.value && (props.tickerInfo?.isin || props.tickerInfo?.symbol)) {
+            updateBookmarkDetails(props.tickerInfo.isin || props.tickerInfo.symbol, {
                 avgPrice: avgPrice.value,
                 quantity: quantity.value,
                 accumulatedDividend: accumulatedDividend.value,

@@ -2,13 +2,19 @@
 
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { joinURL } from 'ufo';
 import { useFilterState } from '@/composables/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
 import { user } from '../store/auth';
 import { db } from '@/firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { useToast } from 'primevue/usetoast';
+import {
+    ensureInstrumentDirectory,
+    registerInstruments,
+    resolveInstrument,
+    resolveInstrumentByIsin,
+    resolveInstrumentBySymbol,
+} from '@/store/instruments';
 
 export function useSidebar() {
     const router = useRouter();
@@ -40,6 +46,7 @@ export function useSidebar() {
         isLoadingAllTickers.value = true;
 
         try {
+            await ensureInstrumentDirectory();
             const response = await fetch(getDataUrl('nav.json'));
             if (!response.ok) throw new Error('nav.json could not be loaded.');
             const navData = await response.json();
@@ -68,7 +75,7 @@ export function useSidebar() {
 
             const dayOrder = { 월: 1, 화: 2, 수: 3, 목: 4, 금: 5 };
 
-            allTickersForSearch.value = navData.nav
+            allTickersForSearch.value = (navData.nav || [])
                 .filter((item) => !item.upcoming)
                 .map((item) => {
                     let isEtf = !!(item.company || item.underlying);
@@ -78,10 +85,19 @@ export function useSidebar() {
                         );
                     }
 
+                    const symbol = item.symbol;
+                    if (!symbol) return null;
+                    const normalizedSymbol = symbol.toUpperCase();
+                    const storeInstrument =
+                        resolveInstrumentBySymbol(normalizedSymbol) || {};
+                    const isin = item.isin || storeInstrument.isin || null;
+                    if (!isin) return null;
+
                     const ticker = {
-                        symbol: item.symbol,
+                        isin,
+                        symbol: normalizedSymbol,
                         currency: item.currency || 'USD',
-                        market: item.market,
+                        market: item.market || storeInstrument.market,
                         isEtf,
                     };
 
@@ -99,7 +115,11 @@ export function useSidebar() {
                     if (item.underlying) ticker.underlying = item.underlying;
 
                     return ticker;
-                });
+                })
+                .filter((ticker) => ticker && ticker.isin);
+            registerInstruments(allTickersForSearch.value, {
+                markInitialized: true,
+            });
         } catch (err) {
             console.error('Failed to load all tickers for search:', err);
         } finally {
@@ -126,12 +146,39 @@ export function useSidebar() {
         const filterFn = filterMap[marketKey];
         if (!filterFn) return [];
 
-        return allTickersForSearch.value.filter(filterFn);
+        return allTickersForSearch.value.filter(
+            (item) => item && item.isin && filterFn(item)
+        );
     };
 
     // --- [핵심 수정] filteredTickers 로직 변경 ---
+    const bookmarkEntries = computed(() =>
+        Object.values(myBookmarks.value || {})
+    );
+    const bookmarkedIsins = computed(() => {
+        const set = new Set();
+        bookmarkEntries.value.forEach((entry) => {
+            if (entry?.isin) set.add(entry.isin);
+        });
+        return set;
+    });
+    const bookmarkedSymbols = computed(() => {
+        const set = new Set();
+        bookmarkEntries.value.forEach((entry) => {
+            if (entry?.symbol) set.add(entry.symbol);
+        });
+        return set;
+    });
+    const isInBookmarks = (ticker) => {
+        if (!ticker) return false;
+        if (ticker.isin && bookmarkedIsins.value.has(ticker.isin)) return true;
+        if (ticker.symbol) {
+            return bookmarkedSymbols.value.has(ticker.symbol.toUpperCase());
+        }
+        return false;
+    };
+
     const filteredTickers = computed(() => {
-        const myBookmarkSymbols = new Set(Object.keys(myBookmarks.value));
         const query = globalSearchQuery.value?.toLowerCase().trim();
         const mainTab = mainFilterTab.value;
         const subTab = subFilterTab.value;
@@ -164,28 +211,41 @@ export function useSidebar() {
                 return matchesSymbol || matchesKoName || matchesLongName;
             });
 
-            // 북마크 제외
-            return searchResults.filter(
-                (item) => !myBookmarkSymbols.has(item.symbol)
-            );
+            return searchResults;
         }
 
         // 2. 검색어가 없는 경우: 현재 탭에 따라 기본 목록(baseList)을 결정
         if (mainTab === '북마크') {
-            baseList = allTickers.value.filter((item) =>
-                myBookmarkSymbols.has(item.symbol)
+            const matched = allTickers.value.filter((item) =>
+                isInBookmarks(item)
             );
+            const missing = [];
+            bookmarkedIsins.value.forEach((isin) => {
+                const exists = matched.find((item) => item.isin === isin);
+                if (!exists) {
+                    const bookmark = myBookmarks.value[isin];
+                    if (bookmark) {
+                        missing.push({
+                            isin,
+                            symbol: bookmark.symbol,
+                            currency: bookmark.currency,
+                            market: bookmark.market,
+                            isEtf: bookmark.isEtf ?? null,
+                            koName: null,
+                            longName: null,
+                            popularity: 0,
+                        });
+                    }
+                }
+            });
+            baseList = [...matched, ...missing];
         } else if (mainTab === '미국') {
             baseList = allTickers.value.filter(
-                (item) =>
-                    item.currency === 'USD' &&
-                    !myBookmarkSymbols.has(item.symbol)
+                (item) => item.currency === 'USD'
             );
         } else if (mainTab === '한국') {
             baseList = allTickers.value.filter(
-                (item) =>
-                    item.currency === 'KRW' &&
-                    !myBookmarkSymbols.has(item.symbol)
+                (item) => item.currency === 'KRW'
             );
         }
 
@@ -235,18 +295,41 @@ export function useSidebar() {
             const data = await response.json();
 
             let marketTickers = Array.isArray(data) ? data : [];
+            marketTickers = marketTickers
+                .map((item) => {
+                    if (!item) return null;
+                    const normalizedSymbol = item.symbol
+                        ? item.symbol.toUpperCase()
+                        : null;
+                    const instrument =
+                        (item.isin && resolveInstrumentByIsin(item.isin)) ||
+                        (normalizedSymbol &&
+                            resolveInstrumentBySymbol(normalizedSymbol)) ||
+                        null;
+                    const isin = item.isin || instrument?.isin || null;
+                    if (!isin) return null;
+                    return {
+                        ...item,
+                        symbol: normalizedSymbol || instrument?.symbol,
+                        isin,
+                        market: item.market || instrument?.market || null,
+                        currency: item.currency || instrument?.currency || null,
+                    };
+                })
+                .filter((item) => item && item.isin);
             if (marketTickers.length === 0) {
                 marketTickers = await fallbackTickersByMarket(marketKey);
             }
 
             if (marketTickers.length > 0) {
-                const existingSymbols = new Set(
-                    allTickers.value.map((item) => item.symbol)
+                const existingIsins = new Set(
+                    allTickers.value.map((item) => item.isin)
                 );
                 const deduped = marketTickers.filter(
-                    (item) => !existingSymbols.has(item.symbol)
+                    (item) => item.isin && !existingIsins.has(item.isin)
                 );
                 allTickers.value = [...allTickers.value, ...deduped];
+                registerInstruments(deduped);
             } else {
                 console.warn(
                     `[Sidebar] No tickers available for market '${marketKey}'.`
@@ -258,13 +341,14 @@ export function useSidebar() {
             console.error(`Failed to load ${fileName}:`, err);
             const fallback = await fallbackTickersByMarket(marketKey);
             if (fallback.length > 0) {
-                const existingSymbols = new Set(
-                    allTickers.value.map((item) => item.symbol)
+                const existingIsins = new Set(
+                    allTickers.value.map((item) => item.isin)
                 );
                 const deduped = fallback.filter(
-                    (item) => !existingSymbols.has(item.symbol)
+                    (item) => item.isin && !existingIsins.has(item.isin)
                 );
                 allTickers.value = [...allTickers.value, ...deduped];
+                registerInstruments(deduped);
                 loadedMarkets.value.add(marketKey);
             } else {
                 throw err;
@@ -406,8 +490,30 @@ export function useSidebar() {
         }
     };
 
-    const handleStockBookmarkClick = (symbol) => {
-        if (!symbol) return;
+    const handleStockBookmarkClick = (ticker) => {
+        if (!ticker) return;
+
+        const instrument =
+            typeof ticker === 'string'
+                ? resolveInstrumentBySymbol(ticker)
+                : resolveInstrument({
+                      symbol: ticker.symbol,
+                      isin: ticker.isin,
+                      market: ticker.market,
+                      currency: ticker.currency,
+                  }) || resolveInstrumentBySymbol(ticker.symbol);
+
+        const payload =
+            instrument ||
+            (typeof ticker === 'object' && ticker.isin
+                ? {
+                      ...ticker,
+                      symbol: ticker.symbol?.toUpperCase() || null,
+                      isin: ticker.isin?.toUpperCase(),
+                  }
+                : null);
+
+        if (!payload) return;
 
         if (!user.value) {
             toast.add({
@@ -420,19 +526,23 @@ export function useSidebar() {
             return;
         }
 
-        const result = toggleMyStock(symbol);
+        const result = toggleMyStock(payload);
+        const isKoreanTicker = (payload.currency || '').toUpperCase() === 'KRW';
+        const displaySymbol = isKoreanTicker
+            ? payload.koName || payload.symbol || payload.isin || '알 수 없음'
+            : payload.symbol || payload.koName || payload.isin || '알 수 없음';
         if (result === 'added') {
             toast.add({
                 severity: 'success',
                 summary: '북마크 추가',
-                detail: `'${symbol}'을(를) 북마크에 추가했습니다.`,
+                detail: `'${displaySymbol}'을(를) 북마크에 추가했습니다.`,
                 life: 2000,
             });
         } else if (result === 'removed') {
             toast.add({
                 severity: 'info',
                 summary: '북마크 해제',
-                detail: `'${symbol}' 북마크를 해제했습니다.`,
+                detail: `'${displaySymbol}' 북마크를 해제했습니다.`,
                 life: 2000,
             });
         }
@@ -462,6 +572,8 @@ export function useSidebar() {
         loadAdditionalData();
     });
 
+    const isTickerBookmarked = (ticker) => isInBookmarks(ticker);
+
     return {
         isLoading,
         hasInitialLoadCompleted,
@@ -474,6 +586,7 @@ export function useSidebar() {
         subFilterTab,
         myBookmarks,
         filteredTickers,
+        isTickerBookmarked,
         handleStockBookmarkClick,
         onRowSelect,
         handleTickerRequest,

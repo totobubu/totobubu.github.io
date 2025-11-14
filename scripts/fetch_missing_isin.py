@@ -92,6 +92,20 @@ SIDEBAR_FILES = [
 ]
 
 
+def ensure_yf_suffix_fallback(entry: dict, fallback_suffix: Optional[str]) -> bool:
+    if not fallback_suffix or not isinstance(entry, dict):
+        return False
+    suffix_value = fallback_suffix if fallback_suffix.startswith(".") else f".{fallback_suffix}"
+    existing = entry.get("yfSuffixFallbacks")
+    if not isinstance(existing, list):
+        entry["yfSuffixFallbacks"] = [suffix_value]
+        return True
+    if suffix_value not in existing:
+        existing.append(suffix_value)
+        return True
+    return False
+
+
 class FetchError(Exception):
     """Raised when ISIN cannot be fetched for a symbol."""
 
@@ -176,7 +190,12 @@ def dump_json(path: Path, payload) -> None:
         fp.write("\n")
 
 
-def update_nav_root(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> Optional[dict]:
+def update_nav_root(
+    original_symbol: str,
+    resolved_symbol: str,
+    new_market: Optional[str],
+    fallback_suffix: Optional[str] = None,
+) -> Optional[dict]:
     nav_path = ROOT_DIR / "public" / "nav.json"
     if not nav_path.exists():
         return None
@@ -198,11 +217,15 @@ def update_nav_root(original_symbol: str, resolved_symbol: str, new_market: Opti
             entry["symbol"] = resolved_symbol
             if new_market:
                 entry["market"] = new_market
+            if ensure_yf_suffix_fallback(entry, fallback_suffix):
+                changed = True
             changed = True
             resolved_entry_ref = entry
         elif entry.get("symbol") == resolved_symbol:
             if new_market and entry.get("market") != new_market:
                 entry["market"] = new_market
+                changed = True
+            if ensure_yf_suffix_fallback(entry, fallback_suffix):
                 changed = True
             resolved_entry_ref = entry
 
@@ -266,7 +289,9 @@ def remove_from_nav_market(market: str, symbol: str) -> Optional[dict]:
     return None
 
 
-def add_to_nav_market(market: str, symbol: str, entry: dict) -> None:
+def add_to_nav_market(
+    market: str, symbol: str, entry: dict, fallback_suffix: Optional[str] = None
+) -> None:
     market_dir = NAV_DIR / market
     market_dir.mkdir(parents=True, exist_ok=True)
 
@@ -281,6 +306,7 @@ def add_to_nav_market(market: str, symbol: str, entry: dict) -> None:
         existing for existing in entries if not (isinstance(existing, dict) and existing.get("symbol") == symbol)
     ]
 
+    ensure_yf_suffix_fallback(entry, fallback_suffix)
     entries.append(entry)
     try:
         entries.sort(key=lambda item: item.get("symbol", ""))
@@ -337,6 +363,7 @@ def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: O
 def apply_market_adjustments(original_symbol: str, resolved_symbol: str) -> None:
     old_suffix = extract_suffix(original_symbol)
     new_suffix = extract_suffix(resolved_symbol)
+    fallback_suffix = new_suffix
 
     if not new_suffix or old_suffix == new_suffix:
         return
@@ -348,7 +375,9 @@ def apply_market_adjustments(original_symbol: str, resolved_symbol: str) -> None
         return
 
     relocate_data_file(original_symbol, resolved_symbol, new_market)
-    resolved_entry = update_nav_root(original_symbol, resolved_symbol, new_market)
+    resolved_entry = update_nav_root(
+        original_symbol, resolved_symbol, new_market, fallback_suffix
+    )
     update_sidebar_files(original_symbol, resolved_symbol, new_market)
 
     removed_entry = remove_from_nav_market(old_market, original_symbol) if old_market else None
@@ -359,7 +388,7 @@ def apply_market_adjustments(original_symbol: str, resolved_symbol: str) -> None
         entry_to_add = json.loads(json.dumps(entry_to_add))
         entry_to_add["symbol"] = resolved_symbol
         entry_to_add.pop("market", None)
-        add_to_nav_market(new_market, resolved_symbol, entry_to_add)
+        add_to_nav_market(new_market, resolved_symbol, entry_to_add, fallback_suffix)
 
 
 def remove_symbols_from_missing(*symbols: str) -> None:
