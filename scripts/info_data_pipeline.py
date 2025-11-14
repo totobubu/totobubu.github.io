@@ -41,6 +41,108 @@ ticker_info_map = {}
 active_symbols = []
 us_holidays = set()
 kr_holidays = set()
+custom_suffix_fallbacks = {}
+
+SUFFIX_FALLBACKS = {
+    ".KS": [".KQ"],
+    ".KQ": [".KS"],
+}
+symbol_suffix_overrides = {}
+
+
+def replace_symbol_suffix(symbol, new_suffix):
+    """심볼 접미사를 안전하게 교체"""
+    if not new_suffix:
+        return symbol
+    suffix = new_suffix if new_suffix.startswith(".") else f".{new_suffix}"
+    if "." in symbol:
+        base = symbol[: symbol.rfind(".")]
+    else:
+        base = symbol
+    return f"{base}{suffix}"
+
+
+def iter_symbol_candidates(symbol):
+    """원본 + 대체 접미사를 순회"""
+    seen = set()
+    override = symbol_suffix_overrides.get(symbol)
+    if override:
+        seen.add(override)
+        yield override
+    if symbol not in seen:
+        seen.add(symbol)
+        yield symbol
+
+    for alt_suffix in custom_suffix_fallbacks.get(symbol, []):
+        candidate = replace_symbol_suffix(symbol, alt_suffix)
+        if candidate not in seen:
+            seen.add(candidate)
+            yield candidate
+
+    for suffix, alternatives in SUFFIX_FALLBACKS.items():
+        if symbol.endswith(suffix):
+            for alt_suffix in alternatives:
+                candidate = replace_symbol_suffix(symbol, alt_suffix)
+                if candidate not in seen:
+                    seen.add(candidate)
+                    yield candidate
+            break
+
+
+def record_symbol_override(original_symbol, resolved_symbol):
+    """대체 접미사를 캐시"""
+    if original_symbol != resolved_symbol:
+        symbol_suffix_overrides[original_symbol] = resolved_symbol
+
+
+def fetch_dividends_with_suffix_fallback(symbol, start_date_str):
+    """접미사를 바꿔가며 배당 데이터 시도"""
+    last_exception = None
+    last_series = None
+
+    for candidate in iter_symbol_candidates(symbol):
+        try:
+            ticker_obj = yf.Ticker(candidate)
+            dividends = ticker_obj.dividends
+            filtered = dividends[dividends.index >= start_date_str]
+        except Exception as exc:
+            last_exception = exc
+            continue
+
+        last_series = filtered
+        if not filtered.empty:
+            if candidate != symbol:
+                tqdm.write(f"  ↺ {symbol} → {candidate} 배당 데이터 사용")
+            record_symbol_override(symbol, candidate)
+            return filtered
+
+    if last_series is not None:
+        return last_series
+    if last_exception:
+        raise last_exception
+    return pd.Series(dtype="float64")
+
+
+def fetch_ticker_info_with_suffix_fallback(symbol):
+    """접미사 대체로 티커 정보 재시도"""
+    last_exception = None
+
+    for candidate in iter_symbol_candidates(symbol):
+        try:
+            info = yf.Ticker(candidate).info
+        except Exception as exc:
+            last_exception = exc
+            continue
+
+        if info:
+            if candidate != symbol:
+                tqdm.write(f"  ↺ {symbol} → {candidate} 티커 정보 사용")
+            record_symbol_override(symbol, candidate)
+            return info
+
+    if last_exception:
+        raise last_exception
+    return {}
 
 
 # ============================================================================
@@ -49,6 +151,7 @@ kr_holidays = set()
 def initialize():
     """공통 데이터 로드 (한 번만 실행)"""
     global nav_data, ticker_info_map, active_symbols, us_holidays, kr_holidays
+    global custom_suffix_fallbacks
 
     print("=" * 80)
     print("🚀 정보성 데이터 통합 파이프라인 시작")
@@ -65,6 +168,11 @@ def initialize():
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
     ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
     active_symbols = list(ticker_info_map.keys())
+    custom_suffix_fallbacks = {
+        t["symbol"]: t.get("yfSuffixFallbacks", [])
+        for t in active_tickers_info
+        if t.get("yfSuffixFallbacks")
+    }
 
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
 
@@ -140,11 +248,10 @@ def update_dividends():
             ):
                 continue
 
-            # yfinance에서 배당 데이터 다운로드
-            ticker_obj = yf.Ticker(symbol)
-            new_dividends_df = ticker_obj.dividends[
-                ticker_obj.dividends.index >= start_date_str
-            ]
+            # yfinance에서 배당 데이터 다운로드 (접미사 자동 보정)
+            new_dividends_df = fetch_dividends_with_suffix_fallback(
+                symbol, start_date_str
+            )
 
             if new_dividends_df.empty:
                 continue
@@ -187,12 +294,22 @@ def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
     """여러 티커의 정보를 배치로 가져오기"""
     bulk_data = {}
     try:
-        tickers = yf.Tickers(ticker_symbols_batch)
-        for symbol, ticker_obj in tickers.tickers.items():
+        symbol_fetch_map = {
+            symbol: symbol_suffix_overrides.get(symbol, symbol)
+            for symbol in ticker_symbols_batch
+        }
+        unique_fetch_symbols = list(set(symbol_fetch_map.values()))
+        tickers = yf.Tickers(unique_fetch_symbols)
+
+        for original_symbol, fetch_symbol in symbol_fetch_map.items():
+            ticker_obj = tickers.tickers.get(fetch_symbol)
+            if not ticker_obj:
+                bulk_data[original_symbol] = None
+                continue
             try:
-                bulk_data[symbol] = ticker_obj.info
+                bulk_data[original_symbol] = ticker_obj.info
             except Exception:
-                bulk_data[symbol] = None
+                bulk_data[original_symbol] = None
         return bulk_data
     except Exception as e:
         print(f"  ❌ 배치 가져오기 오류: {e}")
@@ -293,6 +410,8 @@ def update_ticker_info():
         try:
             info_from_nav = ticker_info_map[symbol]
             raw_dynamic_info = all_bulk_info.get(symbol)
+            if not raw_dynamic_info:
+                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
             file_path = os.path.join(
