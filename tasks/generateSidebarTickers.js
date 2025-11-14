@@ -113,7 +113,12 @@ async function generateSidebarTickers() {
                 'utf-8'
             );
             const popularityData = JSON.parse(popularityContent);
-            popularityMap = new Map(Object.entries(popularityData));
+            popularityMap = new Map(
+                Object.entries(popularityData).map(([key, value]) => [
+                    key.toUpperCase(),
+                    value,
+                ])
+            );
             console.log(
                 `📊 Loaded popularity data for ${popularityMap.size} tickers`
             );
@@ -170,6 +175,8 @@ async function generateSidebarTickers() {
                     isEtf,
                 };
 
+                if (item.isin) ticker.isin = item.isin;
+
                 // 값이 있는 필드만 추가
                 if (item.koName) ticker.koName = item.koName;
                 if (item.longName) ticker.longName = item.longName;
@@ -196,7 +203,10 @@ async function generateSidebarTickers() {
                 if (yieldValue) ticker.yield = yieldValue;
 
                 // popularity 데이터 추가
-                const popularityValue = popularityMap.get(tickerSymbol);
+                const tickerIsin = (item.isin || '').toUpperCase();
+                const popularityValue = tickerIsin
+                    ? popularityMap.get(tickerIsin)
+                    : undefined;
                 if (popularityValue !== undefined) {
                     ticker.popularity = popularityValue;
                 }
@@ -225,7 +235,10 @@ async function generateSidebarTickers() {
 
             return [
                 ...topByPopularity,
-                ...remainingTickers.slice(0, MAX_TICKERS - topByPopularity.length),
+                ...remainingTickers.slice(
+                    0,
+                    MAX_TICKERS - topByPopularity.length
+                ),
             ];
         };
 
@@ -252,20 +265,20 @@ async function generateSidebarTickers() {
         };
 
         krStocks.forEach((t) => {
-            if (t.popularity)
-                popularityByMarket.krStocks[t.symbol] = t.popularity;
+            if (t.popularity && t.isin)
+                popularityByMarket.krStocks[t.isin] = t.popularity;
         });
         krEtfs.forEach((t) => {
-            if (t.popularity)
-                popularityByMarket.krEtfs[t.symbol] = t.popularity;
+            if (t.popularity && t.isin)
+                popularityByMarket.krEtfs[t.isin] = t.popularity;
         });
         usStocks.forEach((t) => {
-            if (t.popularity)
-                popularityByMarket.usStocks[t.symbol] = t.popularity;
+            if (t.popularity && t.isin)
+                popularityByMarket.usStocks[t.isin] = t.popularity;
         });
         usEtfs.forEach((t) => {
-            if (t.popularity)
-                popularityByMarket.usEtfs[t.symbol] = t.popularity;
+            if (t.popularity && t.isin)
+                popularityByMarket.usEtfs[t.isin] = t.popularity;
         });
 
         // 각 분할 파일 및 popularity 파일 저장

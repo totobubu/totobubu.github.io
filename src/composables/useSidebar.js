@@ -211,8 +211,7 @@ export function useSidebar() {
                 return matchesSymbol || matchesKoName || matchesLongName;
             });
 
-            // 북마크 제외
-            return searchResults.filter((item) => !isInBookmarks(item));
+            return searchResults;
         }
 
         // 2. 검색어가 없는 경우: 현재 탭에 따라 기본 목록(baseList)을 결정
@@ -242,11 +241,11 @@ export function useSidebar() {
             baseList = [...matched, ...missing];
         } else if (mainTab === '미국') {
             baseList = allTickers.value.filter(
-                (item) => item.currency === 'USD' && !isInBookmarks(item)
+                (item) => item.currency === 'USD'
             );
         } else if (mainTab === '한국') {
             baseList = allTickers.value.filter(
-                (item) => item.currency === 'KRW' && !isInBookmarks(item)
+                (item) => item.currency === 'KRW'
             );
         }
 
