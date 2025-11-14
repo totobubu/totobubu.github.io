@@ -15,6 +15,7 @@
         "build": "vite build",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "update-data": "node tasks/updateHistoricalData.js",
+        "check:kr-suffix": "node scripts/checkKrTickerSuffixes.js",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
