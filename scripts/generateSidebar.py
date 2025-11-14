@@ -121,7 +121,7 @@ def is_probable_isin(value):
     return None
 
 
-def build_symbol_isin_map(nav_entries):
+def build_symbol_isin_map(nav_entries, data_isin_map=None):
     symbol_to_isin = {}
     for entry in nav_entries:
         symbol = normalize_symbol(entry.get("symbol"))
@@ -134,6 +134,11 @@ def build_symbol_isin_map(nav_entries):
         for item in snapshot:
             symbol = normalize_symbol(item.get("symbol"))
             isin = is_probable_isin(item.get("isin"))
+            if symbol and isin:
+                symbol_to_isin.setdefault(symbol, isin)
+
+    if data_isin_map:
+        for symbol, isin in data_isin_map.items():
             if symbol and isin:
                 symbol_to_isin.setdefault(symbol, isin)
 
@@ -234,9 +239,10 @@ def load_auxiliary_metadata():
     yield_map = {}
     group_labels_map = {}
     group_value_map = {}
+    isin_map = {}
 
     if not DATA_DIR.exists():
-        return yield_map, group_value_map, group_labels_map
+        return yield_map, group_value_map, group_labels_map, isin_map
 
     for data_file in DATA_DIR.glob("*.json"):
         ticker_symbol = (
@@ -255,11 +261,16 @@ def load_auxiliary_metadata():
             labels = parse_group_labels(info["group"])
             if labels:
                 group_labels_map[ticker_symbol] = labels
+        isin_value = info.get("isin")
+        resolved_isin = is_probable_isin(isin_value)
+        if resolved_isin:
+            isin_map[ticker_symbol] = resolved_isin
 
     print(
-        f"✓ 보조 메타데이터 로드 (배당수익률 {len(yield_map)}개, 그룹 라벨 {len(group_labels_map)}개)"
+        "✓ 보조 메타데이터 로드 "
+        f"(배당수익률 {len(yield_map)}개, 그룹 라벨 {len(group_labels_map)}개, ISIN {len(isin_map)}개)"
     )
-    return yield_map, group_value_map, group_labels_map
+    return yield_map, group_value_map, group_labels_map, isin_map
 
 
 def infer_is_etf(nav_entry):
@@ -279,12 +290,21 @@ def infer_is_etf(nav_entry):
 
 
 def build_sidebar_entries(
-    nav_entries, popularity_counts, yield_map, group_value_map, group_labels_map
+    nav_entries,
+    popularity_counts,
+    yield_map,
+    group_value_map,
+    group_labels_map,
+    symbol_to_isin,
 ):
     entries = []
     for nav_entry in nav_entries:
         symbol = normalize_symbol(nav_entry.get("symbol"))
-        isin = is_probable_isin(nav_entry.get("isin"))
+        isin = is_probable_isin(nav_entry.get("isin")) or (
+            symbol and symbol_to_isin.get(symbol)
+        )
+        if isin:
+            isin = is_probable_isin(isin) or normalize_symbol(isin)
         if not symbol or not isin:
             continue
 
@@ -328,13 +348,15 @@ def build_sidebar_entries(
 
         entries.append(ticker)
 
-    print(f"✓ 사이드바용 티커 구성 완료 ({len(entries)}개)")
+    print(f"✓ 사이드바용 티커 구성 완료 ({len(entries)}개, 선호도 {sum(1 for t in entries if t.get('popularity', 0) > 0)}개)")
     return entries
 
 
 def bucketize(entries):
     buckets = {key: [] for key in CATEGORY_FILES}
     for entry in entries:
+        if (entry.get("popularity") or 0) <= 0:
+            continue
         currency = (entry.get("currency") or "").upper()
         is_etf = bool(entry.get("isEtf"))
         if currency == "USD":
@@ -370,13 +392,23 @@ def main():
     print("=" * 80)
 
     nav_entries = load_nav_entries()
-    symbol_to_isin = build_symbol_isin_map(nav_entries)
-    yield_map, group_value_map, group_labels_map = load_auxiliary_metadata()
+    (
+        yield_map,
+        group_value_map,
+        group_labels_map,
+        data_isin_map,
+    ) = load_auxiliary_metadata()
+    symbol_to_isin = build_symbol_isin_map(nav_entries, data_isin_map)
 
     db = initialize_firestore()
     popularity_counts = aggregate_preferences(db, symbol_to_isin)
     sidebar_entries = build_sidebar_entries(
-        nav_entries, popularity_counts, yield_map, group_value_map, group_labels_map
+        nav_entries,
+        popularity_counts,
+        yield_map,
+        group_value_map,
+        group_labels_map,
+        symbol_to_isin,
     )
     buckets = bucketize(sidebar_entries)
 
