@@ -17,6 +17,7 @@ export function useSidebar() {
 
     const allTickers = ref([]);
     const allTickersForSearch = ref([]); // 전체 검색용 (모든 티커)
+    const isLoadingAllTickers = ref(false);
     const loadedMarkets = ref(new Set()); // 이미 로드된 시장 추적
     const isLoading = ref(true);
     const hasInitialLoadCompleted = ref(false);
@@ -33,7 +34,10 @@ export function useSidebar() {
 
     // 전체 티커 로드 (nav.json에서 - 검색용)
     const loadAllTickersForSearch = async () => {
-        if (allTickersForSearch.value.length > 0) return; // 이미 로드됨
+        if (allTickersForSearch.value.length > 0 || isLoadingAllTickers.value)
+            return; // 이미 로드 중이거나 로드됨
+
+        isLoadingAllTickers.value = true;
 
         try {
             const response = await fetch(getDataUrl('nav.json'));
@@ -98,6 +102,8 @@ export function useSidebar() {
                 });
         } catch (err) {
             console.error('Failed to load all tickers for search:', err);
+        } finally {
+            isLoadingAllTickers.value = false;
         }
     };
 
