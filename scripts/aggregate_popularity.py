@@ -14,6 +14,7 @@ if str(ROOT_DIR) not in sys.path:
 
 from scripts.popularity_utils import (  # noqa: E402
     load_nav_metadata,
+    load_symbol_to_isin_map,
     is_etf,
     normalize_symbol,
 )
@@ -54,10 +55,13 @@ def main():
     print("Firebase connection successful.")
 
     nav_metadata = load_nav_metadata()
+    symbol_to_isin = load_symbol_to_isin_map()
+    isin_to_symbol = {isin: symbol for symbol, isin in symbol_to_isin.items()}
     if not nav_metadata:
         print("Warning: nav metadata is empty. Results may be incomplete.")
 
     popularity_counts = {}
+    isin_symbol_map = {}
     users_ref = db.collection("userBookmarks")
     docs = users_ref.stream()
 
@@ -66,12 +70,53 @@ def main():
     for doc in docs:
         user_data = doc.to_dict()
         bookmarks = user_data.get("bookmarks", {})
-        for symbol in bookmarks.keys():
-            canonical_symbol = normalize_symbol(symbol, nav_metadata)
-            if canonical_symbol != symbol:
-                normalization_changes[symbol] = canonical_symbol
-            popularity_counts[canonical_symbol] = (
-                popularity_counts.get(canonical_symbol, 0) + 1
+        for raw_key, raw_value in bookmarks.items():
+            entry_symbol = None
+            entry_isin = None
+
+            if isinstance(raw_value, dict):
+                entry_symbol = raw_value.get("symbol") or raw_key
+                entry_isin = raw_value.get("isin")
+            else:
+                entry_symbol = raw_key
+
+            if entry_symbol:
+                entry_symbol = entry_symbol.upper()
+            if entry_isin:
+                entry_isin = entry_isin.upper()
+
+            canonical_symbol = None
+            if entry_symbol:
+                canonical_symbol = normalize_symbol(entry_symbol, nav_metadata)
+
+            if entry_isin and not canonical_symbol:
+                canonical_symbol = isin_to_symbol.get(entry_isin, canonical_symbol)
+
+            if not canonical_symbol and entry_symbol:
+                canonical_symbol = entry_symbol
+
+            if not canonical_symbol and entry_isin:
+                canonical_symbol = isin_to_symbol.get(entry_isin)
+
+            if not canonical_symbol:
+                continue
+
+            resolved_symbol = canonical_symbol
+            nav_item = nav_metadata.get(resolved_symbol, {})
+            resolved_isin = (entry_isin or symbol_to_isin.get(resolved_symbol) or nav_item.get("isin"))
+
+            if not resolved_isin:
+                continue
+
+            resolved_isin = resolved_isin.upper()
+            symbol_to_isin.setdefault(resolved_symbol, resolved_isin)
+            isin_symbol_map.setdefault(resolved_isin, resolved_symbol)
+
+            if resolved_symbol != raw_key:
+                normalization_changes[raw_key] = resolved_symbol
+
+            popularity_counts[resolved_isin] = (
+                popularity_counts.get(resolved_isin, 0) + 1
             )
             total_bookmarks += 1
 
@@ -90,9 +135,10 @@ def main():
     )
 
     output_path = "public/popularity.json"
+    popularity_payload = {isin: count for isin, count in sorted_popularity}
     try:
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(dict(sorted_popularity), f, ensure_ascii=False, indent=2)
+            json.dump(popularity_payload, f, ensure_ascii=False, indent=2)
         print(f"Successfully saved popularity data to {output_path}")
     except Exception as e:
         print(f"Error saving file: {e}")
@@ -107,7 +153,12 @@ def main():
     }
     skipped_symbols = []
 
-    for symbol, count in sorted_popularity:
+    for isin, count in sorted_popularity:
+        symbol = isin_symbol_map.get(isin)
+        if not symbol:
+            skipped_symbols.append(isin)
+            continue
+
         nav_item = nav_metadata.get(symbol)
         if not nav_item:
             skipped_symbols.append(symbol)
@@ -124,7 +175,7 @@ def main():
             skipped_symbols.append(symbol)
             continue
 
-        breakdown[bucket][symbol] = count
+        breakdown[bucket][isin] = count
 
     popularity_dir = os.path.join("public", "popularity")
     os.makedirs(popularity_dir, exist_ok=True)
@@ -140,7 +191,7 @@ def main():
 
     if skipped_symbols:
         print(
-            "Warning: Skipped symbols for market breakdown (missing metadata or currency): "
+            "Warning: Skipped entries for market breakdown (missing metadata or currency): "
             + ", ".join(skipped_symbols)
         )
 

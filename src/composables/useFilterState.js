@@ -51,11 +51,14 @@ const createBookmarkPayload = (instrument = {}, overrides = {}) => {
 
 const serializeBookmarks = (bookmarks) => {
     const serialized = {};
-    Object.entries(bookmarks || {}).forEach(([key, value]) => {
-        if (!value || !value.isin) return;
-        const isin = value.isin.toUpperCase();
-        serialized[isin] = {
-            ...createBookmarkPayload(value, value),
+    Object.values(bookmarks || {}).forEach((value) => {
+        if (!value) return;
+        const payload = createBookmarkPayload(value, value);
+        const { symbol, isin } = payload;
+        if (!symbol || !isin) return;
+        serialized[symbol] = {
+            ...payload,
+            symbol,
             isin,
         };
     });
@@ -90,13 +93,10 @@ const normalizeBookmarks = (rawBookmarks = {}) => {
             resolveInstrumentByIsin(isin) ||
             resolveInstrumentBySymbol(value?.symbol || key);
 
-        const payload = createBookmarkPayload(
-            instrument,
-            {
-                ...value,
-                isin,
-            }
-        );
+        const payload = createBookmarkPayload(instrument, {
+            ...value,
+            isin,
+        });
 
         normalized[isin] = payload;
     });
@@ -178,16 +178,15 @@ const updateBookmarkDetails = (identifier, details) => {
 
     if (!isin) return;
 
-    const existing = myBookmarks.value[isin] || createBookmarkPayload(instrument, { isin });
+    const existing =
+        myBookmarks.value[isin] || createBookmarkPayload(instrument, { isin });
 
     myBookmarks.value[isin] = {
         ...existing,
         ...details,
         isin,
         symbol:
-            existing.symbol ||
-            instrument?.symbol ||
-            identifier.toUpperCase(),
+            existing.symbol || instrument?.symbol || identifier.toUpperCase(),
     };
 };
 

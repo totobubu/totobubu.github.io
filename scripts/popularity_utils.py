@@ -35,6 +35,34 @@ def load_nav_metadata(nav_path="public/nav.json"):
     return {}
 
 
+def load_symbol_to_isin_map(mapping_path="public/symbol-to-isin.json"):
+    try:
+        with open(mapping_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+    except FileNotFoundError:
+        print(f"Warning: symbol-to-isin file not found at {mapping_path}")
+        return {}
+    except json.JSONDecodeError as e:
+        print(f"Warning: Failed to parse symbol-to-isin ({mapping_path}): {e}")
+        return {}
+
+    mapping = {}
+    if isinstance(raw, dict):
+        for symbol, value in raw.items():
+            if isinstance(value, str):
+                mapping[symbol.upper()] = value.upper()
+            elif isinstance(value, dict) and value.get("isin"):
+                mapping[symbol.upper()] = value["isin"].upper()
+    elif isinstance(raw, list):
+        for entry in raw:
+            if not isinstance(entry, dict):
+                continue
+            symbol = entry.get("symbol")
+            isin = entry.get("isin")
+            if symbol and isin:
+                mapping[symbol.upper()] = isin.upper()
+    return mapping
+
 def is_etf(nav_item):
     if not nav_item:
         return False

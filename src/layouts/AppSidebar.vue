@@ -224,12 +224,10 @@
                             size="1rem"></Skeleton>
                         <i
                             v-else
-                            class="pi"
-                            :class="
-                                user && isTickerBookmarked(data)
-                                    ? 'pi-bookmark-fill'
-                                    : 'pi-bookmark'
-                            "
+                            class="pi pi-bookmark"
+                            :class="{
+                                'is-active': user && isTickerBookmarked(data),
+                            }"
                             @click.stop="handleStockBookmarkClick(data)"></i>
                     </template>
                 </Column>
