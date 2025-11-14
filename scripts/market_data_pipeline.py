@@ -15,16 +15,6 @@ from datetime import datetime
 from pathlib import Path
 from tqdm import tqdm
 
-# Firebase 관련 (선택적)
-try:
-    import firebase_admin
-    from firebase_admin import credentials, firestore
-
-    FIREBASE_AVAILABLE = True
-except ImportError:
-    FIREBASE_AVAILABLE = False
-    print("⚠️  Firebase 라이브러리가 없습니다. popularity 업데이트를 건너뜁니다.")
-
 # 공통 유틸리티
 from utils import (
     load_json_file,
@@ -187,114 +177,16 @@ def normalize_popularity_map(raw_map):
     return normalized
 
 
-def extract_isin_from_bookmark(key, payload):
-    # 1) payload 내부에서 우선 탐색
-    if isinstance(payload, dict):
-        for field in ("isin", "ISIN", "assetIsin"):
-            isin_candidate = payload.get(field)
-            resolved = resolve_candidate_to_isin(isin_candidate)
-            if resolved:
-                return resolved
-
-        for field in ("symbol", "Symbol"):
-            symbol_candidate = payload.get(field)
-            resolved = resolve_candidate_to_isin(symbol_candidate)
-            if resolved:
-                return resolved
-
-    # 2) 기존 키 기반으로 확인
-    return resolve_candidate_to_isin(key)
-
-
 # ============================================================================
-# Step 1: 인기도 집계 (aggregate_popularity)
+# 인기도 데이터 로드
 # ============================================================================
-def aggregate_popularity():
-    """Firestore에서 북마크 데이터를 집계하여 인기도 생성"""
+def load_popularity_snapshot():
+    """기존 popularity.json을 로드하여 사이드바 정렬에 활용"""
     global popularity_dict
 
-    print("\n" + "=" * 80)
-    print("⭐ STEP 1: 인기도 집계")
-    print("=" * 80)
-
-    if not FIREBASE_AVAILABLE:
-        print("⚠️  Firebase 라이브러리 없음. 인기도 업데이트 건너뜀\n")
-        # 기존 파일 로드 (ISIN 기준으로 정규화)
-        popularity_dict = normalize_popularity_map(
-            load_json_file(str(POPULARITY_FILE)) or {}
-        )
-        return len(popularity_dict)
-    
-    # Firebase 인증
-    service_account_info = os.environ.get("FIRESTORE_SA_KEY")
-    if service_account_info:
-        try:
-            cred = credentials.Certificate(json.loads(service_account_info))
-            firebase_admin.initialize_app(cred)
-        except Exception as e:
-            print(f"❌ Firebase 환경변수 인증 실패: {e}")
-            popularity_dict = normalize_popularity_map(
-                load_json_file(str(POPULARITY_FILE)) or {}
-            )
-            return len(popularity_dict)
-    else:
-        local_key_path = "service-account-key.json"
-        if not os.path.exists(local_key_path):
-            print("⚠️  Firebase 인증 정보 없음. 인기도 업데이트 건너뜀\n")
-            popularity_dict = normalize_popularity_map(
-                load_json_file(str(POPULARITY_FILE)) or {}
-            )
-            return len(popularity_dict)
-        try:
-            cred = credentials.Certificate(local_key_path)
-            firebase_admin.initialize_app(cred)
-        except Exception as e:
-            print(f"❌ Firebase 로컬 파일 인증 실패: {e}")
-            popularity_dict = normalize_popularity_map(
-                load_json_file(str(POPULARITY_FILE)) or {}
-            )
-            return len(popularity_dict)
-    
-    db = firestore.client()
-    print("✓ Firebase 연결 성공")
-
-    # 인기도 집계
-    popularity_counts = {}
-    users_ref = db.collection("userBookmarks")
-    docs = users_ref.stream()
-
-    total_bookmarks = 0
-    skipped_entries = 0
-    for doc in docs:
-        user_data = doc.to_dict()
-        bookmarks = user_data.get("bookmarks", {})
-        if not isinstance(bookmarks, dict):
-            continue
-        for key, payload in bookmarks.items():
-            isin = extract_isin_from_bookmark(key, payload)
-            if not isin:
-                skipped_entries += 1
-                continue
-            popularity_counts[isin] = popularity_counts.get(isin, 0) + 1
-            total_bookmarks += 1
-    
-    print(f"✓ 총 북마크: {total_bookmarks}개 (스킵: {skipped_entries}개)")
-    
-    # 인기도 순 정렬
-    sorted_popularity = sorted(
-        popularity_counts.items(), key=lambda item: item[1], reverse=True
-    )
-
-    # 파일 저장
-    popularity_dict = dict(sorted_popularity)
-    try:
-        with open(POPULARITY_FILE, "w", encoding="utf-8") as f:
-            json.dump(popularity_dict, f, ensure_ascii=False, indent=2)
-        print(f"✓ 인기도 파일 저장: {POPULARITY_FILE}")
-    except Exception as e:
-        print(f"❌ 파일 저장 실패: {e}")
-
-    print(f"\n✅ 인기도 집계 완료: {len(popularity_dict)}개 티커\n")
+    raw_popularity = load_json_file(str(POPULARITY_FILE)) or {}
+    popularity_dict = normalize_popularity_map(raw_popularity)
+    print(f"📊 기존 인기도 데이터 로드: {len(popularity_dict)}개 티커")
     return len(popularity_dict)
 
 
@@ -506,7 +398,7 @@ def generate_sidebar_tickers():
         print(f"    - 선택된 티커: {len(top_tickers)}개")
 
         # 인기 티커 수
-        popular_count = sum(1 for t in top_tickers if t["popularity"] > 0)
+        popular_count = sum(t["popularity"] > 0 for t in top_tickers)
         print(f"    - 인기 티커: {popular_count}개")
         print(f"    - 시가총액 기준 티커: {len(top_tickers) - popular_count}개")
 
@@ -530,10 +422,10 @@ def main():
     if not initialize():
         return
 
-    # Step 1: 인기도 집계
-    popularity_count = aggregate_popularity()
+    # 기존 인기도 데이터 로드
+    popularity_count = load_popularity_snapshot()
 
-    # Step 2: 사이드바 티커 생성
+    # 사이드바 티커 생성
     sidebar_count = generate_sidebar_tickers()
 
     # 완료
@@ -541,8 +433,8 @@ def main():
     print("\n" + "=" * 80)
     print("🎉 시장 데이터 통합 파이프라인 완료")
     print("=" * 80)
-    print(f"⭐ 인기도: {popularity_count}개 티커")
-    print(f"📂 사이드바: {sidebar_count}개 카테고리")
+    print(f"⭐ 인기도 데이터: {popularity_count}개 티커")
+    print(f"📂 사이드바 파일: {sidebar_count}개 카테고리")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
     print("=" * 80)
 
