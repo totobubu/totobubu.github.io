@@ -10,6 +10,7 @@ import os
 import json
 import time
 import sys
+import re
 from datetime import datetime
 from pathlib import Path
 from tqdm import tqdm
@@ -186,6 +187,49 @@ def aggregate_popularity():
 # ============================================================================
 # Step 3: 사이드바 티커 생성 (generate_sidebar_tickers)
 # ============================================================================
+def _split_weekday_tokens(value):
+    if not isinstance(value, str):
+        return []
+    return [token.strip() for token in re.split(r"[\/,\s·]+", value) if token.strip()]
+
+
+def _extract_group_labels(group_value):
+    if not group_value:
+        return []
+    
+    labels = []
+    iterable = []
+    
+    if isinstance(group_value, dict):
+        iterable = group_value.values()
+    elif isinstance(group_value, (list, tuple, set)):
+        iterable = group_value
+    else:
+        iterable = [group_value]
+    
+    for item in iterable:
+        if isinstance(item, str):
+            for token in _split_weekday_tokens(item):
+                if token and token not in labels:
+                    labels.append(token)
+    return labels
+
+
+def _determine_group_order(group_value, day_order):
+    labels = _extract_group_labels(group_value)
+    if labels:
+        valid_orders = [
+            day_order[label]
+            for label in labels
+            if label in day_order
+        ]
+        if valid_orders:
+            return min(valid_orders)
+    if isinstance(group_value, str):
+        return day_order.get(group_value, 999)
+    return 999
+
+
 def enrich_ticker_data(ticker_info):
     """티커 정보에 data 파일의 정보 추가"""
     symbol = ticker_info.get("symbol")
@@ -204,17 +248,30 @@ def enrich_ticker_data(ticker_info):
         yield_val = info.get("Yield")
         price = info.get("regularMarketPrice")
     
-    return {
+    group_value = ticker_info.get("group")
+    group_labels = _extract_group_labels(group_value)
+    group_order = _determine_group_order(group_value, day_order)
+    
+    # 사이드바에서 사용할 수 있도록 대표 그룹 라벨 지정
+    primary_group = None
+    if isinstance(group_value, str):
+        primary_group = group_value
+    elif group_labels:
+        primary_group = group_labels[0]
+    else:
+        primary_group = group_value
+    
+    enriched = {
         "symbol": symbol,
         "koName": ticker_info.get("koName"),
         "longName": ticker_info.get("longName"),
         "company": ticker_info.get("company"),
         "logo": ticker_info.get("logo"),
         "frequency": ticker_info.get("frequency"),
-        "group": ticker_info.get("group"),
+        "group": primary_group,
         "yield": yield_val,
         "price": price,
-        "groupOrder": day_order.get(ticker_info.get("group"), 999),
+        "groupOrder": group_order,
         "currency": ticker_info.get("currency"),
         "underlying": ticker_info.get("underlying"),
         "market": ticker_info.get("market"),
@@ -222,6 +279,11 @@ def enrich_ticker_data(ticker_info):
         "isEtf": ticker_info.get("isEtf"),
         "popularity": 0,
     }
+    
+    if group_labels:
+        enriched["groupLabels"] = group_labels
+    
+    return enriched
 
 
 def select_top_tickers(all_tickers, popularity_dict):
