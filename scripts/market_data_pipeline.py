@@ -398,9 +398,9 @@ def generate_sidebar_tickers():
         print(f"    - 선택된 티커: {len(top_tickers)}개")
 
         # 인기 티커 수
-        popular_count = sum(t["popularity"] > 0 for t in top_tickers)
-        print(f"    - 인기 티커: {popular_count}개")
-        print(f"    - 시가총액 기준 티커: {len(top_tickers) - popular_count}개")
+        # popular_count = sum(t["popularity"] > 0 for t in top_tickers)
+        # print(f"    - 인기 티커: {popular_count}개")
+        # print(f"    - 시가총액 기준 티커: {len(top_tickers) - popular_count}개")
 
         # 파일 저장
         output_path = SIDEBAR_DIR / config["file"]
