@@ -7,7 +7,7 @@
         "add:etf": "python scripts/add_etfs_by_provider.py",
         "backfill-market-cap": "python scripts/backfill_market_cap_approximate.py",
         "generate-nav": "node tasks/generateNav.js",
-        "generate-sidebar-tickers": "node tasks/generateSidebarTickers.js",
+        "generate-sidebar-tickers": "python scripts/generateSidebar.py",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
         "fetch-logos": "node tasks/fetchMissingLogos.js",
         "watch-nav": "nodemon --watch public/nav --ext json --exec \"npm run generate-nav\"",
