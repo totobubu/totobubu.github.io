@@ -317,6 +317,16 @@ def update_ticker_info():
                 "Update": now_kst_str,
             }
             new_info.update(dynamic_info)
+
+            isin_value = (
+                dynamic_info.get("isin")
+                or old_info.get("isin")
+                or info_from_nav.get("isin")
+            )
+            if isin_value:
+                new_info["isin"] = isin_value
+                if info_from_nav.get("isin") != isin_value:
+                    info_from_nav["isin"] = isin_value
             # 기존 이벤트(예: frequencyChanges, weekdayChanges, splits 등)는 보존
             existing_events = existing_data.get("tickerInfo", {}).get("events", {})
             if existing_events:

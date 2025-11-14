@@ -18,12 +18,15 @@
     const editingRows = ref([]);
 
     const bookmarkedStocks = computed(() => {
-        return Object.entries(myBookmarks.value).map(([symbol, userData]) => {
-            const stockInfo = allStockInfo.value.get(symbol);
+        return Object.entries(myBookmarks.value).map(([isin, userData]) => {
+            const stockInfo = allStockInfo.value.get(isin);
+            const symbol = userData?.symbol || stockInfo?.symbol || isin;
             return {
+                isin,
                 symbol,
-                displayName: stockInfo?.koName || stockInfo?.longName || symbol,
-                currency: stockInfo?.currency || 'USD',
+                displayName:
+                    stockInfo?.koName || stockInfo?.longName || symbol || isin,
+                currency: userData?.currency || stockInfo?.currency || 'USD',
                 ...userData,
             };
         });
@@ -32,19 +35,23 @@
     onMounted(async () => {
         const url = joinURL(import.meta.env.BASE_URL, 'nav.json');
         const response = await fetch(url);
-        const allStockData = (await response.json()).nav;
+        const allStockData = (await response.json()).nav || [];
         allStockInfo.value = new Map(
-            allStockData.map((stock) => [stock.symbol, stock])
+            allStockData
+                .filter((stock) => stock?.isin)
+                .map((stock) => [stock.isin.toUpperCase(), stock])
         );
         isLoading.value = false;
     });
 
     const onRowEditSave = (event) => {
         let { newData } = event;
-        const symbol = newData.symbol;
-
-        if (myBookmarks.value[symbol]) {
-            myBookmarks.value[symbol] = {
+        const ain = newData.isin;
+        if (!ain) return;
+        const isin = ain.toUpperCase();
+        if (myBookmarks.value[isin]) {
+            myBookmarks.value[isin] = {
+                ...myBookmarks.value[isin],
                 avgPrice: newData.avgPrice || 0,
                 quantity: newData.quantity || 0,
                 accumulatedDividend: newData.accumulatedDividend || 0,
@@ -53,9 +60,11 @@
         }
     };
 
-    const deleteBookmark = (symbol) => {
-        if (myBookmarks.value[symbol]) {
-            delete myBookmarks.value[symbol];
+    const deleteBookmark = (entryIsin) => {
+        if (!entryIsin) return;
+        const isin = entryIsin.toUpperCase();
+        if (myBookmarks.value[isin]) {
+            delete myBookmarks.value[isin];
         }
     };
 
@@ -82,7 +91,7 @@
                 <DataTable
                     :value="bookmarkedStocks"
                     editMode="row"
-                    dataKey="symbol"
+                    dataKey="isin"
                     v-model:editingRows="editingRows"
                     @row-edit-save="onRowEditSave"
                     class="p-datatable-sm"
@@ -182,9 +191,7 @@
                                 icon="pi pi-trash"
                                 severity="danger"
                                 text
-                                @click="
-                                    deleteBookmark(slotProps.data.symbol)
-                                " />
+                                @click="deleteBookmark(slotProps.data.isin)" />
                         </template>
                     </Column>
                 </DataTable>
