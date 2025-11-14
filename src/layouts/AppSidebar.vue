@@ -28,6 +28,7 @@
         myBookmarks,
         filteredTickers,
         handleStockBookmarkClick,
+        isTickerBookmarked,
         onRowSelect,
         handleTickerRequest,
     } = useSidebar();
@@ -225,13 +226,11 @@
                             v-else
                             class="pi"
                             :class="
-                                user && myBookmarks[data.symbol]
+                                user && isTickerBookmarked(data)
                                     ? 'pi-bookmark-fill'
                                     : 'pi-bookmark'
                             "
-                            @click.stop="
-                                handleStockBookmarkClick(data.symbol)
-                            "></i>
+                            @click.stop="handleStockBookmarkClick(data)"></i>
                     </template>
                 </Column>
                 <Column
