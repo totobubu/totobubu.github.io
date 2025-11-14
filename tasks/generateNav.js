@@ -1,6 +1,6 @@
 // tasks/generateNav.js
 import fs from 'fs/promises';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import path from 'path';
 
 const rootDir = process.cwd();
@@ -13,69 +13,59 @@ const logosKoreaDir = path.join(logosDir, 'korea');
 const logosBrandDir = path.join(logosDir, 'brand');
 const outputFile = path.join(publicDir, 'nav.json');
 const missingLogosFile = path.join(publicDir, 'missing-logos.json');
-const brandMappingFile = path.join(publicDir, 'nav', 'kr-brand.json');
 
-// --- [핵심 수정 1] 한국 ETF 운용사 이름과 로고 파일명 매핑 객체 추가 ---
-const koreanEtfBrandByCompany = {
-    미래에셋자산운용: 'tiger',
-    삼성자산운용: 'kodex',
-    kb증권: 'kbsec',
-    kb자산운용: 'kbsec',
-    한국투자신탁운용: 'ace',
-    엔에이치아문디자산운용: 'hanaro',
-    'NH-Amundi자산운용': 'hanaro',
-    신한자산운용: 'sol',
-    비엔케이자산운용: 'bnk',
-    키움증권: 'kiwoom',
-    키움투자자산운용: 'kiwoom',
-    한화자산운용: 'arirang',
-    대신자산운용: 'daishin',
-    '대신 증권': 'daishin',
-    흥국자산운용: 'heungkuk',
-};
+const brandRulesFilePath = path.join(navDir, 'logos-rules.json');
+const logosBrandFilePath = path.join(navDir, 'logos-brand.json');
 
-const koreanCorporateBrandPatterns = [
-    {
-        regex: /^(?:lg|엘지)/,
-        brandSlug: 'lg',
-    },
-    {
-        regex: /^(?:gs|지에스)/,
-        brandSlug: 'gs',
-    },
-    {
-        regex: /^한화/,
-        brandSlug: 'hanwha',
-    },
-    {
-        regex: /^sk/,
-        brandSlug: 'sk',
-    },
-    {
-        regex: /^(?:삼성|samsung)/,
-        brandSlug: 'samsung',
-    },
-    {
-        regex: /^(?:포스코|posco)/,
-        brandSlug: 'posco',
-    },
-    {
-        regex: /^(?:두산|doosan)/,
-        brandSlug: 'doosan',
-    },
-    {
-        regex: /^(?:교보|kyobo)/,
-        brandSlug: 'kyobo',
-    },
-    {
-        regex: /^(?:롯데|lotte)/,
-        brandSlug: 'lotte',
-    },
-    {
-        regex: /^cj/,
-        brandSlug: 'cj',
-    },
-];
+let brandRulesConfig;
+try {
+    const brandRulesRaw = readFileSync(brandRulesFilePath, 'utf8');
+    brandRulesConfig = JSON.parse(brandRulesRaw);
+} catch (error) {
+    console.error(
+        `❌ 브랜드 매칭 규칙 파일(${brandRulesFilePath})을 읽는 중 오류가 발생했습니다: ${error.message}`
+    );
+    process.exit(1);
+}
+
+const {
+    koreanEtfBrandByCompany: koreanEtfBrandByCompanyConfig = [],
+    globalBrandLogoMap: globalBrandLogoMapConfig = [],
+    globalCompanyAliasMap: globalCompanyAliasMapConfig = [],
+    koreanEtfCompanyPatterns: koreanEtfCompanyPatternsConfig = [],
+} = brandRulesConfig;
+
+let logosBrandConfig;
+try {
+    const logosBrandRaw = readFileSync(logosBrandFilePath, 'utf8');
+    logosBrandConfig = JSON.parse(logosBrandRaw);
+} catch (error) {
+    console.error(
+        `❌ 브랜드 매칭 정보 파일(${logosBrandFilePath})을 읽는 중 오류가 발생했습니다: ${error.message}`
+    );
+    process.exit(1);
+}
+
+let logosBrandEntriesRaw = Array.isArray(logosBrandConfig.brands)
+    ? logosBrandConfig.brands
+    : [];
+
+const brandPassSymbolsMap = new Map();
+logosBrandEntriesRaw.forEach((entry) => {
+    if (!entry || !entry.brand) return;
+    const passSymbols = Array.isArray(entry.passSymbols)
+        ? entry.passSymbols
+        : [];
+    brandPassSymbolsMap.set(
+        entry.brand,
+        new Set(
+            passSymbols
+                .filter((symbol) => typeof symbol === 'string')
+                .map((symbol) => symbol.trim().toUpperCase())
+                .filter(Boolean)
+        )
+    );
+});
 
 function normalizeKoreanIdentifier(value) {
     if (!value) return '';
@@ -91,60 +81,49 @@ function normalizeKoreanIdentifier(value) {
 }
 
 const normalizedKoreanEtfBrandByCompany = new Map(
-    Object.entries(koreanEtfBrandByCompany).map(([key, value]) => [
-        normalizeKoreanIdentifier(key),
-        value,
-    ])
+    koreanEtfBrandByCompanyConfig
+        .map(({ company, brandSlug }) => {
+            if (!company || !brandSlug) return null;
+            return [normalizeKoreanIdentifier(company), brandSlug];
+        })
+        .filter(Boolean)
 );
 
+const logosCorporateBrandPatterns = logosBrandEntriesRaw
+    .map((item) => {
+        if (!item || !item.pattern || !item.brand) return null;
+        const flags = item.flags || '';
+        try {
+            return {
+                regex: new RegExp(item.pattern, flags),
+                brandSlug: item.brand,
+                passSymbols: brandPassSymbolsMap.get(item.brand) || new Set(),
+            };
+        } catch (error) {
+            console.warn(
+                `⚠️ 잘못된 정규식 패턴(${item.pattern})을 건너뜁니다: ${error.message}`
+            );
+            return null;
+        }
+    })
+    .filter(Boolean);
+
 const globalBrandLogoMap = new Map(
-    [
-        ['SPDR', 'company-spdr'],
-        ['SPDR ETFs', 'company-spdr'],
-        ['SPDR STATE STREET GLOBAL ADVISORS', 'company-spdr'],
-        ['STATE STREET GLOBAL ADVISORS', 'company-spdr'],
-        ['GOLDMAN SACHS', 'company-goldman-sachs'],
-        ['GOLDMAN', 'company-goldman-sachs'],
-        ['GOLDMAN SACHS GROUP', 'company-goldman-sachs'],
-        ['GOLDMAN SACHS ASSET MANAGEMENT', 'company-goldman-sachs'],
-        ['GOLDMAN SACHS ACCESS', 'company-goldman-sachs'],
-        ['ARK', 'company-ark'],
-        ['ARK ETF TRUST', 'company-ark'],
-        ['ARK INVESTMENT MANAGEMENT', 'company-ark'],
-        ['JPMORGAN', 'company-jpmorgan'],
-        ['J.P. MORGAN', 'company-jpmorgan'],
-        ['JPMORGAN CHASE', 'company-jpmorgan'],
-        ['JPMORGAN CHASE & CO.', 'company-jpmorgan'],
-        ['JPMAM', 'company-jpmorgan'],
-        ['J.P. MORGAN ASSET MANAGEMENT', 'company-jpmorgan'],
-        ['TIDAL', 'company-tidal'],
-        ['TIDAL ETF SERVICES', 'company-tidal'],
-        ['TIDAL FINANCIAL GROUP', 'company-tidal'],
-        ['DIREXION', 'company-direxion'],
-        ['DIREXION FUNDS', 'company-direxion'],
-        ['YIELDMAX', 'company-yieldmax'],
-        ['YIELDMAX ETFs', 'company-yieldmax'],
-        ['DEFIANCE', 'company-defiance'],
-        ['DEFIANCE ETFs', 'company-defiance'],
-        ['FIRST TRUST', 'company-first-trust'],
-        ['FIRST TRUST ADVISORS', 'company-first-trust'],
-        ['FIRST TRUST PORTFOLIO', 'company-first-trust'],
-        ['FIRST TRUST PORTFOLIOS', 'company-first-trust'],
-        ['FT', 'company-first-trust'],
-        ['FIRST', 'company-first-trust'],
-    ].map(([key, value]) => [key.toLowerCase(), value])
+    globalBrandLogoMapConfig
+        .map((item) => {
+            if (!item || !item.name || !item.logoKey) return null;
+            return [item.name.toLowerCase(), item.logoKey];
+        })
+        .filter(Boolean)
 );
 
 const globalCompanyAliasMap = new Map(
-    [
-        ['ACCESS', 'Goldman Sachs'],
-        ['GOLDMAN SACHS ACCESS', 'Goldman Sachs'],
-        ['GOLDMAN SACHS ASSET MANAGEMENT', 'Goldman Sachs'],
-        ['GOLDMAN SACHS GROUP', 'Goldman Sachs'],
-        ['GOLDMAN SACHS', 'Goldman Sachs'],
-        ['GOLDMAN', 'Goldman Sachs'],
-        ['FIRST', 'First Trust'],
-    ].map(([key, value]) => [key.toLowerCase(), value])
+    globalCompanyAliasMapConfig
+        .map((item) => {
+            if (!item || !item.alias || !item.company) return null;
+            return [item.alias.toLowerCase(), item.company];
+        })
+        .filter(Boolean)
 );
 
 function resolveCompanyAlias(companyName) {
@@ -152,27 +131,23 @@ function resolveCompanyAlias(companyName) {
     return globalCompanyAliasMap.get(companyName.toLowerCase()) || null;
 }
 
-const koreanEtfCompanyPatterns = [
-    { regex: /\bTIGER\b|미래에셋/iu, company: '미래에셋자산운용' },
-    { regex: /\bKODEX\b/iu, company: '삼성자산운용' },
-    {
-        regex: /\bKBSTAR\b|\bKB STAR\b|KB스타/iu,
-        company: 'KB자산운용',
-    },
-    {
-        regex: /\bACE\b|\bKINDEX\b|한국투자/iu,
-        company: '한국투자신탁운용',
-    },
-    { regex: /\bHANARO\b/iu, company: '엔에이치아문디자산운용' },
-    { regex: /\bSOL\b/iu, company: '신한자산운용' },
-    { regex: /TIMEFOLIO/iu, company: '타임폴리오자산운용' },
-    { regex: /\bBNK\b/iu, company: '비엔케이자산운용' },
-    { regex: /ARIRANG/iu, company: '한화자산운용' },
-    { regex: /KOSEF/iu, company: '한국투자신탁운용' },
-    { regex: /KIWOOM|키움/iu, company: '키움증권' },
-    { regex: /\bRISE\b/iu, company: 'kb자산운용' },
-    { regex: /\bPLUS\b/iu, company: '한화자산운용' },
-];
+const koreanEtfCompanyPatterns = koreanEtfCompanyPatternsConfig
+    .map((item) => {
+        if (!item || !item.pattern || !item.company) return null;
+        const flags = item.flags || '';
+        try {
+            return {
+                regex: new RegExp(item.pattern, flags),
+                company: item.company,
+            };
+        } catch (error) {
+            console.warn(
+                `⚠️ 잘못된 정규식 패턴(${item.pattern})을 건너뜁니다: ${error.message}`
+            );
+            return null;
+        }
+    })
+    .filter(Boolean);
 
 function resolveKoreanEtfBrandSlug(name) {
     if (!name) return null;
@@ -181,13 +156,31 @@ function resolveKoreanEtfBrandSlug(name) {
     return normalizedKoreanEtfBrandByCompany.get(normalized) || null;
 }
 
-function resolveKoreanCorporateBrandSlug(name) {
+function resolveKoreanCorporateBrandSlug(name, symbol) {
     if (!name) return null;
     const normalized = normalizeKoreanIdentifier(name);
     if (!normalized) return null;
 
-    for (const { regex, brandSlug } of koreanCorporateBrandPatterns) {
+    if (normalizedKoreanEtfBrandByCompany.has(normalized)) {
+        return null;
+    }
+
+    const trimmedSymbol =
+        typeof symbol === 'string' ? symbol.trim().toUpperCase() : null;
+
+    for (const {
+        regex,
+        brandSlug,
+        passSymbols,
+    } of logosCorporateBrandPatterns) {
         if (regex.test(normalized)) {
+            if (
+                trimmedSymbol &&
+                passSymbols instanceof Set &&
+                passSymbols.has(trimmedSymbol)
+            ) {
+                continue;
+            }
             return brandSlug;
         }
     }
@@ -245,7 +238,7 @@ function resolveKoreanCorporateBrandSlugFromTicker(ticker) {
     const candidates = [ticker.company, ticker.koName, ticker.longName];
 
     for (const candidate of candidates) {
-        const slug = resolveKoreanCorporateBrandSlug(candidate);
+        const slug = resolveKoreanCorporateBrandSlug(candidate, ticker.symbol);
         if (slug) {
             return slug;
         }
@@ -260,64 +253,19 @@ function normalizeToFilename(name) {
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
-function sanitizeBrandSlug(value) {
-    const normalized = normalizeToFilename(value);
-    if (!normalized) return null;
-    return normalized.replace(/^brand-/, '').replace(/^etf-/, '');
-}
-
-async function loadSymbolBrandMap() {
-    try {
-        const fileContent = await fs.readFile(brandMappingFile, 'utf8');
-        const parsed = JSON.parse(fileContent);
-        const symbolToBrand = new Map();
-
-        const registerMapping = (brandValue, symbols) => {
-            const brandSlug = sanitizeBrandSlug(brandValue);
-            if (!brandSlug || !Array.isArray(symbols)) {
-                return;
-            }
-
-            symbols.forEach((symbol) => {
-                if (typeof symbol !== 'string') return;
-                const trimmed = symbol.trim().toUpperCase();
-                if (!trimmed) return;
-                symbolToBrand.set(trimmed, brandSlug);
-            });
-        };
-
-        if (Array.isArray(parsed?.brands)) {
-            parsed.brands.forEach((entry) => {
-                if (!entry) return;
-                const brandValue = entry.slug || entry.brand || entry.name;
-                registerMapping(brandValue, entry.symbols);
-            });
-        } else if (parsed && typeof parsed === 'object') {
-            Object.entries(parsed).forEach(([brandValue, symbols]) => {
-                registerMapping(brandValue, symbols);
-            });
-        }
-
-        return symbolToBrand;
-    } catch (error) {
-        if (error.code !== 'ENOENT') {
-            console.warn(`⚠️ brand.json 로드 실패: ${error.message}`);
-        }
-        return new Map();
-    }
-}
-
 function findLogoFile(normalizedName, options = {}) {
     if (!normalizedName) return null;
 
     let category = 'company';
     let market = null;
+    let attemptType = null;
 
     if (typeof options === 'string') {
         category = options;
     } else if (options && typeof options === 'object') {
         category = options.category || 'company';
         market = options.market || null;
+        attemptType = options.type || null;
     }
 
     const supportedExtensions = [
@@ -358,16 +306,20 @@ function findLogoFile(normalizedName, options = {}) {
                     path.join(marketRootDir, 'company'),
                     `logos/${normalizedMarket}/company/`
                 );
-            } else if (category === 'korea') {
-                addTarget(
-                    path.join(marketRootDir, 'korea'),
-                    `logos/${normalizedMarket}/korea/`
-                );
             }
         }
     }
 
-    if (category === 'korea') {
+    if (category === 'symbol') {
+        if (market) {
+            const normalizedMarket = market.toString().trim().toLowerCase();
+            if (normalizedMarket) {
+                addTarget(
+                    path.join(logosDir, normalizedMarket),
+                    `logos/${normalizedMarket}/`
+                );
+            }
+        }
         addTarget(logosKoreaDir, 'logos/korea/');
     }
 
@@ -383,6 +335,17 @@ function findLogoFile(normalizedName, options = {}) {
 
     for (const { dir, relativePrefix } of searchTargets) {
         const candidateNames = new Set([normalizedName]);
+        if (attemptType === 'symbol') {
+            const numericWithSuffix = normalizedName.match(/^(\d+)(ks|kq)$/);
+            if (numericWithSuffix) {
+                candidateNames.add(numericWithSuffix[1]);
+            }
+            const upper = normalizedName.toUpperCase();
+            const suffixMatch = upper.match(/^([A-Z0-9]+)[\._-]?(KS|KQ)$/);
+            if (suffixMatch) {
+                candidateNames.add(suffixMatch[1].toLowerCase());
+            }
+        }
 
         if (
             normalizedName &&
@@ -418,6 +381,9 @@ async function processAndPushTickers(filePath, market, allTickers) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const tickers = JSON.parse(data);
+        if (!Array.isArray(tickers)) {
+            return;
+        }
         tickers.forEach((ticker) => {
             if (!ticker.market) ticker.market = market;
             ticker.currency =
@@ -434,7 +400,6 @@ async function processAndPushTickers(filePath, market, allTickers) {
 async function generateNavJson() {
     let allTickers = [];
     const failedLogoMatches = [];
-    const symbolBrandMap = await loadSymbolBrandMap();
     const navEntries = await fs.readdir(navDir, { withFileTypes: true });
 
     for (const entry of navEntries) {
@@ -471,9 +436,6 @@ async function generateNavJson() {
             processedTicker.company = alias;
         }
 
-        const symbolKey = (processedTicker.symbol || ticker.symbol || '')
-            .toUpperCase()
-            .trim();
         const marketUpper = (processedTicker.market || '').toUpperCase();
 
         if (
@@ -487,54 +449,77 @@ async function generateNavJson() {
         }
 
         const logoAttempts = [];
+        const pushAttempt = (name, category = 'company', extra = {}) => {
+            if (!name) return;
+            logoAttempts.push({ name, category, ...extra });
+        };
 
-        const brandSlugFromMapping = symbolKey
-            ? symbolBrandMap.get(symbolKey)
-            : null;
-        if (brandSlugFromMapping) {
-            logoAttempts.push({
-                name: `brand-${brandSlugFromMapping}`,
-                category: 'brand',
-            });
-        }
+        const pushBrandAttempt = (brandValue) => {
+            if (!brandValue) return;
+            const trimmed = brandValue.toString().trim();
+            if (!trimmed) return;
+            const lower = trimmed.toLowerCase();
+
+            if (lower.startsWith('brand-')) {
+                pushAttempt(lower, 'brand');
+                return;
+            }
+            if (lower.startsWith('etf-')) {
+                pushAttempt(lower, 'korea');
+                return;
+            }
+            if (lower.startsWith('company-')) {
+                pushAttempt(lower, 'company');
+                return;
+            }
+
+            const normalized = normalizeToFilename(trimmed);
+            if (normalized) {
+                pushAttempt(`brand-${normalized}`, 'brand');
+            }
+        };
+
+        // 1) 브랜드 우선
+        pushBrandAttempt(processedTicker.brand);
 
         if (['KOSPI', 'KOSDAQ'].includes(marketUpper)) {
             const etfBrandSlug =
                 resolveKoreanEtfBrandSlugFromTicker(processedTicker);
             if (etfBrandSlug) {
-                logoAttempts.push({
-                    name: `etf-${etfBrandSlug}`,
-                    category: 'korea',
-                });
+                pushAttempt(`etf-${etfBrandSlug}`, 'company');
             }
 
             const corporateBrandSlug =
                 resolveKoreanCorporateBrandSlugFromTicker(processedTicker);
             if (corporateBrandSlug) {
-                logoAttempts.push({
-                    name: `brand-${corporateBrandSlug}`,
-                    category: 'brand',
-                });
+                pushAttempt(`brand-${corporateBrandSlug}`, 'brand');
             }
         }
 
+        // 2) 운용사/회사 기반
         const globalBrandKey = resolveGlobalBrandLogoKey(
             processedTicker.company
         );
         if (globalBrandKey) {
-            logoAttempts.push({
-                name: globalBrandKey,
-                category: 'company',
+            pushAttempt(globalBrandKey, 'company');
+        }
+
+        if (processedTicker.company) {
+            pushAttempt(processedTicker.company, 'company');
+        }
+
+        // 3) 티커 심볼 기반
+        if (processedTicker.symbol) {
+            let symbolCategory = 'company';
+            if (marketUpper === 'KOSPI' || marketUpper === 'KOSDAQ') {
+                symbolCategory = 'symbol';
+            }
+            pushAttempt(processedTicker.symbol, symbolCategory, {
+                type: 'symbol',
             });
         }
 
         const fallbackName = processedTicker.company || processedTicker.symbol;
-        if (fallbackName) {
-            logoAttempts.push({
-                name: fallbackName,
-                category: 'company',
-            });
-        }
 
         let resolvedLogoPath = null;
         const attemptedKeys = [];
@@ -552,6 +537,7 @@ async function generateNavJson() {
             const logoPath = findLogoFile(normalizedName, {
                 category: attempt.category,
                 market: processedTicker.market,
+                type: attempt.type,
             });
             if (logoPath) {
                 resolvedLogoPath = logoPath;
@@ -644,6 +630,7 @@ async function generateNavJson() {
     });
 
     let finalTickers = await Promise.all(finalTickersPromises);
+
     finalTickers.sort((a, b) => a.symbol.localeCompare(b.symbol));
 
     const navJson = JSON.stringify({ nav: finalTickers }, null, 2);
