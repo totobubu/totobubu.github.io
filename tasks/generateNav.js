@@ -253,6 +253,158 @@ function normalizeToFilename(name) {
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
+const MONTH_INITIALS = {
+    1: 'J',
+    2: 'F',
+    3: 'M',
+    4: 'A',
+    5: 'M',
+    6: 'J',
+    7: 'J',
+    8: 'A',
+    9: 'S',
+    10: 'O',
+    11: 'N',
+    12: 'D',
+};
+
+const WEEKDAY_LABELS = {
+    0: '월',
+    1: '화',
+    2: '수',
+    3: '목',
+    4: '금',
+};
+
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+function parseUtcDate(dateString) {
+    if (!dateString) return null;
+    const parsed = new Date(`${dateString}T00:00:00Z`);
+    if (Number.isNaN(parsed.getTime())) {
+        return null;
+    }
+    return parsed;
+}
+
+function extractDividendDates(backtestData) {
+    if (!Array.isArray(backtestData)) return [];
+    return backtestData
+        .filter((entry) => {
+            if (!entry || !entry.date) return false;
+            const amountExists =
+                typeof entry.amount !== 'undefined' && entry.amount !== null;
+            const amountFixedExists =
+                typeof entry.amountFixed !== 'undefined' &&
+                entry.amountFixed !== null;
+            return amountExists || amountFixedExists;
+        })
+        .map((entry) => parseUtcDate(entry.date))
+        .filter(Boolean)
+        .sort((a, b) => a - b);
+}
+
+function bucketInterval(days) {
+    if (days >= 4 && days <= 10) return 7; // weekly
+    if (days >= 25 && days <= 35) return 30; // monthly
+    if (days >= 81 && days <= 101) return 91; // quarterly
+    if (days >= 335 && days <= 395) return 365; // yearly
+    return null;
+}
+
+function findMode(values) {
+    const counts = new Map();
+    let mode = null;
+    let maxCount = 0;
+    values.forEach((value) => {
+        const nextCount = (counts.get(value) || 0) + 1;
+        counts.set(value, nextCount);
+        if (
+            nextCount > maxCount ||
+            (nextCount === maxCount && (mode === null || value < mode))
+        ) {
+            mode = value;
+            maxCount = nextCount;
+        }
+    });
+    return mode;
+}
+
+function analyzeFrequencyAndGroup(dividendDates) {
+    if (!Array.isArray(dividendDates) || dividendDates.length < 2) {
+        return { frequency: null, group: null };
+    }
+
+    const recentDates = dividendDates.slice(-5);
+    if (recentDates.length < 2) {
+        return { frequency: null, group: null };
+    }
+
+    const intervals = [];
+    for (let i = 1; i < recentDates.length; i += 1) {
+        const diffDays = Math.round(
+            (recentDates[i] - recentDates[i - 1]) / MS_PER_DAY
+        );
+        if (!Number.isNaN(diffDays)) {
+            intervals.push(diffDays);
+        }
+    }
+
+    if (!intervals.length) {
+        return { frequency: null, group: null };
+    }
+
+    const groupedIntervals = intervals
+        .map(bucketInterval)
+        .filter((value) => value !== null);
+
+    if (!groupedIntervals.length) {
+        return { frequency: null, group: null };
+    }
+
+    const modeInterval = findMode(groupedIntervals);
+    const frequencyMap = {
+        7: '매주',
+        30: '매월',
+        91: '분기',
+        365: '매년',
+    };
+    const frequency = frequencyMap[modeInterval] || null;
+
+    let group = null;
+    if (frequency === '분기' && recentDates.length >= 4) {
+        const recentMonths = recentDates
+            .slice(-4)
+            .map((date) => date.getUTCMonth() + 1);
+        const uniqueMonths = Array.from(new Set(recentMonths)).sort(
+            (a, b) => a - b
+        );
+        if (uniqueMonths.length === 4) {
+            group = uniqueMonths
+                .map((month) => MONTH_INITIALS[month] || '?')
+                .join('');
+        }
+    } else if (frequency === '매주') {
+        const weekdayCounts = new Map();
+        recentDates.forEach((date) => {
+            const weekday = (date.getUTCDay() + 6) % 7; // Monday as 0
+            if (weekday >= 0 && weekday <= 4) {
+                const nextCount = (weekdayCounts.get(weekday) || 0) + 1;
+                weekdayCounts.set(weekday, nextCount);
+            }
+        });
+        if (weekdayCounts.size) {
+            const sorted = Array.from(weekdayCounts.entries()).sort(
+                (a, b) => b[1] - a[1] || a[0] - b[0]
+            );
+            const [topWeekday] = sorted[0];
+            group = WEEKDAY_LABELS[topWeekday] || null;
+        }
+    }
+
+    return { frequency, group };
+}
+
 function findLogoFile(normalizedName, options = {}) {
     if (!normalizedName) return null;
 
@@ -579,6 +731,33 @@ async function generateNavJson() {
             const dataFileContent = await fs.readFile(dataFilePath, 'utf8');
             const stockData = JSON.parse(dataFileContent);
             const backtestData = stockData.backtestData || [];
+            const tickerInfoFromData =
+                (stockData && stockData.tickerInfo) || {};
+            const dividendDates = extractDividendDates(backtestData);
+            const { frequency: analyzedFrequency, group: analyzedGroup } =
+                analyzeFrequencyAndGroup(dividendDates);
+
+            if (
+                analyzedFrequency &&
+                processedTicker.frequency !== analyzedFrequency
+            ) {
+                processedTicker.frequency = analyzedFrequency;
+            } else if (
+                !processedTicker.frequency &&
+                tickerInfoFromData.frequency
+            ) {
+                processedTicker.frequency = tickerInfoFromData.frequency;
+            }
+
+            if (analyzedGroup) {
+                processedTicker.group = analyzedGroup;
+            } else if (
+                (processedTicker.group === undefined ||
+                    processedTicker.group === null) &&
+                tickerInfoFromData.group
+            ) {
+                processedTicker.group = tickerInfoFromData.group;
+            }
 
             const firstDividendEntry = backtestData.find(
                 (d) => d.amount !== null && typeof d.amount !== 'undefined'

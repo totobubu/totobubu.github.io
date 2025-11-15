@@ -885,6 +885,7 @@
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": null,
+            "group": "MJSD",
             "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
@@ -2156,6 +2157,7 @@
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -2300,6 +2302,7 @@
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": "logos/company/etf-kbsec.svg",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -2391,6 +2394,7 @@
             "currency": "KRW",
             "company": "한화자산운용",
             "logo": "logos/company/etf-arirang.svg",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -2583,6 +2587,7 @@
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": "logos/company/etf-tiger.svg",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -4278,13 +4283,13 @@
             "koName": "휴온스글로벌",
             "longName": "휴온스글로벌",
             "ipoDate": "2006-12-19",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": true,
             "isin": "KR7084110006",
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": null,
-            "periods": ["10Y", "15Y"]
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "084370.KQ",
@@ -4370,7 +4375,7 @@
             "longName": "하나금융지주",
             "ipoDate": "2002-12-13",
             "frequency": "분기",
-            "group": "FMAS",
+            "group": "FMAN",
             "sharesOutstanding": true,
             "isin": "KR7086790003",
             "market": "KOSDAQ",
@@ -4899,7 +4904,7 @@
             "koName": "ACE 200",
             "longName": "ACE 200",
             "ipoDate": "2009-04-17",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7105190003",
@@ -4907,7 +4912,7 @@
             "currency": "KRW",
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
-            "periods": ["10Y"]
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "105560.KQ",
@@ -4915,7 +4920,7 @@
             "longName": "KB금융",
             "ipoDate": "2001-12-25",
             "frequency": "분기",
-            "group": "FMAS",
+            "group": "FMAN",
             "sharesOutstanding": true,
             "isin": "KR7105560007",
             "market": "KOSDAQ",
@@ -5511,6 +5516,7 @@
             "currency": "KRW",
             "company": "비엔케이자산운용",
             "logo": "logos/company/etf-bnk.svg",
+            "group": "FMAN",
             "periods": ["5Y", "10Y"]
         },
         {
@@ -5908,14 +5914,14 @@
             "koName": "TIGER 중국소비테마",
             "company": "미래에셋자산운용",
             "ipoDate": "2011-12-16",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7150460004",
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": "logos/company/etf-tiger.svg",
-            "periods": ["10Y"]
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "152100.KQ",
@@ -6133,13 +6139,13 @@
             "koName": "필옵틱스",
             "longName": "필옵틱스",
             "ipoDate": "2017-06-01",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": true,
             "isin": "KR7161580006",
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "161890.KQ",
@@ -6258,7 +6264,7 @@
             "longName": "JB금융지주",
             "ipoDate": "2000-01-04",
             "frequency": "분기",
-            "group": "FMAS",
+            "group": "FMAN",
             "sharesOutstanding": true,
             "isin": "KR7175330000",
             "market": "KOSDAQ",
@@ -6638,13 +6644,13 @@
             "koName": "휴메딕스",
             "longName": "휴메딕스",
             "ipoDate": "2014-12-26",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": true,
             "isin": "KR7200670008",
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": null,
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "203780.KQ",
@@ -7506,7 +7512,7 @@
             "longName": "두산밥캣",
             "ipoDate": "2016-11-22",
             "frequency": "분기",
-            "group": "MJAD",
+            "group": "MAND",
             "sharesOutstanding": true,
             "isin": "KR7241560002",
             "market": "KOSPI",
@@ -8368,14 +8374,14 @@
             "koName": "RISE KQ고배당",
             "company": "KB자산운용",
             "ipoDate": "2017-07-07",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7270800006",
             "market": "KOSDAQ",
             "currency": "KRW",
             "logo": "logos/company/etf-kbsec.svg",
-            "periods": []
+            "periods": ["5Y"]
         },
         {
             "symbol": "270810.KQ",
@@ -8920,7 +8926,7 @@
             "koName": "KODEX 차이나CSI300",
             "company": "삼성자산운용",
             "ipoDate": "2017-12-13",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7283580009",
@@ -9901,7 +9907,7 @@
             "longName": "우리금융지주",
             "ipoDate": "2019-02-21",
             "frequency": "분기",
-            "group": "FMAS",
+            "group": "FMAN",
             "sharesOutstanding": true,
             "isin": "KR7316140003",
             "market": "KOSDAQ",
@@ -12291,7 +12297,7 @@
             "symbol": "411860.KQ",
             "koName": "KIWOOM 독일DAX",
             "ipoDate": "2021-12-22",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7411860000",
@@ -13705,7 +13711,7 @@
             "koName": "ACE 주주환원가치주액티브",
             "company": "한국투자신탁운용",
             "ipoDate": "2022-11-15",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7447430000",
@@ -14192,7 +14198,7 @@
             "koName": "VITA 밸류알파액티브",
             "company": "이베스트자산운용",
             "ipoDate": "2023-02-21",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7452440001",
@@ -14391,7 +14397,7 @@
             "symbol": "454180.KQ",
             "koName": "KIWOOM 차이나내수소비TOP CSI",
             "ipoDate": "2023-04-04",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7454180001",
@@ -14812,7 +14818,7 @@
             "koName": "KODEX 테슬라밸류체인FactSet",
             "company": "삼성자산운용",
             "ipoDate": "2023-06-08",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "yfSuffixFallbacks": [".KS"],
             "isin": "KR7459560009",
@@ -16412,7 +16418,7 @@
             "koName": "KODEX 인도타타그룹",
             "company": "삼성자산운용",
             "ipoDate": "2024-05-08",
-            "frequency": "매년",
+            "frequency": "분기",
             "sharesOutstanding": false,
             "isin": "KR7477730006",
             "market": "KOSDAQ",
@@ -18192,7 +18198,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "AAXJ",
@@ -19041,7 +19048,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "AMZU",
@@ -19563,7 +19571,7 @@
             "ipoDate": "2018-08-28",
             "holdings": true,
             "frequency": "분기",
-            "group": "FMAD",
+            "group": "FMAN",
             "sharesOutstanding": false,
             "isin": "US37954Y5740",
             "market": "NYSE",
@@ -20396,6 +20404,7 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-westwood.png",
+            "frequency": "분기",
             "periods": []
         },
         {
@@ -24582,7 +24591,9 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kingsbarn.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "분기",
+            "group": "AJOD",
+            "periods": []
         },
         {
             "symbol": "DVN",
@@ -29413,7 +29424,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-hoya.png",
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "frequency": "매월",
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "HON",
@@ -29608,7 +29620,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-capitol.png",
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "frequency": "매년",
+            "periods": []
         },
         {
             "symbol": "HUBB",
@@ -32186,14 +32199,15 @@
             "symbol": "JGLO",
             "company": "JPMorgan",
             "ipoDate": "2023-09-14",
-            "frequency": "매년",
+            "frequency": "매주",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US46654Q7401",
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-jpmorgan.png",
-            "periods": []
+            "group": "화",
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "JGRO",
@@ -32262,14 +32276,15 @@
             "symbol": "JIVE",
             "company": "JPMorgan",
             "ipoDate": "2023-09-14",
-            "frequency": "매년",
+            "frequency": "매주",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US46654Q7575",
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-jpmorgan.png",
-            "periods": []
+            "group": "화",
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "JKHY",
@@ -32431,14 +32446,15 @@
             "symbol": "JPEF",
             "company": "JPMorgan",
             "ipoDate": "2023-07-31",
-            "frequency": "매년",
+            "frequency": "매주",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US46654Q7815",
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-jpmorgan.png",
-            "periods": []
+            "group": "화",
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "JPHY",
@@ -32684,7 +32700,9 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kingsbarn.png",
-            "periods": ["6M", "1Y", "3Y"]
+            "frequency": "분기",
+            "group": "MJSD",
+            "periods": []
         },
         {
             "symbol": "KEY",
@@ -32719,6 +32737,7 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -33834,7 +33853,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-westwood.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "MDT",
@@ -34213,7 +34233,7 @@
             "company": "Global",
             "ipoDate": "2013-08-07",
             "frequency": "분기",
-            "group": "FMAD",
+            "group": "FMAN",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US37954Y2937",
@@ -34605,7 +34625,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "MSI",
@@ -35097,7 +35118,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "NFLW",
@@ -36138,7 +36160,7 @@
             "symbol": "PCAR",
             "ipoDate": "1980-03-17",
             "frequency": "분기",
-            "group": "FMAD",
+            "group": "FMAN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US6937181088",
@@ -37595,10 +37617,7 @@
             "company": "Defiance",
             "frequency": "매주",
             "ipoDate": "2025-09-18",
-            "group": {
-                "wed": "수",
-                "fri": "금"
-            },
+            "group": "금",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US88636V8845",
@@ -37970,7 +37989,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": null,
-            "periods": ["6M", "1Y"]
+            "frequency": "매년",
+            "periods": []
         },
         {
             "symbol": "QYLD",
@@ -41246,6 +41266,7 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-rex.png",
+            "frequency": "매월",
             "periods": []
         },
         {
@@ -42548,7 +42569,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "TSLR",
@@ -44193,13 +44215,14 @@
             "company": "VanEck",
             "ipoDate": "2009-08-14",
             "holdings": true,
-            "frequency": "매년",
+            "frequency": "매주",
             "sharesOutstanding": false,
             "isin": "US92189F8178",
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-vaneck.png",
-            "periods": ["10Y", "15Y"]
+            "group": "월",
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "VNQ",
@@ -45037,7 +45060,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-westwood.png",
-            "periods": ["6M", "1Y"]
+            "frequency": "매월",
+            "periods": ["1Y"]
         },
         {
             "symbol": "WEEK",
@@ -45162,7 +45186,7 @@
         {
             "symbol": "WNTR",
             "company": "YieldMax",
-            "frequency": "매월",
+            "frequency": "매주",
             "underlying": "MSTR",
             "ipoDate": "2025-03-27",
             "holdings": true,
@@ -45171,7 +45195,8 @@
             "market": "NYSE",
             "currency": "USD",
             "logo": "logos/company/company-yieldmax.png",
-            "periods": []
+            "group": "목",
+            "periods": ["6M"]
         },
         {
             "symbol": "WOMN",

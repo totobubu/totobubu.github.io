@@ -29,6 +29,14 @@ const loadNavData = async () => {
 const sanitizeTickerForFilename = (ticker) =>
     ticker.replace(/\./g, '-').toLowerCase();
 
+const MARKET_SUFFIX_REGEX = /-(ks|kq|kn|ko)$/i;
+
+const stripMarketSuffix = (sanitizedTicker) =>
+    sanitizedTicker.replace(MARKET_SUFFIX_REGEX, '');
+
+const isKoreanMarket = (market) =>
+    ['KOSPI', 'KOSDAQ', 'KONEX'].includes((market || '').toUpperCase());
+
 const marketNameMap = {
     NMS: 'NASDAQ',
     NYQ: 'NYSE',
@@ -77,8 +85,30 @@ export function useStockData() {
             );
 
             if (!navInfo) {
+                const baseTicker = stripMarketSuffix(sanitizedTicker);
+                const fallbackNavInfo = navData.nav.find(
+                    (item) =>
+                        stripMarketSuffix(
+                            sanitizeTickerForFilename(item.symbol)
+                        ) === baseTicker
+                );
+
+                const displayLabel = (() => {
+                    if (
+                        fallbackNavInfo &&
+                        isKoreanMarket(fallbackNavInfo.market)
+                    ) {
+                        return (
+                            fallbackNavInfo.koName ||
+                            fallbackNavInfo.longName ||
+                            fallbackNavInfo.symbol
+                        );
+                    }
+                    return sanitizedTicker.toUpperCase();
+                })();
+
                 throw new Error(
-                    `'${sanitizedTicker.toUpperCase()}'에 대한 종목 정보를 찾을 수 없습니다.`
+                    `'${displayLabel}'에 대한 종목 정보를 찾을 수 없습니다.`
                 );
             }
 
