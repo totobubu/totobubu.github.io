@@ -253,6 +253,73 @@ function normalizeToFilename(name) {
     return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
+const KRX_SUFFIXES = new Set(['.KS', '.KQ', '.KN', '.KO']);
+
+function normalizeYahooSymbol(symbol) {
+    if (!symbol || typeof symbol !== 'string') return null;
+    return symbol.trim().toUpperCase();
+}
+
+function extractBaseSymbol(symbol) {
+    if (!symbol) return null;
+    const normalized = normalizeYahooSymbol(symbol);
+    if (!normalized) return null;
+    for (const suffix of KRX_SUFFIXES) {
+        if (normalized.endsWith(suffix)) {
+            return normalized.slice(0, -suffix.length);
+        }
+    }
+    return normalized;
+}
+
+function ensureTickerSymbols(rawTicker) {
+    const ticker = { ...rawTicker };
+    const providedYfSymbol =
+        typeof ticker.yfSymbol === 'string' && ticker.yfSymbol.trim()
+            ? ticker.yfSymbol
+            : ticker.symbol;
+
+    const yfSymbol = normalizeYahooSymbol(providedYfSymbol);
+    const baseSymbol = extractBaseSymbol(
+        ticker.symbol ? normalizeYahooSymbol(ticker.symbol) : yfSymbol
+    );
+
+    if (yfSymbol) {
+        ticker.yfSymbol = yfSymbol;
+    }
+    if (baseSymbol) {
+        ticker.symbol = baseSymbol;
+    }
+
+    return ticker;
+}
+
+function getMarketSlug(market) {
+    if (!market) return null;
+    return market.toString().trim().toLowerCase() || null;
+}
+
+function getDataFileCandidates(yfSymbol, market) {
+    const slug = normalizeToFilename(yfSymbol);
+    if (!slug) return [];
+
+    const candidates = [];
+    const marketSlug = getMarketSlug(market);
+    if (marketSlug) {
+        candidates.push({
+            absPath: path.join(dataDir, marketSlug, `${slug}.json`),
+            relPath: path.posix.join('data', marketSlug, `${slug}.json`),
+        });
+    }
+
+    candidates.push({
+        absPath: path.join(dataDir, `${slug}.json`),
+        relPath: path.posix.join('data', `${slug}.json`),
+    });
+
+    return candidates;
+}
+
 const MONTH_INITIALS = {
     1: 'J',
     2: 'F',
@@ -532,17 +599,40 @@ function convertPeriodToYears(periodString) {
 async function processAndPushTickers(filePath, market, allTickers) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
-        const tickers = JSON.parse(data);
-        if (!Array.isArray(tickers)) {
+        const tickersRaw = JSON.parse(data);
+        if (!Array.isArray(tickersRaw)) {
             return;
         }
-        tickers.forEach((ticker) => {
-            if (!ticker.market) ticker.market = market;
-            ticker.currency =
-                ticker.market === 'KOSPI' || ticker.market === 'KOSDAQ'
-                    ? 'KRW'
-                    : 'USD';
+        let fileUpdated = false;
+        const tickers = tickersRaw.map((ticker) => {
+            const normalized = ensureTickerSymbols({
+                ...ticker,
+                market: ticker.market || market,
+            });
+
+            if (normalized.symbol !== ticker.symbol) {
+                fileUpdated = true;
+            }
+            if (normalized.yfSymbol !== ticker.yfSymbol) {
+                fileUpdated = true;
+            }
+
+            if (
+                normalized.market === 'KOSPI' ||
+                normalized.market === 'KOSDAQ'
+            ) {
+                normalized.currency = 'KRW';
+            } else if (!normalized.currency) {
+                normalized.currency = 'USD';
+            }
+
+            return normalized;
         });
+
+        if (fileUpdated) {
+            await fs.writeFile(filePath, JSON.stringify(tickers, null, 4));
+        }
+
         allTickers.push(...tickers);
     } catch (error) {
         console.error(`[${filePath}] 파일 읽기 오류: ${error}`);
@@ -582,6 +672,17 @@ async function generateNavJson() {
 
     const finalTickersPromises = allTickers.map(async (ticker) => {
         let processedTicker = { ...ticker };
+
+        const yfSymbol =
+            processedTicker.yfSymbol || processedTicker.originalSymbol;
+        const normalizedYfSymbol = normalizeYahooSymbol(yfSymbol);
+        const baseSymbol = extractBaseSymbol(normalizedYfSymbol);
+        if (normalizedYfSymbol) {
+            processedTicker.yfSymbol = normalizedYfSymbol;
+        }
+        if (baseSymbol) {
+            processedTicker.symbol = baseSymbol;
+        }
 
         const alias = resolveCompanyAlias(processedTicker.company);
         if (alias) {
@@ -722,10 +823,33 @@ async function generateNavJson() {
             });
         }
 
-        const dataFilePath = path.join(
-            dataDir,
-            `${ticker.symbol.replace(/\./g, '-').toLowerCase()}.json`
+        const dataCandidates = getDataFileCandidates(
+            processedTicker.yfSymbol,
+            processedTicker.market
         );
+        const candidateWithFile =
+            dataCandidates.find((candidate) => existsSync(candidate.absPath)) ||
+            dataCandidates[0];
+        const dataFilePath = candidateWithFile?.absPath;
+        const resolvedDataPath = candidateWithFile?.relPath || null;
+        const availableDataPaths = dataCandidates
+            .filter((candidate) => existsSync(candidate.absPath))
+            .map((candidate) => candidate.relPath);
+
+        if (resolvedDataPath) {
+            processedTicker.dataPath = resolvedDataPath;
+        }
+        if (availableDataPaths.length) {
+            processedTicker.dataPaths = Array.from(
+                new Set(availableDataPaths.concat(resolvedDataPath || []))
+            );
+        }
+
+        if (!dataFilePath) {
+            processedTicker.periods = [];
+            return processedTicker;
+        }
+
         try {
             // ... (파일 읽고 파싱하는 로직은 변경 없음)
             const dataFileContent = await fs.readFile(dataFilePath, 'utf8');

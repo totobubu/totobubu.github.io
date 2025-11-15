@@ -29,6 +29,8 @@ SUFFIX_TO_MARKET = {
     ".KO": "KOSPI",
 }
 
+KRX_SUFFIXES = {".KS", ".KQ", ".KN", ".KO"}
+
 
 def get_kst_now():
     return datetime.now(timezone(timedelta(hours=9)))
@@ -112,6 +114,18 @@ def detect_market_from_symbol(symbol):
         if upper_symbol.endswith(suffix):
             return market
     return None
+
+
+def get_base_symbol(symbol):
+    if not symbol:
+        return None
+    normalized = str(symbol).strip().upper()
+    if not normalized:
+        return None
+    for suffix in KRX_SUFFIXES:
+        if normalized.endswith(suffix):
+            return normalized[: -len(suffix)]
+    return normalized
 
 
 def get_market_subdirectory(market):
