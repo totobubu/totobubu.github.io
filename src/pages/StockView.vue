@@ -8,6 +8,10 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useStockCharts } from '@/composables/useStockCharts.js';
     import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
+    import {
+        buildSymbolFromRouteParams,
+        buildSanitizedTickerFromRouteParams,
+    } from '@/utils/tickerRoute';
     import VChart from 'vue-echarts';
 
     import Skeleton from 'primevue/skeleton';
@@ -32,8 +36,15 @@
         isUpcoming,
     } = useStockData();
 
+    const marketSlug = computed(() =>
+        (route.params.market || '').toString().toLowerCase()
+    );
+    const tickerParam = computed(() => (route.params.ticker || '').toString());
     const tickerSymbol = computed(() =>
-        (route.params.ticker || '').toString().replace(/-/g, '.')
+        buildSymbolFromRouteParams(marketSlug.value, tickerParam.value)
+    );
+    const sanitizedTicker = computed(() =>
+        buildSanitizedTickerFromRouteParams(marketSlug.value, tickerParam.value)
     );
     const pageTitle = computed(() => {
         const upperTicker = tickerSymbol.value.toUpperCase();
@@ -138,10 +149,10 @@
     });
 
     watch(
-        () => route.params.ticker,
-        (newTicker) => {
-            if (newTicker) {
-                loadData(newTicker.toLowerCase()).then(() => {
+        () => sanitizedTicker.value,
+        (newSanitized) => {
+            if (newSanitized) {
+                loadData(newSanitized).then(() => {
                     const hasDividends =
                         dividendHistory.value &&
                         dividendHistory.value.length > 0;
