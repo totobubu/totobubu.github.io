@@ -74,6 +74,9 @@ jobs:
             - name: Process and enrich dividend history
               run: python scripts/scraper_dividend.py
 
+            - name: Apply split adjustments to dividend history
+              run: python scripts/apply_split_adjustments.py
+
             - name: Generate calendar events data
               run: npm run generate-calendar-events
 

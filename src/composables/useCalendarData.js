@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
+import { stripTickerSuffix } from '@/utils/tickerRoute';
 
 const allDividendData = ref([]);
 const allTickerProperties = ref(new Map());
@@ -158,21 +159,58 @@ const loadAllData = async () => {
 export function useCalendarData() {
     const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
+    const buildBookmarkSets = () => {
+        const symbolSet = new Set();
+        const isinSet = new Set();
+
+        Object.values(myBookmarks.value || {}).forEach((entry) => {
+            if (!entry) return;
+            if (entry.isin) {
+                isinSet.add(entry.isin.toUpperCase());
+            }
+            if (entry.symbol) {
+                const upper = entry.symbol.toUpperCase();
+                const base = stripTickerSuffix(upper);
+                symbolSet.add(base);
+                symbolSet.add(upper);
+            }
+        });
+
+        return { symbolSet, isinSet };
+    };
+
+    const matchesBookmark = (event, symbolSet, isinSet) => {
+        const eventTicker = event.ticker
+            ? stripTickerSuffix(event.ticker.toUpperCase())
+            : null;
+        const eventYfSymbol = event.yfSymbol
+            ? stripTickerSuffix(event.yfSymbol.toUpperCase())
+            : null;
+        const eventIsin = event.isin ? event.isin.toUpperCase() : null;
+
+        if (eventTicker && symbolSet.has(eventTicker)) return true;
+        if (eventYfSymbol && symbolSet.has(eventYfSymbol)) return true;
+        if (eventIsin && isinSet.has(eventIsin)) return true;
+        return false;
+    };
+
     const dividendsByDate = computed(() => {
         const mainTab = mainFilterTab.value;
         const subTab = subFilterTab.value;
-        const myTickerSet = new Set(Object.keys(myBookmarks.value));
+        const { symbolSet: bookmarkSymbols, isinSet: bookmarkIsins } =
+            buildBookmarkSets();
 
         let filteredEvents = [...allDividendData.value];
 
         if (mainTab === '북마크') {
             filteredEvents = filteredEvents.filter((event) =>
-                myTickerSet.has(event.ticker)
+                matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
             );
         } else {
             // 북마크가 아닌 탭에서는 북마크된 항목 제외
             filteredEvents = filteredEvents.filter(
-                (event) => !myTickerSet.has(event.ticker)
+                (event) =>
+                    !matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
             );
 
             // [핵심 수정] 국가 필터링 (event에 이미 currency 정보가 있음)
