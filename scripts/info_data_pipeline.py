@@ -26,6 +26,7 @@ from utils import (
     get_kst_now,
     should_skip_update_timestamp,
     get_data_file_path,
+    get_base_symbol,
 )
 
 # 경로 설정
@@ -170,13 +171,25 @@ def initialize():
 
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
-    ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
+
+    ticker_info_map = {}
+    custom_suffix_fallbacks = {}
+    for entry in active_tickers_info:
+        yf_symbol = (entry.get("yfSymbol") or entry.get("symbol") or "").upper()
+        base_symbol = get_base_symbol(yf_symbol) or entry.get("symbol")
+        if not base_symbol:
+            continue
+        ticker_info_map[base_symbol] = {
+            **entry,
+            "symbol": base_symbol,
+            "yfSymbol": yf_symbol,
+        }
+        if entry.get("yfSuffixFallbacks"):
+            custom_suffix_fallbacks[base_symbol] = entry.get("yfSuffixFallbacks", [])
+            if yf_symbol:
+                custom_suffix_fallbacks[yf_symbol] = entry.get("yfSuffixFallbacks", [])
+
     active_symbols = list(ticker_info_map.keys())
-    custom_suffix_fallbacks = {
-        t["symbol"]: t.get("yfSuffixFallbacks", [])
-        for t in active_tickers_info
-        if t.get("yfSuffixFallbacks")
-    }
 
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
 
@@ -229,7 +242,10 @@ def update_dividends():
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
             ticker_meta = ticker_info_map.get(symbol, {})
-            file_path = get_data_file_path(symbol, ticker_meta.get("market"))
+            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
+            if not yahoo_symbol:
+                continue
+            file_path = get_data_file_path(yahoo_symbol, ticker_meta.get("market"))
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -252,7 +268,7 @@ def update_dividends():
 
             # yfinance에서 배당 데이터 다운로드 (접미사 자동 보정)
             new_dividends_df = fetch_dividends_with_suffix_fallback(
-                symbol, start_date_str
+                yahoo_symbol, start_date_str
             )
 
             if new_dividends_df.empty:
@@ -295,14 +311,16 @@ def update_dividends():
 # ============================================================================
 # Step 2: 티커 정보 업데이트 (scraper_info)
 # ============================================================================
-def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
+def fetch_bulk_ticker_info_batch(symbol_pairs_batch):
     """여러 티커의 정보를 배치로 가져오기"""
     bulk_data = {}
     try:
-        symbol_fetch_map = {
-            symbol: symbol_suffix_overrides.get(symbol, symbol)
-            for symbol in ticker_symbols_batch
-        }
+        symbol_fetch_map = {}
+        for base_symbol, yahoo_symbol in symbol_pairs_batch:
+            if not yahoo_symbol:
+                continue
+            fetch_symbol = symbol_suffix_overrides.get(yahoo_symbol, yahoo_symbol)
+            symbol_fetch_map[base_symbol] = fetch_symbol
         unique_fetch_symbols = list(set(symbol_fetch_map.values()))
         tickers = yf.Tickers(unique_fetch_symbols)
 
@@ -318,7 +336,7 @@ def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
         return bulk_data
     except Exception as e:
         print(f"  ❌ 배치 가져오기 오류: {e}")
-        return {symbol: None for symbol in ticker_symbols_batch}
+        return {base_symbol: None for base_symbol, _ in symbol_pairs_batch}
 
 
 def process_single_ticker_info(info):
@@ -399,8 +417,13 @@ def update_ticker_info():
     for i in tqdm(
         range(0, len(active_symbols), batch_size), desc="티커 정보 배치 수집"
     ):
-        batch = active_symbols[i : i + batch_size]
-        batch_info = fetch_bulk_ticker_info_batch(batch)
+        batch_keys = active_symbols[i : i + batch_size]
+        symbol_pairs = []
+        for base_symbol in batch_keys:
+            ticker_meta = ticker_info_map.get(base_symbol, {})
+            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
+            symbol_pairs.append((base_symbol, yahoo_symbol))
+        batch_info = fetch_bulk_ticker_info_batch(symbol_pairs)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
             time.sleep(INFO_BATCH_DELAY_SEC)
@@ -414,12 +437,13 @@ def update_ticker_info():
     for symbol in tqdm(active_symbols, desc="티커 정보 + 시가총액 처리"):
         try:
             info_from_nav = ticker_info_map[symbol]
+            yahoo_symbol = info_from_nav.get("yfSymbol") or info_from_nav.get("symbol")
             raw_dynamic_info = all_bulk_info.get(symbol)
             if not raw_dynamic_info:
-                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(symbol)
+                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(yahoo_symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = get_data_file_path(symbol, info_from_nav.get("market"))
+            file_path = get_data_file_path(yahoo_symbol, info_from_nav.get("market"))
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],

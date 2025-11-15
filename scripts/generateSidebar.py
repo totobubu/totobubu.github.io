@@ -27,7 +27,11 @@ SYMBOL_ISIN_FILE = PUBLIC_DIR / "symbol-to-isin.json"
 if str(ROOT_DIR) not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
-from scripts.utils import load_json_file, save_json_file  # noqa: E402
+from scripts.utils import (  # noqa: E402
+    load_json_file,
+    save_json_file,
+    get_base_symbol,
+)
 
 KOREAN_ETF_BRANDS = {
     "KODEX",
@@ -248,6 +252,9 @@ def load_auxiliary_metadata():
         ticker_symbol = (
             Path(data_file).name.replace(".json", "").replace("-", ".").upper()
         )
+        base_symbol = get_base_symbol(ticker_symbol)
+        if not base_symbol:
+            continue
         payload = load_json_file(str(data_file))
         if not payload:
             continue
@@ -257,14 +264,14 @@ def load_auxiliary_metadata():
         if "Yield" in info:
             yield_map[ticker_symbol] = info["Yield"]
         if "group" in info:
-            group_value_map[ticker_symbol] = info["group"]
+            group_value_map[base_symbol] = info["group"]
             labels = parse_group_labels(info["group"])
             if labels:
-                group_labels_map[ticker_symbol] = labels
+                group_labels_map[base_symbol] = labels
         isin_value = info.get("isin")
         resolved_isin = is_probable_isin(isin_value)
         if resolved_isin:
-            isin_map[ticker_symbol] = resolved_isin
+            isin_map[base_symbol] = resolved_isin
 
     print(
         "✓ 보조 메타데이터 로드 "

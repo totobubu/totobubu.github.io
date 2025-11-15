@@ -11,6 +11,7 @@
     import {
         buildSymbolFromRouteParams,
         buildSanitizedTickerFromRouteParams,
+        stripTickerSuffix,
     } from '@/utils/tickerRoute';
     import VChart from 'vue-echarts';
 
@@ -179,10 +180,16 @@
             return myBookmarks.value[isin];
         }
         const symbol = tickerSymbol.value.toUpperCase();
+        const baseSymbol = stripTickerSuffix(symbol);
         return (
-            Object.values(myBookmarks.value || {}).find(
-                (entry) => entry?.symbol === symbol
-            ) || null
+            Object.values(myBookmarks.value || {}).find((entry) => {
+                const entrySymbol = entry?.symbol
+                    ? entry.symbol.toUpperCase()
+                    : null;
+                if (!entrySymbol) return false;
+                if (entrySymbol === symbol) return true;
+                return stripTickerSuffix(entrySymbol) === baseSymbol;
+            }) || null
         );
     });
 </script>

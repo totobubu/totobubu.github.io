@@ -31,7 +31,7 @@ const LEGACY_SUFFIX_TO_SLUG = {
 
 const DEFAULT_MARKET_SLUG = 'global';
 
-const stripKnownSuffix = (symbol) => {
+export const stripTickerSuffix = (symbol) => {
     const match = symbol.match(/^(.*)\.([A-Z]+)$/);
     if (!match) return symbol;
     const [, base, suffix] = match;
@@ -53,8 +53,7 @@ export const buildSymbolFromRouteParams = (marketSlug, tickerParam) => {
     const normalizedTicker = (tickerParam || '').toString().trim();
     const base = normalizedTicker.replace(/-/g, '.').toUpperCase();
     if (!base) return '';
-    const suffix = MARKET_SLUG_META[marketSlug]?.suffix;
-    return suffix ? `${base}.${suffix}` : base;
+    return base;
 };
 
 export const buildSanitizedTickerFromRouteParams = (
@@ -80,7 +79,7 @@ export const getRouteParamsFromSymbol = (symbol, marketName) => {
         marketSlug = DEFAULT_MARKET_SLUG;
     }
 
-    const baseSymbol = stripKnownSuffix(normalizedSymbol);
+    const baseSymbol = stripTickerSuffix(normalizedSymbol);
     return {
         market: marketSlug,
         ticker: sanitizeTickerParam(baseSymbol),

@@ -15,7 +15,10 @@ import {
     resolveInstrumentByIsin,
     resolveInstrumentBySymbol,
 } from '@/store/instruments';
-import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
+import {
+    getRouteParamsFromSymbol,
+    stripTickerSuffix,
+} from '@/utils/tickerRoute';
 
 export function useSidebar() {
     const router = useRouter();
@@ -166,7 +169,11 @@ export function useSidebar() {
     const bookmarkedSymbols = computed(() => {
         const set = new Set();
         bookmarkEntries.value.forEach((entry) => {
-            if (entry?.symbol) set.add(entry.symbol);
+            if (entry?.symbol) {
+                const normalized = entry.symbol.toUpperCase();
+                set.add(normalized);
+                set.add(stripTickerSuffix(normalized));
+            }
         });
         return set;
     });
