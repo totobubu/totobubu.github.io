@@ -566,9 +566,22 @@
             "low": 3215.384521484375,
             "close": 3326.923095703125,
             "volume": 444828,
-            "amount": 50,
+            "amount": 65,
             "yield": 0.0153482877,
-            "marketCap": 51643511156
+            "marketCap": 51643511156,
+            "amountOriginal": 50,
+            "amountSplitAdjustments": [
+                {
+                    "date": "2014-06-26",
+                    "ratio": "1.3:2",
+                    "factor": 1.5384615384615385
+                },
+                {
+                    "date": "2017-10-27",
+                    "ratio": "2:1",
+                    "factor": 0.5
+                }
+            ]
         },
         {
             "date": "2013-12-30",
@@ -2774,9 +2787,17 @@
             "low": 3210,
             "close": 3215,
             "volume": 68392,
-            "amount": 70,
+            "amount": 140,
             "yield": 0.0212121212,
-            "marketCap": 49906139575
+            "marketCap": 49906139575,
+            "amountOriginal": 70,
+            "amountSplitAdjustments": [
+                {
+                    "date": "2017-10-27",
+                    "ratio": "2:1",
+                    "factor": 0.5
+                }
+            ]
         },
         {
             "date": "2014-12-30",
@@ -5008,9 +5029,17 @@
             "low": 4000,
             "close": 4060,
             "volume": 11488,
-            "amount": 80,
+            "amount": 160,
             "yield": 0.037037037,
-            "marketCap": 63022994300
+            "marketCap": 63022994300,
+            "amountOriginal": 80,
+            "amountSplitAdjustments": [
+                {
+                    "date": "2017-10-27",
+                    "ratio": "2:1",
+                    "factor": 0.5
+                }
+            ]
         },
         {
             "date": "2015-12-30",
@@ -7224,9 +7253,17 @@
             "low": 4085,
             "close": 4105,
             "volume": 30816,
-            "amount": 120,
+            "amount": 240,
             "yield": 0.0489596083,
-            "marketCap": 63721525025
+            "marketCap": 63721525025,
+            "amountOriginal": 120,
+            "amountSplitAdjustments": [
+                {
+                    "date": "2017-10-27",
+                    "ratio": "2:1",
+                    "factor": 0.5
+                }
+            ]
         },
         {
             "date": "2016-12-29",
@@ -9398,7 +9435,8 @@
             "volume": 67878,
             "amount": 60,
             "yield": 0.0442260442,
-            "marketCap": 63255837875
+            "marketCap": 63255837875,
+            "amountOriginal": 60
         },
         {
             "date": "2017-12-28",
@@ -11560,7 +11598,8 @@
             "volume": 565737,
             "amount": 50,
             "yield": 0.0244716352,
-            "marketCap": 68378396525
+            "marketCap": 68378396525,
+            "amountOriginal": 50
         },
         {
             "date": "2018-12-28",
@@ -13776,7 +13815,8 @@
             "volume": 68455,
             "amount": 50,
             "yield": 0.0224719101,
-            "marketCap": 69620228925
+            "marketCap": 69620228925,
+            "amountOriginal": 50
         },
         {
             "date": "2019-12-30",
@@ -16010,7 +16050,8 @@
             "volume": 111367,
             "amount": 50,
             "yield": 0.0084889643,
-            "marketCap": 93137430000
+            "marketCap": 93137430000,
+            "amountOriginal": 50
         },
         {
             "date": "2020-12-30",
@@ -18244,7 +18285,8 @@
             "volume": 40741,
             "amount": 50,
             "yield": 0.0209643606,
-            "marketCap": 73889027800
+            "marketCap": 73889027800,
+            "amountOriginal": 50
         },
         {
             "date": "2021-12-30",
@@ -20433,7 +20475,8 @@
             "volume": 43827,
             "amount": 50,
             "yield": 0.027173913,
-            "marketCap": 57745206600
+            "marketCap": 57745206600,
+            "amountOriginal": 50
         },
         {
             "date": "2022-12-29",
@@ -22631,7 +22674,8 @@
             "volume": 33814,
             "amount": 70,
             "yield": 0.0279069767,
-            "marketCap": 65894731725
+            "marketCap": 65894731725,
+            "amountOriginal": 70
         },
         {
             "date": "2023-12-28",
@@ -24829,7 +24873,8 @@
             "volume": 398041,
             "amount": 70,
             "yield": 0.0082352941,
-            "marketCap": 128684882450
+            "marketCap": 128684882450,
+            "amountOriginal": 70
         },
         {
             "date": "2024-12-30",
