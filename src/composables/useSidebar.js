@@ -15,6 +15,7 @@ import {
     resolveInstrumentByIsin,
     resolveInstrumentBySymbol,
 } from '@/store/instruments';
+import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
 export function useSidebar() {
     const router = useRouter();
@@ -549,9 +550,9 @@ export function useSidebar() {
     };
     const onRowSelect = (event) => {
         const ticker = event.data.symbol;
-        if (ticker && typeof ticker === 'string') {
-            router.push(`/${ticker.replace(/\./g, '-').toLowerCase()}`);
-        }
+        if (!ticker) return;
+        const params = getRouteParamsFromSymbol(ticker, event.data.market);
+        if (params) router.push({ name: 'stock-detail', params });
     };
 
     onMounted(loadSidebarData);
