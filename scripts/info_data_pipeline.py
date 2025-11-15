@@ -49,6 +49,12 @@ SUFFIX_FALLBACKS = {
 }
 symbol_suffix_overrides = {}
 
+# --- Rate limit configuration (half-speed throttling) ---
+INFO_BATCH_SIZE = 50  # 이전 100
+INFO_BATCH_DELAY_SEC = 2.0  # 이전 1초 간격보다 2배 대기
+INFO_SYMBOL_DELAY_SEC = 0.05  # 개별 심볼 후 짧은 휴식
+DIVIDEND_SYMBOL_DELAY_SEC = 0.2  # 배당 수집시 요청 간 딜레이
+
 
 def replace_symbol_suffix(symbol, new_suffix):
     """심볼 접미사를 안전하게 교체"""
@@ -283,6 +289,9 @@ def update_dividends():
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
 
+        if DIVIDEND_SYMBOL_DELAY_SEC:
+            time.sleep(DIVIDEND_SYMBOL_DELAY_SEC)
+
     print(f"\n✅ 배당 데이터 업데이트 완료: {updated_count}개 파일 변경\n")
     return updated_count
 
@@ -387,7 +396,7 @@ def update_ticker_info():
     print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 (통합)")
     print("=" * 80)
 
-    batch_size = 100
+    batch_size = INFO_BATCH_SIZE
     all_bulk_info = {}
 
     # 배치로 정보 가져오기
@@ -398,7 +407,7 @@ def update_ticker_info():
         batch_info = fetch_bulk_ticker_info_batch(batch)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
-            time.sleep(1)
+            time.sleep(INFO_BATCH_DELAY_SEC)
 
     total_changed_files = 0
     marketcap_added_count = 0
@@ -521,6 +530,9 @@ def update_ticker_info():
 
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
+
+        if INFO_SYMBOL_DELAY_SEC:
+            time.sleep(INFO_SYMBOL_DELAY_SEC)
 
     print(f"\n✅ 티커 정보 업데이트 완료: {total_changed_files}개 파일 변경")
     print(f"   💰 시가총액 추가: {marketcap_added_count}개\n")

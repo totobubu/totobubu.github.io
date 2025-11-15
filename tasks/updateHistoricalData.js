@@ -380,7 +380,8 @@ async function main() {
     );
 
     console.log(`Found ${uniqueTickers.length} symbols to update.`);
-    const concurrency = 10;
+    const concurrency = 5;
+    const chunkDelayMs = 1000;
     let successCount = 0;
     const failedSymbols = [];
 
@@ -396,7 +397,7 @@ async function main() {
             if (r.success) successCount++;
             else if (r.symbol) failedSymbols.push(r.symbol);
         });
-        await delay(500);
+        await delay(chunkDelayMs);
     }
 
     console.log(
