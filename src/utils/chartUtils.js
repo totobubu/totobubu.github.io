@@ -3,15 +3,15 @@ import { parseYYMMDD } from '@/utils/date.js'; // [추가] parseYYMMDD 함수를
 
 // [신규] 월별 누적 차트를 위한 12색상 팔레트 추가
 export const monthColors = {
-    1: '#a8c6f5',  // Jan (Light Blue)
-    2: '#87b4f3',  // Feb
-    3: '#4285F4',  // Mar (Blue)
-    4: '#b7e1cd',  // Apr (Light Green)
-    5: '#81c995',  // May
-    6: '#34A853',  // Jun (Green)
-    7: '#fce8b2',  // Jul (Light Yellow)
-    8: '#fdd663',  // Aug
-    9: '#FBBC04',  // Sep (Yellow)
+    1: '#a8c6f5', // Jan (Light Blue)
+    2: '#87b4f3', // Feb
+    3: '#4285F4', // Mar (Blue)
+    4: '#b7e1cd', // Apr (Light Green)
+    5: '#81c995', // May
+    6: '#34A853', // Jun (Green)
+    7: '#fce8b2', // Jul (Light Yellow)
+    8: '#fdd663', // Aug
+    9: '#FBBC04', // Sep (Yellow)
     10: '#f8c5b9', // Oct (Light Red)
     11: '#f28b82', // Nov
     12: '#EA4335', // Dec (Red)
@@ -33,7 +33,7 @@ export const generateTimeRangeOptions = (periods) => {
     if (Array.isArray(periods)) {
         periodsArray = periods;
     } else if (typeof periods === 'string') {
-        periodsArray = periods.split(',').map(p => p.trim());
+        periodsArray = periods.split(',').map((p) => p.trim());
     } else {
         // 그 외의 경우 (예: 잘못된 데이터 타입)
         return [{ label: '전체', value: 'ALL' }];
@@ -41,8 +41,8 @@ export const generateTimeRangeOptions = (periods) => {
 
     // "ALL"을 필터링하고 옵션 객체 배열 생성
     const options = periodsArray
-        .filter(p => p.toUpperCase() !== 'ALL')
-        .map(part => ({ label: part, value: part }));
+        .filter((p) => p.toUpperCase() !== 'ALL')
+        .map((part) => ({ label: part, value: part }));
 
     // 마지막에 '전체' 옵션을 항상 추가
     options.push({ label: '전체', value: 'ALL' });

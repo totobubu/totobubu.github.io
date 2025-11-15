@@ -103,9 +103,7 @@
                             </Tag>
                         </div>
                         <!-- [핵심 수정 3] 헤더 오른쪽에 버튼 그룹 추가 -->
-                        <div
-                            v-if="user"
-                            class="flex ml-4">
+                        <div v-if="user" class="flex ml-4">
                             <Button
                                 icon="pi pi-save"
                                 @click="unifiedComponentRef?.saveToBookmark()"

@@ -26,12 +26,17 @@ from typing import Iterator, Optional
 
 import requests
 from bs4 import BeautifulSoup
+import sys
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 NAV_PATH = ROOT_DIR / "public" / "nav.json"
+NAV_DIR = ROOT_DIR / "public" / "nav"
 BASE_URL = "http://stockevents.app/kr/stock/{symbol}"
 REQUEST_TIMEOUT = 10
+
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
 
 HEADERS = {
     "User-Agent": (
@@ -267,6 +272,11 @@ def build_cli() -> argparse.ArgumentParser:
         action="store_true",
         help="market 값이 없거나 알 수 없는 티커만 처리",
     )
+    parser.add_argument(
+        "--sync-nav-files",
+        action="store_true",
+        help="업데이트 후 public/nav/<MARKET>/<symbol>.json 구조를 최신화합니다.",
+    )
     return parser
 
 
@@ -317,6 +327,18 @@ def main(argv: Optional[list[str]] = None) -> int:
         if not args.dry_run:
             dump_nav(entries)
             print(f"[DONE] nav.json 업데이트 완료 ({NAV_PATH})")
+            if args.sync_nav_files:
+                try:
+                    from scripts.migrate_nav_to_symbol_files import (  # type: ignore
+                        migrate_nav_structure,
+                    )
+                except Exception as sync_error:  # pragma: no cover - import failure
+                    print(
+                        f"[WARN] nav 디렉토리 동기화 모듈을 불러오지 못했습니다: {sync_error}"
+                    )
+                else:
+                    print("[INFO] public/nav 디렉토리를 심볼 기준으로 갱신합니다...")
+                    migrate_nav_structure(dry_run=False)
         else:
             print("[DRY-RUN] 파일은 수정하지 않았습니다.")
     else:
