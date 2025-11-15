@@ -1,7 +1,33 @@
 # NEW FILE: scripts/utils.py
 import json
+import os
 import re
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+PUBLIC_DIR = ROOT_DIR / "public"
+DATA_DIR = PUBLIC_DIR / "data"
+DEFAULT_DATA_LAYOUT = os.environ.get("DATA_LAYOUT_MODE", "flat").lower()
+
+MARKET_SUBDIR_ALIASES = {
+    "KOSPI": "kospi",
+    "KOSDAQ": "kosdaq",
+    "KONEX": "konex",
+    "KRX": "krx",
+    "NYSE": "nyse",
+    "NASDAQ": "nasdaq",
+    "AMEX": "amex",
+    "N/A": "misc",
+}
+
+SUFFIX_TO_MARKET = {
+    ".KS": "KOSPI",
+    ".KQ": "KOSDAQ",
+    ".KN": "KONEX",
+    ".KO": "KOSPI",
+}
 
 
 def get_kst_now():
@@ -44,8 +70,82 @@ def save_json_file(file_path, data, indent=2):
         return False
 
 
+def sanitize_symbol(symbol):
+    if not symbol:
+        return ""
+    return symbol.replace(".", "-").replace("/", "-").lower()
+
+
 def sanitize_ticker_for_filename(ticker):
-    return ticker.replace(".", "-").lower()
+    return sanitize_symbol(ticker)
+
+
+def build_data_filename(symbol):
+    slug = sanitize_symbol(symbol)
+    return f"{slug}.json"
+
+
+def normalize_market_name(market):
+    if not market:
+        return None
+    normalized = str(market).strip().upper()
+    if not normalized:
+        return None
+    return {
+        "KRX (KOSPI)": "KOSPI",
+        "KRX (KOSDAQ)": "KOSDAQ",
+        "KRX-KOSPI": "KOSPI",
+        "KRX-KOSDAQ": "KOSDAQ",
+        "KRX": "KRX",
+        "KO": "KOSPI",
+        "KOSPI": "KOSPI",
+        "KOSDAQ": "KOSDAQ",
+        "KONEX": "KONEX",
+    }.get(normalized, normalized)
+
+
+def detect_market_from_symbol(symbol):
+    if not symbol:
+        return None
+    upper_symbol = symbol.upper()
+    for suffix, market in SUFFIX_TO_MARKET.items():
+        if upper_symbol.endswith(suffix):
+            return market
+    return None
+
+
+def get_market_subdirectory(market):
+    normalized = normalize_market_name(market) or "MISC"
+    return MARKET_SUBDIR_ALIASES.get(normalized, normalized.lower())
+
+
+def get_data_file_path(symbol, market=None, *, layout=None, ensure_dir=False):
+    """
+    Resolve the JSON data file path for a ticker based on the selected layout.
+
+    Args:
+        symbol (str): Yahoo Finance symbol (e.g. "005930.KS")
+        market (str, optional): Explicit market name.
+        layout (str, optional): "flat" (default) or "market"/"v2".
+        ensure_dir (bool): create parent directory if missing.
+
+    Returns:
+        pathlib.Path: Absolute path to the JSON file.
+    """
+
+    filename = build_data_filename(symbol)
+    layout_mode = (layout or DEFAULT_DATA_LAYOUT or "flat").lower()
+    target = DATA_DIR
+
+    if layout_mode in {"market", "v2"}:
+        market_name = market or detect_market_from_symbol(symbol)
+        subdir = get_market_subdirectory(market_name)
+        target = target / subdir
+
+    target_path = target / filename
+    if ensure_dir:
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+    return target_path
 
 
 def parse_numeric_value(value_str):

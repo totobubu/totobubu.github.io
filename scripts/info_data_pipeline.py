@@ -6,7 +6,6 @@
 - 개별 스크립트를 순차 실행하는 것보다 효율적
 """
 
-import os
 import json
 import time
 import math
@@ -20,20 +19,19 @@ import pandas as pd
 
 # 공통 유틸리티
 from utils import (
+    DATA_DIR,
+    PUBLIC_DIR,
     load_json_file,
     save_json_file,
-    sanitize_ticker_for_filename,
     get_kst_now,
     should_skip_update_timestamp,
+    get_data_file_path,
 )
 
 # 경로 설정
-ROOT_DIR = os.getcwd()
-PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
-DATA_DIR = os.path.join(PUBLIC_DIR, "data")
-NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
-US_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "us_holidays.json")
-KR_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "kr_holidays.json")
+NAV_FILE_PATH = PUBLIC_DIR / "nav.json"
+US_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "us_holidays.json"
+KR_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "kr_holidays.json"
 
 # 글로벌 상태 (한 번만 로드)
 nav_data = None
@@ -190,7 +188,7 @@ def initialize():
 
     # 데이터 디렉토리 확인
     print("\n[3/3] 데이터 디렉토리 확인 중...")
-    os.makedirs(DATA_DIR, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     print(f"   ✓ 데이터 디렉토리: {DATA_DIR}")
 
     print("\n✅ 초기화 완료\n")
@@ -230,8 +228,8 @@ def update_dividends():
 
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
-            sanitized_symbol = sanitize_ticker_for_filename(symbol)
-            file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+            ticker_meta = ticker_info_map.get(symbol, {})
+            file_path = get_data_file_path(symbol, ticker_meta.get("market"))
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -243,9 +241,7 @@ def update_dividends():
                 ) + timedelta(days=1)
                 start_date_str = start_date.strftime("%Y-%m-%d")
             else:
-                start_date_str = ticker_info_map.get(symbol, {}).get(
-                    "ipoDate", "1990-01-01"
-                )
+                start_date_str = ticker_meta.get("ipoDate", "1990-01-01")
 
             # 이미 최신이면 건너뛰기
             if (
@@ -267,7 +263,7 @@ def update_dividends():
             backtest_data = existing_data.get("backtestData", [])
             backtest_map = {item["date"]: item for item in backtest_data}
             original_data_str = json.dumps(backtest_data, sort_keys=True)
-            currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
+            currency = ticker_meta.get("currency", "USD")
 
             for date, amount in new_dividends_df.items():
                 date_str = date.strftime("%Y-%m-%d")
@@ -423,9 +419,7 @@ def update_ticker_info():
                 raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = os.path.join(
-                DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
-            )
+            file_path = get_data_file_path(symbol, info_from_nav.get("market"))
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],
@@ -620,9 +614,7 @@ def analyze_dividend_frequency():
         if not symbol or ticker_info.get("upcoming"):
             continue
 
-        file_path = os.path.join(
-            DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
-        )
+        file_path = get_data_file_path(symbol, ticker_info.get("market"))
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
@@ -684,11 +676,10 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
+    files = list(DATA_DIR.glob("*.json"))
     updated_count = 0
 
-    for filename in tqdm(files, desc="미래 배당일 예측"):
-        file_path = os.path.join(DATA_DIR, filename)
+    for file_path in tqdm(files, desc="미래 배당일 예측"):
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:
