@@ -33,34 +33,43 @@ const loadAllData = async () => {
             ]);
 
             if (!krStocksEventsResponse.ok)
-                throw new Error('calendar-events-kr-stocks.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-kr-stocks.json could not be loaded.'
+                );
             if (!krEtfsEventsResponse.ok)
-                throw new Error('calendar-events-kr-etfs.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-kr-etfs.json could not be loaded.'
+                );
             if (!usStocksEventsResponse.ok)
-                throw new Error('calendar-events-us-stocks.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-us-stocks.json could not be loaded.'
+                );
             if (!usEtfsEventsResponse.ok)
-                throw new Error('calendar-events-us-etfs.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-us-etfs.json could not be loaded.'
+                );
 
-            const [
-                krStocksEvents,
-                krEtfsEvents,
-                usStocksEvents,
-                usEtfsEvents,
-            ] = await Promise.all([
-                krStocksEventsResponse.json(),
-                krEtfsEventsResponse.json(),
-                usStocksEventsResponse.json(),
-                usEtfsEventsResponse.json(),
-            ]);
+            const [krStocksEvents, krEtfsEvents, usStocksEvents, usEtfsEvents] =
+                await Promise.all([
+                    krStocksEventsResponse.json(),
+                    krEtfsEventsResponse.json(),
+                    usStocksEventsResponse.json(),
+                    usEtfsEventsResponse.json(),
+                ]);
 
             // 분할된 이벤트 파일들을 하나로 합치고, 동시에 티커 속성 정보 수집
             const flatEvents = [];
             const tickerPropertiesMap = new Map();
-            
+
             // KR Stocks (currency: KRW, isEtf: false)
             for (const date in krStocksEvents) {
                 krStocksEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: false });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'KRW',
+                        isEtf: false,
+                    });
                     // 티커 속성 정보 저장
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
@@ -71,11 +80,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // KR ETFs (currency: KRW, isEtf: true)
             for (const date in krEtfsEvents) {
                 krEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: true });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'KRW',
+                        isEtf: true,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'KRW',
@@ -85,11 +99,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // US Stocks (currency: USD, isEtf: false)
             for (const date in usStocksEvents) {
                 usStocksEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: false });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'USD',
+                        isEtf: false,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'USD',
@@ -99,11 +118,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // US ETFs (currency: USD, isEtf: true)
             for (const date in usEtfsEvents) {
                 usEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: true });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'USD',
+                        isEtf: true,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'USD',
@@ -113,7 +137,7 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             allDividendData.value = flatEvents;
             allTickerProperties.value = tickerPropertiesMap;
             isDataLoaded = true;

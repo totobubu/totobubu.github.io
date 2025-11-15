@@ -166,7 +166,7 @@ export function useStockData() {
                         ? cleanedBacktestData[cleanedBacktestData.length - 1]
                               .close
                         : null;
-                
+
                 // Holdings 데이터 로드 - backtestData에서 추출
                 // 기존 holdings 대분류 지원 (마이그레이션 기간)
                 if (staticData.holdings && Array.isArray(staticData.holdings)) {
@@ -175,13 +175,13 @@ export function useStockData() {
                 } else {
                     // 새 구조 (backtestData 내부)
                     holdingsData.value = fullBacktestData
-                        .filter(d => d.holdings && Array.isArray(d.holdings))
-                        .map(d => ({
+                        .filter((d) => d.holdings && Array.isArray(d.holdings))
+                        .map((d) => ({
                             date: d.date,
-                            data: d.holdings
+                            data: d.holdings,
                         }));
                 }
-                
+
                 tickerInfo.value = {
                     ...navInfo,
                     ...(staticData.tickerInfo || {}),

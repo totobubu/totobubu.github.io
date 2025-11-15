@@ -24,23 +24,24 @@ const loadSymbolIsinSnapshot = async () => {
         if (Array.isArray(snapshot)) {
             registerInstruments(snapshot);
         } else if (snapshot && typeof snapshot === 'object') {
-            const entries = Object.entries(snapshot).map(
-                ([symbol, value]) => {
-                    if (typeof value === 'string') {
-                        return { symbol, isin: value };
-                    }
-                    return {
-                        symbol,
-                        isin: value?.isin,
-                        market: value?.market,
-                        currency: value?.currency,
-                    };
+            const entries = Object.entries(snapshot).map(([symbol, value]) => {
+                if (typeof value === 'string') {
+                    return { symbol, isin: value };
                 }
-            );
+                return {
+                    symbol,
+                    isin: value?.isin,
+                    market: value?.market,
+                    currency: value?.currency,
+                };
+            });
             registerInstruments(entries);
         }
     } catch (error) {
-        console.warn('[InstrumentDirectory] symbol-to-isin.json 로드 실패:', error);
+        console.warn(
+            '[InstrumentDirectory] symbol-to-isin.json 로드 실패:',
+            error
+        );
     }
 };
 
@@ -52,7 +53,10 @@ const mergeInstrument = (existing = {}, incoming = {}) => {
     return merged;
 };
 
-export const registerInstruments = (tickers = [], { markInitialized = false } = {}) => {
+export const registerInstruments = (
+    tickers = [],
+    { markInitialized = false } = {}
+) => {
     if (!Array.isArray(tickers)) return;
 
     tickers.forEach((ticker) => {
@@ -68,15 +72,21 @@ export const registerInstruments = (tickers = [], { markInitialized = false } = 
         };
 
         if (symbol) {
-            state.bySymbol[symbol] = mergeInstrument(state.bySymbol[symbol], payload);
+            state.bySymbol[symbol] = mergeInstrument(
+                state.bySymbol[symbol],
+                payload
+            );
         }
 
         if (isin) {
             state.byIsin[isin] = mergeInstrument(state.byIsin[isin], payload);
             if (symbol) {
-                state.bySymbol[symbol] = mergeInstrument(state.bySymbol[symbol], {
-                    isin,
-                });
+                state.bySymbol[symbol] = mergeInstrument(
+                    state.bySymbol[symbol],
+                    {
+                        isin,
+                    }
+                );
             }
         }
     });
@@ -111,14 +121,21 @@ export const ensureInstrumentDirectory = async () => {
                 await loadSymbolIsinSnapshot();
                 const response = await fetch(getDataUrl('nav.json'));
                 if (!response.ok) {
-                    throw new Error(`nav.json fetch 실패 (status: ${response.status})`);
+                    throw new Error(
+                        `nav.json fetch 실패 (status: ${response.status})`
+                    );
                 }
 
                 const navData = await response.json();
-                const navTickers = Array.isArray(navData?.nav) ? navData.nav : [];
+                const navTickers = Array.isArray(navData?.nav)
+                    ? navData.nav
+                    : [];
                 registerInstruments(navTickers, { markInitialized: true });
             } catch (error) {
-                console.error('[InstrumentDirectory] nav.json 로드 실패:', error);
+                console.error(
+                    '[InstrumentDirectory] nav.json 로드 실패:',
+                    error
+                );
             } finally {
                 navLoadPromise = null;
             }
@@ -129,5 +146,3 @@ export const ensureInstrumentDirectory = async () => {
 };
 
 export const instrumentState = state;
-
-

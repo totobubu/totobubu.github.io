@@ -35,7 +35,7 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
         const weeklyPayouts = getWeeklyPayouts(freq);
         if (weeklyPayouts) return weeklyPayouts;
         if (freq === '매월') return 12;
-        
+
         // 분기/연배당의 경우 과거 1년간 실제 배당 횟수 계산
         const oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -81,12 +81,12 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
             } else if (rangeUnit === 'Y') {
                 cutoffDate.setFullYear(now.getFullYear() - rangeValue);
             }
-            
+
             filteredHistory = dividendHistory.value.filter(
                 (item) => parseYYMMDD(item['배당락']) >= cutoffDate
             );
         }
-        
+
         // 2. 필터링된 기록으로 통계 계산
         const validAmounts = filteredHistory
             .map((h) => parseFloat(String(h['배당금']).replace(/[$,₩]/g, '')))
