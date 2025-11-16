@@ -1,86 +1,70 @@
-# .github/workflows/deploy.yml
-
-name: Build and Deploy to GitHub Pages
+name: Build and Deploy
 
 on:
-    push:
-        branches:
-            - main # main 브랜치에 push가 발생할 때마다 실행
-    workflow_dispatch:
-
-permissions:
-    contents: read
-    pages: write
-    id-token: write
-
-concurrency:
-    group: 'pages' # 배포 관련 작업들을 "pages"라는 그룹으로 묶습니다.
-    cancel-in-progress: true # 새로운 워크플로우가 시작되면, 이미 진행 중인 동일 그룹의 작업을 취소합니다.
+  push:
+    branches: [ main ]
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-22.04
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            # 1. 최신 코드(데이터 포함) 가져오기
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 10 # 여러 커밋 동시 push 대응 (최근 10개 커밋)
+    steps:
+      - name: Checkout (shallow + blob filter)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none   # 큰 파일을 즉시 받지 않음(접근 시 필요분만 받음)
 
-            # 2. Python 설정 (R2 업로드용)
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version: '3.11'
-                  cache: 'pip'
-                  cache-dependency-path: 'requirements-workflow.txt'
+      - name: Free disk space (pre-clean)
+        run: |
+          sudo rm -rf /usr/local/lib/android || true
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          docker system prune -af || true
+          sudo apt-get clean || true
+          sudo rm -rf /var/lib/apt/lists/* || true
 
-            - name: Install Python dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install -r requirements-workflow.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
 
-            - name: Setup R2 environment variables
-              run: |
-                  echo "R2_ACCOUNT_ID=${{ secrets.R2_ACCOUNT_ID }}" >> $GITHUB_ENV
-                  echo "R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-                  echo "R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-                  echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
-                  echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
+      - name: Install Python deps
+        run: pip install -r requirements-workflow.txt
 
-            # 2.5. R2에 변경된 데이터 파일 업로드 (public/ 폴더 내부 파일만)
-            - name: Upload changed data files to R2
-              env:
-                  GITHUB_BEFORE_SHA: ${{ github.event.before }}
-                  GITHUB_AFTER_SHA: ${{ github.sha }}
-              run: |
-                  echo "📤 변경된 public/ 폴더 내부 파일을 R2에 업로드 중..."
-                  python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
-                  echo "✅ R2 업로드 완료 (또는 스킵)"
+      - name: Upload changed data files to R2
+        run: python scripts/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
 
-            # 3. Vue 앱 빌드
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - name: Build Vue App
+      # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
+      - name: Remove large local data before build
+        run: |
+          rm -rf public/data public/logos public/thumbnail public/holdings || true
 
-              run: |
-                  npm install
-                  npm run build
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-            # 4. 새로고침 404 방지 처리
-            - name: Prepare 404 page
-              run: cp dist/index.html dist/404.html
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
 
-            # 5. Pages 배포 준비 및 실행
-            - name: Setup Pages
-              uses: actions/configure-pages@v5
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  path: './dist'
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v4
+      - name: Build Vue App
+        run: npm run build
+
+      # 빌드 끝났으면 추가 정리(선택)
+      - name: Post-build cleanup
+        run: |
+          rm -rf node_modules ~/.npm || true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact (dist only)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
