@@ -27,7 +27,25 @@ const loadNavData = async () => {
 };
 
 const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/\./g, '-').toLowerCase();
+    ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
+
+const MARKET_SUFFIX_REGEX = /-(ks|kq|kn|ko)$/i;
+const SYMBOL_SUFFIX_REGEX = /\.(KS|KQ|KN|KO)$/i;
+
+const stripMarketSuffix = (sanitizedTicker) =>
+    sanitizedTicker ? sanitizedTicker.replace(MARKET_SUFFIX_REGEX, '') : '';
+
+const stripSymbolSuffix = (symbol) => {
+    if (!symbol) return '';
+    const match = symbol.match(SYMBOL_SUFFIX_REGEX);
+    if (match) {
+        return symbol.slice(0, -match[0].length);
+    }
+    return symbol;
+};
+
+const isKoreanMarket = (market) =>
+    ['KOSPI', 'KOSDAQ', 'KONEX'].includes((market || '').toUpperCase());
 
 const marketNameMap = {
     NMS: 'NASDAQ',
@@ -54,6 +72,54 @@ const isUsdUsMarket = (currency, market) => {
     );
 };
 
+const uniqueArray = (items = []) => {
+    const seen = new Set();
+    const result = [];
+    items.forEach((item) => {
+        if (!item) return;
+        if (seen.has(item)) return;
+        seen.add(item);
+        result.push(item);
+    });
+    return result;
+};
+
+const buildStaticDataCandidates = (navInfo) => {
+    if (!navInfo) return [];
+    const candidates = [];
+    if (navInfo.dataPath) {
+        candidates.push(navInfo.dataPath);
+    }
+    if (Array.isArray(navInfo.dataPaths)) {
+        candidates.push(...navInfo.dataPaths);
+    }
+    const fallbackSlug = sanitizeTickerForFilename(
+        navInfo.yfSymbol || navInfo.symbol
+    );
+    if (fallbackSlug) {
+        candidates.push(`data/${fallbackSlug}.json`);
+    }
+    return uniqueArray(candidates);
+};
+
+const fetchStaticData = async (paths = []) => {
+    for (const relativePath of paths) {
+        try {
+            const response = await fetch(getDataUrl(relativePath));
+            if (response.ok) {
+                const json = await response.json();
+                return { data: json, path: relativePath };
+            }
+        } catch (error) {
+            console.warn(
+                `[useStockData] Failed to load ${relativePath}`,
+                error
+            );
+        }
+    }
+    return { data: null, path: null };
+};
+
 export function useStockData() {
     const loadData = async (sanitizedTicker) => {
         if (!sanitizedTicker) {
@@ -71,14 +137,27 @@ export function useStockData() {
 
         try {
             const navData = await loadNavData();
-            const navInfo = navData.nav.find(
-                (item) =>
-                    sanitizeTickerForFilename(item.symbol) === sanitizedTicker
-            );
+            const normalizedTicker = stripMarketSuffix(sanitizedTicker);
+            const navInfo =
+                navData.nav.find(
+                    (item) =>
+                        sanitizeTickerForFilename(item.symbol) ===
+                        normalizedTicker
+                ) ||
+                navData.nav.find(
+                    (item) =>
+                        sanitizeTickerForFilename(item.yfSymbol || '') ===
+                        sanitizedTicker
+                );
 
             if (!navInfo) {
+                const displayLabel = (() => {
+                    if (!normalizedTicker) return sanitizedTicker.toUpperCase();
+                    return normalizedTicker.toUpperCase();
+                })();
+
                 throw new Error(
-                    `'${sanitizedTicker.toUpperCase()}'에 대한 종목 정보를 찾을 수 없습니다.`
+                    `'${displayLabel}'에 대한 종목 정보를 찾을 수 없습니다.`
                 );
             }
 
@@ -89,13 +168,12 @@ export function useStockData() {
                 return;
             }
 
-            const originalTickerSymbol = navInfo.symbol;
-            const staticDataResponse = await fetch(
-                getDataUrl(`data/${sanitizedTicker}.json`)
-            );
+            const originalTickerSymbol = navInfo.yfSymbol || navInfo.symbol;
+            const staticDataCandidates = buildStaticDataCandidates(navInfo);
+            const { data: staticData } =
+                await fetchStaticData(staticDataCandidates);
 
-            if (staticDataResponse.ok) {
-                const staticData = await staticDataResponse.json();
+            if (staticData) {
                 const fullBacktestData = staticData.backtestData || [];
 
                 const inferredCurrency =
@@ -140,6 +218,9 @@ export function useStockData() {
                                 item.amountFixed !== undefined
                                     ? item.amountFixed
                                     : item.amount,
+                            // 분할 전 원금 및 조정내역을 표기용으로 전달
+                            amountOriginal: item.amountOriginal,
+                            amountSplitAdjustments: item.amountSplitAdjustments,
                             배당률: item.yield,
                             전일종가: formatPriceField(prevDayData?.close),
                             당일시가: formatPriceField(item.open),
@@ -166,7 +247,7 @@ export function useStockData() {
                         ? cleanedBacktestData[cleanedBacktestData.length - 1]
                               .close
                         : null;
-                
+
                 // Holdings 데이터 로드 - backtestData에서 추출
                 // 기존 holdings 대분류 지원 (마이그레이션 기간)
                 if (staticData.holdings && Array.isArray(staticData.holdings)) {
@@ -175,17 +256,20 @@ export function useStockData() {
                 } else {
                     // 새 구조 (backtestData 내부)
                     holdingsData.value = fullBacktestData
-                        .filter(d => d.holdings && Array.isArray(d.holdings))
-                        .map(d => ({
+                        .filter((d) => d.holdings && Array.isArray(d.holdings))
+                        .map((d) => ({
                             date: d.date,
-                            data: d.holdings
+                            data: d.holdings,
                         }));
                 }
-                
+
                 tickerInfo.value = {
                     ...navInfo,
                     ...(staticData.tickerInfo || {}),
                 };
+                tickerInfo.value.yfSymbol = originalTickerSymbol
+                    ? originalTickerSymbol.toUpperCase()
+                    : null;
                 if (latestClose) {
                     if (
                         !tickerInfo.value.regularMarketPrice ||
@@ -202,8 +286,11 @@ export function useStockData() {
                 }
             }
 
+            const liveSymbolParam = (originalTickerSymbol || '')
+                .toString()
+                .toUpperCase();
             const liveDataResponse = await fetch(
-                `/api/getStockData?tickers=${originalTickerSymbol.toUpperCase()}`
+                `/api/getStockData?tickers=${liveSymbolParam}`
             );
             if (liveDataResponse.ok) {
                 const liveDataArray = await liveDataResponse.json();

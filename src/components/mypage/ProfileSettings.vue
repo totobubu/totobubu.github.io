@@ -269,7 +269,9 @@
 
                     <div v-if="!isRecentlyAuthenticated">
                         <div class="flex flex-column gap-3">
-                            <div v-if="usesPasswordProvider" class="flex flex-column gap-3">
+                            <div
+                                v-if="usesPasswordProvider"
+                                class="flex flex-column gap-3">
                                 <InputGroup>
                                     <InputGroupAddon>
                                         <i class="pi pi-key" />
@@ -289,7 +291,9 @@
                                 </InputGroup>
                             </div>
 
-                            <div v-if="usesGoogleProvider" class="flex flex-column gap-2">
+                            <div
+                                v-if="usesGoogleProvider"
+                                class="flex flex-column gap-2">
                                 <Button
                                     label="구글 계정으로 인증"
                                     icon="pi pi-google"
@@ -297,7 +301,8 @@
                                     @click="handleGoogleReauth"
                                     :loading="isLoading.google" />
                                 <small class="text-sm">
-                                    구글 로그인으로 가입한 계정은 위 버튼을 사용해 인증을 완료해주세요.
+                                    구글 로그인으로 가입한 계정은 위 버튼을
+                                    사용해 인증을 완료해주세요.
                                 </small>
                             </div>
 

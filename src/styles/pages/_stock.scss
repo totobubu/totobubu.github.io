@@ -164,6 +164,9 @@
             gap: 0.25rem;
         }
     }
+    &-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
+        flex-direction: row !important;
+    }
 }
 .timeline {
     &-dialog {

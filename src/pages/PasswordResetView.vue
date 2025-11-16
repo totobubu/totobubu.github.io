@@ -2,9 +2,7 @@
 <script setup>
     import { ref } from 'vue';
     import { useHead } from '@vueuse/head';
-    import {
-        sendPasswordResetEmail,
-    } from 'firebase/auth'; // fetchSignInMethodsForEmail은 더 이상 필요 없음
+    import { sendPasswordResetEmail } from 'firebase/auth'; // fetchSignInMethodsForEmail은 더 이상 필요 없음
     import { auth } from '../firebase';
     import { useRouter } from 'vue-router';
     import Message from 'primevue/message';

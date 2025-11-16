@@ -6,6 +6,7 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useCalendarData } from '@/composables/useCalendarData.js';
     import { useFilterState } from '@/composables/useFilterState.js';
+    import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
     import Skeleton from 'primevue/skeleton';
     import Panel from 'primevue/panel';
@@ -23,10 +24,9 @@
     const router = useRouter();
 
     const goToTickerPage = (tickerSymbol) => {
-        if (tickerSymbol && typeof tickerSymbol === 'string') {
-            const sanitizedTicker = tickerSymbol.replace(/\./g, '-');
-            router.push(`/${sanitizedTicker.toLowerCase()}`);
-        }
+        if (!tickerSymbol || typeof tickerSymbol !== 'string') return;
+        const params = getRouteParamsFromSymbol(tickerSymbol);
+        if (params) router.push({ name: 'stock-detail', params });
     };
 
     const loadHolidays = async (tab) => {
