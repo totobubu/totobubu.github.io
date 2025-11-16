@@ -13,15 +13,34 @@
 
     const formattedHistory = computed(() => {
         if (!props.history) return [];
-        return props.history.map((item) => ({
-            ...item,
-            배당금: formatCurrency(item.배당금, props.currency),
-            배당률: formatPercent(item.배당률),
-            전일종가: formatCurrency(item.전일종가, props.currency),
-            당일시가: formatCurrency(item.당일시가, props.currency),
-            당일종가: formatCurrency(item.당일종가, props.currency),
-            익일종가: formatCurrency(item.익일종가, props.currency),
-        }));
+        return props.history.map((item) => {
+            // 분할 조정 안내문구: "₩500 (1:21 == ₩10,500)"
+            let dividendDisplay = formatCurrency(item.배당금, props.currency);
+            if (
+                item.amountOriginal != null &&
+                Array.isArray(item.amountSplitAdjustments) &&
+                item.amountSplitAdjustments.length > 0
+            ) {
+                const ratios = item.amountSplitAdjustments
+                    .map((adj) => adj.ratio)
+                    .join(' → ');
+                const originalDisplay = formatCurrency(
+                    item.amountOriginal,
+                    props.currency
+                );
+                dividendDisplay = `${dividendDisplay} (${ratios} == ${originalDisplay})`;
+            }
+
+            return {
+                ...item,
+                배당금: dividendDisplay,
+                배당률: formatPercent(item.배당률),
+                전일종가: formatCurrency(item.전일종가, props.currency),
+                당일시가: formatCurrency(item.당일시가, props.currency),
+                당일종가: formatCurrency(item.당일종가, props.currency),
+                익일종가: formatCurrency(item.익일종가, props.currency),
+            };
+        });
     });
 
     const columns = computed(() => {

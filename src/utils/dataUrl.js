@@ -1,7 +1,7 @@
 // src/utils/dataUrl.js
 /**
  * 데이터 URL 생성 헬퍼
- * 
+ *
  * 로컬 개발 환경에서는 항상 로컬 파일을 사용합니다.
  * 프로덕션 빌드에서만 R2를 사용할 수 있습니다.
  */
@@ -66,4 +66,3 @@ export function isUsingR2() {
     }
     return USE_R2 && !!R2_PUBLIC_URL;
 }
-

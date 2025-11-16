@@ -1,7 +1,7 @@
 // src/composables/useStockMapping.js
 /**
  * 증권사별 종목명 매핑 관리
- * 
+ *
  * Firestore 구조:
  * stockMappings/{brokerage}_{stockName}/
  *   - brokerage: string (toss, kb, mirae 등)
@@ -59,7 +59,12 @@ export const getStockMapping = async (brokerage, stockName) => {
 /**
  * 매핑 정보 저장 (공용)
  */
-export const saveStockMapping = async (brokerage, stockName, mappingData, userId) => {
+export const saveStockMapping = async (
+    brokerage,
+    stockName,
+    mappingData,
+    userId
+) => {
     try {
         const mappingKey = getMappingKey(brokerage, stockName);
         const mappingRef = doc(db, 'stockMappings', mappingKey);
@@ -161,7 +166,9 @@ export const batchGetStockMappings = async (brokerage, stockNames) => {
         const chunkSize = 10;
         for (let i = 0; i < stockNames.length; i += chunkSize) {
             const chunk = stockNames.slice(i, i + chunkSize);
-            const mappingKeys = chunk.map((name) => getMappingKey(brokerage, name));
+            const mappingKeys = chunk.map((name) =>
+                getMappingKey(brokerage, name)
+            );
 
             const promises = mappingKeys.map((key) => {
                 const mappingRef = doc(db, 'stockMappings', key);
@@ -182,4 +189,3 @@ export const batchGetStockMappings = async (brokerage, stockNames) => {
         return mappings;
     }
 };
-

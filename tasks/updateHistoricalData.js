@@ -7,10 +7,72 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
+const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+
+const MARKET_SUBDIR_ALIASES = {
+    KOSPI: 'kospi',
+    KOSDAQ: 'kosdaq',
+    KONEX: 'konex',
+    KRX: 'krx',
+    'KRX (KOSPI)': 'kospi',
+    'KRX (KOSDAQ)': 'kosdaq',
+    'KRX-KOSPI': 'kospi',
+    'KRX-KOSDAQ': 'kosdaq',
+    NYSE: 'nyse',
+    NASDAQ: 'nasdaq',
+    AMEX: 'amex',
+};
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/\./g, '-').toLowerCase();
+    ticker.replace(/[./\\]/g, '-').toLowerCase();
+
+const getMarketSubdirectory = (market) => {
+    const normalized = String(market || '')
+        .trim()
+        .toUpperCase();
+    if (!normalized) return 'misc';
+    return MARKET_SUBDIR_ALIASES[normalized] || normalized.toLowerCase();
+};
+
+const getDataFilePath = (symbol, market) => {
+    const filename = `${sanitizeTickerForFilename(symbol)}.json`;
+    if (DATA_LAYOUT_MODE === 'market' || DATA_LAYOUT_MODE === 'v2') {
+        const subdir = getMarketSubdirectory(market);
+        return path.join(DATA_DIR, subdir, filename);
+    }
+    return path.join(DATA_DIR, filename);
+};
+
+const removeFileIfExists = async (filePath) => {
+    if (!filePath) return;
+    try {
+        await fs.unlink(filePath);
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            console.warn(`⚠️  Failed to remove ${filePath}: ${error.message}`);
+        }
+    }
+};
+
+const fileExists = async (filePath) => {
+    try {
+        await fs.access(filePath);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+const findExistingDataFile = async (symbolCandidates, market) => {
+    for (const candidate of symbolCandidates) {
+        const candidatePath = getDataFilePath(candidate, market);
+        if (await fileExists(candidatePath)) {
+            return { path: candidatePath, symbol: candidate };
+        }
+    }
+    return null;
+};
 
 const normalizeNumericValue = (value) => {
     if (value === null || value === undefined) return value;
@@ -181,9 +243,25 @@ async function mergeSplitEvents(existingData, newSplits) {
 }
 
 async function fetchAndMergePriceData(ticker) {
-    const { symbol, ipoDate, yfSuffixFallbacks } = ticker;
-    const sanitizedSymbol = sanitizeTickerForFilename(symbol);
-    const filePath = path.join(DATA_DIR, `${sanitizedSymbol}.json`);
+    const { symbol, ipoDate, yfSuffixFallbacks, market } = ticker;
+    const symbolCandidates = buildSymbolCandidates(symbol, yfSuffixFallbacks);
+    const existingFile = await findExistingDataFile(symbolCandidates, market);
+
+    if (
+        existingFile?.symbol &&
+        existingFile.symbol !== symbol &&
+        DATA_LAYOUT_MODE !== 'flat'
+    ) {
+        const idx = symbolCandidates.indexOf(existingFile.symbol);
+        if (idx > 0) {
+            symbolCandidates.splice(idx, 1);
+            symbolCandidates.unshift(existingFile.symbol);
+        }
+    }
+
+    let filePath =
+        existingFile?.path || getDataFilePath(symbol, market);
+    let storageSymbol = existingFile?.symbol || symbol;
 
     try {
         let existingData = {};
@@ -223,7 +301,6 @@ async function fetchAndMergePriceData(ticker) {
             existingData?.tickerInfo?.events?.splits || [];
         const oldSplitsStr = JSON.stringify(existingSplits);
 
-        const symbolCandidates = buildSymbolCandidates(symbol, yfSuffixFallbacks);
         let activeSymbol = symbol;
 
         // 가격 데이터 병합
@@ -306,7 +383,27 @@ async function fetchAndMergePriceData(ticker) {
 
         const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
 
+        const resolvedStorageSymbol =
+            DATA_LAYOUT_MODE === 'flat' ? symbol : activeSymbol || storageSymbol;
+        const targetFilePath = getDataFilePath(resolvedStorageSymbol, market);
+        const storagePathChanged = targetFilePath !== filePath;
+        const previousFilePath = filePath;
+        filePath = targetFilePath;
+
         if (!backtestChanged && !splitsChanged) {
+            if (storagePathChanged) {
+                await fs.mkdir(path.dirname(filePath), { recursive: true });
+                await fs.writeFile(
+                    filePath,
+                    JSON.stringify(existingData, null, 2)
+                );
+                await removeFileIfExists(previousFilePath);
+                console.log(
+                    `↺ [${symbol}] Relocated data file to ${
+                        DATA_LAYOUT_MODE === 'flat' ? 'flat' : 'market'
+                    } layout path`
+                );
+            }
             return { success: true, symbol };
         }
 
@@ -319,7 +416,12 @@ async function fetchAndMergePriceData(ticker) {
         existingData.tickerInfo = tickerInfo;
         existingData.backtestData = finalBacktestData;
 
+        await fs.mkdir(path.dirname(filePath), { recursive: true });
+        await fs.mkdir(path.dirname(filePath), { recursive: true });
         await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        if (storagePathChanged) {
+            await removeFileIfExists(previousFilePath);
+        }
         console.log(
             `✅ [${symbol}] Updated. Prices: ${backtestChanged ? 'Y' : 'N'}, Splits: ${splitsChanged ? 'Y' : 'N'}${
                 isNewFile ? ' (NEW FILE)' : ''

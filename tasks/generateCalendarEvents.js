@@ -9,6 +9,24 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const CALENDAR_DIR = path.join(PUBLIC_DIR, 'calendar');
 const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json'); // 호환성을 위해 유지
 
+const KRX_SUFFIXES = new Set(['.KS', '.KQ', '.KN', '.KO']);
+
+const normalizeYahooSymbol = (symbol) => {
+    if (!symbol || typeof symbol !== 'string') return null;
+    return symbol.trim().toUpperCase();
+};
+
+const extractBaseSymbol = (symbol) => {
+    const normalized = normalizeYahooSymbol(symbol);
+    if (!normalized) return null;
+    for (const suffix of KRX_SUFFIXES) {
+        if (normalized.endsWith(suffix)) {
+            return normalized.slice(0, -suffix.length);
+        }
+    }
+    return normalized;
+};
+
 // 한국 ETF 브랜드명 목록
 const koreanEtfBrands = [
     'KODEX',
@@ -53,16 +71,30 @@ async function generateCalendarEvents() {
     }
 
     const tickerInfoMap = new Map(
-        navData.nav.map((item) => {
-            // ETF 판단 로직
-            let isEtf = !!(item.company || item.underlying);
-            if (!isEtf && item.koName) {
-                isEtf = koreanEtfBrands.some((brand) =>
-                    item.koName.startsWith(brand)
+        navData.nav
+            .map((item) => {
+                // ETF 판단 로직
+                let isEtf = !!(item.company || item.underlying);
+                if (!isEtf && item.koName) {
+                    isEtf = koreanEtfBrands.some((brand) =>
+                        item.koName.startsWith(brand)
+                    );
+                }
+
+                const baseSymbol = extractBaseSymbol(
+                    item.symbol || item.yfSymbol
                 );
-            }
-            return [item.symbol, { ...item, isEtf }];
-        })
+                if (!baseSymbol) return null;
+                return [
+                    baseSymbol,
+                    {
+                        ...item,
+                        isEtf,
+                        baseSymbol,
+                    },
+                ];
+            })
+            .filter(Boolean)
     );
 
     // 카테고리별 이벤트 저장
@@ -98,11 +130,12 @@ async function generateCalendarEvents() {
         const backtestData = data.backtestData || [];
         if (backtestData.length === 0) continue;
 
-        const tickerSymbol = path
+        const yfTickerSymbol = path
             .basename(fileName, '.json')
             .toUpperCase()
             .replace(/-/g, '.');
-        const tickerInfo = tickerInfoMap.get(tickerSymbol);
+        const baseSymbol = extractBaseSymbol(yfTickerSymbol);
+        const tickerInfo = tickerInfoMap.get(baseSymbol);
 
         if (!tickerInfo || tickerInfo.upcoming) {
             continue;
@@ -131,10 +164,11 @@ async function generateCalendarEvents() {
             const isFuture = entryDate >= today;
 
             const event = {
-                ticker: tickerSymbol,
+                ticker: baseSymbol,
                 koName: tickerInfo.koName,
                 frequency: tickerInfo.frequency,
                 group: tickerInfo.group,
+                yfSymbol: tickerInfo.yfSymbol || yfTickerSymbol,
             };
             let hasEvent = false;
 
@@ -167,7 +201,7 @@ async function generateCalendarEvents() {
                 }
                 if (
                     !eventsByCategory[category][dateStr].some(
-                        (e) => e.ticker === tickerSymbol
+                        (e) => e.ticker === baseSymbol
                     )
                 ) {
                     eventsByCategory[category][dateStr].push(event);
@@ -179,7 +213,7 @@ async function generateCalendarEvents() {
                     eventsByDate[dateStr][currency] = [];
                 if (
                     !eventsByDate[dateStr][currency].some(
-                        (e) => e.ticker === tickerSymbol
+                        (e) => e.ticker === baseSymbol
                     )
                 ) {
                     eventsByDate[dateStr][currency].push(event);
