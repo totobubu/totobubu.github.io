@@ -16,7 +16,7 @@ export function useReinvestmentChart(options) {
         theme,
         currency = 'USD',
     } = options;
-    
+
     const { textColor, textColorSecondary, surfaceBorder } = theme.value;
     const formatCurrency = createNumericFormatter(currency);
 
@@ -33,7 +33,8 @@ export function useReinvestmentChart(options) {
 
         const calculateMonths = (dividendPerShare, growthRate) => {
             if (targetAmount.value <= currentAssets.value) return 0;
-            if (currentAssets.value <= 0 || dividendPerShare <= 0) return Infinity;
+            if (currentAssets.value <= 0 || dividendPerShare <= 0)
+                return Infinity;
 
             const finalDividendPerShare = applyTax.value
                 ? dividendPerShare * 0.85
@@ -49,7 +50,8 @@ export function useReinvestmentChart(options) {
                 if (months > 1200) return Infinity; // 100년 초과 시 무한으로 처리
                 assetValue *= 1 + monthlyGrowthRate;
                 const currentShares = assetValue / currentPrice.value;
-                assetValue += currentShares * finalDividendPerShare * monthlyPayouts;
+                assetValue +=
+                    currentShares * finalDividendPerShare * monthlyPayouts;
                 months++;
             }
             return months;
@@ -68,31 +70,51 @@ export function useReinvestmentChart(options) {
 
     // [수정 3] ECharts 옵션을 막대 차트로 재구성
     const chartOptions = computed(() => {
-        if (!allGoalAchievementTimes.value || allGoalAchievementTimes.value.length === 0) {
+        if (
+            !allGoalAchievementTimes.value ||
+            allGoalAchievementTimes.value.length === 0
+        ) {
             return {
-                title: { text: '계산 불가', left: 'center', top: 'center', textStyle: { color: textColorSecondary } },
+                title: {
+                    text: '계산 불가',
+                    left: 'center',
+                    top: 'center',
+                    textStyle: { color: textColorSecondary },
+                },
             };
         }
 
-        const finiteTimes = allGoalAchievementTimes.value.flatMap(item => [item.hope, item.avg, item.despair]).filter(t => isFinite(t) && t > 0);
-        if (finiteTimes.length === 0 && targetAmount.value <= currentAssets.value) {
+        const finiteTimes = allGoalAchievementTimes.value
+            .flatMap((item) => [item.hope, item.avg, item.despair])
+            .filter((t) => isFinite(t) && t > 0);
+        if (
+            finiteTimes.length === 0 &&
+            targetAmount.value <= currentAssets.value
+        ) {
             return {
-                title: { text: '이미 목표를 달성했습니다.', left: 'center', top: 'center', textStyle: { color: textColor, fontSize: 20 } },
+                title: {
+                    text: '이미 목표를 달성했습니다.',
+                    left: 'center',
+                    top: 'center',
+                    textStyle: { color: textColor, fontSize: 20 },
+                },
             };
         }
-        
+
         return {
             tooltip: {
                 trigger: 'axis',
                 axisPointer: { type: 'shadow' },
                 formatter: (params) => {
                     let tooltipHtml = `주가 성장률: <strong>${params[0].name}</strong><br/>`;
-                    params.forEach(p => {
-                        const duration = formatMonthsToYears(p.value)?.duration || '계산 불가';
+                    params.forEach((p) => {
+                        const duration =
+                            formatMonthsToYears(p.value)?.duration ||
+                            '계산 불가';
                         tooltipHtml += `${p.marker} ${p.seriesName}: <strong>${duration}</strong><br/>`;
                     });
                     return tooltipHtml;
-                }
+                },
             },
             legend: {
                 data: ['희망', '평균', '절망'],
@@ -107,7 +129,9 @@ export function useReinvestmentChart(options) {
             },
             xAxis: {
                 type: 'category',
-                data: allGoalAchievementTimes.value.map(item => item.rateLabel),
+                data: allGoalAchievementTimes.value.map(
+                    (item) => item.rateLabel
+                ),
                 axisLabel: { color: textColorSecondary },
             },
             yAxis: {
@@ -116,10 +140,13 @@ export function useReinvestmentChart(options) {
                     color: textColorSecondary,
                     formatter: (value) => `${value}개월`,
                 },
-                splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
-                axisBreak: { // Axis Break 기능 활성화
+                splitLine: {
+                    lineStyle: { color: surfaceBorder, type: 'dashed' },
+                },
+                axisBreak: {
+                    // Axis Break 기능 활성화
                     enabled: true,
-                    interval: 0, 
+                    interval: 0,
                     style: {
                         color: textColorSecondary,
                         width: 1,
@@ -133,29 +160,39 @@ export function useReinvestmentChart(options) {
                     type: 'bar',
                     barGap: 0,
                     itemStyle: { color: '#22c55e' },
-                    data: allGoalAchievementTimes.value.map(item => isFinite(item.hope) ? item.hope : null),
+                    data: allGoalAchievementTimes.value.map((item) =>
+                        isFinite(item.hope) ? item.hope : null
+                    ),
                 },
                 {
                     name: '평균',
                     type: 'bar',
                     itemStyle: { color: '#eab308' },
-                    data: allGoalAchievementTimes.value.map(item => isFinite(item.avg) ? item.avg : null),
+                    data: allGoalAchievementTimes.value.map((item) =>
+                        isFinite(item.avg) ? item.avg : null
+                    ),
                 },
                 {
                     name: '절망',
                     type: 'bar',
                     itemStyle: { color: '#ef4444' },
-                    data: allGoalAchievementTimes.value.map(item => isFinite(item.despair) ? item.despair : null),
+                    data: allGoalAchievementTimes.value.map((item) =>
+                        isFinite(item.despair) ? item.despair : null
+                    ),
                 },
             ],
         };
     });
-    
+
     // [수정 4] 요약 테이블용 데이터는 0% 성장률 기준으로 제공
     const goalAchievementTimes = computed(() => {
-        if (!allGoalAchievementTimes.value) return { hope: Infinity, avg: Infinity, despair: Infinity };
-        const zeroGrowthData = allGoalAchievementTimes.value.find(item => item.rateLabel === '0%');
-        if (!zeroGrowthData) return { hope: Infinity, avg: Infinity, despair: Infinity };
+        if (!allGoalAchievementTimes.value)
+            return { hope: Infinity, avg: Infinity, despair: Infinity };
+        const zeroGrowthData = allGoalAchievementTimes.value.find(
+            (item) => item.rateLabel === '0%'
+        );
+        if (!zeroGrowthData)
+            return { hope: Infinity, avg: Infinity, despair: Infinity };
         return {
             hope: zeroGrowthData.hope,
             avg: zeroGrowthData.avg,

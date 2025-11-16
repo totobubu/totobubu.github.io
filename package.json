@@ -15,6 +15,7 @@
         "build": "vite build",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "update-data": "node tasks/updateHistoricalData.js",
+        "check:kr-suffix": "node scripts/checkKrTickerSuffixes.js",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
@@ -23,6 +24,7 @@
         "format:changed:win": "powershell -ExecutionPolicy Bypass -File scripts/format_changed_files.ps1",
         "format:data": "prettier --write \"public/data/**/*.json\" --log-level=warn",
         "format:nav": "prettier --write \"public/nav/**/*.json\" --log-level=warn",
+        "format:nav.json": "prettier --write \"public/nav.json\" --log-level=warn",
         "format:public": "prettier --write \"public/*.json\" --log-level=warn",
         "format": "prettier --write src/ --log-level=warn",
         "data:sort-keys": "node tasks/sortDataKeys.js"

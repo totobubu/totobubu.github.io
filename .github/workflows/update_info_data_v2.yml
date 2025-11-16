@@ -1,0 +1,119 @@
+name: Update Info Data v2
+
+on:
+    schedule:
+        - cron: '0 17 * * *' # KST 02:00 daily
+    workflow_dispatch:
+
+concurrency:
+    group: update-info-data-v2
+    cancel-in-progress: false
+
+env:
+    NODE_VERSION: '20'
+    PYTHON_VERSION: '3.11'
+
+jobs:
+    update-info-v2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ env.PYTHON_VERSION }}
+                  cache: 'pip'
+                  cache-dependency-path: 'requirements-workflow.txt'
+
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            - name: Install Python dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements-workflow.txt
+
+            - name: Setup R2 environment variables
+              run: |
+                  echo "R2_ACCOUNT_ID=${{ secrets.R2_ACCOUNT_ID }}" >> $GITHUB_ENV
+                  echo "R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+                  echo "R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+                  echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
+                  echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
+
+            - name: Sync KR ticker symbols with collected data
+              run: python scripts/sync_nav_symbols_with_data.py --no-sync-nav-files
+
+            - name: Enrich KR market metadata and nav files
+              run: python scripts/enrich_kr_market_info.py --sync-nav-files
+
+            - name: Regenerate nav.json from market directories
+              run: npm run generate-nav
+
+            - name: Update exchange rate data
+              run: node scripts/fetch_all_exchange_rates.js
+
+            - name: Sync IPO dates and upcoming status
+              run: npm run add-ipo-dates
+
+            - name: Run info data pipeline
+              env:
+                  FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+              run: python scripts/info_data_pipeline.py
+
+            - name: Process and enrich dividend history
+              run: python scripts/scraper_dividend.py
+
+            - name: Apply split adjustments to dividend history
+              run: python scripts/apply_split_adjustments.py
+
+            - name: Generate calendar events data
+              run: npm run generate-calendar-events
+
+            - name: Format changed files only
+              run: npm run format:changed
+
+            - name: Upload changed public assets to R2
+              run: python scripts/upload_changed_to_r2.py
+
+            - name: Check for file changes
+              id: git_status
+              run: |
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    echo "changes=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changes=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit and push changes
+              if: steps.git_status.outputs.changes == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "ℹ️ Auto: Update info data v2"
+                  for attempt in 1 2 3; do
+                    if git push; then
+                      echo "✅ Push succeeded"
+                      break
+                    fi
+                    if [ $attempt -eq 3 ]; then
+                      echo "❌ Push failed after 3 attempts"
+                      exit 1
+                    fi
+                    git pull --rebase origin main
+                    sleep 5
+                  done
+

@@ -6,7 +6,6 @@
 - 개별 스크립트를 순차 실행하는 것보다 효율적
 """
 
-import os
 import json
 import time
 import math
@@ -20,20 +19,20 @@ import pandas as pd
 
 # 공통 유틸리티
 from utils import (
+    DATA_DIR,
+    PUBLIC_DIR,
     load_json_file,
     save_json_file,
-    sanitize_ticker_for_filename,
     get_kst_now,
     should_skip_update_timestamp,
+    get_data_file_path,
+    get_base_symbol,
 )
 
 # 경로 설정
-ROOT_DIR = os.getcwd()
-PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
-DATA_DIR = os.path.join(PUBLIC_DIR, "data")
-NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
-US_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "us_holidays.json")
-KR_HOLIDAYS_PATH = os.path.join(PUBLIC_DIR, "holidays", "kr_holidays.json")
+NAV_FILE_PATH = PUBLIC_DIR / "nav.json"
+US_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "us_holidays.json"
+KR_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "kr_holidays.json"
 
 # 글로벌 상태 (한 번만 로드)
 nav_data = None
@@ -48,6 +47,12 @@ SUFFIX_FALLBACKS = {
     ".KQ": [".KS"],
 }
 symbol_suffix_overrides = {}
+
+# --- Rate limit configuration (half-speed throttling) ---
+INFO_BATCH_SIZE = 50  # 이전 100
+INFO_BATCH_DELAY_SEC = 2.0  # 이전 1초 간격보다 2배 대기
+INFO_SYMBOL_DELAY_SEC = 0.05  # 개별 심볼 후 짧은 휴식
+DIVIDEND_SYMBOL_DELAY_SEC = 0.2  # 배당 수집시 요청 간 딜레이
 
 
 def replace_symbol_suffix(symbol, new_suffix):
@@ -166,13 +171,25 @@ def initialize():
 
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
-    ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
+
+    ticker_info_map = {}
+    custom_suffix_fallbacks = {}
+    for entry in active_tickers_info:
+        yf_symbol = (entry.get("yfSymbol") or entry.get("symbol") or "").upper()
+        base_symbol = get_base_symbol(yf_symbol) or entry.get("symbol")
+        if not base_symbol:
+            continue
+        ticker_info_map[base_symbol] = {
+            **entry,
+            "symbol": base_symbol,
+            "yfSymbol": yf_symbol,
+        }
+        if entry.get("yfSuffixFallbacks"):
+            custom_suffix_fallbacks[base_symbol] = entry.get("yfSuffixFallbacks", [])
+            if yf_symbol:
+                custom_suffix_fallbacks[yf_symbol] = entry.get("yfSuffixFallbacks", [])
+
     active_symbols = list(ticker_info_map.keys())
-    custom_suffix_fallbacks = {
-        t["symbol"]: t.get("yfSuffixFallbacks", [])
-        for t in active_tickers_info
-        if t.get("yfSuffixFallbacks")
-    }
 
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
 
@@ -184,7 +201,7 @@ def initialize():
 
     # 데이터 디렉토리 확인
     print("\n[3/3] 데이터 디렉토리 확인 중...")
-    os.makedirs(DATA_DIR, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     print(f"   ✓ 데이터 디렉토리: {DATA_DIR}")
 
     print("\n✅ 초기화 완료\n")
@@ -224,8 +241,11 @@ def update_dividends():
 
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
-            sanitized_symbol = sanitize_ticker_for_filename(symbol)
-            file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+            ticker_meta = ticker_info_map.get(symbol, {})
+            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
+            if not yahoo_symbol:
+                continue
+            file_path = get_data_file_path(yahoo_symbol, ticker_meta.get("market"))
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -237,9 +257,7 @@ def update_dividends():
                 ) + timedelta(days=1)
                 start_date_str = start_date.strftime("%Y-%m-%d")
             else:
-                start_date_str = ticker_info_map.get(symbol, {}).get(
-                    "ipoDate", "1990-01-01"
-                )
+                start_date_str = ticker_meta.get("ipoDate", "1990-01-01")
 
             # 이미 최신이면 건너뛰기
             if (
@@ -250,7 +268,7 @@ def update_dividends():
 
             # yfinance에서 배당 데이터 다운로드 (접미사 자동 보정)
             new_dividends_df = fetch_dividends_with_suffix_fallback(
-                symbol, start_date_str
+                yahoo_symbol, start_date_str
             )
 
             if new_dividends_df.empty:
@@ -261,7 +279,7 @@ def update_dividends():
             backtest_data = existing_data.get("backtestData", [])
             backtest_map = {item["date"]: item for item in backtest_data}
             original_data_str = json.dumps(backtest_data, sort_keys=True)
-            currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
+            currency = ticker_meta.get("currency", "USD")
 
             for date, amount in new_dividends_df.items():
                 date_str = date.strftime("%Y-%m-%d")
@@ -283,6 +301,9 @@ def update_dividends():
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
 
+        if DIVIDEND_SYMBOL_DELAY_SEC:
+            time.sleep(DIVIDEND_SYMBOL_DELAY_SEC)
+
     print(f"\n✅ 배당 데이터 업데이트 완료: {updated_count}개 파일 변경\n")
     return updated_count
 
@@ -290,14 +311,16 @@ def update_dividends():
 # ============================================================================
 # Step 2: 티커 정보 업데이트 (scraper_info)
 # ============================================================================
-def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
+def fetch_bulk_ticker_info_batch(symbol_pairs_batch):
     """여러 티커의 정보를 배치로 가져오기"""
     bulk_data = {}
     try:
-        symbol_fetch_map = {
-            symbol: symbol_suffix_overrides.get(symbol, symbol)
-            for symbol in ticker_symbols_batch
-        }
+        symbol_fetch_map = {}
+        for base_symbol, yahoo_symbol in symbol_pairs_batch:
+            if not yahoo_symbol:
+                continue
+            fetch_symbol = symbol_suffix_overrides.get(yahoo_symbol, yahoo_symbol)
+            symbol_fetch_map[base_symbol] = fetch_symbol
         unique_fetch_symbols = list(set(symbol_fetch_map.values()))
         tickers = yf.Tickers(unique_fetch_symbols)
 
@@ -313,7 +336,7 @@ def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
         return bulk_data
     except Exception as e:
         print(f"  ❌ 배치 가져오기 오류: {e}")
-        return {symbol: None for symbol in ticker_symbols_batch}
+        return {base_symbol: None for base_symbol, _ in symbol_pairs_batch}
 
 
 def process_single_ticker_info(info):
@@ -387,18 +410,23 @@ def update_ticker_info():
     print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 (통합)")
     print("=" * 80)
 
-    batch_size = 100
+    batch_size = INFO_BATCH_SIZE
     all_bulk_info = {}
 
     # 배치로 정보 가져오기
     for i in tqdm(
         range(0, len(active_symbols), batch_size), desc="티커 정보 배치 수집"
     ):
-        batch = active_symbols[i : i + batch_size]
-        batch_info = fetch_bulk_ticker_info_batch(batch)
+        batch_keys = active_symbols[i : i + batch_size]
+        symbol_pairs = []
+        for base_symbol in batch_keys:
+            ticker_meta = ticker_info_map.get(base_symbol, {})
+            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
+            symbol_pairs.append((base_symbol, yahoo_symbol))
+        batch_info = fetch_bulk_ticker_info_batch(symbol_pairs)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
-            time.sleep(1)
+            time.sleep(INFO_BATCH_DELAY_SEC)
 
     total_changed_files = 0
     marketcap_added_count = 0
@@ -409,14 +437,13 @@ def update_ticker_info():
     for symbol in tqdm(active_symbols, desc="티커 정보 + 시가총액 처리"):
         try:
             info_from_nav = ticker_info_map[symbol]
+            yahoo_symbol = info_from_nav.get("yfSymbol") or info_from_nav.get("symbol")
             raw_dynamic_info = all_bulk_info.get(symbol)
             if not raw_dynamic_info:
-                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(symbol)
+                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(yahoo_symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = os.path.join(
-                DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
-            )
+            file_path = get_data_file_path(yahoo_symbol, info_from_nav.get("market"))
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],
@@ -522,6 +549,9 @@ def update_ticker_info():
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
 
+        if INFO_SYMBOL_DELAY_SEC:
+            time.sleep(INFO_SYMBOL_DELAY_SEC)
+
     print(f"\n✅ 티커 정보 업데이트 완료: {total_changed_files}개 파일 변경")
     print(f"   💰 시가총액 추가: {marketcap_added_count}개\n")
     return total_changed_files
@@ -608,9 +638,7 @@ def analyze_dividend_frequency():
         if not symbol or ticker_info.get("upcoming"):
             continue
 
-        file_path = os.path.join(
-            DATA_DIR, f"{sanitize_ticker_for_filename(symbol)}.json"
-        )
+        file_path = get_data_file_path(symbol, ticker_info.get("market"))
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
@@ -672,11 +700,10 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
+    files = list(DATA_DIR.glob("*.json"))
     updated_count = 0
 
-    for filename in tqdm(files, desc="미래 배당일 예측"):
-        file_path = os.path.join(DATA_DIR, filename)
+    for file_path in tqdm(files, desc="미래 배당일 예측"):
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:

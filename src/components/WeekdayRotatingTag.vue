@@ -1,72 +1,79 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import Tag from 'primevue/tag';
-import { extractWeekdayLabels, getGroupSeverity } from '@/utils/uiHelpers.js';
+    import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+    import Tag from 'primevue/tag';
+    import {
+        extractWeekdayLabels,
+        getGroupSeverity,
+    } from '@/utils/uiHelpers.js';
 
-const props = defineProps({
-    labels: {
-        type: Array,
-        default: () => [],
-    },
-    fallback: {
-        type: [String, Object, Array],
-        default: null,
-    },
-    interval: {
-        type: Number,
-        default: 1800,
-    },
-});
+    const props = defineProps({
+        labels: {
+            type: Array,
+            default: () => [],
+        },
+        fallback: {
+            type: [String, Object, Array],
+            default: null,
+        },
+        interval: {
+            type: Number,
+            default: 1800,
+        },
+    });
 
-const currentIndex = ref(0);
-const activeLabels = computed(() => {
-    const provided =
-        props.labels
-            ?.map((label) => (typeof label === 'string' ? label.trim() : ''))
-            .filter(Boolean) || [];
+    const currentIndex = ref(0);
+    const activeLabels = computed(() => {
+        const provided =
+            props.labels
+                ?.map((label) =>
+                    typeof label === 'string' ? label.trim() : ''
+                )
+                .filter(Boolean) || [];
 
-    if (provided.length > 0) {
-        return [...new Set(provided)];
-    }
+        if (provided.length > 0) {
+            return [...new Set(provided)];
+        }
 
-    if (!props.fallback) return [];
+        if (!props.fallback) return [];
 
-    return extractWeekdayLabels(props.fallback);
-});
+        return extractWeekdayLabels(props.fallback);
+    });
 
-const currentLabel = computed(() => activeLabels.value[currentIndex.value] || null);
+    const currentLabel = computed(
+        () => activeLabels.value[currentIndex.value] || null
+    );
 
-let timerId = null;
+    let timerId = null;
 
-const resetRotation = () => {
-    if (timerId) {
-        clearInterval(timerId);
-        timerId = null;
-    }
+    const resetRotation = () => {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
 
-    currentIndex.value = 0;
+        currentIndex.value = 0;
 
-    if (activeLabels.value.length > 1) {
-        timerId = setInterval(() => {
-            currentIndex.value =
-                (currentIndex.value + 1) % activeLabels.value.length;
-        }, props.interval);
-    }
-};
+        if (activeLabels.value.length > 1) {
+            timerId = setInterval(() => {
+                currentIndex.value =
+                    (currentIndex.value + 1) % activeLabels.value.length;
+            }, props.interval);
+        }
+    };
 
-watch(activeLabels, () => {
-    resetRotation();
-});
+    watch(activeLabels, () => {
+        resetRotation();
+    });
 
-onMounted(() => {
-    resetRotation();
-});
+    onMounted(() => {
+        resetRotation();
+    });
 
-onBeforeUnmount(() => {
-    if (timerId) {
-        clearInterval(timerId);
-    }
-});
+    onBeforeUnmount(() => {
+        if (timerId) {
+            clearInterval(timerId);
+        }
+    });
 </script>
 
 <template>
@@ -80,13 +87,12 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.weekday-rotate-enter-active,
-.weekday-rotate-leave-active {
-    transition: opacity 0.25s ease;
-}
-.weekday-rotate-enter-from,
-.weekday-rotate-leave-to {
-    opacity: 0;
-}
+    .weekday-rotate-enter-active,
+    .weekday-rotate-leave-active {
+        transition: opacity 0.25s ease;
+    }
+    .weekday-rotate-enter-from,
+    .weekday-rotate-leave-to {
+        opacity: 0;
+    }
 </style>
-
