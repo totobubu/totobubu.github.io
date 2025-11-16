@@ -3,9 +3,6 @@
 name: Update Info Data (Daily at 2 AM KST)
 
 on:
-    # 매일 실행: 한국시간 새벽 2시 (UTC 17:00)
-    schedule:
-        - cron: '0 17 * * *' # UTC 17:00 = KST 02:00 (매일)
     workflow_dispatch:
 
 permissions:
