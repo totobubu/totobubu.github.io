@@ -220,8 +220,7 @@ export function useStockData() {
                                     : item.amount,
                             // 분할 전 원금 및 조정내역을 표기용으로 전달
                             amountOriginal: item.amountOriginal,
-                            amountSplitAdjustments:
-                                item.amountSplitAdjustments,
+                            amountSplitAdjustments: item.amountSplitAdjustments,
                             배당률: item.yield,
                             전일종가: formatPriceField(prevDayData?.close),
                             당일시가: formatPriceField(item.open),
