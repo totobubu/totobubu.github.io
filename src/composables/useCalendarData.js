@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from './useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
+import { stripTickerSuffix } from '@/utils/tickerRoute';
 
 const allDividendData = ref([]);
 const allTickerProperties = ref(new Map());
@@ -33,34 +34,43 @@ const loadAllData = async () => {
             ]);
 
             if (!krStocksEventsResponse.ok)
-                throw new Error('calendar-events-kr-stocks.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-kr-stocks.json could not be loaded.'
+                );
             if (!krEtfsEventsResponse.ok)
-                throw new Error('calendar-events-kr-etfs.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-kr-etfs.json could not be loaded.'
+                );
             if (!usStocksEventsResponse.ok)
-                throw new Error('calendar-events-us-stocks.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-us-stocks.json could not be loaded.'
+                );
             if (!usEtfsEventsResponse.ok)
-                throw new Error('calendar-events-us-etfs.json could not be loaded.');
+                throw new Error(
+                    'calendar-events-us-etfs.json could not be loaded.'
+                );
 
-            const [
-                krStocksEvents,
-                krEtfsEvents,
-                usStocksEvents,
-                usEtfsEvents,
-            ] = await Promise.all([
-                krStocksEventsResponse.json(),
-                krEtfsEventsResponse.json(),
-                usStocksEventsResponse.json(),
-                usEtfsEventsResponse.json(),
-            ]);
+            const [krStocksEvents, krEtfsEvents, usStocksEvents, usEtfsEvents] =
+                await Promise.all([
+                    krStocksEventsResponse.json(),
+                    krEtfsEventsResponse.json(),
+                    usStocksEventsResponse.json(),
+                    usEtfsEventsResponse.json(),
+                ]);
 
             // 분할된 이벤트 파일들을 하나로 합치고, 동시에 티커 속성 정보 수집
             const flatEvents = [];
             const tickerPropertiesMap = new Map();
-            
+
             // KR Stocks (currency: KRW, isEtf: false)
             for (const date in krStocksEvents) {
                 krStocksEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: false });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'KRW',
+                        isEtf: false,
+                    });
                     // 티커 속성 정보 저장
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
@@ -71,11 +81,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // KR ETFs (currency: KRW, isEtf: true)
             for (const date in krEtfsEvents) {
                 krEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'KRW', isEtf: true });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'KRW',
+                        isEtf: true,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'KRW',
@@ -85,11 +100,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // US Stocks (currency: USD, isEtf: false)
             for (const date in usStocksEvents) {
                 usStocksEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: false });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'USD',
+                        isEtf: false,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'USD',
@@ -99,11 +119,16 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             // US ETFs (currency: USD, isEtf: true)
             for (const date in usEtfsEvents) {
                 usEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({ ...event, date, currency: 'USD', isEtf: true });
+                    flatEvents.push({
+                        ...event,
+                        date,
+                        currency: 'USD',
+                        isEtf: true,
+                    });
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
                             currency: 'USD',
@@ -113,7 +138,7 @@ const loadAllData = async () => {
                     }
                 });
             }
-            
+
             allDividendData.value = flatEvents;
             allTickerProperties.value = tickerPropertiesMap;
             isDataLoaded = true;
@@ -134,21 +159,58 @@ const loadAllData = async () => {
 export function useCalendarData() {
     const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
+    const buildBookmarkSets = () => {
+        const symbolSet = new Set();
+        const isinSet = new Set();
+
+        Object.values(myBookmarks.value || {}).forEach((entry) => {
+            if (!entry) return;
+            if (entry.isin) {
+                isinSet.add(entry.isin.toUpperCase());
+            }
+            if (entry.symbol) {
+                const upper = entry.symbol.toUpperCase();
+                const base = stripTickerSuffix(upper);
+                symbolSet.add(base);
+                symbolSet.add(upper);
+            }
+        });
+
+        return { symbolSet, isinSet };
+    };
+
+    const matchesBookmark = (event, symbolSet, isinSet) => {
+        const eventTicker = event.ticker
+            ? stripTickerSuffix(event.ticker.toUpperCase())
+            : null;
+        const eventYfSymbol = event.yfSymbol
+            ? stripTickerSuffix(event.yfSymbol.toUpperCase())
+            : null;
+        const eventIsin = event.isin ? event.isin.toUpperCase() : null;
+
+        if (eventTicker && symbolSet.has(eventTicker)) return true;
+        if (eventYfSymbol && symbolSet.has(eventYfSymbol)) return true;
+        if (eventIsin && isinSet.has(eventIsin)) return true;
+        return false;
+    };
+
     const dividendsByDate = computed(() => {
         const mainTab = mainFilterTab.value;
         const subTab = subFilterTab.value;
-        const myTickerSet = new Set(Object.keys(myBookmarks.value));
+        const { symbolSet: bookmarkSymbols, isinSet: bookmarkIsins } =
+            buildBookmarkSets();
 
         let filteredEvents = [...allDividendData.value];
 
         if (mainTab === '북마크') {
             filteredEvents = filteredEvents.filter((event) =>
-                myTickerSet.has(event.ticker)
+                matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
             );
         } else {
             // 북마크가 아닌 탭에서는 북마크된 항목 제외
             filteredEvents = filteredEvents.filter(
-                (event) => !myTickerSet.has(event.ticker)
+                (event) =>
+                    !matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
             );
 
             // [핵심 수정] 국가 필터링 (event에 이미 currency 정보가 있음)

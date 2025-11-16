@@ -6,10 +6,73 @@ import axios from 'axios';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
+const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
+const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+
+const MARKET_SUBDIR_ALIASES = {
+    KOSPI: 'kospi',
+    KOSDAQ: 'kosdaq',
+    KONEX: 'konex',
+    KRX: 'krx',
+    'KRX (KOSPI)': 'kospi',
+    'KRX (KOSDAQ)': 'kosdaq',
+    'KRX-KOSPI': 'kospi',
+    'KRX-KOSDAQ': 'kosdaq',
+    NYSE: 'nyse',
+    NASDAQ: 'nasdaq',
+    AMEX: 'amex',
+};
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/\./g, '-').toLowerCase();
+    ticker.replace(/[./\\]/g, '-').toLowerCase();
+
+const getMarketSubdirectory = (market) => {
+    const normalized = String(market || '')
+        .trim()
+        .toUpperCase();
+    if (!normalized) return 'misc';
+    return MARKET_SUBDIR_ALIASES[normalized] || normalized.toLowerCase();
+};
+
+const getDataFilePath = (symbol, market) => {
+    const filename = `${sanitizeTickerForFilename(symbol)}.json`;
+    if (DATA_LAYOUT_MODE === 'market' || DATA_LAYOUT_MODE === 'v2') {
+        const subdir = getMarketSubdirectory(market);
+        return path.join(DATA_DIR, subdir, filename);
+    }
+    return path.join(DATA_DIR, filename);
+};
+
+const removeFileIfExists = async (filePath) => {
+    if (!filePath) return;
+    try {
+        await fs.unlink(filePath);
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            console.warn(`⚠️  Failed to remove ${filePath}: ${error.message}`);
+        }
+    }
+};
+
+const fileExists = async (filePath) => {
+    try {
+        await fs.access(filePath);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+const findExistingDataFile = async (symbolCandidates, market) => {
+    for (const candidate of symbolCandidates) {
+        const candidatePath = getDataFilePath(candidate, market);
+        if (await fileExists(candidatePath)) {
+            return { path: candidatePath, symbol: candidate };
+        }
+    }
+    return null;
+};
 
 const normalizeNumericValue = (value) => {
     if (value === null || value === undefined) return value;
@@ -23,42 +86,96 @@ const normalizeNumericValue = (value) => {
     return Number(value.toFixed(6));
 };
 
+const buildSymbolCandidates = (symbol, fallbackSuffixes = []) => {
+    const candidates = new Set();
+    if (symbol) candidates.add(symbol);
+
+    const dotIndex = symbol?.lastIndexOf('.') ?? -1;
+    const base = dotIndex >= 0 ? symbol.slice(0, dotIndex) : symbol;
+
+    (fallbackSuffixes || []).forEach((fallback) => {
+        if (!fallback) return;
+        const trimmed = String(fallback).trim();
+        if (!trimmed) return;
+
+        const isFullSymbol =
+            trimmed.includes('.') && !trimmed.startsWith('.') && trimmed.split('.').length === 2;
+        if (isFullSymbol) {
+            candidates.add(trimmed);
+            return;
+        }
+
+        if (!base) return;
+        const normalizedSuffix = trimmed.startsWith('.')
+            ? trimmed
+            : `.${trimmed.replace(/^\./, '')}`;
+        candidates.add(`${base}${normalizedSuffix}`);
+    });
+
+    return Array.from(candidates).filter(Boolean);
+};
+
+const shouldRetryWithFallback = (error) =>
+    Number(error?.response?.status) === 404;
+
+async function fetchWithFallback(symbolCandidates, fetcher, label) {
+    let lastError;
+    for (let i = 0; i < symbolCandidates.length; i += 1) {
+        const candidate = symbolCandidates[i];
+        try {
+            const data = await fetcher(candidate);
+            if (i > 0) {
+                console.log(
+                    `ℹ️ [${symbolCandidates[0]}] ${label} 요청에 대체 티커 ${candidate} 사용`
+                );
+            }
+            return { data, symbol: candidate };
+        } catch (error) {
+            lastError = error;
+            const hasFallback = i < symbolCandidates.length - 1;
+            if (hasFallback && shouldRetryWithFallback(error)) {
+                console.warn(
+                    `⚠️ [${symbolCandidates[0]}] ${label} 요청이 ${candidate}에서 404 응답. 다음 후보를 시도합니다.`
+                );
+                continue;
+            }
+            throw error;
+        }
+    }
+    throw lastError;
+}
+
 // [핵심] axios를 사용하여 Yahoo Finance API를 직접 호출하는 함수
 async function fetchHistoricalData(symbol, fromDate) {
     const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
     const period2 = Math.floor(Date.now() / 1000);
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=history`;
 
-    try {
-        const { data } = await axios.get(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0' },
-        });
+    const { data } = await axios.get(url, {
+        headers: YF_HEADERS,
+    });
 
-        if (data.chart.error)
-            throw new Error(
-                data.chart.error.description || `Unknown error for ${symbol}`
-            );
+    if (data.chart.error)
+        throw new Error(
+            data.chart.error.description || `Unknown error for ${symbol}`
+        );
 
-        const result = data.chart.result[0];
-        if (!result || !result.timestamp) return [];
+    const result = data.chart.result[0];
+    if (!result || !result.timestamp) return [];
 
-        const timestamps = result.timestamp;
-        const quotes = result.indicators.quote[0];
+    const timestamps = result.timestamp;
+    const quotes = result.indicators.quote[0];
 
-        return timestamps
-            .map((ts, i) => ({
-                date: new Date(ts * 1000).toISOString().split('T')[0],
-                open: quotes.open[i],
-                high: quotes.high[i],
-                low: quotes.low[i],
-                close: quotes.close[i],
-                volume: quotes.volume[i],
-            }))
-            .filter((p) => p.close != null);
-    } catch (error) {
-        console.error(`API Error for ${symbol}: ${error.message}`);
-        return [];
-    }
+    return timestamps
+        .map((ts, i) => ({
+            date: new Date(ts * 1000).toISOString().split('T')[0],
+            open: quotes.open[i],
+            high: quotes.high[i],
+            low: quotes.low[i],
+            close: quotes.close[i],
+            volume: quotes.volume[i],
+        }))
+        .filter((p) => p.close != null);
 }
 
 async function fetchSplitEvents(symbol, fromDate) {
@@ -66,39 +183,34 @@ async function fetchSplitEvents(symbol, fromDate) {
     const period2 = Math.floor(Date.now() / 1000);
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=div,splits`;
 
-    try {
-        const { data } = await axios.get(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0' },
-        });
+    const { data } = await axios.get(url, {
+        headers: YF_HEADERS,
+    });
 
-        if (data.chart.error)
-            throw new Error(
-                data.chart.error.description || `Unknown error for ${symbol}`
-            );
+    if (data.chart.error)
+        throw new Error(
+            data.chart.error.description || `Unknown error for ${symbol}`
+        );
 
-        const result = data.chart.result?.[0];
-        if (!result || !result.events || !result.events.splits) return [];
+    const result = data.chart.result?.[0];
+    if (!result || !result.events || !result.events.splits) return [];
 
-        return Object.values(result.events.splits)
-            .map((event) => {
-                const numerator = Number(event.numerator);
-                const denominator = Number(event.denominator);
-                if (!numerator || !denominator || numerator === denominator) {
-                    return null;
-                }
-                const ratio = `${numerator}:${denominator}`;
-                const type = numerator > denominator ? 'reverse-split' : 'split';
-                return {
-                    date: new Date(event.date * 1000).toISOString().split('T')[0],
-                    ratio,
-                    type,
-                };
-            })
-            .filter(Boolean);
-    } catch (error) {
-        console.error(`Split API Error for ${symbol}: ${error.message}`);
-        return [];
-    }
+    return Object.values(result.events.splits)
+        .map((event) => {
+            const numerator = Number(event.numerator);
+            const denominator = Number(event.denominator);
+            if (!numerator || !denominator || numerator === denominator) {
+                return null;
+            }
+            const ratio = `${numerator}:${denominator}`;
+            const type = numerator > denominator ? 'reverse-split' : 'split';
+            return {
+                date: new Date(event.date * 1000).toISOString().split('T')[0],
+                ratio,
+                type,
+            };
+        })
+        .filter(Boolean);
 }
 
 async function mergeSplitEvents(existingData, newSplits) {
@@ -131,9 +243,25 @@ async function mergeSplitEvents(existingData, newSplits) {
 }
 
 async function fetchAndMergePriceData(ticker) {
-    const { symbol, ipoDate } = ticker;
-    const sanitizedSymbol = sanitizeTickerForFilename(symbol);
-    const filePath = path.join(DATA_DIR, `${sanitizedSymbol}.json`);
+    const { symbol, ipoDate, yfSuffixFallbacks, market } = ticker;
+    const symbolCandidates = buildSymbolCandidates(symbol, yfSuffixFallbacks);
+    const existingFile = await findExistingDataFile(symbolCandidates, market);
+
+    if (
+        existingFile?.symbol &&
+        existingFile.symbol !== symbol &&
+        DATA_LAYOUT_MODE !== 'flat'
+    ) {
+        const idx = symbolCandidates.indexOf(existingFile.symbol);
+        if (idx > 0) {
+            symbolCandidates.splice(idx, 1);
+            symbolCandidates.unshift(existingFile.symbol);
+        }
+    }
+
+    let filePath =
+        existingFile?.path || getDataFilePath(symbol, market);
+    let storageSymbol = existingFile?.symbol || symbol;
 
     try {
         let existingData = {};
@@ -173,8 +301,22 @@ async function fetchAndMergePriceData(ticker) {
             existingData?.tickerInfo?.events?.splits || [];
         const oldSplitsStr = JSON.stringify(existingSplits);
 
+        let activeSymbol = symbol;
+
         // 가격 데이터 병합
-        const newPriceData = (await fetchHistoricalData(symbol, from)).map((p) => ({
+        let priceResult;
+        try {
+            priceResult = await fetchWithFallback(
+                symbolCandidates,
+                (candidate) => fetchHistoricalData(candidate, from),
+                '가격'
+            );
+        } catch (priceError) {
+            console.error(`API Error for ${symbol}: ${priceError.message}`);
+            return { success: false, symbol, error: priceError.message };
+        }
+        activeSymbol = priceResult.symbol;
+        const newPriceData = priceResult.data.map((p) => ({
             ...p,
             open: normalizeNumericValue(p.open),
             high: normalizeNumericValue(p.high),
@@ -205,7 +347,21 @@ async function fetchAndMergePriceData(ticker) {
               , existingSplits[0].date)
             : ipoDate || '1990-01-01';
 
-        const splitEvents = await fetchSplitEvents(symbol, splitStartDate);
+        const splitCandidates = [
+            activeSymbol,
+            ...symbolCandidates.filter((candidate) => candidate !== activeSymbol),
+        ];
+        let splitEvents = [];
+        try {
+            const splitResult = await fetchWithFallback(
+                splitCandidates,
+                (candidate) => fetchSplitEvents(candidate, splitStartDate),
+                '분할'
+            );
+            splitEvents = splitResult.data;
+        } catch (splitError) {
+            console.error(`Split API Error for ${symbol}: ${splitError.message}`);
+        }
 
         const splitMap = new Map(
             existingSplits.map((event) => [
@@ -227,7 +383,27 @@ async function fetchAndMergePriceData(ticker) {
 
         const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
 
+        const resolvedStorageSymbol =
+            DATA_LAYOUT_MODE === 'flat' ? symbol : activeSymbol || storageSymbol;
+        const targetFilePath = getDataFilePath(resolvedStorageSymbol, market);
+        const storagePathChanged = targetFilePath !== filePath;
+        const previousFilePath = filePath;
+        filePath = targetFilePath;
+
         if (!backtestChanged && !splitsChanged) {
+            if (storagePathChanged) {
+                await fs.mkdir(path.dirname(filePath), { recursive: true });
+                await fs.writeFile(
+                    filePath,
+                    JSON.stringify(existingData, null, 2)
+                );
+                await removeFileIfExists(previousFilePath);
+                console.log(
+                    `↺ [${symbol}] Relocated data file to ${
+                        DATA_LAYOUT_MODE === 'flat' ? 'flat' : 'market'
+                    } layout path`
+                );
+            }
             return { success: true, symbol };
         }
 
@@ -240,7 +416,12 @@ async function fetchAndMergePriceData(ticker) {
         existingData.tickerInfo = tickerInfo;
         existingData.backtestData = finalBacktestData;
 
+        await fs.mkdir(path.dirname(filePath), { recursive: true });
+        await fs.mkdir(path.dirname(filePath), { recursive: true });
         await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+        if (storagePathChanged) {
+            await removeFileIfExists(previousFilePath);
+        }
         console.log(
             `✅ [${symbol}] Updated. Prices: ${backtestChanged ? 'Y' : 'N'}, Splits: ${splitsChanged ? 'Y' : 'N'}${
                 isNewFile ? ' (NEW FILE)' : ''
@@ -301,7 +482,8 @@ async function main() {
     );
 
     console.log(`Found ${uniqueTickers.length} symbols to update.`);
-    const concurrency = 10;
+    const concurrency = 5;
+    const chunkDelayMs = 1000;
     let successCount = 0;
     const failedSymbols = [];
 
@@ -317,7 +499,7 @@ async function main() {
             if (r.success) successCount++;
             else if (r.symbol) failedSymbols.push(r.symbol);
         });
-        await delay(500);
+        await delay(chunkDelayMs);
     }
 
     console.log(

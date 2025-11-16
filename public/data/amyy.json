@@ -9,12 +9,24 @@
         "underlying": "AMD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-15 14:20:52 KST",
+        "regularMarketPrice": 24.52,
+        "englishName": "Graniteshares YieldBOOST AMD ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 39671,
+        "AvgVolume": 34053,
+        "sharesOutstanding": null,
+        "52Week": "23.39 - 26.53",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US38747R3306",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US38747R3306"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -384,7 +396,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true
+            "expected": true,
+            "open": 24.139999,
+            "high": 24.77,
+            "low": 23.999001,
+            "close": 24.52,
+            "volume": 39671,
+            "amount": 0.483,
+            "yield": 0.177242758
         },
         {
             "date": "2025-11-21",
@@ -484,6 +503,10 @@
         },
         {
             "date": "2026-05-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-15",
             "forecasted": true
         }
     ]

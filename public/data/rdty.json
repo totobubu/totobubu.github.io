@@ -9,12 +9,24 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-15 14:20:52 KST",
+        "regularMarketPrice": 40.9037,
+        "englishName": "YieldMax Russell 2000 0DTE Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6688,
+        "AvgVolume": 8842,
+        "sharesOutstanding": null,
+        "52Week": "39.348 - 50.07",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US88636R5524",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US88636R5524"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1782,6 +1794,40 @@
             "low": 41.001099,
             "close": 41.001099,
             "volume": 6144
+        },
+        {
+            "date": "2025-11-14",
+            "open": 40.52,
+            "high": 41.02,
+            "low": 40.320099,
+            "close": 40.903702,
+            "volume": 6688,
+            "holdings": [
+                {
+                    "symbol": "4RUT  251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 97.54,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 20.18,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.39,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 17.89,
+                    "type": "cash"
+                }
+            ]
         },
         {
             "date": "2025-11-19",

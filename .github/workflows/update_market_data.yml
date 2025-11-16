@@ -4,13 +4,6 @@
 name: Update Market Data (Optimized Pipeline)
 
 on:
-    # [V2 통합] 한국 + 미국 증시 마감 후 실행 (하루 2회)
-    # - 한국: UTC 07:30 (오후 4시 30분 KST, 한국 증시 마감 후)
-    # - 미국: UTC 21:30 또는 22:30 (서머타임 여부에 따라)
-    schedule:
-        - cron: '30 7 * * 1-5'  # UTC 07:30 (한국 증시 마감 후)
-        - cron: '30 21 * * 1-5' # UTC 21:30 (서머타임 적용 시: 미국 증시 마감 후)
-        - cron: '30 22 * * 1-5' # UTC 22:30 (서머타임 미적용 시: 미국 증시 마감 후)
     workflow_dispatch:
 
 permissions:

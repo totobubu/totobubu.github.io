@@ -9,12 +9,24 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-15 14:20:52 KST",
+        "regularMarketPrice": 44.2322,
+        "englishName": "YieldMax Nasdaq 100 0DTE Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 7227,
+        "AvgVolume": 8226,
+        "sharesOutstanding": null,
+        "52Week": "36.76 - 52.55",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US88636R5789",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US88636R5789"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1952,6 +1964,46 @@
             "low": 44.376999,
             "close": 44.412998,
             "volume": 10434
+        },
+        {
+            "date": "2025-11-14",
+            "open": 43.900002,
+            "high": 44.310001,
+            "low": 43.850101,
+            "close": 44.232201,
+            "volume": 7227,
+            "holdings": [
+                {
+                    "symbol": "4NDX  251219C01001260",
+                    "name": "NDX 12/19/2025 1001.26 C",
+                    "weight": 92.69,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 23.09,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "4XND  251219C00010020",
+                    "name": "XND 12/19/2025 10.02 C",
+                    "weight": 3.86,
+                    "type": "option"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.13,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 19.63,
+                    "type": "cash"
+                }
+            ]
         },
         {
             "date": "2025-11-19",

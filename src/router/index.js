@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { buildRouteParamsFromLegacyTicker } from '@/utils/tickerRoute';
 
 // 홈 페이지는 즉시 로드 (초기 화면)
 import HomeView from '../pages/HomeView.vue';
@@ -94,19 +95,27 @@ const router = createRouter({
             component: ContactView,
         },
         {
-            path: '/stock/:ticker',
+            path: '/stock/:market/:ticker',
             name: 'stock-detail',
             component: StockView,
             props: true,
         },
         {
-            path: '/:ticker',
+            path: '/stock/:legacyTicker',
             redirect: (to) => {
-                // /:ticker를 /stock/:ticker로 리다이렉트
-                return {
-                    name: 'stock-detail',
-                    params: { ticker: to.params.ticker },
-                };
+                const params = buildRouteParamsFromLegacyTicker(
+                    to.params.legacyTicker
+                );
+                return { name: 'stock-detail', params };
+            },
+        },
+        {
+            path: '/:legacyTicker',
+            redirect: (to) => {
+                const params = buildRouteParamsFromLegacyTicker(
+                    to.params.legacyTicker
+                );
+                return { name: 'stock-detail', params };
             },
         },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },

@@ -76,6 +76,42 @@
         () => weekdayTags.value[0] || props.tickerInfo?.group || null
     );
 
+    const normalizeSplitType = (value) => {
+        if (!value) return null;
+        const normalized = value
+            .toString()
+            .trim()
+            .replace(/[_\s]+/g, '-')
+            .toLowerCase();
+        if (normalized.includes('reverse')) return 'reverse-split';
+        if (normalized.includes('split')) return 'split';
+        return null;
+    };
+
+    const parseSplitRatio = (ratio) => {
+        if (!ratio) return null;
+        const match = ratio
+            .toString()
+            .replace(/\s+/g, '')
+            .match(/^(\d+(?:\.\d+)?)[/:](\d+(?:\.\d+)?)/i);
+        if (!match) return null;
+        return {
+            numerator: Number(match[1]),
+            denominator: Number(match[2]),
+        };
+    };
+
+    const inferSplitEventType = (event) => {
+        const normalizedType = normalizeSplitType(event?.type);
+        if (normalizedType) return normalizedType;
+        const parsedRatio = parseSplitRatio(event?.ratio);
+        if (!parsedRatio) return 'split';
+        if (parsedRatio.numerator === parsedRatio.denominator) return 'split';
+        return parsedRatio.numerator < parsedRatio.denominator
+            ? 'reverse-split'
+            : 'split';
+    };
+
     const timelineRawEvents = computed(() => {
         const events = [];
         const frequencyEvents =
@@ -116,8 +152,7 @@
 
         const splitEvents = props.tickerInfo?.events?.splits || [];
         splitEvents.forEach((event) => {
-            const eventType =
-                event.type === 'reverse-split' ? 'reverse-split' : 'split';
+            const eventType = inferSplitEventType(event);
             events.push({
                 date: event.date,
                 ratio: event.ratio,

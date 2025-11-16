@@ -277,53 +277,60 @@
             ],
         };
     });
-    
+
     // Holdings 변화율 계산
     const holdingsWithChange = computed(() => {
-        if (!generatedBlog.value?.holdings || generatedBlog.value.holdings.length === 0) {
+        if (
+            !generatedBlog.value?.holdings ||
+            generatedBlog.value.holdings.length === 0
+        ) {
             return [];
         }
-        
+
         const currentHoldings = generatedBlog.value.holdings;
         const allHoldingsData = generatedBlog.value?.allHoldingsData || [];
-        
+
         if (allHoldingsData.length < 2) {
             // 직전 데이터가 없으면 변화율 없이 반환
-            return currentHoldings.map(h => ({
+            return currentHoldings.map((h) => ({
                 ...h,
                 change: null,
-                changePercent: null
+                changePercent: null,
             }));
         }
-        
+
         // 최신과 직전 데이터
         const latestEntry = allHoldingsData[allHoldingsData.length - 1];
         const previousEntry = allHoldingsData[allHoldingsData.length - 2];
-        
-        const latestMap = new Map(latestEntry.data.map(h => [h.symbol, h.weight]));
-        const previousMap = new Map(previousEntry.data.map(h => [h.symbol, h.weight]));
-        
-        return currentHoldings.map(h => {
+
+        const latestMap = new Map(
+            latestEntry.data.map((h) => [h.symbol, h.weight])
+        );
+        const previousMap = new Map(
+            previousEntry.data.map((h) => [h.symbol, h.weight])
+        );
+
+        return currentHoldings.map((h) => {
             const currentWeight = latestMap.get(h.symbol) || h.weight;
             const previousWeight = previousMap.get(h.symbol);
-            
+
             if (previousWeight !== undefined) {
                 const change = currentWeight - previousWeight;
-                const changePercent = ((change / previousWeight) * 100);
+                const changePercent = (change / previousWeight) * 100;
                 return {
                     ...h,
                     change: change,
                     changePercent: changePercent,
-                    previousWeight: previousWeight
+                    previousWeight: previousWeight,
                 };
             }
-            
+
             return {
                 ...h,
                 change: null,
                 changePercent: null,
                 previousWeight: null,
-                isNew: true // 새로 추가된 종목
+                isNew: true, // 새로 추가된 종목
             };
         });
     });
@@ -616,12 +623,17 @@
                     <div v-if="holdingsChartOptions" class="chart-card">
                         <div class="chart-header">
                             <h3>주요 보유 종목</h3>
-                            <div v-if="generatedBlog.holdingsInfo.count > 0" class="holdings-info">
+                            <div
+                                v-if="generatedBlog.holdingsInfo.count > 0"
+                                class="holdings-info">
                                 <span class="info-badge">
-                                    📊 총 {{ generatedBlog.holdingsInfo.count }}회 데이터 수집
+                                    📊 총
+                                    {{ generatedBlog.holdingsInfo.count }}회
+                                    데이터 수집
                                 </span>
                                 <span class="info-date">
-                                    (최신: {{ generatedBlog.holdingsInfo.date }})
+                                    (최신:
+                                    {{ generatedBlog.holdingsInfo.date }})
                                 </span>
                             </div>
                         </div>
@@ -636,11 +648,25 @@
                         v-if="holdingsWithChange.length > 0"
                         class="table-card">
                         <h3>주요 보유 종목 상세</h3>
-                        <div v-if="generatedBlog.allHoldingsData && generatedBlog.allHoldingsData.length >= 2" class="comparison-info">
+                        <div
+                            v-if="
+                                generatedBlog.allHoldingsData &&
+                                generatedBlog.allHoldingsData.length >= 2
+                            "
+                            class="comparison-info">
                             <span class="comparison-label">
-                                📊 {{ generatedBlog.allHoldingsData[generatedBlog.allHoldingsData.length - 1].date }} 
-                                vs 
-                                {{ generatedBlog.allHoldingsData[generatedBlog.allHoldingsData.length - 2].date }}
+                                📊
+                                {{
+                                    generatedBlog.allHoldingsData[
+                                        generatedBlog.allHoldingsData.length - 1
+                                    ].date
+                                }}
+                                vs
+                                {{
+                                    generatedBlog.allHoldingsData[
+                                        generatedBlog.allHoldingsData.length - 2
+                                    ].date
+                                }}
                             </span>
                         </div>
                         <table class="data-table holdings-comparison">
@@ -649,38 +675,78 @@
                                     <th>티커</th>
                                     <th>종목명</th>
                                     <th>비중 (%)</th>
-                                    <th v-if="generatedBlog.allHoldingsData && generatedBlog.allHoldingsData.length >= 2">
+                                    <th
+                                        v-if="
+                                            generatedBlog.allHoldingsData &&
+                                            generatedBlog.allHoldingsData
+                                                .length >= 2
+                                        ">
                                         변화율
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr
-                                    v-for="(holding, index) in holdingsWithChange.slice(0, 10)"
+                                    v-for="(
+                                        holding, index
+                                    ) in holdingsWithChange.slice(0, 10)"
                                     :key="index"
                                     :class="{ 'new-holding': holding.isNew }">
-                                    <td><strong>{{ holding.symbol }}</strong></td>
+                                    <td>
+                                        <strong>{{ holding.symbol }}</strong>
+                                    </td>
                                     <td>{{ holding.name }}</td>
                                     <td class="weight-cell">
-                                        {{ holding.weight?.toFixed(2) || 'N/A' }}%
+                                        {{
+                                            holding.weight?.toFixed(2) || 'N/A'
+                                        }}%
                                     </td>
-                                    <td 
-                                        v-if="generatedBlog.allHoldingsData && generatedBlog.allHoldingsData.length >= 2"
+                                    <td
+                                        v-if="
+                                            generatedBlog.allHoldingsData &&
+                                            generatedBlog.allHoldingsData
+                                                .length >= 2
+                                        "
                                         class="change-cell">
-                                        <span v-if="holding.isNew" class="new-badge">NEW</span>
-                                        <span 
+                                        <span
+                                            v-if="holding.isNew"
+                                            class="new-badge"
+                                            >NEW</span
+                                        >
+                                        <span
                                             v-else-if="holding.change !== null"
                                             :class="{
-                                                'change-positive': holding.change > 0,
-                                                'change-negative': holding.change < 0,
-                                                'change-neutral': holding.change === 0
+                                                'change-positive':
+                                                    holding.change > 0,
+                                                'change-negative':
+                                                    holding.change < 0,
+                                                'change-neutral':
+                                                    holding.change === 0,
                                             }">
                                             <span class="change-arrow">
-                                                {{ holding.change > 0 ? '▲' : holding.change < 0 ? '▼' : '━' }}
+                                                {{
+                                                    holding.change > 0
+                                                        ? '▲'
+                                                        : holding.change < 0
+                                                          ? '▼'
+                                                          : '━'
+                                                }}
                                             </span>
-                                            {{ Math.abs(holding.change).toFixed(2) }}%
+                                            {{
+                                                Math.abs(
+                                                    holding.change
+                                                ).toFixed(2)
+                                            }}%
                                             <span class="change-percent">
-                                                ({{ holding.changePercent > 0 ? '+' : '' }}{{ holding.changePercent.toFixed(1) }}%)
+                                                ({{
+                                                    holding.changePercent > 0
+                                                        ? '+'
+                                                        : ''
+                                                }}{{
+                                                    holding.changePercent.toFixed(
+                                                        1
+                                                    )
+                                                }}%)
                                             </span>
                                         </span>
                                         <span v-else class="no-data">-</span>

@@ -8,6 +8,11 @@
     import { useBreakpoint } from '@/composables/useBreakpoint';
     import { useStockCharts } from '@/composables/useStockCharts.js';
     import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
+    import {
+        buildSymbolFromRouteParams,
+        buildSanitizedTickerFromRouteParams,
+        stripTickerSuffix,
+    } from '@/utils/tickerRoute';
     import VChart from 'vue-echarts';
 
     import Skeleton from 'primevue/skeleton';
@@ -32,8 +37,15 @@
         isUpcoming,
     } = useStockData();
 
+    const marketSlug = computed(() =>
+        (route.params.market || '').toString().toLowerCase()
+    );
+    const tickerParam = computed(() => (route.params.ticker || '').toString());
     const tickerSymbol = computed(() =>
-        (route.params.ticker || '').toString().replace(/-/g, '.')
+        buildSymbolFromRouteParams(marketSlug.value, tickerParam.value)
+    );
+    const sanitizedTicker = computed(() =>
+        buildSanitizedTickerFromRouteParams(marketSlug.value, tickerParam.value)
     );
     const pageTitle = computed(() => {
         const upperTicker = tickerSymbol.value.toUpperCase();
@@ -138,10 +150,10 @@
     });
 
     watch(
-        () => route.params.ticker,
-        (newTicker) => {
-            if (newTicker) {
-                loadData(newTicker.toLowerCase()).then(() => {
+        () => sanitizedTicker.value,
+        (newSanitized) => {
+            if (newSanitized) {
+                loadData(newSanitized).then(() => {
                     const hasDividends =
                         dividendHistory.value &&
                         dividendHistory.value.length > 0;
@@ -168,10 +180,16 @@
             return myBookmarks.value[isin];
         }
         const symbol = tickerSymbol.value.toUpperCase();
+        const baseSymbol = stripTickerSuffix(symbol);
         return (
-            Object.values(myBookmarks.value || {}).find(
-                (entry) => entry?.symbol === symbol
-            ) || null
+            Object.values(myBookmarks.value || {}).find((entry) => {
+                const entrySymbol = entry?.symbol
+                    ? entry.symbol.toUpperCase()
+                    : null;
+                if (!entrySymbol) return false;
+                if (entrySymbol === symbol) return true;
+                return stripTickerSuffix(entrySymbol) === baseSymbol;
+            }) || null
         );
     });
 </script>

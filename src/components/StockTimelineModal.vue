@@ -158,7 +158,7 @@
         'frequency-group': '배당월변경',
         weekday: '배당요일변경',
         split: '주식분할',
-        'reverse-split': '주식병합',
+        'reverse-split': '주식합병',
     };
 
     const getEventTypeLabel = (eventType) =>
@@ -216,7 +216,7 @@
                 toInfo = {
                     frequencyLabel:
                         eventType === 'reverse-split'
-                            ? '병합 완료'
+                            ? '합병 완료'
                             : '분할 완료',
                     weekdayKey: null,
                     weekdayLabel: null,
