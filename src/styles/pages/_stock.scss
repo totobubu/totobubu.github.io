@@ -165,7 +165,7 @@
         }
     }
     &-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
-        flex-direction: row;
+        flex-direction: row !important;
     }
 }
 .timeline {
