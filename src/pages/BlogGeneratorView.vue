@@ -36,8 +36,37 @@
             const tickerSymbol = ticker.value.toUpperCase().trim();
             const sanitizedTicker = sanitizeTickerForFilename(tickerSymbol);
 
-            // 로컬 데이터에서 배당금 정보 가져오기 (기존 프로젝트 방식 사용)
-            const dataUrl = getDataUrl(`data/${sanitizedTicker}.json`);
+            // nav.json에서 티커 정보 찾기
+            const navUrl = getDataUrl('nav.json');
+            const navResponse = await fetch(navUrl);
+            if (!navResponse.ok) {
+                throw new Error('nav.json을 불러올 수 없습니다.');
+            }
+            const navData = await navResponse.json();
+            
+            // nav.json에서 티커 찾기
+            const navInfo = navData.nav?.find(
+                (item) =>
+                    sanitizeTickerForFilename(item.symbol) === sanitizedTicker ||
+                    sanitizeTickerForFilename(item.yfSymbol || '') === sanitizedTicker
+            );
+
+            if (!navInfo) {
+                throw new Error(
+                    `${tickerSymbol} 티커 정보를 nav.json에서 찾을 수 없습니다.`
+                );
+            }
+
+            // nav.json의 dataPath 사용 (없으면 fallback)
+            const dataPath = navInfo.dataPath || navInfo.dataPaths?.[0];
+            if (!dataPath) {
+                throw new Error(
+                    `${tickerSymbol} 티커의 dataPath가 nav.json에 없습니다.`
+                );
+            }
+
+            // 로컬 데이터에서 배당금 정보 가져오기
+            const dataUrl = getDataUrl(dataPath);
             const localDataResponse = await fetch(dataUrl);
 
             if (!localDataResponse.ok) {
