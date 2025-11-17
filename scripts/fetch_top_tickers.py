@@ -149,10 +149,34 @@ def save_tickers_to_nav_files(tickers_to_add, market_map, currency, name_map=Non
             except (FileNotFoundError, json.JSONDecodeError):
                 files_to_update[file_path] = []
 
-        if any(t["symbol"] == symbol for t in files_to_update[file_path]):
-            continue
-
-        new_ticker_info = {"symbol": symbol, "market": market, "currency": currency}
+        # 한국 티커의 경우 symbol과 yfSymbol 분리
+        if market in ("KOSPI", "KOSDAQ", "KONEX"):
+            # symbol에 접미사가 포함되어 있으면 분리
+            if "." in symbol:
+                base_symbol = symbol.rsplit(".", 1)[0]
+                yf_symbol = symbol  # 접미사 포함된 symbol을 yfSymbol로 사용
+            else:
+                base_symbol = symbol
+                # market에 따라 접미사 추가
+                suffix = ".KS" if market == "KOSPI" else ".KQ"
+                yf_symbol = f"{symbol}{suffix}"
+            
+            # base_symbol으로 중복 체크
+            if any(t["symbol"] == base_symbol for t in files_to_update[file_path]):
+                continue
+            
+            new_ticker_info = {
+                "symbol": base_symbol,
+                "yfSymbol": yf_symbol,
+                "market": market,
+                "currency": currency
+            }
+        else:
+            # US 티커는 symbol만 사용
+            if any(t["symbol"] == symbol for t in files_to_update[file_path]):
+                continue
+            
+            new_ticker_info = {"symbol": symbol, "market": market, "currency": currency}
 
         if name_map and base_symbol in name_map:
             name = name_map[base_symbol]

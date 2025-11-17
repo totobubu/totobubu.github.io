@@ -114,10 +114,9 @@ def find_existing_symbol_file(
     symbol = entry.get("symbol")
     if not isinstance(symbol, str):
         return None, None
-    fallbacks = entry.get("yfSuffixFallbacks") or []
-    if not isinstance(fallbacks, list):
-        fallbacks = []
-    candidates = build_symbol_candidates(symbol, fallbacks)
+    yf_symbol = entry.get("yfSymbol")
+    # yfSymbol이 있으면 우선 사용, 없으면 symbol만 사용
+    candidates = [yf_symbol] if yf_symbol else [symbol]
 
     entry_market = entry.get("market")
 

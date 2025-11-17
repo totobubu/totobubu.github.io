@@ -174,15 +174,34 @@ def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
     except json.JSONDecodeError:
         entries = []
 
+    # 한국 티커의 경우 yfSymbol 자동 설정
+    base_symbol = symbol
+    yf_symbol = symbol
+    if market in ("KOSPI", "KOSDAQ", "KONEX"):
+        # symbol에 접미사가 있으면 분리
+        if "." in symbol:
+            base_symbol = symbol.rsplit(".", 1)[0]
+            yf_symbol = symbol  # 접미사 포함된 symbol을 yfSymbol로 사용
+        else:
+            # symbol에 접미사가 없으면 market에 따라 추가
+            suffix = ".KS" if market == "KOSPI" else ".KQ"
+            yf_symbol = f"{symbol}{suffix}"
+
     updated = False
     for entry in entries:
-        if entry.get("symbol") == symbol:
+        if entry.get("symbol") == base_symbol or entry.get("symbol") == symbol:
             if ipo_date and entry.get("ipoDate") != ipo_date:
                 entry["ipoDate"] = ipo_date
                 updated = True
+            # yfSymbol 설정
+            if market in ("KOSPI", "KOSDAQ", "KONEX") and entry.get("yfSymbol") != yf_symbol:
+                entry["yfSymbol"] = yf_symbol
+                updated = True
             break
     else:
-        new_entry = {"symbol": symbol}
+        new_entry = {"symbol": base_symbol, "market": market}
+        if market in ("KOSPI", "KOSDAQ", "KONEX"):
+            new_entry["yfSymbol"] = yf_symbol
         if ipo_date:
             new_entry["ipoDate"] = ipo_date
         entries.append(new_entry)

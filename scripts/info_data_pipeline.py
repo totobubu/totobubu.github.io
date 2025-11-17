@@ -206,10 +206,7 @@ def initialize(market_filter=None):
             "symbol": base_symbol,
             "yfSymbol": yf_symbol,
         }
-        if entry.get("yfSuffixFallbacks"):
-            custom_suffix_fallbacks[base_symbol] = entry.get("yfSuffixFallbacks", [])
-            if yf_symbol:
-                custom_suffix_fallbacks[yf_symbol] = entry.get("yfSuffixFallbacks", [])
+        # yfSuffixFallbacks는 더 이상 사용하지 않음 (yfSymbol 사용)
 
     active_symbols = list(ticker_info_map.keys())
 
