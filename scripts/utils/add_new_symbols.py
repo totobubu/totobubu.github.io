@@ -49,7 +49,7 @@ try:
 except ImportError as exc:  # pragma: no cover - 환경 문제
     raise SystemExit(f"fetch_missing_isin.py 로직을 불러오지 못했습니다: {exc}") from exc
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
