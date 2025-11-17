@@ -56,7 +56,6 @@ def delete_r2_objects(s3_client, bucket_name, keys):
 def main():
     parser = argparse.ArgumentParser(
         description="Cloudflare R2에서 로컬에 존재하지 않는 파일을 정리합니다.",
-        epilog="기본은 dry-run입니다. 실제 삭제는 --apply 옵션을 사용하세요.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 예시:
