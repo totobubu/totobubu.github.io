@@ -126,9 +126,10 @@ python scripts/auto_detect_holdings.py --api --exclude-kr --yes
 echo y | python scripts/fetch_holdings.py
 
 # 7. 주가 데이터 증분 업데이트
-npm run update-data              # 전체
-npm run update-data WEED         # 개별 티커
-npm run update-data WEED MAGS    # 여러 티커
+node tasks/updateHistoricalKrData.js   # 한국 티커 전체
+node tasks/updateHistoricalUsData.js   # 미국 티커 전체
+node tasks/updateHistoricalKrData.js TICKER  # 한국 개별 티커
+node tasks/updateHistoricalUsData.js TICKER  # 미국 개별 티커
 
 # 8. 시가총액 업데이트
 python scripts/update_market_cap.py           # 전체

@@ -373,10 +373,10 @@ python scripts/upload_full_sync_to_r2.py --target logos
 
 **적용된 워크플로우**:
 
-- ✅ `update_info_data.yml` (V1)
-- ✅ `update_info_data_v2.yml` (V2)
-- ✅ `update_market_data.yml` (V1)
-- ✅ `update_market_data_v2.yml` (V2)
+- ✅ `update_info_data_v2.yml`
+- ✅ `market_data_v2_kr.yml`
+- ✅ `market_data_v2_us.yml`
+- ✅ `update_holdings.yml`
 
 ### Deploy 워크플로우
 
@@ -534,8 +534,9 @@ python scripts/upload_specific_to_r2.py public/nav.json  # 🎯 개별
 
 ```yaml
 # 워크플로우에서 자동 실행
-# - update_info_data.yml
-# - update_market_data.yml
+# - update_info_data_v2.yml
+# - market_data_v2_kr.yml
+# - market_data_v2_us.yml
 # - deploy.yml
 ```
 

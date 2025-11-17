@@ -86,23 +86,47 @@ switch ($Workflow) {
     "update_info_data_v2" {
         Write-Host "티커 심볼 동기화 중..." -ForegroundColor Gray
         python scripts/sync_nav_symbols_with_data.py --no-sync-nav-files
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 티커 심볼 동기화 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "메타데이터 보강 중..." -ForegroundColor Gray
         python scripts/enrich_kr_market_info.py --sync-nav-files
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 메타데이터 보강 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "환율 데이터 업데이트 중..." -ForegroundColor Gray
         node scripts/fetch_all_exchange_rates.js
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 환율 데이터 업데이트 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "IPO 날짜 동기화 중..." -ForegroundColor Gray
         npm run add-ipo-dates
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] IPO 날짜 동기화 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "nav.json 생성 중..." -ForegroundColor Gray
         npm run generate-nav
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] nav.json 생성 실패" -ForegroundColor Red
+            exit 1
+        }
         
         if ($env:FIRESTORE_SA_KEY) {
             Write-Host "정보 데이터 업데이트 중..." -ForegroundColor Gray
             $env:DATA_LAYOUT_MODE = "market"
             python scripts/info_data_pipeline.py
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "[ERROR] 정보 데이터 업데이트 실패" -ForegroundColor Red
+                exit 1
+            }
         } else {
             Write-Host "[WARN] FIRESTORE_SA_KEY가 없어 정보 데이터 업데이트를 건너뜁니다." -ForegroundColor Yellow
         }
@@ -110,12 +134,24 @@ switch ($Workflow) {
         Write-Host "배당 히스토리 처리 중..." -ForegroundColor Gray
         $env:DATA_LAYOUT_MODE = "market"
         python scripts/scraper_dividend.py
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 배당 히스토리 처리 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "분할 조정 적용 중..." -ForegroundColor Gray
         python scripts/apply_split_adjustments.py
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 분할 조정 적용 실패" -ForegroundColor Red
+            exit 1
+        }
         
         Write-Host "캘린더 이벤트 생성 중..." -ForegroundColor Gray
         npm run generate-calendar-events
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "[ERROR] 캘린더 이벤트 생성 실패" -ForegroundColor Red
+            exit 1
+        }
     }
 }
 
