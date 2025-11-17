@@ -150,7 +150,7 @@ npm run format:changed  # Git 변경된 파일만! 🚀
 .\scripts\update_all_local.ps1
 
 # 또는 개별 단계 실행
-python scripts/fetch_us_etfs.py
+python scripts/run_new_ticker_workflow.py WEED MAGS
 npm run generate-nav
 ```
 
