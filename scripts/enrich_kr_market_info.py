@@ -20,13 +20,13 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator, Optional
 
 import requests
 from bs4 import BeautifulSoup
-import sys
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -182,31 +182,54 @@ def parse_stockevents_metadata(html: str) -> dict:
 
 def fetch_stockevents(symbol: str) -> MarketMetadata:
     errors: list[str] = []
+    max_retries = 2
+    retry_delay = 1.0
+
     for candidate in build_symbol_candidates(symbol):
         url = BASE_URL.format(symbol=candidate)
-        try:
-            response = REQUEST_SESSION.get(url, timeout=REQUEST_TIMEOUT)
-        except requests.RequestException as exc:
-            errors.append(f"{candidate}: request failed ({exc})")
-            continue
-        if response.status_code != 200:
-            errors.append(f"{candidate}: HTTP {response.status_code}")
-            continue
-        metadata = parse_stockevents_metadata(response.text)
-        if not metadata:
-            errors.append(f"{candidate}: metadata block not found")
-            continue
-        market = normalize_market(metadata.get("market"))
-        if not market:
-            market = normalize_market(metadata.get("currency"))
-        return MarketMetadata(
-            symbol=symbol,
-            resolved_symbol=candidate,
-            market=market or normalize_market_from_suffix(candidate),
-            isin=metadata.get("isin"),
-            currency=metadata.get("currency"),
-        )
-    raise RuntimeError("; ".join(errors) if errors else f"{symbol}: unable to fetch metadata")
+
+        # 재시도 로직
+        for attempt in range(max_retries + 1):
+            try:
+                response = REQUEST_SESSION.get(url, timeout=REQUEST_TIMEOUT)
+            except requests.RequestException as exc:
+                if attempt < max_retries:
+                    time.sleep(retry_delay * (attempt + 1))
+                    continue
+                errors.append(f"{candidate}: request failed ({exc})")
+                break
+
+            # 403 에러는 rate limiting일 수 있으므로 재시도
+            if response.status_code == 403:
+                if attempt < max_retries:
+                    time.sleep(retry_delay * (attempt + 1))
+                    continue
+                errors.append(f"{candidate}: HTTP {response.status_code}")
+                break
+
+            if response.status_code != 200:
+                errors.append(f"{candidate}: HTTP {response.status_code}")
+                break
+
+            metadata = parse_stockevents_metadata(response.text)
+            if not metadata:
+                errors.append(f"{candidate}: metadata block not found")
+                break
+
+            market = normalize_market(metadata.get("market"))
+            if not market:
+                market = normalize_market(metadata.get("currency"))
+            return MarketMetadata(
+                symbol=symbol,
+                resolved_symbol=candidate,
+                market=market or normalize_market_from_suffix(candidate),
+                isin=metadata.get("isin"),
+                currency=metadata.get("currency"),
+            )
+
+    raise RuntimeError(
+        "; ".join(errors) if errors else f"{symbol}: unable to fetch metadata"
+    )
 
 
 def normalize_market_from_suffix(symbol: str) -> Optional[str]:
@@ -219,7 +242,9 @@ def normalize_market_from_suffix(symbol: str) -> Optional[str]:
 
 def ensure_market(entry: dict, metadata: MarketMetadata) -> bool:
     current = entry.get("market")
-    target_market = metadata.market or normalize_market_from_suffix(metadata.resolved_symbol)
+    target_market = metadata.market or normalize_market_from_suffix(
+        metadata.resolved_symbol
+    )
     changed = False
 
     if target_market and current != target_market:
@@ -242,14 +267,14 @@ def filter_entries(entries: list[dict], symbols: list[str] | None = None) -> lis
         return [entry for entry in entries if is_korean_ticker(entry)]
     upper_targets = {sym.upper() for sym in symbols}
     return [
-        entry
-        for entry in entries
-        if entry.get("symbol", "").upper() in upper_targets
+        entry for entry in entries if entry.get("symbol", "").upper() in upper_targets
     ]
 
 
 def build_cli() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="한국 티커의 market 정보를 보강합니다.")
+    parser = argparse.ArgumentParser(
+        description="한국 티커의 market 정보를 보강합니다."
+    )
     parser.add_argument(
         "--symbol",
         action="append",
@@ -293,9 +318,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     targets = filter_entries(entries, args.symbols)
     if args.only_missing:
         targets = [
-            entry
-            for entry in targets
-            if not normalize_market(entry.get("market"))
+            entry for entry in targets if not normalize_market(entry.get("market"))
         ]
     if args.limit is not None:
         targets = targets[: args.limit]
@@ -315,10 +338,15 @@ def main(argv: Optional[list[str]] = None) -> int:
             metadata = fetch_stockevents(symbol)
         except Exception as exc:
             failures.append(f"{symbol}: {exc}")
+            # 요청 간 딜레이 (rate limiting 방지)
+            time.sleep(0.5)
             continue
 
         if ensure_market(entry, metadata):
             updated_symbols.append(symbol)
+
+        # 요청 간 딜레이 (rate limiting 방지)
+        time.sleep(0.3)
 
     if updated_symbols:
         print(f"[INFO] market 갱신: {len(updated_symbols)}건")
@@ -346,14 +374,23 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     if failures:
         print(f"[WARN] {len(failures)}건 실패:")
-        for fail in failures:
-            print(f"  - {fail}")
-        return 2
+        # 너무 많은 실패 메시지는 출력하지 않음 (로그가 너무 길어지는 것 방지)
+        if len(failures) <= 50:
+            for fail in failures:
+                print(f"  - {fail}")
+        else:
+            for fail in failures[:20]:
+                print(f"  - {fail}")
+            print(f"  ... 외 {len(failures) - 20}건")
+
+        # 실패율이 너무 높으면 (50% 이상) 에러 반환, 그 외에는 경고만
+        failure_rate = len(failures) / len(targets) if targets else 0
+        if failure_rate > 0.5:
+            print(f"[ERROR] 실패율이 {failure_rate:.1%}로 너무 높습니다.")
+            return 2
 
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
