@@ -58,10 +58,6 @@ jobs:
             - name: Sync KR ticker symbols with collected data
               run: python scripts/utils/sync_nav_symbols_with_data.py --no-sync-nav-files
 
-            - name: Enrich KR market metadata and nav files
-              continue-on-error: true
-              run: python scripts/utils/enrich_kr_market_info.py --sync-nav-files --skip-on-high-failure
-
             - name: Update exchange rate data
               run: node scripts/exchange/fetch_all_exchange_rates.js
 
