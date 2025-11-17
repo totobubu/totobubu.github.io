@@ -29,14 +29,14 @@ import requests
 from bs4 import BeautifulSoup
 
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 NAV_PATH = ROOT_DIR / "public" / "nav.json"
 NAV_DIR = ROOT_DIR / "public" / "nav"
 BASE_URL = "http://stockevents.app/kr/stock/{symbol}"
 REQUEST_TIMEOUT = 10
 
 if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
+    sys.path.insert(0, str(ROOT_DIR))
 
 HEADERS = {
     "User-Agent": (

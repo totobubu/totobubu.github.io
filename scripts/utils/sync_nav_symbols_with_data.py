@@ -16,13 +16,13 @@ from typing import Iterable, List, Optional, Tuple
 
 import sys
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 NAV_JSON_PATH = PUBLIC_DIR / "nav.json"
 
 if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
+    sys.path.insert(0, str(ROOT_DIR))
 
 MARKET_SUBDIR_ALIASES = {
     "KOSPI": "kospi",
