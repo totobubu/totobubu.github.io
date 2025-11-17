@@ -155,7 +155,7 @@ def main():
     results = analyze_pdf_structure(pdf_path)
     
     # 결과 저장
-    output_path = Path("scripts/pdf_analysis_result.json")
+    output_path = Path(__file__).parent / "pdf_analysis_result.json"
     save_analysis_result(results, output_path)
     
     # 요약 정보 출력

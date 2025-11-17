@@ -1,21 +1,45 @@
 #!/usr/bin/env python3
-# scripts/info_data_pipeline.py
+# scripts/info_data_pipeline_us.py
 """
-정보성 데이터 통합 파이프라인
+미국 시장(US) 전용 정보성 데이터 통합 파이프라인
+- US 티커만 처리하는 독립 실행 스크립트
 - 한 번의 실행으로 yfinance를 활용한 모든 정보성 데이터 업데이트
-- 개별 스크립트를 순차 실행하는 것보다 효율적
 """
 
 import json
 import time
 import math
 import requests
+import warnings
+import sys
+import logging
 import yfinance as yf
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
 from collections import Counter
 import pandas as pd
+
+# yfinance 경고 메시지 억제 (일부만)
+warnings.filterwarnings("ignore", category=FutureWarning)
+
+# yfinance 로거 레벨 조정 (ERROR만 표시)
+logging.getLogger("yfinance").setLevel(logging.ERROR)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+
+# 참고: yfinance가 출력하는 메시지들의 의미:
+# 1. "HTTP Error 404: Quote not found for symbol: XXX"
+#    -> yfinance API에서 해당 심볼을 찾을 수 없음
+#    -> 가능한 원인: 상장폐지, 티커 심볼 오류, 접미사 문제
+#    -> 처리: 접미사 대체 시도 후 실패 시 조용히 건너뛰기 (정상 동작)
+#
+# 2. "$XXX: possibly delisted; no timezone found"
+#    -> 상장폐지되었거나 데이터가 없는 티커
+#    -> 처리: 배당 데이터가 없는 정상적인 경우이므로 조용히 건너뛰기 (정상 동작)
+#
+# 이 메시지들은 배당 데이터가 없는 정상적인 티커에 대해 나타나는 것이므로
+# 에러로 처리하지 않고 조용히 건너뛰는 것이 맞습니다.
+# 실제 문제가 있는 경우는 다른 예외로 처리됩니다.
 
 # 공통 유틸리티
 from utils import (
@@ -26,27 +50,17 @@ from utils import (
     get_kst_now,
     should_skip_update_timestamp,
     get_data_file_path,
-    get_base_symbol,
 )
 
 # 경로 설정
 NAV_FILE_PATH = PUBLIC_DIR / "nav.json"
 US_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "us_holidays.json"
-KR_HOLIDAYS_PATH = PUBLIC_DIR / "holidays" / "kr_holidays.json"
 
 # 글로벌 상태 (한 번만 로드)
 nav_data = None
 ticker_info_map = {}
 active_symbols = []
 us_holidays = set()
-kr_holidays = set()
-custom_suffix_fallbacks = {}
-
-SUFFIX_FALLBACKS = {
-    ".KS": [".KQ"],
-    ".KQ": [".KS"],
-}
-symbol_suffix_overrides = {}
 
 # --- Rate limit configuration (half-speed throttling) ---
 INFO_BATCH_SIZE = 50  # 이전 100
@@ -55,118 +69,45 @@ INFO_SYMBOL_DELAY_SEC = 0.05  # 개별 심볼 후 짧은 휴식
 DIVIDEND_SYMBOL_DELAY_SEC = 0.2  # 배당 수집시 요청 간 딜레이
 
 
-def replace_symbol_suffix(symbol, new_suffix):
-    """심볼 접미사를 안전하게 교체"""
-    if not new_suffix:
-        return symbol
-    suffix = new_suffix if new_suffix.startswith(".") else f".{new_suffix}"
-    if "." in symbol:
-        base = symbol[: symbol.rfind(".")]
-    else:
-        base = symbol
-    return f"{base}{suffix}"
-
-
-def iter_symbol_candidates(symbol):
-    """원본 + 대체 접미사를 순회"""
-    seen = set()
-    override = symbol_suffix_overrides.get(symbol)
-    if override:
-        seen.add(override)
-        yield override
-    if symbol not in seen:
-        seen.add(symbol)
-        yield symbol
-
-    for alt_suffix in custom_suffix_fallbacks.get(symbol, []):
-        candidate = replace_symbol_suffix(symbol, alt_suffix)
-        if candidate not in seen:
-            seen.add(candidate)
-            yield candidate
-
-    for suffix, alternatives in SUFFIX_FALLBACKS.items():
-        if symbol.endswith(suffix):
-            for alt_suffix in alternatives:
-                candidate = replace_symbol_suffix(symbol, alt_suffix)
-                if candidate not in seen:
-                    seen.add(candidate)
-                    yield candidate
-            break
-
-
-def record_symbol_override(original_symbol, resolved_symbol):
-    """대체 접미사를 캐시"""
-    if original_symbol != resolved_symbol:
-        symbol_suffix_overrides[original_symbol] = resolved_symbol
-
-
-def fetch_dividends_with_suffix_fallback(symbol, start_date_str):
-    """접미사를 바꿔가며 배당 데이터 시도"""
-    last_exception = None
-    last_series = None
-
-    for candidate in iter_symbol_candidates(symbol):
+def fetch_dividends(symbol, start_date_str):
+    """배당 데이터 가져오기 (US는 접미사 불필요)"""
+    try:
+        ticker_obj = yf.Ticker(symbol)
         try:
-            ticker_obj = yf.Ticker(candidate)
             dividends = ticker_obj.dividends
-            filtered = dividends[dividends.index >= start_date_str]
-        except Exception as exc:
-            last_exception = exc
-            continue
+        except (AttributeError, KeyError, ValueError):
+            return pd.Series(dtype="float64")
 
-        last_series = filtered
-        if not filtered.empty:
-            if candidate != symbol:
-                tqdm.write(f"  ↺ {symbol} → {candidate} 배당 데이터 사용")
-            record_symbol_override(symbol, candidate)
-            return filtered
+        if dividends is None or not isinstance(dividends, pd.Series) or dividends.empty:
+            return pd.Series(dtype="float64")
 
-    if last_series is not None:
-        return last_series
-    if last_exception:
-        raise last_exception
-    return pd.Series(dtype="float64")
-
-
-def fetch_ticker_info_with_suffix_fallback(symbol):
-    """접미사 대체로 티커 정보 재시도"""
-    last_exception = None
-
-    for candidate in iter_symbol_candidates(symbol):
         try:
-            info = yf.Ticker(candidate).info
-        except Exception as exc:
-            last_exception = exc
-            continue
+            filtered = dividends[dividends.index >= start_date_str]
+            return filtered if not filtered.empty else pd.Series(dtype="float64")
+        except (KeyError, ValueError, TypeError):
+            return pd.Series(dtype="float64")
+    except Exception:
+        return pd.Series(dtype="float64")
 
-        if info:
-            if candidate != symbol:
-                tqdm.write(f"  ↺ {symbol} → {candidate} 티커 정보 사용")
-            record_symbol_override(symbol, candidate)
-            return info
 
-    if last_exception:
-        raise last_exception
-    return {}
+def fetch_ticker_info(symbol):
+    """티커 정보 가져오기 (US는 접미사 불필요)"""
+    try:
+        info = yf.Ticker(symbol).info
+        return info if info else {}
+    except Exception:
+        return {}
 
 
 # ============================================================================
 # 초기화
 # ============================================================================
-def initialize(market_filter=None):
-    """
-    공통 데이터 로드 (한 번만 실행)
-
-    Args:
-        market_filter: "KR" 또는 "US" 또는 None (전체)
-    """
-    global nav_data, ticker_info_map, active_symbols, us_holidays, kr_holidays
-    global custom_suffix_fallbacks
+def initialize():
+    """US 시장 데이터 로드 (한 번만 실행)"""
+    global nav_data, ticker_info_map, active_symbols, us_holidays
 
     print("=" * 80)
-    print("🚀 정보성 데이터 통합 파이프라인 시작")
-    if market_filter:
-        print(f"   필터: {market_filter} 티커만 처리")
+    print("🚀 정보성 데이터 통합 파이프라인 시작 (US 전용)")
     print("=" * 80)
 
     # nav.json 로드
@@ -179,45 +120,29 @@ def initialize(market_filter=None):
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
 
-    # 시장 필터링
-    if market_filter:
-        if market_filter.upper() == "KR":
-            active_tickers_info = [
-                t
-                for t in active_tickers_info
-                if t.get("currency") == "KRW"
-                or t.get("market") in ["KOSPI", "KOSDAQ", "KONEX"]
-            ]
-        elif market_filter.upper() == "US":
-            active_tickers_info = [
-                t
-                for t in active_tickers_info
-                if t.get("currency") == "USD"
-                or t.get("market") in ["NYSE", "NASDAQ", "AMEX"]
-            ]
+    # US 시장 필터링
+    active_tickers_info = [
+        t
+        for t in active_tickers_info
+        if t.get("currency") == "USD"
+        or t.get("market") in ["NYSE", "NASDAQ", "AMEX"]
+    ]
 
     ticker_info_map = {}
-    custom_suffix_fallbacks = {}
     for entry in active_tickers_info:
-        yf_symbol = (entry.get("yfSymbol") or entry.get("symbol") or "").upper()
-        base_symbol = get_base_symbol(yf_symbol) or entry.get("symbol")
-        if not base_symbol:
+        symbol = entry.get("symbol")
+        if not symbol:
             continue
-        ticker_info_map[base_symbol] = {
-            **entry,
-            "symbol": base_symbol,
-            "yfSymbol": yf_symbol,
-        }
+        ticker_info_map[symbol] = entry
 
     active_symbols = list(ticker_info_map.keys())
 
     print(f"   ✓ 활성 티커 {len(active_symbols)}개 로드 완료")
 
-    # 휴일 데이터 로드
+    # 휴일 데이터 로드 (US만)
     print("\n[2/3] 휴일 데이터 로드 중...")
     us_holidays = set(h["date"] for h in load_json_file(US_HOLIDAYS_PATH) or [])
-    kr_holidays = set(h["date"] for h in load_json_file(KR_HOLIDAYS_PATH) or [])
-    print(f"   ✓ 미국 휴일: {len(us_holidays)}일, 한국 휴일: {len(kr_holidays)}일")
+    print(f"   ✓ 미국 휴일: {len(us_holidays)}일")
 
     # 데이터 디렉토리 확인
     print("\n[3/3] 데이터 디렉토리 확인 중...")
@@ -262,10 +187,14 @@ def update_dividends():
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
             ticker_meta = ticker_info_map.get(symbol, {})
-            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
-            if not yahoo_symbol:
+            if not symbol:
                 continue
-            file_path = get_data_file_path(yahoo_symbol, ticker_meta.get("market"))
+            file_path = get_data_file_path(
+                symbol,
+                ticker_meta.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -286,10 +215,8 @@ def update_dividends():
             ):
                 continue
 
-            # yfinance에서 배당 데이터 다운로드 (접미사 자동 보정)
-            new_dividends_df = fetch_dividends_with_suffix_fallback(
-                yahoo_symbol, start_date_str
-            )
+            # yfinance에서 배당 데이터 다운로드
+            new_dividends_df = fetch_dividends(symbol, start_date_str)
 
             if new_dividends_df.empty:
                 continue
@@ -335,24 +262,22 @@ def fetch_bulk_ticker_info_batch(symbol_pairs_batch):
     """여러 티커의 정보를 배치로 가져오기"""
     bulk_data = {}
     try:
-        symbol_fetch_map = {}
-        for base_symbol, yahoo_symbol in symbol_pairs_batch:
-            if not yahoo_symbol:
-                continue
-            fetch_symbol = symbol_suffix_overrides.get(yahoo_symbol, yahoo_symbol)
-            symbol_fetch_map[base_symbol] = fetch_symbol
-        unique_fetch_symbols = list(set(symbol_fetch_map.values()))
-        tickers = yf.Tickers(unique_fetch_symbols)
+        symbols = [symbol for _, symbol in symbol_pairs_batch if symbol]
+        unique_symbols = list(set(symbols))
+        tickers = yf.Tickers(unique_symbols)
 
-        for original_symbol, fetch_symbol in symbol_fetch_map.items():
-            ticker_obj = tickers.tickers.get(fetch_symbol)
+        for base_symbol, symbol in symbol_pairs_batch:
+            if not symbol:
+                bulk_data[base_symbol] = None
+                continue
+            ticker_obj = tickers.tickers.get(symbol)
             if not ticker_obj:
-                bulk_data[original_symbol] = None
+                bulk_data[base_symbol] = None
                 continue
             try:
-                bulk_data[original_symbol] = ticker_obj.info
+                bulk_data[base_symbol] = ticker_obj.info
             except Exception:
-                bulk_data[original_symbol] = None
+                bulk_data[base_symbol] = None
         return bulk_data
     except Exception as e:
         print(f"  ❌ 배치 가져오기 오류: {e}")
@@ -439,10 +364,8 @@ def update_ticker_info():
     ):
         batch_keys = active_symbols[i : i + batch_size]
         symbol_pairs = []
-        for base_symbol in batch_keys:
-            ticker_meta = ticker_info_map.get(base_symbol, {})
-            yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
-            symbol_pairs.append((base_symbol, yahoo_symbol))
+        for symbol in batch_keys:
+            symbol_pairs.append((symbol, symbol))
         batch_info = fetch_bulk_ticker_info_batch(symbol_pairs)
         all_bulk_info.update(batch_info)
         if i + batch_size < len(active_symbols):
@@ -457,13 +380,17 @@ def update_ticker_info():
     for symbol in tqdm(active_symbols, desc="티커 정보 + 시가총액 처리"):
         try:
             info_from_nav = ticker_info_map[symbol]
-            yahoo_symbol = info_from_nav.get("yfSymbol") or info_from_nav.get("symbol")
             raw_dynamic_info = all_bulk_info.get(symbol)
             if not raw_dynamic_info:
-                raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(yahoo_symbol)
+                raw_dynamic_info = fetch_ticker_info(symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = get_data_file_path(yahoo_symbol, info_from_nav.get("market"))
+            file_path = get_data_file_path(
+                symbol,
+                info_from_nav.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],
@@ -658,7 +585,9 @@ def analyze_dividend_frequency():
         if not symbol or ticker_info.get("upcoming"):
             continue
 
-        file_path = get_data_file_path(symbol, ticker_info.get("market"))
+        file_path = get_data_file_path(
+            symbol, ticker_info.get("market"), layout="market", ensure_dir=True
+        )
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
@@ -720,7 +649,15 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    files = list(DATA_DIR.glob("*.json"))
+    # market 디렉토리 구조를 고려하여 모든 JSON 파일 찾기
+    files = []
+    # 루트 디렉토리의 JSON 파일
+    files.extend(DATA_DIR.glob("*.json"))
+    # 각 market 서브디렉토리의 JSON 파일
+    for subdir in DATA_DIR.iterdir():
+        if subdir.is_dir():
+            files.extend(subdir.glob("*.json"))
+
     updated_count = 0
 
     for file_path in tqdm(files, desc="미래 배당일 예측"):
@@ -754,8 +691,7 @@ def project_future_dividends():
 
         frequency = ticker_info["frequency"]
         group = ticker_info.get("group")
-        currency = ticker_info.get("currency", "USD")
-        holiday_set = kr_holidays if currency == "KRW" else us_holidays
+        holiday_set = us_holidays
 
         future_projections = []
         existing_dates = {item["date"] for item in cleaned_backtest_data}
@@ -809,41 +745,108 @@ def project_future_dividends():
 # 메인 실행
 # ============================================================================
 def main():
-    """통합 파이프라인 실행"""
-    import os
+    """US 전용 통합 파이프라인 실행"""
+    import sys
 
     start_time = time.time()
 
-    # 환경변수에서 시장 필터 읽기
-    market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
+    # 커맨드라인 인자 파싱
+    steps_to_run = []
 
-    # 초기화
-    if not initialize(market_filter):
+    if len(sys.argv) > 1:
+        for arg in sys.argv[1:]:
+            arg_lower = arg.lower()
+            if arg_lower in ["1", "dividends"]:
+                steps_to_run.append("dividends")
+            elif arg_lower in ["2", "info"]:
+                steps_to_run.append("info")
+            elif arg_lower in ["3", "frequency"]:
+                steps_to_run.append("frequency")
+            elif arg_lower in ["4", "projection"]:
+                steps_to_run.append("projection")
+            elif arg_lower == "--help" or arg_lower == "-h":
+                print("사용법:")
+                print("  python scripts/info_data_pipeline_us.py [단계]")
+                print("")
+                print("단계 옵션:")
+                print("  1, dividends    - 배당 데이터 업데이트")
+                print("  2, info         - 티커 정보 + 시가총액 업데이트")
+                print("  3, frequency    - 배당 빈도 분석")
+                print("  4, projection   - 미래 배당일 예측")
+                print("")
+                print("예시:")
+                print("  python scripts/info_data_pipeline_us.py                    # 전체 실행")
+                print("  python scripts/info_data_pipeline_us.py 1                  # Step 1만")
+                print("  python scripts/info_data_pipeline_us.py dividends          # 배당 데이터만")
+                return
+            else:
+                print(f"⚠️  알 수 없는 인자: {arg}")
+                print("  --help 또는 -h로 사용법을 확인하세요.")
+                return
+
+    # 초기화 (US 전용)
+    if not initialize():
         return
 
-    # Step 1: 배당 데이터 업데이트
-    dividend_updates = update_dividends()
+    # 실행할 단계가 지정되지 않았으면 전체 실행
+    if not steps_to_run:
+        steps_to_run = ["dividends", "info", "frequency", "projection"]
 
-    # Step 2: 티커 정보 + 시가총액 업데이트 (통합, 중복 API 호출 제거)
-    info_updates = update_ticker_info()
+    # 결과 저장
+    results = {}
+
+    # Step 1: 배당 데이터 업데이트
+    if "dividends" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📊 STEP 1: 배당 데이터 업데이트 실행")
+        print("=" * 80)
+        results["dividends"] = update_dividends()
+    else:
+        print("\n⏭️  STEP 1: 배당 데이터 업데이트 건너뜀")
+
+    # Step 2: 티커 정보 + 시가총액 업데이트
+    if "info" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 실행")
+        print("=" * 80)
+        results["info"] = update_ticker_info()
+    else:
+        print("\n⏭️  STEP 2: 티커 정보 + 시가총액 업데이트 건너뜀")
 
     # Step 3: 배당 빈도 분석
-    frequency_updates = analyze_dividend_frequency()
+    if "frequency" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📅 STEP 3: 배당 빈도 분석 실행")
+        print("=" * 80)
+        results["frequency"] = analyze_dividend_frequency()
+    else:
+        print("\n⏭️  STEP 3: 배당 빈도 분석 건너뜀")
 
     # Step 4: 미래 배당일 예측
-    projection_updates = project_future_dividends()
+    if "projection" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("🔮 STEP 4: 미래 배당일 예측 실행")
+        print("=" * 80)
+        results["projection"] = project_future_dividends()
+    else:
+        print("\n⏭️  STEP 4: 미래 배당일 예측 건너뜀")
 
     # 완료
     elapsed_time = time.time() - start_time
     print("\n" + "=" * 80)
-    print("🎉 정보성 데이터 통합 파이프라인 완료 (최적화됨)")
+    print("🎉 정보성 데이터 통합 파이프라인 완료")
     print("=" * 80)
-    print(f"📊 배당 데이터: {dividend_updates}개 파일 업데이트")
-    print(f"📋 티커 정보 + 시가총액: {info_updates}개 파일 업데이트")
-    print(f"📅 배당 빈도: {frequency_updates}개 티커 업데이트")
-    print(f"🔮 배당일 예측: {projection_updates}개 파일 업데이트")
+    if "dividends" in results:
+        print(f"📊 배당 데이터: {results['dividends']}개 파일 업데이트")
+    if "info" in results:
+        print(f"📋 티커 정보 + 시가총액: {results['info']}개 파일 업데이트")
+    if "frequency" in results:
+        print(f"📅 배당 빈도: {results['frequency']}개 티커 업데이트")
+    if "projection" in results:
+        print(f"🔮 배당일 예측: {results['projection']}개 파일 업데이트")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
-    print(f"✨ 최적화: 중복 API 호출 제거로 성능 향상")
+    if len(steps_to_run) == 4:
+        print(f"✨ 최적화: 중복 API 호출 제거로 성능 향상")
     print("=" * 80)
 
 

@@ -564,7 +564,7 @@ def process_all_tickers(data_dir='public/data'):
         # 실제로 실패한 티커만 필터링 (자동화된 티커 제외)
         truly_failed = [t for t in failed_tickers if t not in AUTOMATED_TICKERS]
         
-        failed_log_path = Path('scripts') / 'failed_holdings_tickers.txt'
+        failed_log_path = Path(__file__).parent / 'failed_holdings_tickers.txt'
         with open(failed_log_path, 'w', encoding='utf-8') as f:
             f.write(f"실패한 티커 목록 ({len(truly_failed)}개)\n")
             f.write(f"생성 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")

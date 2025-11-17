@@ -60,25 +60,25 @@ jobs:
             - name: 1. Auto-detect holdings for new tickers
               run: |
                   echo "🔍 Holdings 자동 감지 시작..."
-                  python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+                  python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
                   echo "✅ Holdings 자동 감지 완료"
 
             - name: 2. Fetch ETF holdings data (Yahoo Finance - 23분 소요)
               run: |
                   echo "📊 ETF Holdings 데이터 수집 시작 (Yahoo Finance - 매일)..."
-                  echo "y" | python scripts/fetch_holdings.py
+                  echo "y" | python scripts/holdings/fetch_holdings.py
                   echo "✅ ETF Holdings 데이터 수집 완료"
 
             - name: 3. Scrape Roundhill holdings (Playwright - 3-5분 소요)
               run: |
                   echo "🎭 Roundhill ETF Holdings 자동 스크래핑 시작 (매일)..."
-                  node scripts/scrape_roundhill_holdings_playwright.js --all
+                  node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
                   
                   # 스크래핑한 배치 파일을 Python으로 등록
                   BATCH_FILE=$(ls -t public/holdings/roundhill_*_playwright.txt 2>/dev/null | head -1)
                   if [ -f "$BATCH_FILE" ]; then
                     echo "📦 배치 파일 발견: $BATCH_FILE"
-                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    python scripts/holdings/add_roundhill_holdings.py --batch "$BATCH_FILE"
                     echo "✅ Roundhill Holdings 등록 완료"
                   else
                     echo "⚠️ Roundhill 배치 파일을 찾을 수 없습니다. 스크래핑 실패 가능성"
@@ -87,13 +87,13 @@ jobs:
             - name: 4. Download ARK holdings CSV (10초 소요)
               run: |
                   echo "📥 ARK ETF Holdings CSV 다운로드 시작..."
-                  node scripts/scrape_ark_holdings.js --all
+                  node scripts/holdings/scrape_ark_holdings.js --all
                   
                   # 다운로드한 배치 파일을 Python으로 등록
                   BATCH_FILE=$(ls -t public/holdings/ark_*_csv.txt 2>/dev/null | head -1)
                   if [ -f "$BATCH_FILE" ]; then
                     echo "📦 ARK 배치 파일 발견: $BATCH_FILE"
-                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    python scripts/holdings/add_roundhill_holdings.py --batch "$BATCH_FILE"
                     echo "✅ ARK Holdings 등록 완료"
                   else
                     echo "⚠️ ARK 배치 파일을 찾을 수 없습니다."
@@ -102,13 +102,13 @@ jobs:
             - name: 5. Download iShares holdings (JSON API + CSV - 20초 소요)
               run: |
                   echo "📥 iShares ETF Holdings 수집 시작 (JSON API + CSV)..."
-                  python scripts/scrape_ishares_holdings.py --all
+                  python scripts/holdings/scrape_ishares_holdings.py --all
                   
                   # 수집한 배치 파일을 Python으로 등록
                   BATCH_FILE=$(ls -t public/holdings/ishares_*_csv.txt 2>/dev/null | head -1)
                   if [ -f "$BATCH_FILE" ]; then
                     echo "📦 iShares 배치 파일 발견: $BATCH_FILE"
-                    python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+                    python scripts/holdings/add_roundhill_holdings.py --batch "$BATCH_FILE"
                     echo "✅ iShares Holdings 등록 완료"
                   else
                     echo "⚠️ iShares 배치 파일을 찾을 수 없습니다."
@@ -123,7 +123,7 @@ jobs:
             - name: 7. Upload changed files to R2
               run: |
                   echo "📤 R2에 변경된 파일 업로드 중..."
-                  python scripts/upload_changed_to_r2.py
+                  python scripts/cloud/upload_changed_to_r2.py
                   echo "✅ R2 업로드 완료"
 
             # --- 변경 사항 커밋 및 푸시 ---

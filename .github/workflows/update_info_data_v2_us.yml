@@ -1,12 +1,12 @@
-name: Update Info Data v2
+name: Update Info Data v2 (US)
 
 on:
     schedule:
-        - cron: '0 17 * * *' # KST 02:00 daily
+        - cron: '0 20 * * *' # KST 05:00 daily (UTC 20:00, update_info_data_v2_kr보다 3시간 후)
     workflow_dispatch:
 
 concurrency:
-    group: update-info-data-v2
+    group: update-info-data-v2-us
     cancel-in-progress: false
 
 env:
@@ -14,7 +14,7 @@ env:
     PYTHON_VERSION: '3.11'
 
 jobs:
-    update-info-v2:
+    update-info-v2-us:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -51,14 +51,8 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
-            - name: Sync KR ticker symbols with collected data
-              run: python scripts/sync_nav_symbols_with_data.py --no-sync-nav-files
-
-            - name: Enrich KR market metadata and nav files
-              run: python scripts/enrich_kr_market_info.py --sync-nav-files
-
             - name: Update exchange rate data
-              run: node scripts/fetch_all_exchange_rates.js
+              run: node scripts/exchange/fetch_all_exchange_rates.js
 
             - name: Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
@@ -66,21 +60,23 @@ jobs:
             - name: Generate final nav.json
               run: npm run generate-nav
 
-            - name: Update all info data (dividends, info+marketCap, frequency, projection)
+            - name: Update all info data (dividends, info+marketCap, frequency, projection) - US only
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
                   DATA_LAYOUT_MODE: market
-              run: python scripts/info_data_pipeline.py
+              run: python scripts/data_pipeline/info_data_pipeline_us.py
 
-            - name: Process and enrich dividend history
+            - name: Process and enrich dividend history - US only
               env:
                   DATA_LAYOUT_MODE: market
-              run: python scripts/scraper_dividend.py
+                  MARKET_FILTER: US
+              run: python scripts/data_pipeline/scraper_dividend.py
 
-            - name: Apply split adjustments to dividend history
+            - name: Apply split adjustments to dividend history - US only
               env:
                   DATA_LAYOUT_MODE: market
-              run: python scripts/apply_split_adjustments.py
+                  MARKET_FILTER: US
+              run: python scripts/data_processing/apply_split_adjustments.py
 
             - name: Generate calendar events data
               env:
@@ -93,7 +89,7 @@ jobs:
             - name: Upload changed files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
-              run: python scripts/upload_changed_to_r2.py
+              run: python scripts/cloud/upload_changed_to_r2.py
 
             - name: Check for file changes
               id: git_status
@@ -112,7 +108,7 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  git commit -m "ℹ️ Auto: Update info data v2"
+                  git commit -m "ℹ️ Auto: Update info data v2 (US)"
                   for attempt in 1 2 3; do
                     if git push; then
                       echo "✅ Push succeeded"
@@ -125,4 +121,3 @@ jobs:
                     git pull --rebase origin main
                     sleep 5
                   done
-

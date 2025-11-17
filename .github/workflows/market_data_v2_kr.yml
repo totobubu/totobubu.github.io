@@ -79,7 +79,7 @@ jobs:
             - name: Upload changed files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
-              run: python scripts/upload_changed_to_r2.py
+              run: python scripts/cloud/upload_changed_to_r2.py
 
             - name: Check for changes
               id: git_status
