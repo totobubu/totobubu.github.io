@@ -1,32 +1,20 @@
-name: Market Data v2 US
+name: Update Info Data v2 (US)
 
 on:
     schedule:
-        # 미국 증시 마감 후 2시간 (오후 6시 EST = UTC 23:00)
-        # 일광절약시간 고려: UTC 22:00 또는 23:00
-        # update_info_data_v2_us (UTC 20:00)보다 최소 2시간 후 실행
-        - cron: '0 22 * * 1-5' # 월-금 오후 6시 EST (UTC 22:00)
-        - cron: '0 23 * * 1-5' # 월-금 오후 6시 EST (UTC 23:00, 일광절약시간)
+        - cron: '0 20 * * *' # KST 05:00 daily (UTC 20:00, update_info_data_v2_kr보다 3시간 후)
     workflow_dispatch:
-        inputs:
-            skip_price_update:
-                description: 'Skip npm run update-data step'
-                required: false
-                default: 'false'
-
-permissions:
-    contents: write
 
 concurrency:
-    group: market-data-v2-us
-    cancel-in-progress: true
+    group: update-info-data-v2-us
+    cancel-in-progress: false
 
 env:
     NODE_VERSION: '20'
     PYTHON_VERSION: '3.11'
 
 jobs:
-    build-us:
+    update-info-v2-us:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -63,16 +51,37 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
-            - name: Update historical price data (US only)
-              if: inputs.skip_price_update != 'true'
-              env:
-                  DATA_LAYOUT_MODE: market
-              run: node tasks/updateHistoricalUsData.js
+            - name: Update exchange rate data
+              run: node scripts/fetch_all_exchange_rates.js
 
-            - name: Generate sidebar (popularity 100%)
+            - name: Sync IPO dates and upcoming status
+              run: npm run add-ipo-dates
+
+            - name: Generate final nav.json
+              run: npm run generate-nav
+
+            - name: Update all info data (dividends, info+marketCap, frequency, projection) - US only
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
-              run: npm run generate-sidebar-tickers
+                  DATA_LAYOUT_MODE: market
+              run: python scripts/info_data_pipeline_us.py
+
+            - name: Process and enrich dividend history - US only
+              env:
+                  DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: US
+              run: python scripts/scraper_dividend.py
+
+            - name: Apply split adjustments to dividend history - US only
+              env:
+                  DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: US
+              run: python scripts/apply_split_adjustments.py
+
+            - name: Generate calendar events data
+              env:
+                  DATA_LAYOUT_MODE: market
+              run: npm run generate-calendar-events
 
             - name: Format changed files only
               run: npm run format:changed
@@ -82,7 +91,7 @@ jobs:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/upload_changed_to_r2.py
 
-            - name: Check for changes
+            - name: Check for file changes
               id: git_status
               run: |
                   if [[ -n "$(git status --porcelain)" ]]; then
@@ -93,11 +102,13 @@ jobs:
 
             - name: Commit and push changes
               if: steps.git_status.outputs.changes == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  git commit -m "📈 Auto: Update US market data v2"
+                  git commit -m "ℹ️ Auto: Update info data v2 (US)"
                   for attempt in 1 2 3; do
                     if git push; then
                       echo "✅ Push succeeded"
