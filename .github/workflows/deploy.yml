@@ -65,9 +65,8 @@ jobs:
         run: npm run build
 
       # 빌드 끝났으면 추가 정리(선택)
-      - name: Post-build cleanup
-        run: |
-          rm -rf node_modules ~/.npm || true
+      # node_modules 제거는 Post Set up Node.js 단계 이후에 실행되도록
+      # 별도 단계로 분리하지 않고 필요시 수동으로 정리
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

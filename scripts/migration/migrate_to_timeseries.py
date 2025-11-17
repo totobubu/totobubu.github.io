@@ -1,15 +1,20 @@
 # scripts\migrate_to_timeseries.py
 import os
 import json
+import sys
+from pathlib import Path
 from tqdm import tqdm
-from utils import (
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import (
     load_json_file,
     save_json_file,
     sanitize_ticker_for_filename,
     parse_numeric_value,
 )
-
-ROOT_DIR = os.getcwd()
 DATA_DIR = os.path.join(ROOT_DIR, "public", "data")
 
 

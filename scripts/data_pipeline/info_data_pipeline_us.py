@@ -42,7 +42,14 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 # 실제 문제가 있는 경우는 다른 예외로 처리됩니다.
 
 # 공통 유틸리티
-from utils import (
+import sys
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import (
     DATA_DIR,
     PUBLIC_DIR,
     load_json_file,

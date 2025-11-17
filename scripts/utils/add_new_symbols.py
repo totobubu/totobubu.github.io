@@ -49,10 +49,11 @@ try:
 except ImportError as exc:  # pragma: no cover - 환경 문제
     raise SystemExit(f"fetch_missing_isin.py 로직을 불러오지 못했습니다: {exc}") from exc
 
-from utils import save_json_file  # 프로젝트 공용 유틸
-
-
 ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import save_json_file  # 프로젝트 공용 유틸
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 NAV_DIR = PUBLIC_DIR / "nav"

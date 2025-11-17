@@ -9,11 +9,15 @@
 """
 import json
 import shutil
+import sys
 from pathlib import Path
 from typing import List, Tuple, Optional
-import sys
 
-from utils import DATA_DIR, get_base_symbol
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import DATA_DIR, get_base_symbol
 
 # 접미사 패턴
 SUFFIX_PATTERNS = ['-ks', '-kq', '-kn', '-ko']
