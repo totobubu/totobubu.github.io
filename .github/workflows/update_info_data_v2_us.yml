@@ -2,7 +2,7 @@ name: Update Info Data v2 (US)
 
 on:
     schedule:
-        - cron: '0 18 * * *' # KST 03:00 daily (KR보다 1시간 늦게)
+        - cron: '0 20 * * *' # KST 05:00 daily (UTC 20:00, update_info_data_v2_kr보다 3시간 후)
     workflow_dispatch:
 
 concurrency:
@@ -121,4 +121,3 @@ jobs:
                     git pull --rebase origin main
                     sleep 5
                   done
-
