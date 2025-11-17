@@ -93,7 +93,7 @@ SIDEBAR_FILES = [
 
 
 def ensure_yf_symbol(entry: dict, fallback_suffix: Optional[str]) -> bool:
-    """yfSymbol을 설정 (yfSuffixFallbacks 대신 사용)"""
+    """yfSymbol을 설정"""
     if not fallback_suffix or not isinstance(entry, dict):
         return False
     symbol = entry.get("symbol")

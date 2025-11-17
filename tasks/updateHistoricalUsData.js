@@ -120,7 +120,7 @@ const normalizeNumericValue = (value) => {
 };
 
 const buildSymbolCandidates = (symbol) => {
-    // US 티커는 symbol만 사용 (yfSymbol, yfSuffixFallbacks 불필요)
+    // US 티커는 symbol만 사용
     if (!symbol) return [];
     return [symbol];
 };

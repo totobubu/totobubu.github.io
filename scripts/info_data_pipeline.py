@@ -156,7 +156,7 @@ def fetch_ticker_info_with_suffix_fallback(symbol):
 def initialize(market_filter=None):
     """
     공통 데이터 로드 (한 번만 실행)
-    
+
     Args:
         market_filter: "KR" 또는 "US" 또는 None (전체)
     """
@@ -183,13 +183,15 @@ def initialize(market_filter=None):
     if market_filter:
         if market_filter.upper() == "KR":
             active_tickers_info = [
-                t for t in active_tickers_info
+                t
+                for t in active_tickers_info
                 if t.get("currency") == "KRW"
                 or t.get("market") in ["KOSPI", "KOSDAQ", "KONEX"]
             ]
         elif market_filter.upper() == "US":
             active_tickers_info = [
-                t for t in active_tickers_info
+                t
+                for t in active_tickers_info
                 if t.get("currency") == "USD"
                 or t.get("market") in ["NYSE", "NASDAQ", "AMEX"]
             ]
@@ -206,7 +208,6 @@ def initialize(market_filter=None):
             "symbol": base_symbol,
             "yfSymbol": yf_symbol,
         }
-        # yfSuffixFallbacks는 더 이상 사용하지 않음 (yfSymbol 사용)
 
     active_symbols = list(ticker_info_map.keys())
 
@@ -810,9 +811,9 @@ def project_future_dividends():
 def main():
     """통합 파이프라인 실행"""
     import os
-    
+
     start_time = time.time()
-    
+
     # 환경변수에서 시장 필터 읽기
     market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
 
