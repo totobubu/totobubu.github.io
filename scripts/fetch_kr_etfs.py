@@ -157,10 +157,15 @@ def save_new_etfs_to_nav(new_etf_list):
             except (FileNotFoundError, json.JSONDecodeError):
                 files_to_update[file_path] = {}
         
-        # 이미 존재하는지 확인
-        if symbol not in files_to_update[file_path]:
+        # symbol에서 접미사 분리
+        base_symbol = code  # 접미사 없는 base symbol
+        yf_symbol = symbol  # 접미사 포함된 symbol을 yfSymbol로 사용
+        
+        # base_symbol으로 중복 체크
+        if base_symbol not in files_to_update[file_path]:
             new_ticker_info = {
-                "symbol": symbol,
+                "symbol": base_symbol,
+                "yfSymbol": yf_symbol,
                 "market": market,
                 "currency": "KRW",
                 "koName": name,
@@ -168,7 +173,7 @@ def save_new_etfs_to_nav(new_etf_list):
                 "sharesOutstanding": None  # 추후 검토 필요 (FinanceDataReader 미제공)
             }
             
-            files_to_update[file_path][symbol] = new_ticker_info
+            files_to_update[file_path][base_symbol] = new_ticker_info
             total_added_count += 1
             market_counts[market] += 1
     

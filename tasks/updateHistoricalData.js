@@ -86,48 +86,20 @@ const normalizeNumericValue = (value) => {
     return Number(value.toFixed(6));
 };
 
-const buildSymbolCandidates = (
-    symbol,
-    fallbackSuffixes = [],
-    yfSymbol = null
-) => {
-    const candidates = new Set();
+const buildSymbolCandidates = (symbol, yfSymbol = null) => {
+    const candidates = [];
 
-    // yfSymbol이 있으면 가장 먼저 추가 (우선순위 1)
+    // yfSymbol이 있으면 가장 먼저 사용 (우선순위 1)
     if (yfSymbol && yfSymbol.trim()) {
-        candidates.add(yfSymbol.trim());
+        candidates.push(yfSymbol.trim());
     }
 
     // 원본 symbol 추가 (yfSymbol이 없거나 다른 경우)
     if (symbol) {
-        candidates.add(symbol);
+        candidates.push(symbol);
     }
 
-    const dotIndex = symbol?.lastIndexOf('.') ?? -1;
-    const base = dotIndex >= 0 ? symbol.slice(0, dotIndex) : symbol;
-
-    (fallbackSuffixes || []).forEach((fallback) => {
-        if (!fallback) return;
-        const trimmed = String(fallback).trim();
-        if (!trimmed) return;
-
-        const isFullSymbol =
-            trimmed.includes('.') &&
-            !trimmed.startsWith('.') &&
-            trimmed.split('.').length === 2;
-        if (isFullSymbol) {
-            candidates.add(trimmed);
-            return;
-        }
-
-        if (!base) return;
-        const normalizedSuffix = trimmed.startsWith('.')
-            ? trimmed
-            : `.${trimmed.replace(/^\./, '')}`;
-        candidates.add(`${base}${normalizedSuffix}`);
-    });
-
-    return Array.from(candidates).filter(Boolean);
+    return candidates.filter(Boolean);
 };
 
 const shouldRetryWithFallback = (error) =>
@@ -258,12 +230,8 @@ async function mergeSplitEvents(existingData, newSplits) {
 }
 
 async function fetchAndMergePriceData(ticker) {
-    const { symbol, ipoDate, yfSuffixFallbacks, market, yfSymbol } = ticker;
-    const symbolCandidates = buildSymbolCandidates(
-        symbol,
-        yfSuffixFallbacks,
-        yfSymbol
-    );
+    const { symbol, ipoDate, market, yfSymbol } = ticker;
+    const symbolCandidates = buildSymbolCandidates(symbol, yfSymbol);
     const existingFile = await findExistingDataFile(symbolCandidates, market);
 
     if (
