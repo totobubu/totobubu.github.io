@@ -283,8 +283,12 @@ def run_update_workflow(skip_format: bool) -> None:
         ("2. IPO date/Upcoming 싱크", ["npm", "run", "add-ipo-dates"]),
         ("3. nav.json 재생성", ["npm", "run", "generate-nav"]),
         (
-            "4. 정보성 데이터 파이프라인",
-            [PYTHON, "scripts/info_data_pipeline.py"],
+            "4. 정보성 데이터 파이프라인 (KR)",
+            [PYTHON, "scripts/info_data_pipeline_kr.py"],
+        ),
+        (
+            "4-2. 정보성 데이터 파이프라인 (US)",
+            [PYTHON, "scripts/info_data_pipeline_us.py"],
         ),
         ("5. 배당 히스토리 보강", [PYTHON, "scripts/scraper_dividend.py"]),
         ("6. 캘린더 이벤트 생성", ["npm", "run", "generate-calendar-events"]),

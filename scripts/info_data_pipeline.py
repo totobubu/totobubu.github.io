@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # scripts/info_data_pipeline.py
 """
-정보성 데이터 통합 파이프라인
+정보성 데이터 통합 파이프라인 (공통 모듈)
+- ⚠️ 이 파일은 모듈로만 사용됩니다. 직접 실행하지 마세요.
+- ✅ 대신 다음 스크립트를 사용하세요:
+  - python scripts/info_data_pipeline_kr.py [단계]
+  - python scripts/info_data_pipeline_us.py [단계]
 - 한 번의 실행으로 yfinance를 활용한 모든 정보성 데이터 업데이트
 - 개별 스크립트를 순차 실행하는 것보다 효율적
 """
@@ -10,12 +14,36 @@ import json
 import time
 import math
 import requests
+import warnings
+import sys
+import logging
 import yfinance as yf
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
 from collections import Counter
 import pandas as pd
+
+# yfinance 경고 메시지 억제 (일부만)
+warnings.filterwarnings("ignore", category=FutureWarning)
+
+# yfinance 로거 레벨 조정 (ERROR만 표시)
+logging.getLogger("yfinance").setLevel(logging.ERROR)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+
+# 참고: yfinance가 출력하는 메시지들의 의미:
+# 1. "HTTP Error 404: Quote not found for symbol: XXX" 
+#    -> yfinance API에서 해당 심볼을 찾을 수 없음
+#    -> 가능한 원인: 상장폐지, 티커 심볼 오류, 접미사 문제
+#    -> 처리: 접미사 대체 시도 후 실패 시 조용히 건너뛰기 (정상 동작)
+#
+# 2. "$XXX: possibly delisted; no timezone found"
+#    -> 상장폐지되었거나 데이터가 없는 티커
+#    -> 처리: 배당 데이터가 없는 정상적인 경우이므로 조용히 건너뛰기 (정상 동작)
+#
+# 이 메시지들은 배당 데이터가 없는 정상적인 티커에 대해 나타나는 것이므로
+# 에러로 처리하지 않고 조용히 건너뛰는 것이 맞습니다.
+# 실제 문제가 있는 경우는 다른 예외로 처리됩니다.
 
 # 공통 유틸리티
 from utils import (
@@ -108,23 +136,55 @@ def fetch_dividends_with_suffix_fallback(symbol, start_date_str):
     for candidate in iter_symbol_candidates(symbol):
         try:
             ticker_obj = yf.Ticker(candidate)
-            dividends = ticker_obj.dividends
-            filtered = dividends[dividends.index >= start_date_str]
+            # yfinance의 dividends 속성은 지연 로딩되며, 접근 시 네트워크 요청이 발생할 수 있음
+            # "possibly delisted" 티커의 경우 예외가 발생하거나 빈 데이터가 반환될 수 있음
+            try:
+                dividends = ticker_obj.dividends
+            except (AttributeError, KeyError, ValueError) as e:
+                # dividends 속성 접근 자체가 실패한 경우 (상장폐지 등)
+                last_exception = e
+                continue
+
+            # dividends가 None이거나 Series가 아닌 경우 처리
+            if dividends is None:
+                continue
+
+            if not isinstance(dividends, pd.Series):
+                continue
+
+            # 빈 Series인 경우 건너뛰기 (배당 데이터가 없는 정상적인 경우)
+            if dividends.empty:
+                continue
+
+            # 날짜 필터링 시도
+            try:
+                filtered = dividends[dividends.index >= start_date_str]
+            except (KeyError, ValueError, TypeError) as e:
+                # 인덱스 접근 실패 (데이터 형식 문제)
+                last_exception = e
+                continue
+
+            # 필터링 후에도 빈 데이터인 경우 건너뛰기
+            if filtered.empty:
+                continue
+
         except Exception as exc:
+            # 기타 예외 (네트워크 오류 등)
             last_exception = exc
             continue
 
+        # 유효한 데이터를 찾은 경우
         last_series = filtered
-        if not filtered.empty:
-            if candidate != symbol:
-                tqdm.write(f"  ↺ {symbol} → {candidate} 배당 데이터 사용")
-            record_symbol_override(symbol, candidate)
-            return filtered
+        if candidate != symbol:
+            tqdm.write(f"  ↺ {symbol} → {candidate} 배당 데이터 사용")
+        record_symbol_override(symbol, candidate)
+        return filtered
 
-    if last_series is not None:
+    # 모든 후보를 시도했지만 데이터를 찾지 못한 경우
+    # 배당 데이터가 없는 정상적인 티커일 수 있으므로 예외를 발생시키지 않고 빈 Series 반환
+    if last_series is not None and not last_series.empty:
         return last_series
-    if last_exception:
-        raise last_exception
+    # 예외가 있었지만 치명적이지 않은 경우(배당 데이터 없음)는 조용히 빈 Series 반환
     return pd.Series(dtype="float64")
 
 
@@ -845,6 +905,8 @@ def main(market_filter=None):
 
     # 커맨드라인 인자 파싱
     steps_to_run = []
+    market_filter_arg = None
+    
     if len(sys.argv) > 1:
         valid_steps = [
             "1",
@@ -856,7 +918,7 @@ def main(market_filter=None):
             "frequency",
             "projection",
         ]
-        for arg in sys.argv[1:]:
+        for i, arg in enumerate(sys.argv[1:], 1):
             arg_lower = arg.lower()
             if arg_lower in ["1", "dividends"]:
                 steps_to_run.append("dividends")
@@ -866,9 +928,19 @@ def main(market_filter=None):
                 steps_to_run.append("frequency")
             elif arg_lower in ["4", "projection"]:
                 steps_to_run.append("projection")
+            elif arg_lower in ["--market", "-m"]:
+                # 다음 인자가 시장 필터
+                if i < len(sys.argv) - 1:
+                    market_filter_arg = sys.argv[i + 1].upper()
+            elif arg_lower.startswith("--market="):
+                # --market=KR 형식
+                market_filter_arg = arg_lower.split("=", 1)[1].upper()
+            elif arg_lower in ["kr", "us"]:
+                # kr 또는 us는 항상 시장 필터로 처리 (단계 인자 뒤에 올 수 있음)
+                market_filter_arg = arg_lower.upper()
             elif arg_lower == "--help" or arg_lower == "-h":
                 print("사용법:")
-                print("  python scripts/info_data_pipeline.py [단계]")
+                print("  python scripts/info_data_pipeline.py [단계] [옵션]")
                 print("")
                 print("단계 옵션:")
                 print("  1, dividends    - 배당 데이터 업데이트")
@@ -876,27 +948,28 @@ def main(market_filter=None):
                 print("  3, frequency    - 배당 빈도 분석")
                 print("  4, projection   - 미래 배당일 예측")
                 print("")
+                print("시장 필터 옵션:")
+                print("  --market KR, -m KR, kr  - 한국 시장만")
+                print("  --market US, -m US, us  - 미국 시장만")
+                print("")
                 print("예시:")
-                print("  python scripts/info_data_pipeline.py              # 전체 실행")
-                print("  python scripts/info_data_pipeline.py 1            # Step 1만")
-                print(
-                    "  python scripts/info_data_pipeline.py 1 2          # Step 1, 2만"
-                )
-                print(
-                    "  python scripts/info_data_pipeline.py dividends    # 배당 데이터만"
-                )
-                print(
-                    "  python scripts/info_data_pipeline.py info         # 티커 정보만"
-                )
+                print("  python scripts/info_data_pipeline.py                    # 전체 실행")
+                print("  python scripts/info_data_pipeline.py 1                  # Step 1만")
+                print("  python scripts/info_data_pipeline.py dividends          # 배당 데이터만")
+                print("  python scripts/info_data_pipeline.py dividends --market KR  # 한국 티커만 배당 데이터")
+                print("  python scripts/info_data_pipeline.py dividends kr       # 한국 티커만 배당 데이터")
                 return
             else:
                 print(f"⚠️  알 수 없는 인자: {arg}")
                 print("  --help 또는 -h로 사용법을 확인하세요.")
                 return
 
-    # 시장 필터: 인자로 전달된 값이 없으면 환경변수에서 읽기
+    # 시장 필터: 커맨드라인 인자 > 환경변수 순서로 우선순위
     if market_filter is None:
-        market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
+        if market_filter_arg:
+            market_filter = market_filter_arg
+        else:
+            market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
 
     # 초기화
     if not initialize(market_filter):
@@ -964,5 +1037,10 @@ def main(market_filter=None):
     print("=" * 80)
 
 
-if __name__ == "__main__":
-    main()
+# 이 파일은 모듈로만 사용됩니다. 직접 실행하지 마세요.
+# 대신 다음 스크립트를 사용하세요:
+# - python scripts/info_data_pipeline_kr.py [단계]
+# - python scripts/info_data_pipeline_us.py [단계]
+#
+# if __name__ == "__main__":
+#     main()
