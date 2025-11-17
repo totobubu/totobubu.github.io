@@ -89,17 +89,21 @@ const findExistingDataFile = async (symbolCandidates, market) => {
             return { path: candidatePath, symbol: candidate };
         }
     }
-    
+
     // 기존 형식 (접미사 포함) fallback 시도
     for (const candidate of symbolCandidates) {
         const oldFormatFilename = `${candidate.replace(/[./\\]/g, '-').toLowerCase()}.json`;
         const marketSlug = getMarketSubdirectory(market);
-        const oldFormatPath = path.join(DATA_DIR, marketSlug, oldFormatFilename);
+        const oldFormatPath = path.join(
+            DATA_DIR,
+            marketSlug,
+            oldFormatFilename
+        );
         if (await fileExists(oldFormatPath)) {
             return { path: oldFormatPath, symbol: candidate };
         }
     }
-    
+
     return null;
 };
 
@@ -115,33 +119,10 @@ const normalizeNumericValue = (value) => {
     return Number(value.toFixed(6));
 };
 
-const buildSymbolCandidates = (symbol, fallbackSuffixes = []) => {
-    const candidates = new Set();
-    if (symbol) candidates.add(symbol);
-
-    const dotIndex = symbol?.lastIndexOf('.') ?? -1;
-    const base = dotIndex >= 0 ? symbol.slice(0, dotIndex) : symbol;
-
-    (fallbackSuffixes || []).forEach((fallback) => {
-        if (!fallback) return;
-        const trimmed = String(fallback).trim();
-        if (!trimmed) return;
-
-        const isFullSymbol =
-            trimmed.includes('.') && !trimmed.startsWith('.') && trimmed.split('.').length === 2;
-        if (isFullSymbol) {
-            candidates.add(trimmed);
-            return;
-        }
-
-        if (!base) return;
-        const normalizedSuffix = trimmed.startsWith('.')
-            ? trimmed
-            : `.${trimmed.replace(/^\./, '')}`;
-        candidates.add(`${base}${normalizedSuffix}`);
-    });
-
-    return Array.from(candidates).filter(Boolean);
+const buildSymbolCandidates = (symbol) => {
+    // US 티커는 symbol만 사용 (yfSymbol, yfSuffixFallbacks 불필요)
+    if (!symbol) return [];
+    return [symbol];
 };
 
 const shouldRetryWithFallback = (error) =>
@@ -272,8 +253,8 @@ async function mergeSplitEvents(existingData, newSplits) {
 }
 
 async function fetchAndMergePriceData(ticker) {
-    const { symbol, ipoDate, yfSuffixFallbacks, market } = ticker;
-    const symbolCandidates = buildSymbolCandidates(symbol, yfSuffixFallbacks);
+    const { symbol, ipoDate, market } = ticker;
+    const symbolCandidates = buildSymbolCandidates(symbol);
     const existingFile = await findExistingDataFile(symbolCandidates, market);
 
     if (
@@ -288,8 +269,7 @@ async function fetchAndMergePriceData(ticker) {
         }
     }
 
-    let filePath =
-        existingFile?.path || getDataFilePath(symbol, market);
+    let filePath = existingFile?.path || getDataFilePath(symbol, market);
     let storageSymbol = existingFile?.symbol || symbol;
 
     try {
@@ -326,8 +306,7 @@ async function fetchAndMergePriceData(ticker) {
         const from = startDate.toISOString().split('T')[0];
 
         const oldBacktestStr = JSON.stringify(existingData.backtestData || []);
-        const existingSplits =
-            existingData?.tickerInfo?.events?.splits || [];
+        const existingSplits = existingData?.tickerInfo?.events?.splits || [];
         const oldSplitsStr = JSON.stringify(existingSplits);
 
         let activeSymbol = symbol;
@@ -357,7 +336,9 @@ async function fetchAndMergePriceData(ticker) {
 
         if (newPriceData.length > 0) {
             newPriceData.forEach((p) => {
-                const existingEntry = backtestMap.get(p.date) || { date: p.date };
+                const existingEntry = backtestMap.get(p.date) || {
+                    date: p.date,
+                };
                 backtestMap.set(p.date, { ...existingEntry, ...p });
             });
 
@@ -371,14 +352,18 @@ async function fetchAndMergePriceData(ticker) {
 
         // 분할/병합 데이터 병합
         const splitStartDate = existingSplits.length
-            ? existingSplits.reduce((latest, event) =>
-                  event.date > latest ? event.date : latest
-              , existingSplits[0].date)
+            ? existingSplits.reduce(
+                  (latest, event) =>
+                      event.date > latest ? event.date : latest,
+                  existingSplits[0].date
+              )
             : ipoDate || '1990-01-01';
 
         const splitCandidates = [
             activeSymbol,
-            ...symbolCandidates.filter((candidate) => candidate !== activeSymbol),
+            ...symbolCandidates.filter(
+                (candidate) => candidate !== activeSymbol
+            ),
         ];
         let splitEvents = [];
         try {
@@ -389,7 +374,9 @@ async function fetchAndMergePriceData(ticker) {
             );
             splitEvents = splitResult.data;
         } catch (splitError) {
-            console.error(`Split API Error for ${symbol}: ${splitError.message}`);
+            console.error(
+                `Split API Error for ${symbol}: ${splitError.message}`
+            );
         }
 
         const splitMap = new Map(
@@ -413,7 +400,9 @@ async function fetchAndMergePriceData(ticker) {
         const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
 
         const resolvedStorageSymbol =
-            DATA_LAYOUT_MODE === 'flat' ? symbol : activeSymbol || storageSymbol;
+            DATA_LAYOUT_MODE === 'flat'
+                ? symbol
+                : activeSymbol || storageSymbol;
         const targetFilePath = getDataFilePath(resolvedStorageSymbol, market);
         const storagePathChanged = targetFilePath !== filePath;
         const previousFilePath = filePath;
@@ -547,4 +536,3 @@ async function main() {
 }
 
 main();
-
