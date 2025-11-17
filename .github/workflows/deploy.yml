@@ -45,7 +45,7 @@ jobs:
         run: pip install -r requirements-workflow.txt
 
       - name: Upload changed data files to R2
-        run: python scripts/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
+        run: python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
 
       # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
       - name: Remove large local data before build

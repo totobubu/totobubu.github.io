@@ -99,7 +99,7 @@ switch ($Workflow) {
         }
         
         Write-Host "환율 데이터 업데이트 중..." -ForegroundColor Gray
-        node scripts/fetch_all_exchange_rates.js
+        node scripts/exchange/fetch_all_exchange_rates.js
         if ($LASTEXITCODE -ne 0) {
             Write-Host "[ERROR] 환율 데이터 업데이트 실패" -ForegroundColor Red
             exit 1

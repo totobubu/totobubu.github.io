@@ -52,7 +52,7 @@ jobs:
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
             - name: Update exchange rate data
-              run: node scripts/fetch_all_exchange_rates.js
+              run: node scripts/exchange/fetch_all_exchange_rates.js
 
             - name: Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
@@ -64,19 +64,19 @@ jobs:
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
                   DATA_LAYOUT_MODE: market
-              run: python scripts/info_data_pipeline_us.py
+              run: python scripts/data_pipeline/info_data_pipeline_us.py
 
             - name: Process and enrich dividend history - US only
               env:
                   DATA_LAYOUT_MODE: market
                   MARKET_FILTER: US
-              run: python scripts/scraper_dividend.py
+              run: python scripts/data_pipeline/scraper_dividend.py
 
             - name: Apply split adjustments to dividend history - US only
               env:
                   DATA_LAYOUT_MODE: market
                   MARKET_FILTER: US
-              run: python scripts/apply_split_adjustments.py
+              run: python scripts/data_processing/apply_split_adjustments.py
 
             - name: Generate calendar events data
               env:
@@ -89,7 +89,7 @@ jobs:
             - name: Upload changed files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
-              run: python scripts/upload_changed_to_r2.py
+              run: python scripts/cloud/upload_changed_to_r2.py
 
             - name: Check for file changes
               id: git_status
