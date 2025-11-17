@@ -35,14 +35,14 @@ echo.
 
 REM 6.5. Holdings 자동 감지
 echo 🔍 6.5. Holdings 자동 감지 중...
-python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
 if errorlevel 1 goto error
 echo ✅ Holdings 자동 감지 완료
 echo.
 
 REM 6.6. ETF Holdings 데이터 수집
 echo 📊 6.6. ETF Holdings 데이터 수집 중...
-echo y | python scripts/fetch_holdings.py
+echo y | python scripts/holdings/fetch_holdings.py
 if errorlevel 1 goto error
 echo ✅ ETF Holdings 데이터 수집 완료
 echo.
