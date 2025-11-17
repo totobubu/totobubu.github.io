@@ -657,8 +657,12 @@ def analyze_dividend_frequency():
         symbol = ticker_info.get("symbol")
         if not symbol or ticker_info.get("upcoming"):
             continue
+        
+        yahoo_symbol = ticker_info.get("yfSymbol") or ticker_info.get("symbol")
+        if not yahoo_symbol:
+            continue
 
-        file_path = get_data_file_path(symbol, ticker_info.get("market"), layout="market", ensure_dir=True)
+        file_path = get_data_file_path(yahoo_symbol, ticker_info.get("market"), layout="market", ensure_dir=True)
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
