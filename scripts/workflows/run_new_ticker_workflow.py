@@ -116,13 +116,13 @@ def prepare_steps(
         ("Update IPO dates (nav)", ["npm", "run", "add-ipo-dates"]),
         (
             "Analyze dividend frequency",
-            [PYTHON, "scripts/analyze_dividend_frequency.py", *ticker_args],
+            [PYTHON, "scripts/data_pipeline/analyze_dividend_frequency.py", *ticker_args],
         ),
         (
             "Auto-detect holdings",
             [
                 PYTHON,
-                "scripts/auto_detect_holdings.py",
+                "scripts/holdings/auto_detect_holdings.py",
                 "--api",
                 "--exclude-kr",
                 "--yes",
@@ -132,7 +132,7 @@ def prepare_steps(
         ("Regenerate nav", ["npm", "run", "generate-nav"]),
         (
             "Scrape info data",
-            [PYTHON, "scripts/scraper_info.py", *ticker_args],
+            [PYTHON, "scripts/data_pipeline/scraper_info.py", *ticker_args],
         ),
     ]
 
@@ -141,7 +141,7 @@ def prepare_steps(
             steps.append(
                 (
                     f"Fetch holdings ({ticker})",
-                    [PYTHON, "scripts/fetch_holdings.py", ticker],
+                    [PYTHON, "scripts/holdings/fetch_holdings.py", ticker],
                 )
             )
 
@@ -169,19 +169,19 @@ def prepare_steps(
         [
             (
                 "Update market cap",
-                [PYTHON, "scripts/update_market_cap.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/update_market_cap.py", *ticker_args],
             ),
             (
                 "Update dividend history",
-                [PYTHON, "scripts/update_dividends.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/update_dividends.py", *ticker_args],
             ),
             (
                 "Scrape dividends",
-                [PYTHON, "scripts/scraper_dividend.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/scraper_dividend.py", *ticker_args],
             ),
             (
                 "Project future dividends",
-                [PYTHON, "scripts/project_future_dividends.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/project_future_dividends.py", *ticker_args],
             ),
             (
                 "Regenerate calendar events",

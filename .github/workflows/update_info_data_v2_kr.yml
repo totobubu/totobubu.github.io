@@ -1,31 +1,20 @@
-name: Market Data v2 KR
+name: Update Info Data v2 (KR)
 
 on:
     schedule:
-        # 한국 증시 마감 후 30분 (오후 4시 KST = UTC 07:00)
-        # 일광절약시간 고려: UTC 06:00 또는 07:00
-        - cron: '0 6 * * 1-5' # 월-금 오후 4시 KST (UTC 06:00)
-        - cron: '0 7 * * 1-5' # 월-금 오후 4시 KST (UTC 07:00, 일광절약시간)
+        - cron: '0 17 * * *' # KST 02:00 daily (UTC 17:00)
     workflow_dispatch:
-        inputs:
-            skip_price_update:
-                description: 'Skip npm run update-data step'
-                required: false
-                default: 'false'
-
-permissions:
-    contents: write
 
 concurrency:
-    group: market-data-v2-kr
-    cancel-in-progress: true
+    group: update-info-data-v2-kr
+    cancel-in-progress: false
 
 env:
     NODE_VERSION: '20'
     PYTHON_VERSION: '3.11'
 
 jobs:
-    build-kr:
+    update-info-v2-kr:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -62,16 +51,43 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
-            - name: Update historical price data (KR only)
-              if: inputs.skip_price_update != 'true'
-              env:
-                  DATA_LAYOUT_MODE: market
-              run: node tasks/updateHistoricalKrData.js
+            - name: Sync KR ticker symbols with collected data
+              run: python scripts/utils/sync_nav_symbols_with_data.py --no-sync-nav-files
 
-            - name: Generate sidebar (popularity 100%)
+            - name: Enrich KR market metadata and nav files
+              run: python scripts/utils/enrich_kr_market_info.py --sync-nav-files
+
+            - name: Update exchange rate data
+              run: node scripts/exchange/fetch_all_exchange_rates.js
+
+            - name: Sync IPO dates and upcoming status
+              run: npm run add-ipo-dates
+
+            - name: Generate final nav.json
+              run: npm run generate-nav
+
+            - name: Update all info data (dividends, info+marketCap, frequency, projection) - KR only
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
-              run: npm run generate-sidebar-tickers
+                  DATA_LAYOUT_MODE: market
+              run: python scripts/data_pipeline/info_data_pipeline_kr.py
+
+            - name: Process and enrich dividend history - KR only
+              env:
+                  DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: KR
+              run: python scripts/data_pipeline/scraper_dividend.py
+
+            - name: Apply split adjustments to dividend history - KR only
+              env:
+                  DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: KR
+              run: python scripts/data_processing/apply_split_adjustments.py
+
+            - name: Generate calendar events data
+              env:
+                  DATA_LAYOUT_MODE: market
+              run: npm run generate-calendar-events
 
             - name: Format changed files only
               run: npm run format:changed
@@ -81,7 +97,7 @@ jobs:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/cloud/upload_changed_to_r2.py
 
-            - name: Check for changes
+            - name: Check for file changes
               id: git_status
               run: |
                   if [[ -n "$(git status --porcelain)" ]]; then
@@ -92,11 +108,13 @@ jobs:
 
             - name: Commit and push changes
               if: steps.git_status.outputs.changes == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  git commit -m "📈 Auto: Update KR market data v2"
+                  git commit -m "ℹ️ Auto: Update info data v2 (KR)"
                   for attempt in 1 2 3; do
                     if git push; then
                       echo "✅ Push succeeded"
@@ -109,3 +127,4 @@ jobs:
                     git pull --rebase origin main
                     sleep 5
                   done
+

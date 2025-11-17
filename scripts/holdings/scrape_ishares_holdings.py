@@ -365,7 +365,7 @@ if __name__ == "__main__":
     
     if '--all' in sys.argv:
         # failed_holdings_tickers.txt에서 iShares 티커만 추출
-        failed_file = Path("scripts/failed_holdings_tickers.txt")
+        failed_file = Path(__file__).parent / 'failed_holdings_tickers.txt'
         
         if failed_file.exists():
             with open(failed_file, 'r', encoding='utf-8') as f:
@@ -410,5 +410,5 @@ if __name__ == "__main__":
             print("\n" + "=" * 60)
             print("다음 명령으로 데이터를 등록하세요:")
             print("=" * 60)
-            print(f"  python scripts/add_roundhill_holdings.py --batch {batch_file}")
+            print(f"  python scripts/holdings/add_roundhill_holdings.py --batch {batch_file}")
 
