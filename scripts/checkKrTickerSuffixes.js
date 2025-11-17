@@ -248,17 +248,18 @@ async function main() {
             const fallbackValue = deriveFallbackValue(result.originalSymbol, result.resolvedSymbol);
             const ticker = result.ticker;
 
+            // yfSuffixFallbacks 대신 yfSymbol 사용
             if (
                 options.writeFallbacks &&
                 fallbackValue &&
                 !options.updatePrimarySymbol
             ) {
-                const list = normalizeFallbackList(ticker.yfSuffixFallbacks);
-                if (!list.includes(fallbackValue)) {
-                    ticker.yfSuffixFallbacks = [fallbackValue, ...list];
+                // yfSymbol을 설정 (yfSuffixFallbacks 대신)
+                if (ticker.yfSymbol !== result.resolvedSymbol) {
+                    ticker.yfSymbol = result.resolvedSymbol;
                     navMutated = true;
                     updates.push(
-                        `• ${result.originalSymbol} -> 대체 접미사 ${fallbackValue} 추가`
+                        `• ${result.originalSymbol} -> yfSymbol을 ${result.resolvedSymbol}로 설정`
                     );
                 }
             }
@@ -269,11 +270,9 @@ async function main() {
                 updates.push(
                     `• ${result.originalSymbol} 기본 심볼을 ${result.resolvedSymbol} 로 변경`
                 );
-                if (options.writeFallbacks && fallbackValue) {
-                    const list = normalizeFallbackList(ticker.yfSuffixFallbacks);
-                    if (!list.includes(fallbackValue)) {
-                        ticker.yfSuffixFallbacks = [fallbackValue, ...list];
-                    }
+                // yfSymbol도 함께 업데이트
+                if (result.resolvedSymbol && ticker.yfSymbol !== result.resolvedSymbol) {
+                    ticker.yfSymbol = result.resolvedSymbol;
                 }
             }
         }
