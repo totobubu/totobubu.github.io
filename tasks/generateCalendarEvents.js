@@ -108,28 +108,42 @@ async function generateCalendarEvents() {
     // 호환성을 위한 전체 이벤트
     const eventsByDate = {};
 
-    const jsonFiles = (await fs.readdir(DATA_DIR)).filter((file) =>
-        file.endsWith('.json')
-    );
+    // 재귀적으로 모든 JSON 파일 찾기
+    async function findJsonFiles(dir) {
+        const files = [];
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                // 하위 디렉토리 재귀적으로 탐색
+                const subFiles = await findJsonFiles(fullPath);
+                files.push(...subFiles);
+            } else if (entry.isFile() && entry.name.endsWith('.json')) {
+                files.push(fullPath);
+            }
+        }
+        return files;
+    }
 
-    for (const fileName of jsonFiles) {
+    const jsonFiles = await findJsonFiles(DATA_DIR);
+
+    for (const filePath of jsonFiles) {
         // [핵심 수정] try...catch를 파일 읽기 및 파싱 부분에만 적용
         let data;
         try {
-            const fileContent = await fs.readFile(
-                path.join(DATA_DIR, fileName),
-                'utf-8'
-            );
+            const fileContent = await fs.readFile(filePath, 'utf-8');
             data = JSON.parse(fileContent);
         } catch (e) {
             // 파일 읽기/파싱 오류 시 해당 파일만 건너뛰고 계속 진행
-            console.error(`Error processing ${fileName}: ${e.message}`);
+            console.error(`Error processing ${filePath}: ${e.message}`);
             continue; // 다음 파일로 넘어감
         }
 
         const backtestData = data.backtestData || [];
         if (backtestData.length === 0) continue;
 
+        const fileName = path.basename(filePath);
         const yfTickerSymbol = path
             .basename(fileName, '.json')
             .toUpperCase()
