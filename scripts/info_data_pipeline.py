@@ -265,7 +265,12 @@ def update_dividends():
             yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
             if not yahoo_symbol:
                 continue
-            file_path = get_data_file_path(yahoo_symbol, ticker_meta.get("market"))
+            file_path = get_data_file_path(
+                yahoo_symbol,
+                ticker_meta.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -463,7 +468,12 @@ def update_ticker_info():
                 raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(yahoo_symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = get_data_file_path(yahoo_symbol, info_from_nav.get("market"))
+            file_path = get_data_file_path(
+                yahoo_symbol,
+                info_from_nav.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],
@@ -658,7 +668,13 @@ def analyze_dividend_frequency():
         if not symbol or ticker_info.get("upcoming"):
             continue
 
-        file_path = get_data_file_path(symbol, ticker_info.get("market"))
+        yahoo_symbol = ticker_info.get("yfSymbol") or ticker_info.get("symbol")
+        if not yahoo_symbol:
+            continue
+
+        file_path = get_data_file_path(
+            yahoo_symbol, ticker_info.get("market"), layout="market", ensure_dir=True
+        )
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
@@ -720,7 +736,15 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    files = list(DATA_DIR.glob("*.json"))
+    # market 디렉토리 구조를 고려하여 모든 JSON 파일 찾기
+    files = []
+    # 루트 디렉토리의 JSON 파일
+    files.extend(DATA_DIR.glob("*.json"))
+    # 각 market 서브디렉토리의 JSON 파일
+    for subdir in DATA_DIR.iterdir():
+        if subdir.is_dir():
+            files.extend(subdir.glob("*.json"))
+
     updated_count = 0
 
     for file_path in tqdm(files, desc="미래 배당일 예측"):
@@ -808,42 +832,135 @@ def project_future_dividends():
 # ============================================================================
 # 메인 실행
 # ============================================================================
-def main():
-    """통합 파이프라인 실행"""
+def main(market_filter=None):
+    """통합 파이프라인 실행
+
+    Args:
+        market_filter: "KR", "US" 또는 None (전체). None이면 환경변수에서 읽음
+    """
     import os
+    import sys
 
     start_time = time.time()
 
-    # 환경변수에서 시장 필터 읽기
-    market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
+    # 커맨드라인 인자 파싱
+    steps_to_run = []
+    if len(sys.argv) > 1:
+        valid_steps = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "dividends",
+            "info",
+            "frequency",
+            "projection",
+        ]
+        for arg in sys.argv[1:]:
+            arg_lower = arg.lower()
+            if arg_lower in ["1", "dividends"]:
+                steps_to_run.append("dividends")
+            elif arg_lower in ["2", "info"]:
+                steps_to_run.append("info")
+            elif arg_lower in ["3", "frequency"]:
+                steps_to_run.append("frequency")
+            elif arg_lower in ["4", "projection"]:
+                steps_to_run.append("projection")
+            elif arg_lower == "--help" or arg_lower == "-h":
+                print("사용법:")
+                print("  python scripts/info_data_pipeline.py [단계]")
+                print("")
+                print("단계 옵션:")
+                print("  1, dividends    - 배당 데이터 업데이트")
+                print("  2, info         - 티커 정보 + 시가총액 업데이트")
+                print("  3, frequency    - 배당 빈도 분석")
+                print("  4, projection   - 미래 배당일 예측")
+                print("")
+                print("예시:")
+                print("  python scripts/info_data_pipeline.py              # 전체 실행")
+                print("  python scripts/info_data_pipeline.py 1            # Step 1만")
+                print(
+                    "  python scripts/info_data_pipeline.py 1 2          # Step 1, 2만"
+                )
+                print(
+                    "  python scripts/info_data_pipeline.py dividends    # 배당 데이터만"
+                )
+                print(
+                    "  python scripts/info_data_pipeline.py info         # 티커 정보만"
+                )
+                return
+            else:
+                print(f"⚠️  알 수 없는 인자: {arg}")
+                print("  --help 또는 -h로 사용법을 확인하세요.")
+                return
+
+    # 시장 필터: 인자로 전달된 값이 없으면 환경변수에서 읽기
+    if market_filter is None:
+        market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
 
     # 초기화
     if not initialize(market_filter):
         return
 
-    # Step 1: 배당 데이터 업데이트
-    dividend_updates = update_dividends()
+    # 실행할 단계가 지정되지 않았으면 전체 실행
+    if not steps_to_run:
+        steps_to_run = ["dividends", "info", "frequency", "projection"]
 
-    # Step 2: 티커 정보 + 시가총액 업데이트 (통합, 중복 API 호출 제거)
-    info_updates = update_ticker_info()
+    # 결과 저장
+    results = {}
+
+    # Step 1: 배당 데이터 업데이트
+    if "dividends" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📊 STEP 1: 배당 데이터 업데이트 실행")
+        print("=" * 80)
+        results["dividends"] = update_dividends()
+    else:
+        print("\n⏭️  STEP 1: 배당 데이터 업데이트 건너뜀")
+
+    # Step 2: 티커 정보 + 시가총액 업데이트
+    if "info" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📋 STEP 2: 티커 정보 + 시가총액 업데이트 실행")
+        print("=" * 80)
+        results["info"] = update_ticker_info()
+    else:
+        print("\n⏭️  STEP 2: 티커 정보 + 시가총액 업데이트 건너뜀")
 
     # Step 3: 배당 빈도 분석
-    frequency_updates = analyze_dividend_frequency()
+    if "frequency" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("📅 STEP 3: 배당 빈도 분석 실행")
+        print("=" * 80)
+        results["frequency"] = analyze_dividend_frequency()
+    else:
+        print("\n⏭️  STEP 3: 배당 빈도 분석 건너뜀")
 
     # Step 4: 미래 배당일 예측
-    projection_updates = project_future_dividends()
+    if "projection" in steps_to_run:
+        print("\n" + "=" * 80)
+        print("🔮 STEP 4: 미래 배당일 예측 실행")
+        print("=" * 80)
+        results["projection"] = project_future_dividends()
+    else:
+        print("\n⏭️  STEP 4: 미래 배당일 예측 건너뜀")
 
     # 완료
     elapsed_time = time.time() - start_time
     print("\n" + "=" * 80)
-    print("🎉 정보성 데이터 통합 파이프라인 완료 (최적화됨)")
+    print("🎉 정보성 데이터 통합 파이프라인 완료")
     print("=" * 80)
-    print(f"📊 배당 데이터: {dividend_updates}개 파일 업데이트")
-    print(f"📋 티커 정보 + 시가총액: {info_updates}개 파일 업데이트")
-    print(f"📅 배당 빈도: {frequency_updates}개 티커 업데이트")
-    print(f"🔮 배당일 예측: {projection_updates}개 파일 업데이트")
+    if "dividends" in results:
+        print(f"📊 배당 데이터: {results['dividends']}개 파일 업데이트")
+    if "info" in results:
+        print(f"📋 티커 정보 + 시가총액: {results['info']}개 파일 업데이트")
+    if "frequency" in results:
+        print(f"📅 배당 빈도: {results['frequency']}개 티커 업데이트")
+    if "projection" in results:
+        print(f"🔮 배당일 예측: {results['projection']}개 파일 업데이트")
     print(f"⏱️  총 소요 시간: {elapsed_time:.2f}초")
-    print(f"✨ 최적화: 중복 API 호출 제거로 성능 향상")
+    if len(steps_to_run) == 4:
+        print(f"✨ 최적화: 중복 API 호출 제거로 성능 향상")
     print("=" * 80)
 
 

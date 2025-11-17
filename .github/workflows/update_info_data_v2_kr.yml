@@ -1,12 +1,12 @@
-name: Update Info Data v2
+name: Update Info Data v2 (KR)
 
 on:
     schedule:
-        - cron: '0 17 * * *' # KST 02:00 daily
+        - cron: '0 17 * * *' # KST 02:00 daily (UTC 17:00)
     workflow_dispatch:
 
 concurrency:
-    group: update-info-data-v2
+    group: update-info-data-v2-kr
     cancel-in-progress: false
 
 env:
@@ -14,7 +14,7 @@ env:
     PYTHON_VERSION: '3.11'
 
 jobs:
-    update-info-v2:
+    update-info-v2-kr:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -66,20 +66,22 @@ jobs:
             - name: Generate final nav.json
               run: npm run generate-nav
 
-            - name: Update all info data (dividends, info+marketCap, frequency, projection)
+            - name: Update all info data (dividends, info+marketCap, frequency, projection) - KR only
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
                   DATA_LAYOUT_MODE: market
-              run: python scripts/info_data_pipeline.py
+              run: python scripts/info_data_pipeline_kr.py
 
-            - name: Process and enrich dividend history
+            - name: Process and enrich dividend history - KR only
               env:
                   DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: KR
               run: python scripts/scraper_dividend.py
 
-            - name: Apply split adjustments to dividend history
+            - name: Apply split adjustments to dividend history - KR only
               env:
                   DATA_LAYOUT_MODE: market
+                  MARKET_FILTER: KR
               run: python scripts/apply_split_adjustments.py
 
             - name: Generate calendar events data
@@ -112,7 +114,7 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  git commit -m "ℹ️ Auto: Update info data v2"
+                  git commit -m "ℹ️ Auto: Update info data v2 (KR)"
                   for attempt in 1 2 3; do
                     if git push; then
                       echo "✅ Push succeeded"
