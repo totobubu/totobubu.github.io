@@ -61,9 +61,7 @@ jobs:
 
             - name: Update historical price data (US only)
               if: inputs.skip_price_update != 'true'
-              env:
-                  MARKET_FILTER: US
-              run: npm run update-data
+              run: node tasks/updateHistoricalUsData.js
 
             - name: Run info data pipeline (US only, market layout)
               env:
