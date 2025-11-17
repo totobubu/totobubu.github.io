@@ -37,7 +37,7 @@ python scripts/add_new_symbols.py --symbol YMAX
 | 2 | IPO 날짜 확인 | Yahoo Finance chart API (`firstTradeDate`) 활용. 값이 없으면 YYYY-MM-DD 형식으로 수동 입력 |
 | 3 | nav 소스 업데이트 | `public/nav/{market}/{첫글자}.json`에 `symbol`, `ipoDate` upsert |
 | 4 | data 파일 생성 | `public/data/{symbol}.json`이 없으면 기본 스켈레톤 생성 후 `tickerInfo`에 market/currency/ISIN/업데이트 시간 저장 |
-| 5 | 로컬 워크플로우 실행 | `update_info_data.yml`과 동일한 순서로 Node/Python 스크립트 일괄 실행 (환율 → IPO sync → nav 생성 → info 파이프라인 → 배당 → 캘린더 → 포맷) |
+| 5 | 로컬 워크플로우 실행 | `update_info_data_v2.yml`과 동일한 순서로 Node/Python 스크립트 일괄 실행 (환율 → IPO sync → nav 생성 → info 파이프라인 → 배당 → 캘린더 → 포맷) |
 
 > ⚠️ 일부 단계(시장 선택, ISIN/IPO 수동 입력)는 **인터랙티브**하게 이뤄집니다. 터미널 입력이 가능한 환경에서 실행하세요.
 
@@ -106,7 +106,7 @@ YMAX ISIN (예: US0000000001): US1234567890
 - `scripts/add_new_symbols.py`
 - `scripts/fetch_missing_isin.py`
 - `tasks/addIpoDatesToNav.js`
-- `.github/workflows/update_info_data.yml`
+- `.github/workflows/update_info_data_v2.yml`
 - `docs/TICKER_MANAGEMENT_GUIDE.md`
 
 필요한 보완 사항이나 자동화 아이디어가 떠오르면 언제든 공유해주세요! 😉

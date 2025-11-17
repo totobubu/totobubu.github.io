@@ -88,10 +88,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ### 3-1. (선택) 종목 추가/업데이트
 
 ```bash
-# KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
-python scripts/fetch_top_tickers.py  # 주요 지수 자동 수집 (S&P 500, NASDAQ 100, KOSPI 200, KOSDAQ 150)
-python scripts/fetch_us_etfs.py      # 미국 ETF 수동 추가 (PREDEFINED_ETF_TEXT 편집 후 실행)
-python scripts/fetch_kr_etfs.py      # 한국 ETF 수동 추가 (PREDEFINED_ETF_TEXT 편집 후 실행)
+# 새로운 티커 온보딩 워크플로우 실행
+python scripts/run_new_ticker_workflow.py WEED MAGS
 
 # ⭐ 자세한 가이드: docs/TICKER_MANAGEMENT_GUIDE.md 참고
 
@@ -126,9 +124,10 @@ python scripts/auto_detect_holdings.py --api --exclude-kr --yes
 echo y | python scripts/fetch_holdings.py
 
 # 7. 주가 데이터 증분 업데이트
-npm run update-data              # 전체
-npm run update-data WEED         # 개별 티커
-npm run update-data WEED MAGS    # 여러 티커
+node tasks/updateHistoricalKrData.js   # 한국 티커 전체
+node tasks/updateHistoricalUsData.js   # 미국 티커 전체
+node tasks/updateHistoricalKrData.js TICKER  # 한국 개별 티커
+node tasks/updateHistoricalUsData.js TICKER  # 미국 개별 티커
 
 # 8. 시가총액 업데이트
 python scripts/update_market_cap.py           # 전체
