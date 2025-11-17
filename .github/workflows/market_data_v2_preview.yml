@@ -65,19 +65,11 @@ jobs:
               if: inputs.skip_price_update != 'true'
               run: npm run update-data
 
-            - name: Run info data pipeline (flat layout)
+            - name: Run info data pipeline (market layout)
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+                  DATA_LAYOUT_MODE: market
               run: python scripts/info_data_pipeline.py
-
-            - name: Mirror data into market layout
-              env:
-                  EXTRA_FLAGS: ${{ inputs.dry_run_migration == 'true' && '--dry-run' || '' }}
-              run: |
-                  python scripts/migrate_data_market_dirs.py \
-                    --source-layout flat \
-                    --dest-layout market \
-                    --overwrite $EXTRA_FLAGS
 
             - name: Format changed files
               run: npm run format:changed
