@@ -54,11 +54,23 @@ if errorlevel 1 goto error
 echo ✅ 시가총액 업데이트 완료
 echo.
 
-REM 7.5. 히스토리 가격 데이터 업데이트 (선택적 - 필요시만)
+REM 7.5. 히스토리 가격 데이터 업데이트 (KR/US 분리)
 echo 📈 7.5. 히스토리 가격 데이터 업데이트 중...
 echo ⚠️  이 작업은 시간이 오래 걸립니다 (약 3-5분)
-call npm run update-data
+
+REM 한국 티커 업데이트
+echo   → 한국 티커 업데이트 중...
+set DATA_LAYOUT_MODE=market
+call node tasks/updateHistoricalKrData.js
 if errorlevel 1 goto error
+echo   ✅ 한국 티커 업데이트 완료
+
+REM 미국 티커 업데이트
+echo   → 미국 티커 업데이트 중...
+call node tasks/updateHistoricalUsData.js
+if errorlevel 1 goto error
+echo   ✅ 미국 티커 업데이트 완료
+
 echo ✅ 히스토리 가격 데이터 업데이트 완료
 echo.
 

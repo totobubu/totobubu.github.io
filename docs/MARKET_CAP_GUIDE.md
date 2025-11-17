@@ -20,28 +20,18 @@
 
 ### 워크플로우 위치
 
-**V1 (기존)**:
-```yaml
-.github/workflows/update_info_data.yml
-└─ Step 7: Update daily market capitalization
-```
-
-**V2 (최적화)**:
 ```yaml
 .github/workflows/update_info_data_v2.yml
-└─ Step 6: [V2 PIPELINE] Update all info data
-   └─ STEP 3: 시가총액 업데이트
+└─ Update all info data (dividends, info+marketCap, frequency, projection)
+   └─ info_data_pipeline.py - STEP 3: 시가총액 업데이트
 ```
 
 ### 실행 시점
-- **매일 1회**: 한국시간 새벽 1-2시
-- **V1**: 월/수/금 (테스트 기간)
-- **V2**: 화/목/토 (테스트 기간)
+- **매일 1회**: 한국시간 새벽 2시 (KST, UTC 17:00)
 
 ### 처리 내용
 ```python
-# scripts/update_market_cap.py (V1)
-# scripts/info_data_pipeline.py - STEP 3 (V2)
+# scripts/info_data_pipeline.py - STEP 3
 
 1. Yahoo Finance에서 전체 티커의 현재 marketCap 배치 조회
 2. 각 티커의 오늘 날짜 backtestData에 marketCap 추가
@@ -52,10 +42,10 @@
 
 ## 💻 수동 실행
 
-### 방법 1: 개별 스크립트 (V1 방식)
+### 방법 1: 통합 파이프라인 사용 (권장)
 
 ```bash
-python scripts/update_market_cap.py
+python scripts/info_data_pipeline.py
 ```
 
 **실행 결과**:
@@ -347,8 +337,7 @@ A: GitHub Actions가 자동으로 실행합니다. 테스트 기간 후 더 나�
 - `scripts/backfill_market_cap_approximate.py` - 과거 데이터 근사값 계산
 
 ### 워크플로우
-- `.github/workflows/update_info_data.yml` - V1 자동 실행
-- `.github/workflows/update_info_data_v2.yml` - V2 자동 실행
+- `.github/workflows/update_info_data_v2.yml` - 자동 실행
 
 ### 데이터
 - `public/data/{ticker}.json` - 티커별 데이터 파일

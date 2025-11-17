@@ -50,10 +50,21 @@ try {
     Write-Host "✅ 시가총액 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
-    # 7.5. 히스토리 가격 데이터 업데이트 (선택적 - 필요시만)
+    # 7.5. 히스토리 가격 데이터 업데이트 (KR/US 분리)
     Write-Host "📈 7.5. 히스토리 가격 데이터 업데이트 중..." -ForegroundColor Cyan
     Write-Host "⚠️  이 작업은 시간이 오래 걸립니다 (약 3-5분)" -ForegroundColor Yellow
-    npm run update-data
+    
+    # 한국 티커 업데이트
+    Write-Host "  → 한국 티커 업데이트 중..." -ForegroundColor Cyan
+    $env:DATA_LAYOUT_MODE = "market"
+    node tasks/updateHistoricalKrData.js
+    Write-Host "  ✅ 한국 티커 업데이트 완료" -ForegroundColor Green
+    
+    # 미국 티커 업데이트
+    Write-Host "  → 미국 티커 업데이트 중..." -ForegroundColor Cyan
+    node tasks/updateHistoricalUsData.js
+    Write-Host "  ✅ 미국 티커 업데이트 완료" -ForegroundColor Green
+    
     Write-Host "✅ 히스토리 가격 데이터 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
