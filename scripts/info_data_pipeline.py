@@ -265,7 +265,12 @@ def update_dividends():
             yahoo_symbol = ticker_meta.get("yfSymbol") or ticker_meta.get("symbol")
             if not yahoo_symbol:
                 continue
-            file_path = get_data_file_path(yahoo_symbol, ticker_meta.get("market"), layout="market", ensure_dir=True)
+            file_path = get_data_file_path(
+                yahoo_symbol,
+                ticker_meta.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
 
             # 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)
@@ -463,7 +468,12 @@ def update_ticker_info():
                 raw_dynamic_info = fetch_ticker_info_with_suffix_fallback(yahoo_symbol)
             dynamic_info = process_single_ticker_info(raw_dynamic_info)
 
-            file_path = get_data_file_path(yahoo_symbol, info_from_nav.get("market"), layout="market", ensure_dir=True)
+            file_path = get_data_file_path(
+                yahoo_symbol,
+                info_from_nav.get("market"),
+                layout="market",
+                ensure_dir=True,
+            )
             existing_data = load_json_file(file_path) or {
                 "tickerInfo": {},
                 "backtestData": [],
@@ -657,12 +667,14 @@ def analyze_dividend_frequency():
         symbol = ticker_info.get("symbol")
         if not symbol or ticker_info.get("upcoming"):
             continue
-        
+
         yahoo_symbol = ticker_info.get("yfSymbol") or ticker_info.get("symbol")
         if not yahoo_symbol:
             continue
 
-        file_path = get_data_file_path(yahoo_symbol, ticker_info.get("market"), layout="market", ensure_dir=True)
+        file_path = get_data_file_path(
+            yahoo_symbol, ticker_info.get("market"), layout="market", ensure_dir=True
+        )
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data:
@@ -732,7 +744,7 @@ def project_future_dividends():
     for subdir in DATA_DIR.iterdir():
         if subdir.is_dir():
             files.extend(subdir.glob("*.json"))
-    
+
     updated_count = 0
 
     for file_path in tqdm(files, desc="미래 배당일 예측"):
@@ -820,8 +832,12 @@ def project_future_dividends():
 # ============================================================================
 # 메인 실행
 # ============================================================================
-def main():
-    """통합 파이프라인 실행"""
+def main(market_filter=None):
+    """통합 파이프라인 실행
+
+    Args:
+        market_filter: "KR", "US" 또는 None (전체). None이면 환경변수에서 읽음
+    """
     import os
     import sys
 
@@ -830,7 +846,16 @@ def main():
     # 커맨드라인 인자 파싱
     steps_to_run = []
     if len(sys.argv) > 1:
-        valid_steps = ["1", "2", "3", "4", "dividends", "info", "frequency", "projection"]
+        valid_steps = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "dividends",
+            "info",
+            "frequency",
+            "projection",
+        ]
         for arg in sys.argv[1:]:
             arg_lower = arg.lower()
             if arg_lower in ["1", "dividends"]:
@@ -854,17 +879,24 @@ def main():
                 print("예시:")
                 print("  python scripts/info_data_pipeline.py              # 전체 실행")
                 print("  python scripts/info_data_pipeline.py 1            # Step 1만")
-                print("  python scripts/info_data_pipeline.py 1 2          # Step 1, 2만")
-                print("  python scripts/info_data_pipeline.py dividends    # 배당 데이터만")
-                print("  python scripts/info_data_pipeline.py info         # 티커 정보만")
+                print(
+                    "  python scripts/info_data_pipeline.py 1 2          # Step 1, 2만"
+                )
+                print(
+                    "  python scripts/info_data_pipeline.py dividends    # 배당 데이터만"
+                )
+                print(
+                    "  python scripts/info_data_pipeline.py info         # 티커 정보만"
+                )
                 return
             else:
                 print(f"⚠️  알 수 없는 인자: {arg}")
                 print("  --help 또는 -h로 사용법을 확인하세요.")
                 return
 
-    # 환경변수에서 시장 필터 읽기
-    market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
+    # 시장 필터: 인자로 전달된 값이 없으면 환경변수에서 읽기
+    if market_filter is None:
+        market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
 
     # 초기화
     if not initialize(market_filter):
