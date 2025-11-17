@@ -1,4 +1,4 @@
-// tasks\updateHistoricalData.js
+// tasks\updateHistoricalKrData.js
 import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
@@ -8,6 +8,7 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
 const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+const MARKET_FILTER = 'KR'; // 한국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
     KOSPI: 'kospi',
@@ -24,8 +25,24 @@ const MARKET_SUBDIR_ALIASES = {
 };
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/[./\\]/g, '-').toLowerCase();
+
+// 접미사(.KS, .KQ 등) 제거하고 base symbol만 사용
+const getBaseSymbol = (symbol) => {
+    if (!symbol) return symbol;
+    const upper = symbol.toUpperCase();
+    const suffixes = ['.KS', '.KQ', '.KN', '.KO'];
+    for (const suffix of suffixes) {
+        if (upper.endsWith(suffix)) {
+            return symbol.slice(0, -suffix.length);
+        }
+    }
+    return symbol;
+};
+
+const sanitizeTickerForFilename = (ticker) => {
+    const base = getBaseSymbol(ticker);
+    return base.replace(/[./\\]/g, '-').toLowerCase();
+};
 
 const getMarketSubdirectory = (market) => {
     const normalized = String(market || '')
@@ -65,12 +82,24 @@ const fileExists = async (filePath) => {
 };
 
 const findExistingDataFile = async (symbolCandidates, market) => {
+    // 먼저 새 형식 (접미사 제거) 시도
     for (const candidate of symbolCandidates) {
         const candidatePath = getDataFilePath(candidate, market);
         if (await fileExists(candidatePath)) {
             return { path: candidatePath, symbol: candidate };
         }
     }
+    
+    // 기존 형식 (접미사 포함) fallback 시도
+    for (const candidate of symbolCandidates) {
+        const oldFormatFilename = `${candidate.replace(/[./\\]/g, '-').toLowerCase()}.json`;
+        const marketSlug = getMarketSubdirectory(market);
+        const oldFormatPath = path.join(DATA_DIR, marketSlug, oldFormatFilename);
+        if (await fileExists(oldFormatPath)) {
+            return { path: oldFormatPath, symbol: candidate };
+        }
+    }
+    
     return null;
 };
 
@@ -437,7 +466,7 @@ async function fetchAndMergePriceData(ticker) {
 
 async function main() {
     console.log(
-        '--- Starting Incremental Price Data Update (Node.js/axios) ---'
+        '--- Starting Incremental Price Data Update (KR Market Only) ---'
     );
     await fs.mkdir(DATA_DIR, { recursive: true });
 
@@ -449,30 +478,15 @@ async function main() {
 
     let tickersToFetch = [
         ...navData.nav,
-        { symbol: 'SPY', ipoDate: '1993-01-22' },
-        { symbol: 'QQQ', ipoDate: '1999-03-10' },
-        { symbol: 'DIA', ipoDate: '1998-01-14' },
     ].filter((item) => !item.upcoming);
 
-    // MARKET_FILTER 환경변수로 시장 필터링
-    const marketFilter = process.env.MARKET_FILTER?.trim().toUpperCase();
-    if (marketFilter) {
-        if (marketFilter === 'KR') {
-            tickersToFetch = tickersToFetch.filter(
-                (t) =>
-                    t.currency === 'KRW' ||
-                    ['KOSPI', 'KOSDAQ', 'KONEX'].includes(t.market)
-            );
-            console.log(`[KR Market Filter] Filtering Korean tickers only`);
-        } else if (marketFilter === 'US') {
-            tickersToFetch = tickersToFetch.filter(
-                (t) =>
-                    t.currency === 'USD' ||
-                    ['NYSE', 'NASDAQ', 'AMEX'].includes(t.market)
-            );
-            console.log(`[US Market Filter] Filtering US tickers only`);
-        }
-    }
+    // 한국 티커만 필터링
+    tickersToFetch = tickersToFetch.filter(
+        (t) =>
+            t.currency === 'KRW' ||
+            ['KOSPI', 'KOSDAQ', 'KONEX'].includes(t.market)
+    );
+    console.log(`[KR Market Filter] Filtering Korean tickers only`);
 
     // 특정 티커만 필터링
     if (targetSymbols.length > 0) {
@@ -494,9 +508,7 @@ async function main() {
             );
         }
     } else {
-        console.log(
-            `[Full Mode] Updating all symbols${marketFilter ? ` (${marketFilter} filter applied)` : ''}`
-        );
+        console.log(`[Full Mode] Updating all Korean symbols`);
     }
 
     const uniqueTickers = Array.from(
@@ -512,7 +524,6 @@ async function main() {
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
 
-        // [핵심 수정] 함수 이름을 올바르게 변경합니다.
         const results = await Promise.all(
             chunk.map((ticker) => fetchAndMergePriceData(ticker))
         );
@@ -533,3 +544,4 @@ async function main() {
 }
 
 main();
+

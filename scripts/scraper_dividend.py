@@ -2,7 +2,8 @@
 import os
 import json
 from datetime import datetime, timedelta
-from utils import load_json_file, save_json_file, sanitize_ticker_for_filename
+from pathlib import Path
+from utils import load_json_file, save_json_file, sanitize_ticker_for_filename, get_data_file_path, load_json_file as load_nav
 from tqdm import tqdm
 
 
@@ -177,22 +178,43 @@ def main():
     else:
         print("\n--- [Full Mode] Calculating Yield for Backtest Data ---")
     
-    files = [f for f in os.listdir("public/data") if f.endswith(".json")]
+    # DATA_LAYOUT_MODE 확인
+    data_layout_mode = os.environ.get("DATA_LAYOUT_MODE", "flat").lower()
     
-    # 특정 티커만 필터링
-    if target_tickers:
-        files = [
-            f for f in files 
-            if f.replace(".json", "").replace("-", ".").upper() in target_tickers
-        ]
-        if not files:
-            print(f"❌ 지정한 티커의 JSON 파일을 찾을 수 없습니다: {', '.join(target_tickers)}")
-            return
+    # nav.json에서 티커 목록 가져오기
+    nav_data = load_nav(Path("public/nav.json"))
+    if not nav_data:
+        print("❌ nav.json을 찾을 수 없습니다.")
+        return
+    
+    tickers_to_process = []
+    for entry in nav_data.get("nav", []):
+        if entry.get("upcoming"):
+            continue
+        symbol = entry.get("symbol") or entry.get("yfSymbol")
+        if not symbol:
+            continue
+        if target_tickers and symbol.upper() not in target_tickers:
+            continue
+        tickers_to_process.append({
+            "symbol": symbol,
+            "market": entry.get("market")
+        })
+    
+    if target_tickers and not tickers_to_process:
+        print(f"❌ 지정한 티커의 JSON 파일을 찾을 수 없습니다: {', '.join(target_tickers)}")
+        return
     
     updated_count = 0
 
-    for filename in tqdm(files, desc="Calculating Yields"):
-        file_path = os.path.join("public/data", filename)
+    for ticker_info in tqdm(tickers_to_process, desc="Calculating Yields"):
+        symbol = ticker_info["symbol"]
+        market = ticker_info["market"]
+        file_path = get_data_file_path(symbol, market, layout=data_layout_mode)
+        
+        if not file_path.exists():
+            continue
+            
         data = load_json_file(file_path)
         if not data or "backtestData" not in data:
             continue
@@ -223,7 +245,8 @@ def main():
                     # R2 업로드 시도
                     try:
                         from scripts.r2_helper import upload_json_to_r2
-                        r2_key = file_path.replace("\\", "/").split("public/", 1)[1]
+                        file_path_str = str(file_path).replace("\\", "/")
+                        r2_key = file_path_str.split("public/", 1)[1]
                         upload_json_to_r2(data, r2_key)
                     except:
                         pass
