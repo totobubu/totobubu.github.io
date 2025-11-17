@@ -56,14 +56,14 @@ jobs:
               if: inputs.upload_mode == 'changed'
               run: |
                   echo "📤 [모드: 변경된 파일만] Git 기반 빠른 업로드..."
-                  python scripts/upload_changed_to_r2.py
+                  python scripts/cloud/upload_changed_to_r2.py
                   echo "✅ 업로드 완료 (쾌속)"
 
             - name: Upload to R2 (Full Sync - Slow) 🔧
               if: inputs.upload_mode == 'full_sync'
               run: |
                   echo "📤 [모드: 전체 동기화] R2와 로컬 전체 비교 & 업로드..."
-                  python scripts/upload_full_sync_to_r2.py
+                  python scripts/cloud/upload_full_sync_to_r2.py
                   echo "✅ 전체 동기화 완료"
 
             - name: Upload to R2 (Specific Files) 🎯
@@ -75,7 +75,7 @@ jobs:
                     echo "💡 사용법: public/nav.json public/data/aapl.json"
                     exit 1
                   fi
-                  python scripts/upload_specific_to_r2.py ${{ inputs.specific_files }}
+                  python scripts/cloud/upload_specific_to_r2.py ${{ inputs.specific_files }}
                   echo "✅ 특정 파일 업로드 완료"
 
             # --- 변경 사항 커밋 및 푸시 (필요한 경우) ---

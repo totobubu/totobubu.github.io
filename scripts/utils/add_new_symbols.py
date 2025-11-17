@@ -279,18 +279,18 @@ def run_command(label: str, command: List[str], dry_run: bool = False) -> None:
 
 def run_update_workflow(skip_format: bool) -> None:
     steps: List[Tuple[str, List[str]]] = [
-        ("1. 환율 데이터 업데이트", ["node", "scripts/fetch_all_exchange_rates.js"]),
+        ("1. 환율 데이터 업데이트", ["node", "scripts/exchange/fetch_all_exchange_rates.js"]),
         ("2. IPO date/Upcoming 싱크", ["npm", "run", "add-ipo-dates"]),
         ("3. nav.json 재생성", ["npm", "run", "generate-nav"]),
         (
             "4. 정보성 데이터 파이프라인 (KR)",
-            [PYTHON, "scripts/info_data_pipeline_kr.py"],
+            [PYTHON, "scripts/data_pipeline/info_data_pipeline_kr.py"],
         ),
         (
             "4-2. 정보성 데이터 파이프라인 (US)",
-            [PYTHON, "scripts/info_data_pipeline_us.py"],
+            [PYTHON, "scripts/data_pipeline/info_data_pipeline_us.py"],
         ),
-        ("5. 배당 히스토리 보강", [PYTHON, "scripts/scraper_dividend.py"]),
+        ("5. 배당 히스토리 보강", [PYTHON, "scripts/data_pipeline/scraper_dividend.py"]),
         ("6. 캘린더 이벤트 생성", ["npm", "run", "generate-calendar-events"]),
     ]
 
