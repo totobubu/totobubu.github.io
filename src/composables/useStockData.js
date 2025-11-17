@@ -93,12 +93,7 @@ const buildStaticDataCandidates = (navInfo) => {
     if (Array.isArray(navInfo.dataPaths)) {
         candidates.push(...navInfo.dataPaths);
     }
-    const fallbackSlug = sanitizeTickerForFilename(
-        navInfo.yfSymbol || navInfo.symbol
-    );
-    if (fallbackSlug) {
-        candidates.push(`data/${fallbackSlug}.json`);
-    }
+    // fallback 경로 제거: /data/{{market}}/{{ticker}}.json만 사용
     return uniqueArray(candidates);
 };
 
