@@ -7,7 +7,7 @@ echo.
 
 REM 3. 환율 데이터 업데이트
 echo 💱 3. 환율 데이터 업데이트 중...
-node scripts/fetch_all_exchange_rates.js
+node scripts/exchange/fetch_all_exchange_rates.js
 if errorlevel 1 goto error
 echo ✅ 환율 데이터 업데이트 완료
 echo.
@@ -21,7 +21,7 @@ echo.
 
 REM 5. 배당 빈도 분석
 echo 📊 5. 배당 빈도 분석 중...
-python scripts/analyze_dividend_frequency.py
+python scripts/data_pipeline/analyze_dividend_frequency.py
 if errorlevel 1 goto error
 echo ✅ 배당 빈도 분석 완료
 echo.
@@ -35,21 +35,21 @@ echo.
 
 REM 6.5. Holdings 자동 감지
 echo 🔍 6.5. Holdings 자동 감지 중...
-python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
 if errorlevel 1 goto error
 echo ✅ Holdings 자동 감지 완료
 echo.
 
 REM 6.6. ETF Holdings 데이터 수집
 echo 📊 6.6. ETF Holdings 데이터 수집 중...
-echo y | python scripts/fetch_holdings.py
+echo y | python scripts/holdings/fetch_holdings.py
 if errorlevel 1 goto error
 echo ✅ ETF Holdings 데이터 수집 완료
 echo.
 
 REM 7. 시가총액 업데이트 (매일 실행)
 echo 💰 7. 시가총액 업데이트 중...
-python scripts/update_market_cap.py
+python scripts/data_pipeline/update_market_cap.py
 if errorlevel 1 goto error
 echo ✅ 시가총액 업데이트 완료
 echo.
@@ -76,28 +76,28 @@ echo.
 
 REM 8. 배당 데이터 업데이트
 echo 💵 8. 배당 데이터 업데이트 중...
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 if errorlevel 1 goto error
 echo ✅ 배당 데이터 업데이트 완료
 echo.
 
 REM 9. 배당 히스토리 처리 및 보강
 echo 📝 9. 배당 히스토리 처리 중...
-python scripts/scraper_dividend.py
+python scripts/data_pipeline/scraper_dividend.py
 if errorlevel 1 goto error
 echo ✅ 배당 히스토리 처리 완료
 echo.
 
 REM 9.5. 히스토리 데이터 정리
 echo 🧹 9.5. 히스토리 데이터 정리 중...
-python scripts/clean_data.py
+python scripts/data_processing/clean_data.py
 if errorlevel 1 goto error
 echo ✅ 히스토리 데이터 정리 완료
 echo.
 
 REM 10. 최신 티커 정보 업데이트
 echo ℹ️ 10. 최신 티커 정보 업데이트 중...
-python scripts/scraper_info.py
+python scripts/data_pipeline/scraper_info.py
 if errorlevel 1 goto error
 echo ✅ 최신 티커 정보 업데이트 완료
 echo.
@@ -115,7 +115,7 @@ echo.
 
 REM 11.5. 미래 배당 날짜 예측
 echo 🔮 11.5. 미래 배당 날짜 예측 중...
-python scripts/project_future_dividends.py
+python scripts/data_pipeline/project_future_dividends.py
 if errorlevel 1 goto error
 echo ✅ 미래 배당 날짜 예측 완료
 echo.

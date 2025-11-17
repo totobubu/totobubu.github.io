@@ -11,13 +11,13 @@ Roundhill 웹사이트에서 복사한 Holdings 데이터를 JSON에 등록합�
      https://www.roundhillinvestments.com/etf/aapw/
 
   2. 단일 ETF - 파일에서 읽기
-     python scripts/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
+     python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
 
   3. 단일 ETF - 직접 입력
-     python scripts/add_roundhill_holdings.py AAPW "2/19/25" --stdin
+     python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" --stdin
 
   4. 전체 파일 일괄 처리 (추천!)
-    python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_251105.txt
+    python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_251105.txt
 
      파일 형식:
        TICKER1
@@ -41,6 +41,11 @@ import sys
 from pathlib import Path
 from datetime import datetime
 import re
+
+# 같은 폴더의 모듈을 import하기 위해 경로 추가
+_holdings_dir = Path(__file__).parent
+if str(_holdings_dir) not in sys.path:
+    sys.path.insert(0, str(_holdings_dir))
 
 
 def parse_date(date_str):

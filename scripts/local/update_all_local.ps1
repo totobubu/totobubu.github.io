@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 try {
     # 3. 환율 데이터 업데이트
     Write-Host "💱 3. 환율 데이터 업데이트 중..." -ForegroundColor Cyan
-    node scripts/fetch_all_exchange_rates.js
+    node scripts/exchange/fetch_all_exchange_rates.js
     Write-Host "✅ 환율 데이터 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
@@ -22,7 +22,7 @@ try {
 
     # 5. 배당 빈도 분석
     Write-Host "📊 5. 배당 빈도 분석 중..." -ForegroundColor Cyan
-    python scripts/analyze_dividend_frequency.py
+    python scripts/data_pipeline/analyze_dividend_frequency.py
     Write-Host "✅ 배당 빈도 분석 완료" -ForegroundColor Green
     Write-Host ""
 
@@ -34,19 +34,19 @@ try {
 
     # 6.5. Holdings 자동 감지
     Write-Host "🔍 6.5. Holdings 자동 감지 중..." -ForegroundColor Cyan
-    python scripts/auto_detect_holdings.py --api --exclude-kr --yes
+    python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
     Write-Host "✅ Holdings 자동 감지 완료" -ForegroundColor Green
     Write-Host ""
 
     # 6.6. ETF Holdings 데이터 수집
     Write-Host "📊 6.6. ETF Holdings 데이터 수집 중..." -ForegroundColor Cyan
-    Write-Host "y" | python scripts/fetch_holdings.py
+    Write-Host "y" | python scripts/holdings/fetch_holdings.py
     Write-Host "✅ ETF Holdings 데이터 수집 완료" -ForegroundColor Green
     Write-Host ""
 
     # 7. 시가총액 업데이트 (매일 실행)
     Write-Host "💰 7. 시가총액 업데이트 중..." -ForegroundColor Cyan
-    python scripts/update_market_cap.py
+    python scripts/data_pipeline/update_market_cap.py
     Write-Host "✅ 시가총액 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
@@ -70,25 +70,25 @@ try {
 
     # 8. 배당 데이터 업데이트
     Write-Host "💵 8. 배당 데이터 업데이트 중..." -ForegroundColor Cyan
-    python scripts/update_dividends.py
+    python scripts/data_pipeline/update_dividends.py
     Write-Host "✅ 배당 데이터 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
     # 9. 배당 히스토리 처리 및 보강
     Write-Host "📝 9. 배당 히스토리 처리 중..." -ForegroundColor Cyan
-    python scripts/scraper_dividend.py
+    python scripts/data_pipeline/scraper_dividend.py
     Write-Host "✅ 배당 히스토리 처리 완료" -ForegroundColor Green
     Write-Host ""
 
     # 9.5. 히스토리 데이터 정리
     Write-Host "🧹 9.5. 히스토리 데이터 정리 중..." -ForegroundColor Cyan
-    python scripts/clean_data.py
+    python scripts/data_processing/clean_data.py
     Write-Host "✅ 히스토리 데이터 정리 완료" -ForegroundColor Green
     Write-Host ""
 
     # 10. 최신 티커 정보 업데이트
     Write-Host "ℹ️ 10. 최신 티커 정보 업데이트 중..." -ForegroundColor Cyan
-    python scripts/scraper_info.py
+    python scripts/data_pipeline/scraper_info.py
     Write-Host "✅ 최신 티커 정보 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 
@@ -104,7 +104,7 @@ try {
 
     # 11.5. 미래 배당 날짜 예측
     Write-Host "🔮 11.5. 미래 배당 날짜 예측 중..." -ForegroundColor Cyan
-    python scripts/project_future_dividends.py
+    python scripts/data_pipeline/project_future_dividends.py
     Write-Host "✅ 미래 배당 날짜 예측 완료" -ForegroundColor Green
     Write-Host ""
 
