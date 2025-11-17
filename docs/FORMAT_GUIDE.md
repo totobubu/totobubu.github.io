@@ -112,10 +112,10 @@ prettier --write src/App.vue
 ```
 
 **적용된 워크플로우**:
-- ✅ `update_info_data.yml` (V1)
-- ✅ `update_info_data_v2.yml` (V2)
-- ✅ `update_market_data.yml` (V1)
-- ✅ `update_market_data_v2.yml` (V2)
+- ✅ `update_info_data_v2.yml`
+- ✅ `market_data_v2_kr.yml`
+- ✅ `market_data_v2_us.yml`
+- ✅ `update_holdings.yml`
 
 ---
 

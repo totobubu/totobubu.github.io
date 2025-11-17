@@ -14,6 +14,7 @@ Features:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import platform
 import shutil
@@ -60,6 +61,41 @@ def run_command(label: str, command: List[str], dry_run: bool = False) -> None:
             f"Step failed ({label}) - exit code {result.returncode}\n"
             f"Command: {printable}"
         )
+
+
+def get_ticker_markets(tickers: Iterable[str]) -> dict[str, list[str]]:
+    """Load nav.json and group tickers by market (KR/US)."""
+    nav_path = PROJECT_ROOT / "public" / "nav.json"
+    if not nav_path.exists():
+        # nav.json이 없으면 모든 티커를 US로 간주 (fallback)
+        return {"KR": [], "US": list(tickers)}
+
+    with open(nav_path, "r", encoding="utf-8") as f:
+        nav_data = json.load(f)
+
+    ticker_map = {t["symbol"].upper(): t for t in nav_data.get("nav", [])}
+
+    kr_tickers = []
+    us_tickers = []
+
+    for ticker in tickers:
+        ticker_upper = ticker.upper()
+        ticker_info = ticker_map.get(ticker_upper)
+
+        if not ticker_info:
+            # nav.json에 없으면 currency로 판단
+            us_tickers.append(ticker_upper)
+            continue
+
+        market = ticker_info.get("market", "").upper()
+        currency = ticker_info.get("currency", "").upper()
+
+        if market in ("KOSPI", "KOSDAQ", "KONEX") or currency == "KRW":
+            kr_tickers.append(ticker_upper)
+        else:
+            us_tickers.append(ticker_upper)
+
+    return {"KR": kr_tickers, "US": us_tickers}
 
 
 def prepare_steps(
@@ -109,12 +145,28 @@ def prepare_steps(
                 )
             )
 
+    # 티커를 market별로 분류하여 적절한 스크립트 실행
+    ticker_markets = get_ticker_markets(ticker_args)
+    os.environ["DATA_LAYOUT_MODE"] = "market"
+
+    if ticker_markets["KR"]:
+        steps.append(
+            (
+                f"Update historical prices (KR: {', '.join(ticker_markets['KR'])})",
+                ["node", "tasks/updateHistoricalKrData.js", *ticker_markets["KR"]],
+            )
+        )
+
+    if ticker_markets["US"]:
+        steps.append(
+            (
+                f"Update historical prices (US: {', '.join(ticker_markets['US'])})",
+                ["node", "tasks/updateHistoricalUsData.js", *ticker_markets["US"]],
+            )
+        )
+
     steps.extend(
         [
-            (
-                "Update historical prices",
-                ["npm", "run", "update-data", "--", *ticker_args],
-            ),
             (
                 "Update market cap",
                 [PYTHON, "scripts/update_market_cap.py", *ticker_args],
