@@ -122,7 +122,7 @@ switch ($Workflow) {
         if ($env:FIRESTORE_SA_KEY) {
             Write-Host "정보 데이터 업데이트 중..." -ForegroundColor Gray
             $env:DATA_LAYOUT_MODE = "market"
-            python scripts/info_data_pipeline.py
+            python scripts/info_data_pipeline_kr.py
             if ($LASTEXITCODE -ne 0) {
                 Write-Host "[ERROR] 정보 데이터 업데이트 실패" -ForegroundColor Red
                 exit 1
