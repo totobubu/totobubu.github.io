@@ -60,6 +60,8 @@
 
     // [신규] 종목별 data 파일을 캐싱하기 위한 Map
     const tickerDataCache = new Map();
+    // nav.json의 티커별 dataPath 캐싱
+    const navDataCache = ref(null);
 
     const filteredThumbnails = computed(() => {
         if (selectedGroup.value === 'All') {
@@ -123,6 +125,40 @@
         return `${year}-${month}-${day}`;
     };
 
+    // nav.json 로드 및 캐싱
+    const loadNavData = async () => {
+        if (navDataCache.value) return navDataCache.value;
+        try {
+            const navUrl = getDataUrl('nav.json');
+            const navResponse = await fetch(navUrl);
+            if (!navResponse.ok) {
+                console.error('Failed to load nav.json');
+                return null;
+            }
+            navDataCache.value = await navResponse.json();
+            return navDataCache.value;
+        } catch (e) {
+            console.error('Failed to load nav.json', e);
+            return null;
+        }
+    };
+
+    // 티커 심볼로 dataPath 찾기
+    const getDataPathForSymbol = (navData, symbol) => {
+        if (!navData || !navData.nav) return null;
+        const sanitizeTicker = (ticker) =>
+            ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
+        const sanitizedSymbol = sanitizeTicker(symbol);
+        
+        const navInfo = navData.nav.find(
+            (item) =>
+                sanitizeTicker(item.symbol) === sanitizedSymbol ||
+                sanitizeTicker(item.yfSymbol || '') === sanitizedSymbol
+        );
+        
+        return navInfo?.dataPath || navInfo?.dataPaths?.[0] || null;
+    };
+
     // [핵심 기능] 날짜 기준으로 배당금 데이터를 동기화하는 함수
     const syncDividendData = async () => {
         isSyncing.value = true;
@@ -133,25 +169,35 @@
             return;
         }
 
+        // nav.json 로드
+        const navData = await loadNavData();
+        if (!navData) {
+            alert('nav.json을 불러올 수 없습니다.');
+            isSyncing.value = false;
+            return;
+        }
+
         const updatedThumbnails = await Promise.all(
             allThumbnailsData.value.map(async (thumb) => {
                 const symbol = thumb.symbol;
-                const sanitizedSymbol = symbol
-                    .replace(/\./g, '-')
-                    .toLowerCase();
                 let backtestData = tickerDataCache.get(symbol);
 
                 if (!backtestData) {
                     try {
-                        const response = await fetch(
-                            getDataUrl(`data/${sanitizedSymbol}.json`)
-                        );
-                        if (response.ok) {
-                            const data = await response.json();
-                            backtestData = data.backtestData || [];
-                            tickerDataCache.set(symbol, backtestData);
-                        } else {
+                        // nav.json에서 dataPath 찾기
+                        const dataPath = getDataPathForSymbol(navData, symbol);
+                        if (!dataPath) {
+                            console.warn(`No dataPath found for ${symbol}`);
                             backtestData = [];
+                        } else {
+                            const response = await fetch(getDataUrl(dataPath));
+                            if (response.ok) {
+                                const data = await response.json();
+                                backtestData = data.backtestData || [];
+                                tickerDataCache.set(symbol, backtestData);
+                            } else {
+                                backtestData = [];
+                            }
                         }
                     } catch (e) {
                         console.error(`Failed to fetch data for ${symbol}`, e);

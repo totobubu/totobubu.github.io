@@ -124,7 +124,17 @@ def main():
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
         # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
-        file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+        # nav.json의 dataPath 사용 (없으면 fallback)
+        data_path = info_from_nav.get("dataPath") or (
+            info_from_nav.get("dataPaths")[0] if info_from_nav.get("dataPaths") else None
+        )
+        if data_path:
+            # dataPath는 "data/market/ticker.json" 형식이므로 "public/" 추가
+            file_path = f"public/{data_path}"
+        else:
+            # fallback: 기존 방식
+            file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+        
         existing_data = load_json_file(file_path) or {}
         
         # 파일이 새로 생성되는 경우, tickerInfo를 먼저 배치하기 위해 순서 보장

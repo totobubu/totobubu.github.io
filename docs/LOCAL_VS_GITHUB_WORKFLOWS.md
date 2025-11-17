@@ -36,7 +36,7 @@
 - **실행:** 수동 (필요할 때만)
 - **특징:** 통합 버전 (Info + Market 모두 포함)
 
-### 2️⃣ **GitHub Info Data** (update_info_data.yml)
+### 2️⃣ **GitHub Info Data** (update_info_data_v2.yml)
 - **목적:** 정보성 데이터만 업데이트
 - **실행:** 하루 1회 (새벽 2시)
 - **포함:** 환율, IPO, 배당, Holdings 등 **자주 변하지 않는 데이터**
@@ -45,10 +45,10 @@
   - ❌ 북마크 인기도 (11)
   - ❌ 사이드바 티커 (13)
 
-### 3️⃣ **GitHub Market Data** (update_market_data.yml)
+### 3️⃣ **GitHub Market Data** (market_data_v2_kr.yml, market_data_v2_us.yml)
 - **목적:** 시장 데이터만 업데이트
-- **실행:** 하루 2회 (미국장/한국장 마감 후)
-- **포함:** 가격, 시가총액, 인기도 등 **자주 변하는 데이터**
+- **실행:** 평일 (한국장/미국장 마감 후)
+- **포함:** 가격, 인기도, 사이드바 티커 등 **자주 변하는 데이터**
 - **제외:** Info Data의 모든 항목
 
 ---
@@ -79,7 +79,8 @@
 
 | 순서 | 작업 | 로컬 | GitHub Market | 설명 |
 |-----|------|------|--------------|------|
-| 7.5 | 히스토리 가격 | ✅ | ✅ | `npm run update-data` |
+| 7.5 | 히스토리 가격 (KR) | ✅ | ✅ | `node tasks/updateHistoricalKrData.js` |
+| 7.6 | 히스토리 가격 (US) | ✅ | ✅ | `node tasks/updateHistoricalUsData.js` |
 | 11 | 북마크 인기도 | ✅ | ✅ | `python scripts/aggregate_popularity.py` |
 | 13 | 사이드바 티커 | ✅ | ✅ | `python scripts/generate_sidebar_tickers.py` |
 
@@ -106,14 +107,14 @@
 
 **GitHub Info Data:**
 ```
-7. 시가총액 업데이트
+7. 시가총액 업데이트 (info_data_pipeline.py에 포함)
 (7.5는 없음)
 ```
 
 **GitHub Market Data:**
 ```
-7. 히스토리 가격 데이터 업데이트
-(시가총액은 없음)
+7. 히스토리 가격 데이터 업데이트 (KR/US 분리)
+(시가총액은 없음 - Info Data에서 처리)
 ```
 
 ### 2️⃣ **포맷팅 명령어**
@@ -149,7 +150,7 @@ npm run format:changed  # Git 변경된 파일만! 🚀
 .\scripts\update_all_local.ps1
 
 # 또는 개별 단계 실행
-python scripts/fetch_us_etfs.py
+python scripts/run_new_ticker_workflow.py WEED MAGS
 npm run generate-nav
 ```
 
@@ -166,9 +167,10 @@ scripts\update_all_local.bat
 | 환경 | 예상 시간 | 특징 |
 |-----|----------|------|
 | **로컬 (전체)** | ~50-60분 | 모든 단계 포함 |
-| **GitHub Info Data** | ~50-60분 | 하루 1회만 실행 |
-| **GitHub Market Data** | ~15-20분 | 하루 2회 실행 |
-| **GitHub (하루 총)** | ~80-100분 | Info 1회 + Market 2회 |
+| **GitHub Info Data** | ~25분 | 하루 1회만 실행 |
+| **GitHub Market Data (KR)** | ~15분 | 평일 한국장 마감 후 |
+| **GitHub Market Data (US)** | ~15분 | 평일 미국장 마감 후 |
+| **GitHub (하루 총)** | ~55-70분 | Info 1회 + Market (평일) |
 
 ---
 

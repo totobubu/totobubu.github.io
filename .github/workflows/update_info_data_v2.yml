@@ -57,33 +57,42 @@ jobs:
             - name: Enrich KR market metadata and nav files
               run: python scripts/enrich_kr_market_info.py --sync-nav-files
 
-            - name: Regenerate nav.json from market directories
-              run: npm run generate-nav
-
             - name: Update exchange rate data
               run: node scripts/fetch_all_exchange_rates.js
 
             - name: Sync IPO dates and upcoming status
               run: npm run add-ipo-dates
 
-            - name: Run info data pipeline
+            - name: Generate final nav.json
+              run: npm run generate-nav
+
+            - name: Update all info data (dividends, info+marketCap, frequency, projection)
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+                  DATA_LAYOUT_MODE: market
               run: python scripts/info_data_pipeline.py
 
             - name: Process and enrich dividend history
+              env:
+                  DATA_LAYOUT_MODE: market
               run: python scripts/scraper_dividend.py
 
             - name: Apply split adjustments to dividend history
+              env:
+                  DATA_LAYOUT_MODE: market
               run: python scripts/apply_split_adjustments.py
 
             - name: Generate calendar events data
+              env:
+                  DATA_LAYOUT_MODE: market
               run: npm run generate-calendar-events
 
             - name: Format changed files only
               run: npm run format:changed
 
-            - name: Upload changed public assets to R2
+            - name: Upload changed files to R2 (Git-based, fast)
+              env:
+                  GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/upload_changed_to_r2.py
 
             - name: Check for file changes

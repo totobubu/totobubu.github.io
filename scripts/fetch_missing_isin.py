@@ -92,16 +92,20 @@ SIDEBAR_FILES = [
 ]
 
 
-def ensure_yf_suffix_fallback(entry: dict, fallback_suffix: Optional[str]) -> bool:
+def ensure_yf_symbol(entry: dict, fallback_suffix: Optional[str]) -> bool:
+    """yfSymbol을 설정"""
     if not fallback_suffix or not isinstance(entry, dict):
         return False
-    suffix_value = fallback_suffix if fallback_suffix.startswith(".") else f".{fallback_suffix}"
-    existing = entry.get("yfSuffixFallbacks")
-    if not isinstance(existing, list):
-        entry["yfSuffixFallbacks"] = [suffix_value]
-        return True
-    if suffix_value not in existing:
-        existing.append(suffix_value)
+    symbol = entry.get("symbol")
+    if not symbol:
+        return False
+    suffix_value = (
+        fallback_suffix if fallback_suffix.startswith(".") else f".{fallback_suffix}"
+    )
+    yf_symbol = f"{symbol}{suffix_value}"
+    # yfSymbol이 없거나 다르면 업데이트
+    if entry.get("yfSymbol") != yf_symbol:
+        entry["yfSymbol"] = yf_symbol
         return True
     return False
 
@@ -217,7 +221,7 @@ def update_nav_root(
             entry["symbol"] = resolved_symbol
             if new_market:
                 entry["market"] = new_market
-            if ensure_yf_suffix_fallback(entry, fallback_suffix):
+            if ensure_yf_symbol(entry, fallback_suffix):
                 changed = True
             changed = True
             resolved_entry_ref = entry
@@ -225,7 +229,7 @@ def update_nav_root(
             if new_market and entry.get("market") != new_market:
                 entry["market"] = new_market
                 changed = True
-            if ensure_yf_suffix_fallback(entry, fallback_suffix):
+            if ensure_yf_symbol(entry, fallback_suffix):
                 changed = True
             resolved_entry_ref = entry
 
@@ -238,7 +242,9 @@ def update_nav_root(
     return None
 
 
-def update_sidebar_files(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> None:
+def update_sidebar_files(
+    original_symbol: str, resolved_symbol: str, new_market: Optional[str]
+) -> None:
     for path in SIDEBAR_FILES:
         if not path.exists():
             continue
@@ -303,7 +309,9 @@ def add_to_nav_market(
 
     # Remove duplicates of the resolved symbol if present
     entries = [
-        existing for existing in entries if not (isinstance(existing, dict) and existing.get("symbol") == symbol)
+        existing
+        for existing in entries
+        if not (isinstance(existing, dict) and existing.get("symbol") == symbol)
     ]
 
     ensure_yf_suffix_fallback(entry, fallback_suffix)
@@ -316,7 +324,9 @@ def add_to_nav_market(
     dump_json(target_path, entries)
 
 
-def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: Optional[str]) -> None:
+def relocate_data_file(
+    original_symbol: str, resolved_symbol: str, new_market: Optional[str]
+) -> None:
     old_slug = symbol_to_slug(original_symbol)
     new_slug = symbol_to_slug(resolved_symbol)
     old_path = DATA_DIR / f"{old_slug}.json"
@@ -332,7 +342,10 @@ def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: O
         else:
             old_path.rename(new_path)
     elif not old_path.exists() and not new_path.exists():
-        print(f"[WARN] {original_symbol}: data file not found for market update", file=sys.stderr)
+        print(
+            f"[WARN] {original_symbol}: data file not found for market update",
+            file=sys.stderr,
+        )
         return
 
     if new_path.exists():
@@ -344,7 +357,10 @@ def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: O
         with target_path.open(encoding="utf-8") as fp:
             data = json.load(fp)
     except (OSError, json.JSONDecodeError) as exc:
-        print(f"[WARN] {resolved_symbol}: failed to load data file {target_path} ({exc})", file=sys.stderr)
+        print(
+            f"[WARN] {resolved_symbol}: failed to load data file {target_path} ({exc})",
+            file=sys.stderr,
+        )
         return
 
     ticker_info = data.get("tickerInfo")
@@ -353,7 +369,10 @@ def relocate_data_file(original_symbol: str, resolved_symbol: str, new_market: O
         if new_market:
             ticker_info["market"] = new_market
     else:
-        print(f"[WARN] {resolved_symbol}: tickerInfo missing in {target_path}", file=sys.stderr)
+        print(
+            f"[WARN] {resolved_symbol}: tickerInfo missing in {target_path}",
+            file=sys.stderr,
+        )
 
     with target_path.open("w", encoding="utf-8") as fp:
         json.dump(data, fp, indent=4, ensure_ascii=False)
@@ -380,7 +399,9 @@ def apply_market_adjustments(original_symbol: str, resolved_symbol: str) -> None
     )
     update_sidebar_files(original_symbol, resolved_symbol, new_market)
 
-    removed_entry = remove_from_nav_market(old_market, original_symbol) if old_market else None
+    removed_entry = (
+        remove_from_nav_market(old_market, original_symbol) if old_market else None
+    )
     entry_to_add = removed_entry or resolved_entry
     if entry_to_add:
         if not isinstance(entry_to_add, dict):
@@ -474,10 +495,14 @@ def fetch_isin_via_playwright(symbol: str) -> tuple[str, str]:
                         locale="ko-KR",
                     )
                     page = context.new_page()
-                    page.goto(url, wait_until="networkidle", timeout=REQUEST_TIMEOUT * 1000)
+                    page.goto(
+                        url, wait_until="networkidle", timeout=REQUEST_TIMEOUT * 1000
+                    )
                     locator = page.locator("div.font-semibold", has_text="ISIN")
                     if locator.count() == 0:
-                        raise FetchError(f"{candidate}: failed to locate ISIN label via Playwright")
+                        raise FetchError(
+                            f"{candidate}: failed to locate ISIN label via Playwright"
+                        )
 
                     isin_value = locator.first.evaluate(
                         "el => (el.nextElementSibling && el.nextElementSibling.textContent) || ''"
@@ -486,7 +511,9 @@ def fetch_isin_via_playwright(symbol: str) -> tuple[str, str]:
                     if context is not None:
                         context.close()
                     browser.close()
-        except PlaywrightTimeoutError as exc:  # pragma: no cover - runtime error handling
+        except (
+            PlaywrightTimeoutError
+        ) as exc:  # pragma: no cover - runtime error handling
             last_error = FetchError(f"{candidate}: Playwright navigation timeout")
             continue
         except FetchError as exc:
@@ -498,11 +525,15 @@ def fetch_isin_via_playwright(symbol: str) -> tuple[str, str]:
 
         isin = (isin_value or "").strip()
         if not isin:
-            last_error = FetchError(f"{candidate}: Playwright did not yield an ISIN value")
+            last_error = FetchError(
+                f"{candidate}: Playwright did not yield an ISIN value"
+            )
             continue
 
         if candidate != symbol:
-            print(f"[INFO] {symbol}: fetched via Playwright using alternate suffix {candidate}")
+            print(
+                f"[INFO] {symbol}: fetched via Playwright using alternate suffix {candidate}"
+            )
         return isin, candidate
 
     if last_error:
@@ -544,7 +575,10 @@ def update_data_file(symbol: str, isin: str) -> bool:
 
     ticker_info = data.get("tickerInfo")
     if not isinstance(ticker_info, dict):
-        print(f"[WARN] {symbol}: tickerInfo missing or not a dict in {json_path}", file=sys.stderr)
+        print(
+            f"[WARN] {symbol}: tickerInfo missing or not a dict in {json_path}",
+            file=sys.stderr,
+        )
         return False
 
     new_market = determine_market_from_symbol(symbol)
@@ -583,7 +617,9 @@ def process_symbols(symbols: Iterable[str]) -> None:
         target_symbol = resolved_symbol
         if resolved_symbol != symbol:
             apply_market_adjustments(symbol, resolved_symbol)
-            print(f"[INFO] {symbol}: remapped to {resolved_symbol} after suffix correction")
+            print(
+                f"[INFO] {symbol}: remapped to {resolved_symbol} after suffix correction"
+            )
 
         update_data_file(target_symbol, isin)
         remove_symbols_from_missing(symbol, resolved_symbol)
@@ -593,7 +629,9 @@ def process_symbols(symbols: Iterable[str]) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Fetch ISIN codes and update local data files.")
+    parser = argparse.ArgumentParser(
+        description="Fetch ISIN codes and update local data files."
+    )
     parser.add_argument(
         "--symbol",
         dest="symbols",
@@ -665,4 +703,3 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

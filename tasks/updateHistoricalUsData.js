@@ -1,4 +1,4 @@
-// tasks\updateHistoricalData.js
+// tasks\updateHistoricalUsData.js
 import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
@@ -8,6 +8,7 @@ const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
 const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+const MARKET_FILTER = 'US'; // 미국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
     KOSPI: 'kospi',
@@ -24,8 +25,24 @@ const MARKET_SUBDIR_ALIASES = {
 };
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/[./\\]/g, '-').toLowerCase();
+
+// 접미사(.KS, .KQ 등) 제거하고 base symbol만 사용
+const getBaseSymbol = (symbol) => {
+    if (!symbol) return symbol;
+    const upper = symbol.toUpperCase();
+    const suffixes = ['.KS', '.KQ', '.KN', '.KO'];
+    for (const suffix of suffixes) {
+        if (upper.endsWith(suffix)) {
+            return symbol.slice(0, -suffix.length);
+        }
+    }
+    return symbol;
+};
+
+const sanitizeTickerForFilename = (ticker) => {
+    const base = getBaseSymbol(ticker);
+    return base.replace(/[./\\]/g, '-').toLowerCase();
+};
 
 const getMarketSubdirectory = (market) => {
     const normalized = String(market || '')
@@ -65,12 +82,28 @@ const fileExists = async (filePath) => {
 };
 
 const findExistingDataFile = async (symbolCandidates, market) => {
+    // 먼저 새 형식 (접미사 제거) 시도
     for (const candidate of symbolCandidates) {
         const candidatePath = getDataFilePath(candidate, market);
         if (await fileExists(candidatePath)) {
             return { path: candidatePath, symbol: candidate };
         }
     }
+
+    // 기존 형식 (접미사 포함) fallback 시도
+    for (const candidate of symbolCandidates) {
+        const oldFormatFilename = `${candidate.replace(/[./\\]/g, '-').toLowerCase()}.json`;
+        const marketSlug = getMarketSubdirectory(market);
+        const oldFormatPath = path.join(
+            DATA_DIR,
+            marketSlug,
+            oldFormatFilename
+        );
+        if (await fileExists(oldFormatPath)) {
+            return { path: oldFormatPath, symbol: candidate };
+        }
+    }
+
     return null;
 };
 
@@ -86,33 +119,10 @@ const normalizeNumericValue = (value) => {
     return Number(value.toFixed(6));
 };
 
-const buildSymbolCandidates = (symbol, fallbackSuffixes = []) => {
-    const candidates = new Set();
-    if (symbol) candidates.add(symbol);
-
-    const dotIndex = symbol?.lastIndexOf('.') ?? -1;
-    const base = dotIndex >= 0 ? symbol.slice(0, dotIndex) : symbol;
-
-    (fallbackSuffixes || []).forEach((fallback) => {
-        if (!fallback) return;
-        const trimmed = String(fallback).trim();
-        if (!trimmed) return;
-
-        const isFullSymbol =
-            trimmed.includes('.') && !trimmed.startsWith('.') && trimmed.split('.').length === 2;
-        if (isFullSymbol) {
-            candidates.add(trimmed);
-            return;
-        }
-
-        if (!base) return;
-        const normalizedSuffix = trimmed.startsWith('.')
-            ? trimmed
-            : `.${trimmed.replace(/^\./, '')}`;
-        candidates.add(`${base}${normalizedSuffix}`);
-    });
-
-    return Array.from(candidates).filter(Boolean);
+const buildSymbolCandidates = (symbol) => {
+    // US 티커는 symbol만 사용
+    if (!symbol) return [];
+    return [symbol];
 };
 
 const shouldRetryWithFallback = (error) =>
@@ -243,8 +253,8 @@ async function mergeSplitEvents(existingData, newSplits) {
 }
 
 async function fetchAndMergePriceData(ticker) {
-    const { symbol, ipoDate, yfSuffixFallbacks, market } = ticker;
-    const symbolCandidates = buildSymbolCandidates(symbol, yfSuffixFallbacks);
+    const { symbol, ipoDate, market } = ticker;
+    const symbolCandidates = buildSymbolCandidates(symbol);
     const existingFile = await findExistingDataFile(symbolCandidates, market);
 
     if (
@@ -259,8 +269,7 @@ async function fetchAndMergePriceData(ticker) {
         }
     }
 
-    let filePath =
-        existingFile?.path || getDataFilePath(symbol, market);
+    let filePath = existingFile?.path || getDataFilePath(symbol, market);
     let storageSymbol = existingFile?.symbol || symbol;
 
     try {
@@ -297,8 +306,7 @@ async function fetchAndMergePriceData(ticker) {
         const from = startDate.toISOString().split('T')[0];
 
         const oldBacktestStr = JSON.stringify(existingData.backtestData || []);
-        const existingSplits =
-            existingData?.tickerInfo?.events?.splits || [];
+        const existingSplits = existingData?.tickerInfo?.events?.splits || [];
         const oldSplitsStr = JSON.stringify(existingSplits);
 
         let activeSymbol = symbol;
@@ -328,7 +336,9 @@ async function fetchAndMergePriceData(ticker) {
 
         if (newPriceData.length > 0) {
             newPriceData.forEach((p) => {
-                const existingEntry = backtestMap.get(p.date) || { date: p.date };
+                const existingEntry = backtestMap.get(p.date) || {
+                    date: p.date,
+                };
                 backtestMap.set(p.date, { ...existingEntry, ...p });
             });
 
@@ -342,14 +352,18 @@ async function fetchAndMergePriceData(ticker) {
 
         // 분할/병합 데이터 병합
         const splitStartDate = existingSplits.length
-            ? existingSplits.reduce((latest, event) =>
-                  event.date > latest ? event.date : latest
-              , existingSplits[0].date)
+            ? existingSplits.reduce(
+                  (latest, event) =>
+                      event.date > latest ? event.date : latest,
+                  existingSplits[0].date
+              )
             : ipoDate || '1990-01-01';
 
         const splitCandidates = [
             activeSymbol,
-            ...symbolCandidates.filter((candidate) => candidate !== activeSymbol),
+            ...symbolCandidates.filter(
+                (candidate) => candidate !== activeSymbol
+            ),
         ];
         let splitEvents = [];
         try {
@@ -360,7 +374,9 @@ async function fetchAndMergePriceData(ticker) {
             );
             splitEvents = splitResult.data;
         } catch (splitError) {
-            console.error(`Split API Error for ${symbol}: ${splitError.message}`);
+            console.error(
+                `Split API Error for ${symbol}: ${splitError.message}`
+            );
         }
 
         const splitMap = new Map(
@@ -384,7 +400,9 @@ async function fetchAndMergePriceData(ticker) {
         const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
 
         const resolvedStorageSymbol =
-            DATA_LAYOUT_MODE === 'flat' ? symbol : activeSymbol || storageSymbol;
+            DATA_LAYOUT_MODE === 'flat'
+                ? symbol
+                : activeSymbol || storageSymbol;
         const targetFilePath = getDataFilePath(resolvedStorageSymbol, market);
         const storagePathChanged = targetFilePath !== filePath;
         const previousFilePath = filePath;
@@ -437,7 +455,7 @@ async function fetchAndMergePriceData(ticker) {
 
 async function main() {
     console.log(
-        '--- Starting Incremental Price Data Update (Node.js/axios) ---'
+        '--- Starting Incremental Price Data Update (US Market Only) ---'
     );
     await fs.mkdir(DATA_DIR, { recursive: true });
 
@@ -453,6 +471,14 @@ async function main() {
         { symbol: 'QQQ', ipoDate: '1999-03-10' },
         { symbol: 'DIA', ipoDate: '1998-01-14' },
     ].filter((item) => !item.upcoming);
+
+    // 미국 티커만 필터링
+    tickersToFetch = tickersToFetch.filter(
+        (t) =>
+            t.currency === 'USD' ||
+            ['NYSE', 'NASDAQ', 'AMEX'].includes(t.market)
+    );
+    console.log(`[US Market Filter] Filtering US tickers only`);
 
     // 특정 티커만 필터링
     if (targetSymbols.length > 0) {
@@ -474,7 +500,7 @@ async function main() {
             );
         }
     } else {
-        console.log(`[Full Mode] Updating all symbols`);
+        console.log(`[Full Mode] Updating all US symbols`);
     }
 
     const uniqueTickers = Array.from(
@@ -490,7 +516,6 @@ async function main() {
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
 
-        // [핵심 수정] 함수 이름을 올바르게 변경합니다.
         const results = await Promise.all(
             chunk.map((ticker) => fetchAndMergePriceData(ticker))
         );

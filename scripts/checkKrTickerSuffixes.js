@@ -23,7 +23,9 @@ const buildSymbolCandidates = (symbol, fallbackSuffixes = []) => {
         if (!trimmed) return;
 
         const isFullSymbol =
-            trimmed.includes('.') && !trimmed.startsWith('.') && trimmed.split('.').length === 2;
+            trimmed.includes('.') &&
+            !trimmed.startsWith('.') &&
+            trimmed.split('.').length === 2;
         if (isFullSymbol) {
             candidates.add(trimmed.toUpperCase());
             return;
@@ -71,7 +73,7 @@ const printHelp = () => {
     console.log(`Usage: node scripts/checkKrTickerSuffixes.js [options] [SYMBOL ...]
 
 Options:
-  --write-fallbacks   성공한 대체 접미사를 nav.json의 yfSuffixFallbacks에 추가합니다.
+  --write-fallbacks   성공한 대체 심볼을 nav.json의 yfSymbol에 직접 저장합니다.
   --update-primary    대체 접미사가 필요한 경우 symbol 자체를 성공한 후보로 변경합니다.
   --concurrency=N     동시에 조회할 티커 수를 지정합니다. 기본값: ${DEFAULT_CONCURRENCY}
   -h, --help          도움말을 출력합니다.
@@ -116,7 +118,11 @@ const probeSymbol = async (symbol) => {
             };
         }
         if (!data.chart?.result?.[0]?.timestamp?.length) {
-            return { ok: false, status: 'EMPTY', message: '데이터가 비어있습니다.' };
+            return {
+                ok: false,
+                status: 'EMPTY',
+                message: '데이터가 비어있습니다.',
+            };
         }
         return { ok: true };
     } catch (error) {
@@ -130,7 +136,8 @@ const probeSymbol = async (symbol) => {
 };
 
 const deriveFallbackValue = (originalSymbol, resolvedSymbol) => {
-    if (!originalSymbol || !resolvedSymbol || originalSymbol === resolvedSymbol) return null;
+    if (!originalSymbol || !resolvedSymbol || originalSymbol === resolvedSymbol)
+        return null;
     const base = originalSymbol.split('.')[0];
     if (!base) return null;
     if (resolvedSymbol.startsWith(base)) {
@@ -152,11 +159,22 @@ const evaluateTicker = async (ticker) => {
         };
     }
 
-    const suffixCandidates = normalizeFallbackList([
-        ...(ticker.yfSuffixFallbacks || []),
-        ...DEFAULT_SUFFIX_FALLBACKS,
-    ]);
-    const symbolCandidates = buildSymbolCandidates(originalSymbol, suffixCandidates);
+    // yfSymbol이 이미 있으면 우선 사용
+    const existingYfSymbol = ticker.yfSymbol
+        ? String(ticker.yfSymbol).toUpperCase()
+        : null;
+
+    const suffixCandidates = normalizeFallbackList(DEFAULT_SUFFIX_FALLBACKS);
+    const symbolCandidates = buildSymbolCandidates(
+        originalSymbol,
+        suffixCandidates
+    );
+
+    // yfSymbol이 있으면 맨 앞에 추가
+    if (existingYfSymbol && !symbolCandidates.includes(existingYfSymbol)) {
+        symbolCandidates.unshift(existingYfSymbol);
+    }
+
     const tries = [];
 
     for (const candidate of symbolCandidates) {
@@ -245,22 +263,24 @@ async function main() {
             ok.push(result);
         } else {
             needFallback.push(result);
-            const fallbackValue = deriveFallbackValue(result.originalSymbol, result.resolvedSymbol);
-            const ticker = result.ticker;
+            const fallbackValue = deriveFallbackValue(
+                result.originalSymbol,
+                result.resolvedSymbol
+            );
+            const { ticker } = result;
 
+            // yfSymbol에 직접 저장 (000000.KS 형식으로 직접 저장)
             if (
                 options.writeFallbacks &&
-                fallbackValue &&
-                !options.updatePrimarySymbol
+                result.resolvedSymbol &&
+                !options.updatePrimarySymbol &&
+                ticker.yfSymbol !== result.resolvedSymbol
             ) {
-                const list = normalizeFallbackList(ticker.yfSuffixFallbacks);
-                if (!list.includes(fallbackValue)) {
-                    ticker.yfSuffixFallbacks = [fallbackValue, ...list];
-                    navMutated = true;
-                    updates.push(
-                        `• ${result.originalSymbol} -> 대체 접미사 ${fallbackValue} 추가`
-                    );
-                }
+                ticker.yfSymbol = result.resolvedSymbol;
+                navMutated = true;
+                updates.push(
+                    `• ${result.originalSymbol} -> yfSymbol을 ${result.resolvedSymbol}로 설정`
+                );
             }
 
             if (options.updatePrimarySymbol) {
@@ -269,11 +289,12 @@ async function main() {
                 updates.push(
                     `• ${result.originalSymbol} 기본 심볼을 ${result.resolvedSymbol} 로 변경`
                 );
-                if (options.writeFallbacks && fallbackValue) {
-                    const list = normalizeFallbackList(ticker.yfSuffixFallbacks);
-                    if (!list.includes(fallbackValue)) {
-                        ticker.yfSuffixFallbacks = [fallbackValue, ...list];
-                    }
+                // yfSymbol도 함께 업데이트
+                if (
+                    result.resolvedSymbol &&
+                    ticker.yfSymbol !== result.resolvedSymbol
+                ) {
+                    ticker.yfSymbol = result.resolvedSymbol;
                 }
             }
         }
@@ -281,7 +302,9 @@ async function main() {
 
     if (navMutated) {
         await fs.writeFile(NAV_FILE_PATH, JSON.stringify(navData, null, 2));
-        console.log(`\n✏️  nav.json이 업데이트되었습니다. (${updates.length}건)`);
+        console.log(
+            `\n✏️  nav.json이 업데이트되었습니다. (${updates.length}건)`
+        );
         updates.forEach((line) => console.log(line));
     }
 
@@ -293,7 +316,10 @@ async function main() {
     if (needFallback.length > 0) {
         console.log('\n[대체 접미사가 필요한 티커]');
         needFallback.forEach((item) => {
-            const fallbackValue = deriveFallbackValue(item.originalSymbol, item.resolvedSymbol);
+            const fallbackValue = deriveFallbackValue(
+                item.originalSymbol,
+                item.resolvedSymbol
+            );
             console.log(
                 `- ${item.originalSymbol} → ${item.resolvedSymbol} (추천: ${fallbackValue || '없음'})`
             );
@@ -305,7 +331,9 @@ async function main() {
         failed.forEach((item) => {
             const lastTry = item.tries[item.tries.length - 1];
             const statusText = lastTry ? `${lastTry.status}` : 'N/A';
-            console.log(`- ${item.originalSymbol || '(미지정)'} (마지막 상태: ${statusText})`);
+            console.log(
+                `- ${item.originalSymbol || '(미지정)'} (마지막 상태: ${statusText})`
+            );
             item.tries.forEach((attempt) =>
                 console.log(
                     `   · ${attempt.candidate}: ${attempt.status} ${
@@ -323,4 +351,3 @@ main().catch((error) => {
     console.error('스크립트 실행 중 오류가 발생했습니다:', error);
     process.exit(1);
 });
-
