@@ -88,10 +88,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ### 3-1. (선택) 종목 추가/업데이트
 
 ```bash
-# KOSPI, NASDAQ 등 대표 지수 종목 추가/업데이트
-python scripts/fetch_top_tickers.py  # 주요 지수 자동 수집 (S&P 500, NASDAQ 100, KOSPI 200, KOSDAQ 150)
-python scripts/fetch_us_etfs.py      # 미국 ETF 수동 추가 (PREDEFINED_ETF_TEXT 편집 후 실행)
-python scripts/fetch_kr_etfs.py      # 한국 ETF 수동 추가 (PREDEFINED_ETF_TEXT 편집 후 실행)
+# 새로운 티커 온보딩 워크플로우 실행
+python scripts/run_new_ticker_workflow.py WEED MAGS
 
 # ⭐ 자세한 가이드: docs/TICKER_MANAGEMENT_GUIDE.md 참고
 
