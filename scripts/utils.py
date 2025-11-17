@@ -75,15 +75,21 @@ def save_json_file(file_path, data, indent=2):
 def sanitize_symbol(symbol):
     if not symbol:
         return ""
-    return symbol.replace(".", "-").replace("/", "-").lower()
+    # 접미사 제거 후 base symbol만 사용
+    base = get_base_symbol(symbol) or symbol
+    return base.replace(".", "-").replace("/", "-").lower()
 
 
 def sanitize_ticker_for_filename(ticker):
-    return sanitize_symbol(ticker)
+    # 접미사 제거 후 base symbol만 사용
+    base = get_base_symbol(ticker) or ticker
+    return base.replace(".", "-").replace("/", "-").lower()
 
 
 def build_data_filename(symbol):
-    slug = sanitize_symbol(symbol)
+    # 접미사(.KS, .KQ 등) 제거하고 base symbol만 사용
+    base = get_base_symbol(symbol) or symbol
+    slug = base.replace(".", "-").replace("/", "-").lower()
     return f"{slug}.json"
 
 
