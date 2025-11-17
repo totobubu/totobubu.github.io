@@ -42,6 +42,11 @@ from pathlib import Path
 from datetime import datetime
 import re
 
+# 같은 폴더의 모듈을 import하기 위해 경로 추가
+_holdings_dir = Path(__file__).parent
+if str(_holdings_dir) not in sys.path:
+    sys.path.insert(0, str(_holdings_dir))
+
 
 def parse_date(date_str):
     """

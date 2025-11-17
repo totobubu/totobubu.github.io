@@ -122,7 +122,7 @@ def prepare_steps(
             "Auto-detect holdings",
             [
                 PYTHON,
-                "scripts/auto_detect_holdings.py",
+                "scripts/holdings/auto_detect_holdings.py",
                 "--api",
                 "--exclude-kr",
                 "--yes",
@@ -141,7 +141,7 @@ def prepare_steps(
             steps.append(
                 (
                     f"Fetch holdings ({ticker})",
-                    [PYTHON, "scripts/fetch_holdings.py", ticker],
+                    [PYTHON, "scripts/holdings/fetch_holdings.py", ticker],
                 )
             )
 
