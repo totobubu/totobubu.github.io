@@ -130,8 +130,8 @@ def main():
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
         # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
-        # nav.json의 dataPath 사용 (없으면 fallback)
-        data_path = info_from_nav.get("dataPath") or (
+        # nav.json의 dataPaths 사용
+        data_path = (
             info_from_nav.get("dataPaths")[0] if info_from_nav.get("dataPaths") else None
         )
         if data_path:

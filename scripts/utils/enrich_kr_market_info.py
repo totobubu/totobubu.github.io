@@ -182,8 +182,8 @@ def parse_stockevents_metadata(html: str) -> dict:
 
 def fetch_stockevents(symbol: str) -> MarketMetadata:
     errors: list[str] = []
-    max_retries = 2
-    retry_delay = 1.0
+    max_retries = 3
+    base_retry_delay = 2.0  # 기본 재시도 딜레이 증가
 
     for candidate in build_symbol_candidates(symbol):
         url = BASE_URL.format(symbol=candidate)
@@ -194,15 +194,18 @@ def fetch_stockevents(symbol: str) -> MarketMetadata:
                 response = REQUEST_SESSION.get(url, timeout=REQUEST_TIMEOUT)
             except requests.RequestException as exc:
                 if attempt < max_retries:
-                    time.sleep(retry_delay * (attempt + 1))
+                    # Exponential backoff: 2초, 4초, 8초
+                    time.sleep(base_retry_delay * (2 ** attempt))
                     continue
                 errors.append(f"{candidate}: request failed ({exc})")
                 break
 
-            # 403 에러는 rate limiting일 수 있으므로 재시도
+            # 403 에러는 rate limiting일 수 있으므로 더 긴 대기 시간으로 재시도
             if response.status_code == 403:
                 if attempt < max_retries:
-                    time.sleep(retry_delay * (attempt + 1))
+                    # 403 에러는 더 긴 대기 시간: 5초, 10초, 20초
+                    wait_time = 5.0 * (2 ** attempt)
+                    time.sleep(wait_time)
                     continue
                 errors.append(f"{candidate}: HTTP {response.status_code}")
                 break
@@ -302,6 +305,17 @@ def build_cli() -> argparse.ArgumentParser:
         action="store_true",
         help="업데이트 후 public/nav/<MARKET>/<symbol>.json 구조를 최신화합니다.",
     )
+    parser.add_argument(
+        "--max-failure-rate",
+        type=float,
+        default=0.5,
+        help="실패율 임계값 (기본값: 0.5 = 50%%)",
+    )
+    parser.add_argument(
+        "--skip-on-high-failure",
+        action="store_true",
+        help="실패율이 높을 때 경고만 출력하고 종료 코드 0 반환 (로컬 테스트용)",
+    )
     return parser
 
 
@@ -338,15 +352,15 @@ def main(argv: Optional[list[str]] = None) -> int:
             metadata = fetch_stockevents(symbol)
         except Exception as exc:
             failures.append(f"{symbol}: {exc}")
-            # 요청 간 딜레이 (rate limiting 방지)
-            time.sleep(0.5)
+            # 요청 간 딜레이 (rate limiting 방지) - 실패 시 더 긴 대기
+            time.sleep(1.0)
             continue
 
         if ensure_market(entry, metadata):
             updated_symbols.append(symbol)
 
-        # 요청 간 딜레이 (rate limiting 방지)
-        time.sleep(0.3)
+        # 요청 간 딜레이 (rate limiting 방지) - 1초로 증가
+        time.sleep(1.0)
 
     if updated_symbols:
         print(f"[INFO] market 갱신: {len(updated_symbols)}건")
@@ -383,10 +397,15 @@ def main(argv: Optional[list[str]] = None) -> int:
                 print(f"  - {fail}")
             print(f"  ... 외 {len(failures) - 20}건")
 
-        # 실패율이 너무 높으면 (50% 이상) 에러 반환, 그 외에는 경고만
+        # 실패율이 너무 높으면 에러 반환, 그 외에는 경고만
         failure_rate = len(failures) / len(targets) if targets else 0
-        if failure_rate > 0.5:
-            print(f"[ERROR] 실패율이 {failure_rate:.1%}로 너무 높습니다.")
+        max_failure_rate = args.max_failure_rate if hasattr(args, 'max_failure_rate') else 0.5
+        
+        if failure_rate > max_failure_rate:
+            if args.skip_on_high_failure:
+                print(f"[WARN] 실패율이 {failure_rate:.1%}로 높지만, --skip-on-high-failure 옵션으로 인해 경고만 출력합니다.")
+                return 0
+            print(f"[ERROR] 실패율이 {failure_rate:.1%}로 너무 높습니다. (임계값: {max_failure_rate:.1%})")
             return 2
 
     return 0
