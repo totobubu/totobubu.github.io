@@ -844,9 +844,6 @@ async function generateNavJson() {
             .filter((candidate) => existsSync(candidate.absPath))
             .map((candidate) => candidate.relPath);
 
-        if (resolvedDataPath) {
-            processedTicker.dataPath = resolvedDataPath;
-        }
         if (availableDataPaths.length) {
             processedTicker.dataPaths = Array.from(
                 new Set(availableDataPaths.concat(resolvedDataPath || []))

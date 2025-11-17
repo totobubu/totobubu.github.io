@@ -87,9 +87,6 @@ const uniqueArray = (items = []) => {
 const buildStaticDataCandidates = (navInfo) => {
     if (!navInfo) return [];
     const candidates = [];
-    if (navInfo.dataPath) {
-        candidates.push(navInfo.dataPath);
-    }
     if (Array.isArray(navInfo.dataPaths)) {
         candidates.push(...navInfo.dataPaths);
     }

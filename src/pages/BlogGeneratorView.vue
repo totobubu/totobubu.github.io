@@ -57,8 +57,8 @@
                 );
             }
 
-            // nav.json의 dataPath 사용 (없으면 fallback)
-            const dataPath = navInfo.dataPath || navInfo.dataPaths?.[0];
+            // nav.json의 dataPaths 사용
+            const dataPath = navInfo.dataPaths?.[0];
             if (!dataPath) {
                 throw new Error(
                     `${tickerSymbol} 티커의 dataPath가 nav.json에 없습니다.`

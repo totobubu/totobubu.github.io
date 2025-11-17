@@ -156,7 +156,7 @@
                 sanitizeTicker(item.yfSymbol || '') === sanitizedSymbol
         );
         
-        return navInfo?.dataPath || navInfo?.dataPaths?.[0] || null;
+        return navInfo?.dataPaths?.[0] || null;
     };
 
     // [핵심 기능] 날짜 기준으로 배당금 데이터를 동기화하는 함수

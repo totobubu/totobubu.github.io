@@ -47,7 +47,7 @@ export function useBacktestData() {
                             sanitizeTicker(item.yfSymbol || '') === sanitizedSymbol
                     );
                     if (navInfo) {
-                        const dataPath = navInfo.dataPath || navInfo.dataPaths?.[0];
+                        const dataPath = navInfo.dataPaths?.[0];
                         if (dataPath) {
                             symbolToDataPathMap.set(symbol, dataPath);
                         }
