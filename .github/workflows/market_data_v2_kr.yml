@@ -13,6 +13,9 @@ on:
                 required: false
                 default: 'false'
 
+permissions:
+    contents: write
+
 concurrency:
     group: market-data-v2-kr
     cancel-in-progress: true
@@ -77,3 +80,32 @@ jobs:
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/upload_changed_to_r2.py
+
+            - name: Check for changes
+              id: git_status
+              run: |
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    echo "changes=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changes=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit and push changes
+              if: steps.git_status.outputs.changes == 'true'
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "📈 Auto: Update KR market data v2"
+                  for attempt in 1 2 3; do
+                    if git push; then
+                      echo "✅ Push succeeded"
+                      break
+                    fi
+                    if [ $attempt -eq 3 ]; then
+                      echo "❌ Push failed after 3 attempts"
+                      exit 1
+                    fi
+                    git pull --rebase origin main
+                    sleep 5
+                  done
