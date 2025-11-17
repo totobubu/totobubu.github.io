@@ -1,80 +1,93 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [main]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+    contents: read
+    pages: write
+    id-token: write
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    env:
-      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-      R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
-      R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        env:
+            R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+            R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+            R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+            R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+            R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
 
-    steps:
-      - name: Checkout (shallow + blob filter)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          filter: blob:none   # 큰 파일을 즉시 받지 않음(접근 시 필요분만 받음)
+        steps:
+            - name: Checkout (shallow + blob filter)
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 2 # 이전 커밋과 비교하기 위해 2개 커밋 필요
+                  filter: blob:none # 큰 파일을 즉시 받지 않음(접근 시 필요분만 받음)
 
-      - name: Free disk space (pre-clean)
-        run: |
-          sudo rm -rf /usr/local/lib/android || true
-          sudo rm -rf /usr/share/dotnet || true
-          sudo rm -rf /opt/ghc || true
-          docker system prune -af || true
-          sudo apt-get clean || true
-          sudo rm -rf /var/lib/apt/lists/* || true
+            - name: Free disk space (pre-clean)
+              run: |
+                  sudo rm -rf /usr/local/lib/android || true
+                  sudo rm -rf /usr/share/dotnet || true
+                  sudo rm -rf /opt/ghc || true
+                  docker system prune -af || true
+                  sudo apt-get clean || true
+                  sudo rm -rf /var/lib/apt/lists/* || true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+                  cache: 'pip'
 
-      - name: Install Python deps
-        run: pip install -r requirements-workflow.txt
+            - name: Install Python deps
+              run: pip install -r requirements-workflow.txt
 
-      - name: Upload changed data files to R2
-        run: python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
+            - name: Check for dividend changes
+              id: check_dividend
+              run: |
+                  python scripts/workflows/check_dividend_changes.py
 
-      # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
-      - name: Remove large local data before build
-        run: |
-          rm -rf public/data public/logos public/thumbnail public/holdings || true
+            - name: Upload changed data files to R2
+              run: python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+            # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
+            - name: Remove large local data before build
+              run: |
+                  rm -rf public/data public/logos public/thumbnail public/holdings || true
 
-      - name: Install deps
-        run: npm ci --no-audit --no-fund
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
 
-      - name: Build Vue App
-        run: npm run build
+            - name: Install deps
+              run: npm ci --no-audit --no-fund
 
-      # 빌드 끝났으면 추가 정리(선택)
-      # node_modules 제거는 Post Set up Node.js 단계 이후에 실행되도록
-      # 별도 단계로 분리하지 않고 필요시 수동으로 정리
+            - name: Generate calendar events (if dividend changed)
+              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
+              run: npm run generate-calendar-events
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+            - name: Format calendar files (if dividend changed)
+              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
+              run: npm run format:calendar
 
-      - name: Upload artifact (dist only)
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+            - name: Build Vue App
+              run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+            # 빌드 끝났으면 추가 정리(선택)
+            # node_modules 제거는 Post Set up Node.js 단계 이후에 실행되도록
+            # 별도 단계로 분리하지 않고 필요시 수동으로 정리
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v5
+
+            - name: Upload artifact (dist only)
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: dist
+
+            - name: Deploy to GitHub Pages
+              uses: actions/deploy-pages@v4
