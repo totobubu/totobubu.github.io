@@ -61,56 +61,20 @@ jobs:
 
             - name: Update historical price data (US only)
               if: inputs.skip_price_update != 'true'
+              env:
+                  DATA_LAYOUT_MODE: market
               run: node tasks/updateHistoricalUsData.js
 
-            - name: Run info data pipeline (US only, market layout)
+            - name: Generate sidebar (popularity 100%)
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
-                  DATA_LAYOUT_MODE: market
-                  MARKET_FILTER: US
-              run: python scripts/info_data_pipeline.py
+              run: npm run generate-sidebar-tickers
 
-            - name: Format changed files
+            - name: Format changed files only
               run: npm run format:changed
 
-            - name: Upload changed public assets to R2
+            - name: Upload changed files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/upload_changed_to_r2.py
-
-            - name: Pull Vercel environment (preview)
-              env:
-                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-                  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-                  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-              run: |
-                  npx vercel pull --yes \
-                    --environment=preview \
-                    --token="$VERCEL_TOKEN" \
-                    --org-id="$VERCEL_ORG_ID" \
-                    --project-id="$VERCEL_PROJECT_ID"
-
-            - name: Build Vercel preview (market layout)
-              env:
-                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-                  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-                  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-                  DATA_LAYOUT_MODE: market
-              run: |
-                  npx vercel build \
-                    --token="$VERCEL_TOKEN" \
-                    --org-id="$VERCEL_ORG_ID" \
-                    --project-id="$VERCEL_PROJECT_ID"
-
-            - name: Deploy to Vercel preview
-              env:
-                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-                  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-                  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-                  DATA_LAYOUT_MODE: market
-              run: |
-                  npx vercel deploy --prebuilt \
-                    --token="$VERCEL_TOKEN" \
-                    --org-id="$VERCEL_ORG_ID" \
-                    --project-id="$VERCEL_PROJECT_ID"
 
