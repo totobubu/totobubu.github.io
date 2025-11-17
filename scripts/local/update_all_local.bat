@@ -7,7 +7,7 @@ echo.
 
 REM 3. 환율 데이터 업데이트
 echo 💱 3. 환율 데이터 업데이트 중...
-node scripts/fetch_all_exchange_rates.js
+node scripts/exchange/fetch_all_exchange_rates.js
 if errorlevel 1 goto error
 echo ✅ 환율 데이터 업데이트 완료
 echo.

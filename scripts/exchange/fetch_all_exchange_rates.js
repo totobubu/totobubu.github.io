@@ -1,4 +1,4 @@
-// scripts\fetch_all_exchange_rates.js
+// scripts/exchange/fetch_all_exchange_rates.js
 import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';

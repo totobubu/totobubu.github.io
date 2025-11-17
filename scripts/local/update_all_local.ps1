@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 try {
     # 3. 환율 데이터 업데이트
     Write-Host "💱 3. 환율 데이터 업데이트 중..." -ForegroundColor Cyan
-    node scripts/fetch_all_exchange_rates.js
+    node scripts/exchange/fetch_all_exchange_rates.js
     Write-Host "✅ 환율 데이터 업데이트 완료" -ForegroundColor Green
     Write-Host ""
 

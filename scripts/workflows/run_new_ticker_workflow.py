@@ -132,7 +132,7 @@ def prepare_steps(
         ("Regenerate nav", ["npm", "run", "generate-nav"]),
         (
             "Scrape info data",
-            [PYTHON, "scripts/scraper_info.py", *ticker_args],
+            [PYTHON, "scripts/data_pipeline/scraper_info.py", *ticker_args],
         ),
     ]
 
@@ -169,19 +169,19 @@ def prepare_steps(
         [
             (
                 "Update market cap",
-                [PYTHON, "scripts/update_market_cap.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/update_market_cap.py", *ticker_args],
             ),
             (
                 "Update dividend history",
-                [PYTHON, "scripts/update_dividends.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/update_dividends.py", *ticker_args],
             ),
             (
                 "Scrape dividends",
-                [PYTHON, "scripts/scraper_dividend.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/scraper_dividend.py", *ticker_args],
             ),
             (
                 "Project future dividends",
-                [PYTHON, "scripts/project_future_dividends.py", *ticker_args],
+                [PYTHON, "scripts/data_pipeline/project_future_dividends.py", *ticker_args],
             ),
             (
                 "Regenerate calendar events",
