@@ -116,7 +116,7 @@ def prepare_steps(
         ("Update IPO dates (nav)", ["npm", "run", "add-ipo-dates"]),
         (
             "Analyze dividend frequency",
-            [PYTHON, "scripts/analyze_dividend_frequency.py", *ticker_args],
+            [PYTHON, "scripts/data_pipeline/analyze_dividend_frequency.py", *ticker_args],
         ),
         (
             "Auto-detect holdings",
