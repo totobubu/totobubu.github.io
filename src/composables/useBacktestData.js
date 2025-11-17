@@ -28,13 +28,44 @@ export function useBacktestData() {
             ),
         ];
 
+        // nav.json 로드하여 dataPath 매핑 생성
+        let navData = null;
+        let symbolToDataPathMap = new Map();
+        try {
+            const navUrl = getDataUrl('nav.json');
+            const navResponse = await fetch(navUrl);
+            if (navResponse.ok) {
+                navData = await navResponse.json();
+                const sanitizeTicker = (ticker) =>
+                    ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
+                
+                symbolsToFetch.forEach((symbol) => {
+                    const sanitizedSymbol = sanitizeTicker(symbol);
+                    const navInfo = navData.nav?.find(
+                        (item) =>
+                            sanitizeTicker(item.symbol) === sanitizedSymbol ||
+                            sanitizeTicker(item.yfSymbol || '') === sanitizedSymbol
+                    );
+                    if (navInfo) {
+                        const dataPath = navInfo.dataPath || navInfo.dataPaths?.[0];
+                        if (dataPath) {
+                            symbolToDataPathMap.set(symbol, dataPath);
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            console.warn('Failed to load nav.json, falling back to direct path', e);
+        }
+
         const tickerDataPromises = symbolsToFetch.map(async (symbol) => {
             try {
-                const response = await fetch(
-                    getDataUrl(
-                        `data/${symbol.toLowerCase().replace(/\./g, '-')}.json`
-                    )
-                );
+                // nav.json의 dataPath 사용, 없으면 fallback
+                const dataPath =
+                    symbolToDataPathMap.get(symbol) ||
+                    `data/${symbol.toLowerCase().replace(/\./g, '-')}.json`;
+                
+                const response = await fetch(getDataUrl(dataPath));
                 if (response.ok) {
                     const data = await response.json();
                     // --- [핵심 수정] ---
