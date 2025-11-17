@@ -12,12 +12,14 @@
 
 ## 🔍 워크플로우 개요
 
-현재 프로젝트는 2개의 주요 데이터 업데이트 워크플로우로 구성되어 있습니다:
+현재 프로젝트는 주요 데이터 업데이트 워크플로우로 구성되어 있습니다:
 
 | 워크플로우 | 파일 | 실행 빈도 | 실행 시간 | 소요 시간 |
 |-----------|------|----------|-----------|----------|
-| **Info Data** | `update_info_data.yml` | 매일 | 새벽 2시 (KST) | ~25분 |
+| **Info Data** | `update_info_data_v2.yml` | 매일 | 새벽 2시 (KST) | ~25분 |
 | **Holdings** | `update_holdings.yml` | 매일 | 새벽 3시 30분 (KST) | ~30분 |
+| **Market Data KR** | `market_data_v2_kr.yml` | 평일 | 오후 4시 (KST) | ~15분 |
+| **Market Data US** | `market_data_v2_us.yml` | 평일 | 오후 5시 (EST) | ~15분 |
 
 ---
 
@@ -25,7 +27,7 @@
 
 ### 개요
 
-**파일**: `.github/workflows/update_info_data.yml`
+**파일**: `.github/workflows/update_info_data_v2.yml`
 
 **실행 빈도**: 매일 새벽 2시 (KST)
 

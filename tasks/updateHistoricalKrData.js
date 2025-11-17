@@ -135,102 +135,197 @@ const buildSymbolCandidates = (symbol, yfSymbol = null) => {
     return candidates.filter(Boolean);
 };
 
-const shouldRetryWithFallback = (error) =>
-    Number(error?.response?.status) === 404;
+const shouldRetryWithFallback = (error) => {
+    const status = Number(error?.response?.status);
+    // 404, 429 (Too Many Requests), 503 (Service Unavailable) 등 재시도 가능한 에러
+    return status === 404 || status === 429 || status === 503 || status === 500;
+};
 
-async function fetchWithFallback(symbolCandidates, fetcher, label) {
+async function fetchWithFallback(
+    symbolCandidates,
+    fetcher,
+    label,
+    maxRetries = 3
+) {
     let lastError;
     for (let i = 0; i < symbolCandidates.length; i += 1) {
         const candidate = symbolCandidates[i];
-        try {
-            const data = await fetcher(candidate);
-            if (i > 0) {
-                console.log(
-                    `ℹ️ [${symbolCandidates[0]}] ${label} 요청에 대체 티커 ${candidate} 사용`
-                );
+
+        // 각 후보에 대해 재시도 로직
+        for (let retry = 0; retry < maxRetries; retry += 1) {
+            try {
+                // 재시도 시 딜레이 추가 (지수 백오프)
+                if (retry > 0) {
+                    const backoffMs = Math.min(
+                        1000 * Math.pow(2, retry - 1),
+                        5000
+                    );
+                    await delay(backoffMs);
+                }
+
+                const data = await fetcher(candidate);
+                if (i > 0) {
+                    console.log(
+                        `ℹ️ [${symbolCandidates[0]}] ${label} 요청에 대체 티커 ${candidate} 사용`
+                    );
+                }
+                if (retry > 0) {
+                    console.log(
+                        `✅ [${symbolCandidates[0]}] ${label} 요청 성공 (재시도 ${retry}회 후)`
+                    );
+                }
+                return { data, symbol: candidate };
+            } catch (error) {
+                lastError = error;
+                const status = Number(error?.response?.status);
+                const hasFallback = i < symbolCandidates.length - 1;
+                const isRetryable = shouldRetryWithFallback(error);
+
+                // 재시도 가능하고 아직 재시도 횟수가 남았으면 재시도
+                if (isRetryable && retry < maxRetries - 1) {
+                    const backoffMs = Math.min(1000 * Math.pow(2, retry), 5000);
+                    console.warn(
+                        `⚠️ [${symbolCandidates[0]}] ${label} 요청이 ${candidate}에서 ${status} 응답. ${backoffMs}ms 후 재시도 (${retry + 1}/${maxRetries})...`
+                    );
+                    await delay(backoffMs);
+                    continue;
+                }
+
+                // 재시도 불가능하거나 모든 재시도 실패 시 다음 후보로
+                if (hasFallback && isRetryable) {
+                    console.warn(
+                        `⚠️ [${symbolCandidates[0]}] ${label} 요청이 ${candidate}에서 ${status} 응답. 다음 후보를 시도합니다.`
+                    );
+                    // 다음 후보로 넘어가기 전에 짧은 딜레이
+                    await delay(200);
+                    break; // 다음 후보로
+                }
+
+                // 재시도 불가능한 에러면 즉시 throw
+                if (!isRetryable) {
+                    throw error;
+                }
             }
-            return { data, symbol: candidate };
-        } catch (error) {
-            lastError = error;
-            const hasFallback = i < symbolCandidates.length - 1;
-            if (hasFallback && shouldRetryWithFallback(error)) {
-                console.warn(
-                    `⚠️ [${symbolCandidates[0]}] ${label} 요청이 ${candidate}에서 404 응답. 다음 후보를 시도합니다.`
-                );
-                continue;
-            }
-            throw error;
         }
     }
     throw lastError;
 }
 
 // [핵심] axios를 사용하여 Yahoo Finance API를 직접 호출하는 함수
-async function fetchHistoricalData(symbol, fromDate) {
+async function fetchHistoricalData(symbol, fromDate, retryCount = 0) {
     const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
     const period2 = Math.floor(Date.now() / 1000);
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=history`;
 
-    const { data } = await axios.get(url, {
-        headers: YF_HEADERS,
-    });
+    try {
+        const { data } = await axios.get(url, {
+            headers: YF_HEADERS,
+            timeout: 30000, // 30초 타임아웃
+        });
 
-    if (data.chart.error)
-        throw new Error(
-            data.chart.error.description || `Unknown error for ${symbol}`
-        );
+        if (data.chart.error) {
+            const errorCode = data.chart.error.code;
+            // 일시적 에러인 경우 재시도
+            if ((errorCode === 404 || errorCode === 429) && retryCount < 2) {
+                await delay(1000 * (retryCount + 1));
+                return fetchHistoricalData(symbol, fromDate, retryCount + 1);
+            }
+            throw new Error(
+                data.chart.error.description || `Unknown error for ${symbol}`
+            );
+        }
 
-    const result = data.chart.result[0];
-    if (!result || !result.timestamp) return [];
+        const result = data.chart.result[0];
+        if (!result || !result.timestamp) return [];
 
-    const timestamps = result.timestamp;
-    const quotes = result.indicators.quote[0];
+        const timestamps = result.timestamp;
+        const quotes = result.indicators.quote[0];
 
-    return timestamps
-        .map((ts, i) => ({
-            date: new Date(ts * 1000).toISOString().split('T')[0],
-            open: quotes.open[i],
-            high: quotes.high[i],
-            low: quotes.low[i],
-            close: quotes.close[i],
-            volume: quotes.volume[i],
-        }))
-        .filter((p) => p.close != null);
+        return timestamps
+            .map((ts, i) => ({
+                date: new Date(ts * 1000).toISOString().split('T')[0],
+                open: quotes.open[i],
+                high: quotes.high[i],
+                low: quotes.low[i],
+                close: quotes.close[i],
+                volume: quotes.volume[i],
+            }))
+            .filter((p) => p.close != null);
+    } catch (error) {
+        // 네트워크 에러나 타임아웃인 경우 재시도
+        if (
+            (error.code === 'ECONNRESET' ||
+                error.code === 'ETIMEDOUT' ||
+                error.code === 'ENOTFOUND' ||
+                error.response?.status === 429) &&
+            retryCount < 2
+        ) {
+            await delay(1000 * (retryCount + 1));
+            return fetchHistoricalData(symbol, fromDate, retryCount + 1);
+        }
+        throw error;
+    }
 }
 
-async function fetchSplitEvents(symbol, fromDate) {
+async function fetchSplitEvents(symbol, fromDate, retryCount = 0) {
     const period1 = Math.floor(new Date(fromDate).getTime() / 1000);
     const period2 = Math.floor(Date.now() / 1000);
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d&events=div,splits`;
 
-    const { data } = await axios.get(url, {
-        headers: YF_HEADERS,
-    });
+    try {
+        const { data } = await axios.get(url, {
+            headers: YF_HEADERS,
+            timeout: 30000, // 30초 타임아웃
+        });
 
-    if (data.chart.error)
-        throw new Error(
-            data.chart.error.description || `Unknown error for ${symbol}`
-        );
-
-    const result = data.chart.result?.[0];
-    if (!result || !result.events || !result.events.splits) return [];
-
-    return Object.values(result.events.splits)
-        .map((event) => {
-            const numerator = Number(event.numerator);
-            const denominator = Number(event.denominator);
-            if (!numerator || !denominator || numerator === denominator) {
-                return null;
+        if (data.chart.error) {
+            const errorCode = data.chart.error.code;
+            // 일시적 에러인 경우 재시도
+            if ((errorCode === 404 || errorCode === 429) && retryCount < 2) {
+                await delay(1000 * (retryCount + 1));
+                return fetchSplitEvents(symbol, fromDate, retryCount + 1);
             }
-            const ratio = `${numerator}:${denominator}`;
-            const type = numerator > denominator ? 'reverse-split' : 'split';
-            return {
-                date: new Date(event.date * 1000).toISOString().split('T')[0],
-                ratio,
-                type,
-            };
-        })
-        .filter(Boolean);
+            throw new Error(
+                data.chart.error.description || `Unknown error for ${symbol}`
+            );
+        }
+
+        const result = data.chart.result?.[0];
+        if (!result || !result.events || !result.events.splits) return [];
+
+        return Object.values(result.events.splits)
+            .map((event) => {
+                const numerator = Number(event.numerator);
+                const denominator = Number(event.denominator);
+                if (!numerator || !denominator || numerator === denominator) {
+                    return null;
+                }
+                const ratio = `${numerator}:${denominator}`;
+                const type =
+                    numerator > denominator ? 'reverse-split' : 'split';
+                return {
+                    date: new Date(event.date * 1000)
+                        .toISOString()
+                        .split('T')[0],
+                    ratio,
+                    type,
+                };
+            })
+            .filter(Boolean);
+    } catch (error) {
+        // 네트워크 에러나 타임아웃인 경우 재시도
+        if (
+            (error.code === 'ECONNRESET' ||
+                error.code === 'ETIMEDOUT' ||
+                error.code === 'ENOTFOUND' ||
+                error.response?.status === 429) &&
+            retryCount < 2
+        ) {
+            await delay(1000 * (retryCount + 1));
+            return fetchSplitEvents(symbol, fromDate, retryCount + 1);
+        }
+        throw error;
+    }
 }
 
 async function mergeSplitEvents(existingData, newSplits) {
@@ -513,23 +608,42 @@ async function main() {
     );
 
     console.log(`Found ${uniqueTickers.length} symbols to update.`);
-    const concurrency = 5;
-    const chunkDelayMs = 1000;
+    // API 과부하 방지를 위해 동시성과 딜레이 조정
+    const concurrency = 3; // 5 -> 3으로 감소
+    const chunkDelayMs = 2000; // 1000ms -> 2000ms로 증가
+    const requestDelayMs = 100; // 각 요청 간 추가 딜레이
     let successCount = 0;
     const failedSymbols = [];
 
     for (let i = 0; i < uniqueTickers.length; i += concurrency) {
         const chunk = uniqueTickers.slice(i, i + concurrency);
 
-        const results = await Promise.all(
-            chunk.map((ticker) => fetchAndMergePriceData(ticker))
-        );
+        // 순차적으로 처리하여 API 과부하 방지
+        const results = [];
+        for (const ticker of chunk) {
+            try {
+                const result = await fetchAndMergePriceData(ticker);
+                results.push(result);
+                // 각 요청 후 짧은 딜레이
+                await delay(requestDelayMs);
+            } catch (error) {
+                results.push({
+                    success: false,
+                    symbol: ticker.symbol,
+                    error: error.message,
+                });
+            }
+        }
 
         results.forEach((r) => {
             if (r.success) successCount++;
             else if (r.symbol) failedSymbols.push(r.symbol);
         });
-        await delay(chunkDelayMs);
+
+        // 청크 간 딜레이
+        if (i + concurrency < uniqueTickers.length) {
+            await delay(chunkDelayMs);
+        }
     }
 
     console.log(
