@@ -2,7 +2,7 @@ name: Update Info Data v2 (KR)
 
 on:
     schedule:
-        - cron: '0 17 * * *' # KST 02:00 daily
+        - cron: '0 17 * * *' # KST 02:00 daily (UTC 17:00)
     workflow_dispatch:
 
 concurrency:
