@@ -153,13 +153,20 @@ def fetch_ticker_info_with_suffix_fallback(symbol):
 # ============================================================================
 # 초기화
 # ============================================================================
-def initialize():
-    """공통 데이터 로드 (한 번만 실행)"""
+def initialize(market_filter=None):
+    """
+    공통 데이터 로드 (한 번만 실행)
+    
+    Args:
+        market_filter: "KR" 또는 "US" 또는 None (전체)
+    """
     global nav_data, ticker_info_map, active_symbols, us_holidays, kr_holidays
     global custom_suffix_fallbacks
 
     print("=" * 80)
     print("🚀 정보성 데이터 통합 파이프라인 시작")
+    if market_filter:
+        print(f"   필터: {market_filter} 티커만 처리")
     print("=" * 80)
 
     # nav.json 로드
@@ -171,6 +178,21 @@ def initialize():
 
     all_tickers_info = nav_data.get("nav", [])
     active_tickers_info = [t for t in all_tickers_info if not t.get("upcoming", False)]
+
+    # 시장 필터링
+    if market_filter:
+        if market_filter.upper() == "KR":
+            active_tickers_info = [
+                t for t in active_tickers_info
+                if t.get("currency") == "KRW"
+                or t.get("market") in ["KOSPI", "KOSDAQ", "KONEX"]
+            ]
+        elif market_filter.upper() == "US":
+            active_tickers_info = [
+                t for t in active_tickers_info
+                if t.get("currency") == "USD"
+                or t.get("market") in ["NYSE", "NASDAQ", "AMEX"]
+            ]
 
     ticker_info_map = {}
     custom_suffix_fallbacks = {}
@@ -790,10 +812,15 @@ def project_future_dividends():
 # ============================================================================
 def main():
     """통합 파이프라인 실행"""
+    import os
+    
     start_time = time.time()
+    
+    # 환경변수에서 시장 필터 읽기
+    market_filter = os.environ.get("MARKET_FILTER", "").strip() or None
 
     # 초기화
-    if not initialize():
+    if not initialize(market_filter):
         return
 
     # Step 1: 배당 데이터 업데이트
