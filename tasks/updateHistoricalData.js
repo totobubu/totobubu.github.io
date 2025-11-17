@@ -454,6 +454,26 @@ async function main() {
         { symbol: 'DIA', ipoDate: '1998-01-14' },
     ].filter((item) => !item.upcoming);
 
+    // MARKET_FILTER 환경변수로 시장 필터링
+    const marketFilter = process.env.MARKET_FILTER?.trim().toUpperCase();
+    if (marketFilter) {
+        if (marketFilter === 'KR') {
+            tickersToFetch = tickersToFetch.filter(
+                (t) =>
+                    t.currency === 'KRW' ||
+                    ['KOSPI', 'KOSDAQ', 'KONEX'].includes(t.market)
+            );
+            console.log(`[KR Market Filter] Filtering Korean tickers only`);
+        } else if (marketFilter === 'US') {
+            tickersToFetch = tickersToFetch.filter(
+                (t) =>
+                    t.currency === 'USD' ||
+                    ['NYSE', 'NASDAQ', 'AMEX'].includes(t.market)
+            );
+            console.log(`[US Market Filter] Filtering US tickers only`);
+        }
+    }
+
     // 특정 티커만 필터링
     if (targetSymbols.length > 0) {
         tickersToFetch = tickersToFetch.filter((t) =>
@@ -474,7 +494,9 @@ async function main() {
             );
         }
     } else {
-        console.log(`[Full Mode] Updating all symbols`);
+        console.log(
+            `[Full Mode] Updating all symbols${marketFilter ? ` (${marketFilter} filter applied)` : ''}`
+        );
     }
 
     const uniqueTickers = Array.from(

@@ -250,7 +250,15 @@ function resolveKoreanCorporateBrandSlugFromTicker(ticker) {
 
 function normalizeToFilename(name) {
     if (!name) return null;
-    return name.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
+    // 접미사(.KS, .KQ 등) 제거하고 base symbol만 사용
+    let base = name;
+    for (const suffix of KRX_SUFFIXES) {
+        if (base.toUpperCase().endsWith(suffix)) {
+            base = base.slice(0, -suffix.length);
+            break;
+        }
+    }
+    return base.toLowerCase().replace(/[.,']/g, '').replace(/\s+/g, '-');
 }
 
 const KRX_SUFFIXES = new Set(['.KS', '.KQ', '.KN', '.KO']);
