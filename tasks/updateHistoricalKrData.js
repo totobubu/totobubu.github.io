@@ -25,8 +25,24 @@ const MARKET_SUBDIR_ALIASES = {
 };
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const sanitizeTickerForFilename = (ticker) =>
-    ticker.replace(/[./\\]/g, '-').toLowerCase();
+
+// 접미사(.KS, .KQ 등) 제거하고 base symbol만 사용
+const getBaseSymbol = (symbol) => {
+    if (!symbol) return symbol;
+    const upper = symbol.toUpperCase();
+    const suffixes = ['.KS', '.KQ', '.KN', '.KO'];
+    for (const suffix of suffixes) {
+        if (upper.endsWith(suffix)) {
+            return symbol.slice(0, -suffix.length);
+        }
+    }
+    return symbol;
+};
+
+const sanitizeTickerForFilename = (ticker) => {
+    const base = getBaseSymbol(ticker);
+    return base.replace(/[./\\]/g, '-').toLowerCase();
+};
 
 const getMarketSubdirectory = (market) => {
     const normalized = String(market || '')
@@ -66,12 +82,24 @@ const fileExists = async (filePath) => {
 };
 
 const findExistingDataFile = async (symbolCandidates, market) => {
+    // 먼저 새 형식 (접미사 제거) 시도
     for (const candidate of symbolCandidates) {
         const candidatePath = getDataFilePath(candidate, market);
         if (await fileExists(candidatePath)) {
             return { path: candidatePath, symbol: candidate };
         }
     }
+    
+    // 기존 형식 (접미사 포함) fallback 시도
+    for (const candidate of symbolCandidates) {
+        const oldFormatFilename = `${candidate.replace(/[./\\]/g, '-').toLowerCase()}.json`;
+        const marketSlug = getMarketSubdirectory(market);
+        const oldFormatPath = path.join(DATA_DIR, marketSlug, oldFormatFilename);
+        if (await fileExists(oldFormatPath)) {
+            return { path: oldFormatPath, symbol: candidate };
+        }
+    }
+    
     return null;
 };
 
