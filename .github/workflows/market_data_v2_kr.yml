@@ -64,9 +64,7 @@ jobs:
 
             - name: Update historical price data (KR only)
               if: inputs.skip_price_update != 'true'
-              env:
-                  MARKET_FILTER: KR
-              run: npm run update-data
+              run: node tasks/updateHistoricalKrData.js
 
             - name: Run info data pipeline (KR only, market layout)
               env:
