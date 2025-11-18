@@ -197,6 +197,13 @@ export function useStockData() {
                     .map((item) => {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
+                        
+                        // 통화 정보 확인
+                        const currency = inferredCurrency || 'USD';
+                        const isKRW = currency === 'KRW';
+                        const currencySymbol = isKRW ? '₩' : '$';
+                        const locale = isKRW ? 'ko-KR' : 'en-US';
+                        
                         // 배당금 필드 설정: 우선순위에 따라 값 선택
                         // 1. amountOriginal (있으면 이것을 사용)
                         // 2. amountFixed (amountOriginal이 없으면 이것)
@@ -229,8 +236,8 @@ export function useStockData() {
                                 return acc;
                             }, 1);
                             
-                            // 형식: "₩129 (7.387:1 = ₩953)" - amountOriginal이 앞에, 최종값이 = 뒤에
-                            배당금값 = `₩${originalAmount.toLocaleString('ko-KR')} (${totalRatio.toFixed(15)} : 1 = ₩${finalAmount.toLocaleString('ko-KR')})`;
+                            // 형식: "$1.998 (0.5:1 = $0.999)" 또는 "₩129 (7.387:1 = ₩953)"
+                            배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(15)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
                         }
                         
                         return {
