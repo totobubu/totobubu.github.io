@@ -9,12 +9,24 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-19 05:58:57 KST",
+        "regularMarketPrice": 12.56,
+        "englishName": "GraniteShares YieldBoost MSTR ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 9455,
+        "AvgVolume": 11775,
+        "sharesOutstanding": null,
+        "52Week": "11.883 - 25.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US38747R2803",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US38747R2803"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -347,7 +359,9 @@
             "high": 12.73,
             "low": 12.63,
             "close": 12.65,
-            "volume": 7629
+            "volume": 7629,
+            "amount": 0.259,
+            "yield": 0.2265228707
         },
         {
             "date": "2025-11-17",
@@ -455,6 +469,10 @@
         },
         {
             "date": "2026-05-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-15",
             "forecasted": true
         }
     ]

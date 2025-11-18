@@ -1,300 +1,316 @@
 {
-  "tickerInfo": {
-    "Symbol": "UBEW",
-    "koName": null,
-    "longName": null,
-    "company": "Roundhill Investments",
-    "frequency": "매주",
-    "group": "월",
-    "underlying": null,
-    "market": "NASDAQ",
-    "currency": "USD",
-    "Update": "2025-11-05 10:34:22 KST",
-    "changes": {},
-    "events": {
-      "splits": []
+    "tickerInfo": {
+        "Symbol": "UBEW",
+        "koName": null,
+        "longName": null,
+        "company": "Roundhill Investments",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": null,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "Update": "2025-11-19 05:58:57 KST",
+        "regularMarketPrice": 47.54,
+        "englishName": "Roundhill ETF Trust - Roundhill UBER WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1191,
+        "AvgVolume": 3816,
+        "sharesOutstanding": null,
+        "52Week": "47.29 - 54.44",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US77926X4786",
+        "events": {
+            "splits": []
+        },
+        "changes": {}
     },
-    "isin": "US77926X4786"
-  },
-  "backtestData": [
-    {
-      "date": "2025-10-23",
-      "open": 51.26900100708008,
-      "high": 51.779998779296875,
-      "low": 51.26900100708008,
-      "close": 51.64979934692383,
-      "volume": 2099
-    },
-    {
-      "date": "2025-10-24",
-      "open": 52.779998779296875,
-      "high": 51.98809814453125,
-      "low": 51.29999923706055,
-      "close": 51.29999923706055,
-      "volume": 6500
-    },
-    {
-      "date": "2025-10-27",
-      "open": 52.279998779296875,
-      "high": 53.12630081176758,
-      "low": 51.29999923706055,
-      "close": 52.96889877319336,
-      "volume": 2977
-    },
-    {
-      "date": "2025-10-28",
-      "open": 53.61000061035156,
-      "high": 53.056800842285156,
-      "low": 52.3130989074707,
-      "close": 52.3130989074707,
-      "volume": 3142
-    },
-    {
-      "date": "2025-10-29",
-      "open": 52.31999969482422,
-      "high": 52.5349006652832,
-      "low": 52.109901428222656,
-      "close": 52.301300048828125,
-      "volume": 2880
-    },
-    {
-      "date": "2025-10-30",
-      "open": 51.77000045776367,
-      "high": 52.99760055541992,
-      "low": 51.77000045776367,
-      "close": 52.855201721191406,
-      "volume": 1075
-    },
-    {
-      "date": "2025-10-31",
-      "open": 53.95000076293945,
-      "high": 53.69990158081055,
-      "low": 52.72999954223633,
-      "close": 52.90999984741211,
-      "volume": 8365
-    },
-    {
-      "date": "2025-11-03",
-      "amountFixed": 0.776298,
-      "open": 52.255001068115234,
-      "high": 54.43989944458008,
-      "low": 52.22880172729492,
-      "close": 54.43989944458008,
-      "volume": 4424,
-      "amount": 0.776,
-      "yield": 0.0148559561
-    },
-    {
-      "date": "2025-11-04",
-      "open": 50.349998474121094,
-      "high": 51.05720138549805,
-      "low": 48.359901428222656,
-      "close": 51.05720138549805,
-      "volume": 6632,
-      "holdings": [
+    "backtestData": [
         {
-          "symbol": "UBER",
-          "name": "Uber Technologies Inc",
-          "weight": 20.31,
-          "type": "equity",
-          "shares": 3270,
-          "market_value": 309570
+            "date": "2025-10-23",
+            "open": 51.26900100708008,
+            "high": 51.779998779296875,
+            "low": 51.26900100708008,
+            "close": 51.64979934692383,
+            "volume": 2099
         },
         {
-          "symbol": "FGXXX",
-          "name": "First American Government Obligations Fund 12/01/2031",
-          "weight": 6.24,
-          "type": "money_market",
-          "shares": 95085,
-          "market_value": 95085
-        }
-      ],
-      "leverage_exposure": [
+            "date": "2025-10-24",
+            "open": 52.779998779296875,
+            "high": 51.98809814453125,
+            "low": 51.29999923706055,
+            "close": 51.29999923706055,
+            "volume": 6500
+        },
         {
-          "symbol": "90353T100 TRS 112426 NM",
-          "name": "UBER TECHNOLOGIES INC SWAP NM",
-          "weight": 101.49,
-          "type": "swap",
-          "shares": 16340,
-          "market_value": 1546907
+            "date": "2025-10-27",
+            "open": 52.279998779296875,
+            "high": 53.12630081176758,
+            "low": 51.29999923706055,
+            "close": 52.96889877319336,
+            "volume": 2977
+        },
+        {
+            "date": "2025-10-28",
+            "open": 53.61000061035156,
+            "high": 53.056800842285156,
+            "low": 52.3130989074707,
+            "close": 52.3130989074707,
+            "volume": 3142
+        },
+        {
+            "date": "2025-10-29",
+            "open": 52.31999969482422,
+            "high": 52.5349006652832,
+            "low": 52.109901428222656,
+            "close": 52.301300048828125,
+            "volume": 2880
+        },
+        {
+            "date": "2025-10-30",
+            "open": 51.77000045776367,
+            "high": 52.99760055541992,
+            "low": 51.77000045776367,
+            "close": 52.855201721191406,
+            "volume": 1075
+        },
+        {
+            "date": "2025-10-31",
+            "open": 53.95000076293945,
+            "high": 53.69990158081055,
+            "low": 52.72999954223633,
+            "close": 52.90999984741211,
+            "volume": 8365
+        },
+        {
+            "date": "2025-11-03",
+            "amountFixed": 0.776298,
+            "open": 52.255001068115234,
+            "high": 54.43989944458008,
+            "low": 52.22880172729492,
+            "close": 54.43989944458008,
+            "volume": 4424,
+            "amount": 0.776,
+            "yield": 0.0148559561
+        },
+        {
+            "date": "2025-11-04",
+            "open": 50.349998474121094,
+            "high": 51.05720138549805,
+            "low": 48.359901428222656,
+            "close": 51.05720138549805,
+            "volume": 6632,
+            "holdings": [
+                {
+                    "symbol": "UBER",
+                    "name": "Uber Technologies Inc",
+                    "weight": 20.31,
+                    "type": "equity",
+                    "shares": 3270,
+                    "market_value": 309570
+                },
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.24,
+                    "type": "money_market",
+                    "shares": 95085,
+                    "market_value": 95085
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "90353T100 TRS 112426 NM",
+                    "name": "UBER TECHNOLOGIES INC SWAP NM",
+                    "weight": 101.49,
+                    "type": "swap",
+                    "shares": 16340,
+                    "market_value": 1546907
+                }
+            ]
+        },
+        {
+            "date": "2025-11-05",
+            "open": 51,
+            "high": 50.72999954223633,
+            "low": 49.619998931884766,
+            "close": 49.91999816894531,
+            "volume": 4577
+        },
+        {
+            "date": "2025-11-06",
+            "open": 48.90999984741211,
+            "high": 49.34809875488281,
+            "low": 49.005001068115234,
+            "close": 49.34809875488281,
+            "volume": 2878
+        },
+        {
+            "date": "2025-11-07",
+            "open": 48.95000076293945,
+            "high": 49.60710144042969,
+            "low": 48.09000015258789,
+            "close": 49.105499267578125,
+            "volume": 6140
+        },
+        {
+            "date": "2025-11-10",
+            "amountFixed": 0.545925,
+            "open": 48.959999,
+            "high": 49.909,
+            "low": 48.950001,
+            "close": 49.909,
+            "volume": 4727,
+            "yield": 0.0270061893
+        },
+        {
+            "date": "2025-11-11",
+            "open": 49.540001,
+            "high": 49.66,
+            "low": 49.322201,
+            "close": 49.639702,
+            "volume": 1753
+        },
+        {
+            "date": "2025-11-12",
+            "open": 49.650002,
+            "high": 49.751801,
+            "low": 49.41,
+            "close": 49.528702,
+            "volume": 4518
+        },
+        {
+            "date": "2025-11-13",
+            "open": 49.437901,
+            "high": 49.437901,
+            "low": 48.291,
+            "close": 48.378799,
+            "volume": 1316
+        },
+        {
+            "date": "2025-11-14",
+            "open": 47.290001,
+            "high": 48.880001,
+            "low": 47.290001,
+            "close": 48.2547,
+            "volume": 1700
+        },
+        {
+            "date": "2025-11-17",
+            "amountFixed": 0.304794,
+            "open": 47.3741,
+            "high": 48.2416,
+            "low": 47.3741,
+            "close": 48.2416,
+            "volume": 2485,
+            "yield": 0.0343440192
+        },
+        {
+            "date": "2025-11-24",
+            "expected": true
+        },
+        {
+            "date": "2025-12-01",
+            "expected": true
+        },
+        {
+            "date": "2025-12-08",
+            "expected": true
+        },
+        {
+            "date": "2025-12-15",
+            "expected": true
+        },
+        {
+            "date": "2025-12-22",
+            "expected": true
+        },
+        {
+            "date": "2025-12-29",
+            "expected": true
+        },
+        {
+            "date": "2026-01-05",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-19",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-26",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-02",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-09",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-16",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-23",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-02",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-09",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-16",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-23",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-30",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-06",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-04",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-11",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-18",
+            "forecasted": true
         }
-      ]
-    },
-    {
-      "date": "2025-11-05",
-      "open": 51,
-      "high": 50.72999954223633,
-      "low": 49.619998931884766,
-      "close": 49.91999816894531,
-      "volume": 4577
-    },
-    {
-      "date": "2025-11-06",
-      "open": 48.90999984741211,
-      "high": 49.34809875488281,
-      "low": 49.005001068115234,
-      "close": 49.34809875488281,
-      "volume": 2878
-    },
-    {
-      "date": "2025-11-07",
-      "open": 48.95000076293945,
-      "high": 49.60710144042969,
-      "low": 48.09000015258789,
-      "close": 49.105499267578125,
-      "volume": 6140
-    },
-    {
-      "date": "2025-11-10",
-      "amountFixed": 0.545925,
-      "open": 48.959999,
-      "high": 49.909,
-      "low": 48.950001,
-      "close": 49.909,
-      "volume": 4727,
-      "yield": 0.0270061893
-    },
-    {
-      "date": "2025-11-11",
-      "open": 49.540001,
-      "high": 49.66,
-      "low": 49.322201,
-      "close": 49.639702,
-      "volume": 1753
-    },
-    {
-      "date": "2025-11-12",
-      "open": 49.650002,
-      "high": 49.751801,
-      "low": 49.41,
-      "close": 49.528702,
-      "volume": 4518
-    },
-    {
-      "date": "2025-11-13",
-      "open": 49.437901,
-      "high": 49.437901,
-      "low": 48.291,
-      "close": 48.378799,
-      "volume": 1316
-    },
-    {
-      "date": "2025-11-14",
-      "open": 47.290001,
-      "high": 48.880001,
-      "low": 47.290001,
-      "close": 48.2547,
-      "volume": 1700
-    },
-    {
-      "date": "2025-11-17",
-      "amountFixed": 0.304794,
-      "open": 47.3741,
-      "high": 48.2416,
-      "low": 47.3741,
-      "close": 48.2416,
-      "volume": 2485,
-      "yield": 0.0343440192
-    },
-    {
-      "date": "2025-11-24",
-      "expected": true
-    },
-    {
-      "date": "2025-12-01",
-      "expected": true
-    },
-    {
-      "date": "2025-12-08",
-      "expected": true
-    },
-    {
-      "date": "2025-12-15",
-      "expected": true
-    },
-    {
-      "date": "2025-12-22",
-      "expected": true
-    },
-    {
-      "date": "2025-12-29",
-      "expected": true
-    },
-    {
-      "date": "2026-01-05",
-      "forecasted": true
-    },
-    {
-      "date": "2026-01-12",
-      "forecasted": true
-    },
-    {
-      "date": "2026-01-19",
-      "forecasted": true
-    },
-    {
-      "date": "2026-01-26",
-      "forecasted": true
-    },
-    {
-      "date": "2026-02-02",
-      "forecasted": true
-    },
-    {
-      "date": "2026-02-09",
-      "forecasted": true
-    },
-    {
-      "date": "2026-02-16",
-      "forecasted": true
-    },
-    {
-      "date": "2026-02-23",
-      "forecasted": true
-    },
-    {
-      "date": "2026-03-02",
-      "forecasted": true
-    },
-    {
-      "date": "2026-03-09",
-      "forecasted": true
-    },
-    {
-      "date": "2026-03-16",
-      "forecasted": true
-    },
-    {
-      "date": "2026-03-23",
-      "forecasted": true
-    },
-    {
-      "date": "2026-03-30",
-      "forecasted": true
-    },
-    {
-      "date": "2026-04-06",
-      "forecasted": true
-    },
-    {
-      "date": "2026-04-13",
-      "forecasted": true
-    },
-    {
-      "date": "2026-04-20",
-      "forecasted": true
-    },
-    {
-      "date": "2026-04-27",
-      "forecasted": true
-    },
-    {
-      "date": "2026-05-04",
-      "forecasted": true
-    },
-    {
-      "date": "2026-05-11",
-      "forecasted": true
-    }
-  ]
+    ]
 }
