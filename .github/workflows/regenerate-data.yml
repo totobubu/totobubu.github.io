@@ -42,12 +42,6 @@ jobs:
             - name: Install Node deps
               run: npm ci --no-audit --no-fund
 
-            # 데이터 파일이 필요한 경우 R2에서 다운로드
-            # (generateCalendarEvents는 public/data를 읽어야 함)
-            - name: Download data from R2 (if needed)
-              run: |
-                  python scripts/cloud/download_data_from_r2.py || echo "R2 다운로드 실패 또는 스킵"
-
             # 1. 달력 이벤트 재생성
             - name: Generate calendar events
               run: npm run generate-calendar-events
