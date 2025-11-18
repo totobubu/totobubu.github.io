@@ -44,7 +44,7 @@ def load_json_file(file_path):
         return None
 
 
-def save_json_file(file_path, data, indent=2):
+def save_json_file(file_path, data, indent=4):
     try:
         # JSON 순서 보장: tickerInfo → backtestData → 기타
         if isinstance(data, dict):
