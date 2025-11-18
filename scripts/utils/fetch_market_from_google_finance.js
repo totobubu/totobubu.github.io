@@ -38,11 +38,14 @@ const EXCHANGE_MAP = {
     KOSPI: 'KOSPI',
     KOSDAQ: 'KOSDAQ',
     KONEX: 'KONEX',
+    KRX: 'KRX', // 한국거래소 (KOSPI/KOSDAQ/KONEX로 구분 필요)
     // 추가 매핑
     NMS: 'NASDAQ',
     NYQ: 'NYSE',
     PCX: 'NYSE',
     OPR: 'NYSE',
+    KSC: 'KOSPI', // KOSPI 별칭
+    KOE: 'KOSDAQ', // KOSDAQ 별칭
 };
 
 // 거래소 → 디렉토리 매핑
@@ -89,12 +92,39 @@ async function fetchMarketFromGoogleFinance(symbol, page) {
         // 페이지가 로드될 때까지 대기
         await page.waitForTimeout(2000);
 
-        // 방법 1: URL에서 거래소 추출 (예: /quote/AAPW:BATS)
+        // 방법 1: URL에서 거래소 추출 (예: /quote/AAPW:BATS 또는 /quote/000100:KRX)
         const currentUrl = page.url();
         const urlMatch = currentUrl.match(/\/quote\/[^:]+:([^?\/]+)/);
         if (urlMatch) {
-            const exchange = urlMatch[1].toUpperCase();
+            let exchange = urlMatch[1].toUpperCase();
             console.log(`[${symbol}] URL에서 거래소 발견: ${exchange}`);
+            
+            // 한국 주식의 경우: KRX를 KOSPI/KOSDAQ으로 구분
+            if (exchange === 'KRX') {
+                // URL에서 .KS 또는 .KQ 접미사 확인
+                const symbolMatch = currentUrl.match(/\/quote\/([^:]+):/);
+                if (symbolMatch) {
+                    const urlSymbol = symbolMatch[1];
+                    if (urlSymbol.includes('.KS') || urlSymbol.endsWith('.KS')) {
+                        exchange = 'KOSPI';
+                        console.log(`[${symbol}] KRX → KOSPI로 매핑 (URL에서 .KS 확인)`);
+                    } else if (urlSymbol.includes('.KQ') || urlSymbol.endsWith('.KQ')) {
+                        exchange = 'KOSDAQ';
+                        console.log(`[${symbol}] KRX → KOSDAQ로 매핑 (URL에서 .KQ 확인)`);
+                    } else {
+                        // 페이지에서 추가 정보 확인
+                        const pageContent = await page.content();
+                        if (pageContent.includes('KOSPI') || pageContent.includes('코스피')) {
+                            exchange = 'KOSPI';
+                            console.log(`[${symbol}] KRX → KOSPI로 매핑 (페이지에서 KOSPI 확인)`);
+                        } else if (pageContent.includes('KOSDAQ') || pageContent.includes('코스닥')) {
+                            exchange = 'KOSDAQ';
+                            console.log(`[${symbol}] KRX → KOSDAQ로 매핑 (페이지에서 KOSDAQ 확인)`);
+                        }
+                    }
+                }
+            }
+            
             return normalizeExchange(exchange);
         }
 
@@ -193,6 +223,13 @@ async function fetchMarketFromGoogleFinance(symbol, page) {
 function normalizeExchange(exchange) {
     if (!exchange) return null;
     const upper = exchange.toUpperCase().trim();
+    
+    // SHE는 상하이 증권거래소 코드이므로 필터링 (한국 주식에서 잘못 추출된 경우)
+    if (upper === 'SHE' || upper === 'SSE') {
+        console.warn(`[경고] ${upper}는 중국 거래소 코드입니다. 파싱 오류일 수 있습니다.`);
+        return null;
+    }
+    
     const normalized = EXCHANGE_MAP[upper];
 
     // 새로운 거래소인 경우 추가
