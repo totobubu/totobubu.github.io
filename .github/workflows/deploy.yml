@@ -67,37 +67,6 @@ jobs:
             - name: Install deps
               run: npm ci --no-audit --no-fund
 
-            - name: Generate calendar events (if dividend changed)
-              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
-              run: npm run generate-calendar-events
-
-            - name: Format calendar files (if dividend changed)
-              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
-              run: npm run format:calendar
-
-            - name: Check for calendar file changes
-              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
-              id: check_calendar
-              run: |
-                  git config --local user.email "action@github.com"
-                  git config --local user.name "GitHub Action"
-                  CHANGES=$(git status --porcelain public/calendar-events.json public/calendar/ 2>/dev/null | wc -l)
-                  if [ "$CHANGES" -eq 0 ]; then
-                      echo "has_calendar_changes=false" >> $GITHUB_OUTPUT
-                      echo "[INFO] 달력 파일 변경사항 없음"
-                  else
-                      echo "has_calendar_changes=true" >> $GITHUB_OUTPUT
-                      echo "[INFO] 달력 파일 변경사항 감지됨"
-                      git status --porcelain public/calendar-events.json public/calendar/
-                  fi
-
-            - name: Commit calendar changes
-              if: steps.check_dividend.outputs.has_dividend_changes == 'true' && steps.check_calendar.outputs.has_calendar_changes == 'true'
-              run: |
-                  git add public/calendar-events.json public/calendar/
-                  git commit -m "chore: update calendar events from dividend changes [skip ci]" || echo "커밋 실패 또는 변경사항 없음"
-                  git push || echo "푸시 실패"
-
             - name: Build Vue App
               run: npm run build
 
