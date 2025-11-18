@@ -7,7 +7,7 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
-const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'market').toLowerCase();
 const MARKET_FILTER = 'KR'; // 한국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
