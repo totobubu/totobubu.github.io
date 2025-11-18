@@ -1,5 +1,10 @@
 # Update Info Data v2 (KR) 워크플로우 로컬 테스트
 
+# UTF-8 인코딩 설정
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+$env:PYTHONIOENCODING = "utf-8"
+
 Write-Host "=== Update Info Data v2 (KR) 워크플로우 로컬 테스트 ===" -ForegroundColor Cyan
 Write-Host ""
 
