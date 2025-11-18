@@ -237,7 +237,7 @@ export function useStockData() {
                             }, 1);
                             
                             // 형식: "$1.998 (0.5:1 = $0.999)" 또는 "₩129 (7.387:1 = ₩953)"
-                            배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(15)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
+                            배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(3)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
                         }
                         
                         return {
