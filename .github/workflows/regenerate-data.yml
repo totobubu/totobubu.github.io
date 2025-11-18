@@ -16,6 +16,7 @@ jobs:
             R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
             R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
             R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+            FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
 
         steps:
             - name: Checkout
@@ -67,9 +68,9 @@ jobs:
               run: |
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
-                  
+
                   CHANGES=$(git status --porcelain public/calendar-events.json public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/ 2>/dev/null | wc -l)
-                  
+
                   if [ "$CHANGES" -eq 0 ]; then
                       echo "has_changes=false" >> $GITHUB_OUTPUT
                       echo "[INFO] 재생성된 파일 변경사항 없음"
@@ -92,4 +93,3 @@ jobs:
                   git add public/calendar-events.json public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
                   git commit -m "chore: regenerate calendar, nav, and sidebar data [skip ci]" || echo "커밋 실패 또는 변경사항 없음"
                   git push || echo "푸시 실패"
-
