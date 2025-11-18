@@ -43,8 +43,46 @@ if sys.platform == "win32":
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # yfinance 로거 레벨 조정 (ERROR만 표시)
-logging.getLogger("yfinance").setLevel(logging.ERROR)
-logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)
+logging.getLogger("urllib3").setLevel(logging.ERROR)
+logging.getLogger("requests").setLevel(logging.ERROR)
+
+# yfinance가 출력하는 불필요한 메시지 억제를 위한 stderr 필터
+import io
+
+
+class StderrFilter:
+    """yfinance의 불필요한 에러 메시지를 필터링하는 클래스"""
+
+    def __init__(self):
+        self.original_stderr = sys.stderr
+        self.filtered_stderr = io.StringIO()
+
+    def __enter__(self):
+        sys.stderr = self
+        return self
+
+    def __exit__(self, *args):
+        sys.stderr = self.original_stderr
+
+    def write(self, message):
+        # 특정 패턴의 메시지만 필터링
+        if message:
+            msg_lower = message.lower()
+            # HTTP 404 에러 메시지 필터링
+            if "http error 404" in msg_lower and "quote not found" in msg_lower:
+                return
+            # possibly delisted 메시지 필터링
+            if "possibly delisted" in msg_lower and "no timezone found" in msg_lower:
+                return
+            if "possibly delisted" in msg_lower and "no price data found" in msg_lower:
+                return
+            # 원본 stderr에 실제 중요한 메시지만 전달
+            self.original_stderr.write(message)
+
+    def flush(self):
+        self.original_stderr.flush()
+
 
 # 참고: yfinance가 출력하는 메시지들의 의미:
 # 1. "HTTP Error 404: Quote not found for symbol: XXX"
@@ -154,16 +192,20 @@ def fetch_dividends_with_suffix_fallback(symbol, start_date_str):
     last_series = None
 
     for candidate in iter_symbol_candidates(symbol):
+        dividends = None
+        filtered = None
         try:
-            ticker_obj = yf.Ticker(candidate)
-            # yfinance의 dividends 속성은 지연 로딩되며, 접근 시 네트워크 요청이 발생할 수 있음
-            # "possibly delisted" 티커의 경우 예외가 발생하거나 빈 데이터가 반환될 수 있음
-            try:
-                dividends = ticker_obj.dividends
-            except (AttributeError, KeyError, ValueError) as e:
-                # dividends 속성 접근 자체가 실패한 경우 (상장폐지 등)
-                last_exception = e
-                continue
+            # yfinance의 불필요한 에러 메시지 억제
+            with StderrFilter():
+                ticker_obj = yf.Ticker(candidate)
+                # yfinance의 dividends 속성은 지연 로딩되며, 접근 시 네트워크 요청이 발생할 수 있음
+                # "possibly delisted" 티커의 경우 예외가 발생하거나 빈 데이터가 반환될 수 있음
+                try:
+                    dividends = ticker_obj.dividends
+                except (AttributeError, KeyError, ValueError) as e:
+                    # dividends 속성 접근 자체가 실패한 경우 (상장폐지 등)
+                    last_exception = e
+                    continue
 
             # dividends가 None이거나 Series가 아닌 경우 처리
             if dividends is None:
@@ -185,7 +227,7 @@ def fetch_dividends_with_suffix_fallback(symbol, start_date_str):
                 continue
 
             # 필터링 후에도 빈 데이터인 경우 건너뛰기
-            if filtered.empty:
+            if filtered is None or filtered.empty:
                 continue
 
         except Exception as exc:
@@ -214,7 +256,9 @@ def fetch_ticker_info_with_suffix_fallback(symbol):
 
     for candidate in iter_symbol_candidates(symbol):
         try:
-            info = yf.Ticker(candidate).info
+            # yfinance의 불필요한 에러 메시지 억제
+            with StderrFilter():
+                info = yf.Ticker(candidate).info
         except Exception as exc:
             last_exception = exc
             continue
@@ -335,6 +379,7 @@ def update_dividends():
     print("=" * 80)
 
     updated_count = 0
+    failed_symbols = []  # 404 또는 실패한 티커 추적
 
     for symbol in tqdm(active_symbols, desc="배당 데이터 수집"):
         try:
@@ -376,6 +421,15 @@ def update_dividends():
             )
 
             if new_dividends_df.empty:
+                # 접미사 대체를 모두 시도했지만 데이터를 찾지 못한 경우
+                # 이는 상장폐지 또는 잘못된 티커일 수 있음
+                failed_symbols.append(
+                    {
+                        "symbol": symbol,
+                        "yfSymbol": yahoo_symbol,
+                        "reason": "no_dividend_data_after_all_attempts",
+                    }
+                )
                 continue
 
             # 기존 데이터와 병합
@@ -404,9 +458,45 @@ def update_dividends():
 
         except Exception as e:
             tqdm.write(f"  ❌ {symbol} 처리 중 오류: {e}")
+            failed_symbols.append(
+                {
+                    "symbol": symbol,
+                    "yfSymbol": (
+                        yahoo_symbol if "yahoo_symbol" in locals() else "unknown"
+                    ),
+                    "reason": f"exception: {str(e)[:100]}",
+                }
+            )
 
         if DIVIDEND_SYMBOL_DELAY_SEC:
             time.sleep(DIVIDEND_SYMBOL_DELAY_SEC)
+
+    # 실패한 티커 요약 출력 및 파일 저장
+    if failed_symbols:
+        print(f"\n⚠️  배당 데이터를 가져오지 못한 티커: {len(failed_symbols)}개")
+        # 상위 20개만 출력 (너무 많으면 로그가 길어짐)
+        for item in failed_symbols[:20]:
+            print(f"   - {item['symbol']} ({item['yfSymbol']}): {item['reason']}")
+        if len(failed_symbols) > 20:
+            print(f"   ... 외 {len(failed_symbols) - 20}개 더 있음")
+        print(f"\n💡 이 티커들은 상장폐지되었거나 yfSymbol이 잘못되었을 수 있습니다.")
+        print(f"   nav.json에서 확인하거나 yfSymbol을 수정하는 것을 권장합니다.")
+
+        # 실패한 티커 목록을 파일로 저장 (선택적)
+        try:
+            failed_file_path = DATA_DIR / "failed_dividend_symbols.json"
+            save_json_file(
+                failed_file_path,
+                {
+                    "timestamp": get_kst_now().isoformat(),
+                    "total_failed": len(failed_symbols),
+                    "failed_symbols": failed_symbols,
+                },
+                indent=2,
+            )
+            print(f"   📝 실패한 티커 목록이 저장되었습니다: {failed_file_path}\n")
+        except Exception as e:
+            print(f"   ⚠️  실패한 티커 목록 저장 실패: {e}\n")
 
     print(f"\n✅ 배당 데이터 업데이트 완료: {updated_count}개 파일 변경\n")
     return updated_count
@@ -426,17 +516,20 @@ def fetch_bulk_ticker_info_batch(symbol_pairs_batch):
             fetch_symbol = symbol_suffix_overrides.get(yahoo_symbol, yahoo_symbol)
             symbol_fetch_map[base_symbol] = fetch_symbol
         unique_fetch_symbols = list(set(symbol_fetch_map.values()))
-        tickers = yf.Tickers(unique_fetch_symbols)
 
-        for original_symbol, fetch_symbol in symbol_fetch_map.items():
-            ticker_obj = tickers.tickers.get(fetch_symbol)
-            if not ticker_obj:
-                bulk_data[original_symbol] = None
-                continue
-            try:
-                bulk_data[original_symbol] = ticker_obj.info
-            except Exception:
-                bulk_data[original_symbol] = None
+        # yfinance의 불필요한 에러 메시지 억제
+        with StderrFilter():
+            tickers = yf.Tickers(unique_fetch_symbols)
+
+            for original_symbol, fetch_symbol in symbol_fetch_map.items():
+                ticker_obj = tickers.tickers.get(fetch_symbol)
+                if not ticker_obj:
+                    bulk_data[original_symbol] = None
+                    continue
+                try:
+                    bulk_data[original_symbol] = ticker_obj.info
+                except Exception:
+                    bulk_data[original_symbol] = None
         return bulk_data
     except Exception as e:
         print(f"  ❌ 배치 가져오기 오류: {e}")
