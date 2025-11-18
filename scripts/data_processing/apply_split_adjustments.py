@@ -132,6 +132,107 @@ def adjust_field(entry, field_name, entry_date, splits):
     return changed
 
 
+def calculate_original_from_adjusted(adjusted_value, entry_date, splits):
+    """
+    조정된 값(adjusted_value)을 split 이전 원래 값으로 역산
+    """
+    if adjusted_value is None or entry_date is None or not splits:
+        return adjusted_value, []
+    
+    try:
+        current = Decimal(str(adjusted_value))
+    except (InvalidOperation, ValueError):
+        return adjusted_value, []
+    
+    adjustments = []
+    
+    # entry_date 이후의 split들을 역순으로 적용하여 원래 값 계산
+    applicable_splits = [s for s in splits if entry_date < s["date"]]
+    
+    if not applicable_splits:
+        return adjusted_value, []
+    
+    # 역순으로 factor를 곱해서 원래 값 계산
+    for split in reversed(applicable_splits):
+        factor = split["factor"]
+        if factor is None or factor == 0:
+            continue
+        current *= factor
+        adjustments.insert(0, {
+            "date": split["date"].isoformat(),
+            "ratio": split["ratio"],
+            "factor": float(factor),
+        })
+    
+    quantized = current.quantize(DECIMAL_QUANT, rounding=ROUND_HALF_UP)
+    if quantized == quantized.to_integral_value():
+        original_value = int(quantized)
+    else:
+        original_value = float(quantized)
+    
+    return original_value, adjustments
+
+
+def adjust_amount_with_split_priority(entry, entry_date, splits):
+    """
+    split이 있는 배당 데이터 처리:
+    1. amountFixed가 있으면: amountFixed 기반으로 amountOriginal 계산
+    2. amountFixed가 없으면: amount 기반으로 amountOriginal 계산
+    
+    amountFixedOriginal과 amountFixedSplitAdjustments는 생성하지 않음
+    """
+    if not splits:
+        return False
+    
+    changed = False
+    
+    # amountFixed가 있으면 amountFixed 기반으로 amountOriginal 계산
+    # amountFixed가 없으면 amount 기반으로 amountOriginal 계산
+    base_field = "amountFixed" if entry.get("amountFixed") is not None else "amount"
+    base_value = entry.get(base_field)
+    
+    if base_value is None:
+        return False
+    
+    # base_value는 이미 split 조정된 값이므로, 역으로 계산하여 원래 값 구함
+    original_value, adjustments = calculate_original_from_adjusted(base_value, entry_date, splits)
+    
+    if adjustments:
+        # amountOriginal 설정
+        if entry.get("amountOriginal") != original_value:
+            entry["amountOriginal"] = original_value
+            changed = True
+        
+        # amountSplitAdjustments 설정
+        if entry.get("amountSplitAdjustments") != adjustments:
+            entry["amountSplitAdjustments"] = adjustments
+            changed = True
+        
+        # amountFixedOriginal과 amountFixedSplitAdjustments 제거
+        if "amountFixedOriginal" in entry:
+            entry.pop("amountFixedOriginal", None)
+            changed = True
+        if "amountFixedSplitAdjustments" in entry:
+            entry.pop("amountFixedSplitAdjustments", None)
+            changed = True
+    else:
+        # split이 적용되지 않으면 amountOriginal 제거
+        if "amountOriginal" in entry:
+            entry.pop("amountOriginal", None)
+            changed = True
+        if "amountSplitAdjustments" in entry:
+            entry.pop("amountSplitAdjustments", None)
+            changed = True
+        if "amountFixedOriginal" in entry:
+            entry.pop("amountFixedOriginal", None)
+            changed = True
+        if "amountFixedSplitAdjustments" in entry:
+            entry.pop("amountFixedSplitAdjustments", None)
+            changed = True
+    
+    return changed
+
+
 def process_file(json_path):
     with json_path.open(encoding="utf-8") as f:
         data = json.load(f)
@@ -155,12 +256,19 @@ def process_file(json_path):
         except ValueError:
             entry_date = None
 
-        field_changed = False
-        field_changed |= adjust_field(entry, "amount", entry_date, splits)
-        field_changed |= adjust_field(entry, "amountFixed", entry_date, splits)
-
-        if field_changed:
-            file_changed = True
+        # split이 있는 경우: amountFixed 우선으로 amountOriginal 계산
+        # amountFixedOriginal과 amountFixedSplitAdjustments는 생성하지 않음
+        if splits:
+            field_changed = adjust_amount_with_split_priority(entry, entry_date, splits)
+            if field_changed:
+                file_changed = True
+        else:
+            # split이 없는 경우: 기존 로직 유지
+            field_changed = False
+            field_changed |= adjust_field(entry, "amount", entry_date, splits)
+            field_changed |= adjust_field(entry, "amountFixed", entry_date, splits)
+            if field_changed:
+                file_changed = True
 
     if file_changed:
         with json_path.open("w", encoding="utf-8") as f:
