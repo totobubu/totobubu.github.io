@@ -5,7 +5,7 @@ on:
         branches: [main]
 
 permissions:
-    contents: read
+    contents: write
     pages: write
     id-token: write
 
@@ -25,6 +25,7 @@ jobs:
               with:
                   fetch-depth: 2 # 이전 커밋과 비교하기 위해 2개 커밋 필요
                   filter: blob:none # 큰 파일을 즉시 받지 않음(접근 시 필요분만 받음)
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Free disk space (pre-clean)
               run: |
@@ -73,6 +74,29 @@ jobs:
             - name: Format calendar files (if dividend changed)
               if: steps.check_dividend.outputs.has_dividend_changes == 'true'
               run: npm run format:calendar
+
+            - name: Check for calendar file changes
+              if: steps.check_dividend.outputs.has_dividend_changes == 'true'
+              id: check_calendar
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  CHANGES=$(git status --porcelain public/calendar-events.json public/calendar/ 2>/dev/null | wc -l)
+                  if [ "$CHANGES" -eq 0 ]; then
+                      echo "has_calendar_changes=false" >> $GITHUB_OUTPUT
+                      echo "[INFO] 달력 파일 변경사항 없음"
+                  else
+                      echo "has_calendar_changes=true" >> $GITHUB_OUTPUT
+                      echo "[INFO] 달력 파일 변경사항 감지됨"
+                      git status --porcelain public/calendar-events.json public/calendar/
+                  fi
+
+            - name: Commit calendar changes
+              if: steps.check_dividend.outputs.has_dividend_changes == 'true' && steps.check_calendar.outputs.has_calendar_changes == 'true'
+              run: |
+                  git add public/calendar-events.json public/calendar/
+                  git commit -m "chore: update calendar events from dividend changes [skip ci]" || echo "커밋 실패 또는 변경사항 없음"
+                  git push || echo "푸시 실패"
 
             - name: Build Vue App
               run: npm run build
