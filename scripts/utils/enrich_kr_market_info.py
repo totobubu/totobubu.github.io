@@ -268,9 +268,21 @@ def ensure_market(entry: dict, metadata: MarketMetadata) -> bool:
 def filter_entries(entries: list[dict], symbols: list[str] | None = None) -> list[dict]:
     if not symbols:
         return [entry for entry in entries if is_korean_ticker(entry)]
-    upper_targets = {sym.upper() for sym in symbols}
+    
+    # 접미사 제거하여 비교 (465660.KQ -> 465660)
+    def normalize_symbol(sym: str) -> str:
+        sym = sym.upper()
+        for suffix in SUFFIX_TO_MARKET.keys():
+            if sym.endswith(suffix):
+                return sym[:-len(suffix)]
+        return sym
+    
+    upper_targets = {normalize_symbol(sym) for sym in symbols}
+    
     return [
-        entry for entry in entries if entry.get("symbol", "").upper() in upper_targets
+        entry for entry in entries
+        if normalize_symbol(entry.get("symbol", "")) in upper_targets
+        or normalize_symbol(entry.get("yfSymbol", "")) in upper_targets
     ]
 
 
