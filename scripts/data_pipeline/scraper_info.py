@@ -18,6 +18,7 @@ from scripts.utils import (
     get_kst_now,
     should_skip_update_timestamp,
 )
+from scripts.utils.data_file_path import get_data_file_path, find_existing_data_file
 
 
 def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
@@ -138,8 +139,15 @@ def main():
             # dataPath는 "data/market/ticker.json" 형식이므로 "public/" 추가
             file_path = f"public/{data_path}"
         else:
-            # fallback: 기존 방식
-            file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+            # fallback: market 정보를 사용하여 올바른 경로 생성
+            market = info_from_nav.get("market")
+            # 기존 파일 찾기 시도
+            existing_file = find_existing_data_file(ticker_symbol, market)
+            if existing_file:
+                file_path = str(existing_file)
+            else:
+                # 새 파일 경로 생성 (market 서브디렉토리 사용)
+                file_path = str(get_data_file_path(ticker_symbol, market))
         
         existing_data = load_json_file(file_path) or {}
         
