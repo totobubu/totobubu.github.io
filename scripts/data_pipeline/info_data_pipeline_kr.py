@@ -23,16 +23,21 @@ import pandas as pd
 import os
 
 # Windows 콘솔 인코딩 설정 (UTF-8)
-if sys.platform == 'win32':
+if sys.platform == "win32":
     try:
-        sys.stdout.reconfigure(encoding='utf-8')
-        sys.stderr.reconfigure(encoding='utf-8')
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
     except (AttributeError, ValueError):
         # Python 3.6 이하 또는 reconfigure가 없는 경우
         import io
-        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
-    os.environ['PYTHONIOENCODING'] = 'utf-8'
+
+        sys.stdout = io.TextIOWrapper(
+            sys.stdout.buffer, encoding="utf-8", errors="replace"
+        )
+        sys.stderr = io.TextIOWrapper(
+            sys.stderr.buffer, encoding="utf-8", errors="replace"
+        )
+    os.environ["PYTHONIOENCODING"] = "utf-8"
 
 # yfinance 경고 메시지 억제 (일부만)
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -255,26 +260,25 @@ def initialize():
     active_tickers_info = [
         t
         for t in active_tickers_info
-        if t.get("currency") == "KRW"
-        or t.get("market") in ["KOSPI", "KOSDAQ", "KONEX"]
+        if t.get("currency") == "KRW" or t.get("market") in ["KOSPI", "KOSDAQ", "KONEX"]
     ]
 
     ticker_info_map = {}
     custom_suffix_fallbacks = {}
     skipped_no_yfsymbol = 0
-    
+
     for entry in active_tickers_info:
         # yfSymbol 필수 체크
         yf_symbol = entry.get("yfSymbol")
         if not yf_symbol:
             skipped_no_yfsymbol += 1
             continue
-        
+
         yf_symbol = yf_symbol.upper()
         base_symbol = get_base_symbol(yf_symbol) or entry.get("symbol")
         if not base_symbol:
             continue
-            
+
         ticker_info_map[base_symbol] = {
             **entry,
             "symbol": base_symbol,
@@ -750,7 +754,11 @@ def analyze_dividend_frequency():
             continue
 
         # KR 시장 필터링
-        if ticker_info.get("currency") != "KRW" and ticker_info.get("market") not in ["KOSPI", "KOSDAQ", "KONEX"]:
+        if ticker_info.get("currency") != "KRW" and ticker_info.get("market") not in [
+            "KOSPI",
+            "KOSDAQ",
+            "KONEX",
+        ]:
             continue
 
         # yfSymbol 필수 체크
@@ -952,9 +960,15 @@ def main():
                 print("  4, projection   - 미래 배당일 예측")
                 print("")
                 print("예시:")
-                print("  python scripts/info_data_pipeline_kr.py                    # 전체 실행")
-                print("  python scripts/info_data_pipeline_kr.py 1                  # Step 1만")
-                print("  python scripts/info_data_pipeline_kr.py dividends          # 배당 데이터만")
+                print(
+                    "  python scripts/info_data_pipeline_kr.py                    # 전체 실행"
+                )
+                print(
+                    "  python scripts/info_data_pipeline_kr.py 1                  # Step 1만"
+                )
+                print(
+                    "  python scripts/info_data_pipeline_kr.py dividends          # 배당 데이터만"
+                )
                 print("")
                 print("⚠️  이 스크립트는 한국 시장(KR) 티커만 처리합니다.")
                 print("    yfSymbol이 필수이며, kr_holidays.json을 사용합니다.")
