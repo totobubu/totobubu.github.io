@@ -182,7 +182,6 @@ async function generateCalendarEvents() {
                 koName: tickerInfo.koName,
                 frequency: tickerInfo.frequency,
                 group: tickerInfo.group,
-                yfSymbol: tickerInfo.yfSymbol || yfTickerSymbol,
             };
             let hasEvent = false;
 
