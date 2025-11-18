@@ -20,6 +20,19 @@ from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
 from collections import Counter
 import pandas as pd
+import os
+
+# Windows 콘솔 인코딩 설정 (UTF-8)
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except (AttributeError, ValueError):
+        # Python 3.6 이하 또는 reconfigure가 없는 경우
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 # yfinance 경고 메시지 억제 (일부만)
 warnings.filterwarnings("ignore", category=FutureWarning)
