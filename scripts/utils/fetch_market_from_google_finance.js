@@ -478,6 +478,18 @@ async function processSymbol(symbol, page) {
 }
 
 /**
+ * 마켓 정보만 조회 (nav.json 업데이트 없이)
+ */
+async function queryMarketOnly(symbol, page) {
+    const market = await fetchMarketFromGoogleFinance(symbol, page);
+    if (market) {
+        console.log(`[${symbol}] 거래소: ${market}`);
+        return market;
+    }
+    return null;
+}
+
+/**
  * 메인 함수
  */
 async function main() {
@@ -488,7 +500,33 @@ async function main() {
             '사용법: node fetch_market_from_google_finance.js <SYMBOL> [SYMBOL2 ...]'
         );
         console.error('또는: node fetch_market_from_google_finance.js --all');
+        console.error(
+            '또는: node fetch_market_from_google_finance.js --query-only <SYMBOL>'
+        );
         process.exit(1);
+    }
+
+    // --query-only 모드: 마켓 정보만 조회 (nav.json 업데이트 없이)
+    if (args[0] === '--query-only' && args.length >= 2) {
+        const symbol = args[1].toUpperCase();
+        const browser = await chromium.launch({ headless: true });
+        const context = await browser.newContext({
+            userAgent:
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            viewport: { width: 1920, height: 1080 },
+        });
+        const page = await context.newPage();
+
+        try {
+            const market = await queryMarketOnly(symbol, page);
+            if (market) {
+                process.exit(0);
+            } else {
+                process.exit(1);
+            }
+        } finally {
+            await browser.close();
+        }
     }
 
     let symbols = [];

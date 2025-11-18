@@ -9,11 +9,13 @@
 주요 단계:
     1. fetch_missing_isin.py 로직을 재사용해 ISIN/심볼 정규화
        (실패 시 터미널에서 수동 입력 가능)
-    2. Yahoo Finance chart API를 활용해 IPO 일자를 조회
+    2. fetch_market_from_google_finance.js를 사용하여 정확한 거래소 정보 조회
+       (기존 감지 실패 시 Google Finance에서 자동 조회)
+    3. Yahoo Finance chart API를 활용해 IPO 일자를 조회
        (tasks/addIpoDatesToNav.js와 동일한 방식)
-    3. 해당 market 폴더의 nav 소스 파일에 심볼/ipoDate 반영
-    4. public/data/<symbol>.json 스켈레톤 생성 및 기본 메타데이터 저장
-    5. update_info_data.yml과 동일한 순서의 워크플로우를 로컬에서 실행
+    4. 해당 market 폴더의 nav 소스 파일에 심볼/ipoDate 반영
+    5. public/data/<market>/<symbol>.json 스켈레톤 생성 및 기본 메타데이터 저장
+    6. update_info_data.yml과 동일한 순서의 워크플로우를 로컬에서 실행
 
 Windows PowerShell, macOS/Linux 쉘 모두 지원.
 """
@@ -59,12 +61,28 @@ DATA_DIR = PUBLIC_DIR / "data"
 NAV_DIR = PUBLIC_DIR / "nav"
 PYTHON = sys.executable
 
-MARKET_CHOICES = ("NASDAQ", "NYSE", "KOSPI", "KOSDAQ")
+MARKET_CHOICES = ("NASDAQ", "NYSE", "NYSEARCA", "BATS", "AMEX", "KOSPI", "KOSDAQ", "KONEX")
 MARKET_TO_CURRENCY = {
     "NASDAQ": "USD",
     "NYSE": "USD",
+    "NYSEARCA": "USD",
+    "BATS": "USD",
+    "AMEX": "USD",
     "KOSPI": "KRW",
     "KOSDAQ": "KRW",
+    "KONEX": "KRW",
+}
+
+# 거래소 → 디렉토리 매핑
+MARKET_TO_DIR = {
+    "NASDAQ": "nasdaq",
+    "NYSE": "nyse",
+    "NYSEARCA": "nysearca",
+    "BATS": "bats",
+    "AMEX": "amex",
+    "KOSPI": "kospi",
+    "KOSDAQ": "kosdaq",
+    "KONEX": "konex",
 }
 
 YF_HEADERS = {
@@ -161,7 +179,9 @@ def fetch_ipo_date(symbol: str) -> str:
 
 
 def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
-    market_dir = NAV_DIR / market
+    # MARKET_TO_DIR를 사용하여 디렉토리 이름 결정
+    market_dir_name = MARKET_TO_DIR.get(market, market.lower())
+    market_dir = NAV_DIR / market_dir_name
     market_dir.mkdir(parents=True, exist_ok=True)
     nav_path = market_dir / nav_filename_for_symbol(symbol)
 
@@ -225,8 +245,11 @@ def ensure_data_file(
     isin: str,
 ) -> Path:
     slug = symbol_to_slug(symbol)
-    data_path = DATA_DIR / f"{slug}.json"
-    data_path.parent.mkdir(parents=True, exist_ok=True)
+    # market 디렉토리 사용
+    market_dir = MARKET_TO_DIR.get(market, market.lower())
+    market_data_dir = DATA_DIR / market_dir
+    market_data_dir.mkdir(parents=True, exist_ok=True)
+    data_path = market_data_dir / f"{slug}.json"
 
     if data_path.exists():
         try:
@@ -253,9 +276,77 @@ def ensure_data_file(
     return data_path
 
 
+def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
+    """Google Finance에서 거래소 정보를 가져옵니다."""
+    script_path = ROOT_DIR / "scripts" / "utils" / "fetch_market_from_google_finance.js"
+    if not script_path.exists():
+        print(f"[WARN] fetch_market_from_google_finance.js를 찾을 수 없습니다: {script_path}")
+        return None
+    
+    node_exe = resolve_executable("node")
+    try:
+        # --query-only 모드 사용 (nav.json 업데이트 없이 마켓 정보만 조회)
+        result = subprocess.run(
+            [node_exe, str(script_path), "--query-only", symbol.upper()],
+            cwd=ROOT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        
+        if result.returncode != 0:
+            print(f"[WARN] Google Finance 마켓 조회 실패: {result.stderr}")
+            return None
+        
+        # 출력에서 거래소 정보 추출
+        # 예: "[AAPW] 거래소: BATS"
+        output = result.stdout
+        for line in output.split("\n"):
+            # "[SYMBOL] 거래소:" 패턴 찾기
+            if f"[{symbol.upper()}]" in line and "거래소:" in line:
+                # "거래소: BATS" 패턴
+                if ":" in line:
+                    parts = line.split("거래소:")[-1].strip()
+                    # 알파벳만 추출 (BATS, NASDAQ 등)
+                    market = "".join(c for c in parts if c.isalpha()).upper()
+                    if market and len(market) >= 2:
+                        return market
+        
+        return None
+    except subprocess.TimeoutExpired:
+        print(f"[WARN] Google Finance 마켓 조회 타임아웃")
+        return None
+    except Exception as exc:
+        print(f"[WARN] Google Finance 마켓 조회 오류: {exc}")
+        return None
+
+
 def resolve_market(symbol: str, detected: Optional[str]) -> str:
+    """마켓 정보를 결정합니다. Google Finance를 사용하여 정확한 거래소를 확인합니다."""
+    # 1. 기존 감지된 마켓이 유효하면 사용
     if detected in MARKET_CHOICES:
+        print(f"[INFO] 기존 감지 마켓 사용: {detected}")
         return detected
+    
+    # 2. Google Finance에서 거래소 정보 가져오기
+    print(f"[INFO] Google Finance에서 {symbol}의 거래소 정보를 조회합니다...")
+    google_market = fetch_market_from_google_finance(symbol)
+    
+    if google_market and google_market in MARKET_CHOICES:
+        print(f"[INFO] Google Finance에서 거래소 확인: {google_market}")
+        return google_market
+    
+    # 3. Google Finance에서 새로운 거래소가 발견된 경우
+    if google_market:
+        print(f"[INFO] 새로운 거래소 발견: {google_market}")
+        # 사용자에게 확인
+        print(f"[INPUT] {symbol}의 거래소로 '{google_market}'을 사용하시겠습니까?")
+        response = prompt_user("사용 (y/n)", default="y").lower()
+        if response == "y":
+            # MARKET_CHOICES에 추가 (런타임에만)
+            return google_market
+    
+    # 4. 수동 입력
     return prompt_market(symbol)
 
 
