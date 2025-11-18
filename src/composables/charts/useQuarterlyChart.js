@@ -2,6 +2,7 @@
 import { parseYYMMDD } from '@/utils/date.js';
 import { createNumericFormatter } from '@/utils/formatters.js';
 import { monthColors } from '@/utils/chartUtils';
+import { parseDividendAmount } from '@/utils/dividendParser.js';
 
 export function useQuarterlyChart(options) {
     const { data, theme, currency = 'USD', aggregation = 'quarter' } = options;
@@ -9,6 +10,7 @@ export function useQuarterlyChart(options) {
     const formatCurrency = createNumericFormatter(currency);
     const quarterColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
 
+    // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
     const yearlyData = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
@@ -20,7 +22,18 @@ export function useQuarterlyChart(options) {
         if (!acc[year])
             acc[year] =
                 aggregation === 'quarter' ? [0, 0, 0, 0] : Array(12).fill(0);
-        acc[year][subCategory] += item['배당금'];
+        
+        // 우선순위에 따라 차트에 그려질 값 선택
+        let finalAmount = 0;
+        if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
+            finalAmount = item.amountOriginal;
+        } else if (item.amountFixed !== undefined && item.amountFixed !== null) {
+            finalAmount = item.amountFixed;
+        } else {
+            finalAmount = item.amount || 0;
+        }
+        
+        acc[year][subCategory] += finalAmount;
         return acc;
     }, {});
 

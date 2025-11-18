@@ -14,9 +14,15 @@
     const formattedHistory = computed(() => {
         if (!props.history) return [];
         return props.history.map((item) => {
-            // 분할 조정 안내문구: "₩500 (1:21 == ₩10,500)"
-            let dividendDisplay = formatCurrency(item.배당금, props.currency);
+            // 배당금이 이미 문자열인 경우 (useStockData.js에서 변환된 경우) 그대로 사용
+            // 숫자인 경우에만 포맷팅
+            let dividendDisplay = typeof item.배당금 === 'string' 
+                ? item.배당금 
+                : formatCurrency(item.배당금, props.currency);
+            
+            // amountOriginal과 amountSplitAdjustments가 있고, 배당금이 아직 문자열로 변환되지 않은 경우에만 추가 포맷팅
             if (
+                typeof item.배당금 !== 'string' &&
                 item.amountOriginal != null &&
                 Array.isArray(item.amountSplitAdjustments) &&
                 item.amountSplitAdjustments.length > 0
