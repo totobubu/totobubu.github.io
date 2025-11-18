@@ -20,6 +20,7 @@ const MARKET_SUBDIR_ALIASES = {
     'KRX-KOSPI': 'kospi',
     'KRX-KOSDAQ': 'kosdaq',
     NYSE: 'nyse',
+    NYSEARCA: 'nyse',
     NASDAQ: 'nasdaq',
     AMEX: 'amex',
 };
@@ -416,8 +417,24 @@ async function fetchAndMergePriceData(ticker) {
             };
         }
 
-        const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
-        if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        let startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
+        if (lastPriceDate) {
+            const lastDate = new Date(lastPriceDate);
+            // 마지막 날짜가 미래인 경우 현재 날짜로 조정
+            if (lastDate > today) {
+                startDate = new Date(ipoDate || '1990-01-01');
+            } else {
+                startDate.setDate(startDate.getDate() + 1);
+            }
+        }
+        
+        // 시작 날짜가 현재 날짜보다 미래인 경우 현재 날짜로 조정
+        if (startDate > today) {
+            startDate = today;
+        }
 
         const from = startDate.toISOString().split('T')[0];
 

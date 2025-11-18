@@ -7,7 +7,7 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
-const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'market').toLowerCase();
 const MARKET_FILTER = 'US'; // 미국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
@@ -20,6 +20,7 @@ const MARKET_SUBDIR_ALIASES = {
     'KRX-KOSPI': 'kospi',
     'KRX-KOSDAQ': 'kosdaq',
     NYSE: 'nyse',
+    NYSEARCA: 'nyse',
     NASDAQ: 'nasdaq',
     AMEX: 'amex',
 };
@@ -465,11 +466,22 @@ async function main() {
     // 커맨드라인 인자로 특정 티커 지정 가능
     const targetSymbols = process.argv.slice(2).map((s) => s.toUpperCase());
 
+    // nav.json에 없는 경우를 대비해 기본 티커 추가 (market 정보 포함)
+    const navSymbols = new Set(navData.nav.map((t) => t.symbol.toUpperCase()));
+    const fallbackTickers = [];
+    if (!navSymbols.has('SPY')) {
+        fallbackTickers.push({ symbol: 'SPY', ipoDate: '1993-01-22', market: 'NYSE', currency: 'USD' });
+    }
+    if (!navSymbols.has('QQQ')) {
+        fallbackTickers.push({ symbol: 'QQQ', ipoDate: '1999-03-10', market: 'NASDAQ', currency: 'USD' });
+    }
+    if (!navSymbols.has('DIA')) {
+        fallbackTickers.push({ symbol: 'DIA', ipoDate: '1998-01-14', market: 'NYSE', currency: 'USD' });
+    }
+
     let tickersToFetch = [
         ...navData.nav,
-        { symbol: 'SPY', ipoDate: '1993-01-22' },
-        { symbol: 'QQQ', ipoDate: '1999-03-10' },
-        { symbol: 'DIA', ipoDate: '1998-01-14' },
+        ...fallbackTickers,
     ].filter((item) => !item.upcoming);
 
     // 미국 티커만 필터링
