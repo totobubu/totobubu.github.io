@@ -24,9 +24,10 @@ def get_r2_client():
     secret_access_key = os.getenv('R2_SECRET_ACCESS_KEY')
     bucket_name = os.getenv('R2_BUCKET_NAME')
     
-    # 환경변수가 없으면 .env.r2 파일에서 로드
+    # 환경변수가 없으면 .env.r2 파일에서 로드 (프로젝트 루트)
     if not all([account_id, access_key_id, secret_access_key, bucket_name]):
-        env_file = Path(__file__).parent.parent / '.env.r2'
+        # 프로젝트 루트 찾기: scripts/cloud/r2_helper.py -> scripts/cloud -> scripts -> 프로젝트 루트
+        env_file = Path(__file__).parent.parent.parent / '.env.r2'
         if env_file.exists():
             with open(env_file, 'r', encoding='utf-8') as f:
                 for line in f:
@@ -67,9 +68,10 @@ def load_r2_config():
     bucket_name = os.getenv('R2_BUCKET_NAME')
     public_url = os.getenv('R2_PUBLIC_URL', '')
     
-    # 환경변수가 없으면 .env.r2 파일에서 로드
+    # 환경변수가 없으면 .env.r2 파일에서 로드 (프로젝트 루트)
     if not all([account_id, access_key_id, secret_access_key, bucket_name]):
-        env_file = Path(__file__).parent.parent / '.env.r2'
+        # 프로젝트 루트 찾기: scripts/cloud/r2_helper.py -> scripts/cloud -> scripts -> 프로젝트 루트
+        env_file = Path(__file__).parent.parent.parent / '.env.r2'
         if env_file.exists():
             with open(env_file, 'r', encoding='utf-8') as f:
                 for line in f:
