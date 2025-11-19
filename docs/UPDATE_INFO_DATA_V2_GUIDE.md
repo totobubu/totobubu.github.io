@@ -67,7 +67,7 @@
 
 ## 📄 핵심 파일
 
-### `scripts/info_data_pipeline.py`
+### `scripts/data_pipeline/info_data_pipeline_kr.py` / `scripts/data_pipeline/info_data_pipeline_us.py`
 
 정보성 데이터를 통합 처리하는 메인 파이프라인 스크립트입니다.
 
@@ -332,11 +332,13 @@ cat public/data/NASDAQ/aapl.json | jq '.tickerInfo.Update'
 ```powershell
 # 한국 티커만 테스트
 $env:MARKET_FILTER="KR"
-python scripts/info_data_pipeline.py
+python scripts/data_pipeline/info_data_pipeline_kr.py
+python scripts/data_pipeline/info_data_pipeline_us.py
 
 # 미국 티커만 테스트
 $env:MARKET_FILTER="US"
-python scripts/info_data_pipeline.py
+python scripts/data_pipeline/info_data_pipeline_kr.py
+python scripts/data_pipeline/info_data_pipeline_us.py
 ```
 
 ### 개별 단계 테스트
@@ -390,7 +392,8 @@ project_future_dividends()
 ### Rate Limit 설정
 
 ```python
-# scripts/info_data_pipeline.py
+# scripts/data_pipeline/info_data_pipeline_kr.py
+# scripts/data_pipeline/info_data_pipeline_us.py
 INFO_BATCH_SIZE = 50  # 배치 크기
 INFO_BATCH_DELAY_SEC = 2.0  # 배치 간 대기 시간
 INFO_SYMBOL_DELAY_SEC = 0.05  # 개별 심볼 간 대기 시간

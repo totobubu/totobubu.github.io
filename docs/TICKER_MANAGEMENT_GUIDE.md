@@ -40,16 +40,16 @@
 
 ```bash
 # 단일 티커 추가
-python scripts/run_new_ticker_workflow.py WEED
+python scripts/workflows/run_new_ticker_workflow.py WEED
 
 # 여러 티커 한 번에 추가
-python scripts/run_new_ticker_workflow.py WEED MAGS AAPL
+python scripts/workflows/run_new_ticker_workflow.py WEED MAGS AAPL
 ```
 
 ### 실행 예시
 
 ```bash
-$ python scripts/run_new_ticker_workflow.py WEED MAGS
+$ python scripts/workflows/run_new_ticker_workflow.py WEED MAGS
 
 ================================================================================
 Local new-ticker workflow
@@ -66,12 +66,12 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 === Step 2/15 ===
 
 -> Analyze dividend frequency
-   $ python scripts/analyze_dividend_frequency.py WEED MAGS
+   $ python scripts/data_pipeline/analyze_dividend_frequency.py WEED MAGS
 
 === Step 3/15 ===
 
 -> Auto-detect holdings
-   $ python scripts/auto_detect_holdings.py --api --exclude-kr --yes WEED MAGS
+   $ python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes WEED MAGS
 
 ...
 
@@ -108,7 +108,7 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 최종 포맷팅 단계를 건너뜁니다.
 
 ```bash
-python scripts/run_new_ticker_workflow.py WEED --skip-format
+python scripts/workflows/run_new_ticker_workflow.py WEED --skip-format
 ```
 
 ### `--skip-fetch-holdings`
@@ -116,7 +116,7 @@ python scripts/run_new_ticker_workflow.py WEED --skip-format
 Holdings 데이터 수집 단계를 건너뜁니다.
 
 ```bash
-python scripts/run_new_ticker_workflow.py WEED --skip-fetch-holdings
+python scripts/workflows/run_new_ticker_workflow.py WEED --skip-fetch-holdings
 ```
 
 ### `--dry-run`
@@ -124,7 +124,7 @@ python scripts/run_new_ticker_workflow.py WEED --skip-fetch-holdings
 실제로 실행하지 않고 실행 계획만 출력합니다.
 
 ```bash
-python scripts/run_new_ticker_workflow.py WEED MAGS --dry-run
+python scripts/workflows/run_new_ticker_workflow.py WEED MAGS --dry-run
 ```
 
 **출력 예시:**
@@ -160,10 +160,10 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 **예시:**
 ```bash
 # Holdings 수집 단계에서 오류 발생 시
-python scripts/run_new_ticker_workflow.py WEED --skip-fetch-holdings
+python scripts/workflows/run_new_ticker_workflow.py WEED --skip-fetch-holdings
 
 # 나중에 개별적으로 Holdings 수집
-python scripts/fetch_holdings.py WEED
+python scripts/holdings/fetch_holdings.py WEED
 ```
 
 ---
@@ -203,7 +203,7 @@ pip install -r requirements-workflow.txt
 
 ```bash
 # 예: 배당 빈도 분석만 다시 실행
-python scripts/analyze_dividend_frequency.py WEED MAGS
+python scripts/data_pipeline/analyze_dividend_frequency.py WEED MAGS
 
 # 예: 히스토리 가격만 업데이트
 node tasks/updateHistoricalUsData.js WEED MAGS
@@ -217,7 +217,7 @@ node tasks/updateHistoricalUsData.js WEED MAGS
 
 ```bash
 # 여러 티커를 한 번에 추가하면 효율적입니다
-python scripts/run_new_ticker_workflow.py WEED MAGS AAPL TSLA
+python scripts/workflows/run_new_ticker_workflow.py WEED MAGS AAPL TSLA
 ```
 
 ### 2. Dry-run으로 먼저 확인
@@ -225,7 +225,7 @@ python scripts/run_new_ticker_workflow.py WEED MAGS AAPL TSLA
 실행 전에 계획을 확인하고 싶을 때:
 
 ```bash
-python scripts/run_new_ticker_workflow.py WEED MAGS --dry-run
+python scripts/workflows/run_new_ticker_workflow.py WEED MAGS --dry-run
 ```
 
 ### 3. 특정 단계만 건너뛰기
@@ -233,7 +233,7 @@ python scripts/run_new_ticker_workflow.py WEED MAGS --dry-run
 Holdings가 없는 일반 주식의 경우:
 
 ```bash
-python scripts/run_new_ticker_workflow.py AAPL --skip-fetch-holdings
+python scripts/workflows/run_new_ticker_workflow.py AAPL --skip-fetch-holdings
 ```
 
 ### 4. 변경사항 확인
@@ -253,14 +253,14 @@ git diff public/data/
 git checkout public/nav/ public/data/
 
 # 다시 실행
-python scripts/run_new_ticker_workflow.py WEED
+python scripts/workflows/run_new_ticker_workflow.py WEED
 ```
 
 ---
 
 ## 📚 참고 자료
 
-- **run_new_ticker_workflow.py 소스:** `scripts/run_new_ticker_workflow.py`
+- **run_new_ticker_workflow.py 소스:** `scripts/workflows/run_new_ticker_workflow.py`
 - **전체 데이터 업데이트:** `src/README.md` 참고
 - **로컬 vs GitHub 워크플로우:** `docs/LOCAL_VS_GITHUB_WORKFLOWS.md` 참고
 

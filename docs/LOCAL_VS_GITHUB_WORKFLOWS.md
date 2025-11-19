@@ -59,18 +59,18 @@
 
 | 순서 | 작업 | 로컬 | GitHub Info | 설명 |
 |-----|------|------|------------|------|
-| 3 | 환율 데이터 | ✅ | ✅ | `node scripts/fetch_all_exchange_rates.js` |
+| 3 | 환율 데이터 | ✅ | ✅ | `node scripts/exchange/fetch_all_exchange_rates.js` |
 | 4 | IPO 날짜 | ✅ | ✅ | `npm run add-ipo-dates` |
-| 5 | 배당 빈도 | ✅ | ✅ | `python scripts/analyze_dividend_frequency.py` |
+| 5 | 배당 빈도 | ✅ | ✅ | `python scripts/data_pipeline/analyze_dividend_frequency.py` |
 | 6 | nav.json | ✅ | ✅ | `npm run generate-nav` |
-| 6.5 | Holdings 자동감지 | ✅ | ✅ | `python scripts/auto_detect_holdings.py` |
-| 6.6 | ETF Holdings | ✅ | ✅ | `python scripts/fetch_holdings.py` |
-| 7 | 시가총액 | ✅ | ✅ | `python scripts/update_market_cap.py` |
-| 8 | 배당 데이터 | ✅ | ✅ | `python scripts/update_dividends.py` |
-| 9 | 배당 히스토리 | ✅ | ✅ | `python scripts/scraper_dividend.py` |
-| 9.5 | 데이터 정리 | ✅ | ✅ | `python scripts/clean_data.py` |
-| 10 | 티커 정보 | ✅ | ✅ | `python scripts/scraper_info.py` |
-| 11.5 | 미래 배당 예측 | ✅ | ✅ | `python scripts/project_future_dividends.py` |
+| 6.5 | Holdings 자동감지 | ✅ | ✅ | `python scripts/holdings/auto_detect_holdings.py` |
+| 6.6 | ETF Holdings | ✅ | ✅ | `python scripts/holdings/fetch_holdings.py` |
+| 7 | 시가총액 | ✅ | ✅ | `python scripts/data_pipeline/update_market_cap.py` |
+| 8 | 배당 데이터 | ✅ | ✅ | `python scripts/data_pipeline/update_dividends.py` |
+| 9 | 배당 히스토리 | ✅ | ✅ | `python scripts/data_pipeline/scraper_dividend.py` |
+| 9.5 | 데이터 정리 | ✅ | ✅ | `python scripts/data_processing/clean_data.py` |
+| 10 | 티커 정보 | ✅ | ✅ | `python scripts/data_pipeline/scraper_info.py` |
+| 11.5 | 미래 배당 예측 | ✅ | ✅ | `python scripts/data_pipeline/project_future_dividends.py` |
 | 12 | 캘린더 이벤트 | ✅ | ✅ | `npm run generate-calendar-events` |
 
 ---
@@ -81,8 +81,8 @@
 |-----|------|------|--------------|------|
 | 7.5 | 히스토리 가격 (KR) | ✅ | ✅ | `node tasks/updateHistoricalKrData.js` |
 | 7.6 | 히스토리 가격 (US) | ✅ | ✅ | `node tasks/updateHistoricalUsData.js` |
-| 11 | 북마크 인기도 | ✅ | ✅ | `python scripts/aggregate_popularity.py` |
-| 13 | 사이드바 티커 | ✅ | ✅ | `python scripts/generate_sidebar_tickers.py` |
+| 11 | 북마크 인기도 | ✅ | ✅ | `python scripts/utils/popularity_utils.py` |
+| 13 | 사이드바 티커 | ✅ | ✅ | `python scripts/utils/generateSidebar.py` |
 
 ---
 
@@ -91,7 +91,7 @@
 | 순서 | 작업 | 로컬 | GitHub | 설명 |
 |-----|------|------|--------|------|
 | 14 | 포맷팅 | ✅ | ✅ | `npm run format:changed` (Git 변경분만) |
-| 15 | R2 업로드 | ❌ | ✅ | `python scripts/upload_changed_to_r2.py` |
+| 15 | R2 업로드 | ❌ | ✅ | `python scripts/cloud/upload_changed_to_r2.py` |
 
 ---
 
@@ -138,7 +138,7 @@ npm run format:changed  # Git 변경된 파일만! 🚀
 
 **GitHub:**
 - ✅ R2 업로드 있음 (프로덕션 배포)
-- `python scripts/upload_changed_to_r2.py`
+- `python scripts/cloud/upload_changed_to_r2.py`
 
 ---
 
@@ -150,7 +150,7 @@ npm run format:changed  # Git 변경된 파일만! 🚀
 .\scripts\update_all_local.ps1
 
 # 또는 개별 단계 실행
-python scripts/run_new_ticker_workflow.py WEED MAGS
+python scripts/workflows/run_new_ticker_workflow.py WEED MAGS
 npm run generate-nav
 ```
 

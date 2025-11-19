@@ -125,7 +125,7 @@ prettier --write src/App.vue
 
 ```bash
 # 1. 데이터 업데이트
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 # → 50개 파일 변경됨
 
 # 2. 포맷 (변경된 것만)
@@ -145,7 +145,7 @@ git commit -m "Update dividends"
 
 ```yaml
 - name: Update data
-  run: python scripts/update_dividends.py
+  run: python scripts/data_pipeline/update_dividends.py
 
 - name: Format changed files only
   run: npm run format:changed

@@ -1,6 +1,6 @@
 # 신규 심볼 온보딩 스크립트 가이드 (`add_new_symbols.py`)
 
-`python scripts/add_new_symbols.py --symbol {{심볼}}` 명령 하나로 신규 티커를 빠르게 추가하는 방법을 정리했습니다. 이 스크립트는 기존 수동 단계(시장 판별 → ISIN 입력 → IPO 날짜 확인 → nav/data 업데이트 → info 파이프라인)를 자동화하여 **한 티커 기준 몇 분 내**에 준비가 끝나도록 설계되었습니다.
+`python scripts/utils/add_new_symbols.py --symbol {{심볼}}` 명령 하나로 신규 티커를 빠르게 추가하는 방법을 정리했습니다. 이 스크립트는 기존 수동 단계(시장 판별 → ISIN 입력 → IPO 날짜 확인 → nav/data 업데이트 → info 파이프라인)를 자동화하여 **한 티커 기준 몇 분 내**에 준비가 끝나도록 설계되었습니다.
 
 ---
 
@@ -15,12 +15,12 @@
 ## 2. 빠른 시작
 
 ```bash
-python scripts/add_new_symbols.py --symbol YMAX
+python scripts/utils/add_new_symbols.py --symbol YMAX
 ```
 
 - 여러 심볼을 한 번에 처리하고 싶다면 `--symbol` 옵션을 반복해서 넘깁니다.
   ```bash
-  python scripts/add_new_symbols.py --symbol VOO --symbol QQQ
+  python scripts/utils/add_new_symbols.py --symbol VOO --symbol QQQ
   ```
 - 주요 옵션
   - `--skip-workflow`: nav/data 갱신까지만 수행하고 통합 워크플로우는 건너뜁니다.
@@ -59,7 +59,7 @@ YMAX ISIN (예: US0000000001): US1234567890
 로컬 update_info_data 워크플로우 실행
 ================================================================================
 -> 1. 환율 데이터 업데이트
-   $ node scripts/fetch_all_exchange_rates.js
+   $ node scripts/exchange/fetch_all_exchange_rates.js
 ...
 ✅ 워크플로우 완료
 ```
@@ -69,13 +69,13 @@ YMAX ISIN (예: US0000000001): US1234567890
 ## 5. 옵션별 사용 시나리오
 
 - **워크플로우 없이 파일만 준비하고 싶을 때**  
-  `python scripts/add_new_symbols.py --symbol ABC --skip-workflow`
+  `python scripts/utils/add_new_symbols.py --symbol ABC --skip-workflow`
 
 - **형식화 스텝을 직접 하고 싶을 때**  
-  `python scripts/add_new_symbols.py --symbol ABC --skip-format`
+  `python scripts/utils/add_new_symbols.py --symbol ABC --skip-format`
 
 - **변경 없이 계획만 확인**  
-  `python scripts/add_new_symbols.py --symbol ABC --dry-run`
+  `python scripts/utils/add_new_symbols.py --symbol ABC --dry-run`
 
 ---
 
@@ -103,8 +103,8 @@ YMAX ISIN (예: US0000000001): US1234567890
 
 ## 8. 참고 자료
 
-- `scripts/add_new_symbols.py`
-- `scripts/fetch_missing_isin.py`
+- `scripts/utils/add_new_symbols.py`
+- `scripts/utils/fetch_missing_isin.py`
 - `tasks/addIpoDatesToNav.js`
 - `.github/workflows/update_info_data_v2.yml`
 - `docs/TICKER_MANAGEMENT_GUIDE.md`
