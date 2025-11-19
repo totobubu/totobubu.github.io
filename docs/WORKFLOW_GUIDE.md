@@ -71,7 +71,7 @@
 기존에 5개의 개별 스크립트를 1개의 통합 파이프라인으로 처리:
 
 ```python
-# 통합 파이프라인: scripts/info_data_pipeline.py
+# 통합 파이프라인: scripts/data_pipeline/info_data_pipeline_kr.py / scripts/data_pipeline/info_data_pipeline_us.py
 def main():
     # 1. nav.json을 1회만 로드
     nav_data = load_nav_json()
@@ -99,7 +99,7 @@ def main():
 - npm run format:changed
 
 # 변경된 파일만 R2 업로드 (90% 빠름)
-- python scripts/upload_changed_to_r2.py
+- python scripts/cloud/upload_changed_to_r2.py
 ```
 
 #### 3. 스마트 업데이트
@@ -107,7 +107,7 @@ def main():
 `Update` 필드는 데이터 변경 시에만 갱신:
 
 ```python
-# scripts/scraper_info.py
+# scripts/data_pipeline/scraper_info.py
 data_changed = json.dumps(old_data) != json.dumps(new_data)
 
 if not data_changed:
@@ -148,28 +148,28 @@ if not data_changed:
 
 ```
 1. Auto-detect holdings for new tickers
-   → python scripts/auto_detect_holdings.py
+   → python scripts/holdings/auto_detect_holdings.py
 
 2. Fetch ETF holdings (Yahoo Finance - 23분)
-   → python scripts/fetch_holdings.py
+   → python scripts/holdings/fetch_holdings.py
    - YieldMax: 57개 (웹 스크래핑)
    - 일반 ETF: ~900개 (Yahoo Finance API)
 
 3. Scrape Roundhill holdings (Playwright - 3-5분) ⚡
-   → node scripts/scrape_roundhill_holdings_playwright.js --all
-   → python scripts/add_roundhill_holdings.py --batch
+   → node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
+   → python scripts/holdings/add_roundhill_holdings.py --batch
    - Roundhill: 43개 (완전 자동화)
    - 데이터 중복 자동 비교
 
 4. Download ARK holdings CSV (10초) ⚡
-   → node scripts/scrape_ark_holdings.js --all
-   → python scripts/add_roundhill_holdings.py --batch
+   → node scripts/holdings/scrape_ark_holdings.js --all
+   → python scripts/holdings/add_roundhill_holdings.py --batch
    - ARK: 10개 (CSV 직접 다운로드)
    - 총 350개 Holdings
 
 5. Download iShares holdings (JSON API + CSV - 20초) ⚡ NEW!
-   → python scripts/scrape_ishares_holdings.py --all
-   → python scripts/add_roundhill_holdings.py --batch
+   → python scripts/holdings/scrape_ishares_holdings.py --all
+   → python scripts/holdings/add_roundhill_holdings.py --batch
    - iShares: 4개 (IBIT, ETHA, GARP, GSG)
    - 총 162개 Holdings
 
@@ -177,7 +177,7 @@ if not data_changed:
    → npm run format:changed
 
 7. Upload to R2
-   → python scripts/upload_changed_to_r2.py
+   → python scripts/cloud/upload_changed_to_r2.py
 
 8. Commit and push
 ```
@@ -222,19 +222,19 @@ Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 
 ```yaml
 - name: Update market cap
-  run: python scripts/update_market_cap.py      # 17분
+  run: python scripts/data_pipeline/update_market_cap.py      # 17분
 
 - name: Update dividends
-  run: python scripts/update_dividends.py       # 17분
+  run: python scripts/data_pipeline/update_dividends.py       # 17분
 
 - name: Update ticker info
-  run: python scripts/scraper_info.py           # 10분
+  run: python scripts/data_pipeline/scraper_info.py           # 10분
 
 - name: Dividend frequency
-  run: python scripts/analyze_dividend_frequency.py  # 2분
+  run: python scripts/data_pipeline/analyze_dividend_frequency.py  # 2분
 
 - name: Project future dividends
-  run: python scripts/project_future_dividends.py    # 2분
+  run: python scripts/data_pipeline/project_future_dividends.py    # 2분
 ```
 
 **문제점:**
@@ -246,7 +246,8 @@ Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 
 ```yaml
 - name: Update all info data
-  run: python scripts/info_data_pipeline.py     # 14분
+  run: python scripts/data_pipeline/info_data_pipeline_kr.py     # 14분 (KR)
+  run: python scripts/data_pipeline/info_data_pipeline_us.py     # 14분 (US)
 ```
 
 **개선:**
@@ -264,7 +265,7 @@ Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 - run: npm run format           # 5분
 
 # 모든 파일 해시 계산 후 업로드
-- run: python scripts/upload_all_to_r2.py  # 10분
+- run: python scripts/cloud/upload_full_sync_to_r2.py  # 10분
 ```
 
 #### After (변경 파일만 처리)
@@ -274,7 +275,7 @@ Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 - run: npm run format:changed   # 3초
 
 # 변경된 파일만 업로드 (Git 기반)
-- run: python scripts/upload_changed_to_r2.py  # 15초
+- run: python scripts/cloud/upload_changed_to_r2.py  # 15초
 ```
 
 **개선:**
@@ -318,7 +319,7 @@ else:
 ```yaml
 # Info 워크플로우에 포함 (매일)
 - name: Fetch holdings
-  run: python scripts/fetch_holdings.py  # 23분
+  run: python scripts/holdings/fetch_holdings.py  # 23분
 ```
 
 **문제:** Holdings는 자주 변경되지 않는데 매일 수집
@@ -396,7 +397,8 @@ schedule:
 ### 1. 통합 파이프라인
 
 ```python
-# scripts/info_data_pipeline.py
+# scripts/data_pipeline/info_data_pipeline_kr.py
+# scripts/data_pipeline/info_data_pipeline_us.py
 
 def main():
     # 1회만 로드
@@ -420,7 +422,7 @@ git diff --name-only HEAD
 npm run format:changed
 
 # 변경된 파일만 R2 업로드
-python scripts/upload_changed_to_r2.py
+python scripts/cloud/upload_changed_to_r2.py
 ```
 
 ### 3. 배치 처리

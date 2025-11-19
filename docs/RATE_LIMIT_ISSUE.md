@@ -85,12 +85,12 @@ for symbol in tickers:
 
 ## 🎯 수정된 파일
 
-### 1. `scripts/info_data_pipeline.py`
+### 1. `scripts/data_pipeline/info_data_pipeline_kr.py` / `scripts/data_pipeline/info_data_pipeline_us.py`
 - ✅ STEP 3: 시가총액 업데이트 로직 수정
 - ✅ 배치 → 개별 요청으로 변경
 - ✅ Rate Limit 감지 및 재시도
 
-### 2. `scripts/update_market_cap.py`
+### 2. `scripts/data_pipeline/update_market_cap.py`
 - ✅ 동일한 로직으로 수정
 - ✅ V1 워크플로우에서도 작동
 
@@ -130,7 +130,7 @@ with ThreadPoolExecutor(max_workers=5) as executor:
 ### 로컬 테스트
 ```bash
 # 소수 티커로 먼저 테스트
-python scripts/update_market_cap.py
+python scripts/data_pipeline/update_market_cap.py
 
 # 출력 확인:
 # ✅ Successfully updated: XXX tickers

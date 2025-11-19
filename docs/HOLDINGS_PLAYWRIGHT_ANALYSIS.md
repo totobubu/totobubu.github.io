@@ -235,7 +235,7 @@
 ```bash
 # 예상 시간: 2-4시간
 # 효과: 3개 인기 ETF 자동화
-node scripts/scrape_spdr_gold.js GLD GLDM SLV
+node scripts/holdings/scrape_spdr_holdings.js GLD GLDM SLV
 ```
 
 **2. ARK ARKB (Bitcoin ETF)**
@@ -243,7 +243,7 @@ node scripts/scrape_spdr_gold.js GLD GLDM SLV
 ```bash
 # 예상 시간: 1-2시간
 # 효과: 1개 인기 ETF 자동화
-node scripts/scrape_ark_holdings.js ARKB
+node scripts/holdings/scrape_ark_holdings.js ARKB
 ```
 
 **3. Fidelity 암호화폐 (FBTC, FETH)**

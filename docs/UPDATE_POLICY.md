@@ -18,8 +18,8 @@
 
 ### 적용 대상
 
-- ✅ `scripts/info_data_pipeline.py` (통합 파이프라인)
-- ✅ `scripts/scraper_info.py` (개별 스크립트)
+- ✅ `scripts/data_pipeline/info_data_pipeline_kr.py` / `scripts/data_pipeline/info_data_pipeline_us.py` (통합 파이프라인)
+- ✅ `scripts/data_pipeline/scraper_info.py` (개별 스크립트)
 - 모든 `tickerInfo` 업데이트 작업
 
 ---
@@ -98,7 +98,7 @@ def should_skip_update_timestamp(old_update_str, data_changed):
     return True
 ```
 
-### 2. **적용 예시** (`scripts/info_data_pipeline.py`)
+### 2. **적용 예시** (`scripts/data_pipeline/info_data_pipeline_kr.py`)
 
 ```python
 # 변경 여부 확인
@@ -246,7 +246,7 @@ compare_new = {k: v for k, v in new_info.items() if k not in ["Update", "changes
 
 ```bash
 # 데이터 변경이 없으면 파일 저장 안함
-python scripts/scraper_info.py
+python scripts/data_pipeline/scraper_info.py
 
 # 강제로 모든 파일을 업데이트하려면 기존 Update 필드를 삭제하거나 코드 수정 필요
 ```
