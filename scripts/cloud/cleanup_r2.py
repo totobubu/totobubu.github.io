@@ -108,22 +108,34 @@ def main():
         print("[ERROR] boto3가 설치되어 있지 않습니다. 먼저 'pip install boto3' 를 실행하세요.")
         return 1
     
+    # 로컬 파일 수집 (R2 설정 없이도 가능)
+    local_keys = collect_local_keys(args.target)
+    
+    if args.target == "data" and args.market:
+        print(f"[INFO] 로컬 {args.market} 파일 {len(local_keys)}개")
+    else:
+        print(f"[INFO] 로컬 {args.target} 파일 {len(local_keys)}개")
+    
+    # R2 설정 로드 (R2 비교를 위해 필요)
     try:
         config = load_r2_config()
     except Exception as exc:
-        print(f"[ERROR] R2 설정을 로드할 수 없습니다: {exc}")
+        print(f"\n[ERROR] R2 설정을 로드할 수 없습니다: {exc}")
+        print("\n💡 R2 설정 방법:")
+        print("   1. 환경 변수 설정:")
+        print("      - R2_ACCOUNT_ID")
+        print("      - R2_ACCESS_KEY_ID")
+        print("      - R2_SECRET_ACCESS_KEY")
+        print("      - R2_BUCKET_NAME")
+        print("   2. 또는 .env.r2 파일 생성 (프로젝트 루트)")
+        print("\n⚠️  R2 설정 없이는 로컬 파일만 확인할 수 있습니다.")
+        print(f"   현재 로컬 {args.target} 파일: {len(local_keys)}개")
         return 1
-    
-    # 로컬 파일 수집
-    local_keys = collect_local_keys(args.target)
     
     # market 필터링 (data 타겟일 때만)
     if args.target == "data" and args.market:
         market_prefix = f"data/{args.market.lower()}/"
         local_keys = {k for k in local_keys if k.startswith(market_prefix)}
-        print(f"[INFO] 로컬 {args.market} 파일 {len(local_keys)}개")
-    else:
-        print(f"[INFO] 로컬 {args.target} 파일 {len(local_keys)}개")
     
     # R2 파일 수집
     if args.target == "data" and args.market:
