@@ -12,6 +12,7 @@
     } from '@/composables/useAssetFirestore';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
+    import { isinToSymbol } from '@/utils/isinMapping';
 
     import Card from 'primevue/card';
     import Button from 'primevue/button';
@@ -833,12 +834,23 @@
                 life: 3000,
             });
 
+            // transactions 추출 - 여러 가능한 경로 확인
+            const transactions = 
+                data.extractedData?.transactions || 
+                data.extractedData?.data?.transactions ||
+                data.transactions ||
+                [];
+
+            console.log('🔍 handleTransactionUploadComplete - transactions:', transactions);
+            console.log('📊 transactions 개수:', transactions.length);
+            console.log('📋 extractedData 전체:', data.extractedData);
+
             await registerTransactionsByIsin({
                 memberId,
                 brokerageId,
                 accountId,
                 brokerageName: data.brokerageName,
-                transactions: data.extractedData?.transactions || [],
+                transactions: transactions,
             });
         } catch (error) {
             console.error('계좌 생성 실패:', error);
@@ -859,7 +871,14 @@
         brokerageName,
         transactions,
     }) => {
+        console.log('🚀 registerTransactionsByIsin 호출됨');
+        console.log('📋 transactions:', transactions);
+        console.log('📊 transactions 타입:', typeof transactions);
+        console.log('📊 transactions 배열 여부:', Array.isArray(transactions));
+        console.log('📊 transactions 길이:', transactions?.length);
+
         if (!Array.isArray(transactions) || transactions.length === 0) {
+            console.warn('⚠️ 거래내역이 없습니다.');
             toast.add({
                 severity: 'info',
                 summary: '안내',
@@ -879,11 +898,37 @@
         try {
             const assetMap = new Map();
 
+            // 먼저 모든 ISIN을 수집하고 매핑
+            const isins = new Set();
+            transactions.forEach((transaction) => {
+                const rawIsin = (transaction.ticker || '').trim();
+                if (rawIsin) {
+                    isins.add(rawIsin.toUpperCase());
+                }
+            });
+
+            // ISIN을 SYMBOL로 매핑
+            const isinSymbolMap = new Map();
+            for (const isin of isins) {
+                const symbol = await isinToSymbol(isin);
+                if (symbol) {
+                    isinSymbolMap.set(isin, symbol);
+                }
+            }
+
+            // 거래내역을 처리하여 자산 맵 구성
+            const symbolToIsinMap = new Map(); // symbol -> isin 역매핑 (매핑 실패 추적용)
             transactions.forEach((transaction) => {
                 const rawIsin = (transaction.ticker || '').trim();
                 if (!rawIsin) return;
 
                 const isin = rawIsin.toUpperCase();
+                const mappedSymbol = isinSymbolMap.get(isin);
+                const symbol = mappedSymbol || null; // 매핑이 없으면 null (ISIN만 저장)
+                const koName = transaction.stock_name
+                    ? transaction.stock_name.trim()
+                    : null;
+
                 const isSell =
                     typeof transaction.type === 'string' &&
                     /매도|판매/i.test(transaction.type);
@@ -893,22 +938,34 @@
                         : Number(transaction.quantity) || 0;
                 const signedQuantity = isSell ? -quantity : quantity;
 
+                // ISIN을 키로 사용하여 같은 종목을 그룹화 (같은 ISIN은 하나의 자산)
                 if (!assetMap.has(isin)) {
+                    // 매핑 실패 여부 추적
+                    if (!mappedSymbol) {
+                        symbolToIsinMap.set(isin, isin);
+                    }
                     assetMap.set(isin, {
                         type: '주식',
-                        symbol: isin,
+                        isin: isin,
+                        symbol: symbol, // 매핑된 SYMBOL 또는 null
+                        koName: koName, // 한국어 종목명 (승인 대기)
+                        koNameApprovalStatus: koName ? 'pending' : null, // 승인 상태: pending, approved, rejected
                         amount: 0,
                         currency: 'USD',
                         notes: [
-                            `ISIN: ${isin}`,
-                            transaction.stock_name
-                                ? `원본 종목명: ${transaction.stock_name}`
-                                : null,
                             '토스 거래내역서 기반 자동 등록',
                         ]
                             .filter(Boolean)
                             .join('\n'),
                     });
+                } else {
+                    // 같은 ISIN이지만 koName이 다를 수 있으므로 첫 번째 것 사용
+                    const existingAsset = assetMap.get(isin);
+                    // koName이 없으면 업데이트
+                    if (!existingAsset.koName && koName) {
+                        existingAsset.koName = koName;
+                        existingAsset.koNameApprovalStatus = 'pending';
+                    }
                 }
 
                 const asset = assetMap.get(isin);
@@ -917,11 +974,17 @@
 
             let successCount = 0;
             let skipCount = 0;
+            let unmappedCount = 0;
 
             for (const [isin, assetData] of assetMap.entries()) {
                 if (!assetData.amount) {
                     skipCount++;
                     continue;
+                }
+
+                // ISIN으로 등록된 경우 (매핑 실패)
+                if (symbolToIsinMap.has(isin)) {
+                    unmappedCount++;
                 }
 
                 try {
@@ -932,7 +995,10 @@
                         accountId,
                         {
                             type: assetData.type,
-                            symbol: assetData.symbol,
+                            isin: assetData.isin,
+                            symbol: assetData.symbol, // 매핑된 SYMBOL 또는 null
+                            koName: assetData.koName, // 한국어 종목명
+                            koNameApprovalStatus: assetData.koNameApprovalStatus, // 승인 상태
                             amount: assetData.amount,
                             currency: assetData.currency,
                             notes: assetData.notes,
@@ -948,12 +1014,18 @@
             delete loadedMemberData.value[memberId];
             await loadMemberData(memberId);
 
+            let detailMessage = `${successCount}개의 자산이 등록되었습니다.`;
+            if (unmappedCount > 0) {
+                detailMessage += ` (매핑 실패: ${unmappedCount}개)`;
+            }
+            if (skipCount > 0) {
+                detailMessage += ` (건너뛴 종목: ${skipCount}개)`;
+            }
+
             toast.add({
                 severity: 'success',
                 summary: '완료',
-                detail: `${successCount}개의 자산이 등록되었습니다.${
-                    skipCount ? ` (건너뛴 종목 ${skipCount}개)` : ''
-                }`,
+                detail: detailMessage,
                 life: 5000,
             });
         } catch (error) {

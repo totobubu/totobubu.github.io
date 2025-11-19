@@ -29,7 +29,10 @@ import { db } from '@/firebase';
  *
  * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}/accounts/{accountId}/assets/{assetId}
  *   - type: string (주식, 현금, 외환예금, 코인)
- *   - symbol?: string (주식 심볼)
+ *   - isin?: string (ISIN 코드)
+ *   - symbol?: string (주식 심볼, ISIN에서 매핑된 값)
+ *   - koName?: string (한국어 종목명)
+ *   - koNameApprovalStatus?: string (pending, approved, rejected)
  *   - amount: number
  *   - currency: string (KRW, USD 등)
  *   - notes?: string

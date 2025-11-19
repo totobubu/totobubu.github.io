@@ -12,6 +12,13 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
     
+    // Helper function: 관리자 여부 확인
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.email != null &&
+             request.auth.token.email == 'totobubu.lab@gmail.com';
+    }
+    
     // userBookmarks 컬렉션 규칙 (기존)
     match /userBookmarks/{userId} {
       allow read, write: if isOwner(userId);
@@ -35,7 +42,10 @@ service cloud.firestore {
             
             // 자산 하위 컬렉션
             match /assets/{assetId} {
+              // 소유자는 자신의 자산에 접근 가능
               allow read, write: if isOwner(userId);
+              // 관리자는 모든 자산에 읽기/쓰기 가능 (collectionGroup 쿼리용)
+              allow read, write: if isAdmin();
             }
           }
         }
