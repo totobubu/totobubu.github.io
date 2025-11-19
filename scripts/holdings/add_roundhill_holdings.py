@@ -566,7 +566,7 @@ def process_batch_file(file_path):
     print(f"\n총 {len(etf_data_list)}개 ETF 발견\n")
 
     # 프로젝트 루트로 이동
-    script_dir = Path(__file__).parent.parent
+    script_dir = Path(__file__).parent.parent.parent
     import os
 
     os.chdir(script_dir)
