@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 39.5915,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 39.0401,
         "englishName": "iShares China Large-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 5125119488,
-        "Volume": 27834749,
-        "AvgVolume": 32308739,
+        "marketCap": 5053741056,
+        "Volume": 20062478,
+        "AvgVolume": 32370335,
         "sharesOutstanding": 129450000,
         "52Week": "28.41 - 42.0",
-        "Yield": 0.020989,
+        "Yield": 0.021286,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642871846",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.5915,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 5125119488,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 27834749,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32308739,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.020989,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48001,7 +48022,8 @@
             "high": 39.625,
             "low": 39.18,
             "close": 39.509998,
-            "volume": 29951667
+            "volume": 29951667,
+            "marketCap": 5053741056
         }
     ]
 }

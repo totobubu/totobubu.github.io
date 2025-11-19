@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 201.34,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 195.37,
         "englishName": "Charter Communications, Inc.",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 127433990144,
-        "marketCap": 27501230080,
-        "Volume": 905727,
-        "AvgVolume": 2000415,
+        "enterpriseValue": 127285166080,
+        "marketCap": 26685782016,
+        "Volume": 1676202,
+        "AvgVolume": 1992507,
         "sharesOutstanding": 129409366,
-        "52Week": "199.31 - 437.06",
+        "52Week": "193.49 - 437.06",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 201.34,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 127433990144,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 27501230080,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 905727,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2000415,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35964,7 +35985,8 @@
             "high": 203.800003,
             "low": 199.479996,
             "close": 200.690002,
-            "volume": 1285455
+            "volume": 1285455,
+            "marketCap": 26685782016
         }
     ]
 }

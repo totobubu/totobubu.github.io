@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 153.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 151.39,
         "englishName": "Chevron Corporation",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 351307399168,
-        "marketCap": 309033467904,
-        "Volume": 5141875,
-        "AvgVolume": 7453929,
+        "enterpriseValue": 348891185152,
+        "marketCap": 305023975424,
+        "Volume": 3566287,
+        "AvgVolume": 7489146,
         "sharesOutstanding": 1999353597,
         "52Week": "132.04 - 168.96",
-        "Yield": 0.044074,
+        "Yield": 0.044653,
         "dividendRate": 6.84,
         "payoutRatio": 0.9508,
         "isin": "ARDEUT110087",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 153.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 351307399168,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 309033467904,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5141875,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7453929,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.044074,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -147382,14 +147407,16 @@
             "high": 154.279999,
             "low": 151.759995,
             "close": 153.619995,
-            "volume": 9198076
+            "volume": 9198076,
+            "amount": 1.71,
+            "yield": 0.0555409836
         },
         {
-            "date": "2025-11-19",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-19",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

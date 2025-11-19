@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 254.99,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 252.58,
         "englishName": "First Solar, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 26058901504,
-        "marketCap": 27362504704,
-        "Volume": 1342603,
-        "AvgVolume": 2403976,
+        "enterpriseValue": 25914034176,
+        "marketCap": 27103891456,
+        "Volume": 957502,
+        "AvgVolume": 2360114,
         "sharesOutstanding": 107308141,
         "52Week": "116.56 - 281.55",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 254.99,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 26058901504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 27362504704,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1342603,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2403976,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43038,7 +43059,8 @@
             "high": 257.320007,
             "low": 244.5,
             "close": 252.190002,
-            "volume": 1722600
+            "volume": 1722600,
+            "marketCap": 27103891456
         }
     ]
 }

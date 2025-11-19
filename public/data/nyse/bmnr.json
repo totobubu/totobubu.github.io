@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 32.33,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 29.01,
         "englishName": "Bitmine Immersion Technologies, Inc.",
         "earningsDate": "2025-11-21",
-        "enterpriseValue": 133590720,
-        "marketCap": 9205719040,
-        "Volume": 44916836,
-        "AvgVolume": 44680982,
+        "enterpriseValue": 139314192,
+        "marketCap": 8260374528,
+        "Volume": 34220072,
+        "AvgVolume": 44714915,
         "sharesOutstanding": 284742317,
         "52Week": "3.92 - 161.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.33,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 133590720,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 9205719040,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 44916836,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 44680982,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1062,7 +1083,8 @@
             "high": 33.389999,
             "low": 30.469999,
             "close": 32.279999,
-            "volume": 52368036
+            "volume": 52368036,
+            "marketCap": 8260374528
         }
     ]
 }

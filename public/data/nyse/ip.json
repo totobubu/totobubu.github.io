@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 37,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 36.13,
         "englishName": "International Paper Company",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 29024724992,
-        "marketCap": 19537418240,
-        "Volume": 3473143,
-        "AvgVolume": 4480507,
+        "enterpriseValue": 29109211136,
+        "marketCap": 19078025216,
+        "Volume": 1757693,
+        "AvgVolume": 4500292,
         "sharesOutstanding": 528038317,
         "52Week": "35.79 - 60.36",
-        "Yield": 0.05,
+        "Yield": 0.051204,
         "dividendRate": 1.85,
         "payoutRatio": 1.5812,
         "isin": "US4601461035",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29024724992,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 19537418240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3473143,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4480507,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.05,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -149375,6 +149400,10 @@
             "volume": 3904539
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.463
+        },
+        {
             "date": "2025-11-17",
             "open": 37.209999,
             "high": 37.279999,
@@ -149395,7 +149424,7 @@
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

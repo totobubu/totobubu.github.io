@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 28.325,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 28.17,
         "englishName": "iShares MSCI Singapore ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 699627520,
-        "Volume": 1204122,
-        "AvgVolume": 728748,
+        "marketCap": 695798976,
+        "Volume": 514660,
+        "AvgVolume": 741550,
         "sharesOutstanding": 24700000,
         "52Week": "20.08 - 29.65",
-        "Yield": 0.022489,
+        "Yield": 0.022613,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G7806",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.325,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 699627520,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1204122,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 728748,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.022489,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67674,7 +67695,8 @@
             "high": 28.360001,
             "low": 28.139999,
             "close": 28.290001,
-            "volume": 1228076
+            "volume": 1228076,
+            "marketCap": 695798976
         }
     ]
 }

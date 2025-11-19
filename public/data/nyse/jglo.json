@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 66.51,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 66.16,
         "englishName": "Jpmorgan Global Select Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 108359,
-        "AvgVolume": 313007,
+        "Volume": 28162,
+        "AvgVolume": 310442,
         "sharesOutstanding": null,
         "52Week": "51.78 - 69.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.51,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 108359,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 313007,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4569,6 +4582,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

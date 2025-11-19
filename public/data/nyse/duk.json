@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 123.9856,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 122.1,
         "englishName": "Duke Energy Corporation",
         "earningsDate": "2025-11-07",
-        "enterpriseValue": 188444639232,
-        "marketCap": 96418799616,
-        "Volume": 2400593,
-        "AvgVolume": 2897875,
+        "enterpriseValue": 187371454464,
+        "marketCap": 94952439808,
+        "Volume": 1674076,
+        "AvgVolume": 2911426,
         "sharesOutstanding": 777661224,
         "52Week": "105.2 - 130.03",
-        "Yield": 0.033875,
+        "Yield": 0.034398,
         "dividendRate": 4.26,
         "payoutRatio": 0.6614,
         "isin": "US26441C2044",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 123.9856,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 188444639232,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 96418799616,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2400593,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2897875,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.033875,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105899,6 +105924,10 @@
             "volume": 3273806
         },
         {
+            "date": "2025-11-14",
+            "amount": 1.065
+        },
+        {
             "date": "2025-11-17",
             "open": 123.330002,
             "high": 125.190002,
@@ -105919,7 +105948,7 @@
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

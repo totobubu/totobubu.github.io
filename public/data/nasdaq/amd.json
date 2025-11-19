@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 231.15,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 221.35,
         "englishName": "Advanced Micro Devices, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 388203544576,
-        "marketCap": 376321802240,
-        "Volume": 39448794,
-        "AvgVolume": 58151137,
+        "enterpriseValue": 371548684288,
+        "marketCap": 360367030272,
+        "Volume": 33105834,
+        "AvgVolume": 57856800,
         "sharesOutstanding": 1628041540,
         "52Week": "76.48 - 267.08",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 231.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 388203544576,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 376321802240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 39448794,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 58151137,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -103666,7 +103687,8 @@
             "high": 238,
             "low": 224.710007,
             "close": 230.289993,
-            "volume": 45415613
+            "volume": 45415613,
+            "marketCap": 360367030272
         }
     ]
 }

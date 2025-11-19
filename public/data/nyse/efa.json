@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 92.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 92.3042,
         "englishName": "iShares MSCI EAFE ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 87196123136,
-        "Volume": 19048823,
-        "AvgVolume": 14685825,
+        "marketCap": 86618259456,
+        "Volume": 9880313,
+        "AvgVolume": 14869545,
         "sharesOutstanding": 938400000,
         "52Week": "72.15 - 96.69",
-        "Yield": 0.018952,
+        "Yield": 0.019078,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642874659",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.92,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 87196123136,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 19048823,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14685825,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.018952,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55060,7 +55081,8 @@
             "high": 93.145599,
             "low": 92.300003,
             "close": 92.800003,
-            "volume": 22277546
+            "volume": 22277546,
+            "marketCap": 86618259456
         }
     ]
 }

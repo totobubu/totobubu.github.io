@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.935,
         "englishName": "Direxion Daily CSI 300 China A Share Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 162649,
-        "AvgVolume": 345420,
+        "Volume": 79520,
+        "AvgVolume": 342351,
         "sharesOutstanding": null,
         "52Week": "10.88 - 21.822",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 162649,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 345420,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6437,7 +6450,7 @@
             "low": 23.270000457763672,
             "close": 23.360000610351562,
             "volume": 250000,
-            "yield": 0.0000851064
+            "yield": 8.51064e-5
         },
         {
             "date": "2018-06-20",

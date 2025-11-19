@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 77.0201,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 76.6094,
         "englishName": "Jpmorgan International Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 134853,
-        "AvgVolume": 92342,
+        "Volume": 87989,
+        "AvgVolume": 94210,
         "sharesOutstanding": null,
         "52Week": "54.09 - 79.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.0201,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 134853,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 92342,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4564,6 +4577,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

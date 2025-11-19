@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 274.68,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 275.17,
         "englishName": "Corpay, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 25488584704,
-        "marketCap": 19396358144,
-        "Volume": 356167,
-        "AvgVolume": 521126,
+        "enterpriseValue": 25390643200,
+        "marketCap": 19430961152,
+        "Volume": 241200,
+        "AvgVolume": 524814,
         "sharesOutstanding": 69958056,
         "52Week": "252.84 - 400.81",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 274.68,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 25488584704,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 19396358144,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 356167,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 521126,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33813,7 +33834,8 @@
             "high": 276.769989,
             "low": 271.339996,
             "close": 272.779999,
-            "volume": 451791
+            "volume": 451791,
+            "marketCap": 19430961152
         }
     ]
 }

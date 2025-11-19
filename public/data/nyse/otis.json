@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 88.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 86.45,
         "englishName": "Otis Worldwide Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 42106273792,
-        "marketCap": 34545668096,
-        "Volume": 2316851,
-        "AvgVolume": 2703821,
+        "enterpriseValue": 41962078208,
+        "marketCap": 33929482240,
+        "Volume": 1327992,
+        "AvgVolume": 2666048,
         "sharesOutstanding": 389715851,
         "52Week": "84.25 - 106.828",
-        "Yield": 0.018405,
+        "Yield": 0.018739,
         "dividendRate": 1.68,
         "payoutRatio": 0.4779,
         "isin": "US68902V1070",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 88.02,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 42106273792,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34545668096,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2316851,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2703821,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.018405,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12871,6 +12896,10 @@
             "volume": 1598366
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.42
+        },
+        {
             "date": "2025-11-17",
             "open": 88.480003,
             "high": 88.910004,
@@ -12891,7 +12920,7 @@
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

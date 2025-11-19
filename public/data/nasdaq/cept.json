@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 10.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 10.86,
         "englishName": "Cantor Equity Partners II, Inc.",
         "earningsDate": null,
         "enterpriseValue": 335743392,
-        "marketCap": 333933600,
-        "Volume": 221148,
-        "AvgVolume": 369821,
+        "marketCap": 332098784,
+        "Volume": 271069,
+        "AvgVolume": 371190,
         "sharesOutstanding": 24580000,
         "52Week": "10.325 - 13.25",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.92,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 333933600,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 221148,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 369821,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1269,7 +1286,8 @@
             "high": 11,
             "low": 10.81,
             "close": 10.95,
-            "volume": 233128
+            "volume": 233128,
+            "marketCap": 332098784
         }
     ]
 }

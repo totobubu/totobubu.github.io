@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.59,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 53.5585,
         "englishName": "Dimensional Global Ex US Core Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 83045,
-        "AvgVolume": 112370,
+        "Volume": 49722,
+        "AvgVolume": 112360,
         "sharesOutstanding": null,
         "52Week": "50.988 - 54.73",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.59,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 83045,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 112370,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -109,7 +122,7 @@
             "close": 50.99800109863281,
             "volume": 36000,
             "amount": 0.003,
-            "yield": 0.0000587889
+            "yield": 5.87889e-5
         },
         {
             "date": "2023-11-22",
@@ -4119,30 +4132,32 @@
             "high": 53.700001,
             "low": 53.59,
             "close": 53.595001,
-            "volume": 85282
+            "volume": 85282,
+            "amount": 0.556,
+            "yield": 0.0431047335
         },
         {
-            "date": "2025-11-25",
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-24",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-23",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-25",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-25",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-24",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

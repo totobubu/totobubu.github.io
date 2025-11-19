@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 83.005,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 82.66,
         "englishName": "Church & Dwight Co., Inc.",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 22031298560,
-        "marketCap": 20220739584,
-        "Volume": 1635332,
-        "AvgVolume": 2172967,
+        "enterpriseValue": 22000080896,
+        "marketCap": 20136695808,
+        "Volume": 885817,
+        "AvgVolume": 2175257,
         "sharesOutstanding": 240130071,
         "52Week": "81.33 - 116.46",
-        "Yield": 0.014096,
+        "Yield": 0.014154,
         "dividendRate": 1.18,
         "payoutRatio": 0.3687,
         "isin": "US1713401024",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 83.005,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22031298560,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 20220739584,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1635332,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2172967,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.014096,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105700,6 +105725,10 @@
             "volume": 1498810
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.295
+        },
+        {
             "date": "2025-11-17",
             "open": 83.720001,
             "high": 84.129997,
@@ -105720,7 +105749,7 @@
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

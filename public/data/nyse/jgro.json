@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 91.08,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 91.015,
         "englishName": "JPMorgan Active Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 373088,
-        "AvgVolume": 396823,
+        "Volume": 251375,
+        "AvgVolume": 396765,
         "sharesOutstanding": null,
         "52Week": "63.33 - 97.91",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.08,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 373088,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 396823,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6781,6 +6794,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 133.68,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 131.34,
         "englishName": "SPDR S&P Oil & Gas Exploration & Production ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 9424439296,
-        "Volume": 2067294,
-        "AvgVolume": 3315576,
+        "marketCap": 9259469824,
+        "Volume": 1875220,
+        "AvgVolume": 3340181,
         "sharesOutstanding": 70500000,
         "52Week": "99.01 - 149.82",
-        "Yield": 0.010398,
+        "Yield": 0.010583,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78468R5569",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 133.68,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9424439296,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2067294,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3315576,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010398,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -574,7 +595,7 @@
             "close": 139.9600067138672,
             "volume": 1225,
             "amount": 0.007,
-            "yield": 0.0000502729,
+            "yield": 5.02729e-5,
             "marketCap": 9867180473,
             "amountOriginal": 0.00175,
             "amountSplitAdjustments": [

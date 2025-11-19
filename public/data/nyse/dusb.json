@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 50.71,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 50.7258,
         "englishName": "Dimensional Ultrashort Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 172329,
-        "AvgVolume": 228320,
+        "Volume": 114686,
+        "AvgVolume": 227789,
         "sharesOutstanding": null,
         "52Week": "50.21 - 50.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.71,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 172329,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 228320,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4389,30 +4402,32 @@
             "high": 50.720001,
             "low": 50.703201,
             "close": 50.715,
-            "volume": 207033
+            "volume": 207033,
+            "amount": 0.166,
+            "yield": 0.048333663
         },
         {
-            "date": "2025-11-21",
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-19",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-21",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-20",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-21",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

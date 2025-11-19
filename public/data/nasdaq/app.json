@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 526.64,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 528.57,
         "englishName": "AppLovin Corporation",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 184094064640,
-        "marketCap": 178135941120,
-        "Volume": 2988989,
-        "AvgVolume": 7081040,
+        "enterpriseValue": 179612778496,
+        "marketCap": 178788761600,
+        "Volume": 2317812,
+        "AvgVolume": 7057148,
         "sharesOutstanding": 307597000,
         "52Week": "200.5 - 745.61",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 526.64,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 184094064640,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 178135941120,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2988989,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7081040,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10423,7 +10444,8 @@
             "high": 541.799988,
             "low": 522,
             "close": 526.01001,
-            "volume": 3874147
+            "volume": 3874147,
+            "marketCap": 178788761600
         }
     ]
 }

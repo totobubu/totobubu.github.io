@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 186.185,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 186.8205,
         "englishName": "Reddit, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 33339142144,
-        "marketCap": 35281268736,
-        "Volume": 2920359,
-        "AvgVolume": 5902293,
+        "enterpriseValue": 32986679296,
+        "marketCap": 35401691136,
+        "Volume": 1628370,
+        "AvgVolume": 5825198,
         "sharesOutstanding": 137824835,
         "52Week": "79.75 - 282.95",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 186.185,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 33339142144,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 35281268736,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2920359,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5902293,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3373,7 +3394,8 @@
             "high": 189.5,
             "low": 180.929993,
             "close": 185.690002,
-            "volume": 3216537
+            "volume": 3216537,
+            "marketCap": 35401691136
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 64.22,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 63.67,
         "englishName": "iShares Global Consumer Staples ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 937612032,
-        "Volume": 57821,
-        "AvgVolume": 66595,
+        "marketCap": 929581952,
+        "Volume": 25868,
+        "AvgVolume": 66964,
         "sharesOutstanding": 14600000,
         "52Week": "58.34 - 67.63",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.22,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 937612032,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57821,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 66595,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43708,7 +43725,8 @@
             "high": 64.360001,
             "low": 64.029999,
             "close": 64.099998,
-            "volume": 57824
+            "volume": 57824,
+            "marketCap": 929581952
         }
     ]
 }

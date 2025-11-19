@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 92.94,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 92.25,
         "englishName": "iShares MSCI Emerging Markets Asia ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 706344000,
-        "Volume": 39903,
-        "AvgVolume": 66403,
+        "marketCap": 701100032,
+        "Volume": 35018,
+        "AvgVolume": 66200,
         "sharesOutstanding": 7600000,
         "52Week": "63.5 - 97.55",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.94,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 706344000,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 39903,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 66403,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31309,7 +31326,8 @@
             "high": 93.099503,
             "low": 92.089996,
             "close": 92.629997,
-            "volume": 40963
+            "volume": 40963,
+            "marketCap": 701100032
         }
     ]
 }

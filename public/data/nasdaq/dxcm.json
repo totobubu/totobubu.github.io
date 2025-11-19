@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 59.93,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 59.285,
         "englishName": "DexCom, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 22065551360,
-        "marketCap": 23501864960,
-        "Volume": 4689566,
-        "AvgVolume": 6279770,
+        "enterpriseValue": 22720778240,
+        "marketCap": 23248924672,
+        "Volume": 2721775,
+        "AvgVolume": 6348845,
         "sharesOutstanding": 390016272,
         "52Week": "54.11 - 93.25",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.93,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22065551360,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 23501864960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4689566,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6279770,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46680,7 +46701,8 @@
             "high": 60.48,
             "low": 58.139999,
             "close": 60.169998,
-            "volume": 6449152
+            "volume": 6449152,
+            "marketCap": 23248924672
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 136.8,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 135.815,
         "englishName": "Arm Holdings plc",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 145986863104,
-        "marketCap": 145144610816,
-        "Volume": 3228655,
-        "AvgVolume": 4818765,
+        "enterpriseValue": 141509443584,
+        "marketCap": 144099524608,
+        "Volume": 1976156,
+        "AvgVolume": 4806845,
         "sharesOutstanding": 1060998569,
         "52Week": "80.0 - 183.16",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 136.8,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 145986863104,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 145144610816,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3228655,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4818765,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4951,7 +4972,8 @@
             "high": 139.539993,
             "low": 133.240005,
             "close": 136.039993,
-            "volume": 3894919
+            "volume": 3894919,
+            "marketCap": 144099524608
         }
     ]
 }

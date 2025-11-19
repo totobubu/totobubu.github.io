@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 558.735,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 560.06,
         "englishName": "MSCI Inc.",
         "earningsDate": "2025-10-28",
-        "enterpriseValue": 47173361664,
-        "marketCap": 41983086592,
-        "Volume": 518174,
-        "AvgVolume": 646206,
+        "enterpriseValue": 47090708480,
+        "marketCap": 42082648064,
+        "Volume": 272949,
+        "AvgVolume": 645745,
         "sharesOutstanding": 75139539,
         "52Week": "486.74 - 642.45",
-        "Yield": 0.012528,
+        "Yield": 0.012499,
         "dividendRate": 7.2,
         "payoutRatio": 0.4439,
         "isin": "US55354G1004",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 558.735,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 47173361664,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 41983086592,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 518174,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 646206,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.012528,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40860,6 +40885,10 @@
             "volume": 437992
         },
         {
+            "date": "2025-11-14",
+            "amount": 1.8
+        },
+        {
             "date": "2025-11-17",
             "open": 562.150024,
             "high": 570.47998,
@@ -40880,7 +40909,7 @@
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

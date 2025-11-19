@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 249.76,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 246.78,
         "englishName": "VeriSign, Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 24368513024,
-        "marketCap": 23329728512,
-        "Volume": 645556,
-        "AvgVolume": 833100,
+        "enterpriseValue": 24316600320,
+        "marketCap": 23051372544,
+        "Volume": 467188,
+        "AvgVolume": 837335,
         "sharesOutstanding": 92700000,
-        "52Week": "176.62 - 310.6",
-        "Yield": 0.006166,
+        "52Week": "177.95 - 310.6",
+        "Yield": 0.00624,
         "dividendRate": 3.08,
         "payoutRatio": 0.1795,
         "isin": "US92343E1029",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 249.76,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 24368513024,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23329728512,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 645556,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 833100,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.006166,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -62988,14 +63013,16 @@
             "high": 252.919998,
             "low": 247.930099,
             "close": 249.630005,
-            "volume": 896581
+            "volume": 896581,
+            "amount": 0.77,
+            "yield": 0.0093030751
         },
         {
-            "date": "2025-11-19",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-19",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

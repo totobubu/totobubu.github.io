@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 517.2603,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 519.3,
         "englishName": "CrowdStrike Holdings, Inc.",
         "earningsDate": "2025-12-02",
-        "enterpriseValue": 128827113472,
-        "marketCap": 129809129472,
-        "Volume": 1754423,
-        "AvgVolume": 2882168,
+        "enterpriseValue": 124784230400,
+        "marketCap": 130320998400,
+        "Volume": 840815,
+        "AvgVolume": 2878768,
         "sharesOutstanding": 250955140,
         "52Week": "298.0 - 566.9",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 517.2603,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 128827113472,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 129809129472,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1754423,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2882168,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14598,7 +14619,8 @@
             "high": 531.330017,
             "low": 513,
             "close": 513.669983,
-            "volume": 2561822
+            "volume": 2561822,
+            "marketCap": 130320998400
         }
     ]
 }

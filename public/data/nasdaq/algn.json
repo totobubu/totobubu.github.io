@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 132.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 133.965,
         "englishName": "Align Technology, Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 8631448576,
-        "marketCap": 9595745280,
-        "Volume": 1322671,
-        "AvgVolume": 1267232,
+        "enterpriseValue": 8607771648,
+        "marketCap": 9710636032,
+        "Volume": 456214,
+        "AvgVolume": 1266435,
         "sharesOutstanding": 71749995,
         "52Week": "122.0 - 246.19",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 132.38,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8631448576,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9595745280,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1322671,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1267232,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56170,7 +56191,8 @@
             "high": 132.869995,
             "low": 130.229996,
             "close": 132.279999,
-            "volume": 1593318
+            "volume": 1593318,
+            "marketCap": 9710636032
         }
     ]
 }

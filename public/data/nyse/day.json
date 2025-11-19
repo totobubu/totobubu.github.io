@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 68.99,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 69.01,
         "englishName": "Dayforce Inc",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 11614507008,
-        "marketCap": 11040812032,
-        "Volume": 1547815,
-        "AvgVolume": 2912231,
+        "enterpriseValue": 11636911104,
+        "marketCap": 11044013056,
+        "Volume": 1497392,
+        "AvgVolume": 2896612,
         "sharesOutstanding": 160034963,
         "52Week": "48.005 - 82.69",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 68.99,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11614507008,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11040812032,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1547815,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2912231,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17145,7 +17166,8 @@
             "high": 69.019997,
             "low": 68.82,
             "close": 68.970001,
-            "volume": 3030763
+            "volume": 3030763,
+            "marketCap": 11044013056
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 119.76,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 119.23,
         "englishName": "iShares MSCI Global Min Vol Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 6179616256,
-        "Volume": 54591,
-        "AvgVolume": 126657,
+        "marketCap": 6152268288,
+        "Volume": 37578,
+        "AvgVolume": 126462,
         "sharesOutstanding": 51600000,
         "52Week": "104.94 - 121.09",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 119.76,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6179616256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 54591,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 126657,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31996,7 +32013,8 @@
             "high": 119.845001,
             "low": 119.269997,
             "close": 119.599998,
-            "volume": 71662
+            "volume": 71662,
+            "marketCap": 6152268288
         }
     ]
 }

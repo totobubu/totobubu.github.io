@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 71.9,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 72.16,
         "englishName": "Cognizant Technology Solutions Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 33165948928,
-        "marketCap": 35115667456,
-        "Volume": 3075685,
-        "AvgVolume": 4347159,
+        "enterpriseValue": 33445883904,
+        "marketCap": 35242651648,
+        "Volume": 1615530,
+        "AvgVolume": 4365943,
         "sharesOutstanding": 482646473,
         "52Week": "65.15 - 90.82",
-        "Yield": 0.017246,
+        "Yield": 0.017184,
         "dividendRate": 1.24,
         "payoutRatio": 0.2847,
         "isin": "US1924461023",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.9,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 33165948928,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 35115667456,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3075685,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4347159,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.017246,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -62193,7 +62218,9 @@
             "high": 71.980003,
             "low": 70.449997,
             "close": 71.75,
-            "volume": 4115831
+            "volume": 4115831,
+            "amount": 0.31,
+            "yield": 0.0217084854
         },
         {
             "date": "2026-02-18",
