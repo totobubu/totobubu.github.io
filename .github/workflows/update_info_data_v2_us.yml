@@ -2,7 +2,7 @@ name: Update Info Data v2 (US)
 
 on:
     schedule:
-        - cron: '0 20 * * *' # KST 05:00 daily (UTC 20:00, update_info_data_v2_kr보다 3시간 후)
+        - cron: '30 18 * * 1-5' # KST 03:30 평일 (월-금, UTC 18:30)
     workflow_dispatch:
 
 permissions:

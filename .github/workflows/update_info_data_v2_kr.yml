@@ -2,7 +2,7 @@ name: Update Info Data v2 (KR)
 
 on:
     schedule:
-        - cron: '0 17 * * *' # KST 02:00 daily (UTC 17:00)
+        - cron: '30 15 * * 1-5' # KST 00:30 평일 (월-금, UTC 15:30)
     workflow_dispatch:
 
 permissions:

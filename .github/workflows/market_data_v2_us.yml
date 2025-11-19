@@ -2,11 +2,8 @@ name: Market Data v2 US
 
 on:
     schedule:
-        # 미국 증시 마감 후 2시간 (오후 6시 EST = UTC 23:00)
-        # 일광절약시간 고려: UTC 22:00 또는 23:00
-        # update_info_data_v2_us (UTC 20:00)보다 최소 2시간 후 실행
-        - cron: '0 22 * * 1-5' # 월-금 오후 6시 EST (UTC 22:00)
-        - cron: '0 23 * * 1-5' # 월-금 오후 6시 EST (UTC 23:00, 일광절약시간)
+        # 평일 오전 6시 (KST) 실행
+        - cron: '0 21 * * 1-5' # KST 06:00 평일 (월-금, UTC 21:00)
     workflow_dispatch:
         inputs:
             skip_price_update:
@@ -19,7 +16,7 @@ permissions:
 
 concurrency:
     group: market-data-v2-us
-    cancel-in-progress: true
+    cancel-in-progress: false
 
 env:
     NODE_VERSION: '20'

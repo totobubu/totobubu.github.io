@@ -1,12 +1,12 @@
 # .github/workflows/update_holdings.yml
-# Holdings 전용 워크플로우 - 매일 실행
+# Holdings 전용 워크플로우 - 평일 실행
 
-name: Update Holdings Data (Daily at 3:30 AM KST)
+name: Update Holdings Data (Weekdays at 2:30 AM KST)
 
 on:
-    # 매일 새벽 3시 30분 (KST) 실행
+    # 평일 새벽 2시 30분 (KST) 실행
     schedule:
-        - cron: '30 18 * * *' # UTC 18:30 = KST 03:30 (매일)
+        - cron: '30 17 * * 1-5' # UTC 17:30 = KST 02:30 (평일, 월-금)
     workflow_dispatch:
 
 permissions:
