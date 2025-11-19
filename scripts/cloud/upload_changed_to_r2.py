@@ -201,6 +201,8 @@ def upload_changed_files():
             file_types["sidebar"] = file_types.get("sidebar", 0) + 1
         elif r2_key.startswith("logos/"):
             file_types["logos"] = file_types.get("logos", 0) + 1
+        elif r2_key.startswith("holdings/"):
+            file_types["holdings"] = file_types.get("holdings", 0) + 1
         elif r2_key == "nav.json":
             file_types["nav.json"] = 1
         elif r2_key == "calendar-events.json":
