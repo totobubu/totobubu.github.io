@@ -2,6 +2,7 @@
 
 import { computed } from 'vue';
 import { parseYYMMDD } from '@/utils/date.js';
+import { parseDividendAmount } from '@/utils/dividendParser.js';
 
 /**
  * 배당 내역을 기반으로 배당 통계(min, max, avg)와 연간 배당 횟수를 계산하는 컴포저블
@@ -87,9 +88,12 @@ export function useDividendStats(dividendHistory, tickerInfo, periodRef) {
             );
         }
 
-        // 2. 필터링된 기록으로 통계 계산
+        // 2. 필터링된 기록으로 통계 계산 (최종 계산값 사용)
         const validAmounts = filteredHistory
-            .map((h) => parseFloat(String(h['배당금']).replace(/[$,₩]/g, '')))
+            .map((h) => {
+                const parsed = parseDividendAmount(h['배당금']);
+                return parsed.finalAmount;
+            })
             .filter((a) => !isNaN(a) && a > 0);
 
         if (validAmounts.length === 0) {

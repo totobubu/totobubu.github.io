@@ -2,16 +2,23 @@
 import time
 import json
 import sys
+from pathlib import Path
 import yfinance as yf
 from datetime import datetime
 from tqdm import tqdm
-from utils import (
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import (
     load_json_file,
     save_json_file,
     sanitize_ticker_for_filename,
     get_kst_now,
     should_skip_update_timestamp,
 )
+from scripts.utils.data_file_path import get_data_file_path, find_existing_data_file
 
 
 def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
@@ -124,16 +131,23 @@ def main():
         dynamic_info = process_single_ticker_info(raw_dynamic_info)
         # dynamic_info가 빈 dict여도 계속 진행 (신규 티커의 경우)
 
-        # nav.json의 dataPath 사용 (없으면 fallback)
-        data_path = info_from_nav.get("dataPath") or (
+        # nav.json의 dataPaths 사용
+        data_path = (
             info_from_nav.get("dataPaths")[0] if info_from_nav.get("dataPaths") else None
         )
         if data_path:
             # dataPath는 "data/market/ticker.json" 형식이므로 "public/" 추가
             file_path = f"public/{data_path}"
         else:
-            # fallback: 기존 방식
-            file_path = f"public/data/{sanitize_ticker_for_filename(ticker_symbol)}.json"
+            # fallback: market 정보를 사용하여 올바른 경로 생성
+            market = info_from_nav.get("market")
+            # 기존 파일 찾기 시도
+            existing_file = find_existing_data_file(ticker_symbol, market)
+            if existing_file:
+                file_path = str(existing_file)
+            else:
+                # 새 파일 경로 생성 (market 서브디렉토리 사용)
+                file_path = str(get_data_file_path(ticker_symbol, market))
         
         existing_data = load_json_file(file_path) or {}
         

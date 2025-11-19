@@ -16,13 +16,13 @@ from typing import Iterable, List, Optional, Tuple
 
 import sys
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 NAV_JSON_PATH = PUBLIC_DIR / "nav.json"
 
 if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
+    sys.path.insert(0, str(ROOT_DIR))
 
 MARKET_SUBDIR_ALIASES = {
     "KOSPI": "kospi",
@@ -138,7 +138,8 @@ def find_existing_symbol_file(
 
 def load_nav_entries() -> List[dict]:
     if not NAV_JSON_PATH.exists():
-        raise FileNotFoundError(f"{NAV_JSON_PATH} not found")
+        print(f"[WARN] {NAV_JSON_PATH} not found. Skipping sync operation.")
+        return []
     with NAV_JSON_PATH.open(encoding="utf-8") as fp:
         payload = json.load(fp)
     entries = payload.get("nav")
@@ -183,6 +184,9 @@ def sync_nav_symbols(
     sync_nav_files: bool = True,
 ) -> None:
     entries = load_nav_entries()
+    if not entries:
+        print("[INFO] nav.json이 없거나 비어있어 동기화를 건너뜁니다.")
+        return
     targets = filter_entries(entries, symbols, markets)
 
     if not targets:

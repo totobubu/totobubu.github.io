@@ -17,7 +17,7 @@ from pathlib import Path
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 NAV_FILE = PUBLIC_DIR / "nav.json"
@@ -25,7 +25,7 @@ SIDEBAR_DIR = PUBLIC_DIR / "sidebar"
 SYMBOL_ISIN_FILE = PUBLIC_DIR / "symbol-to-isin.json"
 
 if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
+    sys.path.insert(0, str(ROOT_DIR))
 
 from scripts.utils import (  # noqa: E402
     load_json_file,

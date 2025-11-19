@@ -102,14 +102,20 @@
     };
 
     const inferSplitEventType = (event) => {
-        const normalizedType = normalizeSplitType(event?.type);
-        if (normalizedType) return normalizedType;
+        // 비율을 먼저 확인해서 합병/분할 판단
         const parsedRatio = parseSplitRatio(event?.ratio);
-        if (!parsedRatio) return 'split';
-        if (parsedRatio.numerator === parsedRatio.denominator) return 'split';
-        return parsedRatio.numerator < parsedRatio.denominator
-            ? 'reverse-split'
-            : 'split';
+        if (parsedRatio) {
+            // numerator < denominator이면 합병 (예: 1:2 = 2주를 1주로 합침)
+            // numerator > denominator이면 분할 (예: 2:1 = 1주를 2주로 분할)
+            if (parsedRatio.numerator === parsedRatio.denominator)
+                return 'split';
+            return parsedRatio.numerator < parsedRatio.denominator
+                ? 'reverse-split'
+                : 'split';
+        }
+        // 비율이 없으면 type 필드 확인
+        const normalizedType = normalizeSplitType(event?.type);
+        return normalizedType || 'split';
     };
 
     const timelineRawEvents = computed(() => {

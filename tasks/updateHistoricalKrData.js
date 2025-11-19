@@ -7,7 +7,7 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
-const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'flat').toLowerCase();
+const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'market').toLowerCase();
 const MARKET_FILTER = 'KR'; // 한국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
@@ -20,6 +20,7 @@ const MARKET_SUBDIR_ALIASES = {
     'KRX-KOSPI': 'kospi',
     'KRX-KOSDAQ': 'kosdaq',
     NYSE: 'nyse',
+    NYSEARCA: 'nyse',
     NASDAQ: 'nasdaq',
     AMEX: 'amex',
 };
@@ -108,13 +109,15 @@ const findExistingDataFile = async (symbolCandidates, market) => {
 };
 
 const normalizeNumericValue = (value) => {
-    if (value === null || value === undefined) return value;
+    // null/undefined는 그대로 반환 (0으로 변환하지 않음)
+    if (value === null || value === undefined) return null;
     if (typeof value !== 'number') {
         const parsed = Number(value);
-        if (Number.isNaN(parsed)) return value;
+        if (Number.isNaN(parsed)) return null;
         value = parsed;
     }
     if (!Number.isFinite(value)) return null;
+    // 0은 유효한 값이지만, 원본이 null/undefined였으면 null 유지
     if (Number.isInteger(value)) return value;
     return Number(value.toFixed(6));
 };
@@ -242,15 +245,24 @@ async function fetchHistoricalData(symbol, fromDate, retryCount = 0) {
         const quotes = result.indicators.quote[0];
 
         return timestamps
-            .map((ts, i) => ({
-                date: new Date(ts * 1000).toISOString().split('T')[0],
-                open: quotes.open[i],
-                high: quotes.high[i],
-                low: quotes.low[i],
-                close: quotes.close[i],
-                volume: quotes.volume[i],
-            }))
-            .filter((p) => p.close != null);
+            .map((ts, i) => {
+                const open = quotes.open[i];
+                const high = quotes.high[i];
+                const low = quotes.low[i];
+                const close = quotes.close[i];
+                const volume = quotes.volume[i];
+                
+                // null/undefined를 0으로 변환하지 않음 (데이터가 없는 경우 null로 유지)
+                return {
+                    date: new Date(ts * 1000).toISOString().split('T')[0],
+                    open: open != null ? open : null,
+                    high: high != null ? high : null,
+                    low: low != null ? low : null,
+                    close: close != null ? close : null,
+                    volume: volume != null ? volume : null,
+                };
+            })
+            .filter((p) => p.close != null); // close가 null이 아닌 것만 유지
     } catch (error) {
         // 네트워크 에러나 타임아웃인 경우 재시도
         if (
@@ -405,8 +417,24 @@ async function fetchAndMergePriceData(ticker) {
             };
         }
 
-        const startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
-        if (lastPriceDate) startDate.setDate(startDate.getDate() + 1);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        let startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
+        if (lastPriceDate) {
+            const lastDate = new Date(lastPriceDate);
+            // 마지막 날짜가 미래인 경우 현재 날짜로 조정
+            if (lastDate > today) {
+                startDate = new Date(ipoDate || '1990-01-01');
+            } else {
+                startDate.setDate(startDate.getDate() + 1);
+            }
+        }
+        
+        // 시작 날짜가 현재 날짜보다 미래인 경우 현재 날짜로 조정
+        if (startDate > today) {
+            startDate = today;
+        }
 
         const from = startDate.toISOString().split('T')[0];
 
@@ -425,18 +453,42 @@ async function fetchAndMergePriceData(ticker) {
                 '가격'
             );
         } catch (priceError) {
-            console.error(`API Error for ${symbol}: ${priceError.message}`);
-            return { success: false, symbol, error: priceError.message };
+            const status = priceError?.response?.status;
+            const statusText = priceError?.response?.statusText;
+            const errorMessage = priceError?.message || 'Unknown error';
+            
+            // 디버그 정보 상세 출력
+            console.error(`❌ [${symbol}] API Error: ${errorMessage}`);
+            if (status) {
+                console.error(`   Status: ${status} ${statusText || ''}`);
+            }
+            if (symbolCandidates.length > 1) {
+                console.error(`   Tried symbols: ${symbolCandidates.join(', ')}`);
+            }
+            if (priceError?.response?.data) {
+                console.error(`   Response data: ${JSON.stringify(priceError.response.data).substring(0, 200)}`);
+            }
+            
+            return { success: false, symbol, error: errorMessage, status };
         }
         activeSymbol = priceResult.symbol;
-        const newPriceData = priceResult.data.map((p) => ({
-            ...p,
-            open: normalizeNumericValue(p.open),
-            high: normalizeNumericValue(p.high),
-            low: normalizeNumericValue(p.low),
-            close: normalizeNumericValue(p.close),
-            volume: normalizeNumericValue(p.volume),
-        }));
+        const newPriceData = priceResult.data.map((p) => {
+            // null/undefined 값은 그대로 유지 (0으로 변환하지 않음)
+            const open = p.open != null ? normalizeNumericValue(p.open) : null;
+            const high = p.high != null ? normalizeNumericValue(p.high) : null;
+            const low = p.low != null ? normalizeNumericValue(p.low) : null;
+            const close = p.close != null ? normalizeNumericValue(p.close) : null;
+            const volume = p.volume != null ? normalizeNumericValue(p.volume) : null;
+            
+            return {
+                ...p,
+                open,
+                high,
+                low,
+                close,
+                volume,
+            };
+        });
         let finalBacktestData = existingData.backtestData || [];
 
         if (newPriceData.length > 0) {
@@ -479,8 +531,9 @@ async function fetchAndMergePriceData(ticker) {
             );
             splitEvents = splitResult.data;
         } catch (splitError) {
+            const status = splitError?.response?.status;
             console.error(
-                `Split API Error for ${symbol}: ${splitError.message}`
+                `⚠️  [${symbol}] Split API Error: ${splitError.message}${status ? ` (Status: ${status})` : ''}`
             );
         }
 
@@ -553,7 +606,8 @@ async function fetchAndMergePriceData(ticker) {
 
         return { success: true, symbol };
     } catch (error) {
-        console.error(`❌ [${symbol}] Error: ${error.message}`);
+        console.error(`❌ [${symbol}] Unexpected Error: ${error.message}`);
+        console.error(`   Stack: ${error.stack?.split('\n').slice(0, 3).join('\n')}`);
         return { success: false, symbol, error: error.message };
     }
 }
@@ -579,6 +633,21 @@ async function main() {
             ['KOSPI', 'KOSDAQ', 'KONEX'].includes(t.market)
     );
     console.log(`[KR Market Filter] Filtering Korean tickers only`);
+    
+    // 영문자 포함 티커 필터링 및 경고 (우선주 등 - Yahoo Finance에서 인식하지 못할 수 있음)
+    const tickersWithLetters = tickersToFetch.filter((t) => {
+        const baseSymbol = getBaseSymbol(t.symbol || t.yfSymbol || '');
+        return /[A-Z]/.test(baseSymbol);
+    });
+    
+    if (tickersWithLetters.length > 0) {
+        console.warn(
+            `⚠️  [WARNING] ${tickersWithLetters.length} tickers with letters found (may fail): ${tickersWithLetters.slice(0, 10).map(t => t.symbol).join(', ')}${tickersWithLetters.length > 10 ? '...' : ''}`
+        );
+        console.warn(
+            `⚠️  These tickers (preferred shares, etc.) may not be recognized by Yahoo Finance API`
+        );
+    }
 
     // 특정 티커만 필터링
     if (targetSymbols.length > 0) {

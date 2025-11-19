@@ -36,7 +36,7 @@ except ImportError:
     cloudscraper = None
 
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 MISSING_PATH = ROOT_DIR / "public" / "missing_isin.json"
 DATA_DIR = ROOT_DIR / "public" / "data"
 BASE_URL = "http://stockevents.app/kr/stock/{symbol}"

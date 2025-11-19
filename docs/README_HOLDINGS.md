@@ -20,7 +20,7 @@ ETF의 보유 자산(Holdings) 데이터를 자동/수동으로 수집하고 관
 
 **방식**: YieldMax 공식 웹사이트 스크래핑  
 **성공률**: ~100%  
-**스크립트**: `scripts/fetch_holdings.py` (내장)
+**스크립트**: `scripts/holdings/fetch_holdings.py` (내장)
 
 **지원 ETF:**
 
@@ -41,10 +41,10 @@ SMCY, SNOY, TSMY, XOMO, XYZY, YBIT, CHPY, GPTY, LFGY, BIGY, RNTY, SOXY
 
 ```bash
 # 특정 ETF
-python scripts/fetch_holdings.py APLY
+python scripts/holdings/fetch_holdings.py APLY
 
 # 전체 자동 수집
-python scripts/fetch_holdings.py
+python scripts/holdings/fetch_holdings.py
 ```
 
 ---
@@ -53,7 +53,7 @@ python scripts/fetch_holdings.py
 
 **방식**: Yahoo Finance API  
 **성공률**: ~88%  
-**스크립트**: `scripts/fetch_holdings.py` (내장)
+**스크립트**: `scripts/holdings/fetch_holdings.py` (내장)
 
 **지원 Provider:**
 
@@ -81,7 +81,7 @@ python scripts/fetch_holdings.py
 
 **방식**: 웹사이트에서 복사 → 일괄 등록  
 **이유**: JavaScript 동적 로딩으로 자동 스크래핑 불가  
-**스크립트**: `scripts/add_roundhill_holdings.py`
+**스크립트**: `scripts/holdings/add_roundhill_holdings.py`
 
 **지원 ETF:**
 
@@ -118,13 +118,13 @@ UX, HUMN, MEME, WEEK, XDIV, MAGX
 
 ```bash
 # 단일 ETF
-python scripts/fetch_holdings.py SPY
+python scripts/holdings/fetch_holdings.py SPY
 
 # 전체 ETF (nav.json에서 holdings: true인 것만)
-python scripts/fetch_holdings.py
+python scripts/holdings/fetch_holdings.py
 
 # 강제 업데이트 (수동 입력 데이터도 덮어씀)
-python scripts/fetch_holdings.py SPY --force
+python scripts/holdings/fetch_holdings.py SPY --force
 ```
 
 **동작:**
@@ -140,7 +140,7 @@ python scripts/fetch_holdings.py SPY --force
 #### 방법 1: 일괄 처리 (추천!)
 
 ```bash
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
 ```
 
 **파일 형식:**
@@ -177,13 +177,13 @@ Name	Weight
 
 ```bash
 # 클립보드에서 (추천)
-python scripts/add_roundhill_holdings.py AAPW "2/19/25"
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25"
 
 # 파일에서
-python scripts/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
 
 # 직접 입력
-python scripts/add_roundhill_holdings.py AAPW "2/19/25" --stdin
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" --stdin
 ```
 
 **준비:**
@@ -296,11 +296,11 @@ if 'holdings' in existing_entry and not force_update:
 
 ```bash
 # 보호됨
-python scripts/fetch_holdings.py NFLW
+python scripts/holdings/fetch_holdings.py NFLW
 # → [SKIP] 2025-11-01에 이미 holdings 데이터가 있습니다
 
 # 강제 업데이트
-python scripts/fetch_holdings.py NFLW --force
+python scripts/holdings/fetch_holdings.py NFLW --force
 # → [FORCE] 기존 holdings 데이터를 강제로 덮어씁니다
 ```
 
@@ -508,13 +508,13 @@ VGIT, VGLT, VGSH, VMBS, VTEB, VTEC, VTEI, VTES, VTIP, VWOB 등
 
 ```bash
 # 단일 ETF
-python scripts/fetch_holdings.py SPY
+python scripts/holdings/fetch_holdings.py SPY
 
 # 전체 ETF
-python scripts/fetch_holdings.py
+python scripts/holdings/fetch_holdings.py
 
 # 강제 업데이트
-python scripts/fetch_holdings.py SPY --force
+python scripts/holdings/fetch_holdings.py SPY --force
 ```
 
 **옵션:**
@@ -548,16 +548,16 @@ Alphabet	15.16%
 
 ```bash
 # 일괄 처리 (추천!)
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
 
 # 단일 ETF - 클립보드
-python scripts/add_roundhill_holdings.py AAPW "2/19/25"
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25"
 
 # 단일 ETF - 파일
-python scripts/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" holdings.txt
 
 # 단일 ETF - 직접 입력
-python scripts/add_roundhill_holdings.py AAPW "2/19/25" --stdin
+python scripts/holdings/add_roundhill_holdings.py AAPW "2/19/25" --stdin
 ```
 
 **날짜 형식:**
@@ -639,13 +639,13 @@ AMAZON.COM INC	15.01%
 
 ```bash
 # 단일 ETF 테스트
-node scripts/scrape_roundhill_holdings_playwright.js AAPW
+node scripts/holdings/scrape_roundhill_holdings_playwright.js AAPW
 
 # 전체 Roundhill ETF
-node scripts/scrape_roundhill_holdings_playwright.js --all
+node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
 
 # 배치 파일 등록
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_playwright.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_playwright.txt
 ```
 
 ---
@@ -817,11 +817,11 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 ### 스크립트
 
-- `scripts/fetch_holdings.py` - 자동 수집 메인 스크립트 (Yahoo Finance)
-- `scripts/scrape_roundhill_holdings_playwright.js` - Roundhill 자동 스크래핑 (Playwright) ⚡
-- `scripts/scrape_ark_holdings.js` - ARK CSV 다운로드 (fetch) ⚡
-- `scripts/scrape_ishares_holdings.py` - iShares JSON API + CSV (requests) ⚡
-- `scripts/add_roundhill_holdings.py` - Holdings 데이터 등록 스크립트
+- `scripts/holdings/fetch_holdings.py` - 자동 수집 메인 스크립트 (Yahoo Finance)
+- `scripts/holdings/scrape_roundhill_holdings_playwright.js` - Roundhill 자동 스크래핑 (Playwright) ⚡
+- `scripts/holdings/scrape_ark_holdings.js` - ARK CSV 다운로드 (fetch) ⚡
+- `scripts/holdings/scrape_ishares_holdings.py` - iShares JSON API + CSV (requests) ⚡
+- `scripts/holdings/add_roundhill_holdings.py` - Holdings 데이터 등록 스크립트
 
 ### 컴포넌트
 
@@ -920,14 +920,14 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 **A:** 아니요, 보호됩니다.
 
 ```bash
-python scripts/fetch_holdings.py NFLW
+python scripts/holdings/fetch_holdings.py NFLW
 # → [SKIP] 2025-11-01에 이미 holdings 데이터가 있습니다 (수동 입력 보호)
 ```
 
 강제 업데이트가 필요한 경우:
 
 ```bash
-python scripts/fetch_holdings.py NFLW --force
+python scripts/holdings/fetch_holdings.py NFLW --force
 ```
 
 ---
@@ -956,7 +956,7 @@ public/holdings/roundhill_YYMMDD.txt에 추가
 ### 1. 자동 수집 먼저 실행
 
 ```bash
-python scripts/fetch_holdings.py
+python scripts/holdings/fetch_holdings.py
 ```
 
 - YieldMax와 일반 ETF는 자동으로 처리됨
@@ -964,7 +964,7 @@ python scripts/fetch_holdings.py
 ### 2. Roundhill은 월 1회 수동 업데이트
 
 ```bash
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD.txt
 ```
 
 - 5분이면 41개 전부 완료

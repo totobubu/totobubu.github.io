@@ -47,7 +47,7 @@
 
 ### 3. Python 스크립트
 
-#### `api/toss_extractor.py`
+#### `scripts/utils/extract_toss_transactions.py`
 
 - **역할**: 토스 증권 PDF에서 거래 데이터 추출
 - **추출 정보**:

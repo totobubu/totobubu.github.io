@@ -29,7 +29,7 @@
 ### 3단계: R2 업로드 ⚡ (핵심!)
 ```yaml
 - name: Upload changed data files to R2
-  run: python scripts/upload_changed_to_r2.py
+  run: python scripts/cloud/upload_changed_to_r2.py
 ```
 
 **작동 방식**:
@@ -78,7 +78,7 @@ main에 push → R2 업로드 (변경된 파일만) → Vue 빌드 → GitHub Pa
 
 ```bash
 # 1. 로컬에서 데이터 업데이트
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 
 # 2. Git 커밋
 git add public/data/
@@ -125,7 +125,7 @@ git push origin main
 
 ```bash
 # 1. 데이터 및 코드 수정
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 vi src/components/Dashboard.vue
 
 # 2. Git 커밋
@@ -224,7 +224,7 @@ main 브랜치 = R2 데이터 = GitHub Pages
 
 ### 3. 안전성
 ```yaml
-python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
+python scripts/cloud/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
 ```
 - R2 업로드 실패해도 배포는 계속 진행
 - 배포 중단되지 않음
@@ -301,7 +301,7 @@ R2 업로드는 **Vue 빌드 전에** 실행됩니다:
 
 ### 2. 실패 처리
 ```yaml
-python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
+python scripts/cloud/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계속 진행)"
 ```
 - R2 업로드가 실패해도 워크플로우는 계속 진행
 - Pages 배포는 영향받지 않음
@@ -321,7 +321,7 @@ python scripts/upload_changed_to_r2.py || echo "⚠️ R2 업로드 실패 (계�
 npm run dev
 
 # 2. 데이터 업데이트
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 
 # 3. Git 커밋 & 푸시
 git add .

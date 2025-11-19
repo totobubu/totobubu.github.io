@@ -20,10 +20,15 @@ from __future__ import annotations
 
 import argparse
 import shutil
+import sys
 from pathlib import Path
 from typing import Iterable
 
-from utils import (
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import (
     DATA_DIR,
     PUBLIC_DIR,
     load_json_file,

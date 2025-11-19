@@ -76,22 +76,38 @@
     });
 
     // tickerInfo가 로드되면 periods의 첫 번째 값을 기본값으로 설정
+    // 티커 전환 시 현재 선택된 기간이 새 티커의 periods에 없으면 최소 기간으로 변경
     watch(
         tickerInfo,
         (info) => {
-            if (
-                info?.periods &&
-                info.periods.length > 0 &&
-                !selectedTimeRange.value
-            ) {
-                const preferred =
-                    info.periods.find(
-                        (period) =>
-                            period &&
-                            period.toString().toUpperCase().includes('5Y')
-                    ) || info.periods[0];
-                selectedTimeRange.value = preferred;
+            if (!info) {
+                selectedTimeRange.value = null;
+                return;
             }
+
+            const options = generateTimeRangeOptions(info.periods);
+            const availableValues = options.map((opt) => opt.value);
+
+            // periods가 없으면 'ALL'로 설정
+            if (!info.periods || info.periods.length === 0) {
+                selectedTimeRange.value = 'ALL';
+                return;
+            }
+
+            // 현재 선택된 값이 새 티커의 옵션에 있는지 확인
+            if (selectedTimeRange.value && availableValues.includes(selectedTimeRange.value)) {
+                // 유효한 값이면 그대로 유지
+                return;
+            }
+
+            // 현재 선택된 값이 없거나 유효하지 않으면 최소 기간(첫 번째 period)으로 설정
+            const preferred =
+                info.periods.find(
+                    (period) =>
+                        period &&
+                        period.toString().toUpperCase().includes('5Y')
+                ) || info.periods[0];
+            selectedTimeRange.value = preferred;
         },
         { immediate: true }
     );

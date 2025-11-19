@@ -1,10 +1,16 @@
 # scripts\scraper_dividend.py
 import os
 import json
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from utils import load_json_file, save_json_file, sanitize_ticker_for_filename, get_data_file_path, load_json_file as load_nav
 from tqdm import tqdm
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils import load_json_file, save_json_file, sanitize_ticker_for_filename, get_data_file_path, load_json_file as load_nav
 
 
 def parse_date(date_str):
