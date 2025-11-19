@@ -4,17 +4,29 @@
         "koName": null,
         "longName": null,
         "company": "Kurv",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-19 05:58:57 KST",
+        "regularMarketPrice": 27.99,
+        "englishName": "Kurv Yield Premium Strategy Amazon ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 9489,
+        "AvgVolume": 8689,
+        "sharesOutstanding": null,
+        "52Week": "22.665 - 34.48",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US5009484016",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US5009484016"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -4158,7 +4170,9 @@
             "high": 30.75,
             "low": 30.229601,
             "close": 30.229601,
-            "volume": 6488
+            "volume": 6488,
+            "amount": 0.5,
+            "yield": 0.2350328947
         },
         {
             "date": "2025-11-13",
@@ -4175,6 +4189,38 @@
             "low": 28.8421,
             "close": 29.092199,
             "volume": 6801
+        },
+        {
+            "date": "2025-11-17",
+            "open": 28.799999,
+            "high": 28.93,
+            "low": 28.4762,
+            "close": 28.91,
+            "volume": 7720
+        },
+        {
+            "date": "2025-12-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-10",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
+            "forecasted": true
         }
     ]
 }

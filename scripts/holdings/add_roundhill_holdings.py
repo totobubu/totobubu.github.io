@@ -311,6 +311,83 @@ def compare_holdings(old_holdings, new_holdings):
     return True
 
 
+def get_ticker_market(ticker):
+    """
+    nav.json에서 티커의 market 정보를 가져옵니다.
+    
+    Args:
+        ticker: 티커 심볼
+        
+    Returns:
+        market 디렉토리 이름 (예: 'nasdaq', 'nyse', 'kospi') 또는 None
+    """
+    try:
+        nav_path = Path("public/nav.json")
+        if not nav_path.exists():
+            print(f"[WARNING] nav.json 파일을 찾을 수 없습니다: {nav_path}")
+            return None
+            
+        with open(nav_path, "r", encoding="utf-8") as f:
+            nav_data = json.load(f)
+        
+        # 티커 찾기 (대소문자 무시)
+        ticker_upper = ticker.upper()
+        for item in nav_data.get("nav", []):
+            if item.get("symbol", "").upper() == ticker_upper:
+                market = item.get("market", "")
+                if market:
+                    # market을 소문자로 변환하여 디렉토리 이름으로 사용
+                    return market.lower()
+        
+        print(f"[WARNING] {ticker}: nav.json에서 market 정보를 찾을 수 없습니다")
+        return None
+    except Exception as e:
+        print(f"[ERROR] nav.json 읽기 실패: {e}")
+        return None
+
+
+def find_json_file_path(ticker):
+    """
+    티커에 해당하는 JSON 파일 경로를 찾습니다.
+    먼저 market 디렉토리에서 찾고, 없으면 루트에서 찾습니다.
+    
+    Args:
+        ticker: 티커 심볼
+        
+    Returns:
+        Path 객체 또는 None
+    """
+    from fetch_holdings import sanitize_ticker_for_filename
+    
+    sanitized = sanitize_ticker_for_filename(ticker)
+    
+    # 먼저 nav.json에서 market 정보 가져오기
+    market_dir = get_ticker_market(ticker)
+    
+    if market_dir:
+        # market 디렉토리에서 찾기
+        json_path = Path("public/data") / market_dir / f"{sanitized}.json"
+        if json_path.exists():
+            return json_path
+    
+    # market 디렉토리에서 못 찾으면 루트에서 찾기 (하위 호환성)
+    json_path = Path("public/data") / f"{sanitized}.json"
+    if json_path.exists():
+        return json_path
+    
+    # 모든 market 디렉토리에서 검색
+    data_dir = Path("public/data")
+    if data_dir.exists():
+        for market_subdir in data_dir.iterdir():
+            if market_subdir.is_dir():
+                json_path = market_subdir / f"{sanitized}.json"
+                if json_path.exists():
+                    print(f"[INFO] {ticker}: {json_path} 발견 (자동 검색)")
+                    return json_path
+    
+    return None
+
+
 def update_json_file(ticker, date, holdings):
     """
     JSON 파일에 holdings 데이터 추가
@@ -320,14 +397,12 @@ def update_json_file(ticker, date, holdings):
         date: 날짜 (YYYY-MM-DD)
         holdings: holdings 리스트
     """
-    from fetch_holdings import sanitize_ticker_for_filename
+    # 파일 경로 찾기
+    json_path = find_json_file_path(ticker)
 
-    # 파일 경로
-    sanitized = sanitize_ticker_for_filename(ticker)
-    json_path = Path("public/data") / f"{sanitized}.json"
-
-    if not json_path.exists():
-        print(f"[ERROR] JSON 파일이 존재하지 않습니다: {json_path}")
+    if not json_path:
+        print(f"[ERROR] {ticker}: JSON 파일을 찾을 수 없습니다")
+        print(f"  찾은 위치: public/data/{{market}}/{ticker.lower().replace('.', '-')}.json")
         return False
 
     # JSON 읽기
@@ -469,6 +544,74 @@ def parse_batch_file(file_path):
     return etf_data_list
 
 
+def extract_date_from_filename(file_path):
+    """
+    파일명에서 날짜 추출 (YYMMDD 형식)
+    
+    예: ark_251118_csv.txt -> 251118
+        roundhill_251115_playwright.txt -> 251115
+    
+    Args:
+        file_path: 파일 경로
+        
+    Returns:
+        날짜 문자열 (YYMMDD) 또는 None
+    """
+    import re
+    file_name = Path(file_path).name
+    
+    # 패턴: {prefix}_{YYMMDD}_{suffix}.txt
+    match = re.search(r"_(\d{6})_", file_name)
+    if match:
+        return match.group(1)
+    return None
+
+
+def cleanup_old_holdings_files(current_file_path):
+    """
+    현재 파일보다 이전 날짜의 holdings 파일들을 삭제
+    
+    Args:
+        current_file_path: 현재 처리 중인 파일 경로
+    """
+    current_date = extract_date_from_filename(current_file_path)
+    if not current_date:
+        print(f"[WARNING] 파일명에서 날짜를 추출할 수 없습니다: {current_file_path}")
+        return
+    
+    holdings_dir = Path("public/holdings")
+    if not holdings_dir.exists():
+        return
+    
+    deleted_count = 0
+    deleted_files = []
+    
+    # 모든 .txt 파일 검색
+    for file_path in holdings_dir.glob("*.txt"):
+        if file_path.name == Path(current_file_path).name:
+            continue  # 현재 파일은 건너뛰기
+        
+        file_date = extract_date_from_filename(file_path)
+        if not file_date:
+            continue
+        
+        # 현재 날짜보다 이전이면 삭제
+        if file_date < current_date:
+            try:
+                file_path.unlink()
+                deleted_count += 1
+                deleted_files.append(file_path.name)
+            except Exception as e:
+                print(f"[WARNING] 파일 삭제 실패: {file_path.name} - {e}")
+    
+    if deleted_count > 0:
+        print(f"\n[CLEANUP] 이전 파일 {deleted_count}개 삭제 완료:")
+        for name in sorted(deleted_files):
+            print(f"  - {name}")
+    else:
+        print(f"\n[CLEANUP] 삭제할 이전 파일 없음")
+
+
 def process_batch_file(file_path):
     """
     배치 파일의 모든 ETF holdings를 일괄 처리
@@ -491,7 +634,7 @@ def process_batch_file(file_path):
     print(f"\n총 {len(etf_data_list)}개 ETF 발견\n")
 
     # 프로젝트 루트로 이동
-    script_dir = Path(__file__).parent.parent
+    script_dir = Path(__file__).parent.parent.parent
     import os
 
     os.chdir(script_dir)
@@ -541,6 +684,10 @@ def process_batch_file(file_path):
     print(f"성공: {success_count}개")
     print(f"실패: {fail_count}개")
     print(f"총합: {len(etf_data_list)}개")
+    
+    # 처리 완료 후 이전 파일 정리
+    if success_count > 0:
+        cleanup_old_holdings_files(file_path)
 
 
 def main():

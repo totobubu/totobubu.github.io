@@ -26,19 +26,19 @@ npx playwright install chromium
 
 **단일 ETF 테스트 (Puppeteer):**
 ```bash
-node scripts/scrape_roundhill_holdings.js AAPW
+node scripts/holdings/scrape_roundhill_holdings.js AAPW
 ```
 
 **단일 ETF 테스트 (Playwright):**
 ```bash
-node scripts/scrape_roundhill_holdings_playwright.js AAPW
+node scripts/holdings/scrape_roundhill_holdings_playwright.js AAPW
 ```
 
 ### 3. 데이터 등록
 
 스크래핑이 성공하면 배치 파일이 생성됩니다:
 ```bash
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_auto.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_auto.txt
 ```
 
 ---
@@ -62,26 +62,26 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 ```bash
 # 단일 ETF
-node scripts/scrape_roundhill_holdings.js AAPW
+node scripts/holdings/scrape_roundhill_holdings.js AAPW
 
 # 여러 ETF
-node scripts/scrape_roundhill_holdings.js AAPW NFLW TSLW
+node scripts/holdings/scrape_roundhill_holdings.js AAPW NFLW TSLW
 
 # 전체 Roundhill ETF (41개)
-node scripts/scrape_roundhill_holdings.js --all
+node scripts/holdings/scrape_roundhill_holdings.js --all
 ```
 
 ### Playwright 버전
 
 ```bash
 # 단일 ETF
-node scripts/scrape_roundhill_holdings_playwright.js AAPW
+node scripts/holdings/scrape_roundhill_holdings_playwright.js AAPW
 
 # 여러 ETF
-node scripts/scrape_roundhill_holdings_playwright.js AAPW NFLW TSLW
+node scripts/holdings/scrape_roundhill_holdings_playwright.js AAPW NFLW TSLW
 
 # 전체 Roundhill ETF (41개)
-node scripts/scrape_roundhill_holdings_playwright.js --all
+node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
 ```
 
 ---
@@ -112,7 +112,7 @@ as of 2/19/25
 
 **사용**:
 ```bash
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_auto.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_auto.txt
 ```
 
 ### 2. 개별 JSON 파일 (디버깅용)
@@ -252,12 +252,12 @@ await page.goto(url, {
 
 - name: Scrape Roundhill holdings (Playwright)
   run: |
-      node scripts/scrape_roundhill_holdings_playwright.js --all
+      node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
       
       # 스크래핑한 데이터를 자동으로 등록
       BATCH_FILE=$(ls -t public/holdings/roundhill_*_playwright.txt | head -1)
       if [ -f "$BATCH_FILE" ]; then
-        python scripts/add_roundhill_holdings.py --batch "$BATCH_FILE"
+        python scripts/holdings/add_roundhill_holdings.py --batch "$BATCH_FILE"
       fi
 ```
 
@@ -299,7 +299,7 @@ await page.goto(url, {
 
 ```bash
 # 웹사이트에서 수동 복사 → 텍스트 파일 생성
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_251105.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_251105.txt
 ```
 
 **장점**: 간단, 의존성 없음  
@@ -309,13 +309,13 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_25110
 
 ```bash
 # 1. 자동 스크래핑 (1회)
-node scripts/scrape_roundhill_holdings_playwright.js --all
+node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
 
 # 2. 데이터 검증 (수동)
 cat public/holdings/roundhill_YYMMDD_playwright.txt
 
 # 3. 데이터 등록 (1회)
-python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_playwright.txt
+python scripts/holdings/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMDD_playwright.txt
 ```
 
 **장점**: 빠름, 정확, 검증 가능  
@@ -336,7 +336,7 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 
 1. **테스트 먼저**: 단일 ETF로 먼저 테스트
    ```bash
-   node scripts/scrape_roundhill_holdings_playwright.js AAPW
+   node scripts/holdings/scrape_roundhill_holdings_playwright.js AAPW
    ```
 
 2. **데이터 검증**: 배치 파일을 확인한 후 등록
@@ -356,7 +356,7 @@ python scripts/add_roundhill_holdings.py --batch public/holdings/roundhill_YYMMD
 ## 🔗 관련 문서
 
 - [README_HOLDINGS.md](./README_HOLDINGS.md) - Holdings 시스템 전체 가이드
-- [add_roundhill_holdings.py](../scripts/add_roundhill_holdings.py) - Python 등록 스크립트
+- [add_roundhill_holdings.py](../scripts/holdings/add_roundhill_holdings.py) - Python 등록 스크립트
 
 ---
 

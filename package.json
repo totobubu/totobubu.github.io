@@ -23,6 +23,7 @@
         "format:changed:win": "powershell -ExecutionPolicy Bypass -File scripts/format_changed_files.ps1",
         "format:data": "prettier --write \"public/data/**/*.json\" --log-level=warn",
         "format:nav": "prettier --write \"public/nav/**/*.json\" --log-level=warn",
+        "format:calendar": "prettier --write \"public/calendar-events.json\",\"public/calendar/*.json\" --log-level=warn",
         "format:nav.json": "prettier --write \"public/nav.json\" --log-level=warn",
         "format:public": "prettier --write \"public/*.json\" --log-level=warn",
         "format": "prettier --write src/ --log-level=warn",

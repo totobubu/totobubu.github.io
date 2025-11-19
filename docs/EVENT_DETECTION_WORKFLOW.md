@@ -5,7 +5,7 @@
 ## 1. 감지 스크립트 실행
 
 ```
-node scripts/detect_event_changes.js [옵션]
+node scripts/data_processing/detect_event_changes.js [옵션]
 ```
 
 ### 대표 옵션
@@ -32,8 +32,8 @@ node scripts/detect_event_changes.js [옵션]
 ## 3. 이벤트 반영
 
 ```
-node scripts/add_event_metadata.js --config=스크립트/템플릿/경로.json
-node scripts/add_event_metadata.js --config=scripts/output/events-config-template.json
+node scripts/data_processing/add_event_metadata.js --config=스크립트/템플릿/경로.json
+node scripts/data_processing/add_event_metadata.js --config=scripts/output/events-config-template.json
 ```
 
 ### 적용 기준

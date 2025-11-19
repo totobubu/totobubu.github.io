@@ -87,9 +87,6 @@ const uniqueArray = (items = []) => {
 const buildStaticDataCandidates = (navInfo) => {
     if (!navInfo) return [];
     const candidates = [];
-    if (navInfo.dataPath) {
-        candidates.push(navInfo.dataPath);
-    }
     if (Array.isArray(navInfo.dataPaths)) {
         candidates.push(...navInfo.dataPaths);
     }
@@ -200,6 +197,49 @@ export function useStockData() {
                     .map((item) => {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
+                        
+                        // 통화 정보 확인
+                        const currency = inferredCurrency || 'USD';
+                        const isKRW = currency === 'KRW';
+                        const currencySymbol = isKRW ? '₩' : '$';
+                        const locale = isKRW ? 'ko-KR' : 'en-US';
+                        
+                        // 배당금 필드 설정: 우선순위에 따라 값 선택
+                        // 1. amountOriginal (있으면 이것을 사용)
+                        // 2. amountFixed (amountOriginal이 없으면 이것)
+                        // 3. amount (둘 다 없으면 이것)
+                        let 배당금값 = item.amountOriginal !== undefined && item.amountOriginal !== null
+                            ? item.amountOriginal
+                            : item.amountFixed !== undefined
+                                ? item.amountFixed
+                                : item.amount;
+                        
+                        // amountOriginal과 amountSplitAdjustments가 있으면 파싱 가능한 문자열 형식으로 변환
+                        // 형식: "amountOriginal (총비율:1 = amountFixed or amount)"
+                        if (
+                            item.amountOriginal != null &&
+                            Array.isArray(item.amountSplitAdjustments) &&
+                            item.amountSplitAdjustments.length > 0
+                        ) {
+                            // 최종값은 amountFixed 또는 amount (amountOriginal이 아님!)
+                            const finalAmount = item.amountFixed !== undefined && item.amountFixed !== null
+                                ? item.amountFixed
+                                : item.amount;
+                            const originalAmount = item.amountOriginal; // 원래 배당금
+                            
+                            // 모든 비율을 곱해서 총 비율 계산
+                            const totalRatio = item.amountSplitAdjustments.reduce((acc, adj) => {
+                                const [numerator, denominator] = adj.ratio.split(':').map(Number);
+                                if (denominator && denominator > 0) {
+                                    return acc * (numerator / denominator);
+                                }
+                                return acc;
+                            }, 1);
+                            
+                            // 형식: "$1.998 (0.5:1 = $0.999)" 또는 "₩129 (7.387:1 = ₩953)"
+                            배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(3)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
+                        }
+                        
                         return {
                             배당락: new Date(item.date)
                                 .toLocaleDateString('ko-KR', {
@@ -209,12 +249,11 @@ export function useStockData() {
                                 })
                                 .replace(/\. /g, '.')
                                 .slice(0, -1),
-                            배당금:
-                                item.amountFixed !== undefined
-                                    ? item.amountFixed
-                                    : item.amount,
+                            배당금: 배당금값,
                             // 분할 전 원금 및 조정내역을 표기용으로 전달
                             amountOriginal: item.amountOriginal,
+                            amountFixed: item.amountFixed,
+                            amount: item.amount,
                             amountSplitAdjustments: item.amountSplitAdjustments,
                             배당률: item.yield,
                             전일종가: formatPriceField(prevDayData?.close),

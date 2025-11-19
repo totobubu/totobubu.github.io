@@ -4,17 +4,29 @@
         "koName": null,
         "longName": null,
         "company": "Kurv",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-13 02:35:02 KST",
+        "Update": "2025-11-19 05:58:57 KST",
+        "regularMarketPrice": 25.27,
+        "englishName": "Kurv Yield Premium Strategy Microsoft ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 19550,
+        "AvgVolume": 4603,
+        "sharesOutstanding": null,
+        "52Week": "20.36 - 28.47",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": "US5009487084",
         "events": {
             "splits": []
         },
-        "changes": {},
-        "isin": "US5009487084"
+        "changes": {}
     },
     "backtestData": [
         {
@@ -4158,7 +4170,9 @@
             "high": 26.110001,
             "low": 25.575701,
             "close": 26.110001,
-            "volume": 11766
+            "volume": 11766,
+            "amount": 0.8,
+            "yield": 0.1706916316
         },
         {
             "date": "2025-11-13",
@@ -4175,6 +4189,38 @@
             "low": 25.490801,
             "close": 26,
             "volume": 6341
+        },
+        {
+            "date": "2025-11-17",
+            "open": 26.0254,
+            "high": 26.049999,
+            "low": 25.8615,
+            "close": 25.8615,
+            "volume": 6789
+        },
+        {
+            "date": "2025-12-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-02-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-04-10",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-12",
+            "forecasted": true
         }
     ]
 }

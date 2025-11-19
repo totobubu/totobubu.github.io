@@ -16,6 +16,9 @@ def collect_local_keys(target):
     elif target == "data":
         root = Path("public/data")
         pattern = "*.json"
+    elif target == "holdings":
+        root = Path("public/holdings")
+        pattern = "*.txt"
     else:
         return set()
     
@@ -60,25 +63,29 @@ def main():
         epilog="""
 예시:
   # logos 폴더 정리 (dry-run)
-  python scripts/cleanup_r2.py --target logos
+  python scripts/cloud/cleanup_r2.py --target logos
   
   # data 폴더 전체 정리 (dry-run)
-  python scripts/cleanup_r2.py --target data
+  python scripts/cloud/cleanup_r2.py --target data
   
   # 특정 market만 정리 (dry-run)
-  python scripts/cleanup_r2.py --target data --market kosdaq
+  python scripts/cloud/cleanup_r2.py --target data --market kosdaq
+  
+  # holdings 폴더 정리 (dry-run)
+  python scripts/cloud/cleanup_r2.py --target holdings
   
   # 실제 삭제
-  python scripts/cleanup_r2.py --target logos --apply
-  python scripts/cleanup_r2.py --target data --market kosdaq --apply
+  python scripts/cloud/cleanup_r2.py --target logos --apply
+  python scripts/cloud/cleanup_r2.py --target data --market kosdaq --apply
+  python scripts/cloud/cleanup_r2.py --target holdings --apply
         """,
     )
     parser.add_argument(
         "--target",
         type=str,
-        choices=["logos", "data"],
+        choices=["logos", "data", "holdings"],
         required=True,
-        help="정리할 대상 폴더 (logos 또는 data)",
+        help="정리할 대상 폴더 (logos, data, 또는 holdings)",
     )
     parser.add_argument(
         "--apply",

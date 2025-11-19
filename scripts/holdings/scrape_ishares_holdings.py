@@ -383,8 +383,10 @@ if __name__ == "__main__":
             
             print(f"\n[INFO] 실패 티커 중 iShares ETF: {len(tickers)}개")
         else:
-            print("[ERROR] failed_holdings_tickers.txt 파일을 찾을 수 없습니다.")
-            sys.exit(1)
+            print("[WARNING] failed_holdings_tickers.txt 파일을 찾을 수 없습니다.")
+            print("[WARNING] scripts/holdings/ 디렉토리에 파일이 없습니다. 처리할 티커가 없어 종료합니다.")
+            print("[INFO] 이 스크립트는 fetch_holdings.py 실행 후 생성된 failed_holdings_tickers.txt 파일을 사용합니다.")
+            sys.exit(0)  # 에러가 아닌 정상 종료로 처리
     elif len(sys.argv) > 1:
         # 개별 티커 지정
         tickers = [arg.upper() for arg in sys.argv[1:] if not arg.startswith('--')]

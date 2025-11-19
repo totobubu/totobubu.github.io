@@ -1,6 +1,7 @@
 // src/composables/charts/useWeeklyChart.js
 import { parseYYMMDD } from '@/utils/date.js';
 import { createNumericFormatter } from '@/utils/formatters.js';
+import { parseDividendAmount } from '@/utils/dividendParser.js';
 
 export function useWeeklyChart(options) {
     const { data, theme, currency = 'USD' } = options;
@@ -10,12 +11,22 @@ export function useWeeklyChart(options) {
     });
     const weekColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853', '#FF6D01'];
 
+    // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
     const monthlyAggregated = data.reduce((acc, item) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
         const weekOfMonth = Math.floor((date.getDate() - 1) / 7);
-        const amount = item['배당금'];
+        
+        // 우선순위에 따라 차트에 그려질 값 선택
+        let amount = 0;
+        if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
+            amount = item.amountOriginal;
+        } else if (item.amountFixed !== undefined && item.amountFixed !== null) {
+            amount = item.amountFixed;
+        } else {
+            amount = item.amount || 0;
+        }
 
         if (!acc[yearMonth])
             acc[yearMonth] = { weeks: [0, 0, 0, 0, 0], total: 0 };

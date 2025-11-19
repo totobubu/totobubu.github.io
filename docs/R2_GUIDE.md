@@ -29,7 +29,7 @@ R2(Cloudflare R2)는 데이터 파일을 빠르게 제공하기 위한 클라우
 **Git 변경사항 기반 빠른 업로드**
 
 ```bash
-python scripts/upload_changed_to_r2.py
+python scripts/cloud/upload_changed_to_r2.py
 ```
 
 **특징**:
@@ -67,13 +67,13 @@ for file in upload_targets:
 
 ```bash
 # 전체 비교 (기본)
-python scripts/upload_full_sync_to_r2.py
+python scripts/cloud/upload_full_sync_to_r2.py
 
 # logos 폴더만 비교/업로드
-python scripts/upload_full_sync_to_r2.py --target logos
+python scripts/cloud/upload_full_sync_to_r2.py --target logos
 
 # 여러 영역 동시 지정
-python scripts/upload_full_sync_to_r2.py --target logos --target sidebar
+python scripts/cloud/upload_full_sync_to_r2.py --target logos --target sidebar
 ```
 
 **특징**:
@@ -99,13 +99,13 @@ python scripts/upload_full_sync_to_r2.py --target logos --target sidebar
 
 ```bash
 # 단일 파일
-python scripts/upload_specific_to_r2.py public/nav.json
+python scripts/cloud/upload_specific_to_r2.py public/nav.json
 
 # 여러 파일
-python scripts/upload_specific_to_r2.py public/nav.json public/data/aapl.json
+python scripts/cloud/upload_specific_to_r2.py public/nav.json public/data/aapl.json
 
 # Glob 패턴
-python scripts/upload_specific_to_r2.py "public/data/0*.json"
+python scripts/cloud/upload_specific_to_r2.py "public/data/0*.json"
 ```
 
 **특징**:
@@ -128,20 +128,20 @@ python scripts/upload_specific_to_r2.py "public/data/0*.json"
 
 ```bash
 # logos 폴더 삭제 대상 미리보기 (기본: dry-run)
-python scripts/cleanup_r2.py --target logos
+python scripts/cloud/cleanup_r2.py --target logos
 
 # data 폴더 전체 삭제 대상 미리보기
-python scripts/cleanup_r2.py --target data
+python scripts/cloud/cleanup_r2.py --target data
 
 # 특정 market만 정리 (예: kosdaq)
-python scripts/cleanup_r2.py --target data --market kosdaq
+python scripts/cloud/cleanup_r2.py --target data --market kosdaq
 
 # 실제 삭제 수행 (--apply 필수)
-python scripts/cleanup_r2.py --target logos --apply
-python scripts/cleanup_r2.py --target data --apply
+python scripts/cloud/cleanup_r2.py --target logos --apply
+python scripts/cloud/cleanup_r2.py --target data --apply
 
 # 특정 market만 실제 삭제
-python scripts/cleanup_r2.py --target data --market kosdaq --apply
+python scripts/cloud/cleanup_r2.py --target data --market kosdaq --apply
 ```
 
 **특징**:
@@ -293,10 +293,10 @@ GitHub Actions에서 수동으로 R2 업로드 가능 (3가지 모드):
 
 ```bash
 # 1. 데이터 업데이트
-python scripts/update_dividends.py
+python scripts/data_pipeline/update_dividends.py
 
 # 2. R2 업로드
-python scripts/upload_changed_to_r2.py  # ⚡ 빠름!
+python scripts/cloud/upload_changed_to_r2.py  # ⚡ 빠름!
 
 # 3. 커밋
 git add .
@@ -315,13 +315,13 @@ git clone https://github.com/user/repo.git
 
 # 2. 데이터 생성
 npm run generate-nav
-python scripts/update_data.py
+# 데이터 업데이트는 각 워크플로우에서 처리됩니다
 
 # 3. R2 전체 동기화
-python scripts/upload_full_sync_to_r2.py  # 🐌 초기만
+python scripts/cloud/upload_full_sync_to_r2.py  # 🐌 초기만
 
 # 4. 이후부터는 빠른 방식
-python scripts/upload_changed_to_r2.py  # ⚡ 항상
+python scripts/cloud/upload_changed_to_r2.py  # ⚡ 항상
 ```
 
 ---
@@ -337,7 +337,7 @@ vi public/nav.json
 # 파일: public/nav.json
 
 # 또는 로컬에서:
-python scripts/upload_specific_to_r2.py public/nav.json
+python scripts/cloud/upload_specific_to_r2.py public/nav.json
 ```
 
 **예상 시간**: ~3초
@@ -348,10 +348,10 @@ python scripts/upload_specific_to_r2.py public/nav.json
 
 ```bash
 # R2에 파일이 제대로 있는지 확인 (전체)
-python scripts/upload_full_sync_to_r2.py
+python scripts/cloud/upload_full_sync_to_r2.py
 
 # logos 폴더만 빠르게 검증/업로드
-python scripts/upload_full_sync_to_r2.py --target logos
+python scripts/cloud/upload_full_sync_to_r2.py --target logos
 
 # 출력:
 # [INFO] 누락된 파일: 0개
@@ -368,7 +368,7 @@ python scripts/upload_full_sync_to_r2.py --target logos
 ```yaml
 # 모든 워크플로우에서 자동 사용
 - name: Upload changed files to R2
-  run: python scripts/upload_changed_to_r2.py
+  run: python scripts/cloud/upload_changed_to_r2.py
 ```
 
 **적용된 워크플로우**:
@@ -383,7 +383,7 @@ python scripts/upload_full_sync_to_r2.py --target logos
 ```yaml
 # main 브랜치 push 시 자동 실행
 - name: Upload changed data files to R2
-  run: python scripts/upload_changed_to_r2.py
+  run: python scripts/cloud/upload_changed_to_r2.py
 ```
 
 **특징**:
@@ -416,7 +416,7 @@ python scripts/upload_full_sync_to_r2.py --target logos
 ```bash
 # upload_changed_to_r2.py는 Git 필요
 # 해결: full_sync 사용
-python scripts/upload_full_sync_to_r2.py
+python scripts/cloud/upload_full_sync_to_r2.py
 ```
 
 ### Q: 파일이 변경되었는데 업로드 안 됨
@@ -429,14 +429,14 @@ git status
 git add public/data/new-file.json
 
 # 그 후 업로드
-python scripts/upload_changed_to_r2.py
+python scripts/cloud/upload_changed_to_r2.py
 ```
 
 ### Q: R2에서 파일이 누락된 것 같음
 
 ```bash
 # 전체 동기화로 검증 및 복구
-python scripts/upload_full_sync_to_r2.py
+python scripts/cloud/upload_full_sync_to_r2.py
 ```
 
 ### Q: 너무 오래 걸림
@@ -445,10 +445,10 @@ python scripts/upload_full_sync_to_r2.py
 # upload_changed_to_r2.py 사용 중인지 확인
 
 # Before (느림)
-python scripts/upload_full_sync_to_r2.py
+python scripts/cloud/upload_full_sync_to_r2.py
 
 # After (빠름)
-python scripts/upload_changed_to_r2.py
+python scripts/cloud/upload_changed_to_r2.py
 ```
 
 ---
@@ -466,7 +466,7 @@ export R2_BUCKET_NAME=your_bucket
 export R2_PUBLIC_URL=https://your-domain.com
 
 # 2. 테스트 실행
-python scripts/upload_changed_to_r2.py
+python scripts/cloud/upload_changed_to_r2.py
 
 # 3. 결과 확인
 # https://your-domain.com/nav.json
@@ -503,31 +503,31 @@ After:  15초 × 2회/일 × 30일 = 15분/월
 
 ```bash
 # 일반적으로 (99%)
-python scripts/upload_changed_to_r2.py  # ⚡ 빠름!
+python scripts/cloud/upload_changed_to_r2.py  # ⚡ 빠름!
 ```
 
 ### 특수 상황
 
 ```bash
 # 초기 설정 (1회)
-python scripts/upload_full_sync_to_r2.py  # 🔧 전체 동기화
+python scripts/cloud/upload_full_sync_to_r2.py  # 🔧 전체 동기화
 
 # logos 등 일부 영역만 재검증/업로드
-python scripts/upload_full_sync_to_r2.py --target logos  # 🎯 부분 동기화
+python scripts/cloud/upload_full_sync_to_r2.py --target logos  # 🎯 부분 동기화
 
 # R2에만 남은 파일 삭제 (dry-run)
-python scripts/cleanup_r2.py --target logos  # 🧹 로고 삭제 전 검토
-python scripts/cleanup_r2.py --target data  # 🧹 데이터 삭제 전 검토
+python scripts/cloud/cleanup_r2.py --target logos  # 🧹 로고 삭제 전 검토
+python scripts/cloud/cleanup_r2.py --target data  # 🧹 데이터 삭제 전 검토
 
 # 실제 삭제
-python scripts/cleanup_r2.py --target logos --apply
-python scripts/cleanup_r2.py --target data --apply
+python scripts/cloud/cleanup_r2.py --target logos --apply
+python scripts/cloud/cleanup_r2.py --target data --apply
 
 # 특정 market만 정리 (예: kosdaq)
-python scripts/cleanup_r2.py --target data --market kosdaq --apply
+python scripts/cloud/cleanup_r2.py --target data --market kosdaq --apply
 
 # 특정 파일만
-python scripts/upload_specific_to_r2.py public/nav.json  # 🎯 개별
+python scripts/cloud/upload_specific_to_r2.py public/nav.json  # 🎯 개별
 ```
 
 ### 자동화

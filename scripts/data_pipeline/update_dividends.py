@@ -12,6 +12,11 @@ PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 
+# 공통 유틸리티 import
+import sys
+sys.path.insert(0, os.path.join(ROOT_DIR, "scripts", "utils"))
+from data_file_path import get_data_file_path, find_existing_data_file
+
 
 def get_last_dividend_date(file_path):
     """
@@ -62,17 +67,20 @@ def main():
     else:
         print("--- [Full Mode] Incremental Dividend Update (Optimized) ---")
     
-    ticker_info_map = {t["symbol"]: t for t in active_tickers_info}
-    active_symbols = list(ticker_info_map.keys())
-
-    print(f"Analyzing {len(active_symbols)} active tickers for dividend updates...")
+    print(f"Analyzing {len(active_tickers_info)} active tickers for dividend updates...")
 
     updated_count = 0
     # [핵심 수정] 티커별로 개별 처리하여 증분 업데이트 로직 적용
-    for symbol in tqdm(active_symbols, desc="Fetching and merging new dividends"):
+    for ticker_info in tqdm(active_tickers_info, desc="Fetching and merging new dividends"):
+        symbol = ticker_info["symbol"]
+        market = ticker_info.get("market")
         try:
-            sanitized_symbol = symbol.replace(".", "-").lower()
-            file_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+            # 기존 파일 찾기 (market 서브디렉토리와 루트 모두 확인)
+            file_path_obj = find_existing_data_file(symbol, market)
+            if not file_path_obj:
+                # 파일이 없으면 market 정보로 새 경로 생성
+                file_path_obj = get_data_file_path(symbol, market)
+            file_path = str(file_path_obj)
 
             # 1. 마지막 배당일 조회
             last_div_date_str = get_last_dividend_date(file_path)

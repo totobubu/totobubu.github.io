@@ -31,7 +31,8 @@
 
 ### 처리 내용
 ```python
-# scripts/info_data_pipeline.py - STEP 3
+# scripts/data_pipeline/info_data_pipeline_kr.py - STEP 3
+# scripts/data_pipeline/info_data_pipeline_us.py - STEP 3
 
 1. Yahoo Finance에서 전체 티커의 현재 marketCap 배치 조회
 2. 각 티커의 오늘 날짜 backtestData에 marketCap 추가
@@ -45,7 +46,8 @@
 ### 방법 1: 통합 파이프라인 사용 (권장)
 
 ```bash
-python scripts/info_data_pipeline.py
+python scripts/data_pipeline/info_data_pipeline_kr.py
+python scripts/data_pipeline/info_data_pipeline_us.py
 ```
 
 **실행 결과**:
@@ -68,7 +70,8 @@ Fetching market caps in batches: 100%|████████████| 31/3
 ### 방법 2: 통합 파이프라인 (V2 방식)
 
 ```bash
-python scripts/info_data_pipeline.py
+python scripts/data_pipeline/info_data_pipeline_kr.py
+python scripts/data_pipeline/info_data_pipeline_us.py
 ```
 
 **실행 결과**:
@@ -169,7 +172,7 @@ STEP 4: 배당 빈도 분석
 npm run backfill-market-cap
 
 # 또는 직접 실행
-python scripts/backfill_market_cap_approximate.py
+python scripts/data_pipeline/backfill_market_cap_approximate.py
 ```
 
 **동작 원리**:
@@ -297,7 +300,7 @@ GitHub > Actions 탭 > "Update Info Data V2" > 최근 실행 >
 ### 과거 데이터를 빠르게 채우고 싶음
 ```bash
 # 근사값 계산 (85~95% 정확도)
-python scripts/backfill_market_cap_approximate.py
+python scripts/data_pipeline/backfill_market_cap_approximate.py
 ```
 
 ---
@@ -332,9 +335,9 @@ A: GitHub Actions가 자동으로 실행합니다. 테스트 기간 후 더 나�
 ## 📚 관련 파일
 
 ### 스크립트
-- `scripts/update_market_cap.py` - 개별 실행 스크립트 (V1)
-- `scripts/info_data_pipeline.py` - 통합 파이프라인 (V2, STEP 3 포함)
-- `scripts/backfill_market_cap_approximate.py` - 과거 데이터 근사값 계산
+- `scripts/data_pipeline/update_market_cap.py` - 개별 실행 스크립트 (V1)
+- `scripts/data_pipeline/info_data_pipeline_kr.py` / `scripts/data_pipeline/info_data_pipeline_us.py` - 통합 파이프라인 (V2, STEP 3 포함)
+- `scripts/data_pipeline/backfill_market_cap_approximate.py` - 과거 데이터 근사값 계산
 
 ### 워크플로우
 - `.github/workflows/update_info_data_v2.yml` - 자동 실행

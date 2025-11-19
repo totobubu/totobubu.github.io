@@ -183,13 +183,9 @@ export function useCalendarData() {
         const eventTicker = event.ticker
             ? stripTickerSuffix(event.ticker.toUpperCase())
             : null;
-        const eventYfSymbol = event.yfSymbol
-            ? stripTickerSuffix(event.yfSymbol.toUpperCase())
-            : null;
         const eventIsin = event.isin ? event.isin.toUpperCase() : null;
 
         if (eventTicker && symbolSet.has(eventTicker)) return true;
-        if (eventYfSymbol && symbolSet.has(eventYfSymbol)) return true;
         if (eventIsin && isinSet.has(eventIsin)) return true;
         return false;
     };

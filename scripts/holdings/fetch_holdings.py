@@ -312,6 +312,80 @@ def compare_holdings(holdings1, holdings2):
     return True
 
 
+def get_ticker_market(ticker):
+    """
+    nav.json에서 티커의 market 정보를 가져옵니다.
+    
+    Args:
+        ticker: 티커 심볼
+        
+    Returns:
+        market 디렉토리 이름 (예: 'nasdaq', 'nyse', 'kospi') 또는 None
+    """
+    try:
+        nav_path = Path("public/nav.json")
+        if not nav_path.exists():
+            return None
+            
+        with open(nav_path, "r", encoding="utf-8") as f:
+            nav_data = json.load(f)
+        
+        # 티커 찾기 (대소문자 무시)
+        ticker_upper = ticker.upper()
+        for item in nav_data.get("nav", []):
+            if item.get("symbol", "").upper() == ticker_upper:
+                market = item.get("market", "")
+                if market:
+                    # market을 소문자로 변환하여 디렉토리 이름으로 사용
+                    return market.lower()
+        
+        return None
+    except Exception as e:
+        print(f"[ERROR] nav.json 읽기 실패: {e}")
+        return None
+
+
+def find_json_file_path(ticker_symbol, data_dir='public/data'):
+    """
+    티커에 해당하는 JSON 파일 경로를 찾습니다.
+    먼저 market 디렉토리에서 찾고, 없으면 루트에서 찾습니다.
+    
+    Args:
+        ticker_symbol: 티커 심볼
+        data_dir: 데이터 디렉토리 경로
+        
+    Returns:
+        Path 객체 또는 None
+    """
+    sanitized_ticker = sanitize_ticker_for_filename(ticker_symbol)
+    
+    # 먼저 nav.json에서 market 정보 가져오기
+    market_dir = get_ticker_market(ticker_symbol)
+    
+    if market_dir:
+        # market 디렉토리에서 찾기
+        json_path = Path(data_dir) / market_dir / f"{sanitized_ticker}.json"
+        if json_path.exists():
+            return json_path
+    
+    # market 디렉토리에서 못 찾으면 루트에서 찾기 (하위 호환성)
+    json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+    if json_path.exists():
+        return json_path
+    
+    # 모든 market 디렉토리에서 검색
+    data_path = Path(data_dir)
+    if data_path.exists():
+        for market_subdir in data_path.iterdir():
+            if market_subdir.is_dir():
+                json_path = market_subdir / f"{sanitized_ticker}.json"
+                if json_path.exists():
+                    print(f"[INFO] {ticker_symbol}: {json_path} 발견 (자동 검색)")
+                    return json_path
+    
+    return None
+
+
 def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_update=False):
     """
     JSON 파일의 backtestData에 holdings 데이터를 추가/업데이트합니다.
@@ -326,12 +400,21 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
         성공 여부 (bool)
     """
     try:
-        # 파일 경로 설정
-        sanitized_ticker = sanitize_ticker_for_filename(ticker_symbol)
-        json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+        # 파일 경로 찾기
+        json_path = find_json_file_path(ticker_symbol, data_dir)
         
-        # 파일이 없으면 기본 구조로 생성
-        if not json_path.exists():
+        # 파일이 없으면 기본 구조로 생성 (market 디렉토리에 생성)
+        if not json_path:
+            market_dir = get_ticker_market(ticker_symbol)
+            sanitized_ticker = sanitize_ticker_for_filename(ticker_symbol)
+            
+            if market_dir:
+                json_path = Path(data_dir) / market_dir / f"{sanitized_ticker}.json"
+                # 디렉토리 생성
+                json_path.parent.mkdir(parents=True, exist_ok=True)
+            else:
+                json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+            
             print(f"[INFO] {ticker_symbol}: 새 JSON 파일 생성 - {json_path}")
             data = {
                 "tickerInfo": {},
