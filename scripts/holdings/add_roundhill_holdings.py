@@ -544,6 +544,74 @@ def parse_batch_file(file_path):
     return etf_data_list
 
 
+def extract_date_from_filename(file_path):
+    """
+    파일명에서 날짜 추출 (YYMMDD 형식)
+    
+    예: ark_251118_csv.txt -> 251118
+        roundhill_251115_playwright.txt -> 251115
+    
+    Args:
+        file_path: 파일 경로
+        
+    Returns:
+        날짜 문자열 (YYMMDD) 또는 None
+    """
+    import re
+    file_name = Path(file_path).name
+    
+    # 패턴: {prefix}_{YYMMDD}_{suffix}.txt
+    match = re.search(r"_(\d{6})_", file_name)
+    if match:
+        return match.group(1)
+    return None
+
+
+def cleanup_old_holdings_files(current_file_path):
+    """
+    현재 파일보다 이전 날짜의 holdings 파일들을 삭제
+    
+    Args:
+        current_file_path: 현재 처리 중인 파일 경로
+    """
+    current_date = extract_date_from_filename(current_file_path)
+    if not current_date:
+        print(f"[WARNING] 파일명에서 날짜를 추출할 수 없습니다: {current_file_path}")
+        return
+    
+    holdings_dir = Path("public/holdings")
+    if not holdings_dir.exists():
+        return
+    
+    deleted_count = 0
+    deleted_files = []
+    
+    # 모든 .txt 파일 검색
+    for file_path in holdings_dir.glob("*.txt"):
+        if file_path.name == Path(current_file_path).name:
+            continue  # 현재 파일은 건너뛰기
+        
+        file_date = extract_date_from_filename(file_path)
+        if not file_date:
+            continue
+        
+        # 현재 날짜보다 이전이면 삭제
+        if file_date < current_date:
+            try:
+                file_path.unlink()
+                deleted_count += 1
+                deleted_files.append(file_path.name)
+            except Exception as e:
+                print(f"[WARNING] 파일 삭제 실패: {file_path.name} - {e}")
+    
+    if deleted_count > 0:
+        print(f"\n[CLEANUP] 이전 파일 {deleted_count}개 삭제 완료:")
+        for name in sorted(deleted_files):
+            print(f"  - {name}")
+    else:
+        print(f"\n[CLEANUP] 삭제할 이전 파일 없음")
+
+
 def process_batch_file(file_path):
     """
     배치 파일의 모든 ETF holdings를 일괄 처리
@@ -616,6 +684,10 @@ def process_batch_file(file_path):
     print(f"성공: {success_count}개")
     print(f"실패: {fail_count}개")
     print(f"총합: {len(etf_data_list)}개")
+    
+    # 처리 완료 후 이전 파일 정리
+    if success_count > 0:
+        cleanup_old_holdings_files(file_path)
 
 
 def main():
