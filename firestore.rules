@@ -44,13 +44,17 @@ service cloud.firestore {
             match /assets/{assetId} {
               // 소유자는 자신의 자산에 접근 가능
               allow read, write: if isOwner(userId);
-              // 관리자는 모든 자산에 읽기/쓰기 가능 (collectionGroup 쿼리용)
-              allow read, write: if isAdmin();
             }
           }
         }
       }
     }
+    
+    // collectionGroup 쿼리를 위한 별도 규칙
+    // 모든 assets 컬렉션에 대한 관리자 접근 권한
+    match /{path=**}/assets/{assetId} {
+      // 관리자는 모든 자산에 읽기/쓰기 가능 (collectionGroup 쿼리용)
+      allow read, write: if isAdmin();
+    }
   }
 }
-
