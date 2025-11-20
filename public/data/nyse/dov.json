@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 180.15,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 180.02,
         "englishName": "Dover Corporation",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 26212642816,
-        "marketCap": 24708151296,
-        "Volume": 766525,
-        "AvgVolume": 1123710,
+        "enterpriseValue": 26175610880,
+        "marketCap": 24690323456,
+        "Volume": 339312,
+        "AvgVolume": 1127217,
         "sharesOutstanding": 137153223,
         "52Week": "143.04 - 222.31",
-        "Yield": 0.011435,
+        "Yield": 0.011443,
         "dividendRate": 2.08,
         "payoutRatio": 0.2689,
         "isin": "US2600031080",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 180.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 26212642816,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 24708151296,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 766525,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1123710,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011435,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106465,6 +106490,14 @@
             "low": 178.770004,
             "close": 179.779999,
             "volume": 888369
+        },
+        {
+            "date": "2025-11-19",
+            "open": 179.699997,
+            "high": 181.350006,
+            "low": 179.199997,
+            "close": 179.639999,
+            "volume": 749475
         },
         {
             "date": "2025-11-28",

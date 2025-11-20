@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.618,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 51.46,
         "englishName": "Goldman Sachs Nasdaq-100 Premium Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1016208,
-        "AvgVolume": 708125,
+        "Volume": 666432,
+        "AvgVolume": 716584,
         "sharesOutstanding": null,
         "52Week": "38.13 - 54.629",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.618,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1016208,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 708125,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4319,6 +4332,14 @@
             "low": 51.029999,
             "close": 51.459999,
             "volume": 1039889
+        },
+        {
+            "date": "2025-11-19",
+            "open": 51.509998,
+            "high": 52.239498,
+            "low": 51.334999,
+            "close": 51.720001,
+            "volume": 825504
         },
         {
             "date": "2025-12-03",

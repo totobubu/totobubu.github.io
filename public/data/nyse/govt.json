@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.125,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.135,
         "englishName": "iShares U.S. Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4312127,
-        "AvgVolume": 8276645,
+        "Volume": 3572718,
+        "AvgVolume": 8300317,
         "sharesOutstanding": null,
         "52Week": "22.23 - 23.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.125,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4312127,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8276645,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27990,6 +28003,14 @@
             "low": 23.1,
             "close": 23.125,
             "volume": 4599420
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.15,
+            "high": 23.16,
+            "low": 23.110001,
+            "close": 23.120001,
+            "volume": 5124807
         },
         {
             "date": "2025-12-03",

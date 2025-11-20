@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45.084,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 41.4,
         "englishName": "ProShares Ether ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 252923,
-        "AvgVolume": 165801,
+        "Volume": 235866,
+        "AvgVolume": 167737,
         "sharesOutstanding": null,
         "52Week": "27.134 - 84.43",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.084,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 252923,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 165801,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4358,6 +4371,14 @@
             "low": 43.740002,
             "close": 44.93,
             "volume": 255463
+        },
+        {
+            "date": "2025-11-19",
+            "open": 43.529999,
+            "high": 44.57,
+            "low": 41.290001,
+            "close": 42.32,
+            "volume": 270784
         },
         {
             "date": "2025-12-03",

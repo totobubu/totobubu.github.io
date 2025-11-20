@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 44.53,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.15,
         "englishName": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12477,
-        "AvgVolume": 8321,
+        "Volume": 4035,
+        "AvgVolume": 8348,
         "sharesOutstanding": null,
         "52Week": "38.59 - 51.29",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12477,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8321,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2142,7 +2155,12 @@
         },
         {
             "date": "2025-11-19",
-            "amountFixed": 0.2539
+            "amountFixed": 0.2539,
+            "open": 43.970001,
+            "high": 44.316299,
+            "low": 43.951,
+            "close": 44.316299,
+            "volume": 5165
         },
         {
             "date": "2025-11-25",

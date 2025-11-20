@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 54.16,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 54.1675,
         "englishName": "Jpmorgan Active Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 509184,
-        "AvgVolume": 592375,
+        "Volume": 392878,
+        "AvgVolume": 597454,
         "sharesOutstanding": null,
         "52Week": "51.645 - 54.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 54.16,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 509184,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 592375,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4321,6 +4334,14 @@
             "low": 54.090099,
             "close": 54.200001,
             "volume": 583310
+        },
+        {
+            "date": "2025-11-19",
+            "open": 54.23,
+            "high": 54.23,
+            "low": 54.099998,
+            "close": 54.150002,
+            "volume": 517288
         },
         {
             "date": "2025-12-03",

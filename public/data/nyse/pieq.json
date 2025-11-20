@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 31.63,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 31.5054,
         "englishName": "Principal International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21071,
-        "AvgVolume": 30465,
+        "Volume": 29851,
+        "AvgVolume": 30262,
         "sharesOutstanding": null,
         "52Week": "23.11 - 32.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.63,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 21071,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 30465,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2154,6 +2167,14 @@
             "low": 31.377501,
             "close": 31.639999,
             "volume": 22250
+        },
+        {
+            "date": "2025-11-19",
+            "open": 31.57,
+            "high": 31.639999,
+            "low": 31.3316,
+            "close": 31.6,
+            "volume": 34006
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 13.725,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 13.73,
         "englishName": "Direxion Daily Magnificent 7 Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 295652,
-        "AvgVolume": 149009,
+        "Volume": 129081,
+        "AvgVolume": 151218,
         "sharesOutstanding": null,
         "52Week": "12.66 - 23.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.725,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 295652,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 149009,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3456,6 +3469,14 @@
             "low": 13.5534,
             "close": 13.75,
             "volume": 300675
+        },
+        {
+            "date": "2025-11-19",
+            "open": 13.7,
+            "high": 13.735,
+            "low": 13.485,
+            "close": 13.665,
+            "volume": 190384
         },
         {
             "date": "2025-12-23",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 35.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.9618,
         "englishName": "VanEck Morningstar SMID Moat ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 20960,
-        "AvgVolume": 61875,
+        "Volume": 14995,
+        "AvgVolume": 61953,
         "sharesOutstanding": null,
         "52Week": "27.93 - 37.705",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 20960,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 61875,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6350,6 +6363,14 @@
             "low": 34.75,
             "close": 34.950001,
             "volume": 21102
+        },
+        {
+            "date": "2025-11-19",
+            "open": 35,
+            "high": 35.044998,
+            "low": 34.82,
+            "close": 34.959999,
+            "volume": 18848
         },
         {
             "date": "2025-12-23",

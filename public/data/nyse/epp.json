@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 49.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 49.51,
         "englishName": "iShares MSCI Pacific ex Japan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2652345088,
-        "Volume": 491475,
-        "AvgVolume": 234790,
+        "marketCap": 2628980992,
+        "Volume": 235874,
+        "AvgVolume": 241303,
         "sharesOutstanding": 53100000,
         "52Week": "38.44 - 52.72",
-        "Yield": 0.023383,
+        "Yield": 0.023591,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642866655",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.95,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2652345088,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 491475,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 234790,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.023383,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54723,7 +54744,16 @@
             "high": 50.099998,
             "low": 49.619999,
             "close": 49.93,
-            "volume": 511628
+            "volume": 511628,
+            "marketCap": 2628980992
+        },
+        {
+            "date": "2025-11-19",
+            "open": 49.779999,
+            "high": 49.965099,
+            "low": 49.439999,
+            "close": 49.66,
+            "volume": 306302
         }
     ]
 }

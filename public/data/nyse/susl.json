@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 117.0025,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 117.01,
         "englishName": "iShares ESG MSCI USA Leaders ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 28659,
-        "AvgVolume": 24617,
+        "Volume": 17065,
+        "AvgVolume": 24395,
         "sharesOutstanding": null,
         "52Week": "83.45 - 122.355",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 117.0025,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 28659,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 24617,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13270,6 +13283,14 @@
             "low": 116.219803,
             "close": 116.827003,
             "volume": 16114
+        },
+        {
+            "date": "2025-11-19",
+            "open": 117.900002,
+            "high": 118.440002,
+            "low": 116.849998,
+            "close": 117.4963,
+            "volume": 23664
         },
         {
             "date": "2025-12-16",

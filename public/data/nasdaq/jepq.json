@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 56.91,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 56.795,
         "englishName": "JPMorgan Nasdaq Equity Premium Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7825914,
-        "AvgVolume": 5559042,
+        "Volume": 3796985,
+        "AvgVolume": 5600450,
         "sharesOutstanding": null,
         "52Week": "44.311 - 59.42",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7825914,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5559042,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7339,6 +7352,14 @@
             "low": 56.310001,
             "close": 56.77,
             "volume": 7971706
+        },
+        {
+            "date": "2025-11-19",
+            "open": 56.845001,
+            "high": 57.599098,
+            "low": 56.619598,
+            "close": 57.080002,
+            "volume": 4916172
         },
         {
             "date": "2025-12-03",

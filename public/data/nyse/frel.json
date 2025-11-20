@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.12,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.81,
         "englishName": "Fidelity MSCI Real Estate Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 182446,
-        "AvgVolume": 195643,
+        "Volume": 145887,
+        "AvgVolume": 196882,
         "sharesOutstanding": null,
         "52Week": "23.35 - 30.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.12,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 182446,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 195643,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21878,6 +21891,14 @@
             "low": 26.889999,
             "close": 27.07,
             "volume": 196017
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.08,
+            "high": 27.095501,
+            "low": 26.790001,
+            "close": 26.860001,
+            "volume": 221357
         },
         {
             "date": "2025-12-19",

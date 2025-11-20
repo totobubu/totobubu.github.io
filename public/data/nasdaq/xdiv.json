@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.8,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.77,
         "englishName": "Roundhill S&P 500 No Dividend Target ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8218,
-        "AvgVolume": 11556,
+        "Volume": 9791,
+        "AvgVolume": 11476,
         "sharesOutstanding": null,
         "52Week": "25.023 - 27.94",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8218,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 11556,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -808,6 +821,14 @@
             "low": 26.75,
             "close": 26.75,
             "volume": 8433
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27,
+            "high": 26.945999,
+            "low": 26.82,
+            "close": 26.797001,
+            "volume": 10904
         }
     ]
 }

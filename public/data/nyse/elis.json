@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.543,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 18.1851,
         "englishName": "Direxion Daily LLY Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3285,
-        "AvgVolume": 4798,
+        "Volume": 3153,
+        "AvgVolume": 4764,
         "sharesOutstanding": null,
-        "52Week": "18.543 - 31.303",
+        "52Week": "18.1851 - 31.303",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.543,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3285,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4798,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1352,6 +1365,14 @@
             "low": 18.542999,
             "close": 18.5977,
             "volume": 2653
+        },
+        {
+            "date": "2025-11-19",
+            "open": 18.399,
+            "high": 18.440001,
+            "low": 18.185101,
+            "close": 18.2852,
+            "volume": 2828
         },
         {
             "date": "2025-12-23",

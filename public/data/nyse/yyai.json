@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 1.095,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 1.02,
         "englishName": "AiRWA Inc.",
         "earningsDate": null,
-        "enterpriseValue": 106711,
-        "marketCap": 20784550,
-        "Volume": 873385,
-        "AvgVolume": 4016009,
+        "enterpriseValue": 97973,
+        "marketCap": 19360950,
+        "Volume": 1035116,
+        "AvgVolume": 4031261,
         "sharesOutstanding": 18981324,
-        "52Week": "1.06 - 274.5",
+        "52Week": "1.02 - 274.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1.095,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 106711,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 20784550,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 873385,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4016009,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9821,7 +9842,16 @@
             "high": 1.14,
             "low": 1.06,
             "close": 1.08,
-            "volume": 936227
+            "volume": 936227,
+            "marketCap": 19360950
+        },
+        {
+            "date": "2025-11-19",
+            "open": 1.09,
+            "high": 1.13,
+            "low": 1.02,
+            "close": 1.06,
+            "volume": 1199250
         }
     ]
 }

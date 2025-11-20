@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 8.485,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 6.74,
         "englishName": "T-REX 2X Long BMNR Daily Target ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 24130253,
-        "AvgVolume": 9766335,
+        "Volume": 23535677,
+        "AvgVolume": 10177978,
         "sharesOutstanding": null,
-        "52Week": "7.33 - 42.56",
+        "52Week": "6.63 - 42.56",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.485,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 24130253,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9766335,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -332,6 +345,14 @@
             "low": 7.55,
             "close": 8.44,
             "volume": 24829563
+        },
+        {
+            "date": "2025-11-19",
+            "open": 8.165,
+            "high": 8.5099,
+            "low": 6.6,
+            "close": 6.92,
+            "volume": 26771530
         }
     ]
 }

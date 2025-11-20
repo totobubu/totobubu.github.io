@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 11.56,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 11.6128,
         "englishName": "Tidal Trust II - Defiance Daily Target 2X Long AVAV ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 769,
-        "AvgVolume": 9664,
+        "Volume": 2234,
+        "AvgVolume": 9172,
         "sharesOutstanding": null,
-        "52Week": "11.1901 - 24.582",
+        "52Week": "11.19 - 24.582",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.56,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 769,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9664,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -172,6 +185,14 @@
             "low": 11.1901,
             "close": 11.5568,
             "volume": 462
+        },
+        {
+            "date": "2025-11-19",
+            "open": 11.47,
+            "high": 11.64,
+            "low": 11.33,
+            "close": 11.4983,
+            "volume": 1225
         }
     ]
 }

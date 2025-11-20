@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 150.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 148.06,
         "englishName": "Jacobs Solutions Inc.",
         "earningsDate": "2025-11-20",
-        "enterpriseValue": 20629549056,
-        "marketCap": 18137575424,
-        "Volume": 382117,
-        "AvgVolume": 883070,
+        "enterpriseValue": 20649869312,
+        "marketCap": 17790324736,
+        "Volume": 629152,
+        "AvgVolume": 883621,
         "sharesOutstanding": 119536469,
         "52Week": "105.178215 - 168.44",
-        "Yield": 0.008082,
+        "Yield": 0.00824,
         "dividendRate": 1.28,
         "payoutRatio": 0.3128,
         "isin": "US46982L1089",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 150.95,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 20629549056,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18137575424,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 382117,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 883070,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008082,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104169,6 +104194,14 @@
             "low": 149.201996,
             "close": 150.759995,
             "volume": 453057
+        },
+        {
+            "date": "2025-11-19",
+            "open": 151.070007,
+            "high": 150.895004,
+            "low": 145.039993,
+            "close": 145.050003,
+            "volume": 1645109
         },
         {
             "date": "2025-11-21",

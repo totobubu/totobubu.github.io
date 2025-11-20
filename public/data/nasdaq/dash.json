@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 213.15,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 203.03,
         "englishName": "DoorDash, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 89816834048,
-        "marketCap": 91867332608,
-        "Volume": 5405732,
-        "AvgVolume": 3941451,
+        "enterpriseValue": 90433167360,
+        "marketCap": 87505633280,
+        "Volume": 5549445,
+        "AvgVolume": 4016196,
         "sharesOutstanding": 406334617,
         "52Week": "155.4 - 285.5",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 213.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 89816834048,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 91867332608,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5405732,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3941451,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11196,7 +11217,16 @@
             "high": 214.330002,
             "low": 207.199997,
             "close": 212.080002,
-            "volume": 7146517
+            "volume": 7146517,
+            "marketCap": 87505633280
+        },
+        {
+            "date": "2025-11-19",
+            "open": 216.044998,
+            "high": 216.498001,
+            "low": 201.649994,
+            "close": 202.315002,
+            "volume": 8679968
         }
     ]
 }

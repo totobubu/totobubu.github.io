@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.335,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.171,
         "englishName": "Schwab Emerging Markets Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3648186,
-        "AvgVolume": 1628050,
+        "Volume": 1591658,
+        "AvgVolume": 1676793,
         "sharesOutstanding": null,
         "52Week": "24.11 - 34.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.335,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3648186,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1628050,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32026,6 +32039,14 @@
             "low": 33.09,
             "close": 33.310001,
             "volume": 3683796
+        },
+        {
+            "date": "2025-11-19",
+            "open": 33.25,
+            "high": 33.4058,
+            "low": 33.103001,
+            "close": 33.240002,
+            "volume": 2103716
         }
     ]
 }

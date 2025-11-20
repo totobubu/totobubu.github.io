@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 5.825,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 5.46,
         "englishName": "Solid Power, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 897720704,
-        "marketCap": 1112712192,
-        "Volume": 8146526,
-        "AvgVolume": 14271053,
+        "enterpriseValue": 848054592,
+        "marketCap": 1042988672,
+        "Volume": 6934628,
+        "AvgVolume": 14225382,
         "sharesOutstanding": 191023570,
         "52Week": "0.68 - 8.86",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.825,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 897720704,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1112712192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8146526,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14271053,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9093,7 +9114,16 @@
             "high": 6.095,
             "low": 5.71,
             "close": 5.71,
-            "volume": 9977804
+            "volume": 9977804,
+            "marketCap": 1042988672
+        },
+        {
+            "date": "2025-11-19",
+            "open": 5.72,
+            "high": 5.76,
+            "low": 5.34,
+            "close": 5.47,
+            "volume": 8552960
         }
     ]
 }

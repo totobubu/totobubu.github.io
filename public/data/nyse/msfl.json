@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 28.69,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.525,
         "englishName": "GraniteShares 2x Long MSFT Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 328837,
-        "AvgVolume": 264967,
+        "Volume": 249053,
+        "AvgVolume": 266042,
         "sharesOutstanding": null,
         "52Week": "14.97 - 36.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 328837,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 264967,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3396,6 +3409,14 @@
             "low": 27.780001,
             "close": 28.6,
             "volume": 336897
+        },
+        {
+            "date": "2025-11-19",
+            "open": 28.07,
+            "high": 28.709999,
+            "low": 27.360001,
+            "close": 27.799999,
+            "volume": 299058
         }
     ]
 }

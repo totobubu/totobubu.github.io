@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 13.78,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 13.83,
         "englishName": "The AES Corporation",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 46714724352,
-        "marketCap": 9813026816,
-        "Volume": 5971146,
-        "AvgVolume": 10201687,
+        "enterpriseValue": 46572298240,
+        "marketCap": 9848632320,
+        "Volume": 5621034,
+        "AvgVolume": 10130726,
         "sharesOutstanding": 712120944,
         "52Week": "9.46 - 15.51",
-        "Yield": 0.051089,
+        "Yield": 0.050904,
         "dividendRate": 0.7,
         "payoutRatio": 0.4608,
         "isin": "US00130H1059",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.78,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 46714724352,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9813026816,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5971146,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10201687,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.051089,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -78227,6 +78252,14 @@
             "low": 13.61,
             "close": 13.72,
             "volume": 6866158
+        },
+        {
+            "date": "2025-11-19",
+            "open": 13.8,
+            "high": 13.99,
+            "low": 13.695,
+            "close": 13.77,
+            "volume": 8171576
         },
         {
             "date": "2026-01-30",

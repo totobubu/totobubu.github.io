@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 340.57,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 342.82,
         "englishName": "Eaton Corporation plc",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 143868100608,
-        "marketCap": 132583907328,
-        "Volume": 2298544,
-        "AvgVolume": 2277039,
+        "enterpriseValue": 142135836672,
+        "marketCap": 133459828736,
+        "Volume": 1390225,
+        "AvgVolume": 2297157,
         "sharesOutstanding": 388400000,
         "52Week": "231.85 - 399.56",
-        "Yield": 0.011921,
+        "Yield": 0.011843,
         "dividendRate": 4.16,
         "payoutRatio": 0.4064,
         "isin": "IE00B8KQN827",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 340.57,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 143868100608,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 132583907328,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2298544,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2277039,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011921,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -125141,6 +125166,14 @@
             "low": 335.109985,
             "close": 338.290009,
             "volume": 3153771
+        },
+        {
+            "date": "2025-11-19",
+            "open": 339.970001,
+            "high": 346.190002,
+            "low": 338.959991,
+            "close": 345.649994,
+            "volume": 2582324
         },
         {
             "date": "2026-02-06",

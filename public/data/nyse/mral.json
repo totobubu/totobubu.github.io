@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 8.8,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 7.15,
         "englishName": "GraniteShares 2x Long MARA Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1307525,
-        "AvgVolume": 826690,
+        "Volume": 1240175,
+        "AvgVolume": 843267,
         "sharesOutstanding": null,
-        "52Week": "7.52 - 36.63",
+        "52Week": "7.145 - 36.63",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1307525,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 826690,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1452,6 +1465,14 @@
             "low": 7.925,
             "close": 8.62,
             "volume": 1344122
+        },
+        {
+            "date": "2025-11-19",
+            "open": 8.56,
+            "high": 8.6,
+            "low": 7.145,
+            "close": 7.53,
+            "volume": 1371333
         }
     ]
 }

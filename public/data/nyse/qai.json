@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.3906,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.345,
         "englishName": "NYLI Hedge Multi-Strategy Tracker ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 91962,
-        "AvgVolume": 65095,
+        "Volume": 22456,
+        "AvgVolume": 66214,
         "sharesOutstanding": null,
         "52Week": "29.57 - 34.08",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.3906,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 91962,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 65095,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33636,6 +33649,14 @@
             "low": 33,
             "close": 33.374599,
             "volume": 92502
+        },
+        {
+            "date": "2025-11-19",
+            "open": 33.380001,
+            "high": 33.470001,
+            "low": 33.310001,
+            "close": 33.380001,
+            "volume": 89201
         },
         {
             "date": "2025-12-30",

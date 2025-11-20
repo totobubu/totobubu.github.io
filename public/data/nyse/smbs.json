@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.685,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.68,
         "englishName": "Schwab Mortgage-Backed Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 431286,
-        "AvgVolume": 413262,
+        "Volume": 356886,
+        "AvgVolume": 415218,
         "sharesOutstanding": null,
         "52Week": "24.57 - 26.22",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.685,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 431286,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 413262,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2050,6 +2063,14 @@
             "low": 25.662399,
             "close": 25.690001,
             "volume": 439187
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.700001,
+            "high": 25.719999,
+            "low": 25.65,
+            "close": 25.67,
+            "volume": 397784
         },
         {
             "date": "2025-12-03",

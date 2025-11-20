@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 72.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 72.3455,
         "englishName": "Invesco S&P 500 Quality ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2291084,
-        "AvgVolume": 1374668,
+        "Volume": 1394719,
+        "AvgVolume": 1397167,
         "sharesOutstanding": null,
         "52Week": "57.67 - 75.03",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.38,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2291084,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1374668,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40356,6 +40369,14 @@
             "low": 72.010002,
             "close": 72.260002,
             "volume": 2329367
+        },
+        {
+            "date": "2025-11-19",
+            "open": 72.389999,
+            "high": 72.815002,
+            "low": 72.300003,
+            "close": 72.610001,
+            "volume": 1760242
         },
         {
             "date": "2025-12-22",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.6,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 24.99,
         "englishName": "Roundhill ETF Trust - Roundhill China Magnificent Seven ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6289,
-        "AvgVolume": 13662,
+        "Volume": 13280,
+        "AvgVolume": 13620,
         "sharesOutstanding": null,
         "52Week": "20.08 - 30.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.6,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6289,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13662,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2690,7 +2703,59 @@
             "high": 25.68,
             "low": 25.510099,
             "close": 25.604401,
-            "volume": 6355
+            "volume": 6355,
+            "holdings": [
+                {
+                    "symbol": "MEITUAN - UNSP ADR",
+                    "name": "MEITUAN - UNSP ADR",
+                    "weight": 15.29,
+                    "type": "other"
+                },
+                {
+                    "symbol": "TENCENT HOLDINGS LTD-UNS ADR",
+                    "name": "TENCENT HOLDINGS LTD-UNS ADR",
+                    "weight": 14.96,
+                    "type": "other"
+                },
+                {
+                    "symbol": "NETEASE INC",
+                    "name": "NETEASE INC",
+                    "weight": 14.59,
+                    "type": "other"
+                },
+                {
+                    "symbol": "PDD HOLDINGS INC",
+                    "name": "PDD HOLDINGS INC",
+                    "weight": 14.52,
+                    "type": "other"
+                },
+                {
+                    "symbol": "BYD CO LTD-UNSPONSORED ADR",
+                    "name": "BYD CO LTD-UNSPONSORED ADR",
+                    "weight": 14.13,
+                    "type": "other"
+                },
+                {
+                    "symbol": "ALIBABA GROUP HOLDING-SP ADR",
+                    "name": "ALIBABA GROUP HOLDING-SP ADR",
+                    "weight": 14.09,
+                    "type": "other"
+                },
+                {
+                    "symbol": "XIAOMI CORP - UNSP ADR",
+                    "name": "XIAOMI CORP - UNSP ADR",
+                    "weight": 12.3,
+                    "type": "other"
+                }
+            ]
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.4,
+            "high": 25.209999,
+            "low": 24.879999,
+            "close": 24.950001,
+            "volume": 14414
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 1032.91,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 1048.527,
         "englishName": "Eli Lilly and Company",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 947535216640,
-        "marketCap": 925959192576,
-        "Volume": 2625622,
-        "AvgVolume": 3848890,
+        "enterpriseValue": 955011629056,
+        "marketCap": 939959123968,
+        "Volume": 2184323,
+        "AvgVolume": 3809657,
         "sharesOutstanding": 895018757,
-        "52Week": "623.78 - 1040.7245",
-        "Yield": 0.005615,
+        "52Week": "623.78 - 1055.55",
+        "Yield": 0.005532,
         "dividendRate": 6,
         "payoutRatio": 0.2842,
         "isin": "US5324571083",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1032.91,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 947535216640,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 925959192576,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2625622,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3848890,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.005615,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123643,6 +123668,10 @@
             "volume": 3613149
         },
         {
+            "date": "2025-11-14",
+            "amount": 1.5
+        },
+        {
             "date": "2025-11-17",
             "open": 1003.719971,
             "high": 1032.140991,
@@ -123659,11 +123688,19 @@
             "volume": 3423789
         },
         {
+            "date": "2025-11-19",
+            "open": 1029.640015,
+            "high": 1055.550049,
+            "low": 1026.25,
+            "close": 1049.599976,
+            "volume": 2884671
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

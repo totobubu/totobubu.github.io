@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 223.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 221.055,
         "englishName": "Amazon.com, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 2555671478272,
-        "marketCap": 2387980582912,
-        "Volume": 48654050,
-        "AvgVolume": 45933681,
+        "enterpriseValue": 2445348700160,
+        "marketCap": 2363125661696,
+        "Volume": 36835194,
+        "AvgVolume": 46412732,
         "sharesOutstanding": 10690216011,
         "52Week": "161.38 - 258.6",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 223.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2555671478272,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2387980582912,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 48654050,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 45933681,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -64606,7 +64627,16 @@
             "high": 230.199997,
             "low": 222.419998,
             "close": 222.550003,
-            "volume": 60333938
+            "volume": 60333938,
+            "marketCap": 2363125661696
+        },
+        {
+            "date": "2025-11-19",
+            "open": 223.735001,
+            "high": 223.735001,
+            "low": 218.529999,
+            "close": 222.690002,
+            "volume": 56052274
         }
     ]
 }

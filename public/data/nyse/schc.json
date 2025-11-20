@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 44.1,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 43.9113,
         "englishName": "Schwab International Small-Cap Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 446254,
-        "AvgVolume": 312757,
+        "Volume": 275983,
+        "AvgVolume": 316937,
         "sharesOutstanding": null,
         "52Week": "30.84 - 46.26",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 446254,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 312757,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32013,6 +32026,14 @@
             "low": 43.838402,
             "close": 44.07,
             "volume": 503803
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.09,
+            "high": 44.279999,
+            "low": 43.825001,
+            "close": 43.950001,
+            "volume": 333740
         }
     ]
 }

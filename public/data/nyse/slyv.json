@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 86.25,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 85.655,
         "englishName": "SPDR S&P 600 Small Cap Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3018931200,
-        "Volume": 149867,
-        "AvgVolume": 181403,
+        "marketCap": 2998104832,
+        "Volume": 96285,
+        "AvgVolume": 181398,
         "sharesOutstanding": 35002100,
         "52Week": "65.96 - 96.14",
-        "Yield": 0.010783,
+        "Yield": 0.010858,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78464A3005",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 86.25,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3018931200,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 149867,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 181403,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010783,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -57825,6 +57846,14 @@
             "low": 85.291702,
             "close": 86.080002,
             "volume": 152361
+        },
+        {
+            "date": "2025-11-19",
+            "open": 86.260002,
+            "high": 86.812798,
+            "low": 85.540001,
+            "close": 85.900002,
+            "volume": 131939
         },
         {
             "date": "2025-12-22",

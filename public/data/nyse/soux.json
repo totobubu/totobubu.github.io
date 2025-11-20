@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.0475,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 18.76,
         "englishName": "Defiance Daily Target 2X Long SOUN ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 322018,
-        "AvgVolume": 372671,
+        "Volume": 165189,
+        "AvgVolume": 374659,
         "sharesOutstanding": null,
-        "52Week": "17.1016 - 78.095",
+        "52Week": "17.102 - 78.095",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.0475,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 322018,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 372671,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -872,6 +885,14 @@
             "low": 17.101601,
             "close": 18.9,
             "volume": 326683
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.120001,
+            "high": 20.428699,
+            "low": 18.440001,
+            "close": 19.221001,
+            "volume": 115598
         }
     ]
 }

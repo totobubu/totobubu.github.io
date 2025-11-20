@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 16.78,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.0323,
         "englishName": "Defiance Enhanced Long Vol ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36831,
-        "AvgVolume": 7876,
+        "Volume": 10338,
+        "AvgVolume": 8365,
         "sharesOutstanding": null,
         "52Week": "13.689 - 19.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.78,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 36831,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7876,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -611,6 +624,14 @@
             "low": 16.42,
             "close": 17.0406,
             "volume": 30345
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.17,
+            "high": 17.17,
+            "low": 16.25,
+            "close": 16.716801,
+            "volume": 11301
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 137.63,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 137.3,
         "englishName": "iShares MSCI ACWI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5101765,
-        "AvgVolume": 3004851,
+        "Volume": 2099105,
+        "AvgVolume": 3040376,
         "sharesOutstanding": null,
         "52Week": "101.25 - 143.05",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 137.63,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5101765,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3004851,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35680,6 +35693,14 @@
             "low": 136.5,
             "close": 137.389999,
             "volume": 5582814
+        },
+        {
+            "date": "2025-11-19",
+            "open": 137.389999,
+            "high": 138.479996,
+            "low": 136.850006,
+            "close": 137.580002,
+            "volume": 3049026
         },
         {
             "date": "2025-11-24",

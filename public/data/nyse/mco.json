@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 471.2525,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 471.09,
         "englishName": "Moody's Corporation",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 89576955904,
-        "marketCap": 84523204608,
-        "Volume": 443806,
-        "AvgVolume": 815062,
+        "enterpriseValue": 89227296768,
+        "marketCap": 84494057472,
+        "Volume": 280699,
+        "AvgVolume": 813779,
         "sharesOutstanding": 178400000,
         "52Week": "378.71 - 531.93",
-        "Yield": 0.007788,
+        "Yield": 0.00779,
         "dividendRate": 3.76,
         "payoutRatio": 0.2953,
         "isin": "US6153691059",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 471.2525,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 89576955904,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 84523204608,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 443806,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 815062,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.007788,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70701,6 +70726,14 @@
             "low": 466.399994,
             "close": 470.160004,
             "volume": 520867
+        },
+        {
+            "date": "2025-11-19",
+            "open": 470.540009,
+            "high": 474.420013,
+            "low": 468.059998,
+            "close": 472.859985,
+            "volume": 473417
         },
         {
             "date": "2026-02-13",

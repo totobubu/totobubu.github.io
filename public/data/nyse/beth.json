@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 60.49,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 57.36,
         "englishName": "ProShares Bitcoin & Ether Market Cap Weight ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2785,
-        "AvgVolume": 5787,
+        "Volume": 5697,
+        "AvgVolume": 5748,
         "sharesOutstanding": null,
-        "52Week": "58.97 - 101.33",
+        "52Week": "57.36 - 101.33",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.49,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2785,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5787,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4366,6 +4379,14 @@
             "low": 59.48,
             "close": 60.268501,
             "volume": 3146
+        },
+        {
+            "date": "2025-11-19",
+            "open": 59.009998,
+            "high": 57.885601,
+            "low": 57.242001,
+            "close": 57.48,
+            "volume": 7954
         },
         {
             "date": "2025-12-03",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.05,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 46.4223,
         "englishName": "U.S. Bancorp",
         "earningsDate": "2026-01-20",
-        "enterpriseValue": 88734113792,
-        "marketCap": 71662526464,
-        "Volume": 6107807,
-        "AvgVolume": 9162910,
+        "enterpriseValue": 89433612288,
+        "marketCap": 72241889280,
+        "Volume": 4468876,
+        "AvgVolume": 9201001,
         "sharesOutstanding": 1554434067,
         "52Week": "35.18 - 53.98",
-        "Yield": 0.043865,
+        "Yield": 0.043514,
         "dividendRate": 2.08,
         "payoutRatio": 0.4622,
         "isin": "US9029733048",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.05,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 88734113792,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 71662526464,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6107807,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9162910,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.043865,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -120060,6 +120085,14 @@
             "low": 45.02,
             "close": 45.919998,
             "volume": 6599420
+        },
+        {
+            "date": "2025-11-19",
+            "open": 45.880001,
+            "high": 46.830002,
+            "low": 45.799999,
+            "close": 46.799999,
+            "volume": 6903498
         },
         {
             "date": "2025-12-30",

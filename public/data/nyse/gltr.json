@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 176.17,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 176.4058,
         "englishName": "abrdn Physical Precious Metals Basket Shares ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 38620,
-        "AvgVolume": 79785,
+        "Volume": 30209,
+        "AvgVolume": 79985,
         "sharesOutstanding": null,
         "52Week": "108.71 - 189.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 176.17,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 38620,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 79785,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30364,6 +30377,14 @@
             "low": 174.440002,
             "close": 175.940002,
             "volume": 40729
+        },
+        {
+            "date": "2025-11-19",
+            "open": 177.830002,
+            "high": 179.210007,
+            "low": 175.196594,
+            "close": 176.460007,
+            "volume": 52341
         }
     ]
 }

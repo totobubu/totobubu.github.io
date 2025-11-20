@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.3,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.51,
         "englishName": "Direxion Daily Technology Top 5 Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6552,
-        "AvgVolume": 11760,
+        "Volume": 2986,
+        "AvgVolume": 11608,
         "sharesOutstanding": null,
         "52Week": "21.74 - 29.3",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.3,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6552,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11760,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -300,6 +313,14 @@
             "low": 22.389999,
             "close": 22.9536,
             "volume": 6559
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.950001,
+            "high": 23.969999,
+            "low": 23.370001,
+            "close": 23.6026,
+            "volume": 3189
         }
     ]
 }

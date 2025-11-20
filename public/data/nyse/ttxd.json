@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.51,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.18,
         "englishName": "Direxion Daily Technology Top 5 Bear 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2291,
-        "AvgVolume": 1866,
+        "Volume": 1887,
+        "AvgVolume": 1879,
         "sharesOutstanding": null,
         "52Week": "21.03 - 28.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.51,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2291,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1866,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -300,6 +313,14 @@
             "low": 26.299999,
             "close": 26.580601,
             "volume": 2313
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.219999,
+            "high": 26.219999,
+            "low": 25.309999,
+            "close": 25.8235,
+            "volume": 2645
         }
     ]
 }

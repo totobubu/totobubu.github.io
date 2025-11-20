@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.815,
         "englishName": "Global X Millennials Consumer ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7498,
-        "AvgVolume": 9953,
+        "Volume": 3185,
+        "AvgVolume": 9871,
         "sharesOutstanding": null,
         "52Week": "36.872 - 50.86",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7498,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9953,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19300,6 +19313,14 @@
             "low": 44.741001,
             "close": 45.006199,
             "volume": 5912
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.900002,
+            "high": 45,
+            "low": 44.52,
+            "close": 44.9095,
+            "volume": 4462
         }
     ]
 }

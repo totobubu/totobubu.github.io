@@ -1,6 +1,6 @@
 {
     "tickerInfo": {
-        "Symbol": "033500.KQ",
+        "Symbol": "033500",
         "koName": "동성화인텍",
         "longName": "동성화인텍",
         "company": null,
@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-13 02:35:02 KST",
-        "regularMarketPrice": 31750,
+        "Update": "2025-11-20 01:16:35 KST",
+        "regularMarketPrice": 26250,
         "englishName": "Dongsung FineTec Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 950376792064,
-        "Volume": 0,
-        "AvgVolume": 377406,
+        "marketCap": 785744592896,
+        "Volume": 354662,
+        "AvgVolume": 355395,
         "sharesOutstanding": 29933129,
-        "52Week": null,
+        "52Week": "12750.0 - 34300.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31750,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 950376792064,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 0,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 377406,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56328,6 +56345,15 @@
             "low": 27050,
             "close": 27200,
             "volume": 1013199
+        },
+        {
+            "date": "2025-11-19",
+            "open": 28300,
+            "high": 28300,
+            "low": 25600,
+            "close": 26250,
+            "volume": 354662,
+            "marketCap": 785744592896
         },
         {
             "date": "2025-12-26",

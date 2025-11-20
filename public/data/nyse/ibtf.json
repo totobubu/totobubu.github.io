@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.3208,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.33,
         "englishName": "iShares iBonds Dec 2025 Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 462302,
-        "AvgVolume": 497976,
+        "Volume": 376504,
+        "AvgVolume": 500321,
         "sharesOutstanding": null,
         "52Week": "23.25 - 23.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.3208,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 462302,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 497976,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11701,6 +11714,14 @@
             "low": 23.32,
             "close": 23.32,
             "volume": 485855
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.33,
+            "high": 23.34,
+            "low": 23.33,
+            "close": 23.33,
+            "volume": 1389486
         },
         {
             "date": "2025-12-03",

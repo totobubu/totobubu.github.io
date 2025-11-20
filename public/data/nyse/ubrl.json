@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.06,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 28.53,
         "englishName": "GraniteShares 2x Long UBER Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 68335,
-        "AvgVolume": 151337,
+        "Volume": 88254,
+        "AvgVolume": 147371,
         "sharesOutstanding": null,
         "52Week": "15.0 - 38.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.06,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 68335,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 151337,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2460,6 +2473,14 @@
             "low": 28.780001,
             "close": 29.7885,
             "volume": 48692
+        },
+        {
+            "date": "2025-11-19",
+            "open": 29.4,
+            "high": 29.799999,
+            "low": 28.5005,
+            "close": 28.7358,
+            "volume": 75733
         }
     ]
 }

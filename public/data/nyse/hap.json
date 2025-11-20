@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 58.32,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 57.92,
         "englishName": "VanEck Natural Resources ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5070,
-        "AvgVolume": 9839,
+        "Volume": 4133,
+        "AvgVolume": 9779,
         "sharesOutstanding": null,
         "52Week": "42.65 - 59.53",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.32,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5070,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9839,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34370,6 +34383,14 @@
             "low": 57.759998,
             "close": 58.131699,
             "volume": 5070
+        },
+        {
+            "date": "2025-11-19",
+            "open": 58.060001,
+            "high": 58.071499,
+            "low": 57.880001,
+            "close": 57.939999,
+            "volume": 4609
         },
         {
             "date": "2025-12-23",

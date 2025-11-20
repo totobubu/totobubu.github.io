@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 92.53,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 91.81,
         "englishName": "The Charles Schwab Corporation",
         "earningsDate": "2025-10-16",
-        "enterpriseValue": 135680262144,
-        "marketCap": 167962247168,
-        "Volume": 6251156,
-        "AvgVolume": 8950031,
+        "enterpriseValue": 136337727488,
+        "marketCap": 166655279104,
+        "Volume": 3655277,
+        "AvgVolume": 8977009,
         "sharesOutstanding": 1776936770,
         "52Week": "65.88 - 99.59",
-        "Yield": 0.011456,
+        "Yield": 0.011546,
         "dividendRate": 1.08,
         "payoutRatio": 0.2482,
         "isin": "US8085131055",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.53,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 135680262144,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 167962247168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6251156,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8950031,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011456,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -88196,6 +88221,14 @@
             "low": 91.260002,
             "close": 92.279999,
             "volume": 6888035
+        },
+        {
+            "date": "2025-11-19",
+            "open": 92.019997,
+            "high": 93.389999,
+            "low": 91.599998,
+            "close": 92.639999,
+            "volume": 4932733
         },
         {
             "date": "2026-02-13",

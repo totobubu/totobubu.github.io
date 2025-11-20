@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 97.9974,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 98.08,
         "englishName": "PIMCO Investment Grade Corporate Bond Index Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 37886,
-        "AvgVolume": 57295,
+        "Volume": 21061,
+        "AvgVolume": 56629,
         "sharesOutstanding": null,
         "52Week": "92.45 - 99.63",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.9974,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 37886,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 57295,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30922,6 +30935,14 @@
             "low": 97.903503,
             "close": 98.010002,
             "volume": 38588
+        },
+        {
+            "date": "2025-11-19",
+            "open": 98.110001,
+            "high": 98.159897,
+            "low": 97.919998,
+            "close": 97.963997,
+            "volume": 31864
         },
         {
             "date": "2025-12-03",

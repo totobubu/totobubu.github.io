@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 31.97,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 31.77,
         "englishName": "Dimensional Emerging Core Equity Market ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1104276,
-        "AvgVolume": 668981,
+        "Volume": 435641,
+        "AvgVolume": 679537,
         "sharesOutstanding": null,
         "52Week": "22.68 - 33.21",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.97,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1104276,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 668981,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10088,6 +10101,14 @@
             "low": 31.7255,
             "close": 31.959999,
             "volume": 1140228
+        },
+        {
+            "date": "2025-11-19",
+            "open": 32,
+            "high": 32.02,
+            "low": 31.719999,
+            "close": 31.83,
+            "volume": 704031
         },
         {
             "date": "2025-12-23",

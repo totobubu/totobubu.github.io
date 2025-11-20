@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 52.3902,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.4,
         "englishName": "J P Morgan Exchange-Traded Fund Trust - Limited Duration Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 243550,
-        "AvgVolume": 482496,
+        "Volume": 204822,
+        "AvgVolume": 483506,
         "sharesOutstanding": null,
         "52Week": "51.343 - 52.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.3902,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 243550,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 482496,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4722,6 +4735,14 @@
             "low": 52.3601,
             "close": 52.389999,
             "volume": 245252
+        },
+        {
+            "date": "2025-11-19",
+            "open": 52.389999,
+            "high": 52.43,
+            "low": 52.380001,
+            "close": 52.389999,
+            "volume": 241590
         },
         {
             "date": "2025-12-03",

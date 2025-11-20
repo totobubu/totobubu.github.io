@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.555,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 41.45,
         "englishName": "Occidental Petroleum Corporation",
         "earningsDate": "2025-11-10",
-        "enterpriseValue": 70582419456,
-        "marketCap": 41925632000,
-        "Volume": 6487306,
-        "AvgVolume": 10217875,
+        "enterpriseValue": 71400144896,
+        "marketCap": 40836972544,
+        "Volume": 4543593,
+        "AvgVolume": 10227756,
         "sharesOutstanding": 985210434,
         "52Week": "34.78 - 53.2",
-        "Yield": 0.022089,
+        "Yield": 0.022678,
         "dividendRate": 0.96,
         "payoutRatio": 0.6912,
         "isin": "US6745991058",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.555,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 70582419456,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 41925632000,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6487306,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10217875,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.022089,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -102143,6 +102168,14 @@
             "low": 41.200001,
             "close": 42.52,
             "volume": 7953968
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.535,
+            "high": 41.764999,
+            "low": 40.937099,
+            "close": 41.450001,
+            "volume": 6201053
         },
         {
             "date": "2025-12-10",

@@ -9,16 +9,16 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 11.17,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 9.7101,
         "englishName": "REX MSTR Growth & Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 16502,
-        "AvgVolume": 30326,
+        "Volume": 11703,
+        "AvgVolume": 28753,
         "sharesOutstanding": null,
-        "52Week": "10.03 - 28.6",
+        "52Week": "9.5231 - 28.6",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.17,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 16502,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 30326,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1029,7 +1042,21 @@
         },
         {
             "date": "2025-11-18",
-            "expected": true
+            "expected": true,
+            "amount": 0.057,
+            "open": 10.26,
+            "high": 11.3,
+            "low": 10.26,
+            "close": 11.12,
+            "volume": 17600
+        },
+        {
+            "date": "2025-11-19",
+            "open": 10.81,
+            "high": 10.68,
+            "low": 9.5231,
+            "close": 9.81,
+            "volume": 12568
         },
         {
             "date": "2025-11-25",
@@ -1129,6 +1156,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

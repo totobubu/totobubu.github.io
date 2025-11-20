@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 63.16,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 62.7,
         "englishName": "Fidelity National Information Services, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 45606199296,
-        "marketCap": 32993431552,
-        "Volume": 2187032,
-        "AvgVolume": 4137365,
+        "enterpriseValue": 45202276352,
+        "marketCap": 32753137664,
+        "Volume": 1343321,
+        "AvgVolume": 4129878,
         "sharesOutstanding": 517850764,
-        "52Week": "59.51 - 87.79",
-        "Yield": 0.024699,
+        "52Week": "59.51 - 86.71",
+        "Yield": 0.02488,
         "dividendRate": 1.6,
         "payoutRatio": 4.875,
         "isin": "US31620M1062",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 63.16,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 45606199296,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 32993431552,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2187032,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4137365,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.024699,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55469,6 +55494,14 @@
             "low": 63.009998,
             "close": 63.150002,
             "volume": 2489651
+        },
+        {
+            "date": "2025-11-19",
+            "open": 63.200001,
+            "high": 63.389999,
+            "low": 62.450001,
+            "close": 62.66,
+            "volume": 2236727
         },
         {
             "date": "2025-12-10",

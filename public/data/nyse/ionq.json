@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 49.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 47.61,
         "englishName": "IonQ, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 15891610624,
-        "marketCap": 17494325248,
-        "Volume": 18244332,
-        "AvgVolume": 28870815,
+        "enterpriseValue": 16362802176,
+        "marketCap": 16867251200,
+        "Volume": 13418795,
+        "AvgVolume": 28902768,
         "sharesOutstanding": 354279591,
         "52Week": "17.88 - 84.64",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 15891610624,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 17494325248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18244332,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 28870815,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11052,7 +11073,16 @@
             "high": 50.279999,
             "low": 47.224998,
             "close": 49.119999,
-            "volume": 20696047
+            "volume": 20696047,
+            "marketCap": 16867251200
+        },
+        {
+            "date": "2025-11-19",
+            "open": 49.150002,
+            "high": 50.68,
+            "low": 47.330002,
+            "close": 47.880001,
+            "volume": 16294796
         }
     ]
 }

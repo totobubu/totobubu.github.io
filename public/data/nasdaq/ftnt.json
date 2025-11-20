@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 80.33,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 79.46,
         "englishName": "Fortinet, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 58899927040,
-        "marketCap": 61554151424,
-        "Volume": 4325199,
-        "AvgVolume": 5946228,
+        "enterpriseValue": 57568796672,
+        "marketCap": 60887498752,
+        "Volume": 2191735,
+        "AvgVolume": 5812423,
         "sharesOutstanding": 743648102,
         "52Week": "70.12 - 114.82",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 80.33,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 58899927040,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 61554151424,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4325199,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5946228,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36254,7 +36275,16 @@
             "high": 82.260002,
             "low": 79.135002,
             "close": 80.150002,
-            "volume": 6447744
+            "volume": 6447744,
+            "marketCap": 60887498752
+        },
+        {
+            "date": "2025-11-19",
+            "open": 79.82,
+            "high": 80.370003,
+            "low": 79.32,
+            "close": 79.730003,
+            "volume": 4068507
         }
     ]
 }

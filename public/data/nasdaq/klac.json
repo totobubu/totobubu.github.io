@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 1124.51,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 1157.94,
         "englishName": "KLA Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 150364028928,
-        "marketCap": 148080574464,
-        "Volume": 759990,
-        "AvgVolume": 1006407,
+        "enterpriseValue": 148969947136,
+        "marketCap": 152482775040,
+        "Volume": 338120,
+        "AvgVolume": 1008989,
         "sharesOutstanding": 131392338,
         "52Week": "551.33 - 1284.47",
-        "Yield": 0.006403,
+        "Yield": 0.006218,
         "dividendRate": 7.6,
         "payoutRatio": 0.2262,
         "isin": "US4824801009",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1124.51,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 150364028928,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 148080574464,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 759990,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1006407,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.006403,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -102551,6 +102576,14 @@
             "low": 1097.890015,
             "close": 1123.089966,
             "volume": 1124619
+        },
+        {
+            "date": "2025-11-19",
+            "open": 1131.900024,
+            "high": 1177.38501,
+            "low": 1130.619995,
+            "close": 1167.459961,
+            "volume": 951973
         },
         {
             "date": "2026-02-16",

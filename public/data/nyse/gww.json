@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 923.04,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 916.76,
         "englishName": "W.W. Grainger, Inc.",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 46495387648,
-        "marketCap": 44151074816,
-        "Volume": 187340,
-        "AvgVolume": 294375,
+        "enterpriseValue": 46243852288,
+        "marketCap": 43850686464,
+        "Volume": 130813,
+        "AvgVolume": 293117,
         "sharesOutstanding": 47549337,
         "52Week": "893.99 - 1227.44",
-        "Yield": 0.009339,
+        "Yield": 0.009403,
         "dividendRate": 9.04,
         "payoutRatio": 0.2416,
         "isin": "US3848021040",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 923.04,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 46495387648,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 44151074816,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 187340,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 294375,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009339,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -120634,6 +120659,14 @@
             "low": 912.880005,
             "close": 918.179993,
             "volume": 223592
+        },
+        {
+            "date": "2025-11-19",
+            "open": 917.950012,
+            "high": 923.419983,
+            "low": 906.52002,
+            "close": 922.559998,
+            "volume": 212591
         },
         {
             "date": "2026-02-10",

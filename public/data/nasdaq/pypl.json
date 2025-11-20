@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 60.825,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 59.3,
         "englishName": "PayPal Holdings, Inc.",
         "earningsDate": "2025-10-28",
-        "enterpriseValue": 59319500800,
-        "marketCap": 58110894080,
-        "Volume": 14465326,
-        "AvgVolume": 14808157,
+        "enterpriseValue": 58206072832,
+        "marketCap": 56653938688,
+        "Volume": 14100993,
+        "AvgVolume": 14955267,
         "sharesOutstanding": 935651953,
         "52Week": "55.85 - 93.66",
-        "Yield": 0.002302,
+        "Yield": 0.002361,
         "dividendRate": 0.56,
         "payoutRatio": 0,
         "isin": "US70450Y1038",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.825,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 59319500800,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 58110894080,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14465326,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14808157,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.002302,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23515,7 +23540,16 @@
             "high": 61.639999,
             "low": 60.470001,
             "close": 60.700001,
-            "volume": 16425930
+            "volume": 16425930,
+            "marketCap": 56653938688
+        },
+        {
+            "date": "2025-11-19",
+            "open": 60.610001,
+            "high": 60.759998,
+            "low": 59.16,
+            "close": 60.110001,
+            "volume": 22354796
         }
     ]
 }

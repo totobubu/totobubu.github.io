@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 342.075,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 341.01,
         "englishName": "General Dynamics Corporation",
         "earningsDate": "2025-10-24",
-        "enterpriseValue": 99539550208,
-        "marketCap": 92401459200,
-        "Volume": 653127,
-        "AvgVolume": 1045864,
+        "enterpriseValue": 99407388672,
+        "marketCap": 92113772544,
+        "Volume": 663285,
+        "AvgVolume": 1053056,
         "sharesOutstanding": 270120442,
         "52Week": "239.2 - 360.5",
-        "Yield": 0.017306,
+        "Yield": 0.01736,
         "dividendRate": 6,
         "payoutRatio": 0.3837,
         "isin": "US3695501086",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 342.075,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 99539550208,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 92401459200,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 653127,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1045864,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.017306,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -147448,6 +147473,14 @@
             "low": 340.540009,
             "close": 341.290009,
             "volume": 812723
+        },
+        {
+            "date": "2025-11-19",
+            "open": 339.269989,
+            "high": 343.380005,
+            "low": 336.290009,
+            "close": 343.059998,
+            "volume": 1051659
         },
         {
             "date": "2026-01-09",

@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 3.03,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 3.04,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 623267,
-        "AvgVolume": 459257,
+        "Volume": 506072,
+        "AvgVolume": 465876,
         "sharesOutstanding": null,
         "52Week": "2.74 - 8.42",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.03,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 623267,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 459257,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3894,8 +3907,16 @@
             "volume": 642042
         },
         {
+            "date": "2025-11-19",
+            "open": 3.01,
+            "high": 3.05,
+            "low": 2.98,
+            "close": 3.05,
+            "volume": 638763
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.059
         },
         {
             "date": "2025-11-26",

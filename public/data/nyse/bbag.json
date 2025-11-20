@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.5409,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 46.5786,
         "englishName": "JPMorgan BetaBuilders U.S. Aggregate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 39217,
-        "AvgVolume": 83407,
+        "Volume": 29661,
+        "AvgVolume": 83650,
         "sharesOutstanding": null,
         "52Week": "44.312 - 47.11",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.5409,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 39217,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 83407,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14362,6 +14375,14 @@
             "low": 46.481602,
             "close": 46.509998,
             "volume": 39633
+        },
+        {
+            "date": "2025-11-19",
+            "open": 46.549999,
+            "high": 46.589901,
+            "low": 46.48,
+            "close": 46.48,
+            "volume": 36934
         },
         {
             "date": "2025-12-03",

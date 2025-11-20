@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 2.76,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 2.545,
         "englishName": "Bitfarms Ltd.",
         "earningsDate": "2025-11-13",
-        "enterpriseValue": 1472692864,
-        "marketCap": 1650268672,
-        "Volume": 60852266,
-        "AvgVolume": 89438332,
+        "enterpriseValue": 1517216000,
+        "marketCap": 1521715200,
+        "Volume": 42666085,
+        "AvgVolume": 89943340,
         "sharesOutstanding": 597923486,
         "52Week": "0.673 - 6.6",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.76,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1472692864,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1650268672,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 60852266,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 89438332,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14184,7 +14205,16 @@
             "high": 2.81,
             "low": 2.58,
             "close": 2.75,
-            "volume": 64064265
+            "volume": 64064265,
+            "marketCap": 1521715200
+        },
+        {
+            "date": "2025-11-19",
+            "open": 2.818,
+            "high": 2.82,
+            "low": 2.52,
+            "close": 2.6,
+            "volume": 56645200
         }
     ]
 }

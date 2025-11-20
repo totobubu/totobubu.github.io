@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 503.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 493.67,
         "englishName": "Teledyne Technologies Incorporated",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 25459165184,
-        "marketCap": 23659542528,
-        "Volume": 388770,
-        "AvgVolume": 301350,
+        "enterpriseValue": 25676079104,
+        "marketCap": 23178295296,
+        "Volume": 234414,
+        "AvgVolume": 306362,
         "sharesOutstanding": 46950987,
         "52Week": "419.0 - 595.99",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 503.92,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 25459165184,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 23659542528,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 388770,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 301350,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58849,7 +58870,16 @@
             "high": 505.079987,
             "low": 494.549988,
             "close": 504.170013,
-            "volume": 479156
+            "volume": 479156,
+            "marketCap": 23178295296
+        },
+        {
+            "date": "2025-11-19",
+            "open": 502.980011,
+            "high": 504.309998,
+            "low": 492.01001,
+            "close": 493.940002,
+            "volume": 321232
         }
     ]
 }

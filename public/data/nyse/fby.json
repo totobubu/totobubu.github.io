@@ -9,16 +9,16 @@
         "underlying": "META",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 12.5029,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 12.2,
         "englishName": "YieldMax META Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 249446,
-        "AvgVolume": 195284,
+        "Volume": 156320,
+        "AvgVolume": 196468,
         "sharesOutstanding": null,
-        "52Week": "12.19 - 21.25",
+        "52Week": "12.15 - 21.25",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.5029,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 249446,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 195284,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5458,8 +5471,16 @@
             "volume": 251186
         },
         {
+            "date": "2025-11-19",
+            "open": 12.39,
+            "high": 12.403,
+            "low": 12.15,
+            "close": 12.31,
+            "volume": 184623
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.0904
         },
         {
             "date": "2025-11-26",

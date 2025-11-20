@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
+        "Update": "2025-11-20 04:40:52 KST",
         "regularMarketPrice": 17.4,
         "englishName": "Tidal Trust II - Defiance Daily Target 2x Long PM ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18,
-        "AvgVolume": 2620,
+        "Volume": 21,
+        "AvgVolume": 2585,
         "sharesOutstanding": null,
         "52Week": "15.04 - 21.55",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 18,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2620,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -460,6 +469,14 @@
             "low": 17.922001,
             "close": 17.922001,
             "volume": 19
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.7834,
+            "high": 17.7834,
+            "low": 17.7834,
+            "close": 17.7834,
+            "volume": 23
         }
     ]
 }

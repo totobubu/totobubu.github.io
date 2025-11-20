@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.1599,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.155,
         "englishName": "Schwab Intermediate-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1977568256,
-        "Volume": 2113320,
-        "AvgVolume": 1906896,
+        "marketCap": 1977183104,
+        "Volume": 1584934,
+        "AvgVolume": 1921729,
         "sharesOutstanding": 78600000,
         "52Week": "24.04 - 25.35",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.1599,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1977568256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2113320,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1906896,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36340,6 +36357,14 @@
             "low": 25.129999,
             "close": 25.16,
             "volume": 2124786
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.18,
+            "high": 25.18,
+            "low": 25.129999,
+            "close": 25.139999,
+            "volume": 1960146
         },
         {
             "date": "2025-12-03",

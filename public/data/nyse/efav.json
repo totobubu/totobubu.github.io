@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 85.09,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 84.375,
         "englishName": "iShares MSCI EAFE Min Vol Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 568648,
-        "AvgVolume": 377367,
+        "Volume": 255120,
+        "AvgVolume": 380903,
         "sharesOutstanding": null,
         "52Week": "69.19 - 86.8",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 85.09,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 568648,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 377367,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28462,6 +28475,14 @@
             "low": 84.790001,
             "close": 85.059998,
             "volume": 599542
+        },
+        {
+            "date": "2025-11-19",
+            "open": 84.849998,
+            "high": 84.900002,
+            "low": 84.290001,
+            "close": 84.489998,
+            "volume": 331543
         }
     ]
 }

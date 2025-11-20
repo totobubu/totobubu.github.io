@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 22.4,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.1,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 40125,
-        "AvgVolume": 79818,
+        "Volume": 26842,
+        "AvgVolume": 76591,
         "sharesOutstanding": null,
-        "52Week": "22.0301 - 25.92",
+        "52Week": "22.03 - 25.92",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.4,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 40125,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 79818,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -124,6 +137,14 @@
             "low": 22.0301,
             "close": 22.32,
             "volume": 41087
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.379999,
+            "high": 22.4685,
+            "low": 22.0366,
+            "close": 22.450001,
+            "volume": 37939
         }
     ]
 }

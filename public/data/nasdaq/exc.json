@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.375,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 45.64,
         "englishName": "Exelon Corporation",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 95475531776,
-        "marketCap": 46838161408,
-        "Volume": 5613844,
-        "AvgVolume": 6536759,
+        "enterpriseValue": 95253266432,
+        "marketCap": 46095818752,
+        "Volume": 3477167,
+        "AvgVolume": 6569862,
         "sharesOutstanding": 1008290316,
         "52Week": "35.94 - 48.51",
-        "Yield": 0.03407,
+        "Yield": 0.034619,
         "dividendRate": 1.6,
         "payoutRatio": 0.5663,
         "isin": "US30161N1019",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.375,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 95475531776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 46838161408,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5613844,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6536759,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.03407,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121900,6 +121925,14 @@
             "low": 46.209999,
             "close": 46.380001,
             "volume": 7841230
+        },
+        {
+            "date": "2025-11-19",
+            "open": 46.349998,
+            "high": 46.459999,
+            "low": 45.41,
+            "close": 45.560001,
+            "volume": 7317303
         },
         {
             "date": "2026-02-10",

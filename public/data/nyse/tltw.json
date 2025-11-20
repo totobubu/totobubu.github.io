@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.22,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.2351,
         "englishName": "iShares 20+ Year Treasury Bond Buywrite Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 915745,
-        "AvgVolume": 1235518,
+        "Volume": 855596,
+        "AvgVolume": 1240553,
         "sharesOutstanding": null,
         "52Week": "22.18 - 25.47",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.22,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 915745,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1235518,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6630,6 +6643,14 @@
             "low": 23.16,
             "close": 23.215,
             "volume": 926362
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.27,
+            "high": 23.297899,
+            "low": 23.18,
+            "close": 23.200001,
+            "volume": 1265331
         },
         {
             "date": "2025-12-04",

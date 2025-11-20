@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.6066,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.59,
         "englishName": "FT Vest Laddered Deep Buffer ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 183525,
-        "AvgVolume": 207746,
+        "Volume": 85543,
+        "AvgVolume": 207004,
         "sharesOutstanding": null,
         "52Week": "23.04 - 27.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.6066,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 183525,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 207746,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9776,6 +9789,14 @@
             "low": 27.504999,
             "close": 27.6,
             "volume": 196659
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.57,
+            "high": 27.6854,
+            "low": 27.559999,
+            "close": 27.613001,
+            "volume": 150499
         }
     ]
 }

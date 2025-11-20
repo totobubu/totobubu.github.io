@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 52.67,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.58,
         "englishName": "iShares Morningstar Small-Cap Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 348808,
-        "AvgVolume": 46184,
+        "Volume": 23215,
+        "AvgVolume": 51201,
         "sharesOutstanding": null,
         "52Week": "38.73 - 56.67",
-        "Yield": 0.00093,
+        "Yield": 0.000932,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642886042",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.67,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 348808,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 46184,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00093,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43672,6 +43689,14 @@
             "low": 51.990002,
             "close": 52.560001,
             "volume": 349337
+        },
+        {
+            "date": "2025-11-19",
+            "open": 52.709999,
+            "high": 53.128601,
+            "low": 52.4851,
+            "close": 52.790001,
+            "volume": 64944
         },
         {
             "date": "2025-12-16",

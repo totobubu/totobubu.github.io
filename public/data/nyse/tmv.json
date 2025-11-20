@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 35.25,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 35.22,
         "englishName": "Direxion Daily 20+ Year Treasury Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 976245,
-        "AvgVolume": 1210259,
+        "Volume": 970925,
+        "AvgVolume": 1213964,
         "sharesOutstanding": null,
         "52Week": "31.03 - 44.3",
         "Yield": null,
@@ -42,7 +42,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 976245,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1210259,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33637,6 +33650,14 @@
             "low": 34.779999,
             "close": 35.240002,
             "volume": 1013410
+        },
+        {
+            "date": "2025-11-19",
+            "open": 35.049999,
+            "high": 35.48,
+            "low": 34.931,
+            "close": 35.400002,
+            "volume": 1196799
         },
         {
             "date": "2025-12-23",

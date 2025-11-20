@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.24,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 36.6265,
         "englishName": "VanEck Fabless Semiconductor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 115571,
-        "AvgVolume": 219423,
+        "Volume": 98574,
+        "AvgVolume": 220262,
         "sharesOutstanding": null,
         "52Week": "18.46 - 42.602",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.24,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 115571,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 219423,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2546,6 +2559,14 @@
             "low": 35.810101,
             "close": 36.150002,
             "volume": 87666
+        },
+        {
+            "date": "2025-11-19",
+            "open": 36.369999,
+            "high": 37.360001,
+            "low": 36.319698,
+            "close": 36.900002,
+            "volume": 118929
         }
     ]
 }

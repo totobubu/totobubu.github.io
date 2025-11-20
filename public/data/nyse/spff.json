@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 9.051,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 9.0642,
         "englishName": "Global X SuperIncome Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 43863,
-        "AvgVolume": 38264,
+        "Volume": 19153,
+        "AvgVolume": 38531,
         "sharesOutstanding": null,
         "52Week": "8.25 - 9.85",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.051,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 43863,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38264,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27230,6 +27243,14 @@
             "low": 9.01,
             "close": 9.07,
             "volume": 43863
+        },
+        {
+            "date": "2025-11-19",
+            "open": 9.0675,
+            "high": 9.1025,
+            "low": 9.0464,
+            "close": 9.05,
+            "volume": 33569
         },
         {
             "date": "2025-12-03",

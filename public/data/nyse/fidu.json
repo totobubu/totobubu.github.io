@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 79.6432,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 79.765,
         "englishName": "Fidelity MSCI Industrials Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 58838,
-        "AvgVolume": 69878,
+        "Volume": 27534,
+        "AvgVolume": 70350,
         "sharesOutstanding": null,
         "52Week": "59.16 - 84.07",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 79.6432,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 58838,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 69878,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24468,6 +24481,14 @@
             "low": 78.949997,
             "close": 79.440002,
             "volume": 61043
+        },
+        {
+            "date": "2025-11-19",
+            "open": 79.550003,
+            "high": 80.035004,
+            "low": 79.4701,
+            "close": 79.849998,
+            "volume": 40225
         },
         {
             "date": "2025-12-19",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 374.3,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 374.52,
         "englishName": "SPDR Gold Shares",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 97430290432,
-        "Volume": 6989396,
-        "AvgVolume": 16485490,
+        "marketCap": 97487552512,
+        "Volume": 9216638,
+        "AvgVolume": 16529110,
         "sharesOutstanding": 260300000,
         "52Week": "238.73 - 403.3",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 374.3,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 97430290432,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6989396,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16485490,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -47574,7 +47591,16 @@
             "high": 375.529999,
             "low": 371.619995,
             "close": 374.350006,
-            "volume": 7453393
+            "volume": 7453393,
+            "marketCap": 97487552512
+        },
+        {
+            "date": "2025-11-19",
+            "open": 377.774994,
+            "high": 380.170013,
+            "low": 373.029999,
+            "close": 374.959991,
+            "volume": 10453674
         }
     ]
 }

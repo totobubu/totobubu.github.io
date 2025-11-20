@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.0999,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.04,
         "englishName": "Schwab U.S. Large-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 31231881,
-        "AvgVolume": 14860225,
+        "Volume": 19298986,
+        "AvgVolume": 15175403,
         "sharesOutstanding": null,
         "52Week": "19.0 - 27.27",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.0999,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 31231881,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14860225,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33247,6 +33260,14 @@
             "low": 25.879999,
             "close": 26.059999,
             "volume": 32253730
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.07,
+            "high": 26.33,
+            "low": 25.994801,
+            "close": 26.15,
+            "volume": 26677960
         },
         {
             "date": "2025-12-24",

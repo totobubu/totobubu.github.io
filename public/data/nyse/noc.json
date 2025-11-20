@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 566.79,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 564.84,
         "englishName": "Northrop Grumman Corporation",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 95889678336,
-        "marketCap": 81154678784,
-        "Volume": 773940,
-        "AvgVolume": 732767,
+        "enterpriseValue": 96422027264,
+        "marketCap": 80875479040,
+        "Volume": 325654,
+        "AvgVolume": 741771,
         "sharesOutstanding": 142720067,
         "52Week": "426.24 - 640.9",
-        "Yield": 0.01542,
+        "Yield": 0.015473,
         "dividendRate": 9.24,
         "payoutRatio": 0.3147,
         "isin": "US6668071029",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 566.79,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 95889678336,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 81154678784,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 773940,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 732767,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01542,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101372,6 +101397,14 @@
             "low": 564.174988,
             "close": 566.76001,
             "volume": 1047022
+        },
+        {
+            "date": "2025-11-19",
+            "open": 560.390015,
+            "high": 567.200012,
+            "low": 557.974976,
+            "close": 565,
+            "volume": 532708
         },
         {
             "date": "2025-12-02",

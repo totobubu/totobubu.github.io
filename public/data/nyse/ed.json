@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 103.055,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 101.05,
         "englishName": "Consolidated Edison, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 63977164800,
-        "marketCap": 37196218368,
-        "Volume": 1632689,
-        "AvgVolume": 2104412,
+        "enterpriseValue": 63637884928,
+        "marketCap": 36472545280,
+        "Volume": 1096795,
+        "AvgVolume": 2083115,
         "sharesOutstanding": 360935608,
         "52Week": "87.28 - 114.87",
-        "Yield": 0.032798,
+        "Yield": 0.033449,
         "dividendRate": 3.4,
         "payoutRatio": 0.5909,
         "isin": "US2091151041",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.055,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 63977164800,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 37196218368,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1632689,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2104412,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.032798,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -146570,6 +146595,14 @@
             "low": 102.82,
             "close": 102.910004,
             "volume": 2503333
+        },
+        {
+            "date": "2025-11-19",
+            "open": 102.110001,
+            "high": 102.110001,
+            "low": 100.139999,
+            "close": 100.379997,
+            "volume": 2031417
         },
         {
             "date": "2026-02-13",

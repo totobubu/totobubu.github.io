@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 245.55,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 246.635,
         "englishName": "Sandisk Corporation",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 39086559232,
-        "marketCap": 35986132992,
-        "Volume": 15906464,
-        "AvgVolume": 8248100,
+        "enterpriseValue": 36016271360,
+        "marketCap": 36145143808,
+        "Volume": 9949187,
+        "AvgVolume": 8467659,
         "sharesOutstanding": 146553179,
         "52Week": "27.885 - 284.76",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 245.55,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 39086559232,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 35986132992,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15906464,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8248100,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1573,7 +1594,16 @@
             "high": 260.6315,
             "low": 229.110001,
             "close": 244.929993,
-            "volume": 16362117
+            "volume": 16362117,
+            "marketCap": 36145143808
+        },
+        {
+            "date": "2025-11-19",
+            "open": 251.110001,
+            "high": 256.980011,
+            "low": 233.785004,
+            "close": 245.960007,
+            "volume": 11561393
         }
     ]
 }

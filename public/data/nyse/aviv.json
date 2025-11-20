@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 67.98,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 67.6379,
         "englishName": "Avantis International Large Cap Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48801,
-        "AvgVolume": 40010,
+        "Volume": 35829,
+        "AvgVolume": 40335,
         "sharesOutstanding": null,
         "52Week": "49.844 - 70.176",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67.98,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 48801,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 40010,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8403,6 +8416,14 @@
             "low": 67.4795,
             "close": 67.839996,
             "volume": 49800
+        },
+        {
+            "date": "2025-11-19",
+            "open": 67.879997,
+            "high": 68.079903,
+            "low": 67.489998,
+            "close": 67.720001,
+            "volume": 63630
         }
     ]
 }

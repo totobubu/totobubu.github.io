@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 56.23,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 56.41,
         "englishName": "Direxion Daily Magnificent 7 Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 132764,
-        "AvgVolume": 88651,
+        "Volume": 63325,
+        "AvgVolume": 89192,
         "sharesOutstanding": null,
         "52Week": "22.55 - 66.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.23,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 132764,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 88651,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3501,6 +3514,14 @@
             "low": 54.950001,
             "close": 55.810001,
             "volume": 140743
+        },
+        {
+            "date": "2025-11-19",
+            "open": 56.220001,
+            "high": 58.138401,
+            "low": 55.9025,
+            "close": 56.880001,
+            "volume": 80885
         },
         {
             "date": "2025-12-24",

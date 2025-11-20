@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 116.67,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 115.28,
         "englishName": "DaVita Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 22233704448,
-        "marketCap": 8341904896,
-        "Volume": 458656,
-        "AvgVolume": 811084,
+        "enterpriseValue": 22183577600,
+        "marketCap": 8242520064,
+        "Volume": 371722,
+        "AvgVolume": 811734,
         "sharesOutstanding": 70600000,
-        "52Week": "115.39 - 179.6",
+        "52Week": "113.97 - 179.6",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 116.67,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22233704448,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8341904896,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 458656,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 811084,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68101,7 +68122,16 @@
             "high": 117.720001,
             "low": 115.925003,
             "close": 116.559998,
-            "volume": 573283
+            "volume": 573283,
+            "marketCap": 8242520064
+        },
+        {
+            "date": "2025-11-19",
+            "open": 116.889999,
+            "high": 116.775002,
+            "low": 113.970001,
+            "close": 115.199997,
+            "volume": 651937
         }
     ]
 }

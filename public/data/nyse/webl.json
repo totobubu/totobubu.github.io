@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.53,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.615,
         "englishName": "Direxion Daily Dow Jones Internet Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 156685,
-        "AvgVolume": 144673,
+        "Volume": 133052,
+        "AvgVolume": 145000,
         "sharesOutstanding": null,
         "52Week": "11.67 - 35.24",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 156685,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 144673,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12206,6 +12219,14 @@
             "low": 25.440001,
             "close": 26.389999,
             "volume": 174479
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.219999,
+            "high": 26.742201,
+            "low": 25.43,
+            "close": 25.93,
+            "volume": 161757
         },
         {
             "date": "2025-12-24",

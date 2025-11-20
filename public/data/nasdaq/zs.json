@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 293.33,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 290.83,
         "englishName": "Zscaler, Inc.",
         "earningsDate": "2025-11-25",
-        "enterpriseValue": 44910243840,
-        "marketCap": 46434377728,
-        "Volume": 827357,
-        "AvgVolume": 1476334,
+        "enterpriseValue": 44623720448,
+        "marketCap": 46038622208,
+        "Volume": 555426,
+        "AvgVolume": 1476860,
         "sharesOutstanding": 158300823,
         "52Week": "164.78 - 336.99",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 293.33,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 44910243840,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 46434377728,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 827357,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1476334,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17395,7 +17416,16 @@
             "high": 297.355011,
             "low": 289.679993,
             "close": 293.109985,
-            "volume": 1183002
+            "volume": 1183002,
+            "marketCap": 46038622208
+        },
+        {
+            "date": "2025-11-19",
+            "open": 292.690002,
+            "high": 297.169891,
+            "low": 289.429993,
+            "close": 291.809998,
+            "volume": 1401968
         }
     ]
 }

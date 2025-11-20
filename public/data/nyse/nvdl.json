@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 85.99,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 88.29,
         "englishName": "GraniteShares 2x Long NVDA Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 13070931,
-        "AvgVolume": 13773460,
+        "Volume": 9846294,
+        "AvgVolume": 13798585,
         "sharesOutstanding": null,
         "52Week": "23.123 - 118.5",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 85.99,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13070931,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13773460,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5932,6 +5945,14 @@
             "low": 83.620003,
             "close": 85.279999,
             "volume": 13560725
+        },
+        {
+            "date": "2025-11-19",
+            "open": 88.495003,
+            "high": 91.360001,
+            "low": 86.640099,
+            "close": 90.339996,
+            "volume": 12597702
         }
     ]
 }

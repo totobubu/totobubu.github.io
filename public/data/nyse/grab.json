@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 5.345,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 5.2692,
         "englishName": "Grab Holdings Limited",
         "earningsDate": "2025-11-03",
-        "enterpriseValue": 16852710400,
-        "marketCap": 21845014528,
-        "Volume": 32565169,
-        "AvgVolume": 51287239,
+        "enterpriseValue": 16811839488,
+        "marketCap": 21535219712,
+        "Volume": 26232435,
+        "AvgVolume": 51681640,
         "sharesOutstanding": 3965000000,
         "52Week": "3.36 - 6.62",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.345,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16852710400,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21845014528,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 32565169,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 51287239,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11250,7 +11271,16 @@
             "high": 5.365,
             "low": 5.22,
             "close": 5.32,
-            "volume": 35369272
+            "volume": 35369272,
+            "marketCap": 21535219712
+        },
+        {
+            "date": "2025-11-19",
+            "open": 5.3,
+            "high": 5.38,
+            "low": 5.25,
+            "close": 5.31,
+            "volume": 58443557
         }
     ]
 }

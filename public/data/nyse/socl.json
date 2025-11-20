@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.66,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 53.3131,
         "englishName": "Global X Social Media ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12857,
-        "AvgVolume": 11300,
+        "Volume": 3419,
+        "AvgVolume": 11848,
         "sharesOutstanding": null,
         "52Week": "37.5 - 63.93",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12857,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11300,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28284,6 +28297,14 @@
             "low": 52.599998,
             "close": 53.667599,
             "volume": 11657
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.52,
+            "high": 53.740002,
+            "low": 53.200001,
+            "close": 53.305,
+            "volume": 3092
         }
     ]
 }

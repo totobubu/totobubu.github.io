@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 147.175,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 146.79,
         "englishName": "The Procter & Gamble Company",
         "earningsDate": "2026-01-22",
-        "enterpriseValue": 366568472576,
-        "marketCap": 344460951552,
-        "Volume": 7862326,
-        "AvgVolume": 7468595,
+        "enterpriseValue": 369302470656,
+        "marketCap": 343559831552,
+        "Volume": 3727433,
+        "AvgVolume": 7513387,
         "sharesOutstanding": 2336733549,
         "52Week": "144.09 - 180.43",
-        "Yield": 0.028041,
+        "Yield": 0.028115,
         "dividendRate": 4.23,
         "payoutRatio": 0.6024,
         "isin": "US7427181091",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 147.175,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 366568472576,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 344460951552,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7862326,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7468595,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.028041,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -149119,6 +149144,14 @@
             "low": 145.509995,
             "close": 146.990005,
             "volume": 8441355
+        },
+        {
+            "date": "2025-11-19",
+            "open": 146.960007,
+            "high": 147.539993,
+            "low": 145.869995,
+            "close": 146.990005,
+            "volume": 5021179
         },
         {
             "date": "2026-01-23",

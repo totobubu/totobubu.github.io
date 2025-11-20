@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 61.41,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 60.795,
         "englishName": "Dominion Energy, Inc.",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 105528664064,
-        "marketCap": 52438814720,
-        "Volume": 4961436,
-        "AvgVolume": 4741682,
+        "enterpriseValue": 105485967360,
+        "marketCap": 51913654272,
+        "Volume": 2599127,
+        "AvgVolume": 4808801,
         "sharesOutstanding": 853913277,
         "52Week": "48.07 - 62.52",
-        "Yield": 0.043478,
+        "Yield": 0.043918,
         "dividendRate": 2.67,
         "payoutRatio": 0.8725,
         "isin": "US25746U1097",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.41,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 105528664064,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 52438814720,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4961436,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4741682,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.043478,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104864,6 +104889,14 @@
             "low": 61.27,
             "close": 61.450001,
             "volume": 7122077
+        },
+        {
+            "date": "2025-11-19",
+            "open": 61.5,
+            "high": 61.595001,
+            "low": 60.205002,
+            "close": 60.189999,
+            "volume": 4904796
         },
         {
             "date": "2025-12-05",

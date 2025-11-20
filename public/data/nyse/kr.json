@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 67.49,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 67.63,
         "englishName": "The Kroger Co.",
         "earningsDate": "2025-09-11",
-        "enterpriseValue": 69732802560,
-        "marketCap": 44724150272,
-        "Volume": 6576587,
-        "AvgVolume": 6879551,
+        "enterpriseValue": 70690242560,
+        "marketCap": 44816924672,
+        "Volume": 3542968,
+        "AvgVolume": 6895664,
         "sharesOutstanding": 662678212,
         "52Week": "57.08 - 74.9",
-        "Yield": 0.01941,
+        "Yield": 0.01937,
         "dividendRate": 1.4,
         "payoutRatio": 0.3249,
         "isin": "US5010441013",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67.49,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 69732802560,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 44724150272,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6576587,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6879551,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01941,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -148035,6 +148060,10 @@
             "volume": 4374811
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.35
+        },
+        {
             "date": "2025-11-17",
             "open": 66.720001,
             "high": 66.800003,
@@ -148051,11 +148080,19 @@
             "volume": 7028574
         },
         {
+            "date": "2025-11-19",
+            "open": 67.370003,
+            "high": 68.360001,
+            "low": 67.199997,
+            "close": 67.410004,
+            "volume": 5584596
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

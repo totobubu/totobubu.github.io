@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 14.1971,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 14.16,
         "englishName": "Invesco Financial Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 148248,
-        "AvgVolume": 115362,
+        "Volume": 100908,
+        "AvgVolume": 116270,
         "sharesOutstanding": null,
         "52Week": "13.62 - 15.27",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.1971,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 148248,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 115362,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38700,6 +38713,14 @@
             "low": 14.13,
             "close": 14.2,
             "volume": 148350
+        },
+        {
+            "date": "2025-11-19",
+            "open": 14.17,
+            "high": 14.18,
+            "low": 14.14,
+            "close": 14.16,
+            "volume": 135796
         },
         {
             "date": "2025-11-20",

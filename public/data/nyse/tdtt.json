@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 24.185,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 24.175,
         "englishName": "FlexShares iBoxx 3-Year Target Duration TIPS Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 185566,
-        "AvgVolume": 348029,
+        "Volume": 65554,
+        "AvgVolume": 345573,
         "sharesOutstanding": null,
         "52Week": "23.53 - 24.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.185,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 185566,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 348029,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28708,6 +28721,14 @@
             "low": 24.17,
             "close": 24.184999,
             "volume": 185671
+        },
+        {
+            "date": "2025-11-19",
+            "open": 24.200001,
+            "high": 24.195,
+            "low": 24.16,
+            "close": 24.17,
+            "volume": 106362
         },
         {
             "date": "2025-12-03",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.52,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.465,
         "englishName": "Invesco CEF Income Composite ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 106930,
-        "AvgVolume": 124426,
+        "Volume": 64389,
+        "AvgVolume": 124726,
         "sharesOutstanding": null,
         "52Week": "16.35 - 20.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.52,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 106930,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 124426,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32148,6 +32161,14 @@
             "low": 19.482599,
             "close": 19.528601,
             "volume": 107629
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.48,
+            "high": 19.5942,
+            "low": 19.459999,
+            "close": 19.51,
+            "volume": 83144
         },
         {
             "date": "2025-11-20",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 39.66,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 39.68,
         "englishName": "Innovator U.S. Equity Power Buffer ETF - February",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7916,
-        "AvgVolume": 60734,
+        "Volume": 6795,
+        "AvgVolume": 60651,
         "sharesOutstanding": null,
         "52Week": "32.932 - 40.189",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.66,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7916,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 60734,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11692,6 +11705,14 @@
             "low": 39.584999,
             "close": 39.630001,
             "volume": 7940
+        },
+        {
+            "date": "2025-11-19",
+            "open": 39.68,
+            "high": 39.75,
+            "low": 39.639999,
+            "close": 39.700001,
+            "volume": 15348
         }
     ]
 }

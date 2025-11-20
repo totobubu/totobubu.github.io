@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 89.2866,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 88.2388,
         "englishName": "BNY Mellon International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26389,
-        "AvgVolume": 33787,
+        "Volume": 11300,
+        "AvgVolume": 33404,
         "sharesOutstanding": null,
         "52Week": "68.09 - 92.11",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 89.2866,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26389,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 33787,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11332,6 +11345,14 @@
             "low": 87.910004,
             "close": 88.790001,
             "volume": 28300
+        },
+        {
+            "date": "2025-11-19",
+            "open": 88.449997,
+            "high": 88.698303,
+            "low": 88.048599,
+            "close": 88.385002,
+            "volume": 18132
         },
         {
             "date": "2025-12-31",

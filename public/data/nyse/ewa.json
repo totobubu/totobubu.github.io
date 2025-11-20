@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.435,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.19,
         "englishName": "iShares MSCI Australia ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1617665920,
-        "Volume": 8003687,
-        "AvgVolume": 3712370,
+        "marketCap": 1602084096,
+        "Volume": 3271047,
+        "AvgVolume": 3757635,
         "sharesOutstanding": 63600000,
         "52Week": "20.51 - 27.57",
-        "Yield": 0.022685,
+        "Yield": 0.022906,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642861037",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.435,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1617665920,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8003687,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3712370,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.022685,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67392,7 +67413,16 @@
             "high": 25.51,
             "low": 25.235001,
             "close": 25.4,
-            "volume": 8344737
+            "volume": 8344737,
+            "marketCap": 1602084096
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.35,
+            "high": 25.4457,
+            "low": 25.165001,
+            "close": 25.299999,
+            "volume": 4074408
         }
     ]
 }

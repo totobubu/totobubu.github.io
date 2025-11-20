@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.075,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 51.06,
         "englishName": "JPMorgan Mortgage-Backed Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 244893,
-        "AvgVolume": 349534,
+        "Volume": 400280,
+        "AvgVolume": 349990,
         "sharesOutstanding": null,
         "52Week": "49.61 - 51.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.075,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 244893,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 349534,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -836,6 +849,14 @@
             "low": 51.025002,
             "close": 51.099998,
             "volume": 256628
+        },
+        {
+            "date": "2025-11-19",
+            "open": 51.119999,
+            "high": 51.130001,
+            "low": 51.02,
+            "close": 51.049999,
+            "volume": 446792
         },
         {
             "date": "2025-12-03",

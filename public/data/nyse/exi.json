@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 168.305,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 167.66,
         "englishName": "iShares Global Industrials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21179,
-        "AvgVolume": 41771,
+        "Volume": 16324,
+        "AvgVolume": 41942,
         "sharesOutstanding": null,
         "52Week": "127.05 - 176.13",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 168.305,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 21179,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 41771,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38692,6 +38705,14 @@
             "low": 167.475006,
             "close": 167.759995,
             "volume": 21179
+        },
+        {
+            "date": "2025-11-19",
+            "open": 168.020004,
+            "high": 168.524994,
+            "low": 167.529999,
+            "close": 167.860001,
+            "volume": 24584
         }
     ]
 }

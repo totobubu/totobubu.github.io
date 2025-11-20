@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 76.3,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 75.84,
         "englishName": "Hasbro, Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 13564663808,
-        "marketCap": 10707715072,
-        "Volume": 1003607,
-        "AvgVolume": 1695085,
+        "enterpriseValue": 13424327680,
+        "marketCap": 10643159040,
+        "Volume": 873109,
+        "AvgVolume": 1696643,
         "sharesOutstanding": 140337023,
         "52Week": "49.0 - 82.19",
-        "Yield": 0.036697,
+        "Yield": 0.03692,
         "dividendRate": 2.8,
         "payoutRatio": 0.9241,
         "isin": "US4180561072",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.3,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 13564663808,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10707715072,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1003607,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1695085,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.036697,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104657,6 +104682,14 @@
             "low": 75.379997,
             "close": 76.040001,
             "volume": 1470199
+        },
+        {
+            "date": "2025-11-19",
+            "open": 75.370003,
+            "high": 77.010002,
+            "low": 74.779999,
+            "close": 76.470001,
+            "volume": 2375117
         },
         {
             "date": "2025-11-20",

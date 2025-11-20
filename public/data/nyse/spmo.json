@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 116.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 115.9552,
         "englishName": "Invesco S&P 500 Momentum ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4963105,
-        "AvgVolume": 2215126,
+        "Volume": 1257946,
+        "AvgVolume": 2267043,
         "sharesOutstanding": null,
         "52Week": "78.25 - 124.555",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 116.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4963105,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2215126,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20488,6 +20501,14 @@
             "low": 115.019997,
             "close": 115.839996,
             "volume": 5050605
+        },
+        {
+            "date": "2025-11-19",
+            "open": 116.029999,
+            "high": 117.230003,
+            "low": 115.492996,
+            "close": 116.709999,
+            "volume": 1894292
         },
         {
             "date": "2025-12-22",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 15.825,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 16.41,
         "englishName": "Defiance Daily Target 2X Long CVNA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21769,
-        "AvgVolume": 37785,
+        "Volume": 16021,
+        "AvgVolume": 37823,
         "sharesOutstanding": null,
         "52Week": "12.62 - 30.3",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.825,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 21769,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 37785,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1008,6 +1021,14 @@
             "low": 14.955,
             "close": 15.6831,
             "volume": 18771
+        },
+        {
+            "date": "2025-11-19",
+            "open": 16.137199,
+            "high": 16.815599,
+            "low": 15.99,
+            "close": 16.815599,
+            "volume": 11372
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 63.75,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 63.775,
         "englishName": "Vanguard ESG U.S. Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 84787,
-        "AvgVolume": 37432,
+        "Volume": 22987,
+        "AvgVolume": 38242,
         "sharesOutstanding": null,
         "52Week": "60.36 - 64.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 63.75,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 84787,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 37432,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10510,6 +10523,14 @@
             "low": 63.689999,
             "close": 63.77,
             "volume": 86787
+        },
+        {
+            "date": "2025-11-19",
+            "open": 63.830002,
+            "high": 63.84,
+            "low": 63.709999,
+            "close": 63.73,
+            "volume": 27289
         },
         {
             "date": "2025-12-03",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 139.43,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 141.875,
         "englishName": "Astera Labs, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 22778175488,
-        "marketCap": 23550230528,
-        "Volume": 3221787,
-        "AvgVolume": 6005409,
+        "enterpriseValue": 22462324736,
+        "marketCap": 23963201536,
+        "Volume": 2051921,
+        "AvgVolume": 5986035,
         "sharesOutstanding": 168903616,
         "52Week": "47.125 - 262.9",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 139.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 22778175488,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23550230528,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3221787,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6005409,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3790,7 +3811,16 @@
             "high": 144.050003,
             "low": 136.809998,
             "close": 139.520004,
-            "volume": 3981109
+            "volume": 3981109,
+            "marketCap": 23963201536
+        },
+        {
+            "date": "2025-11-19",
+            "open": 139.529999,
+            "high": 144.710007,
+            "low": 137.800003,
+            "close": 142.009995,
+            "volume": 3672530
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 59,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 58.2349,
         "englishName": "ALPS Sector Dividend Dogs ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12924,
-        "AvgVolume": 33051,
+        "Volume": 17351,
+        "AvgVolume": 32800,
         "sharesOutstanding": null,
         "52Week": "49.52 - 61.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12924,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 33051,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27042,6 +27055,14 @@
             "low": 58.715,
             "close": 58.970001,
             "volume": 12947
+        },
+        {
+            "date": "2025-11-19",
+            "open": 58.810001,
+            "high": 58.75,
+            "low": 58.234901,
+            "close": 58.34,
+            "volume": 22346
         },
         {
             "date": "2025-12-18",

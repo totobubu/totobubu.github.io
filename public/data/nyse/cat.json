@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 547.17,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 554.57,
         "englishName": "Caterpillar Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 293250138112,
-        "marketCap": 257342242816,
-        "Volume": 1280035,
-        "AvgVolume": 2870268,
+        "enterpriseValue": 290830680064,
+        "marketCap": 260822581248,
+        "Volume": 1019004,
+        "AvgVolume": 2844885,
         "sharesOutstanding": 468478923,
         "52Week": "267.3 - 596.21",
-        "Yield": 0.010673,
+        "Yield": 0.010531,
         "dividendRate": 6.04,
         "payoutRatio": 0.2948,
         "isin": "US1491231015",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 547.17,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 293250138112,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 257342242816,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1280035,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2870268,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010673,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -147249,6 +147274,14 @@
             "low": 538.049988,
             "close": 546.880005,
             "volume": 1411875
+        },
+        {
+            "date": "2025-11-19",
+            "open": 550,
+            "high": 560.909973,
+            "low": 547.63501,
+            "close": 553.109985,
+            "volume": 1552289
         },
         {
             "date": "2026-01-19",

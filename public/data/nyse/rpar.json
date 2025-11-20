@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.3046,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.28,
         "englishName": "RPAR Risk Parity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 32171,
-        "AvgVolume": 31950,
+        "Volume": 9741,
+        "AvgVolume": 32064,
         "sharesOutstanding": null,
         "52Week": "17.91 - 21.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.3046,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 32171,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 31950,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12026,6 +12039,14 @@
             "low": 21.24,
             "close": 21.2698,
             "volume": 32171
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.32,
+            "high": 21.32,
+            "low": 21.240101,
+            "close": 21.247,
+            "volume": 10137
         },
         {
             "date": "2025-12-29",

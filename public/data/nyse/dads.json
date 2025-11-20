@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.55,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.3101,
         "englishName": "Tidal ETF Trust - Digital Asset Debt Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12637,
-        "AvgVolume": 3754,
+        "Volume": 1033,
+        "AvgVolume": 3721,
         "sharesOutstanding": null,
         "52Week": "19.26 - 22.505",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.55,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12637,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3754,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -622,6 +635,14 @@
             "low": 19.450001,
             "close": 19.481501,
             "volume": 12637
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.469999,
+            "high": 19.469999,
+            "low": 19.309999,
+            "close": 19.309999,
+            "volume": 984
         }
     ]
 }

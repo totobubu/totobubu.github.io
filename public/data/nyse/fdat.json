@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.9396,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.8799,
         "englishName": "Tactical Advantage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 407,
-        "AvgVolume": 625,
+        "Volume": 512,
+        "AvgVolume": 623,
         "sharesOutstanding": null,
         "52Week": "19.88 - 23.76",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.9396,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 407,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 625,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5278,6 +5291,14 @@
             "low": 21.8099,
             "close": 21.839199,
             "volume": 407
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.8848,
+            "high": 21.8848,
+            "low": 21.82,
+            "close": 21.8799,
+            "volume": 524
         }
     ]
 }

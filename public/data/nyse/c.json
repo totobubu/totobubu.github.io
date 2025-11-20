@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 98.35,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 99.24,
         "englishName": "Citigroup Inc.",
         "earningsDate": "2026-01-14",
-        "enterpriseValue": 11795044352,
-        "marketCap": 181052309504,
-        "Volume": 7906350,
-        "AvgVolume": 13116185,
+        "enterpriseValue": 12027649024,
+        "marketCap": 182690709504,
+        "Volume": 4967699,
+        "AvgVolume": 13099954,
         "sharesOutstanding": 1789266159,
         "52Week": "55.51 - 105.59",
-        "Yield": 0.023183,
+        "Yield": 0.022975,
         "dividendRate": 2.4,
         "payoutRatio": 0.3202,
         "isin": "US1729674242",
@@ -77,7 +77,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 98.35,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11795044352,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 181052309504,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7906350,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13116185,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.023183,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -113514,6 +113539,14 @@
             "low": 96.379997,
             "close": 98.32,
             "volume": 10460889
+        },
+        {
+            "date": "2025-11-19",
+            "open": 98.169998,
+            "high": 100.585098,
+            "low": 98.089996,
+            "close": 99.830002,
+            "volume": 8025313
         },
         {
             "date": "2026-02-03",

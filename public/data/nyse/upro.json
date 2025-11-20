@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 106.825,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 105.865,
         "englishName": "ProShares UltraPro S&P500",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9867587,
-        "AvgVolume": 4852746,
+        "Volume": 4648653,
+        "AvgVolume": 5003159,
         "sharesOutstanding": null,
         "52Week": "45.88 - 122.19",
         "Yield": null,
@@ -52,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.825,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9867587,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4852746,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33648,6 +33661,14 @@
             "low": 104.050003,
             "close": 106.190002,
             "volume": 14505867
+        },
+        {
+            "date": "2025-11-19",
+            "open": 106.449997,
+            "high": 109.596497,
+            "low": 105.459999,
+            "close": 107.32,
+            "volume": 5707089
         },
         {
             "date": "2025-12-24",

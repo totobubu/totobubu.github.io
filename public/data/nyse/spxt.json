@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 100.0969,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 99.96,
         "englishName": "ProShares S&P 500 ex-Technology ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7132,
-        "AvgVolume": 8264,
+        "Volume": 1719,
+        "AvgVolume": 8357,
         "sharesOutstanding": null,
         "52Week": "79.66 - 102.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.0969,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7132,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8264,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20590,6 +20603,14 @@
             "low": 99.452499,
             "close": 99.927002,
             "volume": 7132
+        },
+        {
+            "date": "2025-11-19",
+            "open": 99.779999,
+            "high": 100.480003,
+            "low": 99.502998,
+            "close": 99.957703,
+            "volume": 2669
         },
         {
             "date": "2025-12-24",

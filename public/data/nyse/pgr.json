@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 225.755,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 222.91,
         "englishName": "The Progressive Corporation",
         "earningsDate": "2025-10-15",
-        "enterpriseValue": 137352617984,
-        "marketCap": 132382736384,
-        "Volume": 2801582,
-        "AvgVolume": 3304051,
+        "enterpriseValue": 137077006336,
+        "marketCap": 130714427392,
+        "Volume": 2162183,
+        "AvgVolume": 3319993,
         "sharesOutstanding": 586397236,
         "52Week": "199.9 - 292.99",
-        "Yield": 0.021705,
+        "Yield": 0.021982,
         "dividendRate": 4.9,
         "payoutRatio": 0.2689,
         "isin": "US7433151039",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 225.755,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 137352617984,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 132382736384,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2801582,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3304051,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.021705,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104962,6 +104987,14 @@
             "low": 224.744995,
             "close": 224.880005,
             "volume": 3121778
+        },
+        {
+            "date": "2025-11-19",
+            "open": 226.520004,
+            "high": 229.490005,
+            "low": 222.130005,
+            "close": 222.929993,
+            "volume": 3133779
         },
         {
             "date": "2026-01-02",

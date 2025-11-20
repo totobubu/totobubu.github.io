@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.495,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 41.16,
         "englishName": "AB International Low Volatility Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 29470,
-        "AvgVolume": 72257,
+        "Volume": 32871,
+        "AvgVolume": 71745,
         "sharesOutstanding": null,
         "52Week": "33.4 - 43.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.495,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 29470,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 72257,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2802,6 +2815,14 @@
             "low": 41.301601,
             "close": 41.470001,
             "volume": 51696
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.349998,
+            "high": 41.450001,
+            "low": 41.110001,
+            "close": 41.259998,
+            "volume": 52418
         }
     ]
 }

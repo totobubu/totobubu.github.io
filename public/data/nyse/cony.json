@@ -9,16 +9,16 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 4.87,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 4.6401,
         "englishName": "YieldMax COIN Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26656829,
-        "AvgVolume": 20298925,
+        "Volume": 21887616,
+        "AvgVolume": 20420754,
         "sharesOutstanding": null,
-        "52Week": "4.78 - 18.675",
+        "52Week": "4.58 - 18.675",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.87,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26656829,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20298925,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5357,8 +5370,16 @@
             "volume": 27226964
         },
         {
+            "date": "2025-11-19",
+            "open": 4.84,
+            "high": 4.87,
+            "low": 4.58,
+            "close": 4.76,
+            "volume": 27243327
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.0635
         },
         {
             "date": "2025-11-26",

@@ -9,16 +9,16 @@
         "underlying": "COIN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.01,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 16.74,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10363,
-        "AvgVolume": 28768,
+        "Volume": 7627,
+        "AvgVolume": 26929,
         "sharesOutstanding": null,
-        "52Week": "17.495 - 36.41",
+        "52Week": "16.7 - 36.41",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.01,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10363,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 28768,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1033,7 +1046,17 @@
             "high": 18.1406,
             "low": 17.73,
             "close": 17.741699,
-            "volume": 10675
+            "volume": 10675,
+            "amount": 0.098,
+            "yield": 0.3162350757
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.700001,
+            "high": 17.610001,
+            "low": 16.605,
+            "close": 17.34,
+            "volume": 15018
         },
         {
             "date": "2025-11-25",
@@ -1133,6 +1156,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

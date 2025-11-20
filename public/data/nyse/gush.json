@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 24.68,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.8401,
         "englishName": "Direxion Daily S&P Oil & Gas Exp. & Prod. Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1004013,
-        "AvgVolume": 1122328,
+        "Volume": 788374,
+        "AvgVolume": 1127023,
         "sharesOutstanding": null,
         "52Week": "14.7 - 35.87",
         "Yield": null,
@@ -52,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1004013,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1122328,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21417,6 +21430,14 @@
             "low": 23.25,
             "close": 24.639999,
             "volume": 1077675
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.67,
+            "high": 24.139999,
+            "low": 23.280001,
+            "close": 24.02,
+            "volume": 931143
         },
         {
             "date": "2025-12-23",

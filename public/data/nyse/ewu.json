@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.18,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 41.6501,
         "englishName": "iShares MSCI United Kingdom ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2859803904,
-        "Volume": 1377610,
-        "AvgVolume": 2377050,
+        "marketCap": 2823876864,
+        "Volume": 1906963,
+        "AvgVolume": 2360371,
         "sharesOutstanding": 67800000,
         "52Week": "32.76 - 43.72",
-        "Yield": 0.02129,
+        "Yield": 0.021561,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "AR0582556699",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.18,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2859803904,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1377610,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2377050,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.02129,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67684,7 +67705,16 @@
             "high": 42.250099,
             "low": 41.898998,
             "close": 42.189999,
-            "volume": 1464273
+            "volume": 1464273,
+            "marketCap": 2823876864
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.880001,
+            "high": 41.990002,
+            "low": 41.608501,
+            "close": 41.73,
+            "volume": 2260256
         }
     ]
 }

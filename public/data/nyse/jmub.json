@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 50.715,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 50.6634,
         "englishName": "JPMorgan Municipal ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 501052,
-        "AvgVolume": 762662,
+        "Volume": 344374,
+        "AvgVolume": 760689,
         "sharesOutstanding": null,
         "52Week": "47.95 - 51.06",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.715,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 501052,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 762662,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14359,6 +14372,14 @@
             "low": 50.66,
             "close": 50.715,
             "volume": 510127
+        },
+        {
+            "date": "2025-11-19",
+            "open": 50.740002,
+            "high": 50.75,
+            "low": 50.630001,
+            "close": 50.650002,
+            "volume": 546670
         },
         {
             "date": "2025-11-21",

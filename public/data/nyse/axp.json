@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 340.94,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 342.87,
         "englishName": "American Express Company",
         "earningsDate": "2025-10-17",
-        "enterpriseValue": 241577623552,
-        "marketCap": 237254098944,
-        "Volume": 3017631,
-        "AvgVolume": 2571590,
+        "enterpriseValue": 241171202048,
+        "marketCap": 238597144576,
+        "Volume": 1137686,
+        "AvgVolume": 2602854,
         "sharesOutstanding": 688851653,
         "52Week": "220.43 - 377.23",
-        "Yield": 0.009268,
+        "Yield": 0.009216,
         "dividendRate": 3.16,
         "payoutRatio": 0.1572,
         "isin": "US0258161092",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 340.94,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 241577623552,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 237254098944,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3017631,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2571590,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.009268,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123922,6 +123947,14 @@
             "low": 334.100006,
             "close": 340.660004,
             "volume": 4158763
+        },
+        {
+            "date": "2025-11-19",
+            "open": 341.709991,
+            "high": 345.320007,
+            "low": 340.742706,
+            "close": 344.640015,
+            "volume": 1616280
         },
         {
             "date": "2026-01-09",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.5,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 42.54,
         "englishName": "BNY Mellon Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 316671,
-        "AvgVolume": 118025,
+        "Volume": 93626,
+        "AvgVolume": 122087,
         "sharesOutstanding": null,
         "52Week": "40.74 - 43.07",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.5,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 316671,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 118025,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11368,6 +11381,14 @@
             "low": 42.458199,
             "close": 42.514999,
             "volume": 318040
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.57,
+            "high": 42.560001,
+            "low": 42.4795,
+            "close": 42.497002,
+            "volume": 126046
         },
         {
             "date": "2025-12-03",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.07,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 32.17,
         "englishName": "Direxion Daily Biotech Top 5 Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17360,
-        "AvgVolume": 3887,
+        "Volume": 7290,
+        "AvgVolume": 4285,
         "sharesOutstanding": null,
         "52Week": "25.71 - 38.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.07,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17360,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3887,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -300,6 +313,14 @@
             "low": 32.34,
             "close": 33.095798,
             "volume": 17386
+        },
+        {
+            "date": "2025-11-19",
+            "open": 32.860001,
+            "high": 32.880001,
+            "low": 31.940001,
+            "close": 32.135601,
+            "volume": 8891
         }
     ]
 }

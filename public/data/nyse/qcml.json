@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.93,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 20.185,
         "englishName": "GraniteShares 2x Long QCOM Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 122100,
-        "AvgVolume": 196512,
+        "Volume": 69459,
+        "AvgVolume": 197523,
         "sharesOutstanding": null,
         "52Week": "12.18 - 30.56",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.93,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 122100,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 196512,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1300,6 +1313,14 @@
             "low": 19.120001,
             "close": 19.9,
             "volume": 126087
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.790001,
+            "high": 20.469999,
+            "low": 19.704,
+            "close": 20.110001,
+            "volume": 57610
         }
     ]
 }

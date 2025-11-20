@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 76.84,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 75.625,
         "englishName": "Evergy, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 32488613888,
-        "marketCap": 17689653248,
-        "Volume": 910695,
-        "AvgVolume": 2135484,
+        "enterpriseValue": 32398831616,
+        "marketCap": 17409945600,
+        "Volume": 496710,
+        "AvgVolume": 2138193,
         "sharesOutstanding": 230214144,
         "52Week": "59.67 - 79.32",
-        "Yield": 0.034748,
+        "Yield": 0.035306,
         "dividendRate": 2.78,
         "payoutRatio": 0.7315,
         "isin": "US30034W1062",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.84,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 32488613888,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 17689653248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 910695,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2135484,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.034748,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -120062,6 +120087,14 @@
             "low": 76.620003,
             "close": 76.730003,
             "volume": 1364622
+        },
+        {
+            "date": "2025-11-19",
+            "open": 76.730003,
+            "high": 76.879997,
+            "low": 75.519997,
+            "close": 75.620003,
+            "volume": 1105633
         },
         {
             "date": "2025-11-21",

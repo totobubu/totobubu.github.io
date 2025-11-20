@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 22.1,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.1299,
         "englishName": "Global X Dow 30 Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 52974,
-        "AvgVolume": 37657,
+        "Volume": 18445,
+        "AvgVolume": 38145,
         "sharesOutstanding": null,
         "52Week": "19.59 - 24.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.1,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 52974,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 37657,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7672,6 +7685,14 @@
             "low": 21.999701,
             "close": 22.08,
             "volume": 52987
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.08,
+            "high": 22.1588,
+            "low": 22.049801,
+            "close": 22.139999,
+            "volume": 19683
         },
         {
             "date": "2025-11-20",

@@ -9,16 +9,16 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 3.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 2.38,
         "englishName": "Defiance Leveraged Long + Income MSTR ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1205809,
-        "AvgVolume": 693695,
+        "Volume": 2003729,
+        "AvgVolume": 697185,
         "sharesOutstanding": null,
-        "52Week": "2.63 - 24.23",
+        "52Week": "2.315 - 24.23",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1205809,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 693695,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1223,7 +1236,12 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 2.9,
+            "high": 2.916,
+            "low": 2.315,
+            "close": 2.44,
+            "volume": 2420701
         },
         {
             "date": "2025-11-26",

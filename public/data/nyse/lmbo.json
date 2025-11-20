@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 24.3642,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.1,
         "englishName": "Direxion Daily Crypto Industry Bull 2X Shares ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10512,
-        "AvgVolume": 15426,
+        "Volume": 4115,
+        "AvgVolume": 15434,
         "sharesOutstanding": null,
         "52Week": "10.41 - 48.4",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.3642,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10512,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15426,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2785,6 +2798,14 @@
             "low": 23.129999,
             "close": 24.104601,
             "volume": 10674
+        },
+        {
+            "date": "2025-11-19",
+            "open": 24.075899,
+            "high": 24.075899,
+            "low": 22.530001,
+            "close": 23.51,
+            "volume": 12318
         },
         {
             "date": "2025-12-24",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 78.5099,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 78.1499,
         "englishName": "Avantis International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 712127,
-        "AvgVolume": 795201,
+        "Volume": 351773,
+        "AvgVolume": 798134,
         "sharesOutstanding": null,
         "52Week": "58.555 - 81.275",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 78.5099,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 712127,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 795201,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12472,6 +12485,14 @@
             "low": 77.9599,
             "close": 78.449997,
             "volume": 768710
+        },
+        {
+            "date": "2025-11-19",
+            "open": 78.440002,
+            "high": 78.705002,
+            "low": 77.927002,
+            "close": 78.269997,
+            "volume": 688834
         }
     ]
 }

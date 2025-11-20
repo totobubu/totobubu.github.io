@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 140.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 139.63,
         "englishName": "Expeditors International of Washington, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 18434226176,
-        "marketCap": 19003308032,
-        "Volume": 748831,
-        "AvgVolume": 1312856,
+        "enterpriseValue": 18123296768,
+        "marketCap": 18950379520,
+        "Volume": 428586,
+        "AvgVolume": 1319828,
         "sharesOutstanding": 134020931,
         "52Week": "100.47 - 143.02",
-        "Yield": 0.010713,
+        "Yield": 0.010743,
         "dividendRate": 1.54,
         "payoutRatio": 0.2443,
         "isin": "US3021301094",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 140.02,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 18434226176,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 19003308032,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 748831,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1312856,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010713,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -93912,7 +93937,16 @@
             "high": 143.020004,
             "low": 138.735001,
             "close": 139.910004,
-            "volume": 960969
+            "volume": 960969,
+            "marketCap": 18950379520
+        },
+        {
+            "date": "2025-11-19",
+            "open": 140.429993,
+            "high": 140.929993,
+            "low": 138.940002,
+            "close": 139.130005,
+            "volume": 784310
         }
     ]
 }

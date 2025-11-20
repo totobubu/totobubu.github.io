@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.32,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 36.28,
         "englishName": "ProShares VIX Short-Term Futures ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5476939,
-        "AvgVolume": 2787734,
+        "Volume": 3908208,
+        "AvgVolume": 2841204,
         "sharesOutstanding": null,
         "52Week": "30.96 - 89.14",
         "Yield": null,
@@ -57,7 +57,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.32,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5476939,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2787734,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29995,6 +30008,14 @@
             "low": 35.32,
             "close": 36.75,
             "volume": 5810421
+        },
+        {
+            "date": "2025-11-19",
+            "open": 36.5,
+            "high": 36.919998,
+            "low": 34.830101,
+            "close": 35.82,
+            "volume": 5022620
         }
     ]
 }

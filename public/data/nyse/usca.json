@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 40.77,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 40.75,
         "englishName": "Xtrackers MSCI USA Climate Action Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 59741,
-        "AvgVolume": 26573,
+        "Volume": 588,
+        "AvgVolume": 27518,
         "sharesOutstanding": null,
         "52Week": "30.9 - 42.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.77,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 59741,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26573,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5366,6 +5379,14 @@
             "low": 40.470001,
             "close": 40.639999,
             "volume": 59942
+        },
+        {
+            "date": "2025-11-19",
+            "open": 40.75,
+            "high": 40.759499,
+            "low": 40.759499,
+            "close": 40.759499,
+            "volume": 588
         },
         {
             "date": "2025-12-19",

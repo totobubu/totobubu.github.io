@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 130.815,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 129.4,
         "englishName": "Constellation Brands, Inc.",
         "earningsDate": "2025-10-06",
-        "enterpriseValue": 33678546944,
-        "marketCap": 22770536448,
-        "Volume": 1423104,
-        "AvgVolume": 2788984,
+        "enterpriseValue": 33603291136,
+        "marketCap": 22524229632,
+        "Volume": 1074626,
+        "AvgVolume": 2783032,
         "sharesOutstanding": 174039535,
         "52Week": "126.45 - 245.31",
-        "Yield": 0.031036,
+        "Yield": 0.031376,
         "dividendRate": 4.08,
         "payoutRatio": 0.591,
         "isin": "US21036P1084",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 130.815,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 33678546944,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 22770536448,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1423104,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2788984,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.031036,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -76442,6 +76467,14 @@
             "low": 129.365005,
             "close": 130.529999,
             "volume": 1850943
+        },
+        {
+            "date": "2025-11-19",
+            "open": 130.029999,
+            "high": 131.070007,
+            "low": 128.774994,
+            "close": 129.270004,
+            "volume": 1772118
         },
         {
             "date": "2026-01-30",

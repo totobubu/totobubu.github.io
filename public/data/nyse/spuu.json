@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 175.4121,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 174.76,
         "englishName": "Direxion Daily S&P 500 Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19259,
-        "AvgVolume": 26950,
+        "Volume": 10399,
+        "AvgVolume": 26793,
         "sharesOutstanding": null,
         "52Week": "97.44 - 191.36",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 175.4121,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 19259,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26950,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23254,6 +23267,14 @@
             "low": 173.389999,
             "close": 174.940002,
             "volume": 21021
+        },
+        {
+            "date": "2025-11-19",
+            "open": 175.070007,
+            "high": 178.080002,
+            "low": 174.544998,
+            "close": 176.139008,
+            "volume": 13045
         },
         {
             "date": "2025-12-23",

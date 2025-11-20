@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 378.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 374.935,
         "englishName": "Waters Corporation",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 23583053824,
-        "marketCap": 22558904320,
-        "Volume": 239171,
-        "AvgVolume": 673868,
+        "enterpriseValue": 23502682112,
+        "marketCap": 22321657856,
+        "Volume": 348238,
+        "AvgVolume": 670743,
         "sharesOutstanding": 59534740,
         "52Week": "275.05 - 423.56",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 378.92,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 23583053824,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 22558904320,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 239171,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 673868,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67977,7 +67998,16 @@
             "high": 380.950012,
             "low": 372.269989,
             "close": 376.630005,
-            "volume": 306025
+            "volume": 306025,
+            "marketCap": 22321657856
+        },
+        {
+            "date": "2025-11-19",
+            "open": 375.369995,
+            "high": 377.605011,
+            "low": 372.029999,
+            "close": 376.25,
+            "volume": 478352
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.04,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.0035,
         "englishName": "Brown Advisory Flexible Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 54126,
-        "AvgVolume": 64096,
+        "Volume": 22485,
+        "AvgVolume": 64132,
         "sharesOutstanding": null,
         "52Week": "21.1 - 27.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 54126,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 64096,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2082,6 +2095,14 @@
             "low": 25.790001,
             "close": 25.976999,
             "volume": 51001
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.02,
+            "high": 26.190001,
+            "low": 26.0035,
+            "close": 26.0555,
+            "volume": 19878
         }
     ]
 }

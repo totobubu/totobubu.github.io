@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 35.0304,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.845,
         "englishName": "Fidelity Enhanced Mid Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 964477,
-        "AvgVolume": 618943,
+        "Volume": 531757,
+        "AvgVolume": 629601,
         "sharesOutstanding": null,
         "52Week": "26.928 - 36.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.0304,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 964477,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 618943,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4099,6 +4112,14 @@
             "low": 34.580002,
             "close": 34.91,
             "volume": 973822
+        },
+        {
+            "date": "2025-11-19",
+            "open": 35.029999,
+            "high": 35.369999,
+            "low": 34.77,
+            "close": 34.869999,
+            "volume": 717040
         },
         {
             "date": "2025-12-19",

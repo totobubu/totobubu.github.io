@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 50.34,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 50.355,
         "englishName": "Fidelity Low Duration Bond Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 249295,
-        "AvgVolume": 177570,
+        "Volume": 117882,
+        "AvgVolume": 179667,
         "sharesOutstanding": null,
         "52Week": "49.73 - 51.997",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.34,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 249295,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 177570,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15141,6 +15154,14 @@
             "low": 50.324501,
             "close": 50.349998,
             "volume": 268164
+        },
+        {
+            "date": "2025-11-19",
+            "open": 50.365002,
+            "high": 50.365002,
+            "low": 50.34,
+            "close": 50.355,
+            "volume": 159135
         },
         {
             "date": "2025-11-28",

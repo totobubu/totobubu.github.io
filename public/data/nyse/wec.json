@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 111.58,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 109.85,
         "englishName": "WEC Energy Group, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 58007572480,
-        "marketCap": 36296331264,
-        "Volume": 1263273,
-        "AvgVolume": 2126143,
+        "enterpriseValue": 57913237504,
+        "marketCap": 35733573632,
+        "Volume": 1091879,
+        "AvgVolume": 2129526,
         "sharesOutstanding": 325294252,
         "52Week": "91.94 - 118.19",
-        "Yield": 0.031484,
+        "Yield": 0.03198,
         "dividendRate": 3.57,
         "payoutRatio": 0.6652,
         "isin": "US92939U1060",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 111.58,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 58007572480,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36296331264,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1263273,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2126143,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.031484,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104892,6 +104917,14 @@
             "low": 111.489998,
             "close": 111.599998,
             "volume": 1460932
+        },
+        {
+            "date": "2025-11-19",
+            "open": 111.470001,
+            "high": 111.535004,
+            "low": 109.25,
+            "close": 110.160004,
+            "volume": 1748600
         },
         {
             "date": "2026-02-13",

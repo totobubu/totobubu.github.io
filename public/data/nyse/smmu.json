@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 50.465,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 50.46,
         "englishName": "PIMCO Short Term Municipal Bond Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 73498,
-        "AvgVolume": 102062,
+        "Volume": 16134,
+        "AvgVolume": 102446,
         "sharesOutstanding": null,
         "52Week": "45.5 - 52.05",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.465,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 73498,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 102062,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32190,6 +32203,14 @@
             "low": 50.420101,
             "close": 50.48,
             "volume": 75536
+        },
+        {
+            "date": "2025-11-19",
+            "open": 50.419998,
+            "high": 50.470001,
+            "low": 50.43,
+            "close": 50.450001,
+            "volume": 24120
         },
         {
             "date": "2025-12-03",

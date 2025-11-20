@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 35.9479,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.4342,
         "englishName": "STKd 100% Bitcoin & 100% Gold ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 652406,
-        "AvgVolume": 135287,
+        "Volume": 54728,
+        "AvgVolume": 145064,
         "sharesOutstanding": null,
         "52Week": "23.42 - 48.86",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.9479,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 652406,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 135287,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2249,6 +2262,14 @@
             "low": 35.139999,
             "close": 35.939999,
             "volume": 666786
+        },
+        {
+            "date": "2025-11-19",
+            "open": 35.549999,
+            "high": 36.25,
+            "low": 34.288101,
+            "close": 34.669998,
+            "volume": 78353
         }
     ]
 }

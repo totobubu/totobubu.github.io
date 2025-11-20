@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 101.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 100.77,
         "englishName": "Dollar Tree, Inc.",
-        "earningsDate": "2025-09-03",
-        "enterpriseValue": 27821746176,
-        "marketCap": 21157582848,
-        "Volume": 2166849,
-        "AvgVolume": 4599037,
+        "earningsDate": "2025-12-03",
+        "enterpriseValue": 27393413120,
+        "marketCap": 21030277120,
+        "Volume": 1622229,
+        "AvgVolume": 4610056,
         "sharesOutstanding": 203967842,
         "52Week": "61.7 - 118.06",
         "Yield": null,
@@ -57,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27821746176,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21157582848,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2166849,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4599037,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69610,7 +69631,16 @@
             "high": 103.940002,
             "low": 99.224403,
             "close": 101.57,
-            "volume": 4237368
+            "volume": 4237368,
+            "marketCap": 21030277120
+        },
+        {
+            "date": "2025-11-19",
+            "open": 101.910004,
+            "high": 102.470001,
+            "low": 99.32,
+            "close": 99.949997,
+            "volume": 3396176
         }
     ]
 }

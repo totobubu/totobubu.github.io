@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 139.98,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 140.715,
         "englishName": "abrdn Physical Platinum Shares ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 171958,
-        "AvgVolume": 412460,
+        "Volume": 181117,
+        "AvgVolume": 410514,
         "sharesOutstanding": null,
         "52Week": "82.35 - 157.85",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 139.98,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 171958,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 412460,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31956,6 +31969,14 @@
             "low": 138,
             "close": 139.869995,
             "volume": 176040
+        },
+        {
+            "date": "2025-11-19",
+            "open": 141.289993,
+            "high": 142.889999,
+            "low": 139.960007,
+            "close": 140.539993,
+            "volume": 208134
         }
     ]
 }

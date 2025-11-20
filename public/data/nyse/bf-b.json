@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.765,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.39,
         "englishName": "Brown-Forman Corporation",
         "earningsDate": "2025-12-04",
-        "enterpriseValue": 15363069952,
-        "marketCap": 13139499008,
-        "Volume": 2792651,
-        "AvgVolume": 3612642,
+        "enterpriseValue": 15320521728,
+        "marketCap": 12962033664,
+        "Volume": 1933868,
+        "AvgVolume": 3618018,
         "sharesOutstanding": 303608875,
         "52Week": "25.53 - 46.22",
-        "Yield": 0.032307,
+        "Yield": 0.032749,
         "dividendRate": 0.91,
         "payoutRatio": 0.5013,
         "isin": "US1156372096",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.765,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 15363069952,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 13139499008,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2792651,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3612642,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.032307,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107191,6 +107216,14 @@
             "low": 27.17,
             "close": 27.690001,
             "volume": 3795544
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.49,
+            "high": 27.790001,
+            "low": 27.02,
+            "close": 27.25,
+            "volume": 2957055
         },
         {
             "date": "2025-12-03",

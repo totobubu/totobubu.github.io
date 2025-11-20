@@ -9,8 +9,8 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.127,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 18.0838,
         "englishName": "PEO AlphaQuest Thematic PE ETF",
         "earningsDate": null,
         "enterpriseValue": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.127,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1676,6 +1681,14 @@
             "high": 18.127001,
             "low": 18.127001,
             "close": 18.127001,
+            "volume": 0
+        },
+        {
+            "date": "2025-11-18",
+            "open": 18.084,
+            "high": 18.084,
+            "low": 18.084,
+            "close": 18.084,
             "volume": 0
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 69.05,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 68.8495,
         "englishName": "Fidelity Value Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 117593,
-        "AvgVolume": 31134,
+        "Volume": 17923,
+        "AvgVolume": 32468,
         "sharesOutstanding": null,
         "52Week": "51.583 - 71.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.05,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 117593,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 31134,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18618,6 +18631,14 @@
             "low": 68.379997,
             "close": 69.010002,
             "volume": 120434
+        },
+        {
+            "date": "2025-11-19",
+            "open": 68.900002,
+            "high": 69.4739,
+            "low": 68.705002,
+            "close": 69.040001,
+            "volume": 48058
         },
         {
             "date": "2025-12-19",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 59.53,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 59.14,
         "englishName": "SPDR S&P Global Natural Resources ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 105748,
-        "AvgVolume": 298585,
+        "Volume": 45434,
+        "AvgVolume": 293668,
         "sharesOutstanding": null,
         "52Week": "45.18 - 61.19",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 105748,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 298585,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30700,6 +30713,14 @@
             "low": 58.955002,
             "close": 59.450001,
             "volume": 115198
+        },
+        {
+            "date": "2025-11-19",
+            "open": 59.450001,
+            "high": 59.538898,
+            "low": 59.009998,
+            "close": 59.279999,
+            "volume": 84043
         }
     ]
 }

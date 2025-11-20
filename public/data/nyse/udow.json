@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 103.91,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 102.275,
         "englishName": "ProShares UltraPro Dow30",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11750559,
-        "AvgVolume": 2468056,
+        "Volume": 5650270,
+        "AvgVolume": 2618545,
         "sharesOutstanding": null,
         "52Week": "56.9 - 120.07",
         "Yield": null,
@@ -47,7 +47,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11750559,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2468056,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32409,6 +32422,14 @@
             "low": 102.129997,
             "close": 103.379997,
             "volume": 12094133
+        },
+        {
+            "date": "2025-11-19",
+            "open": 103.449997,
+            "high": 104.699898,
+            "low": 102.044998,
+            "close": 103.559998,
+            "volume": 6539961
         },
         {
             "date": "2025-12-24",

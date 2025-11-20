@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 61.9,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 61.66,
         "englishName": "Main Sector Rotation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 153591,
-        "AvgVolume": 83929,
+        "Volume": 60927,
+        "AvgVolume": 85253,
         "sharesOutstanding": null,
         "52Week": "44.183 - 65.23",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.9,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 153591,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 83929,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16637,6 +16650,14 @@
             "low": 61.439999,
             "close": 61.759998,
             "volume": 153686
+        },
+        {
+            "date": "2025-11-19",
+            "open": 61.77,
+            "high": 62.43,
+            "low": 61.559399,
+            "close": 61.900002,
+            "volume": 84353
         },
         {
             "date": "2025-12-23",

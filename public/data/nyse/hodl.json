@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.23,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.11,
         "englishName": "VanEck Bitcoin ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1718758,
-        "AvgVolume": 1722670,
+        "Volume": 1794081,
+        "AvgVolume": 1739437,
         "sharesOutstanding": null,
         "52Week": "21.41 - 35.76",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.23,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1718758,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1722670,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3762,6 +3775,14 @@
             "low": 25.73,
             "close": 26.23,
             "volume": 1804814
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.77,
+            "high": 26.110001,
+            "low": 25.021299,
+            "close": 25.26,
+            "volume": 2981413
         }
     ]
 }

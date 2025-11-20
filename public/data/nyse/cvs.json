@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 77.83,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 76.47,
         "englishName": "CVS Health Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 170238197760,
-        "marketCap": 98799927296,
-        "Volume": 4228283,
-        "AvgVolume": 7337221,
+        "enterpriseValue": 169641574400,
+        "marketCap": 97073504256,
+        "Volume": 3197606,
+        "AvgVolume": 7353175,
         "sharesOutstanding": 1269432485,
         "52Week": "43.56 - 85.15",
-        "Yield": 0.034177,
+        "Yield": 0.034785,
         "dividendRate": 2.66,
         "payoutRatio": 7,
         "isin": "US1266501006",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.83,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 170238197760,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 98799927296,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4228283,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7337221,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.034177,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121093,6 +121118,14 @@
             "low": 77.334999,
             "close": 77.940002,
             "volume": 6119559
+        },
+        {
+            "date": "2025-11-19",
+            "open": 77.959999,
+            "high": 78.169998,
+            "low": 76.305,
+            "close": 76.550003,
+            "volume": 4968320
         },
         {
             "date": "2026-01-23",

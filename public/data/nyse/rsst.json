@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.65,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.63,
         "englishName": "Return Stacked U.S. Stocks & Managed Futures ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 83387,
-        "AvgVolume": 47626,
+        "Volume": 25082,
+        "AvgVolume": 48582,
         "sharesOutstanding": null,
         "52Week": "17.62 - 28.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.65,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 83387,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 47626,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4481,6 +4494,14 @@
             "low": 26.23,
             "close": 26.719999,
             "volume": 83505
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.57,
+            "high": 27.069,
+            "low": 25.879999,
+            "close": 26.700001,
+            "volume": 28236
         },
         {
             "date": "2025-12-18",

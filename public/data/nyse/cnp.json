@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 39.975,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 39.6,
         "englishName": "CenterPoint Energy, Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 47897247744,
-        "marketCap": 26098409472,
-        "Volume": 3225587,
-        "AvgVolume": 5011137,
+        "enterpriseValue": 47773200384,
+        "marketCap": 25853583360,
+        "Volume": 1813382,
+        "AvgVolume": 5048157,
         "sharesOutstanding": 652868273,
         "52Week": "30.59 - 40.5",
-        "Yield": 0.021764,
+        "Yield": 0.02197,
         "dividendRate": 0.88,
         "payoutRatio": 0.5506,
         "isin": "US15189T1079",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.975,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 47897247744,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 26098409472,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3225587,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5011137,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.021764,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -147660,6 +147685,14 @@
             "low": 39.935001,
             "close": 39.990002,
             "volume": 3876913
+        },
+        {
+            "date": "2025-11-19",
+            "open": 39.93,
+            "high": 40.130001,
+            "low": 39.52,
+            "close": 39.610001,
+            "volume": 3329799
         },
         {
             "date": "2025-11-21",

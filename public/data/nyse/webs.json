@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.09,
         "englishName": "Direxion Daily Dow Jones Internet Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63274,
-        "AvgVolume": 53784,
+        "Volume": 43580,
+        "AvgVolume": 53884,
         "sharesOutstanding": null,
         "52Week": "16.84 - 65.1",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.38,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 63274,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 53784,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12302,6 +12315,14 @@
             "low": 20.969101,
             "close": 21.530001,
             "volume": 65575
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.379999,
+            "high": 22.139999,
+            "low": 21.1845,
+            "close": 21.91,
+            "volume": 60047
         },
         {
             "date": "2025-12-23",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 107.6,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 107.68,
         "englishName": "The Bank of New York Mellon Corporation",
         "earningsDate": "2026-01-13",
-        "enterpriseValue": -20304033792,
-        "marketCap": 75883913216,
-        "Volume": 2363844,
-        "AvgVolume": 3266668,
+        "enterpriseValue": -19794968576,
+        "marketCap": 75940331520,
+        "Volume": 1544433,
+        "AvgVolume": 3275428,
         "sharesOutstanding": 697349124,
         "52Week": "70.46 - 113.74",
-        "Yield": 0.01803,
+        "Yield": 0.018016,
         "dividendRate": 2.12,
         "payoutRatio": 0.2799,
         "isin": "US0640581007",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 107.6,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": -20304033792,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 75883913216,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2363844,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3266668,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01803,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -120782,6 +120807,14 @@
             "low": 105.849998,
             "close": 107.5,
             "volume": 2805028
+        },
+        {
+            "date": "2025-11-19",
+            "open": 107.279999,
+            "high": 108.139999,
+            "low": 106.860001,
+            "close": 107.510002,
+            "volume": 2552189
         },
         {
             "date": "2026-01-27",

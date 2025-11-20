@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 66.8948,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 66.76,
         "englishName": "Principal U.S. Mega-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 78461,
-        "AvgVolume": 168578,
+        "Volume": 51252,
+        "AvgVolume": 168509,
         "sharesOutstanding": null,
         "52Week": "49.011 - 70.08",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.8948,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 78461,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 168578,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16434,6 +16447,14 @@
             "low": 66.407799,
             "close": 66.852203,
             "volume": 76534
+        },
+        {
+            "date": "2025-11-19",
+            "open": 66.739998,
+            "high": 67.482697,
+            "low": 66.635002,
+            "close": 67.114502,
+            "volume": 65372
         },
         {
             "date": "2025-12-31",

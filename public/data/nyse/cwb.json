@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 88.29,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 88.015,
         "englishName": "SPDR Bloomberg Convertible Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 557435,
-        "AvgVolume": 554332,
+        "Volume": 244536,
+        "AvgVolume": 558843,
         "sharesOutstanding": null,
         "52Week": "70.56 - 94.94",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 88.29,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 557435,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 554332,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33868,6 +33881,14 @@
             "low": 87.379997,
             "close": 88.129997,
             "volume": 593995
+        },
+        {
+            "date": "2025-11-19",
+            "open": 88.25,
+            "high": 89.040001,
+            "low": 87.745003,
+            "close": 88.25,
+            "volume": 340682
         },
         {
             "date": "2025-12-03",

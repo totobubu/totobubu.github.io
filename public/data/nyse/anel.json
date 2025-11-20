@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 15.05,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 15.0501,
         "englishName": "Defiance Daily Target 2X Long ANET ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 45349,
-        "AvgVolume": 86971,
+        "Volume": 19736,
+        "AvgVolume": 86220,
         "sharesOutstanding": null,
         "52Week": "14.72 - 26.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.05,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 45349,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 86971,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -472,6 +485,14 @@
             "low": 14.72,
             "close": 14.8619,
             "volume": 46380
+        },
+        {
+            "date": "2025-11-19",
+            "open": 14.83,
+            "high": 15.5,
+            "low": 14.76,
+            "close": 15.1162,
+            "volume": 17636
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 62.42,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 62.44,
         "englishName": "Skyworks Solutions, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 9219514368,
-        "marketCap": 9280590848,
-        "Volume": 2263969,
-        "AvgVolume": 2847509,
+        "enterpriseValue": 9094623232,
+        "marketCap": 9283564544,
+        "Volume": 1590115,
+        "AvgVolume": 2866004,
         "sharesOutstanding": 148679767,
         "52Week": "47.93 - 95.46",
-        "Yield": 0.045018,
+        "Yield": 0.045003,
         "dividendRate": 2.84,
         "payoutRatio": 0.9123,
         "isin": "US83088M1027",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 62.42,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 9219514368,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9280590848,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2263969,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2847509,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.045018,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -93546,14 +93571,24 @@
             "high": 63.310001,
             "low": 61.705002,
             "close": 62.32,
-            "volume": 3129456
+            "volume": 3129456,
+            "amount": 0.71,
+            "yield": 0.056719303
         },
         {
-            "date": "2025-11-26",
+            "date": "2025-11-19",
+            "open": 62.549999,
+            "high": 63.439999,
+            "low": 61.650002,
+            "close": 62.59,
+            "volume": 2989777
+        },
+        {
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-26",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

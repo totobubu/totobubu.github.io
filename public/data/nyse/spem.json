@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.7365,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 46.55,
         "englishName": "SPDR Portfolio Emerging Markets ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3589363200,
-        "Volume": 3636209,
-        "AvgVolume": 1943831,
+        "marketCap": 3575040000,
+        "Volume": 1360504,
+        "AvgVolume": 1978720,
         "sharesOutstanding": 76800000,
         "52Week": "34.38 - 48.56",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.7365,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3589363200,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3636209,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1943831,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42560,7 +42577,16 @@
             "high": 46.867802,
             "low": 46.450001,
             "close": 46.720001,
-            "volume": 3804908
+            "volume": 3804908,
+            "marketCap": 3575040000
+        },
+        {
+            "date": "2025-11-19",
+            "open": 46.619999,
+            "high": 46.84,
+            "low": 46.459999,
+            "close": 46.619999,
+            "volume": 2377320
         }
     ]
 }

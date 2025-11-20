@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.795,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 30.79,
         "englishName": "SPDR Bloomberg Investment Grade Floating Rate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2047411,
-        "AvgVolume": 853498,
+        "Volume": 645099,
+        "AvgVolume": 866915,
         "sharesOutstanding": null,
         "52Week": "30.01 - 30.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.795,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2047411,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 853498,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28457,6 +28470,14 @@
             "low": 30.780001,
             "close": 30.799999,
             "volume": 2133480
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.799999,
+            "high": 30.809999,
+            "low": 30.790001,
+            "close": 30.790001,
+            "volume": 924766
         },
         {
             "date": "2025-12-03",

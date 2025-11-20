@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 165.29,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 166.31,
         "englishName": "QUALCOMM Incorporated",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 184077254656,
-        "marketCap": 178347917312,
-        "Volume": 8062467,
-        "AvgVolume": 9576610,
+        "enterpriseValue": 182267265024,
+        "marketCap": 179448496128,
+        "Volume": 3967552,
+        "AvgVolume": 9649767,
         "sharesOutstanding": 1071000000,
         "52Week": "120.8 - 205.95",
-        "Yield": 0.021054,
+        "Yield": 0.020925,
         "dividendRate": 3.56,
         "payoutRatio": 0.6946,
         "isin": "US7475251036",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 165.29,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 184077254656,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 178347917312,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8062467,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9576610,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.021054,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77182,6 +77207,14 @@
             "low": 161.389999,
             "close": 165.059998,
             "volume": 11067830
+        },
+        {
+            "date": "2025-11-19",
+            "open": 164.690002,
+            "high": 167.509995,
+            "low": 164.110001,
+            "close": 166.110001,
+            "volume": 8042101
         },
         {
             "date": "2025-12-04",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 16.205,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 15.645,
         "englishName": "PG&E Corporation",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 97111875584,
-        "marketCap": 35617140736,
-        "Volume": 23424591,
-        "AvgVolume": 23531989,
+        "enterpriseValue": 96716251136,
+        "marketCap": 34386313216,
+        "Volume": 37219991,
+        "AvgVolume": 23456776,
         "sharesOutstanding": 2197910425,
         "52Week": "12.97 - 21.72",
-        "Yield": 0.006171,
+        "Yield": 0.006392,
         "dividendRate": 0.1,
         "payoutRatio": 0.084,
         "isin": "US69331C1080",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.205,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 97111875584,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 35617140736,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 23424591,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 23531989,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006171,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122046,6 +122071,14 @@
             "low": 16.145,
             "close": 16.15,
             "volume": 28874189
+        },
+        {
+            "date": "2025-11-19",
+            "open": 16.209999,
+            "high": 16.33,
+            "low": 15.59,
+            "close": 15.72,
+            "volume": 48497699
         },
         {
             "date": "2025-12-30",

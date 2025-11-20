@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.055,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.0331,
         "englishName": "Hilton Bdc Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15008,
-        "AvgVolume": 55920,
+        "Volume": 1837,
+        "AvgVolume": 55757,
         "sharesOutstanding": null,
         "52Week": "23.16 - 27.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.055,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15008,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 55920,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -939,6 +952,14 @@
             "low": 25,
             "close": 25.059999,
             "volume": 12214
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.054399,
+            "high": 25.08,
+            "low": 25.010099,
+            "close": 25.059999,
+            "volume": 5498
         },
         {
             "date": "2025-11-28",

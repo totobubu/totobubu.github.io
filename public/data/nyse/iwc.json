@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 146.735,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 146.31,
         "englishName": "iShares Micro-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 62487,
-        "AvgVolume": 44526,
+        "Volume": 20931,
+        "AvgVolume": 45051,
         "sharesOutstanding": null,
         "52Week": "95.25 - 161.95",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 146.735,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 62487,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 44526,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41026,6 +41039,14 @@
             "low": 144.811401,
             "close": 146.639999,
             "volume": 63423
+        },
+        {
+            "date": "2025-11-19",
+            "open": 146.660004,
+            "high": 147.830002,
+            "low": 145.940002,
+            "close": 146.809998,
+            "volume": 29972
         },
         {
             "date": "2025-12-16",

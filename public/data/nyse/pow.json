@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.72,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.6,
         "englishName": "VistaShares Electrification Supercycle ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9101,
-        "AvgVolume": 20053,
+        "Volume": 2918,
+        "AvgVolume": 19418,
         "sharesOutstanding": null,
         "52Week": "19.451 - 21.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.72,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9101,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20053,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -156,6 +169,14 @@
             "low": 19.451,
             "close": 19.65,
             "volume": 9929
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.799999,
+            "high": 19.686399,
+            "low": 19.540199,
+            "close": 19.636299,
+            "volume": 3266
         }
     ]
 }

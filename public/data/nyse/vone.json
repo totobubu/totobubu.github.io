@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 299.595,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 298.73,
         "englishName": "Vanguard Russell 1000 Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 67247,
-        "AvgVolume": 66509,
+        "Volume": 40187,
+        "AvgVolume": 66976,
         "sharesOutstanding": null,
         "52Week": "218.75 - 312.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 299.595,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 67247,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 66509,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30710,6 +30723,14 @@
             "low": 297.209991,
             "close": 298.959991,
             "volume": 60220
+        },
+        {
+            "date": "2025-11-19",
+            "open": 299.390015,
+            "high": 301.894897,
+            "low": 298.329987,
+            "close": 299.992401,
+            "volume": 55161
         },
         {
             "date": "2025-12-24",

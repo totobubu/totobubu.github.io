@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 43.5028,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 43.521,
         "englishName": "FT Vest U.S. Equity Buffer ETF - April",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 16046,
-        "AvgVolume": 17250,
+        "Volume": 6025,
+        "AvgVolume": 17389,
         "sharesOutstanding": null,
         "52Week": "36.728 - 43.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.5028,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16046,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17250,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9260,6 +9273,14 @@
             "low": 43.41,
             "close": 43.5037,
             "volume": 16083
+        },
+        {
+            "date": "2025-11-19",
+            "open": 43.459999,
+            "high": 43.630001,
+            "low": 43.459999,
+            "close": 43.52,
+            "volume": 14941
         }
     ]
 }

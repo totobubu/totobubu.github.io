@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 20.64,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 20.655,
         "englishName": "Franklin U.S. Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 34285,
-        "AvgVolume": 83576,
+        "Volume": 234707,
+        "AvgVolume": 82898,
         "sharesOutstanding": null,
         "52Week": "19.44 - 21.3",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.64,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 34285,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 83576,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11100,6 +11113,14 @@
             "low": 20.620001,
             "close": 20.639999,
             "volume": 42683
+        },
+        {
+            "date": "2025-11-19",
+            "open": 20.66,
+            "high": 20.66,
+            "low": 20.6215,
+            "close": 20.629999,
+            "volume": 257397
         },
         {
             "date": "2025-12-03",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 2.925,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 2.9702,
         "englishName": "Rezolve AI PLC",
         "earningsDate": "2025-10-01",
-        "enterpriseValue": 738129728,
-        "marketCap": 944080768,
-        "Volume": 9753505,
-        "AvgVolume": 20305310,
+        "enterpriseValue": 771808448,
+        "marketCap": 958669632,
+        "Volume": 9443716,
+        "AvgVolume": 20150639,
         "sharesOutstanding": 322762647,
         "52Week": "1.07 - 8.45",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.925,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 738129728,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 944080768,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9753505,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20305310,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8109,7 +8130,16 @@
             "high": 2.98,
             "low": 2.69,
             "close": 2.88,
-            "volume": 10713618
+            "volume": 10713618,
+            "marketCap": 958669632
+        },
+        {
+            "date": "2025-11-19",
+            "open": 2.9,
+            "high": 3.165,
+            "low": 2.865,
+            "close": 3.01,
+            "volume": 11968081
         }
     ]
 }

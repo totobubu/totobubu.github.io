@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.082,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.055,
         "englishName": "Xtrackers International Real Estate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 64837,
-        "AvgVolume": 65631,
+        "Volume": 56604,
+        "AvgVolume": 65792,
         "sharesOutstanding": null,
         "52Week": "18.76 - 24.15",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.082,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 64837,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 65631,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24552,6 +24565,14 @@
             "low": 23.030001,
             "close": 23.07,
             "volume": 64968
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.120001,
+            "high": 23.185101,
+            "low": 23.02,
+            "close": 23.07,
+            "volume": 60924
         }
     ]
 }

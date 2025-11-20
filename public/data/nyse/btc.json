@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.0265,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 39.3601,
         "englishName": "Grayscale Bitcoin Mini Trust ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2227867,
-        "AvgVolume": 1764629,
+        "Volume": 2249026,
+        "AvgVolume": 1779100,
         "sharesOutstanding": null,
         "52Week": "33.53 - 55.96",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.0265,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2227867,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1764629,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2658,6 +2671,14 @@
             "low": 40.240002,
             "close": 41.07,
             "volume": 2316159
+        },
+        {
+            "date": "2025-11-19",
+            "open": 40.349998,
+            "high": 40.869999,
+            "low": 39.165001,
+            "close": 39.57,
+            "volume": 2915418
         }
     ]
 }

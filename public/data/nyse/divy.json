@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.5,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.28,
         "englishName": "Tidal ETF Trust - Sound Equity Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1620,
-        "AvgVolume": 3507,
+        "Volume": 737,
+        "AvgVolume": 3498,
         "sharesOutstanding": null,
         "52Week": "21.55 - 27.49",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.5,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1620,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3507,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10100,6 +10113,14 @@
             "low": 25.410999,
             "close": 25.535299,
             "volume": 2164
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.280001,
+            "high": 25.280001,
+            "low": 25.2265,
+            "close": 25.24,
+            "volume": 1473
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.4184,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.35,
         "englishName": "Schwab U.S. Broad Market ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15924108,
-        "AvgVolume": 6631312,
+        "Volume": 8991658,
+        "AvgVolume": 6797045,
         "sharesOutstanding": null,
         "52Week": "18.52 - 26.57",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.4184,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15924108,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6631312,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33247,6 +33260,14 @@
             "low": 25.1901,
             "close": 25.370001,
             "volume": 16076134
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.389999,
+            "high": 25.6399,
+            "low": 25.300699,
+            "close": 25.450001,
+            "volume": 10704119
         },
         {
             "date": "2025-12-24",

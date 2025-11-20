@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 3.155,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 2.995,
         "englishName": "AdvisorShares Pure US Cannabis ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8337652,
-        "AvgVolume": 11533718,
+        "Volume": 3987593,
+        "AvgVolume": 11444625,
         "sharesOutstanding": null,
         "52Week": "2.02 - 6.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.155,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8337652,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11533718,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10522,6 +10535,14 @@
             "low": 3.07,
             "close": 3.16,
             "volume": 8903302
+        },
+        {
+            "date": "2025-11-19",
+            "open": 3.16,
+            "high": 3.27,
+            "low": 2.96,
+            "close": 2.99,
+            "volume": 6508679
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 83.48,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 83.33,
         "englishName": "Starbucks Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 118332801024,
-        "marketCap": 94925111296,
-        "Volume": 5356846,
-        "AvgVolume": 9742165,
+        "enterpriseValue": 117923446784,
+        "marketCap": 94754545664,
+        "Volume": 3619836,
+        "AvgVolume": 9748046,
         "sharesOutstanding": 1137100000,
         "52Week": "75.5 - 117.46",
-        "Yield": 0.029348,
+        "Yield": 0.029401,
         "dividendRate": 2.48,
         "payoutRatio": 1.4969,
         "isin": "US8552441094",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 83.48,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 118332801024,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 94925111296,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5356846,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9742165,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.029348,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -75989,6 +76014,10 @@
             "volume": 10496623
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.62
+        },
+        {
             "date": "2025-11-17",
             "open": 85.129997,
             "high": 86.845001,
@@ -76005,11 +76034,19 @@
             "volume": 7113100
         },
         {
+            "date": "2025-11-19",
+            "open": 83.260002,
+            "high": 84.389999,
+            "low": 83.029999,
+            "close": 83.68,
+            "volume": 6169752
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

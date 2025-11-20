@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 73.24,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 72.75,
         "englishName": "Fidelity MSCI Health Care Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 231396,
-        "AvgVolume": 165814,
+        "Volume": 91128,
+        "AvgVolume": 166298,
         "sharesOutstanding": null,
         "52Week": "60.35 - 73.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.24,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 231396,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 165814,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24464,6 +24477,14 @@
             "low": 72.529999,
             "close": 73.150002,
             "volume": 237156
+        },
+        {
+            "date": "2025-11-19",
+            "open": 73.099998,
+            "high": 73.284798,
+            "low": 72.690002,
+            "close": 73.040001,
+            "volume": 118061
         },
         {
             "date": "2025-12-19",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 475.25,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 470.16,
         "englishName": "Lockheed Martin Corporation",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 127656452096,
-        "marketCap": 110954266624,
-        "Volume": 938222,
-        "AvgVolume": 1345431,
+        "enterpriseValue": 128568164352,
+        "marketCap": 109765935104,
+        "Volume": 459358,
+        "AvgVolume": 1345346,
         "sharesOutstanding": 231397796,
         "52Week": "410.11 - 546.0",
-        "Yield": 0.027775,
+        "Yield": 0.028076,
         "dividendRate": 13.8,
         "payoutRatio": 0.7354,
         "isin": "US5398301094",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 475.25,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 127656452096,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 110954266624,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 938222,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1345431,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.027775,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -146377,6 +146402,14 @@
             "low": 471.195801,
             "close": 474.720001,
             "volume": 1044129
+        },
+        {
+            "date": "2025-11-19",
+            "open": 472,
+            "high": 472.380005,
+            "low": 468.299988,
+            "close": 469.910004,
+            "volume": 681269
         },
         {
             "date": "2025-12-02",

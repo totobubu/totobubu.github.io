@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.5201,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 53.445,
         "englishName": "Roundhill Daily 2X Long Magnificent Seven ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 59535,
-        "AvgVolume": 124085,
+        "Volume": 45161,
+        "AvgVolume": 123454,
         "sharesOutstanding": null,
         "52Week": "22.41 - 63.47",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.5201,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 59535,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 124085,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3573,7 +3586,23 @@
             "high": 54.9114,
             "low": 52.110001,
             "close": 53.130001,
-            "volume": 61242
+            "volume": 61242,
+            "leverage_exposure": [
+                {
+                    "symbol": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "name": "ROUNDHILL MAGNIFICENT SEVEN SWAP",
+                    "weight": 200.35,
+                    "type": "swap"
+                }
+            ]
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.439999,
+            "high": 55.369999,
+            "low": 53.200001,
+            "close": 54.080002,
+            "volume": 53041
         }
     ]
 }

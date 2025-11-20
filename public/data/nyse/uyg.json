@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 89.539,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 89.46,
         "englishName": "ProShares Ultra Financials",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9892,
-        "AvgVolume": 13004,
+        "Volume": 4599,
+        "AvgVolume": 13073,
         "sharesOutstanding": null,
         "52Week": "63.09 - 102.0",
         "Yield": null,
@@ -42,7 +42,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 89.539,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9892,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13004,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38579,6 +38592,14 @@
             "low": 88.379997,
             "close": 89.2435,
             "volume": 9892
+        },
+        {
+            "date": "2025-11-19",
+            "open": 89.459999,
+            "high": 89.923698,
+            "low": 88.929199,
+            "close": 89.923698,
+            "volume": 4871
         },
         {
             "date": "2025-12-24",

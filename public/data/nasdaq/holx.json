@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 74.155,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 74.14,
         "englishName": "Hologic, Inc.",
         "earningsDate": "2025-11-03",
-        "enterpriseValue": 16931243008,
-        "marketCap": 16504419328,
-        "Volume": 2307768,
-        "AvgVolume": 2958384,
+        "enterpriseValue": 16924515328,
+        "marketCap": 16501081088,
+        "Volume": 1443992,
+        "AvgVolume": 2987984,
         "sharesOutstanding": 222566511,
         "52Week": "51.9 - 80.31",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.155,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16931243008,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 16504419328,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2307768,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2958384,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -81007,7 +81028,16 @@
             "high": 74.199997,
             "low": 74.110001,
             "close": 74.110001,
-            "volume": 2867915
+            "volume": 2867915,
+            "marketCap": 16501081088
+        },
+        {
+            "date": "2025-11-19",
+            "open": 74.150002,
+            "high": 74.230003,
+            "low": 74.120003,
+            "close": 74.169998,
+            "volume": 2734976
         }
     ]
 }

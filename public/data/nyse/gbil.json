@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 100.06,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 100.0701,
         "englishName": "Goldman Sachs Access Treasury 0-1 Year ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 788291,
-        "AvgVolume": 624754,
+        "Volume": 599974,
+        "AvgVolume": 631164,
         "sharesOutstanding": null,
         "52Week": "99.82 - 100.24",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.06,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 788291,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 624754,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18682,6 +18695,14 @@
             "low": 100.059998,
             "close": 100.059998,
             "volume": 795984
+        },
+        {
+            "date": "2025-11-19",
+            "open": 100.07,
+            "high": 100.080002,
+            "low": 100.07,
+            "close": 100.07,
+            "volume": 726546
         },
         {
             "date": "2025-12-03",

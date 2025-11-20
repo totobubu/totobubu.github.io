@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 99.97,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 99.2,
         "englishName": "iShares Core S&P U.S. Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 9947015168,
-        "Volume": 1422081,
-        "AvgVolume": 767453,
+        "marketCap": 9870399488,
+        "Volume": 462020,
+        "AvgVolume": 783382,
         "sharesOutstanding": 99500000,
         "52Week": "80.14 - 102.75",
-        "Yield": 0.014474,
+        "Yield": 0.014587,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642876639",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 99.97,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9947015168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1422081,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 767453,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.014474,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58049,6 +58070,14 @@
             "low": 99.279999,
             "close": 99.870003,
             "volume": 767377
+        },
+        {
+            "date": "2025-11-19",
+            "open": 99.699997,
+            "high": 100.074997,
+            "low": 99.1045,
+            "close": 99.5,
+            "volume": 669293
         },
         {
             "date": "2025-12-16",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 17.325,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.33,
         "englishName": "VanEck Short Muni ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 34373,
-        "AvgVolume": 48126,
+        "Volume": 15821,
+        "AvgVolume": 47915,
         "sharesOutstanding": null,
         "52Week": "16.7 - 17.48",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.325,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 34373,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48126,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36202,6 +36215,14 @@
             "low": 17.32,
             "close": 17.34,
             "volume": 34474
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.335899,
+            "high": 17.34,
+            "low": 17.329,
+            "close": 17.334999,
+            "volume": 25677
         },
         {
             "date": "2025-12-03",

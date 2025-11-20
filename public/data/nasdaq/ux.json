@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.7,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 28.51,
         "englishName": "Roundhill Uranium ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3420,
-        "AvgVolume": 4993,
+        "Volume": 1621,
+        "AvgVolume": 4840,
         "sharesOutstanding": null,
         "52Week": "20.37 - 31.69",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.7,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3420,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4993,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1748,6 +1761,14 @@
             "low": 27.700001,
             "close": 27.7363,
             "volume": 3420
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.790001,
+            "high": 28.5625,
+            "low": 28.5509,
+            "close": 28.5625,
+            "volume": 1767
         }
     ]
 }

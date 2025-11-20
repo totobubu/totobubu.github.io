@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 35.959,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 35.56,
         "englishName": "Global X Information Technology Covered Call & Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 33,
-        "AvgVolume": 2100,
+        "Volume": 100,
+        "AvgVolume": 2056,
         "sharesOutstanding": null,
         "52Week": "25.575 - 37.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.959,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 33,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2100,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6137,6 +6150,14 @@
             "low": 35.560001,
             "close": 35.560001,
             "volume": 33
+        },
+        {
+            "date": "2025-11-18",
+            "open": 35.560001,
+            "high": 35.560001,
+            "low": 35.560001,
+            "close": 35.560001,
+            "volume": 100
         },
         {
             "date": "2025-11-20",

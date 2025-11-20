@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.968,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.0142,
         "englishName": "T. Rowe Price U.S. High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4178,
-        "AvgVolume": 7656,
+        "Volume": 11515,
+        "AvgVolume": 7607,
         "sharesOutstanding": null,
         "52Week": "49.03 - 52.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.968,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4178,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7656,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6250,6 +6263,14 @@
             "low": 51.899899,
             "close": 51.965,
             "volume": 4178
+        },
+        {
+            "date": "2025-11-19",
+            "open": 52,
+            "high": 52.059898,
+            "low": 51.91,
+            "close": 51.996498,
+            "volume": 13966
         },
         {
             "date": "2025-11-28",

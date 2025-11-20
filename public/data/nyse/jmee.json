@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 61.865,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 61.5894,
         "englishName": "JPMorgan Small & Mid Cap Enhanced Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 71561,
-        "AvgVolume": 100764,
+        "Volume": 107101,
+        "AvgVolume": 100882,
         "sharesOutstanding": null,
         "52Week": "48.176 - 66.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.865,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 71561,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 100764,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7179,6 +7192,14 @@
             "low": 61.101799,
             "close": 61.740002,
             "volume": 74050
+        },
+        {
+            "date": "2025-11-19",
+            "open": 61.73,
+            "high": 62.1903,
+            "low": 61.560001,
+            "close": 61.82,
+            "volume": 149041
         },
         {
             "date": "2025-12-24",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 123.64,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 121.68,
         "englishName": "American Electric Power Company, Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 113909956608,
-        "marketCap": 66180239360,
-        "Volume": 2048882,
-        "AvgVolume": 3423456,
+        "enterpriseValue": 113797554176,
+        "marketCap": 65131118592,
+        "Volume": 1568218,
+        "AvgVolume": 3429646,
         "sharesOutstanding": 534094530,
         "52Week": "89.91 - 124.8",
-        "Yield": 0.030087,
+        "Yield": 0.030572,
         "dividendRate": 3.8,
         "payoutRatio": 0.5447,
         "isin": "US0255371017",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 123.64,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 113909956608,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 66180239360,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2048882,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3423456,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.030087,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -145253,6 +145278,14 @@
             "low": 123.290001,
             "close": 123.510002,
             "volume": 3112413
+        },
+        {
+            "date": "2025-11-19",
+            "open": 123.32,
+            "high": 123.455002,
+            "low": 121.18,
+            "close": 121.709999,
+            "volume": 3181098
         },
         {
             "date": "2026-02-10",

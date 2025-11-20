@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.8,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 36.6,
         "englishName": "Direxion HCM Tactical Enhanced U.S. Equity Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 45810,
-        "AvgVolume": 59835,
+        "Volume": 55671,
+        "AvgVolume": 59403,
         "sharesOutstanding": null,
         "52Week": "24.58 - 40.92",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 45810,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59835,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4938,6 +4951,14 @@
             "low": 36.097198,
             "close": 36.630001,
             "volume": 45810
+        },
+        {
+            "date": "2025-11-19",
+            "open": 37.0214,
+            "high": 37.450001,
+            "low": 36.439999,
+            "close": 36.885101,
+            "volume": 70983
         },
         {
             "date": "2025-12-23",

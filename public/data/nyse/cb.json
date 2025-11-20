@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 297,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 293.745,
         "englishName": "Chubb Limited",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 139749769216,
-        "marketCap": 118411018240,
-        "Volume": 830082,
-        "AvgVolume": 1840309,
+        "enterpriseValue": 140139380736,
+        "marketCap": 117113282560,
+        "Volume": 618678,
+        "AvgVolume": 1798304,
         "sharesOutstanding": 393550859,
         "52Week": "252.16 - 306.91",
-        "Yield": 0.01266,
+        "Yield": 0.0128,
         "dividendRate": 3.88,
         "payoutRatio": 0.1571,
         "isin": "CH0044328745",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 297,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 139749769216,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 118411018240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 830082,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1840309,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.01266,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -74433,6 +74458,14 @@
             "low": 294.959991,
             "close": 296.570007,
             "volume": 973544
+        },
+        {
+            "date": "2025-11-19",
+            "open": 296.140015,
+            "high": 296.890015,
+            "low": 292.78009,
+            "close": 293.959991,
+            "volume": 1044220
         },
         {
             "date": "2025-12-12",

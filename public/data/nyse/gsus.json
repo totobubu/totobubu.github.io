@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 91.6743,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 91.715,
         "englishName": "Goldman Sachs MarketBeta US Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48242,
-        "AvgVolume": 100201,
+        "Volume": 45135,
+        "AvgVolume": 95089,
         "sharesOutstanding": null,
         "52Week": "66.72 - 95.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.6743,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 48242,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 100201,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11194,6 +11207,14 @@
             "low": 90.959999,
             "close": 91.5,
             "volume": 53022
+        },
+        {
+            "date": "2025-11-19",
+            "open": 91.519997,
+            "high": 92.357002,
+            "low": 91.489998,
+            "close": 91.830002,
+            "volume": 52013
         },
         {
             "date": "2025-12-24",

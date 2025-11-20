@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 140.34,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 140.215,
         "englishName": "iShares U.S. Industrials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 820988992,
-        "Volume": 24968,
-        "AvgVolume": 49907,
+        "marketCap": 820257728,
+        "Volume": 23701,
+        "AvgVolume": 49878,
         "sharesOutstanding": 5850000,
         "52Week": "111.51 - 149.37",
-        "Yield": 0.006591,
+        "Yield": 0.006597,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642877546",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 140.34,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 820988992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 24968,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 49907,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006591,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58350,6 +58371,14 @@
             "low": 139.570007,
             "close": 140.059998,
             "volume": 24991
+        },
+        {
+            "date": "2025-11-19",
+            "open": 140.309998,
+            "high": 141.085007,
+            "low": 140.029999,
+            "close": 140.789993,
+            "volume": 39068
         },
         {
             "date": "2025-12-16",

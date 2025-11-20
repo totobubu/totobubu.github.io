@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 17.35,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.2385,
         "englishName": "VanEck Preferred Securities ex Financials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 384243,
-        "AvgVolume": 534396,
+        "Volume": 407213,
+        "AvgVolume": 536401,
         "sharesOutstanding": null,
         "52Week": "15.28 - 18.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.35,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 384243,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 534396,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27275,6 +27288,14 @@
             "low": 17.299999,
             "close": 17.34,
             "volume": 390803
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.379999,
+            "high": 17.379999,
+            "low": 17.209999,
+            "close": 17.24,
+            "volume": 533539
         },
         {
             "date": "2025-12-03",

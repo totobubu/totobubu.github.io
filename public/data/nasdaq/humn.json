@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.57,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.25,
         "englishName": "Roundhill Humanoid Robotics ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 88212,
-        "AvgVolume": 67937,
+        "Volume": 71628,
+        "AvgVolume": 69089,
         "sharesOutstanding": null,
         "52Week": "23.99 - 31.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.57,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 88212,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 67937,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1178,6 +1191,14 @@
             "low": 27.2675,
             "close": 27.459999,
             "volume": 88912
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.389999,
+            "high": 27.6745,
+            "low": 27.174999,
+            "close": 27.290001,
+            "volume": 74769
         }
     ]
 }

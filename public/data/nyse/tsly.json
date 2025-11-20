@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 7.5201,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 7.52,
         "englishName": "YieldMax TSLA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 29865353,
-        "AvgVolume": 32201412,
+        "Volume": 21514350,
+        "AvgVolume": 32404612,
         "sharesOutstanding": null,
         "52Week": "6.9 - 18.223",
         "Yield": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.5201,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 29865353,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32201412,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6942,8 +6955,16 @@
             "volume": 30046684
         },
         {
+            "date": "2025-11-19",
+            "open": 7.58,
+            "high": 7.67,
+            "low": 7.4701,
+            "close": 7.57,
+            "volume": 26632979
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.0887
         },
         {
             "date": "2025-11-26",

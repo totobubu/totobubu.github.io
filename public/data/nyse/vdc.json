@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 209.68,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 207.4199,
         "englishName": "Vanguard Consumer Staples Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 139219,
-        "AvgVolume": 127051,
+        "Volume": 119786,
+        "AvgVolume": 128228,
         "sharesOutstanding": null,
         "52Week": "202.96 - 226.73",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 209.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 139219,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 127051,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44080,6 +44093,14 @@
             "low": 208.809998,
             "close": 209.429993,
             "volume": 141327
+        },
+        {
+            "date": "2025-11-19",
+            "open": 209.039993,
+            "high": 209.289902,
+            "low": 207.340393,
+            "close": 208.190002,
+            "volume": 207962
         },
         {
             "date": "2025-12-24",

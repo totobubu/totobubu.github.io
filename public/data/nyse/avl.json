@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.4401,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 56.53,
         "englishName": "Direxion Daily AVGO Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 171638,
-        "AvgVolume": 392612,
+        "Volume": 338911,
+        "AvgVolume": 391298,
         "sharesOutstanding": null,
         "52Week": "10.68 - 69.91",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.4401,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 171638,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 392612,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2267,6 +2280,14 @@
             "low": 52.09,
             "close": 53.650002,
             "volume": 121227
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.540001,
+            "high": 59.580002,
+            "low": 52.775002,
+            "close": 57.950001,
+            "volume": 377686
         },
         {
             "date": "2025-12-23",

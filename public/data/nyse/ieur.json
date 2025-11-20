@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 67.685,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 67.24,
         "englishName": "iShares Core MSCI Europe ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 763801,
-        "AvgVolume": 814571,
+        "Volume": 386870,
+        "AvgVolume": 822731,
         "sharesOutstanding": null,
         "52Week": "53.17 - 70.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67.685,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 763801,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 814571,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23150,6 +23163,14 @@
             "low": 67.25,
             "close": 67.650002,
             "volume": 821265
+        },
+        {
+            "date": "2025-11-19",
+            "open": 67.580002,
+            "high": 67.800003,
+            "low": 67.1241,
+            "close": 67.410004,
+            "volume": 540175
         }
     ]
 }

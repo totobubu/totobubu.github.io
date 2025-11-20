@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 48.195,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 48.1801,
         "englishName": "Dimensional National Municipal Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 160416,
-        "AvgVolume": 164006,
+        "Volume": 50342,
+        "AvgVolume": 165179,
         "sharesOutstanding": null,
         "52Week": "46.239 - 48.49",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.195,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 160416,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 164006,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8167,30 +8180,40 @@
             "high": 48.200001,
             "low": 48.169998,
             "close": 48.189999,
-            "volume": 162564
+            "volume": 162564,
+            "amount": 0.108,
+            "yield": 0.0313057933
         },
         {
-            "date": "2025-11-21",
+            "date": "2025-11-19",
+            "open": 48.139999,
+            "high": 48.220001,
+            "low": 48.162899,
+            "close": 48.130001,
+            "volume": 111889
+        },
+        {
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-19",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-21",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-20",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-21",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

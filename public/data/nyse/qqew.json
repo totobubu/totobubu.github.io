@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 137.935,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 137.12,
         "englishName": "First Trust NASDAQ-100 Equal Weighted Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 35303,
-        "AvgVolume": 52662,
+        "Volume": 42641,
+        "AvgVolume": 52412,
         "sharesOutstanding": null,
         "52Week": "104.28 - 146.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 137.935,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 35303,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 52662,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39560,6 +39573,14 @@
             "low": 136.639999,
             "close": 137.627502,
             "volume": 32658
+        },
+        {
+            "date": "2025-11-19",
+            "open": 137.429993,
+            "high": 138.648499,
+            "low": 136.883606,
+            "close": 137.568405,
+            "volume": 51835
         },
         {
             "date": "2025-12-24",

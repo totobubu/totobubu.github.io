@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 74.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 70.285,
         "englishName": "Global X Blockchain ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 131053,
-        "AvgVolume": 117603,
+        "Volume": 82031,
+        "AvgVolume": 118612,
         "sharesOutstanding": null,
         "52Week": "28.22 - 123.69",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 131053,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 117603,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8870,6 +8883,14 @@
             "low": 70.57,
             "close": 73.459999,
             "volume": 140136
+        },
+        {
+            "date": "2025-11-19",
+            "open": 73.699997,
+            "high": 75.059998,
+            "low": 69.650002,
+            "close": 70.540001,
+            "volume": 107446
         }
     ]
 }

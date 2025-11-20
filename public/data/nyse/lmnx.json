@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.31,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 31.9441,
         "englishName": "Defiance Daily Target 2X Long LMND ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 20227,
-        "AvgVolume": 37039,
+        "Volume": 32647,
+        "AvgVolume": 36366,
         "sharesOutstanding": null,
         "52Week": "15.95 - 44.17",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.31,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 20227,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 37039,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -220,6 +233,14 @@
             "low": 26.93,
             "close": 29.956699,
             "volume": 16940
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.0252,
+            "high": 32.267399,
+            "low": 29.135,
+            "close": 31.8874,
+            "volume": 21967
         }
     ]
 }

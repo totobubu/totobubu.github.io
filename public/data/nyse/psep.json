@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.69,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 42.6389,
         "englishName": "Innovator U.S. Equity Power Buffer ETF - September",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 16304,
-        "AvgVolume": 207787,
+        "Volume": 8141,
+        "AvgVolume": 207848,
         "sharesOutstanding": null,
         "52Week": "35.45 - 43.48",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 16304,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 207787,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12532,6 +12545,14 @@
             "low": 42.544998,
             "close": 42.693001,
             "volume": 16304
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.66,
+            "high": 42.860001,
+            "low": 42.638901,
+            "close": 42.759998,
+            "volume": 35175
         }
     ]
 }

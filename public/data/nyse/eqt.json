@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 58.94,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 58.545,
         "englishName": "EQT Corporation",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 48465682432,
-        "marketCap": 36782510080,
-        "Volume": 4748098,
-        "AvgVolume": 7705459,
+        "enterpriseValue": 48284704768,
+        "marketCap": 36536000512,
+        "Volume": 4708110,
+        "AvgVolume": 7710443,
         "sharesOutstanding": 624067000,
         "52Week": "42.27 - 61.26",
-        "Yield": 0.010689,
+        "Yield": 0.010761,
         "dividendRate": 0.66,
         "payoutRatio": 0.2052,
         "isin": "US26884L1098",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.94,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 48465682432,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36782510080,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4748098,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7705459,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010689,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105784,6 +105809,14 @@
             "low": 57.68,
             "close": 58.75,
             "volume": 5416584
+        },
+        {
+            "date": "2025-11-19",
+            "open": 58.779999,
+            "high": 59.189999,
+            "low": 57.560001,
+            "close": 58.889999,
+            "volume": 7864498
         },
         {
             "date": "2026-02-05",

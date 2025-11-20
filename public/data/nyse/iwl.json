@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 165.676,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 165.08,
         "englishName": "iShares Russell Top 200 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 70537,
-        "AvgVolume": 48254,
+        "Volume": 53637,
+        "AvgVolume": 48684,
         "sharesOutstanding": null,
         "52Week": "118.75 - 172.91",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 165.676,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 70537,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48254,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32702,6 +32715,14 @@
             "low": 164.321793,
             "close": 165.149994,
             "volume": 70994
+        },
+        {
+            "date": "2025-11-19",
+            "open": 165.300003,
+            "high": 167.098602,
+            "low": 164.945908,
+            "close": 165.889999,
+            "volume": 64182
         },
         {
             "date": "2025-12-16",

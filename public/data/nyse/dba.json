@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.39,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.0924,
         "englishName": "Invesco DB Agriculture Fund",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 728363968,
-        "Volume": 76337,
-        "AvgVolume": 200695,
+        "marketCap": 720150208,
+        "Volume": 126410,
+        "AvgVolume": 199225,
         "sharesOutstanding": 27600000,
         "52Week": "25.27 - 28.49",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.39,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 728363968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 76337,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 200695,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42785,6 +42802,14 @@
             "low": 26.370001,
             "close": 26.4,
             "volume": 85347
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.309999,
+            "high": 26.327999,
+            "low": 26.07,
+            "close": 26.09,
+            "volume": 207870
         },
         {
             "date": "2025-12-23",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 113.64,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 113.38,
         "englishName": "State Street Corporation",
         "earningsDate": "2025-10-17",
-        "enterpriseValue": -50283384832,
-        "marketCap": 32239136768,
-        "Volume": 872435,
-        "AvgVolume": 1884484,
+        "enterpriseValue": -50182832128,
+        "marketCap": 32165376000,
+        "Volume": 337028,
+        "AvgVolume": 1892457,
         "sharesOutstanding": 279312436,
         "52Week": "72.81 - 122.69",
-        "Yield": 0.027455,
+        "Yield": 0.027518,
         "dividendRate": 3.36,
         "payoutRatio": 0.3312,
         "isin": "US8574771031",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 113.64,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": -50283384832,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 32239136768,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 872435,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1884484,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.027455,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104713,6 +104738,14 @@
             "low": 111.629997,
             "close": 113.199997,
             "volume": 1500988
+        },
+        {
+            "date": "2025-11-19",
+            "open": 113.279999,
+            "high": 114.279999,
+            "low": 113,
+            "close": 114,
+            "volume": 596318
         },
         {
             "date": "2025-12-31",

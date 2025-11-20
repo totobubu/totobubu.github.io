@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 80.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 79.28,
         "englishName": "Textron Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 16808498176,
-        "marketCap": 14259987456,
-        "Volume": 672263,
-        "AvgVolume": 1356470,
+        "enterpriseValue": 16771491840,
+        "marketCap": 14128115712,
+        "Volume": 508794,
+        "AvgVolume": 1353578,
         "sharesOutstanding": 176224064,
         "52Week": "57.7 - 87.94",
-        "Yield": 0.001,
+        "Yield": 0.001009,
         "dividendRate": 0.08,
         "payoutRatio": 0.0175,
         "isin": "US8832031012",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 80.02,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16808498176,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14259987456,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 672263,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1356470,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.001,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121127,6 +121152,14 @@
             "low": 79.32,
             "close": 79.849998,
             "volume": 741103
+        },
+        {
+            "date": "2025-11-19",
+            "open": 79.599998,
+            "high": 80.010002,
+            "low": 79.199997,
+            "close": 79.779999,
+            "volume": 1327186
         },
         {
             "date": "2025-12-12",

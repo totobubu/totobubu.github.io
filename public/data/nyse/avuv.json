@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 95.75,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 95.0635,
         "englishName": "Avantis US Small Cap Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1215948,
-        "AvgVolume": 819715,
+        "Volume": 533433,
+        "AvgVolume": 826753,
         "sharesOutstanding": null,
         "52Week": "74.0 - 107.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 95.75,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1215948,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 819715,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12496,6 +12509,14 @@
             "low": 94.432297,
             "close": 95.629997,
             "volume": 1241956
+        },
+        {
+            "date": "2025-11-19",
+            "open": 95.550003,
+            "high": 96.149902,
+            "low": 94.888199,
+            "close": 95.389999,
+            "volume": 819577
         },
         {
             "date": "2025-12-23",

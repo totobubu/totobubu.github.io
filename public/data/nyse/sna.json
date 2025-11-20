@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 330.58,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 329.7,
         "englishName": "Snap-on Incorporated",
         "earningsDate": "2025-10-16",
-        "enterpriseValue": 16886664192,
-        "marketCap": 17244166144,
-        "Volume": 220548,
-        "AvgVolume": 312262,
+        "enterpriseValue": 16949593088,
+        "marketCap": 17198264320,
+        "Volume": 99316,
+        "AvgVolume": 313295,
         "sharesOutstanding": 52007557,
         "52Week": "289.81 - 373.9",
-        "Yield": 0.025894,
+        "Yield": 0.025963,
         "dividendRate": 9.76,
         "payoutRatio": 0.4491,
         "isin": "US8330341012",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 330.58,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16886664192,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 17244166144,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 220548,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 312262,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.025894,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -120436,10 +120461,18 @@
         },
         {
             "date": "2025-11-19",
-            "forecasted": true
+            "open": 329.899994,
+            "high": 332.184998,
+            "low": 327.709991,
+            "close": 330.160004,
+            "volume": 160655
         },
         {
             "date": "2026-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

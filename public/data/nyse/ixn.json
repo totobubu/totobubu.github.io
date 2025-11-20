@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 102.4701,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 102.52,
         "englishName": "iShares Global Tech ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1526804480,
-        "Volume": 162607,
-        "AvgVolume": 209226,
+        "marketCap": 1527547904,
+        "Volume": 220781,
+        "AvgVolume": 209795,
         "sharesOutstanding": 14900000,
         "52Week": "63.58 - 112.78",
-        "Yield": 0.003503,
+        "Yield": 0.003502,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642872919",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 102.4701,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1526804480,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 162607,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 209226,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.003503,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54719,7 +54740,16 @@
             "high": 103.459999,
             "low": 101.360001,
             "close": 102.25,
-            "volume": 165003
+            "volume": 165003,
+            "marketCap": 1527547904
+        },
+        {
+            "date": "2025-11-19",
+            "open": 102.25,
+            "high": 103.949997,
+            "low": 102.019997,
+            "close": 102.980003,
+            "volume": 264395
         }
     ]
 }

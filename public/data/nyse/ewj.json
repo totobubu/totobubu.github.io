@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 80.9,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 80.54,
         "englishName": "iShares MSCI Japan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 18433064960,
-        "Volume": 5468609,
-        "AvgVolume": 6012845,
+        "marketCap": 18351038464,
+        "Volume": 3436570,
+        "AvgVolume": 6035595,
         "sharesOutstanding": 227850000,
         "52Week": "59.84 - 84.54",
-        "Yield": 0.008677,
+        "Yield": 0.008716,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G8226",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 80.9,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 18433064960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5468609,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6012845,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008677,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67624,7 +67645,16 @@
             "high": 81.099998,
             "low": 80.290001,
             "close": 80.779999,
-            "volume": 6512924
+            "volume": 6512924,
+            "marketCap": 18351038464
+        },
+        {
+            "date": "2025-11-19",
+            "open": 80.68,
+            "high": 81.150002,
+            "low": 80.397797,
+            "close": 80.68,
+            "volume": 5941342
         }
     ]
 }

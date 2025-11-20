@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 324.0507,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 328.1918,
         "englishName": "The Sherwin-Williams Company",
         "earningsDate": "2025-10-28",
-        "enterpriseValue": 94695260160,
-        "marketCap": 80796631040,
-        "Volume": 1469427,
-        "AvgVolume": 1971671,
+        "enterpriseValue": 93960790016,
+        "marketCap": 81829150720,
+        "Volume": 1081418,
+        "AvgVolume": 1974264,
         "sharesOutstanding": 247893513,
         "52Week": "308.84 - 400.42",
-        "Yield": 0.00952,
+        "Yield": 0.0094,
         "dividendRate": 3.16,
         "payoutRatio": 0.3013,
         "isin": "US8243481061",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 324.0507,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 94695260160,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 80796631040,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1469427,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1971671,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00952,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105481,6 +105506,10 @@
             "volume": 2307878
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.79
+        },
+        {
             "date": "2025-11-17",
             "open": 331.399994,
             "high": 333.209991,
@@ -105497,11 +105526,19 @@
             "volume": 2183356
         },
         {
+            "date": "2025-11-19",
+            "open": 328.019989,
+            "high": 330.160004,
+            "low": 324.619995,
+            "close": 329.779999,
+            "volume": 1604750
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

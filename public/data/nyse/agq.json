@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 86.9,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 87.28,
         "englishName": "ProShares Ultra Silver",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1202396,
-        "AvgVolume": 3035454,
+        "Volume": 2282739,
+        "AvgVolume": 3031517,
         "sharesOutstanding": null,
         "52Week": "31.88 - 98.97",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 86.9,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1202396,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3035454,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34167,6 +34180,14 @@
             "low": 84.778603,
             "close": 86.779999,
             "volume": 1266580
+        },
+        {
+            "date": "2025-11-19",
+            "open": 89.410004,
+            "high": 92.025002,
+            "low": 85.165001,
+            "close": 87.779999,
+            "volume": 2574034
         }
     ]
 }

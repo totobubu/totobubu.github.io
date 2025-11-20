@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 100.55,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 100.555,
         "englishName": "iShares 0-3 Month Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12135522,
-        "AvgVolume": 13828410,
+        "Volume": 10924838,
+        "AvgVolume": 13870370,
         "sharesOutstanding": null,
         "52Week": "100.15 - 100.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12135522,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13828410,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11164,6 +11177,14 @@
             "low": 100.540001,
             "close": 100.540001,
             "volume": 12970295
+        },
+        {
+            "date": "2025-11-19",
+            "open": 100.550003,
+            "high": 100.559998,
+            "low": 100.550003,
+            "close": 100.559998,
+            "volume": 15228238
         },
         {
             "date": "2025-12-03",

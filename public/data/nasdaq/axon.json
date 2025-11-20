@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 534.88,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 527.8475,
         "englishName": "Axon Enterprise, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 42520829952,
-        "marketCap": 42207629312,
-        "Volume": 635241,
-        "AvgVolume": 692435,
+        "enterpriseValue": 41774338048,
+        "marketCap": 41652690944,
+        "Volume": 601441,
+        "AvgVolume": 695360,
         "sharesOutstanding": 78910466,
         "52Week": "469.24 - 885.92",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 534.88,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 42520829952,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 42207629312,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 635241,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 692435,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55312,7 +55333,16 @@
             "high": 549.2229,
             "low": 528.950012,
             "close": 533.77002,
-            "volume": 836676
+            "volume": 836676,
+            "marketCap": 41652690944
+        },
+        {
+            "date": "2025-11-19",
+            "open": 533,
+            "high": 533.51001,
+            "low": 521.190002,
+            "close": 531.090027,
+            "volume": 1044588
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.64,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 53.62,
         "englishName": "iShares New York Muni Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 79874,
-        "AvgVolume": 88473,
+        "Volume": 56210,
+        "AvgVolume": 88312,
         "sharesOutstanding": null,
         "52Week": "50.04 - 54.3",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.64,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 79874,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 88473,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37866,6 +37879,14 @@
             "low": 53.59,
             "close": 53.6493,
             "volume": 80012
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.66,
+            "high": 53.66,
+            "low": 53.57,
+            "close": 53.580002,
+            "volume": 68709
         },
         {
             "date": "2025-12-03",

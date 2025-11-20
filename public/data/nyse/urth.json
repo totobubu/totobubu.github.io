@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 180.1203,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 179.31,
         "englishName": "iShares MSCI World ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1242830080,
-        "Volume": 215428,
-        "AvgVolume": 347190,
+        "marketCap": 1237239040,
+        "Volume": 144439,
+        "AvgVolume": 347237,
         "sharesOutstanding": 6900000,
         "52Week": "132.93 - 187.07",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 180.1203,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1242830080,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 215428,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 347190,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31481,6 +31498,14 @@
             "low": 178.649994,
             "close": 179.770004,
             "volume": 223449
+        },
+        {
+            "date": "2025-11-19",
+            "open": 179.75,
+            "high": 181.179993,
+            "low": 179.130096,
+            "close": 180.059998,
+            "volume": 201360
         },
         {
             "date": "2025-11-24",

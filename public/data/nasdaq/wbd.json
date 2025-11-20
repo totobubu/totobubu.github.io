@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.7,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.945,
         "englishName": "Warner Bros. Discovery, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 86831136768,
-        "marketCap": 58727997440,
-        "Volume": 54455394,
-        "AvgVolume": 51304400,
+        "enterpriseValue": 89185214464,
+        "marketCap": 56857124864,
+        "Volume": 36251880,
+        "AvgVolume": 51771548,
         "sharesOutstanding": 2477974509,
         "52Week": "7.52 - 24.19",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.7,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 86831136768,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 58727997440,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 54455394,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 51304400,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46147,7 +46168,16 @@
             "high": 24.190001,
             "low": 22.58,
             "close": 23.690001,
-            "volume": 58421366
+            "volume": 58421366,
+            "marketCap": 56857124864
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.65,
+            "high": 24.01,
+            "low": 22.785,
+            "close": 23.09,
+            "volume": 47061724
         }
     ]
 }

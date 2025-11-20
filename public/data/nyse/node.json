@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.94,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 35.77,
         "englishName": "VanEck Onchain Economy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 52274,
-        "AvgVolume": 48309,
+        "Volume": 31886,
+        "AvgVolume": 49001,
         "sharesOutstanding": null,
         "52Week": "25.94 - 48.876",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.94,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 52274,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48309,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1123,6 +1136,14 @@
             "low": 35.68,
             "close": 36.57,
             "volume": 52334
+        },
+        {
+            "date": "2025-11-19",
+            "open": 36.5,
+            "high": 37.3395,
+            "low": 35.703999,
+            "close": 35.889999,
+            "volume": 43142
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.71,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.59,
         "englishName": "Grayscale Ethereum Trust ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7808366,
-        "AvgVolume": 6557173,
+        "Volume": 10626907,
+        "AvgVolume": 6534782,
         "sharesOutstanding": null,
         "52Week": "12.105 - 40.135",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.71,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7808366,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6557173,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12978,6 +12991,14 @@
             "low": 24.879999,
             "close": 25.639999,
             "volume": 7973029
+        },
+        {
+            "date": "2025-11-19",
+            "open": 24.85,
+            "high": 25.4891,
+            "low": 23.530001,
+            "close": 24.16,
+            "volume": 13166257
         }
     ]
 }

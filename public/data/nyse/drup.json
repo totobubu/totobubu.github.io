@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 65.5401,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 65.4084,
         "englishName": "GraniteShares ETF Trust - GraniteShares Nasdaq Select Disruptors ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1295,
-        "AvgVolume": 1420,
+        "Volume": 464,
+        "AvgVolume": 1404,
         "sharesOutstanding": null,
         "52Week": "44.61 - 68.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.5401,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1295,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1420,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12424,6 +12437,14 @@
             "low": 65.408401,
             "close": 65.408401,
             "volume": 1295
+        },
+        {
+            "date": "2025-11-19",
+            "open": 66.190002,
+            "high": 66.189903,
+            "low": 65.590599,
+            "close": 66.189903,
+            "volume": 464
         },
         {
             "date": "2025-12-26",

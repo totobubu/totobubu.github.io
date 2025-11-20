@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 14.82,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 12.1901,
         "englishName": "ProShares Ultra XRP ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 320323,
-        "AvgVolume": 266460,
+        "Volume": 590316,
+        "AvgVolume": 267675,
         "sharesOutstanding": null,
-        "52Week": "13.31 - 61.28",
+        "52Week": "12.1901 - 61.28",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.82,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 320323,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 266460,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -748,6 +761,14 @@
             "low": 13.905,
             "close": 14.78,
             "volume": 324500
+        },
+        {
+            "date": "2025-11-19",
+            "open": 13.1,
+            "high": 13.7162,
+            "low": 12.0896,
+            "close": 12.41,
+            "volume": 721699
         }
     ]
 }

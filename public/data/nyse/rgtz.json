@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.27,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.835,
         "englishName": "Defiance Daily Target 2X Short RGTI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11831536,
-        "AvgVolume": 26114596,
+        "Volume": 8950147,
+        "AvgVolume": 25634831,
         "sharesOutstanding": null,
         "52Week": "8.14 - 32.15",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.27,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11831536,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26114596,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -260,6 +273,14 @@
             "low": 26.1,
             "close": 26.549999,
             "volume": 12092196
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.35,
+            "high": 27.309999,
+            "low": 23.5,
+            "close": 26.969999,
+            "volume": 9928309
         }
     ]
 }

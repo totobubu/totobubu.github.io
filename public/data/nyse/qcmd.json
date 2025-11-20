@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.149,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.565,
         "englishName": "Direxion Daily QCOM Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 479,
-        "AvgVolume": 8725,
+        "Volume": 129,
+        "AvgVolume": 8731,
         "sharesOutstanding": null,
         "52Week": "18.105 - 26.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.149,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 479,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8725,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -854,6 +867,14 @@
             "low": 22.765699,
             "close": 22.765699,
             "volume": 320
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.565001,
+            "high": 22.642099,
+            "low": 22.565001,
+            "close": 22.642099,
+            "volume": 128
         }
     ]
 }

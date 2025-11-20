@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 11.32,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 11.565,
         "englishName": "Direxion Daily MSFT Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 459791,
-        "AvgVolume": 239471,
+        "Volume": 320594,
+        "AvgVolume": 244057,
         "sharesOutstanding": null,
         "52Week": "10.06 - 16.53",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 459791,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 239471,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6480,6 +6493,14 @@
             "low": 11.2,
             "close": 11.35,
             "volume": 318835
+        },
+        {
+            "date": "2025-11-19",
+            "open": 11.46,
+            "high": 11.59,
+            "low": 11.32,
+            "close": 11.51,
+            "volume": 234469
         },
         {
             "date": "2025-12-23",

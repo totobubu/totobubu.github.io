@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 29.8388,
         "englishName": "Global X Emerging Markets Great Consumer ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5110,
-        "AvgVolume": 8712,
+        "Volume": 2444,
+        "AvgVolume": 8717,
         "sharesOutstanding": null,
         "52Week": "23.0 - 31.84",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5110,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8712,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5144,6 +5157,14 @@
             "low": 29.766701,
             "close": 29.9813,
             "volume": 5135
+        },
+        {
+            "date": "2025-11-19",
+            "open": 29.860001,
+            "high": 29.860001,
+            "low": 29.780001,
+            "close": 29.82,
+            "volume": 2929
         }
     ]
 }

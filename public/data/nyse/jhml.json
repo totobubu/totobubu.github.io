@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 77.37,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 77.31,
         "englishName": "John Hancock Multifactor Large Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18374,
-        "AvgVolume": 27531,
+        "Volume": 10133,
+        "AvgVolume": 27575,
         "sharesOutstanding": null,
         "52Week": "58.38 - 80.19",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.37,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18374,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 27531,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20520,6 +20533,14 @@
             "low": 76.824997,
             "close": 77.371002,
             "volume": 18593
+        },
+        {
+            "date": "2025-11-19",
+            "open": 77.370003,
+            "high": 77.849899,
+            "low": 77.263702,
+            "close": 77.470001,
+            "volume": 12874
         }
     ]
 }

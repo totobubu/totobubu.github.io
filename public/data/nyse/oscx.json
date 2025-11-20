@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 10.93,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 9.73,
         "englishName": "Defiance Daily Target 2x Long OSCR ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 164365,
-        "AvgVolume": 221818,
+        "Volume": 72329,
+        "AvgVolume": 220779,
         "sharesOutstanding": null,
         "52Week": "9.14 - 32.26",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.93,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 164365,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 221818,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -340,6 +353,14 @@
             "low": 9.18,
             "close": 10.8002,
             "volume": 140300
+        },
+        {
+            "date": "2025-11-19",
+            "open": 10.5149,
+            "high": 10.64,
+            "low": 9.73,
+            "close": 9.8727,
+            "volume": 39940
         }
     ]
 }

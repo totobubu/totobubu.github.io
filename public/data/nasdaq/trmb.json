@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 75.59,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 75.51,
         "englishName": "Trimble Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 19134027776,
-        "marketCap": 17988081664,
-        "Volume": 836204,
-        "AvgVolume": 1351357,
+        "enterpriseValue": 19103098880,
+        "marketCap": 17969045504,
+        "Volume": 427047,
+        "AvgVolume": 1337203,
         "sharesOutstanding": 237920962,
         "52Week": "52.91 - 87.5",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.59,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19134027776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 17988081664,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 836204,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1351357,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -80123,7 +80144,16 @@
             "high": 76.074997,
             "low": 74.769997,
             "close": 75.419998,
-            "volume": 1148356
+            "volume": 1148356,
+            "marketCap": 17969045504
+        },
+        {
+            "date": "2025-11-19",
+            "open": 75.275002,
+            "high": 76.519997,
+            "low": 75.254997,
+            "close": 75.760002,
+            "volume": 860081
         }
     ]
 }

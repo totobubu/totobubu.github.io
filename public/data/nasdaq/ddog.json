@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 177.41,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 176.73,
         "englishName": "Datadog, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 60350885888,
-        "marketCap": 62212497408,
-        "Volume": 2490890,
-        "AvgVolume": 4539514,
+        "enterpriseValue": 59018338304,
+        "marketCap": 61974040576,
+        "Volume": 1675430,
+        "AvgVolume": 4525725,
         "sharesOutstanding": 325443373,
         "52Week": "81.63 - 201.69",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 177.41,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 60350885888,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 62212497408,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2490890,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4539514,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13977,7 +13998,16 @@
             "high": 180.210007,
             "low": 175,
             "close": 176.460007,
-            "volume": 3475424
+            "volume": 3475424,
+            "marketCap": 61974040576
+        },
+        {
+            "date": "2025-11-19",
+            "open": 177.270004,
+            "high": 179.5,
+            "low": 174.820007,
+            "close": 176.309998,
+            "volume": 3100793
         }
     ]
 }

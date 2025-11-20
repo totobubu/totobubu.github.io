@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 57.51,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 57.075,
         "englishName": "Block, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 35067736064,
-        "marketCap": 35057176576,
-        "Volume": 6190184,
-        "AvgVolume": 6301648,
+        "enterpriseValue": 34308157440,
+        "marketCap": 34792005632,
+        "Volume": 5834206,
+        "AvgVolume": 6334918,
         "sharesOutstanding": 547667000,
         "52Week": "44.27 - 99.26",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 57.51,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 35067736064,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 35057176576,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6190184,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6301648,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22642,7 +22663,16 @@
             "high": 59.540001,
             "low": 57.290001,
             "close": 57.639999,
-            "volume": 7414623
+            "volume": 7414623,
+            "marketCap": 34792005632
+        },
+        {
+            "date": "2025-11-19",
+            "open": 58.540001,
+            "high": 62.740002,
+            "low": 56.959999,
+            "close": 62,
+            "volume": 17813321
         }
     ]
 }

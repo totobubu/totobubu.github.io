@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.78,
         "englishName": "Scharf ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36924,
-        "AvgVolume": 26680,
+        "Volume": 12825,
+        "AvgVolume": 26909,
         "sharesOutstanding": null,
         "52Week": "52.265 - 57.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36924,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26680,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -568,6 +581,14 @@
             "low": 52.889999,
             "close": 53.121899,
             "volume": 38054
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.220001,
+            "high": 53.220001,
+            "low": 52.740002,
+            "close": 52.891998,
+            "volume": 17555
         }
     ]
 }

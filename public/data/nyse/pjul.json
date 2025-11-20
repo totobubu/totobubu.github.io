@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45.4799,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 45.42,
         "englishName": "Innovator U.S. Equity Power Buffer ETF - July",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14611,
-        "AvgVolume": 104917,
+        "Volume": 12519,
+        "AvgVolume": 102087,
         "sharesOutstanding": null,
         "52Week": "37.1 - 46.06",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.4799,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14611,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 104917,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14670,6 +14683,14 @@
             "low": 45.281799,
             "close": 45.400002,
             "volume": 14611
+        },
+        {
+            "date": "2025-11-19",
+            "open": 45.459999,
+            "high": 45.555,
+            "low": 45.3461,
+            "close": 45.5,
+            "volume": 17655
         }
     ]
 }

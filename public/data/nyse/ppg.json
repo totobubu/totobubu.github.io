@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 94.91,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 94.15,
         "englishName": "PPG Industries, Inc.",
         "earningsDate": "2025-10-28",
-        "enterpriseValue": 27557783552,
-        "marketCap": 21421187072,
-        "Volume": 2378474,
-        "AvgVolume": 1796820,
+        "enterpriseValue": 27436607488,
+        "marketCap": 21249654784,
+        "Volume": 1164963,
+        "AvgVolume": 1823343,
         "sharesOutstanding": 224400000,
         "52Week": "90.24 - 130.05",
-        "Yield": 0.028975,
+        "Yield": 0.029209,
         "dividendRate": 2.84,
         "payoutRatio": 0.4919,
         "isin": "US6935061076",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.91,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27557783552,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21421187072,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2378474,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1796820,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.028975,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105351,6 +105376,14 @@
             "low": 93.730003,
             "close": 94.82,
             "volume": 2635251
+        },
+        {
+            "date": "2025-11-19",
+            "open": 94.940002,
+            "high": 95.43,
+            "low": 93.385002,
+            "close": 94.339996,
+            "volume": 1776549
         },
         {
             "date": "2026-02-10",

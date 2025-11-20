@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 99.03,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 97.87,
         "englishName": "iShares US Consumer Discretionary ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 445635008,
-        "Volume": 454659,
-        "AvgVolume": 219014,
+        "marketCap": 440415008,
+        "Volume": 174856,
+        "AvgVolume": 225453,
         "sharesOutstanding": 4500000,
         "52Week": "77.66 - 106.42",
-        "Yield": 0.004271,
+        "Yield": 0.004322,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642875805",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 99.03,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 445635008,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 454659,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 219014,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.004271,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58409,6 +58430,14 @@
             "low": 98.410004,
             "close": 98.75,
             "volume": 467821
+        },
+        {
+            "date": "2025-11-19",
+            "open": 99.050003,
+            "high": 98.940002,
+            "low": 97.830002,
+            "close": 98.279999,
+            "volume": 219174
         },
         {
             "date": "2025-12-16",

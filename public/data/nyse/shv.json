@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 110.315,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 110.325,
         "englishName": "iShares Short Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2358122,
-        "AvgVolume": 2531728,
+        "Volume": 1785631,
+        "AvgVolume": 2515710,
         "sharesOutstanding": null,
         "52Week": "109.91 - 110.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 110.315,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2358122,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2531728,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38334,6 +38347,14 @@
             "low": 110.309998,
             "close": 110.32,
             "volume": 2434030
+        },
+        {
+            "date": "2025-11-19",
+            "open": 110.32,
+            "high": 110.330002,
+            "low": 110.32,
+            "close": 110.330002,
+            "volume": 2399871
         },
         {
             "date": "2025-12-03",

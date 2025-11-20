@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.4349,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 30.44,
         "englishName": "iShares Top 20 U.S. Stocks ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 793489,
-        "AvgVolume": 447556,
+        "Volume": 450778,
+        "AvgVolume": 456725,
         "sharesOutstanding": null,
         "52Week": "20.39 - 31.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.4349,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 793489,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 447556,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2232,6 +2245,14 @@
             "low": 30.17,
             "close": 30.379999,
             "volume": 854012
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.43,
+            "high": 30.8158,
+            "low": 30.3745,
+            "close": 30.58,
+            "volume": 565385
         },
         {
             "date": "2025-12-16",

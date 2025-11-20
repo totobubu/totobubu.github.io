@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 103.29,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 102.225,
         "englishName": "Kimberly-Clark Corporation",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 41260445696,
-        "marketCap": 34277658624,
-        "Volume": 5607631,
-        "AvgVolume": 3919965,
+        "enterpriseValue": 41124380672,
+        "marketCap": 33924227072,
+        "Volume": 3756818,
+        "AvgVolume": 3988598,
         "sharesOutstanding": 331858421,
         "52Week": "99.22 - 150.45",
-        "Yield": 0.048407,
+        "Yield": 0.048912,
         "dividendRate": 5.04,
         "payoutRatio": 0.846,
         "isin": "US4943681035",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.29,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 41260445696,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34277658624,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5607631,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3919965,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.048407,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105388,6 +105413,14 @@
             "low": 102,
             "close": 103.25,
             "volume": 6657976
+        },
+        {
+            "date": "2025-11-19",
+            "open": 103.150002,
+            "high": 103.25,
+            "low": 101.760002,
+            "close": 102.370003,
+            "volume": 5847487
         },
         {
             "date": "2025-12-05",

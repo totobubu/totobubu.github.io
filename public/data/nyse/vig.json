@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 214.5313,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 214.25,
         "englishName": "Vanguard Dividend Appreciation Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2314290,
-        "AvgVolume": 1124126,
+        "Volume": 959608,
+        "AvgVolume": 1148195,
         "sharesOutstanding": null,
         "52Week": "169.32 - 220.49",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 214.5313,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2314290,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1124126,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39596,6 +39609,14 @@
             "low": 213.339996,
             "close": 214.330002,
             "volume": 2369345
+        },
+        {
+            "date": "2025-11-19",
+            "open": 214.199997,
+            "high": 215.774994,
+            "low": 213.990005,
+            "close": 215.050003,
+            "volume": 1303566
         },
         {
             "date": "2025-12-29",

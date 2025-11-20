@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 73.965,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 67.6487,
         "englishName": "Direxion Daily AMD Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 219578,
-        "AvgVolume": 255821,
+        "Volume": 176808,
+        "AvgVolume": 255529,
         "sharesOutstanding": null,
         "52Week": "11.12 - 101.84",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.965,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 219578,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 255821,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1311,6 +1324,14 @@
             "low": 70.292397,
             "close": 73.639999,
             "volume": 222483
+        },
+        {
+            "date": "2025-11-19",
+            "open": 73.400002,
+            "high": 76.580002,
+            "low": 66.839996,
+            "close": 69.32,
+            "volume": 209158
         },
         {
             "date": "2025-12-23",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 72.8242,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 72.6,
         "englishName": "Fidelity MSCI Financials Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 135833,
-        "AvgVolume": 103878,
+        "Volume": 43295,
+        "AvgVolume": 104864,
         "sharesOutstanding": null,
         "52Week": "58.68 - 77.67",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.8242,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 135833,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 103878,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24468,6 +24481,14 @@
             "low": 72.32,
             "close": 72.639999,
             "volume": 142139
+        },
+        {
+            "date": "2025-11-19",
+            "open": 72.75,
+            "high": 73.058403,
+            "low": 72.466003,
+            "close": 72.959999,
+            "volume": 80789
         },
         {
             "date": "2025-12-19",

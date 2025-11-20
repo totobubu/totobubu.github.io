@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 203.05,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 202.79,
         "englishName": "iShares U.S. Aerospace & Defense ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 468694,
-        "AvgVolume": 773884,
+        "Volume": 222799,
+        "AvgVolume": 773503,
         "sharesOutstanding": null,
         "52Week": "129.14 - 220.79",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 203.05,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 468694,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 773884,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40052,6 +40065,14 @@
             "low": 201.100098,
             "close": 202.759995,
             "volume": 509069
+        },
+        {
+            "date": "2025-11-19",
+            "open": 202.639999,
+            "high": 203.815002,
+            "low": 201.309998,
+            "close": 203.130005,
+            "volume": 436176
         },
         {
             "date": "2025-12-16",

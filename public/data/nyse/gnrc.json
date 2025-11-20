@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 143.415,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 145.945,
         "englishName": "Generac Holdings Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 9439198208,
-        "marketCap": 8416174592,
-        "Volume": 1247982,
-        "AvgVolume": 1117890,
+        "enterpriseValue": 9553632256,
+        "marketCap": 8564646400,
+        "Volume": 600542,
+        "AvgVolume": 1131568,
         "sharesOutstanding": 58684066,
         "52Week": "99.5 - 203.25",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 143.415,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 9439198208,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 8416174592,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1247982,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1117890,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35727,6 +35748,22 @@
             "close": 140.509995,
             "volume": 1682413,
             "marketCap": 8416174592
+        },
+        {
+            "date": "2025-11-18",
+            "open": 139.110001,
+            "high": 144.529999,
+            "low": 137.600006,
+            "close": 142.460007,
+            "volume": 1574100
+        },
+        {
+            "date": "2025-11-19",
+            "open": 143.824997,
+            "high": 148.179993,
+            "low": 143.550003,
+            "close": 147.259995,
+            "volume": 1058963
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": "AI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 1.9451,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 1.9045,
         "englishName": "YieldMax AI Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2609981,
-        "AvgVolume": 2122890,
+        "Volume": 1534207,
+        "AvgVolume": 2150342,
         "sharesOutstanding": null,
-        "52Week": "1.8646 - 11.541",
+        "52Week": "1.865 - 11.541",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1.9451,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2609981,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2122890,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4760,8 +4773,16 @@
             "volume": 2658861
         },
         {
+            "date": "2025-11-19",
+            "open": 1.94,
+            "high": 1.9599,
+            "low": 1.8801,
+            "close": 1.91,
+            "volume": 1792647
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.0261
         },
         {
             "date": "2025-11-26",

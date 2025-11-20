@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 81,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 79.68,
         "englishName": "Direxion Daily MSCI Brazil Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26483,
-        "AvgVolume": 53376,
+        "Volume": 14414,
+        "AvgVolume": 52035,
         "sharesOutstanding": null,
         "52Week": "40.61 - 85.55",
         "Yield": null,
@@ -47,7 +47,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 81,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26483,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 53376,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25571,6 +25584,14 @@
             "low": 79.940002,
             "close": 81.040001,
             "volume": 27970
+        },
+        {
+            "date": "2025-11-19",
+            "open": 79.699997,
+            "high": 80.660004,
+            "low": 79.410004,
+            "close": 79.955002,
+            "volume": 17226
         },
         {
             "date": "2025-12-23",

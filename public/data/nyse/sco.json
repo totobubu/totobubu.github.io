@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 17.93,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 18.77,
         "englishName": "ProShares UltraShort Bloomberg Crude Oil",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1580929,
-        "AvgVolume": 1722259,
+        "Volume": 1780331,
+        "AvgVolume": 1729232,
         "sharesOutstanding": null,
         "52Week": "14.57 - 24.52",
         "Yield": null,
@@ -47,7 +47,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.93,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1580929,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1722259,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34225,6 +34238,14 @@
             "low": 17.85,
             "close": 17.92,
             "volume": 1664926
+        },
+        {
+            "date": "2025-11-19",
+            "open": 18.82,
+            "high": 18.969999,
+            "low": 18.665001,
+            "close": 18.76,
+            "volume": 2104505
         }
     ]
 }

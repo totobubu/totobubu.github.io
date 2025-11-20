@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.805,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.2173,
         "englishName": "GraniteShares 2x Long AMD Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10524363,
-        "AvgVolume": 26628115,
+        "Volume": 6722434,
+        "AvgVolume": 26378790,
         "sharesOutstanding": null,
         "52Week": "2.77 - 25.86",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.805,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10524363,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26628115,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3396,6 +3409,14 @@
             "low": 17.74,
             "close": 18.66,
             "volume": 10861037
+        },
+        {
+            "date": "2025-11-19",
+            "open": 18.620001,
+            "high": 19.469999,
+            "low": 16.959999,
+            "close": 17.59,
+            "volume": 8272464
         }
     ]
 }

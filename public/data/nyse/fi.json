@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
+        "Update": "2025-11-20 04:40:52 KST",
         "regularMarketPrice": null,
         "englishName": "Fiserv, Inc.",
         "earningsDate": null,
         "enterpriseValue": 63588950016,
         "marketCap": 34314950656,
         "Volume": 8049285,
-        "AvgVolume": 8462474,
+        "AvgVolume": 8498384,
         "sharesOutstanding": 537851887,
         "52Week": "60.95 - 238.59",
         "Yield": null,
@@ -67,7 +67,12 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 8462474,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -88835,7 +88840,8 @@
             "high": 62.689999,
             "low": 61.130001,
             "close": 61.34,
-            "volume": 6920103
+            "volume": 6920103,
+            "marketCap": 34314950656
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 31.32,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 31.3703,
         "englishName": "ProShares Short QQQ",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 13036683,
-        "AvgVolume": 7085056,
+        "Volume": 9403711,
+        "AvgVolume": 7231176,
         "sharesOutstanding": null,
         "52Week": "29.34 - 46.98",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13036683,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7085056,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39426,6 +39439,14 @@
             "low": 31.09,
             "close": 31.389999,
             "volume": 13417644
+        },
+        {
+            "date": "2025-11-19",
+            "open": 31.360001,
+            "high": 31.49,
+            "low": 30.883699,
+            "close": 31.219999,
+            "volume": 11201203
         },
         {
             "date": "2025-12-24",

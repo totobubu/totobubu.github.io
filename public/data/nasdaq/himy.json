@@ -9,14 +9,14 @@
         "underlying": "HIMS",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 9.19,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 8.44,
         "englishName": "Defiance Leveraged Long + Income HIMS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 53581,
-        "AvgVolume": 45031,
+        "Volume": 45805,
+        "AvgVolume": 45867,
         "sharesOutstanding": null,
         "52Week": "8.17 - 28.092",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.19,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 53581,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 45031,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -590,7 +603,12 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 9.18,
+            "high": 9.18,
+            "low": 8.25,
+            "close": 8.81,
+            "volume": 57313
         },
         {
             "date": "2025-11-26",

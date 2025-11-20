@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.12,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 22.885,
         "englishName": "Invesco DB Commodity Index Tracking Fund",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2575568128,
-        "Volume": 285906,
-        "AvgVolume": 394692,
+        "marketCap": 2549389056,
+        "Volume": 724768,
+        "AvgVolume": 394262,
         "sharesOutstanding": 111400000,
         "52Week": "19.84 - 23.32",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.12,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2575568128,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 285906,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 394692,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44867,6 +44884,14 @@
             "low": 22.895399,
             "close": 23.129999,
             "volume": 311479
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.940001,
+            "high": 22.969999,
+            "low": 22.799999,
+            "close": 22.9,
+            "volume": 923961
         },
         {
             "date": "2025-12-23",

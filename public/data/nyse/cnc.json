@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.785,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 35.745,
         "englishName": "Centene Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 16678487040,
-        "marketCap": 18080489472,
-        "Volume": 6105390,
-        "AvgVolume": 11979325,
+        "enterpriseValue": 16604760064,
+        "marketCap": 17569310720,
+        "Volume": 3995098,
+        "AvgVolume": 11843214,
         "sharesOutstanding": 491518000,
         "52Week": "25.08 - 66.81",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.785,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16678487040,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 18080489472,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6105390,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11979325,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54237,7 +54258,16 @@
             "high": 37,
             "low": 35.459999,
             "close": 36.93,
-            "volume": 8020593
+            "volume": 8020593,
+            "marketCap": 17569310720
+        },
+        {
+            "date": "2025-11-19",
+            "open": 36.93,
+            "high": 37.130001,
+            "low": 35.68,
+            "close": 35.950001,
+            "volume": 6926828
         }
     ]
 }

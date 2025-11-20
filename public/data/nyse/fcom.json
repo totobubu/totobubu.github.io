@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 68.61,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 68.268,
         "englishName": "Fidelity MSCI Communication Services Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 268572,
-        "AvgVolume": 123676,
+        "Volume": 208526,
+        "AvgVolume": 126576,
         "sharesOutstanding": null,
         "52Week": "48.96 - 72.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 68.61,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 268572,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 123676,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24462,6 +24475,14 @@
             "low": 67.333,
             "close": 68.440002,
             "volume": 275193
+        },
+        {
+            "date": "2025-11-19",
+            "open": 68.480003,
+            "high": 69.699997,
+            "low": 68.239502,
+            "close": 68.389999,
+            "volume": 231818
         },
         {
             "date": "2025-12-19",

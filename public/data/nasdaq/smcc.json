@@ -9,16 +9,16 @@
         "underlying": "SMCI",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 10.015,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 8.99,
         "englishName": "Defiance Leveraged Long + Income SMCI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36013,
-        "AvgVolume": 18693,
+        "Volume": 30282,
+        "AvgVolume": 19045,
         "sharesOutstanding": null,
-        "52Week": "9.17 - 29.675",
+        "52Week": "8.827 - 29.675",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.015,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36013,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18693,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -579,7 +592,12 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 9.48,
+            "high": 9.61,
+            "low": 8.827,
+            "close": 9.075,
+            "volume": 28719
         },
         {
             "date": "2025-11-26",

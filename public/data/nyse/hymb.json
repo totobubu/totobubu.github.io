@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.1258,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.11,
         "englishName": "SPDR Nuveen ICE High Yield Municipal Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 728721,
-        "AvgVolume": 730278,
+        "Volume": 443855,
+        "AvgVolume": 731992,
         "sharesOutstanding": null,
         "52Week": "23.51 - 26.25",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.1258,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 728721,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 730278,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30879,6 +30892,14 @@
             "low": 25.08,
             "close": 25.129999,
             "volume": 736793
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.139999,
+            "high": 25.15,
+            "low": 25.081499,
+            "close": 25.09,
+            "volume": 681610
         },
         {
             "date": "2025-12-03",

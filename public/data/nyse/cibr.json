@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 73.3536,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 73.3,
         "englishName": "First Trust NASDAQ Cybersecurity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 744947,
-        "AvgVolume": 741954,
+        "Volume": 381058,
+        "AvgVolume": 740456,
         "sharesOutstanding": null,
         "52Week": "55.02 - 78.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.3536,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 744947,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 741954,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21022,6 +21035,14 @@
             "low": 72.730003,
             "close": 73.230003,
             "volume": 786830
+        },
+        {
+            "date": "2025-11-19",
+            "open": 73.139999,
+            "high": 73.839996,
+            "low": 72.93,
+            "close": 73.379997,
+            "volume": 531250
         },
         {
             "date": "2025-12-26",

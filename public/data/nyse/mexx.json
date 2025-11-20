@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.66,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.3301,
         "englishName": "Direxion Daily MSCI Mexico Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 57861,
-        "AvgVolume": 34853,
+        "Volume": 32708,
+        "AvgVolume": 35682,
         "sharesOutstanding": null,
         "52Week": "8.44 - 24.57",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57861,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 34853,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17472,6 +17485,14 @@
             "low": 20.6201,
             "close": 21.459999,
             "volume": 59702
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.83,
+            "high": 22.046499,
+            "low": 21.330099,
+            "close": 21.629999,
+            "volume": 41425
         },
         {
             "date": "2025-12-24",

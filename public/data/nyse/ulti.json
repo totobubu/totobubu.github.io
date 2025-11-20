@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.31,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.4635,
         "englishName": "REX ETF Trust - REX IncomeMax Option Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 31508,
-        "AvgVolume": 64950,
+        "Volume": 29508,
+        "AvgVolume": 62384,
         "sharesOutstanding": null,
         "52Week": "17.058 - 26.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.31,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 31508,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 64950,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -132,6 +145,14 @@
             "low": 17.058001,
             "close": 17.9566,
             "volume": 24009
+        },
+        {
+            "date": "2025-11-19",
+            "open": 18.0956,
+            "high": 18.120001,
+            "low": 17.2502,
+            "close": 17.5907,
+            "volume": 23719
         }
     ]
 }

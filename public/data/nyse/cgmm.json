@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.235,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.165,
         "englishName": "Capital Group U.S. Small and Mid Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1509076,
-        "AvgVolume": 826053,
+        "Volume": 831532,
+        "AvgVolume": 839385,
         "sharesOutstanding": null,
         "52Week": "20.57 - 28.86",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.235,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1509076,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 826053,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1778,6 +1791,14 @@
             "low": 26.975,
             "close": 27.190001,
             "volume": 1558005
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27.280001,
+            "high": 27.41,
+            "low": 27.08,
+            "close": 27.26,
+            "volume": 981468
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.47,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 41.26,
         "englishName": "ProShares Ultra QQQ TOP 30",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12155,
-        "AvgVolume": 10881,
+        "Volume": 2866,
+        "AvgVolume": 10667,
         "sharesOutstanding": null,
         "52Week": "37.049 - 47.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.47,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12155,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10881,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -566,6 +579,14 @@
             "low": 40.939999,
             "close": 41.334,
             "volume": 9156
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.5755,
+            "high": 42.509998,
+            "low": 41.259998,
+            "close": 41.623199,
+            "volume": 1800
         }
     ]
 }

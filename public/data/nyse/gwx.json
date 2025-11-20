@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 38.97,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 38.7,
         "englishName": "SPDR S&P International Small Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36967,
-        "AvgVolume": 51101,
+        "Volume": 67666,
+        "AvgVolume": 51057,
         "sharesOutstanding": null,
         "52Week": "28.53 - 40.96",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.97,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36967,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 51101,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37532,6 +37545,14 @@
             "low": 38.689999,
             "close": 38.849998,
             "volume": 37888
+        },
+        {
+            "date": "2025-11-19",
+            "open": 38.669998,
+            "high": 38.964699,
+            "low": 38.620098,
+            "close": 38.720001,
+            "volume": 98246
         }
     ]
 }

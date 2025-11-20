@@ -9,16 +9,16 @@
         "underlying": "ABNB",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 8.999,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 8.9,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10071,
-        "AvgVolume": 19939,
+        "Volume": 5140,
+        "AvgVolume": 19782,
         "sharesOutstanding": null,
-        "52Week": "8.98 - 16.57",
+        "52Week": "8.843 - 16.57",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.999,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10071,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19939,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3596,8 +3609,16 @@
             "volume": 10105
         },
         {
+            "date": "2025-11-19",
+            "open": 8.92,
+            "high": 8.99,
+            "low": 8.83,
+            "close": 8.85,
+            "volume": 6612
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.1074
         },
         {
             "date": "2025-11-26",

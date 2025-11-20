@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 135.81,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 133.71,
         "englishName": "Thomson Reuters Corporation",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 62716698624,
-        "marketCap": 61390282752,
-        "Volume": 890609,
-        "AvgVolume": 1284892,
+        "enterpriseValue": 62062780416,
+        "marketCap": 60441022464,
+        "Volume": 567959,
+        "AvgVolume": 1287214,
         "sharesOutstanding": 444842487,
-        "52Week": "134.5 - 218.42",
-        "Yield": 0.01712,
+        "52Week": "132.58 - 218.42",
+        "Yield": 0.017388,
         "dividendRate": 2.38,
         "payoutRatio": 0.5992,
         "isin": "CA8849038085",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 135.81,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 62716698624,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 61390282752,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 890609,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1284892,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01712,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -53951,14 +53976,24 @@
             "high": 138.25,
             "low": 134.570007,
             "close": 135.669998,
-            "volume": 1114045
+            "volume": 1114045,
+            "amount": 0.595,
+            "yield": 0.0211211573
         },
         {
             "date": "2025-11-19",
+            "open": 135.710007,
+            "high": 135.880005,
+            "low": 132.580002,
+            "close": 134.309998,
+            "volume": 1121181
+        },
+        {
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-19",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

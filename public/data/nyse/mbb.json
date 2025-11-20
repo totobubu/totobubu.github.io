@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 95.085,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 95.07,
         "englishName": "iShares MBS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2366256,
-        "AvgVolume": 3516385,
+        "Volume": 4969628,
+        "AvgVolume": 3509448,
         "sharesOutstanding": null,
         "52Week": "90.28 - 96.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 95.085,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2366256,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3516385,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38085,6 +38098,14 @@
             "low": 95.001404,
             "close": 95.059998,
             "volume": 3273847
+        },
+        {
+            "date": "2025-11-19",
+            "open": 95.220001,
+            "high": 95.246002,
+            "low": 94.981102,
+            "close": 95.080002,
+            "volume": 6529029
         },
         {
             "date": "2025-12-03",

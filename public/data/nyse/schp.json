@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.815,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.805,
         "englishName": "Schwab U.S. TIPS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3107858688,
-        "Volume": 2741302,
-        "AvgVolume": 3215803,
+        "marketCap": 3106699520,
+        "Volume": 1549280,
+        "AvgVolume": 3227804,
         "sharesOutstanding": 115900000,
         "52Week": "25.68 - 27.19",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.815,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3107858688,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2741302,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3215803,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35778,6 +35795,14 @@
             "low": 26.780001,
             "close": 26.83,
             "volume": 3083555
+        },
+        {
+            "date": "2025-11-19",
+            "open": 26.83,
+            "high": 26.84,
+            "low": 26.77,
+            "close": 26.790001,
+            "volume": 4525661
         },
         {
             "date": "2025-12-03",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 65.12,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 66.5,
         "englishName": "McCormick & Company, Incorporated",
         "earningsDate": "2025-10-07",
-        "enterpriseValue": 21623216128,
-        "marketCap": 17476624384,
-        "Volume": 2665010,
-        "AvgVolume": 2637067,
+        "enterpriseValue": 21765455872,
+        "marketCap": 17846982656,
+        "Volume": 1652902,
+        "AvgVolume": 2649906,
         "sharesOutstanding": 253239902,
         "52Week": "63.15 - 86.24",
-        "Yield": 0.027181,
+        "Yield": 0.026617,
         "dividendRate": 1.8,
         "payoutRatio": 0.6146,
         "isin": "US5797802064",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.12,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 21623216128,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 17476624384,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2665010,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2637067,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.027181,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121646,6 +121671,14 @@
             "low": 64.150002,
             "close": 65.099998,
             "volume": 2948479
+        },
+        {
+            "date": "2025-11-19",
+            "open": 65.699997,
+            "high": 67.125,
+            "low": 65.360001,
+            "close": 66.739998,
+            "volume": 2608507
         },
         {
             "date": "2026-01-14",

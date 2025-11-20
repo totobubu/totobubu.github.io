@@ -9,14 +9,14 @@
         "underlying": "AMD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.69,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.92,
         "englishName": "Defiance Leveraged Long + Income AMD ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 72004,
-        "AvgVolume": 21111,
+        "Volume": 50522,
+        "AvgVolume": 22114,
         "sharesOutstanding": null,
         "52Week": "16.04 - 36.527",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 72004,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 21111,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -582,7 +595,12 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 25.91,
+            "high": 26.75,
+            "low": 23.719999,
+            "close": 24.341299,
+            "volume": 34039
         },
         {
             "date": "2025-11-26",

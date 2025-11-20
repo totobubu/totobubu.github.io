@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 34.11,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.955,
         "englishName": "CSX Corporation",
         "earningsDate": "2025-10-16",
-        "enterpriseValue": 82525233152,
-        "marketCap": 63590490112,
-        "Volume": 9026532,
-        "AvgVolume": 17011420,
+        "enterpriseValue": 82487992320,
+        "marketCap": 63301529600,
+        "Volume": 5085168,
+        "AvgVolume": 16672876,
         "sharesOutstanding": 1862136956,
         "52Week": "26.22 - 37.25",
-        "Yield": 0.014952,
+        "Yield": 0.01502,
         "dividendRate": 0.52,
         "payoutRatio": 0.3312,
         "isin": "US1264081035",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.11,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 82525233152,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 63590490112,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9026532,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17011420,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.014952,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105375,6 +105400,14 @@
             "low": 33.919998,
             "close": 33.990002,
             "volume": 15928188
+        },
+        {
+            "date": "2025-11-19",
+            "open": 34.02,
+            "high": 34.314999,
+            "low": 33.915001,
+            "close": 33.959999,
+            "volume": 12583340
         },
         {
             "date": "2025-11-28",

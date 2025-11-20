@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 1003.915,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 1025.82,
         "englishName": "ASML Holding N.V.",
         "earningsDate": "2026-01-28",
-        "enterpriseValue": 392622505984,
-        "marketCap": 389667258368,
-        "Volume": 1066613,
-        "AvgVolume": 1504317,
+        "enterpriseValue": 386448949248,
+        "marketCap": 398169636864,
+        "Volume": 803405,
+        "AvgVolume": 1508896,
         "sharesOutstanding": 388147674,
         "52Week": "578.51 - 1086.11",
-        "Yield": 0.006455,
+        "Yield": 0.006317,
         "dividendRate": 7.37,
         "payoutRatio": 0.2672,
         "isin": "USN070592100",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1003.915,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 392622505984,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 389667258368,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1066613,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1504317,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.006455,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69614,6 +69639,14 @@
             "low": 993.98999,
             "close": 1004.059998,
             "volume": 1412816
+        },
+        {
+            "date": "2025-11-19",
+            "open": 1005.765015,
+            "high": 1044.734009,
+            "low": 1005,
+            "close": 1039.329956,
+            "volume": 1561352
         },
         {
             "date": "2026-01-29",

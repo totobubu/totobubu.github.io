@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 91.095,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 89.1703,
         "englishName": "Uber Technologies, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 196663951360,
-        "marketCap": 189971218432,
-        "Volume": 14016599,
-        "AvgVolume": 16719634,
+        "enterpriseValue": 194066661376,
+        "marketCap": 185957416960,
+        "Volume": 10319630,
+        "AvgVolume": 16661626,
         "sharesOutstanding": 2077830381,
         "52Week": "59.33 - 101.99",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.095,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 196663951360,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 189971218432,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14016599,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16719634,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14794,7 +14815,16 @@
             "high": 92.923401,
             "low": 89.330002,
             "close": 90.860001,
-            "volume": 17085068
+            "volume": 17085068,
+            "marketCap": 185957416960
+        },
+        {
+            "date": "2025-11-19",
+            "open": 90.599998,
+            "high": 91.074997,
+            "low": 88.8946,
+            "close": 89.529999,
+            "volume": 14664526
         }
     ]
 }

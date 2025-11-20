@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 203.19,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 201.365,
         "englishName": "Direxion Daily S&P500 Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6039348,
-        "AvgVolume": 3232292,
+        "Volume": 3144482,
+        "AvgVolume": 3318664,
         "sharesOutstanding": null,
         "52Week": "87.08 - 232.19",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 203.19,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6039348,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3232292,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34552,6 +34565,14 @@
             "low": 197.990005,
             "close": 201.929993,
             "volume": 8592500
+        },
+        {
+            "date": "2025-11-19",
+            "open": 202.380005,
+            "high": 208.429993,
+            "low": 200.600006,
+            "close": 204.130005,
+            "volume": 4176166
         },
         {
             "date": "2025-12-23",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 128.46,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 128.72,
         "englishName": "SoFi Select 500 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 25970,
-        "AvgVolume": 25309,
+        "Volume": 10070,
+        "AvgVolume": 25495,
         "sharesOutstanding": null,
         "52Week": "86.935 - 135.555",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 128.46,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25970,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 25309,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13496,6 +13509,14 @@
             "low": 128.020004,
             "close": 128.360001,
             "volume": 26652
+        },
+        {
+            "date": "2025-11-19",
+            "open": 128.440002,
+            "high": 130.059998,
+            "low": 128.426193,
+            "close": 129.065002,
+            "volume": 12316
         }
     ]
 }

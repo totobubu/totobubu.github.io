@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.5315,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.37,
         "englishName": "Capital Group International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 405907,
-        "AvgVolume": 297989,
+        "Volume": 189360,
+        "AvgVolume": 301009,
         "sharesOutstanding": null,
         "52Week": "26.1 - 34.99",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.5315,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 405907,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 297989,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4392,6 +4405,14 @@
             "low": 33.32,
             "close": 33.529999,
             "volume": 424948
+        },
+        {
+            "date": "2025-11-19",
+            "open": 33.459999,
+            "high": 33.584999,
+            "low": 33.275002,
+            "close": 33.43,
+            "volume": 358570
         }
     ]
 }

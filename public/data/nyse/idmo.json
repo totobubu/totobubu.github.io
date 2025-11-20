@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.31,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.93,
         "englishName": "Invesco S&P International Developed Momentum ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 309932,
-        "AvgVolume": 370682,
+        "Volume": 244509,
+        "AvgVolume": 369350,
         "sharesOutstanding": null,
         "52Week": "38.35 - 55.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.31,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 309932,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 370682,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27818,6 +27831,14 @@
             "low": 52.915001,
             "close": 53.27,
             "volume": 321332
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.16,
+            "high": 53.4231,
+            "low": 52.849998,
+            "close": 53.02,
+            "volume": 399540
         },
         {
             "date": "2025-12-22",

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 141.09,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 137.65,
         "englishName": "Molina Healthcare, Inc.",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 2436005888,
-        "marketCap": 7647077888,
-        "Volume": 2032528,
-        "AvgVolume": 1503032,
+        "enterpriseValue": 2662166016,
+        "marketCap": 7460629504,
+        "Volume": 1113656,
+        "AvgVolume": 1513904,
         "sharesOutstanding": 51400000,
-        "52Week": "133.725 - 359.97",
+        "52Week": "133.73 - 359.97",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 141.09,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2436005888,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 7647077888,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2032528,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1503032,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -50719,7 +50740,16 @@
             "high": 141.879898,
             "low": 133.725006,
             "close": 141.190002,
-            "volume": 2219765
+            "volume": 2219765,
+            "marketCap": 7460629504
+        },
+        {
+            "date": "2025-11-19",
+            "open": 142.119995,
+            "high": 142.460007,
+            "low": 137.039993,
+            "close": 138.119995,
+            "volume": 2142372
         }
     ]
 }

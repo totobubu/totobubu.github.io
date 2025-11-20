@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.6775,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 20.36,
         "englishName": "GraniteShares 2x Long MRVL Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 204199,
-        "AvgVolume": 837160,
+        "Volume": 109551,
+        "AvgVolume": 836614,
         "sharesOutstanding": null,
         "52Week": "9.66 - 30.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.6775,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 204199,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 837160,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1452,6 +1465,14 @@
             "low": 19.450001,
             "close": 19.561399,
             "volume": 121462
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.74,
+            "high": 21.0996,
+            "low": 19.6845,
+            "close": 20.83,
+            "volume": 130987
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 69.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 69.6595,
         "englishName": "JPMorgan BetaBuilders International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63599,
-        "AvgVolume": 181876,
+        "Volume": 63992,
+        "AvgVolume": 179665,
         "sharesOutstanding": null,
         "52Week": "54.47 - 72.716",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 63599,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 181876,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12090,6 +12103,14 @@
             "low": 69.519997,
             "close": 69.989998,
             "volume": 82914
+        },
+        {
+            "date": "2025-11-19",
+            "open": 69.860001,
+            "high": 69.988503,
+            "low": 69.474998,
+            "close": 69.690002,
+            "volume": 84383
         },
         {
             "date": "2025-12-23",

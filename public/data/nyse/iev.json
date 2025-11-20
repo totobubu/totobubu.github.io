@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 65.38,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 64.95,
         "englishName": "iShares Europe ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2628275968,
-        "Volume": 241804,
-        "AvgVolume": 350267,
+        "marketCap": 2610989824,
+        "Volume": 117802,
+        "AvgVolume": 350328,
         "sharesOutstanding": 40200000,
         "52Week": "51.3 - 67.94",
-        "Yield": 0.01866,
+        "Yield": 0.018784,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642878619",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.38,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2628275968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 241804,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 350267,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01866,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -57580,7 +57601,16 @@
             "high": 65.516998,
             "low": 64.940002,
             "close": 65.300003,
-            "volume": 251748
+            "volume": 251748,
+            "marketCap": 2610989824
+        },
+        {
+            "date": "2025-11-19",
+            "open": 65.25,
+            "high": 65.440002,
+            "low": 64.839996,
+            "close": 65.050003,
+            "volume": 129877
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 47.545,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 47.28,
         "englishName": "Ball Corporation",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 19717752832,
-        "marketCap": 12939318272,
-        "Volume": 1513069,
-        "AvgVolume": 2705057,
+        "enterpriseValue": 19720431616,
+        "marketCap": 12867198976,
+        "Volume": 1231781,
+        "AvgVolume": 2685167,
         "sharesOutstanding": 267987212,
         "52Week": "43.51 - 63.35",
-        "Yield": 0.016826,
+        "Yield": 0.01692,
         "dividendRate": 0.8,
         "payoutRatio": 0.3113,
         "isin": "KR7018880005",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.545,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19717752832,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 12939318272,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1513069,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2705057,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.016826,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122337,6 +122362,14 @@
             "low": 47.299999,
             "close": 47.529999,
             "volume": 1849300
+        },
+        {
+            "date": "2025-11-19",
+            "open": 47.439999,
+            "high": 47.599998,
+            "low": 47.16,
+            "close": 47.57,
+            "volume": 2167974
         },
         {
             "date": "2025-12-02",

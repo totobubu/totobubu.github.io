@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 32.5,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 32.53,
         "englishName": "Roundhill Glp-1 & Weight Loss ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 22089,
-        "AvgVolume": 10401,
+        "Volume": 12745,
+        "AvgVolume": 10254,
         "sharesOutstanding": null,
-        "52Week": "20.01 - 32.69",
+        "52Week": "20.01 - 32.7",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.5,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 22089,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10401,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3434,6 +3447,14 @@
             "low": 32.148499,
             "close": 32.462002,
             "volume": 21440
+        },
+        {
+            "date": "2025-11-19",
+            "open": 32.52,
+            "high": 32.700001,
+            "low": 32.34,
+            "close": 32.5298,
+            "volume": 18574
         }
     ]
 }

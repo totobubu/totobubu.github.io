@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 7.25,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 7.12,
         "englishName": "Defiance Daily Target 2X Long DKNG ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 69927,
-        "AvgVolume": 133275,
+        "Volume": 25229,
+        "AvgVolume": 134214,
         "sharesOutstanding": null,
         "52Week": "5.84 - 22.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 69927,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 133275,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -664,6 +677,14 @@
             "low": 6.71,
             "close": 7.21,
             "volume": 58550
+        },
+        {
+            "date": "2025-11-19",
+            "open": 7.1876,
+            "high": 7.3435,
+            "low": 6.97,
+            "close": 7.0432,
+            "volume": 35275
         }
     ]
 }

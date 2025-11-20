@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 59.03,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 58.645,
         "englishName": "Altria Group, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 119860174848,
-        "marketCap": 99163963392,
-        "Volume": 6544081,
-        "AvgVolume": 8294964,
+        "enterpriseValue": 121219899392,
+        "marketCap": 98517204992,
+        "Volume": 3475993,
+        "AvgVolume": 8342843,
         "sharesOutstanding": 1678671552,
         "52Week": "50.08 - 68.6",
-        "Yield": 0.069117,
+        "Yield": 0.069571,
         "dividendRate": 4.24,
         "payoutRatio": 0.7863,
         "isin": "US02209S1033",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.03,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 119860174848,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 99163963392,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6544081,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8294964,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.069117,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -148234,6 +148259,14 @@
             "low": 58.380001,
             "close": 58.939999,
             "volume": 9543461
+        },
+        {
+            "date": "2025-11-19",
+            "open": 58.740002,
+            "high": 59.09,
+            "low": 58.450001,
+            "close": 58.610001,
+            "volume": 4843498
         },
         {
             "date": "2025-12-15",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 44.4934,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.55,
         "englishName": "Unusual Whales Subversive Democratic Trading ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 35221,
-        "AvgVolume": 37193,
+        "Volume": 17000,
+        "AvgVolume": 37271,
         "sharesOutstanding": null,
         "52Week": "31.2 - 46.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.4934,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 35221,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 37193,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5676,6 +5689,14 @@
             "low": 44.1306,
             "close": 44.360001,
             "volume": 36091
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.52,
+            "high": 44.849998,
+            "low": 44.3899,
+            "close": 44.66,
+            "volume": 21798
         },
         {
             "date": "2025-12-26",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 44.7484,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.62,
         "englishName": "Invesco S&P 500 Pure Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 284915,
-        "AvgVolume": 217623,
+        "Volume": 213473,
+        "AvgVolume": 219071,
         "sharesOutstanding": null,
         "52Week": "32.16 - 48.64",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.7484,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 284915,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 217623,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40416,6 +40429,14 @@
             "low": 44.259998,
             "close": 44.630001,
             "volume": 294258
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.68,
+            "high": 45.110001,
+            "low": 44.52,
+            "close": 44.82,
+            "volume": 264179
         },
         {
             "date": "2025-12-22",

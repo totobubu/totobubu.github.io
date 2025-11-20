@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 92.09,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 90.98,
         "englishName": "Arch Capital Group Ltd.",
         "earningsDate": "2025-10-27",
-        "enterpriseValue": 33235351552,
-        "marketCap": 34369855488,
-        "Volume": 934263,
-        "AvgVolume": 2127273,
+        "enterpriseValue": 33228130304,
+        "marketCap": 33955584000,
+        "Volume": 713535,
+        "AvgVolume": 2129585,
         "sharesOutstanding": 362625938,
         "52Week": "82.45 - 101.66",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.09,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 33235351552,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34369855488,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 934263,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2127273,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68396,7 +68417,16 @@
             "high": 92.760002,
             "low": 91.220001,
             "close": 91.790001,
-            "volume": 1420136
+            "volume": 1420136,
+            "marketCap": 33955584000
+        },
+        {
+            "date": "2025-11-19",
+            "open": 91.709999,
+            "high": 92.050003,
+            "low": 90.860001,
+            "close": 91.169998,
+            "volume": 1441501
         }
     ]
 }

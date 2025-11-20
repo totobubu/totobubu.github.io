@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.62,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 30.37,
         "englishName": "Eagle Capital Select Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 159688,
-        "AvgVolume": 141112,
+        "Volume": 64175,
+        "AvgVolume": 140770,
         "sharesOutstanding": null,
         "52Week": "24.58 - 32.538",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 159688,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 141112,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3410,6 +3423,14 @@
             "low": 30.360001,
             "close": 30.59,
             "volume": 171575
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.559999,
+            "high": 30.59,
+            "low": 30.292801,
+            "close": 30.48,
+            "volume": 79546
         }
     ]
 }

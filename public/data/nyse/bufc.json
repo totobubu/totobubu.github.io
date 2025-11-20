@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 40.69,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 40.59,
         "englishName": "AB Conservative Buffer ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49401,
-        "AvgVolume": 44920,
+        "Volume": 20046,
+        "AvgVolume": 45381,
         "sharesOutstanding": null,
         "52Week": "35.0 - 41.16",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49401,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 44920,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3908,6 +3921,14 @@
             "low": 40.540001,
             "close": 40.585602,
             "volume": 49402
+        },
+        {
+            "date": "2025-11-19",
+            "open": 40.509998,
+            "high": 40.650002,
+            "low": 40.509998,
+            "close": 40.650002,
+            "volume": 77013
         }
     ]
 }

@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 102.825,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 102.7478,
         "englishName": "Prudential Financial, Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 52435501056,
-        "marketCap": 36188532736,
-        "Volume": 1270481,
-        "AvgVolume": 1586093,
+        "enterpriseValue": 52131000320,
+        "marketCap": 36161363968,
+        "Volume": 632016,
+        "AvgVolume": 1595326,
         "sharesOutstanding": 349921578,
         "52Week": "90.38 - 130.55",
-        "Yield": 0.05203,
+        "Yield": 0.052069,
         "dividendRate": 5.4,
         "payoutRatio": 0.7329,
         "isin": "US7443201022",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 102.825,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 52435501056,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36188532736,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1270481,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1586093,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.05203,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54336,14 +54361,24 @@
             "high": 103.574997,
             "low": 101.220001,
             "close": 102.639999,
-            "volume": 1420328
+            "volume": 1420328,
+            "amount": 1.35,
+            "yield": 0.0659773491
         },
         {
             "date": "2025-11-19",
+            "open": 102.540001,
+            "high": 103.699997,
+            "low": 102.220001,
+            "close": 103.559998,
+            "volume": 1204985
+        },
+        {
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-19",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

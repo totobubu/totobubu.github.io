@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.88,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.82,
         "englishName": "Defiance Large Cap ex-Mag 7 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 69771,
-        "AvgVolume": 32848,
+        "Volume": 63463,
+        "AvgVolume": 33639,
         "sharesOutstanding": null,
         "52Week": "17.07 - 23.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.88,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 69771,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32848,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2242,6 +2255,14 @@
             "low": 21.757,
             "close": 21.889999,
             "volume": 70889
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.940001,
+            "high": 21.99,
+            "low": 21.799999,
+            "close": 21.884399,
+            "volume": 61917
         }
     ]
 }

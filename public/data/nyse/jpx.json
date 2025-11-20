@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 20.0008,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.97,
         "englishName": "Defiance Daily Target 2X Long JPM ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3123,
-        "AvgVolume": 15587,
+        "Volume": 2468,
+        "AvgVolume": 15629,
         "sharesOutstanding": null,
         "52Week": "18.4 - 22.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.0008,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3123,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15587,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -696,6 +709,14 @@
             "low": 19.459999,
             "close": 19.648899,
             "volume": 2504
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.8137,
+            "high": 20.280001,
+            "low": 19.8137,
+            "close": 20.1791,
+            "volume": 2659
         }
     ]
 }

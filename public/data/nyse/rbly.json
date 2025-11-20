@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 37.81,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 36.36,
         "englishName": "YieldMax(TM) RBLX Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1874,
-        "AvgVolume": 18440,
+        "Volume": 6400,
+        "AvgVolume": 18395,
         "sharesOutstanding": null,
-        "52Week": "36.774 - 58.42",
+        "52Week": "35.5 - 58.42",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.81,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1874,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 18440,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1378,8 +1391,16 @@
             "volume": 1874
         },
         {
+            "date": "2025-11-19",
+            "open": 35.645901,
+            "high": 36.365002,
+            "low": 35.5,
+            "close": 36.3311,
+            "volume": 7153
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.4139
         },
         {
             "date": "2025-11-26",

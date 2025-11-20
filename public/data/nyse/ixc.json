@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 43.26,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 42.645,
         "englishName": "iShares Global Energy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1122596992,
-        "Volume": 310191,
-        "AvgVolume": 391296,
+        "marketCap": 1106637824,
+        "Volume": 274330,
+        "AvgVolume": 393223,
         "sharesOutstanding": 25950000,
         "52Week": "33.89 - 43.62",
-        "Yield": 0.023671,
+        "Yield": 0.024012,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642873412",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.26,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1122596992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 310191,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 391296,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.023671,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54549,7 +54570,16 @@
             "high": 43.330002,
             "low": 42.669998,
             "close": 43.209999,
-            "volume": 319692
+            "volume": 319692,
+            "marketCap": 1106637824
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.57,
+            "high": 42.814999,
+            "low": 42.330002,
+            "close": 42.740002,
+            "volume": 524111
         }
     ]
 }

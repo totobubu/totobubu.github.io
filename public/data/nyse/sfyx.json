@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 15.4265,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 15.36,
         "englishName": "SoFi Next 500 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4624,
-        "AvgVolume": 5857,
+        "Volume": 3940,
+        "AvgVolume": 5875,
         "sharesOutstanding": null,
         "52Week": "11.57 - 16.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.4265,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4624,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5857,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13402,6 +13415,14 @@
             "low": 15.21,
             "close": 15.3905,
             "volume": 4624
+        },
+        {
+            "date": "2025-11-19",
+            "open": 15.4798,
+            "high": 15.4798,
+            "low": 15.3501,
+            "close": 15.4,
+            "volume": 4186
         }
     ]
 }

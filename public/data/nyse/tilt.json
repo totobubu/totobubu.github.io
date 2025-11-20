@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 239.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 239.2377,
         "englishName": "FlexShares Morningstar US Market Factors Tilt Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 620,
-        "AvgVolume": 7164,
+        "Volume": 2548,
+        "AvgVolume": 7104,
         "sharesOutstanding": null,
         "52Week": "179.13 - 248.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 239.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 620,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7164,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28656,6 +28669,14 @@
             "low": 239.235703,
             "close": 239.235992,
             "volume": 620
+        },
+        {
+            "date": "2025-11-19",
+            "open": 239.679993,
+            "high": 241.129898,
+            "low": 238.520004,
+            "close": 239.929993,
+            "volume": 11672
         },
         {
             "date": "2025-12-19",

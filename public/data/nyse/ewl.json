@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 56.645,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 56.26,
         "englishName": "iShares MSCI Switzerland ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1621463168,
-        "Volume": 656263,
-        "AvgVolume": 357012,
+        "marketCap": 1610442496,
+        "Volume": 541737,
+        "AvgVolume": 358975,
         "sharesOutstanding": 28625000,
         "52Week": "45.56 - 58.35",
-        "Yield": 0.011298,
+        "Yield": 0.011376,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642867497",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.645,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1621463168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 656263,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 357012,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011298,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67362,7 +67383,16 @@
             "high": 56.799999,
             "low": 56.23,
             "close": 56.580002,
-            "volume": 678498
+            "volume": 678498,
+            "marketCap": 1610442496
+        },
+        {
+            "date": "2025-11-19",
+            "open": 56.549999,
+            "high": 56.580002,
+            "low": 56.145,
+            "close": 56.360001,
+            "volume": 688621
         }
     ]
 }

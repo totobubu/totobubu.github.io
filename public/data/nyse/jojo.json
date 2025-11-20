@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 15.455,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 15.46,
         "englishName": "ATAC Credit Rotation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6063,
-        "AvgVolume": 5645,
+        "Volume": 312,
+        "AvgVolume": 5700,
         "sharesOutstanding": null,
         "52Week": "14.27 - 15.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.455,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6063,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5645,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8878,6 +8891,14 @@
             "low": 15.43,
             "close": 15.44,
             "volume": 6063
+        },
+        {
+            "date": "2025-11-19",
+            "open": 15.46,
+            "high": 15.46,
+            "low": 15.455,
+            "close": 15.46,
+            "volume": 949
         },
         {
             "date": "2025-12-04",

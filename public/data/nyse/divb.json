@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.3192,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 51.105,
         "englishName": "iShares Core Dividend ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 122768,
-        "AvgVolume": 125662,
+        "Volume": 111011,
+        "AvgVolume": 126748,
         "sharesOutstanding": null,
         "52Week": "41.8 - 52.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.3192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 122768,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 125662,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16280,6 +16293,14 @@
             "low": 51.033199,
             "close": 51.299999,
             "volume": 133069
+        },
+        {
+            "date": "2025-11-19",
+            "open": 51.32,
+            "high": 51.399899,
+            "low": 51.063301,
+            "close": 51.200001,
+            "volume": 143089
         },
         {
             "date": "2025-12-16",

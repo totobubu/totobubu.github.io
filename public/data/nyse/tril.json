@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.54,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.4301,
         "englishName": "Defiance Trillion Dollar Club Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2349,
-        "AvgVolume": 4648,
+        "Volume": 5864,
+        "AvgVolume": 4586,
         "sharesOutstanding": null,
-        "52Week": "19.395 - 21.27",
+        "52Week": "19.33 - 21.27",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.54,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2349,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4648,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -316,6 +329,14 @@
             "low": 19.395,
             "close": 19.459101,
             "volume": 2099
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.43,
+            "high": 19.5634,
+            "low": 19.43,
+            "close": 19.5634,
+            "volume": 5764
         }
     ]
 }

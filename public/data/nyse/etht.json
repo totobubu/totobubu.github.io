@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45.56,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 38.02,
         "englishName": "Proshares Ultra Ether ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1854571,
-        "AvgVolume": 1544964,
+        "Volume": 3038995,
+        "AvgVolume": 1553567,
         "sharesOutstanding": null,
         "52Week": "15.4 - 173.2",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.56,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1854571,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1544964,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2970,6 +2983,14 @@
             "low": 42.751499,
             "close": 45.279999,
             "volume": 1893158
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.439999,
+            "high": 44.790001,
+            "low": 37.849998,
+            "close": 40,
+            "volume": 3994497
         }
     ]
 }

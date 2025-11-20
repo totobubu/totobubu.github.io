@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 28.14,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 27.97,
         "englishName": "Return Stacked Global Stocks & Bonds ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 62711,
-        "AvgVolume": 80768,
+        "Volume": 54548,
+        "AvgVolume": 81498,
         "sharesOutstanding": null,
         "52Week": "20.53 - 29.41",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 62711,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 80768,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3977,6 +3990,14 @@
             "low": 27.950001,
             "close": 27.969999,
             "volume": 62711
+        },
+        {
+            "date": "2025-11-19",
+            "open": 28.02,
+            "high": 28.280001,
+            "low": 27.950001,
+            "close": 27.99,
+            "volume": 65758
         },
         {
             "date": "2025-12-18",

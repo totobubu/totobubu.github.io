@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 174.815,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 173.83,
         "englishName": "RTX Corporation",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 272101769216,
-        "marketCap": 234387062784,
-        "Volume": 2446538,
-        "AvgVolume": 4423740,
+        "enterpriseValue": 270881669120,
+        "marketCap": 233066397696,
+        "Volume": 1691589,
+        "AvgVolume": 4435207,
         "sharesOutstanding": 1340771942,
         "52Week": "112.27 - 181.31",
-        "Yield": 0.014987,
+        "Yield": 0.015072,
         "dividendRate": 2.72,
         "payoutRatio": 0.538,
         "isin": "CA74983J1049",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 174.815,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 272101769216,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 234387062784,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2446538,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4423740,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.014987,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -149631,6 +149656,14 @@
             "low": 174.309998,
             "close": 174.720001,
             "volume": 3716265
+        },
+        {
+            "date": "2025-11-19",
+            "open": 173.509995,
+            "high": 174.75,
+            "low": 172.5,
+            "close": 173.770004,
+            "volume": 3885976
         },
         {
             "date": "2026-02-13",

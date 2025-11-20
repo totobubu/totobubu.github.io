@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 466.125,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 473.04,
         "englishName": "Cummins Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 69061771264,
-        "marketCap": 64342151168,
-        "Volume": 885203,
-        "AvgVolume": 862507,
+        "enterpriseValue": 70295814144,
+        "marketCap": 65296670720,
+        "Volume": 595519,
+        "AvgVolume": 872125,
         "sharesOutstanding": 138036253,
         "52Week": "260.02 - 484.84",
-        "Yield": 0.016004,
+        "Yield": 0.01577,
         "dividendRate": 8,
         "payoutRatio": 0.3867,
         "isin": "US2310211063",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 466.125,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 69061771264,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 64342151168,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 885203,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 862507,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.016004,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121436,6 +121461,14 @@
             "low": 450.100006,
             "close": 464.920013,
             "volume": 1028096
+        },
+        {
+            "date": "2025-11-19",
+            "open": 467.200012,
+            "high": 475.769989,
+            "low": 464.920013,
+            "close": 473.26001,
+            "volume": 1056465
         },
         {
             "date": "2025-11-21",

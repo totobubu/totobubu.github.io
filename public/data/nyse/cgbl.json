@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 34.26,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.24,
         "englishName": "Capital Group Core Balanced ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 778922,
-        "AvgVolume": 782226,
+        "Volume": 477887,
+        "AvgVolume": 785020,
         "sharesOutstanding": null,
         "52Week": "28.22 - 35.415",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 778922,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 782226,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4400,6 +4413,14 @@
             "low": 34.084999,
             "close": 34.25,
             "volume": 823539
+        },
+        {
+            "date": "2025-11-19",
+            "open": 34.27,
+            "high": 34.4599,
+            "low": 34.150002,
+            "close": 34.330002,
+            "volume": 708228
         },
         {
             "date": "2025-12-30",

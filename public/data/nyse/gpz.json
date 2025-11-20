@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 24.83,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 24.74,
         "englishName": "VanEck Alternative Asset Manager ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 348530,
-        "AvgVolume": 118340,
+        "Volume": 75040,
+        "AvgVolume": 123306,
         "sharesOutstanding": null,
         "52Week": "24.32 - 30.195",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.83,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 348530,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 118340,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1008,6 +1021,14 @@
             "low": 24.32,
             "close": 24.809999,
             "volume": 350537
+        },
+        {
+            "date": "2025-11-19",
+            "open": 24.780001,
+            "high": 25.045,
+            "low": 24.605,
+            "close": 25.040001,
+            "volume": 119780
         }
     ]
 }

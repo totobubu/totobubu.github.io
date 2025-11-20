@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 106.49,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 106.11,
         "englishName": "NetApp, Inc.",
         "earningsDate": "2025-11-25",
-        "enterpriseValue": 20734242816,
-        "marketCap": 21308528640,
-        "Volume": 1367198,
-        "AvgVolume": 2053253,
+        "enterpriseValue": 20654395392,
+        "marketCap": 21232492544,
+        "Volume": 733838,
+        "AvgVolume": 2060490,
         "sharesOutstanding": 199618386,
         "52Week": "71.84 - 135.45",
-        "Yield": 0.019532,
+        "Yield": 0.019602,
         "dividendRate": 2.08,
         "payoutRatio": 0.3681,
         "isin": "US64110D1046",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.49,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 20734242816,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21308528640,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1367198,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2053253,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.019532,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68068,6 +68093,14 @@
             "low": 106.07,
             "close": 106.400002,
             "volume": 2176240
+        },
+        {
+            "date": "2025-11-19",
+            "open": 106.919998,
+            "high": 107.260002,
+            "low": 106.035004,
+            "close": 106.269997,
+            "volume": 1875219
         },
         {
             "date": "2026-01-02",

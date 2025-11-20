@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 31.03,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 30.96,
         "englishName": "iShares Emerging Markets Dividend ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 163733,
-        "AvgVolume": 168498,
+        "Volume": 80735,
+        "AvgVolume": 169510,
         "sharesOutstanding": null,
         "52Week": "23.77 - 31.93",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.03,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 163733,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 168498,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27834,6 +27847,14 @@
             "low": 30.91,
             "close": 31.030001,
             "volume": 169268
+        },
+        {
+            "date": "2025-11-19",
+            "open": 31.01,
+            "high": 31.115,
+            "low": 30.870001,
+            "close": 30.99,
+            "volume": 111213
         },
         {
             "date": "2025-12-16",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.2601,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.265,
         "englishName": "AB Tax-Aware Short Duration ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 265609,
-        "AvgVolume": 280318,
+        "Volume": 31393,
+        "AvgVolume": 280445,
         "sharesOutstanding": null,
         "52Week": "24.55 - 25.42",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.2601,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 265609,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 280318,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6494,6 +6507,14 @@
             "low": 25.244499,
             "close": 25.26,
             "volume": 275708
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.25,
+            "high": 25.280001,
+            "low": 25.25,
+            "close": 25.25,
+            "volume": 120650
         },
         {
             "date": "2025-12-03",

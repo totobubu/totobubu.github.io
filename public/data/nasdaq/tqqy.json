@@ -9,14 +9,14 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 17.0849,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 17.05,
         "englishName": "GraniteShares YieldBOOST QQQ ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 33517,
-        "AvgVolume": 29125,
+        "Volume": 9230,
+        "AvgVolume": 29182,
         "sharesOutstanding": null,
         "52Week": "16.59 - 25.375",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.0849,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 33517,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 29125,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1582,6 +1595,14 @@
             "low": 16.9,
             "close": 17.0466,
             "volume": 33846
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.059999,
+            "high": 17.34,
+            "low": 17.020201,
+            "close": 17.120001,
+            "volume": 11471
         },
         {
             "date": "2025-11-21",

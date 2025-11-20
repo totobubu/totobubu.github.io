@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 22.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.92,
         "englishName": "The Free Markets ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15465,
-        "AvgVolume": 19454,
+        "Volume": 3206,
+        "AvgVolume": 19407,
         "sharesOutstanding": null,
         "52Week": "19.75 - 24.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15465,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19454,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -984,6 +997,14 @@
             "low": 21.809999,
             "close": 21.93,
             "volume": 15520
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.209999,
+            "high": 22.089899,
+            "low": 21.870001,
+            "close": 21.889999,
+            "volume": 3793
         }
     ]
 }

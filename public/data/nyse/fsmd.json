@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.53,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 42.26,
         "englishName": "Fidelity Small-Mid Multifactor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 148576,
-        "AvgVolume": 137629,
+        "Volume": 79371,
+        "AvgVolume": 138150,
         "sharesOutstanding": null,
         "52Week": "33.952 - 45.16",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 148576,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 137629,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13663,6 +13676,14 @@
             "low": 42,
             "close": 42.450001,
             "volume": 155430
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.400002,
+            "high": 42.679001,
+            "low": 42.23,
+            "close": 42.439999,
+            "volume": 132413
         },
         {
             "date": "2025-12-19",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 34.18,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.0492,
         "englishName": "First Trust Growth Strength ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 92007,
-        "AvgVolume": 146273,
+        "Volume": 73580,
+        "AvgVolume": 145846,
         "sharesOutstanding": null,
         "52Week": "25.74 - 36.65",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.18,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 92007,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 146273,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6256,6 +6269,14 @@
             "low": 33.919998,
             "close": 34.1245,
             "volume": 90901
+        },
+        {
+            "date": "2025-11-19",
+            "open": 34.189999,
+            "high": 34.299999,
+            "low": 34.009998,
+            "close": 34.153099,
+            "volume": 91681
         },
         {
             "date": "2025-12-24",

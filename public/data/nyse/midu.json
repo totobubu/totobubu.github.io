@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.445,
         "englishName": "Direxion Daily Mid Cap Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 60492,
-        "AvgVolume": 43204,
+        "Volume": 15843,
+        "AvgVolume": 43914,
         "sharesOutstanding": null,
         "52Week": "25.3 - 70.24",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 60492,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 43204,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34272,6 +34285,14 @@
             "low": 43.5401,
             "close": 44.84,
             "volume": 69905
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.959999,
+            "high": 45.787601,
+            "low": 44.330002,
+            "close": 45.009998,
+            "volume": 36215
         },
         {
             "date": "2025-12-23",

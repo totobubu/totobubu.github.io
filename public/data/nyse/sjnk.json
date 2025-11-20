@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.2225,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.225,
         "englishName": "SPDR Bloomberg Short Term High Yield Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3632522,
-        "AvgVolume": 4034654,
+        "Volume": 2332466,
+        "AvgVolume": 4020692,
         "sharesOutstanding": null,
         "52Week": "23.92 - 25.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.2225,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3632522,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4034654,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27753,6 +27766,14 @@
             "low": 25.18,
             "close": 25.209999,
             "volume": 3708463
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.219999,
+            "high": 25.269899,
+            "low": 25.209999,
+            "close": 25.23,
+            "volume": 2738408
         },
         {
             "date": "2025-12-03",

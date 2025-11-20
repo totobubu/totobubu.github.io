@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 34.66,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 34.92,
         "englishName": "GraniteShares 2x Long RDDT Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 390296,
-        "AvgVolume": 646548,
+        "Volume": 201982,
+        "AvgVolume": 642893,
         "sharesOutstanding": null,
         "52Week": "9.72 - 89.84",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.66,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 390296,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 646548,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1356,6 +1369,14 @@
             "low": 32.700001,
             "close": 34.400002,
             "volume": 397630
+        },
+        {
+            "date": "2025-11-19",
+            "open": 34.310001,
+            "high": 36.849998,
+            "low": 34.27,
+            "close": 35.299999,
+            "volume": 220678
         }
     ]
 }

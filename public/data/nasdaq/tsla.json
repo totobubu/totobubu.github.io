@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 401.89,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 400.83,
         "englishName": "Tesla, Inc.",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 1332880998400,
-        "marketCap": 1336613535744,
-        "Volume": 74873492,
-        "AvgVolume": 88743167,
+        "enterpriseValue": 1307371896832,
+        "marketCap": 1333088092160,
+        "Volume": 56401756,
+        "AvgVolume": 88818728,
         "sharesOutstanding": 3325819167,
         "52Week": "214.25 - 488.54",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 401.89,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1332880998400,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1336613535744,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 74873492,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 88743167,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34884,7 +34905,16 @@
             "high": 408.899994,
             "low": 393.709991,
             "close": 401.25,
-            "volume": 79779824
+            "volume": 79779824,
+            "marketCap": 1333088092160
+        },
+        {
+            "date": "2025-11-19",
+            "open": 406.179993,
+            "high": 411.779999,
+            "low": 398.5,
+            "close": 403.98999,
+            "volume": 69087163
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 263.95,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 262.78,
         "englishName": "FedEx Corporation",
         "earningsDate": "2025-12-18",
         "enterpriseValue": null,
-        "marketCap": 62280445952,
-        "Volume": 878214,
-        "AvgVolume": 1890390,
+        "marketCap": 62004375552,
+        "Volume": 498175,
+        "AvgVolume": 1892582,
         "sharesOutstanding": 235955461,
         "52Week": "194.3 - 308.53",
-        "Yield": 0.021443,
+        "Yield": 0.021539,
         "dividendRate": 5.8,
         "payoutRatio": 0.3277,
         "isin": "US31428X1063",
@@ -52,7 +52,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 263.95,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 62280445952,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 878214,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1890390,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.021443,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -108250,6 +108271,14 @@
             "low": 259.787689,
             "close": 263.079987,
             "volume": 1545360
+        },
+        {
+            "date": "2025-11-19",
+            "open": 263.079987,
+            "high": 265.549988,
+            "low": 260.850006,
+            "close": 262.570007,
+            "volume": 804344
         },
         {
             "date": "2025-12-08",

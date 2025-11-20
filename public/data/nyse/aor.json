@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 64.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 63.9411,
         "englishName": "iShares Core 60/40 Balanced Allocation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 888263,
-        "AvgVolume": 246210,
+        "Volume": 173968,
+        "AvgVolume": 258890,
         "sharesOutstanding": null,
         "52Week": "52.97 - 65.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 888263,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 246210,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34414,6 +34427,14 @@
             "low": 63.75,
             "close": 63.990002,
             "volume": 933418
+        },
+        {
+            "date": "2025-11-19",
+            "open": 64,
+            "high": 64.25,
+            "low": 63.8283,
+            "close": 64.019997,
+            "volume": 263538
         },
         {
             "date": "2026-01-02",

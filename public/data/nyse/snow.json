@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 255.01,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 254.315,
         "englishName": "Snowflake Inc.",
         "earningsDate": "2025-12-03",
-        "enterpriseValue": 84757815296,
-        "marketCap": 86397386752,
-        "Volume": 2120507,
-        "AvgVolume": 5403089,
+        "enterpriseValue": 85340553216,
+        "marketCap": 86161924096,
+        "Volume": 1085875,
+        "AvgVolume": 5388842,
         "sharesOutstanding": 338800000,
         "52Week": "120.1 - 280.67",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 255.01,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 84757815296,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 86397386752,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2120507,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5403089,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11725,7 +11746,16 @@
             "high": 256.869904,
             "low": 248.020004,
             "close": 254.509995,
-            "volume": 2666498
+            "volume": 2666498,
+            "marketCap": 86161924096
+        },
+        {
+            "date": "2025-11-19",
+            "open": 252.889999,
+            "high": 256.429993,
+            "low": 250.785004,
+            "close": 252.979996,
+            "volume": 1928461
         }
     ]
 }

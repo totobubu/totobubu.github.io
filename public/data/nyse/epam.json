@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 178.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 182.215,
         "englishName": "EPAM Systems, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 8737695744,
-        "marketCap": 9965291520,
-        "Volume": 1296844,
-        "AvgVolume": 843023,
+        "enterpriseValue": 8789070848,
+        "marketCap": 10148812800,
+        "Volume": 552892,
+        "AvgVolume": 860546,
         "sharesOutstanding": 55242618,
         "52Week": "138.15 - 269.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 178.92,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8737695744,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 9965291520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1296844,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 843023,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31212,7 +31233,16 @@
             "high": 180.654999,
             "low": 171.413895,
             "close": 178.710007,
-            "volume": 1479744
+            "volume": 1479744,
+            "marketCap": 10148812800
+        },
+        {
+            "date": "2025-11-19",
+            "open": 180.330002,
+            "high": 183.899994,
+            "low": 178.889496,
+            "close": 180.929993,
+            "volume": 1144895
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 37.9477,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 37.83,
         "englishName": "ProShares Russell 2000 High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10111,
-        "AvgVolume": 21693,
+        "Volume": 13919,
+        "AvgVolume": 21646,
         "sharesOutstanding": null,
         "52Week": "30.661 - 44.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.9477,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10111,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21693,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2565,6 +2578,14 @@
             "low": 37.455601,
             "close": 37.84,
             "volume": 10112
+        },
+        {
+            "date": "2025-11-19",
+            "open": 37.888802,
+            "high": 38.200001,
+            "low": 37.57,
+            "close": 37.700001,
+            "volume": 15421
         },
         {
             "date": "2025-12-03",

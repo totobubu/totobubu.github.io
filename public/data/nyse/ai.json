@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 13.725,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 13.42,
         "englishName": "C3.ai, Inc.",
         "earningsDate": "2025-12-03",
-        "enterpriseValue": 1203370880,
-        "marketCap": 1891987072,
-        "Volume": 6021606,
-        "AvgVolume": 7963601,
+        "enterpriseValue": 1244725760,
+        "marketCap": 1849942912,
+        "Volume": 2821561,
+        "AvgVolume": 7958787,
         "sharesOutstanding": 134349704,
-        "52Week": "13.2 - 45.08",
+        "52Week": "13.195 - 45.08",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.725,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1203370880,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1891987072,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6021606,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7963601,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11197,7 +11218,16 @@
             "high": 14.15,
             "low": 13.2,
             "close": 13.74,
-            "volume": 7455319
+            "volume": 7455319,
+            "marketCap": 1849942912
+        },
+        {
+            "date": "2025-11-19",
+            "open": 13.65,
+            "high": 13.93,
+            "low": 13.285,
+            "close": 13.54,
+            "volume": 4520470
         }
     ]
 }

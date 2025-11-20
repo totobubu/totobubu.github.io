@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 17.55,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 18.035,
         "englishName": "Direxion Daily META Bear 1X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 806689,
-        "AvgVolume": 343571,
+        "Volume": 318244,
+        "AvgVolume": 350181,
         "sharesOutstanding": null,
         "52Week": "13.45 - 23.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 806689,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 343571,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2936,6 +2949,14 @@
             "low": 17.464399,
             "close": 17.601601,
             "volume": 395991
+        },
+        {
+            "date": "2025-11-19",
+            "open": 17.780001,
+            "high": 18.1,
+            "low": 17.709999,
+            "close": 17.84,
+            "volume": 377174
         },
         {
             "date": "2025-12-23",

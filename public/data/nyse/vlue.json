@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 128.28,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 127.46,
         "englishName": "iShares MSCI USA Value Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 455453,
-        "AvgVolume": 513153,
+        "Volume": 356124,
+        "AvgVolume": 514682,
         "sharesOutstanding": null,
         "52Week": "91.8 - 133.05",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 128.28,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 455453,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 513153,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25524,6 +25537,14 @@
             "low": 126.989998,
             "close": 128.020004,
             "volume": 464661
+        },
+        {
+            "date": "2025-11-19",
+            "open": 127.889999,
+            "high": 129.050003,
+            "low": 127.32,
+            "close": 127.82,
+            "volume": 431000
         },
         {
             "date": "2025-12-16",

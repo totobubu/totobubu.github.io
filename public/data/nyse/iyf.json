@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 121.795,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 121.11,
         "englishName": "iShares U.S. Financials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1662501760,
-        "Volume": 230391,
-        "AvgVolume": 385595,
+        "marketCap": 1653151488,
+        "Volume": 123563,
+        "AvgVolume": 383887,
         "sharesOutstanding": 13650000,
         "52Week": "95.34 - 128.07",
-        "Yield": 0.008884,
+        "Yield": 0.008934,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642877884",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 121.795,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1662501760,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 230391,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 385595,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.008884,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58627,6 +58648,14 @@
             "low": 120.769997,
             "close": 121.43,
             "volume": 253496
+        },
+        {
+            "date": "2025-11-19",
+            "open": 121.43,
+            "high": 122.002403,
+            "low": 121.07,
+            "close": 121.860001,
+            "volume": 207699
         },
         {
             "date": "2025-12-16",

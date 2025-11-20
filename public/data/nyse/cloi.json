@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 52.975,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 52.965,
         "englishName": "VanEck CLO ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 347110,
-        "AvgVolume": 181401,
+        "Volume": 104784,
+        "AvgVolume": 181909,
         "sharesOutstanding": null,
         "52Week": "50.12 - 53.2",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.975,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 347110,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 181401,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6948,6 +6961,14 @@
             "low": 52.900002,
             "close": 52.98,
             "volume": 362390
+        },
+        {
+            "date": "2025-11-19",
+            "open": 52.970001,
+            "high": 52.976501,
+            "low": 52.9254,
+            "close": 52.970001,
+            "volume": 135243
         },
         {
             "date": "2025-12-03",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 166.65,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 164.7725,
         "englishName": "iShares Biotechnology ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 11615504384,
-        "Volume": 4358567,
-        "AvgVolume": 2084556,
+        "marketCap": 11484643328,
+        "Volume": 1467213,
+        "AvgVolume": 2138965,
         "sharesOutstanding": 69700000,
         "52Week": "107.43 - 167.15",
-        "Yield": 0.0021,
+        "Yield": 0.002124,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642875565",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 166.65,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 11615504384,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4358567,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2084556,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.0021,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56434,6 +56455,14 @@
             "low": 163.774994,
             "close": 166.470001,
             "volume": 4539535
+        },
+        {
+            "date": "2025-11-19",
+            "open": 166.050003,
+            "high": 166.770004,
+            "low": 164.389999,
+            "close": 165.220001,
+            "volume": 1940425
         },
         {
             "date": "2025-12-16",

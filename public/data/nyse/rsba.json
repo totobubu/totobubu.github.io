@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.57,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.5758,
         "englishName": "Return Stacked Bonds & Merger Arbitrage ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5388,
-        "AvgVolume": 12957,
+        "Volume": 2000,
+        "AvgVolume": 13032,
         "sharesOutstanding": null,
         "52Week": "19.785 - 21.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.57,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5388,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12957,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1897,6 +1910,14 @@
             "low": 21.535,
             "close": 21.57,
             "volume": 5388
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.58,
+            "high": 21.58,
+            "low": 21.540199,
+            "close": 21.540199,
+            "volume": 4900
         }
     ]
 }

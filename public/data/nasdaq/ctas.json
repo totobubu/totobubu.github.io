@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 183.985,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 183.15,
         "englishName": "Cintas Corporation",
         "earningsDate": "2025-09-24",
-        "enterpriseValue": 76384141312,
-        "marketCap": 74136854528,
-        "Volume": 927501,
-        "AvgVolume": 2176806,
+        "enterpriseValue": 76444426240,
+        "marketCap": 73800384512,
+        "Volume": 1105151,
+        "AvgVolume": 2174392,
         "sharesOutstanding": 401866678,
         "52Week": "180.39 - 229.24",
-        "Yield": 0.008805,
+        "Yield": 0.008845,
         "dividendRate": 1.8,
         "payoutRatio": 0.36,
         "isin": "US1729081059",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 183.985,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 76384141312,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 74136854528,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 927501,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2176806,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.008805,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -96543,6 +96568,10 @@
             "volume": 2231517
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.45
+        },
+        {
             "date": "2025-11-17",
             "open": 185.608505,
             "high": 186.869995,
@@ -96559,11 +96588,19 @@
             "volume": 1657661
         },
         {
+            "date": "2025-11-19",
+            "open": 183.520004,
+            "high": 184.399994,
+            "low": 180.884995,
+            "close": 183.470001,
+            "volume": 1995820
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

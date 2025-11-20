@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 93.118,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 92.84,
         "englishName": "iShares S&P Mid-Cap 400 Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3152044288,
-        "Volume": 318165,
-        "AvgVolume": 172490,
+        "marketCap": 3142633984,
+        "Volume": 185055,
+        "AvgVolume": 174531,
         "sharesOutstanding": 33850000,
         "52Week": "71.69 - 100.01",
-        "Yield": 0.004768,
+        "Yield": 0.004782,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642876068",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 93.118,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3152044288,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 318165,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 172490,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.004768,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58320,6 +58341,14 @@
             "low": 91.980003,
             "close": 92.889999,
             "volume": 325619
+        },
+        {
+            "date": "2025-11-19",
+            "open": 93.120003,
+            "high": 93.639999,
+            "low": 92.665001,
+            "close": 93.18,
+            "volume": 221406
         },
         {
             "date": "2025-12-16",

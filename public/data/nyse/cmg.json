@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.735,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 30.905,
         "englishName": "Chipotle Mexican Grill, Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 43927990272,
-        "marketCap": 41212100608,
-        "Volume": 16578794,
-        "AvgVolume": 22129457,
+        "enterpriseValue": 44232114176,
+        "marketCap": 41440051200,
+        "Volume": 10791333,
+        "AvgVolume": 22159796,
         "sharesOutstanding": 1322278000,
         "52Week": "29.75 - 66.74",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.735,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 43927990272,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 41212100608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16578794,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 22129457,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44898,7 +44919,16 @@
             "high": 31.019899,
             "low": 30.275,
             "close": 30.76,
-            "volume": 18450322
+            "volume": 18450322,
+            "marketCap": 41440051200
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.8624,
+            "high": 31.25,
+            "low": 30.5,
+            "close": 31,
+            "volume": 17206980
         }
     ]
 }

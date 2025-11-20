@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 191.31,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 191.19,
         "englishName": "iShares MSCI USA Quality Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 23071985664,
-        "Volume": 26625293,
-        "AvgVolume": 1599826,
+        "marketCap": 23057514496,
+        "Volume": 3546745,
+        "AvgVolume": 2020510,
         "sharesOutstanding": 120600000,
         "52Week": "148.34 - 199.97",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 191.31,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23071985664,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26625293,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1599826,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28108,6 +28125,14 @@
             "low": 189.690002,
             "close": 191.070007,
             "volume": 26765486
+        },
+        {
+            "date": "2025-11-19",
+            "open": 191.300003,
+            "high": 192.960007,
+            "low": 190.850006,
+            "close": 191.75,
+            "volume": 4799238
         },
         {
             "date": "2025-12-16",

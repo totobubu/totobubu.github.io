@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.4,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 45.5401,
         "englishName": "Roundhill WeeklyPay Universe ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 695061,
-        "AvgVolume": 614373,
+        "Volume": 570030,
+        "AvgVolume": 616596,
         "sharesOutstanding": null,
-        "52Week": "45.604 - 56.5",
+        "52Week": "45.37 - 56.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.4,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 695061,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 614373,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -666,7 +679,16 @@
             "high": 46.950001,
             "low": 45.604,
             "close": 46.290001,
-            "volume": 719097
+            "volume": 719097,
+            "yield": 0.1389850811
+        },
+        {
+            "date": "2025-11-19",
+            "open": 46.099998,
+            "high": 47.040001,
+            "low": 45.369999,
+            "close": 46.049999,
+            "volume": 699204
         },
         {
             "date": "2025-11-25",
@@ -766,6 +788,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

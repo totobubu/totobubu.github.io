@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 32.77,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.42,
         "englishName": "GraniteShares 2x Long AAPL Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 62672,
-        "AvgVolume": 240646,
+        "Volume": 38275,
+        "AvgVolume": 236143,
         "sharesOutstanding": null,
         "52Week": "14.5 - 36.475",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.77,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 62672,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 240646,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6614,6 +6627,14 @@
             "low": 32.119999,
             "close": 32.660099,
             "volume": 69533
+        },
+        {
+            "date": "2025-11-19",
+            "open": 32.349998,
+            "high": 33.792099,
+            "low": 32.349998,
+            "close": 32.830002,
+            "volume": 61670
         }
     ]
 }

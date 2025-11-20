@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.6767,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 21.7119,
         "englishName": "iShares Ethereum Trust ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 42293165,
-        "AvgVolume": 52581404,
+        "Volume": 51427022,
+        "AvgVolume": 52384246,
         "sharesOutstanding": null,
         "52Week": "10.99 - 36.8",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.6767,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 42293165,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 52581404,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2720,6 +2733,14 @@
             "low": 22.91,
             "close": 23.59,
             "volume": 45370159
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.875,
+            "high": 23.4799,
+            "low": 21.665001,
+            "close": 22.24,
+            "volume": 67730151
         }
     ]
 }

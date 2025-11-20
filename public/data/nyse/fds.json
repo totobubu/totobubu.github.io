@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 271.92,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 267.915,
         "englishName": "FactSet Research Systems Inc.",
         "earningsDate": "2025-09-18",
-        "enterpriseValue": 11453336576,
-        "marketCap": 10175229952,
-        "Volume": 625174,
-        "AvgVolume": 765617,
+        "enterpriseValue": 11395653632,
+        "marketCap": 10025362432,
+        "Volume": 242993,
+        "AvgVolume": 770657,
         "sharesOutstanding": 37419936,
         "52Week": "250.5 - 496.9",
-        "Yield": 0.01574,
+        "Yield": 0.015975,
         "dividendRate": 4.4,
         "payoutRatio": 0.2752,
         "isin": "US3030751057",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 271.92,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 11453336576,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10175229952,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 625174,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 765617,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01574,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67034,6 +67059,14 @@
             "low": 269.200012,
             "close": 272.109985,
             "volume": 718367
+        },
+        {
+            "date": "2025-11-19",
+            "open": 272,
+            "high": 273.899994,
+            "low": 266.459991,
+            "close": 267.019989,
+            "volume": 571254
         },
         {
             "date": "2025-11-28",

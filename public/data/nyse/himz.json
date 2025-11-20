@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 8.06,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 7.37,
         "englishName": "Defiance Daily Target 2X Long HIMS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6644070,
-        "AvgVolume": 6139646,
+        "Volume": 4342625,
+        "AvgVolume": 6176871,
         "sharesOutstanding": null,
         "52Week": "6.92 - 57.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.06,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6644070,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6139646,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1432,6 +1445,14 @@
             "low": 7.0407,
             "close": 7.94,
             "volume": 6710438
+        },
+        {
+            "date": "2025-11-19",
+            "open": 8.09,
+            "high": 8.09,
+            "low": 7.1301,
+            "close": 7.73,
+            "volume": 5160668
         }
     ]
 }

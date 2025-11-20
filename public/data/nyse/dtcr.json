@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 20.48,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 20.23,
         "englishName": "Global X Data Center & Digital Infrastructure ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 362707,
-        "AvgVolume": 408843,
+        "Volume": 213397,
+        "AvgVolume": 412451,
         "sharesOutstanding": null,
         "52Week": "14.1 - 22.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.48,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 362707,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 408843,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10260,6 +10273,14 @@
             "low": 20.190001,
             "close": 20.43,
             "volume": 371304
+        },
+        {
+            "date": "2025-11-19",
+            "open": 20.379999,
+            "high": 20.450001,
+            "low": 20.120001,
+            "close": 20.33,
+            "volume": 265590
         }
     ]
 }

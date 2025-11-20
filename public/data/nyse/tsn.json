@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.745,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 53.205,
         "englishName": "Tyson Foods, Inc.",
         "earningsDate": "2025-11-10",
-        "enterpriseValue": 27358703616,
-        "marketCap": 18974892032,
-        "Volume": 1625200,
-        "AvgVolume": 2834520,
+        "enterpriseValue": 27552882688,
+        "marketCap": 18784243712,
+        "Volume": 1006596,
+        "AvgVolume": 2840064,
         "sharesOutstanding": 283045085,
         "52Week": "50.56 - 64.72",
-        "Yield": 0.037213,
+        "Yield": 0.03759,
         "dividendRate": 2.04,
         "payoutRatio": 1.5038,
         "isin": "US9024941034",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.745,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27358703616,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18974892032,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1625200,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2834520,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.037213,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104267,6 +104292,14 @@
             "low": 52.919998,
             "close": 53.66,
             "volume": 1884488
+        },
+        {
+            "date": "2025-11-19",
+            "open": 53.580002,
+            "high": 53.8703,
+            "low": 53.009998,
+            "close": 53.049999,
+            "volume": 2208167
         },
         {
             "date": "2025-11-28",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.34,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 33.11,
         "englishName": "T. Rowe Price International Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 176851,
-        "AvgVolume": 161467,
+        "Volume": 113619,
+        "AvgVolume": 162493,
         "sharesOutstanding": null,
         "52Week": "25.75 - 34.58",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.34,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 176851,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 161467,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4964,6 +4977,14 @@
             "low": 33.105,
             "close": 33.32,
             "volume": 176851
+        },
+        {
+            "date": "2025-11-19",
+            "open": 33.240002,
+            "high": 33.334999,
+            "low": 33.07,
+            "close": 33.290001,
+            "volume": 156221
         },
         {
             "date": "2025-12-23",

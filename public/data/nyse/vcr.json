@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 370.16,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 367.536,
         "englishName": "Vanguard Consumer Discretionary Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 58910,
-        "AvgVolume": 34664,
+        "Volume": 58175,
+        "AvgVolume": 35128,
         "sharesOutstanding": null,
         "52Week": "285.13 - 404.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 370.16,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 58910,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 34664,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44076,6 +44089,14 @@
             "low": 368.269989,
             "close": 369.350006,
             "volume": 60482
+        },
+        {
+            "date": "2025-11-19",
+            "open": 371.679993,
+            "high": 371.679993,
+            "low": 367.41391,
+            "close": 369.200012,
+            "volume": 64669
         },
         {
             "date": "2025-12-24",

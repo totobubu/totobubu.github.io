@@ -9,14 +9,14 @@
         "underlying": "DIS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 11.9652,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 11.87,
         "englishName": "YieldMax DIS Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7095,
-        "AvgVolume": 19543,
+        "Volume": 4788,
+        "AvgVolume": 19457,
         "sharesOutstanding": null,
         "52Week": "11.71 - 18.034",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.9652,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7095,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19543,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5294,8 +5307,16 @@
             "volume": 7095
         },
         {
+            "date": "2025-11-19",
+            "open": 11.88,
+            "high": 12.0426,
+            "low": 11.74,
+            "close": 11.79,
+            "volume": 10227
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "amountFixed": 0.0663
         },
         {
             "date": "2025-11-26",

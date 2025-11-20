@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 46.5,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 44.8021,
         "englishName": "Direxion Daily Utilities Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 69400,
-        "AvgVolume": 85359,
+        "Volume": 34735,
+        "AvgVolume": 85487,
         "sharesOutstanding": null,
         "52Week": "25.08 - 54.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.5,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 69400,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 85359,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17341,6 +17354,14 @@
             "low": 46.200001,
             "close": 46.200001,
             "volume": 69595
+        },
+        {
+            "date": "2025-11-19",
+            "open": 46.380001,
+            "high": 46.5868,
+            "low": 44.77,
+            "close": 45.07,
+            "volume": 47692
         },
         {
             "date": "2025-12-23",

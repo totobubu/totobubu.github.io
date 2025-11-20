@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 100.2,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 99.64,
         "englishName": "SPDR S&P Homebuilders ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1615043,
-        "AvgVolume": 2330753,
+        "Volume": 1616905,
+        "AvgVolume": 2322571,
         "sharesOutstanding": null,
         "52Week": "84.48 - 126.09",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.2,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1615043,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2330753,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40070,6 +40083,14 @@
             "low": 98.663597,
             "close": 100.110001,
             "volume": 1735086
+        },
+        {
+            "date": "2025-11-19",
+            "open": 100.610001,
+            "high": 100.970001,
+            "low": 99.489998,
+            "close": 99.82,
+            "volume": 2384135
         },
         {
             "date": "2025-12-22",

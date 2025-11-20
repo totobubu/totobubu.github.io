@@ -9,16 +9,16 @@
         "underlying": "PLTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.87,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 19.2,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3376,
-        "AvgVolume": 7620,
+        "Volume": 2249,
+        "AvgVolume": 7236,
         "sharesOutstanding": null,
-        "52Week": "19.493 - 23.44",
+        "52Week": "19.2 - 23.44",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.87,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3376,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7620,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -117,6 +130,14 @@
             "low": 19.654499,
             "close": 19.654499,
             "volume": 3416
+        },
+        {
+            "date": "2025-11-19",
+            "open": 19.66,
+            "high": 19.7092,
+            "low": 19.200001,
+            "close": 19.3957,
+            "volume": 3998
         },
         {
             "date": "2025-11-25",
@@ -216,6 +237,10 @@
         },
         {
             "date": "2026-05-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 170.78,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 170.38,
         "englishName": "Darden Restaurants, Inc.",
         "earningsDate": "2025-12-18",
-        "enterpriseValue": 27821142016,
-        "marketCap": 19912077312,
-        "Volume": 1074568,
-        "AvgVolume": 1243009,
+        "enterpriseValue": 27733905408,
+        "marketCap": 19865440256,
+        "Volume": 437636,
+        "AvgVolume": 1252654,
         "sharesOutstanding": 116313762,
         "52Week": "159.4 - 228.27",
-        "Yield": 0.033376,
+        "Yield": 0.033455,
         "dividendRate": 6,
         "payoutRatio": 0.6109,
         "isin": "US2371941053",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 170.78,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27821142016,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 19912077312,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1074568,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1243009,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.033376,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69910,6 +69935,14 @@
             "low": 169.679993,
             "close": 171.039993,
             "volume": 1305515
+        },
+        {
+            "date": "2025-11-19",
+            "open": 171.289993,
+            "high": 172.380005,
+            "low": 170.029999,
+            "close": 170,
+            "volume": 757566
         },
         {
             "date": "2026-01-09",

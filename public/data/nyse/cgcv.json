@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 29.8,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 29.745,
         "englishName": "Capital Group Conservative Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 368388,
-        "AvgVolume": 259970,
+        "Volume": 217992,
+        "AvgVolume": 259995,
         "sharesOutstanding": null,
         "52Week": "23.929 - 30.8",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 368388,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 259970,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2898,6 +2911,14 @@
             "low": 29.636999,
             "close": 29.790001,
             "volume": 392808
+        },
+        {
+            "date": "2025-11-19",
+            "open": 29.73,
+            "high": 29.940001,
+            "low": 29.684999,
+            "close": 29.82,
+            "volume": 298017
         },
         {
             "date": "2025-12-30",

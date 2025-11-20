@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 60.3225,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 60.26,
         "englishName": "SPDR SSGA US Sector Rotation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 38148,
-        "AvgVolume": 42290,
+        "Volume": 40892,
+        "AvgVolume": 42495,
         "sharesOutstanding": null,
         "52Week": "43.22 - 62.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.3225,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 38148,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42290,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13474,6 +13487,14 @@
             "low": 59.720001,
             "close": 60.316399,
             "volume": 38148
+        },
+        {
+            "date": "2025-11-19",
+            "open": 60.470001,
+            "high": 61.1539,
+            "low": 60.225498,
+            "close": 60.509998,
+            "volume": 45189
         },
         {
             "date": "2025-12-24",

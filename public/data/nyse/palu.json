@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.71,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 23.38,
         "englishName": "Direxion Daily PANW Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21903,
-        "AvgVolume": 44978,
+        "Volume": 121810,
+        "AvgVolume": 38157,
         "sharesOutstanding": null,
         "52Week": "14.82 - 29.55",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.71,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 21903,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 44978,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1351,6 +1364,14 @@
             "low": 23.570999,
             "close": 23.6528,
             "volume": 15908
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.35,
+            "high": 23.909,
+            "low": 23.32,
+            "close": 23.348801,
+            "volume": 145611
         },
         {
             "date": "2025-12-23",

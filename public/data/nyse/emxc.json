@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 70.63,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 70.28,
         "englishName": "iShares MSCI Emerging Markets ex China ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1720145,
-        "AvgVolume": 1621954,
+        "Volume": 520265,
+        "AvgVolume": 1641350,
         "sharesOutstanding": null,
         "52Week": "49.6 - 73.24",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.63,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1720145,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1621954,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16852,6 +16865,14 @@
             "low": 70.040001,
             "close": 70.510002,
             "volume": 1789975
+        },
+        {
+            "date": "2025-11-19",
+            "open": 70.230003,
+            "high": 70.830002,
+            "low": 70.095001,
+            "close": 70.400002,
+            "volume": 797327
         }
     ]
 }

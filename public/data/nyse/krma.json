@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 42.62,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 42.54,
         "englishName": "Global X Conscious Companies ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4371,
-        "AvgVolume": 85984,
+        "Volume": 3965,
+        "AvgVolume": 86034,
         "sharesOutstanding": null,
         "52Week": "31.96 - 44.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4371,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 85984,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18944,6 +18957,14 @@
             "low": 42.544102,
             "close": 42.544102,
             "volume": 4093
+        },
+        {
+            "date": "2025-11-19",
+            "open": 42.759998,
+            "high": 42.869999,
+            "low": 42.540001,
+            "close": 42.585098,
+            "volume": 6061
         }
     ]
 }

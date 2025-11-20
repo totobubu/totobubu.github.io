@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.02,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 26.8599,
         "englishName": "Schwab U.S. Small-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6223720,
-        "AvgVolume": 4105782,
+        "Volume": 2519754,
+        "AvgVolume": 4149681,
         "sharesOutstanding": null,
         "52Week": "20.04 - 28.82",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6223720,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4105782,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33247,6 +33260,14 @@
             "low": 26.66,
             "close": 26.959999,
             "volume": 6409766
+        },
+        {
+            "date": "2025-11-19",
+            "open": 27,
+            "high": 27.205,
+            "low": 26.820101,
+            "close": 26.940001,
+            "volume": 3154818
         },
         {
             "date": "2025-12-24",

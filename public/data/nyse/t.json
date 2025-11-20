@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.605,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 25.18,
         "englishName": "AT&T Inc.",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 338414272512,
-        "marketCap": 181525348352,
-        "Volume": 32626294,
-        "AvgVolume": 46383946,
+        "enterpriseValue": 339335905280,
+        "marketCap": 178512347136,
+        "Volume": 17674103,
+        "AvgVolume": 46737598,
         "sharesOutstanding": 7089449495,
         "52Week": "21.38 - 29.79",
-        "Yield": 0.043351,
+        "Yield": 0.044083,
         "dividendRate": 1.11,
         "payoutRatio": 0.3616,
         "isin": "US00206R1023",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.605,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 338414272512,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 181525348352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 32626294,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 46383946,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.043351,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -97334,6 +97359,14 @@
             "low": 25.344999,
             "close": 25.6,
             "volume": 35082282
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.6,
+            "high": 25.67,
+            "low": 25.09,
+            "close": 25.27,
+            "volume": 25792712
         },
         {
             "date": "2026-01-09",

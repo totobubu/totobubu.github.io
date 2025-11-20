@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 59.19,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 59.4,
         "englishName": "Masco Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 15188811776,
-        "marketCap": 12392232960,
-        "Volume": 1738015,
-        "AvgVolume": 2235739,
+        "enterpriseValue": 15132734464,
+        "marketCap": 12436200448,
+        "Volume": 1188794,
+        "AvgVolume": 2247103,
         "sharesOutstanding": 207695621,
         "52Week": "56.55 - 83.06",
-        "Yield": 0.020612,
+        "Yield": 0.020539,
         "dividendRate": 1.24,
         "payoutRatio": 0.312,
         "isin": "US5745991068",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.19,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 15188811776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12392232960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1738015,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2235739,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.020612,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105386,6 +105411,14 @@
             "low": 58.290001,
             "close": 59.09,
             "volume": 2002231
+        },
+        {
+            "date": "2025-11-19",
+            "open": 59.290001,
+            "high": 59.900002,
+            "low": 58.709999,
+            "close": 59.439999,
+            "volume": 1826277
         },
         {
             "date": "2026-02-06",

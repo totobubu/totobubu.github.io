@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.845,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 51.855,
         "englishName": "iShares AAA CLO Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 408644,
-        "AvgVolume": 411489,
+        "Volume": 115074,
+        "AvgVolume": 413675,
         "sharesOutstanding": null,
         "52Week": "50.61 - 52.12",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.845,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 408644,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 411489,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5822,6 +5835,14 @@
             "low": 51.830002,
             "close": 51.845402,
             "volume": 347628
+        },
+        {
+            "date": "2025-11-19",
+            "open": 51.889999,
+            "high": 51.889999,
+            "low": 51.849998,
+            "close": 51.855,
+            "volume": 129714
         },
         {
             "date": "2025-12-03",

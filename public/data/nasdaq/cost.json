@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 895.73,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 883.81,
         "englishName": "Costco Wholesale Corporation",
         "earningsDate": "2025-12-11",
-        "enterpriseValue": 399091892224,
-        "marketCap": 397235716096,
-        "Volume": 2184256,
-        "AvgVolume": 2388165,
+        "enterpriseValue": 391331807232,
+        "marketCap": 391949484032,
+        "Volume": 1975282,
+        "AvgVolume": 2408610,
         "sharesOutstanding": 443179176,
         "52Week": "871.71 - 1078.23",
-        "Yield": 0.005493,
+        "Yield": 0.005567,
         "dividendRate": 5.2,
         "payoutRatio": 0.2702,
         "isin": "US22160K1051",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 895.73,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 399091892224,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 397235716096,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2184256,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2388165,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.005493,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -89484,6 +89509,14 @@
             "low": 894.169983,
             "close": 895.080017,
             "volume": 2927360
+        },
+        {
+            "date": "2025-11-19",
+            "open": 895,
+            "high": 894.690002,
+            "low": 873.970398,
+            "close": 890.599976,
+            "volume": 2968641
         },
         {
             "date": "2026-01-30",

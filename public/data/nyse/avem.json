@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 76.04,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 75.7551,
         "englishName": "Avantis Emerging Markets Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4818043,
-        "AvgVolume": 968395,
+        "Volume": 870970,
+        "AvgVolume": 1035712,
         "sharesOutstanding": null,
         "52Week": "52.52 - 78.76",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4818043,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 968395,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12512,6 +12525,14 @@
             "low": 75.489998,
             "close": 75.980003,
             "volume": 4904791
+        },
+        {
+            "date": "2025-11-19",
+            "open": 75.809998,
+            "high": 76.286102,
+            "low": 75.529503,
+            "close": 75.870003,
+            "volume": 1265181
         }
     ]
 }

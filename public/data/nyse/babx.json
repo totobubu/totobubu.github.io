@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 43.995,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 43.21,
         "englishName": "GraniteShares 2x Long BABA Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 867266,
-        "AvgVolume": 1625623,
+        "Volume": 372364,
+        "AvgVolume": 1625092,
         "sharesOutstanding": null,
         "52Week": "14.29 - 66.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.995,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 867266,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1625623,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5916,6 +5929,14 @@
             "low": 42.16,
             "close": 43.700001,
             "volume": 541723
+        },
+        {
+            "date": "2025-11-19",
+            "open": 43.509998,
+            "high": 44.360001,
+            "low": 42.780899,
+            "close": 43.209999,
+            "volume": 431995
         }
     ]
 }

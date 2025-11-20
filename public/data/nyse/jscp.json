@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 47.5321,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 47.545,
         "englishName": "JPMorgan Short Duration Core Plus ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1906361,
-        "AvgVolume": 160529,
+        "Volume": 108270,
+        "AvgVolume": 187220,
         "sharesOutstanding": null,
         "52Week": "46.35 - 47.79",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.5321,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1906361,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 160529,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9638,6 +9651,14 @@
             "low": 47.509998,
             "close": 47.544998,
             "volume": 1915212
+        },
+        {
+            "date": "2025-11-19",
+            "open": 47.549999,
+            "high": 47.57,
+            "low": 47.531799,
+            "close": 47.540001,
+            "volume": 171122
         },
         {
             "date": "2025-12-03",

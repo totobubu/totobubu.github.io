@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 15.415,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 15.265,
         "englishName": "Huntington Bancshares Incorporated",
         "earningsDate": "2025-10-17",
-        "enterpriseValue": 29500678144,
-        "marketCap": 24161327104,
-        "Volume": 22099061,
-        "AvgVolume": 30754518,
+        "enterpriseValue": 29573648384,
+        "marketCap": 23926220800,
+        "Volume": 18474196,
+        "AvgVolume": 30844159,
         "sharesOutstanding": 1565268876,
         "52Week": "11.92 - 18.45",
-        "Yield": 0.040221,
+        "Yield": 0.040616,
         "dividendRate": 0.62,
         "payoutRatio": 0.4336,
         "isin": "US4461501045",
@@ -92,7 +92,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.415,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29500678144,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24161327104,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 22099061,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 30754518,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.040221,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105962,6 +105987,14 @@
             "low": 15.14,
             "close": 15.35,
             "volume": 26499920
+        },
+        {
+            "date": "2025-11-19",
+            "open": 15.34,
+            "high": 15.48,
+            "low": 15.245,
+            "close": 15.38,
+            "volume": 29578845
         },
         {
             "date": "2025-12-17",

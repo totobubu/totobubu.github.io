@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 474.17,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 471.66,
         "englishName": "Deere & Company",
         "earningsDate": "2025-11-26",
-        "enterpriseValue": 188930392064,
-        "marketCap": 128182099968,
-        "Volume": 724027,
-        "AvgVolume": 1308253,
+        "enterpriseValue": 188354576384,
+        "marketCap": 127503572992,
+        "Volume": 644323,
+        "AvgVolume": 1302375,
         "sharesOutstanding": 270329392,
-        "52Week": "397.75 - 533.78",
-        "Yield": 0.01335,
+        "52Week": "400.64 - 533.78",
+        "Yield": 0.013421,
         "dividendRate": 6.48,
         "payoutRatio": 0.3305,
         "isin": "US2441991054",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 474.17,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 188930392064,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 128182099968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 724027,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1308253,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.01335,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123468,6 +123493,14 @@
             "low": 470,
             "close": 473.850006,
             "volume": 853867
+        },
+        {
+            "date": "2025-11-19",
+            "open": 474.359985,
+            "high": 476.390015,
+            "low": 468.184998,
+            "close": 474.769989,
+            "volume": 1020431
         },
         {
             "date": "2025-12-30",

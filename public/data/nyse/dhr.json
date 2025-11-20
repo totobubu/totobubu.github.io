@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 226.12,
+        "Update": "2025-11-20 04:40:52 KST",
+        "regularMarketPrice": 221.495,
         "englishName": "Danaher Corporation",
         "earningsDate": "2025-10-21",
-        "enterpriseValue": 172344705024,
-        "marketCap": 161913585664,
-        "Volume": 3783993,
-        "AvgVolume": 4095471,
+        "enterpriseValue": 175925886976,
+        "marketCap": 158601838592,
+        "Volume": 2457603,
+        "AvgVolume": 4102659,
         "sharesOutstanding": 706349563,
         "52Week": "171.0 - 258.23",
-        "Yield": 0.00544,
+        "Yield": 0.005553,
         "dividendRate": 1.28,
         "payoutRatio": 0.2531,
         "isin": "US2358511028",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 226.12,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 172344705024,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 161913585664,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3783993,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4095471,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00544,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -108867,6 +108892,14 @@
             "low": 217.862,
             "close": 225.509995,
             "volume": 4493194
+        },
+        {
+            "date": "2025-11-19",
+            "open": 225,
+            "high": 226.389999,
+            "low": 220.652496,
+            "close": 222.410004,
+            "volume": 4475207
         },
         {
             "date": "2025-12-26",
