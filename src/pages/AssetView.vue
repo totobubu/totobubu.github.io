@@ -192,11 +192,21 @@
                     (ast) => ast.accountId === account.id
                 );
                 assets.forEach((asset) => {
+                    // 자산 이름 생성: name 필드가 있으면 사용, 없으면 기존 로직 사용
+                    let assetDisplayName = asset.name;
+                    if (!assetDisplayName) {
+                        // koName이 승인되었거나 없으면 표시, 없으면 symbol, 둘 다 없으면 ISIN
+                        const displaySymbol = asset.koNameApprovalStatus === 'approved' && asset.koName 
+                            ? asset.koName 
+                            : (asset.symbol || asset.isin || '');
+                        assetDisplayName = `${asset.type}${displaySymbol ? ': ' + displaySymbol : ''} - ${asset.amount} ${asset.currency}`;
+                    }
+                    
                     accountNode.children.push({
                         key: asset.id,
                         data: {
                             id: asset.id,
-                            name: `${asset.type}${asset.symbol ? ': ' + asset.symbol : ''} - ${asset.amount} ${asset.currency}`,
+                            name: assetDisplayName,
                             ...asset,
                             brokerageId: brokerage.id,
                             accountId: account.id,
@@ -988,6 +998,16 @@
                 }
 
                 try {
+                    // 자산 이름 생성: koName이 있으면 우선 사용, 없으면 symbol, 둘 다 없으면 ISIN
+                    let assetName = assetData.koName || assetData.symbol || assetData.isin;
+                    if (assetData.symbol && assetData.koName) {
+                        assetName = `${assetData.koName} (${assetData.symbol})`;
+                    } else if (assetData.symbol) {
+                        assetName = assetData.symbol;
+                    } else if (assetData.koName) {
+                        assetName = assetData.koName;
+                    }
+                    
                     await addAsset(
                         user.value.uid,
                         memberId,
@@ -1002,6 +1022,7 @@
                             amount: assetData.amount,
                             currency: assetData.currency,
                             notes: assetData.notes,
+                            name: assetName, // 표시용 이름 추가
                         }
                     );
                     successCount++;
