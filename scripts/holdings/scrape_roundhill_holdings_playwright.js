@@ -1,14 +1,14 @@
 // scripts/scrape_roundhill_holdings_playwright.js
 /**
  * Roundhill ETF Holdings 자동 스크래핑 (Playwright)
- * 
+ *
  * Playwright를 사용한 대체 구현입니다.
  * Puppeteer보다 빠르고 안정적일 수 있습니다.
- * 
+ *
  * 사용법:
  *   # 단일 ETF 테스트
  *   node scripts/scrape_roundhill_holdings_playwright.js AAPW
- * 
+ *
  *   # 전체 Roundhill ETF
  *   node scripts/scrape_roundhill_holdings_playwright.js --all
  */
@@ -32,11 +32,13 @@ function getRoundhillTickersFromNav() {
 
         const navData = JSON.parse(readFileSync(navPath, 'utf8'));
         const roundhillTickers = navData.nav
-            .filter(item => item.company === 'Roundhill Investments')
-            .map(item => item.symbol)
+            .filter((item) => item.company === 'Roundhill Investments')
+            .map((item) => item.symbol)
             .sort();
 
-        console.log(`✅ nav.json에서 ${roundhillTickers.length}개의 Roundhill ETF 발견`);
+        console.log(
+            `✅ nav.json에서 ${roundhillTickers.length}개의 Roundhill ETF 발견`
+        );
         return roundhillTickers;
     } catch (error) {
         console.warn(`⚠️  nav.json 읽기 실패: ${error.message}`);
@@ -50,12 +52,58 @@ function getRoundhillTickersFromNav() {
  */
 function getHardcodedRoundhillTickers() {
     return [
-        'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
-        'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
-        'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
-        'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
-        'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
-        'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
+        'AAPW',
+        'NFLW',
+        'TSLW',
+        'NVDW',
+        'MSFW',
+        'GOOW',
+        'AMZW',
+        'METW',
+        'PLTW',
+        'COIW',
+        'HOOW',
+        'MSTW',
+        'BRKW',
+        'AMDW',
+        'AVGW',
+        'ARMW',
+        'BABW',
+        'COSW',
+        'UBEW',
+        'GDXW',
+        'GLDW',
+        'WPAY',
+        'XDTE',
+        'QDTE',
+        'RDTE',
+        'XPAY',
+        'YBTC',
+        'YETH',
+        'MAGY',
+        'METV',
+        'MAGS',
+        'CHAT',
+        'BETZ',
+        'NERD',
+        'OZEM',
+        'WEED',
+        'MAGC',
+        'UX',
+        'HUMN',
+        'MEME',
+        'WEEK',
+        'XDIV',
+        'MAGX',
+        'ABNW',
+        'ASMW',
+        'CRWW',
+        'DKNW',
+        'LMTW',
+        'RDDW',
+        'SHOW',
+        'TSMW',
+        'XOMW',
     ];
 }
 
@@ -64,18 +112,19 @@ function getHardcodedRoundhillTickers() {
  */
 async function scrapeRoundhillHoldings(ticker, browser) {
     const url = `https://www.roundhillinvestments.com/etf/${ticker.toLowerCase()}/`;
-    
+
     console.log(`\n${'='.repeat(60)}`);
     console.log(`스크래핑 중: ${ticker}`);
     console.log(`URL: ${url}`);
     console.log('='.repeat(60));
 
     const context = await browser.newContext({
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        userAgent:
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
     });
-    
+
     const page = await context.newPage();
-    
+
     try {
         // 페이지 로드
         await page.goto(url, { waitUntil: 'networkidle' });
@@ -85,18 +134,18 @@ async function scrapeRoundhillHoldings(ticker, browser) {
         try {
             await page.waitForSelector('table', { timeout: 10000 });
             console.log('✅ 테이블 요소 발견');
-            
+
             // 추가 대기: 페이지 완전히 로드
             await page.waitForTimeout(2000);
             console.log('✅ 페이지 로딩 대기 완료');
         } catch (e) {
             console.log('⚠️ 테이블을 찾을 수 없습니다.');
-            
+
             // 스크린샷
             const screenshotPath = `debug_playwright_${ticker.toLowerCase()}.png`;
             await page.screenshot({ path: screenshotPath, fullPage: true });
             console.log(`📸 디버깅용 스크린샷 저장: ${screenshotPath}`);
-            
+
             await context.close();
             return null;
         }
@@ -108,25 +157,32 @@ async function scrapeRoundhillHoldings(ticker, browser) {
             const buttonClicked = await page.evaluate(() => {
                 // 1. class="viewall-link" 시도
                 let viewAllButton = document.querySelector('.viewall-link');
-                
+
                 // 2. data-open="holdingsModal" 시도
                 if (!viewAllButton) {
-                    viewAllButton = document.querySelector('[data-open="holdingsModal"]');
+                    viewAllButton = document.querySelector(
+                        '[data-open="holdingsModal"]'
+                    );
                 }
-                
+
                 // 3. aria-label="Holdings" 시도
                 if (!viewAllButton) {
-                    viewAllButton = document.querySelector('[aria-label="Holdings"]');
+                    viewAllButton = document.querySelector(
+                        '[aria-label="Holdings"]'
+                    );
                 }
-                
+
                 // 4. 텍스트로 찾기 (fallback)
                 if (!viewAllButton) {
                     const links = Array.from(document.querySelectorAll('a'));
-                    viewAllButton = links.find(link => 
-                        link.textContent?.trim().toLowerCase().includes('view all')
+                    viewAllButton = links.find((link) =>
+                        link.textContent
+                            ?.trim()
+                            .toLowerCase()
+                            .includes('view all')
                     );
                 }
-                
+
                 if (viewAllButton) {
                     viewAllButton.click();
                     return true;
@@ -136,12 +192,14 @@ async function scrapeRoundhillHoldings(ticker, browser) {
 
             if (buttonClicked) {
                 console.log('✅ "View All" 버튼 클릭 성공');
-                
+
                 // 모달이 나타날 때까지 대기
                 await page.waitForTimeout(3000);
                 console.log('✅ 모달 로딩 대기 완료');
             } else {
-                console.log('⚠️ "View All" 버튼을 찾을 수 없음 (기본 테이블 사용)');
+                console.log(
+                    '⚠️ "View All" 버튼을 찾을 수 없음 (기본 테이블 사용)'
+                );
             }
         } catch (e) {
             console.log('⚠️ "View All" 버튼 클릭 실패 (기본 테이블 사용)');
@@ -151,7 +209,9 @@ async function scrapeRoundhillHoldings(ticker, browser) {
         // 날짜 추출
         const asOfDate = await page.evaluate(() => {
             const bodyText = document.body.innerText;
-            const match = bodyText.match(/as of\s+(\d{1,2}\/\d{1,2}\/\d{2,4})/i);
+            const match = bodyText.match(
+                /as of\s+(\d{1,2}\/\d{1,2}\/\d{2,4})/i
+            );
             return match ? match[1] : null;
         });
 
@@ -163,7 +223,7 @@ async function scrapeRoundhillHoldings(ticker, browser) {
         const holdingsInfo = await page.evaluate(() => {
             let holdingsTable = null;
             let source = '';
-            
+
             // 1. 메인 페이지 Holdings 테이블 우선 (MAGS, WEED 등 - View All 버튼 없음)
             // 데스크톱용
             const mainTbody = document.querySelector('#fund-topTenHoldings');
@@ -171,25 +231,29 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                 holdingsTable = mainTbody.closest('table');
                 source = 'Main Page Desktop (#fund-topTenHoldings)';
             }
-            
+
             // 2. 메인 페이지 모바일 테이블
             if (!holdingsTable) {
-                const mainTbodyMobile = document.querySelector('.fund-topTenHoldings-mobile');
+                const mainTbodyMobile = document.querySelector(
+                    '.fund-topTenHoldings-mobile'
+                );
                 if (mainTbodyMobile) {
                     holdingsTable = mainTbodyMobile.closest('table');
                     source = 'Main Page Mobile (.fund-topTenHoldings-mobile)';
                 }
             }
-            
+
             // 3. 모달 내 데스크톱 테이블 찾기 (View All 클릭 후)
             if (!holdingsTable) {
-                const modalTable = document.querySelector('#fullHoldingsTablex');
+                const modalTable = document.querySelector(
+                    '#fullHoldingsTablex'
+                );
                 if (modalTable) {
                     holdingsTable = modalTable;
                     source = 'Modal Desktop (#fullHoldingsTablex)';
                 }
             }
-            
+
             // 4. 모달 내 모바일 테이블 (View All 클릭 후)
             if (!holdingsTable) {
                 const modalMobile = document.querySelector('.modaltablemobile');
@@ -198,18 +262,25 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                     source = 'Modal Mobile (.modaltablemobile)';
                 }
             }
-            
+
             // 5. 헤더로 테이블 찾기 (최종 fallback)
             if (!holdingsTable) {
                 const tables = Array.from(document.querySelectorAll('table'));
                 for (const table of tables) {
-                    const headerCells = Array.from(table.querySelectorAll('thead th'));
-                    const headerText = headerCells.map(cell => cell.innerText.trim().toLowerCase()).join(' ');
-                    
+                    const headerCells = Array.from(
+                        table.querySelectorAll('thead th')
+                    );
+                    const headerText = headerCells
+                        .map((cell) => cell.innerText.trim().toLowerCase())
+                        .join(' ');
+
                     if (
-                        (headerText.includes('ticker') && headerText.includes('name')) ||
-                        (headerText.includes('identifier') && headerText.includes('shares')) ||
-                        (headerText.includes('name') && headerText.includes('weight'))
+                        (headerText.includes('ticker') &&
+                            headerText.includes('name')) ||
+                        (headerText.includes('identifier') &&
+                            headerText.includes('shares')) ||
+                        (headerText.includes('name') &&
+                            headerText.includes('weight'))
                     ) {
                         holdingsTable = table;
                         source = 'Header Match';
@@ -217,70 +288,74 @@ async function scrapeRoundhillHoldings(ticker, browser) {
                     }
                 }
             }
-            
+
             if (!holdingsTable) {
                 return { holdings: [], source: 'Not Found' };
             }
-            
+
             // Holdings 테이블의 데이터 행만 추출
             const rows = Array.from(holdingsTable.querySelectorAll('tbody tr'));
-            
-            const processedRows = rows.map(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                
-                // 빈 행 필터링: 모든 셀이 비어있으면 무시
-                if (cells.length === 0) return null;
-                
-                const hasContent = cells.some(cell => {
-                    const text = cell.innerText.trim();
-                    return text && text !== '-' && text !== '';
-                });
-                
-                if (!hasContent) return null;
 
-                let data = {};
+            const processedRows = rows
+                .map((row) => {
+                    const cells = Array.from(row.querySelectorAll('td'));
 
-                if (cells.length >= 6) {
-                    data = {
-                        ticker: cells[0]?.innerText?.trim() || '',
-                        name: cells[1]?.innerText?.trim() || '',
-                        identifier: cells[2]?.innerText?.trim() || '',
-                        weight: cells[3]?.innerText?.trim() || '',
-                        shares: cells[4]?.innerText?.trim() || '',
-                        marketValue: cells[5]?.innerText?.trim() || ''
-                    };
-                } else if (cells.length === 2) {
-                    data = {
-                        name: cells[0]?.innerText?.trim() || '',
-                        weight: cells[1]?.innerText?.trim() || '',
-                        ticker: null
-                    };
-                } else if (cells.length >= 3) {
-                    data = {
-                        raw: cells.map(c => c.innerText.trim())
-                    };
-                } else {
-                    return null;
-                }
+                    // 빈 행 필터링: 모든 셀이 비어있으면 무시
+                    if (cells.length === 0) return null;
 
-                return data;
-            }).filter(item => item !== null);
-            
+                    const hasContent = cells.some((cell) => {
+                        const text = cell.innerText.trim();
+                        return text && text !== '-' && text !== '';
+                    });
+
+                    if (!hasContent) return null;
+
+                    let data = {};
+
+                    if (cells.length >= 6) {
+                        data = {
+                            ticker: cells[0]?.innerText?.trim() || '',
+                            name: cells[1]?.innerText?.trim() || '',
+                            identifier: cells[2]?.innerText?.trim() || '',
+                            weight: cells[3]?.innerText?.trim() || '',
+                            shares: cells[4]?.innerText?.trim() || '',
+                            marketValue: cells[5]?.innerText?.trim() || '',
+                        };
+                    } else if (cells.length === 2) {
+                        data = {
+                            name: cells[0]?.innerText?.trim() || '',
+                            weight: cells[1]?.innerText?.trim() || '',
+                            ticker: null,
+                        };
+                    } else if (cells.length >= 3) {
+                        data = {
+                            raw: cells.map((c) => c.innerText.trim()),
+                        };
+                    } else {
+                        return null;
+                    }
+
+                    return data;
+                })
+                .filter((item) => item !== null);
+
             return { holdings: processedRows, source: source };
         });
 
-        console.log(`✅ Holdings 데이터 추출: ${holdingsInfo.holdings.length}개 (출처: ${holdingsInfo.source})`);
-        
+        console.log(
+            `✅ Holdings 데이터 추출: ${holdingsInfo.holdings.length}개 (출처: ${holdingsInfo.source})`
+        );
+
         const holdings = holdingsInfo.holdings;
 
         if (holdings.length === 0) {
             console.log('⚠️ 추출된 holdings가 없습니다.');
-            
+
             // 디버깅: 스크린샷 저장
             const screenshotPath = `debug_playwright_no_holdings_${ticker.toLowerCase()}.png`;
             await page.screenshot({ path: screenshotPath, fullPage: true });
             console.log(`📸 디버깅용 스크린샷 저장: ${screenshotPath}`);
-            
+
             await context.close();
             return null;
         }
@@ -297,9 +372,8 @@ async function scrapeRoundhillHoldings(ticker, browser) {
             ticker: ticker.toUpperCase(),
             asOfDate: asOfDate,
             holdings: holdings,
-            scrapedAt: new Date().toISOString()
+            scrapedAt: new Date().toISOString(),
         };
-
     } catch (error) {
         console.error(`❌ 스크래핑 실패: ${error.message}`);
         await context.close();
@@ -318,18 +392,21 @@ function convertToTSV(data) {
     const holdings = data.holdings;
     let lines = [];
 
-    const hasFullData = holdings[0].ticker !== undefined && holdings[0].ticker !== null;
-    
+    const hasFullData =
+        holdings[0].ticker !== undefined && holdings[0].ticker !== null;
+
     if (hasFullData) {
-        lines.push('Ticker\tName\tIdentifier\tETF Weight\tShares\tMarket Value');
-        holdings.forEach(h => {
+        lines.push(
+            'Ticker\tName\tIdentifier\tETF Weight\tShares\tMarket Value'
+        );
+        holdings.forEach((h) => {
             lines.push(
                 `${h.ticker || ''}\t${h.name || ''}\t${h.identifier || ''}\t${h.weight || ''}\t${h.shares || ''}\t${h.marketValue || ''}`
             );
         });
     } else {
         lines.push('Name\tWeight');
-        holdings.forEach(h => {
+        holdings.forEach((h) => {
             lines.push(`${h.name || ''}\t${h.weight || ''}`);
         });
     }
@@ -341,7 +418,11 @@ function convertToTSV(data) {
  * 배치 파일로 저장
  */
 async function saveToBatchFile(dataList) {
-    const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '').slice(2);
+    const timestamp = new Date()
+        .toISOString()
+        .split('T')[0]
+        .replace(/-/g, '')
+        .slice(2);
     const outputPath = `public/holdings/roundhill_${timestamp}_playwright.txt`;
 
     let content = [];
@@ -350,14 +431,16 @@ async function saveToBatchFile(dataList) {
         if (!data) continue;
 
         content.push(data.ticker.toUpperCase());
-        content.push(`as of ${data.asOfDate || new Date().toLocaleDateString('en-US')}`);
+        content.push(
+            `as of ${data.asOfDate || new Date().toLocaleDateString('en-US')}`
+        );
         content.push('');
-        
+
         const tsv = convertToTSV(data);
         if (tsv) {
             content.push(tsv);
         }
-        
+
         content.push('');
         content.push('--------------------------');
         content.push('');
@@ -365,8 +448,10 @@ async function saveToBatchFile(dataList) {
 
     await fs.writeFile(outputPath, content.join('\n'), 'utf-8');
     console.log(`\n📦 배치 파일 저장: ${outputPath}`);
-    console.log(`\n사용법: python scripts/add_roundhill_holdings.py --batch ${outputPath}`);
-    
+    console.log(
+        `\n사용법: python scripts/add_roundhill_holdings.py --batch ${outputPath}`
+    );
+
     return outputPath;
 }
 
@@ -378,8 +463,12 @@ async function main() {
 
     if (args.length === 0) {
         console.log('사용법:');
-        console.log('  node scripts/scrape_roundhill_holdings_playwright.js AAPW');
-        console.log('  node scripts/scrape_roundhill_holdings_playwright.js --all');
+        console.log(
+            '  node scripts/scrape_roundhill_holdings_playwright.js AAPW'
+        );
+        console.log(
+            '  node scripts/scrape_roundhill_holdings_playwright.js --all'
+        );
         process.exit(1);
     }
 
@@ -387,7 +476,7 @@ async function main() {
     if (args[0] === '--all') {
         tickers = getRoundhillTickersFromNav();
     } else {
-        tickers = args.map(t => t.toUpperCase());
+        tickers = args.map((t) => t.toUpperCase());
     }
 
     console.log('🚀 Roundhill ETF Holdings 자동 스크래핑 (Playwright)');
@@ -401,7 +490,7 @@ async function main() {
 
     for (const ticker of tickers) {
         const data = await scrapeRoundhillHoldings(ticker, browser);
-        
+
         if (data) {
             results.push(data);
         }
@@ -409,7 +498,7 @@ async function main() {
         // 요청 사이 대기
         if (tickers.length > 1) {
             console.log('⏳ 2초 대기...');
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
         }
     }
 
@@ -425,15 +514,16 @@ async function main() {
 
     if (results.length > 0) {
         const batchFile = await saveToBatchFile(results);
-        
+
         console.log('\n✅ 완료!');
         console.log(`\n다음 명령으로 데이터를 등록하세요:`);
-        console.log(`  python scripts/add_roundhill_holdings.py --batch ${batchFile}`);
+        console.log(
+            `  python scripts/add_roundhill_holdings.py --batch ${batchFile}`
+        );
     }
 }
 
-main().catch(error => {
+main().catch((error) => {
     console.error('❌ 오류 발생:', error);
     process.exit(1);
 });
-
