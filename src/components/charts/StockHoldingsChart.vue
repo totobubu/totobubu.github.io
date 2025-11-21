@@ -592,16 +592,16 @@
             });
         });
 
-        // 상위 5개 종목만 선택 (최신 데이터 기준)
+        // 상위 15개 종목만 선택 (최신 데이터 기준)
         const latestData =
             props.holdingsData[props.holdingsData.length - 1].data;
-        const top5Symbols = latestData
+        const top15Symbols = latestData
             .sort((a, b) => b.weight - a.weight)
-            .slice(0, 5)
+            .slice(0, 15)
             .map((h) => h.symbol);
 
         // 각 심볼별 시계열 데이터 생성
-        const series = top5Symbols.map((symbol) => {
+        const series = top15Symbols.map((symbol) => {
             const data = props.holdingsData.map((entry) => {
                 const holding = entry.data.find((h) => h.symbol === symbol);
                 return holding ? holding.weight : 0;
@@ -626,7 +626,7 @@
 
         return {
             title: {
-                text: 'Top 5 Holdings 비중 변화',
+                text: 'Top 15 Holdings 비중 변화',
                 left: 'center',
                 textStyle: {
                     fontSize: 16,
@@ -645,7 +645,7 @@
                 },
             },
             legend: {
-                data: top5Symbols,
+                data: top15Symbols,
                 top: '10%',
                 left: 'center',
                 textStyle: {
