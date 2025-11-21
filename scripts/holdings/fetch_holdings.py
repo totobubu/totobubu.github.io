@@ -412,10 +412,11 @@ def update_json_with_holdings(ticker_symbol, data_dir='public/data', force_updat
                 json_path = Path(data_dir) / market_dir / f"{sanitized_ticker}.json"
                 # 디렉토리 생성
                 json_path.parent.mkdir(parents=True, exist_ok=True)
+                print(f"[INFO] {ticker_symbol}: 새 JSON 파일 생성 - {json_path}")
             else:
-                json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+                print(f"[WARNING] {ticker_symbol}: nav.json에서 market 정보를 찾을 수 없습니다. 파일을 생성하지 않습니다.")
+                return False
             
-            print(f"[INFO] {ticker_symbol}: 새 JSON 파일 생성 - {json_path}")
             data = {
                 "tickerInfo": {},
                 "backtestData": []
@@ -597,12 +598,11 @@ def process_all_tickers(data_dir='public/data'):
     failed_tickers = []  # 실패한 티커 목록
     
     for ticker in holdings_tickers:
-        # JSON 파일이 존재하는지 확인
-        sanitized_ticker = sanitize_ticker_for_filename(ticker)
-        json_path = Path(data_dir) / f"{sanitized_ticker}.json"
+        # JSON 파일이 존재하는지 확인 (market 디렉토리 포함)
+        json_path = find_json_file_path(ticker, data_dir)
         
-        if not json_path.exists():
-            print(f"\n[SKIP] {ticker}: JSON 파일이 없습니다 - {json_path}")
+        if not json_path or not json_path.exists():
+            print(f"\n[SKIP] {ticker}: JSON 파일이 없습니다")
             skip_count += 1
             continue
         
