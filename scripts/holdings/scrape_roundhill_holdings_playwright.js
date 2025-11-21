@@ -32,12 +32,16 @@ function getRoundhillTickersFromNav() {
 
         const navData = JSON.parse(readFileSync(navPath, 'utf8'));
         const roundhillTickers = navData.nav
-            .filter((item) => item.company === 'Roundhill Investments')
+            .filter(
+                (item) =>
+                    item.company === 'Roundhill Investments' &&
+                    !item.upcoming
+            )
             .map((item) => item.symbol)
             .sort();
 
         console.log(
-            `✅ nav.json에서 ${roundhillTickers.length}개의 Roundhill ETF 발견`
+            `✅ nav.json에서 ${roundhillTickers.length}개의 Roundhill ETF 발견 (upcoming 제외)`
         );
         return roundhillTickers;
     } catch (error) {
