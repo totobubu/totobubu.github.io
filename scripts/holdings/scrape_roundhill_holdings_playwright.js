@@ -15,18 +15,49 @@
 
 import { chromium } from 'playwright';
 import fs from 'fs/promises';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import path from 'path';
 
-// Roundhill ETF 목록
-const ROUNDHILL_ETFS = [
-    'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
-    'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
-    'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
-    'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
-    'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
-    'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
-];
+/**
+ * nav.json에서 Roundhill Investments 회사의 모든 티커 가져오기
+ */
+function getRoundhillTickersFromNav() {
+    try {
+        const navPath = path.join(process.cwd(), 'public', 'nav.json');
+        if (!existsSync(navPath)) {
+            console.warn(`⚠️  nav.json을 찾을 수 없습니다: ${navPath}`);
+            console.warn('⚠️  하드코딩된 목록을 사용합니다.');
+            return getHardcodedRoundhillTickers();
+        }
+
+        const navData = JSON.parse(readFileSync(navPath, 'utf8'));
+        const roundhillTickers = navData.nav
+            .filter(item => item.company === 'Roundhill Investments')
+            .map(item => item.symbol)
+            .sort();
+
+        console.log(`✅ nav.json에서 ${roundhillTickers.length}개의 Roundhill ETF 발견`);
+        return roundhillTickers;
+    } catch (error) {
+        console.warn(`⚠️  nav.json 읽기 실패: ${error.message}`);
+        console.warn('⚠️  하드코딩된 목록을 사용합니다.');
+        return getHardcodedRoundhillTickers();
+    }
+}
+
+/**
+ * 하드코딩된 Roundhill ETF 목록 (fallback)
+ */
+function getHardcodedRoundhillTickers() {
+    return [
+        'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
+        'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
+        'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+        'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
+        'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
+        'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
+    ];
+}
 
 /**
  * Playwright로 Roundhill ETF Holdings 스크래핑
@@ -354,7 +385,7 @@ async function main() {
 
     let tickers = [];
     if (args[0] === '--all') {
-        tickers = ROUNDHILL_ETFS;
+        tickers = getRoundhillTickersFromNav();
     } else {
         tickers = args.map(t => t.toUpperCase());
     }
