@@ -93,9 +93,7 @@ def main():
                 start_date_str = start_date.strftime("%Y-%m-%d")
             else:
                 # 데이터가 아예 없는 경우, IPO 날짜나 기본값 사용
-                start_date_str = ticker_info_map.get(symbol, {}).get(
-                    "ipoDate", "1990-01-01"
-                )
+                start_date_str = ticker_info.get("ipoDate", "1990-01-01")
 
             # 이미 최신이면 건너뛰기
             if (
@@ -123,7 +121,7 @@ def main():
             backtest_data = existing_data.get("backtestData", [])
             backtest_map = {item["date"]: item for item in backtest_data}
             original_backtest_data_str = json.dumps(backtest_data, sort_keys=True)
-            currency = ticker_info_map.get(symbol, {}).get("currency", "USD")
+            currency = ticker_info.get("currency", "USD")
 
             for date, amount in new_dividends_df.items():
                 date_str = date.strftime("%Y-%m-%d")

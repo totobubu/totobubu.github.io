@@ -18,7 +18,10 @@ from scripts.utils import (
     get_kst_now,
     should_skip_update_timestamp,
 )
-from scripts.utils.data_file_path import get_data_file_path, find_existing_data_file
+
+# data_file_path는 utils 디렉토리를 직접 경로에 추가하여 import
+sys.path.insert(0, str(ROOT_DIR / "scripts" / "utils"))
+from data_file_path import get_data_file_path, find_existing_data_file
 
 
 def fetch_bulk_ticker_info_batch(ticker_symbols_batch):
