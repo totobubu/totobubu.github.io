@@ -34,8 +34,7 @@ function getRoundhillTickersFromNav() {
         const roundhillTickers = navData.nav
             .filter(
                 (item) =>
-                    item.company === 'Roundhill Investments' &&
-                    !item.upcoming
+                    item.company === 'Roundhill Investments' && !item.upcoming
             )
             .map((item) => item.symbol)
             .sort();
@@ -99,11 +98,6 @@ function getHardcodedRoundhillTickers() {
         'WEEK',
         'XDIV',
         'MAGX',
-        'ABNW',
-        'ASMW',
-        'CRWW',
-        'DKNW',
-        'LMTW',
         'RDDW',
         'SHOW',
         'TSMW',
