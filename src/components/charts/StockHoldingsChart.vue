@@ -592,16 +592,16 @@
             });
         });
 
-        // 상위 5개 종목만 선택 (최신 데이터 기준)
+        // 상위 30개 종목만 선택 (최신 데이터 기준)
         const latestData =
             props.holdingsData[props.holdingsData.length - 1].data;
-        const top5Symbols = latestData
+        const top30Symbols = latestData
             .sort((a, b) => b.weight - a.weight)
-            .slice(0, 5)
+            .slice(0, 30)
             .map((h) => h.symbol);
 
         // 각 심볼별 시계열 데이터 생성
-        const series = top5Symbols.map((symbol) => {
+        const series = top30Symbols.map((symbol) => {
             const data = props.holdingsData.map((entry) => {
                 const holding = entry.data.find((h) => h.symbol === symbol);
                 return holding ? holding.weight : 0;
@@ -626,7 +626,7 @@
 
         return {
             title: {
-                text: 'Top 5 Holdings 비중 변화',
+                text: 'Top 30 Holdings 비중 변화',
                 left: 'center',
                 textStyle: {
                     fontSize: 16,
@@ -645,7 +645,7 @@
                 },
             },
             legend: {
-                data: top5Symbols,
+                data: top30Symbols,
                 top: '10%',
                 left: 'center',
                 textStyle: {
@@ -723,6 +723,24 @@
                 },
             })),
         };
+    });
+
+    // 시계열 차트 동적 높이 계산
+    const timeSeriesChartHeight = computed(() => {
+        if (
+            !timeSeriesChartOptions.value ||
+            !props.holdingsData ||
+            props.holdingsData.length < 2
+        ) {
+            return 400;
+        }
+
+        const latestData =
+            props.holdingsData[props.holdingsData.length - 1].data;
+        const seriesCount = Math.min(latestData.length, 30);
+
+        // 기본 높이 300px + 종목당 15px, 최대 800px
+        return Math.min(300 + seriesCount * 15, 800);
     });
 </script>
 
@@ -844,7 +862,7 @@
             <VChart
                 :option="timeSeriesChartOptions"
                 autoresize
-                style="height: 400px" />
+                :style="{ height: `${timeSeriesChartHeight}px` }" />
         </div>
 
         <!-- 레버리지 익스포저 차트 (있을 때만 표시) -->

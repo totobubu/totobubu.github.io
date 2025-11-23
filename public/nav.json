@@ -10350,7 +10350,7 @@
             "currency": "KRW",
             "logo": null,
             "dataPaths": ["data/kosdaq/287840.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "289040",
@@ -19133,7 +19133,7 @@
             "currency": "KRW",
             "logo": null,
             "dataPaths": ["data/kospi/483650.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "484790",
@@ -20297,7 +20297,7 @@
             "currency": "KRW",
             "logo": null,
             "dataPaths": ["data/kosdaq/496020.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "496080",
@@ -20402,7 +20402,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/497520.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "497570",
@@ -20710,7 +20710,7 @@
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/aapy.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -20769,7 +20769,7 @@
             "yfSymbol": "ABNW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/abnw.json", "data/abnw.json"],
+            "dataPaths": ["data/nasdaq/abnw.json"],
             "periods": []
         },
         {
@@ -21706,7 +21706,7 @@
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/amzp.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -22297,7 +22297,7 @@
             "yfSymbol": "ASMW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/asmw.json", "data/asmw.json"],
+            "dataPaths": ["data/nasdaq/asmw.json"],
             "periods": []
         },
         {
@@ -26177,7 +26177,7 @@
             "yfSymbol": "CRWW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/crww.json", "data/crww.json"],
+            "dataPaths": ["data/nasdaq/crww.json"],
             "periods": []
         },
         {
@@ -27079,7 +27079,7 @@
             "currency": "USD",
             "logo": "logos/company/company-dimensional.png",
             "dataPaths": ["data/nyse/dfgp.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "FND"
         },
         {
@@ -27111,7 +27111,7 @@
             "currency": "USD",
             "logo": "logos/company/company-dimensional.png",
             "dataPaths": ["data/nyse/dfgx.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "FND"
         },
         {
@@ -27662,7 +27662,7 @@
             "yfSymbol": "DKNW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/dknw.json", "data/dknw.json"],
+            "dataPaths": ["data/nasdaq/dknw.json"],
             "periods": []
         },
         {
@@ -29969,8 +29969,8 @@
             "currency": "USD",
             "logo": "logos/nasdaq/expe.svg",
             "dataPaths": ["data/nasdaq/expe.json"],
-            "periods": ["5Y", "10Y", "15Y"],
-            "group": "MMA"
+            "group": "MMA",
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "EXR",
@@ -32757,7 +32757,7 @@
             "currency": "USD",
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/goop.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -33939,7 +33939,7 @@
             "symbol": "HON",
             "ipoDate": "1962-01-02",
             "frequency": "분기",
-            "group": "FMA",
+            "group": "FMN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "CA4385211061",
@@ -38183,7 +38183,9 @@
             "currency": "USD",
             "logo": null,
             "dataPaths": ["data/nyse/kyld.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매주",
+            "group": "수"
         },
         {
             "symbol": "L",
@@ -38648,7 +38650,7 @@
             "yfSymbol": "LMTW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/lmtw.json", "data/lmtw.json"],
+            "dataPaths": ["data/nasdaq/lmtw.json"],
             "periods": []
         },
         {
@@ -40056,7 +40058,7 @@
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/msfy.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -40134,7 +40136,7 @@
             "currency": "USD",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nasdaq/mst.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "MSTP",
@@ -40632,7 +40634,7 @@
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/nflp.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -41014,6 +41016,18 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/nugt.json"],
             "periods": ["5Y", "10Y"]
+        },
+        {
+            "symbol": "NUGY",
+            "market": "NASDAQ",
+            "ipoDate": "2025-11-18",
+            "yfSymbol": "NUGY",
+            "currency": "USD",
+            "holdings": false,
+            "logo": null,
+            "dataPaths": ["data/nasdaq/nugy.json"],
+            "periods": [],
+            "isin": "US38747R1813"
         },
         {
             "symbol": "NUKZ",
@@ -43253,7 +43267,7 @@
             "currency": "USD",
             "logo": "logos/nasdaq/pypl.svg",
             "dataPaths": ["data/nasdaq/pypl.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+            "periods": []
         },
         {
             "symbol": "PYPY",
@@ -44153,7 +44167,7 @@
             "yfSymbol": "RDDW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/rddw.json", "data/rddw.json"],
+            "dataPaths": ["data/nasdaq/rddw.json"],
             "periods": []
         },
         {
@@ -44231,7 +44245,7 @@
             "currency": "USD",
             "logo": "logos/company/company-first-trust.png",
             "dataPaths": ["data/nyse/rdvi.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "JND"
         },
         {
@@ -45886,6 +45900,18 @@
             "periods": []
         },
         {
+            "symbol": "SEMY",
+            "market": "NASDAQ",
+            "ipoDate": "2025-11-18",
+            "yfSymbol": "SEMY",
+            "currency": "USD",
+            "holdings": false,
+            "logo": null,
+            "dataPaths": ["data/nasdaq/semy.json"],
+            "periods": [],
+            "isin": "US38747R1995"
+        },
+        {
             "symbol": "SFLR",
             "company": "Innovator",
             "ipoDate": "2022-11-09",
@@ -46088,7 +46114,7 @@
             "yfSymbol": "SHOW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/show.json", "data/show.json"],
+            "dataPaths": ["data/nasdaq/show.json"],
             "periods": []
         },
         {
@@ -48154,7 +48180,7 @@
             "symbol": "SWKS",
             "ipoDate": "1984-09-07",
             "frequency": "분기",
-            "group": "FMA",
+            "group": "MAN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US83088M1027",
@@ -49410,7 +49436,7 @@
             "logo": "logos/company/company-kurv.png",
             "dataPaths": ["data/nyse/tslp.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -49533,7 +49559,7 @@
             "yfSymbol": "TSMW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/tsmw.json", "data/tsmw.json"],
+            "dataPaths": ["data/nasdaq/tsmw.json"],
             "periods": []
         },
         {
@@ -51239,7 +51265,7 @@
             "symbol": "VLO",
             "ipoDate": "1982-01-04",
             "frequency": "분기",
-            "group": "FMA",
+            "group": "MAN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US91913Y1001",
@@ -53138,7 +53164,7 @@
             "yfSymbol": "XOMW",
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
-            "dataPaths": ["data/nasdaq/xomw.json", "data/xomw.json"],
+            "dataPaths": ["data/nasdaq/xomw.json"],
             "periods": []
         },
         {
