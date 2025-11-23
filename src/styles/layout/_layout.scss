@@ -10,7 +10,7 @@
     flex-direction: row;
     overflow: hidden;
     -tw-bg-opacity: 1;
-    gap: 1rem;
+    gap: 0.5rem; // Reduced from 1rem
 }
 
 #t-grid {
@@ -21,7 +21,7 @@
     flex: 1 1 0%;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 1.5rem;
+    border-radius: 1rem; // Reduced from 1.5rem
 
     --tw-shadow: var(--shadow-stroke);
     --tw-shadow-colored: var(--shadow-stroke);
@@ -34,25 +34,24 @@
 }
 
 #t-content {
-    padding: 0 1rem 1.5rem;
+    padding: 0 0.5rem 1rem; // Reduced from 0 1rem 1.5rem
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1 1 0%;
 
     @include bp.media-breakpoint-only('xs') {
-        padding: 0 1rem 0.5rem;
+        padding: 0 0.5rem 0.5rem; // Reduced
     }
 
     @include bp.media-breakpoint-down('lg') {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.25rem; // Reduced from 0.5rem
     }
 }
 
 // 모바일만
-@include bp.media-breakpoint-only('xs') {
-}
+@include bp.media-breakpoint-only('xs') {}
 
 // 641 이상
 @include bp.media-breakpoint-up('sm') {
