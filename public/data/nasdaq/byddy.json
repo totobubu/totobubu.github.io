@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 12.42,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 11.98,
         "englishName": "BYD Company Limited",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 54231068672,
-        "marketCap": 113235591168,
-        "Volume": 456313,
-        "AvgVolume": 2438939,
+        "enterpriseValue": 46973353984,
+        "marketCap": 109224017920,
+        "Volume": 394710,
+        "AvgVolume": 2423350,
         "sharesOutstanding": 3683400000,
         "52Week": "10.583333 - 20.05",
-        "Yield": 0.106683,
+        "Yield": 0.110601,
         "dividendRate": 0.18,
         "payoutRatio": 0.9459,
         "isin": "US05606L1008",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.96,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 49989545984,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 109041680384,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 316785,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2408450,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.110786,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36136,7 +36161,34 @@
             "high": 12.46,
             "low": 12.36,
             "close": 12.42,
-            "volume": 467443
+            "volume": 467443,
+            "marketCap": 111685664768
+        },
+        {
+            "date": "2025-11-19",
+            "open": 12.31,
+            "high": 12.33,
+            "low": 12.18,
+            "close": 12.23,
+            "volume": 361031,
+            "marketCap": 109041680384
+        },
+        {
+            "date": "2025-11-20",
+            "open": 12.22,
+            "high": 12.26,
+            "low": 11.91,
+            "close": 11.91,
+            "volume": 469053,
+            "marketCap": 109224017920
+        },
+        {
+            "date": "2025-11-21",
+            "open": 11.85,
+            "high": 12.04,
+            "low": 11.81,
+            "close": 12,
+            "volume": 479756
         }
     ]
 }

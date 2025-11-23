@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 32.7,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 32.05,
         "englishName": "Direxion Daily F Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 182,
-        "AvgVolume": 3620,
+        "Volume": 14197,
+        "AvgVolume": 3603,
         "sharesOutstanding": null,
         "52Week": "23.177 - 36.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.83,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 751,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3592,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -709,6 +722,30 @@
             "low": 32.700001,
             "close": 32.929798,
             "volume": 182
+        },
+        {
+            "date": "2025-11-19",
+            "open": 32.290001,
+            "high": 32.290001,
+            "low": 32.290001,
+            "close": 32.290001,
+            "volume": 176
+        },
+        {
+            "date": "2025-11-20",
+            "open": 29.83,
+            "high": 29.83,
+            "low": 29.779301,
+            "close": 29.779301,
+            "volume": 154
+        },
+        {
+            "date": "2025-11-21",
+            "open": 31.57,
+            "high": 32.200001,
+            "low": 31.530001,
+            "close": 31.8328,
+            "volume": 14522
         }
     ]
 }

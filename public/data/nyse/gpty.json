@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 43.42,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 42.4345,
         "englishName": "YieldMax AI & Tech Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 47986,
-        "AvgVolume": 52828,
+        "Volume": 53505,
+        "AvgVolume": 52925,
         "sharesOutstanding": null,
         "52Week": "32.92 - 50.43",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.5099,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 50708,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 52170,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2491,7 +2504,91 @@
         },
         {
             "date": "2025-11-19",
-            "amountFixed": 0.3005
+            "amountFixed": 0.3005,
+            "open": 43.099998,
+            "high": 43.819901,
+            "low": 42.75,
+            "close": 43.639999,
+            "volume": 33312,
+            "yield": 0.2969420091
+        },
+        {
+            "date": "2025-11-20",
+            "open": 44.360001,
+            "high": 44.599998,
+            "low": 41.919998,
+            "close": 41.939999,
+            "volume": 66180
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "67066G104",
+                    "name": "NVIDIA Corp",
+                    "weight": 9.28,
+                    "type": "other"
+                },
+                {
+                    "symbol": "69608A108",
+                    "name": "Palantir Technologies Inc",
+                    "weight": 7.9,
+                    "type": "other"
+                },
+                {
+                    "symbol": "458140100",
+                    "name": "Intel Corp",
+                    "weight": 6.42,
+                    "type": "other"
+                },
+                {
+                    "symbol": "02079K305",
+                    "name": "Alphabet Inc",
+                    "weight": 6.03,
+                    "type": "other"
+                },
+                {
+                    "symbol": "037833100",
+                    "name": "Apple Inc",
+                    "weight": 4.96,
+                    "type": "other"
+                },
+                {
+                    "symbol": "007903107",
+                    "name": "Advanced Micro Devices Inc",
+                    "weight": 4.76,
+                    "type": "other"
+                },
+                {
+                    "symbol": "11135F101",
+                    "name": "Broadcom Inc",
+                    "weight": 4.71,
+                    "type": "other"
+                },
+                {
+                    "symbol": "594918104",
+                    "name": "Microsoft Corp",
+                    "weight": 4.64,
+                    "type": "other"
+                },
+                {
+                    "symbol": "874039100",
+                    "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+                    "weight": 4.56,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88160R101",
+                    "name": "Tesla Inc",
+                    "weight": 4.53,
+                    "type": "other"
+                }
+            ],
+            "open": 41.98,
+            "high": 42.434502,
+            "low": 41.02,
+            "close": 42.07,
+            "volume": 55795
         },
         {
             "date": "2025-11-25",
@@ -2591,6 +2688,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

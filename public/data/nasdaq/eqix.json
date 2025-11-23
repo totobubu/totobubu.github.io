@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 777.875,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 755.5,
         "englishName": "Equinix, Inc.",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 95206801408,
-        "marketCap": 76376498176,
-        "Volume": 269848,
-        "AvgVolume": 475860,
+        "enterpriseValue": 92843458560,
+        "marketCap": 74179584000,
+        "Volume": 275818,
+        "AvgVolume": 482937,
         "sharesOutstanding": 98186078,
         "52Week": "701.41 - 994.03",
-        "Yield": 0.023564,
+        "Yield": 0.024262,
         "dividendRate": 18.76,
         "payoutRatio": 1.6847,
         "isin": "US29444U7000",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 760.61,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 94048206848,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 74681311232,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 336295,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 478825,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.024099,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -57320,11 +57345,37 @@
             "volume": 397381
         },
         {
+            "date": "2025-11-19",
+            "open": 773.369995,
+            "high": 774.789978,
+            "low": 755.429993,
+            "close": 765.080017,
+            "volume": 419421,
+            "amount": 4.69,
+            "yield": 0.0242574707
+        },
+        {
             "date": "2025-11-20",
+            "open": 772.179993,
+            "high": 781.109985,
+            "low": 752.23999,
+            "close": 752.809998,
+            "volume": 559371
+        },
+        {
+            "date": "2025-11-21",
+            "open": 755.609985,
+            "high": 759.73999,
+            "low": 744.440002,
+            "close": 754.679993,
+            "volume": 518743
+        },
+        {
+            "date": "2026-02-19",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

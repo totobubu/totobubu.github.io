@@ -9,14 +9,14 @@
         "underlying": "AMD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.69,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 20.46,
         "englishName": "Defiance Leveraged Long + Income AMD ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 72004,
-        "AvgVolume": 21111,
+        "Volume": 30742,
+        "AvgVolume": 24232,
         "sharesOutstanding": null,
         "52Week": "16.04 - 36.527",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.402,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 67852,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 23010,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -582,7 +595,30 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 25.91,
+            "high": 26.75,
+            "low": 23.719999,
+            "close": 24.341299,
+            "volume": 34039,
+            "amount": 0.516,
+            "yield": 0.1717522192
+        },
+        {
+            "date": "2025-11-20",
+            "open": 27.74,
+            "high": 27.74,
+            "low": 20.275,
+            "close": 20.5151,
+            "volume": 76674
+        },
+        {
+            "date": "2025-11-21",
+            "open": 20.940001,
+            "high": 20.940001,
+            "low": 18.5,
+            "close": 20.059999,
+            "volume": 37521
         },
         {
             "date": "2025-11-26",
@@ -682,6 +718,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 127.065,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 128.66,
         "englishName": "Emerson Electric Co.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 83540271104,
-        "marketCap": 71512186880,
-        "Volume": 1323468,
-        "AvgVolume": 2792121,
+        "enterpriseValue": 81736892416,
+        "marketCap": 72409849856,
+        "Volume": 2258455,
+        "AvgVolume": 2803096,
         "sharesOutstanding": 561800000,
         "52Week": "90.06 - 150.27",
-        "Yield": 0.016606,
+        "Yield": 0.0164,
         "dividendRate": 2.22,
         "payoutRatio": 0.5236,
         "isin": "US2910111044",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 124.74,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 84236902400,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 70203670528,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1394903,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2804746,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.016915,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123682,6 +123707,10 @@
             "volume": 2346892
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.555
+        },
+        {
             "date": "2025-11-17",
             "open": 127.220001,
             "high": 129.899994,
@@ -123698,11 +123727,35 @@
             "volume": 2235802
         },
         {
+            "date": "2025-11-19",
+            "open": 126.660004,
+            "high": 128.979996,
+            "low": 126.510002,
+            "close": 128.169998,
+            "volume": 1822537
+        },
+        {
+            "date": "2025-11-20",
+            "open": 129.960007,
+            "high": 131.190002,
+            "low": 123.405296,
+            "close": 123.720001,
+            "volume": 2346589
+        },
+        {
+            "date": "2025-11-21",
+            "open": 124.099998,
+            "high": 129.350006,
+            "low": 123.670097,
+            "close": 128.220001,
+            "volume": 3044886
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": "XYZ",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 6.5945,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 6.9426,
         "englishName": "YieldMax XYZ Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 109971,
-        "AvgVolume": 132156,
+        "Volume": 82566,
+        "AvgVolume": 133128,
         "sharesOutstanding": null,
-        "52Week": "6.5645 - 21.81",
+        "52Week": "6.53 - 21.22",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -5030,8 +5030,92 @@
             "volume": 110664
         },
         {
+            "date": "2025-11-19",
+            "open": 6.55,
+            "high": 7.1,
+            "low": 6.53,
+            "close": 7.03,
+            "volume": 90551
+        },
+        {
             "date": "2025-11-20",
-            "amountFixed": 0.0993
+            "amountFixed": 0.0993,
+            "open": 7.17,
+            "high": 7.2235,
+            "low": 6.92,
+            "close": 6.92,
+            "volume": 82527,
+            "yield": 1.1668200837
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 33.44,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 25.7,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 21.02,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 14.71,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 13.18,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "XYZ   260116C00067500",
+                    "name": "XYZ US 01/16/26 C67.5",
+                    "weight": 4.27,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.77,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "XYZ   251121C00069000",
+                    "name": "XYZ US 11/21/25 C69",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XYZ   251128C00070000",
+                    "name": "BLOCK  I CLL OPT 11/25 70",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "XYZ   251128C00072000",
+                    "name": "BLOCK  I CLL OPT 11/25 72",
+                    "weight": 0.04,
+                    "type": "option"
+                }
+            ],
+            "open": 6.96,
+            "high": 7,
+            "low": 6.7,
+            "close": 6.92,
+            "volume": 92047
         },
         {
             "date": "2025-11-26",
@@ -5131,6 +5215,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

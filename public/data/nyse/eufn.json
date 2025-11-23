@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 33.51,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 33.5864,
         "englishName": "iShares MSCI Europe Financials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 804860,
-        "AvgVolume": 1189285,
+        "Volume": 936943,
+        "AvgVolume": 1182520,
         "sharesOutstanding": null,
         "52Week": "22.77 - 35.48",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.15,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 442928,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1185639,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31934,6 +31947,30 @@
             "low": 33.305,
             "close": 33.5,
             "volume": 951460
+        },
+        {
+            "date": "2025-11-19",
+            "open": 33.549999,
+            "high": 33.580002,
+            "low": 33.2701,
+            "close": 33.41,
+            "volume": 497776
+        },
+        {
+            "date": "2025-11-20",
+            "open": 33.619999,
+            "high": 33.759998,
+            "low": 32.965,
+            "close": 32.970001,
+            "volume": 673431
+        },
+        {
+            "date": "2025-11-21",
+            "open": 33.41,
+            "high": 33.634998,
+            "low": 33.18,
+            "close": 33.580002,
+            "volume": 1262788
         }
     ]
 }

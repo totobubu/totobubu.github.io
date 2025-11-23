@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 16.05,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 14.5434,
         "englishName": "GraniteShares 2x Long ETOR Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4736,
-        "AvgVolume": 14853,
+        "Volume": 1029,
+        "AvgVolume": 14384,
         "sharesOutstanding": null,
         "52Week": "12.01 - 25.38",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.89,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4241,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14560,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -468,6 +481,30 @@
             "low": 14.94,
             "close": 16.109301,
             "volume": 3442
+        },
+        {
+            "date": "2025-11-19",
+            "open": 15,
+            "high": 15.4165,
+            "low": 14.52,
+            "close": 15.2392,
+            "volume": 6170
+        },
+        {
+            "date": "2025-11-20",
+            "open": 14.81,
+            "high": 15.72,
+            "low": 13.61,
+            "close": 13.9095,
+            "volume": 1514
+        },
+        {
+            "date": "2025-11-21",
+            "open": 13.6904,
+            "high": 14.5434,
+            "low": 13.6904,
+            "close": 14.0253,
+            "volume": 1997
         }
     ]
 }

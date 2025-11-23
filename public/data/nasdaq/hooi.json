@@ -9,16 +9,16 @@
         "underlying": "HOOD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 14.3,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 12.505,
         "englishName": "Defiance Leveraged Long Income Hood ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 28295,
-        "AvgVolume": 17181,
+        "Volume": 23367,
+        "AvgVolume": 17785,
         "sharesOutstanding": null,
-        "52Week": "13.68 - 29.558",
+        "52Week": "11.05 - 29.558",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.22,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 24605,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17514,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -587,7 +600,30 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true
+            "expected": true,
+            "open": 14.25,
+            "high": 14.95,
+            "low": 13.9946,
+            "close": 14.851,
+            "volume": 6529,
+            "amount": 0.209,
+            "yield": 0.2435298246
+        },
+        {
+            "date": "2025-11-20",
+            "open": 15.57,
+            "high": 15.9182,
+            "low": 11.74,
+            "close": 11.8938,
+            "volume": 23866
+        },
+        {
+            "date": "2025-11-21",
+            "open": 12.23,
+            "high": 12.69,
+            "low": 11.05,
+            "close": 12.1336,
+            "volume": 40684
         },
         {
             "date": "2025-11-26",
@@ -687,6 +723,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

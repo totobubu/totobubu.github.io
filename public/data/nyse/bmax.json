@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.7,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 23.29,
         "englishName": "REX Bitcoin Corporate Treasury Convertible Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 52,
-        "AvgVolume": 4050,
+        "Volume": 1114,
+        "AvgVolume": 3787,
         "sharesOutstanding": null,
         "52Week": "22.52 - 33.2",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.08,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1104,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3918,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1412,6 +1425,30 @@
             "low": 23.82,
             "close": 23.82,
             "volume": 551
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.280001,
+            "high": 23.950001,
+            "low": 23.280001,
+            "close": 23.440001,
+            "volume": 1066
+        },
+        {
+            "date": "2025-11-20",
+            "open": 23.4,
+            "high": 24.152201,
+            "low": 23.08,
+            "close": 23.1178,
+            "volume": 1227
+        },
+        {
+            "date": "2025-11-21",
+            "open": 23,
+            "high": 23.290001,
+            "low": 22.799999,
+            "close": 22.799999,
+            "volume": 3424
         }
     ]
 }

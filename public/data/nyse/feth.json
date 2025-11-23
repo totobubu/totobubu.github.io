@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 31.26,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 27.6535,
         "englishName": "Fidelity Ethereum Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5032051,
-        "AvgVolume": 4176587,
+        "Volume": 4423599,
+        "AvgVolume": 4385090,
         "sharesOutstanding": null,
         "52Week": "14.52 - 48.56",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.09,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7125986,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4280064,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2700,6 +2713,30 @@
             "low": 30.2444,
             "close": 31.16,
             "volume": 5183345
+        },
+        {
+            "date": "2025-11-19",
+            "open": 30.209999,
+            "high": 30.975,
+            "low": 28.610001,
+            "close": 29.33,
+            "volume": 7903076
+        },
+        {
+            "date": "2025-11-20",
+            "open": 30.059999,
+            "high": 30.110001,
+            "low": 27.809999,
+            "close": 28.24,
+            "volume": 8009225
+        },
+        {
+            "date": "2025-11-21",
+            "open": 27.18,
+            "high": 28,
+            "low": 26.695,
+            "close": 27.309999,
+            "volume": 5372166
         }
     ]
 }

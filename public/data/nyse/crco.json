@@ -9,16 +9,16 @@
         "underlying": "CRCL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 26.445,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 23.945,
         "englishName": "YieldMax CRCL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 83037,
-        "AvgVolume": 44905,
+        "Volume": 50732,
+        "AvgVolume": 45989,
         "sharesOutstanding": null,
-        "52Week": "25.8 - 57.31",
+        "52Week": "21.843 - 57.31",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.3,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 35169,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 46197,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1020,8 +1033,92 @@
             "volume": 83171
         },
         {
+            "date": "2025-11-19",
+            "open": 26.48,
+            "high": 25.27,
+            "low": 23.4837,
+            "close": 23.950001,
+            "volume": 52335
+        },
+        {
             "date": "2025-11-20",
-            "amountFixed": 0.5116
+            "amountFixed": 0.5116,
+            "open": 24,
+            "high": 23.563101,
+            "low": 21.8428,
+            "close": 22.51,
+            "volume": 36962,
+            "yield": 0.2676916667
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 56.68,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 55.26,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 40.41,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 14.9,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 3.67,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "CRCL  260116C00110000",
+                    "name": "CRCL US 01/16/26 C110",
+                    "weight": 0.97,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.7,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "CRCL  251219C00120000",
+                    "name": "CRCL US 12/19/25 C120",
+                    "weight": 0.36,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CRCL  251128C00083000",
+                    "name": "CRCL US 11/28/25 C83",
+                    "weight": 0.19,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CRCL  251128C00080000",
+                    "name": "CIRCLE I CLL OPT 11/25 80",
+                    "weight": 0.12,
+                    "type": "option"
+                }
+            ],
+            "open": 22.48,
+            "high": 24.2299,
+            "low": 22.719999,
+            "close": 24.065001,
+            "volume": 53250
         },
         {
             "date": "2025-11-26",
@@ -1121,6 +1218,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

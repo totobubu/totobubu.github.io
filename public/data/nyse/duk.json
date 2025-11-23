@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 123.9856,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 122.8,
         "englishName": "Duke Energy Corporation",
         "earningsDate": "2025-11-07",
-        "enterpriseValue": 188444639232,
-        "marketCap": 96418799616,
-        "Volume": 2400593,
-        "AvgVolume": 2897875,
+        "enterpriseValue": 186391609344,
+        "marketCap": 95496806400,
+        "Volume": 2616878,
+        "AvgVolume": 2919389,
         "sharesOutstanding": 777661224,
         "52Week": "105.2 - 130.03",
-        "Yield": 0.033875,
+        "Yield": 0.034202,
         "dividendRate": 4.26,
         "payoutRatio": 0.6614,
         "isin": "US26441C2044",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 122.37,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 186150535168,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 95162408960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1300822,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2910715,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.034322,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105899,6 +105924,10 @@
             "volume": 3273806
         },
         {
+            "date": "2025-11-14",
+            "amount": 1.065
+        },
+        {
             "date": "2025-11-17",
             "open": 123.330002,
             "high": 125.190002,
@@ -105915,11 +105944,35 @@
             "volume": 3067105
         },
         {
+            "date": "2025-11-19",
+            "open": 123.879997,
+            "high": 123.800003,
+            "low": 121.449997,
+            "close": 122.230003,
+            "volume": 3394784
+        },
+        {
+            "date": "2025-11-20",
+            "open": 122.279999,
+            "high": 122.980003,
+            "low": 121.860001,
+            "close": 122.540001,
+            "volume": 2177308
+        },
+        {
+            "date": "2025-11-21",
+            "open": 122.940002,
+            "high": 123.389999,
+            "low": 121.910004,
+            "close": 122.800003,
+            "volume": 4270554
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

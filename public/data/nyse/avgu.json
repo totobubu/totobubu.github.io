@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 34.97,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 36.13,
         "englishName": "GraniteShares 2x Long AVGO Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 54597,
-        "AvgVolume": 53489,
+        "Volume": 53334,
+        "AvgVolume": 57098,
         "sharesOutstanding": null,
         "52Week": "24.382 - 45.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.94,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 104829,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 54945,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -748,6 +761,30 @@
             "low": 34.139999,
             "close": 35.127899,
             "volume": 32193
+        },
+        {
+            "date": "2025-11-19",
+            "open": 34.970001,
+            "high": 38.805,
+            "low": 34.619999,
+            "close": 37.952499,
+            "volume": 37043
+        },
+        {
+            "date": "2025-11-20",
+            "open": 40.740002,
+            "high": 42.450001,
+            "low": 35.950001,
+            "close": 36.176498,
+            "volume": 139252
+        },
+        {
+            "date": "2025-11-21",
+            "open": 36,
+            "high": 36.455002,
+            "low": 33.130001,
+            "close": 35.029999,
+            "volume": 84524
         }
     ]
 }

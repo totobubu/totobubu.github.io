@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 18.8199,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 18.855,
         "englishName": "Invesco BulletShares 2029 Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 334171,
-        "AvgVolume": 509365,
+        "Volume": 289057,
+        "AvgVolume": 518875,
         "sharesOutstanding": null,
         "52Week": "18.144 - 18.965",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.835,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 274881,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 516953,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12616,8 +12629,28 @@
             "volume": 255768
         },
         {
+            "date": "2025-11-19",
+            "open": 18.84,
+            "high": 18.84,
+            "low": 18.809999,
+            "close": 18.809999,
+            "volume": 822204
+        },
+        {
             "date": "2025-11-20",
-            "forecasted": true
+            "open": 18.84,
+            "high": 18.84,
+            "low": 18.82,
+            "close": 18.83,
+            "volume": 498732
+        },
+        {
+            "date": "2025-11-21",
+            "open": 18.870001,
+            "high": 18.879999,
+            "low": 18.84,
+            "close": 18.879999,
+            "volume": 424827
         },
         {
             "date": "2025-12-19",
@@ -12637,6 +12670,10 @@
         },
         {
             "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

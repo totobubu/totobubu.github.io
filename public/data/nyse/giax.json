@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 16.803,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 16.5849,
         "englishName": "Nicholas Global Equity and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 88171,
-        "AvgVolume": 42414,
+        "Volume": 31834,
+        "AvgVolume": 44076,
         "sharesOutstanding": null,
-        "52Week": "14.2 - 20.67",
+        "52Week": "14.2 - 20.08",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.46,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 37783,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 43925,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2700,6 +2713,82 @@
             "low": 16.631001,
             "close": 16.76,
             "volume": 88962
+        },
+        {
+            "date": "2025-11-19",
+            "open": 16.85,
+            "high": 16.91,
+            "low": 16.610001,
+            "close": 16.704,
+            "volume": 69591
+        },
+        {
+            "date": "2025-11-20",
+            "open": 17.209999,
+            "high": 17.0294,
+            "low": 16.3822,
+            "close": 16.41,
+            "volume": 50721
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "VGT",
+                    "name": "Vanguard Information Technology ETF",
+                    "weight": 16.14
+                },
+                {
+                    "symbol": "VOT",
+                    "name": "Vanguard Mid-Cap Growth ETF",
+                    "weight": 12.02
+                },
+                {
+                    "symbol": "VOO",
+                    "name": "Vanguard S&P 500 ETF",
+                    "weight": 9.77
+                },
+                {
+                    "symbol": "VIG",
+                    "name": "Vanguard Dividend Appreciation ETF",
+                    "weight": 7.81
+                },
+                {
+                    "symbol": "VB",
+                    "name": "Vanguard Small-Cap ETF",
+                    "weight": 5.12
+                },
+                {
+                    "symbol": "FRDM",
+                    "name": "Freedom 100 Emerging Markets ETF",
+                    "weight": 4.43
+                },
+                {
+                    "symbol": "SHLD",
+                    "name": "Global X Defense Tech ETF",
+                    "weight": 4.39
+                },
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 3.87
+                },
+                {
+                    "symbol": "PLTR",
+                    "name": "Palantir Technologies Inc Ordinary Shares - Class A",
+                    "weight": 3.59
+                },
+                {
+                    "symbol": "TSLA",
+                    "name": "Tesla Inc",
+                    "weight": 2.96
+                }
+            ],
+            "open": 16.42,
+            "high": 16.6,
+            "low": 16.200001,
+            "close": 16.51,
+            "volume": 36777
         },
         {
             "date": "2025-11-28",

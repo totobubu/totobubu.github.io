@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 526.64,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 525.085,
         "englishName": "AppLovin Corporation",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 184094064640,
-        "marketCap": 178135941120,
-        "Volume": 2988989,
-        "AvgVolume": 7081040,
+        "enterpriseValue": 177858789376,
+        "marketCap": 177609965568,
+        "Volume": 4214290,
+        "AvgVolume": 7010218,
         "sharesOutstanding": 307597000,
         "52Week": "200.5 - 745.61",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 529.5975,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 180978106368,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 179136299008,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3236504,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7019979,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10423,7 +10444,34 @@
             "high": 541.799988,
             "low": 522,
             "close": 526.01001,
-            "volume": 3874147
+            "volume": 3874147,
+            "marketCap": 178788761600
+        },
+        {
+            "date": "2025-11-19",
+            "open": 530.109985,
+            "high": 545.26001,
+            "low": 525.460022,
+            "close": 530.049988,
+            "volume": 3854232,
+            "marketCap": 179136299008
+        },
+        {
+            "date": "2025-11-20",
+            "open": 554.25,
+            "high": 562.559998,
+            "low": 519.200012,
+            "close": 520.820007,
+            "volume": 4401092,
+            "marketCap": 177609965568
+        },
+        {
+            "date": "2025-11-21",
+            "open": 521.650024,
+            "high": 529.97998,
+            "low": 489.299988,
+            "close": 520.26001,
+            "volume": 5894773
         }
     ]
 }

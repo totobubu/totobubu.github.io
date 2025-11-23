@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 22.82,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 22.32,
         "englishName": "GraniteShares 2x Long DELL Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 95591,
-        "AvgVolume": 123459,
+        "Volume": 90188,
+        "AvgVolume": 127890,
         "sharesOutstanding": null,
         "52Week": "7.71 - 42.72",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.7,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 160182,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 125306,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1564,6 +1577,30 @@
             "low": 21.303699,
             "close": 22.450001,
             "volume": 97155
+        },
+        {
+            "date": "2025-11-19",
+            "open": 22.17,
+            "high": 22.6264,
+            "low": 21.131201,
+            "close": 21.290001,
+            "volume": 60633
+        },
+        {
+            "date": "2025-11-20",
+            "open": 22.690001,
+            "high": 23.450001,
+            "low": 20.33,
+            "close": 20.553301,
+            "volume": 138659
+        },
+        {
+            "date": "2025-11-21",
+            "open": 20.6,
+            "high": 22.659901,
+            "low": 20.2801,
+            "close": 22.25,
+            "volume": 99847
         }
     ]
 }

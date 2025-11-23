@@ -453,9 +453,17 @@ if __name__ == "__main__":
     import sys
     import os
 
-    # 프로젝트 루트로 이동
-    script_dir = Path(__file__).parent.parent
-    os.chdir(script_dir)
+    # 프로젝트 루트로 이동 (public/nav 디렉토리를 찾을 때까지 상위로 이동)
+    current_dir = Path(__file__).parent
+    while current_dir != current_dir.parent:
+        if (current_dir / "public" / "nav").exists():
+            os.chdir(current_dir)
+            break
+        current_dir = current_dir.parent
+    else:
+        # 프로젝트 루트를 찾지 못한 경우 기본 경로 사용
+        script_dir = Path(__file__).parent.parent.parent
+        os.chdir(script_dir)
 
     print("=" * 60)
     print("Holdings 자동 감지 및 추가 스크립트")

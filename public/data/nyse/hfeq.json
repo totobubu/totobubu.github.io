@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.9028,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 21.53,
         "englishName": "Unlimited HFEQ Equity Long/Short ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2750,
-        "AvgVolume": 17707,
+        "Volume": 10627,
+        "AvgVolume": 17582,
         "sharesOutstanding": null,
         "52Week": "19.9 - 23.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.3199,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11832,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17410,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -748,6 +761,30 @@
             "low": 21.558001,
             "close": 21.829201,
             "volume": 3019
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.790001,
+            "high": 21.860001,
+            "low": 21.760099,
+            "close": 21.85,
+            "volume": 2539
+        },
+        {
+            "date": "2025-11-20",
+            "open": 22.43,
+            "high": 22.5219,
+            "low": 21.1084,
+            "close": 21.41,
+            "volume": 12354
+        },
+        {
+            "date": "2025-11-21",
+            "open": 21.23,
+            "high": 21.65,
+            "low": 21.07,
+            "close": 21.610001,
+            "volume": 11422
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 45.77,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 40.53,
         "englishName": "VanEck Ethereum ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 381609,
-        "AvgVolume": 350214,
+        "Volume": 300055,
+        "AvgVolume": 360468,
         "sharesOutstanding": null,
         "52Week": "21.29 - 71.17",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.0688,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 700832,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 350448,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2700,6 +2713,30 @@
             "low": 44.3895,
             "close": 45.709999,
             "volume": 393050
+        },
+        {
+            "date": "2025-11-19",
+            "open": 44.310001,
+            "high": 45.419998,
+            "low": 41.970901,
+            "close": 43.080002,
+            "volume": 234905
+        },
+        {
+            "date": "2025-11-20",
+            "open": 44.099998,
+            "high": 44.150002,
+            "low": 40.84,
+            "close": 41.459999,
+            "volume": 765012
+        },
+        {
+            "date": "2025-11-21",
+            "open": 39.919998,
+            "high": 41.040001,
+            "low": 39.23,
+            "close": 40.110001,
+            "volume": 355562
         }
     ]
 }

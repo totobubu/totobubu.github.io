@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 466.125,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 474.1801,
         "englishName": "Cummins Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 69061771264,
-        "marketCap": 64342151168,
-        "Volume": 885203,
-        "AvgVolume": 862507,
+        "enterpriseValue": 70333087744,
+        "marketCap": 65454047232,
+        "Volume": 507918,
+        "AvgVolume": 882867,
         "sharesOutstanding": 138036253,
         "52Week": "260.02 - 484.84",
-        "Yield": 0.016004,
+        "Yield": 0.015732,
         "dividendRate": 8,
         "payoutRatio": 0.3867,
         "isin": "US2310211063",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 466.14,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 71447035904,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 64344223744,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 530372,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 878292,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.016004,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121438,8 +121463,29 @@
             "volume": 1028096
         },
         {
+            "date": "2025-11-19",
+            "open": 467.200012,
+            "high": 475.769989,
+            "low": 464.920013,
+            "close": 473.26001,
+            "volume": 1056465
+        },
+        {
+            "date": "2025-11-20",
+            "open": 479.920013,
+            "high": 483.570007,
+            "low": 462.950012,
+            "close": 465.190002,
+            "volume": 873509
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "forecasted": true,
+            "open": 463.559998,
+            "high": 476.339996,
+            "low": 457,
+            "close": 472.51001,
+            "volume": 852257
         },
         {
             "date": "2026-02-20",

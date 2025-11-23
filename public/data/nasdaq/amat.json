@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 224.97,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 227.24,
         "englishName": "Applied Materials, Inc.",
         "earningsDate": "2025-11-13",
-        "enterpriseValue": 179577733120,
-        "marketCap": 179220643840,
-        "Volume": 8205700,
-        "AvgVolume": 8226937,
+        "enterpriseValue": 172844613632,
+        "marketCap": 181029027840,
+        "Volume": 4773696,
+        "AvgVolume": 8285700,
         "sharesOutstanding": 796642427,
         "52Week": "123.74 - 242.5",
-        "Yield": 0.007912,
+        "Yield": 0.007833,
         "dividendRate": 1.84,
         "payoutRatio": 0.1986,
         "isin": "US0382221051",
@@ -72,7 +72,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 222.57,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 184675221504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 177308712960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4510214,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8270354,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007997,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -103856,11 +103881,37 @@
             "volume": 12128966
         },
         {
+            "date": "2025-11-19",
+            "open": 227.289993,
+            "high": 235.910004,
+            "low": 226.5,
+            "close": 235.130005,
+            "volume": 8503155
+        },
+        {
+            "date": "2025-11-20",
+            "open": 238.785004,
+            "high": 240.759995,
+            "low": 218.960007,
+            "close": 220.229996,
+            "volume": 9232152,
+            "amount": 0.46,
+            "yield": 0.0091295515
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 219.199997,
+            "high": 228.160004,
+            "low": 215.494995,
+            "close": 224.005005,
+            "volume": 8570771
         },
         {
             "date": "2026-02-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

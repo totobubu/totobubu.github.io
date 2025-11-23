@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 53.59,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 53.675,
         "englishName": "Dimensional Global Ex US Core Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 83045,
-        "AvgVolume": 112370,
+        "Volume": 59857,
+        "AvgVolume": 115532,
         "sharesOutstanding": null,
         "52Week": "50.988 - 54.73",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.595,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 104141,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 113340,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4119,30 +4132,56 @@
             "high": 53.700001,
             "low": 53.59,
             "close": 53.595001,
-            "volume": 85282
+            "volume": 85282,
+            "amount": 0.556,
+            "yield": 0.0431047335
         },
         {
-            "date": "2025-11-25",
+            "date": "2025-11-19",
+            "open": 53.6399,
+            "high": 53.68,
+            "low": 53.509998,
+            "close": 53.555401,
+            "volume": 119719
+        },
+        {
+            "date": "2025-11-20",
+            "open": 53.560001,
+            "high": 53.619999,
+            "low": 53.560001,
+            "close": 53.597801,
+            "volume": 191129
+        },
+        {
+            "date": "2025-11-21",
+            "open": 53.709999,
+            "high": 53.849998,
+            "low": 53.634998,
+            "close": 53.720001,
+            "volume": 585385
+        },
+        {
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-24",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-23",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-25",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-25",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-24",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

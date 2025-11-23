@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 92.94,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 91.41,
         "englishName": "iShares MSCI Emerging Markets Asia ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 706344000,
-        "Volume": 39903,
-        "AvgVolume": 66403,
+        "marketCap": 694716032,
+        "Volume": 50767,
+        "AvgVolume": 62087,
         "sharesOutstanding": 7600000,
         "52Week": "63.5 - 97.55",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.53,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 695627968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 32183,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 61850,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31309,7 +31326,34 @@
             "high": 93.099503,
             "low": 92.089996,
             "close": 92.629997,
-            "volume": 40963
+            "volume": 40963,
+            "marketCap": 701100032
+        },
+        {
+            "date": "2025-11-19",
+            "open": 92.199997,
+            "high": 92.847099,
+            "low": 92.162498,
+            "close": 92.269997,
+            "volume": 45117,
+            "marketCap": 695627968
+        },
+        {
+            "date": "2025-11-20",
+            "open": 93.419998,
+            "high": 93.689903,
+            "low": 91.107498,
+            "close": 91.107498,
+            "volume": 32264,
+            "marketCap": 694716032
+        },
+        {
+            "date": "2025-11-21",
+            "open": 90.550003,
+            "high": 91.504997,
+            "low": 89.75,
+            "close": 91.1175,
+            "volume": 62650
         }
     ]
 }

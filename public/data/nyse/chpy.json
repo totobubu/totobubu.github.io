@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 54,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 53.3076,
         "englishName": "YieldMax Semiconductor Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 98422,
-        "AvgVolume": 74781,
+        "Volume": 92765,
+        "AvgVolume": 78375,
         "sharesOutstanding": null,
         "52Week": "41.655 - 60.21",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.76,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 101077,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 76437,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2048,7 +2061,91 @@
         },
         {
             "date": "2025-11-19",
-            "amountFixed": 0.4175
+            "amountFixed": 0.4175,
+            "open": 53.580002,
+            "high": 54.869999,
+            "low": 53.470001,
+            "close": 54.41,
+            "volume": 68089,
+            "yield": 0.2384135783
+        },
+        {
+            "date": "2025-11-20",
+            "open": 55.540001,
+            "high": 55.75,
+            "low": 52.050098,
+            "close": 52.330002,
+            "volume": 138542
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "11135F101",
+                    "name": "Broadcom Inc",
+                    "weight": 13.87,
+                    "type": "other"
+                },
+                {
+                    "symbol": "67066G104",
+                    "name": "NVIDIA Corp",
+                    "weight": 11.65,
+                    "type": "other"
+                },
+                {
+                    "symbol": "512807306",
+                    "name": "Lam Research Corp",
+                    "weight": 6.5,
+                    "type": "other"
+                },
+                {
+                    "symbol": "595112103",
+                    "name": "Micron Technology Inc",
+                    "weight": 6.41,
+                    "type": "other"
+                },
+                {
+                    "symbol": "007903107",
+                    "name": "Advanced Micro Devices Inc",
+                    "weight": 5.41,
+                    "type": "other"
+                },
+                {
+                    "symbol": "747525103",
+                    "name": "QUALCOMM Inc",
+                    "weight": 5.06,
+                    "type": "other"
+                },
+                {
+                    "symbol": "482480100",
+                    "name": "KLA CORP",
+                    "weight": 5.03,
+                    "type": "other"
+                },
+                {
+                    "symbol": "874039100",
+                    "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+                    "weight": 4.71,
+                    "type": "other"
+                },
+                {
+                    "symbol": "458140100",
+                    "name": "Intel Corp",
+                    "weight": 4.2,
+                    "type": "other"
+                },
+                {
+                    "symbol": "038222105",
+                    "name": "Applied Materials Inc",
+                    "weight": 4.07,
+                    "type": "other"
+                }
+            ],
+            "open": 52.279999,
+            "high": 53.478901,
+            "low": 50.849998,
+            "close": 52.889999,
+            "volume": 106282
         },
         {
             "date": "2025-11-25",
@@ -2148,6 +2245,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

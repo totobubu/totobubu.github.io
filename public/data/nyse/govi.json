@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.825,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 27.92,
         "englishName": "Invesco Equal Weight 0-30 Years Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 151562,
-        "AvgVolume": 342857,
+        "Volume": 188302,
+        "AvgVolume": 358623,
         "sharesOutstanding": null,
         "52Week": "26.4 - 28.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.885,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 393316,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 351304,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36906,8 +36919,28 @@
             "volume": 123659
         },
         {
+            "date": "2025-11-19",
+            "open": 27.879999,
+            "high": 27.889999,
+            "low": 27.7901,
+            "close": 27.82,
+            "volume": 542783
+        },
+        {
             "date": "2025-11-20",
-            "forecasted": true
+            "open": 27.84,
+            "high": 27.92,
+            "low": 27.834999,
+            "close": 27.895,
+            "volume": 507573
+        },
+        {
+            "date": "2025-11-21",
+            "open": 27.99,
+            "high": 27.99,
+            "low": 27.9,
+            "close": 27.959999,
+            "volume": 209186
         },
         {
             "date": "2025-12-19",
@@ -36927,6 +36960,10 @@
         },
         {
             "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.205,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 19.1639,
         "englishName": "First Trust Limited Duration Investment Grade Corporate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 238923,
-        "AvgVolume": 324696,
+        "Volume": 192601,
+        "AvgVolume": 332662,
         "sharesOutstanding": null,
         "52Week": "18.7 - 19.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.2227,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 439046,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 327254,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8156,8 +8169,28 @@
             "volume": 244126
         },
         {
+            "date": "2025-11-19",
+            "open": 19.23,
+            "high": 19.23,
+            "low": 19.200001,
+            "close": 19.219999,
+            "volume": 336723
+        },
+        {
+            "date": "2025-11-20",
+            "open": 19.23,
+            "high": 19.24,
+            "low": 19.219999,
+            "close": 19.23,
+            "volume": 532581
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 19.18,
+            "high": 19.18,
+            "low": 19.16,
+            "close": 19.18,
+            "volume": 327874
         },
         {
             "date": "2025-12-19",
@@ -8177,6 +8210,10 @@
         },
         {
             "date": "2026-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

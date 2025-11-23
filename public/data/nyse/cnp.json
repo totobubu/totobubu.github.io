@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 39.975,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 39.68,
         "englishName": "CenterPoint Energy, Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 47897247744,
-        "marketCap": 26098409472,
-        "Volume": 3225587,
-        "AvgVolume": 5011137,
+        "enterpriseValue": 47512055808,
+        "marketCap": 25905813504,
+        "Volume": 1924282,
+        "AvgVolume": 5100920,
         "sharesOutstanding": 652868273,
         "52Week": "30.59 - 40.5",
-        "Yield": 0.021764,
+        "Yield": 0.021925,
         "dividendRate": 0.88,
         "payoutRatio": 0.5506,
         "isin": "US15189T1079",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.665,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 47525113856,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 25896022016,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2651807,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5040853,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.021934,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -147662,11 +147687,37 @@
             "volume": 3876913
         },
         {
+            "date": "2025-11-19",
+            "open": 39.93,
+            "high": 40.130001,
+            "low": 39.52,
+            "close": 39.610001,
+            "volume": 3329799
+        },
+        {
+            "date": "2025-11-20",
+            "open": 39.599998,
+            "high": 39.985001,
+            "low": 39.459999,
+            "close": 39.59,
+            "volume": 4335173,
+            "amount": 0.22,
+            "yield": 0.0275252539
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 39.720001,
+            "high": 39.900002,
+            "low": 39.470001,
+            "close": 39.560001,
+            "volume": 3384919
         },
         {
             "date": "2026-02-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

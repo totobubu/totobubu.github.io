@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 19.12,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 16.6444,
         "englishName": "REX-Osprey ETH + Staking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5947,
-        "AvgVolume": 15618,
+        "Volume": 3138,
+        "AvgVolume": 15080,
         "sharesOutstanding": null,
-        "52Week": "18.131 - 28.52",
+        "52Week": "16.3783 - 28.52",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.0406,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2442,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15372,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -359,6 +372,30 @@
             "low": 18.5,
             "close": 19.004299,
             "volume": 5953
+        },
+        {
+            "date": "2025-11-19",
+            "open": 18.59,
+            "high": 18.59,
+            "low": 17.482599,
+            "close": 17.52,
+            "volume": 15207
+        },
+        {
+            "date": "2025-11-20",
+            "open": 18.16,
+            "high": 18.2484,
+            "low": 17.0406,
+            "close": 17.187201,
+            "volume": 3117
+        },
+        {
+            "date": "2025-11-21",
+            "open": 16.6,
+            "high": 16.915001,
+            "low": 16.3783,
+            "close": 16.620001,
+            "volume": 4886
         }
     ]
 }

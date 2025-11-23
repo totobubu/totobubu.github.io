@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 8.37,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 6.49,
         "englishName": "Defiance Leveraged Long + Income Ethereum ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 79888,
-        "AvgVolume": 37718,
+        "Volume": 34419,
+        "AvgVolume": 39571,
         "sharesOutstanding": null,
-        "52Week": "7.5 - 20.909",
+        "52Week": "6.0607 - 20.909",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.59,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 64130,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38868,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -408,7 +421,29 @@
         },
         {
             "date": "2025-11-19",
-            "forecasted": true
+            "open": 7.75,
+            "high": 8.035,
+            "low": 6.9451,
+            "close": 7.34,
+            "volume": 35028,
+            "amount": 0.148,
+            "yield": 0.2668387097
+        },
+        {
+            "date": "2025-11-20",
+            "open": 7.58,
+            "high": 7.6168,
+            "low": 6.59,
+            "close": 6.7547,
+            "volume": 70301
+        },
+        {
+            "date": "2025-11-21",
+            "open": 6.27,
+            "high": 6.6,
+            "low": 6.0607,
+            "close": 6.34,
+            "volume": 38673
         },
         {
             "date": "2025-11-26",
@@ -508,6 +543,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

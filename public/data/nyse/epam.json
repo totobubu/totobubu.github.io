@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 178.92,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 182.985,
         "englishName": "EPAM Systems, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 8737695744,
-        "marketCap": 9965291520,
-        "Volume": 1296844,
-        "AvgVolume": 843023,
+        "enterpriseValue": 8784099328,
+        "marketCap": 10191699968,
+        "Volume": 494327,
+        "AvgVolume": 879417,
         "sharesOutstanding": 55242618,
         "52Week": "138.15 - 269.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 179.185,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8911710208,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9980051456,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 612838,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 869806,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31212,7 +31233,34 @@
             "high": 180.654999,
             "low": 171.413895,
             "close": 178.710007,
-            "volume": 1479744
+            "volume": 1479744,
+            "marketCap": 10148812800
+        },
+        {
+            "date": "2025-11-19",
+            "open": 180.330002,
+            "high": 183.899994,
+            "low": 178.889496,
+            "close": 180.929993,
+            "volume": 1144895,
+            "marketCap": 9980051456
+        },
+        {
+            "date": "2025-11-20",
+            "open": 182.279999,
+            "high": 183.669907,
+            "low": 176.244995,
+            "close": 178.619995,
+            "volume": 975428,
+            "marketCap": 10191699968
+        },
+        {
+            "date": "2025-11-21",
+            "open": 179.910004,
+            "high": 185.315002,
+            "low": 178.960098,
+            "close": 180.979996,
+            "volume": 820657
         }
     ]
 }

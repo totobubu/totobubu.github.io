@@ -9,16 +9,16 @@
         "underlying": "SMCI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 10.07,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 9.26,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 791726,
-        "AvgVolume": 1082759,
+        "Volume": 823910,
+        "AvgVolume": 1078704,
         "sharesOutstanding": null,
-        "52Week": "9.6835 - 38.5",
+        "52Week": "8.88 - 38.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -3153,8 +3153,92 @@
             "volume": 808433
         },
         {
+            "date": "2025-11-19",
+            "open": 10,
+            "high": 10.07,
+            "low": 9.6202,
+            "close": 9.74,
+            "volume": 642109
+        },
+        {
             "date": "2025-11-20",
-            "amountFixed": 0.1946
+            "amountFixed": 0.1946,
+            "open": 9.96,
+            "high": 9.995,
+            "low": 9.01,
+            "close": 9.06,
+            "volume": 877395,
+            "yield": 2.2666365462
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 61.94,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 40.83,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 18.25,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 10.39,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 5.04,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "SMCI  260116C00044000",
+                    "name": "SMCI US 01/16/26 C44",
+                    "weight": 2.59,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.12,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.55,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "SMCI  251128C00039500",
+                    "name": "SMCI US 11/28/25 C39.5",
+                    "weight": 0.08,
+                    "type": "option"
+                },
+                {
+                    "symbol": "SMCI  251128C00039000",
+                    "name": "SMCI US 11/28/25 C39",
+                    "weight": 0.06,
+                    "type": "option"
+                }
+            ],
+            "open": 9.16,
+            "high": 9.2958,
+            "low": 8.88,
+            "close": 9.18,
+            "volume": 1004319
         },
         {
             "date": "2025-11-26",
@@ -3254,6 +3338,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

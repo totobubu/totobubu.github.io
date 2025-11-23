@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.465,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 40.105,
         "englishName": "Copart, Inc.",
         "earningsDate": "2025-11-20",
-        "enterpriseValue": 75327815680,
-        "marketCap": 40131252224,
-        "Volume": 4734478,
-        "AvgVolume": 7466671,
+        "enterpriseValue": 74727825408,
+        "marketCap": 38814998528,
+        "Volume": 9990481,
+        "AvgVolume": 7618554,
         "sharesOutstanding": 967834374,
-        "52Week": "39.58 - 64.38",
+        "52Week": "39.385 - 64.38",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -62,7 +62,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.13,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 75405230080,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 39807029248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5003947,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7508460,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -71811,7 +71832,34 @@
             "high": 41.75,
             "low": 41.064999,
             "close": 41.32,
-            "volume": 7506188
+            "volume": 7506188,
+            "marketCap": 40131252224
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.419998,
+            "high": 41.700001,
+            "low": 41.099998,
+            "close": 41.369999,
+            "volume": 8407861,
+            "marketCap": 39807029248
+        },
+        {
+            "date": "2025-11-20",
+            "open": 41.384998,
+            "high": 41.790001,
+            "low": 40.869999,
+            "close": 41.02,
+            "volume": 10052000,
+            "marketCap": 38814998528
+        },
+        {
+            "date": "2025-11-21",
+            "open": 40.112,
+            "high": 40.91,
+            "low": 39.384998,
+            "close": 40.73,
+            "volume": 15900010
         }
     ]
 }

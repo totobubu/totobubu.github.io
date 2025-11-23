@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 105.33,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 53.52,
         "englishName": "ProShares Ultra Dow30",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 151950,
-        "AvgVolume": 211117,
+        "Volume": 147399,
+        "AvgVolume": 424890,
         "sharesOutstanding": null,
-        "52Week": "69.08 - 116.1",
+        "52Week": "34.54 - 58.05",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -34,10 +34,28 @@
                     "date": "2018-05-24",
                     "ratio": "3:1",
                     "type": "reverse-split"
+                },
+                {
+                    "date": "2025-11-20",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 316949,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 211204,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39829,6 +39847,30 @@
             "low": 104.339996,
             "close": 105.139999,
             "volume": 156494
+        },
+        {
+            "date": "2025-11-19",
+            "open": 105.209999,
+            "high": 105.985001,
+            "low": 104.339996,
+            "close": 105.279999,
+            "volume": 123678
+        },
+        {
+            "date": "2025-11-20",
+            "open": 53.77,
+            "high": 54.32,
+            "low": 51.740002,
+            "close": 51.790001,
+            "volume": 419102
+        },
+        {
+            "date": "2025-11-21",
+            "open": 52.23,
+            "high": 53.615601,
+            "low": 51.919998,
+            "close": 52.970001,
+            "volume": 231206
         },
         {
             "date": "2025-12-24",

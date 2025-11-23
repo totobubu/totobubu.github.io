@@ -5,21 +5,21 @@
         "longName": null,
         "company": null,
         "frequency": "분기",
-        "group": null,
+        "group": "MMAN",
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 241.52,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 246.83,
         "englishName": "Expedia Group, Inc.",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 31493539840,
-        "marketCap": 29879787520,
-        "Volume": 2124699,
-        "AvgVolume": 1889126,
+        "enterpriseValue": 30342959104,
+        "marketCap": 30536718336,
+        "Volume": 2760904,
+        "AvgVolume": 1932342,
         "sharesOutstanding": 117009063,
         "52Week": "130.01 - 279.61",
-        "Yield": 0.004969,
+        "Yield": 0.004862,
         "dividendRate": 1.6,
         "payoutRatio": 0.1156,
         "isin": "US30212P3038",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 235.68,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 30978902016,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 29157287936,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1115773,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1920671,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.005092,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46226,11 +46251,37 @@
             "volume": 2913929
         },
         {
-            "date": "2025-11-28",
+            "date": "2025-11-19",
+            "open": 239.824997,
+            "high": 244.130005,
+            "low": 238.029999,
+            "close": 239.960007,
+            "volume": 2029922,
+            "amount": 0.4,
+            "yield": 0.0066715314
+        },
+        {
+            "date": "2025-11-20",
+            "open": 242.509995,
+            "high": 243.669998,
+            "low": 234.339996,
+            "close": 234.770004,
+            "volume": 1829004
+        },
+        {
+            "date": "2025-11-21",
+            "open": 238.759995,
+            "high": 248.839996,
+            "low": 237.694,
+            "close": 247.490005,
+            "volume": 4468830
+        },
+        {
+            "date": "2026-02-19",
             "forecasted": true
         },
         {
-            "date": "2026-02-27",
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

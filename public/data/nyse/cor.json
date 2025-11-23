@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 362.26,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 368.67,
         "englishName": "Cencora, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 74077773824,
-        "marketCap": 70234202112,
-        "Volume": 1325441,
-        "AvgVolume": 1478992,
+        "enterpriseValue": 73509642240,
+        "marketCap": 71476961280,
+        "Volume": 706594,
+        "AvgVolume": 1478625,
         "sharesOutstanding": 193877881,
-        "52Week": "223.92 - 369.0",
-        "Yield": 0.006073,
+        "52Week": "223.92 - 369.38",
+        "Yield": 0.005967,
         "dividendRate": 2.4,
         "payoutRatio": 0.2764,
         "isin": "US03073E1055",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 361.51,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 73249824768,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 70088794112,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 389196,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1498954,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006086,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69952,6 +69977,10 @@
             "volume": 1314856
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.6
+        },
+        {
             "date": "2025-11-17",
             "open": 362.100006,
             "high": 365.929993,
@@ -69968,11 +69997,35 @@
             "volume": 1533100
         },
         {
+            "date": "2025-11-19",
+            "open": 360.809998,
+            "high": 364.019989,
+            "low": 357.545013,
+            "close": 360.730011,
+            "volume": 998624
+        },
+        {
+            "date": "2025-11-20",
+            "open": 360.570007,
+            "high": 363.630005,
+            "low": 359.230011,
+            "close": 362.070007,
+            "volume": 715643
+        },
+        {
+            "date": "2025-11-21",
+            "open": 362.200012,
+            "high": 369.380005,
+            "low": 361.01001,
+            "close": 365.679993,
+            "volume": 1485846
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

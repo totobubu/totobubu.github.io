@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 80.9,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 81.315,
         "englishName": "iShares MSCI Japan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 18433064960,
-        "Volume": 5468609,
-        "AvgVolume": 6012845,
+        "marketCap": 18527623168,
+        "Volume": 6025858,
+        "AvgVolume": 6121901,
         "sharesOutstanding": 227850000,
         "52Week": "59.84 - 84.54",
-        "Yield": 0.008677,
+        "Yield": 0.008633,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G8226",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 79.825,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18188126208,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7798069,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6049151,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008794,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67624,7 +67645,34 @@
             "high": 81.099998,
             "low": 80.290001,
             "close": 80.779999,
-            "volume": 6512924
+            "volume": 6512924,
+            "marketCap": 18351038464
+        },
+        {
+            "date": "2025-11-19",
+            "open": 80.68,
+            "high": 81.150002,
+            "low": 80.397797,
+            "close": 80.68,
+            "volume": 5941342,
+            "marketCap": 18188126208
+        },
+        {
+            "date": "2025-11-20",
+            "open": 81.139999,
+            "high": 81.360802,
+            "low": 79.489998,
+            "close": 79.489998,
+            "volume": 10885598,
+            "marketCap": 18527623168
+        },
+        {
+            "date": "2025-11-21",
+            "open": 80.809998,
+            "high": 81.434998,
+            "low": 80.300003,
+            "close": 81.190002,
+            "volume": 8431373
         }
     ]
 }

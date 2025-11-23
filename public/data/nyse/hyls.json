@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.667,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 41.597,
         "englishName": "First Trust Tactical High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 147862,
-        "AvgVolume": 200009,
+        "Volume": 70826,
+        "AvgVolume": 201454,
         "sharesOutstanding": null,
         "52Week": "39.49 - 42.4",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.73,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 95711,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25954,8 +25963,28 @@
             "volume": 159420
         },
         {
+            "date": "2025-11-19",
+            "open": 41.689999,
+            "high": 41.748199,
+            "low": 41.630901,
+            "close": 41.720001,
+            "volume": 158240
+        },
+        {
+            "date": "2025-11-20",
+            "open": 41.830002,
+            "high": 41.888,
+            "low": 41.685001,
+            "close": 41.709999,
+            "volume": 119144
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 41.540001,
+            "high": 41.6185,
+            "low": 41.485001,
+            "close": 41.610001,
+            "volume": 88997
         },
         {
             "date": "2025-12-19",
@@ -25975,6 +26004,10 @@
         },
         {
             "date": "2026-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

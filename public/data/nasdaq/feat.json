@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 27.8122,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 25.835,
         "englishName": "YieldMax Dorsey Wright Featured 5 Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18933,
-        "AvgVolume": 23507,
+        "Volume": 19444,
+        "AvgVolume": 23792,
         "sharesOutstanding": null,
-        "52Week": "27.14 - 50.21",
+        "52Week": "24.88 - 50.21",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.7575,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18318,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 23640,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2409,7 +2422,73 @@
         },
         {
             "date": "2025-11-19",
-            "amountFixed": 0.3878
+            "amountFixed": 0.3878,
+            "open": 27.190001,
+            "high": 27.5625,
+            "low": 26.73,
+            "close": 27.1038,
+            "volume": 13941,
+            "yield": 0.6262118196
+        },
+        {
+            "date": "2025-11-20",
+            "open": 27.74,
+            "high": 27.8186,
+            "low": 25.4701,
+            "close": 25.545099,
+            "volume": 20910
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "88634T782",
+                    "name": "YieldMax NFLX Option Income Strategy ETF",
+                    "weight": 21.32,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636V421",
+                    "name": "Yieldmax RDDT Option Income Strategy ETF",
+                    "weight": 20.09,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636R800",
+                    "name": "YieldMaxTM PLTR Option Income Strategy ETF",
+                    "weight": 19.57,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88634T477",
+                    "name": "YieldMax AMD Option Income Strategy ETF",
+                    "weight": 18.99,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88636R404",
+                    "name": "YieldMax HOOD Option Income Strategy ETF",
+                    "weight": 18.17,
+                    "type": "other"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.92,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.07,
+                    "type": "cash"
+                }
+            ],
+            "open": 25.77,
+            "high": 25.978001,
+            "low": 24.879999,
+            "close": 25.5012,
+            "volume": 23970
         },
         {
             "date": "2025-11-25",
@@ -2509,6 +2588,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 20.9,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 21.265,
         "englishName": "VistaShares Target 15 DRUKMacro Distribution ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1356,
-        "AvgVolume": 9086,
+        "Volume": 8757,
+        "AvgVolume": 8881,
         "sharesOutstanding": null,
         "52Week": "19.5 - 21.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.9999,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13616,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8670,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -270,6 +283,30 @@
             "low": 20.881201,
             "close": 21.082199,
             "volume": 1473
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.26,
+            "high": 21.27,
+            "low": 21.055,
+            "close": 21.190001,
+            "volume": 1416
+        },
+        {
+            "date": "2025-11-20",
+            "open": 21.52,
+            "high": 21.559999,
+            "low": 20.903299,
+            "close": 21.02,
+            "volume": 15404
+        },
+        {
+            "date": "2025-11-21",
+            "open": 21.045,
+            "high": 21.264999,
+            "low": 20.842501,
+            "close": 21.27,
+            "volume": 9658
         }
     ]
 }

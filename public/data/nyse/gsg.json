@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 23.46,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 22.8201,
         "englishName": "iShares S&P GSCI Commodity-Indexed Trust",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1467422976,
-        "Volume": 1304571,
-        "AvgVolume": 627346,
+        "marketCap": 1427397248,
+        "Volume": 991333,
+        "AvgVolume": 672457,
         "sharesOutstanding": 62550000,
         "52Week": "19.86 - 23.68",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.96,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1436147968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 589902,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 660817,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43934,7 +43951,34 @@
             "high": 23.49,
             "low": 23.18,
             "close": 23.459999,
-            "volume": 1378159
+            "volume": 1378159,
+            "marketCap": 1449283456
+        },
+        {
+            "date": "2025-11-19",
+            "open": 23.23,
+            "high": 23.23,
+            "low": 23.084999,
+            "close": 23.18,
+            "volume": 1029895,
+            "marketCap": 1436147968
+        },
+        {
+            "date": "2025-11-20",
+            "open": 23.200001,
+            "high": 23.2701,
+            "low": 22.91,
+            "close": 22.92,
+            "volume": 791657,
+            "marketCap": 1427397248
+        },
+        {
+            "date": "2025-11-21",
+            "open": 22.690001,
+            "high": 22.844801,
+            "low": 22.610001,
+            "close": 22.77,
+            "volume": 1260770
         }
     ]
 }

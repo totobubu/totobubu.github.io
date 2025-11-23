@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 191.77,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 190.24,
         "englishName": "Honeywell International Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 150316679168,
-        "marketCap": 129227997184,
-        "Volume": 3704915,
-        "AvgVolume": 4520352,
+        "enterpriseValue": 145275682816,
+        "marketCap": 128196976640,
+        "Volume": 1974255,
+        "AvgVolume": 4574351,
         "sharesOutstanding": 634887208,
         "52Week": "169.04807 - 227.82281",
-        "Yield": 0.02357,
+        "Yield": 0.023759,
         "dividendRate": 4.58,
         "payoutRatio": 0.4768,
         "isin": "CA4385211061",
@@ -77,7 +77,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 187.56,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 146818449408,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 126391001088,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1657887,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4561511,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.024099,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -152683,6 +152708,10 @@
             "volume": 4160714
         },
         {
+            "date": "2025-11-14",
+            "amount": 1.19
+        },
+        {
             "date": "2025-11-17",
             "open": 198.205002,
             "high": 199.349899,
@@ -152699,11 +152728,35 @@
             "volume": 6072258
         },
         {
+            "date": "2025-11-19",
+            "open": 190.645004,
+            "high": 191.350006,
+            "low": 189.005005,
+            "close": 190.570007,
+            "volume": 3310835
+        },
+        {
+            "date": "2025-11-20",
+            "open": 192.429993,
+            "high": 193.244995,
+            "low": 186.759995,
+            "close": 188.139999,
+            "volume": 3667061
+        },
+        {
+            "date": "2025-11-21",
+            "open": 188.270004,
+            "high": 191.070007,
+            "low": 187.835007,
+            "close": 190.020004,
+            "volume": 4582628
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 41.9418,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 42.01,
         "englishName": "Dimensional Inflation-Protected Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 55448,
-        "AvgVolume": 68137,
+        "Volume": 54355,
+        "AvgVolume": 67720,
         "sharesOutstanding": null,
         "52Week": "40.22 - 42.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.9479,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 107581,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 66496,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8159,30 +8172,56 @@
             "high": 41.995499,
             "low": 41.915001,
             "close": 41.959999,
-            "volume": 55615
+            "volume": 55615,
+            "amount": 0.176,
+            "yield": 0.0466063326
+        },
+        {
+            "date": "2025-11-19",
+            "open": 41.970001,
+            "high": 41.979401,
+            "low": 41.904202,
+            "close": 41.924999,
+            "volume": 60117
+        },
+        {
+            "date": "2025-11-20",
+            "open": 41.970001,
+            "high": 42.008202,
+            "low": 41.920101,
+            "close": 41.939999,
+            "volume": 132557
         },
         {
             "date": "2025-11-21",
+            "open": 42.029999,
+            "high": 42.049999,
+            "low": 41.998402,
+            "close": 42.044998,
+            "volume": 96915
+        },
+        {
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-19",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-21",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-20",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-21",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

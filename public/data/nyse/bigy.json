@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 51.98,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 52.06,
         "englishName": "YieldMax Target 12 Big 50 Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9592,
-        "AvgVolume": 6106,
+        "Volume": 9064,
+        "AvgVolume": 6507,
         "sharesOutstanding": null,
         "52Week": "40.0 - 54.639",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.74,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15431,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6260,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2721,6 +2734,92 @@
             "low": 51.535099,
             "close": 51.8162,
             "volume": 9596
+        },
+        {
+            "date": "2025-11-19",
+            "open": 51.720001,
+            "high": 52.360001,
+            "low": 51.720001,
+            "close": 51.859901,
+            "volume": 5971
+        },
+        {
+            "date": "2025-11-20",
+            "open": 52.98,
+            "high": 53.09,
+            "low": 51.5,
+            "close": 51.5182,
+            "volume": 16968
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "037833100",
+                    "name": "Apple Inc",
+                    "weight": 13.56,
+                    "type": "other"
+                },
+                {
+                    "symbol": "67066G104",
+                    "name": "NVIDIA Corp",
+                    "weight": 10.42,
+                    "type": "other"
+                },
+                {
+                    "symbol": "02079K305",
+                    "name": "Alphabet Inc",
+                    "weight": 9.34,
+                    "type": "other"
+                },
+                {
+                    "symbol": "594918104",
+                    "name": "Microsoft Corp",
+                    "weight": 8.92,
+                    "type": "other"
+                },
+                {
+                    "symbol": "023135106",
+                    "name": "Amazon.com Inc",
+                    "weight": 5.76,
+                    "type": "other"
+                },
+                {
+                    "symbol": "30303M102",
+                    "name": "Meta Platforms Inc",
+                    "weight": 3.79,
+                    "type": "other"
+                },
+                {
+                    "symbol": "532457108",
+                    "name": "Eli Lilly & Co",
+                    "weight": 3.62,
+                    "type": "other"
+                },
+                {
+                    "symbol": "11135F101",
+                    "name": "Broadcom Inc",
+                    "weight": 3.11,
+                    "type": "other"
+                },
+                {
+                    "symbol": "88160R101",
+                    "name": "Tesla Inc",
+                    "weight": 2.93,
+                    "type": "other"
+                },
+                {
+                    "symbol": "931142103",
+                    "name": "Walmart Inc",
+                    "weight": 2.19,
+                    "type": "other"
+                }
+            ],
+            "open": 51.560001,
+            "high": 52.148998,
+            "low": 51.560001,
+            "close": 51.9855,
+            "volume": 12746
         },
         {
             "date": "2025-12-05",

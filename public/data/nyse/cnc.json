@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 36.785,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 36.545,
         "englishName": "Centene Corporation",
         "earningsDate": "2025-10-29",
-        "enterpriseValue": 16678487040,
-        "marketCap": 18080489472,
-        "Volume": 6105390,
-        "AvgVolume": 11979325,
+        "enterpriseValue": 15572572160,
+        "marketCap": 17962524672,
+        "Volume": 5211867,
+        "AvgVolume": 11639176,
         "sharesOutstanding": 491518000,
         "52Week": "25.08 - 66.81",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.67,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 16123072512,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 17040928768,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4258411,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 11710942,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54237,7 +54258,34 @@
             "high": 37,
             "low": 35.459999,
             "close": 36.93,
-            "volume": 8020593
+            "volume": 8020593,
+            "marketCap": 17569310720
+        },
+        {
+            "date": "2025-11-19",
+            "open": 36.93,
+            "high": 37.130001,
+            "low": 35.68,
+            "close": 35.950001,
+            "volume": 6926828,
+            "marketCap": 17040928768
+        },
+        {
+            "date": "2025-11-20",
+            "open": 36.009998,
+            "high": 36.279999,
+            "low": 34.394501,
+            "close": 34.830002,
+            "volume": 8281274,
+            "marketCap": 17962524672
+        },
+        {
+            "date": "2025-11-21",
+            "open": 35.25,
+            "high": 36.705002,
+            "low": 35.000198,
+            "close": 36.5,
+            "volume": 6864508
         }
     ]
 }

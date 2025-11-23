@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.37,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 20.82,
         "englishName": "GraniteShares YieldBOOST BABA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5050,
-        "AvgVolume": 7173,
+        "Volume": 3977,
+        "AvgVolume": 6536,
         "sharesOutstanding": null,
         "52Week": "20.31 - 25.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.506,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1739,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6747,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -171,14 +184,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.40054,
             "open": 20.969999,
             "high": 21.889999,
             "low": 20.309999,
             "close": 20.879999,
             "volume": 14328,
             "amount": 0.401,
-            "yield": 0.0618788775
+            "yield": 0.0618569414
         },
         {
             "date": "2025-11-17",
@@ -197,8 +210,29 @@
             "volume": 5033
         },
         {
+            "date": "2025-11-19",
+            "open": 21.34,
+            "high": 21.4198,
+            "low": 21.34,
+            "close": 21.4198,
+            "volume": 320
+        },
+        {
+            "date": "2025-11-20",
+            "open": 21.5637,
+            "high": 21.5637,
+            "low": 21.025,
+            "close": 21.025,
+            "volume": 1942
+        },
+        {
             "date": "2025-11-21",
-            "expected": true
+            "amountFixed": 0.40912,
+            "open": 20.379999,
+            "high": 20.8638,
+            "low": 20.1,
+            "close": 20.8638,
+            "volume": 4162
         },
         {
             "date": "2025-11-28",

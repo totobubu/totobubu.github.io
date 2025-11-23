@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.225,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 25.13,
         "englishName": "The BeeHive ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3477,
-        "AvgVolume": 2979,
+        "Volume": 4543,
+        "AvgVolume": 2800,
         "sharesOutstanding": null,
         "52Week": "19.71 - 26.05",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.19,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 22,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2798,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1938,6 +1951,30 @@
             "low": 25.030001,
             "close": 25.219999,
             "volume": 2579
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.190001,
+            "high": 25.215,
+            "low": 25.190001,
+            "close": 25.215,
+            "volume": 513
+        },
+        {
+            "date": "2025-11-20",
+            "open": 25.01,
+            "high": 25.01,
+            "low": 24.889999,
+            "close": 24.907,
+            "volume": 248
+        },
+        {
+            "date": "2025-11-21",
+            "open": 24.98,
+            "high": 25.24,
+            "low": 24.98,
+            "close": 24.98,
+            "volume": 7582
         }
     ]
 }

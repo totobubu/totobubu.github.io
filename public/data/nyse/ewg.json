@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 39.54,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 39.465,
         "englishName": "iShares MSCI Germany ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3143430144,
-        "Volume": 2209556,
-        "AvgVolume": 2386084,
+        "marketCap": 3137467392,
+        "Volume": 1085460,
+        "AvgVolume": 2401465,
         "sharesOutstanding": 79500000,
-        "52Week": "31.12 - 43.31",
-        "Yield": 0.016945,
+        "52Week": "31.23 - 43.31",
+        "Yield": 0.016977,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642868065",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.13,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3110835200,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1583366,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2401690,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.017122,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67364,7 +67385,34 @@
             "high": 39.689999,
             "low": 39.399899,
             "close": 39.529999,
-            "volume": 2314567
+            "volume": 2314567,
+            "marketCap": 3131115520
+        },
+        {
+            "date": "2025-11-19",
+            "open": 39.650002,
+            "high": 39.779999,
+            "low": 39.320801,
+            "close": 39.509998,
+            "volume": 1471271,
+            "marketCap": 3110835200
+        },
+        {
+            "date": "2025-11-20",
+            "open": 39.740002,
+            "high": 39.880001,
+            "low": 38.884998,
+            "close": 38.889999,
+            "volume": 2224141,
+            "marketCap": 3137467392
+        },
+        {
+            "date": "2025-11-21",
+            "open": 39.32,
+            "high": 39.514999,
+            "low": 39.049999,
+            "close": 39.400002,
+            "volume": 1566280
         }
     ]
 }

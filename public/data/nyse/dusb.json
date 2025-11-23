@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 50.71,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 50.735,
         "englishName": "Dimensional Ultrashort Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 172329,
-        "AvgVolume": 228320,
+        "Volume": 177172,
+        "AvgVolume": 230803,
         "sharesOutstanding": null,
         "52Week": "50.21 - 50.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.7131,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 153888,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 229301,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4389,30 +4402,56 @@
             "high": 50.720001,
             "low": 50.703201,
             "close": 50.715,
-            "volume": 207033
+            "volume": 207033,
+            "amount": 0.166,
+            "yield": 0.048333663
+        },
+        {
+            "date": "2025-11-19",
+            "open": 50.73,
+            "high": 50.73,
+            "low": 50.709999,
+            "close": 50.709999,
+            "volume": 282269
+        },
+        {
+            "date": "2025-11-20",
+            "open": 50.73,
+            "high": 50.738201,
+            "low": 50.700001,
+            "close": 50.715,
+            "volume": 241630
         },
         {
             "date": "2025-11-21",
+            "open": 50.73,
+            "high": 50.740002,
+            "low": 50.722198,
+            "close": 50.73,
+            "volume": 244631
+        },
+        {
+            "date": "2025-12-18",
             "forecasted": true
         },
         {
-            "date": "2025-12-19",
+            "date": "2026-01-16",
             "forecasted": true
         },
         {
-            "date": "2026-01-21",
+            "date": "2026-02-18",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-03-18",
             "forecasted": true
         },
         {
-            "date": "2026-03-20",
+            "date": "2026-04-17",
             "forecasted": true
         },
         {
-            "date": "2026-04-21",
+            "date": "2026-05-18",
             "forecasted": true
         }
     ]

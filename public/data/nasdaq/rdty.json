@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 40.09,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 39.98,
         "englishName": "YieldMax Russell 2000 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10344,
-        "AvgVolume": 8910,
+        "Volume": 5240,
+        "AvgVolume": 9043,
         "sharesOutstanding": null,
-        "52Week": "39.348 - 50.07",
+        "52Week": "39.244 - 50.07",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -1847,7 +1847,55 @@
         },
         {
             "date": "2025-11-19",
-            "amountFixed": 0.4406
+            "amountFixed": 0.4406,
+            "open": 39.970001,
+            "high": 40.189999,
+            "low": 39.889999,
+            "close": 39.9277,
+            "volume": 4334,
+            "yield": 0.3086714959
+        },
+        {
+            "date": "2025-11-20",
+            "open": 40.794998,
+            "high": 40.909901,
+            "low": 39.243999,
+            "close": 39.243999,
+            "volume": 7689
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "4RUT  251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 98.4,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 19.95,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.41,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 18.43,
+                    "type": "cash"
+                }
+            ],
+            "open": 39.509998,
+            "high": 39.98,
+            "low": 39.380001,
+            "close": 39.904999,
+            "volume": 7195
         },
         {
             "date": "2025-11-25",
@@ -1947,6 +1995,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

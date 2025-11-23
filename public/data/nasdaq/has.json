@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 76.3,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 78.84,
         "englishName": "Hasbro, Inc.",
         "earningsDate": "2025-10-23",
-        "enterpriseValue": 13564663808,
-        "marketCap": 10707715072,
-        "Volume": 1003607,
-        "AvgVolume": 1695085,
+        "enterpriseValue": 13525369856,
+        "marketCap": 11064170496,
+        "Volume": 945786,
+        "AvgVolume": 1733057,
         "sharesOutstanding": 140337023,
         "52Week": "49.0 - 82.19",
-        "Yield": 0.036697,
+        "Yield": 0.035515,
         "dividendRate": 2.8,
         "payoutRatio": 0.9241,
         "isin": "US4180561072",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.25,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 13484672000,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 10841034752,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 805273,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1717856,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.036246,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104659,11 +104684,37 @@
             "volume": 1470199
         },
         {
+            "date": "2025-11-19",
+            "open": 75.370003,
+            "high": 77.010002,
+            "low": 74.779999,
+            "close": 76.470001,
+            "volume": 2375117,
+            "amount": 0.7,
+            "yield": 0.0464375728
+        },
+        {
             "date": "2025-11-20",
+            "open": 77.43,
+            "high": 78.690002,
+            "low": 76.695,
+            "close": 76.760002,
+            "volume": 1850644
+        },
+        {
+            "date": "2025-11-21",
+            "open": 77.110001,
+            "high": 79.300003,
+            "low": 76.610001,
+            "close": 79.199997,
+            "volume": 2280069
+        },
+        {
+            "date": "2026-02-19",
             "forecasted": true
         },
         {
-            "date": "2026-02-20",
+            "date": "2026-05-19",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 30.86,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 30.34,
         "englishName": "Direxion Daily CSCO Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11583,
-        "AvgVolume": 13340,
+        "Volume": 23546,
+        "AvgVolume": 13935,
         "sharesOutstanding": null,
-        "52Week": "23.17 - 32.49",
+        "52Week": "23.17 - 33.002",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.8847,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 80029,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12684,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -861,6 +874,30 @@
             "low": 30.2633,
             "close": 30.98,
             "volume": 12106
+        },
+        {
+            "date": "2025-11-19",
+            "open": 31.565001,
+            "high": 31.993,
+            "low": 31.3773,
+            "close": 31.77,
+            "volume": 10631
+        },
+        {
+            "date": "2025-11-20",
+            "open": 32.34,
+            "high": 33.0019,
+            "low": 29.280001,
+            "close": 29.291901,
+            "volume": 61930
+        },
+        {
+            "date": "2025-11-21",
+            "open": 29.719999,
+            "high": 30.4,
+            "low": 29.59,
+            "close": 29.7652,
+            "volume": 25307
         }
     ]
 }

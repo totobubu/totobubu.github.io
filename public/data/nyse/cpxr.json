@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.1284,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 21.48,
         "englishName": "USCF Daily Target 2X Copper Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2569,
-        "AvgVolume": 15559,
+        "Volume": 1787,
+        "AvgVolume": 15539,
         "sharesOutstanding": null,
         "52Week": "16.9 - 33.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.0259,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2924,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15515,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1707,6 +1720,30 @@
             "low": 21.02,
             "close": 21.02,
             "volume": 2874
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.42,
+            "high": 21.606001,
+            "low": 21.343901,
+            "close": 21.606001,
+            "volume": 2482
+        },
+        {
+            "date": "2025-11-20",
+            "open": 21.52,
+            "high": 21.555,
+            "low": 20.969999,
+            "close": 20.969999,
+            "volume": 5406
+        },
+        {
+            "date": "2025-11-21",
+            "open": 21.08,
+            "high": 21.455,
+            "low": 21.445,
+            "close": 21.48,
+            "volume": 1839
         }
     ]
 }

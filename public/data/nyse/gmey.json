@@ -9,16 +9,16 @@
         "underlying": "GME",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 40.49,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 39.25,
         "englishName": "Yieldmax Gme Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2646,
-        "AvgVolume": 15472,
+        "Volume": 2647,
+        "AvgVolume": 14784,
         "sharesOutstanding": null,
-        "52Week": "40.03 - 56.15",
+        "52Week": "39.153 - 56.15",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.445,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1610,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15015,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1132,8 +1145,92 @@
             "volume": 3025
         },
         {
+            "date": "2025-11-19",
+            "open": 40.259998,
+            "high": 40.349998,
+            "low": 39.880001,
+            "close": 40.330002,
+            "volume": 3489
+        },
+        {
             "date": "2025-11-20",
-            "amountFixed": 0.5160
+            "amountFixed": 0.516,
+            "open": 40.064098,
+            "high": 40.064098,
+            "low": 39.1525,
+            "close": 39.66,
+            "volume": 2381,
+            "yield": 0.1214029578
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 36.85,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 36.85,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 28.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "GME   260116C00022000",
+                    "name": "GME US 01/16/26 C22",
+                    "weight": 7.67,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.32,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 1.57,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.76,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "GME   251128C00022000",
+                    "name": "GAMESTOP CLL OPT 11/25 22",
+                    "weight": 0.25,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME   251121C00022000",
+                    "name": "GME US 11/21/25 C22",
+                    "weight": 0.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME   251121C00022500",
+                    "name": "GME US 11/21/25 C22.5",
+                    "weight": 0.04,
+                    "type": "option"
+                }
+            ],
+            "open": 39.470001,
+            "high": 39.470001,
+            "low": 39.230999,
+            "close": 39.25,
+            "volume": 2691
         },
         {
             "date": "2025-11-26",
@@ -1233,6 +1330,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

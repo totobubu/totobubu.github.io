@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 83.005,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 84.31,
         "englishName": "Church & Dwight Co., Inc.",
         "earningsDate": "2025-10-31",
-        "enterpriseValue": 22031298560,
-        "marketCap": 20220739584,
-        "Volume": 1635332,
-        "AvgVolume": 2172967,
+        "enterpriseValue": 22108139520,
+        "marketCap": 20538648576,
+        "Volume": 1327624,
+        "AvgVolume": 2183906,
         "sharesOutstanding": 240130071,
         "52Week": "81.33 - 116.46",
-        "Yield": 0.014096,
+        "Yield": 0.013877,
         "dividendRate": 1.18,
         "payoutRatio": 0.3687,
         "isin": "US1713401024",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 83.5,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 21911232512,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 20341325824,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1076857,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2175957,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.014012,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105700,6 +105725,10 @@
             "volume": 1498810
         },
         {
+            "date": "2025-11-14",
+            "amount": 0.295
+        },
+        {
             "date": "2025-11-17",
             "open": 83.720001,
             "high": 84.129997,
@@ -105716,11 +105745,35 @@
             "volume": 1927472
         },
         {
+            "date": "2025-11-19",
+            "open": 83.010002,
+            "high": 83.385002,
+            "low": 82.290001,
+            "close": 82.519997,
+            "volume": 1449065
+        },
+        {
+            "date": "2025-11-20",
+            "open": 82,
+            "high": 83.805,
+            "low": 81.800003,
+            "close": 83.339996,
+            "volume": 1914123
+        },
+        {
+            "date": "2025-11-21",
+            "open": 83.760002,
+            "high": 85.110001,
+            "low": 83.235001,
+            "close": 84.019997,
+            "volume": 2234078
+        },
+        {
             "date": "2026-02-13",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-14",
             "forecasted": true
         }
     ]

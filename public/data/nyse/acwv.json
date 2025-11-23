@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 119.76,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 120.17,
         "englishName": "iShares MSCI Global Min Vol Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 6179616256,
-        "Volume": 54591,
-        "AvgVolume": 126657,
+        "marketCap": 6200772096,
+        "Volume": 84230,
+        "AvgVolume": 125171,
         "sharesOutstanding": 51600000,
         "52Week": "104.94 - 121.09",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 118.6368,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 6121658880,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 41578,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 126310,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31996,7 +32013,34 @@
             "high": 119.845001,
             "low": 119.269997,
             "close": 119.599998,
-            "volume": 71662
+            "volume": 71662,
+            "marketCap": 6152268288
+        },
+        {
+            "date": "2025-11-19",
+            "open": 119.550003,
+            "high": 119.540001,
+            "low": 118.889999,
+            "close": 119.18,
+            "volume": 61444,
+            "marketCap": 6121658880
+        },
+        {
+            "date": "2025-11-20",
+            "open": 119.449997,
+            "high": 119.639999,
+            "low": 118.5,
+            "close": 118.589996,
+            "volume": 57209,
+            "marketCap": 6200772096
+        },
+        {
+            "date": "2025-11-21",
+            "open": 118.959999,
+            "high": 120.25,
+            "low": 119.0867,
+            "close": 119.800003,
+            "volume": 113172
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 16.72,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 16.57,
         "englishName": "Defiance Gold Enhanced Options Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 62784,
-        "AvgVolume": 68934,
+        "Volume": 25273,
+        "AvgVolume": 70351,
         "sharesOutstanding": null,
-        "52Week": "16.5 - 20.69",
+        "52Week": "16.31 - 20.69",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.3886,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 35553,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 69889,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1382,8 +1395,31 @@
             "volume": 55620
         },
         {
+            "date": "2025-11-19",
+            "open": 16.82,
+            "high": 16.829901,
+            "low": 16.7101,
+            "close": 16.795,
+            "volume": 34839
+        },
+        {
             "date": "2025-11-20",
-            "expected": true
+            "expected": true,
+            "open": 16.540001,
+            "high": 16.6,
+            "low": 16.309999,
+            "close": 16.465,
+            "volume": 35675,
+            "amount": 0.167,
+            "yield": 0.3123155797
+        },
+        {
+            "date": "2025-11-21",
+            "open": 16.5,
+            "high": 16.6,
+            "low": 16.42,
+            "close": 16.5005,
+            "volume": 30229
         },
         {
             "date": "2025-11-26",
@@ -1483,6 +1519,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

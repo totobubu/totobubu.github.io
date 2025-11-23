@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 21.69,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 22.02,
         "englishName": "Direxion Daily CSCO Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5100,
-        "AvgVolume": 762,
+        "Volume": 5787,
+        "AvgVolume": 903,
         "sharesOutstanding": null,
-        "52Week": "21.17 - 25.62",
+        "52Week": "21.01 - 25.62",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3080,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 842,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -854,6 +867,30 @@
             "low": 21.549999,
             "close": 21.695,
             "volume": 4725
+        },
+        {
+            "date": "2025-11-19",
+            "open": 21.4,
+            "high": 21.58,
+            "low": 21.299999,
+            "close": 21.4268,
+            "volume": 1568
+        },
+        {
+            "date": "2025-11-20",
+            "open": 21.01,
+            "high": 22.242901,
+            "low": 21.01,
+            "close": 22.242901,
+            "volume": 1672
+        },
+        {
+            "date": "2025-11-21",
+            "open": 22.09,
+            "high": 22.09,
+            "low": 21.799999,
+            "close": 22.07,
+            "volume": 17900
         }
     ]
 }

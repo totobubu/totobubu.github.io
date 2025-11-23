@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-19 05:58:57 KST",
-        "regularMarketPrice": 25.163,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 25.16,
         "englishName": "Ab California Intermediate Municipal ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 23526,
-        "AvgVolume": 53038,
+        "Volume": 16590,
+        "AvgVolume": 61882,
         "sharesOutstanding": null,
         "52Week": "24.94 - 25.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.12,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 24229,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 61709,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -286,6 +299,30 @@
             "low": 25.139999,
             "close": 25.165001,
             "volume": 23526
+        },
+        {
+            "date": "2025-11-19",
+            "open": 25.17,
+            "high": 25.174999,
+            "low": 25.110001,
+            "close": 25.1,
+            "volume": 344583
+        },
+        {
+            "date": "2025-11-20",
+            "open": 25.15,
+            "high": 25.15,
+            "low": 25.120001,
+            "close": 25.120001,
+            "volume": 67610
+        },
+        {
+            "date": "2025-11-21",
+            "open": 25.08,
+            "high": 25.190001,
+            "low": 25.139999,
+            "close": 25.15,
+            "volume": 52234
         }
     ]
 }
