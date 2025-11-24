@@ -58,15 +58,13 @@
                                             :class="{
                                                 'surface-100': stock.selectedTicker !== result.symbol,
                                                 'bg-primary-500': stock.selectedTicker === result.symbol,
-                                            }" :style="stock.selectedTicker === result.symbol ? {
-                                                borderWidth: '2px',
-                                                borderStyle: 'solid',
-                                                borderColor: 'var(--primary-color)',
-                                                boxShadow: '0 0 0 1px var(--primary-color)'
-                                            } : {
-                                                borderWidth: '1px',
-                                                borderStyle: 'solid',
-                                                borderColor: 'var(--surface-border)'
+                                            }" :style="{
+                                                border: stock.selectedTicker === result.symbol
+                                                    ? '2px solid var(--primary-color)'
+                                                    : '1px solid var(--surface-border)',
+                                                boxShadow: stock.selectedTicker === result.symbol
+                                                    ? '0 0 0 1px var(--primary-color)'
+                                                    : 'none'
                                             }">
                                             <div class="flex justify-content-between align-items-center">
                                                 <div>
