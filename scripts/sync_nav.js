@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const args = process.argv.slice(2);
 
@@ -99,6 +100,34 @@ try {
     });
 
     console.log(`Sync complete. Updated ${updatedCount} stocks.`);
+
+    // Auto-commit changes if any files were updated
+    if (updatedCount > 0) {
+        console.log('\n🔄 Committing changes to git...');
+        try {
+            // Stage all changes in public/nav
+            execSync('git add public/nav/**/*.json', {
+                cwd: path.join(__dirname, '..'),
+                stdio: 'inherit',
+            });
+
+            // Commit with descriptive message
+            const commitMessage = `Update koName mappings (${updatedCount} stocks updated)`;
+            execSync(`git commit -m "${commitMessage}"`, {
+                cwd: path.join(__dirname, '..'),
+                stdio: 'inherit',
+            });
+
+            console.log('✅ Changes committed successfully!');
+        } catch (gitError) {
+            console.warn(
+                '⚠️ Git commit failed. You may need to commit manually.'
+            );
+            console.warn('Error:', gitError.message);
+        }
+    } else {
+        console.log('\nNo changes to commit.');
+    }
 } catch (error) {
     console.error('Error processing:', error);
     process.exit(1);
