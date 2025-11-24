@@ -299,7 +299,7 @@ export function useStockData() {
 
                 tickerInfo.value = {
                     ...navInfo,
-                    ...(staticData.tickerInfo || {}),
+                    ...staticData.tickerInfo,
                 };
                 tickerInfo.value.yfSymbol = originalTickerSymbol
                     ? originalTickerSymbol.toUpperCase()

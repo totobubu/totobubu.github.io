@@ -361,9 +361,9 @@ async function mergeSplitEvents(existingData, newSplits) {
     );
 
     existingData.tickerInfo = {
-        ...(existingData.tickerInfo || {}),
+        ...existingData.tickerInfo,
         events: {
-            ...(existingData.tickerInfo?.events || {}),
+            ...existingData.tickerInfo?.events,
             splits: finalSplits,
         },
     };
@@ -583,9 +583,9 @@ async function fetchAndMergePriceData(ticker) {
             return { success: true, symbol };
         }
 
-        const tickerInfo = { ...(existingData.tickerInfo || {}) };
+        const tickerInfo = { ...existingData.tickerInfo };
         tickerInfo.events = {
-            ...(tickerInfo.events || {}),
+            ...tickerInfo.events,
             splits: finalSplits,
         };
 
