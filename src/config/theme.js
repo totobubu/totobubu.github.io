@@ -4,29 +4,29 @@ import Lara from '@primeuix/themes/lara';
 export const MyPreset = definePreset(Lara, {
     semantic: {
         primary: {
-            50: '#fff9eb',
-            100: '#ffeec5',
-            200: '#ffe09e',
-            300: '#ffd177',
-            400: '#f6bf54',
-            500: '#d4af37', // gold base
-            600: '#b8942c',
-            700: '#9d7b23',
-            800: '#80621a',
-            900: '#634913',
-            950: '#452f0c',
+            50: '#fff8e1',
+            100: '#ffecb3',
+            200: '#ffe082',
+            300: '#ffd54f',
+            400: '#ffca28',
+            500: '#ffc107', // Rich Amber
+            600: '#ffb300',
+            700: '#ffa000',
+            800: '#ff8f00',
+            900: '#ff6f00',
+            950: '#452000',
         },
         colorScheme: {
             light: {
                 primary: {
-                    color: '#d4af37',
-                    inverseColor: '#1f2937',
-                    hoverColor: '#e6c75f',
-                    activeColor: '#b8942c',
+                    color: '#ffc107',
+                    inverseColor: '#ffffff',
+                    hoverColor: '#ffca28',
+                    activeColor: '#ffb300',
                 },
                 highlight: {
-                    background: 'rgba(212, 175, 55, 0.12)',
-                    focusBackground: 'rgba(212, 175, 55, 0.18)',
+                    background: 'rgba(255, 193, 7, 0.12)',
+                    focusBackground: 'rgba(255, 193, 7, 0.18)',
                     color: '#1f2937',
                     focusColor: '#111827',
                 },
@@ -36,14 +36,14 @@ export const MyPreset = definePreset(Lara, {
             },
             dark: {
                 primary: {
-                    color: '#f6e7b4',
+                    color: '#ffe082',
                     inverseColor: '#111827',
-                    hoverColor: '#f1d77c',
-                    activeColor: '#d4af37',
+                    hoverColor: '#ffecb3',
+                    activeColor: '#ffc107',
                 },
                 highlight: {
-                    background: 'rgba(246, 231, 180, 0.16)',
-                    focusBackground: 'rgba(246, 231, 180, 0.24)',
+                    background: 'rgba(255, 224, 130, 0.16)',
+                    focusBackground: 'rgba(255, 224, 130, 0.24)',
                     color: 'rgba(255,255,255,.87)',
                     focusColor: 'rgba(255,255,255,.87)',
                 },
