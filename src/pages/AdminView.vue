@@ -2,8 +2,14 @@
 <script setup>
     import { ref, onMounted } from 'vue';
     import { useHead } from '@vueuse/head';
+    import { collection, getDocs } from 'firebase/firestore';
+    import { db } from '@/firebase';
     import { useAdmin } from '@/composables/useAdmin';
-    import { useKoNameApprovals, approveKoName, rejectKoName } from '@/composables/useAssetAdmin';
+    import {
+        useKoNameApprovals,
+        approveKoName,
+        rejectKoName,
+    } from '@/composables/useAssetAdmin';
     import { useToast } from 'primevue/usetoast';
     import { useRouter } from 'vue-router';
 
@@ -20,7 +26,8 @@
     const router = useRouter();
     const toast = useToast();
     const { isAdmin } = useAdmin();
-    const { pendingApprovals, isLoading, loadPendingApprovals } = useKoNameApprovals();
+    const { pendingApprovals, isLoading, loadPendingApprovals } =
+        useKoNameApprovals();
 
     // 관리자 체크는 라우터 가드에서 처리됨
 
@@ -35,14 +42,14 @@
                 approval.koName,
                 approval.symbol
             );
-            
+
             toast.add({
                 severity: 'success',
                 summary: '승인 완료',
                 detail: `${approval.koName}이(가) 승인되었습니다.`,
                 life: 3000,
             });
-            
+
             await loadPendingApprovals();
         } catch (error) {
             console.error('승인 실패:', error);
@@ -64,14 +71,14 @@
                 approval.accountId,
                 approval.id
             );
-            
+
             toast.add({
                 severity: 'info',
                 summary: '거부 완료',
                 detail: `${approval.koName}이(가) 거부되었습니다.`,
                 life: 3000,
             });
-            
+
             await loadPendingApprovals();
         } catch (error) {
             console.error('거부 실패:', error);
@@ -79,6 +86,43 @@
                 severity: 'error',
                 summary: '오류',
                 detail: '거부 처리에 실패했습니다.',
+                life: 3000,
+            });
+        }
+    };
+
+    const exportMappings = async () => {
+        try {
+            const querySnapshot = await getDocs(
+                collection(db, 'stockMappings')
+            );
+            const mappings = [];
+            querySnapshot.forEach((doc) => {
+                mappings.push(doc.data());
+            });
+
+            const dataStr =
+                'data:text/json;charset=utf-8,' +
+                encodeURIComponent(JSON.stringify(mappings, null, 4));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute('href', dataStr);
+            downloadAnchorNode.setAttribute('download', 'mappings.json');
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+
+            toast.add({
+                severity: 'success',
+                summary: '내보내기 완료',
+                detail: '매핑 데이터가 다운로드되었습니다.',
+                life: 3000,
+            });
+        } catch (error) {
+            console.error('내보내기 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '데이터 내보내기에 실패했습니다.',
                 life: 3000,
             });
         }
@@ -105,12 +149,20 @@
     <div id="t-admin-view">
         <Card>
             <template #header>
-                <div class="flex justify-content-between align-items-center p-3">
+                <div
+                    class="flex justify-content-between align-items-center p-3">
                     <h2 class="m-0">koName 승인 관리</h2>
-                    <Button
-                        label="새로고침"
-                        icon="pi pi-refresh"
-                        @click="loadPendingApprovals" />
+                    <div class="flex gap-2">
+                        <Button
+                            label="매핑 데이터 내보내기"
+                            icon="pi pi-download"
+                            severity="secondary"
+                            @click="exportMappings" />
+                        <Button
+                            label="새로고침"
+                            icon="pi pi-refresh"
+                            @click="loadPendingApprovals" />
+                    </div>
                 </div>
             </template>
             <template #content>
@@ -139,10 +191,10 @@
                     </Column>
                     <Column field="symbol" header="SYMBOL" sortable>
                         <template #body="{ data }">
-                            <span v-if="data.symbol">
-                                <strong>{{ data.symbol }}</strong>
-                            </span>
-                            <Tag v-else value="매핑 없음" severity="warning" />
+                            <InputText
+                                v-model="data.symbol"
+                                class="p-inputtext-sm w-full"
+                                placeholder="티커 입력" />
                         </template>
                     </Column>
                     <Column field="koName" header="한국어 종목명" sortable>
@@ -158,7 +210,9 @@
                     <Column field="currency" header="통화" sortable />
                     <Column field="userId" header="사용자 ID">
                         <template #body="{ data }">
-                            <code class="text-xs">{{ data.userId.substring(0, 8) }}...</code>
+                            <code class="text-xs"
+                                >{{ data.userId.substring(0, 8) }}...</code
+                            >
                         </template>
                     </Column>
                     <Column header="액션" style="width: 200px">
@@ -193,4 +247,3 @@
         border-radius: 4px;
     }
 </style>
-

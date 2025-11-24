@@ -415,6 +415,8 @@
                         `자동 매핑 저장 실패 (${stock.stock_name}):`,
                         err
                     );
+                    // 권한 오류 등으로 저장이 실패하더라도, 현재 세션에서는 자산을 등록할 수 있도록 처리
+                    stock.mappedTicker = stock.selectedTicker;
                 });
         });
 
