@@ -3,8 +3,8 @@
 로컬 환경에서 신규 티커를 온보딩하기 위한 one-stop 스크립트.
 
 사용 예:
-    python scripts/add_new_symbols.py --symbol YMAX
-    python scripts/add_new_symbols.py --symbol voo --symbol qqq
+    python scripts/utils/add_new_symbols.py --symbol YMAX
+    python scripts/utils/add_new_symbols.py --symbol voo --symbol qqq
 
 주요 단계:
     1. fetch_missing_isin.py 로직을 재사용해 ISIN/심볼 정규화
@@ -27,6 +27,7 @@ import json
 import os
 import platform
 import shlex
+import shutil
 import subprocess
 import sys
 import time
@@ -49,19 +50,33 @@ try:
         determine_market_from_symbol,
     )
 except ImportError as exc:  # pragma: no cover - 환경 문제
-    raise SystemExit(f"fetch_missing_isin.py 로직을 불러오지 못했습니다: {exc}") from exc
+    raise SystemExit(
+        f"fetch_missing_isin.py 로직을 불러오지 못했습니다: {exc}"
+    ) from exc
 
-ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
+ROOT_DIR = (
+    Path(__file__).resolve().parents[2]
+)  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from scripts.utils import save_json_file  # 프로젝트 공용 유틸
+
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 NAV_DIR = PUBLIC_DIR / "nav"
 PYTHON = sys.executable
 
-MARKET_CHOICES = ("NASDAQ", "NYSE", "NYSEARCA", "BATS", "AMEX", "KOSPI", "KOSDAQ", "KONEX")
+MARKET_CHOICES = (
+    "NASDAQ",
+    "NYSE",
+    "NYSEARCA",
+    "BATS",
+    "AMEX",
+    "KOSPI",
+    "KOSDAQ",
+    "KONEX",
+)
 MARKET_TO_CURRENCY = {
     "NASDAQ": "USD",
     "NYSE": "USD",
@@ -114,7 +129,9 @@ def sanitize_symbol(symbol: str) -> str:
 
 def prompt_user(prompt: str, default: Optional[str] = None) -> str:
     if not sys.stdin.isatty():
-        raise WorkflowError(f"{prompt} 값을 자동으로 얻지 못했고 터미널 입력이 불가능합니다.")
+        raise WorkflowError(
+            f"{prompt} 값을 자동으로 얻지 못했고 터미널 입력이 불가능합니다."
+        )
 
     suffix = f" (default: {default})" if default else ""
     while True:
@@ -169,7 +186,9 @@ def fetch_ipo_date(symbol: str) -> str:
         meta = result[0].get("meta") if result else {}
         first_trade = meta.get("firstTradeDate")
         if first_trade:
-            iso = datetime.fromtimestamp(first_trade, tz=timezone.utc).date().isoformat()
+            iso = (
+                datetime.fromtimestamp(first_trade, tz=timezone.utc).date().isoformat()
+            )
             return iso
         raise ValueError("firstTradeDate 필드를 찾을 수 없음")
     except Exception as exc:  # pylint: disable=broad-except
@@ -215,7 +234,10 @@ def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
                 entry["ipoDate"] = ipo_date
                 updated = True
             # yfSymbol 설정
-            if market in ("KOSPI", "KOSDAQ", "KONEX") and entry.get("yfSymbol") != yf_symbol:
+            if (
+                market in ("KOSPI", "KOSDAQ", "KONEX")
+                and entry.get("yfSymbol") != yf_symbol
+            ):
                 entry["yfSymbol"] = yf_symbol
                 updated = True
             break
@@ -280,9 +302,11 @@ def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
     """Google Finance에서 거래소 정보를 가져옵니다."""
     script_path = ROOT_DIR / "scripts" / "utils" / "fetch_market_from_google_finance.js"
     if not script_path.exists():
-        print(f"[WARN] fetch_market_from_google_finance.js를 찾을 수 없습니다: {script_path}")
+        print(
+            f"[WARN] fetch_market_from_google_finance.js를 찾을 수 없습니다: {script_path}"
+        )
         return None
-    
+
     node_exe = resolve_executable("node")
     try:
         # --query-only 모드 사용 (nav.json 업데이트 없이 마켓 정보만 조회)
@@ -293,11 +317,11 @@ def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
             text=True,
             timeout=60,
         )
-        
+
         if result.returncode != 0:
             print(f"[WARN] Google Finance 마켓 조회 실패: {result.stderr}")
             return None
-        
+
         # 출력에서 거래소 정보 추출
         # 예: "[AAPW] 거래소: BATS"
         output = result.stdout
@@ -311,7 +335,7 @@ def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
                     market = "".join(c for c in parts if c.isalpha()).upper()
                     if market and len(market) >= 2:
                         return market
-        
+
         return None
     except subprocess.TimeoutExpired:
         print(f"[WARN] Google Finance 마켓 조회 타임아웃")
@@ -327,15 +351,15 @@ def resolve_market(symbol: str, detected: Optional[str]) -> str:
     if detected in MARKET_CHOICES:
         print(f"[INFO] 기존 감지 마켓 사용: {detected}")
         return detected
-    
+
     # 2. Google Finance에서 거래소 정보 가져오기
     print(f"[INFO] Google Finance에서 {symbol}의 거래소 정보를 조회합니다...")
     google_market = fetch_market_from_google_finance(symbol)
-    
+
     if google_market and google_market in MARKET_CHOICES:
         print(f"[INFO] Google Finance에서 거래소 확인: {google_market}")
         return google_market
-    
+
     # 3. Google Finance에서 새로운 거래소가 발견된 경우
     if google_market:
         print(f"[INFO] 새로운 거래소 발견: {google_market}")
@@ -345,16 +369,22 @@ def resolve_market(symbol: str, detected: Optional[str]) -> str:
         if response == "y":
             # MARKET_CHOICES에 추가 (런타임에만)
             return google_market
-    
+
     # 4. 수동 입력
     return prompt_market(symbol)
 
 
 def resolve_executable(executable: str) -> str:
+    """Return a platform-appropriate executable path."""
     system = platform.system().lower()
     if system.startswith("win"):
-        if executable.lower() in {"npm", "npx", "node"}:
+        if executable.lower() in {"npm", "npx"}:
             return f"{executable}.cmd"
+        if not os.path.splitext(executable)[1]:
+            # PATHEXT를 이용해 직접 찾는다.
+            path = shutil.which(executable)
+            if path:
+                return path
     return executable
 
 
@@ -364,38 +394,103 @@ def run_command(label: str, command: List[str], dry_run: bool = False) -> None:
     print(f"\n-> {label}\n   $ {printable}")
     if dry_run:
         return
-    result = subprocess.run(normalized, cwd=ROOT_DIR)  # noqa: S603
+
+    # Windows에서 .cmd 파일 실행 시 shell=True 필요
+    use_shell = platform.system().lower().startswith("win") and (
+        normalized[0].endswith(".cmd") or normalized[0].endswith(".bat")
+    )
+
+    result = subprocess.run(normalized, cwd=ROOT_DIR, shell=use_shell)  # noqa: S603
     if result.returncode != 0:
         raise WorkflowError(f"명령 실패: {label} (exit {result.returncode})")
 
 
-def run_update_workflow(skip_format: bool) -> None:
+def get_ticker_markets(symbols: List[Dict[str, str]]) -> Dict[str, List[str]]:
+    """티커를 시장별로 분류합니다."""
+    kr_tickers = []
+    us_tickers = []
+
+    for symbol_info in symbols:
+        market = symbol_info.get("market", "").upper()
+        resolved_symbol = symbol_info.get("resolved_symbol", "")
+
+        if market in ("KOSPI", "KOSDAQ", "KONEX"):
+            kr_tickers.append(resolved_symbol)
+        else:
+            us_tickers.append(resolved_symbol)
+
+    return {"KR": kr_tickers, "US": us_tickers}
+
+
+def run_update_workflow(symbols: List[Dict[str, str]]) -> None:
+    """
+    신규 티커만 처리하는 최적화된 워크플로우 실행.
+
+    Args:
+        symbols: 처리할 티커 정보 목록 (각 항목은 process_symbol의 반환값)
+    """
+    # 신규 티커는 이미 process_symbol에서 IPO 날짜를 가져와서 nav에 저장했으므로
+    # add-ipo-dates 단계는 건너뜁니다.
+
+    resolved_symbols = [s.get("resolved_symbol", "") for s in symbols]
+    if not resolved_symbols:
+        print("[WARN] 처리할 티커가 없습니다.")
+        return
+
     steps: List[Tuple[str, List[str]]] = [
-        ("1. 환율 데이터 업데이트", ["node", "scripts/exchange/fetch_all_exchange_rates.js"]),
-        ("2. IPO date/Upcoming 싱크", ["npm", "run", "add-ipo-dates"]),
-        ("3. nav.json 재생성", ["npm", "run", "generate-nav"]),
-        (
-            "4. 정보성 데이터 파이프라인 (KR)",
-            [PYTHON, "scripts/data_pipeline/info_data_pipeline_kr.py"],
-        ),
-        (
-            "4-2. 정보성 데이터 파이프라인 (US)",
-            [PYTHON, "scripts/data_pipeline/info_data_pipeline_us.py"],
-        ),
-        ("5. 배당 히스토리 보강", [PYTHON, "scripts/data_pipeline/scraper_dividend.py"]),
-        ("6. 캘린더 이벤트 생성", ["npm", "run", "generate-calendar-events"]),
+        ("1. nav.json 재생성", ["npm", "run", "generate-nav"]),
     ]
 
-    if not skip_format:
-        format_script = (
-            ["npm", "run", "format:changed:win"]
-            if platform.system().lower().startswith("win")
-            else ["npm", "run", "format:changed"]
+    # 신규 티커만 정보성 데이터 업데이트
+    steps.append(
+        (
+            f"2. 정보성 데이터 업데이트 ({', '.join(resolved_symbols)})",
+            [PYTHON, "scripts/data_pipeline/scraper_info.py", *resolved_symbols],
         )
-        steps.append(("7. 변경 파일 포맷팅", format_script))
+    )
+
+    # 티커를 시장별로 분류하여 주기 시세 데이터 수집
+    ticker_markets = get_ticker_markets(symbols)
+    os.environ["DATA_LAYOUT_MODE"] = "market"
+
+    if ticker_markets["KR"]:
+        steps.append(
+            (
+                f"3. 주기 시세 데이터 수집 (KR: {', '.join(ticker_markets['KR'])})",
+                ["node", "tasks/updateHistoricalKrData.js", *ticker_markets["KR"]],
+            )
+        )
+
+    if ticker_markets["US"]:
+        steps.append(
+            (
+                f"3-2. 주기 시세 데이터 수집 (US: {', '.join(ticker_markets['US'])})",
+                ["node", "tasks/updateHistoricalUsData.js", *ticker_markets["US"]],
+            )
+        )
+
+    # 신규 티커만 배당 데이터 수집 (yfinance에서 배당 히스토리 가져오기)
+    steps.append(
+        (
+            f"4. 배당 데이터 수집 ({', '.join(resolved_symbols)})",
+            [PYTHON, "scripts/data_pipeline/update_dividends.py", *resolved_symbols],
+        )
+    )
+
+    # 배당 데이터가 있는 경우에만 yield 계산
+    steps.append(
+        (
+            f"5. 배당 yield 계산 ({', '.join(resolved_symbols)})",
+            [PYTHON, "scripts/data_pipeline/scraper_dividend.py", *resolved_symbols],
+        )
+    )
+
+    # 배당 데이터가 업데이트된 경우에만 캘린더 이벤트 생성
+    # (generate-calendar-events는 배당 데이터가 없으면 해당 티커는 자동으로 제외됨)
+    steps.append(("6. 캘린더 이벤트 생성", ["npm", "run", "generate-calendar-events"]))
 
     print("\n" + "=" * 80)
-    print("로컬 update_info_data 워크플로우 실행")
+    print("신규 티커 워크플로우 실행")
     print("=" * 80)
     for label, command in steps:
         run_command(label, command)
@@ -475,7 +570,7 @@ def main() -> int:
         return 0
 
     if not args.skip_workflow:
-        run_update_workflow(skip_format=args.skip_format)
+        run_update_workflow(symbols=summaries)
     else:
         print("\n[INFO] --skip-workflow 옵션으로 통합 워크플로우를 건너뜁니다.")
 
@@ -502,4 +597,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n사용자 중단 (Ctrl+C)")
         sys.exit(1)
-
