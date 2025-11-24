@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 20.5614,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 20.395,
         "englishName": "Defiance R2000 Target 30 Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 114747,
-        "AvgVolume": 174550,
+        "Volume": 187760,
+        "AvgVolume": 174546,
         "sharesOutstanding": null,
-        "52Week": "20.31 - 32.99",
+        "52Week": "20.15 - 32.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,20 +32,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 20.59,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 133028,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 173985,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -4439,7 +4426,22 @@
         },
         {
             "date": "2025-11-20",
-            "expected": true
+            "expected": true,
+            "open": 20.74,
+            "high": 20.74,
+            "low": 20.15,
+            "close": 20.15,
+            "volume": 119800,
+            "amount": 0.159,
+            "yield": 0.6584185149
+        },
+        {
+            "date": "2025-11-21",
+            "open": 20.24,
+            "high": 20.41,
+            "low": 20.2321,
+            "close": 20.299999,
+            "volume": 229900
         },
         {
             "date": "2025-11-26",
@@ -4539,6 +4541,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

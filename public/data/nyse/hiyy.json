@@ -9,16 +9,16 @@
         "underlying": "HIMS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 28.82,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 27.9,
         "englishName": "YieldMax HIMS Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14516,
-        "AvgVolume": 23782,
+        "Volume": 9528,
+        "AvgVolume": 23502,
         "sharesOutstanding": null,
-        "52Week": "27.66 - 53.97",
+        "52Week": "26.7 - 53.97",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 29.55,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 10903,
+                "value": 27.51,
                 "change": "up"
             },
+            "Volume": {
+                "value": 9821,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 24102,
+                "value": 23807,
                 "change": "down"
             }
         }
@@ -1083,7 +1083,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.631
+            "amountFixed": 0.631,
+            "open": 29.3202,
+            "high": 29.3202,
+            "low": 27.058901,
+            "close": 27.058901,
+            "volume": 10650,
+            "yield": 0.1821304084
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 60.19,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 39.06,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 36.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 3.37,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HIMS  251219C00046000",
+                    "name": "HIMS US 12/19/25 C46",
+                    "weight": 1.88,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 0.77,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS  251128C00041000",
+                    "name": "HIMS US 11/28/25 C41",
+                    "weight": 0.22,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251128C00040000",
+                    "name": "HIMS & H CLL OPT 11/25 40",
+                    "weight": 0.11,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251128C00041500",
+                    "name": "HIMS & H CLL OPT 11/25 41.500",
+                    "weight": 0.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS  251121C00042000",
+                    "name": "HIMS US 11/21/25 C42",
+                    "weight": 0.02,
+                    "type": "option"
+                }
+            ],
+            "open": 26.82,
+            "high": 28.032499,
+            "low": 26.700001,
+            "close": 28.069901,
+            "volume": 12949
         },
         {
             "date": "2025-11-26",
@@ -1183,6 +1259,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

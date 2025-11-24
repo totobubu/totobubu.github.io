@@ -9,16 +9,16 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 17.05,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 16.57,
         "englishName": "GraniteShares YieldBOOST QQQ ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9230,
-        "AvgVolume": 29182,
+        "Volume": 42901,
+        "AvgVolume": 29890,
         "sharesOutstanding": null,
-        "52Week": "16.59 - 25.375",
+        "52Week": "16.0713 - 25.375",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 17.0849,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 33517,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 29125,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1571,14 +1558,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.16939,
             "open": 16.75,
             "high": 17.57,
             "low": 16.59,
             "close": 17.42,
             "volume": 66248,
             "amount": 0.169,
-            "yield": 0.3974758209
+            "yield": 0.3974991045
         },
         {
             "date": "2025-11-17",
@@ -1605,8 +1592,21 @@
             "volume": 11471
         },
         {
+            "date": "2025-11-20",
+            "open": 17.58,
+            "high": 17.700001,
+            "low": 16.49,
+            "close": 16.49,
+            "volume": 59072
+        },
+        {
             "date": "2025-11-21",
-            "expected": true
+            "amountFixed": 0.16064,
+            "open": 16.360001,
+            "high": 16.629999,
+            "low": 16.071301,
+            "close": 16.126699,
+            "volume": 36037
         },
         {
             "date": "2025-11-28",

@@ -9,16 +9,16 @@
         "underlying": "PYPL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 8.675,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 8.7,
         "englishName": "Yieldmax PYPL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 39870,
-        "AvgVolume": 60992,
+        "Volume": 98242,
+        "AvgVolume": 61521,
         "sharesOutstanding": null,
-        "52Week": "8.6601 - 19.74",
+        "52Week": "8.42 - 19.74",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,20 +33,7 @@
             ],
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 8.91,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 43944,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 61021,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5141,7 +5128,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.0771
+            "amountFixed": 0.0771,
+            "open": 8.89,
+            "high": 8.81,
+            "low": 8.42,
+            "close": 8.48,
+            "volume": 62052,
+            "yield": 0.6215973003
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 41.62,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 25.43,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 24.98,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 10.23,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 8.15,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 5.26,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "PYPL  260116C00067500",
+                    "name": "PYPL US 01/16/26 C67.5",
+                    "weight": 1.55,
+                    "type": "option"
+                },
+                {
+                    "symbol": "PYPL  251128C00063000",
+                    "name": "PYPL US 11/28/25 C63",
+                    "weight": 0.08,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 0.03,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "PYPL  251128C00061000",
+                    "name": "PYPL US 11/28/25 C61",
+                    "weight": 0.19,
+                    "type": "option"
+                }
+            ],
+            "open": 8.44,
+            "high": 8.8,
+            "low": 8.43,
+            "close": 8.55,
+            "volume": 101097
         },
         {
             "date": "2025-11-26",
@@ -5241,6 +5304,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

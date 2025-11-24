@@ -9,16 +9,16 @@
         "underlying": "NVDA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 15.03,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 14.845,
         "englishName": "YieldMax NVDA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4361348,
-        "AvgVolume": 6454235,
+        "Volume": 6639647,
+        "AvgVolume": 6533907,
         "sharesOutstanding": null,
-        "52Week": "12.469 - 26.83",
+        "52Week": "12.469 - 26.48",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,20 +33,7 @@
             ],
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14.875,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 5241803,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 6448151,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5850,7 +5837,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.1497
+            "amountFixed": 0.1497,
+            "open": 15.65,
+            "high": 15.6986,
+            "low": 14.634,
+            "close": 14.69,
+            "volume": 9254637,
+            "yield": 0.8061405751
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 24.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 21.2,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 20.41,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 15.19,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 13.77,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 8.56,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 5.86,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "NVDA  260116C00200000",
+                    "name": "NVDA US 01/16/26 C200",
+                    "weight": 2.24,
+                    "type": "option"
+                },
+                {
+                    "symbol": "NVDA  260116C00195000",
+                    "name": "NVDA US 01/16/26 C195",
+                    "weight": 1.73,
+                    "type": "option"
+                },
+                {
+                    "symbol": "NVDA  251128C00195000",
+                    "name": "NVIDIA C CLL OPT 11/25 195",
+                    "weight": 0.35,
+                    "type": "option"
+                }
+            ],
+            "open": 14.725,
+            "high": 14.935,
+            "low": 14.134,
+            "close": 14.56,
+            "volume": 7497285
         },
         {
             "date": "2025-11-26",
@@ -5950,6 +6013,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

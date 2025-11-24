@@ -9,16 +9,16 @@
         "underlying": "SPY",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 18.4696,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 18.47,
         "englishName": "GraniteShares YieldBOOST SPY ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26030,
-        "AvgVolume": 43578,
+        "Volume": 51673,
+        "AvgVolume": 43825,
         "sharesOutstanding": null,
-        "52Week": "18.05 - 21.1",
+        "52Week": "17.62 - 21.1",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 18.6692,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 38032,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 43479,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1364,12 +1351,13 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.18187,
             "open": 18.450001,
             "high": 19.02,
             "low": 18.290001,
             "close": 18.9,
-            "volume": 52649
+            "volume": 52649,
+            "yield": 0.3350357542
         },
         {
             "date": "2025-11-17",
@@ -1396,8 +1384,21 @@
             "volume": 24447
         },
         {
+            "date": "2025-11-20",
+            "open": 19.093901,
+            "high": 19.23,
+            "low": 18,
+            "close": 18.013599,
+            "volume": 33842
+        },
+        {
             "date": "2025-11-21",
-            "expected": true
+            "amountFixed": 0.17934,
+            "open": 17.9,
+            "high": 18.492001,
+            "low": 17.620001,
+            "close": 18.030001,
+            "volume": 55927
         },
         {
             "date": "2025-11-28",

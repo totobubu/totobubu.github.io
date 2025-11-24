@@ -56,5 +56,10 @@ service cloud.firestore {
       // 관리자는 모든 자산에 읽기/쓰기 가능 (collectionGroup 쿼리용)
       allow read, write: if isAdmin();
     }
+    // stockMappings 컬렉션 규칙 (공용 매핑 정보)
+    match /stockMappings/{mappingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
   }
 }

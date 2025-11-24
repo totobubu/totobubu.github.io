@@ -66,6 +66,11 @@ export const saveStockMapping = async (
     userId
 ) => {
     try {
+        // 디버깅: 현재 로그인한 사용자 확인
+        import('@/firebase').then(({ auth }) => {
+            console.log('Current User UID:', auth.currentUser?.uid);
+        });
+
         const mappingKey = getMappingKey(brokerage, stockName);
         const mappingRef = doc(db, 'stockMappings', mappingKey);
 
@@ -76,7 +81,7 @@ export const saveStockMapping = async (
         const data = {
             brokerage,
             brokerageStockName: stockName,
-            brokerageTicker: mappingData.brokerageTicker,
+            brokerageTicker: mappingData.brokerageTicker, // ISIN (토스증권의 경우)
             systemTicker: mappingData.systemTicker,
             stockInfo: mappingData.stockInfo,
             updatedAt: now,
@@ -92,6 +97,9 @@ export const saveStockMapping = async (
             await setDoc(mappingRef, data);
         }
 
+        console.log(
+            `매핑 저장 성공: ${stockName} -> ${mappingData.systemTicker} (ISIN: ${mappingData.brokerageTicker})`
+        );
         return true;
     } catch (error) {
         console.error('매핑 정보 저장 실패:', error);
@@ -145,10 +153,10 @@ export const searchSymbol = async (searchQuery) => {
     try {
         const response = await axios.get('/api/searchSymbol.js', {
             params: {
-                q: searchQuery,
+                query: searchQuery,
             },
         });
-        return response.data.results || [];
+        return response.data || [];
     } catch (error) {
         console.error('티커 검색 실패:', error);
         return [];

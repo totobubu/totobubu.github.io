@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 50.015,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 49.91,
         "englishName": "First Trust Low Duration Opportunities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 456851,
-        "AvgVolume": 512095,
+        "Volume": 167741,
+        "AvgVolume": 511270,
         "sharesOutstanding": null,
         "52Week": "48.32 - 50.25",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 50.0001,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 493973,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 509406,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -22519,8 +22506,20 @@
             "volume": 446578
         },
         {
+            "date": "2025-11-20",
+            "open": 50.040001,
+            "high": 50.044998,
+            "low": 49.997101,
+            "close": 50.040001,
+            "volume": 362746
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 49.950001,
+            "high": 50.02,
+            "low": 49.785,
+            "close": 49.93,
+            "volume": 306089
         },
         {
             "date": "2025-12-19",
@@ -22540,6 +22539,10 @@
         },
         {
             "date": "2026-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

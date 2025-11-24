@@ -9,14 +9,14 @@
         "underlying": "CVNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 32.75,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 31.705,
         "englishName": "YieldMax CVNA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10008,
-        "AvgVolume": 44653,
+        "Volume": 45404,
+        "AvgVolume": 42470,
         "sharesOutstanding": null,
         "52Week": "24.83 - 58.17",
         "Yield": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 32.1,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 11719,
+                "value": 31.725,
                 "change": "down"
             },
+            "Volume": {
+                "value": 41693,
+                "change": "up"
+            },
             "AvgVolume": {
-                "value": 44973,
+                "value": 42570,
                 "change": "down"
             }
         }
@@ -2394,7 +2394,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.5683
+            "amountFixed": 0.5683,
+            "open": 33.360001,
+            "high": 33.200001,
+            "low": 31.01,
+            "close": 31.540001,
+            "volume": 47417,
+            "yield": 0.7852337894
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 25.07,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 23.22,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 21.66,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 17.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "CVNA  251219C00300000",
+                    "name": "CVNA US 12/19/25 C300",
+                    "weight": 10.38,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.62,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 4.44,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "CVNA  251128C00335000",
+                    "name": "CARVANA  CLL OPT 11/25 335",
+                    "weight": 0.16,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CVNA  251128C00342500",
+                    "name": "CARVANA  CLL OPT 11/25 342.500",
+                    "weight": 0.11,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CVNA  251128C00362500",
+                    "name": "CARVANA  CLL OPT 11/25 362.500",
+                    "weight": 0.1,
+                    "type": "option"
+                }
+            ],
+            "open": 31.41,
+            "high": 32.34,
+            "low": 30.68,
+            "close": 30.99,
+            "volume": 50124
         },
         {
             "date": "2025-11-26",
@@ -2494,6 +2570,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

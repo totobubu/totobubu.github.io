@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 47.27,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 46.935,
         "englishName": "Defiance NASDAQ 100 Lightningspread Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21282,
-        "AvgVolume": 31754,
+        "Volume": 36199,
+        "AvgVolume": 31826,
         "sharesOutstanding": null,
-        "52Week": "47.0231 - 52.35",
+        "52Week": "45.65 - 52.35",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 47.59,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 43518,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 31460,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -399,14 +386,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.1924,
             "open": 47.889999,
             "high": 49.049999,
             "low": 47.706001,
             "close": 48.566002,
             "volume": 48504,
             "amount": 0.192,
-            "yield": 0.0450240143
+            "yield": 0.0450323668
         },
         {
             "date": "2025-11-17",
@@ -426,16 +413,31 @@
         },
         {
             "date": "2025-11-19",
-            "expected": true,
+            "amountFixed": 0.1854,
             "open": 47.09,
             "high": 47.640099,
             "low": 47.023102,
             "close": 47.5,
-            "volume": 23150
+            "volume": 23150,
+            "amount": 0.185,
+            "yield": 0.0497345509
+        },
+        {
+            "date": "2025-11-20",
+            "open": 48.650002,
+            "high": 48.759998,
+            "low": 46.25,
+            "close": 46.450001,
+            "volume": 38298
         },
         {
             "date": "2025-11-21",
-            "expected": true
+            "expected": true,
+            "open": 46.299999,
+            "high": 46.959999,
+            "low": 45.650002,
+            "close": 46.380001,
+            "volume": 42168
         },
         {
             "date": "2025-11-28",

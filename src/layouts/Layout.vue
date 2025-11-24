@@ -176,7 +176,7 @@
                 <!-- [핵심 수정 2] Top Bar UI 통일 -->
                 <div id="t-topbar" class="topbar-actions">
                     <Button
-                        v-if="isAdmin"
+v-if="isAdmin"
                         type="button"
                         severity="secondary"
                         :icon="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"

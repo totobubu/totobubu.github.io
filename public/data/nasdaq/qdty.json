@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 43.46,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 42.87,
         "englishName": "YieldMax Nasdaq 100 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9960,
-        "AvgVolume": 8971,
+        "Volume": 6377,
+        "AvgVolume": 9142,
         "sharesOutstanding": null,
         "52Week": "36.76 - 52.55",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 43.6347,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 23427,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8734,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2041,7 +2028,56 @@
             "high": 43.610001,
             "low": 43.126999,
             "close": 43.610001,
-            "volume": 12353
+            "volume": 12353,
+            "yield": 0.2246648238
+        },
+        {
+            "date": "2025-11-20",
+            "open": 44.240101,
+            "high": 44.580002,
+            "low": 42.539398,
+            "close": 42.539398,
+            "volume": 7526
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "4NDX  251219C01001260",
+                    "name": "NDX 12/19/2025 1001.26 C",
+                    "weight": 86.87,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 21.71,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "4XND  251219C00010020",
+                    "name": "XND 12/19/2025 10.02 C",
+                    "weight": 8.69,
+                    "type": "option"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.13,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 17.17,
+                    "type": "cash"
+                }
+            ],
+            "open": 42.52,
+            "high": 43.259998,
+            "low": 42.52,
+            "close": 43.034,
+            "volume": 10744
         },
         {
             "date": "2025-11-25",
@@ -2141,6 +2177,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

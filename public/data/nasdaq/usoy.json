@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 6.9902,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 6.8061,
         "englishName": "Defiance Oil Enhanced Options Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 93698,
-        "AvgVolume": 199540,
+        "Volume": 182916,
+        "AvgVolume": 200293,
         "sharesOutstanding": null,
-        "52Week": "6.93 - 15.23",
+        "52Week": "6.73 - 15.23",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 7.11,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 164444,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 201221,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -3219,7 +3206,22 @@
         },
         {
             "date": "2025-11-20",
-            "expected": true
+            "expected": true,
+            "open": 6.94,
+            "high": 6.9868,
+            "low": 6.855,
+            "close": 6.8753,
+            "volume": 295257,
+            "amount": 0.095,
+            "yield": 1.1635302594
+        },
+        {
+            "date": "2025-11-21",
+            "open": 6.8,
+            "high": 6.8299,
+            "low": 6.725,
+            "close": 6.7749,
+            "volume": 203830
         },
         {
             "date": "2025-11-26",
@@ -3319,6 +3321,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

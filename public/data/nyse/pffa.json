@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 21.435,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 21.225,
         "englishName": "Virtus InfraCap U.S. Preferred Stock ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 589834,
-        "AvgVolume": 636128,
+        "Volume": 791974,
+        "AvgVolume": 647507,
         "sharesOutstanding": null,
         "52Week": "19.2 - 22.85",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 21.46,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 521383,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 638826,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -15392,7 +15379,21 @@
         },
         {
             "date": "2025-11-20",
-            "forecasted": true
+            "open": 21.35,
+            "high": 21.3626,
+            "low": 21.049999,
+            "close": 21.139999,
+            "volume": 937680,
+            "amount": 0.17,
+            "yield": 0.1033255269
+        },
+        {
+            "date": "2025-11-21",
+            "open": 21.07,
+            "high": 21.2397,
+            "low": 21,
+            "close": 21.200001,
+            "volume": 1117309
         },
         {
             "date": "2025-12-19",
@@ -15412,6 +15413,10 @@
         },
         {
             "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

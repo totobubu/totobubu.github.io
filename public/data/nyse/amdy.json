@@ -9,14 +9,14 @@
         "underlying": "AMD",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 8.415,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 7.68,
         "englishName": "YieldMax AMD Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1530198,
-        "AvgVolume": 1707665,
+        "Volume": 4076409,
+        "AvgVolume": 1767009,
         "sharesOutstanding": null,
         "52Week": "5.825 - 12.0",
         "Yield": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 8.765,
+                "value": 7.82,
                 "change": "down"
             },
             "Volume": {
-                "value": 2579698,
-                "change": "down"
+                "value": 3789456,
+                "change": "up"
             },
             "AvgVolume": {
-                "value": 1688303,
+                "value": 1712298,
                 "change": "up"
             }
         }
@@ -5182,7 +5182,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.1795
+            "amountFixed": 0.1795,
+            "open": 8.68,
+            "high": 8.68,
+            "low": 7.655,
+            "close": 7.71,
+            "volume": 4438842,
+            "yield": 0.6856336406
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 62.39,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 15.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 13.28,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 12.73,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 8.05,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.16,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "AMD   260116C00250000",
+                    "name": "AMD US 01/16/26 C250",
+                    "weight": 2.95,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.67,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 2.67,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "AMD   251128C00232500",
+                    "name": "ADVANCED CLL OPT 11/25 232.500",
+                    "weight": 0.1,
+                    "type": "option"
+                }
+            ],
+            "open": 7.77,
+            "high": 7.8,
+            "low": 7.3,
+            "close": 7.59,
+            "volume": 4956233
         },
         {
             "date": "2025-11-26",
@@ -5282,6 +5358,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

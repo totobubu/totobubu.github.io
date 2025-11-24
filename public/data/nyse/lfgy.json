@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 26.98,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 26.7048,
         "englishName": "YieldMax Crypto Industry & Tech Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 146773,
-        "AvgVolume": 175712,
+        "Volume": 185433,
+        "AvgVolume": 177917,
         "sharesOutstanding": null,
-        "52Week": "26.91 - 55.11",
+        "52Week": "25.63 - 55.11",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 28.48,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 183643,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 175545,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2565,7 +2552,86 @@
             "high": 28.129999,
             "low": 26.889999,
             "close": 27.219999,
-            "volume": 206535
+            "volume": 206535,
+            "yield": 0.7834985632
+        },
+        {
+            "date": "2025-11-20",
+            "open": 28.27,
+            "high": 28.27,
+            "low": 26.309999,
+            "close": 26.360001,
+            "volume": 143830
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "2IBIT 251219C00010010",
+                    "name": "IBIT 12/19/2025 10.01 C",
+                    "weight": 5.96,
+                    "type": "option"
+                },
+                {
+                    "symbol": "594972408",
+                    "name": "Strategy Inc",
+                    "weight": 5.86,
+                    "type": "other"
+                },
+                {
+                    "symbol": "19260Q107",
+                    "name": "Coinbase Global Inc",
+                    "weight": 5.72,
+                    "type": "other"
+                },
+                {
+                    "symbol": "67066G104",
+                    "name": "NVIDIA Corp",
+                    "weight": 5.36,
+                    "type": "other"
+                },
+                {
+                    "symbol": "G6683N103",
+                    "name": "NU Holdings Ltd/Cayman Islands",
+                    "weight": 5.32,
+                    "type": "other"
+                },
+                {
+                    "symbol": "852234103",
+                    "name": "Block Inc",
+                    "weight": 5.07,
+                    "type": "other"
+                },
+                {
+                    "symbol": "46438R105",
+                    "name": "iShares Ethereum Trust ETF",
+                    "weight": 4.61,
+                    "type": "other"
+                },
+                {
+                    "symbol": "68373M107",
+                    "name": "Opera Ltd",
+                    "weight": 4.6,
+                    "type": "other"
+                },
+                {
+                    "symbol": "70450Y103",
+                    "name": "PayPal Holdings Inc",
+                    "weight": 4.24,
+                    "type": "other"
+                },
+                {
+                    "symbol": "58733R102",
+                    "name": "MercadoLibre Inc",
+                    "weight": 4.24,
+                    "type": "other"
+                }
+            ],
+            "open": 26.190001,
+            "high": 26.844999,
+            "low": 25.629999,
+            "close": 26.610001,
+            "volume": 210507
         },
         {
             "date": "2025-11-25",
@@ -2665,6 +2731,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

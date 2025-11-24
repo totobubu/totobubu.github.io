@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 34.195,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 33.895,
         "englishName": "Roundhill Innovation-100 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 975140,
-        "AvgVolume": 1047953,
+        "Volume": 1037353,
+        "AvgVolume": 1040153,
         "sharesOutstanding": null,
         "52Week": "29.26 - 43.863",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 34.1955,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1701498,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1035493,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -3801,7 +3788,21 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.224641
+            "amountFixed": 0.224641,
+            "open": 34.82,
+            "high": 34.955002,
+            "low": 33.360001,
+            "close": 33.380001,
+            "volume": 1251112,
+            "yield": 0.3774587881
+        },
+        {
+            "date": "2025-11-21",
+            "open": 33.490002,
+            "high": 33.91,
+            "low": 33.224998,
+            "close": 33.77,
+            "volume": 1575460
         },
         {
             "date": "2025-11-26",
@@ -3901,6 +3902,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

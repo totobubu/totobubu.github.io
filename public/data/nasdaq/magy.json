@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 53.7029,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 53.7475,
         "englishName": "Roundhill Magnificent Seven Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 90855,
-        "AvgVolume": 129746,
+        "Volume": 193491,
+        "AvgVolume": 135889,
         "sharesOutstanding": null,
         "52Week": "51.92 - 58.34",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 53.85,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 131694,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 128959,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1312,14 +1299,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.386332,
             "open": 53.709999,
             "high": 54.8997,
             "low": 53.116501,
             "close": 54.549999,
             "volume": 162678,
             "amount": 0.386,
-            "yield": 0.19163078
+            "yield": 0.1916369613
         },
         {
             "date": "2025-11-17",
@@ -1346,8 +1333,21 @@
             "volume": 104947
         },
         {
+            "date": "2025-11-20",
+            "open": 55.165001,
+            "high": 55.450001,
+            "low": 53.064999,
+            "close": 53.27,
+            "volume": 388639
+        },
+        {
             "date": "2025-11-21",
-            "expected": true
+            "amountFixed": 0.369332,
+            "open": 53.130001,
+            "high": 53.807899,
+            "low": 52.299999,
+            "close": 53.25,
+            "volume": 222676
         },
         {
             "date": "2025-11-28",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 282.48,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 297.58,
         "englishName": "Marriott International, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 92124725248,
-        "marketCap": 76681412608,
-        "Volume": 564885,
-        "AvgVolume": 1460239,
+        "enterpriseValue": 91985182720,
+        "marketCap": 80780419072,
+        "Volume": 1320581,
+        "AvgVolume": 1461010,
         "sharesOutstanding": 268351795,
         "52Week": "205.4 - 307.52",
-        "Yield": 0.009204,
+        "Yield": 0.008737,
         "dividendRate": 2.68,
         "payoutRatio": 0.2743,
         "isin": "US5719032022",
@@ -52,32 +52,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 284.52,
-                "change": "down"
-            },
-            "enterpriseValue": {
-                "value": 92122038272,
-                "change": "up"
-            },
-            "marketCap": {
-                "value": 77235175424,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 781258,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1453801,
-                "change": "up"
-            },
-            "Yield": {
-                "value": 0.009138,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -64172,11 +64147,29 @@
             "volume": 1034229
         },
         {
+            "date": "2025-11-20",
+            "open": 285.420013,
+            "high": 289.359985,
+            "low": 281.809998,
+            "close": 282.380005,
+            "volume": 1215358,
+            "amount": 0.67,
+            "yield": 0.0114568
+        },
+        {
             "date": "2025-11-21",
-            "forecasted": true
+            "open": 284.369995,
+            "high": 298.029999,
+            "low": 284.269989,
+            "close": 295.839996,
+            "volume": 2383412
         },
         {
             "date": "2026-02-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

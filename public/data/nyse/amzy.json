@@ -9,16 +9,16 @@
         "underlying": "AMZN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 13.295,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 13.1956,
         "englishName": "YieldMax AMZN Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 661881,
-        "AvgVolume": 600179,
+        "Volume": 516193,
+        "AvgVolume": 621400,
         "sharesOutstanding": null,
-        "52Week": "13.145 - 20.62",
+        "52Week": "12.9 - 20.62",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 13.4241,
-                "change": "down"
+                "value": 13.09,
+                "change": "up"
             },
             "Volume": {
-                "value": 1087819,
+                "value": 748689,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 585881,
+                "value": 608173,
                 "change": "up"
             }
         }
@@ -5498,7 +5498,83 @@
         },
         {
             "date": "2025-11-20",
-            "amountFixed": 0.085
+            "amountFixed": 0.085,
+            "open": 13.56,
+            "high": 13.56,
+            "low": 12.97,
+            "close": 13,
+            "volume": 1022611,
+            "yield": 0.6268436578
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 24.41,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 23.56,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 19.6,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 16.9,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 10.56,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 8.87,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.53,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "AMZN  260116C00240000",
+                    "name": "AMZN US 01/16/26 C240",
+                    "weight": 1.94,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 1.45,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "AMZN  251128C00235000",
+                    "name": "AMAZON C CLL OPT 11/25 235",
+                    "weight": 0.01,
+                    "type": "option"
+                }
+            ],
+            "open": 12.97,
+            "high": 13.255,
+            "low": 12.9,
+            "close": 13.17,
+            "volume": 665992
         },
         {
             "date": "2025-11-26",
@@ -5598,6 +5674,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]

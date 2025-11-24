@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 44.15,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 44.2204,
         "englishName": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4035,
-        "AvgVolume": 8348,
+        "Volume": 5068,
+        "AvgVolume": 8560,
         "sharesOutstanding": null,
         "52Week": "38.59 - 51.29",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 44.53,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 12477,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 8321,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2160,7 +2147,62 @@
             "high": 44.316299,
             "low": 43.951,
             "close": 44.316299,
-            "volume": 5165
+            "volume": 5165,
+            "yield": 0.1865112534
+        },
+        {
+            "date": "2025-11-20",
+            "open": 44.950001,
+            "high": 45.110001,
+            "low": 43.6632,
+            "close": 43.6632,
+            "volume": 16759
+        },
+        {
+            "date": "2025-11-21",
+            "holdings": [
+                {
+                    "symbol": "4SPX  251219C01000260",
+                    "name": "SPX 12/19/2025 1000.26 C",
+                    "weight": 85.74,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 22.73,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 3.84,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 0.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 0.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 12.47,
+                    "type": "cash"
+                }
+            ],
+            "open": 43.73,
+            "high": 44.259998,
+            "low": 43.73,
+            "close": 44.212898,
+            "volume": 4628
         },
         {
             "date": "2025-11-25",
@@ -2260,6 +2302,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

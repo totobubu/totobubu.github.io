@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 11.2755,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 11.28,
         "englishName": "Invesco Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1736720,
-        "AvgVolume": 3001495,
+        "Volume": 2563943,
+        "AvgVolume": 2951553,
         "sharesOutstanding": null,
         "52Week": "10.7 - 12.07",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11.3078,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 4888087,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2978031,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -36364,7 +36351,19 @@
         },
         {
             "date": "2025-11-20",
-            "forecasted": true
+            "open": 11.3,
+            "high": 11.3022,
+            "low": 11.2001,
+            "close": 11.22,
+            "volume": 2466162
+        },
+        {
+            "date": "2025-11-21",
+            "open": 11.22,
+            "high": 11.29,
+            "low": 11.195,
+            "close": 11.25,
+            "volume": 3184685
         },
         {
             "date": "2025-12-19",
@@ -36384,6 +36383,10 @@
         },
         {
             "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

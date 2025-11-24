@@ -9,16 +9,16 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 11.61,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 11.05,
         "englishName": "GraniteShares YieldBoost MSTR ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12896,
-        "AvgVolume": 11719,
+        "Volume": 2268,
+        "AvgVolume": 11613,
         "sharesOutstanding": null,
-        "52Week": "11.47 - 25.17",
+        "52Week": "11.05 - 25.17",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 12.56,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 9455,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 11775,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -367,14 +354,14 @@
         },
         {
             "date": "2025-11-14",
-            "expected": true,
+            "amountFixed": 0.25907,
             "open": 12.68,
             "high": 12.73,
             "low": 12.63,
             "close": 12.65,
             "volume": 7629,
             "amount": 0.259,
-            "yield": 0.2265228707
+            "yield": 0.2265283912
         },
         {
             "date": "2025-11-17",
@@ -401,8 +388,21 @@
             "volume": 13111
         },
         {
+            "date": "2025-11-20",
+            "open": 11.8215,
+            "high": 11.9115,
+            "low": 11.33,
+            "close": 11.334,
+            "volume": 4090
+        },
+        {
             "date": "2025-11-21",
-            "expected": true
+            "amountFixed": 0.22031,
+            "open": 11.11,
+            "high": 11.11,
+            "low": 11.03,
+            "close": 11.045,
+            "volume": 3732
         },
         {
             "date": "2025-11-28",

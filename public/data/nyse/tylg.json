@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 35.56,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 35.0899,
         "englishName": "Global X Information Technology Covered Call & Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 100,
-        "AvgVolume": 2056,
+        "Volume": 1264,
+        "AvgVolume": 1626,
         "sharesOutstanding": null,
         "52Week": "25.575 - 37.54",
         "Yield": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 35.959,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 33,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 2100,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -6160,8 +6147,28 @@
             "volume": 100
         },
         {
+            "date": "2025-11-19",
+            "open": 35.757999,
+            "high": 35.757999,
+            "low": 35.757999,
+            "close": 35.757999,
+            "volume": 200
+        },
+        {
             "date": "2025-11-20",
-            "forecasted": true
+            "open": 35.939999,
+            "high": 35.368801,
+            "low": 34.7789,
+            "close": 34.93,
+            "volume": 1599
+        },
+        {
+            "date": "2025-11-21",
+            "open": 34.630001,
+            "high": 35.189999,
+            "low": 34.630001,
+            "close": 35.119999,
+            "volume": 2299
         },
         {
             "date": "2025-12-19",
@@ -6181,6 +6188,10 @@
         },
         {
             "date": "2026-04-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-20",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-20 04:40:52 KST",
-        "regularMarketPrice": 32.185,
+        "Update": "2025-11-22 04:22:48 KST",
+        "regularMarketPrice": 31.93,
         "englishName": "Defiance S&P 500 Target 30 Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8567,
-        "AvgVolume": 22514,
+        "Volume": 14931,
+        "AvgVolume": 22393,
         "sharesOutstanding": null,
         "52Week": "30.32 - 41.48",
         "Yield": null,
@@ -32,20 +32,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 32.225,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 24298,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 22509,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -4709,7 +4696,22 @@
         },
         {
             "date": "2025-11-20",
-            "expected": true
+            "expected": true,
+            "open": 32.75,
+            "high": 32.75,
+            "low": 31.780001,
+            "close": 31.75,
+            "volume": 13802,
+            "amount": 0.186,
+            "yield": 0.3573984733
+        },
+        {
+            "date": "2025-11-21",
+            "open": 31.68,
+            "high": 31.99,
+            "low": 31.67,
+            "close": 31.933001,
+            "volume": 20015
         },
         {
             "date": "2025-11-26",
@@ -4809,6 +4811,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-21",
             "forecasted": true
         }
     ]
