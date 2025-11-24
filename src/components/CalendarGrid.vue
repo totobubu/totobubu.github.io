@@ -304,7 +304,11 @@
     <Panel v-else id="t-calendar-grid">
         <template #header>
             <div class="header-left">
-                <Button label="오늘" class="p-button-sm" @click="goToToday" />
+                <Button
+                    label="오늘"
+                    class="p-button-sm"
+                    severity="primary"
+                    @click="goToToday" />
             </div>
             <div class="header-center">
                 <Button icon="pi pi-chevron-left" text @click="prevMonth" />

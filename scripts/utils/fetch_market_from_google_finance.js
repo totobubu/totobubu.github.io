@@ -94,7 +94,7 @@ async function fetchMarketFromGoogleFinance(symbol, page) {
 
         // 방법 1: URL에서 거래소 추출 (예: /quote/AAPW:BATS 또는 /quote/000100:KRX)
         const currentUrl = page.url();
-        const urlMatch = currentUrl.match(/\/quote\/[^:]+:([^?\/]+)/);
+        const urlMatch = currentUrl.match(/\/quote\/[^:]+:([^?/]+)/);
         if (urlMatch) {
             let exchange = urlMatch[1].toUpperCase();
             console.log(`[${symbol}] URL에서 거래소 발견: ${exchange}`);
@@ -136,7 +136,7 @@ async function fetchMarketFromGoogleFinance(symbol, page) {
                 .first();
             if ((await firstResult.count()) > 0) {
                 const href = await firstResult.getAttribute('href');
-                const hrefMatch = href.match(/\/quote\/[^:]+:([^?\/]+)/);
+                const hrefMatch = href.match(/\/quote\/[^:]+:([^?/]+)/);
                 if (hrefMatch) {
                     const exchange = hrefMatch[1].toUpperCase();
                     console.log(
@@ -151,7 +151,7 @@ async function fetchMarketFromGoogleFinance(symbol, page) {
 
                 // 상세 페이지 URL에서 거래소 추출
                 const detailUrl = page.url();
-                const detailMatch = detailUrl.match(/\/quote\/[^:]+:([^?\/]+)/);
+                const detailMatch = detailUrl.match(/\/quote\/[^:]+:([^?/]+)/);
                 if (detailMatch) {
                     const exchange = detailMatch[1].toUpperCase();
                     console.log(

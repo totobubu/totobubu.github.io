@@ -568,7 +568,7 @@ function findLogoFile(normalizedName, options = {}) {
                 candidateNames.add(numericWithSuffix[1]);
             }
             const upper = normalizedName.toUpperCase();
-            const suffixMatch = upper.match(/^([A-Z0-9]+)[\._-]?(KS|KQ)$/);
+            const suffixMatch = upper.match(/^([A-Z0-9]+)[._-]?(KS|KQ)$/);
             if (suffixMatch) {
                 candidateNames.add(suffixMatch[1].toLowerCase());
             }

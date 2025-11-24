@@ -41,6 +41,11 @@ service cloud.firestore {
         }
       }
     }
+    // stockMappings 컬렉션 규칙 (공용 매핑 정보)
+    match /stockMappings/{mappingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
   }
 }
 

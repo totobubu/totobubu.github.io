@@ -1,7 +1,7 @@
 // src/utils/uiHelpers.js
 const splitWeekdayTokens = (value) =>
     value
-        .split(/[\/,\s·]+/)
+        .split(/[/,\s·]+/)
         .map((part) => part.trim())
         .filter(Boolean);
 
