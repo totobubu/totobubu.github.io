@@ -55,31 +55,50 @@
         props.treeData.forEach((brokerage) => {
             brokerage.children?.forEach((account) => {
                 account.children?.forEach((asset) => {
-                    const symbol = asset.data.symbol || asset.data.name;
-                    if (!stocks[symbol]) {
-                        stocks[symbol] = {
-                            symbol: symbol,
+                    // 종목 키 생성: ISIN을 우선 사용, 없으면 symbol, 둘 다 없으면 name
+                    // 같은 ISIN은 같은 종목으로 그룹화
+                    const stockKey = asset.data.isin || asset.data.symbol || asset.data.name || `unknown-${asset.data.id}`;
+                    
+                    // 표시용 이름: koName이 승인되었으면 사용, 없으면 symbol 또는 name
+                    let displayName = asset.data.name;
+                    if (!displayName) {
+                        if (asset.data.koNameApprovalStatus === 'approved' && asset.data.koName) {
+                            displayName = asset.data.koName;
+                        } else if (asset.data.symbol) {
+                            displayName = asset.data.symbol;
+                        } else if (asset.data.koName) {
+                            displayName = asset.data.koName + ' (승인 대기)';
+                        } else if (asset.data.isin) {
+                            displayName = asset.data.isin;
+                        } else {
+                            displayName = '알 수 없음';
+                        }
+                    }
+                    
+                    if (!stocks[stockKey]) {
+                        stocks[stockKey] = {
+                            symbol: asset.data.symbol || asset.data.isin || stockKey,
                             type: asset.data.type,
-                            name: asset.data.name,
+                            name: displayName,
                             totalAmount: asset.data.amount || 0,
-                            totalQuantity: 1,
+                            totalQuantity: asset.data.amount || 0, // 수량은 amount로 사용
                             currency: asset.data.currency || 'KRW',
                             avgPrice: asset.data.amount || 0,
                             accounts: [],
                         };
                     } else {
-                        stocks[symbol].totalAmount += asset.data.amount || 0;
-                        stocks[symbol].totalQuantity += 1;
-                        stocks[symbol].avgPrice =
-                            stocks[symbol].totalAmount /
-                            stocks[symbol].totalQuantity;
+                        stocks[stockKey].totalAmount += asset.data.amount || 0;
+                        stocks[stockKey].totalQuantity += asset.data.amount || 0;
+                        stocks[stockKey].avgPrice =
+                            stocks[stockKey].totalAmount /
+                            stocks[stockKey].totalQuantity;
                     }
 
-                    stocks[symbol].accounts.push({
+                    stocks[stockKey].accounts.push({
                         brokerage: brokerage.data.name,
                         account: account.data.name,
                         amount: asset.data.amount || 0,
-                        quantity: 1,
+                        quantity: asset.data.amount || 0,
                     });
                 });
             });

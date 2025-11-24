@@ -313,7 +313,7 @@
         }
         isDownloading.value = true;
         const zip = new JSZip();
-        const dateForFilename = date.value.replace(/[\. ]/g, '');
+        const dateForFilename = date.value.replace(/[. ]/g, '');
 
         for (const symbol of selectedThumbnails.value) {
             const el = document.querySelector(

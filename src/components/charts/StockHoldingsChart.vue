@@ -130,7 +130,7 @@
         if (resolved) return resolved;
         if (
             holding?.symbol &&
-            /^[A-Z.\-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
+            /^[A-Z.-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
         ) {
             return holding.symbol.toUpperCase();
         }
@@ -142,7 +142,7 @@
         if (!displaySymbol) return false;
         return (
             displaySymbol !== holding.symbol &&
-            !/^[A-Z.\-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
+            !/^[A-Z.-]{2,6}$/.test(holding.symbol?.toUpperCase() ?? '')
         );
     };
 

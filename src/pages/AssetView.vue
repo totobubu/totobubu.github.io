@@ -821,36 +821,60 @@
             }
         }
 
-        // 계좌 생성
+        // 계좌 찾기 또는 생성
+        let accountId = null;
         try {
-            const accountId = await addAccount(
+            // 기존 계좌 목록 조회
+            const accounts = await loadAccounts(
                 user.value.uid,
                 memberId,
-                brokerageId,
-                {
-                    name: data.accountName,
-                    accountNumber: data.accountNumber,
-                }
+                brokerageId
             );
+
+            const existingAccount = accounts.find(
+                (acc) => acc.accountNumber === data.accountNumber
+            );
+
+            if (existingAccount) {
+                accountId = existingAccount.id;
+                console.log('기존 계좌 사용:', accountId);
+                toast.add({
+                    severity: 'info',
+                    summary: '알림',
+                    detail: '기존 계좌에 거래내역을 추가합니다.',
+                    life: 3000,
+                });
+            } else {
+                // 신규 계좌 생성
+                accountId = await addAccount(
+                    user.value.uid,
+                    memberId,
+                    brokerageId,
+                    {
+                        name: data.accountName,
+                        accountNumber: data.accountNumber,
+                    }
+                );
+                console.log('신규 계좌 생성:', accountId);
+                toast.add({
+                    severity: 'success',
+                    summary: '성공',
+                    detail: '새 계좌가 등록되었습니다.',
+                    life: 3000,
+                });
+            }
 
             uploadedTransactionData.value.accountId = accountId;
             uploadedTransactionData.value.brokerageId = brokerageId;
 
-            toast.add({
-                severity: 'success',
-                summary: '성공',
-                detail: '계좌가 등록되었습니다.',
-                life: 3000,
-            });
-
             // 종목명 매핑 다이얼로그 열기
             showStockMappingDialog.value = true;
         } catch (error) {
-            console.error('계좌 생성 실패:', error);
+            console.error('계좌 처리 실패:', error);
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '계좌 생성에 실패했습니다.',
+                detail: '계좌 처리에 실패했습니다.',
                 life: 3000,
             });
         }
