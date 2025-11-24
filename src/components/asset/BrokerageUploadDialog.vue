@@ -126,14 +126,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="field">
-                <label class="font-bold mb-2 block">계좌 이름 (선택)</label>
-                <InputText
-                    v-model="accountName"
-                    placeholder="예: 미국주식 계좌"
-                    class="w-full" />
-            </div>
         </div>
 
         <template #footer>
@@ -311,9 +303,9 @@
             extractedData.value = response.data;
             analysisComplete.value = true;
 
-            // 계좌 이름 자동 생성
+            // 계좌 이름 자동 생성 (계좌번호만 사용)
             if (extractedData.value?.metadata?.account_number) {
-                accountName.value = `${getBrokerageInfo(selectedBrokerage.value).name} ${extractedData.value.metadata.account_number}`;
+                accountName.value = extractedData.value.metadata.account_number;
             }
         } catch (error) {
             console.error('PDF 분석 실패:', error);

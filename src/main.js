@@ -50,6 +50,7 @@ use([
 // --- // ---
 
 import { MyPreset } from '@/config/theme';
+import ko from '@/config/locale/ko';
 
 const app = createApp(App);
 const head = createHead();
@@ -63,6 +64,7 @@ app.use(PrimeVue, {
             darkModeSelector: '.p-dark',
         },
     },
+    locale: ko,
 });
 app.use(ToastService);
 app.use(ConfirmationService);
