@@ -374,6 +374,35 @@ def resolve_market(symbol: str, detected: Optional[str]) -> str:
     return prompt_market(symbol)
 
 
+def check_existing_symbol(symbol: str) -> Optional[Tuple[str, Path]]:
+    """모든 시장에서 심볼이 이미 존재하는지 확인합니다.
+
+    Returns:
+        (market, nav_path) tuple if found, None otherwise
+    """
+    for market_choice in MARKET_CHOICES:
+        market_dir_name = MARKET_TO_DIR.get(market_choice, market_choice.lower())
+        market_dir = NAV_DIR / market_dir_name
+        if not market_dir.exists():
+            continue
+
+        # 모든 nav 파일 검색
+        for nav_file in market_dir.glob("*.json"):
+            try:
+                with nav_file.open(encoding="utf-8") as fp:
+                    entries = json.load(fp)
+                    if not isinstance(entries, list):
+                        continue
+
+                    for entry in entries:
+                        if entry.get("symbol") == symbol:
+                            return (market_choice, nav_file)
+            except (FileNotFoundError, json.JSONDecodeError):
+                continue
+
+    return None
+
+
 def resolve_executable(executable: str) -> str:
     """Return a platform-appropriate executable path."""
     system = platform.system().lower()
@@ -432,7 +461,10 @@ def run_update_workflow(symbols: List[Dict[str, str]]) -> None:
     # 신규 티커는 이미 process_symbol에서 IPO 날짜를 가져와서 nav에 저장했으므로
     # add-ipo-dates 단계는 건너뜁니다.
 
-    resolved_symbols = [s.get("resolved_symbol", "") for s in symbols]
+    # 빈 딕셔너리(스킵된 항목) 필터링
+    valid_symbols = [s for s in symbols if s.get("resolved_symbol")]
+    resolved_symbols = [s.get("resolved_symbol", "") for s in valid_symbols]
+
     if not resolved_symbols:
         print("[WARN] 처리할 티커가 없습니다.")
         return
@@ -506,6 +538,16 @@ def process_symbol(symbol: str) -> Dict[str, str]:
     isin, resolved_symbol = fetch_isin_with_fallback(normalized)
     if resolved_symbol != normalized:
         print(f"[INFO] {normalized} → {resolved_symbol} 로 재매핑")
+
+    # 기존 심볼 확인
+    existing = check_existing_symbol(resolved_symbol)
+    if existing:
+        existing_market, existing_path = existing
+        print(f"[WARN] {resolved_symbol}는 이미 {existing_market} 시장에 존재합니다.")
+        print(f"       위치: {existing_path.relative_to(ROOT_DIR)}")
+        print(f"[SKIP] 중복 방지를 위해 건너뜁니다.")
+        # 빈 딕셔너리 반환 (워크플로우에서 필터링됨)
+        return {}
 
     detected_market = determine_market_from_symbol(resolved_symbol)
     market = resolve_market(resolved_symbol, detected_market)
