@@ -3,15 +3,17 @@
  * 증권사별 종목명 매핑 관리
  *
  * Firestore 구조:
- * stockMappings/{brokerage}_{stockName}/
- *   - brokerage: string (toss, kb, mirae 등)
- *   - brokerageStockName: string (토스증권 종목명)
- *   - brokerageTicker: string (토스 내부 티커)
- *   - systemTicker: string (우리 시스템 티커, 예: AAPL)
- *   - stockInfo: object (종목 정보)
- *   - createdAt: timestamp
- *   - createdBy: string (최초 등록 사용자 ID)
- *   - updatedAt: timestamp
+ * stockMappings/{ISIN}/
+ *   - koName: string (한국어 종목명)
+ *   - isin: string (ISIN 코드)
+ *   - symbol: string (시스템 티커, 예: AAPL)
+ *   - market: string (시장, 예: NASDAQ, NYSE)
+ *   - longName: string (긴 종목명, optional)
+ *   - enName: string (영문 종목명, optional)
+ *   - yfSymbol: string (Yahoo Finance 티커, optional)
+ *   - ipoDate: string (상장일, optional)
+ *   - currency: string (통화, 예: USD, KRW, optional)
+ *   - company: string (회사명, optional)
  */
 
 import { ref } from 'vue';
@@ -29,21 +31,11 @@ import { db } from '@/firebase';
 import axios from 'axios';
 
 /**
- * 종목명 매핑 키 생성
+ * 매핑 정보 조회 (ISIN 기반)
  */
-const getMappingKey = (brokerage, stockName) => {
-    // 공백 제거 및 소문자 변환
-    const normalizedName = stockName.replace(/\s+/g, '_').toLowerCase();
-    return `${brokerage}_${normalizedName}`;
-};
-
-/**
- * 매핑 정보 조회
- */
-export const getStockMapping = async (brokerage, stockName) => {
+export const getStockMapping = async (isin) => {
     try {
-        const mappingKey = getMappingKey(brokerage, stockName);
-        const mappingRef = doc(db, 'stockMappings', mappingKey);
+        const mappingRef = doc(db, 'stockMappings', isin);
         const mappingDoc = await getDoc(mappingRef);
 
         if (mappingDoc.exists()) {
@@ -57,48 +49,49 @@ export const getStockMapping = async (brokerage, stockName) => {
 };
 
 /**
- * 매핑 정보 저장 (공용)
+ * 매핑 정보 저장 (ISIN 기반)
  */
-export const saveStockMapping = async (
-    brokerage,
-    stockName,
-    mappingData,
-    userId
-) => {
+export const saveStockMapping = async (isin, mappingData, userId) => {
     try {
-        // 디버깅: 현재 로그인한 사용자 확인
-        import('@/firebase').then(({ auth }) => {
-            console.log('Current User UID:', auth.currentUser?.uid);
-        });
+        if (!isin) {
+            throw new Error('ISIN is required');
+        }
 
-        const mappingKey = getMappingKey(brokerage, stockName);
-        const mappingRef = doc(db, 'stockMappings', mappingKey);
+        const mappingRef = doc(db, 'stockMappings', isin);
 
         // 기존 매핑 확인
         const existingDoc = await getDoc(mappingRef);
-        const now = new Date();
 
         const data = {
-            brokerage,
-            brokerageStockName: stockName,
-            brokerageTicker: mappingData.brokerageTicker, // ISIN (토스증권의 경우)
-            systemTicker: mappingData.systemTicker,
-            stockInfo: mappingData.stockInfo,
-            updatedAt: now,
+            koName: mappingData.koName,
+            isin: isin,
+            symbol: mappingData.symbol,
+            market: mappingData.market || null,
+            longName: mappingData.longName || null,
+            enName: mappingData.enName || null,
+            yfSymbol: mappingData.yfSymbol || mappingData.symbol || null,
+            ipoDate: mappingData.ipoDate || null,
+            currency: mappingData.currency || null,
+            company: mappingData.company || null,
         };
+
+        // Remove null values
+        Object.keys(data).forEach((key) => {
+            if (data[key] === null) {
+                delete data[key];
+            }
+        });
 
         if (existingDoc.exists()) {
             // 업데이트
             await setDoc(mappingRef, data, { merge: true });
         } else {
             // 신규 생성
-            data.createdAt = now;
-            data.createdBy = userId;
             await setDoc(mappingRef, data);
         }
 
         console.log(
-            `매핑 저장 성공: ${stockName} -> ${mappingData.systemTicker} (ISIN: ${mappingData.brokerageTicker})`
+            `매핑 저장 성공: ${mappingData.koName} -> ${mappingData.symbol} (ISIN: ${isin})`
         );
         return true;
     } catch (error) {
@@ -108,12 +101,11 @@ export const saveStockMapping = async (
 };
 
 /**
- * 매핑 정보 삭제
+ * 매핑 정보 삭제 (ISIN 기반)
  */
-export const deleteStockMapping = async (brokerage, stockName) => {
+export const deleteStockMapping = async (isin) => {
     try {
-        const mappingKey = getMappingKey(brokerage, stockName);
-        const mappingRef = doc(db, 'stockMappings', mappingKey);
+        const mappingRef = doc(db, 'stockMappings', isin);
         await deleteDoc(mappingRef);
         return true;
     } catch (error) {
@@ -164,22 +156,19 @@ export const searchSymbol = async (searchQuery) => {
 };
 
 /**
- * 여러 종목명을 한 번에 매핑 (배치)
+ * 여러 ISIN을 한 번에 조회 (배치)
  */
-export const batchGetStockMappings = async (brokerage, stockNames) => {
+export const batchGetStockMappings = async (isins) => {
     const mappings = new Map();
 
     try {
         // Firestore in 쿼리는 최대 10개까지만 가능하므로 청크로 나눔
         const chunkSize = 10;
-        for (let i = 0; i < stockNames.length; i += chunkSize) {
-            const chunk = stockNames.slice(i, i + chunkSize);
-            const mappingKeys = chunk.map((name) =>
-                getMappingKey(brokerage, name)
-            );
+        for (let i = 0; i < isins.length; i += chunkSize) {
+            const chunk = isins.slice(i, i + chunkSize);
 
-            const promises = mappingKeys.map((key) => {
-                const mappingRef = doc(db, 'stockMappings', key);
+            const promises = chunk.map((isin) => {
+                const mappingRef = doc(db, 'stockMappings', isin);
                 return getDoc(mappingRef);
             });
 
