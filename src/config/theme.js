@@ -21,6 +21,7 @@ export const MyPreset = definePreset(Lara, {
                 primary: {
                     color: '#ffc107',
                     inverseColor: '#1f2937',
+                    contrastColor: '#1f2937',
                     hoverColor: '#ffca28',
                     activeColor: '#ffb300',
                 },
@@ -38,6 +39,7 @@ export const MyPreset = definePreset(Lara, {
                 primary: {
                     color: '#ffe082',
                     inverseColor: '#111827',
+                    contrastColor: '#111827',
                     hoverColor: '#ffecb3',
                     activeColor: '#ffc107',
                 },
