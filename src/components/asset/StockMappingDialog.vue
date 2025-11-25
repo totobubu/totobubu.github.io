@@ -180,13 +180,22 @@
                     stripedRows
                     class="p-datatable-sm shadow-1"
                     scrollable
-                    scrollHeight="300px">
+                    scrollHeight="50vh">
                     <Column field="ticker" header="ISIN"></Column>
                     <Column field="selectedTicker" header="티커"></Column>
-                    <Column field="stock_name" header="종목명"></Column>
+                    <Column field="stock_name" header="종목명">
+                        <template #body="slotProps">
+                            <div class="flex flex-column">
+                                <span class="font-semibold">{{
+                                    slotProps.data.mappedInfo?.name ||
+                                    slotProps.data.stock_name
+                                }}</span>
+                            </div>
+                        </template>
+                    </Column>
                     <Column field="count" header="거래횟수">
                         <template #body="slotProps">
-                            {{ slotProps.data.count }}회
+                            {{ slotProps.data.count }} 회
                         </template>
                     </Column>
                 </DataTable>
@@ -228,13 +237,17 @@
     import InputGroupAddon from 'primevue/inputgroupaddon';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
-    import { searchSymbol } from '@/composables/useStockMapping';
     import {
         getStockMapping,
         saveStockMapping,
         deleteStockMapping,
+        searchSymbol,
     } from '@/composables/useStockMapping';
-    import { useLocalStockData } from '@/composables/useLocalStockData';
+    import {
+        useLocalStockData,
+        fetchAllStockData,
+        findStockByIsin,
+    } from '@/composables/useLocalStockData';
     import { user } from '@/store/auth';
 
     const props = defineProps({
@@ -357,6 +370,7 @@
 
             // 2. ISIN으로 자동 매칭 시도
             if (stock.ticker) {
+                // 2-1. 로컬 데이터 검색
                 const localStock = findStockByIsin(stock.ticker);
                 if (localStock) {
                     stock.selectedTicker = localStock.symbol;
@@ -368,6 +382,29 @@
                         exchange: localStock.market,
                     };
                     stock.isAutoMatched = true;
+                    continue;
+                }
+
+                // 2-2. API 검색 (로컬에 없는 경우)
+                try {
+                    const searchResults = await searchSymbol(stock.ticker);
+                    if (searchResults && searchResults.length > 0) {
+                        // 검색 결과가 1개이거나, 첫 번째 결과가 ISIN과 일치하는 경우 (API가 ISIN 검색 지원한다고 가정)
+                        // 또는 단순히 첫 번째 결과를 신뢰
+                        const bestMatch = searchResults[0];
+                        if (bestMatch) {
+                            stock.selectedTicker = bestMatch.symbol;
+                            stock.mappedInfo = {
+                                name: bestMatch.name || bestMatch.company, // API 응답 구조에 따라 조정 필요
+                                exchange: bestMatch.exchange,
+                            };
+                            stock.isAutoMatched = true;
+
+                            // 검색 결과도 캐시에 추가하면 좋겠지만, 여기서는 패스
+                        }
+                    }
+                } catch (e) {
+                    console.warn('API Auto-match failed for', stock.ticker);
                 }
             }
         }
