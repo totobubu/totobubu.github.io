@@ -218,11 +218,121 @@
         return tree;
     };
 
+    // 자산별 트리 데이터 생성
+    const createAssetTypeTreeData = (memberId) => {
+        const data = loadedMemberData.value[memberId];
+        if (!data) return [];
+
+        const groups = {
+            krw: {
+                key: 'krw',
+                data: {
+                    name: '원화',
+                    type: '자산그룹',
+                    icon: 'pi pi-money-bill',
+                    amount: 0,
+                    currency: 'KRW',
+                },
+                children: [],
+            },
+            foreign: {
+                key: 'foreign',
+                data: {
+                    name: '외화',
+                    type: '자산그룹',
+                    icon: 'pi pi-dollar',
+                    amount: 0,
+                    currency: 'USD', // 대표 통화
+                },
+                children: [],
+            },
+            domesticStock: {
+                key: 'domesticStock',
+                data: {
+                    name: '국내주식',
+                    type: '자산그룹',
+                    icon: 'pi pi-chart-line',
+                    amount: 0,
+                    currency: 'KRW',
+                },
+                children: [],
+            },
+            overseasStock: {
+                key: 'overseasStock',
+                data: {
+                    name: '해외주식',
+                    type: '자산그룹',
+                    icon: 'pi pi-globe',
+                    amount: 0,
+                    currency: 'USD', // 대표 통화
+                },
+                children: [],
+            },
+            coin: {
+                key: 'coin',
+                data: {
+                    name: '코인',
+                    type: '자산그룹',
+                    icon: 'pi pi-bitcoin',
+                    amount: 0,
+                    currency: 'KRW', // 대표 통화
+                },
+                children: [],
+            },
+        };
+
+        data.assets.forEach((asset) => {
+            let groupKey = '';
+
+            if (asset.type === '코인') {
+                groupKey = 'coin';
+            } else if (asset.type === '주식') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'domesticStock';
+                } else {
+                    groupKey = 'overseasStock';
+                }
+            } else if (asset.type === '현금' || asset.type === '외환예금') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'krw';
+                } else {
+                    groupKey = 'foreign';
+                }
+            }
+
+            if (groupKey) {
+                // 자산 노드 생성
+                const assetNode = {
+                    key: asset.id,
+                    data: {
+                        ...asset,
+                        name: `${asset.symbol ? asset.symbol : asset.name} - ${asset.amount} ${asset.currency}`,
+                        type: '자산',
+                        icon: getAssetTypeIcon(asset.type),
+                    },
+                };
+                groups[groupKey].children.push(assetNode);
+
+                // 그룹 합계 계산 (단순 합산은 통화가 다를 수 있어 주의 필요, 일단은 표시용으로 0 유지하거나 별도 로직 필요)
+                // 여기서는 개별 자산의 금액을 보여주는 것에 집중하고 그룹 합계는 추후 고도화
+            }
+        });
+
+        // 비어있는 그룹 제외하고 배열로 변환
+        return Object.values(groups).filter(
+            (group) => group.children.length > 0
+        );
+    };
+
     // 트리 데이터 맵
     const treeDataMap = computed(() => {
         const map = {};
         familyMembers.value.forEach((member) => {
-            map[member.id] = createTreeData(member.id);
+            if (viewMode.value === 'asset_type') {
+                map[member.id] = createAssetTypeTreeData(member.id);
+            } else {
+                map[member.id] = createTreeData(member.id);
+            }
         });
         return map;
     });

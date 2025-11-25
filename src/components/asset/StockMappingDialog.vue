@@ -1,6 +1,10 @@
 <!-- src/components/asset/StockMappingDialog.vue -->
 <template>
-    <Dialog v-model:visible="isVisible" modal header="종목명 매핑" :style="{ width: '900px', maxHeight: '90vh' }"
+    <Dialog
+        v-model:visible="isVisible"
+        modal
+        header="종목명 매핑"
+        :style="{ width: '900px', maxHeight: '90vh' }"
         :closable="!isProcessing">
         <div class="flex flex-column gap-4">
             <Message severity="info">
@@ -17,17 +21,25 @@
                 <h3 class="text-lg font-bold mb-3">
                     수동 매핑 필요 ({{ manualMappingStocks.length }})
                 </h3>
-                <div class="flex flex-column gap-3" style="max-height: 40vh; overflow-y: auto">
-                    <Card v-for="stock in manualMappingStocks" :key="stock.stock_name" class="shadow-1">
+                <div
+                    class="flex flex-column gap-3"
+                    style="max-height: 40vh; overflow-y: auto">
+                    <Card
+                        v-for="stock in manualMappingStocks"
+                        :key="stock.stock_name"
+                        class="shadow-1">
                         <template #content>
                             <div class="flex flex-column gap-3">
                                 <!-- 종목 정보 (가로 1줄) -->
-                                <div class="flex justify-content-between align-items-center gap-3">
-                                    <div class="flex align-items-center gap-3 flex-1">
+                                <div
+                                    class="flex justify-content-between align-items-center gap-3">
+                                    <div
+                                        class="flex align-items-center gap-3 flex-1">
                                         <h4 class="m-0">
                                             {{ stock.stock_name }}
                                         </h4>
-                                        <div class="text-sm text-color-secondary flex gap-3">
+                                        <div
+                                            class="text-sm text-color-secondary flex gap-3">
                                             <span v-if="stock.ticker">
                                                 ISIN: {{ stock.ticker }}
                                             </span>
@@ -36,51 +48,93 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <Tag v-if="stock.mappedTicker" value="매핑 완료" severity="success"
+                                    <Tag
+                                        v-if="stock.mappedTicker"
+                                        value="매핑 완료"
+                                        severity="success"
                                         icon="pi pi-check" />
-                                    <Button v-else icon="pi pi-link" label="티커 매핑" size="small"
-                                        :disabled="!stock.selectedTicker" @click="mapStock(stock)" />
+                                    <Button
+                                        v-else
+                                        icon="pi pi-link"
+                                        label="티커 매핑"
+                                        size="small"
+                                        :disabled="!stock.selectedTicker"
+                                        @click="mapStock(stock)" />
                                 </div>
 
                                 <!-- 검색 결과 (SelectButton 스타일) -->
-                                <div v-if="
-                                    stock.searchResults &&
-                                    stock.searchResults.length > 0 &&
-                                    !stock.mappedTicker
-                                " class="flex flex-column gap-2">
-                                    <div class="text-sm font-semibold text-color-secondary">
-                                        검색 결과 ({{ stock.searchResults.length }}개):
+                                <div
+                                    v-if="
+                                        stock.searchResults &&
+                                        stock.searchResults.length > 0 &&
+                                        !stock.mappedTicker
+                                    "
+                                    class="flex flex-column gap-2">
+                                    <div
+                                        class="text-sm font-semibold text-color-secondary">
+                                        검색 결과 ({{
+                                            stock.searchResults.length
+                                        }}개):
                                     </div>
                                     <div class="flex flex-column gap-2">
-                                        <div v-for="result in stock.searchResults.slice(0, 5)" :key="result.symbol"
+                                        <div
+                                            v-for="result in stock.searchResults.slice(
+                                                0,
+                                                5
+                                            )"
+                                            :key="result.symbol"
                                             @click="selectTicker(stock, result)"
                                             class="p-3 border-round-md cursor-pointer transition-all transition-duration-200"
                                             :class="{
-                                                'surface-100': stock.selectedTicker !== result.symbol,
-                                                'bg-primary-500': stock.selectedTicker === result.symbol,
-                                            }" :style="{
-                                                border: stock.selectedTicker === result.symbol
-                                                    ? '2px solid var(--primary-color)'
-                                                    : '1px solid var(--surface-border)',
-                                                boxShadow: stock.selectedTicker === result.symbol
-                                                    ? '0 0 0 1px var(--primary-color)'
-                                                    : 'none'
+                                                'surface-100':
+                                                    stock.selectedTicker !==
+                                                    result.symbol,
+                                                'bg-primary-500':
+                                                    stock.selectedTicker ===
+                                                    result.symbol,
+                                            }"
+                                            :style="{
+                                                border:
+                                                    stock.selectedTicker ===
+                                                    result.symbol
+                                                        ? '2px solid var(--primary-color)'
+                                                        : '1px solid var(--surface-border)',
+                                                boxShadow:
+                                                    stock.selectedTicker ===
+                                                    result.symbol
+                                                        ? '0 0 0 1px var(--primary-color)'
+                                                        : 'none',
                                             }">
-                                            <div class="flex justify-content-between align-items-center">
+                                            <div
+                                                class="flex justify-content-between align-items-center">
                                                 <div>
-                                                    <div class="font-semibold" :class="{
-                                                        'text-white': stock.selectedTicker === result.symbol
-                                                    }">
+                                                    <div
+                                                        class="font-semibold"
+                                                        :class="{
+                                                            'text-white':
+                                                                stock.selectedTicker ===
+                                                                result.symbol,
+                                                        }">
                                                         {{ result.symbol }}
                                                     </div>
-                                                    <div class="text-sm" :class="{
-                                                        'text-white': stock.selectedTicker === result.symbol,
-                                                        'text-color-secondary': stock.selectedTicker !== result.symbol
-                                                    }">
+                                                    <div
+                                                        class="text-sm"
+                                                        :class="{
+                                                            'text-white':
+                                                                stock.selectedTicker ===
+                                                                result.symbol,
+                                                            'text-color-secondary':
+                                                                stock.selectedTicker !==
+                                                                result.symbol,
+                                                        }">
                                                         {{ result.name }}
                                                     </div>
                                                 </div>
-                                                <i v-if="stock.selectedTicker === result.symbol"
+                                                <i
+                                                    v-if="
+                                                        stock.selectedTicker ===
+                                                        result.symbol
+                                                    "
                                                     class="pi pi-check text-xl text-white"></i>
                                             </div>
                                         </div>
@@ -88,17 +142,25 @@
                                 </div>
 
                                 <!-- 기존 매핑 정보 표시 -->
-                                <div v-if="stock.mappedTicker" class="surface-100 p-3 border-round">
-                                    <div class="flex justify-content-between align-items-center">
+                                <div
+                                    v-if="stock.mappedTicker"
+                                    class="surface-100 p-3 border-round">
+                                    <div
+                                        class="flex justify-content-between align-items-center">
                                         <div>
                                             <div class="font-semibold">
                                                 {{ stock.mappedTicker }}
                                             </div>
-                                            <div class="text-sm text-color-secondary">
+                                            <div
+                                                class="text-sm text-color-secondary">
                                                 {{ stock.mappedInfo?.name }}
                                             </div>
                                         </div>
-                                        <Button icon="pi pi-times" text rounded severity="danger"
+                                        <Button
+                                            icon="pi pi-times"
+                                            text
+                                            rounded
+                                            severity="danger"
                                             @click="unmapStock(stock)" />
                                     </div>
                                 </div>
@@ -113,7 +175,11 @@
                 <h3 class="text-lg font-bold mb-3">
                     자동 매핑됨 ({{ autoMatchedStocks.length }})
                 </h3>
-                <DataTable :value="autoMatchedStocks" stripedRows class="p-datatable-sm shadow-1" scrollable
+                <DataTable
+                    :value="autoMatchedStocks"
+                    stripedRows
+                    class="p-datatable-sm shadow-1"
+                    scrollable
                     scrollHeight="300px">
                     <Column field="ticker" header="ISIN"></Column>
                     <Column field="selectedTicker" header="티커"></Column>
@@ -134,303 +200,307 @@
 
         <template #footer>
             <div class="flex justify-content-between">
-                <Button label="나중에 하기" severity="secondary" @click="skipMapping" :disabled="isProcessing" />
-                <Button label="완료" @click="completeMapping" :loading="isProcessing" />
+                <Button
+                    label="나중에 하기"
+                    severity="secondary"
+                    @click="skipMapping"
+                    :disabled="isProcessing" />
+                <Button
+                    label="완료"
+                    @click="completeMapping"
+                    :loading="isProcessing" />
             </div>
         </template>
     </Dialog>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
-import Dialog from 'primevue/dialog';
-import Button from 'primevue/button';
-import Card from 'primevue/card';
-import InputText from 'primevue/inputtext';
-import Message from 'primevue/message';
-import Tag from 'primevue/tag';
-import Chip from 'primevue/chip';
-import Skeleton from 'primevue/skeleton';
-import InputGroup from 'primevue/inputgroup';
-import InputGroupAddon from 'primevue/inputgroupaddon';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import { searchSymbol } from '@/composables/useStockMapping';
-import {
-    getStockMapping,
-    saveStockMapping,
-    deleteStockMapping,
-} from '@/composables/useStockMapping';
-import { user } from '@/store/auth';
+    import { ref, computed, watch } from 'vue';
+    import Dialog from 'primevue/dialog';
+    import Button from 'primevue/button';
+    import Card from 'primevue/card';
+    import InputText from 'primevue/inputtext';
+    import Message from 'primevue/message';
+    import Tag from 'primevue/tag';
+    import Chip from 'primevue/chip';
+    import Skeleton from 'primevue/skeleton';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import { searchSymbol } from '@/composables/useStockMapping';
+    import {
+        getStockMapping,
+        saveStockMapping,
+        deleteStockMapping,
+    } from '@/composables/useStockMapping';
+    import { useLocalStockData } from '@/composables/useLocalStockData';
+    import { user } from '@/store/auth';
 
-const props = defineProps({
-    visible: {
-        type: Boolean,
-        default: false,
-    },
-    transactions: {
-        type: Array,
-        required: true,
-    },
-    brokerage: {
-        type: String,
-        required: true,
-    },
-});
-
-const emit = defineEmits(['update:visible', 'mapping-complete']);
-
-const isVisible = computed({
-    get: () => props.visible,
-    set: (value) => emit('update:visible', value),
-});
-
-const isProcessing = ref(false);
-
-// 매핑되지 않은 종목 추출 및 구조화
-const unmappedStocks = ref([]);
-
-// 수동 매핑이 필요한 종목
-const manualMappingStocks = computed(() => {
-    return unmappedStocks.value.filter((s) => !s.isAutoMatched);
-});
-
-// 자동 매핑된 종목
-const autoMatchedStocks = computed(() => {
-    return unmappedStocks.value.filter((s) => s.isAutoMatched);
-});
-
-// 디바운스 유틸리티
-const debounce = (func, wait) => {
-    let timeout;
-    return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
-};
-
-const isLoading = ref(false);
-
-// 거래내역에서 고유 종목 추출
-const extractUniqueStocks = async () => {
-    isLoading.value = true;
-    const stockMap = new Map();
-
-    // 종목별로 그룹화
-    props.transactions.forEach((t) => {
-        const key = t.stock_name;
-        if (!stockMap.has(key)) {
-            stockMap.set(key, {
-                stock_name: t.stock_name,
-                ticker: t.ticker, // ISIN
-                count: 0,
-                searchQuery: '',
-                searchResults: [],
-                selectedTicker: null,
-                mappedTicker: null,
-                mappedInfo: null,
-                isAutoMatched: false, // 자동 매핑 여부
-            });
-        }
-        stockMap.get(key).count++;
+    const props = defineProps({
+        visible: {
+            type: Boolean,
+            default: false,
+        },
+        transactions: {
+            type: Array,
+            required: true,
+        },
+        brokerage: {
+            type: String,
+            required: true,
+        },
     });
 
-    // 배열로 변환
-    const stocks = Array.from(stockMap.values());
+    const emit = defineEmits(['update:visible', 'mapping-complete']);
 
-    // 기존 매핑 로드 및 ISIN 자동 검색
-    for (const stock of stocks) {
-        // 1. 기존 매핑 확인
-        const mapping = await getStockMapping(
-            props.brokerage,
-            stock.stock_name
-        );
-        if (mapping) {
-            stock.mappedTicker = mapping.systemTicker;
-            stock.mappedInfo = mapping.stockInfo;
-            // 이미 매핑된 경우 수동 리스트에 표시 (수정 가능하도록) 또는 자동 리스트로 보낼 수도 있음
-            // 요구사항: "확실한 매핑일 경우 하단에 나열" -> 이미 매핑된 것도 포함?
-            // 일단 이미 매핑된 것은 수동 리스트에서 '매핑 완료'로 표시하는 기존 로직 유지
-        } else if (stock.ticker) {
-            // 2. 매핑이 없고 ISIN이 있으면 자동 검색 시도
+    const isVisible = computed({
+        get: () => props.visible,
+        set: (value) => emit('update:visible', value),
+    });
+
+    const isProcessing = ref(false);
+
+    // 매핑되지 않은 종목 추출 및 구조화
+    const unmappedStocks = ref([]);
+
+    // 수동 매핑이 필요한 종목
+    const manualMappingStocks = computed(() => {
+        return unmappedStocks.value.filter((s) => !s.isAutoMatched);
+    });
+
+    // 자동 매핑된 종목
+    const autoMatchedStocks = computed(() => {
+        return unmappedStocks.value.filter((s) => s.isAutoMatched);
+    });
+
+    // 디바운스 유틸리티
+    const debounce = (func, wait) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), wait);
+        };
+    };
+
+    const isLoading = ref(false);
+    const { fetchAllStockData, findStockByIsin } = useLocalStockData();
+
+    // 거래내역에서 고유 종목 추출
+    const extractUniqueStocks = async () => {
+        isLoading.value = true;
+
+        // 로컬 데이터 로드 (이미 로드되었으면 즉시 리턴됨)
+        await fetchAllStockData();
+
+        const stockMap = new Map();
+
+        // 종목별로 그룹화
+        props.transactions.forEach((t) => {
+            // 수량이 없거나 0 이하면 스킵 (배당, 환전 등)
+            if (!t.quantity || t.quantity <= 0) return;
+
+            // 그룹 키: 티커가 있으면 티커(ISIN), 없으면 종목명
+            const key = t.ticker || t.stock_name;
+
+            if (!stockMap.has(key)) {
+                stockMap.set(key, {
+                    stock_name: t.stock_name, // 대표 이름 (가장 긴 것으로 업데이트)
+                    originalNames: new Set([t.stock_name]), // 원본 이름들
+                    ticker: t.ticker,
+                    count: 0,
+                    searchQuery: '',
+                    searchResults: [],
+                    selectedTicker: null,
+                    mappedTicker: null,
+                    mappedInfo: null,
+                });
+            }
+
+            const group = stockMap.get(key);
+            group.count++;
+            group.originalNames.add(t.stock_name);
+
+            // 더 긴 이름이 있으면 대표 이름 업데이트 (정보가 더 많을 확률 높음)
+            if (t.stock_name.length > group.stock_name.length) {
+                group.stock_name = t.stock_name;
+            }
+        });
+
+        // 배열로 변환
+        const stocks = Array.from(stockMap.values());
+
+        // 기존 매핑 정보 로드
+        for (const stock of stocks) {
+            // 대표 이름으로 매핑 조회
+            let mapping = await getStockMapping(
+                props.brokerage,
+                stock.stock_name
+            );
+
+            // 매핑이 없으면 다른 이름들도 시도
+            if (!mapping && stock.originalNames.size > 1) {
+                for (const name of stock.originalNames) {
+                    if (name === stock.stock_name) continue;
+                    mapping = await getStockMapping(props.brokerage, name);
+                    if (mapping) break;
+                }
+            }
+
+            if (mapping) {
+                stock.mappedTicker = mapping.systemTicker;
+                stock.mappedInfo = mapping.stockInfo;
+            }
+        }
+
+        unmappedStocks.value = stocks;
+        isLoading.value = false;
+    };
+
+    // 티커 검색 (디바운스 적용)
+    const onSearchTicker = async (stock) => {
+        if (!stock.searchQuery || stock.searchQuery.length < 2) {
+            stock.searchResults = [];
+            return;
+        }
+
+        // 2. 매핑이 없고 ISIN이 있으면 로컬 데이터 확인 및 자동 검색 시도
+        if (!stock.mappedTicker && stock.ticker) {
+            // 2-1. 로컬 데이터에서 ISIN으로 검색
+            const localStock = findStockByIsin(stock.ticker);
+            if (localStock) {
+                stock.selectedTicker = localStock.symbol;
+                stock.mappedInfo = {
+                    name:
+                        localStock.koName ||
+                        localStock.name ||
+                        localStock.company,
+                    exchange: localStock.market,
+                };
+                stock.isAutoMatched = true;
+                return; // 다음 종목으로 이동
+            }
+
+            // 2-2. 로컬 데이터에 없으면 Yahoo Finance 검색 시도
             try {
                 const results = await searchSymbol(stock.ticker);
                 if (results && results.length > 0) {
-                    stock.searchResults = results;
-
-                    // ISIN 형식의 심볼 필터링 (.SG, .KS 등이 붙은 것)
-                    const pureSymbols = results.filter(r => !r.symbol.includes('.'));
-                    const isinSymbols = results.filter(r => r.symbol.includes('.'));
-
-                    // 결과가 1개면 자동 선택 및 자동 매핑 리스트로 이동
-                    if (results.length === 1) {
-                        selectTicker(stock, results[0]);
-                        stock.isAutoMatched = true;
-                    }
-                    // 순수 심볼이 1개이고 나머지가 ISIN 형식이면, 순수 심볼 자동 선택
-                    else if (pureSymbols.length === 1 && isinSymbols.length > 0) {
-                        selectTicker(stock, pureSymbols[0]);
-                        stock.isAutoMatched = true;
-                    }
-                    else {
-                        stock.searchQuery = stock.ticker; // 검색창에 ISIN 표시
-                    }
-                } else {
-                    // 검색 결과가 없으면 검색창 비워두기 (사용자가 직접 입력)
-                    stock.searchQuery = '';
+                    const firstResult = results[0];
+                    stock.selectedTicker = firstResult.symbol;
+                    stock.mappedInfo = {
+                        name: firstResult.name,
+                        exchange: firstResult.exchange,
+                    };
+                    stock.isAutoMatched = true;
+                    return; // 자동 매칭되었으므로 추가 검색 불필요
                 }
-            } catch (e) {
-                console.warn('ISIN 자동 검색 실패:', e);
-                stock.searchQuery = '';
+            } catch (error) {
+                console.warn(
+                    `ISIN (${stock.ticker})으로 Yahoo Finance 검색 실패:`,
+                    error
+                );
+                // 실패해도 계속 진행하여 searchQuery로 검색 시도
             }
         }
-    }
 
-    unmappedStocks.value = stocks;
-    isLoading.value = false;
-};
-
-// 티커 검색 (디바운스 적용)
-const onSearchTicker = async (stock) => {
-    if (!stock.searchQuery || stock.searchQuery.length < 2) {
-        stock.searchResults = [];
-        return;
-    }
-
-    try {
-        const results = await searchSymbol(stock.searchQuery);
-        stock.searchResults = results;
-    } catch (error) {
-        console.error('티커 검색 실패:', error);
-        stock.searchResults = [];
-    }
-};
-
-const debouncedSearch = debounce((stock) => onSearchTicker(stock), 500);
-
-// 티커 선택
-const selectTicker = (stock, result) => {
-    stock.selectedTicker = result.symbol;
-    stock.mappedInfo = {
-        name: result.name,
-        exchange: result.exchange,
+        try {
+            const results = await searchSymbol(stock.searchQuery);
+            stock.searchResults = results;
+        } catch (error) {
+            console.error('티커 검색 실패:', error);
+            stock.searchResults = [];
+        }
     };
-};
 
-// 종목 매핑 (수동)
-const mapStock = async (stock) => {
-    if (!stock.selectedTicker) return;
+    const debouncedSearch = debounce((stock) => onSearchTicker(stock), 500);
 
-    if (!user.value?.uid) {
-        console.error('로그인이 필요합니다.');
-        return;
-    }
+    // 티커 선택
+    const selectTicker = (stock, result) => {
+        stock.selectedTicker = result.symbol;
+        stock.mappedInfo = {
+            name: result.name,
+            exchange: result.exchange,
+        };
+    };
 
-    try {
-        await saveStockMapping(
-            props.brokerage,
-            stock.stock_name,
-            {
-                brokerageTicker: stock.ticker, // ISIN
-                systemTicker: stock.selectedTicker,
-                stockInfo: stock.mappedInfo,
-            },
-            user.value.uid
-        );
+    // 종목 매핑 (수동)
+    const mapStock = async (stock) => {
+        if (!stock.selectedTicker) return;
 
-        stock.mappedTicker = stock.selectedTicker;
-        stock.searchQuery = '';
-        stock.searchResults = [];
-        stock.selectedTicker = null;
-    } catch (error) {
-        console.error('매핑 저장 실패:', error);
-    }
-};
-
-// 매핑 해제
-const unmapStock = async (stock) => {
-    try {
-        await deleteStockMapping(props.brokerage, stock.stock_name);
-        stock.mappedTicker = null;
-        stock.mappedInfo = null;
-    } catch (error) {
-        console.error('매핑 해제 실패:', error);
-    }
-};
-
-// 매핑 완료
-const completeMapping = async () => {
-    isProcessing.value = true;
-
-    // 1. 자동 매핑된 항목들 일괄 저장
-    const autoSavePromises = autoMatchedStocks.value.map((stock) => {
-        // 이미 저장된(mappedTicker가 있는) 경우는 제외
-        if (stock.mappedTicker) return Promise.resolve();
-
-        if (!user.value?.uid) return Promise.resolve();
-
-        return saveStockMapping(
-            props.brokerage,
-            stock.stock_name,
-            {
-                brokerageTicker: stock.ticker,
-                systemTicker: stock.selectedTicker,
-                stockInfo: stock.mappedInfo,
-            },
-            user.value.uid
-        )
-            .then(() => {
-                stock.mappedTicker = stock.selectedTicker;
-            })
-            .catch((err) => {
-                console.error(
-                    `자동 매핑 저장 실패 (${stock.stock_name}):`,
-                    err
-                );
-                // 권한 오류 등으로 저장이 실패하더라도, 현재 세션에서는 자산을 등록할 수 있도록 처리
-                stock.mappedTicker = stock.selectedTicker;
-            });
-    });
-
-    await Promise.all(autoSavePromises);
-
-    // 2. 결과 방출
-    const mappingMap = new Map();
-    unmappedStocks.value.forEach((stock) => {
-        // 수동 매핑 완료된 것 + 자동 매핑된 것 모두 포함
-        if (
-            stock.mappedTicker ||
-            (stock.isAutoMatched && stock.selectedTicker)
-        ) {
-            mappingMap.set(stock.stock_name, {
-                systemTicker: stock.mappedTicker || stock.selectedTicker,
-                info: stock.mappedInfo,
-            });
+        if (!user.value?.uid) {
+            console.error('로그인이 필요합니다.');
+            return;
         }
-    });
 
-    isProcessing.value = false;
-    emit('mapping-complete', mappingMap);
-    closeDialog();
-};
+        try {
+            await saveStockMapping(
+                props.brokerage,
+                stock.stock_name,
+                {
+                    brokerageTicker: stock.ticker, // ISIN
+                    systemTicker: stock.selectedTicker,
+                    stockInfo: stock.mappedInfo,
+                },
+                user.value.uid
+            );
 
-// 나중에 하기
-const skipMapping = () => {
-    closeDialog();
-};
-
-// 다이얼로그 닫기
-const closeDialog = () => {
-    isVisible.value = false;
-};
-
-// visible 변경 시 데이터 로드
-watch(
-    () => props.visible,
-    (newVal) => {
-        if (newVal) {
-            extractUniqueStocks();
+            stock.mappedTicker = stock.selectedTicker;
+            stock.searchQuery = '';
+            stock.searchResults = [];
+            stock.selectedTicker = null;
+        } catch (error) {
+            console.error('매핑 저장 실패:', error);
         }
-    }
-);
+    };
+
+    // 매핑 해제
+    const unmapStock = async (stock) => {
+        try {
+            await deleteStockMapping(props.brokerage, stock.stock_name);
+            stock.mappedTicker = null;
+            stock.mappedInfo = null;
+        } catch (error) {
+            console.error('매핑 해제 실패:', error);
+        }
+    };
+
+    // 매핑 완료
+    const completeMapping = () => {
+        // 매핑 정보를 거래내역에 적용
+        const mappingMap = new Map();
+        unmappedStocks.value.forEach((stock) => {
+            if (stock.mappedTicker) {
+                // 모든 원본 이름에 대해 매핑 정보 생성
+                stock.originalNames.forEach((name) => {
+                    mappingMap.set(name, {
+                        systemTicker: stock.mappedTicker,
+                        info: stock.mappedInfo,
+                    });
+                });
+            }
+        });
+
+        emit('mapping-complete', mappingMap);
+        closeDialog();
+    };
+
+    // 나중에 하기
+    const skipMapping = () => {
+        closeDialog();
+    };
+
+    // 다이얼로그 닫기
+    const closeDialog = () => {
+        isVisible.value = false;
+    };
+
+    // visible 변경 시 데이터 로드
+    watch(
+        () => props.visible,
+        (newVal) => {
+            if (newVal) {
+                extractUniqueStocks();
+            }
+        }
+    );
 </script>

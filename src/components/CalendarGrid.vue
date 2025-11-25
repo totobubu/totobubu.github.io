@@ -292,6 +292,7 @@
             <Button icon="pi pi-chevron-left" text @click="prevMonth" />
             <Button
                 label="오늘"
+                severity="primary"
                 class="p-button-sm"
                 @click="goToToday"
                 variant="text" />
