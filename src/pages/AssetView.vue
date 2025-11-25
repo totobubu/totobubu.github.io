@@ -227,10 +227,16 @@
         if (!data) return [];
 
         const result = [];
+        console.log(
+            `[createAssetTypeData] Processing assets for member ${memberId}`,
+            data.assets
+        );
 
         data.assets.forEach((asset) => {
             let groupKey = '';
             let groupName = '';
+
+            console.log(`[createAssetTypeData] Checking asset:`, asset);
 
             if (asset.type === '코인') {
                 groupKey = 'coin';
@@ -1076,6 +1082,13 @@
             life: 5000,
         });
 
+        console.log('[handleMappingComplete] Starting transaction processing', {
+            memberId,
+            brokerageId,
+            accountId,
+            transactionCount: transactions.length,
+        });
+
         try {
             // 거래내역을 종목별로 그룹화하여 자산으로 등록
             const assetMap = new Map();
@@ -1107,9 +1120,10 @@
             for (const [ticker, assetData] of assetMap.entries()) {
                 try {
                     // 1. 자산 추가/업데이트
-                    // TODO: 기존 자산이 있는지 확인하고 업데이트하는 로직 필요 (현재는 무조건 추가)
-                    // 하지만 여기서는 새로운 자산으로 추가하는 로직만 있음.
-                    // 실제로는 기존 자산을 찾아서 수량을 업데이트해야 함.
+                    console.log(
+                        `[handleMappingComplete] Processing asset: ${ticker}`,
+                        assetData
+                    );
 
                     // 기존 자산 검색
                     const existingAsset = loadedMemberData.value[
@@ -1124,6 +1138,9 @@
                     let assetId;
                     if (existingAsset) {
                         assetId = existingAsset.id;
+                        console.log(
+                            `[handleMappingComplete] Updating existing asset: ${assetId}`
+                        );
                         await updateAsset(
                             user.value.uid,
                             memberId,
@@ -1136,6 +1153,9 @@
                             }
                         );
                     } else {
+                        console.log(
+                            `[handleMappingComplete] Creating new asset`
+                        );
                         assetId = await addAsset(
                             user.value.uid,
                             memberId,
@@ -1149,6 +1169,9 @@
                                 notes: assetData.notes,
                             }
                         );
+                        console.log(
+                            `[handleMappingComplete] New asset created: ${assetId}`
+                        );
                     }
 
                     // 2. 거래 내역 저장
@@ -1157,6 +1180,9 @@
                         assetData.transactions &&
                         assetData.transactions.length > 0
                     ) {
+                        console.log(
+                            `[handleMappingComplete] Saving ${assetData.transactions.length} transactions for asset ${assetId}`
+                        );
                         for (const transaction of assetData.transactions) {
                             await addTransaction(
                                 user.value.uid,
@@ -1167,6 +1193,10 @@
                                 transaction
                             );
                         }
+                    } else {
+                        console.warn(
+                            `[handleMappingComplete] No transactions to save for ${ticker} or invalid assetId`
+                        );
                     }
 
                     successCount++;
@@ -1174,6 +1204,9 @@
                     console.error(`자산 등록 실패 (${ticker}):`, error);
                 }
             }
+            console.log(
+                `[handleMappingComplete] Completed. Success count: ${successCount}`
+            );
 
             // 데이터 새로고침
             delete loadedMemberData.value[memberId];

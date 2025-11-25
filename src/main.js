@@ -11,6 +11,7 @@ import { isRecentlyAuthenticated } from './store/auth';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
+import Tooltip from 'primevue/tooltip';
 import './styles/style.scss';
 
 // --- [핵심 수정 1] ECharts 전역 등록 ---
@@ -68,6 +69,7 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(ConfirmationService);
+app.directive('tooltip', Tooltip);
 
 router.afterEach(() => {
     isRecentlyAuthenticated.value = false;

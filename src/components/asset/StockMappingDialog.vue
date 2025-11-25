@@ -517,20 +517,57 @@
     };
 
     // 매핑 완료
-    const completeMapping = () => {
+    const completeMapping = async () => {
         // 매핑 정보를 거래내역에 적용
         const mappingMap = new Map();
-        unmappedStocks.value.forEach((stock) => {
-            if (stock.mappedTicker) {
+
+        // 비동기 처리를 위해 Promise 배열 생성
+        const savePromises = [];
+
+        for (const stock of unmappedStocks.value) {
+            let ticker = stock.mappedTicker;
+            let info = stock.mappedInfo;
+
+            // 자동 매핑된 경우 (아직 DB에 저장되지 않았을 수 있음)
+            if (!ticker && stock.isAutoMatched && stock.selectedTicker) {
+                ticker = stock.selectedTicker;
+                // 자동 매핑된 정보도 DB에 저장하여 다음에 재사용
+                savePromises.push(
+                    saveStockMapping(
+                        props.brokerage,
+                        stock.stock_name,
+                        {
+                            brokerageTicker: stock.ticker,
+                            systemTicker: ticker,
+                            stockInfo: stock.mappedInfo,
+                        },
+                        user.value.uid
+                    )
+                );
+            }
+
+            if (ticker) {
                 // 모든 원본 이름에 대해 매핑 정보 생성
                 stock.originalNames.forEach((name) => {
                     mappingMap.set(name, {
-                        systemTicker: stock.mappedTicker,
-                        info: stock.mappedInfo,
+                        systemTicker: ticker,
+                        info: info,
                     });
                 });
             }
-        });
+        }
+
+        // 변경된 매핑 정보 저장 대기
+        if (savePromises.length > 0) {
+            try {
+                await Promise.all(savePromises);
+                console.log(
+                    `${savePromises.length}개의 자동 매핑 정보 저장 완료`
+                );
+            } catch (e) {
+                console.error('자동 매핑 정보 저장 실패:', e);
+            }
+        }
 
         emit('mapping-complete', mappingMap);
         closeDialog();
