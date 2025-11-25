@@ -14,7 +14,6 @@
 
     const options = ref([
         { label: '증권사 및 계좌 기준', value: 'account' },
-        { label: '주식 종목 기준', value: 'stock' },
         { label: '자산별 기준', value: 'asset_type' },
     ]);
 
