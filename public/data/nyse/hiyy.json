@@ -9,37 +9,12 @@
         "underlying": "HIMS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-22 04:22:48 KST",
-        "regularMarketPrice": 27.9,
-        "englishName": "YieldMax HIMS Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 9528,
-        "AvgVolume": 23502,
-        "sharesOutstanding": null,
-        "52Week": "26.7 - 53.97",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-11-25 04:20:52 KST",
         "isin": "US88636V4547",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 27.51,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 9821,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 23807,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1160,6 +1135,71 @@
             "low": 26.700001,
             "close": 28.069901,
             "volume": 12949
+        },
+        {
+            "date": "2025-11-24",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 58.49,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 37.96,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 35.57,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 3.28,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HIMS 251219C00046000",
+                    "name": "HIMS US 12/19/25 C46",
+                    "weight": 1.57,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 0.75,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HIMS 251128C00037500",
+                    "name": "HIMS & H CLL OPT 11/25 37.500",
+                    "weight": 0.27,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 251128C00041000",
+                    "name": "HIMS US 11/28/25 C41",
+                    "weight": 0.14,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 251128C00040000",
+                    "name": "HIMS US 11/28/25 C40",
+                    "weight": 0.11,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 251128C00038000",
+                    "name": "HIMS & H CLL OPT 11/25 38",
+                    "weight": 0.09,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-11-26",
