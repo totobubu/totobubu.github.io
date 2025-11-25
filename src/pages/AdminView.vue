@@ -19,6 +19,7 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
+    import InputText from 'primevue/inputtext';
     import ProgressSpinner from 'primevue/progressspinner';
     import Message from 'primevue/message';
 
@@ -183,14 +184,24 @@
 
             querySnapshot.forEach((doc) => {
                 const mapping = doc.data();
-                const market = mapping.stockInfo?.market || 'NASDAQ';
+                const market = mapping.stockInfo?.market || 'NASDAQ'; // Default to NASDAQ if missing, or logic to determine market
+                // Note: stockMappings doesn't explicitly store 'market' at top level usually,
+                // but let's assume we can infer it or it's in stockInfo.
+                // Actually, the user's request implies we should check if it matches *any* local data or specific market.
+                // Let's try to find it in the localData map using the symbol.
+                // Since symbol might not be unique across markets (rare but possible), ideally we need market.
+                // However, mapping key is `brokerage_stockName`.
+                // Let's assume systemTicker is unique enough or we check all markets.
 
-                // mapping has symbol (previously systemTicker)
+                // Better approach: The mapping has `systemTicker`. We check if we have this ticker in our local data.
+                // But we stored localData with market prefix.
+                // We need to find the item in localData.
+
                 // Let's iterate markets to find the symbol in localData
                 let localItem = null;
                 const markets = ['KOSPI', 'KOSDAQ', 'NASDAQ', 'NYSE', 'AMEX'];
                 for (const m of markets) {
-                    const key = `${m}_${mapping.symbol}`;
+                    const key = `${m}_${mapping.systemTicker}`;
                     if (localData.has(key)) {
                         localItem = localData.get(key);
                         break;
@@ -199,10 +210,20 @@
 
                 if (localItem) {
                     // Check if it matches exactly
-                    const isSymbolMatch = localItem.symbol === mapping.symbol;
+                    const isSymbolMatch =
+                        localItem.symbol === mapping.systemTicker;
                     const isIsinMatch =
-                        !mapping.isin || localItem.isin === mapping.isin;
-                    const isKoNameMatch = localItem.koName === mapping.koName;
+                        !mapping.brokerageTicker ||
+                        localItem.isin === mapping.brokerageTicker; // If mapping has no ISIN, ignore ISIN check? Or strict? User said "symbol, isin, koName"
+                    // Let's be strict if mapping has ISIN.
+                    // brokerageStockName is the koName from the approval
+                    // [수정] brokerageStockName이 koName의 앞부분과 일치하는 경우(잘린 경우)도 매칭으로 간주
+                    const isKoNameMatch =
+                        localItem.koName === mapping.brokerageStockName ||
+                        (localItem.koName &&
+                            localItem.koName.startsWith(
+                                mapping.brokerageStockName
+                            ));
 
                     if (isSymbolMatch && isIsinMatch && isKoNameMatch) {
                         filteredCount++;

@@ -2,10 +2,28 @@
 import { updatePrimaryPalette, updateSurfacePalette } from '@primeuix/themes';
 import { computed, ref, readonly, watchEffect } from 'vue';
 
+const LAYOUT_CONFIG_KEY = 'layoutConfig';
+
+const getSavedConfig = () => {
+    try {
+        const saved = localStorage.getItem(LAYOUT_CONFIG_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+        console.error('Error reading layout config:', e);
+        return null;
+    }
+};
+
+const savedConfig = getSavedConfig();
+
 const appState = ref({
-    primary: 'emerald',
-    surface: null,
-    darkMode: true,
+    primary: savedConfig?.primary || 'emerald',
+    surface: savedConfig?.surface || null,
+    darkMode: savedConfig?.darkMode !== undefined ? savedConfig.darkMode : true,
+});
+
+watchEffect(() => {
+    localStorage.setItem(LAYOUT_CONFIG_KEY, JSON.stringify(appState.value));
 });
 
 const primaryColors = ref([

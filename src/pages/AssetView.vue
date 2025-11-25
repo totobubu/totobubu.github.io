@@ -9,6 +9,7 @@
         useBrokerages,
         useAccounts,
         useAssets,
+        useTransactions,
     } from '@/composables/useAssetFirestore';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
@@ -33,6 +34,7 @@
     import AddAssetModal from '@/components/asset/AddAssetModal.vue';
     import BrokerageUploadDialog from '@/components/asset/BrokerageUploadDialog.vue';
     import StockMappingDialog from '@/components/asset/StockMappingDialog.vue';
+    import AssetTypeDataTable from '@/components/asset/AssetTypeDataTable.vue';
 
     useHead({ title: '자산관리' });
 
@@ -56,6 +58,7 @@
         useAccounts();
 
     const { loadAssets, addAsset, updateAsset, deleteAsset } = useAssets();
+    const { addTransaction } = useTransactions();
 
     // 선택된 탭
     const selectedTabIndex = ref('0');
@@ -218,7 +221,191 @@
         return tree;
     };
 
-    // 트리 데이터 맵
+    // 자산별 데이터 생성 (Flat List for DataTable)
+    const createAssetTypeData = (memberId) => {
+        const data = loadedMemberData.value[memberId];
+        if (!data) return [];
+
+        const result = [];
+        console.log(
+            `[createAssetTypeData] Processing assets for member ${memberId}`,
+            data.assets
+        );
+
+        data.assets.forEach((asset) => {
+            let groupKey = '';
+            let groupName = '';
+
+            console.log(`[createAssetTypeData] Checking asset:`, asset);
+
+            if (asset.type === '코인') {
+                groupKey = 'coin';
+                groupName = '코인';
+            } else if (asset.type === '주식') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'domesticStock';
+                    groupName = '국내주식';
+                } else {
+                    groupKey = 'overseasStock';
+                    groupName = '해외주식';
+                }
+            } else if (asset.type === '현금' || asset.type === '외환예금') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'krw';
+                    groupName = '원화';
+                } else {
+                    groupKey = 'foreign';
+                    groupName = '외화';
+                }
+            }
+
+            if (groupKey) {
+                // 수익률 계산 로직 (임시)
+                // 실제로는 거래내역을 기반으로 평단가를 계산해야 함
+                // 현재는 데이터에 평단가 정보가 없으므로 0으로 가정하거나 추후 구현 필요
+                // 여기서는 UI 테스트를 위해 임의의 값을 넣거나 0으로 처리
+                const currentPrice = asset.currentPrice || 0; // 현재가 (실시간 데이터 필요)
+                const avgPrice = asset.avgPrice || 0; // 평단가
+                const principal = avgPrice * asset.amount; // 원금
+                const valuation = currentPrice * asset.amount || asset.amount; // 평가금 (현금은 그 자체)
+                const profitAmount = valuation - principal;
+                const profitRate =
+                    principal > 0 ? (profitAmount / principal) * 100 : 0;
+
+                result.push({
+                    ...asset,
+                    groupKey,
+                    groupName,
+                    currentPrice,
+                    avgPrice,
+                    principal,
+                    valuation,
+                    profitAmount,
+                    profitRate,
+                    memberId, // 다이얼로그용
+                });
+            }
+        });
+
+        return result;
+    };
+
+    // 자산별 트리 데이터 생성
+    const createAssetTypeTreeData = (memberId) => {
+        const data = loadedMemberData.value[memberId];
+        if (!data) return [];
+
+        const groups = {
+            krw: {
+                key: 'krw',
+                data: {
+                    name: '원화',
+                    type: '자산그룹',
+                    icon: 'pi pi-money-bill',
+                    amount: 0,
+                    currency: 'KRW',
+                },
+                children: [],
+            },
+            foreign: {
+                key: 'foreign',
+                data: {
+                    name: '외화',
+                    type: '자산그룹',
+                    icon: 'pi pi-dollar',
+                    amount: 0,
+                    currency: 'USD', // 대표 통화
+                },
+                children: [],
+            },
+            domesticStock: {
+                key: 'domesticStock',
+                data: {
+                    name: '국내주식',
+                    type: '자산그룹',
+                    icon: 'pi pi-chart-line',
+                    amount: 0,
+                    currency: 'KRW',
+                },
+                children: [],
+            },
+            overseasStock: {
+                key: 'overseasStock',
+                data: {
+                    name: '해외주식',
+                    type: '자산그룹',
+                    icon: 'pi pi-globe',
+                    amount: 0,
+                    currency: 'USD', // 대표 통화
+                },
+                children: [],
+            },
+            coin: {
+                key: 'coin',
+                data: {
+                    name: '코인',
+                    type: '자산그룹',
+                    icon: 'pi pi-bitcoin',
+                    amount: 0,
+                    currency: 'KRW', // 대표 통화
+                },
+                children: [],
+            },
+        };
+
+        data.assets.forEach((asset) => {
+            let groupKey = '';
+
+            if (asset.type === '코인') {
+                groupKey = 'coin';
+            } else if (asset.type === '주식') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'domesticStock';
+                } else {
+                    groupKey = 'overseasStock';
+                }
+            } else if (asset.type === '현금' || asset.type === '외환예금') {
+                if (asset.currency === 'KRW') {
+                    groupKey = 'krw';
+                } else {
+                    groupKey = 'foreign';
+                }
+            }
+
+            if (groupKey) {
+                // 자산 노드 생성
+                const assetNode = {
+                    key: asset.id,
+                    data: {
+                        ...asset,
+                        name: `${asset.symbol ? asset.symbol : asset.name} - ${asset.amount} ${asset.currency}`,
+                        type: '자산',
+                        icon: getAssetTypeIcon(asset.type),
+                    },
+                };
+                groups[groupKey].children.push(assetNode);
+
+                // 그룹 합계 계산 (단순 합산은 통화가 다를 수 있어 주의 필요, 일단은 표시용으로 0 유지하거나 별도 로직 필요)
+                // 여기서는 개별 자산의 금액을 보여주는 것에 집중하고 그룹 합계는 추후 고도화
+            }
+        });
+
+        // 비어있는 그룹 제외하고 배열로 변환
+        return Object.values(groups).filter(
+            (group) => group.children.length > 0
+        );
+    };
+
+    // 자산별 데이터 맵
+    const assetTypeDataMap = computed(() => {
+        const map = {};
+        familyMembers.value.forEach((member) => {
+            map[member.id] = createAssetTypeData(member.id);
+        });
+        return map;
+    });
+
+    // 트리 데이터 맵 (기존 로직 유지, asset_type 모드에서는 사용 안 함)
     const treeDataMap = computed(() => {
         const map = {};
         familyMembers.value.forEach((member) => {
@@ -895,6 +1082,13 @@
             life: 5000,
         });
 
+        console.log('[handleMappingComplete] Starting transaction processing', {
+            memberId,
+            brokerageId,
+            accountId,
+            transactionCount: transactions.length,
+        });
+
         try {
             // 거래내역을 종목별로 그룹화하여 자산으로 등록
             const assetMap = new Map();
@@ -925,24 +1119,94 @@
             let successCount = 0;
             for (const [ticker, assetData] of assetMap.entries()) {
                 try {
-                    await addAsset(
-                        user.value.uid,
-                        memberId,
-                        brokerageId,
-                        accountId,
-                        {
-                            type: assetData.type,
-                            symbol: assetData.symbol,
-                            amount: assetData.amount,
-                            currency: assetData.currency,
-                            notes: assetData.notes,
-                        }
+                    // 1. 자산 추가/업데이트
+                    console.log(
+                        `[handleMappingComplete] Processing asset: ${ticker}`,
+                        assetData
                     );
+
+                    // 기존 자산 검색
+                    const existingAsset = loadedMemberData.value[
+                        memberId
+                    ]?.assets.find(
+                        (a) =>
+                            a.symbol === assetData.symbol &&
+                            a.brokerageId === brokerageId &&
+                            a.accountId === accountId
+                    );
+
+                    let assetId;
+                    if (existingAsset) {
+                        assetId = existingAsset.id;
+                        console.log(
+                            `[handleMappingComplete] Updating existing asset: ${assetId}`
+                        );
+                        await updateAsset(
+                            user.value.uid,
+                            memberId,
+                            brokerageId,
+                            accountId,
+                            assetId,
+                            {
+                                amount: existingAsset.amount + assetData.amount,
+                                // 평균단가 등은 계산 로직이 복잡하므로 일단 수량만 업데이트
+                            }
+                        );
+                    } else {
+                        console.log(
+                            `[handleMappingComplete] Creating new asset`
+                        );
+                        assetId = await addAsset(
+                            user.value.uid,
+                            memberId,
+                            brokerageId,
+                            accountId,
+                            {
+                                type: assetData.type,
+                                symbol: assetData.symbol,
+                                amount: assetData.amount,
+                                currency: assetData.currency,
+                                notes: assetData.notes,
+                            }
+                        );
+                        console.log(
+                            `[handleMappingComplete] New asset created: ${assetId}`
+                        );
+                    }
+
+                    // 2. 거래 내역 저장
+                    if (
+                        assetId &&
+                        assetData.transactions &&
+                        assetData.transactions.length > 0
+                    ) {
+                        console.log(
+                            `[handleMappingComplete] Saving ${assetData.transactions.length} transactions for asset ${assetId}`
+                        );
+                        for (const transaction of assetData.transactions) {
+                            await addTransaction(
+                                user.value.uid,
+                                memberId,
+                                brokerageId,
+                                accountId,
+                                assetId,
+                                transaction
+                            );
+                        }
+                    } else {
+                        console.warn(
+                            `[handleMappingComplete] No transactions to save for ${ticker} or invalid assetId`
+                        );
+                    }
+
                     successCount++;
                 } catch (error) {
                     console.error(`자산 등록 실패 (${ticker}):`, error);
                 }
             }
+            console.log(
+                `[handleMappingComplete] Completed. Success count: ${successCount}`
+            );
 
             // 데이터 새로고침
             delete loadedMemberData.value[memberId];
@@ -1029,8 +1293,8 @@
                     @click="openAddBrokerageDialog(selectedMember.id)" />
             </div>
 
-            <!-- TreeTable 구조로 자산 관리 -->
-            <Card>
+            <!-- TreeTable 구조로 자산 관리 (계좌 기준) -->
+            <Card v-if="viewMode === 'account'">
                 <template #header>
                     <div
                         class="flex justify-content-between align-items-center p-3">
@@ -1126,6 +1390,12 @@
                     </Card>
                 </template>
             </Card>
+
+            <!-- 자산별 기준 보기 (DataTable) -->
+            <div v-if="viewMode === 'asset_type'" class="mt-4">
+                <AssetTypeDataTable
+                    :assets="assetTypeDataMap[selectedMember.id] || []" />
+            </div>
 
             <!-- 종목 기준 보기 (별도 패널) -->
             <div v-if="viewMode === 'stock'" class="mt-4">

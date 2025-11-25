@@ -44,6 +44,11 @@ service cloud.firestore {
             match /assets/{assetId} {
               // 소유자는 자신의 자산에 접근 가능
               allow read, write: if isOwner(userId);
+              
+              // 거래내역 하위 컬렉션
+              match /transactions/{transactionId} {
+                allow read, write: if isOwner(userId);
+              }
             }
           }
         }
