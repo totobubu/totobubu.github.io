@@ -314,6 +314,7 @@
                     selectedTicker: null,
                     mappedTicker: null,
                     mappedInfo: null,
+                    isAutoMatched: false, // 자동 매칭 여부
                 });
             }
 
@@ -330,8 +331,9 @@
         // 배열로 변환
         const stocks = Array.from(stockMap.values());
 
-        // 기존 매핑 정보 로드
+        // 기존 매핑 정보 로드 및 자동 매칭 시도
         for (const stock of stocks) {
+            // 1. 기존 매핑 확인
             // 대표 이름으로 매핑 조회
             let mapping = await getStockMapping(
                 props.brokerage,
@@ -350,6 +352,23 @@
             if (mapping) {
                 stock.mappedTicker = mapping.systemTicker;
                 stock.mappedInfo = mapping.stockInfo;
+                continue; // 이미 매핑됨
+            }
+
+            // 2. ISIN으로 자동 매칭 시도
+            if (stock.ticker) {
+                const localStock = findStockByIsin(stock.ticker);
+                if (localStock) {
+                    stock.selectedTicker = localStock.symbol;
+                    stock.mappedInfo = {
+                        name:
+                            localStock.koName ||
+                            localStock.name ||
+                            localStock.company,
+                        exchange: localStock.market,
+                    };
+                    stock.isAutoMatched = true;
+                }
             }
         }
 

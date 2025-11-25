@@ -401,3 +401,70 @@ export const useAssets = () => {
         deleteAsset,
     };
 };
+
+/**
+ * 거래 내역 관리
+ */
+export const useTransactions = () => {
+    const isLoading = ref(false);
+
+    const loadTransactions = async (
+        userId,
+        memberId,
+        brokerageId,
+        accountId,
+        assetId
+    ) => {
+        if (!userId || !memberId || !brokerageId || !accountId || !assetId)
+            return [];
+        isLoading.value = true;
+        try {
+            const transactionsRef = collection(
+                db,
+                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}/transactions`
+            );
+            const snapshot = await getDocs(transactionsRef);
+            return snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+        } catch (error) {
+            console.error('거래 내역 불러오기 실패:', error);
+            return [];
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    const addTransaction = async (
+        userId,
+        memberId,
+        brokerageId,
+        accountId,
+        assetId,
+        transactionData
+    ) => {
+        if (!userId || !memberId || !brokerageId || !accountId || !assetId)
+            return;
+        try {
+            const transactionsRef = collection(
+                db,
+                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}/transactions`
+            );
+            const docRef = await addDoc(transactionsRef, {
+                ...transactionData,
+                createdAt: new Date(),
+            });
+            return docRef.id;
+        } catch (error) {
+            console.error('거래 내역 추가 실패:', error);
+            throw error;
+        }
+    };
+
+    return {
+        isLoading,
+        loadTransactions,
+        addTransaction,
+    };
+};
