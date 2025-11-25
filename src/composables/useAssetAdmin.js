@@ -2,7 +2,14 @@
 // 관리자용 자산 관리 기능
 
 import { ref } from 'vue';
-import { collectionGroup, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
+import {
+    collectionGroup,
+    query,
+    where,
+    getDocs,
+    updateDoc,
+    doc,
+} from 'firebase/firestore';
 import { db, auth } from '@/firebase';
 import { saveStockMapping } from '@/composables/useStockMapping';
 
@@ -87,7 +94,16 @@ export const useKoNameApprovals = () => {
  * koName 승인 처리
  * 승인 시 해당 symbol의 정식 koName으로 사용할 수 있도록 업데이트
  */
-export const approveKoName = async (userId, memberId, brokerageId, accountId, assetId, koName, symbol, isin) => {
+export const approveKoName = async (
+    userId,
+    memberId,
+    brokerageId,
+    accountId,
+    assetId,
+    koName,
+    symbol,
+    isin
+) => {
     try {
         const assetRef = doc(
             db,
@@ -100,15 +116,13 @@ export const approveKoName = async (userId, memberId, brokerageId, accountId, as
             approvedAt: new Date(),
         });
 
-        // stockMappings 컬렉션에 매핑 정보 저장
-        if (symbol && koName) {
+        // stockMappings 컬렉션에 매핑 정보 저장 (ISIN 기반, 최적화된 구조)
+        if (symbol && koName && isin) {
             await saveStockMapping(
-                brokerageId,
-                koName,
+                isin,
                 {
-                    brokerageTicker: isin,
-                    systemTicker: symbol,
-                    stockInfo: {}
+                    koName: koName,
+                    symbol: symbol,
                 },
                 auth.currentUser?.uid || 'admin'
             );
@@ -124,7 +138,13 @@ export const approveKoName = async (userId, memberId, brokerageId, accountId, as
 /**
  * koName 거부 처리
  */
-export const rejectKoName = async (userId, memberId, brokerageId, accountId, assetId) => {
+export const rejectKoName = async (
+    userId,
+    memberId,
+    brokerageId,
+    accountId,
+    assetId
+) => {
     try {
         const assetRef = doc(
             db,
@@ -161,17 +181,13 @@ export const syncApprovedToMappings = async () => {
 
         for (const docSnapshot of snapshot.docs) {
             const data = docSnapshot.data();
-            const pathParts = docSnapshot.ref.path.split('/');
-            const brokerageId = pathParts[5];
 
-            if (data.symbol && data.koName) {
+            if (data.symbol && data.koName && data.isin) {
                 await saveStockMapping(
-                    brokerageId,
-                    data.koName,
+                    data.isin,
                     {
-                        brokerageTicker: data.isin || '', // isin이 없을 수도 있음
-                        systemTicker: data.symbol,
-                        stockInfo: {}
+                        koName: data.koName,
+                        symbol: data.symbol,
                     },
                     auth.currentUser?.uid || 'admin'
                 );
@@ -186,4 +202,3 @@ export const syncApprovedToMappings = async () => {
         throw error;
     }
 };
-
