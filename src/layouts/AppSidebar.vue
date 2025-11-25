@@ -266,7 +266,11 @@
                     >
                     <template #body="{ data }">
                         <Skeleton v-if="isTableLoading"></Skeleton>
-                        <span v-else>{{ data.koName || data.symbol }}</span>
+                        <span v-else>{{
+                            data.currency === 'USD'
+                                ? data.symbol
+                                : data.koName || data.symbol
+                        }}</span>
                     </template>
                 </Column>
                 <Column field="company" sortable class="t-column-company">

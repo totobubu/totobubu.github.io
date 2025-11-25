@@ -19,6 +19,7 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
+    import InputText from 'primevue/inputtext';
     import ProgressSpinner from 'primevue/progressspinner';
     import Message from 'primevue/message';
 
