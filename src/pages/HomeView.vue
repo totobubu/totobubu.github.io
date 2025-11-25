@@ -30,14 +30,14 @@
             <Button
                 label="배당달력"
                 icon="pi pi-calendar"
-                severity="secondary"
+                severity="primary"
                 rounded
                 size="large"
                 @click="router.push('/calendar')" />
             <Button
                 label="백테스터"
                 icon="pi pi-history"
-                severity="secondary"
+                severity="primary"
                 rounded
                 size="large"
                 @click="router.push('/backtester')" />
@@ -45,7 +45,7 @@
                 v-if="!user"
                 label="로그인"
                 icon="pi pi-user"
-                severity="secondary"
+                severity="primary"
                 rounded
                 size="large"
                 @click="router.push('/login')" />
@@ -53,14 +53,14 @@
                 v-else
                 label="북마크"
                 icon="pi pi-star"
-                severity="secondary"
+                severity="primary"
                 rounded
                 size="large"
                 @click="router.push('/bookmarks')" />
             <Button
                 label="문의하기"
                 icon="pi pi-envelope"
-                severity="secondary"
+                severity="primary"
                 rounded
                 size="large"
                 @click="router.push('/contact')" />
