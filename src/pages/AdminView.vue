@@ -22,7 +22,8 @@
     import InputText from 'primevue/inputtext';
     import ProgressSpinner from 'primevue/progressspinner';
     import Dropdown from 'primevue/dropdown';
-    import ToggleButton from 'primevue/togglebutton';
+    import Message from 'primevue/message';
+    // import ToggleButton from 'primevue/togglebutton'; // removed - replaced by Dropdown filter
 
     useHead({ title: '관리자 - koName 승인' });
 
@@ -349,10 +350,10 @@
                 </div>
 
                 <Message
-                    v-else-if="pendingApprovals.length === 0"
+                    v-else-if="filteredApprovals.length === 0"
                     severity="info"
                     :closable="false">
-                    승인 대기 중인 koName이 없습니다.
+                    해당 필터에 맞는 항목이 없습니다.
                 </Message>
 
                 <DataTable
@@ -381,7 +382,13 @@
                     </Column>
                     <Column field="koName" header="한국어 종목명" sortable>
                         <template #body="{ data }">
-                            <strong>{{ data.koName }}</strong>
+                            <InputText
+                                v-model="data.koName"
+                                class="p-inputtext-sm w-full"
+                                placeholder="한국어 종목명 입력"
+                                :class="{
+                                    'border-orange-500': !data.koName,
+                                }" />
                         </template>
                     </Column>
 

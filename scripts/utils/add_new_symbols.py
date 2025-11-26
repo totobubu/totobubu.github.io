@@ -161,6 +161,11 @@ def prompt_company(symbol: str) -> Optional[str]:
     company = prompt_user(f"{symbol}의 회사명 (예: YieldMax, GraniteShares)", default="").strip()
     return company if company else None
 
+def prompt_ko_name(symbol: str) -> Optional[str]:
+    """한국어 종목명을 입력받습니다."""
+    ko_name = prompt_user(f"{symbol}의 한국어 종목명 (예: 삼성전자, 카카오)", default="").strip()
+    return ko_name if ko_name else None
+
 
 def prompt_underlying(symbol: str) -> Optional[str]:
     """기초자산 심볼을 입력받습니다."""
@@ -227,107 +232,6 @@ def fetch_ipo_date(symbol: str) -> Optional[str]:
         return None
 
 
-def ensure_nav_entry(
-    symbol: str,
-    market: str,
-    ipo_date: Optional[str],
-    isin: str,
-    company: Optional[str] = None,
-    underlying: Optional[str] = None,
-) -> Path:
-    """nav 파일에 심볼 정보를 추가하거나 업데이트합니다."""
-    # MARKET_TO_DIR를 사용하여 디렉토리 이름 결정
-    market_dir_name = MARKET_TO_DIR.get(market, market.lower())
-    market_dir = NAV_DIR / market_dir_name
-    market_dir.mkdir(parents=True, exist_ok=True)
-    nav_path = market_dir / nav_filename_for_symbol(symbol)
-
-    try:
-        with nav_path.open(encoding="utf-8") as fp:
-            entries = json.load(fp)
-            if not isinstance(entries, list):
-                entries = []
-    except FileNotFoundError:
-        entries = []
-    except json.JSONDecodeError:
-        entries = []
-
-    # 한국 티커의 경우 yfSymbol 자동 설정
-    base_symbol = symbol
-    yf_symbol = symbol
-    if market in ("KOSPI", "KOSDAQ", "KONEX"):
-        # symbol에 접미사가 있으면 분리
-        if "." in symbol:
-            base_symbol = symbol.rsplit(".", 1)[0]
-            yf_symbol = symbol  # 접미사 포함된 symbol을 yfSymbol로 사용
-        else:
-            # symbol에 접미사가 없으면 market에 따라 추가
-            suffix = ".KS" if market == "KOSPI" else ".KQ"
-            yf_symbol = f"{symbol}{suffix}"
-
-    updated = False
-    for entry in entries:
-        if entry.get("symbol") == base_symbol or entry.get("symbol") == symbol:
-            # ISIN 업데이트
-            if entry.get("isin") != isin:
-                entry["isin"] = isin
-                updated = True
-            # IPO 날짜 업데이트 또는 upcoming 설정
-            if ipo_date:
-                if entry.get("ipoDate") != ipo_date:
-                    entry["ipoDate"] = ipo_date
-                    updated = True
-                # IPO 날짜가 있으면 upcoming 제거
-                if "upcoming" in entry:
-                    del entry["upcoming"]
-                    updated = True
-            else:
-                # IPO 날짜가 없으면 upcoming: true 설정
-                if not entry.get("upcoming"):
-                    entry["upcoming"] = True
-                    updated = True
-            # yfSymbol 설정
-            if (
-                market in ("KOSPI", "KOSDAQ", "KONEX")
-                and entry.get("yfSymbol") != yf_symbol
-            ):
-                entry["yfSymbol"] = yf_symbol
-                updated = True
-            # company 업데이트
-            if company and entry.get("company") != company:
-                entry["company"] = company
-                updated = True
-            # underlying 업데이트
-            if underlying and entry.get("underlying") != underlying:
-                entry["underlying"] = underlying
-                updated = True
-            break
-    else:
-        new_entry = {"symbol": base_symbol, "market": market, "isin": isin}
-        if market in ("KOSPI", "KOSDAQ", "KONEX"):
-            new_entry["yfSymbol"] = yf_symbol
-        if ipo_date:
-            new_entry["ipoDate"] = ipo_date
-        else:
-            # IPO 날짜가 없으면 upcoming: true 설정
-            new_entry["upcoming"] = True
-        if company:
-            new_entry["company"] = company
-        if underlying:
-            new_entry["underlying"] = underlying
-        entries.append(new_entry)
-        updated = True
-
-    if updated:
-        entries.sort(key=lambda item: item.get("symbol", ""))
-        save_json_file(str(nav_path), entries, indent=4)
-        print(f"[UPDATE] nav entry 저장: {nav_path.relative_to(ROOT_DIR)}")
-    else:
-        print(f"[SKIP] nav entry 변경 없음: {nav_path.relative_to(ROOT_DIR)}")
-
-    return nav_path
-
-
 def ensure_data_file(
     symbol: str,
     market: str,
@@ -335,6 +239,7 @@ def ensure_data_file(
     isin: str,
     company: Optional[str] = None,
     underlying: Optional[str] = None,
+    ko_name: Optional[str] = None,
 ) -> Path:
     """data 파일에 티커 정보를 추가하거나 업데이트합니다."""
     slug = symbol_to_slug(symbol)
@@ -363,6 +268,8 @@ def ensure_data_file(
         ticker_info["company"] = company
     if underlying:
         ticker_info["underlying"] = underlying
+    if ko_name:
+        ticker_info["koName"] = ko_name
     ticker_info["Update"] = datetime.now(timezone(timedelta(hours=9))).strftime(
         "%Y-%m-%d %H:%M:%S KST"
     )
@@ -634,22 +541,24 @@ def process_symbol(symbol: str) -> Dict[str, str]:
     is_etf = detect_etf(resolved_symbol)
     company = None
     underlying = None
-    
+    ko_name = None
     if is_etf:
         company = prompt_company(resolved_symbol)
         underlying = prompt_underlying(resolved_symbol)
+    # 한국어 종목명(koName) 입력 (모든 경우에 적용)
+    ko_name = prompt_ko_name(resolved_symbol)
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
     
-    # nav 파일 업데이트 (ISIN, company, underlying 포함)
+    # nav 파일 업데이트 (ISIN, company, underlying, koName 포함)
     nav_path = ensure_nav_entry(
-        resolved_symbol, market, ipo_date, isin, company, underlying
+        resolved_symbol, market, ipo_date, isin, company, underlying, ko_name
     )
     
-    # data 파일 업데이트 (ISIN, company, underlying 포함)
+    # data 파일 업데이트 (ISIN, company, underlying, koName 포함)
     data_path = ensure_data_file(
-        resolved_symbol, market, currency, isin, company, underlying
+        resolved_symbol, market, currency, isin, company, underlying, ko_name
     )
 
     return {
