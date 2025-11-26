@@ -35,14 +35,6 @@ service cloud.firestore {
         // [New Structure] Accounts directly under familyMember
         match /accounts/{accountId} {
           allow read, write: if isOwner(userId);
-          
-          match /assets/{assetId} {
-            allow read, write: if isOwner(userId);
-            
-            match /transactions/{transactionId} {
-              allow read, write: if isOwner(userId);
-            }
-          }
         }
 
         // [Old Structure] Brokerages sub-collection (Keep for migration)
@@ -60,6 +52,16 @@ service cloud.firestore {
               }
             }
           }
+        }
+      }
+
+      // [New Asset-Centric Structure] Assets directly under user
+      match /assets/{assetId} {
+        allow read, write: if isOwner(userId);
+        
+        // Transactions for each asset
+        match /transactions/{transactionId} {
+          allow read, write: if isOwner(userId);
         }
       }
     }
