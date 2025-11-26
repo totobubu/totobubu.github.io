@@ -47373,22 +47373,6 @@
             "group": "AMD"
         },
         {
-            "symbol": "SPLG",
-            "company": "SPDR",
-            "frequency": "분기",
-            "group": "MJD",
-            "ipoDate": "2005-11-15",
-            "holdings": true,
-            "sharesOutstanding": false,
-            "isin": "US78464A8541",
-            "market": "NYSE",
-            "yfSymbol": "SPLG",
-            "currency": "USD",
-            "logo": "logos/company/company-spdr.jpg",
-            "dataPaths": ["data/nyse/splg.json"],
-            "periods": ["5Y", "10Y", "15Y"]
-        },
-        {
             "symbol": "SPLV",
             "company": "Invesco",
             "ipoDate": "2011-05-05",
@@ -47777,8 +47761,10 @@
         {
             "symbol": "SPYM",
             "company": "SPDR",
-            "ipoDate": "2025-10-23",
-            "holdings": false,
+            "frequency": "분기",
+            "group": "MJD",
+            "ipoDate": "2005-11-15",
+            "holdings": true,
             "sharesOutstanding": false,
             "isin": "US78464A8541",
             "market": "NYSE",
@@ -47786,7 +47772,7 @@
             "currency": "USD",
             "logo": "logos/company/company-spdr.jpg",
             "dataPaths": ["data/nyse/spym.json"],
-            "periods": []
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "SPYT",
