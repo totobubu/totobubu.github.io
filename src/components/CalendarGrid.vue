@@ -204,7 +204,7 @@
                 isForecast,
             } = arg.event.extendedProps;
             const currencySymbol = currency === 'KRW' ? '₩' : '$';
-            const displayName = koName || ticker;
+            const displayName = currency === 'KRW' ? koName : ticker;
             const amountStr =
                 amount != null
                     ? currency === 'KRW'
