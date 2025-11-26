@@ -43,8 +43,8 @@
 </script>
 
 <template>
-    <div class="p-4 border-round mb-4">
-        <h3 class="mb-3">👥 가족 멤버 선택:</h3>
+    <div class="border-round">
+        <h3 class="mb-3 hidden">👥 가족 멤버 선택:</h3>
         <div class="flex gap-2 flex-wrap">
             <button
                 v-for="(member, index) in sortedMembers"
