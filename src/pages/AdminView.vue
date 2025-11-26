@@ -1,6 +1,6 @@
 <!-- src/pages/AdminView.vue -->
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, computed, onMounted } from 'vue';
     import { useHead } from '@vueuse/head';
     import { collection, getDocs } from 'firebase/firestore';
     import { db } from '@/firebase';
@@ -21,7 +21,8 @@
     import Tag from 'primevue/tag';
     import InputText from 'primevue/inputtext';
     import ProgressSpinner from 'primevue/progressspinner';
-    import Message from 'primevue/message';
+    import Dropdown from 'primevue/dropdown';
+    import ToggleButton from 'primevue/togglebutton';
 
     useHead({ title: '관리자 - koName 승인' });
 
@@ -30,6 +31,29 @@
     const { isAdmin } = useAdmin();
     const { pendingApprovals, isLoading, loadPendingApprovals } =
         useKoNameApprovals();
+
+    // Filter mode: all / missing ISIN / missing koName
+    const filterMode = ref('all');
+    const filterOptions = [
+        { label: '전체', value: 'all' },
+        { label: 'ISIN 없음만', value: 'missingIsin' },
+        { label: '한국어 없음', value: 'missingKoName' },
+    ];
+
+    const filteredApprovals = computed(() => {
+        if (filterMode.value === 'all') {
+            return pendingApprovals.value;
+        }
+        if (filterMode.value === 'missingIsin') {
+            return pendingApprovals.value.filter(
+                (approval) => !approval.isin || approval.isin.trim() === ''
+            );
+        }
+        // missingKoName
+        return pendingApprovals.value.filter(
+            (approval) => !approval.koName || approval.koName.trim() === ''
+        );
+    });
 
     // 관리자 체크는 라우터 가드에서 처리됨
 
@@ -294,8 +318,14 @@
             <template #header>
                 <div
                     class="flex justify-content-between align-items-center p-3">
-                    <h2 class="m-0">koName 승인 관리</h2>
+                    <h2 class="m-0">종목 승인 관리</h2>
                     <div class="flex gap-2">
+                        <Dropdown
+                            v-model="filterMode"
+                            :options="filterOptions"
+                            optionLabel="label"
+                            placeholder="필터 선택"
+                            class="w-48" />
                         <Button
                             label="매핑 데이터 내보내기"
                             icon="pi pi-download"
@@ -327,14 +357,18 @@
 
                 <DataTable
                     v-else
-                    :value="pendingApprovals"
+                    :value="filteredApprovals"
                     :paginator="true"
                     :rows="20"
                     :rowsPerPageOptions="[10, 20, 50]"
                     responsiveLayout="scroll">
                     <Column field="isin" header="ISIN" sortable>
                         <template #body="{ data }">
-                            <code>{{ data.isin }}</code>
+                            <InputText
+                                v-model="data.isin"
+                                class="p-inputtext-sm w-full"
+                                placeholder="ISIN 입력 (선택)"
+                                :class="{ 'border-orange-500': !data.isin }" />
                         </template>
                     </Column>
                     <Column field="symbol" header="SYMBOL" sortable>

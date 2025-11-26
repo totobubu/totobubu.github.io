@@ -22,18 +22,28 @@ import { db } from '@/firebase';
  *
  * userAssets/{userId}/familyMembers/{memberId}/accounts/{accountId}
  *   - name: string
- *   - brokerageId: string
+ *   - brokerage: string
  *   - accountNumber: string
  *
- * userAssets/{userId}/familyMembers/{memberId}/accounts/{accountId}/assets/{assetId}
- *   - type: string (주식, 현금, 외환예금, 코인)
- *   - isin?: string (ISIN 코드)
- *   - symbol?: string (주식 심볼, ISIN에서 매핑된 값)
- *   - koName?: string (한국어 종목명)
- *   - koNameApprovalStatus?: string (pending, approved, rejected)
- *   - amount: number
- *   - currency: string (KRW, USD 등)
- *   - notes?: string
+ * userAssets/{userId}/assets/{isin} or {currency} or {coinid}
+ * - type: string (주식, 현금, 코인)
+ * - isin?: string (주식일 경우 ISIN 코드)
+ * - symbol?: string (주식 심볼)
+ * - name?: string (자산명)
+ * - currency?: string (KRW, USD 등)
+ * - holdings: { [accountId]: { amount: number, avgPrice?: number } }
+ * - notes?: string
+ *
+ * userAssets/{userId}/assets/{isin}/transactions/{transactionId}
+ * - accountId: string (어느 계좌의 거래인지)
+ * - type: string (buy, sell, dividend)
+ * - quantity: number
+ * - price: number
+ * - amount: number (총 금액)
+ * - date: timestamp
+ * - currency: string (KRW, USD 등)
+ * - notes?: string
+ *
  */
 
 /**
@@ -294,22 +304,26 @@ export const useAccounts = () => {
 };
 
 /**
- * 자산 항목 관리
+ * 자산 항목 관리 (Asset-Centric Structure)
+ * Assets are stored at: userAssets/{userId}/assets/{assetId}
+ * where assetId is ISIN for stocks or currency code for cash
  */
 export const useAssets = () => {
     const isLoading = ref(false);
 
-    const loadAssets = async (userId, memberId, accountId) => {
-        if (!userId || !memberId || !accountId) return [];
+    /**
+     * Load all assets for a user
+     * @param {string} userId
+     * @returns {Array} Array of assets with their IDs
+     */
+    const loadAssets = async (userId) => {
+        if (!userId) return [];
         isLoading.value = true;
         try {
-            const assetsRef = collection(
-                db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets`
-            );
+            const assetsRef = collection(db, `userAssets/${userId}/assets`);
             const snapshot = await getDocs(assetsRef);
             return snapshot.docs.map((doc) => ({
-                id: doc.id,
+                id: doc.id, // This is the ISIN or currency code
                 ...doc.data(),
             }));
         } catch (error) {
@@ -320,51 +334,80 @@ export const useAssets = () => {
         }
     };
 
-    const addAsset = async (userId, memberId, accountId, assetData) => {
-        if (!userId || !memberId || !accountId) return;
+    /**
+     * Add or update an asset
+     * Uses ISIN for stocks, currency code for cash as document ID
+     * @param {string} userId
+     * @param {object} assetData - Must include type, and either isin or currency
+     * @returns {string} The asset ID (ISIN or currency)
+     */
+    const addAsset = async (userId, assetData) => {
+        if (!userId) return;
         try {
-            const assetsRef = collection(
-                db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets`
+            // Determine asset ID based on type
+            let assetId;
+            if (assetData.type === '주식' && assetData.isin) {
+                assetId = assetData.isin;
+            } else if (assetData.type === '현금' && assetData.currency) {
+                assetId = `CASH_${assetData.currency}`;
+            } else if (assetData.type === '코인' && assetData.symbol) {
+                assetId = `COIN_${assetData.symbol}`;
+            } else {
+                throw new Error(
+                    'Invalid asset data: missing isin, currency, or symbol'
+                );
+            }
+
+            const assetRef = doc(db, `userAssets/${userId}/assets`, assetId);
+
+            // Use setDoc with merge to update if exists
+            await setDoc(
+                assetRef,
+                {
+                    ...assetData,
+                    updatedAt: new Date(),
+                },
+                { merge: true }
             );
-            const docRef = await addDoc(assetsRef, {
-                ...assetData,
-                createdAt: new Date(),
-            });
-            return docRef.id;
+
+            return assetId;
         } catch (error) {
             console.error('자산 추가 실패:', error);
             throw error;
         }
     };
 
-    const updateAsset = async (
-        userId,
-        memberId,
-        accountId,
-        assetId,
-        assetData
-    ) => {
-        if (!userId || !memberId || !accountId) return;
+    /**
+     * Update an existing asset
+     * @param {string} userId
+     * @param {string} assetId - ISIN or currency code
+     * @param {object} assetData
+     */
+    const updateAsset = async (userId, assetId, assetData) => {
+        if (!userId || !assetId) return;
         try {
-            const assetRef = doc(
-                db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}`
-            );
-            await updateDoc(assetRef, assetData);
+            const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
+            await updateDoc(assetRef, {
+                ...assetData,
+                updatedAt: new Date(),
+            });
         } catch (error) {
             console.error('자산 수정 실패:', error);
             throw error;
         }
     };
 
-    const deleteAsset = async (userId, memberId, accountId, assetId) => {
-        if (!userId || !memberId || !accountId) return;
+    /**
+     * Delete an asset and all its transactions
+     * @param {string} userId
+     * @param {string} assetId - ISIN or currency code
+     */
+    const deleteAsset = async (userId, assetId) => {
+        if (!userId || !assetId) return;
         try {
-            const assetRef = doc(
-                db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}`
-            );
+            // Note: This doesn't delete subcollections automatically
+            // You may need to delete transactions separately or use Cloud Functions
+            const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
             await deleteDoc(assetRef);
         } catch (error) {
             console.error('자산 삭제 실패:', error);
@@ -382,24 +425,42 @@ export const useAssets = () => {
 };
 
 /**
- * 거래 내역 관리
+ * 거래 내역 관리 (Asset-Centric Structure)
+ * Transactions are stored at: userAssets/{userId}/assets/{assetId}/transactions/{txId}
+ * Each transaction includes accountId to track which account it belongs to
  */
 export const useTransactions = () => {
     const isLoading = ref(false);
 
-    const loadTransactions = async (userId, memberId, accountId, assetId) => {
-        if (!userId || !memberId || !accountId || !assetId) return [];
+    /**
+     * Load transactions for a specific asset
+     * @param {string} userId
+     * @param {string} assetId - ISIN or currency code
+     * @param {string} accountId - Optional: filter by account
+     * @returns {Array} Array of transactions
+     */
+    const loadTransactions = async (userId, assetId, accountId = null) => {
+        if (!userId || !assetId) return [];
         isLoading.value = true;
         try {
             const transactionsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}/transactions`
+                `userAssets/${userId}/assets/${assetId}/transactions`
             );
             const snapshot = await getDocs(transactionsRef);
-            return snapshot.docs.map((doc) => ({
+            let transactions = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
+
+            // Filter by accountId if provided
+            if (accountId) {
+                transactions = transactions.filter(
+                    (tx) => tx.accountId === accountId
+                );
+            }
+
+            return transactions;
         } catch (error) {
             console.error('거래 내역 불러오기 실패:', error);
             return [];
@@ -408,18 +469,23 @@ export const useTransactions = () => {
         }
     };
 
-    const addTransaction = async (
-        userId,
-        memberId,
-        accountId,
-        assetId,
-        transactionData
-    ) => {
-        if (!userId || !memberId || !accountId || !assetId) return;
+    /**
+     * Add a transaction to an asset
+     * @param {string} userId
+     * @param {string} assetId - ISIN or currency code
+     * @param {object} transactionData - Must include accountId
+     * @returns {string} Transaction ID
+     */
+    const addTransaction = async (userId, assetId, transactionData) => {
+        if (!userId || !assetId) return;
+        if (!transactionData.accountId) {
+            throw new Error('Transaction must include accountId');
+        }
+
         try {
             const transactionsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}/transactions`
+                `userAssets/${userId}/assets/${assetId}/transactions`
             );
             const docRef = await addDoc(transactionsRef, {
                 ...transactionData,
