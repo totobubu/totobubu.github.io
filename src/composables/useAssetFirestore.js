@@ -20,14 +20,12 @@ import { db } from '@/firebase';
  *   - name: string
  *   - relationship: string (본인, 배우자, 자녀, 부모 등)
  *
- * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}
- *   - name: string (kb자산운용, 미래에셋 등)
- *
- * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}/accounts/{accountId}
+ * userAssets/{userId}/familyMembers/{memberId}/accounts/{accountId}
  *   - name: string
+ *   - brokerageId: string
  *   - accountNumber: string
  *
- * userAssets/{userId}/familyMembers/{memberId}/brokerages/{brokerageId}/accounts/{accountId}/assets/{assetId}
+ * userAssets/{userId}/familyMembers/{memberId}/accounts/{accountId}/assets/{assetId}
  *   - type: string (주식, 현금, 외환예금, 코인)
  *   - isin?: string (ISIN 코드)
  *   - symbol?: string (주식 심볼, ISIN에서 매핑된 값)
@@ -219,13 +217,13 @@ export const useBrokerages = () => {
 export const useAccounts = () => {
     const isLoading = ref(false);
 
-    const loadAccounts = async (userId, memberId, brokerageId) => {
-        if (!userId || !memberId || !brokerageId) return [];
+    const loadAccounts = async (userId, memberId) => {
+        if (!userId || !memberId) return [];
         isLoading.value = true;
         try {
             const accountsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts`
             );
             const snapshot = await getDocs(accountsRef);
             return snapshot.docs.map((doc) => ({
@@ -240,12 +238,12 @@ export const useAccounts = () => {
         }
     };
 
-    const addAccount = async (userId, memberId, brokerageId, accountData) => {
-        if (!userId || !memberId || !brokerageId) return;
+    const addAccount = async (userId, memberId, accountData) => {
+        if (!userId || !memberId) return;
         try {
             const accountsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts`
             );
             const docRef = await addDoc(accountsRef, {
                 ...accountData,
@@ -258,18 +256,12 @@ export const useAccounts = () => {
         }
     };
 
-    const updateAccount = async (
-        userId,
-        memberId,
-        brokerageId,
-        accountId,
-        accountData
-    ) => {
-        if (!userId || !memberId || !brokerageId) return;
+    const updateAccount = async (userId, memberId, accountId, accountData) => {
+        if (!userId || !memberId) return;
         try {
             const accountRef = doc(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}`
             );
             await updateDoc(accountRef, accountData);
         } catch (error) {
@@ -278,12 +270,12 @@ export const useAccounts = () => {
         }
     };
 
-    const deleteAccount = async (userId, memberId, brokerageId, accountId) => {
-        if (!userId || !memberId || !brokerageId) return;
+    const deleteAccount = async (userId, memberId, accountId) => {
+        if (!userId || !memberId) return;
         try {
             const accountRef = doc(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}`
             );
             await deleteDoc(accountRef);
         } catch (error) {
@@ -307,13 +299,13 @@ export const useAccounts = () => {
 export const useAssets = () => {
     const isLoading = ref(false);
 
-    const loadAssets = async (userId, memberId, brokerageId, accountId) => {
-        if (!userId || !memberId || !brokerageId || !accountId) return [];
+    const loadAssets = async (userId, memberId, accountId) => {
+        if (!userId || !memberId || !accountId) return [];
         isLoading.value = true;
         try {
             const assetsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets`
             );
             const snapshot = await getDocs(assetsRef);
             return snapshot.docs.map((doc) => ({
@@ -328,18 +320,12 @@ export const useAssets = () => {
         }
     };
 
-    const addAsset = async (
-        userId,
-        memberId,
-        brokerageId,
-        accountId,
-        assetData
-    ) => {
-        if (!userId || !memberId || !brokerageId || !accountId) return;
+    const addAsset = async (userId, memberId, accountId, assetData) => {
+        if (!userId || !memberId || !accountId) return;
         try {
             const assetsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets`
             );
             const docRef = await addDoc(assetsRef, {
                 ...assetData,
@@ -355,16 +341,15 @@ export const useAssets = () => {
     const updateAsset = async (
         userId,
         memberId,
-        brokerageId,
         accountId,
         assetId,
         assetData
     ) => {
-        if (!userId || !memberId || !brokerageId || !accountId) return;
+        if (!userId || !memberId || !accountId) return;
         try {
             const assetRef = doc(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}`
             );
             await updateDoc(assetRef, assetData);
         } catch (error) {
@@ -373,18 +358,12 @@ export const useAssets = () => {
         }
     };
 
-    const deleteAsset = async (
-        userId,
-        memberId,
-        brokerageId,
-        accountId,
-        assetId
-    ) => {
-        if (!userId || !memberId || !brokerageId || !accountId) return;
+    const deleteAsset = async (userId, memberId, accountId, assetId) => {
+        if (!userId || !memberId || !accountId) return;
         try {
             const assetRef = doc(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}`
             );
             await deleteDoc(assetRef);
         } catch (error) {
@@ -408,20 +387,13 @@ export const useAssets = () => {
 export const useTransactions = () => {
     const isLoading = ref(false);
 
-    const loadTransactions = async (
-        userId,
-        memberId,
-        brokerageId,
-        accountId,
-        assetId
-    ) => {
-        if (!userId || !memberId || !brokerageId || !accountId || !assetId)
-            return [];
+    const loadTransactions = async (userId, memberId, accountId, assetId) => {
+        if (!userId || !memberId || !accountId || !assetId) return [];
         isLoading.value = true;
         try {
             const transactionsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}/transactions`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}/transactions`
             );
             const snapshot = await getDocs(transactionsRef);
             return snapshot.docs.map((doc) => ({
@@ -439,17 +411,15 @@ export const useTransactions = () => {
     const addTransaction = async (
         userId,
         memberId,
-        brokerageId,
         accountId,
         assetId,
         transactionData
     ) => {
-        if (!userId || !memberId || !brokerageId || !accountId || !assetId)
-            return;
+        if (!userId || !memberId || !accountId || !assetId) return;
         try {
             const transactionsRef = collection(
                 db,
-                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetId}/transactions`
+                `userAssets/${userId}/familyMembers/${memberId}/accounts/${accountId}/assets/${assetId}/transactions`
             );
             const docRef = await addDoc(transactionsRef, {
                 ...transactionData,

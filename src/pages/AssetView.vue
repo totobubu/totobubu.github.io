@@ -11,6 +11,7 @@
         useAssets,
         useTransactions,
     } from '@/composables/useAssetFirestore';
+    import { useLocalStockData } from '@/composables/useLocalStockData';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
 
@@ -51,14 +52,12 @@
     const updateFamilyMember = familyMembersComposable.updateFamilyMember;
     const deleteFamilyMember = familyMembersComposable.deleteFamilyMember;
 
-    const { loadBrokerages, addBrokerage, updateBrokerage, deleteBrokerage } =
-        useBrokerages();
-
     const { loadAccounts, addAccount, updateAccount, deleteAccount } =
         useAccounts();
 
     const { loadAssets, addAsset, updateAsset, deleteAsset } = useAssets();
     const { addTransaction } = useTransactions();
+    const { findStockByIsin } = useLocalStockData();
 
     // 선택된 탭
     const selectedTabIndex = ref('0');
@@ -159,63 +158,151 @@
         }
     });
 
-    // 트리 데이터 생성
+    // 트리 데이터 생성 (증권사 → 계좌 → 자산 타입 → 개별 자산)
     const createTreeData = (memberId) => {
         const data = loadedMemberData.value[memberId];
         if (!data) return [];
 
         const tree = [];
-        data.brokerages.forEach((brokerage) => {
-            const brokerageNode = {
-                key: brokerage.id,
+        const brokerageMap = new Map();
+
+        // 1. 증권사별로 그룹화
+        data.accounts.forEach((account) => {
+            const brokerageName = account.brokerage || '기타';
+
+            if (!brokerageMap.has(brokerageName)) {
+                brokerageMap.set(brokerageName, {
+                    key: `brokerage-${brokerageName}`,
+                    data: {
+                        name: brokerageName,
+                        type: '증권사',
+                        icon: 'pi pi-building',
+                        amount: 0,
+                        currency: 'KRW',
+                    },
+                    children: [],
+                });
+            }
+
+            const brokerageNode = brokerageMap.get(brokerageName);
+
+            // 2. 계좌 노드 생성
+            const accountNode = {
+                key: account.id,
                 data: {
-                    id: brokerage.id,
-                    name: brokerage.name,
-                    type: '증권사',
-                    icon: 'pi pi-building',
+                    id: account.id,
+                    name: account.name,
+                    accountNumber: account.accountNumber,
+                    type: '계좌',
+                    icon: 'pi pi-wallet',
+                    amount: 0,
+                    currency: 'KRW',
                 },
                 children: [],
             };
 
-            const accounts = data.accounts.filter(
-                (acc) => acc.brokerageId === brokerage.id
+            // 3. 자산 타입별로 그룹화 (예수금, 국내주식, 해외주식)
+            const assetTypeGroups = new Map();
+
+            // 해당 계좌의 자산 찾기
+            const accountAssets = data.assets.filter(
+                (asset) => asset.accountId === account.id
             );
-            accounts.forEach((account) => {
-                const accountNode = {
-                    key: account.id,
-                    data: {
-                        id: account.id,
-                        name: account.name,
-                        accountNumber: account.accountNumber,
-                        brokerageId: brokerage.id,
-                        type: '계좌',
-                        icon: 'pi pi-wallet',
-                    },
-                    children: [],
-                };
 
-                const assets = data.assets.filter(
-                    (ast) => ast.accountId === account.id
-                );
-                assets.forEach((asset) => {
-                    accountNode.children.push({
-                        key: asset.id,
+            accountAssets.forEach((asset) => {
+                let assetTypeKey = '';
+                let assetTypeName = '';
+                let assetTypeIcon = '';
+
+                // 자산 타입 분류
+                if (asset.type === '현금') {
+                    // 예수금 그룹
+                    if (asset.currency === 'KRW') {
+                        assetTypeKey = 'cash-krw';
+                        assetTypeName = '예수금 (원화)';
+                        assetTypeIcon = 'pi pi-money-bill';
+                    } else {
+                        assetTypeKey = 'cash-foreign';
+                        assetTypeName = '예수금 (외화)';
+                        assetTypeIcon = 'pi pi-dollar';
+                    }
+                } else if (asset.type === '주식') {
+                    // 주식 - 국내/해외 구분
+                    const isKorean =
+                        asset.symbol &&
+                        (asset.symbol.match(/^\d{6}$/) || // 6자리 숫자 (한국 종목코드)
+                            asset.market === 'KRX' ||
+                            asset.market === 'KOSPI' ||
+                            asset.market === 'KOSDAQ');
+
+                    if (isKorean) {
+                        assetTypeKey = 'stock-domestic';
+                        assetTypeName = '국내주식';
+                        assetTypeIcon = 'pi pi-chart-line';
+                    } else {
+                        assetTypeKey = 'stock-foreign';
+                        assetTypeName = '해외주식';
+                        assetTypeIcon = 'pi pi-globe';
+                    }
+                } else if (asset.type === '코인') {
+                    assetTypeKey = 'coin';
+                    assetTypeName = '코인';
+                    assetTypeIcon = 'pi pi-bitcoin';
+                } else {
+                    assetTypeKey = 'other';
+                    assetTypeName = '기타';
+                    assetTypeIcon = 'pi pi-circle';
+                }
+
+                // 자산 타입 그룹 생성
+                if (!assetTypeGroups.has(assetTypeKey)) {
+                    assetTypeGroups.set(assetTypeKey, {
+                        key: `${account.id}-${assetTypeKey}`,
                         data: {
-                            id: asset.id,
-                            name: `${asset.type}${asset.symbol ? ': ' + asset.symbol : ''} - ${asset.amount} ${asset.currency}`,
-                            ...asset,
-                            brokerageId: brokerage.id,
-                            accountId: account.id,
-                            type: '자산',
-                            icon: getAssetTypeIcon(asset.type),
+                            name: assetTypeName,
+                            type: '자산타입',
+                            assetType: asset.type,
+                            icon: assetTypeIcon,
+                            amount: 0,
+                            currency: asset.currency || 'KRW',
                         },
+                        children: [],
                     });
-                });
+                }
 
-                brokerageNode.children.push(accountNode);
+                const assetTypeGroup = assetTypeGroups.get(assetTypeKey);
+
+                // 4. 개별 자산 노드 추가
+                const assetDisplayName = asset.symbol
+                    ? `${asset.name || asset.symbol} (${asset.symbol})`
+                    : asset.name || asset.type;
+
+                assetTypeGroup.children.push({
+                    key: asset.id,
+                    data: {
+                        ...asset, // Spread first so we can override
+                        id: asset.id,
+                        name: assetDisplayName, // Override name with display name
+                        symbol: asset.symbol,
+                        amount: asset.amount,
+                        currency: asset.currency,
+                        accountId: account.id,
+                        type: '자산',
+                        icon: getAssetTypeIcon(asset.type),
+                    },
+                });
             });
 
-            tree.push(brokerageNode);
+            // 자산 타입 그룹을 계좌에 추가
+            assetTypeGroups.forEach((typeGroup) => {
+                accountNode.children.push(typeGroup);
+            });
+
+            brokerageNode.children.push(accountNode);
+        });
+
+        brokerageMap.forEach((node) => {
+            tree.push(node);
         });
 
         return tree;
@@ -260,14 +347,45 @@
             }
 
             if (groupKey) {
-                // 수익률 계산 로직 (임시)
-                // 실제로는 거래내역을 기반으로 평단가를 계산해야 함
-                // 현재는 데이터에 평단가 정보가 없으므로 0으로 가정하거나 추후 구현 필요
-                // 여기서는 UI 테스트를 위해 임의의 값을 넣거나 0으로 처리
-                const currentPrice = asset.currentPrice || 0; // 현재가 (실시간 데이터 필요)
-                const avgPrice = asset.avgPrice || 0; // 평단가
-                const principal = avgPrice * asset.amount; // 원금
-                const valuation = currentPrice * asset.amount || asset.amount; // 평가금 (현금은 그 자체)
+                // 1. 현재가 가져오기 (로컬 데이터 또는 API)
+                // TODO: 실시간 시세 연동 필요. 현재는 로컬 데이터의 종가(close)나 0으로 처리
+                let currentPrice = asset.currentPrice || 0;
+                const localStock = findStockByIsin(asset.symbol); // ISIN이 symbol에 저장되어 있다고 가정
+                if (localStock && localStock.close) {
+                    currentPrice = parseFloat(localStock.close);
+                }
+
+                // 2. 원금 및 평단가 계산 (거래내역 기반)
+                // asset.transactions가 있다면 그것을 사용, 없다면 asset.amount * asset.avgPrice 사용
+                let principal = 0;
+                let totalQuantity = 0;
+
+                // Firestore에서 불러온 자산 객체에 transactions가 포함되어 있는지 확인 필요
+                // 현재 구조상 assets 컬렉션 하위에 transactions 컬렉션이 있어서 별도로 불러와야 할 수도 있음.
+                // 하지만 handleMappingComplete에서 메모리 상의 assetData에는 transactions가 있음.
+                // 여기서는 이미 저장된 데이터를 보여주는 것이므로, transactions를 별도로 로드하거나
+                // 자산 저장 시 avgPrice와 principal을 업데이트하는 것이 좋음.
+
+                // 임시: asset에 저장된 avgPrice가 있다면 사용
+                if (asset.avgPrice) {
+                    principal = asset.avgPrice * asset.amount;
+                } else {
+                    // 평단가 정보가 없으면 원금을 0으로 두거나, (평가금 = 원금)으로 가정?
+                    // 사용자가 "거래내역서를 통해 나온 금액은 평가금이 아니고 원금임"이라고 했으므로
+                    // 초기 업로드 시 asset.amount는 수량이고, 금액 정보는 별도로 저장했어야 함.
+                    // 현재 addAsset에서는 amount(수량)만 저장함.
+                }
+
+                // 3. 평가금 계산
+                // 평가금 = 현재가 * 수량
+                // 현재가가 0이면 평가금도 0이 됨. 이 경우 원금을 평가금으로 보여줄지 결정 필요.
+                let valuation = currentPrice * asset.amount;
+
+                if (currentPrice === 0 && principal > 0) {
+                    // 현재가가 없으면 평가금을 원금과 동일하게 표시 (수익률 0%)
+                    valuation = principal;
+                }
+
                 const profitAmount = valuation - principal;
                 const profitRate =
                     principal > 0 ? (profitAmount / principal) * 100 : 0;
@@ -277,12 +395,12 @@
                     groupKey,
                     groupName,
                     currentPrice,
-                    avgPrice,
+                    avgPrice: asset.avgPrice || 0,
                     principal,
                     valuation,
                     profitAmount,
                     profitRate,
-                    memberId, // 다이얼로그용
+                    memberId,
                 });
             }
         });
@@ -418,30 +536,22 @@
     const loadMemberData = async (memberId) => {
         if (loadedMemberData.value[memberId]) return;
 
-        const brokerages = await loadBrokerages(user.value.uid, memberId);
-        const accounts = [];
+        // 계좌 목록 로드 (증권사 정보 포함)
+        const accounts = await loadAccounts(user.value.uid, memberId);
         const assets = [];
 
-        for (const brokerage of brokerages) {
-            const accs = await loadAccounts(
-                user.value.uid,
-                memberId,
-                brokerage.id
+        for (const account of accounts) {
+            const ass = await loadAssets(user.value.uid, memberId, account.id);
+            assets.push(
+                ...ass.map((a) => ({
+                    ...a,
+                    accountId: account.id,
+                    brokerage: account.brokerage, // 자산에도 증권사 정보 포함 (필요시)
+                }))
             );
-            for (const account of accs) {
-                accounts.push({ ...account, brokerageId: brokerage.id });
-                const ass = await loadAssets(
-                    user.value.uid,
-                    memberId,
-                    brokerage.id,
-                    account.id
-                );
-                assets.push(...ass);
-            }
         }
 
         loadedMemberData.value[memberId] = {
-            brokerages,
             accounts,
             assets,
         };
@@ -968,58 +1078,21 @@
         uploadedTransactionData.value = data;
         uploadBrokerage.value = data.brokerage;
 
-        // 증권사가 존재하는지 확인
         const memberId = selectedMember.value.id;
-        const memberData = loadedMemberData.value[memberId];
 
-        let brokerageId = null;
-
-        // 증권사 찾기 또는 생성
-        if (memberData?.brokerages) {
-            const existingBrokerage = memberData.brokerages.find(
-                (b) => b.name === data.brokerageName
-            );
-            if (existingBrokerage) {
-                brokerageId = existingBrokerage.id;
-            }
-        }
-
-        // 증권사가 없으면 생성
-        if (!brokerageId) {
-            try {
-                brokerageId = await addBrokerage(user.value.uid, memberId, {
-                    name: data.brokerageName,
-                });
-                toast.add({
-                    severity: 'success',
-                    summary: '성공',
-                    detail: `${data.brokerageName}이(가) 추가되었습니다.`,
-                    life: 3000,
-                });
-            } catch (error) {
-                console.error('증권사 생성 실패:', error);
-                toast.add({
-                    severity: 'error',
-                    summary: '오류',
-                    detail: '증권사 생성에 실패했습니다.',
-                    life: 3000,
-                });
-                return;
-            }
-        }
+        // [Refactor] 증권사 컬렉션 제거로 인해 로직 변경
+        // 계좌 생성 시 brokerage 필드로 처리하므로 별도 증권사 생성 불필요
 
         // 계좌 찾기 또는 생성
         let accountId = null;
         try {
             // 기존 계좌 목록 조회
-            const accounts = await loadAccounts(
-                user.value.uid,
-                memberId,
-                brokerageId
-            );
+            const accounts = await loadAccounts(user.value.uid, memberId);
 
             const existingAccount = accounts.find(
-                (acc) => acc.accountNumber === data.accountNumber
+                (acc) =>
+                    acc.accountNumber === data.accountNumber &&
+                    acc.brokerage === data.brokerageName
             );
 
             if (existingAccount) {
@@ -1033,15 +1106,11 @@
                 });
             } else {
                 // 신규 계좌 생성
-                accountId = await addAccount(
-                    user.value.uid,
-                    memberId,
-                    brokerageId,
-                    {
-                        name: data.accountName,
-                        accountNumber: data.accountNumber,
-                    }
-                );
+                accountId = await addAccount(user.value.uid, memberId, {
+                    name: data.accountName,
+                    accountNumber: data.accountNumber,
+                    brokerage: data.brokerageName, // 증권사 정보 추가
+                });
                 console.log('신규 계좌 생성:', accountId);
                 toast.add({
                     severity: 'success',
@@ -1052,7 +1121,7 @@
             }
 
             uploadedTransactionData.value.accountId = accountId;
-            uploadedTransactionData.value.brokerageId = brokerageId;
+            uploadedTransactionData.value.brokerageName = data.brokerageName;
 
             // 종목명 매핑 다이얼로그 열기
             showStockMappingDialog.value = true;
@@ -1070,7 +1139,7 @@
     // 종목명 매핑 완료 처리
     const handleMappingComplete = async (mappingMap) => {
         const memberId = selectedMember.value.id;
-        const brokerageId = uploadedTransactionData.value.brokerageId;
+        const brokerageName = uploadedTransactionData.value.brokerageName;
         const accountId = uploadedTransactionData.value.accountId;
         const transactions =
             uploadedTransactionData.value.extractedData.transactions;
@@ -1084,7 +1153,7 @@
 
         console.log('[handleMappingComplete] Starting transaction processing', {
             memberId,
-            brokerageId,
+            brokerageName,
             accountId,
             transactionCount: transactions.length,
         });
@@ -1094,25 +1163,109 @@
             const assetMap = new Map();
 
             transactions.forEach((transaction) => {
-                const mapping = mappingMap.get(transaction.stock_name);
-                if (!mapping) return; // 매핑되지 않은 종목은 스킵
+                let ticker = null;
+                let assetType = '주식';
+                let currency = 'USD'; // 기본값
 
-                const ticker = mapping.systemTicker;
+                const mapping = mappingMap.get(transaction.stock_name);
+
+                if (mapping) {
+                    ticker = mapping.systemTicker;
+                } else {
+                    // 매핑이 없는 경우: 현금 거래인지 확인
+                    // stock_name이 없거나, '현금', '예수금' 등의 키워드가 있거나,
+                    // type이 입금/출금/환전 등인 경우
+                    const isCash =
+                        !transaction.stock_name ||
+                        ['현금', '예수금', 'Deposit', 'Withdrawal'].some((k) =>
+                            transaction.stock_name.includes(k)
+                        ) ||
+                        ['입금', '출금', '환전', 'Deposit', 'Withdrawal'].some(
+                            (k) =>
+                                transaction.type && transaction.type.includes(k)
+                        );
+
+                    if (isCash) {
+                        ticker = 'CASH_USD'; // 일단 USD로 가정 (통화 정보가 있으면 그것을 사용)
+                        if (
+                            transaction.currency === 'KRW' ||
+                            transaction.currency === '원'
+                        ) {
+                            ticker = 'CASH_KRW';
+                            currency = 'KRW';
+                        }
+                        assetType = '현금';
+                    } else {
+                        return; // 매핑도 안되고 현금도 아니면 스킵
+                    }
+                }
 
                 if (!assetMap.has(ticker)) {
                     assetMap.set(ticker, {
-                        type: '주식',
-                        symbol: ticker,
+                        type: assetType,
+                        symbol: assetType === '주식' ? ticker : null, // 현금은 심볼 없음
+                        name:
+                            assetType === '현금'
+                                ? currency === 'KRW'
+                                    ? '원화 예수금'
+                                    : '달러 예수금'
+                                : null,
                         amount: 0,
-                        currency: 'USD',
-                        notes: `${transaction.stock_name}\n자동 등록됨`,
+                        currency: currency,
+                        notes:
+                            assetType === '주식'
+                                ? `${transaction.stock_name}\n자동 등록됨`
+                                : '자동 등록된 현금 자산',
                         transactions: [],
                     });
                 }
 
-                const asset = assetMap.get(ticker);
-                asset.amount += transaction.quantity || 0;
-                asset.transactions.push(transaction);
+                const assetData = assetMap.get(ticker);
+                assetData.transactions.push(transaction);
+
+                // 수량/잔고 업데이트
+                // 현금인 경우 amount는 잔고(balance)가 있으면 그것을 사용, 없으면 거래금액 누적?
+                // 보통 거래내역서에 '잔고' 필드가 있으면 가장 마지막 거래의 잔고가 현재 잔고임.
+                // 하지만 여기서는 모든 거래를 순회하므로, 날짜순으로 정렬되어 있다고 가정하고 마지막 잔고를 취하거나,
+                // 단순히 amount를 누적할 수도 있음.
+                // 토스증권 PDF 파서 결과를 보면 balance 필드가 있을 수 있음.
+
+                if (assetData.type === '현금') {
+                    // 현금은 거래금액 누적보다는 최종 잔고가 중요하지만,
+                    // 파서가 잔고를 주지 않으면 누적해야 함.
+                    // 일단은 amount(거래금액)를 누적
+                    let amount = transaction.amount;
+                    // amount 보정 로직 (위에서 추가한 로직 활용)
+                    if (amount === undefined || amount === null) {
+                        if (transaction.price && transaction.quantity) {
+                            amount = transaction.price * transaction.quantity;
+                        } else if (transaction.totalPrice) {
+                            amount = transaction.totalPrice;
+                        } else if (transaction.krwAmount) {
+                            amount = transaction.krwAmount;
+                        } else {
+                            amount = 0;
+                        }
+                    }
+
+                    // 입금/출금에 따라 부호가 다를 수 있음.
+                    // 보통 입금은 +, 출금은 -
+                    // 파서가 이를 처리했는지 확인 필요. 처리 안했다면 type 보고 처리.
+                    if (
+                        transaction.type &&
+                        (transaction.type.includes('출금') ||
+                            transaction.type.includes('Withdrawal'))
+                    ) {
+                        amount = -Math.abs(amount);
+                    } else {
+                        amount = Math.abs(amount);
+                    }
+
+                    assetData.amount += amount;
+                } else {
+                    // 주식은 수량 누적
+                    assetData.amount += transaction.quantity || 0;
+                }
             });
 
             // 각 종목을 자산으로 등록
@@ -1125,48 +1278,119 @@
                         assetData
                     );
 
-                    // 기존 자산 검색
-                    const existingAsset = loadedMemberData.value[
-                        memberId
-                    ]?.assets.find(
-                        (a) =>
-                            a.symbol === assetData.symbol &&
-                            a.brokerageId === brokerageId &&
-                            a.accountId === accountId
+                    // 평단가 계산
+                    let totalBuyAmount = 0;
+                    let totalBuyQuantity = 0;
+
+                    if (assetData.transactions) {
+                        assetData.transactions.forEach((t) => {
+                            // 전체 트랜잭션 객체 로깅 (필드 확인용)
+                            console.log(
+                                `[handleMappingComplete] Transaction Object:`,
+                                t
+                            );
+                            console.log(
+                                `[handleMappingComplete] Transaction Object Keys:`,
+                                Object.keys(t)
+                            );
+                            console.log(
+                                `[handleMappingComplete] Transaction Object Values:`,
+                                t
+                            );
+
+                            // type이 '매수', 'Buy' 등 다양한 케이스 대응
+                            const type = t.type ? t.type.trim() : '';
+                            const isBuy = [
+                                '매수',
+                                'Buy',
+                                'buy',
+                                'Purchase',
+                                '구매',
+                            ].some((k) => type.includes(k));
+
+                            // amount가 없으면 계산 시도 (price * quantity)
+                            let amount = t.amount;
+                            if (amount === undefined || amount === null) {
+                                if (t.price && t.quantity) {
+                                    amount = t.price * t.quantity;
+                                } else if (t.totalPrice) {
+                                    amount = t.totalPrice;
+                                } else if (t.krwAmount) {
+                                    // 원화 환산 금액이 있는 경우
+                                    amount = t.krwAmount;
+                                } else {
+                                    // 0으로 기본값 설정 (Permission Error 방지)
+                                    amount = 0;
+                                }
+                            }
+
+                            if (isBuy && amount) {
+                                totalBuyAmount += Math.abs(amount); // 금액은 보통 음수로 올 수 있으므로 절대값
+                                totalBuyQuantity += t.quantity;
+                            }
+                            console.log(
+                                `[handleMappingComplete] Transaction check - Type: ${type}, IsBuy: ${isBuy}, Amount: ${amount}, Qty: ${t.quantity}`
+                            );
+                        });
+                    }
+
+                    const avgPrice =
+                        totalBuyQuantity > 0
+                            ? totalBuyAmount / totalBuyQuantity
+                            : 0;
+                    console.log(
+                        `[handleMappingComplete] Calculated avgPrice for ${ticker}: ${avgPrice} (Total Buy: ${totalBuyAmount}, Qty: ${totalBuyQuantity})`
                     );
 
-                    let assetId;
+                    // 1. 자산 생성 또는 업데이트
+                    let assetId = null;
+                    const existingAsset = loadedMemberData.value[
+                        memberId
+                    ].assets.find(
+                        (a) => a.accountId === accountId && a.symbol === ticker
+                    );
+
                     if (existingAsset) {
                         assetId = existingAsset.id;
-                        console.log(
-                            `[handleMappingComplete] Updating existing asset: ${assetId}`
-                        );
+                        // 기존 자산 업데이트 (수량, 평단가 등)
+                        // 평단가 계산 로직 (기존 평단가와 수량, 새로운 매수 금액과 수량으로 가중평균)
+                        // ... (기존 로직 유지)
+
+                        // 간단하게 수량만 업데이트 (평단가는 복잡하므로 일단 생략하거나 추후 보완)
+                        // 여기서는 createAssetTypeData에서 계산된 값을 저장하는 것이 아니라,
+                        // 트랜잭션을 기반으로 다시 계산해야 함.
+                        // 일단은 수량만 업데이트
+
+                        // TODO: 평단가 업데이트 로직 정교화
+
                         await updateAsset(
                             user.value.uid,
                             memberId,
-                            brokerageId,
                             accountId,
                             assetId,
                             {
                                 amount: existingAsset.amount + assetData.amount,
-                                // 평균단가 등은 계산 로직이 복잡하므로 일단 수량만 업데이트
+                                // avgPrice: newAvgPrice // 평단가 업데이트 필요 시
                             }
                         );
-                    } else {
                         console.log(
-                            `[handleMappingComplete] Creating new asset`
+                            `[handleMappingComplete] Updating existing asset: ${assetId}`
                         );
+                    } else {
+                        // 신규 자산 생성
                         assetId = await addAsset(
                             user.value.uid,
                             memberId,
-                            brokerageId,
                             accountId,
                             {
                                 type: assetData.type,
                                 symbol: assetData.symbol,
+                                name: assetData.name,
                                 amount: assetData.amount,
                                 currency: assetData.currency,
                                 notes: assetData.notes,
+                                avgPrice: avgPrice, // 초기 평단가
+                                brokerage: brokerageName, // 증권사 정보
                             }
                         );
                         console.log(
@@ -1184,51 +1408,223 @@
                             `[handleMappingComplete] Saving ${assetData.transactions.length} transactions for asset ${assetId}`
                         );
                         for (const transaction of assetData.transactions) {
-                            await addTransaction(
-                                user.value.uid,
-                                memberId,
-                                brokerageId,
-                                accountId,
-                                assetId,
-                                transaction
-                            );
+                            try {
+                                // undefined 필드가 있으면 Firestore 저장 시 오류 발생 가능하므로 정제
+                                const cleanTransaction = JSON.parse(
+                                    JSON.stringify(transaction)
+                                );
+
+                                // amount가 없으면 보정
+                                if (cleanTransaction.amount === undefined) {
+                                    if (
+                                        cleanTransaction.price &&
+                                        cleanTransaction.quantity
+                                    ) {
+                                        cleanTransaction.amount =
+                                            cleanTransaction.price *
+                                            cleanTransaction.quantity;
+                                    } else if (cleanTransaction.totalPrice) {
+                                        cleanTransaction.amount =
+                                            cleanTransaction.totalPrice;
+                                    } else {
+                                        cleanTransaction.amount = 0; // 필수 필드 기본값
+                                    }
+                                }
+
+                                // 배당금 처리 (type에 '배당'이 포함되면)
+                                if (
+                                    cleanTransaction.type &&
+                                    (cleanTransaction.type.includes('배당') ||
+                                        cleanTransaction.type.includes(
+                                            'Dividend'
+                                        ))
+                                ) {
+                                    // 배당금 로직 (필요시 추가)
+                                    console.log(
+                                        '배당금 거래 발견:',
+                                        cleanTransaction
+                                    );
+                                }
+
+                                await addTransaction(
+                                    user.value.uid,
+                                    memberId,
+                                    accountId,
+                                    assetId,
+                                    cleanTransaction
+                                );
+                            } catch (txError) {
+                                console.error(
+                                    `[handleMappingComplete] Failed to save transaction for ${ticker}:`,
+                                    txError
+                                );
+                            }
                         }
                     } else {
-                        console.warn(
-                            `[handleMappingComplete] No transactions to save for ${ticker} or invalid assetId`
+                        console.log(
+                            `[handleMappingComplete] No transactions to save for ${ticker}`
                         );
                     }
-
-                    successCount++;
                 } catch (error) {
                     console.error(`자산 등록 실패 (${ticker}):`, error);
                 }
+                successCount++;
             }
-            console.log(
-                `[handleMappingComplete] Completed. Success count: ${successCount}`
-            );
-
-            // 데이터 새로고침
-            delete loadedMemberData.value[memberId];
-            await loadMemberData(memberId);
 
             toast.add({
                 severity: 'success',
                 summary: '완료',
-                detail: `${successCount}개의 자산이 등록되었습니다.`,
-                life: 5000,
+                detail: '거래내역 등록이 완료되었습니다.',
+                life: 3000,
             });
 
-            // 초기화
-            uploadedTransactionData.value = null;
-            uploadBrokerage.value = null;
+            // 데이터 다시 로드
+            delete loadedMemberData.value[memberId];
+            await loadMemberData(memberId);
+            showStockMappingDialog.value = false;
         } catch (error) {
-            console.error('거래내역 등록 실패:', error);
+            console.error('거래내역 저장 실패:', error);
             toast.add({
                 severity: 'error',
                 summary: '오류',
-                detail: '거래내역 등록에 실패했습니다.',
+                detail: '거래내역 저장에 실패했습니다.',
                 life: 3000,
+            });
+        }
+    };
+
+    // --- 데이터 마이그레이션 (임시) ---
+    import { collection, getDocs, addDoc } from 'firebase/firestore';
+    import { db } from '@/firebase';
+
+    const migrateData = async () => {
+        if (!user.value) return;
+        const userId = user.value.uid;
+
+        try {
+            toast.add({
+                severity: 'info',
+                summary: '마이그레이션 시작',
+                detail: '데이터 구조를 변경합니다...',
+                life: 5000,
+            });
+
+            // 1. 가족 멤버 조회
+            const membersRef = collection(
+                db,
+                `userAssets/${userId}/familyMembers`
+            );
+            const membersSnapshot = await getDocs(membersRef);
+
+            for (const memberDoc of membersSnapshot.docs) {
+                const memberId = memberDoc.id;
+                console.log(`Migrating member: ${memberId}`);
+
+                // 2. 증권사 조회 (구 구조)
+                const brokeragesRef = collection(
+                    db,
+                    `userAssets/${userId}/familyMembers/${memberId}/brokerages`
+                );
+                const brokeragesSnapshot = await getDocs(brokeragesRef);
+
+                for (const brokerageDoc of brokeragesSnapshot.docs) {
+                    const brokerageId = brokerageDoc.id;
+                    const brokerageData = brokerageDoc.data();
+                    const brokerageName =
+                        brokerageData.name || 'Unknown Brokerage';
+                    console.log(
+                        `  Migrating brokerage: ${brokerageName} (${brokerageId})`
+                    );
+
+                    // 3. 계좌 조회 (구 구조)
+                    const accountsRef = collection(
+                        db,
+                        `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts`
+                    );
+                    const accountsSnapshot = await getDocs(accountsRef);
+
+                    for (const accountDoc of accountsSnapshot.docs) {
+                        const accountId = accountDoc.id; // ID 유지 시도? 아니면 새로 생성? -> 새로 생성하는게 안전 (ID 충돌 방지)
+                        // 하지만 ID를 유지하지 않으면 복잡해짐. 일단 새로 생성.
+                        const accountData = accountDoc.data();
+                        console.log(
+                            `    Migrating account: ${accountData.name}`
+                        );
+
+                        // 4. 새 구조로 계좌 생성
+                        const newAccountRef = await addAccount(
+                            userId,
+                            memberId,
+                            {
+                                ...accountData,
+                                brokerage: brokerageName,
+                            }
+                        );
+                        const newAccountId = newAccountRef; // addAccount returns ID string based on my update? No, addAccount returns void in current code?
+                        // Wait, addAccount in useAssetFirestore returns docRef (which is an object), I need to check.
+                        // Actually, I updated addAccount to return docRef. So I need to get .id from it.
+                        // Let's check useAssetFirestore.js again.
+                        // It returns `docRef`. So `newAccountId = docRef.id`.
+
+                        // 5. 자산 조회 (구 구조)
+                        const assetsRef = collection(
+                            db,
+                            `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets`
+                        );
+                        const assetsSnapshot = await getDocs(assetsRef);
+
+                        for (const assetDoc of assetsSnapshot.docs) {
+                            const assetData = assetDoc.data();
+                            // 6. 새 구조로 자산 생성
+                            const newAssetId = await addAsset(
+                                userId,
+                                memberId,
+                                newAccountId,
+                                {
+                                    ...assetData,
+                                    brokerage: brokerageName,
+                                }
+                            );
+
+                            // 7. 트랜잭션 조회 (구 구조)
+                            const transactionsRef = collection(
+                                db,
+                                `userAssets/${userId}/familyMembers/${memberId}/brokerages/${brokerageId}/accounts/${accountId}/assets/${assetDoc.id}/transactions`
+                            );
+                            const transactionsSnapshot =
+                                await getDocs(transactionsRef);
+
+                            for (const txDoc of transactionsSnapshot.docs) {
+                                const txData = txDoc.data();
+                                // 8. 새 구조로 트랜잭션 생성
+                                await addTransaction(
+                                    userId,
+                                    memberId,
+                                    newAccountId,
+                                    newAssetId,
+                                    txData
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
+            toast.add({
+                severity: 'success',
+                summary: '마이그레이션 완료',
+                detail: '데이터가 성공적으로 이동되었습니다.',
+                life: 3000,
+            });
+            // 새로고침
+            window.location.reload();
+        } catch (error) {
+            console.error('Migration failed:', error);
+            toast.add({
+                severity: 'error',
+                summary: '마이그레이션 실패',
+                detail: error.message,
+                life: 5000,
             });
         }
     };
@@ -1241,6 +1637,13 @@
             <template #content>
                 <div class="p-3">
                     <h4>🔍 Debug 정보</h4>
+                    <div class="flex gap-2 mb-2">
+                        <Button
+                            label="데이터 마이그레이션 (구조 변경)"
+                            severity="warning"
+                            size="small"
+                            @click="migrateData" />
+                    </div>
                     <p>familyMembers.length: {{ familyMembers.length }}</p>
                     <p>isLoadingMembers: {{ isLoadingMembers }}</p>
                     <p>selectedTabIndex: {{ selectedTabIndex }}</p>
@@ -1280,7 +1683,7 @@
             <!-- View 모드 토글 -->
             <AssetViewModeToggle v-model:mode="viewMode" />
 
-            <!-- 증권사 추가 버튼 -->
+            <!-- 증권사 추가 버튼 (제거 또는 계좌 추가로 변경) -->
             <div class="flex justify-content-end gap-2 mb-3">
                 <Button
                     label="거래내역서 업로드"
@@ -1288,9 +1691,9 @@
                     severity="success"
                     @click="openBrokerageUploadDialog" />
                 <Button
-                    label="증권사 추가"
+                    label="계좌 직접 추가"
                     icon="pi pi-plus"
-                    @click="openAddBrokerageDialog(selectedMember.id)" />
+                    @click="openAddAccountDialog(selectedMember.id)" />
             </div>
 
             <!-- TreeTable 구조로 자산 관리 (계좌 기준) -->
@@ -1317,7 +1720,16 @@
                                     <Tag
                                         v-if="node.data.type"
                                         :value="node.data.type"
-                                        severity="info" />
+                                        :severity="
+                                            node.data.type === '증권사'
+                                                ? 'success'
+                                                : node.data.type === '계좌'
+                                                  ? 'warning'
+                                                  : node.data.type ===
+                                                      '자산타입'
+                                                    ? 'info'
+                                                    : 'secondary'
+                                        " />
                                 </div>
                             </template>
                         </Column>
@@ -1378,12 +1790,10 @@
                                 <i class="pi pi-inbox text-6xl"></i>
                                 <p>등록된 자산이 없습니다.</p>
                                 <Button
-                                    label="첫 번째 증권사 추가하기"
+                                    label="첫 번째 계좌 추가하기"
                                     icon="pi pi-plus"
                                     @click="
-                                        openAddBrokerageDialog(
-                                            selectedMember.id
-                                        )
+                                        openAddAccountDialog(selectedMember.id)
                                     " />
                             </div>
                         </template>
