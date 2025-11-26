@@ -1,9 +1,8 @@
 // src/composables/useAssetFirestore.js
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import {
     collection,
     doc,
-    getDoc,
     setDoc,
     addDoc,
     updateDoc,
@@ -348,6 +347,9 @@ export const useAssets = () => {
             let assetId;
             if (assetData.type === '주식' && assetData.isin) {
                 assetId = assetData.isin;
+            } else if (assetData.type === '주식' && assetData.symbol) {
+                // Stock without ISIN, use symbol with STOCK_ prefix
+                assetId = `STOCK_${assetData.symbol}`;
             } else if (assetData.type === '현금' && assetData.currency) {
                 assetId = `CASH_${assetData.currency}`;
             } else if (assetData.type === '코인' && assetData.symbol) {
