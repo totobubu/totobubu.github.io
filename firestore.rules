@@ -32,20 +32,29 @@ service cloud.firestore {
       match /familyMembers/{memberId} {
         allow read, write: if isOwner(userId);
         
-        // 증권사 하위 컬렉션
+        // [New Structure] Accounts directly under familyMember
+        match /accounts/{accountId} {
+          allow read, write: if isOwner(userId);
+          
+          match /assets/{assetId} {
+            allow read, write: if isOwner(userId);
+            
+            match /transactions/{transactionId} {
+              allow read, write: if isOwner(userId);
+            }
+          }
+        }
+
+        // [Old Structure] Brokerages sub-collection (Keep for migration)
         match /brokerages/{brokerageId} {
           allow read, write: if isOwner(userId);
           
-          // 계좌 하위 컬렉션
           match /accounts/{accountId} {
             allow read, write: if isOwner(userId);
             
-            // 자산 하위 컬렉션
             match /assets/{assetId} {
-              // 소유자는 자신의 자산에 접근 가능
               allow read, write: if isOwner(userId);
               
-              // 거래내역 하위 컬렉션
               match /transactions/{transactionId} {
                 allow read, write: if isOwner(userId);
               }
