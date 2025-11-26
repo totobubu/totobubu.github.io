@@ -143,6 +143,34 @@ def prompt_user(prompt: str, default: Optional[str] = None) -> str:
         print("값을 입력해주세요.")
 
 
+def prompt_yes_no(prompt: str, default: bool = False) -> bool:
+    """사용자에게 yes/no 질문을 합니다."""
+    default_str = "y" if default else "n"
+    response = prompt_user(f"{prompt} (y/n)", default=default_str).lower()
+    return response in ("y", "yes")
+
+
+def detect_etf(symbol: str) -> bool:
+    """심볼이 ETF인지 확인합니다."""
+    print(f"\n[INFO] {symbol}이(가) ETF인지 확인 중...")
+    return prompt_yes_no(f"{symbol}이(가) ETF입니까?", default=False)
+
+
+def prompt_company(symbol: str) -> Optional[str]:
+    """회사명을 입력받습니다."""
+    company = prompt_user(f"{symbol}의 회사명 (예: YieldMax, GraniteShares)", default="").strip()
+    return company if company else None
+
+
+def prompt_underlying(symbol: str) -> Optional[str]:
+    """기초자산 심볼을 입력받습니다."""
+    has_underlying = prompt_yes_no(f"{symbol}에 기초자산(underlying)이 있습니까?", default=False)
+    if has_underlying:
+        underlying = prompt_user(f"{symbol}의 기초자산 심볼 (예: NVDA, TSLA)", default="").strip().upper()
+        return underlying if underlying else None
+    return None
+
+
 def prompt_market(symbol: str) -> str:
     print(f"[INPUT] {symbol}의 상장 시장을 선택하세요: {', '.join(MARKET_CHOICES)}")
     while True:
@@ -172,7 +200,8 @@ def fetch_isin_with_fallback(symbol: str) -> Tuple[str, str]:
         return manual_isin, manual_symbol
 
 
-def fetch_ipo_date(symbol: str) -> str:
+def fetch_ipo_date(symbol: str) -> Optional[str]:
+    """Yahoo Finance에서 IPO 날짜를 자동으로 조회합니다."""
     now_ts = int(time.time())
     url = (
         f"https://query1.finance.yahoo.com/v8/finance/chart/"
@@ -189,15 +218,24 @@ def fetch_ipo_date(symbol: str) -> str:
             iso = (
                 datetime.fromtimestamp(first_trade, tz=timezone.utc).date().isoformat()
             )
+            print(f"[INFO] IPO 날짜 자동 조회 성공: {iso}")
             return iso
         raise ValueError("firstTradeDate 필드를 찾을 수 없음")
     except Exception as exc:  # pylint: disable=broad-except
         print(f"[WARN] Yahoo Finance IPO 조회 실패 ({exc})")
-        manual_date = prompt_user("수동 IPO 일자 (YYYY-MM-DD)")
-        return manual_date
+        print(f"[INFO] IPO 날짜는 나중에 자동으로 계산됩니다.")
+        return None
 
 
-def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
+def ensure_nav_entry(
+    symbol: str,
+    market: str,
+    ipo_date: Optional[str],
+    isin: str,
+    company: Optional[str] = None,
+    underlying: Optional[str] = None,
+) -> Path:
+    """nav 파일에 심볼 정보를 추가하거나 업데이트합니다."""
     # MARKET_TO_DIR를 사용하여 디렉토리 이름 결정
     market_dir_name = MARKET_TO_DIR.get(market, market.lower())
     market_dir = NAV_DIR / market_dir_name
@@ -230,9 +268,24 @@ def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
     updated = False
     for entry in entries:
         if entry.get("symbol") == base_symbol or entry.get("symbol") == symbol:
-            if ipo_date and entry.get("ipoDate") != ipo_date:
-                entry["ipoDate"] = ipo_date
+            # ISIN 업데이트
+            if entry.get("isin") != isin:
+                entry["isin"] = isin
                 updated = True
+            # IPO 날짜 업데이트 또는 upcoming 설정
+            if ipo_date:
+                if entry.get("ipoDate") != ipo_date:
+                    entry["ipoDate"] = ipo_date
+                    updated = True
+                # IPO 날짜가 있으면 upcoming 제거
+                if "upcoming" in entry:
+                    del entry["upcoming"]
+                    updated = True
+            else:
+                # IPO 날짜가 없으면 upcoming: true 설정
+                if not entry.get("upcoming"):
+                    entry["upcoming"] = True
+                    updated = True
             # yfSymbol 설정
             if (
                 market in ("KOSPI", "KOSDAQ", "KONEX")
@@ -240,13 +293,28 @@ def ensure_nav_entry(symbol: str, market: str, ipo_date: Optional[str]) -> Path:
             ):
                 entry["yfSymbol"] = yf_symbol
                 updated = True
+            # company 업데이트
+            if company and entry.get("company") != company:
+                entry["company"] = company
+                updated = True
+            # underlying 업데이트
+            if underlying and entry.get("underlying") != underlying:
+                entry["underlying"] = underlying
+                updated = True
             break
     else:
-        new_entry = {"symbol": base_symbol, "market": market}
+        new_entry = {"symbol": base_symbol, "market": market, "isin": isin}
         if market in ("KOSPI", "KOSDAQ", "KONEX"):
             new_entry["yfSymbol"] = yf_symbol
         if ipo_date:
             new_entry["ipoDate"] = ipo_date
+        else:
+            # IPO 날짜가 없으면 upcoming: true 설정
+            new_entry["upcoming"] = True
+        if company:
+            new_entry["company"] = company
+        if underlying:
+            new_entry["underlying"] = underlying
         entries.append(new_entry)
         updated = True
 
@@ -265,7 +333,10 @@ def ensure_data_file(
     market: str,
     currency: Optional[str],
     isin: str,
+    company: Optional[str] = None,
+    underlying: Optional[str] = None,
 ) -> Path:
+    """data 파일에 티커 정보를 추가하거나 업데이트합니다."""
     slug = symbol_to_slug(symbol)
     # market 디렉토리 사용
     market_dir = MARKET_TO_DIR.get(market, market.lower())
@@ -288,6 +359,10 @@ def ensure_data_file(
     ticker_info["market"] = market
     if currency:
         ticker_info["currency"] = currency
+    if company:
+        ticker_info["company"] = company
+    if underlying:
+        ticker_info["underlying"] = underlying
     ticker_info["Update"] = datetime.now(timezone(timedelta(hours=9))).strftime(
         "%Y-%m-%d %H:%M:%S KST"
     )
@@ -517,9 +592,11 @@ def run_update_workflow(symbols: List[Dict[str, str]]) -> None:
         )
     )
 
-    # 배당 데이터가 업데이트된 경우에만 캘린더 이벤트 생성
-    # (generate-calendar-events는 배당 데이터가 없으면 해당 티커는 자동으로 제외됨)
-    steps.append(("6. 캘린더 이벤트 생성", ["npm", "run", "generate-calendar-events"]))
+    # Firebase 동기화 추가 (신규 티커만)
+    firebase_cmd = ["node", "scripts/mappings/sync-nav-to-firebase.js"]
+    for sym in resolved_symbols:
+        firebase_cmd.extend(["--symbol", sym])
+    steps.append((f"6. Firebase 동기화 ({', '.join(resolved_symbols)})", firebase_cmd))
 
     print("\n" + "=" * 80)
     print("신규 티커 워크플로우 실행")
@@ -553,9 +630,27 @@ def process_symbol(symbol: str) -> Dict[str, str]:
     market = resolve_market(resolved_symbol, detected_market)
     currency = MARKET_TO_CURRENCY.get(market)
 
+    # ETF 확인 및 추가 정보 수집
+    is_etf = detect_etf(resolved_symbol)
+    company = None
+    underlying = None
+    
+    if is_etf:
+        company = prompt_company(resolved_symbol)
+        underlying = prompt_underlying(resolved_symbol)
+
+    # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
-    nav_path = ensure_nav_entry(resolved_symbol, market, ipo_date)
-    data_path = ensure_data_file(resolved_symbol, market, currency, isin)
+    
+    # nav 파일 업데이트 (ISIN, company, underlying 포함)
+    nav_path = ensure_nav_entry(
+        resolved_symbol, market, ipo_date, isin, company, underlying
+    )
+    
+    # data 파일 업데이트 (ISIN, company, underlying 포함)
+    data_path = ensure_data_file(
+        resolved_symbol, market, currency, isin, company, underlying
+    )
 
     return {
         "input_symbol": normalized,
@@ -563,6 +658,9 @@ def process_symbol(symbol: str) -> Dict[str, str]:
         "market": market,
         "isin": isin,
         "ipo_date": ipo_date,
+        "upcoming": not bool(ipo_date),
+        "company": company or "N/A",
+        "underlying": underlying or "N/A",
         "nav_path": str(nav_path.relative_to(ROOT_DIR)),
         "data_path": str(data_path.relative_to(ROOT_DIR)),
     }
@@ -619,10 +717,17 @@ def main() -> int:
     print("\n요약")
     print("-" * 40)
     for item in summaries:
+        if not item.get("resolved_symbol"):
+            continue
+        ipo_info = item['ipo_date'] if item['ipo_date'] else "upcoming: true"
         print(
             f"{item['resolved_symbol']} "
-            f"(시장: {item['market']}, ISIN: {item['isin']}, IPO: {item['ipo_date']})"
+            f"(시장: {item['market']}, ISIN: {item['isin']}, IPO: {ipo_info})"
         )
+        if item.get("company") and item["company"] != "N/A":
+            print(f"  - 회사: {item['company']}")
+        if item.get("underlying") and item["underlying"] != "N/A":
+            print(f"  - 기초자산: {item['underlying']}")
         print(f"  - nav : {item['nav_path']}")
         print(f"  - data: {item['data_path']}")
     print("-" * 40)
