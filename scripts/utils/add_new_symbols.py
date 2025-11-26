@@ -297,6 +297,7 @@ def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
             cwd=ROOT_DIR,
             capture_output=True,
             text=True,
+            encoding="utf-8",
             timeout=60,
         )
 
@@ -325,6 +326,81 @@ def fetch_market_from_google_finance(symbol: str) -> Optional[str]:
     except Exception as exc:
         print(f"[WARN] Google Finance 마켓 조회 오류: {exc}")
         return None
+
+
+def ensure_nav_entry(
+    symbol: str,
+    market: str,
+    ipo_date: Optional[str],
+    isin: str,
+    company: Optional[str] = None,
+    underlying: Optional[str] = None,
+    ko_name: Optional[str] = None,
+) -> Path:
+    """nav 파일에 티커 정보를 추가하거나 업데이트합니다."""
+    nav_file = nav_filename_for_symbol(symbol)
+    market_dir_name = MARKET_TO_DIR.get(market, market.lower())
+    market_nav_dir = NAV_DIR / market_dir_name
+    market_nav_dir.mkdir(parents=True, exist_ok=True)
+    nav_path = market_nav_dir / nav_file
+
+    if nav_path.exists():
+        try:
+            with nav_path.open(encoding="utf-8") as fp:
+                entries = json.load(fp)
+        except json.JSONDecodeError:
+            entries = []
+    else:
+        entries = []
+
+    # 기존 항목 찾기
+    existing_entry = None
+    for entry in entries:
+        if entry.get("symbol") == symbol:
+            existing_entry = entry
+            break
+
+    if existing_entry:
+        # 업데이트
+        existing_entry["isin"] = isin
+        existing_entry["market"] = market
+        if ipo_date:
+            existing_entry["ipoDate"] = ipo_date
+        if company:
+            existing_entry["company"] = company
+        if underlying:
+            existing_entry["underlying"] = underlying
+        if ko_name:
+            existing_entry["koName"] = ko_name
+        print(f"[UPDATE] nav 항목 업데이트: {symbol}")
+    else:
+        # 신규 추가
+        new_entry = {
+            "symbol": symbol,
+            "isin": isin,
+            "market": market,
+            "yfSymbol": symbol,
+            "currency": MARKET_TO_CURRENCY.get(market, "USD"),
+            "holdings": False,  # 기본값
+            "sharesOutstanding": False,  # 기본값
+        }
+        if ipo_date:
+            new_entry["ipoDate"] = ipo_date
+        if company:
+            new_entry["company"] = company
+        if underlying:
+            new_entry["underlying"] = underlying
+        if ko_name:
+            new_entry["koName"] = ko_name
+
+        entries.append(new_entry)
+        print(f"[ADD] nav 항목 추가: {symbol}")
+
+    # 심볼 기준 정렬
+    entries.sort(key=lambda x: x.get("symbol", ""))
+
+    save_json_file(str(nav_path), entries, indent=4)
+    return nav_path
 
 
 def resolve_market(symbol: str, detected: Optional[str]) -> str:
@@ -550,12 +626,12 @@ def process_symbol(symbol: str) -> Dict[str, str]:
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
-    
+
     # nav 파일 업데이트 (ISIN, company, underlying, koName 포함)
     nav_path = ensure_nav_entry(
         resolved_symbol, market, ipo_date, isin, company, underlying, ko_name
     )
-    
+
     # data 파일 업데이트 (ISIN, company, underlying, koName 포함)
     data_path = ensure_data_file(
         resolved_symbol, market, currency, isin, company, underlying, ko_name
