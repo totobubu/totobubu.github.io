@@ -1,4 +1,4 @@
 // Shared Utility Composables
-export { default as useBreakpoint } from './useBreakpoint.js';
-export { default as useLayout } from './useLayout.js';
-export { default as useStockCharts } from './useStockCharts.js';
+export { useBreakpoint } from './useBreakpoint';
+export { useLayout } from './useLayout';
+export { useStockCharts } from './useStockCharts';
