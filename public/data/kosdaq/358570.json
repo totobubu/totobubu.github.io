@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 18420,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 17890,
         "englishName": "GI Innovation, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1138254413824,
-        "Volume": 699142,
-        "AvgVolume": 787208,
+        "marketCap": 1105503322112,
+        "Volume": 670741,
+        "AvgVolume": 784206,
         "sharesOutstanding": 61794483,
         "52Week": "6809.091 - 24900.0",
         "Yield": null,
@@ -37,7 +37,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18420,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1138254413824,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 699142,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 787208,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5866,7 +5883,8 @@
             "high": 18470,
             "low": 17240,
             "close": 17890,
-            "volume": 663365
+            "volume": 663365,
+            "marketCap": 1105503322112
         }
     ]
 }

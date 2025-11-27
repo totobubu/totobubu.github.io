@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 54300,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 52100,
         "englishName": "CLASSYS Inc.",
         "earningsDate": null,
-        "enterpriseValue": 3556027924480,
-        "marketCap": 3556173938688,
-        "Volume": 170362,
-        "AvgVolume": 253554,
+        "enterpriseValue": 3326808686592,
+        "marketCap": 3412093304832,
+        "Volume": 167987,
+        "AvgVolume": 256002,
         "sharesOutstanding": 65491232,
         "52Week": "40000.0 - 74400.0",
         "Yield": null,
         "dividendRate": 257,
-        "payoutRatio": 0.1431,
+        "payoutRatio": 0.1438,
         "isin": "US83755U6192",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 54300,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 3556027924480,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3556173938688,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 170362,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 253554,
+                "change": "up"
+            },
+            "payoutRatio": {
+                "value": 0.1431,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17518,7 +17543,8 @@
             "high": 52600,
             "low": 51000,
             "close": 52100,
-            "volume": 167987
+            "volume": 167987,
+            "marketCap": 3412093304832
         },
         {
             "date": "2025-12-26",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 544000,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 521000,
         "englishName": "ALTEOGEN Inc.",
         "earningsDate": null,
-        "enterpriseValue": 29616857153536,
-        "marketCap": 29072046424064,
-        "Volume": 389701,
-        "AvgVolume": 413227,
+        "enterpriseValue": 27457042251776,
+        "marketCap": 27842897248256,
+        "Volume": 231291,
+        "AvgVolume": 412187,
         "sharesOutstanding": 53441260,
         "52Week": "274000.0 - 569000.0",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 544000,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29616857153536,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 29072046424064,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 389701,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 413227,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24201,7 +24222,8 @@
             "high": 535000,
             "low": 516000,
             "close": 521000,
-            "volume": 231291
+            "volume": 231291,
+            "marketCap": 27842897248256
         }
     ]
 }

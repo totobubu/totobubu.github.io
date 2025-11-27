@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 55400,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 55900,
         "englishName": "Doosan Bobcat Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 5283389636608,
-        "marketCap": 5302544498688,
-        "Volume": 206388,
-        "AvgVolume": 270485,
+        "enterpriseValue": 5493959950336,
+        "marketCap": 5350401507328,
+        "Volume": 136811,
+        "AvgVolume": 267590,
         "sharesOutstanding": 95713802,
-        "52Week": "36800.0 - 73900.0",
+        "52Week": "38200.0 - 73900.0",
         "Yield": null,
         "dividendRate": 2000,
         "payoutRatio": 0.3512,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55400,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 5283389636608,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 5302544498688,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 206388,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 270485,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19909,7 +19930,8 @@
             "high": 57000,
             "low": 55700,
             "close": 55900,
-            "volume": 147680
+            "volume": 147680,
+            "marketCap": 5350401507328
         },
         {
             "date": "2026-02-13",

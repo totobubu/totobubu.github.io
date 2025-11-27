@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 28150,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 26550,
         "englishName": "RFHIC Corporation",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 713131753472,
-        "Volume": 204345,
-        "AvgVolume": 279635,
+        "marketCap": 672598523904,
+        "Volume": 228886,
+        "AvgVolume": 285507,
         "sharesOutstanding": 25333278,
         "52Week": "10650.0 - 36900.0",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28150,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 713131753472,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 204345,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 279635,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18072,7 +18089,8 @@
             "high": 27400,
             "low": 25900,
             "close": 26550,
-            "volume": 228886
+            "volume": 228886,
+            "marketCap": 672598523904
         },
         {
             "date": "2025-12-26",

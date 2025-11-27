@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 133600,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 124400,
         "englishName": "OliX Pharmaceuticals, Inc",
         "earningsDate": null,
-        "enterpriseValue": 2764100075520,
-        "marketCap": 2645178449920,
-        "Volume": 534393,
-        "AvgVolume": 1310083,
+        "enterpriseValue": 2611787595776,
+        "marketCap": 2463025332224,
+        "Volume": 1443320,
+        "AvgVolume": 1305825,
         "sharesOutstanding": 19799240,
         "52Week": "13380.0 - 148700.0",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 133600,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2764100075520,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2645178449920,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 534393,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1310083,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16238,7 +16259,8 @@
             "high": 136800,
             "low": 118600,
             "close": 124400,
-            "volume": 1438824
+            "volume": 1438824,
+            "marketCap": 2463025332224
         }
     ]
 }

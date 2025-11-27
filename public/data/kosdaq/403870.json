@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 29050,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 28800,
         "englishName": "HPSP Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 2242033483776,
-        "marketCap": 2342851444736,
-        "Volume": 449558,
-        "AvgVolume": 864279,
+        "enterpriseValue": 2153319628800,
+        "marketCap": 2322689163264,
+        "Volume": 365313,
+        "AvgVolume": 883424,
         "sharesOutstanding": 80648931,
         "52Week": "21150.0 - 38350.0",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29050,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2242033483776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2342851444736,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 449558,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 864279,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7440,7 +7461,8 @@
             "high": 29350,
             "low": 28600,
             "close": 28800,
-            "volume": 365313
+            "volume": 365313,
+            "marketCap": 2322689163264
         },
         {
             "date": "2025-12-26",

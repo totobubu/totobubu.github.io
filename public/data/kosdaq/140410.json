@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 67000,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 66700,
         "englishName": "Mezzion Pharma Co.,Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 2017593786368,
-        "Volume": 70007,
-        "AvgVolume": 172875,
+        "marketCap": 2008559779840,
+        "Volume": 68523,
+        "AvgVolume": 177398,
         "sharesOutstanding": 30113340,
         "52Week": "25450.0 - 74300.0",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2017593786368,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 70007,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 172875,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30570,7 +30587,8 @@
             "high": 67900,
             "low": 65400,
             "close": 66700,
-            "volume": 68523
+            "volume": 68523,
+            "marketCap": 2008559779840
         }
     ]
 }

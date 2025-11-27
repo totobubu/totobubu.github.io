@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 220500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 230500,
         "englishName": "Voronoi, Inc.",
         "earningsDate": null,
-        "enterpriseValue": 4186624229376,
-        "marketCap": 3966358519808,
-        "Volume": 88805,
-        "AvgVolume": 133004,
+        "enterpriseValue": 4294552322048,
+        "marketCap": 4146238586880,
+        "Volume": 85856,
+        "AvgVolume": 135143,
         "sharesOutstanding": 17988020,
-        "52Week": "63000.0 - 235500.0",
+        "52Week": "68000.0 - 245500.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 220500,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4186624229376,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3966358519808,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 88805,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 133004,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7571,7 +7592,8 @@
             "high": 240000,
             "low": 228500,
             "close": 230500,
-            "volume": 85856
+            "volume": 85856,
+            "marketCap": 4146238586880
         }
     ]
 }
