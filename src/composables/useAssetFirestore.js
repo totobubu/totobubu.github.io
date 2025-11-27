@@ -1,9 +1,8 @@
 // src/composables/useAssetFirestore.js
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import {
     collection,
     doc,
-    getDoc,
     setDoc,
     addDoc,
     updateDoc,
