@@ -8,6 +8,9 @@ import {
     updateDoc,
     deleteDoc,
     getDocs,
+    query,
+    where,
+    deleteField,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 // import { user } from '@/store/auth'; // user는 페이지에서 전달받음
@@ -19,10 +22,14 @@ import { db } from '@/firebase';
  *   - name: string
  *   - relationship: string (본인, 배우자, 자녀, 부모 등)
  *
+ * --------------------------------------------------
+ *
  * userAssets/{userId}/familyMembers/{memberId}/accounts/{accountId}
  *   - name: string
  *   - brokerage: string
  *   - accountNumber: string
+ *
+ * --------------------------------------------------
  *
  * userAssets/{userId}/assets/{isin} or {currency} or {coinid}
  * - type: string (주식, 현금, 코인)
@@ -33,16 +40,35 @@ import { db } from '@/firebase';
  * - holdings: { [accountId]: { amount: number, avgPrice?: number } }
  * - notes?: string
  *
+ * --------------------------------------------------
+ *
  * userAssets/{userId}/assets/{isin}/transactions/{transactionId}
+ * - tossTransactionId?: string (토스증권 거래내역서 발급번호)
  * - accountId: string (어느 계좌의 거래인지)
- * - type: string (buy, sell, dividend)
- * - quantity: number
- * - price: number
- * - amount: number (총 금액)
- * - date: timestamp
- * - currency: string (KRW, USD 등)
+ * - date: timestamp (거래일자)
+ * - brokerage?: string (증권사명)
+ * - type: string (정규화된 타입: buy, sell, dividend, deposit, withdrawal, exchange, interest, event, unknown)
+ * - rawType: string (원본 거래 타입)
+ * - currency: string (거래 통화: "USD", "KRW")
+ * - quantity?: number (거래수량)
+ * - price?: number (KRW 기준 단가)
+ * - amount: number (KRW 기준 거래대금, 총 금액)
+ * - commission?: number (수수료)
+ * - tax?: number (제세금)
+ * - taxFree?: number (변제/연체합)
+ * - balance?: number (잔고)
+ * - balanceAmount?: number (잔액)
  * - notes?: string
  *
+ * // USD 거래인 경우
+ * - priceUSD?: number (USD 기준 단가)
+ * - amountUSD?: number (USD 기준 거래대금, 총 금액)
+ * - exchangeRate?: number (환율)
+ * - commissionUSD?: number (USD 기준 수수료)
+ * - taxUSD?: number (USD 기준 제세금)
+ * - taxFreeUSD?: number (USD 기준 변제/연체합)
+ * - balanceUSD?: number (USD 기준 잔고)
+ * - balanceAmountUSD?: number (USD 기준 잔액)
  */
 
 /**
@@ -334,6 +360,78 @@ export const useAssets = () => {
     };
 
     /**
+     * Load stocks only
+     * @param {string} userId
+     * @returns {Array} Array of stock assets
+     */
+    const loadStocks = async (userId) => {
+        if (!userId) return [];
+        isLoading.value = true;
+        try {
+            const assetsRef = collection(db, `userAssets/${userId}/assets`);
+            const q = query(assetsRef, where('type', '==', '주식'));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+        } catch (error) {
+            console.error('주식 불러오기 실패:', error);
+            return [];
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    /**
+     * Load cash/deposits only
+     * @param {string} userId
+     * @returns {Array} Array of cash assets
+     */
+    const loadCash = async (userId) => {
+        if (!userId) return [];
+        isLoading.value = true;
+        try {
+            const assetsRef = collection(db, `userAssets/${userId}/assets`);
+            const q = query(assetsRef, where('type', '==', '현금'));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+        } catch (error) {
+            console.error('현금 불러오기 실패:', error);
+            return [];
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    /**
+     * Load coins only
+     * @param {string} userId
+     * @returns {Array} Array of coin assets
+     */
+    const loadCoins = async (userId) => {
+        if (!userId) return [];
+        isLoading.value = true;
+        try {
+            const assetsRef = collection(db, `userAssets/${userId}/assets`);
+            const q = query(assetsRef, where('type', '==', '코인'));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+        } catch (error) {
+            console.error('코인 불러오기 실패:', error);
+            return [];
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    /**
      * Add or update an asset
      * Uses ISIN for stocks, currency code for cash as document ID
      * @param {string} userId
@@ -365,11 +463,16 @@ export const useAssets = () => {
 
             const assetRef = doc(db, `userAssets/${userId}/assets`, assetId);
 
+            // Remove undefined fields from assetData
+            const sanitizedData = Object.fromEntries(
+                Object.entries(assetData).filter(([_, v]) => v !== undefined)
+            );
+
             // Use setDoc with merge to update if exists
             await setDoc(
                 assetRef,
                 {
-                    ...assetData,
+                    ...sanitizedData,
                     updatedAt: new Date(),
                 },
                 { merge: true }
