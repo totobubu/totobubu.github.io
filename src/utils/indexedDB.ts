@@ -83,7 +83,7 @@ class IndexedDBCache {
    * @param {string} key - 조회 키
    * @returns {Object|null} - 캐시된 데이터 또는 null
    */
-  async get(key) {
+  async get<T = any>(key: string): Promise<T | null> {
     await this.init();
 
     return new Promise((resolve, reject) => {

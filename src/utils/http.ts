@@ -195,7 +195,7 @@ http.interceptors.response.use(
 /**
  * GET 요청 (캐시 옵션 포함)
  */
-export async function get(url, options = {}) {
+export async function get<T = any>(url: string, options: any = {}): Promise<import('axios').AxiosResponse<T>> {
   const config = {
     method: 'GET',
     url,
