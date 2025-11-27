@@ -346,13 +346,19 @@ export const useAssets = () => {
         try {
             // Determine asset ID based on type
             let assetId;
-            if (assetData.type === '주식' && assetData.isin) {
-                assetId = assetData.isin;
+            if (assetData.type === '주식') {
+                if (assetData.isin) {
+                    assetId = assetData.isin;
+                } else if (assetData.symbol) {
+                    assetId = `STOCK_${assetData.symbol}`;
+                }
             } else if (assetData.type === '현금' && assetData.currency) {
                 assetId = `CASH_${assetData.currency}`;
             } else if (assetData.type === '코인' && assetData.symbol) {
                 assetId = `COIN_${assetData.symbol}`;
-            } else {
+            }
+
+            if (!assetId) {
                 throw new Error(
                     'Invalid asset data: missing isin, currency, or symbol'
                 );
