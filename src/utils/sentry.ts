@@ -72,7 +72,7 @@ export function initSentry(app: App, router: Router) {
     ],
 
     // PII 데이터 제외
-    beforeSend(event, hint) {
+    beforeSend(event, _hint) {
       // 사용자 이메일 마스킹
       if (event.user && event.user.email) {
         event.user.email = event.user.email.replace(/(.{2}).*(@.*)/, '$1***$2');
