@@ -112,7 +112,7 @@ async function generateCalendarEvents() {
     async function findJsonFiles(dir) {
         const files = [];
         const entries = await fs.readdir(dir, { withFileTypes: true });
-        
+
         for (const entry of entries) {
             const fullPath = path.join(dir, entry.name);
             if (entry.isDirectory()) {
@@ -182,6 +182,7 @@ async function generateCalendarEvents() {
                 koName: tickerInfo.koName,
                 frequency: tickerInfo.frequency,
                 group: tickerInfo.group,
+                isEtf: isEtf,
             };
             let hasEvent = false;
 

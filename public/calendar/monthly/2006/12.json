@@ -4,31 +4,31 @@
       {
         "ticker": "TLT",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.342
       },
       {
         "ticker": "AGG",
         "frequency": "매월",
-        "group": "FND",
+        "isEtf": true,
         "amount": 0.398
       },
       {
         "ticker": "IEF",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.304
       },
       {
         "ticker": "LQD",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.447
       },
       {
         "ticker": "SHY",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.287
       }
     ]
@@ -38,31 +38,35 @@
       {
         "ticker": "ROST",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.06
       },
       {
         "ticker": "AEE",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.635
       },
       {
         "ticker": "AVY",
         "frequency": "분기",
-        "group": "MJA",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.4
       },
       {
         "ticker": "OIH",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.028
       },
       {
         "ticker": "SLB",
         "frequency": "분기",
-        "group": "FJD",
+        "group": "FJSD",
+        "isEtf": false,
         "amount": 0.125
       }
     ]
@@ -72,31 +76,36 @@
       {
         "ticker": "LIN",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "MAR",
         "frequency": "분기",
-        "group": "FAN",
+        "group": "FMAN",
+        "isEtf": false,
         "amount": 0.063
       },
       {
         "ticker": "QCOM",
         "frequency": "분기",
-        "group": "FMA",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.12
       },
       {
         "ticker": "LUV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.005
       },
       {
         "ticker": "NEM",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MMSN",
+        "isEtf": false,
         "amount": 0.1
       }
     ]
@@ -106,127 +115,148 @@
       {
         "ticker": "ADP",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.23
       },
       {
         "ticker": "CHRW",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.18
       },
       {
         "ticker": "CME",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.63
       },
       {
         "ticker": "EVRG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MMAN",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "KMB",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.49
       },
       {
         "ticker": "NTRS",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "PEP",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.3
       },
       {
         "ticker": "AME",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.060001
       },
       {
         "ticker": "BAX",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "FMAN",
+        "isEtf": false,
         "amount": 0.582001
       },
       {
         "ticker": "EL",
         "frequency": "분기",
-        "group": "FND",
+        "group": "FMSN",
+        "isEtf": false,
         "amount": 0.5
       },
       {
         "ticker": "FVD",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.578
       },
       {
         "ticker": "GPC",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.338
       },
       {
         "ticker": "MRK",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.38
       },
       {
         "ticker": "OXY",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.220001
       },
       {
         "ticker": "PEG",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.57
       },
       {
         "ticker": "PGR",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.009
       },
       {
         "ticker": "PPH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "분기",
+        "group": "AJOD",
+        "isEtf": true,
         "amount": 0.084
       },
       {
         "ticker": "PPL",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.275
       },
       {
         "ticker": "SWK",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSN",
+        "isEtf": false,
         "amount": 0.3
       },
       {
         "ticker": "TRV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.26
       },
       {
         "ticker": "WMB",
         "frequency": "분기",
-        "group": "MAD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.09
       }
     ]
@@ -236,13 +266,15 @@
       {
         "ticker": "CI",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.024999
       },
       {
         "ticker": "NKE",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.185
       }
     ]
@@ -252,13 +284,15 @@
       {
         "ticker": "BDX",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.245
       },
       {
         "ticker": "FDX",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.09
       }
     ]
@@ -268,13 +302,15 @@
       {
         "ticker": "APH",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.03
       },
       {
         "ticker": "HPQ",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.080001
       }
     ]
@@ -284,13 +320,15 @@
       {
         "ticker": "FCX",
         "frequency": "분기",
-        "group": "AJO",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.75
       },
       {
         "ticker": "FIS",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.05
       }
     ]
@@ -300,103 +338,116 @@
       {
         "ticker": "COO",
         "frequency": "분기",
-        "group": "JJD",
+        "isEtf": false,
         "amount": 0.03
       },
       {
         "ticker": "DPZ",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.12
       },
       {
         "ticker": "HBAN",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "ALB",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.18
       },
       {
         "ticker": "DIS",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MSND",
+        "isEtf": false,
         "amount": 0.31
       },
       {
         "ticker": "DVN",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.113
       },
       {
         "ticker": "EXR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.228
       },
       {
         "ticker": "FICO",
         "frequency": "분기",
-        "group": "FMA",
+        "group": "MMSN",
+        "isEtf": false,
         "amount": 0.02
       },
       {
         "ticker": "MSI",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.05
       },
       {
         "ticker": "OIH",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.013
       },
       {
         "ticker": "PKG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "PSA",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.5
       },
       {
         "ticker": "RTH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.075
       },
       {
         "ticker": "TKO",
         "frequency": "분기",
-        "group": "MJS",
+        "isEtf": false,
         "amount": 0.24
       },
       {
         "ticker": "TXT",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.388
       },
       {
         "ticker": "WMT",
         "frequency": "분기",
-        "group": "MAD",
+        "group": "MMAD",
+        "isEtf": false,
         "amount": 0.168
       },
       {
         "ticker": "WRB",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.040001
       }
     ]
@@ -406,31 +457,36 @@
       {
         "ticker": "PCAR",
         "frequency": "분기",
-        "group": "MAN",
+        "group": "FMAN",
+        "isEtf": false,
         "amount": 2
       },
       {
         "ticker": "DTE",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.53
       },
       {
         "ticker": "EMN",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.45
       },
       {
         "ticker": "HUBB",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "FMAN",
+        "isEtf": false,
         "amount": 0.33
       },
       {
         "ticker": "OMC",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       }
     ]
@@ -440,289 +496,332 @@
       {
         "ticker": "NDSN",
         "frequency": "분기",
-        "group": "FAD",
+        "group": "JMJS",
+        "isEtf": false,
         "amount": 0.175
       },
       {
         "ticker": "QQQ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.054
       },
       {
         "ticker": "DIA",
         "frequency": "매월",
-        "group": "AMN",
+        "isEtf": true,
         "amount": 0.33
       },
       {
         "ticker": "ECL",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.115
       },
       {
         "ticker": "EQWL",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.02
       },
       {
         "ticker": "FEZ",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.129
       },
       {
         "ticker": "KBE",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.75
       },
       {
         "ticker": "KRE",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.234
       },
       {
         "ticker": "MDY",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.599
       },
       {
         "ticker": "MDYG",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.727001
       },
       {
         "ticker": "MDYV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.275
       },
       {
         "ticker": "OIH",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.014
       },
       {
         "ticker": "ONEQ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.11
       },
       {
         "ticker": "PEY",
         "frequency": "매월",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 0.066
       },
       {
         "ticker": "PGF",
         "frequency": "매월",
-        "group": "JFD",
+        "isEtf": true,
         "amount": 0.186
       },
       {
         "ticker": "PHO",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.078
       },
       {
         "ticker": "PID",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.167
       },
       {
         "ticker": "PPA",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.01
       },
       {
         "ticker": "PRF",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.206
       },
       {
         "ticker": "PRFZ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.386
       },
       {
         "ticker": "PWB",
         "frequency": "분기",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 0.019
       },
       {
         "ticker": "PWV",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.111
       },
       {
         "ticker": "RSP",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.169
       },
       {
         "ticker": "RWR",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.424
       },
       {
         "ticker": "SDY",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.589
       },
       {
         "ticker": "SLYG",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.032
       },
       {
         "ticker": "SLYV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.434
-      },
-      {
-        "ticker": "SPLG",
-        "frequency": "분기",
-        "group": "MJD",
-        "amount": 0.0725
       },
       {
         "ticker": "SPTM",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.445998
       },
       {
         "ticker": "SPY",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.793
       },
       {
         "ticker": "SPYG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.142
+      },
+      {
+        "ticker": "SPYM",
+        "frequency": "분기",
+        "group": "MJSD",
+        "isEtf": true,
+        "amount": 0.0725
       },
       {
         "ticker": "SPYV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.533
       },
       {
         "ticker": "XHB",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.062
       },
       {
         "ticker": "XLB",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.384
       },
       {
         "ticker": "XLE",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.184
       },
       {
         "ticker": "XLF",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.281
       },
       {
         "ticker": "XLG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.473
       },
       {
         "ticker": "XLI",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.283
       },
       {
         "ticker": "XLK",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.135
       },
       {
         "ticker": "XLP",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.132
       },
       {
         "ticker": "XLU",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.336
       },
       {
         "ticker": "XLV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.117
       },
       {
         "ticker": "XLY",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.138
       },
       {
         "ticker": "XME",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.109
       },
       {
         "ticker": "XMHQ",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.043
       },
       {
         "ticker": "XMMO",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.097
       },
       {
         "ticker": "XOP",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.033
       },
       {
         "ticker": "XSD",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.032
       }
     ]
@@ -732,73 +831,84 @@
       {
         "ticker": "DBC",
         "frequency": "매년",
-        "group": "D",
+        "isEtf": true,
         "amount": 0.61
       },
       {
         "ticker": "PHM",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.04
       },
       {
         "ticker": "VAW",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.136
       },
       {
         "ticker": "VCR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.47
       },
       {
         "ticker": "VDC",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.96
       },
       {
         "ticker": "VDE",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.929
       },
       {
         "ticker": "VFH",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.437
       },
       {
         "ticker": "VGT",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.136
       },
       {
         "ticker": "VHT",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.615
       },
       {
         "ticker": "VIS",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.744
       },
       {
         "ticker": "VOX",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.927
       },
       {
         "ticker": "VPU",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.564
       }
     ]
@@ -808,19 +918,22 @@
       {
         "ticker": "IFF",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.21
       },
       {
         "ticker": "RF",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.36
       },
       {
         "ticker": "SRE",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJOD",
+        "isEtf": false,
         "amount": 0.3
       }
     ]
@@ -830,361 +943,406 @@
       {
         "ticker": "CINF",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.335
       },
       {
         "ticker": "CPT",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.66
       },
       {
         "ticker": "DDM",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 6.801
       },
       {
         "ticker": "DOG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.94
       },
       {
         "ticker": "DSI",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.105
       },
       {
         "ticker": "DVY",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.526
       },
       {
         "ticker": "EEM",
         "frequency": "매주",
-        "group": "화",
+        "isEtf": true,
         "amount": 1.572999
       },
       {
         "ticker": "EPP",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 5.196999
       },
       {
         "ticker": "EQR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "JMJS",
+        "isEtf": false,
         "amount": 0.463
       },
       {
         "ticker": "EWA",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 1.1
       },
       {
         "ticker": "EWC",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.285
       },
       {
         "ticker": "EWG",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.508
       },
       {
         "ticker": "EWJ",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.099
       },
       {
         "ticker": "EWL",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.194
       },
       {
         "ticker": "EWP",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.383
       },
       {
         "ticker": "EWS",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.309
       },
       {
         "ticker": "EWT",
         "frequency": "매년",
-        "group": "AD",
+        "isEtf": true,
         "amount": 0.302
       },
       {
         "ticker": "EWU",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.813
       },
       {
         "ticker": "EWW",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.455
       },
       {
         "ticker": "EWY",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 0.333
       },
       {
         "ticker": "EWZ",
         "frequency": "매주",
-        "group": "수",
+        "isEtf": true,
         "amount": 0.869
       },
       {
         "ticker": "EZU",
         "frequency": "매년",
-        "group": "JAD",
+        "isEtf": true,
         "amount": 1.852
       },
       {
         "ticker": "IAI",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.062
       },
       {
         "ticker": "IDU",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.549
       },
       {
         "ticker": "ITA",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.07
       },
       {
         "ticker": "ITB",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.066
       },
       {
         "ticker": "IUSG",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.083
       },
       {
         "ticker": "IUSV",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.651999
       },
       {
         "ticker": "IWB",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.342
       },
       {
         "ticker": "IWC",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.138
       },
       {
         "ticker": "IWD",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.516
       },
       {
         "ticker": "IWF",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.123
       },
       {
         "ticker": "IWM",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.329
       },
       {
         "ticker": "IWN",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.436
       },
       {
         "ticker": "IWO",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.075
       },
       {
         "ticker": "IWP",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.101
       },
       {
         "ticker": "IWR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.391
       },
       {
         "ticker": "IWS",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.984
       },
       {
         "ticker": "IWV",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.337
       },
       {
         "ticker": "IYC",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.258
       },
       {
         "ticker": "IYE",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.255
       },
       {
         "ticker": "IYF",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.712
       },
       {
         "ticker": "IYG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.879999
       },
       {
         "ticker": "IYH",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.155
       },
       {
         "ticker": "IYJ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.236
       },
       {
         "ticker": "IYK",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.374001
       },
       {
         "ticker": "IYR",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.086
       },
       {
         "ticker": "IYW",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.013
       },
       {
         "ticker": "IYY",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.309
       },
       {
         "ticker": "MVV",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 4.347
       },
       {
         "ticker": "PLD",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.46
       },
       {
         "ticker": "PSQ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.982
       },
       {
         "ticker": "QID",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.567
       },
       {
         "ticker": "QLD",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 5.420992
       },
       {
         "ticker": "RCL",
         "frequency": "분기",
-        "group": "FSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.15
       },
       {
         "ticker": "SDS",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.719
       },
       {
         "ticker": "SH",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.159
       },
       {
         "ticker": "SSO",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 3.797
       },
       {
         "ticker": "SUSA",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.202
       },
       {
         "ticker": "WELL",
         "frequency": "분기",
-        "group": "JMO",
+        "group": "FMAN",
+        "isEtf": false,
         "amount": 0.341
       }
     ]
@@ -1194,283 +1352,306 @@
       {
         "ticker": "DES",
         "frequency": "매월",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 0.606999
       },
       {
         "ticker": "DHS",
         "frequency": "매월",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 0.418
       },
       {
         "ticker": "DLN",
         "frequency": "매월",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 0.332
       },
       {
         "ticker": "DLS",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.256
       },
       {
         "ticker": "DON",
         "frequency": "매월",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 0.465
       },
       {
         "ticker": "DTD",
         "frequency": "매월",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 0.378
       },
       {
         "ticker": "DXJ",
         "frequency": "분기",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 0.209
       },
       {
         "ticker": "EFA",
         "frequency": "매년",
-        "group": "JOD",
+        "isEtf": true,
         "amount": 1.533
       },
       {
         "ticker": "EFG",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 0.689
       },
       {
         "ticker": "EFV",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 1.192
       },
       {
         "ticker": "EVX",
         "frequency": "매년",
-        "group": "D",
+        "isEtf": true,
         "amount": 0.05
       },
       {
         "ticker": "EXI",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 0.288
       },
       {
         "ticker": "FDL",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.2
       },
       {
         "ticker": "FTCS",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.088
       },
       {
         "ticker": "FXI",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 1.305
       },
       {
         "ticker": "GDX",
         "frequency": "매년",
-        "group": "D",
+        "isEtf": true,
         "amount": 0.115
       },
       {
         "ticker": "GE",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.28
       },
       {
         "ticker": "IBB",
         "frequency": "분기",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 0.000999
       },
       {
         "ticker": "IEV",
         "frequency": "매년",
-        "group": "JSD",
+        "isEtf": true,
         "amount": 2.083
       },
       {
         "ticker": "IGM",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.001002
       },
       {
         "ticker": "IGV",
         "frequency": "분기",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 0.001
       },
       {
         "ticker": "IJH",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.296
       },
       {
         "ticker": "IJJ",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.454
       },
       {
         "ticker": "IJK",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.082
       },
       {
         "ticker": "IJR",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.159
       },
       {
         "ticker": "IJS",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.247
       },
       {
         "ticker": "IJT",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.154
       },
       {
         "ticker": "ILCB",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.334
       },
       {
         "ticker": "ILCG",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.08
       },
       {
         "ticker": "ILCV",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.572
       },
       {
         "ticker": "ILF",
         "frequency": "매주",
-        "group": "월",
+        "isEtf": true,
         "amount": 3.26
       },
       {
         "ticker": "IMCB",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.429
       },
       {
         "ticker": "IMCG",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.268998
       },
       {
         "ticker": "IMCV",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.57
       },
       {
         "ticker": "IOO",
         "frequency": "매년",
-        "group": "MJD",
+        "isEtf": true,
         "amount": 1.357
       },
       {
         "ticker": "ITOT",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.548
       },
       {
         "ticker": "IVE",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.436
       },
       {
         "ticker": "IVV",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.708
       },
       {
         "ticker": "IVW",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.223
       },
       {
         "ticker": "IXC",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 1.800999
       },
       {
         "ticker": "IXJ",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 0.487
       },
       {
         "ticker": "IXN",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 0.129
       },
       {
         "ticker": "IXP",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 1.512
       },
       {
         "ticker": "KXI",
         "frequency": "매년",
-        "group": "JD",
+        "isEtf": true,
         "amount": 0.277
       },
       {
         "ticker": "OEF",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.346
       },
       {
         "ticker": "SLX",
         "frequency": "매년",
-        "group": "D",
+        "isEtf": true,
         "amount": 0.145
       },
       {
         "ticker": "SOXX",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.009999
       }
     ]
@@ -1480,121 +1661,141 @@
       {
         "ticker": "MDLZ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "LII",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "AJSD",
+        "isEtf": false,
         "amount": 0.13
       },
       {
         "ticker": "MO",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.86
       },
       {
         "ticker": "VB",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.825
       },
       {
         "ticker": "VBK",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.255
       },
       {
         "ticker": "VBR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.331
       },
       {
         "ticker": "VGK",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.809
       },
       {
         "ticker": "VIG",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.251
       },
       {
         "ticker": "VNQ",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.494
       },
       {
         "ticker": "VO",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.973
       },
       {
         "ticker": "VOE",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.364
       },
       {
         "ticker": "VOT",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.211
       },
       {
         "ticker": "VPL",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.473
       },
       {
         "ticker": "VTI",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.712
       },
       {
         "ticker": "VTV",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.51
       },
       {
         "ticker": "VUG",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.153
       },
       {
         "ticker": "VV",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.354
       },
       {
         "ticker": "VWO",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.339
       },
       {
         "ticker": "VXF",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 1.316
       },
       {
         "ticker": "VYM",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.175
       }
     ]
@@ -1604,13 +1805,15 @@
       {
         "ticker": "XEL",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "JMJS",
+        "isEtf": false,
         "amount": 0.223
       },
       {
         "ticker": "BEN",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.15
       }
     ]
@@ -1622,6 +1825,7 @@
         "koName": "한국앤컴퍼니",
         "frequency": "매년",
         "group": "JAD",
+        "isEtf": false,
         "amount": 250
       },
       {
@@ -1629,6 +1833,7 @@
         "koName": "삼천당제약",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -1636,6 +1841,7 @@
         "koName": "SK하이닉스",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 850
       },
       {
@@ -1643,6 +1849,7 @@
         "koName": "한화",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 403
       },
       {
@@ -1650,6 +1857,7 @@
         "koName": "DB하이텍",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 250
       },
       {
@@ -1657,6 +1865,7 @@
         "koName": "CJ",
         "frequency": "매년",
         "group": "JAD",
+        "isEtf": false,
         "amount": 1499.715
       },
       {
@@ -1664,6 +1873,7 @@
         "koName": "대한전선",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 13.611282
       },
       {
@@ -1671,6 +1881,7 @@
         "koName": "KCC",
         "frequency": "매년",
         "group": "FJD",
+        "isEtf": false,
         "amount": 5000.28606
       },
       {
@@ -1678,6 +1889,7 @@
         "koName": "아모레퍼시픽홀딩스",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 1250
       },
       {
@@ -1685,6 +1897,7 @@
         "koName": "대한항공",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 49.947897
       },
       {
@@ -1692,6 +1905,7 @@
         "koName": "LG",
         "frequency": "매년",
         "group": "MSD",
+        "isEtf": false,
         "amount": 499.549676
       },
       {
@@ -1699,6 +1913,7 @@
         "koName": "SNT다이내믹스",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 124.63
       },
       {
@@ -1706,6 +1921,7 @@
         "koName": "현대제철",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 500
       },
       {
@@ -1713,6 +1929,7 @@
         "koName": "신세계",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 1250.19
       },
       {
@@ -1720,6 +1937,7 @@
         "koName": "농심",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 4000
       },
       {
@@ -1727,6 +1945,7 @@
         "koName": "효성",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 499.766839
       },
       {
@@ -1734,6 +1953,7 @@
         "koName": "롯데지주",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 2750
       },
       {
@@ -1741,6 +1961,7 @@
         "koName": "동진쎄미켐",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -1748,6 +1969,7 @@
         "koName": "현대차",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 1000
       },
       {
@@ -1755,6 +1977,7 @@
         "koName": "현대차우",
         "frequency": "매년",
         "group": "JSD",
+        "isEtf": false,
         "amount": 1050
       },
       {
@@ -1762,6 +1985,7 @@
         "koName": "현대차2우B",
         "frequency": "매년",
         "group": "JSD",
+        "isEtf": false,
         "amount": 1100
       },
       {
@@ -1769,6 +1993,7 @@
         "koName": "POSCO홀딩스",
         "frequency": "분기",
         "group": "JSD",
+        "isEtf": false,
         "amount": 6000
       },
       {
@@ -1776,6 +2001,7 @@
         "koName": "삼성전자",
         "frequency": "분기",
         "group": "MJD",
+        "isEtf": false,
         "amount": 250000
       },
       {
@@ -1783,6 +2009,7 @@
         "koName": "삼성전자우",
         "frequency": "분기",
         "group": "MJD",
+        "isEtf": false,
         "amount": 252500
       },
       {
@@ -1790,6 +2017,7 @@
         "koName": "동원산업",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 58173.534375
       },
       {
@@ -1797,6 +2025,7 @@
         "koName": "LS",
         "frequency": "매년",
         "group": "JFD",
+        "isEtf": false,
         "amount": 1000
       },
       {
@@ -1804,6 +2033,7 @@
         "koName": "녹십자",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 723.45
       },
       {
@@ -1811,6 +2041,7 @@
         "koName": "GS건설",
         "frequency": "매년",
         "group": "JFD",
+        "isEtf": false,
         "amount": 1448
       },
       {
@@ -1818,6 +2049,7 @@
         "koName": "삼성SDI",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 586
       },
       {
@@ -1825,6 +2057,7 @@
         "koName": "오뚜기",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 1250
       },
       {
@@ -1832,6 +2065,7 @@
         "koName": "DN오토모티브",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 494.9194
       },
       {
@@ -1839,6 +2073,7 @@
         "koName": "이수페타시스",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 43
       },
       {
@@ -1846,6 +2081,7 @@
         "koName": "호텔신라",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 200
       },
       {
@@ -1853,6 +2089,7 @@
         "koName": "한미사이언스",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 625.506996
       },
       {
@@ -1860,6 +2097,7 @@
         "koName": "삼성전기",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 500
       },
       {
@@ -1867,6 +2105,7 @@
         "koName": "포스코엠텍",
         "frequency": "매년",
         "group": "JAD",
+        "isEtf": false,
         "amount": 7500
       },
       {
@@ -1874,6 +2113,7 @@
         "koName": "HD한국조선해양",
         "frequency": "매년",
         "group": "JFD",
+        "isEtf": false,
         "amount": 2382.931208
       },
       {
@@ -1881,6 +2121,7 @@
         "koName": "한화솔루션",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 303.744038
       },
       {
@@ -1888,6 +2129,7 @@
         "koName": "영원무역홀딩스",
         "frequency": "매년",
         "group": "JOD",
+        "isEtf": false,
         "amount": 100
       },
       {
@@ -1895,6 +2137,7 @@
         "koName": "OCI홀딩스",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 699.711641
       },
       {
@@ -1902,6 +2145,7 @@
         "koName": "LS ELECTRIC",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 750
       },
       {
@@ -1909,6 +2153,7 @@
         "koName": "고려아연",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 15000
       },
       {
@@ -1916,6 +2161,7 @@
         "koName": "삼성중공업",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 184
       },
       {
@@ -1923,6 +2169,7 @@
         "koName": "HD현대미포",
         "frequency": "매년",
         "group": "JFD",
+        "isEtf": false,
         "amount": 2500
       },
       {
@@ -1930,6 +2177,7 @@
         "koName": "S-Oil",
         "frequency": "분기",
         "group": "JSD",
+        "isEtf": false,
         "amount": 2875
       },
       {
@@ -1937,6 +2185,7 @@
         "koName": "롯데케미칼",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 719
       },
       {
@@ -1944,6 +2193,7 @@
         "koName": "HMM",
         "frequency": "매년",
         "group": "JFD",
+        "isEtf": false,
         "amount": 406.571429
       },
       {
@@ -1951,6 +2201,7 @@
         "koName": "금호석유화학",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 700
       },
       {
@@ -1958,6 +2209,7 @@
         "koName": "SKC",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 300
       },
       {
@@ -1965,6 +2217,7 @@
         "koName": "현대모비스",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 1250
       },
       {
@@ -1972,6 +2225,7 @@
         "koName": "한화에어로스페이스",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 394.32264
       },
       {
@@ -1979,6 +2233,7 @@
         "koName": "에스원",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 900
       },
       {
@@ -1986,6 +2241,7 @@
         "koName": "성광벤드",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -1993,6 +2249,7 @@
         "koName": "한솔케미칼",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 400
       },
       {
@@ -2000,6 +2257,7 @@
         "koName": "한국전력",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 1000
       },
       {
@@ -2007,6 +2265,7 @@
         "koName": "SK텔레콤",
         "frequency": "분기",
         "group": "JSD",
+        "isEtf": false,
         "amount": 34999.23525
       },
       {
@@ -2014,6 +2273,7 @@
         "koName": "현대엘리베이터",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 390
       },
       {
@@ -2021,6 +2281,7 @@
         "koName": "한국카본",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 70
       },
       {
@@ -2028,6 +2289,7 @@
         "koName": "SK가스",
         "frequency": "매년",
         "group": "JAD",
+        "isEtf": false,
         "amount": 1499.917358
       },
       {
@@ -2035,6 +2297,7 @@
         "koName": "한온시스템",
         "frequency": "분기",
         "group": "MJD",
+        "isEtf": false,
         "amount": 300
       },
       {
@@ -2042,6 +2305,7 @@
         "koName": "아시아나항공",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 149.985
       },
       {
@@ -2049,6 +2313,7 @@
         "koName": "코웨이",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 400
       },
       {
@@ -2056,6 +2321,7 @@
         "koName": "포스코DX",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 25
       },
       {
@@ -2063,6 +2329,7 @@
         "koName": "태광",
         "frequency": "매년",
         "group": "JAD",
+        "isEtf": false,
         "amount": 41.487263
       },
       {
@@ -2070,6 +2337,7 @@
         "koName": "롯데쇼핑",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 1250
       },
       {
@@ -2077,6 +2345,7 @@
         "koName": "다우기술",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 35
       },
       {
@@ -2084,6 +2353,7 @@
         "koName": "기업은행",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 550
       },
       {
@@ -2091,6 +2361,7 @@
         "koName": "시노펙스",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 33.835725
       },
       {
@@ -2098,6 +2369,7 @@
         "koName": "동서",
         "frequency": "매년",
         "group": "AD",
+        "isEtf": false,
         "amount": 699.5565
       },
       {
@@ -2105,6 +2377,7 @@
         "koName": "삼성E&A",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 800
       },
       {
@@ -2112,6 +2385,7 @@
         "koName": "제일기획",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 7000
       },
       {
@@ -2119,6 +2393,7 @@
         "koName": "KT",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 2000
       },
       {
@@ -2126,6 +2401,7 @@
         "koName": "한글과컴퓨터",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 150
       },
       {
@@ -2133,6 +2409,7 @@
         "koName": "피에스케이홀딩스",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 375.005
       },
       {
@@ -2140,6 +2417,7 @@
         "koName": "다우데이타",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 35
       },
       {
@@ -2147,6 +2425,7 @@
         "koName": "제룡전기",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -2154,6 +2433,7 @@
         "koName": "동성화인텍",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 150
       },
       {
@@ -2161,6 +2441,7 @@
         "koName": "KT&G",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 2400
       },
       {
@@ -2168,6 +2449,7 @@
         "koName": "두산에너빌리티",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 216.583804
       },
       {
@@ -2175,6 +2457,7 @@
         "koName": "파라다이스",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 75
       },
       {
@@ -2182,6 +2465,7 @@
         "koName": "강원랜드",
         "frequency": "매년",
         "group": "AD",
+        "isEtf": false,
         "amount": 500
       },
       {
@@ -2189,6 +2473,7 @@
         "koName": "CJ ENM",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 1530
       },
       {
@@ -2196,6 +2481,7 @@
         "koName": "한국가스공사",
         "frequency": "매년",
         "group": "JJD",
+        "isEtf": false,
         "amount": 1067
       },
       {
@@ -2203,6 +2489,7 @@
         "koName": "SFA반도체",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -2210,6 +2497,7 @@
         "koName": "솔브레인홀딩스",
         "frequency": "매년",
         "group": "JMD",
+        "isEtf": false,
         "amount": 82.9368
       },
       {
@@ -2217,6 +2505,7 @@
         "koName": "이오테크닉스",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 100
       },
       {
@@ -2224,6 +2513,7 @@
         "koName": "우리기술투자",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 72.0595
       },
       {
@@ -2231,6 +2521,7 @@
         "koName": "한화오션",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 217.3
       },
       {
@@ -2238,6 +2529,7 @@
         "koName": "HD현대인프라코어",
         "frequency": "매년",
         "group": "FD",
+        "isEtf": false,
         "amount": 272.926863
       },
       {
@@ -2245,6 +2537,7 @@
         "koName": "한미반도체",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 252
       },
       {
@@ -2252,6 +2545,7 @@
         "koName": "태웅",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 70
       },
       {
@@ -2259,6 +2553,7 @@
         "koName": "대우건설",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 500
       },
       {
@@ -2266,6 +2561,7 @@
         "koName": "포스코인터내셔널",
         "frequency": "매년",
         "group": "MAD",
+        "isEtf": false,
         "amount": 300
       },
       {
@@ -2273,6 +2569,7 @@
         "koName": "LG생활건강",
         "frequency": "매년",
         "group": "MAD",
+        "isEtf": false,
         "amount": 1050
       },
       {
@@ -2280,6 +2577,7 @@
         "koName": "LG화학",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 1000
       },
       {
@@ -2287,6 +2585,7 @@
         "koName": "안랩",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 400
       },
       {
@@ -2294,6 +2593,7 @@
         "koName": "신한지주",
         "frequency": "매년",
         "group": "JSD",
+        "isEtf": false,
         "amount": 856
       },
       {
@@ -2301,6 +2601,7 @@
         "koName": "에스에프에이",
         "frequency": "매년",
         "group": "JD",
+        "isEtf": false,
         "amount": 2400
       },
       {
@@ -2308,6 +2609,7 @@
         "koName": "리노공업",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 5225
       },
       {
@@ -2315,6 +2617,7 @@
         "koName": "에스피지",
         "frequency": "매년",
         "group": "OD",
+        "isEtf": false,
         "amount": 280.004
       },
       {
@@ -2322,6 +2625,7 @@
         "koName": "티씨케이",
         "frequency": "매년",
         "group": "SD",
+        "isEtf": false,
         "amount": 100
       },
       {
@@ -2329,6 +2633,7 @@
         "koName": "신성델타테크",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 211.940375
       },
       {
@@ -2336,6 +2641,7 @@
         "koName": "LG전자",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 736
       },
       {
@@ -2343,6 +2649,7 @@
         "koName": "엘앤에프",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 44.85
       },
       {
@@ -2350,6 +2657,7 @@
         "koName": "SOOP",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 50
       },
       {
@@ -2357,6 +2665,7 @@
         "koName": "하나마이크론",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 74.75
       },
       {
@@ -2364,11 +2673,13 @@
         "koName": "셀트리온",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 49.48137
       },
       {
         "ticker": "068760",
         "koName": "셀트리온제약",
+        "isEtf": false,
         "amount": 108.872313
       },
       {
@@ -2376,6 +2687,7 @@
         "koName": "현대백화점",
         "frequency": "매년",
         "group": "ASD",
+        "isEtf": false,
         "amount": 460.5336
       },
       {
@@ -2383,6 +2695,7 @@
         "koName": "금호타이어",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 300
       },
       {
@@ -2390,6 +2703,7 @@
         "koName": "원익QnC",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 200
       },
       {
@@ -2397,6 +2711,7 @@
         "koName": "STX엔진",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 325
       },
       {
@@ -2404,6 +2719,7 @@
         "koName": "GS",
         "frequency": "매년",
         "group": "FD",
+        "isEtf": false,
         "amount": 1000
       },
       {
@@ -2411,6 +2727,7 @@
         "koName": "젬백스",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 100
       },
       {
@@ -2418,6 +2735,7 @@
         "koName": "비에이치아이",
         "frequency": "매년",
         "group": "D",
+        "isEtf": false,
         "amount": 201.8927
       },
       {
@@ -2425,6 +2743,7 @@
         "koName": "휴온스글로벌",
         "frequency": "매년",
         "group": "MJD",
+        "isEtf": false,
         "amount": 59.761594
       },
       {
@@ -2432,6 +2751,7 @@
         "koName": "유진테크",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 0.726646
       },
       {
@@ -2439,6 +2759,7 @@
         "koName": "현대글로비스",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 150
       },
       {
@@ -2446,11 +2767,13 @@
         "koName": "하나금융지주",
         "frequency": "분기",
         "group": "MJD",
+        "isEtf": false,
         "amount": 550
       },
       {
         "ticker": "088980",
         "koName": "맥쿼리인프라",
+        "isEtf": false,
         "amount": 225.4208
       },
       {
@@ -2458,6 +2781,7 @@
         "koName": "아모레퍼시픽",
         "frequency": "매년",
         "group": "MD",
+        "isEtf": false,
         "amount": 4500
       }
     ],
@@ -2465,217 +2789,245 @@
       {
         "ticker": "FITB",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.4
       },
       {
         "ticker": "HST",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "TLT",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.303
       },
       {
         "ticker": "TROW",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.17
       },
       {
         "ticker": "VTRS",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MMAN",
+        "isEtf": false,
         "amount": 0.06
       },
       {
         "ticker": "WTW",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.235
       },
       {
         "ticker": "AGG",
         "frequency": "매월",
-        "group": "FND",
+        "isEtf": true,
         "amount": 0.369
       },
       {
         "ticker": "AJG",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.3
       },
       {
         "ticker": "AVB",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.78
       },
       {
         "ticker": "BXP",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 6.08
       },
       {
         "ticker": "CAH",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.09
       },
       {
         "ticker": "CB",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.25
       },
       {
         "ticker": "DD",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MMAN",
+        "isEtf": false,
         "amount": 0.89625
       },
       {
         "ticker": "DE",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.44
       },
       {
         "ticker": "DHR",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.019999
       },
       {
         "ticker": "DLR",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.286
       },
       {
         "ticker": "EIX",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.29
       },
       {
         "ticker": "ESS",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "JMJS",
+        "isEtf": false,
         "amount": 0.84
       },
       {
         "ticker": "EWZ",
         "frequency": "매주",
-        "group": "수",
+        "isEtf": true,
         "amount": 0.071
       },
       {
         "ticker": "ICF",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.974
       },
       {
         "ticker": "IEF",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.239
       },
       {
         "ticker": "ITW",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.21
       },
       {
         "ticker": "LQD",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.427
       },
       {
         "ticker": "MKC",
         "frequency": "분기",
-        "group": "JOD",
+        "group": "AJOD",
+        "isEtf": false,
         "amount": 0.2
       },
       {
         "ticker": "NUE",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.6
       },
       {
         "ticker": "OIH",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.045
       },
       {
         "ticker": "PCG",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.33
       },
       {
         "ticker": "PPH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "분기",
+        "group": "AJOD",
+        "isEtf": true,
         "amount": 0.001
       },
       {
         "ticker": "RL",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.05
       },
       {
         "ticker": "RPG",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.04
       },
       {
         "ticker": "RPV",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.195
       },
       {
         "ticker": "RSPT",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": true,
         "amount": 0.001
       },
       {
         "ticker": "RTH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.00501
       },
       {
         "ticker": "SHY",
         "frequency": "매월",
-        "group": "SOD",
+        "isEtf": true,
         "amount": 0.246
       },
       {
         "ticker": "SYK",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.22
       },
       {
         "ticker": "USB",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.4
       }
     ]
@@ -2685,85 +3037,97 @@
       {
         "ticker": "CPB",
         "frequency": "분기",
-        "group": "AJO",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.2
       },
       {
         "ticker": "STLD",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.15
       },
       {
         "ticker": "APD",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.34
       },
       {
         "ticker": "ARE",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.74
       },
       {
         "ticker": "BBY",
         "frequency": "분기",
-        "group": "JSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.1
       },
       {
         "ticker": "FRT",
         "frequency": "분기",
-        "group": "MJD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.575
       },
       {
         "ticker": "JCI",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.1
       },
       {
         "ticker": "KIM",
         "frequency": "분기",
-        "group": "AOD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.36
       },
       {
         "ticker": "O",
         "frequency": "매월",
-        "group": "SON",
+        "isEtf": false,
         "amount": 0.126
       },
       {
         "ticker": "RJF",
         "frequency": "분기",
-        "group": "MJS",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.100001
       },
       {
         "ticker": "RSG",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.160001
       },
       {
         "ticker": "RTH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.009
       },
       {
         "ticker": "STT",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "JAJO",
+        "isEtf": false,
         "amount": 0.21
       },
       {
         "ticker": "VTR",
         "frequency": "분기",
-        "group": "MSD",
+        "group": "MJSD",
+        "isEtf": false,
         "amount": 0.395
       }
     ]
@@ -2772,8 +3136,8 @@
     "USD": [
       {
         "ticker": "RTH",
-        "frequency": "매주",
-        "group": "수",
+        "frequency": "매년",
+        "isEtf": true,
         "amount": 0.01299
       }
     ]
