@@ -75,9 +75,9 @@ export const saveStockMapping = async (isin, mappingData, userId) => {
             company: mappingData.company || null,
         };
 
-        // Remove null values
+        // Remove null and undefined values
         Object.keys(data).forEach((key) => {
-            if (data[key] === null) {
+            if (data[key] === null || data[key] === undefined) {
                 delete data[key];
             }
         });

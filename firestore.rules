@@ -32,26 +32,9 @@ service cloud.firestore {
       match /familyMembers/{memberId} {
         allow read, write: if isOwner(userId);
         
-        // [New Structure] Accounts directly under familyMember
+        // Accounts directly under familyMember
         match /accounts/{accountId} {
           allow read, write: if isOwner(userId);
-        }
-
-        // [Old Structure] Brokerages sub-collection (Keep for migration)
-        match /brokerages/{brokerageId} {
-          allow read, write: if isOwner(userId);
-          
-          match /accounts/{accountId} {
-            allow read, write: if isOwner(userId);
-            
-            match /assets/{assetId} {
-              allow read, write: if isOwner(userId);
-              
-              match /transactions/{transactionId} {
-                allow read, write: if isOwner(userId);
-              }
-            }
-          }
         }
       }
 
