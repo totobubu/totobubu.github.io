@@ -82,7 +82,7 @@ async function loadMonth(yearMonth: string): Promise<void> {
             monthlyData.value.set(yearMonth, cached.events);
 
             // 티커 속성 정보 병합
-            cached.tickerProperties.forEach(([key, value]) => {
+            (cached.tickerProperties || []).forEach(([key, value]) => {
                 if (!allTickerProperties.value.has(key)) {
                     allTickerProperties.value.set(key, value);
                 }
@@ -112,7 +112,7 @@ async function loadMonth(yearMonth: string): Promise<void> {
 
         for (const [dateStr, eventsByDate] of Object.entries(monthEvents)) {
             // eventsByDate는 { "KRW": [...], "USD": [...] } 형태
-            for (const [currency, events] of Object.entries(eventsByDate)) {
+            for (const [currency, events] of Object.entries(eventsByDate as Record<string, any[]>)) {
                 events.forEach((event: any) => {
                     flatEvents.push({
                         ...event,
