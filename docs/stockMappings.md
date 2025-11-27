@@ -115,6 +115,21 @@ node scripts/mappings/optimize-stock-mappings.js
 
 ## 유지보수
 
+### GitHub Actions 자동 동기화
+
+워크플로우 실행 시 `public/nav` 디렉토리의 변경사항이 자동으로 감지되어 Firebase에 동기화됩니다.
+
+**동작 방식:**
+
+- `public/nav` 디렉토리의 JSON 파일이 변경되면 자동 감지
+- 변경된 파일에 포함된 모든 심볼을 추출
+- 해당 심볼만 선택적으로 Firebase에 동기화
+
+**관련 워크플로우:**
+
+- [update_info_data_v2_kr.yml](file:///c:/workspace/toto/.github/workflows/update_info_data_v2_kr.yml)
+- [update_info_data_v2_us.yml](file:///c:/workspace/toto/.github/workflows/update_info_data_v2_us.yml)
+
 ### nav.json 업데이트 후
 
 ```bash
