@@ -32,6 +32,7 @@ declare module 'vue' {
     DateAndInvestment: typeof import('./src/components/backtester/controls/DateAndInvestment.vue')['default']
     ErrorBoundary: typeof import('./src/components/ErrorBoundary.vue')['default']
     FamilyMemberList: typeof import('./src/components/asset/FamilyMemberList.vue')['default']
+    Fieldset: typeof import('primevue/fieldset')['default']
     FilterInput: typeof import('./src/components/FilterInput.vue')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']

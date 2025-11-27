@@ -14,7 +14,7 @@ import {
     type DocumentData,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
-import type { FamilyMember, Account, Asset, Transaction, Holdings } from '@/types/asset';
+import type { FamilyMember, Account, Asset, Transaction } from '@/types/asset';
 import type { AssetType, Currency } from '@/types/common';
 
 /**

@@ -9,7 +9,8 @@ export interface UseAdminReturn {
 
 export const useAdmin = (): UseAdminReturn => {
     const isAdmin = computed(() => {
-        const email = user.value?.email ?? '';
+        const currentUser = user.value as { email?: string } | null;
+        const email = currentUser?.email ?? '';
         return isAdminEmail(email);
     });
 
