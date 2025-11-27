@@ -114,34 +114,17 @@
 
     // [핵심 수정] computed 대신 일반 함수로 변경하여 eventSources 내부에서 호출
     const getCalendarEvents = () => {
-        console.log('[CalendarGrid] getCalendarEvents 호출');
-        console.log(
-            '[CalendarGrid] props.dividendsByDate type:',
-            typeof props.dividendsByDate
-        );
-        console.log(
-            '[CalendarGrid] props.dividendsByDate:',
-            props.dividendsByDate
-        );
-
         // ComputedRef인 경우 .value로 접근
         const dividends = props.dividendsByDate;
 
         if (!dividends || typeof dividends !== 'object') {
-            console.log('[CalendarGrid] dividendsByDate가 없거나 객체가 아님');
             return [];
         }
 
         const entries = Object.entries(dividends);
-        console.log('[CalendarGrid] Object.entries 개수:', entries.length);
 
-        const events = entries.flatMap(([date, dividendArray]) => {
+        return entries.flatMap(([date, dividendArray]) => {
             if (!Array.isArray(dividendArray)) {
-                console.warn(
-                    '[CalendarGrid] dividendArray가 배열이 아님:',
-                    date,
-                    dividendArray
-                );
                 return [];
             }
             return dividendArray.map((entry) => ({
@@ -153,12 +136,6 @@
                 },
             }));
         });
-
-        console.log(`[CalendarGrid] 생성된 이벤트 수: ${events.length}`);
-        if (events.length > 0) {
-            console.log('[CalendarGrid] 첫 번째 이벤트:', events[0]);
-        }
-        return events;
     };
 
     const getHolidayEvents = () => {
@@ -298,12 +275,7 @@
     // [핵심 수정] props가 변경되면 refetchEvents를 호출하여 캘린더를 다시 그림
     watch(
         [() => props.dividendsByDate, () => props.holidays],
-        ([newDividends, newHolidays]) => {
-            console.log('[CalendarGrid] watch 트리거됨');
-            console.log(
-                '[CalendarGrid] dividendsByDate 키 개수:',
-                Object.keys(newDividends || {}).length
-            );
+        () => {
             fullCalendar.value?.getApi().refetchEvents();
         },
         { deep: true }
