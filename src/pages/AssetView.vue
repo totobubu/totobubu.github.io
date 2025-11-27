@@ -1178,6 +1178,14 @@
                         );
                         return;
                     }
+                } else if (transaction.ticker && transaction.ticker.startsWith('US')) {
+                    // 매핑은 없지만 PDF에서 추출된 ISIN(ticker)이 있는 경우
+                    isin = transaction.ticker;
+                    symbol = transaction.ticker; // 심볼을 모르므로 ISIN을 임시로 사용
+                    name = transaction.stock_name;
+                    currency = 'USD'; // US ISIN이므로 USD로 가정
+                    assetType = '주식';
+                    assetId = isin;
                 } else {
                     // 매핑 없음 - 현금 거래인지 확인
                     const isCash =
