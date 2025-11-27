@@ -53,7 +53,9 @@ export function useDividendStats(
 
         const freq = tickerInfo.value?.frequency;
 
-        const getWeeklyPayouts = (freqValue: DividendFrequency | undefined): number | null => {
+        const getWeeklyPayouts = (
+            freqValue: DividendFrequency | undefined
+        ): number | null => {
             if (!freqValue || typeof freqValue !== 'string') return null;
             const normalized = freqValue.replace(/\s+/g, '');
             if (normalized === '매주') return 52;
@@ -78,9 +80,10 @@ export function useDividendStats(
 
         if (!dividendHistory.value) return 0;
 
-        const pastYearDividends = dividendHistory.value.filter(
-            (d) => parseYYMMDD(d['배당락']) > oneYearAgo
-        );
+        const pastYearDividends = dividendHistory.value.filter((d) => {
+            const date = parseYYMMDD(d['배당락']);
+            return date ? date > oneYearAgo : false;
+        });
 
         if (pastYearDividends.length > 0) return pastYearDividends.length;
 
@@ -120,9 +123,10 @@ export function useDividendStats(
                 cutoffDate.setFullYear(now.getFullYear() - rangeValue);
             }
 
-            filteredHistory = history.filter(
-                (item) => parseYYMMDD(item['배당락']) >= cutoffDate
-            );
+            filteredHistory = history.filter((item) => {
+                const date = parseYYMMDD(item['배당락']);
+                return date ? date >= cutoffDate : false;
+            });
         }
 
         // 2. 필터링된 기록으로 통계 계산 (최종 계산값 사용)

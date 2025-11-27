@@ -56,7 +56,9 @@ export interface UseStockChartsReturn {
     chartContainerHeight: ComputedRef<string | undefined>;
 }
 
-export function useStockCharts(options: UseStockChartsOptions): UseStockChartsReturn {
+export function useStockCharts(
+    options: UseStockChartsOptions
+): UseStockChartsReturn {
     const { tickerInfo, displayData, currentView, deviceType } = options;
 
     const documentStyle = computed(() =>
@@ -69,7 +71,7 @@ export function useStockCharts(options: UseStockChartsOptions): UseStockChartsRe
             !displayData.value ||
             displayData.value.length === 0
         ) {
-            return {};
+            return { chartOptions: undefined, chartContainerHeight: undefined };
         }
 
         const themeOptions: ThemeOptions = {
@@ -92,7 +94,7 @@ export function useStockCharts(options: UseStockChartsOptions): UseStockChartsRe
 
         // '주가' 뷰일 때 빈 객체를 반환하여 오류를 막습니다.
         if (currentView.value === '주가') {
-            return {};
+            return { chartOptions: undefined, chartContainerHeight: undefined };
         }
 
         if (currentView.value === '배당') {
@@ -110,11 +112,11 @@ export function useStockCharts(options: UseStockChartsOptions): UseStockChartsRe
                     ...sharedOptions,
                     aggregation: 'month',
                     colorMap: monthColors,
-                });
+                } as any);
             }
             if (freq === '매월') return useMonthlyChart(sharedOptions);
         }
-        return {};
+        return { chartOptions: undefined, chartContainerHeight: undefined };
     });
 
     const chartOptions = computed(

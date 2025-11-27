@@ -21,7 +21,9 @@ const isProbableIsin = (value: string | null | undefined): boolean => {
     return token.length === 12 && /^[A-Z]{2}[A-Z0-9]{10}$/.test(token);
 };
 
-const resolveCandidateToIsin = (candidate: string | null | undefined): string | null => {
+const resolveCandidateToIsin = (
+    candidate: string | null | undefined
+): string | null => {
     if (!candidate) return null;
     if (typeof candidate === 'string') {
         const normalized = candidate.trim().toUpperCase();
@@ -32,7 +34,10 @@ const resolveCandidateToIsin = (candidate: string | null | undefined): string | 
     return null;
 };
 
-const createBookmarkPayload = (instrument: Partial<Instrument> = {}, overrides: Partial<Bookmark> = {}): Bookmark => {
+const createBookmarkPayload = (
+    instrument: Partial<Instrument> = {},
+    overrides: Partial<Bookmark> = {}
+): Bookmark => {
     const symbol = instrument.symbol || overrides.symbol;
     const isin =
         (overrides.isin && overrides.isin.toUpperCase()) ||
@@ -50,7 +55,9 @@ const createBookmarkPayload = (instrument: Partial<Instrument> = {}, overrides: 
     };
 };
 
-const serializeBookmarks = (bookmarks: BookmarksMap | null | undefined): BookmarksMap => {
+const serializeBookmarks = (
+    bookmarks: BookmarksMap | null | undefined
+): BookmarksMap => {
     const serialized: BookmarksMap = {};
     Object.values(bookmarks || {}).forEach((value) => {
         if (!value) return;
@@ -72,7 +79,10 @@ watch(mainFilterTab, (newTab) => {
     }
 });
 
-export const saveMyBookmarksToFirestore = async (userId: string, bookmarks: BookmarksMap): Promise<void> => {
+export const saveMyBookmarksToFirestore = async (
+    userId: string,
+    bookmarks: BookmarksMap
+): Promise<void> => {
     if (!userId) return;
     try {
         const userDocRef = doc(db, 'userBookmarks', userId);
@@ -104,8 +114,13 @@ const normalizeBookmarks = (rawBookmarks: BookmarksMap = {}): BookmarksMap => {
     return normalized;
 };
 
-export const loadMyBookmarksFromFirestore = async (userId: string): Promise<BookmarksMap> => {
+const isBookmarksLoading = ref(false);
+
+export const loadMyBookmarksFromFirestore = async (
+    userId: string
+): Promise<BookmarksMap> => {
     if (!userId) return {};
+    isBookmarksLoading.value = true;
     try {
         await ensureInstrumentDirectory();
         const userDocRef = doc(db, 'userBookmarks', userId);
@@ -116,10 +131,14 @@ export const loadMyBookmarksFromFirestore = async (userId: string): Promise<Book
     } catch (error) {
         console.error('Firestore에서 북마크 로드 실패:', error);
         return {};
+    } finally {
+        isBookmarksLoading.value = false;
     }
 };
 
-const toggleMyStock = (ticker: string | Partial<Bookmark> | null): 'added' | 'removed' | null => {
+const toggleMyStock = (
+    ticker: string | Partial<Bookmark> | null
+): 'added' | 'removed' | null => {
     if (!ticker) return null;
 
     const candidate =
@@ -157,7 +176,10 @@ const toggleMyStock = (ticker: string | Partial<Bookmark> | null): 'added' | 're
     return 'added';
 };
 
-const updateBookmarkDetails = (identifier: string, details: Partial<Bookmark>): void => {
+const updateBookmarkDetails = (
+    identifier: string,
+    details: Partial<Bookmark>
+): void => {
     if (!identifier || !details) return;
 
     const identifierIsin = isProbableIsin(identifier)
@@ -180,7 +202,8 @@ const updateBookmarkDetails = (identifier: string, details: Partial<Bookmark>): 
     if (!isin) return;
 
     const existing =
-        myBookmarks.value[isin] || createBookmarkPayload(instrument || {}, { isin });
+        myBookmarks.value[isin] ||
+        createBookmarkPayload(instrument || {}, { isin });
 
     myBookmarks.value[isin] = {
         ...existing,
@@ -196,8 +219,14 @@ export interface UseFilterStateReturn {
     mainFilterTab: Ref<string>;
     subFilterTab: Ref<string>;
     myBookmarks: Ref<BookmarksMap>;
-    toggleMyStock: (ticker: string | Partial<Bookmark> | null) => 'added' | 'removed' | null;
-    updateBookmarkDetails: (identifier: string, details: Partial<Bookmark>) => void;
+    isBookmarksLoading: Ref<boolean>;
+    toggleMyStock: (
+        ticker: string | Partial<Bookmark> | null
+    ) => 'added' | 'removed' | null;
+    updateBookmarkDetails: (
+        identifier: string,
+        details: Partial<Bookmark>
+    ) => void;
 }
 
 export function useFilterState(): UseFilterStateReturn {
@@ -206,6 +235,7 @@ export function useFilterState(): UseFilterStateReturn {
         mainFilterTab,
         subFilterTab,
         myBookmarks,
+        isBookmarksLoading,
         toggleMyStock,
         updateBookmarkDetails,
     };

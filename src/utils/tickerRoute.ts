@@ -19,13 +19,12 @@ const MARKET_SLUG_META: MarketSlugMeta = {
     global: { market: null, suffix: null },
 };
 
-const MARKET_NAME_TO_SLUG: MarketNameToSlug = Object.entries(MARKET_SLUG_META).reduce(
-    (map, [slug, meta]) => {
-        if (meta.market) map[meta.market] = slug;
-        return map;
-    },
-    {} as MarketNameToSlug
-);
+const MARKET_NAME_TO_SLUG: MarketNameToSlug = Object.entries(
+    MARKET_SLUG_META
+).reduce((map, [slug, meta]) => {
+    if (meta.market) map[meta.market] = slug;
+    return map;
+}, {} as MarketNameToSlug);
 
 const SYMBOL_SUFFIX_TO_SLUG: SuffixToSlug = {
     KS: 'kospi',
@@ -63,7 +62,9 @@ const sanitizeTickerParam = (ticker: string): string =>
 /**
  * 마켓 이름으로 마켓 슬러그 조회
  */
-export const getMarketSlugFromMarketName = (market: string | null | undefined): string | null => {
+export const getMarketSlugFromMarketName = (
+    market: string | null | undefined
+): string | null => {
     if (!market) return null;
     return MARKET_NAME_TO_SLUG[market.toUpperCase()] || null;
 };
@@ -72,7 +73,7 @@ export const getMarketSlugFromMarketName = (market: string | null | undefined): 
  * 라우트 파라미터에서 심볼 구성
  */
 export const buildSymbolFromRouteParams = (
-    marketSlug: string,
+    _marketSlug: string,
     tickerParam: string
 ): string => {
     const normalizedTicker = (tickerParam || '').toString().trim();

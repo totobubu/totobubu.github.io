@@ -15,7 +15,6 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 import type { FamilyMember, Account, Asset, Transaction } from '@/types/asset';
-import type { AssetType, Currency } from '@/types/common';
 
 /**
  * Firestore 데이터 구조:
@@ -80,8 +79,15 @@ export interface UseFamilyMembersReturn {
     familyMembers: Ref<FamilyMember[]>;
     isLoading: Ref<boolean>;
     loadFamilyMembers: (userId: string) => Promise<void>;
-    addFamilyMember: (userId: string, memberData: Partial<FamilyMember>) => Promise<string | undefined>;
-    updateFamilyMember: (userId: string, memberId: string, memberData: Partial<FamilyMember>) => Promise<void>;
+    addFamilyMember: (
+        userId: string,
+        memberData: Partial<FamilyMember>
+    ) => Promise<string | undefined>;
+    updateFamilyMember: (
+        userId: string,
+        memberId: string,
+        memberData: Partial<FamilyMember>
+    ) => Promise<void>;
     deleteFamilyMember: (userId: string, memberId: string) => Promise<void>;
 }
 
@@ -113,7 +119,10 @@ export const useFamilyMembers = (): UseFamilyMembersReturn => {
         }
     };
 
-    const addFamilyMember = async (userId: string, memberData: Partial<FamilyMember>): Promise<string | undefined> => {
+    const addFamilyMember = async (
+        userId: string,
+        memberData: Partial<FamilyMember>
+    ): Promise<string | undefined> => {
         if (!userId) return;
         try {
             const membersRef = collection(
@@ -131,7 +140,11 @@ export const useFamilyMembers = (): UseFamilyMembersReturn => {
         }
     };
 
-    const updateFamilyMember = async (userId: string, memberId: string, memberData: Partial<FamilyMember>): Promise<void> => {
+    const updateFamilyMember = async (
+        userId: string,
+        memberId: string,
+        memberData: Partial<FamilyMember>
+    ): Promise<void> => {
         if (!userId) return;
         try {
             const memberRef = doc(
@@ -145,7 +158,10 @@ export const useFamilyMembers = (): UseFamilyMembersReturn => {
         }
     };
 
-    const deleteFamilyMember = async (userId: string, memberId: string): Promise<void> => {
+    const deleteFamilyMember = async (
+        userId: string,
+        memberId: string
+    ): Promise<void> => {
         if (!userId) return;
         try {
             // 서브컬렉션도 함께 삭제해야 함 (Firestore는 자동으로 서브컬렉션을 삭제하지 않음)
@@ -182,15 +198,31 @@ export interface Brokerage {
 export interface UseBrokeragesReturn {
     isLoading: Ref<boolean>;
     loadBrokerages: (userId: string, memberId: string) => Promise<Brokerage[]>;
-    addBrokerage: (userId: string, memberId: string, brokerageData: Partial<Brokerage>) => Promise<string | undefined>;
-    updateBrokerage: (userId: string, memberId: string, brokerageId: string, brokerageData: Partial<Brokerage>) => Promise<void>;
-    deleteBrokerage: (userId: string, memberId: string, brokerageId: string) => Promise<void>;
+    addBrokerage: (
+        userId: string,
+        memberId: string,
+        brokerageData: Partial<Brokerage>
+    ) => Promise<string | undefined>;
+    updateBrokerage: (
+        userId: string,
+        memberId: string,
+        brokerageId: string,
+        brokerageData: Partial<Brokerage>
+    ) => Promise<void>;
+    deleteBrokerage: (
+        userId: string,
+        memberId: string,
+        brokerageId: string
+    ) => Promise<void>;
 }
 
 export const useBrokerages = (): UseBrokeragesReturn => {
     const isLoading = ref(false);
 
-    const loadBrokerages = async (userId: string, memberId: string): Promise<Brokerage[]> => {
+    const loadBrokerages = async (
+        userId: string,
+        memberId: string
+    ): Promise<Brokerage[]> => {
         if (!userId || !memberId) return [];
         isLoading.value = true;
         try {
@@ -211,7 +243,11 @@ export const useBrokerages = (): UseBrokeragesReturn => {
         }
     };
 
-    const addBrokerage = async (userId: string, memberId: string, brokerageData: Partial<Brokerage>): Promise<string | undefined> => {
+    const addBrokerage = async (
+        userId: string,
+        memberId: string,
+        brokerageData: Partial<Brokerage>
+    ): Promise<string | undefined> => {
         if (!userId || !memberId) return;
         try {
             const brokeragesRef = collection(
@@ -248,7 +284,11 @@ export const useBrokerages = (): UseBrokeragesReturn => {
         }
     };
 
-    const deleteBrokerage = async (userId: string, memberId: string, brokerageId: string): Promise<void> => {
+    const deleteBrokerage = async (
+        userId: string,
+        memberId: string,
+        brokerageId: string
+    ): Promise<void> => {
         if (!userId || !memberId) return;
         try {
             const brokerageRef = doc(
@@ -277,15 +317,31 @@ export const useBrokerages = (): UseBrokeragesReturn => {
 export interface UseAccountsReturn {
     isLoading: Ref<boolean>;
     loadAccounts: (userId: string, memberId: string) => Promise<Account[]>;
-    addAccount: (userId: string, memberId: string, accountData: Partial<Account>) => Promise<string | undefined>;
-    updateAccount: (userId: string, memberId: string, accountId: string, accountData: Partial<Account>) => Promise<void>;
-    deleteAccount: (userId: string, memberId: string, accountId: string) => Promise<void>;
+    addAccount: (
+        userId: string,
+        memberId: string,
+        accountData: Partial<Account>
+    ) => Promise<string | undefined>;
+    updateAccount: (
+        userId: string,
+        memberId: string,
+        accountId: string,
+        accountData: Partial<Account>
+    ) => Promise<void>;
+    deleteAccount: (
+        userId: string,
+        memberId: string,
+        accountId: string
+    ) => Promise<void>;
 }
 
 export const useAccounts = (): UseAccountsReturn => {
     const isLoading = ref(false);
 
-    const loadAccounts = async (userId: string, memberId: string): Promise<Account[]> => {
+    const loadAccounts = async (
+        userId: string,
+        memberId: string
+    ): Promise<Account[]> => {
         if (!userId || !memberId) return [];
         isLoading.value = true;
         try {
@@ -306,7 +362,11 @@ export const useAccounts = (): UseAccountsReturn => {
         }
     };
 
-    const addAccount = async (userId: string, memberId: string, accountData: Partial<Account>): Promise<string | undefined> => {
+    const addAccount = async (
+        userId: string,
+        memberId: string,
+        accountData: Partial<Account>
+    ): Promise<string | undefined> => {
         if (!userId || !memberId) return;
         try {
             const accountsRef = collection(
@@ -324,7 +384,12 @@ export const useAccounts = (): UseAccountsReturn => {
         }
     };
 
-    const updateAccount = async (userId: string, memberId: string, accountId: string, accountData: Partial<Account>): Promise<void> => {
+    const updateAccount = async (
+        userId: string,
+        memberId: string,
+        accountId: string,
+        accountData: Partial<Account>
+    ): Promise<void> => {
         if (!userId || !memberId) return;
         try {
             const accountRef = doc(
@@ -338,7 +403,11 @@ export const useAccounts = (): UseAccountsReturn => {
         }
     };
 
-    const deleteAccount = async (userId: string, memberId: string, accountId: string): Promise<void> => {
+    const deleteAccount = async (
+        userId: string,
+        memberId: string,
+        accountId: string
+    ): Promise<void> => {
         if (!userId || !memberId) return;
         try {
             const accountRef = doc(
@@ -372,10 +441,21 @@ export interface UseAssetsReturn {
     loadStocks: (userId: string) => Promise<Asset[]>;
     loadCash: (userId: string) => Promise<Asset[]>;
     loadCoins: (userId: string) => Promise<Asset[]>;
-    addAsset: (userId: string, assetData: Partial<Asset>) => Promise<string | undefined>;
-    updateAsset: (userId: string, assetId: string, assetData: Partial<Asset>) => Promise<void>;
+    addAsset: (
+        userId: string,
+        assetData: Partial<Asset>
+    ) => Promise<string | undefined>;
+    updateAsset: (
+        userId: string,
+        assetId: string,
+        assetData: Partial<Asset>
+    ) => Promise<void>;
     deleteAsset: (userId: string, assetId: string) => Promise<void>;
-    deleteAssetHolding: (userId: string, assetId: string, accountId: string) => Promise<void>;
+    deleteAssetHolding: (
+        userId: string,
+        assetId: string,
+        accountId: string
+    ) => Promise<void>;
 }
 
 export const useAssets = (): UseAssetsReturn => {
@@ -456,7 +536,10 @@ export const useAssets = (): UseAssetsReturn => {
         }
     };
 
-    const addAsset = async (userId: string, assetData: Partial<Asset>): Promise<string | undefined> => {
+    const addAsset = async (
+        userId: string,
+        assetData: Partial<Asset>
+    ): Promise<string | undefined> => {
         if (!userId) return;
         try {
             // Determine asset ID based on type
@@ -503,7 +586,11 @@ export const useAssets = (): UseAssetsReturn => {
         }
     };
 
-    const updateAsset = async (userId: string, assetId: string, assetData: Partial<Asset>): Promise<void> => {
+    const updateAsset = async (
+        userId: string,
+        assetId: string,
+        assetData: Partial<Asset>
+    ): Promise<void> => {
         if (!userId || !assetId) return;
         try {
             const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
@@ -517,7 +604,10 @@ export const useAssets = (): UseAssetsReturn => {
         }
     };
 
-    const deleteAsset = async (userId: string, assetId: string): Promise<void> => {
+    const deleteAsset = async (
+        userId: string,
+        assetId: string
+    ): Promise<void> => {
         if (!userId || !assetId) return;
         try {
             // Note: This doesn't delete subcollections automatically
@@ -530,7 +620,11 @@ export const useAssets = (): UseAssetsReturn => {
         }
     };
 
-    const deleteAssetHolding = async (userId: string, assetId: string, accountId: string): Promise<void> => {
+    const deleteAssetHolding = async (
+        userId: string,
+        assetId: string,
+        accountId: string
+    ): Promise<void> => {
         if (!userId || !assetId || !accountId) return;
         try {
             const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
@@ -564,14 +658,26 @@ export const useAssets = (): UseAssetsReturn => {
  */
 export interface UseTransactionsReturn {
     isLoading: Ref<boolean>;
-    loadTransactions: (userId: string, assetId: string, accountId?: string | null) => Promise<Transaction[]>;
-    addTransaction: (userId: string, assetId: string, transactionData: Partial<Transaction>) => Promise<string | undefined>;
+    loadTransactions: (
+        userId: string,
+        assetId: string,
+        accountId?: string | null
+    ) => Promise<Transaction[]>;
+    addTransaction: (
+        userId: string,
+        assetId: string,
+        transactionData: Partial<Transaction>
+    ) => Promise<string | undefined>;
 }
 
 export const useTransactions = (): UseTransactionsReturn => {
     const isLoading = ref(false);
 
-    const loadTransactions = async (userId: string, assetId: string, accountId: string | null = null): Promise<Transaction[]> => {
+    const loadTransactions = async (
+        userId: string,
+        assetId: string,
+        accountId: string | null = null
+    ): Promise<Transaction[]> => {
         if (!userId || !assetId) return [];
         isLoading.value = true;
         try {
@@ -601,7 +707,11 @@ export const useTransactions = (): UseTransactionsReturn => {
         }
     };
 
-    const addTransaction = async (userId: string, assetId: string, transactionData: Partial<Transaction>): Promise<string | undefined> => {
+    const addTransaction = async (
+        userId: string,
+        assetId: string,
+        transactionData: Partial<Transaction>
+    ): Promise<string | undefined> => {
         if (!userId || !assetId) return;
         if (!transactionData.accountId) {
             throw new Error('Transaction must include accountId');
