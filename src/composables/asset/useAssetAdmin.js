@@ -11,7 +11,7 @@ import {
     doc,
 } from 'firebase/firestore';
 import { db, auth } from '@/firebase';
-import { saveStockMapping } from '@/composables/useStockMapping';
+import { saveStockMapping } from '@/composables/data/useStockMapping';
 
 /**
  * 승인 대기 중인 koName 목록 조회

@@ -1,6 +1,6 @@
-// src\composables\calculators\useRecoveryCalc.js
+// src\composables\ui\calculators\useRecoveryCalc.js
 import { ref, computed } from 'vue';
-import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
+import { useRecoveryChart } from '@/composables/ui/charts/useRecoveryChart.js';
 
 export function useRecoveryCalc(dependencies) {
     const {

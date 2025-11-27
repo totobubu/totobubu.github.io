@@ -1,10 +1,10 @@
-// src/composables/useSidebar.js
+// src/composables/portfolio/useSidebar.js
 
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useFilterState } from '@/composables/useFilterState';
+import { useFilterState } from '@/composables/portfolio/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
-import { user } from '../store/auth';
+import { user } from '@/store/auth';
 import { db } from '@/firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { useToast } from 'primevue/usetoast';

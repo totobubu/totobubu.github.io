@@ -1,6 +1,6 @@
 <!-- src\components\calculators\CalculatorLayout.vue -->
 <script setup>
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     const { deviceType } = useBreakpoint();
 </script>

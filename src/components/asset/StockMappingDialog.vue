@@ -242,8 +242,8 @@
         saveStockMapping,
         deleteStockMapping,
         searchSymbol,
-    } from '@/composables/useStockMapping';
-    import { useLocalStockData } from '@/composables/useLocalStockData';
+    } from '@/composables/data/useStockMapping';
+    import { useLocalStockData } from '@/composables/data/useLocalStockData';
     import { user } from '@/store/auth';
 
     const props = defineProps({

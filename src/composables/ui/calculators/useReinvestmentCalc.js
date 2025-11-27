@@ -1,6 +1,6 @@
-// src\composables\calculators\useReinvestmentCalc.js
+// src\composables\ui\calculators\useReinvestmentCalc.js
 import { ref, computed } from 'vue';
-import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
+import { useReinvestmentChart } from '@/composables/ui/charts/useReinvestmentChart.js';
 
 export function useReinvestmentCalc(dependencies) {
     const {

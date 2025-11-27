@@ -10,8 +10,8 @@
     import FloatLabel from 'primevue/floatlabel';
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
-    import { useExchangeRates } from '@/composables/useExchangeRates';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useExchangeRates } from '@/composables/data/useExchangeRates';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     const { deviceType } = useBreakpoint();
 

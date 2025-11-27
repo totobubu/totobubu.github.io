@@ -2,11 +2,11 @@
 <script setup>
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
-    import { useAdmin } from '@/composables/useAdmin';
-    import { useStockData } from '@/composables/useStockData';
-    import { useLayout } from '@/composables/useLayout';
+    import { useAdmin } from '@/composables/asset/useAdmin';
+    import { useStockData } from '@/composables/data/useStockData';
+    import { useLayout } from '@/composables/shared/useLayout';
 
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';

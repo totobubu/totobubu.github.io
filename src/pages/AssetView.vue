@@ -10,8 +10,8 @@
         useAccounts,
         useAssets,
         useTransactions,
-    } from '@/composables/useAssetFirestore';
-    import { useLocalStockData } from '@/composables/useLocalStockData';
+    } from '@/composables/asset/useAssetFirestore';
+    import { useLocalStockData } from '@/composables/data/useLocalStockData';
     import {
         normalizeTransactionType,
         TRANSACTION_TYPES,
