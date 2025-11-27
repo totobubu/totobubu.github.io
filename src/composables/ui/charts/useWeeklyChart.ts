@@ -1,9 +1,19 @@
-// src/composables/charts/useWeeklyChart.js
-import { parseYYMMDD } from '@/utils/date.js';
-import { createNumericFormatter } from '@/utils/formatters.js';
-import { parseDividendAmount } from '@/utils/dividendParser.js';
+import { parseYYMMDD } from '@/utils/date';
+import { createNumericFormatter } from '@/utils/formatters';
 
-export function useWeeklyChart(options) {
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
+
+export interface WeeklyChartOptions {
+    data: any[];
+    theme: ChartTheme;
+    currency?: 'USD' | 'KRW';
+}
+
+export function useWeeklyChart(options: WeeklyChartOptions) {
     const { data, theme, currency = 'USD' } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
     const formatCurrency = createNumericFormatter(currency, {
@@ -12,7 +22,7 @@ export function useWeeklyChart(options) {
     const weekColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853', '#FF6D01'];
 
     // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
-    const monthlyAggregated = data.reduce((acc, item) => {
+    const monthlyAggregated = data.reduce((acc: any, item: any) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
@@ -52,7 +62,7 @@ export function useWeeklyChart(options) {
         stack: 'total',
         label: {
             show: true,
-            formatter: (params) =>
+            formatter: (params: any) =>
                 params.value > 0 ? formatCurrency(params.value) : '',
         },
         emphasis: { focus: 'series' },
@@ -67,25 +77,25 @@ export function useWeeklyChart(options) {
         label: {
             show: true,
             position: 'right',
-            formatter: (params) =>
+            formatter: (params: any) =>
                 formatCurrency(monthlyAggregated[params.name].total),
             color: textColor,
             fontWeight: 'bold',
-        },
+        } as any,
         data: months.map(() => 0),
-    });
+    } as any);
 
     const chartOptions = {
         tooltip: {
             trigger: 'axis',
             axisPointer: { type: 'shadow' },
-            formatter: (params) => {
+            formatter: (params: any) => {
                 const month = params[0].name;
                 const total = monthlyAggregated[month].total;
                 let tooltip = `${month}<br/>`;
                 params
-                    .filter((p) => p.seriesName !== '월간 총액' && p.value > 0)
-                    .forEach((p) => {
+                    .filter((p: any) => p.seriesName !== '월간 총액' && p.value > 0)
+                    .forEach((p: any) => {
                         tooltip += `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value)}</strong><br/>`;
                     });
                 tooltip += `<strong>총액: ${formatCurrency(total)}</strong>`;

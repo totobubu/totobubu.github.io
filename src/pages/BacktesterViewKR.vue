@@ -7,7 +7,7 @@
     import { useToast } from 'primevue/usetoast';
     import Message from 'primevue/message';
     import Skeleton from 'primevue/skeleton';
-    import { useBacktestData } from '@/composables/data/useBacktestData.js';
+    import { useBacktestData } from '@/composables/data/useBacktestData';
 
     useHead({ title: '한국 주식 백테스팅' });
 

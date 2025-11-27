@@ -1,8 +1,24 @@
-// src/composables/charts/useRecoveryChart.js
-import { computed } from 'vue';
-import { formatMonthsToYears } from '@/utils/date.js';
+import { computed, type Ref } from 'vue';
+import { formatMonthsToYears } from '@/utils/date';
 
-export function useRecoveryChart(options) {
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
+
+export interface RecoveryChartOptions {
+    avgPrice: Ref<number>;
+    quantity: Ref<number>;
+    accumulatedDividend: Ref<number>;
+    dividendStats: Ref<any>;
+    payoutsPerYear: Ref<number>;
+    applyTax: Ref<boolean>;
+    currentPrice: Ref<number>;
+    theme: ChartTheme;
+}
+
+export function useRecoveryChart(options: RecoveryChartOptions) {
     const {
         avgPrice,
         quantity,
@@ -29,7 +45,7 @@ export function useRecoveryChart(options) {
             !currentPrice?.value
         )
             return {};
-        const results = {};
+        const results: Record<string, number> = {};
         const scenarios = { hope: 'max', avg: 'avg', despair: 'min' };
         for (const [scenario, statKey] of Object.entries(scenarios)) {
             const dividendPerShare = dividendStats.value[statKey];
@@ -88,10 +104,10 @@ export function useRecoveryChart(options) {
                 trigger: 'axis',
                 axisPointer: { type: 'shadow' },
                 // [핵심 수정 1] 툴팁 포맷터에서 .duration 사용
-                formatter: (params) =>
+                formatter: (params: any) =>
                     `${params[0].name}<br/>${params
                         .map(
-                            (p) =>
+                            (p: any) =>
                                 `${p.marker} ${p.seriesName}: <strong>${
                                     formatMonthsToYears(p.value).duration
                                 }</strong>`
@@ -138,14 +154,14 @@ export function useRecoveryChart(options) {
                         times.despair_reinvest,
                     ].map((t) => (isFinite(t) ? t : 0)),
                     itemStyle: {
-                        color: (params) =>
+                        color: (params: any) =>
                             ['#22c55e', '#eab308', '#ef4444'][params.dataIndex],
                     },
                     label: {
                         show: true,
                         position: 'top',
                         // [핵심 수정 2] 라벨 포맷터에서 .duration 사용
-                        formatter: (params) =>
+                        formatter: (params: any) =>
                             formatMonthsToYears(params.value).duration,
                         color: textColor,
                         fontWeight: 'bold',
@@ -160,7 +176,7 @@ export function useRecoveryChart(options) {
                         times.despair_no_reinvest,
                     ].map((t) => (isFinite(t) ? t : 0)),
                     itemStyle: {
-                        color: (params) =>
+                        color: (params: any) =>
                             ['#22c55e80', '#eab30880', '#ef444480'][
                                 params.dataIndex
                             ],
@@ -169,7 +185,7 @@ export function useRecoveryChart(options) {
                         show: true,
                         position: 'top',
                         // [핵심 수정 3] 라벨 포맷터에서 .duration 사용
-                        formatter: (params) =>
+                        formatter: (params: any) =>
                             formatMonthsToYears(params.value).duration,
                         color: textColorSecondary,
                     },

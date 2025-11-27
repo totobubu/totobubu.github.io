@@ -1,17 +1,28 @@
-// src/composables/charts/useQuarterlyChart.js
-import { parseYYMMDD } from '@/utils/date.js';
-import { createNumericFormatter } from '@/utils/formatters.js';
+import { parseYYMMDD } from '@/utils/date';
+import { createNumericFormatter } from '@/utils/formatters';
 import { monthColors } from '@/utils/chartUtils';
-import { parseDividendAmount } from '@/utils/dividendParser.js';
 
-export function useQuarterlyChart(options) {
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
+
+export interface QuarterlyChartOptions {
+    data: any[];
+    theme: ChartTheme;
+    currency?: 'USD' | 'KRW';
+    aggregation?: 'quarter' | 'month';
+}
+
+export function useQuarterlyChart(options: QuarterlyChartOptions) {
     const { data, theme, currency = 'USD', aggregation = 'quarter' } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
     const formatCurrency = createNumericFormatter(currency);
     const quarterColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
 
     // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
-    const yearlyData = data.reduce((acc, item) => {
+    const yearlyData = data.reduce((acc: any, item: any) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
@@ -59,7 +70,7 @@ export function useQuarterlyChart(options) {
         stack: 'total',
         label: {
             show: true,
-            formatter: (params) =>
+            formatter: (params: any) =>
                 params.value > 0 ? formatCurrency(params.value) : '',
         },
         emphasis: { focus: 'series' },
@@ -74,33 +85,33 @@ export function useQuarterlyChart(options) {
         label: {
             show: true,
             position: 'right',
-            formatter: (params) => {
+            formatter: (params: any) => {
                 const total = yearlyData[params.name].reduce(
-                    (sum, val) => sum + val,
+                    (sum: number, val: number) => sum + val,
                     0
                 );
                 return total > 0 ? formatCurrency(total) : '';
             },
             color: textColor,
             fontWeight: 'bold',
-        },
+        } as any,
         data: years.map(() => 0),
-    });
+    } as any);
 
     const chartOptions = {
         tooltip: {
             trigger: 'axis',
             axisPointer: { type: 'shadow' },
-            formatter: (params) => {
+            formatter: (params: any) => {
                 const year = params[0].name;
                 const total = yearlyData[year].reduce(
-                    (sum, val) => sum + val,
+                    (sum: number, val: number) => sum + val,
                     0
                 );
                 let tooltip = `${year}년<br/>`;
                 params
-                    .filter((p) => p.seriesName !== '연간 총액' && p.value > 0)
-                    .forEach((p) => {
+                    .filter((p: any) => p.seriesName !== '연간 총액' && p.value > 0)
+                    .forEach((p: any) => {
                         tooltip += `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value)}</strong><br/>`;
                     });
                 tooltip += `<strong>총액: ${formatCurrency(total)}</strong>`;

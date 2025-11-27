@@ -2,8 +2,8 @@
 
 <script setup>
     import { computed, ref, watch } from 'vue';
-    import { useSidebar } from '@/composables/portfolio/useSidebar.js';
-    import { useBreakpoint } from '@/composables/shared/useBreakpoint.js';
+    import { useSidebar } from '@/composables/portfolio/useSidebar';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import { user } from '../store/auth';
 
     import DataTable from 'primevue/datatable';

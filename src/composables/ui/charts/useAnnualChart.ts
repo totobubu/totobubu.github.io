@@ -1,23 +1,34 @@
-// src/composables/charts/useAnnualChart.js
-import { parseYYMMDD } from '@/utils/date.js';
-import { createNumericFormatter } from '@/utils/formatters.js';
-import { parseDividendAmount } from '@/utils/dividendParser.js';
+import { parseYYMMDD } from '@/utils/date';
+import { createNumericFormatter } from '@/utils/formatters';
+import { parseDividendAmount } from '@/utils/dividendParser';
 
-export function useAnnualChart(options) {
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
+
+export interface AnnualChartOptions {
+    data: any[];
+    theme: ChartTheme;
+    currency?: 'USD' | 'KRW';
+}
+
+export function useAnnualChart(options: AnnualChartOptions) {
     const { data, theme, currency = 'USD' } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
     const formatCurrency = createNumericFormatter(currency);
 
     // 연도별로 그룹화하고 최종 계산값 사용
-    const yearlyData = data.reduce((acc, item) => {
+    const yearlyData = data.reduce((acc: any, item: any) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const year = date.getFullYear().toString();
         
         // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
         let finalAmount = 0;
-        let originalAmount = null;
-        let adjustedAmount = null; // amountFixed or amount (툴팁 표시용)
+        let originalAmount: number | null = null;
+        let adjustedAmount: number | null = null; // amountFixed or amount (툴팁 표시용)
         
         // 우선순위에 따라 차트에 그려질 값 선택
         if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
@@ -83,7 +94,7 @@ export function useAnnualChart(options) {
         tooltip: {
             trigger: 'axis',
             axisPointer: { type: 'shadow' },
-            formatter: (params) => {
+            formatter: (params: any) => {
                 const year = params[0].name;
                 const yearData = yearlyData[year];
                 // params[0].value는 finalAmount (차트에 그려진 값)
@@ -105,7 +116,7 @@ export function useAnnualChart(options) {
             type: 'value',
             axisLabel: {
                 color: textColorSecondary,
-                formatter: (val) => formatCurrency(val).replace(/[$,₩]/, ''),
+                formatter: (val: number) => formatCurrency(val).replace(/[$,₩]/, ''),
             },
             splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
         },
@@ -122,7 +133,7 @@ export function useAnnualChart(options) {
                 label: {
                     show: true,
                     position: 'right',
-                    formatter: (params) => formatCurrency(params.value),
+                    formatter: (params: any) => formatCurrency(params.value),
                     color: textColor,
                     fontWeight: 'bold',
                 },

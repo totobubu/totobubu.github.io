@@ -1,10 +1,25 @@
-// src/composables/charts/useReinvestmentChart.js
+import { computed, type Ref } from 'vue';
+import { formatMonthsToYears } from '@/utils/date';
 
-import { computed } from 'vue';
-import { createNumericFormatter } from '@/utils/formatters.js';
-import { formatMonthsToYears } from '@/utils/date.js';
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
 
-export function useReinvestmentChart(options) {
+export interface ReinvestmentChartOptions {
+    currentAssets: Ref<number>;
+    targetAmount: Ref<number>;
+    payoutsPerYear: Ref<number>;
+    dividendStats: Ref<any>;
+    allAnnualGrowthRateOptions: Ref<any[]>;
+    applyTax: Ref<boolean>;
+    currentPrice: Ref<number>;
+    theme: Ref<ChartTheme>;
+    currency?: 'USD' | 'KRW';
+}
+
+export function useReinvestmentChart(options: ReinvestmentChartOptions) {
     const {
         currentAssets,
         targetAmount,
@@ -14,11 +29,9 @@ export function useReinvestmentChart(options) {
         applyTax,
         currentPrice,
         theme,
-        currency = 'USD',
     } = options;
 
     const { textColor, textColorSecondary, surfaceBorder } = theme.value;
-    const formatCurrency = createNumericFormatter(currency);
 
     // [수정 2] 모든 성장률 시나리오에 대한 계산 로직
     const allGoalAchievementTimes = computed(() => {
@@ -31,7 +44,7 @@ export function useReinvestmentChart(options) {
             return [];
         }
 
-        const calculateMonths = (dividendPerShare, growthRate) => {
+        const calculateMonths = (dividendPerShare: number, growthRate: number) => {
             if (targetAmount.value <= currentAssets.value) return 0;
             if (currentAssets.value <= 0 || dividendPerShare <= 0)
                 return Infinity;
@@ -105,9 +118,9 @@ export function useReinvestmentChart(options) {
             tooltip: {
                 trigger: 'axis',
                 axisPointer: { type: 'shadow' },
-                formatter: (params) => {
+                formatter: (params: any) => {
                     let tooltipHtml = `주가 성장률: <strong>${params[0].name}</strong><br/>`;
-                    params.forEach((p) => {
+                    params.forEach((p: any) => {
                         const duration =
                             formatMonthsToYears(p.value)?.duration ||
                             '계산 불가';
@@ -138,7 +151,7 @@ export function useReinvestmentChart(options) {
                 type: 'value',
                 axisLabel: {
                     color: textColorSecondary,
-                    formatter: (value) => `${value}개월`,
+                    formatter: (value: any) => `${value}개월`,
                 },
                 splitLine: {
                     lineStyle: { color: surfaceBorder, type: 'dashed' },
