@@ -20283,7 +20283,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kbsec.svg",
             "dataPaths": ["data/kosdaq/495940.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "496020",
@@ -20464,7 +20464,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-hanaro.svg",
             "dataPaths": ["data/kosdaq/498050.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "498270",
@@ -26499,7 +26499,7 @@
             "logo": "logos/company/company-spdr.jpg",
             "dataPaths": ["data/nyse/cwi.json"],
             "periods": ["10Y", "15Y"],
-            "group": "JD"
+            "group": "JND"
         },
         {
             "symbol": "CWII",
@@ -27952,8 +27952,8 @@
             "currency": "USD",
             "logo": "logos/company/company-vistashares.png",
             "dataPaths": ["data/nyse/drky.json"],
-            "periods": [],
             "frequency": "매월",
+            "periods": [],
             "group": "ON"
         },
         {
@@ -30562,7 +30562,7 @@
             "currency": "USD",
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nasdaq/fepi.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -34021,8 +34021,8 @@
         {
             "symbol": "HOOY",
             "company": "YieldMax",
-            "frequency": "매월",
-            "group": "MON",
+            "frequency": "매주",
+            "group": "목",
             "underlying": "HOOD",
             "ipoDate": "2025-05-08",
             "holdings": true,
@@ -38412,7 +38412,7 @@
             "symbol": "LH",
             "ipoDate": "1990-03-29",
             "frequency": "분기",
-            "group": "MAD",
+            "group": "MAN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US5049221055",
@@ -38689,7 +38689,7 @@
             "currency": "USD",
             "logo": "logos/company/company-tidal.png",
             "dataPaths": ["data/nyse/logo.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "LOW",
@@ -41549,6 +41549,19 @@
             "periods": ["6M", "1Y", "3Y"]
         },
         {
+            "symbol": "OPEN",
+            "koName": "오픈도어랩스",
+            "market": "NASDAQ",
+            "isin": "US6837121036",
+            "ipoDate": "2020-06-18",
+            "yfSymbol": "OPEN",
+            "currency": "USD",
+            "holdings": false,
+            "logo": null,
+            "dataPaths": ["data/nasdaq/open.json"],
+            "periods": ["6M", "1Y", "3Y", "5Y"]
+        },
+        {
             "symbol": "ORCL",
             "frequency": "분기",
             "group": "AJO",
@@ -43373,6 +43386,22 @@
             "periods": []
         },
         {
+            "symbol": "QBY",
+            "isin": "US38747R1656",
+            "market": "NASDAQ",
+            "yfSymbol": "QBY",
+            "currency": "USD",
+            "holdings": false,
+            "sharesOutstanding": false,
+            "ipoDate": "2025-11-25",
+            "company": "GraniteShares",
+            "underlying": "QBTS",
+            "koName": "그래닛셰어즈 일드부스트 디 웨이 브 퀀텀 ETF",
+            "logo": "logos/company/company-graniteshares.png",
+            "dataPaths": ["data/nasdaq/qby.json"],
+            "periods": []
+        },
+        {
             "symbol": "QCMD",
             "company": "Direxion",
             "ipoDate": "2025-06-25",
@@ -44522,6 +44551,20 @@
             "currency": "USD",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/rgtz.json"],
+            "periods": []
+        },
+        {
+            "symbol": "RGYY",
+            "company": "GraniteShares",
+            "market": "NASDAQ",
+            "ipoDate": "2025-11-24",
+            "yfSymbol": "RGYY",
+            "currency": "USD",
+            "underlying": "RGTI",
+            "isin": "US38747R1730",
+            "holdings": false,
+            "logo": "logos/company/company-graniteshares.png",
+            "dataPaths": ["data/nasdaq/rgyy.json"],
             "periods": []
         },
         {
@@ -52508,7 +52551,7 @@
         {
             "symbol": "WNTR",
             "company": "YieldMax",
-            "frequency": "매월",
+            "frequency": "매주",
             "underlying": "MSTR",
             "ipoDate": "2025-03-27",
             "holdings": true,
@@ -52519,7 +52562,7 @@
             "currency": "USD",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/nyse/wntr.json"],
-            "group": "JON",
+            "group": "목",
             "periods": ["6M"]
         },
         {
