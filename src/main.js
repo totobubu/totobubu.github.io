@@ -7,6 +7,7 @@ import App from './App.vue';
 import router from './router';
 import './store/auth';
 import { isRecentlyAuthenticated } from './store/auth';
+import { initSentry } from './utils/sentry';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -55,6 +56,9 @@ import ko from '@/config/locale/ko';
 
 const app = createApp(App);
 const head = createHead();
+
+// Sentry 초기화 (프로덕션 환경에서만)
+initSentry(app, router);
 
 app.use(router);
 app.use(head);
