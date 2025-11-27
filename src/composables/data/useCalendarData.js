@@ -13,6 +13,7 @@ import { useFilterState } from '@/composables/portfolio/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
 import { stripTickerSuffix } from '@/utils/tickerRoute';
 import dbCache from '@/utils/indexedDB';
+import { get } from '@/utils/http';
 
 // 전역 상태
 const monthlyData = ref(new Map()); // Map<yearMonth, events[]>
@@ -77,17 +78,16 @@ async function loadMonth(yearMonth) {
       return;
     }
 
-    // 2. 네트워크에서 fetch
+    // 2. 네트워크에서 fetch (재시도 로직 포함)
     console.log(`⬇️ 네트워크에서 로드: ${yearMonth}`);
     const [year, month] = yearMonth.split('-');
     const url = getDataUrl(`calendar/monthly/${year}/${month}.json`);
 
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to load ${yearMonth}: ${response.status}`);
-    }
+    const response = await get(url, {
+      __maxRetries: 3 // 최대 3번 재시도
+    });
 
-    const monthEvents = await response.json();
+    const monthEvents = response.data;
 
     // 3. 데이터 변환 (날짜별 → 배열 형태)
     const flatEvents = [];
