@@ -7,13 +7,15 @@
  */
 
 import * as Sentry from '@sentry/vue';
+import type { App } from 'vue';
+import type { Router } from 'vue-router';
 
 /**
  * Sentry 초기화
  * @param {Object} app - Vue 앱 인스턴스
  * @param {Object} router - Vue Router 인스턴스
  */
-export function initSentry(app, router) {
+export function initSentry(app: App, router: Router) {
   // 개발 환경에서는 Sentry 비활성화
   if (import.meta.env.DEV) {
     console.log('🔧 개발 모드: Sentry 비활성화');
@@ -91,7 +93,7 @@ export function initSentry(app, router) {
 /**
  * 수동으로 에러 리포트
  */
-export function reportError(error, context = {}) {
+export function reportError(error: any, context: Record<string, any> = {}) {
   Sentry.captureException(error, {
     contexts: {
       custom: context
@@ -102,7 +104,7 @@ export function reportError(error, context = {}) {
 /**
  * 사용자 정보 설정
  */
-export function setUser(user) {
+export function setUser(user: { uid: string; email?: string } | null) {
   if (user) {
     Sentry.setUser({
       id: user.uid,
@@ -116,7 +118,7 @@ export function setUser(user) {
 /**
  * 커스텀 이벤트 기록
  */
-export function logEvent(message, level = 'info', context = {}) {
+export function logEvent(message: string, level: Sentry.SeverityLevel = 'info', context: Record<string, any> = {}) {
   Sentry.captureMessage(message, {
     level,
     contexts: {

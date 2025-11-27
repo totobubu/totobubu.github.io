@@ -1,20 +1,37 @@
-// src/store/instruments.js
+// src/store/instruments.ts
 
 import { reactive } from 'vue';
 import { getDataUrl } from '@/utils/dataUrl';
+import type { Currency } from '@/types/common';
 
-const normalizeSymbol = (symbol) =>
+export interface Instrument {
+    symbol: string;
+    isin?: string;
+    market?: string;
+    currency?: Currency;
+    koName?: string;
+    longName?: string;
+    company?: string;
+    isEtf?: boolean;
+    [key: string]: any;
+}
+
+const normalizeSymbol = (symbol: any): string | null =>
     typeof symbol === 'string' ? symbol.trim().toUpperCase() : null;
-const normalizeIsin = (isin) =>
+const normalizeIsin = (isin: any): string | null =>
     typeof isin === 'string' ? isin.trim().toUpperCase() : null;
 
-const state = reactive({
+export const instrumentState = reactive<{
+    bySymbol: Record<string, Instrument>;
+    byIsin: Record<string, Instrument>;
+    hasNavSnapshot: boolean;
+}>({
     bySymbol: {},
     byIsin: {},
     hasNavSnapshot: false,
 });
 
-let navLoadPromise = null;
+let navLoadPromise: Promise<void> | null = null;
 
 const loadSymbolIsinSnapshot = async () => {
     try {
@@ -24,7 +41,7 @@ const loadSymbolIsinSnapshot = async () => {
         if (Array.isArray(snapshot)) {
             registerInstruments(snapshot);
         } else if (snapshot && typeof snapshot === 'object') {
-            const entries = Object.entries(snapshot).map(([symbol, value]) => {
+            const entries = Object.entries(snapshot).map(([symbol, value]: [string, any]) => {
                 if (typeof value === 'string') {
                     return { symbol, isin: value };
                 }
@@ -45,16 +62,16 @@ const loadSymbolIsinSnapshot = async () => {
     }
 };
 
-const mergeInstrument = (existing = {}, incoming = {}) => {
-    const merged = { ...existing, ...incoming };
+const mergeInstrument = (existing: Instrument | undefined, incoming: Partial<Instrument>): Instrument => {
+    const merged = { ...(existing || {}), ...incoming } as Instrument;
     // symbol/isin는 항상 대문자로 유지
-    if (merged.symbol) merged.symbol = normalizeSymbol(merged.symbol);
-    if (merged.isin) merged.isin = normalizeIsin(merged.isin);
+    if (merged.symbol) merged.symbol = normalizeSymbol(merged.symbol) || merged.symbol;
+    if (merged.isin) merged.isin = normalizeIsin(merged.isin) || merged.isin;
     return merged;
 };
 
 export const registerInstruments = (
-    tickers = [],
+    tickers: any[] = [],
     { markInitialized = false } = {}
 ) => {
     if (!Array.isArray(tickers)) return;
@@ -65,24 +82,24 @@ export const registerInstruments = (
         const symbol = normalizeSymbol(ticker.symbol);
         const isin = normalizeIsin(ticker.isin);
 
-        const payload = {
+        const payload: Partial<Instrument> = {
             ...ticker,
-            symbol,
-            isin,
+            symbol: symbol || ticker.symbol,
+            isin: isin || ticker.isin,
         };
 
         if (symbol) {
-            state.bySymbol[symbol] = mergeInstrument(
-                state.bySymbol[symbol],
+            instrumentState.bySymbol[symbol] = mergeInstrument(
+                instrumentState.bySymbol[symbol],
                 payload
             );
         }
 
         if (isin) {
-            state.byIsin[isin] = mergeInstrument(state.byIsin[isin], payload);
+            instrumentState.byIsin[isin] = mergeInstrument(instrumentState.byIsin[isin], payload);
             if (symbol) {
-                state.bySymbol[symbol] = mergeInstrument(
-                    state.bySymbol[symbol],
+                instrumentState.bySymbol[symbol] = mergeInstrument(
+                    instrumentState.bySymbol[symbol],
                     {
                         isin,
                     }
@@ -92,28 +109,28 @@ export const registerInstruments = (
     });
 
     if (markInitialized) {
-        state.hasNavSnapshot = true;
+        instrumentState.hasNavSnapshot = true;
     }
 };
 
-export const resolveInstrumentBySymbol = (symbol) => {
+export const resolveInstrumentBySymbol = (symbol: string): Instrument | null => {
     const normalized = normalizeSymbol(symbol);
-    return normalized ? state.bySymbol[normalized] || null : null;
+    return normalized ? instrumentState.bySymbol[normalized] || null : null;
 };
 
-export const resolveInstrumentByIsin = (isin) => {
+export const resolveInstrumentByIsin = (isin: string): Instrument | null => {
     const normalized = normalizeIsin(isin);
-    return normalized ? state.byIsin[normalized] || null : null;
+    return normalized ? instrumentState.byIsin[normalized] || null : null;
 };
 
-export const resolveInstrument = ({ symbol, isin } = {}) => {
+export const resolveInstrument = ({ symbol, isin }: { symbol?: string; isin?: string } = {}): Instrument | null => {
     const byIsin = isin ? resolveInstrumentByIsin(isin) : null;
     if (byIsin) return byIsin;
     return symbol ? resolveInstrumentBySymbol(symbol) : null;
 };
 
 export const ensureInstrumentDirectory = async () => {
-    if (state.hasNavSnapshot) return;
+    if (instrumentState.hasNavSnapshot) return;
 
     if (!navLoadPromise) {
         navLoadPromise = (async () => {
@@ -144,5 +161,3 @@ export const ensureInstrumentDirectory = async () => {
 
     await navLoadPromise;
 };
-
-export const instrumentState = state;

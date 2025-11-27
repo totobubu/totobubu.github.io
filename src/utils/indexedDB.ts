@@ -89,7 +89,12 @@ class IndexedDBCache {
     await this.init();
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction([STORE_NAME], 'readonly');
+      const db = this.db;
+      if (!db) {
+        reject(new Error('Database not initialized'));
+        return;
+      }
+      const transaction = db.transaction([STORE_NAME], 'readonly');
       const store = transaction.objectStore(STORE_NAME);
       const request = store.get(key);
 
