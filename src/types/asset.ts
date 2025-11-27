@@ -92,6 +92,7 @@ export interface Bookmark {
   quantity?: number;
   accumulatedDividend?: number;
   targetAsset?: number;
+  isEtf?: boolean;
 }
 
 /**

@@ -13,6 +13,8 @@ const STORE_NAME = 'calendarData';
 const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30일
 
 class IndexedDBCache {
+  private db: IDBDatabase | null;
+
   constructor() {
     this.db = null;
   }
@@ -20,7 +22,7 @@ class IndexedDBCache {
   /**
    * DB 초기화
    */
-  async init() {
+  async init(): Promise<IDBDatabase> {
     if (this.db) return this.db;
 
     return new Promise((resolve, reject) => {
@@ -36,8 +38,8 @@ class IndexedDBCache {
         resolve(this.db);
       };
 
-      request.onupgradeneeded = (event) => {
-        const db = event.target.result;
+      request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+        const db = (event.target as IDBOpenDBRequest).result;
 
         // calendarData store 생성
         if (!db.objectStoreNames.contains(STORE_NAME)) {
@@ -54,7 +56,7 @@ class IndexedDBCache {
    * @param {string} key - 저장 키 (예: "2024-11")
    * @param {Object} data - 저장할 데이터
    */
-  async set(key, data) {
+  async set(key: string, data: any) {
     await this.init();
 
     return new Promise((resolve, reject) => {
@@ -122,7 +124,7 @@ class IndexedDBCache {
    * 데이터 삭제
    * @param {string} key - 삭제할 키
    */
-  async delete(key) {
+  async delete(key: string) {
     await this.init();
 
     return new Promise((resolve, reject) => {
@@ -204,9 +206,12 @@ class IndexedDBCache {
           }
         });
 
-        stats.totalSize = stats.totalSize.toFixed(2) + ' KB';
+        const resultStats = {
+          ...stats,
+          totalSize: stats.totalSize.toFixed(2) + ' KB'
+        };
 
-        resolve(stats);
+        resolve(resultStats);
       };
 
       request.onerror = () => {
