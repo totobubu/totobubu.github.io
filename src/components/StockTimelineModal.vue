@@ -4,6 +4,7 @@
     import Drawer from 'primevue/drawer';
     import Timeline from 'primevue/timeline';
     import Tag from 'primevue/tag';
+    import Card from 'primevue/card';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     const props = defineProps({
@@ -269,63 +270,70 @@
             :header="header"
             class="timeline-drawer"
             modal>
-            <div v-if="hasEvents">
-                <Timeline :value="timelineItems" align="left" layout="vertical">
-                    <template #opposite="slotProps">
-                        {{ slotProps.item.date }}
+            <div v-if="hasEvents" class="flex flex-column gap-3">
+                <Card
+                    v-for="(item, index) in timelineItems"
+                    :key="index"
+                    class="surface-card border-1 surface-border shadow-none">
+                    <template #title>
+                        <div
+                            class="flex align-items-center justify-content-between text-base">
+                            <span class="font-bold">{{ item.date }}</span>
+                            <Tag
+                                :severity="getEventTypeSeverity(item.eventType)"
+                                :value="item.eventTypeLabel"></Tag>
+                        </div>
                     </template>
+                    <template #content>
+                        <div class="flex align-items-center gap-2 mt-2">
+                            <template
+                                v-if="
+                                    item.from.frequencyLabel &&
+                                    item.from.frequencyLabel.includes(
+                                        '주배당'
+                                    ) &&
+                                    item.from.weekdayKey
+                                ">
+                                <span class="text-sm timeline-label">
+                                    {{ item.from.frequencyLabel }}
+                                </span>
+                                <Tag
+                                    :data-p="item.from.weekdayKey"
+                                    class="p-tag-rounded timeline-weekday-tag">
+                                    {{ item.from.weekdayLabel }}
+                                </Tag>
+                            </template>
+                            <Tag
+                                v-else-if="item.from.frequencyLabel"
+                                severity="secondary">
+                                {{ item.from.frequencyLabel }}
+                            </Tag>
 
-                    <template #marker="slotProps">
-                        {{ slotProps.item.eventTypeLabel }}
-                    </template>
-                    <template #content="slotProps">
-                        <template
-                            v-if="
-                                slotProps.item.from.frequencyLabel &&
-                                slotProps.item.from.frequencyLabel.includes(
-                                    '주배당'
-                                ) &&
-                                slotProps.item.from.weekdayKey
-                            ">
-                            <span class="text-sm timeline-label">
-                                {{ slotProps.item.from.frequencyLabel }}
-                            </span>
+                            <i class="pi pi-arrow-right text-500"></i>
+
+                            <template
+                                v-if="
+                                    item.to.frequencyLabel &&
+                                    item.to.frequencyLabel.includes('주배당') &&
+                                    item.to.weekdayKey
+                                ">
+                                <span class="text-sm timeline-label">
+                                    {{ item.to.frequencyLabel }}
+                                </span>
+                                <Tag
+                                    :data-p="item.to.weekdayKey"
+                                    class="p-tag-rounded timeline-weekday-tag">
+                                    {{ item.to.weekdayLabel }}
+                                </Tag>
+                            </template>
                             <Tag
-                                :data-p="slotProps.item.from.weekdayKey"
-                                class="p-tag-rounded timeline-weekday-tag">
-                                {{ slotProps.item.from.weekdayLabel }}
+                                v-else-if="item.to.frequencyLabel"
+                                severity="secondary">
+                                {{ item.to.frequencyLabel }}
                             </Tag>
-                        </template>
-                        <Tag
-                            v-else-if="slotProps.item.from.frequencyLabel"
-                            severity="secondary">
-                            {{ slotProps.item.from.frequencyLabel }}
-                        </Tag>
-                        <i class="pi pi-arrow-right"></i>
-                        <template
-                            v-if="
-                                slotProps.item.to.frequencyLabel &&
-                                slotProps.item.to.frequencyLabel.includes(
-                                    '주배당'
-                                ) &&
-                                slotProps.item.to.weekdayKey
-                            ">
-                            <span class="text-sm timeline-label">
-                                {{ slotProps.item.to.frequencyLabel }}
-                            </span>
-                            <Tag
-                                :data-p="slotProps.item.to.weekdayKey"
-                                class="p-tag-rounded timeline-weekday-tag">
-                                {{ slotProps.item.to.weekdayLabel }}
-                            </Tag>
-                        </template>
-                        <Tag
-                            v-else-if="slotProps.item.to.frequencyLabel"
-                            severity="secondary">
-                            {{ slotProps.item.to.frequencyLabel }}
-                        </Tag>
+                        </div>
                     </template>
-                </Timeline>
+                </Card>
             </div>
             <div v-else class="text-center py-4 text-500">
                 <slot name="empty">표시할 이벤트가 없습니다.</slot>

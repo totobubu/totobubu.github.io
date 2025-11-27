@@ -196,8 +196,22 @@
     &-drawer {
         .p-timeline {
             &-event {
-                flex-direction: column;
                 gap: 0.5rem;
+                &-opposite {
+                    flex-basis: 120px;
+                    text-align: left !important;
+                }
+                &-separator {
+                    flex-basis: 220px;
+                    text-align: left !important;
+                    .p-timeline-event-connector {
+                        display: none;
+                    }
+                }
+                &-content {
+                    justify-content: flex-start;
+                    flex-basis: 100%;
+                }
             }
         }
     }
