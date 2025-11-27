@@ -1,254 +1,292 @@
-// src\composables\data\useCalendarData.js
+/**
+ * useCalendarData V2 - 월별 로딩 + IndexedDB 캐싱
+ *
+ * 개선사항:
+ * 1. 월별 데이터 분할 로딩 (필요한 월만 로드)
+ * 2. IndexedDB 캐싱으로 재방문 시 빠른 로딩
+ * 3. 점진적 로딩으로 초기 로딩 속도 개선
+ */
+
 import { ref, computed } from 'vue';
 import { joinURL } from 'ufo';
 import { useFilterState } from '@/composables/portfolio/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
 import { stripTickerSuffix } from '@/utils/tickerRoute';
+import dbCache from '@/utils/indexedDB';
 
-const allDividendData = ref([]);
+// 전역 상태
+const monthlyData = ref(new Map()); // Map<yearMonth, events[]>
 const allTickerProperties = ref(new Map());
 const isLoading = ref(false);
+const loadingMonths = ref(new Set());
 const error = ref(null);
-let isDataLoaded = false;
-let isLoadingPromise = null;
 
-const loadAllData = async () => {
-    if (isLoadingPromise) return isLoadingPromise;
-    if (isDataLoaded) return Promise.resolve();
+/**
+ * 연-월 범위 생성 (예: 2024-01 ~ 2024-12)
+ */
+function generateMonthRange(startYear, startMonth, endYear, endMonth) {
+  const months = [];
+  let year = startYear;
+  let month = startMonth;
 
-    isLoadingPromise = new Promise(async (resolve, reject) => {
-        isLoading.value = true;
-        error.value = null;
-        try {
-            // 달력 이벤트 파일만 로드 (sidebar 파일은 불필요 - 모든 티커 표시해야 함)
-            const [
-                krStocksEventsResponse,
-                krEtfsEventsResponse,
-                usStocksEventsResponse,
-                usEtfsEventsResponse,
-            ] = await Promise.all([
-                fetch(getDataUrl('calendar/calendar-events-kr-stocks.json')),
-                fetch(getDataUrl('calendar/calendar-events-kr-etfs.json')),
-                fetch(getDataUrl('calendar/calendar-events-us-stocks.json')),
-                fetch(getDataUrl('calendar/calendar-events-us-etfs.json')),
-            ]);
+  while (year < endYear || (year === endYear && month <= endMonth)) {
+    const yearMonth = `${year}-${String(month).padStart(2, '0')}`;
+    months.push(yearMonth);
 
-            if (!krStocksEventsResponse.ok)
-                throw new Error(
-                    'calendar-events-kr-stocks.json could not be loaded.'
-                );
-            if (!krEtfsEventsResponse.ok)
-                throw new Error(
-                    'calendar-events-kr-etfs.json could not be loaded.'
-                );
-            if (!usStocksEventsResponse.ok)
-                throw new Error(
-                    'calendar-events-us-stocks.json could not be loaded.'
-                );
-            if (!usEtfsEventsResponse.ok)
-                throw new Error(
-                    'calendar-events-us-etfs.json could not be loaded.'
-                );
+    month++;
+    if (month > 12) {
+      month = 1;
+      year++;
+    }
+  }
 
-            const [krStocksEvents, krEtfsEvents, usStocksEvents, usEtfsEvents] =
-                await Promise.all([
-                    krStocksEventsResponse.json(),
-                    krEtfsEventsResponse.json(),
-                    usStocksEventsResponse.json(),
-                    usEtfsEventsResponse.json(),
-                ]);
+  return months;
+}
 
-            // 분할된 이벤트 파일들을 하나로 합치고, 동시에 티커 속성 정보 수집
-            const flatEvents = [];
-            const tickerPropertiesMap = new Map();
+/**
+ * 특정 월의 데이터 로드 (캐시 우선)
+ */
+async function loadMonth(yearMonth) {
+  // 이미 로딩 중이면 스킵
+  if (loadingMonths.value.has(yearMonth)) {
+    return;
+  }
 
-            // KR Stocks (currency: KRW, isEtf: false)
-            for (const date in krStocksEvents) {
-                krStocksEvents[date].forEach((event) => {
-                    flatEvents.push({
-                        ...event,
-                        date,
-                        currency: 'KRW',
-                        isEtf: false,
-                    });
-                    // 티커 속성 정보 저장
-                    if (!tickerPropertiesMap.has(event.ticker)) {
-                        tickerPropertiesMap.set(event.ticker, {
-                            currency: 'KRW',
-                            isEtf: false,
-                            koName: event.koName,
-                        });
-                    }
-                });
-            }
+  // 이미 로드된 데이터가 있으면 스킵
+  if (monthlyData.value.has(yearMonth)) {
+    return;
+  }
 
-            // KR ETFs (currency: KRW, isEtf: true)
-            for (const date in krEtfsEvents) {
-                krEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({
-                        ...event,
-                        date,
-                        currency: 'KRW',
-                        isEtf: true,
-                    });
-                    if (!tickerPropertiesMap.has(event.ticker)) {
-                        tickerPropertiesMap.set(event.ticker, {
-                            currency: 'KRW',
-                            isEtf: true,
-                            koName: event.koName,
-                        });
-                    }
-                });
-            }
+  loadingMonths.value.add(yearMonth);
 
-            // US Stocks (currency: USD, isEtf: false)
-            for (const date in usStocksEvents) {
-                usStocksEvents[date].forEach((event) => {
-                    flatEvents.push({
-                        ...event,
-                        date,
-                        currency: 'USD',
-                        isEtf: false,
-                    });
-                    if (!tickerPropertiesMap.has(event.ticker)) {
-                        tickerPropertiesMap.set(event.ticker, {
-                            currency: 'USD',
-                            isEtf: false,
-                            koName: event.koName,
-                        });
-                    }
-                });
-            }
+  try {
+    // 1. IndexedDB 캐시 확인
+    const cached = await dbCache.get(`calendar-${yearMonth}`);
+    if (cached) {
+      console.log(`✓ 캐시에서 로드: ${yearMonth}`);
+      monthlyData.value.set(yearMonth, cached.events);
 
-            // US ETFs (currency: USD, isEtf: true)
-            for (const date in usEtfsEvents) {
-                usEtfsEvents[date].forEach((event) => {
-                    flatEvents.push({
-                        ...event,
-                        date,
-                        currency: 'USD',
-                        isEtf: true,
-                    });
-                    if (!tickerPropertiesMap.has(event.ticker)) {
-                        tickerPropertiesMap.set(event.ticker, {
-                            currency: 'USD',
-                            isEtf: true,
-                            koName: event.koName,
-                        });
-                    }
-                });
-            }
-
-            allDividendData.value = flatEvents;
-            allTickerProperties.value = tickerPropertiesMap;
-            isDataLoaded = true;
-            resolve();
-        } catch (err) {
-            console.error('캘린더 데이터 로딩 중 오류 발생:', err);
-            error.value = '달력 데이터를 불러오지 못했습니다.';
-            reject(err);
-        } finally {
-            isLoading.value = false;
-            isLoadingPromise = null;
+      // 티커 속성 정보 병합
+      cached.tickerProperties.forEach((value, key) => {
+        if (!allTickerProperties.value.has(key)) {
+          allTickerProperties.value.set(key, value);
         }
-    });
+      });
 
-    return isLoadingPromise;
-};
+      loadingMonths.value.delete(yearMonth);
+      return;
+    }
 
-export function useCalendarData() {
-    const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
+    // 2. 네트워크에서 fetch
+    console.log(`⬇️ 네트워크에서 로드: ${yearMonth}`);
+    const [year, month] = yearMonth.split('-');
+    const url = getDataUrl(`calendar/monthly/${year}/${month}.json`);
 
-    const buildBookmarkSets = () => {
-        const symbolSet = new Set();
-        const isinSet = new Set();
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load ${yearMonth}: ${response.status}`);
+    }
 
-        Object.values(myBookmarks.value || {}).forEach((entry) => {
-            if (!entry) return;
-            if (entry.isin) {
-                isinSet.add(entry.isin.toUpperCase());
-            }
-            if (entry.symbol) {
-                const upper = entry.symbol.toUpperCase();
-                const base = stripTickerSuffix(upper);
-                symbolSet.add(base);
-                symbolSet.add(upper);
-            }
+    const monthEvents = await response.json();
+
+    // 3. 데이터 변환 (날짜별 → 배열 형태)
+    const flatEvents = [];
+    const tickerPropertiesMap = new Map();
+
+    for (const [dateStr, eventsByDate] of Object.entries(monthEvents)) {
+      // eventsByDate는 { "KRW": [...], "USD": [...] } 형태
+      for (const [currency, events] of Object.entries(eventsByDate)) {
+        events.forEach(event => {
+          flatEvents.push({
+            ...event,
+            date: dateStr,
+            currency,
+            isEtf: event.isEtf || false
+          });
+
+          // 티커 속성 정보 수집
+          if (!tickerPropertiesMap.has(event.ticker)) {
+            tickerPropertiesMap.set(event.ticker, {
+              currency,
+              isEtf: event.isEtf || false,
+              koName: event.koName
+            });
+          }
         });
+      }
+    }
 
-        return { symbolSet, isinSet };
-    };
+    // 4. 상태 업데이트
+    monthlyData.value.set(yearMonth, flatEvents);
 
-    const matchesBookmark = (event, symbolSet, isinSet) => {
-        const eventTicker = event.ticker
-            ? stripTickerSuffix(event.ticker.toUpperCase())
-            : null;
-        const eventIsin = event.isin ? event.isin.toUpperCase() : null;
-
-        if (eventTicker && symbolSet.has(eventTicker)) return true;
-        if (eventIsin && isinSet.has(eventIsin)) return true;
-        return false;
-    };
-
-    const dividendsByDate = computed(() => {
-        const mainTab = mainFilterTab.value;
-        const subTab = subFilterTab.value;
-        const { symbolSet: bookmarkSymbols, isinSet: bookmarkIsins } =
-            buildBookmarkSets();
-
-        let filteredEvents = [...allDividendData.value];
-
-        if (mainTab === '북마크') {
-            filteredEvents = filteredEvents.filter((event) =>
-                matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
-            );
-        } else {
-            // 북마크가 아닌 탭에서는 북마크된 항목 제외
-            filteredEvents = filteredEvents.filter(
-                (event) =>
-                    !matchesBookmark(event, bookmarkSymbols, bookmarkIsins)
-            );
-
-            // [핵심 수정] 국가 필터링 (event에 이미 currency 정보가 있음)
-            if (mainTab === '미국') {
-                filteredEvents = filteredEvents.filter(
-                    (event) => event.currency === 'USD'
-                );
-            } else if (mainTab === '한국') {
-                filteredEvents = filteredEvents.filter(
-                    (event) => event.currency === 'KRW'
-                );
-            }
-
-            // [핵심 수정] 소분류 필터링 (event에 이미 isEtf 정보가 있음)
-            if (subTab === 'ETF') {
-                filteredEvents = filteredEvents.filter(
-                    (event) => event.isEtf === true
-                );
-            } else if (subTab === '주식') {
-                filteredEvents = filteredEvents.filter(
-                    (event) => event.isEtf === false
-                );
-            }
-        }
-
-        const grouped = {};
-        for (const div of filteredEvents) {
-            // koName은 이미 event에 포함되어 있음
-            if (!grouped[div.date]) grouped[div.date] = [];
-            grouped[div.date].push(div);
-        }
-        return grouped;
+    // 티커 속성 병합
+    tickerPropertiesMap.forEach((value, key) => {
+      if (!allTickerProperties.value.has(key)) {
+        allTickerProperties.value.set(key, value);
+      }
     });
 
-    return {
-        dividendsByDate,
-        isLoading,
-        error,
-        ensureDataLoaded: () => {
-            if (!isDataLoaded && !isLoadingPromise) {
-                loadAllData();
-            }
-        },
-    };
+    // 5. IndexedDB에 캐싱
+    await dbCache.set(`calendar-${yearMonth}`, {
+      events: flatEvents,
+      tickerProperties: Array.from(tickerPropertiesMap.entries())
+    });
+
+    console.log(`✓ 캐시 저장 완료: ${yearMonth} (${flatEvents.length}개 이벤트)`);
+
+  } catch (err) {
+    console.error(`❌ ${yearMonth} 로드 실패:`, err);
+    error.value = err;
+  } finally {
+    loadingMonths.value.delete(yearMonth);
+  }
+}
+
+/**
+ * 특정 기간의 데이터 로드
+ */
+async function loadDateRange(startDate, endDate) {
+  isLoading.value = true;
+  error.value = null;
+
+  try {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const months = generateMonthRange(
+      start.getFullYear(),
+      start.getMonth() + 1,
+      end.getFullYear(),
+      end.getMonth() + 1
+    );
+
+    console.log(`📅 로딩할 월: ${months.length}개 (${months[0]} ~ ${months[months.length - 1]})`);
+
+    // 병렬로 모든 월 로드
+    await Promise.all(months.map(month => loadMonth(month)));
+
+    console.log(`✅ 데이터 로딩 완료: ${monthlyData.value.size}개 월`);
+
+  } catch (err) {
+    console.error('데이터 로드 실패:', err);
+    error.value = err;
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+/**
+ * 현재 연도의 데이터 로드 (기본 동작)
+ */
+async function loadCurrentYear() {
+  const now = new Date();
+  const startDate = `${now.getFullYear()}-01-01`;
+  const endDate = `${now.getFullYear()}-12-31`;
+
+  await loadDateRange(startDate, endDate);
+}
+
+/**
+ * 날짜별 배당 데이터 (computed)
+ */
+const dividendsByDate = computed(() => {
+  const result = {};
+
+  // 모든 월의 데이터를 날짜별로 그룹화
+  monthlyData.value.forEach(events => {
+    events.forEach(event => {
+      if (!result[event.date]) {
+        result[event.date] = [];
+      }
+      result[event.date].push(event);
+    });
+  });
+
+  return result;
+});
+
+/**
+ * 필터링된 배당 데이터
+ */
+const filteredDividends = computed(() => {
+  const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
+
+  const result = {};
+
+  Object.entries(dividendsByDate.value).forEach(([date, events]) => {
+    const filtered = events.filter(event => {
+      // 북마크 필터
+      const bookmarkKeys = Object.keys(myBookmarks.value || {});
+      if (bookmarkKeys.length > 0) {
+        const symbol = stripTickerSuffix(event.ticker);
+        if (!bookmarkKeys.some(key => key === event.ticker || key === symbol)) {
+          return false;
+        }
+      }
+
+      // 시장 필터 (미국/한국)
+      if (mainFilterTab.value === '미국' && event.currency !== 'USD') {
+        return false;
+      }
+      if (mainFilterTab.value === '한국' && event.currency !== 'KRW') {
+        return false;
+      }
+
+      // 유형 필터 (ETF/주식)
+      if (subFilterTab.value === 'ETF' && !event.isEtf) {
+        return false;
+      }
+      if (subFilterTab.value === '주식' && event.isEtf) {
+        return false;
+      }
+
+      return true;
+    });
+
+    if (filtered.length > 0) {
+      result[date] = filtered;
+    }
+  });
+
+  return result;
+});
+
+/**
+ * 캐시 통계 조회
+ */
+async function getCacheStats() {
+  return await dbCache.getStats();
+}
+
+/**
+ * 캐시 초기화
+ */
+async function clearCache() {
+  await dbCache.clear();
+  monthlyData.value.clear();
+  allTickerProperties.value.clear();
+  console.log('✓ 캐시 초기화 완료');
+}
+
+/**
+ * Main Hook
+ */
+export function useCalendarData() {
+  return {
+    // 상태
+    dividendsByDate: filteredDividends,
+    isLoading,
+    error,
+    allTickerProperties,
+
+    // 메서드
+    loadCurrentYear,
+    loadDateRange,
+    loadMonth,
+    getCacheStats,
+    clearCache,
+
+    // 유틸
+    ensureDataLoaded: loadCurrentYear // 기존 호환성
+  };
 }
