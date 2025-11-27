@@ -345,16 +345,19 @@ export const useAssets = () => {
         try {
             // Determine asset ID based on type
             let assetId;
-            if (assetData.type === '주식' && assetData.isin) {
-                assetId = assetData.isin;
-            } else if (assetData.type === '주식' && assetData.symbol) {
-                // Stock without ISIN, use symbol with STOCK_ prefix
-                assetId = `STOCK_${assetData.symbol}`;
+            if (assetData.type === '주식') {
+                if (assetData.isin) {
+                    assetId = assetData.isin;
+                } else if (assetData.symbol) {
+                    assetId = `STOCK_${assetData.symbol}`;
+                }
             } else if (assetData.type === '현금' && assetData.currency) {
                 assetId = `CASH_${assetData.currency}`;
             } else if (assetData.type === '코인' && assetData.symbol) {
                 assetId = `COIN_${assetData.symbol}`;
-            } else {
+            }
+
+            if (!assetId) {
                 throw new Error(
                     'Invalid asset data: missing isin, currency, or symbol'
                 );
@@ -417,12 +420,33 @@ export const useAssets = () => {
         }
     };
 
+    /**
+     * Delete a holding from an asset
+     * @param {string} userId
+     * @param {string} assetId
+     * @param {string} accountId
+     */
+    const deleteAssetHolding = async (userId, assetId, accountId) => {
+        if (!userId || !assetId || !accountId) return;
+        try {
+            const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
+            await updateDoc(assetRef, {
+                [`holdings.${accountId}`]: deleteField(),
+                updatedAt: new Date(),
+            });
+        } catch (error) {
+            console.error('자산 보유 내역 삭제 실패:', error);
+            throw error;
+        }
+    };
+
     return {
         isLoading,
         loadAssets,
         addAsset,
         updateAsset,
         deleteAsset,
+        deleteAssetHolding,
     };
 };
 
