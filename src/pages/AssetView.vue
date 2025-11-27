@@ -55,7 +55,15 @@
     const { loadAccounts, addAccount, updateAccount, deleteAccount } =
         useAccounts();
 
-    const { loadAssets, addAsset, updateAsset, deleteAsset } = useAssets();
+    const { addBrokerage, updateBrokerage, deleteBrokerage } = useBrokerages();
+
+    const {
+        loadAssets,
+        addAsset,
+        updateAsset,
+        deleteAsset,
+        deleteAssetHolding,
+    } = useAssets();
     const { addTransaction } = useTransactions();
     const { findStockByIsin } = useLocalStockData();
 
@@ -752,11 +760,34 @@
             rejectLabel: '취소',
             accept: async () => {
                 const data = node.data;
+                console.log('🗑️ deleteNode:', data);
                 const memberId = selectedMember.value?.id;
                 if (!memberId) return;
 
                 if (data.type === '증권사') {
-                    await deleteBrokerage(user.value.uid, memberId, data.id);
+                    // Brokerage node is a virtual group, so we delete all accounts under it
+                    const accountsToDelete = loadedMemberData.value[
+                        memberId
+                    ]?.accounts.filter((acc) => acc.brokerage === data.name);
+
+                    if (accountsToDelete && accountsToDelete.length > 0) {
+                        console.log(
+                            `Deleting ${accountsToDelete.length} accounts for brokerage ${data.name}`
+                        );
+                        for (const acc of accountsToDelete) {
+                            await deleteAccount(
+                                user.value.uid,
+                                memberId,
+                                acc.id
+                            );
+                        }
+                    } else {
+                        console.warn(
+                            'No accounts found for brokerage:',
+                            data.name
+                        );
+                    }
+                    // await deleteBrokerage(user.value.uid, memberId, data.id); // data.id is undefined for virtual group
                 } else if (data.type === '계좌') {
                     await deleteAccount(
                         user.value.uid,
@@ -765,12 +796,10 @@
                         data.id
                     );
                 } else if (data.type === '자산') {
-                    await deleteAsset(
+                    await deleteAssetHolding(
                         user.value.uid,
-                        memberId,
-                        data.brokerageId,
-                        data.accountId,
-                        data.id
+                        data.id, // assetId (ISIN or CASH_XXX)
+                        data.accountId
                     );
                 }
 

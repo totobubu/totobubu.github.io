@@ -415,12 +415,33 @@ export const useAssets = () => {
         }
     };
 
+    /**
+     * Delete a holding from an asset
+     * @param {string} userId
+     * @param {string} assetId
+     * @param {string} accountId
+     */
+    const deleteAssetHolding = async (userId, assetId, accountId) => {
+        if (!userId || !assetId || !accountId) return;
+        try {
+            const assetRef = doc(db, `userAssets/${userId}/assets/${assetId}`);
+            await updateDoc(assetRef, {
+                [`holdings.${accountId}`]: deleteField(),
+                updatedAt: new Date(),
+            });
+        } catch (error) {
+            console.error('자산 보유 내역 삭제 실패:', error);
+            throw error;
+        }
+    };
+
     return {
         isLoading,
         loadAssets,
         addAsset,
         updateAsset,
         deleteAsset,
+        deleteAssetHolding,
     };
 };
 
