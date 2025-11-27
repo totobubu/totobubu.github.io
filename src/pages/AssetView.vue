@@ -12,6 +12,10 @@
         useTransactions,
     } from '@/composables/useAssetFirestore';
     import { useLocalStockData } from '@/composables/useLocalStockData';
+    import {
+        normalizeTransactionType,
+        TRANSACTION_TYPES,
+    } from '@/utils/transactionTypeMapper';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
 
@@ -1178,7 +1182,10 @@
                         );
                         return;
                     }
-                } else if (transaction.ticker && transaction.ticker.startsWith('US')) {
+                } else if (
+                    transaction.ticker &&
+                    transaction.ticker.startsWith('US')
+                ) {
                     // 매핑은 없지만 PDF에서 추출된 ISIN(ticker)이 있는 경우
                     isin = transaction.ticker;
                     symbol = transaction.ticker; // 심볼을 모르므로 ISIN을 임시로 사용
@@ -1244,17 +1251,37 @@
                     let totalQuantity = 0;
 
                     assetData.transactions.forEach((t) => {
-                        const type = t.type ? t.type.trim() : '';
-                        const isBuy = [
-                            '매수',
-                            'Buy',
-                            'buy',
-                            'Purchase',
-                            '구매',
-                        ].some((k) => type.includes(k));
-                        const isSell = ['매도', 'Sell', 'sell'].some((k) =>
-                            type.includes(k)
+                        // 거래 타입 정규화
+                        const rawType = t.type ? t.type.trim() : '';
+                        const brokerage =
+                            uploadedTransactionData.value.brokerageName ||
+                            '토스증권';
+                        const normalizedType = normalizeTransactionType(
+                            rawType,
+                            brokerage
                         );
+
+                        // 정규화된 타입 저장
+                        t.type = normalizedType;
+                        t.rawType = rawType;
+                        t.brokerage = brokerage;
+
+                        // 알 수 없는 타입 처리
+                        if (normalizedType === TRANSACTION_TYPES.UNKNOWN) {
+                            console.warn(
+                                `Unknown transaction type: "${rawType}" from "${brokerage}"`
+                            );
+                            toast.add({
+                                severity: 'warn',
+                                summary: '새로운 거래 타입 발견',
+                                detail: `"${rawType}" 거래가 발견되었습니다.`,
+                                life: 3000,
+                            });
+                        }
+
+                        const isBuy = normalizedType === TRANSACTION_TYPES.BUY;
+                        const isSell =
+                            normalizedType === TRANSACTION_TYPES.SELL;
 
                         let amount = t.amount;
                         if (amount === undefined || amount === null) {
@@ -1280,11 +1307,12 @@
                         } else {
                             // 현금은 amount 누적
                             if (
-                                type.includes('출금') ||
-                                type.includes('Withdrawal')
+                                normalizedType === TRANSACTION_TYPES.WITHDRAWAL
                             ) {
                                 totalQuantity -= Math.abs(amount);
-                            } else {
+                            } else if (
+                                normalizedType === TRANSACTION_TYPES.DEPOSIT
+                            ) {
                                 totalQuantity += Math.abs(amount);
                             }
                         }
