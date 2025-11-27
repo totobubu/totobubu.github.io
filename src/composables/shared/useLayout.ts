@@ -1,6 +1,13 @@
 // src/composables/shared/useLayout.ts
 import { updatePrimaryPalette, updateSurfacePalette } from '@primeuix/themes';
-import { computed, ref, readonly, watchEffect, type Ref, type ComputedRef } from 'vue';
+import {
+    computed,
+    ref,
+    readonly,
+    watchEffect,
+    type Ref,
+    type ComputedRef,
+} from 'vue';
 
 const LAYOUT_CONFIG_KEY = 'layoutConfig';
 
@@ -479,7 +486,7 @@ const surfaces = ref<SurfaceDefinition[]>([
 export interface UseLayoutReturn {
     primaryColors: Ref<ColorDefinition[]>;
     surfaces: Ref<SurfaceDefinition[]>;
-    isDarkMode: Readonly<ComputedRef<boolean>>;
+    isDarkMode: Readonly<Ref<boolean>>;
     primary: ComputedRef<string>;
     surface: ComputedRef<string | null>;
     setPrimary: (value: string) => void;
@@ -514,7 +521,10 @@ export function useLayout(): UseLayoutReturn {
         appState.value.darkMode = value;
     }
 
-    function updateColors(type: 'primary' | 'surface', colorName: string): void {
+    function updateColors(
+        type: 'primary' | 'surface',
+        colorName: string
+    ): void {
         if (type === 'primary') {
             setPrimary(colorName);
             const color = primaryColors.value.find((c) => c.name === colorName);

@@ -1,13 +1,20 @@
 // src/composables/shared/useBreakpoint.ts
-import { ref, computed, onMounted, onBeforeUnmount, readonly, type Ref, type ComputedRef } from 'vue';
+import {
+    ref,
+    computed,
+    onMounted,
+    onBeforeUnmount,
+    readonly,
+    type Ref,
+} from 'vue';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
 export interface UseBreakpointReturn {
     deviceType: Readonly<Ref<DeviceType>>;
-    isMobile: Readonly<ComputedRef<boolean>>;
-    isTablet: Readonly<ComputedRef<boolean>>;
-    isDesktop: Readonly<ComputedRef<boolean>>;
+    isMobile: Readonly<Ref<boolean>>;
+    isTablet: Readonly<Ref<boolean>>;
+    isDesktop: Readonly<Ref<boolean>>;
 }
 
 export function useBreakpoint(): UseBreakpointReturn {

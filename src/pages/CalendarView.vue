@@ -19,7 +19,7 @@
     // [핵심 수정] 임시 데이터를 제거하고, useCalendarData를 다시 활성화합니다.
     const { dividendsByDate, isLoading, error, ensureDataLoaded } =
         useCalendarData();
-    const { mainFilterTab } = useFilterState();
+    const { mainFilterTab, isBookmarksLoading } = useFilterState();
     const { isMobile } = useBreakpoint();
     const router = useRouter();
 
@@ -56,7 +56,10 @@
 
 <template>
     <div
-        v-if="isLoading && Object.keys(dividendsByDate).length === 0"
+        v-if="
+            (isLoading && Object.keys(dividendsByDate).length === 0) ||
+            (mainFilterTab === '북마크' && isBookmarksLoading)
+        "
         id="p-calendar-skeleton">
         <Card v-if="isMobile">
             <template #header

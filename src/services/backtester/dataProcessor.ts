@@ -53,7 +53,7 @@ export function processSymbolData(symbolData: SymbolData): ProcessedData {
     }));
 
     // 주식 분할 조정
-    if (symbolData.splits?.length > 0) {
+    if (symbolData.splits && symbolData.splits.length > 0) {
         symbolData.splits.forEach((split) => {
             const splitDate = new Date(split.date);
             const [numerator, denominator] = split.ratio.split(':').map(Number);
@@ -77,12 +77,8 @@ export function processSymbolData(symbolData: SymbolData): ProcessedData {
         });
     }
 
-    const priceMap = new Map(
-        prices.map((p) => [p.date, p as PriceData])
-    );
-    const dividendMap = new Map(
-        dividends.map((d) => [d.date, d.amount])
-    );
+    const priceMap = new Map(prices.map((p) => [p.date, p as PriceData]));
+    const dividendMap = new Map(dividends.map((d) => [d.date, d.amount]));
 
     console.log(
         `[Processor] Finished for ${symbolData.symbol}. Price Map Size: ${priceMap.size}, Dividend Map Size: ${dividendMap.size}`

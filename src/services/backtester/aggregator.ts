@@ -1,7 +1,7 @@
 // src/services/backtester/aggregator.ts
 
 import { calculateCAGR } from './utils';
-import type { DividendPayout, SimulationResult } from './simulator';
+import type { DividendPayout } from './simulator';
 
 /**
  * 포트폴리오 항목
@@ -128,41 +128,52 @@ export function aggregateResults(options: AggregateOptions): AggregatedResult {
     };
 
     // 포트폴리오 재투자 히스토리
-    const portfolioHistoryWithReinvest = baseHistory.map(([date]) => [
-        date,
-        validPortfolioSymbols.reduce(
-            (sum, s) =>
-                sum +
-                (results[s].withReinvest?.history.find((h) => h[0] === date)?.[1] ||
-                    0),
-            0
-        ),
-    ] as [string, number]);
+    const portfolioHistoryWithReinvest = baseHistory.map(
+        ([date]) =>
+            [
+                date,
+                validPortfolioSymbols.reduce(
+                    (sum, s) =>
+                        sum +
+                        (results[s].withReinvest?.history.find(
+                            (h) => h[0] === date
+                        )?.[1] || 0),
+                    0
+                ),
+            ] as [string, number]
+    );
 
     // 포트폴리오 재투자 없는 히스토리
-    const portfolioHistoryWithoutReinvest = baseHistory.map(([date]) => [
-        date,
-        validPortfolioSymbols.reduce(
-            (sum, s) =>
-                sum +
-                (results[s].withoutReinvest?.history.find((h) => h[0] === date)?.[1] ||
-                    0),
-            0
-        ),
-    ] as [string, number]);
+    const portfolioHistoryWithoutReinvest = baseHistory.map(
+        ([date]) =>
+            [
+                date,
+                validPortfolioSymbols.reduce(
+                    (sum, s) =>
+                        sum +
+                        (results[s].withoutReinvest?.history.find(
+                            (h) => h[0] === date
+                        )?.[1] || 0),
+                    0
+                ),
+            ] as [string, number]
+    );
 
     // 포트폴리오 현금 배당 히스토리
-    const portfolioCashHistory = baseHistory.map(([date]) => [
-        date,
-        validPortfolioSymbols.reduce(
-            (sum, s) =>
-                sum +
-                (results[s].withoutReinvest?.cashHistory.find(
-                    (h) => h[0] === date
-                )?.[1] || 0),
-            0
-        ),
-    ] as [string, number]);
+    const portfolioCashHistory = baseHistory.map(
+        ([date]) =>
+            [
+                date,
+                validPortfolioSymbols.reduce(
+                    (sum, s) =>
+                        sum +
+                        (results[s].withoutReinvest?.cashHistory.find(
+                            (h) => h[0] === date
+                        )?.[1] || 0),
+                    0
+                ),
+            ] as [string, number]
+    );
 
     // 시리즈 데이터 추가
     finalResult.withReinvest.series.push({
@@ -206,7 +217,9 @@ export function aggregateResults(options: AggregateOptions): AggregatedResult {
     // 최종 값 계산
     const totalEndingWithReinvest =
         portfolioHistoryWithReinvest.length > 0
-            ? portfolioHistoryWithReinvest[portfolioHistoryWithReinvest.length - 1][1]
+            ? portfolioHistoryWithReinvest[
+                  portfolioHistoryWithReinvest.length - 1
+              ][1]
             : 0;
     const totalEndingWithoutReinvest =
         portfolioHistoryWithoutReinvest.length > 0
@@ -260,6 +273,9 @@ export function aggregateResults(options: AggregateOptions): AggregatedResult {
     finalResult.individualResults = individualResults;
     finalResult.comparisonResult = comparisonDataResult;
 
-    console.log('[Aggregator] Finished aggregation. Final Result:', finalResult);
+    console.log(
+        '[Aggregator] Finished aggregation. Final Result:',
+        finalResult
+    );
     return finalResult;
 }

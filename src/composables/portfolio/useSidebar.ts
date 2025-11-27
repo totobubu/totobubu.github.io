@@ -1,6 +1,13 @@
 // src/composables/portfolio/useSidebar.ts
 
-import { ref, onMounted, computed, watch, type Ref, type ComputedRef } from 'vue';
+import {
+    ref,
+    onMounted,
+    computed,
+    watch,
+    type Ref,
+    type ComputedRef,
+} from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useFilterState } from '@/composables/portfolio/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
@@ -159,14 +166,12 @@ function matchesSearchQuery(item: SidebarTicker, query: string): boolean {
     const dotIndex = symbolLower.indexOf('.');
     const matchesSymbol =
         query.includes('.') ||
-        (matchIndex !== -1 &&
-            (dotIndex === -1 || matchIndex < dotIndex));
+        (matchIndex !== -1 && (dotIndex === -1 || matchIndex < dotIndex));
 
     const matchesKoName =
         item.koName && item.koName.toLowerCase().includes(query);
     const matchesLongName =
-        item.longName &&
-        item.longName.toLowerCase().includes(query) || false;
+        (item.longName && item.longName.toLowerCase().includes(query)) || false;
 
     return matchesSymbol || matchesKoName || matchesLongName;
 }
@@ -213,7 +218,8 @@ export function useSidebar(): UseSidebarReturn {
 
     // 전체 티커 로드 (nav.json에서 - 검색용)
     const loadAllTickersForSearch = async (): Promise<void> => {
-        if (allTickersForSearch.value.length > 0 || isLoadingAllTickers.value) return;
+        if (allTickersForSearch.value.length > 0 || isLoadingAllTickers.value)
+            return;
 
         isLoadingAllTickers.value = true;
 
@@ -226,7 +232,10 @@ export function useSidebar(): UseSidebarReturn {
             allTickersForSearch.value = (navData.nav || [])
                 .filter((item) => !item.upcoming)
                 .map(convertNavItemToTicker)
-                .filter((ticker): ticker is SidebarTicker => ticker !== null && !!ticker.isin);
+                .filter(
+                    (ticker): ticker is SidebarTicker =>
+                        ticker !== null && !!ticker.isin
+                );
 
             registerInstruments(allTickersForSearch.value as any[], {
                 markInitialized: true,
@@ -244,7 +253,9 @@ export function useSidebar(): UseSidebarReturn {
         }
     };
 
-    const fallbackTickersByMarket = async (marketKey: MarketKey): Promise<SidebarTicker[]> => {
+    const fallbackTickersByMarket = async (
+        marketKey: MarketKey
+    ): Promise<SidebarTicker[]> => {
         await ensureAllTickersForSearchLoaded();
 
         const filterMap: Record<MarketKey, (item: SidebarTicker) => boolean> = {
@@ -328,7 +339,7 @@ export function useSidebar(): UseSidebarReturn {
                     if (bookmark) {
                         missing.push({
                             isin,
-                            symbol: bookmark.symbol,
+                            symbol: bookmark.symbol || '',
                             currency: bookmark.currency,
                             market: bookmark.market,
                             isEtf: bookmark.isEtf ?? false,
@@ -384,7 +395,9 @@ export function useSidebar(): UseSidebarReturn {
 
             const data = await response.json();
 
-            let marketTickers: SidebarTicker[] = Array.isArray(data) ? data : [];
+            let marketTickers: SidebarTicker[] = Array.isArray(data)
+                ? data
+                : [];
             marketTickers = marketTickers
                 .map((item: any) => {
                     if (!item) return null;
@@ -406,7 +419,10 @@ export function useSidebar(): UseSidebarReturn {
                         currency: item.currency || instrument?.currency || null,
                     } as SidebarTicker;
                 })
-                .filter((item): item is SidebarTicker => item !== null && !!item.isin);
+                .filter(
+                    (item): item is SidebarTicker =>
+                        item !== null && !!item.isin
+                );
 
             if (marketTickers.length === 0) {
                 marketTickers = await fallbackTickersByMarket(marketKey);
@@ -475,9 +491,10 @@ export function useSidebar(): UseSidebarReturn {
                 .toUpperCase()
                 .replace(/-/g, '.');
             if (currentTickerSymbol) {
-                selectedTicker.value = allTickers.value.find(
-                    (t) => t.symbol === currentTickerSymbol
-                ) || null;
+                selectedTicker.value =
+                    allTickers.value.find(
+                        (t) => t.symbol === currentTickerSymbol
+                    ) || null;
             }
         } catch (err) {
             error.value = '사이드바 데이터를 불러오는 데 실패했습니다.';
@@ -495,12 +512,14 @@ export function useSidebar(): UseSidebarReturn {
 
         const marketsToLoad: MarketKey[] = [];
         if (mainTab === '한국') {
-            const market: MarketKey = subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks';
+            const market: MarketKey =
+                subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks';
             if (!loadedMarkets.value.has(market)) {
                 marketsToLoad.push(market);
             }
         } else if (mainTab === '미국') {
-            const market: MarketKey = subTab === 'ETF' ? 'us-etfs' : 'us-stocks';
+            const market: MarketKey =
+                subTab === 'ETF' ? 'us-etfs' : 'us-stocks';
             if (!loadedMarkets.value.has(market)) {
                 marketsToLoad.push(market);
             }
@@ -616,10 +635,17 @@ export function useSidebar(): UseSidebarReturn {
         }
 
         const result = toggleMyStock(payload as any);
-        const isKoreanTicker = ((payload as any).currency || '').toUpperCase() === 'KRW';
+        const isKoreanTicker =
+            ((payload as any).currency || '').toUpperCase() === 'KRW';
         const displaySymbol = isKoreanTicker
-            ? (payload as any).koName || (payload as any).symbol || (payload as any).isin || '알 수 없음'
-            : (payload as any).symbol || (payload as any).koName || (payload as any).isin || '알 수 없음';
+            ? (payload as any).koName ||
+              (payload as any).symbol ||
+              (payload as any).isin ||
+              '알 수 없음'
+            : (payload as any).symbol ||
+              (payload as any).koName ||
+              (payload as any).isin ||
+              '알 수 없음';
 
         if (result === 'added') {
             toast.add({
@@ -639,10 +665,11 @@ export function useSidebar(): UseSidebarReturn {
     };
 
     const onRowSelect = (event: { data: SidebarTicker }): void => {
-        const ticker = event.data.symbol;
+        const ticker = event.data?.symbol;
         if (!ticker) return;
         const params = getRouteParamsFromSymbol(ticker, event.data.market);
-        if (params) router.push({ name: 'stock-detail', params: params as any });
+        if (params)
+            router.push({ name: 'stock-detail', params: params as any });
     };
 
     onMounted(loadSidebarData);
@@ -663,7 +690,8 @@ export function useSidebar(): UseSidebarReturn {
         loadAdditionalData();
     });
 
-    const isTickerBookmarked = (ticker: SidebarTicker): boolean => isInBookmarks(ticker);
+    const isTickerBookmarked = (ticker: SidebarTicker): boolean =>
+        isInBookmarks(ticker);
 
     return {
         isLoading,
