@@ -122,15 +122,15 @@ function convertNavItemToTicker(item: NavDataItem): SidebarTicker | null {
     const symbol = item.symbol;
     if (!symbol) return null;
     const normalizedSymbol = symbol.toUpperCase();
-    const storeInstrument = resolveInstrumentBySymbol(normalizedSymbol) || {};
-    const isin = item.isin || storeInstrument.isin || null;
+    const storeInstrument = resolveInstrumentBySymbol(normalizedSymbol);
+    const isin = item.isin || storeInstrument?.isin || null;
     if (!isin) return null;
 
     const ticker: SidebarTicker = {
         isin,
         symbol: normalizedSymbol,
         currency: item.currency || 'USD',
-        market: item.market || storeInstrument.market,
+        market: item.market || storeInstrument?.market,
         isEtf,
     };
 

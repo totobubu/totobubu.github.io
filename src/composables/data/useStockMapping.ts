@@ -25,7 +25,6 @@ import {
     query,
     where,
     getDocs,
-    type DocumentData,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 import axios from 'axios';
@@ -83,7 +82,7 @@ export const getStockMapping = async (
 export const saveStockMapping = async (
     isin: string,
     mappingData: Partial<StockMappingData>,
-    userId?: string
+    _userId?: string
 ): Promise<boolean> => {
     try {
         if (!isin) {

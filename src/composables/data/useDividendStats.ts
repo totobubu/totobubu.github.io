@@ -76,6 +76,8 @@ export function useDividendStats(
         const oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
+        if (!dividendHistory.value) return 0;
+
         const pastYearDividends = dividendHistory.value.filter(
             (d) => parseYYMMDD(d['배당락']) > oneYearAgo
         );
@@ -88,7 +90,8 @@ export function useDividendStats(
     });
 
     const dividendStats = computed((): DividendStats => {
-        if (!dividendHistory.value || dividendHistory.value.length === 0) {
+        const history = dividendHistory.value;
+        if (!history || history.length === 0) {
             return { min: 0, max: 0, avg: 0 };
         }
 
@@ -100,10 +103,10 @@ export function useDividendStats(
             // '5', '10', '20' 과 같은 숫자 형식일 경우
             const count = parseInt(period, 10);
             // dividendHistory는 최신순으로 정렬되어 있으므로 slice로 간단히 처리
-            filteredHistory = dividendHistory.value.slice(0, count);
+            filteredHistory = history.slice(0, count);
         } else if (period === 'ALL') {
             // 'ALL'일 경우 전체 기록 사용
-            filteredHistory = dividendHistory.value;
+            filteredHistory = history;
         } else {
             // '3M', '6M', '1Y' 와 같은 기존 시간 형식일 경우 (하위 호환성)
             const now = new Date();
@@ -117,7 +120,7 @@ export function useDividendStats(
                 cutoffDate.setFullYear(now.getFullYear() - rangeValue);
             }
 
-            filteredHistory = dividendHistory.value.filter(
+            filteredHistory = history.filter(
                 (item) => parseYYMMDD(item['배당락']) >= cutoffDate
             );
         }
