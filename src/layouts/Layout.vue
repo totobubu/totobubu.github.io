@@ -140,6 +140,16 @@
         return [home, ...items];
     });
 
+    const mobileTitle = computed(() => {
+        if (route.name === 'stock-detail' && tickerInfo.value) {
+            const info = tickerInfo.value;
+            return (
+                info.koName || info.longName || info.englishName || info.symbol
+            );
+        }
+        return null;
+    });
+
     watch(
         () => route.path,
         () => {
@@ -158,7 +168,10 @@
         <main id="t-grid">
             <header id="t-header">
                 <div class="flex items-center gap-4 min-w-0">
-                    <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
+                    <Breadcrumb
+                        v-if="!isMobile"
+                        :model="breadcrumbItems"
+                        id="t-breadcrumb">
                         <template #item="{ item, props }">
                             <router-link
                                 v-if="item.to"
@@ -202,6 +215,9 @@
                 </div>
             </header>
             <section id="t-content">
+                <div v-if="isMobile && mobileTitle" class="text-center px-3">
+                    <h1 class="text-xl font-bold m-0">{{ mobileTitle }}</h1>
+                </div>
                 <RouterView />
                 <ScrollTop
                     target="parent"
