@@ -74,7 +74,9 @@ async function loadMonth(yearMonth: string): Promise<void> {
 
     try {
         // 1. IndexedDB 캐시 확인
-        const cached = await dbCache.get<CalendarCacheData>(`calendar-${yearMonth}`);
+        const cached = await dbCache.get<CalendarCacheData>(
+            `calendar-${yearMonth}`
+        );
         if (cached) {
             console.log(`✓ 캐시에서 로드: ${yearMonth}`);
             monthlyData.value.set(yearMonth, cached.events);
@@ -95,9 +97,12 @@ async function loadMonth(yearMonth: string): Promise<void> {
         const [year, month] = yearMonth.split('-');
         const url = getDataUrl(`calendar/monthly/${year}/${month}.json`);
 
-        const response = await get<Record<string, Record<Currency, any[]>>>(url, {
-            __maxRetries: 3, // 최대 3번 재시도
-        } as any);
+        const response = await get<Record<string, Record<Currency, any[]>>>(
+            url,
+            {
+                __maxRetries: 3, // 최대 3번 재시도
+            } as any
+        );
 
         const monthEvents = response.data;
 
@@ -144,7 +149,9 @@ async function loadMonth(yearMonth: string): Promise<void> {
             tickerProperties: Array.from(tickerPropertiesMap.entries()),
         });
 
-        console.log(`✓ 캐시 저장 완료: ${yearMonth} (${flatEvents.length}개 이벤트)`);
+        console.log(
+            `✓ 캐시 저장 완료: ${yearMonth} (${flatEvents.length}개 이벤트)`
+        );
     } catch (err) {
         console.error(`❌ ${yearMonth} 로드 실패:`, err);
         error.value = err as Error;
@@ -156,7 +163,10 @@ async function loadMonth(yearMonth: string): Promise<void> {
 /**
  * 특정 기간의 데이터 로드
  */
-async function loadDateRange(startDate: string, endDate: string): Promise<void> {
+async function loadDateRange(
+    startDate: string,
+    endDate: string
+): Promise<void> {
     isLoading.value = true;
     error.value = null;
 
@@ -204,8 +214,14 @@ async function loadCurrentYear(): Promise<void> {
 const dividendsByDate = computed<DividendsByDate>(() => {
     const result: DividendsByDate = {};
 
+    console.log('[useCalendarData] dividendsByDate computed 실행');
+    console.log('[useCalendarData] monthlyData.size:', monthlyData.value.size);
+
     // 모든 월의 데이터를 날짜별로 그룹화
-    monthlyData.value.forEach((events) => {
+    monthlyData.value.forEach((events, yearMonth) => {
+        console.log(
+            `[useCalendarData] ${yearMonth}: ${events.length}개 이벤트`
+        );
         events.forEach((event) => {
             if (!result[event.date]) {
                 result[event.date] = [];
@@ -214,6 +230,10 @@ const dividendsByDate = computed<DividendsByDate>(() => {
         });
     });
 
+    console.log(
+        '[useCalendarData] dividendsByDate 총 날짜 수:',
+        Object.keys(result).length
+    );
     return result;
 });
 
@@ -223,25 +243,55 @@ const dividendsByDate = computed<DividendsByDate>(() => {
 const filteredDividends = computed<DividendsByDate>(() => {
     const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
+    console.log('[useCalendarData] filteredDividends 시작:', {
+        mainFilterTab: mainFilterTab.value,
+        subFilterTab: subFilterTab.value,
+        bookmarksCount: Object.keys(myBookmarks.value || {}).length,
+    });
+
     const result: DividendsByDate = {};
+    let totalFiltered = 0;
+    let totalProcessed = 0;
 
     Object.entries(dividendsByDate.value).forEach(([date, events]) => {
         const filtered = events.filter((event) => {
-            // 북마크 필터
-            const bookmarkKeys = Object.keys(myBookmarks.value || {});
-            if (bookmarkKeys.length > 0) {
-                const symbol = stripTickerSuffix(event.ticker);
-                if (
-                    !bookmarkKeys.some(
-                        (key) => key === event.ticker || key === symbol
-                    )
-                ) {
+            totalProcessed++;
+
+            // 첫 번째 이벤트만 상세 로그
+            if (totalProcessed === 1) {
+                console.log('[useCalendarData] 첫 번째 이벤트:', {
+                    ticker: event.ticker,
+                    currency: event.currency,
+                    isEtf: event.isEtf,
+                    koName: event.koName,
+                });
+            }
+
+            // 북마크 필터 (mainFilterTab이 '북마크'일 때만 적용)
+            if (mainFilterTab.value === '북마크') {
+                const bookmarkKeys = Object.keys(myBookmarks.value || {});
+                if (bookmarkKeys.length > 0) {
+                    const symbol = stripTickerSuffix(event.ticker);
+                    if (
+                        !bookmarkKeys.some(
+                            (key) => key === event.ticker || key === symbol
+                        )
+                    ) {
+                        return false;
+                    }
+                } else {
+                    // 북마크가 없으면 아무것도 표시하지 않음
                     return false;
                 }
             }
 
             // 시장 필터 (미국/한국)
             if (mainFilterTab.value === '미국' && event.currency !== 'USD') {
+                if (totalProcessed <= 5) {
+                    console.log(
+                        `[useCalendarData] 미국 필터로 제외: ${event.ticker}, currency: ${event.currency}`
+                    );
+                }
                 return false;
             }
             if (mainFilterTab.value === '한국' && event.currency !== 'KRW') {
@@ -256,12 +306,25 @@ const filteredDividends = computed<DividendsByDate>(() => {
                 return false;
             }
 
+            totalFiltered++;
             return true;
         });
 
         if (filtered.length > 0) {
             result[date] = filtered;
         }
+    });
+
+    console.log('[useCalendarData] filteredDividends 계산됨:', {
+        mainFilterTab: mainFilterTab.value,
+        subFilterTab: subFilterTab.value,
+        totalProcessed,
+        totalFiltered,
+        totalDates: Object.keys(result).length,
+        totalEvents: Object.values(result).reduce(
+            (sum, events) => sum + events.length,
+            0
+        ),
     });
 
     return result;
