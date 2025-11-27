@@ -75,6 +75,23 @@ jobs:
             - name: Generate final nav.json
               run: npm run generate-nav
 
+            - name: Detect changed symbols in public/nav
+              id: detect_nav_changes
+              run: bash scripts/mappings/extract-changed-symbols.sh
+
+            - name: Sync changed symbols to Firebase
+              if: steps.detect_nav_changes.outputs.changed_symbols != ''
+              env:
+                  FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
+              run: |
+                  SYMBOLS="${{ steps.detect_nav_changes.outputs.changed_symbols }}"
+                  echo "🔄 Syncing changed symbols to Firebase..."
+                  for symbol in $SYMBOLS; do
+                    echo "  📝 Syncing: $symbol"
+                    node scripts/mappings/sync-nav-to-firebase.js --symbol "$symbol"
+                  done
+                  echo "✅ Firebase sync completed"
+
             - name: Update all info data (dividends, info+marketCap, frequency, projection) - KR only
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
