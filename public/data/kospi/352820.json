@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 287500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 297500,
         "englishName": "HYBE Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 12157904224256,
-        "marketCap": 11940635082752,
-        "Volume": 208879,
-        "AvgVolume": 273590,
+        "enterpriseValue": 11726489649152,
+        "marketCap": 12355961356288,
+        "Volume": 260847,
+        "AvgVolume": 266993,
         "sharesOutstanding": 41532645,
         "52Week": "181100.0 - 351000.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 287500,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 12157904224256,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 11940635082752,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 208879,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 273590,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11304,7 +11325,8 @@
             "high": 299000,
             "low": 284500,
             "close": 297500,
-            "volume": 260847
+            "volume": 260847,
+            "marketCap": 12355961356288
         }
     ]
 }

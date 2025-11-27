@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
+        "Update": "2025-11-28 01:19:14 KST",
         "regularMarketPrice": 73500,
         "englishName": "Doosan Robotics Inc.",
         "earningsDate": null,
-        "enterpriseValue": 4421070618624,
+        "enterpriseValue": 4465434820608,
         "marketCap": 4764268494848,
-        "Volume": 338197,
-        "AvgVolume": 543917,
+        "Volume": 247444,
+        "AvgVolume": 523286,
         "sharesOutstanding": 64819980,
         "52Week": "39550.0 - 95500.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "enterpriseValue": {
+                "value": 4421070618624,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 338197,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 543917,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4711,7 +4724,8 @@
             "high": 74500,
             "low": 72200,
             "close": 73500,
-            "volume": 247444
+            "volume": 247444,
+            "marketCap": 4764268494848
         }
     ]
 }

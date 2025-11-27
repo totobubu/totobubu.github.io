@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 25350,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 25400,
         "englishName": "Wemade Co.,Ltd.",
         "earningsDate": "2025-11-11",
         "enterpriseValue": null,
-        "marketCap": 855476535296,
-        "Volume": 155930,
-        "AvgVolume": 109028,
+        "marketCap": 857163825152,
+        "Volume": 82293,
+        "AvgVolume": 113180,
         "sharesOutstanding": 33746607,
         "52Week": "23500.0 - 47450.0",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25350,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 855476535296,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 155930,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 109028,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35247,7 +35264,8 @@
             "high": 26000,
             "low": 24900,
             "close": 25400,
-            "volume": 84062
+            "volume": 84062,
+            "marketCap": 857163825152
         },
         {
             "date": "2025-12-26",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 384000,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 383500,
         "englishName": "Rainbow Robotics Co.,Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 7199226593280,
-        "marketCap": 7449545277440,
-        "Volume": 342299,
-        "AvgVolume": 294249,
+        "enterpriseValue": 7160426659840,
+        "marketCap": 7439845425152,
+        "Volume": 166816,
+        "AvgVolume": 286715,
         "sharesOutstanding": 19399858,
         "52Week": "122900.0 - 509000.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 384000,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 7199226593280,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 7449545277440,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 342299,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 294249,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10607,7 +10628,8 @@
             "high": 396500,
             "low": 372500,
             "close": 383500,
-            "volume": 166816
+            "volume": 166816,
+            "marketCap": 7439845425152
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 46500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 43600,
         "englishName": "SILICON2 Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 2764733153280,
-        "marketCap": 2844493611008,
-        "Volume": 1597346,
-        "AvgVolume": 765972,
+        "enterpriseValue": 2750176296960,
+        "marketCap": 2667095261184,
+        "Volume": 640688,
+        "AvgVolume": 795941,
         "sharesOutstanding": 61171908,
         "52Week": "23300.0 - 63400.0",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2764733153280,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2844493611008,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1597346,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 765972,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9164,7 +9185,8 @@
             "high": 44950,
             "low": 42300,
             "close": 43600,
-            "volume": 625209
+            "volume": 625209,
+            "marketCap": 2667095261184
         }
     ]
 }

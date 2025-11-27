@@ -3323,8 +3323,8 @@
             "currency": "KRW",
             "logo": null,
             "dataPaths": ["data/kosdaq/017800.json"],
-            "periods": ["10Y", "15Y", "20Y"],
-            "group": "JJD"
+            "group": "JJD",
+            "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
             "symbol": "017960",
@@ -26288,7 +26288,7 @@
             "currency": "USD",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/cvnx.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "CVNY",
@@ -33767,7 +33767,7 @@
             "currency": "USD",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/nyse/hooy.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "HOYY",

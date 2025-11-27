@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 257500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 256000,
         "englishName": "KRAFTON, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 7686706429952,
-        "marketCap": 11492961288192,
-        "Volume": 71686,
-        "AvgVolume": 103398,
+        "enterpriseValue": 9154532999168,
+        "marketCap": 11426011807744,
+        "Volume": 53090,
+        "AvgVolume": 101031,
         "sharesOutstanding": 44632859,
-        "52Week": "252500.0 - 393000.0",
+        "52Week": "245500.0 - 393000.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 257500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 7686706429952,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11492961288192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 71686,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 103398,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9455,7 +9476,8 @@
             "high": 260500,
             "low": 255500,
             "close": 256000,
-            "volume": 62119
+            "volume": 62119,
+            "marketCap": 11426011807744
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 64300,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 57000,
         "englishName": "ToolGen Incorporated",
         "earningsDate": null,
-        "enterpriseValue": 587991875584,
-        "marketCap": 551697514496,
-        "Volume": 95389,
-        "AvgVolume": 68403,
+        "enterpriseValue": 467013107712,
+        "marketCap": 489063120896,
+        "Volume": 24646,
+        "AvgVolume": 74900,
         "sharesOutstanding": 8580055,
         "52Week": "26650.0 - 82900.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64300,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 587991875584,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 551697514496,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 95389,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 68403,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18978,7 +18999,8 @@
             "high": 58500,
             "low": 56700,
             "close": 57000,
-            "volume": 25828
+            "volume": 25828,
+            "marketCap": 489063120896
         }
     ]
 }

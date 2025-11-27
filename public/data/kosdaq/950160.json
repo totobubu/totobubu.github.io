@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 53800,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 68900,
         "englishName": "Kolon TissueGene, Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 4390131335168,
-        "Volume": 527535,
-        "AvgVolume": 432808,
+        "marketCap": 5622305652736,
+        "Volume": 436776,
+        "AvgVolume": 525442,
         "sharesOutstanding": 81600955,
-        "52Week": "15600.0 - 59300.0",
+        "52Week": "16600.0 - 70000.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53800,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 4390131335168,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 527535,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 432808,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10201,7 +10218,8 @@
             "high": 69900,
             "low": 67300,
             "close": 68900,
-            "volume": 435669
+            "volume": 435669,
+            "marketCap": 5622305652736
         }
     ]
 }

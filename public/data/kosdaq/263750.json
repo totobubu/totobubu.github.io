@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 38600,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 35550,
         "englishName": "Pearl Abyss Corp.",
         "earningsDate": null,
-        "enterpriseValue": 2138716372992,
-        "marketCap": 2370789179392,
-        "Volume": 153074,
-        "AvgVolume": 223862,
+        "enterpriseValue": 1979025981440,
+        "marketCap": 2183459897344,
+        "Volume": 100182,
+        "AvgVolume": 214876,
         "sharesOutstanding": 61419410,
         "52Week": "26750.0 - 43450.0",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38600,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2138716372992,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2370789179392,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 153074,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 223862,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18029,7 +18050,8 @@
             "high": 36000,
             "low": 35400,
             "close": 35550,
-            "volume": 96042
+            "volume": 96042,
+            "marketCap": 2183459897344
         }
     ]
 }

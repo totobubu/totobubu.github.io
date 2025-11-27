@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 67500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 67300,
         "englishName": "Daehan Shipbuilding Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 2412931186688,
-        "marketCap": 2600526151680,
-        "Volume": 582880,
-        "AvgVolume": 577463,
+        "enterpriseValue": 1507172155392,
+        "marketCap": 2592820690944,
+        "Volume": 577158,
+        "AvgVolume": 523266,
         "sharesOutstanding": 38526312,
         "52Week": "57300.0 - 116000.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67500,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2412931186688,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 2600526151680,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 582880,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 577463,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -715,7 +736,8 @@
             "high": 68800,
             "low": 63100,
             "close": 67300,
-            "volume": 573863
+            "volume": 573863,
+            "marketCap": 2592820690944
         }
     ]
 }

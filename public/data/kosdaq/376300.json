@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 31800,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 31400,
         "englishName": "Dear U Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 606372495360,
-        "marketCap": 754881331200,
-        "Volume": 83626,
-        "AvgVolume": 193094,
+        "enterpriseValue": 576447184896,
+        "marketCap": 745385951232,
+        "Volume": 91386,
+        "AvgVolume": 172188,
         "sharesOutstanding": 23738406,
         "52Week": "29250.0 - 63200.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31800,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 606372495360,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 754881331200,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 83626,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 193094,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8908,7 +8929,8 @@
             "high": 31500,
             "low": 30750,
             "close": 31400,
-            "volume": 91386
+            "volume": 91386,
+            "marketCap": 745385951232
         }
     ]
 }

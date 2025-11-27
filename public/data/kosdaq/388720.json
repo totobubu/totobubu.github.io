@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 80500,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 75400,
         "englishName": "Yuil Robotics Co., Ltd.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 924383576064,
-        "Volume": 150353,
-        "AvgVolume": 173888,
+        "marketCap": 865820147712,
+        "Volume": 63461,
+        "AvgVolume": 169048,
         "sharesOutstanding": 11483026,
         "52Week": "23700.0 - 101900.0",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 80500,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 924383576064,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 150353,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 173888,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8140,7 +8157,8 @@
             "high": 75900,
             "low": 73000,
             "close": 75400,
-            "volume": 63461
+            "volume": 63461,
+            "marketCap": 865820147712
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 169900,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 174800,
         "englishName": "ABL Bio Inc.",
         "earningsDate": null,
-        "enterpriseValue": 8887735418880,
-        "marketCap": 8244908523520,
-        "Volume": 1722419,
-        "AvgVolume": 1060839,
+        "enterpriseValue": 9253919129600,
+        "marketCap": 8482695675904,
+        "Volume": 715765,
+        "AvgVolume": 1075257,
         "sharesOutstanding": 48528007,
-        "52Week": "25950.0 - 195500.0",
+        "52Week": "26350.0 - 195500.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 169900,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8887735418880,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 8244908523520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1722419,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1060839,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15314,7 +15335,8 @@
             "high": 176500,
             "low": 170600,
             "close": 174800,
-            "volume": 711654
+            "volume": 711654,
+            "marketCap": 8482695675904
         }
     ]
 }

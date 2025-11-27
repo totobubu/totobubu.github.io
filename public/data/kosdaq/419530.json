@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 41250,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 42700,
         "englishName": "SAMG Entertainment Co., Ltd.",
         "earningsDate": null,
-        "enterpriseValue": 325869830144,
-        "marketCap": 337872551936,
-        "Volume": 138108,
-        "AvgVolume": 202267,
+        "enterpriseValue": 323003023360,
+        "marketCap": 349749280768,
+        "Volume": 128155,
+        "AvgVolume": 187614,
         "sharesOutstanding": 8190850,
         "52Week": "11480.0 - 99400.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41250,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 325869830144,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 337872551936,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 138108,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 202267,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6547,7 +6568,8 @@
             "high": 44350,
             "low": 41400,
             "close": 42700,
-            "volume": 128155
+            "volume": 128155,
+            "marketCap": 349749280768
         }
     ]
 }

@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "KOSPI",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 133300,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 129300,
         "englishName": null,
         "earningsDate": null,
-        "enterpriseValue": 1475027664896,
-        "marketCap": 1633766735872,
-        "Volume": 126759,
-        "AvgVolume": 178711,
+        "enterpriseValue": 1455505801216,
+        "marketCap": 1584741482496,
+        "Volume": 86759,
+        "AvgVolume": 167246,
         "sharesOutstanding": 12256315,
         "52Week": "104600.0 - 247500.0",
         "Yield": null,
-        "dividendRate": null,
+        "dividendRate": 2226,
         "payoutRatio": 0,
         "isin": "KR7483650008",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 133300,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1475027664896,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1633766735872,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 126759,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 178711,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1141,7 +1162,9 @@
             "high": 132800,
             "low": 128000,
             "close": 130700,
-            "volume": 99082
+            "volume": 99082,
+            "amount": 2226,
+            "yield": 0.0171362587
         },
         {
             "date": "2025-11-26",
@@ -1157,7 +1180,8 @@
             "high": 131900,
             "low": 128200,
             "close": 129300,
-            "volume": 86759
+            "volume": 86759,
+            "marketCap": 1584741482496
         }
     ]
 }

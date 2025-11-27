@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "KOSDAQ",
         "currency": "KRW",
-        "Update": "2025-11-20 01:16:35 KST",
-        "regularMarketPrice": 43750,
+        "Update": "2025-11-28 01:19:14 KST",
+        "regularMarketPrice": 43850,
         "englishName": "DOOSAN TESNA Inc.",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 841685794816,
-        "Volume": 177955,
-        "AvgVolume": 358711,
+        "marketCap": 843609604096,
+        "Volume": 132848,
+        "AvgVolume": 347912,
         "sharesOutstanding": 19238533,
         "52Week": "22050.0 - 55400.0",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43750,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 841685794816,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 177955,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 358711,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26789,7 +26806,8 @@
             "high": 45300,
             "low": 43600,
             "close": 43850,
-            "volume": 132848
+            "volume": 132848,
+            "marketCap": 843609604096
         },
         {
             "date": "2026-03-27",
