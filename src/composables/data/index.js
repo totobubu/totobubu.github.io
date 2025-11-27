@@ -1,5 +1,5 @@
 // Data Fetching & Processing Composables
-export { default as useStockData } from './useStockData.js';
+export { useStockData } from './useStockData';
 export { useLocalStockData } from './useLocalStockData';
 export { useCalendarData } from './useCalendarData';
 export { useDividendStats } from './useDividendStats';

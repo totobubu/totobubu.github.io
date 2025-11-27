@@ -1,53 +1,110 @@
-// src/composables/useStockData.js
-import { ref } from 'vue';
-import { joinURL } from 'ufo';
+import { ref, type Ref } from 'vue';
 import { getDataUrl } from '@/utils/dataUrl';
 
-const tickerInfo = ref(null);
-const dividendHistory = ref([]);
-const backtestData = ref([]);
-const holdingsData = ref([]);
-const isLoading = ref(false);
-const error = ref(null);
-const isUpcoming = ref(false);
-let navDataCache = null;
+// Types
+export interface TickerInfo {
+    symbol: string;
+    longName?: string;
+    currency?: string;
+    market?: string;
+    regularMarketPrice?: number;
+    price?: number;
+    upcoming?: boolean;
+    yfSymbol?: string | null;
+    koName?: string;
+    englishName?: string;
+    [key: string]: any;
+}
 
-const loadNavData = async () => {
+export interface DividendHistoryItem {
+    배당락: string;
+    배당금: string | number;
+    amountOriginal?: number;
+    amountFixed?: number;
+    amount?: number;
+    amountSplitAdjustments?: any[];
+    배당률?: number;
+    전일종가?: number | null;
+    당일시가?: number | null;
+    당일종가?: number | null;
+    익일종가?: number | null;
+    index?: number;
+}
+
+export interface BacktestDataItem {
+    date: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+    volume: number;
+}
+
+export interface HoldingsDataItem {
+    date: string;
+    data: any[];
+}
+
+interface NavItem {
+    symbol: string;
+    yfSymbol?: string;
+    currency?: string;
+    market?: string;
+    upcoming?: boolean;
+    dataPaths?: string[];
+    [key: string]: any;
+}
+
+interface NavData {
+    nav: NavItem[];
+}
+
+// State
+const tickerInfo = ref<TickerInfo | null>(null);
+const dividendHistory = ref<DividendHistoryItem[]>([]);
+const backtestData = ref<BacktestDataItem[]>([]);
+const holdingsData = ref<HoldingsDataItem[]>([]);
+const isLoading = ref(false);
+const error = ref<string | null>(null);
+const isUpcoming = ref(false);
+let navDataCache: NavData | null = null;
+
+const loadNavData = async (): Promise<NavData> => {
     if (navDataCache) return navDataCache;
     try {
         const navUrl = getDataUrl('nav.json');
         const navResponse = await fetch(navUrl);
         if (!navResponse.ok) throw new Error('nav.json not found');
         navDataCache = await navResponse.json();
-        return navDataCache;
+        return navDataCache as NavData;
     } catch (e) {
         console.error('Failed to load nav.json', e);
         return { nav: [] };
     }
 };
 
-const sanitizeTickerForFilename = (ticker) =>
+const sanitizeTickerForFilename = (ticker?: string): string =>
     ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
 
 const MARKET_SUFFIX_REGEX = /-(ks|kq|kn|ko)$/i;
 const SYMBOL_SUFFIX_REGEX = /\.(KS|KQ|KN|KO)$/i;
 
-const stripMarketSuffix = (sanitizedTicker) =>
+const stripMarketSuffix = (sanitizedTicker?: string): string =>
     sanitizedTicker ? sanitizedTicker.replace(MARKET_SUFFIX_REGEX, '') : '';
 
-const stripSymbolSuffix = (symbol) => {
-    if (!symbol) return '';
-    const match = symbol.match(SYMBOL_SUFFIX_REGEX);
-    if (match) {
-        return symbol.slice(0, -match[0].length);
-    }
-    return symbol;
-};
+// const stripSymbolSuffix = (symbol?: string): string => {
+//     if (!symbol) return '';
+//     const match = symbol.match(SYMBOL_SUFFIX_REGEX);
+//     if (match) {
+//         return symbol.slice(0, -match[0].length);
+//     }
+//     return symbol;
+// };
 
-const isKoreanMarket = (market) =>
-    ['KOSPI', 'KOSDAQ', 'KONEX'].includes((market || '').toUpperCase());
+// const isKoreanMarket = (market?: string): boolean =>
+//     ['KOSPI', 'KOSDAQ', 'KONEX'].includes((market || '').toUpperCase());
 
-const marketNameMap = {
+const marketNameMap: Record<string, string> = {
     NMS: 'NASDAQ',
     NYQ: 'NYSE',
     KOE: 'KOSDAQ',
@@ -57,14 +114,14 @@ const marketNameMap = {
     ASE: 'NYSE',
 };
 
-const truncateDecimals = (value, digits = 2) => {
+const truncateDecimals = (value: any, digits = 2): number | any => {
     if (typeof value !== 'number') return value;
     const factor = 10 ** digits;
     const scaled = value * factor;
     return (scaled >= 0 ? Math.floor(scaled) : Math.ceil(scaled)) / factor;
 };
 
-const isUsdUsMarket = (currency, market) => {
+const isUsdUsMarket = (currency?: string | null, market?: string | null): boolean => {
     if (currency !== 'USD') return false;
     const normalizedMarket = (market || '').toUpperCase();
     return ['NASDAQ', 'NYSE', 'AMEX'].some((keyword) =>
@@ -72,9 +129,9 @@ const isUsdUsMarket = (currency, market) => {
     );
 };
 
-const uniqueArray = (items = []) => {
-    const seen = new Set();
-    const result = [];
+const uniqueArray = <T>(items: T[] = []): T[] => {
+    const seen = new Set<T>();
+    const result: T[] = [];
     items.forEach((item) => {
         if (!item) return;
         if (seen.has(item)) return;
@@ -84,9 +141,9 @@ const uniqueArray = (items = []) => {
     return result;
 };
 
-const buildStaticDataCandidates = (navInfo) => {
+const buildStaticDataCandidates = (navInfo?: NavItem): string[] => {
     if (!navInfo) return [];
-    const candidates = [];
+    const candidates: string[] = [];
     if (Array.isArray(navInfo.dataPaths)) {
         candidates.push(...navInfo.dataPaths);
     }
@@ -94,7 +151,7 @@ const buildStaticDataCandidates = (navInfo) => {
     return uniqueArray(candidates);
 };
 
-const fetchStaticData = async (paths = []) => {
+const fetchStaticData = async (paths: string[] = []): Promise<{ data: any; path: string | null }> => {
     for (const relativePath of paths) {
         try {
             const response = await fetch(getDataUrl(relativePath));
@@ -113,7 +170,7 @@ const fetchStaticData = async (paths = []) => {
 };
 
 export function useStockData() {
-    const loadData = async (sanitizedTicker) => {
+    const loadData = async (sanitizedTicker?: string) => {
         if (!sanitizedTicker) {
             error.value = '티커 정보가 없습니다.';
             return;
@@ -166,7 +223,7 @@ export function useStockData() {
                 await fetchStaticData(staticDataCandidates);
 
             if (staticData) {
-                const fullBacktestData = staticData.backtestData || [];
+                const fullBacktestData: any[] = staticData.backtestData || [];
 
                 const inferredCurrency =
                     staticData.tickerInfo?.currency || navInfo.currency || null;
@@ -176,7 +233,7 @@ export function useStockData() {
                     inferredCurrency,
                     inferredMarket
                 );
-                const formatPriceField = (value) => {
+                const formatPriceField = (value: any) => {
                     if (value == null) return null;
                     return applyUsdPriceTruncation
                         ? truncateDecimals(value, 2)
@@ -190,11 +247,11 @@ export function useStockData() {
 
                 dividendHistory.value = pricesWithIndex
                     .filter(
-                        (item) =>
+                        (item: any) =>
                             item.amount !== undefined ||
                             item.amountFixed !== undefined
                     )
-                    .map((item) => {
+                    .map((item: any) => {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
                         
@@ -208,7 +265,7 @@ export function useStockData() {
                         // 1. amountOriginal (있으면 이것을 사용)
                         // 2. amountFixed (amountOriginal이 없으면 이것)
                         // 3. amount (둘 다 없으면 이것)
-                        let 배당금값 = item.amountOriginal !== undefined && item.amountOriginal !== null
+                        let 배당금값: string | number = item.amountOriginal !== undefined && item.amountOriginal !== null
                             ? item.amountOriginal
                             : item.amountFixed !== undefined
                                 ? item.amountFixed
@@ -228,7 +285,7 @@ export function useStockData() {
                             const originalAmount = item.amountOriginal; // 원래 배당금
                             
                             // 모든 비율을 곱해서 총 비율 계산
-                            const totalRatio = item.amountSplitAdjustments.reduce((acc, adj) => {
+                            const totalRatio = item.amountSplitAdjustments.reduce((acc: number, adj: any) => {
                                 const [numerator, denominator] = adj.ratio.split(':').map(Number);
                                 if (denominator && denominator > 0) {
                                     return acc * (numerator / denominator);
@@ -265,8 +322,8 @@ export function useStockData() {
                     .reverse();
 
                 const cleanedBacktestData = fullBacktestData
-                    .filter((d) => d.close != null)
-                    .map(({ date, open, high, low, close, volume }) => ({
+                    .filter((d: any) => d.close != null)
+                    .map(({ date, open, high, low, close, volume }: any) => ({
                         date,
                         open,
                         high,
@@ -290,8 +347,8 @@ export function useStockData() {
                 } else {
                     // 새 구조 (backtestData 내부)
                     holdingsData.value = fullBacktestData
-                        .filter((d) => d.holdings && Array.isArray(d.holdings))
-                        .map((d) => ({
+                        .filter((d: any) => d.holdings && Array.isArray(d.holdings))
+                        .map((d: any) => ({
                             date: d.date,
                             data: d.holdings,
                         }));
@@ -301,21 +358,23 @@ export function useStockData() {
                     ...navInfo,
                     ...staticData.tickerInfo,
                 };
-                tickerInfo.value.yfSymbol = originalTickerSymbol
-                    ? originalTickerSymbol.toUpperCase()
-                    : null;
-                if (latestClose) {
-                    if (
-                        !tickerInfo.value.regularMarketPrice ||
-                        tickerInfo.value.regularMarketPrice <= 0
-                    ) {
-                        tickerInfo.value.regularMarketPrice = latestClose;
-                    }
-                    if (
-                        !tickerInfo.value.price ||
-                        tickerInfo.value.price <= 0
-                    ) {
-                        tickerInfo.value.price = latestClose;
+                if (tickerInfo.value) {
+                    tickerInfo.value.yfSymbol = originalTickerSymbol
+                        ? originalTickerSymbol.toUpperCase()
+                        : null;
+                    if (latestClose) {
+                        if (
+                            !tickerInfo.value.regularMarketPrice ||
+                            tickerInfo.value.regularMarketPrice <= 0
+                        ) {
+                            tickerInfo.value.regularMarketPrice = latestClose;
+                        }
+                        if (
+                            !tickerInfo.value.price ||
+                            tickerInfo.value.price <= 0
+                        ) {
+                            tickerInfo.value.price = latestClose;
+                        }
                     }
                 }
             }
@@ -329,7 +388,7 @@ export function useStockData() {
             if (liveDataResponse.ok) {
                 const liveDataArray = await liveDataResponse.json();
                 const liveData = liveDataArray[0];
-                if (liveData) {
+                if (liveData && tickerInfo.value) {
                     tickerInfo.value = { ...tickerInfo.value, ...liveData };
                     if (liveData.exchange) {
                         tickerInfo.value.market =
@@ -342,18 +401,18 @@ export function useStockData() {
                     `Could not fetch live data for ${originalTickerSymbol}`
                 );
             }
-        } catch (err) {
+        } catch (err: any) {
             console.error(`Failed to load data for ${sanitizedTicker}:`, err);
 
             // [핵심 수정] 에러 메시지를 분기 처리
             if (err.message.includes('500')) {
                 // API 서버 에러인 경우
-                error.value = `${sanitizedTicker.toUpperCase()}의 실시간 시세 정보를 가져오는 데 실패했습니다. 잠시 후 다시 시도해주세요.`;
+                error.value = `${sanitizedTicker?.toUpperCase()}의 실시간 시세 정보를 가져오는 데 실패했습니다. 잠시 후 다시 시도해주세요.`;
             } else {
                 // 그 외 다른 에러 (nav.json에 없는 티커 등)
                 error.value =
                     err.message ||
-                    `${sanitizedTicker.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
+                    `${sanitizedTicker?.toUpperCase()}의 데이터를 불러오는 데 실패했습니다.`;
             }
         } finally {
             isLoading.value = false;

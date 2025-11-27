@@ -14,7 +14,7 @@
     const formattedHistory = computed(() => {
         if (!props.history) return [];
         return props.history.map((item) => {
-            // 배당금이 이미 문자열인 경우 (useStockData.js에서 변환된 경우) 그대로 사용
+            // 배당금이 이미 문자열인 경우 (useStockData.ts에서 변환된 경우) 그대로 사용
             // 숫자인 경우에만 포맷팅
             let dividendDisplay = typeof item.배당금 === 'string' 
                 ? item.배당금 

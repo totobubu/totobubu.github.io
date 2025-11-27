@@ -4,8 +4,8 @@
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
-    import { useCalendarData } from '@/composables/data/useCalendarData.js';
-    import { useFilterState } from '@/composables/portfolio/useFilterState.js';
+    import { useCalendarData } from '@/composables/data/useCalendarData';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
     import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
     import Skeleton from 'primevue/skeleton';

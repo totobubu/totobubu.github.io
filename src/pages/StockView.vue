@@ -6,7 +6,7 @@
     import { useStockData } from '@/composables/data/useStockData';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
-    import { useStockCharts } from '@/composables/shared/useStockCharts.js';
+    import { useStockCharts } from '@/composables/shared/useStockCharts';
     import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
     import {
         buildSymbolFromRouteParams,

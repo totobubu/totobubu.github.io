@@ -1,8 +1,19 @@
-// src/composables/charts/useMonthlyChart.js
-import { createNumericFormatter } from '@/utils/formatters.js';
-import { parseDividendAmount } from '@/utils/dividendParser.js';
+import { createNumericFormatter } from '@/utils/formatters';
+import { parseDividendAmount } from '@/utils/dividendParser';
 
-export function useMonthlyChart(options) {
+export interface ChartTheme {
+    textColor: string;
+    textColorSecondary: string;
+    surfaceBorder: string;
+}
+
+export interface MonthlyChartOptions {
+    data: any[];
+    theme: ChartTheme;
+    currency?: 'USD' | 'KRW';
+}
+
+export function useMonthlyChart(options: MonthlyChartOptions) {
     const { data, theme, currency = 'USD' } = options;
     const { textColor, textColorSecondary, surfaceBorder } = theme;
     const formatCurrency = createNumericFormatter(currency, {
@@ -15,7 +26,7 @@ export function useMonthlyChart(options) {
     const parsedData = reversedData.map((item) => {
         // 우선순위에 따라 차트에 그려질 값 선택
         let finalAmount = 0;
-        let adjustedAmount = null; // amountFixed or amount (툴팁 표시용)
+        let adjustedAmount: number | null = null; // amountFixed or amount (툴팁 표시용)
         
         if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
             finalAmount = item.amountOriginal;
@@ -46,7 +57,7 @@ export function useMonthlyChart(options) {
         tooltip: {
             trigger: 'axis',
             axisPointer: { type: 'shadow' },
-            formatter: (params) => {
+            formatter: (params: any) => {
                 const index = params[0].dataIndex;
                 const item = parsedData[index];
                 let tooltip = `${params[0].name}<br/>배당금 : <strong>${formatCurrency(params[0].value)}</strong>`;
@@ -66,7 +77,7 @@ export function useMonthlyChart(options) {
             type: 'value',
             axisLabel: {
                 color: textColorSecondary,
-                formatter: (val) => formatCurrency(val).replace(/[$,₩]/, ''),
+                formatter: (val: number) => formatCurrency(val).replace(/[$,₩]/, ''),
             },
             splitLine: { lineStyle: { color: surfaceBorder, type: 'dashed' } },
         },
@@ -83,7 +94,7 @@ export function useMonthlyChart(options) {
                 label: {
                     show: true,
                     position: 'right',
-                    formatter: (params) => formatCurrency(params.value),
+                    formatter: (params: any) => formatCurrency(params.value),
                     color: textColor,
                 },
             },
