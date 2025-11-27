@@ -26,6 +26,14 @@ jobs:
                   fetch-depth: 0
                   token: ${{ secrets.GITHUB_TOKEN }}
 
+            - name: Free Disk Space
+              run: |
+                  sudo rm -rf /usr/local/lib/android
+                  sudo rm -rf /usr/share/dotnet
+                  sudo rm -rf /opt/ghc
+                  sudo rm -rf /usr/local/share/boost
+                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
@@ -89,7 +97,7 @@ jobs:
 
             - name: Format changed files only
               env:
-                  EXCLUDE_PATHS: "public/data/kosdaq public/data/kospi"
+                  EXCLUDE_PATHS: 'public/data/kosdaq public/data/kospi'
               run: npm run format:changed
 
             - name: Upload changed files to R2 (Git-based, fast)

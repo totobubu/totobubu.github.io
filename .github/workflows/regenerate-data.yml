@@ -25,6 +25,14 @@ jobs:
                   fetch-depth: 0 # 전체 히스토리 필요 (변경사항 비교용)
                   token: ${{ secrets.GITHUB_TOKEN }}
 
+            - name: Free Disk Space
+              run: |
+                  sudo rm -rf /usr/local/lib/android
+                  sudo rm -rf /usr/share/dotnet
+                  sudo rm -rf /opt/ghc
+                  sudo rm -rf /usr/local/share/boost
+                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
