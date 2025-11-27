@@ -3,7 +3,7 @@
     import { useHead } from '@vueuse/head';
     import BacktesterControls from '@/components/backtester/BacktesterControls.vue';
     import BacktesterResults from '@/components/backtester/BacktesterResults.vue';
-    import { runBacktest } from '@/services/backtester/engine.js';
+    import { runBacktest } from '@/services/backtester/engine';
     import { useToast } from 'primevue/usetoast';
     import Message from 'primevue/message';
     import Skeleton from 'primevue/skeleton';
