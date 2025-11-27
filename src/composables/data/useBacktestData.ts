@@ -207,7 +207,7 @@ export function useBacktestData(): UseBacktestDataReturn {
                             symbol,
                             prices,
                             dividends,
-                            splits: [], // 로컬 데이터는 액면분할 정보를 포함하지 않음
+                            splits: [] as any[], // 로컬 데이터는 액면분할 정보를 포함하지 않음
                             firstTradeDate: data.tickerInfo?.ipoDate || null,
                         };
                     }
@@ -286,8 +286,8 @@ export function useBacktestData(): UseBacktestDataReturn {
 
         const dataStartDates = tickerData
             .filter(
-                (d) =>
-                    portfolioSymbols.includes(d.symbol) && d.prices?.length > 0
+                (d): d is BacktestSymbolData =>
+                    !!d && portfolioSymbols.includes(d.symbol) && (d.prices?.length ?? 0) > 0
             )
             .map((d) => new Date(d.prices[0].date));
 
@@ -295,11 +295,11 @@ export function useBacktestData(): UseBacktestDataReturn {
             const failedSymbols = portfolioSymbols.filter(
                 (s) =>
                     !tickerData.find(
-                        (d) => d.symbol === s && d.prices?.length > 0
+                        (d) => d && d.symbol === s && (d.prices?.length ?? 0) > 0
                     )
             );
             const errorTicker = tickerData.find(
-                (t) => failedSymbols.includes(t.symbol) && t.error
+                (t) => t && failedSymbols.includes(t.symbol) && t.error
             );
             if (errorTicker) {
                 throw new Error(errorTicker.error);
