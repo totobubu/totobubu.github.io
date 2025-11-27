@@ -63,7 +63,7 @@ const loadSymbolIsinSnapshot = async () => {
 };
 
 const mergeInstrument = (existing: Instrument | undefined, incoming: Partial<Instrument>): Instrument => {
-    const merged = { ...(existing || {}), ...incoming } as Instrument;
+    const merged = { ...existing, ...incoming } as Instrument;
     // symbol/isin는 항상 대문자로 유지
     if (merged.symbol) merged.symbol = normalizeSymbol(merged.symbol) || merged.symbol;
     if (merged.isin) merged.isin = normalizeIsin(merged.isin) || merged.isin;

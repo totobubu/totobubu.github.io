@@ -163,7 +163,7 @@ export function useBacktestData(): UseBacktestDataReturn {
             console.warn('Failed to load nav.json, falling back to direct path', e);
         }
 
-        const tickerDataPromises = symbolsToFetch.map(async (symbol) => {
+        const fetchStaticData = async (symbol: string): Promise<BacktestSymbolData | null> => {
             try {
                 // nav.json의 dataPath 사용, 없으면 fallback
                 const dataPath =
@@ -216,7 +216,9 @@ export function useBacktestData(): UseBacktestDataReturn {
             } catch (error) {
                 return null;
             }
-        });
+        };
+
+        const tickerDataPromises = symbolsToFetch.map(fetchStaticData);
 
         const initialResults = await Promise.all(tickerDataPromises);
         const foundSymbols = new Set(
@@ -253,7 +255,7 @@ export function useBacktestData(): UseBacktestDataReturn {
                             apiErrors.map((e) => e.error).join(', ')
                         );
                     }
-                } catch (jsonError) {
+                } catch (_jsonError) {
                     throw new Error(
                         `API 응답이 올바른 JSON 형식이 아닙니다. 서버 오류일 수 있습니다.`
                     );
@@ -265,7 +267,7 @@ export function useBacktestData(): UseBacktestDataReturn {
             }
         }
 
-        const tickerData = initialResults
+        const tickerData: BacktestSymbolData[] = initialResults
             .filter((r): r is BacktestSymbolData => r !== null)
             .concat(apiResults);
 
