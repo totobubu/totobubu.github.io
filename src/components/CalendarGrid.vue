@@ -6,8 +6,8 @@
     import listPlugin from '@fullcalendar/list';
     import interactionPlugin from '@fullcalendar/interaction';
     import koLocale from '@fullcalendar/core/locales/ko';
-    import { useFilterState } from '@/composables/useFilterState';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';

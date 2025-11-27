@@ -3,10 +3,10 @@
     import { useHead } from '@vueuse/head';
     import { ref, computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useStockData } from '@/composables/useStockData';
-    import { useFilterState } from '@/composables/useFilterState';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { useStockCharts } from '@/composables/useStockCharts.js';
+    import { useStockData } from '@/composables/data/useStockData';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
+    import { useStockCharts } from '@/composables/shared/useStockCharts.js';
     import { parseYYMMDD, generateTimeRangeOptions } from '@/utils';
     import {
         buildSymbolFromRouteParams,

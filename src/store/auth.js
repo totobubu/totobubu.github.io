@@ -8,7 +8,7 @@ import {
     useFilterState,
     loadMyBookmarksFromFirestore,
     saveMyBookmarksToFirestore,
-} from '@/composables/useFilterState';
+} from '@/composables/portfolio/useFilterState';
 
 export const user = ref(null);
 export const isRecentlyAuthenticated = ref(false);

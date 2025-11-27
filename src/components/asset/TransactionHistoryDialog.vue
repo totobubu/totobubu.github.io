@@ -75,7 +75,7 @@
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
     import ProgressSpinner from 'primevue/progressspinner';
-    import { useTransactions } from '@/composables/useAssetFirestore';
+    import { useTransactions } from '@/composables/asset/useAssetFirestore';
     import { user } from '@/store/auth';
 
     const props = defineProps({

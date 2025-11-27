@@ -4,7 +4,7 @@
     import Drawer from 'primevue/drawer';
     import Timeline from 'primevue/timeline';
     import Tag from 'primevue/tag';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     const props = defineProps({
         events: {

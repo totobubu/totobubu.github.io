@@ -45,7 +45,7 @@
 
 <script setup>
     import { computed } from 'vue';
-    import { useFilterState } from '@/composables/useFilterState';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
 
     // PrimeVue 컴포넌트 import
     import Accordion from 'primevue/accordion';

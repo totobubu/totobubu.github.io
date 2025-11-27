@@ -1,6 +1,6 @@
-// src/composables/useFilterState.js
+// src/composables/portfolio/useFilterState.js
 import { ref, watch } from 'vue';
-import { db } from '../firebase';
+import { db } from '@/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
     ensureInstrumentDirectory,

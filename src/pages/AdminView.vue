@@ -4,13 +4,13 @@
     import { useHead } from '@vueuse/head';
     import { collection, getDocs } from 'firebase/firestore';
     import { db } from '@/firebase';
-    import { useAdmin } from '@/composables/useAdmin';
+    import { useAdmin } from '@/composables/asset/useAdmin';
     import {
         useKoNameApprovals,
         approveKoName,
         rejectKoName,
         syncApprovedToMappings,
-    } from '@/composables/useAssetAdmin';
+    } from '@/composables/asset/useAssetAdmin';
     import { useToast } from 'primevue/usetoast';
     import { useRouter } from 'vue-router';
 

@@ -1,4 +1,4 @@
-// src/composables/useStockCharts.js
+// src/composables/shared/useStockCharts.js
 
 import { computed } from 'vue';
 import {
@@ -6,7 +6,7 @@ import {
     useQuarterlyChart,
     useMonthlyChart,
     useAnnualChart,
-} from '@/composables/charts';
+} from '@/composables/ui/charts';
 import { monthColors } from '@/utils/chartUtils.js';
 
 export function useStockCharts(options) {
