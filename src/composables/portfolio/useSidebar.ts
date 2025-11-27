@@ -166,7 +166,7 @@ function matchesSearchQuery(item: SidebarTicker, query: string): boolean {
         item.koName && item.koName.toLowerCase().includes(query);
     const matchesLongName =
         item.longName &&
-        item.longName.toLowerCase().includes(query);
+        item.longName.toLowerCase().includes(query) || false;
 
     return matchesSymbol || matchesKoName || matchesLongName;
 }
@@ -558,7 +558,7 @@ export function useSidebar(): UseSidebarReturn {
 
         try {
             await setDoc(requestRef, {
-                requestedBy: user.value.uid,
+                requestedBy: (user.value as any).uid,
                 requestedAt: serverTimestamp(),
                 status: 'pending',
             });
@@ -642,7 +642,7 @@ export function useSidebar(): UseSidebarReturn {
         const ticker = event.data.symbol;
         if (!ticker) return;
         const params = getRouteParamsFromSymbol(ticker, event.data.market);
-        if (params) router.push({ name: 'stock-detail', params });
+        if (params) router.push({ name: 'stock-detail', params: params as any });
     };
 
     onMounted(loadSidebarData);

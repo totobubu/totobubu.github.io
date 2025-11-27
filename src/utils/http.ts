@@ -8,8 +8,14 @@
  * - 타임아웃 설정
  */
 
-import axios from 'axios';
+import axios, { type InternalAxiosRequestConfig, type AxiosError, type AxiosResponse } from 'axios';
 import { reportError } from './sentry';
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  __retryCount?: number;
+  __startTime?: number;
+  __maxRetries?: number;
+}
 
 /**
  * Axios 인스턴스 생성
@@ -24,14 +30,14 @@ const http = axios.create({
 /**
  * Exponential Backoff 계산
  */
-function getRetryDelay(retryCount) {
+function getRetryDelay(retryCount: number) {
   return Math.min(1000 * Math.pow(2, retryCount), 10000); // 최대 10초
 }
 
 /**
  * 재시도 가능한 에러인지 확인
  */
-function isRetryableError(error) {
+function isRetryableError(error: AxiosError) {
   if (!error.response) {
     // 네트워크 에러 (응답 없음)
     return true;
@@ -52,7 +58,7 @@ function isRetryableError(error) {
 /**
  * 사용자 친화적 에러 메시지 생성
  */
-function getUserFriendlyMessage(error) {
+function getUserFriendlyMessage(error: AxiosError) {
   if (!error.response) {
     return {
       title: '네트워크 연결 오류',
@@ -116,16 +122,17 @@ function getUserFriendlyMessage(error) {
  * Request 인터셉터
  */
 http.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
+    const customConfig = config as CustomAxiosRequestConfig;
     // 재시도 카운트 초기화
-    config.__retryCount = config.__retryCount || 0;
+    customConfig.__retryCount = customConfig.__retryCount || 0;
 
     // 요청 시작 시간 기록 (성능 모니터링용)
-    config.__startTime = Date.now();
+    customConfig.__startTime = Date.now();
 
-    return config;
+    return customConfig;
   },
-  (error) => {
+  (error: any) => {
     return Promise.reject(error);
   }
 );
@@ -136,15 +143,16 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   (response) => {
     // 성공 응답 - 성능 로그
-    const duration = Date.now() - response.config.__startTime;
+    const customConfig = response.config as CustomAxiosRequestConfig;
+    const duration = Date.now() - (customConfig.__startTime || 0);
     if (duration > 5000) {
-      console.warn(`⚠️ 느린 응답: ${response.config.url} (${duration}ms)`);
+      console.warn(`⚠️ 느린 응답: ${customConfig.url} (${duration}ms)`);
     }
 
     return response;
   },
   async (error) => {
-    const config = error.config;
+    const config = error.config as CustomAxiosRequestConfig;
 
     // 재시도 불가능한 경우
     if (!config || !isRetryableError(error)) {
@@ -156,14 +164,14 @@ http.interceptors.response.use(
       });
 
       // 사용자 친화적 에러 추가
-      error.userMessage = getUserFriendlyMessage(error);
+      (error as any).userMessage = getUserFriendlyMessage(error);
 
       return Promise.reject(error);
     }
 
     // 최대 재시도 횟수 확인
     const maxRetries = config.__maxRetries || 3;
-    if (config.__retryCount >= maxRetries) {
+    if ((config.__retryCount || 0) >= maxRetries) {
       console.error(`❌ 최대 재시도 횟수 초과: ${config.url}`);
 
       // Sentry에 에러 리포트
@@ -173,12 +181,12 @@ http.interceptors.response.use(
         retries: config.__retryCount
       });
 
-      error.userMessage = getUserFriendlyMessage(error);
+      (error as any).userMessage = getUserFriendlyMessage(error);
       return Promise.reject(error);
     }
 
     // 재시도 카운트 증가
-    config.__retryCount += 1;
+    config.__retryCount = (config.__retryCount || 0) + 1;
 
     // 지연 시간 계산
     const delay = getRetryDelay(config.__retryCount);
@@ -208,7 +216,7 @@ export async function get<T = any>(url: string, options: any = {}): Promise<impo
 /**
  * POST 요청
  */
-export async function post(url, data, options = {}) {
+export async function post<T = any>(url: string, data: any, options: any = {}): Promise<AxiosResponse<T>> {
   const config = {
     method: 'POST',
     url,
@@ -222,7 +230,7 @@ export async function post(url, data, options = {}) {
 /**
  * PUT 요청
  */
-export async function put(url, data, options = {}) {
+export async function put<T = any>(url: string, data: any, options: any = {}): Promise<AxiosResponse<T>> {
   const config = {
     method: 'PUT',
     url,
@@ -236,7 +244,7 @@ export async function put(url, data, options = {}) {
 /**
  * DELETE 요청
  */
-export async function del(url, options = {}) {
+export async function del<T = any>(url: string, options: any = {}): Promise<AxiosResponse<T>> {
   const config = {
     method: 'DELETE',
     url,

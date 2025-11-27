@@ -1,4 +1,4 @@
-import { ref, type Ref } from 'vue';
+import { ref } from 'vue';
 import { getDataUrl } from '@/utils/dataUrl';
 
 // Types
@@ -87,7 +87,6 @@ const sanitizeTickerForFilename = (ticker?: string): string =>
     ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
 
 const MARKET_SUFFIX_REGEX = /-(ks|kq|kn|ko)$/i;
-const SYMBOL_SUFFIX_REGEX = /\.(KS|KQ|KN|KO)$/i;
 
 const stripMarketSuffix = (sanitizedTicker?: string): string =>
     sanitizedTicker ? sanitizedTicker.replace(MARKET_SUFFIX_REGEX, '') : '';
@@ -254,13 +253,13 @@ export function useStockData() {
                     .map((item: any) => {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
-                        
+
                         // 통화 정보 확인
                         const currency = inferredCurrency || 'USD';
                         const isKRW = currency === 'KRW';
                         const currencySymbol = isKRW ? '₩' : '$';
                         const locale = isKRW ? 'ko-KR' : 'en-US';
-                        
+
                         // 배당금 필드 설정: 우선순위에 따라 값 선택
                         // 1. amountOriginal (있으면 이것을 사용)
                         // 2. amountFixed (amountOriginal이 없으면 이것)
@@ -270,7 +269,7 @@ export function useStockData() {
                             : item.amountFixed !== undefined
                                 ? item.amountFixed
                                 : item.amount;
-                        
+
                         // amountOriginal과 amountSplitAdjustments가 있으면 파싱 가능한 문자열 형식으로 변환
                         // 형식: "amountOriginal (총비율:1 = amountFixed or amount)"
                         if (
@@ -283,7 +282,7 @@ export function useStockData() {
                                 ? item.amountFixed
                                 : item.amount;
                             const originalAmount = item.amountOriginal; // 원래 배당금
-                            
+
                             // 모든 비율을 곱해서 총 비율 계산
                             const totalRatio = item.amountSplitAdjustments.reduce((acc: number, adj: any) => {
                                 const [numerator, denominator] = adj.ratio.split(':').map(Number);
@@ -292,11 +291,11 @@ export function useStockData() {
                                 }
                                 return acc;
                             }, 1);
-                            
+
                             // 형식: "$1.998 (0.5:1 = $0.999)" 또는 "₩129 (7.387:1 = ₩953)"
                             배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(3)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
                         }
-                        
+
                         return {
                             배당락: new Date(item.date)
                                 .toLocaleDateString('ko-KR', {
@@ -390,7 +389,7 @@ export function useStockData() {
                 const liveData = liveDataArray[0];
                 if (liveData && tickerInfo.value) {
                     tickerInfo.value = { ...tickerInfo.value, ...liveData };
-                    if (liveData.exchange) {
+                    if (liveData.exchange && tickerInfo.value) {
                         tickerInfo.value.market =
                             marketNameMap[liveData.exchange] ||
                             liveData.exchange;

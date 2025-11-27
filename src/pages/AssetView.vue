@@ -94,6 +94,9 @@ const showUploadDialog = ref(false);
 const showBrokerageUploadDialog = ref(false);
 const showStockMappingDialog = ref(false);
 
+// 보유 수량 0인 항목 보기 토글 상태
+const showZeroBalanceAssets = ref(false);
+
 // 업로드 대상 자산
 const uploadTargetAsset = ref(null);
 
@@ -290,25 +293,30 @@ const createTreeData = (memberId) => {
                 ? `${asset.name || asset.symbol} (${asset.symbol})`
                 : asset.name || asset.type;
 
-            assetTypeGroup.children.push({
-                key: asset.id,
-                data: {
-                    ...asset, // Spread first so we can override
-                    id: asset.id,
-                    name: assetDisplayName, // Override name with display name
-                    symbol: asset.symbol,
-                    amount: asset.amount,
-                    currency: asset.currency,
-                    accountId: account.id,
-                    type: '자산',
-                    icon: getAssetTypeIcon(asset.type),
-                },
-            });
+            // 필터링 적용
+            if (showZeroBalanceAssets.value || asset.amount > 0) {
+                assetTypeGroup.children.push({
+                    key: asset.id,
+                    data: {
+                        ...asset, // Spread first so we can override
+                        id: asset.id,
+                        name: assetDisplayName, // Override name with display name
+                        symbol: asset.symbol,
+                        amount: asset.amount,
+                        currency: asset.currency,
+                        accountId: account.id,
+                        type: '자산',
+                        icon: getAssetTypeIcon(asset.type),
+                    },
+                });
+            }
         });
 
-        // 자산 타입 그룹을 계좌에 추가
+        // 자산 타입 그룹을 계좌에 추가 (자산이 있는 경우에만)
         assetTypeGroups.forEach((typeGroup) => {
-            accountNode.children.push(typeGroup);
+            if (typeGroup.children.length > 0) {
+                accountNode.children.push(typeGroup);
+            }
         });
 
         brokerageNode.children.push(accountNode);
