@@ -1,7 +1,7 @@
 <!-- src/components/mypage/BookmarkManager.vue -->
 <script setup>
     import { ref, onMounted, computed } from 'vue';
-    import { useFilterState } from '@/composables/useFilterState';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
     import { joinURL } from 'ufo';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/datatable';

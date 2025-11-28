@@ -1,10 +1,10 @@
 <!-- src/components/asset/StockMappingDialog.vue -->
 <template>
-    <Dialog
+    <ResponsiveDialog
         v-model:visible="isVisible"
         modal
         header="종목명 매핑"
-        :style="{ width: '900px', maxHeight: '90vh' }"
+        :dialogStyle="{ width: '900px', maxHeight: '90vh' }"
         :closable="!isProcessing">
         <div class="flex flex-column gap-4">
             <Message severity="info">
@@ -220,12 +220,12 @@
                     :loading="isProcessing" />
             </div>
         </template>
-    </Dialog>
+    </ResponsiveDialog>
 </template>
 
 <script setup>
     import { ref, computed, watch } from 'vue';
-    import Dialog from 'primevue/dialog';
+    import ResponsiveDialog from '@/components/common/ResponsiveDialog.vue';
     import Button from 'primevue/button';
     import Card from 'primevue/card';
     import InputText from 'primevue/inputtext';
@@ -242,8 +242,8 @@
         saveStockMapping,
         deleteStockMapping,
         searchSymbol,
-    } from '@/composables/useStockMapping';
-    import { useLocalStockData } from '@/composables/useLocalStockData';
+    } from '@/composables/data/useStockMapping';
+    import { useLocalStockData } from '@/composables/data/useLocalStockData';
     import { user } from '@/store/auth';
 
     const props = defineProps({
@@ -302,6 +302,20 @@
         // 로컬 데이터 로드 (이미 로드되었으면 즉시 리턴됨)
         await fetchAllStockData();
 
+        // 디버깅: 전체 거래 내역 확인
+        console.log('=== 거래 내역 분석 ===');
+        console.log('전체 거래 내역 수:', props.transactions.length);
+        console.log(
+            '수량이 있는 거래:',
+            props.transactions.filter((t) => t.quantity && t.quantity > 0)
+                .length
+        );
+        console.log(
+            '수량이 없거나 0인 거래:',
+            props.transactions.filter((t) => !t.quantity || t.quantity <= 0)
+                .length
+        );
+
         const stockMap = new Map();
 
         // 종목별로 그룹화
@@ -311,6 +325,11 @@
 
             // 그룹 키: 티커가 있으면 티커(ISIN), 없으면 종목명
             const key = t.ticker || t.stock_name;
+
+            // 디버깅: 그룹화 상세
+            console.log(
+                `Transaction: ${t.stock_name}, Ticker: ${t.ticker}, Key: ${key}`
+            );
 
             if (!stockMap.has(key)) {
                 stockMap.set(key, {
@@ -407,6 +426,31 @@
 
         unmappedStocks.value = stocks;
         isLoading.value = false;
+
+        // 디버깅: 전체 종목 수와 분류 확인
+        console.log('=== 종목 매핑 디버깅 ===');
+        console.log('전체 종목 수:', stocks.length);
+        console.log(
+            '자동 매핑된 종목:',
+            stocks.filter((s) => s.isAutoMatched).length
+        );
+        console.log(
+            '수동 매핑 필요:',
+            stocks.filter((s) => !s.isAutoMatched).length
+        );
+        console.log(
+            '이미 매핑됨:',
+            stocks.filter((s) => s.mappedTicker).length
+        );
+        console.log(
+            '상세:',
+            stocks.map((s) => ({
+                name: s.stock_name,
+                isAutoMatched: s.isAutoMatched,
+                mappedTicker: s.mappedTicker,
+                selectedTicker: s.selectedTicker,
+            }))
+        );
     };
 
     // 티커 검색 (디바운스 적용)

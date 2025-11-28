@@ -1,7 +1,7 @@
 <!-- Components/StockCaculators.vue -->
 <script setup>
     import { ref } from 'vue';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import Button from 'primevue/button';
     import Drawer from 'primevue/drawer';
     import SelectButton from 'primevue/selectbutton'; // SelectButton import

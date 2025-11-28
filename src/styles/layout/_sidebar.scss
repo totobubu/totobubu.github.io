@@ -97,22 +97,15 @@
     gap: 0.5rem;
 
     .bookmark-toggle {
-        min-width: 6rem;
+        min-width: 3rem;
     }
 
     .market-select {
         flex: 1;
     }
 
-    // .flag-icon {
-    //     width: 2rem;
-    //     height: auto;
-    //     object-fit: cover;
-    //     border-radius: 999px;
-    // }
-
     .p-drawer-full & {
-        width: calc(100vw - 5.5rem);
+        width: calc(100vw - 3.5rem);
     }
 }
 

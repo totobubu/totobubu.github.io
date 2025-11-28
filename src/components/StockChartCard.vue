@@ -1,8 +1,8 @@
 <!-- stock\src\components\StockChartCard.vue -->
 <script setup>
     import { ref, computed } from 'vue';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { useAdmin } from '@/composables/useAdmin';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
+    import { useAdmin } from '@/composables/asset/useAdmin';
     import {
         getGroupSeverity,
         extractWeekdayLabels,
