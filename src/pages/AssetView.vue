@@ -18,6 +18,7 @@
     } from '@/utils/transactionTypeMapper';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
+    import brokeragesData from '@/../public/brokerage/brokerages.json';
 
     import Card from 'primevue/card';
     import Button from 'primevue/button';
@@ -43,6 +44,7 @@
     import StockMappingDialog from '@/components/asset/StockMappingDialog.vue';
     import AssetTypeDataTable from '@/components/asset/AssetTypeDataTable.vue';
     import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+    import AccountTransactionDialog from '@/components/asset/AccountTransactionDialog.vue';
 
     useHead({ title: '자산관리' });
 
@@ -71,7 +73,7 @@
         deleteAsset,
         deleteAssetHolding,
     } = useAssets();
-    const { addTransaction } = useTransactions();
+    const { loadTransactions, addTransaction } = useTransactions();
     const { findStockByIsin } = useLocalStockData();
 
     // 선택된 탭
@@ -95,6 +97,16 @@
     const showUploadDialog = ref(false);
     const showBrokerageUploadDialog = ref(false);
     const showStockMappingDialog = ref(false);
+    const showTransactionDialog = ref(false);
+
+    // 거래내역 다이얼로그 데이터
+    const transactionDialogData = ref({
+        mode: 'account', // 'account' or 'asset'
+        accountId: null,
+        assetId: null,
+        title: '',
+        transactions: [],
+    });
 
     // 보유 수량 0인 항목 보기 토글 상태
     const showZeroBalanceAssets = ref(false);
@@ -182,10 +194,35 @@
     // 확장된 노드 키 (증권사는 항상 펼쳐짐)
     const expandedKeys = ref({});
 
+    // 증권사/은행/거래소 목록 생성
+    const brokerageOptions = computed(() => {
+        const all = [
+            ...brokeragesData.증권사,
+            ...brokeragesData.은행,
+            ...brokeragesData.거래소,
+        ];
+        return all.map((item) => ({
+            label: item.name,
+            value: item.name,
+            fileName: item.fileName,
+            type: item.type,
+        }));
+    });
+
     // 증권사/은행 로고 이미지 경로 가져오기
     const getBrokerageLogo = (brokerageName) => {
         if (!brokerageName) return null;
-        // 증권사명을 파일명으로 변환 (공백 제거, 소문자)
+
+        // JSON에서 해당 증권사/은행 찾기
+        const brokerage = brokerageOptions.value.find(
+            (b) => b.value === brokerageName
+        );
+
+        if (brokerage) {
+            return `/brokerage/${brokerage.fileName}`;
+        }
+
+        // JSON에 없으면 기존 방식으로 fallback
         const fileName = brokerageName.replace(/\s+/g, '').toLowerCase();
         return `/brokerage/${fileName}.png`;
     };
@@ -269,6 +306,7 @@
 
             flatData.push({
                 id: asset.id,
+                accountId: account.id, // 계좌 ID 추가
                 groupKey, // 그룹화 키 추가
                 brokerage: brokerageName,
                 brokerageLogo: getBrokerageLogo(brokerageName),
@@ -1328,6 +1366,123 @@
         showBrokerageUploadDialog.value = true;
     };
 
+    // 계좌별 거래내역 보기
+    const openAccountTransactions = async (
+        accountId,
+        accountName,
+        brokerageName
+    ) => {
+        if (!user.value) return;
+
+        isLoadingData.value = true;
+        try {
+            // 해당 계좌의 모든 자산에 대한 거래내역 수집
+            const allTransactions = [];
+            const memberId = selectedMember.value?.id;
+            if (!memberId) return;
+
+            const memberData = loadedMemberData.value[memberId];
+            if (!memberData) return;
+
+            // 해당 계좌의 모든 자산 찾기
+            const accountAssets = memberData.assets.filter(
+                (asset) => asset.accountId === accountId
+            );
+
+            // 각 자산의 거래내역 로드
+            for (const asset of accountAssets) {
+                const transactions = await loadTransactions(
+                    user.value.uid,
+                    asset.id,
+                    accountId
+                );
+                allTransactions.push(
+                    ...transactions.map((tx) => ({
+                        ...tx,
+                        assetName: asset.name || asset.symbol,
+                        assetSymbol: asset.symbol,
+                        assetType: asset.type,
+                    }))
+                );
+            }
+
+            // 날짜순 정렬 (최신순)
+            allTransactions.sort((a, b) => {
+                const dateA = a.date?.toDate
+                    ? a.date.toDate()
+                    : new Date(a.date);
+                const dateB = b.date?.toDate
+                    ? b.date.toDate()
+                    : new Date(b.date);
+                return dateB - dateA;
+            });
+
+            transactionDialogData.value = {
+                mode: 'account',
+                accountId,
+                assetId: null,
+                title: `${brokerageName} - ${accountName}`,
+                transactions: allTransactions,
+            };
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('계좌 거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는데 실패했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
+    };
+
+    // 자산별 거래내역 보기 (전체 계좌 통합)
+    const openAssetTransactions = async (assetId, assetName) => {
+        if (!user.value) return;
+
+        isLoadingData.value = true;
+        try {
+            // 해당 자산의 모든 계좌 거래내역 로드
+            const transactions = await loadTransactions(
+                user.value.uid,
+                assetId,
+                null // accountId를 null로 하면 모든 계좌의 거래내역
+            );
+
+            // 날짜순 정렬 (최신순)
+            transactions.sort((a, b) => {
+                const dateA = a.date?.toDate
+                    ? a.date.toDate()
+                    : new Date(a.date);
+                const dateB = b.date?.toDate
+                    ? b.date.toDate()
+                    : new Date(b.date);
+                return dateB - dateA;
+            });
+
+            transactionDialogData.value = {
+                mode: 'asset',
+                accountId: null,
+                assetId,
+                title: assetName,
+                transactions,
+            };
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('자산 거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는데 실패했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
+    };
+
     // 거래내역서 업로드 완료 처리
     const handleTransactionUploadComplete = async (data) => {
         uploadedTransactionData.value = data;
@@ -2005,42 +2160,63 @@
                         sortMode="single"
                         sortField="groupKey"
                         :sortOrder="1"
-                        scrollable
-                        scrollHeight="600px"
                         :metaKeySelection="false"
                         class="p-datatable-sm">
                         <!-- 그룹 헤더 (증권사 - 계좌) -->
                         <template #groupheader="{ data }">
-                            <div class="flex align-items-center gap-3 p-2">
-                                <img
-                                    v-if="data.brokerageLogo"
-                                    :src="data.brokerageLogo"
-                                    :alt="data.brokerage"
-                                    @error="
-                                        (e) => (e.target.style.display = 'none')
-                                    "
-                                    style="
-                                        width: 32px;
-                                        height: 32px;
-                                        object-fit: contain;
-                                    " />
-                                <i v-else class="pi pi-building text-2xl"></i>
-                                <div class="flex">
-                                    <span class="font-bold text-xl mr-3">{{
-                                        data.brokerage
-                                    }}</span>
-                                    <div
-                                        class="flex align-items-center gap-2 mt-1">
-                                        <span class="text-lg">{{
-                                            data.account
+                            <div
+                                class="flex justify-content-between align-items-center p-2">
+                                <div class="flex align-items-center gap-3">
+                                    <img
+                                        v-if="data.brokerageLogo"
+                                        :src="data.brokerageLogo"
+                                        :alt="data.brokerage"
+                                        @error="
+                                            (e) =>
+                                                (e.target.style.display =
+                                                    'none')
+                                        "
+                                        style="
+                                            width: 2rem;
+                                            height: 2rem;
+                                            object-fit: contain;
+                                        " />
+                                    <i
+                                        v-else
+                                        class="pi pi-building text-2xl"></i>
+                                    <div class="flex">
+                                        <span class="font-bold text-xl mr-3">{{
+                                            data.brokerage
                                         }}</span>
-                                        <span
-                                            v-if="data.accountNumber && data.accountNumber !== data.account"
-                                            class="text-sm text-color-secondary">
-                                            ({{ data.accountNumber }})
-                                        </span>
+                                        <div
+                                            class="flex align-items-center gap-2 mt-1">
+                                            <span class="text-lg">{{
+                                                data.account
+                                            }}</span>
+                                            <span
+                                                v-if="
+                                                    data.accountNumber &&
+                                                    data.accountNumber !==
+                                                        data.account
+                                                "
+                                                class="text-sm text-color-secondary">
+                                                ({{ data.accountNumber }})
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
+                                <Button
+                                    label="거래내역"
+                                    icon="pi pi-list"
+                                    size="small"
+                                    outlined
+                                    @click="
+                                        openAccountTransactions(
+                                            data.accountId,
+                                            data.account,
+                                            data.brokerage
+                                        )
+                                    " />
                             </div>
                         </template>
 
@@ -2278,11 +2454,34 @@
             </template>
             <div class="flex flex-column gap-3">
                 <div class="flex flex-column gap-2">
-                    <label for="brokerageName">증권사 / 은행</label>
-                    <InputText
+                    <label for="brokerageName">증권사 / 은행 / 거래소</label>
+                    <Dropdown
                         id="brokerageName"
                         v-model="accountForm.brokerage"
-                        placeholder="토스증권, KB증권, 업비트 등" />
+                        :options="brokerageOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="선택하세요"
+                        filter
+                        :filterPlaceholder="'검색...'"
+                        showClear
+                        class="w-full">
+                        <template #option="{ option }">
+                            <div class="flex align-items-center gap-2">
+                                <Tag
+                                    :value="option.type"
+                                    :severity="
+                                        option.type === '증권'
+                                            ? 'success'
+                                            : option.type === '은행'
+                                              ? 'info'
+                                              : 'warning'
+                                    "
+                                    size="small" />
+                                <span>{{ option.label }}</span>
+                            </div>
+                        </template>
+                    </Dropdown>
                 </div>
                 <div class="flex flex-column gap-2">
                     <label for="accountName">계좌 닉네임</label>
@@ -2446,6 +2645,14 @@
             :transactions="uploadedTransactionData.extractedData.transactions"
             :brokerage="uploadBrokerage"
             @mapping-complete="handleMappingComplete" />
+
+        <!-- 거래내역 다이얼로그 -->
+        <AccountTransactionDialog
+            v-model:visible="showTransactionDialog"
+            :title="transactionDialogData.title"
+            :transactions="transactionDialogData.transactions"
+            :mode="transactionDialogData.mode"
+            :isLoading="isLoadingData" />
 
         <!-- 로딩 오버레이 -->
         <LoadingOverlay
