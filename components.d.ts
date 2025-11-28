@@ -61,6 +61,7 @@ declare module 'vue' {
     Tag: typeof import('primevue/tag')['default']
     ThumbnailItem: typeof import('./src/components/thumbnail/ThumbnailItem.vue')['default']
     TransactionHistoryDialog: typeof import('./src/components/asset/TransactionHistoryDialog.vue')['default']
+    TreeTable: typeof import('primevue/treetable')['default']
     WeekdayRotatingTag: typeof import('./src/components/WeekdayRotatingTag.vue')['default']
   }
 }
