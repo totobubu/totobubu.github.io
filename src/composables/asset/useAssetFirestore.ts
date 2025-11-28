@@ -467,10 +467,20 @@ export const useAssets = (): UseAssetsReturn => {
         try {
             const assetsRef = collection(db, `userAssets/${userId}/assets`);
             const snapshot = await getDocs(assetsRef);
-            return snapshot.docs.map((doc) => ({
+            console.log(
+                '🔍 [loadAssets] Firebase에서 가져온 문서 수:',
+                snapshot.docs.length
+            );
+            console.log(
+                '🔍 [loadAssets] 문서 ID 목록:',
+                snapshot.docs.map((doc) => doc.id)
+            );
+            const assets = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             })) as Asset[];
+            console.log('🔍 [loadAssets] 변환된 자산 수:', assets.length);
+            return assets;
         } catch (error) {
             console.error('자산 불러오기 실패:', error);
             return [];
