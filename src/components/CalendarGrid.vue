@@ -30,6 +30,56 @@
     const currentTitle = ref('');
     const currentView = ref(isMobile.value ? 'listWeek' : 'dayGridMonth');
 
+    // 달력 표시 범위 계산 (-6개월 ~ +4개월)
+    const getValidRange = () => {
+        const now = new Date();
+
+        // -6개월
+        const startDate = new Date(now);
+        startDate.setMonth(now.getMonth() - 6);
+        startDate.setDate(1);
+
+        // +4개월 (다음 달 1일)
+        const endDate = new Date(now);
+        endDate.setMonth(now.getMonth() + 5);
+        endDate.setDate(1);
+
+        return {
+            start: startDate.toISOString().split('T')[0],
+            end: endDate.toISOString().split('T')[0],
+        };
+    };
+
+    const validRange = getValidRange();
+    const canGoPrev = ref(true);
+    const canGoNext = ref(true);
+
+    // 현재 표시 중인 날짜가 범위의 경계에 있는지 확인
+    const updateNavigationState = () => {
+        if (!fullCalendar.value) return;
+
+        const calendarApi = fullCalendar.value.getApi();
+        const currentDate = calendarApi.getDate();
+
+        // validRange 경계 날짜
+        const minDate = new Date(validRange.start);
+        const maxDate = new Date(validRange.end);
+
+        // 현재 뷰의 시작/끝 날짜
+        const viewStart = calendarApi.view.currentStart;
+        const viewEnd = calendarApi.view.currentEnd;
+
+        // 이전 버튼: 현재 뷰가 최소 날짜 이전으로 갈 수 없으면 비활성화
+        const prevMonthStart = new Date(currentDate);
+        prevMonthStart.setMonth(currentDate.getMonth() - 1);
+        canGoPrev.value = prevMonthStart >= minDate;
+
+        // 다음 버튼: 현재 뷰가 최대 날짜 이후로 갈 수 없으면 비활성화
+        const nextMonthStart = new Date(currentDate);
+        nextMonthStart.setMonth(currentDate.getMonth() + 1);
+        canGoNext.value = nextMonthStart < maxDate;
+    };
+
     const bookmarkEntries = computed(() =>
         Object.values(myBookmarks.value || {})
     );
@@ -156,11 +206,12 @@
         locale: koLocale,
         headerToolbar: false,
         showNonCurrentDates: false,
-        validRange: { start: '2024-01-01', end: '2026-04-01' },
+        validRange,
         datesSet: (info) => {
             currentTitle.value = info.view.title;
             if (info.view.type !== currentView.value)
                 currentView.value = info.view.type;
+            updateNavigationState();
         },
         // [핵심 수정] eventSources를 사용하여 데이터를 동적으로 로드
         eventSources: [
@@ -289,8 +340,16 @@
         { deep: true }
     );
 
-    const prevMonth = () => fullCalendar.value?.getApi().prev();
-    const nextMonth = () => fullCalendar.value?.getApi().next();
+    const prevMonth = () => {
+        if (canGoPrev.value) {
+            fullCalendar.value?.getApi().prev();
+        }
+    };
+    const nextMonth = () => {
+        if (canGoNext.value) {
+            fullCalendar.value?.getApi().next();
+        }
+    };
     const goToToday = () => fullCalendar.value?.getApi().today();
 </script>
 
@@ -298,14 +357,22 @@
     <Card v-if="isMobile" id="t-calendar-list">
         <template #header>{{ currentTitle }}</template>
         <template #title>
-            <Button icon="pi pi-chevron-left" text @click="prevMonth" />
+            <Button
+                icon="pi pi-chevron-left"
+                text
+                :disabled="!canGoPrev"
+                @click="prevMonth" />
             <Button
                 label="오늘"
                 severity="primary"
                 class="p-button-sm"
                 @click="goToToday"
                 variant="text" />
-            <Button icon="pi pi-chevron-right" text @click="nextMonth" />
+            <Button
+                icon="pi pi-chevron-right"
+                text
+                :disabled="!canGoNext"
+                @click="nextMonth" />
         </template>
         <template #content>
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
@@ -321,9 +388,17 @@
                     @click="goToToday" />
             </div>
             <div class="header-center">
-                <Button icon="pi pi-chevron-left" text @click="prevMonth" />
+                <Button
+                    icon="pi pi-chevron-left"
+                    text
+                    :disabled="!canGoPrev"
+                    @click="prevMonth" />
                 <h2>{{ currentTitle }}</h2>
-                <Button icon="pi pi-chevron-right" text @click="nextMonth" />
+                <Button
+                    icon="pi pi-chevron-right"
+                    text
+                    :disabled="!canGoNext"
+                    @click="nextMonth" />
             </div>
             <div class="header-right">
                 <SelectButton

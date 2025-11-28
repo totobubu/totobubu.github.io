@@ -109,6 +109,41 @@
     onMounted(async () => {
         if (user.value) {
             await loadFamilyMembers(user.value.uid);
+
+            // 첫 번째 멤버가 있으면 자동으로 펼치기
+            if (familyMembers.value.length > 0) {
+                const firstMember = familyMembers.value[0];
+
+                // 첫 번째 멤버의 증권사 로드
+                const brokerages = await loadBrokerages(
+                    user.value.uid,
+                    firstMember.id
+                );
+                loadedBrokerages.value[firstMember.id] = brokerages;
+
+                if (brokerages.length > 0) {
+                    const firstBrokerage = brokerages[0];
+                    const brokerageKey = `${firstMember.id}-${firstBrokerage.id}`;
+                    expandedBrokerages.value[brokerageKey] = true;
+
+                    // 첫 번째 증권사의 계좌 로드 및 펼치기
+                    const accounts = await loadAccounts(
+                        user.value.uid,
+                        firstMember.id
+                    );
+                    loadedAccounts.value[brokerageKey] = accounts;
+
+                    if (accounts.length > 0) {
+                        const firstAccount = accounts[0];
+                        const accountKey = `${firstMember.id}-${firstBrokerage.id}-${firstAccount.id}`;
+                        expandedAccounts.value[accountKey] = true;
+
+                        // 자산 로드 (전체 자산 로드)
+                        const assets = await loadAssets(user.value.uid);
+                        loadedAssets.value[accountKey] = assets;
+                    }
+                }
+            }
         }
     });
 
