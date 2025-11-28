@@ -1,7 +1,7 @@
 <!-- stock\src\components\FilterInput.vue -->
 <script setup>
     import { computed } from 'vue';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     // PrimeVue 컴포넌트 import
     import Button from 'primevue/button';

@@ -3,7 +3,7 @@
     import { ref, computed, watch, onMounted } from 'vue';
     import VChart from 'vue-echarts';
     import Dropdown from 'primevue/dropdown';
-    import { useBreakpoint } from '@/composables/useBreakpoint.js';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
 
     const props = defineProps({
         holdingsData: {

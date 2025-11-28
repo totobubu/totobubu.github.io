@@ -1,11 +1,11 @@
 <!-- src/components/calculators/StockCalculatorsUnified.vue -->
 <script setup>
     import { ref, computed, watch, onMounted } from 'vue';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
-    import { useDividendStats } from '@/composables/useDividendStats';
-    import { useRecoveryChart } from '@/composables/charts/useRecoveryChart.js';
-    import { useReinvestmentChart } from '@/composables/charts/useReinvestmentChart.js';
-    import { useFilterState } from '@/composables/useFilterState';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
+    import { useDividendStats } from '@/composables/data/useDividendStats';
+    import { useRecoveryChart } from '@/composables/ui/charts/useRecoveryChart.js';
+    import { useReinvestmentChart } from '@/composables/ui/charts/useReinvestmentChart.js';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
     import { user } from '@/store/auth';
     import { formatMonthsToYears } from '@/utils/date.js';
     import VChart from 'vue-echarts';

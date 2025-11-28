@@ -2,15 +2,14 @@
 
 <script setup>
     import { computed, ref, watch } from 'vue';
-    import { useSidebar } from '@/composables/useSidebar.js';
-    import { useBreakpoint } from '@/composables/useBreakpoint.js';
+    import { useSidebar } from '@/composables/portfolio/useSidebar';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import { user } from '../store/auth';
 
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import Skeleton from 'primevue/skeleton';
     import Button from 'primevue/button';
-    import Select from 'primevue/select';
     import CompanyLogo from '@/components/CompanyLogo.vue';
     import FilterInput from '@/components/FilterInput.vue';
     import WeekdayRotatingTag from '@/components/WeekdayRotatingTag.vue';
@@ -52,10 +51,12 @@
             items: [
                 {
                     label: '미국 ETF',
+                    shortLabel: 'ETF',
                     value: { main: '미국', sub: 'ETF' },
                 },
                 {
                     label: '미국 개별 주식',
+                    shortLabel: '개별주',
                     value: { main: '미국', sub: '주식' },
                 },
             ],
@@ -67,10 +68,12 @@
             items: [
                 {
                     label: '한국 ETF',
+                    shortLabel: 'ETF',
                     value: { main: '한국', sub: 'ETF' },
                 },
                 {
                     label: '한국 개별 주식',
+                    shortLabel: '개별주',
                     value: { main: '한국', sub: '주식' },
                 },
             ],
@@ -81,33 +84,17 @@
         () => mainFilterTab.value === '북마크' && !!user.value
     );
 
-    const selectedMarketOption = computed({
-        get() {
-            if (
-                mainFilterTab.value === '미국' ||
-                mainFilterTab.value === '한국'
-            ) {
-                const group = groupedMarketOptions.find(
-                    (g) => g.label === mainFilterTab.value
-                );
-                if (!group) return null;
-                return (
-                    group.items.find(
-                        (item) =>
-                            item.value.sub === subFilterTab.value &&
-                            item.value.main === mainFilterTab.value
-                    ) || null
-                );
-            }
-            return groupedMarketOptions[0].items[0];
-        },
-        set(option) {
-            if (option && option.value) {
-                mainFilterTab.value = option.value.main;
-                subFilterTab.value = option.value.sub;
-            }
-        },
-    });
+    const isSelected = (item) => {
+        return (
+            mainFilterTab.value === item.value.main &&
+            subFilterTab.value === item.value.sub
+        );
+    };
+
+    const selectOption = (item) => {
+        mainFilterTab.value = item.value.main;
+        subFilterTab.value = item.value.sub;
+    };
 
     const handleBookmarkClick = () => {
         if (!user.value) {
@@ -160,32 +147,46 @@
                 <template v-else>
                     <Button
                         v-if="user"
-                        label="북마크"
+                        :label="isMobile ? undefined : '북마크'"
                         icon="pi pi-bookmark"
                         size="small"
                         :outlined="!isBookmarkActive"
                         :severity="isBookmarkActive ? 'primary' : 'secondary'"
-                        class="bookmark-toggle"
+                        class="bookmark-toggle mb-2"
+                        v-tooltip.bottom="isMobile ? '북마크' : undefined"
                         @click="handleBookmarkClick" />
-                    <Select
-                        v-model="selectedMarketOption"
-                        :options="groupedMarketOptions"
-                        optionLabel="label"
-                        optionGroupLabel="label"
-                        optionGroupChildren="items"
-                        placeholder="시장 / 자산군 선택"
-                        class="market-select">
-                        <template #optiongroup="slotProps">
-                            <div class="select-option-group">
+
+                    <div class="market-selector flex gap-1">
+                        <div
+                            v-for="group in groupedMarketOptions"
+                            :key="group.code"
+                            class="market-row flex align-items-center gap-1 p-1 border-round surface-ground">
+                            <div class="market-flag flex-shrink-0">
                                 <img
-                                    v-if="slotProps.option.flagSrc"
-                                    :src="slotProps.option.flagSrc"
-                                    :alt="slotProps.option.label"
-                                    class="flag-icon" />
-                                <span>{{ slotProps.option.label }}</span>
+                                    :src="group.flagSrc"
+                                    :alt="group.label"
+                                    width="24"
+                                    height="18"
+                                    class="block" />
                             </div>
-                        </template>
-                    </Select>
+                            <div
+                                class="market-options flex gap-1 flex-grow-1 justify-content-around">
+                                <div
+                                    v-for="item in group.items"
+                                    :key="item.label"
+                                    class="market-option cursor-pointer px-2 py-1 border-round text-sm transition-colors"
+                                    :class="{
+                                        'bg-primary text-primary-inverse font-bold':
+                                            isSelected(item),
+                                        'text-color-secondary hover:surface-hover':
+                                            !isSelected(item),
+                                    }"
+                                    @click="selectOption(item)">
+                                    {{ item.shortLabel }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </template>
             </div>
 

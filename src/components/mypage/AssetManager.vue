@@ -8,7 +8,7 @@
         useBrokerages,
         useAccounts,
         useAssets,
-    } from '@/composables/useAssetFirestore';
+    } from '@/composables/asset/useAssetFirestore';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
 

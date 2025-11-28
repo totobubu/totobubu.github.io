@@ -1,7 +1,7 @@
 <!-- src\components\backtester\BacktesterResultDetails.vue -->
 <script setup>
     import { ref, computed } from 'vue';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import SelectButton from 'primevue/selectbutton';

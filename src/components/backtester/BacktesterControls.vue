@@ -5,7 +5,7 @@
     import Button from 'primevue/button';
     import PortfolioInput from './controls/PortfolioInput.vue';
     import DateAndInvestment from './controls/DateAndInvestment.vue';
-    import { useBacktestPortfolio } from '@/composables/useBacktestPortfolio';
+    import { useBacktestPortfolio } from '@/composables/portfolio/useBacktestPortfolio';
 
     const props = defineProps({
         isLoading: Boolean,

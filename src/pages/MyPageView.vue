@@ -9,7 +9,7 @@
     import ProfileSettings from '@/components/mypage/ProfileSettings.vue';
     import BookmarkManager from '@/components/mypage/BookmarkManager.vue';
     import AssetManager from '@/components/mypage/AssetManager.vue';
-    import { useAdmin } from '@/composables/useAdmin';
+    import { useAdmin } from '@/composables/asset/useAdmin';
 
     const activeTabIndex = ref(0);
 

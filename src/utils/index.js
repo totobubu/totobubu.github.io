@@ -1,5 +1,5 @@
 // src\utils\index.js
-export { parseYYMMDD, formatMonthsToYears } from './date.js';
+export { parseYYMMDD, formatMonthsToYears } from './date.ts';
 export {
     generateTimeRangeOptions,
     monthColors,
@@ -15,5 +15,5 @@ export {
     formatLargeNumber,
     formatPercent,
     createNumericFormatter,
-} from './formatters.js';
+} from './formatters.ts';
 export { getGroupSeverity } from './uiHelpers.js';

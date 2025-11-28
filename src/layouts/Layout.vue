@@ -2,11 +2,11 @@
 <script setup>
     import { ref, watch, computed } from 'vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import { handleSignOut, user } from '../store/auth'; // handleSignOut import
-    import { useAdmin } from '@/composables/useAdmin';
-    import { useStockData } from '@/composables/useStockData';
-    import { useLayout } from '@/composables/useLayout';
+    import { useAdmin } from '@/composables/asset/useAdmin';
+    import { useStockData } from '@/composables/data/useStockData';
+    import { useLayout } from '@/composables/shared/useLayout';
 
     import Drawer from 'primevue/drawer';
     import Button from 'primevue/button';
@@ -140,6 +140,16 @@
         return [home, ...items];
     });
 
+    const mobileTitle = computed(() => {
+        if (route.name === 'stock-detail' && tickerInfo.value) {
+            const info = tickerInfo.value;
+            return (
+                info.koName || info.longName || info.englishName || info.symbol
+            );
+        }
+        return null;
+    });
+
     watch(
         () => route.path,
         () => {
@@ -158,7 +168,10 @@
         <main id="t-grid">
             <header id="t-header">
                 <div class="flex items-center gap-4 min-w-0">
-                    <Breadcrumb :model="breadcrumbItems" id="t-breadcrumb">
+                    <Breadcrumb
+                        v-if="!isMobile"
+                        :model="breadcrumbItems"
+                        id="t-breadcrumb">
                         <template #item="{ item, props }">
                             <router-link
                                 v-if="item.to"
@@ -202,6 +215,9 @@
                 </div>
             </header>
             <section id="t-content">
+                <div v-if="isMobile && mobileTitle" class="text-center px-3">
+                    <h1 class="text-xl font-bold m-0">{{ mobileTitle }}</h1>
+                </div>
                 <RouterView />
                 <ScrollTop
                     target="parent"

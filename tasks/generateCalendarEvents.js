@@ -112,7 +112,7 @@ async function generateCalendarEvents() {
     async function findJsonFiles(dir) {
         const files = [];
         const entries = await fs.readdir(dir, { withFileTypes: true });
-        
+
         for (const entry of entries) {
             const fullPath = path.join(dir, entry.name);
             if (entry.isDirectory()) {
@@ -170,11 +170,23 @@ async function generateCalendarEvents() {
         const today = new Date();
         today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
 
+        // 날짜 범위 설정: 오늘 기준 ±1년
+        const oneYearAgo = new Date(today);
+        oneYearAgo.setFullYear(today.getFullYear() - 1);
+        const oneYearLater = new Date(today);
+        oneYearLater.setFullYear(today.getFullYear() + 1);
+
         backtestData.forEach((entry) => {
             if (!entry || !entry.date) return;
 
             const dateStr = entry.date;
             const entryDate = new Date(dateStr);
+
+            // 날짜 범위 체크: ±1년 범위 밖이면 스킵
+            if (entryDate < oneYearAgo || entryDate > oneYearLater) {
+                return;
+            }
+
             const isFuture = entryDate >= today;
 
             const event = {
@@ -182,6 +194,7 @@ async function generateCalendarEvents() {
                 koName: tickerInfo.koName,
                 frequency: tickerInfo.frequency,
                 group: tickerInfo.group,
+                isEtf: isEtf,
             };
             let hasEvent = false;
 

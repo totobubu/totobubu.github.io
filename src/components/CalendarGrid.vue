@@ -6,8 +6,8 @@
     import listPlugin from '@fullcalendar/list';
     import interactionPlugin from '@fullcalendar/interaction';
     import koLocale from '@fullcalendar/core/locales/ko';
-    import { useFilterState } from '@/composables/useFilterState';
-    import { useBreakpoint } from '@/composables/useBreakpoint';
+    import { useFilterState } from '@/composables/portfolio/useFilterState';
+    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
     import Card from 'primevue/card';
@@ -114,19 +114,28 @@
 
     // [핵심 수정] computed 대신 일반 함수로 변경하여 eventSources 내부에서 호출
     const getCalendarEvents = () => {
-        if (!props.dividendsByDate || typeof props.dividendsByDate !== 'object')
+        // ComputedRef인 경우 .value로 접근
+        const dividends = props.dividendsByDate;
+
+        if (!dividends || typeof dividends !== 'object') {
             return [];
-        return Object.entries(props.dividendsByDate).flatMap(
-            ([date, dividendArray]) =>
-                dividendArray.map((entry) => ({
-                    title: `${entry.koName || entry.ticker}`,
-                    start: date,
-                    extendedProps: {
-                        ...entry,
-                        eventClass: getEventClass(entry),
-                    },
-                }))
-        );
+        }
+
+        const entries = Object.entries(dividends);
+
+        return entries.flatMap(([date, dividendArray]) => {
+            if (!Array.isArray(dividendArray)) {
+                return [];
+            }
+            return dividendArray.map((entry) => ({
+                title: `${entry.koName || entry.ticker}`,
+                start: date,
+                extendedProps: {
+                    ...entry,
+                    eventClass: getEventClass(entry),
+                },
+            }));
+        });
     };
 
     const getHolidayEvents = () => {
