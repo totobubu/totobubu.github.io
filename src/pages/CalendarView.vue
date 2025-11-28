@@ -3,14 +3,11 @@
     import { ref, onMounted, watch } from 'vue';
     import { useHead } from '@vueuse/head';
     import { useRouter } from 'vue-router';
-    import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import { useCalendarData } from '@/composables/data/useCalendarData';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
     import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
-    import Skeleton from 'primevue/skeleton';
-    import Panel from 'primevue/panel';
-    import Card from 'primevue/card';
+    import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
     import CalendarGrid from '@/components/CalendarGrid.vue';
 
     useHead({ title: '배당달력' });
@@ -20,7 +17,6 @@
     const { dividendsByDate, isLoading, error, ensureDataLoaded } =
         useCalendarData();
     const { mainFilterTab, isBookmarksLoading } = useFilterState();
-    const { isMobile } = useBreakpoint();
     const router = useRouter();
 
     const goToTickerPage = (tickerSymbol) => {
@@ -55,55 +51,18 @@
 </script>
 
 <template>
-    <div
-        v-if="
+    <LoadingOverlay
+        :visible="
             (isLoading && Object.keys(dividendsByDate).length === 0) ||
             (mainFilterTab === '북마크' && isBookmarksLoading)
         "
-        id="p-calendar-skeleton">
-        <Card v-if="isMobile">
-            <template #header
-                ><Skeleton
-                    width="10rem"
-                    height="1.5rem"
-                    class="mx-auto mt-4"></Skeleton
-            ></template>
-            <template #title>
-                <div class="flex justify-content-center">
-                    <Skeleton
-                        shape="circle"
-                        size="2rem"
-                        class="mx-2"></Skeleton>
-                    <Skeleton
-                        width="5rem"
-                        height="2rem"
-                        class="mx-2"></Skeleton>
-                    <Skeleton
-                        shape="circle"
-                        size="2rem"
-                        class="mx-2"></Skeleton>
-                </div>
-            </template>
-            <template #content
-                ><Skeleton height="calc(100vh - 15rem)"></Skeleton
-            ></template>
-        </Card>
-        <Panel v-else>
-            <template #header>
-                <div class="flex justify-content-between w-full">
-                    <Skeleton width="5rem" height="2.5rem"></Skeleton>
-                    <div class="flex align-items-center gap-2">
-                        <Skeleton width="3rem" height="1.5rem"></Skeleton>
-                        <Skeleton width="8rem" height="1.5rem"></Skeleton>
-                        <Skeleton width="3rem" height="1.5rem"></Skeleton>
-                    </div>
-                    <Skeleton width="8rem" height="2.5rem"></Skeleton>
-                </div>
-            </template>
-            <Skeleton height="calc(100vh - 10rem)"></Skeleton>
-        </Panel>
-    </div>
-    <div v-else-if="error" class="text-center mt-8">
+        :message="
+            mainFilterTab === '북마크'
+                ? '북마크 데이터를 불러오는 중...'
+                : '달력 데이터를 불러오는 중...'
+        " />
+
+    <div v-if="error" class="text-center mt-8">
         <p>{{ error }}</p>
     </div>
     <div v-else id="p-calendar">
@@ -113,13 +72,3 @@
             @view-ticker="goToTickerPage" />
     </div>
 </template>
-
-<style scoped>
-    #p-calendar-skeleton .p-panel-header,
-    #p-calendar-skeleton .p-card-body {
-        background-color: var(--surface-card);
-    }
-    #p-calendar-skeleton .p-panel-content {
-        border: 0;
-    }
-</style>
