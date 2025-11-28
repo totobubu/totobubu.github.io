@@ -212,13 +212,29 @@ async function loadDateRange(
 
 /**
  * 현재 연도의 데이터 로드 (기본 동작)
+ * 오늘로부터 -6개월 ~ +4개월 범위의 데이터를 로드
  */
 async function loadCurrentYear(): Promise<void> {
     const now = new Date();
-    const startDate = `${now.getFullYear()}-01-01`;
-    const endDate = `${now.getFullYear()}-12-31`;
 
-    await loadDateRange(startDate, endDate);
+    // -6개월
+    const startDate = new Date(now);
+    startDate.setMonth(now.getMonth() - 6);
+    startDate.setDate(1); // 해당 월의 1일
+
+    // +4개월
+    const endDate = new Date(now);
+    endDate.setMonth(now.getMonth() + 4);
+    // 해당 월의 마지막 날
+    endDate.setMonth(endDate.getMonth() + 1);
+    endDate.setDate(0);
+
+    const startDateStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
+    const endDateStr = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
+
+    console.log(`📅 데이터 로드 범위: ${startDateStr} ~ ${endDateStr}`);
+
+    await loadDateRange(startDateStr, endDateStr);
 }
 
 /**
