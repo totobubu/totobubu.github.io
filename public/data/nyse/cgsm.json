@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 26.38,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 26.33,
         "englishName": "Capital Group Short Duration Municipal Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 171716,
-        "AvgVolume": 192746,
+        "Volume": 156837,
+        "AvgVolume": 193787,
         "sharesOutstanding": null,
         "52Week": "25.55 - 26.545",
         "Yield": null,
@@ -27,13 +27,17 @@
             "splits": []
         },
         "changes": {
+            "regularMarketPrice": {
+                "value": 26.38,
+                "change": "down"
+            },
             "Volume": {
-                "value": 171697,
-                "change": "up"
+                "value": 171716,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 193077,
-                "change": "down"
+                "value": 192746,
+                "change": "up"
             }
         }
     },
@@ -4442,7 +4446,12 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 26.370001,
+            "high": 26.34,
+            "low": 26.33,
+            "close": 26.33,
+            "volume": 156900
         },
         {
             "date": "2025-12-30",
@@ -4462,6 +4471,10 @@
         },
         {
             "date": "2026-04-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

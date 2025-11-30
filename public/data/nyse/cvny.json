@@ -9,14 +9,14 @@
         "underlying": "CVNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 35,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 35.7,
         "englishName": "YieldMax CVNA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21705,
-        "AvgVolume": 42154,
+        "Volume": 16719,
+        "AvgVolume": 42690,
         "sharesOutstanding": null,
         "52Week": "24.83 - 58.17",
         "Yield": null,
@@ -34,9 +34,17 @@
             "splits": []
         },
         "changes": {
-            "AvgVolume": {
-                "value": 42465,
+            "regularMarketPrice": {
+                "value": 35,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 21705,
                 "change": "down"
+            },
+            "AvgVolume": {
+                "value": 42154,
+                "change": "up"
             }
         }
     },
@@ -2741,7 +2749,12 @@
         },
         {
             "date": "2025-11-28",
-            "amountFixed": 0.4111
+            "amountFixed": 0.4111,
+            "open": 34.52,
+            "high": 35.842499,
+            "low": 34.455299,
+            "close": 35.700001,
+            "volume": 16721
         },
         {
             "date": "2025-12-04",
@@ -2841,6 +2854,10 @@
         },
         {
             "date": "2026-05-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

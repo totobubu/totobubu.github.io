@@ -9,14 +9,14 @@
         "underlying": "AMZN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 13.555,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 13.67,
         "englishName": "YieldMax AMZN Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 467799,
-        "AvgVolume": 641228,
+        "Volume": 196721,
+        "AvgVolume": 647741,
         "sharesOutstanding": null,
         "52Week": "12.9 - 20.62",
         "Yield": null,
@@ -34,9 +34,17 @@
             "splits": []
         },
         "changes": {
-            "AvgVolume": {
-                "value": 643968,
+            "regularMarketPrice": {
+                "value": 13.555,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 467799,
                 "change": "down"
+            },
+            "AvgVolume": {
+                "value": 641228,
+                "change": "up"
             }
         }
     },
@@ -5845,7 +5853,12 @@
         },
         {
             "date": "2025-11-28",
-            "amountFixed": 0.0829
+            "amountFixed": 0.0829,
+            "open": 13.53,
+            "high": 13.67,
+            "low": 13.53,
+            "close": 13.67,
+            "volume": 199142
         },
         {
             "date": "2025-12-04",
@@ -5945,6 +5958,10 @@
         },
         {
             "date": "2026-05-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

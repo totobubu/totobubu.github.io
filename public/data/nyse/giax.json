@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 17.29,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 17.04,
         "englishName": "Nicholas Global Equity and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 71355,
-        "AvgVolume": 45864,
+        "Volume": 59075,
+        "AvgVolume": 45936,
         "sharesOutstanding": null,
         "52Week": "14.2 - 19.96",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.29,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 71355,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 45864,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2803,7 +2816,12 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 17.059999,
+            "high": 17.040001,
+            "low": 16.92,
+            "close": 17.040001,
+            "volume": 59189
         },
         {
             "date": "2025-12-30",
@@ -2823,6 +2841,10 @@
         },
         {
             "date": "2026-04-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

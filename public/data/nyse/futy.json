@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 58.16,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 58.55,
         "englishName": "Fidelity MSCI Utilities Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 210795,
-        "AvgVolume": 198157,
+        "Volume": 57014,
+        "AvgVolume": 197990,
         "sharesOutstanding": null,
         "52Week": "45.94 - 60.56",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.16,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 210795,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 198157,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24508,6 +24521,14 @@
             "low": 57.68,
             "close": 58.16,
             "volume": 210795
+        },
+        {
+            "date": "2025-11-28",
+            "open": 58.27,
+            "high": 58.610001,
+            "low": 58.2034,
+            "close": 58.549999,
+            "volume": 57015
         },
         {
             "date": "2025-12-19",

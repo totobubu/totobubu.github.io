@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 134.87,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 134.73,
         "englishName": "Globe Life Inc.",
         "earningsDate": "2025-10-22",
         "enterpriseValue": 13512256512,
-        "marketCap": 10924946432,
-        "Volume": 366421,
-        "AvgVolume": 558634,
+        "marketCap": 10913605632,
+        "Volume": 202097,
+        "AvgVolume": 560726,
         "sharesOutstanding": 79605800,
         "52Week": "100.27 - 147.83",
-        "Yield": 0.007785,
+        "Yield": 0.007793,
         "dividendRate": 1.08,
         "payoutRatio": 0.0762,
         "isin": "US37959E1029",
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 134.87,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10924946432,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 366421,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 558634,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007785,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -104511,6 +104532,14 @@
             "low": 134.800003,
             "close": 134.869995,
             "volume": 366421
+        },
+        {
+            "date": "2025-11-28",
+            "open": 134.710007,
+            "high": 136.070007,
+            "low": 133.690002,
+            "close": 134.729996,
+            "volume": 206788
         },
         {
             "date": "2026-01-02",

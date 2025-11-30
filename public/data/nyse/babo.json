@@ -9,14 +9,14 @@
         "underlying": "BABA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 14.46,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 14.37,
         "englishName": "YieldMax BABA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 56374,
-        "AvgVolume": 140457,
+        "Volume": 19844,
+        "AvgVolume": 142385,
         "sharesOutstanding": null,
         "52Week": "13.621 - 24.0",
         "Yield": null,
@@ -34,9 +34,17 @@
             "splits": []
         },
         "changes": {
-            "AvgVolume": {
-                "value": 141787,
+            "regularMarketPrice": {
+                "value": 14.46,
                 "change": "down"
+            },
+            "Volume": {
+                "value": 56374,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 140457,
+                "change": "up"
             }
         }
     },
@@ -3719,7 +3727,12 @@
         },
         {
             "date": "2025-11-28",
-            "amountFixed": 0.1383
+            "amountFixed": 0.1383,
+            "open": 14.46,
+            "high": 14.4284,
+            "low": 14.23,
+            "close": 14.37,
+            "volume": 20043
         },
         {
             "date": "2025-12-04",
@@ -3819,6 +3832,10 @@
         },
         {
             "date": "2026-05-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 258.12,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 258.17,
         "englishName": "Cboe Global Markets, Inc.",
         "earningsDate": "2025-10-31",
         "enterpriseValue": 27108542464,
-        "marketCap": 27010840576,
-        "Volume": 364221,
-        "AvgVolume": 802367,
+        "marketCap": 27016075264,
+        "Volume": 227319,
+        "AvgVolume": 796596,
         "sharesOutstanding": 104644514,
         "52Week": "187.3 - 262.98",
-        "Yield": 0.010112,
+        "Yield": 0.01011,
         "dividendRate": 2.88,
         "payoutRatio": 0.2806,
         "isin": "US12503M1080",
@@ -27,12 +27,24 @@
             "splits": []
         },
         "changes": {
-            "Volume": {
-                "value": 363636,
+            "regularMarketPrice": {
+                "value": 258.12,
                 "change": "up"
             },
+            "marketCap": {
+                "value": 27010840576,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 364221,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 806700,
+                "value": 802367,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010112,
                 "change": "down"
             }
         }
@@ -35145,10 +35157,19 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 258.570007,
+            "high": 260.429993,
+            "low": 257.850006,
+            "close": 258.170013,
+            "volume": 229370
         },
         {
             "date": "2026-02-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

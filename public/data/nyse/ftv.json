@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 53.23,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 53.48,
         "englishName": "Fortive Corporation",
         "earningsDate": "2025-10-29",
         "enterpriseValue": 19885166592,
-        "marketCap": 18009643008,
-        "Volume": 1561399,
-        "AvgVolume": 3277659,
+        "marketCap": 18094227456,
+        "Volume": 1221926,
+        "AvgVolume": 3265825,
         "sharesOutstanding": 317611636,
         "52Week": "45.504898 - 62.788242",
-        "Yield": 0.005636,
+        "Yield": 0.00561,
         "dividendRate": 0.24,
         "payoutRatio": 0.1181,
         "isin": "US34959J1088",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.23,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18009643008,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1561399,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3277659,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.005636,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21755,6 +21776,14 @@
             "low": 53.009998,
             "close": 53.23,
             "volume": 1561399
+        },
+        {
+            "date": "2025-11-28",
+            "open": 53.360001,
+            "high": 53.540001,
+            "low": 53.009998,
+            "close": 53.48,
+            "volume": 1255678
         },
         {
             "date": "2025-12-12",

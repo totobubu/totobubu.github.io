@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 44.59,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 44.52,
         "englishName": "Fidelity Investment Grade Securitized ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 177410,
-        "AvgVolume": 212207,
+        "Volume": 67747,
+        "AvgVolume": 213082,
         "sharesOutstanding": null,
         "52Week": "41.84 - 45.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.59,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 177410,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 212207,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9651,30 +9664,40 @@
             "high": 44.59,
             "low": 44.462101,
             "close": 44.59,
-            "volume": 177410
+            "volume": 177410,
+            "amount": 0.137,
+            "yield": 0.0383992806
         },
         {
             "date": "2025-11-28",
+            "open": 44.555,
+            "high": 44.555302,
+            "low": 44.380001,
+            "close": 44.52,
+            "volume": 67747
+        },
+        {
+            "date": "2025-12-26",
             "forecasted": true
         },
         {
-            "date": "2025-12-30",
+            "date": "2026-01-26",
             "forecasted": true
         },
         {
-            "date": "2026-01-30",
+            "date": "2026-02-26",
             "forecasted": true
         },
         {
-            "date": "2026-02-27",
+            "date": "2026-03-26",
             "forecasted": true
         },
         {
-            "date": "2026-03-27",
+            "date": "2026-04-24",
             "forecasted": true
         },
         {
-            "date": "2026-04-28",
+            "date": "2026-05-25",
             "forecasted": true
         }
     ]

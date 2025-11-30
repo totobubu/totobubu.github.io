@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 50.1,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 50.36,
         "englishName": "Fidelity MSCI Consumer Staples Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 127907,
-        "AvgVolume": 133318,
+        "Volume": 99674,
+        "AvgVolume": 134061,
         "sharesOutstanding": null,
         "52Week": "47.45 - 52.96",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.1,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 127907,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 133318,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24512,6 +24525,14 @@
             "low": 49.580002,
             "close": 50.099998,
             "volume": 127907
+        },
+        {
+            "date": "2025-11-28",
+            "open": 50.009998,
+            "high": 50.360001,
+            "low": 50.009998,
+            "close": 50.360001,
+            "volume": 99675
         },
         {
             "date": "2025-12-19",

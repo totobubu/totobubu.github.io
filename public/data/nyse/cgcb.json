@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 26.84,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 26.69,
         "englishName": "Capital Group Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 719199,
-        "AvgVolume": 897893,
+        "Volume": 486494,
+        "AvgVolume": 902638,
         "sharesOutstanding": null,
         "52Week": "25.445 - 26.91",
         "Yield": null,
@@ -27,9 +27,17 @@
             "splits": []
         },
         "changes": {
-            "AvgVolume": {
-                "value": 900696,
+            "regularMarketPrice": {
+                "value": 26.84,
                 "change": "down"
+            },
+            "Volume": {
+                "value": 719199,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 897893,
+                "change": "up"
             }
         }
     },
@@ -4438,7 +4446,12 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 26.73,
+            "high": 26.75,
+            "low": 26.67,
+            "close": 26.690001,
+            "volume": 486496
         },
         {
             "date": "2025-12-30",
@@ -4458,6 +4471,10 @@
         },
         {
             "date": "2026-04-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

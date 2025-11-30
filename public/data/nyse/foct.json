@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 48.64,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 48.735,
         "englishName": "FT Vest U.S. Equity Buffer ETF - October",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 287316,
-        "AvgVolume": 95842,
+        "Volume": 12346,
+        "AvgVolume": 97125,
         "sharesOutstanding": null,
         "52Week": "34.66 - 49.09",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.64,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 287316,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 95842,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10300,6 +10313,14 @@
             "low": 48.4547,
             "close": 48.639999,
             "volume": 287316
+        },
+        {
+            "date": "2025-11-28",
+            "open": 48.650749,
+            "high": 48.735001,
+            "low": 48.619999,
+            "close": 48.735001,
+            "volume": 12346
         }
     ]
 }

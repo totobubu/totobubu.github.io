@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 23.91,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 23.85,
         "englishName": "Dow Inc.",
         "earningsDate": "2026-01-29",
         "enterpriseValue": 32994447360,
-        "marketCap": 16994447360,
-        "Volume": 10496866,
-        "AvgVolume": 13617131,
+        "marketCap": 16951801856,
+        "Volume": 6102776,
+        "AvgVolume": 13647355,
         "sharesOutstanding": 710767392,
         "52Week": "20.402 - 44.55",
-        "Yield": 0.102468,
+        "Yield": 0.102725,
         "dividendRate": 1.4,
         "payoutRatio": 7,
         "isin": "US2605571031",
@@ -27,9 +27,25 @@
             "splits": []
         },
         "changes": {
-            "AvgVolume": {
-                "value": 13666530,
+            "regularMarketPrice": {
+                "value": 23.91,
                 "change": "down"
+            },
+            "marketCap": {
+                "value": 16994447360,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10496866,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13617131,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.102468,
+                "change": "up"
             }
         }
     },
@@ -15228,10 +15244,19 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 23.73,
+            "high": 24.02,
+            "low": 23.59,
+            "close": 23.85,
+            "volume": 6189126
         },
         {
             "date": "2026-02-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]

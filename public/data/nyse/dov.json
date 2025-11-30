@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-11-28 04:20:36 KST",
-        "regularMarketPrice": 186.19,
+        "Update": "2025-11-29 04:20:07 KST",
+        "regularMarketPrice": 185.28,
         "englishName": "Dover Corporation",
         "earningsDate": "2025-10-23",
         "enterpriseValue": 27054761984,
-        "marketCap": 25536557056,
-        "Volume": 588892,
-        "AvgVolume": 1140196,
+        "marketCap": 25411747840,
+        "Volume": 416427,
+        "AvgVolume": 1149242,
         "sharesOutstanding": 137153223,
         "52Week": "143.04 - 222.31",
-        "Yield": 0.011064,
+        "Yield": 0.011118,
         "dividendRate": 2.08,
         "payoutRatio": 0.2689,
         "isin": "US2600031080",
@@ -58,9 +58,25 @@
             ]
         },
         "changes": {
-            "AvgVolume": {
-                "value": 1146104,
+            "regularMarketPrice": {
+                "value": 186.19,
                 "change": "down"
+            },
+            "marketCap": {
+                "value": 25536557056,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 588892,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1140196,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011064,
+                "change": "up"
             }
         }
     },
@@ -106521,10 +106537,19 @@
         },
         {
             "date": "2025-11-28",
-            "forecasted": true
+            "forecasted": true,
+            "open": 185.850006,
+            "high": 186.899994,
+            "low": 185.279999,
+            "close": 185.279999,
+            "volume": 417870
         },
         {
             "date": "2026-02-27",
+            "forecasted": true
+        },
+        {
+            "date": "2026-05-28",
             "forecasted": true
         }
     ]
