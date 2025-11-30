@@ -182,7 +182,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/0001s0.json"],
-            "periods": ["6M"]
+            "periods": []
         },
         {
             "symbol": "000240",
@@ -514,7 +514,7 @@
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/0010e0.json"],
-            "periods": ["6M"]
+            "periods": []
         },
         {
             "symbol": "0013P0",
@@ -1262,7 +1262,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/0043b0.json"],
-            "periods": ["6M"]
+            "periods": []
         },
         {
             "symbol": "0043Y0",
@@ -2407,7 +2407,7 @@
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/0089c0.json"],
             "periods": [],
-            "group": "SO"
+            "group": "SON"
         },
         {
             "symbol": "0089D0",
@@ -2610,7 +2610,7 @@
             "logo": "logos/company/etf-kbsec.svg",
             "dataPaths": ["data/kosdaq/0094l0.json"],
             "periods": [],
-            "group": "SO"
+            "group": "SON"
         },
         {
             "symbol": "0094M0",
@@ -2687,7 +2687,7 @@
             "logo": "logos/company/etf-kiwoom.svg",
             "dataPaths": ["data/kosdaq/0097l0.json"],
             "periods": [],
-            "group": "SO"
+            "group": "SON"
         },
         {
             "symbol": "009830",
@@ -2966,7 +2966,9 @@
             "currency": "KRW",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/0104p0.json"],
-            "periods": []
+            "frequency": "매월",
+            "periods": [],
+            "group": "ON"
         },
         {
             "symbol": "0105D0",
@@ -3024,7 +3026,9 @@
             "company": "키움증권",
             "logo": "logos/company/etf-kiwoom.svg",
             "dataPaths": ["data/kosdaq/0107f0.json"],
-            "periods": []
+            "frequency": "매월",
+            "periods": [],
+            "group": "ON"
         },
         {
             "symbol": "010950",
@@ -7011,7 +7015,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/157450.json"],
             "periods": ["10Y"],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "157490",
@@ -7358,7 +7362,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/182490.json"],
             "periods": [],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "183300",
@@ -7850,7 +7854,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/211900.json"],
-            "periods": ["10Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "ASO"
         },
         {
@@ -9782,7 +9786,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/272580.json"],
             "periods": [],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "272910",
@@ -10429,7 +10433,7 @@
             "logo": "logos/company/etf-kbsec.svg",
             "dataPaths": ["data/kosdaq/290080.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y"],
-            "group": "SOD"
+            "group": "OND"
         },
         {
             "symbol": "290130",
@@ -10906,7 +10910,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/302190.json"],
             "periods": [],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "302440",
@@ -11059,7 +11063,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kospi/305080.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "periods": []
         },
         {
             "symbol": "305540",
@@ -11504,7 +11508,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-hanaro.svg",
             "dataPaths": ["data/kosdaq/322410.json"],
-            "periods": ["5Y"]
+            "periods": ["1Y", "2Y", "3Y", "5Y"]
         },
         {
             "symbol": "323280",
@@ -11736,7 +11740,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/329750.json"],
             "periods": [],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "332500",
@@ -12151,7 +12155,7 @@
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/356540.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "periods": []
         },
         {
             "symbol": "356860",
@@ -12198,7 +12202,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/357870.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "358570",
@@ -14697,7 +14701,7 @@
             "logo": "logos/company/etf-sol.svg",
             "dataPaths": ["data/kosdaq/433330.json"],
             "periods": ["1Y", "2Y", "3Y"],
-            "group": "ASO"
+            "group": "AON"
         },
         {
             "symbol": "433500",
@@ -15188,7 +15192,7 @@
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/440640.json"],
-            "periods": ["6M", "1Y", "3Y"]
+            "periods": []
         },
         {
             "symbol": "440650",
@@ -15746,7 +15750,7 @@
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/448540.json"],
-            "periods": ["6M", "1Y"]
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "448570",
@@ -15810,7 +15814,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/449170.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "449180",
@@ -16049,7 +16053,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/451530.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "451540",
@@ -16064,7 +16068,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/451540.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "451600",
@@ -16557,7 +16561,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/456610.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "456680",
@@ -16716,7 +16720,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/458250.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "458260",
@@ -16958,7 +16962,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/461270.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "461340",
@@ -17623,7 +17627,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/468370.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "AND"
         },
         {
@@ -17639,7 +17643,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/468380.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -17669,7 +17673,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/468630.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JND"
         },
         {
@@ -17960,7 +17964,7 @@
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/472170.json"],
             "periods": [],
-            "group": "D"
+            "group": "ND"
         },
         {
             "symbol": "472350",
@@ -18078,7 +18082,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/473440.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "473460",
@@ -18273,7 +18277,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/475260.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "475270",
@@ -18287,7 +18291,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/475270.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "475280",
@@ -18301,7 +18305,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/475280.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "475300",
@@ -18374,7 +18378,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/475630.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "475830",
@@ -18794,7 +18798,7 @@
             "company": "미래에셋자산운용",
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/480260.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "480310",
@@ -19355,7 +19359,7 @@
             "company": "한국투자신탁운용",
             "logo": "logos/company/etf-ace.svg",
             "dataPaths": ["data/kosdaq/487340.json"],
-            "periods": ["6M", "1Y"]
+            "periods": []
         },
         {
             "symbol": "487750",
@@ -19978,7 +19982,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-sol.svg",
             "dataPaths": ["data/kosdaq/494210.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "JND"
         },
         {
@@ -20007,7 +20011,7 @@
             "currency": "KRW",
             "logo": "logos/company/etf-kodex.svg",
             "dataPaths": ["data/kosdaq/494300.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "JND"
         },
         {
@@ -29365,7 +29369,9 @@
             "currency": "USD",
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nyse/esk.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매월",
+            "group": "ON"
         },
         {
             "symbol": "ESML",
@@ -40771,7 +40777,7 @@
             "logo": null,
             "dataPaths": ["data/nyse/nihi.json"],
             "periods": [],
-            "group": "SO"
+            "group": "SON"
         },
         {
             "symbol": "NKE",
@@ -45078,7 +45084,7 @@
             "currency": "USD",
             "logo": "logos/company/company-return.png",
             "dataPaths": ["data/nyse/rssx.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RSSY",
@@ -50170,7 +50176,9 @@
             "currency": "USD",
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nyse/ulti.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매주",
+            "group": "목"
         },
         {
             "symbol": "ULTY",
