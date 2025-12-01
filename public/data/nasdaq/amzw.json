@@ -9,14 +9,14 @@
         "underlying": "AMZN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-29 04:20:07 KST",
-        "regularMarketPrice": 44.72,
+        "Update": "2025-12-02 04:27:25 KST",
+        "regularMarketPrice": 44.78,
         "englishName": "Roundhill AMZN WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14887,
-        "AvgVolume": 38419,
+        "Volume": 18941,
+        "AvgVolume": 38420,
         "sharesOutstanding": null,
         "52Week": "40.935 - 54.92",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 43.84,
+                "value": 44.72,
                 "change": "up"
             },
             "Volume": {
-                "value": 31833,
-                "change": "down"
+                "value": 14887,
+                "change": "up"
             },
             "AvgVolume": {
-                "value": 38006,
+                "value": 38419,
                 "change": "up"
             }
         }
@@ -1058,7 +1058,12 @@
         },
         {
             "date": "2025-12-01",
-            "expected": true
+            "expected": true,
+            "open": 44.59,
+            "high": 44.935001,
+            "low": 44.400002,
+            "close": 44.68,
+            "volume": 24854
         },
         {
             "date": "2025-12-08",
@@ -1158,6 +1163,10 @@
         },
         {
             "date": "2026-05-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-01",
             "forecasted": true
         }
     ]

@@ -9,33 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-11-29 04:20:07 KST",
-        "regularMarketPrice": 53.3294,
-        "englishName": "Roundhill ETF Trust - Roundhill Gold WeeklyPay ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 20995,
-        "AvgVolume": 19015,
-        "sharesOutstanding": null,
-        "52Week": "49.81 - 54.4",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-02 04:27:25 KST",
         "isin": "US77926X4943",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 52.5445,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 22508,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -234,7 +213,12 @@
         },
         {
             "date": "2025-12-01",
-            "expected": true
+            "expected": true,
+            "open": 53.669998,
+            "high": 53.5891,
+            "low": 53.137001,
+            "close": 53.436401,
+            "volume": 13130
         },
         {
             "date": "2025-12-08",
@@ -334,6 +318,10 @@
         },
         {
             "date": "2026-05-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-01",
             "forecasted": true
         }
     ]
