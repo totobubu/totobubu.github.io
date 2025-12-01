@@ -76,17 +76,19 @@
     const { loadTransactions, addTransaction } = useTransactions();
     const { findStockByIsin } = useLocalStockData();
 
-    // 선택된 탭
-    const selectedTabIndex = ref('0');
+    // 선택된 탭 (Member ID)
+    const selectedMemberId = ref(null);
 
     // View 모드 (증권사/계좌 기준 vs 종목 기준)
     const viewMode = ref('account');
 
     // 현재 선택된 멤버
     const selectedMember = computed(() => {
-        const index = parseInt(selectedTabIndex.value);
-        if (index >= familyMembers.value.length) return null;
-        return familyMembers.value[index] || null;
+        if (!selectedMemberId.value) return null;
+        return (
+            familyMembers.value.find((m) => m.id === selectedMemberId.value) ||
+            null
+        );
     });
 
     // 다이얼로그 상태
@@ -926,11 +928,21 @@
                 );
 
                 if (familyMembers.value.length > 0) {
-                    console.log(
-                        '🟢 Loading data for first member:',
-                        familyMembers.value[0].id
+                    // URL query에 memberId가 있으면 그것을 사용, 없으면 첫 번째 멤버 (본인 우선 정렬 필요하지만 일단 첫번째)
+                    // FamilyMemberList에서 정렬 로직이 있으므로, 여기서도 "본인"을 찾아서 기본값으로 설정하는 것이 좋음
+                    const me = familyMembers.value.find(
+                        (m) => m.relationship === '본인'
                     );
-                    await loadMemberData(familyMembers.value[0].id);
+                    const initialMemberId = me
+                        ? me.id
+                        : familyMembers.value[0].id;
+
+                    console.log(
+                        '🟢 Loading data for initial member:',
+                        initialMemberId
+                    );
+                    selectedMemberId.value = initialMemberId;
+                    await loadMemberData(initialMemberId);
                 } else {
                     console.log('⚠️ No family members found');
                 }
@@ -943,22 +955,16 @@
     });
 
     // 탭 변경 처리
-    const handleTabChange = async (newIndex) => {
-        console.log('handleTabChange called with:', newIndex);
-        selectedTabIndex.value = String(newIndex);
-        const index = parseInt(newIndex);
+    const handleMemberSelect = async (memberId) => {
+        console.log('handleMemberSelect called with:', memberId);
+        selectedMemberId.value = memberId;
 
-        // "가족 추가" 탭이 아닌 경우에만 데이터 로드
-        if (index < familyMembers.value.length) {
-            const memberId = familyMembers.value[index]?.id;
-            console.log('Loading data for member:', memberId);
-            if (memberId && !loadedMemberData.value[memberId]) {
-                isLoadingData.value = true;
-                try {
-                    await loadMemberData(memberId);
-                } finally {
-                    isLoadingData.value = false;
-                }
+        if (memberId && !loadedMemberData.value[memberId]) {
+            isLoadingData.value = true;
+            try {
+                await loadMemberData(memberId);
+            } finally {
+                isLoadingData.value = false;
             }
         }
     };
@@ -2162,55 +2168,79 @@
                 </div>
             </template>
         </Card>
+        <!-- 증권사 추가 버튼 (제거 또는 계좌 추가로 변경) -->
+        <div v-if="selectedMember" class="flex justify-content-end gap-2 mb-3">
+            <Button
+                label="거래내역서 업로드"
+                icon="pi pi-upload"
+                severity="success"
+                @click="openBrokerageUploadDialog" />
+            <Button
+                label="계좌 직접 추가"
+                icon="pi pi-plus"
+                @click="openAddAccountDialog(selectedMember.id)" />
+        </div>
 
-        <!-- 가족 멤버 리스트 -->
-        <FamilyMemberList
-            v-if="familyMembers.length > 0"
-            :members="familyMembers"
-            :selectedIndex="selectedTabIndex"
-            @select="handleTabChange" />
+        <div class="flex justify-content-between align-items-center gap-3">
+            <!-- 가족 멤버 리스트 -->
+            <FamilyMemberList
+                v-if="familyMembers.length > 0"
+                :members="familyMembers"
+                :selectedMemberId="selectedMemberId"
+                @select="handleMemberSelect"
+                @add="openAddMemberDialog" />
+            <AssetViewModeToggle
+                v-if="selectedMember"
+                v-model:mode="viewMode" />
+        </div>
 
         <!-- 선택된 멤버의 자산 관리 -->
         <div v-if="selectedMember" class="mt-3">
-            <!-- View 모드 및 필터 토글 -->
-            <div
-                class="flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
-                <AssetViewModeToggle v-model:mode="viewMode" />
-
-                <div class="flex align-items-center gap-2">
-                    <InputSwitch
-                        v-model="showZeroBalanceAssets"
-                        inputId="showZeroBalance" />
-                    <label
-                        for="showZeroBalance"
-                        class="cursor-pointer select-none"
-                        >보유 수량 0인 항목 보기</label
-                    >
-                </div>
-            </div>
-
-            <!-- 증권사 추가 버튼 (제거 또는 계좌 추가로 변경) -->
-            <div class="flex justify-content-end gap-2 mb-3">
-                <Button
-                    label="거래내역서 업로드"
-                    icon="pi pi-upload"
-                    severity="success"
-                    @click="openBrokerageUploadDialog" />
-                <Button
-                    label="계좌 직접 추가"
-                    icon="pi pi-plus"
-                    @click="openAddAccountDialog(selectedMember.id)" />
-            </div>
-
             <!-- DataTable with Row Grouping (증권사별 그룹화) -->
             <Card v-if="viewMode === 'account'">
                 <template #header>
                     <div
                         class="flex justify-content-between align-items-center p-3">
                         <h3 class="m-0">{{ selectedMember.name }}님의 자산</h3>
+                        <div class="flex gap-2">
+                            <Tag
+                                severity="info"
+                                :value="`계좌 ${loadedMemberData[selectedMember.id]?.accounts?.length || 0}개`" />
+                            <Tag
+                                severity="warning"
+                                :value="`보유종목 ${loadedMemberData[selectedMember.id]?.assets?.length || 0}개`" />
+                        </div>
                     </div>
                 </template>
                 <template #content>
+                    <!-- Empty State -->
+                    <div
+                        v-if="
+                            !loadedMemberData[selectedMember.id]?.accounts
+                                ?.length
+                        "
+                        class="flex flex-column align-items-center justify-content-center p-6 text-center">
+                        <i
+                            class="pi pi-inbox text-6xl mb-4"
+                            style="color: var(--text-color-secondary)"></i>
+                        <h3 class="mb-2">아직 등록된 계좌가 없습니다</h3>
+                        <p class="text-color-secondary mb-4">
+                            거래내역서를 업로드하거나 계좌를 직접 추가해보세요.
+                        </p>
+                        <div class="flex gap-2">
+                            <Button
+                                label="거래내역서 업로드"
+                                icon="pi pi-upload"
+                                severity="success"
+                                @click="openBrokerageUploadDialog" />
+                            <Button
+                                label="계좌 직접 추가"
+                                icon="pi pi-plus"
+                                @click="
+                                    openAddAccountDialog(selectedMember.id)
+                                " />
+                        </div>
+                    </div>
                     <DataTable
                         :value="flatTableDataMap[selectedMember.id] || []"
                         rowGroupMode="subheader"
@@ -2220,6 +2250,20 @@
                         :sortOrder="1"
                         :metaKeySelection="false"
                         class="p-datatable-sm">
+                        <template #header>
+                            <!-- View 모드 및 필터 토글 -->
+                            <div
+                                class="flex flex-wrap justify-content-end align-items-center gap-3">
+                                <InputSwitch
+                                    v-model="showZeroBalanceAssets"
+                                    inputId="showZeroBalance" />
+                                <label
+                                    for="showZeroBalance"
+                                    class="cursor-pointer select-none"
+                                    >보유 수량 0인 항목 보기</label
+                                >
+                            </div>
+                        </template>
                         <!-- 그룹 헤더 (증권사 - 계좌) -->
                         <template #groupheader="{ data }">
                             <div
