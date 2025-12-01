@@ -19,6 +19,7 @@ const PasswordResetView = () => import('../pages/PasswordResetView.vue');
 const BookmarkView = () => import('../pages/BookmarkView.vue');
 const AssetView = () => import('../pages/AssetView.vue');
 const AdminView = () => import('../pages/AdminView.vue');
+const AdminMigrationPage = () => import('../pages/AdminMigrationPage.vue');
 const ProfileView = () => import('../pages/ProfileView.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
@@ -78,6 +79,12 @@ const router = createRouter({
             path: '/admin',
             name: 'admin',
             component: AdminView,
+            meta: { requiresAuth: true, adminOnly: true },
+        },
+        {
+            path: '/admin/migration',
+            name: 'admin-migration',
+            component: AdminMigrationPage,
             meta: { requiresAuth: true, adminOnly: true },
         },
         {

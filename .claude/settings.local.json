@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "Bash(npm run dev:*)",
+      "Bash(node scripts/migrateAssets.js:*)",
+      "Bash(node scripts/migrateAssetsAdmin.js:*)",
+      "Bash($env:FIREBASE_SERVICE_ACCOUNT_KEY=\"service-account-key.json\")",
+      "Bash(firebase deploy:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
