@@ -164,7 +164,8 @@
             // asset 객체에 symbol이 없으면 거래내역에서 찾기
             if (!symbol && enrichedTransactions.length > 0) {
                 const firstTx = enrichedTransactions[0];
-                symbol = firstTx.assetSymbol || firstTx.symbol || firstTx.ticker;
+                symbol =
+                    firstTx.assetSymbol || firstTx.symbol || firstTx.ticker;
             }
 
             // koName도 거래내역에서 찾기
@@ -766,12 +767,18 @@
                 let displaySymbol = asset.symbol || asset.ticker;
 
                 // name이 ISIN 형식이면 symbol로 대체
-                if (!displayName || (displayName && displayName.match(/^[A-Z]{2}[A-Z0-9]{10}$/))) {
+                if (
+                    !displayName ||
+                    (displayName && displayName.match(/^[A-Z]{2}[A-Z0-9]{10}$/))
+                ) {
                     displayName = displaySymbol || asset.id;
                 }
 
                 // symbol이 없으면 빈 문자열
-                if (!displaySymbol || displaySymbol.match(/^[A-Z]{2}[A-Z0-9]{10}$/)) {
+                if (
+                    !displaySymbol ||
+                    displaySymbol.match(/^[A-Z]{2}[A-Z0-9]{10}$/)
+                ) {
                     displaySymbol = '';
                 }
 
@@ -1788,7 +1795,8 @@
                 if (mapping) {
                     // 주식 매핑 있음
                     isin = mapping.isin;
-                    symbol = mapping.systemTicker || mapping.symbol;
+                    // symbol은 mapping.symbol을 우선 사용 (sidebar-tickers.json 기준)
+                    symbol = mapping.symbol || mapping.systemTicker;
                     name = mapping.name || transaction.stock_name;
                     currency = mapping.currency || 'USD';
                     assetType = '주식';

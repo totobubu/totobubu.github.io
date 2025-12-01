@@ -25,6 +25,10 @@
     import Message from 'primevue/message';
     // import ToggleButton from 'primevue/togglebutton'; // removed - replaced by Dropdown filter
 
+    import TabView from 'primevue/tabview';
+    import TabPanel from 'primevue/tabpanel';
+    import AdminMigrationPage from '@/pages/AdminMigrationPage.vue';
+
     useHead({ title: '관리자 - koName 승인' });
 
     const router = useRouter();
@@ -315,112 +319,128 @@
 
 <template>
     <div id="t-admin-view">
-        <Card>
-            <template #header>
-                <div
-                    class="flex justify-content-between align-items-center p-3">
-                    <h2 class="m-0">종목 승인 관리</h2>
-                    <div class="flex gap-2">
-                        <Dropdown
-                            v-model="filterMode"
-                            :options="filterOptions"
-                            optionLabel="label"
-                            placeholder="필터 선택"
-                            class="w-48" />
-                        <Button
-                            label="매핑 데이터 내보내기"
-                            icon="pi pi-download"
-                            severity="secondary"
-                            @click="exportMappings" />
-                        <Button
-                            label="매핑 동기화"
-                            icon="pi pi-sync"
-                            severity="help"
-                            @click="handleSync" />
-                        <Button
-                            label="새로고침"
-                            icon="pi pi-refresh"
-                            @click="loadPendingApprovals" />
-                    </div>
-                </div>
-            </template>
-            <template #content>
-                <div v-if="isLoading" class="flex justify-content-center p-4">
-                    <ProgressSpinner />
-                </div>
-
-                <Message
-                    v-else-if="filteredApprovals.length === 0"
-                    severity="info"
-                    :closable="false">
-                    해당 필터에 맞는 항목이 없습니다.
-                </Message>
-
-                <DataTable
-                    v-else
-                    :value="filteredApprovals"
-                    :paginator="true"
-                    :rows="20"
-                    :rowsPerPageOptions="[10, 20, 50]"
-                    responsiveLayout="scroll">
-                    <Column field="isin" header="ISIN" sortable>
-                        <template #body="{ data }">
-                            <InputText
-                                v-model="data.isin"
-                                class="p-inputtext-sm w-full"
-                                placeholder="ISIN 입력 (선택)"
-                                :class="{ 'border-orange-500': !data.isin }" />
-                        </template>
-                    </Column>
-                    <Column field="symbol" header="SYMBOL" sortable>
-                        <template #body="{ data }">
-                            <InputText
-                                v-model="data.symbol"
-                                class="p-inputtext-sm w-full"
-                                placeholder="티커 입력" />
-                        </template>
-                    </Column>
-                    <Column field="koName" header="한국어 종목명" sortable>
-                        <template #body="{ data }">
-                            <InputText
-                                v-model="data.koName"
-                                class="p-inputtext-sm w-full"
-                                placeholder="한국어 종목명 입력"
-                                :class="{
-                                    'border-orange-500': !data.koName,
-                                }" />
-                        </template>
-                    </Column>
-
-                    <Column field="currency" header="통화" sortable />
-                    <Column field="userId" header="사용자 ID">
-                        <template #body="{ data }">
-                            <code class="text-xs"
-                                >{{ data.userId.substring(0, 8) }}...</code
-                            >
-                        </template>
-                    </Column>
-                    <Column header="액션" style="width: 200px">
-                        <template #body="{ data }">
+        <TabView>
+            <TabPanel header="종목 승인 관리">
+                <Card>
+                    <template #header>
+                        <div
+                            class="flex justify-content-between align-items-center p-3">
+                            <h2 class="m-0">종목 승인 관리</h2>
                             <div class="flex gap-2">
+                                <Dropdown
+                                    v-model="filterMode"
+                                    :options="filterOptions"
+                                    optionLabel="label"
+                                    placeholder="필터 선택"
+                                    class="w-48" />
                                 <Button
-                                    label="승인"
-                                    icon="pi pi-check"
-                                    severity="success"
-                                    size="small"
-                                    @click="handleApprove(data)" />
+                                    label="매핑 데이터 내보내기"
+                                    icon="pi pi-download"
+                                    severity="secondary"
+                                    @click="exportMappings" />
                                 <Button
-                                    label="거부"
-                                    icon="pi pi-times"
-                                    severity="danger"
-                                    size="small"
-                                    @click="handleReject(data)" />
+                                    label="매핑 동기화"
+                                    icon="pi pi-sync"
+                                    severity="help"
+                                    @click="handleSync" />
+                                <Button
+                                    label="새로고침"
+                                    icon="pi pi-refresh"
+                                    @click="loadPendingApprovals" />
                             </div>
-                        </template>
-                    </Column>
-                </DataTable>
-            </template>
-        </Card>
+                        </div>
+                    </template>
+                    <template #content>
+                        <div
+                            v-if="isLoading"
+                            class="flex justify-content-center p-4">
+                            <ProgressSpinner />
+                        </div>
+
+                        <Message
+                            v-else-if="filteredApprovals.length === 0"
+                            severity="info"
+                            :closable="false">
+                            해당 필터에 맞는 항목이 없습니다.
+                        </Message>
+
+                        <DataTable
+                            v-else
+                            :value="filteredApprovals"
+                            :paginator="true"
+                            :rows="20"
+                            :rowsPerPageOptions="[10, 20, 50]"
+                            responsiveLayout="scroll">
+                            <Column field="isin" header="ISIN" sortable>
+                                <template #body="{ data }">
+                                    <InputText
+                                        v-model="data.isin"
+                                        class="p-inputtext-sm w-full"
+                                        placeholder="ISIN 입력 (선택)"
+                                        :class="{
+                                            'border-orange-500': !data.isin,
+                                        }" />
+                                </template>
+                            </Column>
+                            <Column field="symbol" header="SYMBOL" sortable>
+                                <template #body="{ data }">
+                                    <InputText
+                                        v-model="data.symbol"
+                                        class="p-inputtext-sm w-full"
+                                        placeholder="티커 입력" />
+                                </template>
+                            </Column>
+                            <Column
+                                field="koName"
+                                header="한국어 종목명"
+                                sortable>
+                                <template #body="{ data }">
+                                    <InputText
+                                        v-model="data.koName"
+                                        class="p-inputtext-sm w-full"
+                                        placeholder="한국어 종목명 입력"
+                                        :class="{
+                                            'border-orange-500': !data.koName,
+                                        }" />
+                                </template>
+                            </Column>
+
+                            <Column field="currency" header="통화" sortable />
+                            <Column field="userId" header="사용자 ID">
+                                <template #body="{ data }">
+                                    <code class="text-xs"
+                                        >{{
+                                            data.userId.substring(0, 8)
+                                        }}...</code
+                                    >
+                                </template>
+                            </Column>
+                            <Column header="액션" style="width: 200px">
+                                <template #body="{ data }">
+                                    <div class="flex gap-2">
+                                        <Button
+                                            label="승인"
+                                            icon="pi pi-check"
+                                            severity="success"
+                                            size="small"
+                                            @click="handleApprove(data)" />
+                                        <Button
+                                            label="거부"
+                                            icon="pi pi-times"
+                                            severity="danger"
+                                            size="small"
+                                            @click="handleReject(data)" />
+                                    </div>
+                                </template>
+                            </Column>
+                        </DataTable>
+                    </template>
+                </Card>
+            </TabPanel>
+            <TabPanel header="자산 Symbol 마이그레이션">
+                <AdminMigrationPage />
+            </TabPanel>
+        </TabView>
     </div>
 </template>
 

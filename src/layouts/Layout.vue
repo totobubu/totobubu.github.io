@@ -82,7 +82,7 @@
                                 command: () => router.push('/assets'),
                             },
                             {
-                                label: 'koName 승인',
+                                label: '관리자',
                                 icon: 'pi pi-check-circle',
                                 command: () => router.push('/admin'),
                             },
