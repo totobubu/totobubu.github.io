@@ -113,6 +113,10 @@
 
     // 로딩 상태 관리
     const isLoadingData = ref(false);
+    const loadingMessage = ref('자산 데이터를 불러오는 중...');
+
+    // 자산 데이터 캐시 (탭 전환 시 재로딩 방지)
+    const cachedAllAssets = ref(null);
 
     // 업로드 대상 자산
     const uploadTargetAsset = ref(null);
@@ -797,70 +801,112 @@
         if (loadedMemberData.value[memberId]) return;
 
         isLoadingData.value = true;
+        loadingMessage.value = '계좌 정보를 불러오는 중...';
+        console.time('loadMemberData');
         console.log('🔍 [loadMemberData] Loading data for member:', memberId);
 
-        // 1. 계좌 목록 로드
-        const accounts = await loadAccounts(user.value.uid, memberId);
-        const accountIds = new Set(accounts.map((acc) => acc.id));
-        console.log(
-            '🔍 [loadMemberData] Loaded accounts:',
-            accounts.length,
-            accountIds
-        );
+        try {
+            loadingMessage.value = '데이터를 불러오는 중...';
+            console.time('loadDataParallel');
 
-        // 2. 모든 자산 로드
-        const allAssets = await loadAssets(user.value.uid);
-        console.log('🔍 [loadMemberData] All assets loaded:', allAssets.length);
+            // 1. 계좌 목록 로드 Promise
+            const accountsPromise = loadAccounts(user.value.uid, memberId);
 
-        // 3. holdings 필드를 확인하여 이 멤버의 계좌에 속한 자산만 필터링
-        const memberAssets = [];
-
-        allAssets.forEach((asset) => {
-            if (!asset.holdings) {
-                console.log(
-                    '⚠️ [loadMemberData] Asset without holdings:',
-                    asset.id
-                );
-                return;
+            // 2. 모든 자산 로드 Promise (캐시 사용)
+            let assetsPromise;
+            if (cachedAllAssets.value) {
+                console.log('📦 [loadMemberData] Using cached assets');
+                assetsPromise = Promise.resolve(cachedAllAssets.value);
+            } else {
+                assetsPromise = loadAssets(user.value.uid).then((assets) => {
+                    cachedAllAssets.value = assets;
+                    return assets;
+                });
             }
 
-            // 이 자산의 holdings 중 이 멤버의 계좌가 있는지 확인
-            // amount > 0 조건 제거: 모든 자산을 불러오고 UI에서 토글로 필터링
-            Object.entries(asset.holdings).forEach(([accountId, holding]) => {
-                if (accountIds.has(accountId)) {
-                    const account = accounts.find(
-                        (acc) => acc.id === accountId
-                    );
-                    console.log(
-                        '✅ [loadMemberData] Adding asset:',
-                        asset.id,
-                        'for account:',
-                        accountId,
-                        'amount:',
-                        holding.amount
-                    );
-                    memberAssets.push({
-                        ...asset,
-                        accountId,
-                        brokerage: account?.brokerage,
-                        amount: holding.amount,
-                        avgPrice: holding.avgPrice,
-                    });
+            // 병렬 실행
+            const [accounts, allAssets] = await Promise.all([
+                accountsPromise,
+                assetsPromise,
+            ]);
+            console.timeEnd('loadDataParallel');
+
+            const accountIds = new Set(accounts.map((acc) => acc.id));
+            console.log(
+                '🔍 [loadMemberData] Loaded accounts:',
+                accounts.length,
+                accountIds
+            );
+            console.log(
+                '🔍 [loadMemberData] All assets loaded:',
+                allAssets.length
+            );
+
+            // 3. holdings 필드를 확인하여 이 멤버의 계좌에 속한 자산만 필터링
+            loadingMessage.value = '데이터 정리 중...';
+            console.time('processAssets');
+            const memberAssets = [];
+
+            allAssets.forEach((asset) => {
+                if (!asset.holdings) {
+                    // console.log(
+                    //     '⚠️ [loadMemberData] Asset without holdings:',
+                    //     asset.id
+                    // );
+                    return;
                 }
+
+                // 이 자산의 holdings 중 이 멤버의 계좌가 있는지 확인
+                // amount > 0 조건 제거: 모든 자산을 불러오고 UI에서 토글로 필터링
+                Object.entries(asset.holdings).forEach(
+                    ([accountId, holding]) => {
+                        if (accountIds.has(accountId)) {
+                            const account = accounts.find(
+                                (acc) => acc.id === accountId
+                            );
+                            // console.log(
+                            //     '✅ [loadMemberData] Adding asset:',
+                            //     asset.id,
+                            //     'for account:',
+                            //     accountId,
+                            //     'amount:',
+                            //     holding.amount
+                            // );
+                            memberAssets.push({
+                                ...asset,
+                                accountId,
+                                brokerage: account?.brokerage,
+                                amount: holding.amount,
+                                avgPrice: holding.avgPrice,
+                            });
+                        }
+                    }
+                );
             });
-        });
+            console.timeEnd('processAssets');
 
-        console.log(
-            '🔍 [loadMemberData] Filtered member assets:',
-            memberAssets.length
-        );
+            console.log(
+                '🔍 [loadMemberData] Filtered member assets:',
+                memberAssets.length
+            );
 
-        loadedMemberData.value[memberId] = {
-            accounts,
-            assets: memberAssets,
-        };
-
-        isLoadingData.value = false;
+            loadedMemberData.value[memberId] = {
+                accounts,
+                assets: memberAssets,
+            };
+        } catch (error) {
+            console.error('Error loading member data:', error);
+            toast.add({
+                severity: 'error',
+                summary: '데이터 로드 실패',
+                detail: '자산 데이터를 불러오는 중 오류가 발생했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+            loadingMessage.value = '자산 데이터를 불러오는 중...'; // Reset message
+            console.timeEnd('loadMemberData');
+        }
     };
 
     onMounted(async () => {
@@ -2667,8 +2713,6 @@
             :isLoading="isLoadingData" />
 
         <!-- 로딩 오버레이 -->
-        <LoadingOverlay
-            :visible="isLoadingData"
-            message="자산 데이터를 불러오는 중..." />
+        <LoadingOverlay :visible="isLoadingData" :message="loadingMessage" />
     </div>
 </template>
