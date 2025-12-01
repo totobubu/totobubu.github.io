@@ -122,7 +122,9 @@
                 '[openAssetTransactionDialog] Loading transactions for asset:',
                 assetId,
                 'accountId:',
-                accountId
+                accountId,
+                'asset data:',
+                asset
             );
 
             // 거래내역 로드 (기본 3개월치만 로드하여 속도 개선)
@@ -148,17 +150,21 @@
 
             // 다이얼로그 제목 생성
             let dialogTitle;
-            if (asset.currency && asset.currency !== 'KRW') {
+            // 해외주식 판단: currency가 KRW가 아니거나 symbol이 있고 koName이 있는 경우
+            const isForeignStock =
+                (asset.currency && asset.currency !== 'KRW') ||
+                (asset.symbol && asset.koName);
+
+            if (isForeignStock) {
                 // 해외주식: Symbol + 한글명
-                const displayName = asset.koName
-                    ? `${asset.symbol} ${asset.koName}`
-                    : asset.symbol || asset.name;
-                dialogTitle = accountId
-                    ? `${displayName} 거래내역`
-                    : `${displayName} 거래내역`;
+                const displayName =
+                    asset.symbol && asset.koName
+                        ? `${asset.symbol} ${asset.koName}`
+                        : asset.symbol || asset.name || asset.id;
+                dialogTitle = `${displayName} 거래내역`;
             } else {
-                // 국내주식/기타: 기존 로직
-                const displayName = asset.name || asset.symbol;
+                // 국내주식/기타: 이름 우선
+                const displayName = asset.name || asset.symbol || asset.id;
                 dialogTitle = accountId
                     ? `${displayName} - 계좌별 거래내역`
                     : `${displayName} - 전체 거래내역`;

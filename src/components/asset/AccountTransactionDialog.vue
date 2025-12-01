@@ -130,17 +130,112 @@
                                 size="small" />
                         </template>
                     </Column>
-                    <Column field="quantity" header="수량" style="width: 120px">
+                    <Column field="quantity" header="수량" style="width: 100px">
                         <template #body="slotProps">
                             {{ formatNumber(slotProps.data.quantity) }}
                         </template>
                     </Column>
-                    <Column field="price" header="단가" style="width: 130px">
+
+                    <!-- KRW 컬럼 그룹 -->
+                    <ColumnGroup type="header">
+                        <Row>
+                            <Column header="날짜" :rowspan="2" />
+                            <Column
+                                v-if="mode === 'account'"
+                                header="종목"
+                                :rowspan="2" />
+                            <Column header="유형" :rowspan="2" />
+                            <Column header="수량" :rowspan="2" />
+                            <Column
+                                v-if="hasUSDTransactions"
+                                header="USD"
+                                :colspan="3" />
+                            <Column header="KRW" :colspan="3" />
+                        </Row>
+                        <Row>
+                            <Column
+                                v-if="hasUSDTransactions"
+                                header="단가"
+                                field="priceUSD" />
+                            <Column
+                                v-if="hasUSDTransactions"
+                                header="금액"
+                                field="amountUSD" />
+                            <Column
+                                v-if="hasUSDTransactions"
+                                header="환율"
+                                field="exchangeRate" />
+                            <Column header="단가" field="price" />
+                            <Column header="금액" field="amount" />
+                            <Column header="수수료" field="commission" />
+                        </Row>
+                    </ColumnGroup>
+
+                    <!-- USD 단가 -->
+                    <Column
+                        v-if="hasUSDTransactions"
+                        field="priceUSD"
+                        style="width: 110px">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.priceUSD
+                                    ? formatCurrency(
+                                          slotProps.data.priceUSD,
+                                          'USD'
+                                      )
+                                    : '-'
+                            }}
+                        </template>
+                    </Column>
+
+                    <!-- USD 금액 -->
+                    <Column
+                        v-if="hasUSDTransactions"
+                        field="amountUSD"
+                        style="width: 120px">
+                        <template #body="slotProps">
+                            <span
+                                :class="
+                                    getAmountColorClass(
+                                        slotProps.data.type,
+                                        slotProps.data.amountUSD
+                                    )
+                                ">
+                                {{
+                                    slotProps.data.amountUSD
+                                        ? formatCurrency(
+                                              slotProps.data.amountUSD,
+                                              'USD'
+                                          )
+                                        : '-'
+                                }}
+                            </span>
+                        </template>
+                    </Column>
+
+                    <!-- 환율 -->
+                    <Column
+                        v-if="hasUSDTransactions"
+                        field="exchangeRate"
+                        style="width: 90px">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.exchangeRate
+                                    ? formatNumber(slotProps.data.exchangeRate)
+                                    : '-'
+                            }}
+                        </template>
+                    </Column>
+
+                    <!-- KRW 단가 -->
+                    <Column field="price" style="width: 110px">
                         <template #body="slotProps">
                             {{ getPrice(slotProps.data) }}
                         </template>
                     </Column>
-                    <Column field="amount" header="금액" style="width: 150px">
+
+                    <!-- KRW 금액 -->
+                    <Column field="amount" style="width: 120px">
                         <template #body="slotProps">
                             <span
                                 :class="
@@ -151,6 +246,20 @@
                                 ">
                                 {{ getAmount(slotProps.data) }}
                             </span>
+                        </template>
+                    </Column>
+
+                    <!-- KRW 수수료 -->
+                    <Column field="commission" style="width: 100px">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.commission
+                                    ? formatCurrency(
+                                          slotProps.data.commission,
+                                          'KRW'
+                                      )
+                                    : '-'
+                            }}
                         </template>
                     </Column>
 
@@ -172,6 +281,8 @@
     import Dialog from 'primevue/dialog';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
+    import ColumnGroup from 'primevue/columngroup';
+    import Row from 'primevue/row';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button';
     import Message from 'primevue/message';
@@ -213,6 +324,16 @@
 
     // 기간 필터 (개월 단위)
     const selectedPeriod = ref(3); // 기본 3개월
+
+    // USD 거래 여부 확인
+    const hasUSDTransactions = computed(() => {
+        return props.transactions.some(
+            (t) =>
+                t.priceUSD !== undefined ||
+                t.amountUSD !== undefined ||
+                t.exchangeRate !== undefined
+        );
+    });
 
     // 유니크한 거래 유형 목록
     const uniqueTypes = computed(() => {
