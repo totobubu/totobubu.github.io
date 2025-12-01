@@ -54,20 +54,26 @@
                     chooseLabel="PDF 선택"
                     @select="onFileSelect"
                     :disabled="isProcessing"
+                    multiple
                     class="w-full" />
             </div>
 
-            <Message v-if="selectedFile" severity="success">
-                <div class="flex align-items-center gap-2">
-                    <i class="pi pi-file-pdf text-2xl"></i>
-                    <div>
-                        <strong>{{ selectedFile.name }}</strong>
-                        <p class="m-0 text-sm">
-                            {{ formatFileSize(selectedFile.size) }}
-                        </p>
+            <div v-if="selectedFiles.length > 0" class="flex flex-column gap-2">
+                <Message
+                    v-for="file in selectedFiles"
+                    :key="file.name"
+                    severity="success">
+                    <div class="flex align-items-center gap-2">
+                        <i class="pi pi-file-pdf text-2xl"></i>
+                        <div>
+                            <strong>{{ file.name }}</strong>
+                            <p class="m-0 text-sm">
+                                {{ formatFileSize(file.size) }}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </Message>
+                </Message>
+            </div>
 
             <Message v-if="uploadError" severity="error">
                 {{ uploadError }}
@@ -152,7 +158,7 @@
                     v-if="currentStep === 'upload' && !analysisComplete"
                     label="분석하기"
                     @click="analyzeFile"
-                    :disabled="!selectedFile || isProcessing"
+                    :disabled="selectedFiles.length === 0 || isProcessing"
                     :loading="isProcessing" />
                 <Button
                     v-if="currentStep === 'upload' && analysisComplete"
@@ -242,7 +248,7 @@
     // 상태
     const currentStep = ref('select'); // 'select', 'upload', 'confirm'
     const selectedBrokerage = ref(null);
-    const selectedFile = ref(null);
+    const selectedFiles = ref([]);
     const fileUploadRef = ref(null);
     const isProcessing = ref(false);
     const uploadError = ref(null);
@@ -252,7 +258,7 @@
 
     // 파일 선택
     const onFileSelect = (event) => {
-        selectedFile.value = event.files[0];
+        selectedFiles.value = event.files;
         uploadError.value = null;
         analysisComplete.value = false;
         extractedData.value = null;
@@ -276,7 +282,7 @@
 
     // PDF 분석
     const analyzeFile = async () => {
-        if (!selectedFile.value) return;
+        if (!selectedFiles.value.length) return;
 
         isProcessing.value = true;
         uploadError.value = null;
@@ -284,23 +290,46 @@
         extractedData.value = null;
 
         try {
-            // FormData 생성
-            const formData = new FormData();
-            formData.append('file', selectedFile.value);
-            formData.append('brokerage', selectedBrokerage.value);
+            // 모든 파일에 대해 병렬 요청
+            const promises = selectedFiles.value.map((file) => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('brokerage', selectedBrokerage.value);
 
-            // API 호출
-            const response = await axios.post(
-                '/api/parsePdfTransaction',
-                formData,
-                {
+                return axios.post('/api/parsePdfTransaction', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
-                }
-            );
+                });
+            });
 
-            extractedData.value = response.data;
+            const results = await Promise.all(promises);
+
+            // 결과 합치기
+            let combinedTransactions = [];
+            let metadata = null;
+
+            results.forEach((response) => {
+                const data = response.data;
+                if (data) {
+                    // 메타데이터는 첫 번째 성공한 응답의 것을 사용 (또는 병합 로직 필요 시 수정)
+                    if (!metadata && data.metadata) {
+                        metadata = data.metadata;
+                    }
+                    if (data.transactions) {
+                        combinedTransactions = combinedTransactions.concat(
+                            data.transactions
+                        );
+                    }
+                }
+            });
+
+            extractedData.value = {
+                metadata: metadata,
+                transactions: combinedTransactions,
+                total_count: combinedTransactions.length,
+            };
+
             analysisComplete.value = true;
 
             // 계좌 이름 자동 생성 (계좌번호만 사용)
@@ -347,7 +376,7 @@
         setTimeout(() => {
             currentStep.value = 'select';
             selectedBrokerage.value = null;
-            selectedFile.value = null;
+            selectedFiles.value = [];
             uploadError.value = null;
             extractedData.value = null;
             accountName.value = '';
@@ -361,7 +390,7 @@
             setTimeout(() => {
                 currentStep.value = 'select';
                 selectedBrokerage.value = null;
-                selectedFile.value = null;
+                selectedFiles.value = [];
                 uploadError.value = null;
                 extractedData.value = null;
                 accountName.value = '';

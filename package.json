@@ -16,6 +16,8 @@
         "type-check": "vue-tsc --noEmit",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
         "check:kr-suffix": "node scripts/utils/checkKrTickerSuffixes.js",
+        "migrate:assets": "node scripts/migrateAssets.js",
+        "migrate:assets:dry": "node scripts/migrateAssets.js --dry-run",
         "preview": "vite preview",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
