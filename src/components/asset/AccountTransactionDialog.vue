@@ -16,6 +16,13 @@
             </div>
 
             <div v-else class="flex flex-column gap-3">
+                <!-- Info message -->
+                <Message severity="info" :closable="false">
+                    <small
+                        >기본적으로 최근 3개월 데이터만 로드됩니다. 더 많은
+                        데이터를 보려면 기간 필터를 조정하세요.</small
+                    >
+                </Message>
                 <!-- 유형 필터 -->
                 <div class="flex align-items-center gap-2">
                     <label>유형 필터:</label>
@@ -32,6 +39,48 @@
                             :outlined="selectedTypeFilter !== type"
                             size="small"
                             @click="selectedTypeFilter = type" />
+                    </div>
+                </div>
+
+                <!-- 기간 필터 -->
+                <div class="flex align-items-center gap-2">
+                    <label>기간 필터:</label>
+                    <div class="flex gap-2">
+                        <Button
+                            label="3개월"
+                            :outlined="selectedPeriod !== 3"
+                            size="small"
+                            @click="selectedPeriod = 3" />
+                        <Button
+                            label="6개월"
+                            :outlined="selectedPeriod !== 6"
+                            size="small"
+                            @click="selectedPeriod = 6" />
+                        <Button
+                            label="1년"
+                            :outlined="selectedPeriod !== 12"
+                            size="small"
+                            @click="selectedPeriod = 12" />
+                        <Button
+                            label="2년"
+                            :outlined="selectedPeriod !== 24"
+                            size="small"
+                            @click="selectedPeriod = 24" />
+                        <Button
+                            label="3년"
+                            :outlined="selectedPeriod !== 36"
+                            size="small"
+                            @click="selectedPeriod = 36" />
+                        <Button
+                            label="5년"
+                            :outlined="selectedPeriod !== 60"
+                            size="small"
+                            @click="selectedPeriod = 60" />
+                        <Button
+                            label="전체"
+                            :outlined="selectedPeriod !== null"
+                            size="small"
+                            @click="selectedPeriod = null" />
                     </div>
                 </div>
 
@@ -59,20 +108,20 @@
                         <template #body="slotProps">
                             <div class="flex flex-column">
                                 <span class="font-bold">{{
-                                    slotProps.data.assetName
+                                    getAssetDisplayName(slotProps.data)
                                 }}</span>
-                                <span
-                                    v-if="slotProps.data.assetSymbol"
-                                    class="text-sm text-color-secondary">
-                                    {{ slotProps.data.assetSymbol }}
-                                </span>
                             </div>
                         </template>
                     </Column>
                     <Column field="type" header="유형" style="width: 100px">
                         <template #body="slotProps">
                             <Tag
-                                :value="slotProps.data.type"
+                                :value="
+                                    getTransactionTypeLabel(
+                                        slotProps.data.type,
+                                        slotProps.data.rawType
+                                    )
+                                "
                                 :severity="
                                     getTransactionTypeSeverity(
                                         slotProps.data.type
@@ -104,18 +153,6 @@
                             </span>
                         </template>
                     </Column>
-                    <Column
-                        v-if="
-                            mode === 'account' &&
-                            transactions.some((t) => t.brokerage)
-                        "
-                        field="brokerage"
-                        header="증권사"
-                        style="width: 120px">
-                        <template #body="slotProps">
-                            {{ slotProps.data.brokerage }}
-                        </template>
-                    </Column>
 
                     <template #empty>
                         <div class="text-center p-4">
@@ -137,7 +174,9 @@
     import Column from 'primevue/column';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button';
+    import Message from 'primevue/message';
     import ProgressSpinner from 'primevue/progressspinner';
+    import { getTransactionTypeLabel } from '@/utils/transactionTypeMapper';
 
     const props = defineProps({
         visible: {
@@ -172,6 +211,9 @@
     // 유형 필터
     const selectedTypeFilter = ref(null);
 
+    // 기간 필터 (개월 단위)
+    const selectedPeriod = ref(3); // 기본 3개월
+
     // 유니크한 거래 유형 목록
     const uniqueTypes = computed(() => {
         const types = new Set(
@@ -182,12 +224,47 @@
 
     // 필터링된 거래내역
     const filteredTransactions = computed(() => {
-        if (!selectedTypeFilter.value) {
-            return props.transactions;
+        let filtered = props.transactions;
+
+        // 유형 필터
+        if (selectedTypeFilter.value) {
+            filtered = filtered.filter(
+                (t) => t.type === selectedTypeFilter.value
+            );
         }
-        return props.transactions.filter(
-            (t) => t.type === selectedTypeFilter.value
-        );
+
+        // 기간 필터
+        if (selectedPeriod.value !== null) {
+            const cutoffDate = new Date();
+            cutoffDate.setMonth(cutoffDate.getMonth() - selectedPeriod.value);
+
+            filtered = filtered.filter((t) => {
+                if (!t.date) return true;
+
+                let transactionDate;
+                // Firestore Timestamp 처리
+                if (t.date.toDate) {
+                    transactionDate = t.date.toDate();
+                }
+                // YYYYMMDD 형식
+                else if (typeof t.date === 'string' && t.date.length === 8) {
+                    const year = parseInt(t.date.substring(0, 4));
+                    const month = parseInt(t.date.substring(4, 6)) - 1;
+                    const day = parseInt(t.date.substring(6, 8));
+                    transactionDate = new Date(year, month, day);
+                }
+                // Date 객체
+                else if (t.date instanceof Date) {
+                    transactionDate = t.date;
+                } else {
+                    return true; // 날짜 파싱 실패 시 포함
+                }
+
+                return transactionDate >= cutoffDate;
+            });
+        }
+
+        return filtered;
     });
 
     const formatDate = (date) => {
@@ -325,11 +402,24 @@
     };
 
     const getAmountColorClass = (type, amount) => {
-        if (type === '매수' || type === '입금') {
+        if (type === 'buy' || type === 'deposit') {
             return 'text-green-600';
-        } else if (type === '매도' || type === '출금') {
+        } else if (type === 'sell' || type === 'withdrawal') {
             return 'text-red-600';
         }
         return '';
+    };
+
+    // 자산 표시명 (해외주식은 심볼만)
+    const getAssetDisplayName = (transaction) => {
+        if (!transaction) return '-';
+
+        // 해외주식인 경우 symbol만 표시
+        if (transaction.assetSymbol && transaction.currency !== 'KRW') {
+            return transaction.assetSymbol;
+        }
+
+        // 국내주식이나 기타는 이름 표시
+        return transaction.assetName || transaction.assetSymbol || '-';
     };
 </script>

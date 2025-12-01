@@ -45,6 +45,7 @@ export const BROKERAGE_TYPE_MAPPING = {
         오픈뱅킹입금: TRANSACTION_TYPES.DEPOSIT,
         이자입금: TRANSACTION_TYPES.INTEREST,
         출석체크이벤트입고: TRANSACTION_TYPES.EVENT,
+        해외주식이벤트입고: TRANSACTION_TYPES.EVENT,
     },
     삼성증권: {
         매수: TRANSACTION_TYPES.BUY,
@@ -100,8 +101,13 @@ export const TRANSACTION_TYPE_LABELS = {
 /**
  * 거래 타입 라벨 가져오기
  * @param {string} type - 정규화된 거래 타입
+ * @param {string} rawType - 원본 거래 타입 (unknown일 때 표시용)
  * @returns {string} 한글 라벨
  */
-export function getTransactionTypeLabel(type) {
+export function getTransactionTypeLabel(type, rawType = null) {
+    // unknown인 경우 원본 타입을 그대로 반환
+    if (type === TRANSACTION_TYPES.UNKNOWN && rawType) {
+        return rawType;
+    }
     return TRANSACTION_TYPE_LABELS[type] || '미분류';
 }

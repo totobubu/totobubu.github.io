@@ -101,6 +101,91 @@
     const showStockMappingDialog = ref(false);
     const showTransactionDialog = ref(false);
 
+    // 거래내역 다이얼로그 열기
+    const openAssetTransactionDialog = async (asset, accountId = null) => {
+        isLoadingData.value = true;
+        try {
+            // 자산 ID 결정 (ISIN, CASH_{currency}, COIN_{symbol})
+            let assetId = asset.id;
+            if (!assetId) {
+                // ID가 없으면 생성
+                if (asset.type === '주식') {
+                    assetId = asset.isin || `STOCK_${asset.symbol}`;
+                } else if (asset.type === '현금') {
+                    assetId = `CASH_${asset.currency}`;
+                } else if (asset.type === '코인') {
+                    assetId = `COIN_${asset.symbol}`;
+                }
+            }
+
+            console.log(
+                '[openAssetTransactionDialog] Loading transactions for asset:',
+                assetId,
+                'accountId:',
+                accountId
+            );
+
+            // 거래내역 로드 (기본 3개월치만 로드하여 속도 개선)
+            const transactions = await loadTransactions(
+                user.value.uid,
+                assetId,
+                accountId, // accountId가 있으면 해당 계좌만 필터링
+                3 // 기본 3개월
+            );
+
+            console.log(
+                '[openAssetTransactionDialog] Loaded transactions:',
+                transactions.length
+            );
+
+            // 거래내역에 자산 정보 추가 (종목명 표시용)
+            const enrichedTransactions = transactions.map((tx) => ({
+                ...tx,
+                assetName: asset.name || asset.symbol,
+                assetSymbol: asset.symbol,
+                assetCurrency: asset.currency,
+            }));
+
+            // 다이얼로그 제목 생성
+            let dialogTitle;
+            if (asset.currency && asset.currency !== 'KRW') {
+                // 해외주식: Symbol + 한글명
+                const displayName = asset.koName
+                    ? `${asset.symbol} ${asset.koName}`
+                    : asset.symbol || asset.name;
+                dialogTitle = accountId
+                    ? `${displayName} 거래내역`
+                    : `${displayName} 거래내역`;
+            } else {
+                // 국내주식/기타: 기존 로직
+                const displayName = asset.name || asset.symbol;
+                dialogTitle = accountId
+                    ? `${displayName} - 계좌별 거래내역`
+                    : `${displayName} - 전체 거래내역`;
+            }
+
+            // 다이얼로그 데이터 설정
+            transactionDialogData.value = {
+                mode: accountId ? 'account' : 'asset',
+                accountId: accountId,
+                assetId: assetId,
+                title: dialogTitle,
+                transactions: enrichedTransactions,
+            };
+
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는 중 오류가 발생했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
+    };
     // 거래내역 다이얼로그 데이터
     const transactionDialogData = ref({
         mode: 'account', // 'account' or 'asset'
@@ -2311,7 +2396,6 @@
                                     label="거래내역"
                                     icon="pi pi-list"
                                     size="small"
-                                    outlined
                                     @click="
                                         openAccountTransactions(
                                             data.accountId,
@@ -2417,6 +2501,19 @@
                                         text
                                         severity="danger"
                                         v-tooltip="'삭제'" />
+                                    <Button
+                                        v-tooltip="'거래내역'"
+                                        rounded
+                                        severity="secondary"
+                                        text
+                                        icon="pi pi-list"
+                                        size="small"
+                                        @click="
+                                            openAssetTransactionDialog(
+                                                data,
+                                                data.accountId
+                                            )
+                                        " />
                                 </div>
                             </template>
                         </Column>
@@ -2450,7 +2547,10 @@
             <!-- 자산별 기준 보기 (DataTable) -->
             <div v-if="viewMode === 'asset_type'" class="mt-4">
                 <AssetTypeDataTable
-                    :assets="assetTypeDataMap[selectedMember.id] || []" />
+                    :assets="assetTypeDataMap[selectedMember.id] || []"
+                    @view-transactions="
+                        (asset) => openAssetTransactionDialog(asset, null)
+                    " />
             </div>
 
             <!-- 종목 기준 보기 (별도 패널) -->
