@@ -52,8 +52,7 @@
                             <div class="col-12 md:col-3">
                                 <div
                                     class="surface-card p-3 border-round shadow-2">
-                                    <div
-                                        class="text-500 font-medium mb-2">
+                                    <div class="text-500 font-medium mb-2">
                                         총 자산 수
                                     </div>
                                     <div class="text-900 text-xl font-bold">
@@ -64,8 +63,7 @@
                             <div class="col-12 md:col-3">
                                 <div
                                     class="surface-card p-3 border-round shadow-2">
-                                    <div
-                                        class="text-500 font-medium mb-2">
+                                    <div class="text-500 font-medium mb-2">
                                         마이그레이션 필요
                                     </div>
                                     <div
@@ -77,8 +75,7 @@
                             <div class="col-12 md:col-3">
                                 <div
                                     class="surface-card p-3 border-round shadow-2">
-                                    <div
-                                        class="text-500 font-medium mb-2">
+                                    <div class="text-500 font-medium mb-2">
                                         성공
                                     </div>
                                     <div
@@ -90,8 +87,7 @@
                             <div class="col-12 md:col-3">
                                 <div
                                     class="surface-card p-3 border-round shadow-2">
-                                    <div
-                                        class="text-500 font-medium mb-2">
+                                    <div class="text-500 font-medium mb-2">
                                         실패
                                     </div>
                                     <div class="text-red-500 text-xl font-bold">
@@ -107,7 +103,7 @@
                             stripedRows
                             class="p-datatable-sm"
                             :paginator="true"
-                            :rows="10">
+                            :rows="50">
                             <Column
                                 field="assetId"
                                 header="Asset ID"
@@ -169,9 +165,7 @@
                         </DataTable>
                     </div>
 
-                    <div
-                        v-if="logs.length > 0"
-                        class="flex flex-column gap-2">
+                    <div v-if="logs.length > 0" class="flex flex-column gap-2">
                         <h4>실행 로그</h4>
                         <div
                             class="surface-ground p-3 border-round"
@@ -245,7 +239,10 @@
         console.log = captureConsoleLog(originalLog);
 
         try {
-            const result = await migrateUserAssets(user.value.uid, dryRun.value);
+            const result = await migrateUserAssets(
+                user.value.uid,
+                dryRun.value
+            );
             results.value = result;
 
             alert(
