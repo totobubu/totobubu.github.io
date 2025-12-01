@@ -18,6 +18,7 @@
     } from '@/utils/transactionTypeMapper';
     import { useToast } from 'primevue/usetoast';
     import { useConfirm } from 'primevue/useconfirm';
+    import brokeragesData from '@/../public/brokerage/brokerages.json';
 
     import Card from 'primevue/card';
     import Button from 'primevue/button';
@@ -28,10 +29,11 @@
     import Textarea from 'primevue/textarea';
     import Tag from 'primevue/tag';
     import Avatar from 'primevue/avatar';
-    import TreeTable from 'primevue/treetable';
+    import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import FileUpload from 'primevue/fileupload';
     import InputSwitch from 'primevue/inputswitch';
+    import Image from 'primevue/image';
 
     // Components
     import FamilyMemberList from '@/components/asset/FamilyMemberList.vue';
@@ -42,6 +44,7 @@
     import StockMappingDialog from '@/components/asset/StockMappingDialog.vue';
     import AssetTypeDataTable from '@/components/asset/AssetTypeDataTable.vue';
     import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+    import AccountTransactionDialog from '@/components/asset/AccountTransactionDialog.vue';
 
     useHead({ title: '자산관리' });
 
@@ -70,7 +73,7 @@
         deleteAsset,
         deleteAssetHolding,
     } = useAssets();
-    const { addTransaction } = useTransactions();
+    const { loadTransactions, addTransaction } = useTransactions();
     const { findStockByIsin } = useLocalStockData();
 
     // 선택된 탭
@@ -94,6 +97,16 @@
     const showUploadDialog = ref(false);
     const showBrokerageUploadDialog = ref(false);
     const showStockMappingDialog = ref(false);
+    const showTransactionDialog = ref(false);
+
+    // 거래내역 다이얼로그 데이터
+    const transactionDialogData = ref({
+        mode: 'account', // 'account' or 'asset'
+        accountId: null,
+        assetId: null,
+        title: '',
+        transactions: [],
+    });
 
     // 보유 수량 0인 항목 보기 토글 상태
     const showZeroBalanceAssets = ref(false);
@@ -111,7 +124,7 @@
     // 폼 데이터
     const memberForm = ref({ name: '', relationship: '본인' });
     const brokerageForm = ref({ name: '' });
-    const accountForm = ref({ name: '', accountNumber: '' });
+    const accountForm = ref({ name: '', accountNumber: '', brokerage: '' });
     const assetForm = ref({
         type: '주식',
         symbol: '',
@@ -181,6 +194,150 @@
     // 확장된 노드 키 (증권사는 항상 펼쳐짐)
     const expandedKeys = ref({});
 
+    // 증권사/은행/거래소 목록 생성
+    const brokerageOptions = computed(() => {
+        const all = [
+            ...brokeragesData.증권사,
+            ...brokeragesData.은행,
+            ...brokeragesData.거래소,
+        ];
+        return all.map((item) => ({
+            label: item.name,
+            value: item.name,
+            fileName: item.fileName,
+            type: item.type,
+        }));
+    });
+
+    // 증권사/은행 로고 이미지 경로 가져오기
+    const getBrokerageLogo = (brokerageName) => {
+        if (!brokerageName) return null;
+
+        // JSON에서 해당 증권사/은행 찾기
+        const brokerage = brokerageOptions.value.find(
+            (b) => b.value === brokerageName
+        );
+
+        if (brokerage) {
+            return `/brokerage/${brokerage.fileName}`;
+        }
+
+        // JSON에 없으면 기존 방식으로 fallback
+        const fileName = brokerageName.replace(/\s+/g, '').toLowerCase();
+        return `/brokerage/${fileName}.png`;
+    };
+
+    // 평탄화된 테이블 데이터 생성 (증권사/계좌를 컬럼으로)
+    const createFlatTableData = (memberId) => {
+        const data = loadedMemberData.value[memberId];
+        console.log('[createFlatTableData] memberId:', memberId, 'data:', data);
+        if (!data) {
+            console.log(
+                '[createFlatTableData] No data found for member:',
+                memberId
+            );
+            return [];
+        }
+
+        const flatData = [];
+
+        console.log(
+            '[createFlatTableData] accounts:',
+            data.accounts.length,
+            'assets:',
+            data.assets.length
+        );
+
+        // 각 자산을 평탄화된 행으로 변환
+        data.assets.forEach((asset) => {
+            // 보유 수량 0 필터링 (현금/예수금은 항상 표시)
+            if (
+                !showZeroBalanceAssets.value &&
+                asset.amount === 0 &&
+                asset.type !== '현금'
+            ) {
+                console.log(
+                    '[createFlatTableData] Filtering out asset with 0 amount:',
+                    asset.id,
+                    asset.symbol
+                );
+                return;
+            }
+
+            // 해당 자산의 계좌 찾기
+            const account = data.accounts.find(
+                (acc) => acc.id === asset.accountId
+            );
+            if (!account) {
+                console.log(
+                    '[createFlatTableData] Account not found for asset:',
+                    asset.id
+                );
+                return;
+            }
+
+            const brokerageName = account.brokerage || '기타';
+            // 그룹화 키: "증권사 - 계좌"
+            const groupKey = `${brokerageName} - ${account.name}`;
+
+            console.log(
+                '[createFlatTableData] Adding asset to table:',
+                asset.id,
+                asset.symbol,
+                asset.amount
+            );
+
+            // 자산 타입 분류
+            let assetCategory = '';
+            if (asset.type === '현금') {
+                assetCategory =
+                    asset.currency === 'KRW'
+                        ? '예수금 (원화)'
+                        : '예수금 (외화)';
+            } else if (asset.type === '주식') {
+                const isKorean =
+                    asset.symbol &&
+                    (asset.symbol.match(/^\d{6}$/) ||
+                        asset.market === 'KRX' ||
+                        asset.market === 'KOSPI' ||
+                        asset.market === 'KOSDAQ');
+                assetCategory = isKorean ? '국내주식' : '해외주식';
+            } else if (asset.type === '코인') {
+                assetCategory = '코인';
+            } else {
+                assetCategory = '기타';
+            }
+
+            flatData.push({
+                id: asset.id,
+                accountId: account.id, // 계좌 ID 추가
+                groupKey, // 그룹화 키 추가
+                brokerage: brokerageName,
+                brokerageLogo: getBrokerageLogo(brokerageName),
+                account: account.name,
+                accountNumber: account.accountNumber,
+                assetCategory,
+                assetType: asset.type,
+                symbol: asset.symbol,
+                name: asset.name || asset.symbol,
+                displayName: asset.symbol
+                    ? `${asset.name || asset.symbol} (${asset.symbol})`
+                    : asset.name || asset.type,
+                amount: asset.amount,
+                avgPrice: asset.avgPrice,
+                currency: asset.currency,
+                icon: getAssetTypeIcon(asset.type),
+            });
+        });
+
+        console.log(
+            '[createFlatTableData] Created table with',
+            flatData.length,
+            'rows'
+        );
+        return flatData;
+    };
+
     // 트리 데이터 생성 (증권사 → 계좌 → 자산 타입 → 개별 자산)
     const createTreeData = (memberId) => {
         const data = loadedMemberData.value[memberId];
@@ -194,7 +351,12 @@
         const brokerageMap = new Map();
         const newExpandedKeys = {};
 
-        console.log('[createTreeData] accounts:', data.accounts.length, 'assets:', data.assets.length);
+        console.log(
+            '[createTreeData] accounts:',
+            data.accounts.length,
+            'assets:',
+            data.assets.length
+        );
 
         // 1. 증권사별로 그룹화
         data.accounts.forEach((account) => {
@@ -307,14 +469,27 @@
                     ? `${asset.name || asset.symbol} (${asset.symbol})`
                     : asset.name || asset.type;
 
-                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외
-                if (!showZeroBalanceAssets.value && asset.amount === 0) {
+                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외 (현금/예수금은 항상 표시)
+                if (
+                    !showZeroBalanceAssets.value &&
+                    asset.amount === 0 &&
+                    asset.type !== '현금'
+                ) {
                     // 토글 꺼짐 + 수량 0 = 제외
-                    console.log('[createTreeData] Filtering out asset with 0 amount:', asset.id, asset.symbol);
+                    console.log(
+                        '[createTreeData] Filtering out asset with 0 amount:',
+                        asset.id,
+                        asset.symbol
+                    );
                     return;
                 }
 
-                console.log('[createTreeData] Adding asset to tree:', asset.id, asset.symbol, asset.amount);
+                console.log(
+                    '[createTreeData] Adding asset to tree:',
+                    asset.id,
+                    asset.symbol,
+                    asset.amount
+                );
 
                 assetTypeGroup.children.push({
                     key: asset.id,
@@ -348,8 +523,15 @@
             tree.push(node);
         });
 
-        console.log('[createTreeData] Created tree with', tree.length, 'root nodes (brokerages)');
-        console.log('[createTreeData] Expanded keys:', Object.keys(newExpandedKeys));
+        console.log(
+            '[createTreeData] Created tree with',
+            tree.length,
+            'root nodes (brokerages)'
+        );
+        console.log(
+            '[createTreeData] Expanded keys:',
+            Object.keys(newExpandedKeys)
+        );
 
         // 확장된 키 업데이트 (computed 외부에서 처리하도록 이동)
         // expandedKeys는 watch에서 업데이트
@@ -439,8 +621,12 @@
                 const profitRate =
                     principal > 0 ? (profitAmount / principal) * 100 : 0;
 
-                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외
-                if (!showZeroBalanceAssets.value && asset.amount === 0) {
+                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외 (현금/예수금은 항상 표시)
+                if (
+                    !showZeroBalanceAssets.value &&
+                    asset.amount === 0 &&
+                    asset.type !== '현금'
+                ) {
                     return;
                 }
 
@@ -577,6 +763,15 @@
         return map;
     });
 
+    // 평탄화된 테이블 데이터 맵
+    const flatTableDataMap = computed(() => {
+        const map = {};
+        familyMembers.value.forEach((member) => {
+            map[member.id] = createFlatTableData(member.id);
+        });
+        return map;
+    });
+
     // 트리 데이터 맵 (기존 로직 유지, asset_type 모드에서는 사용 안 함)
     const treeDataMap = computed(() => {
         const map = {};
@@ -584,8 +779,14 @@
             const result = createTreeData(member.id);
             map[member.id] = result.tree;
             // expandedKeys 업데이트
-            if (result.expandedKeys && Object.keys(result.expandedKeys).length > 0) {
-                expandedKeys.value = { ...expandedKeys.value, ...result.expandedKeys };
+            if (
+                result.expandedKeys &&
+                Object.keys(result.expandedKeys).length > 0
+            ) {
+                expandedKeys.value = {
+                    ...expandedKeys.value,
+                    ...result.expandedKeys,
+                };
             }
         });
         return map;
@@ -667,10 +868,16 @@
         if (user.value) {
             isLoadingData.value = true;
             try {
-                console.log('🟡 Loading family members for user:', user.value.uid);
+                console.log(
+                    '🟡 Loading family members for user:',
+                    user.value.uid
+                );
                 await loadFamilyMembers(user.value.uid);
                 console.log('🟢 Loaded family members:', familyMembers.value);
-                console.log('🟢 familyMembers.length:', familyMembers.value.length);
+                console.log(
+                    '🟢 familyMembers.length:',
+                    familyMembers.value.length
+                );
 
                 if (familyMembers.value.length > 0) {
                     console.log(
@@ -1030,18 +1237,27 @@
 
     // 계좌 관련
     const openAddAccountDialog = (memberId, brokerageId) => {
-        accountForm.value = { name: '', accountNumber: '' };
+        accountForm.value = { name: '', accountNumber: '', brokerage: '' };
         editMode.value.account = null;
         selectedNode.value = { data: { brokerageId } };
         showAccountDialog.value = true;
     };
 
     const saveAccount = async () => {
+        if (!accountForm.value.brokerage) {
+            toast.add({
+                severity: 'warn',
+                summary: '경고',
+                detail: '증권사/은행을 입력해주세요.',
+                life: 3000,
+            });
+            return;
+        }
         if (!accountForm.value.name) {
             toast.add({
                 severity: 'warn',
                 summary: '경고',
-                detail: '계좌명을 입력해주세요.',
+                detail: '계좌 닉네임을 입력해주세요.',
                 life: 3000,
             });
             return;
@@ -1160,6 +1376,123 @@
     // 거래내역서 업로드 다이얼로그 열기
     const openBrokerageUploadDialog = () => {
         showBrokerageUploadDialog.value = true;
+    };
+
+    // 계좌별 거래내역 보기
+    const openAccountTransactions = async (
+        accountId,
+        accountName,
+        brokerageName
+    ) => {
+        if (!user.value) return;
+
+        isLoadingData.value = true;
+        try {
+            // 해당 계좌의 모든 자산에 대한 거래내역 수집
+            const allTransactions = [];
+            const memberId = selectedMember.value?.id;
+            if (!memberId) return;
+
+            const memberData = loadedMemberData.value[memberId];
+            if (!memberData) return;
+
+            // 해당 계좌의 모든 자산 찾기
+            const accountAssets = memberData.assets.filter(
+                (asset) => asset.accountId === accountId
+            );
+
+            // 각 자산의 거래내역 로드
+            for (const asset of accountAssets) {
+                const transactions = await loadTransactions(
+                    user.value.uid,
+                    asset.id,
+                    accountId
+                );
+                allTransactions.push(
+                    ...transactions.map((tx) => ({
+                        ...tx,
+                        assetName: asset.name || asset.symbol,
+                        assetSymbol: asset.symbol,
+                        assetType: asset.type,
+                    }))
+                );
+            }
+
+            // 날짜순 정렬 (최신순)
+            allTransactions.sort((a, b) => {
+                const dateA = a.date?.toDate
+                    ? a.date.toDate()
+                    : new Date(a.date);
+                const dateB = b.date?.toDate
+                    ? b.date.toDate()
+                    : new Date(b.date);
+                return dateB - dateA;
+            });
+
+            transactionDialogData.value = {
+                mode: 'account',
+                accountId,
+                assetId: null,
+                title: `${brokerageName} - ${accountName}`,
+                transactions: allTransactions,
+            };
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('계좌 거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는데 실패했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
+    };
+
+    // 자산별 거래내역 보기 (전체 계좌 통합)
+    const openAssetTransactions = async (assetId, assetName) => {
+        if (!user.value) return;
+
+        isLoadingData.value = true;
+        try {
+            // 해당 자산의 모든 계좌 거래내역 로드
+            const transactions = await loadTransactions(
+                user.value.uid,
+                assetId,
+                null // accountId를 null로 하면 모든 계좌의 거래내역
+            );
+
+            // 날짜순 정렬 (최신순)
+            transactions.sort((a, b) => {
+                const dateA = a.date?.toDate
+                    ? a.date.toDate()
+                    : new Date(a.date);
+                const dateB = b.date?.toDate
+                    ? b.date.toDate()
+                    : new Date(b.date);
+                return dateB - dateA;
+            });
+
+            transactionDialogData.value = {
+                mode: 'asset',
+                accountId: null,
+                assetId,
+                title: assetName,
+                transactions,
+            };
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('자산 거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는데 실패했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
     };
 
     // 거래내역서 업로드 완료 처리
@@ -1726,25 +2059,39 @@
                     <p>familyMembers.length: {{ familyMembers.length }}</p>
                     <p>isLoadingMembers: {{ isLoadingMembers }}</p>
                     <p>selectedTabIndex: {{ selectedTabIndex }}</p>
-                    <p>
-                        showZeroBalanceAssets: {{ showZeroBalanceAssets }}
-                    </p>
+                    <p>showZeroBalanceAssets: {{ showZeroBalanceAssets }}</p>
                     <p v-if="selectedMember">
                         선택된 멤버 ID: {{ selectedMember.id }}
                     </p>
-                    <p v-if="selectedMember && loadedMemberData[selectedMember.id]">
+                    <p
+                        v-if="
+                            selectedMember &&
+                            loadedMemberData[selectedMember.id]
+                        ">
                         로드된 계좌 수:
                         {{
                             loadedMemberData[selectedMember.id].accounts.length
                         }}
                     </p>
-                    <p v-if="selectedMember && loadedMemberData[selectedMember.id]">
+                    <p
+                        v-if="
+                            selectedMember &&
+                            loadedMemberData[selectedMember.id]
+                        ">
                         로드된 자산 수:
                         {{ loadedMemberData[selectedMember.id].assets.length }}
                     </p>
                     <p v-if="selectedMember && treeDataMap[selectedMember.id]">
                         트리 노드 수:
                         {{ treeDataMap[selectedMember.id].length }}
+                    </p>
+                    <p
+                        v-if="
+                            selectedMember &&
+                            flatTableDataMap[selectedMember.id]
+                        ">
+                        테이블 행 수:
+                        {{ flatTableDataMap[selectedMember.id].length }}
                     </p>
                 </div>
             </template>
@@ -1809,7 +2156,7 @@
                     @click="openAddAccountDialog(selectedMember.id)" />
             </div>
 
-            <!-- TreeTable 구조로 자산 관리 (계좌 기준) -->
+            <!-- DataTable with Row Grouping (증권사별 그룹화) -->
             <Card v-if="viewMode === 'account'">
                 <template #header>
                     <div
@@ -1818,108 +2165,182 @@
                     </div>
                 </template>
                 <template #content>
-                    <TreeTable
-                        :value="treeDataMap[selectedMember.id]"
-                        v-model:expandedKeys="expandedKeys"
+                    <DataTable
+                        :value="flatTableDataMap[selectedMember.id] || []"
+                        rowGroupMode="subheader"
+                        groupRowsBy="groupKey"
+                        sortMode="single"
+                        sortField="groupKey"
+                        :sortOrder="1"
                         :metaKeySelection="false"
-                        selectionMode="single"
-                        @rowSelect="onRowSelect">
-                        <Column field="name" header="자산">
-                            <template #body="{ node }">
-                                <div class="flex align-items-center gap-2">
-                                    <!-- 증권사가 아닌 경우에만 expander 표시 -->
-                                    <button
-                                        v-if="
-                                            node.data.type !== '증권사' &&
-                                            node.children &&
-                                            node.children.length
+                        class="p-datatable-sm">
+                        <!-- 그룹 헤더 (증권사 - 계좌) -->
+                        <template #groupheader="{ data }">
+                            <div
+                                class="flex justify-content-between align-items-center p-2">
+                                <div class="flex align-items-center gap-3">
+                                    <img
+                                        v-if="data.brokerageLogo"
+                                        :src="data.brokerageLogo"
+                                        :alt="data.brokerage"
+                                        @error="
+                                            (e) =>
+                                                (e.target.style.display =
+                                                    'none')
                                         "
-                                        type="button"
-                                        class="p-treetable-toggler p-link"
-                                        @click="toggleNode(node)"
-                                        tabindex="-1">
-                                        <span
-                                            :class="
-                                                expandedKeys[node.key]
-                                                    ? 'pi pi-chevron-down'
-                                                    : 'pi pi-chevron-right'
-                                            "></span>
-                                    </button>
-                                    <span
-                                        v-else
-                                        style="width: 1.5rem; display: inline-block"></span>
-                                    <i :class="`${node.data.icon}`"></i>
-                                    <span class="font-semibold">{{
-                                        node.data.name
-                                    }}</span>
-                                    <Tag
-                                        v-if="node.data.type"
-                                        :value="node.data.type"
-                                        :severity="
-                                            node.data.type === '증권사'
-                                                ? 'success'
-                                                : node.data.type === '계좌'
-                                                  ? 'warning'
-                                                  : node.data.type ===
-                                                      '자산타입'
-                                                    ? 'info'
-                                                    : 'secondary'
+                                        style="
+                                            width: 2rem;
+                                            height: 2rem;
+                                            object-fit: contain;
                                         " />
+                                    <i
+                                        v-else
+                                        class="pi pi-building text-2xl"></i>
+                                    <div class="flex">
+                                        <span class="font-bold text-xl mr-3">{{
+                                            data.brokerage
+                                        }}</span>
+                                        <div
+                                            class="flex align-items-center gap-2 mt-1">
+                                            <span class="text-lg">{{
+                                                data.account
+                                            }}</span>
+                                            <span
+                                                v-if="
+                                                    data.accountNumber &&
+                                                    data.accountNumber !==
+                                                        data.account
+                                                "
+                                                class="text-sm text-color-secondary">
+                                                ({{ data.accountNumber }})
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Button
+                                    label="거래내역"
+                                    icon="pi pi-list"
+                                    size="small"
+                                    outlined
+                                    @click="
+                                        openAccountTransactions(
+                                            data.accountId,
+                                            data.account,
+                                            data.brokerage
+                                        )
+                                    " />
+                            </div>
+                        </template>
+
+                        <!-- 자산 분류 -->
+                        <Column
+                            header="분류"
+                            field="assetCategory"
+                            style="min-width: 120px">
+                            <template #body="{ data }">
+                                <Tag
+                                    :value="data.assetCategory"
+                                    :severity="
+                                        data.assetCategory.includes('주식')
+                                            ? 'success'
+                                            : data.assetCategory.includes(
+                                                    '예수금'
+                                                )
+                                              ? 'info'
+                                              : data.assetCategory.includes(
+                                                      '코인'
+                                                  )
+                                                ? 'warning'
+                                                : 'secondary'
+                                    " />
+                            </template>
+                        </Column>
+
+                        <!-- 종목명 -->
+                        <Column
+                            header="종목"
+                            field="displayName"
+                            style="min-width: 200px">
+                            <template #body="{ data }">
+                                <div class="flex align-items-center gap-2">
+                                    <i :class="data.icon"></i>
+                                    <span>{{ data.displayName }}</span>
                                 </div>
                             </template>
                         </Column>
-                        <Column field="amount" header="금액">
-                            <template #body="{ node }">
-                                <span v-if="node.data.type === '자산'">
+
+                        <!-- 수량/금액 -->
+                        <Column
+                            header="수량"
+                            field="amount"
+                            style="min-width: 100px">
+                            <template #body="{ data }">
+                                <span>{{ data.amount.toLocaleString() }}</span>
+                            </template>
+                        </Column>
+
+                        <!-- 평단가 -->
+                        <Column
+                            header="평단가"
+                            field="avgPrice"
+                            style="min-width: 120px">
+                            <template #body="{ data }">
+                                <span v-if="data.avgPrice">
                                     {{
                                         formatCurrency(
-                                            node.data.amount,
-                                            node.data.currency
+                                            data.avgPrice,
+                                            data.currency
                                         )
                                     }}
                                 </span>
+                                <span v-else>-</span>
                             </template>
                         </Column>
-                        <Column header="액션" style="width: 200px">
-                            <template #body="{ node }">
-                                <div class="flex gap-2">
-                                    <Button
-                                        icon="pi pi-upload"
-                                        size="small"
-                                        rounded
-                                        severity="info"
-                                        v-tooltip="'파일 업로드'"
-                                        @click="openUploadDialog(node)" />
-                                    <Button
-                                        icon="pi pi-plus"
-                                        size="small"
-                                        rounded
-                                        v-tooltip="'추가'"
-                                        @click="addChild(node)" />
+
+                        <!-- 통화 -->
+                        <Column
+                            header="통화"
+                            field="currency"
+                            style="min-width: 80px">
+                            <template #body="{ data }">
+                                <Tag
+                                    :value="data.currency"
+                                    severity="secondary" />
+                            </template>
+                        </Column>
+
+                        <!-- 액션 -->
+                        <Column header="액션" style="width: 120px">
+                            <template #body="{ data }">
+                                <div class="flex gap-1">
                                     <Button
                                         icon="pi pi-pencil"
                                         size="small"
                                         rounded
+                                        text
                                         severity="secondary"
-                                        v-tooltip="'수정'"
-                                        @click="editNode(node)" />
+                                        v-tooltip="'수정'" />
                                     <Button
                                         icon="pi pi-trash"
                                         size="small"
                                         rounded
+                                        text
                                         severity="danger"
-                                        v-tooltip="'삭제'"
-                                        @click="deleteNode(node)" />
+                                        v-tooltip="'삭제'" />
                                 </div>
                             </template>
                         </Column>
-                    </TreeTable>
 
-                    <Card
-                        v-if="
-                            (treeDataMap[selectedMember.id] || []).length === 0
-                        ">
-                        <template #content>
+                        <!-- 그룹 푸터 (증권사별 요약 정보 - 선택사항) -->
+                        <template #groupfooter="{ data }">
+                            <div class="flex justify-content-end p-2">
+                                <span class="text-sm text-color-secondary">
+                                    <!-- 증권사별 합계 표시 가능 -->
+                                </span>
+                            </div>
+                        </template>
+
+                        <template #empty>
                             <div
                                 class="flex flex-column align-items-center gap-3 p-4">
                                 <i class="pi pi-inbox text-6xl"></i>
@@ -1932,7 +2353,7 @@
                                     " />
                             </div>
                         </template>
-                    </Card>
+                    </DataTable>
                 </template>
             </Card>
 
@@ -2045,11 +2466,41 @@
             </template>
             <div class="flex flex-column gap-3">
                 <div class="flex flex-column gap-2">
-                    <label for="accountName">계좌명</label>
+                    <label for="brokerageName">증권사 / 은행 / 거래소</label>
+                    <Dropdown
+                        id="brokerageName"
+                        v-model="accountForm.brokerage"
+                        :options="brokerageOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="선택하세요"
+                        filter
+                        :filterPlaceholder="'검색...'"
+                        showClear
+                        class="w-full">
+                        <template #option="{ option }">
+                            <div class="flex align-items-center gap-2">
+                                <Tag
+                                    :value="option.type"
+                                    :severity="
+                                        option.type === '증권'
+                                            ? 'success'
+                                            : option.type === '은행'
+                                              ? 'info'
+                                              : 'warning'
+                                    "
+                                    size="small" />
+                                <span>{{ option.label }}</span>
+                            </div>
+                        </template>
+                    </Dropdown>
+                </div>
+                <div class="flex flex-column gap-2">
+                    <label for="accountName">계좌 닉네임</label>
                     <InputText
                         id="accountName"
                         v-model="accountForm.name"
-                        placeholder="계좌명을 입력하세요" />
+                        placeholder="주식계좌, ISA계좌 등" />
                 </div>
                 <div class="flex flex-column gap-2">
                     <label for="accountNumber">계좌번호 (선택)</label>
@@ -2206,6 +2657,14 @@
             :transactions="uploadedTransactionData.extractedData.transactions"
             :brokerage="uploadBrokerage"
             @mapping-complete="handleMappingComplete" />
+
+        <!-- 거래내역 다이얼로그 -->
+        <AccountTransactionDialog
+            v-model:visible="showTransactionDialog"
+            :title="transactionDialogData.title"
+            :transactions="transactionDialogData.transactions"
+            :mode="transactionDialogData.mode"
+            :isLoading="isLoadingData" />
 
         <!-- 로딩 오버레이 -->
         <LoadingOverlay

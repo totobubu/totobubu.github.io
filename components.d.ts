@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AccountTransactionDialog: typeof import('./src/components/asset/AccountTransactionDialog.vue')['default']
     AddAssetModal: typeof import('./src/components/asset/AddAssetModal.vue')['default']
     AssetListView: typeof import('./src/components/asset/AssetListView.vue')['default']
     AssetManager: typeof import('./src/components/mypage/AssetManager.vue')['default']
@@ -58,9 +59,12 @@ declare module 'vue' {
     StockMappingDialog: typeof import('./src/components/asset/StockMappingDialog.vue')['default']
     StockPriceCandlestickChart: typeof import('./src/components/charts/StockPriceCandlestickChart.vue')['default']
     StockTimelineModal: typeof import('./src/components/StockTimelineModal.vue')['default']
+    TabPanel: typeof import('primevue/tabpanel')['default']
+    TabView: typeof import('primevue/tabview')['default']
     Tag: typeof import('primevue/tag')['default']
     ThumbnailItem: typeof import('./src/components/thumbnail/ThumbnailItem.vue')['default']
     TransactionHistoryDialog: typeof import('./src/components/asset/TransactionHistoryDialog.vue')['default']
+    TreeTable: typeof import('primevue/treetable')['default']
     WeekdayRotatingTag: typeof import('./src/components/WeekdayRotatingTag.vue')['default']
   }
 }
