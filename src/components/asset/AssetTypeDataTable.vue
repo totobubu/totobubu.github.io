@@ -141,12 +141,6 @@
                 </DataTable>
             </TabPanel>
         </TabView>
-
-        <TransactionHistoryDialog
-            v-if="selectedAsset"
-            v-model:visible="showHistoryDialog"
-            :accountId="selectedAsset.accountId"
-            :assetId="selectedAsset.id" />
     </div>
 </template>
 
@@ -158,7 +152,6 @@
     import Column from 'primevue/column';
     import Button from 'primevue/button';
     import Tag from 'primevue/tag';
-    import TransactionHistoryDialog from '@/components/asset/TransactionHistoryDialog.vue';
 
     const props = defineProps({
         assets: {
@@ -168,9 +161,9 @@
         },
     });
 
+    const emit = defineEmits(['view-transactions']);
+
     const activeTabIndex = ref(0);
-    const showHistoryDialog = ref(false);
-    const selectedAsset = ref(null);
 
     // 자산을 타입별로 그룹화
     const assetTabs = computed(() => {
@@ -226,8 +219,7 @@
     });
 
     const openHistory = (asset) => {
-        selectedAsset.value = asset;
-        showHistoryDialog.value = true;
+        emit('view-transactions', asset);
     };
 
     const formatNumber = (value) => {
