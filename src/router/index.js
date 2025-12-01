@@ -80,6 +80,12 @@ const router = createRouter({
             component: AdminView,
             meta: { requiresAuth: true, adminOnly: true },
         },
+        // {
+        //     path: '/admin/migration',
+        //     name: 'admin-migration',
+        //     component: AdminMigrationPage,
+        //     meta: { requiresAuth: true, adminOnly: true },
+        // },
         {
             path: '/profile',
             name: 'profile',

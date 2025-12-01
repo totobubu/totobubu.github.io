@@ -76,17 +76,19 @@
     const { loadTransactions, addTransaction } = useTransactions();
     const { findStockByIsin } = useLocalStockData();
 
-    // 선택된 탭
-    const selectedTabIndex = ref('0');
+    // 선택된 탭 (Member ID)
+    const selectedMemberId = ref(null);
 
     // View 모드 (증권사/계좌 기준 vs 종목 기준)
     const viewMode = ref('account');
 
     // 현재 선택된 멤버
     const selectedMember = computed(() => {
-        const index = parseInt(selectedTabIndex.value);
-        if (index >= familyMembers.value.length) return null;
-        return familyMembers.value[index] || null;
+        if (!selectedMemberId.value) return null;
+        return (
+            familyMembers.value.find((m) => m.id === selectedMemberId.value) ||
+            null
+        );
     });
 
     // 다이얼로그 상태
@@ -99,6 +101,132 @@
     const showStockMappingDialog = ref(false);
     const showTransactionDialog = ref(false);
 
+    // 거래내역 다이얼로그 열기
+    const openAssetTransactionDialog = async (asset, accountId = null) => {
+        isLoadingData.value = true;
+        try {
+            // 자산 ID 결정 (ISIN, CASH_{currency}, COIN_{symbol})
+            let assetId = asset.id;
+            if (!assetId) {
+                // ID가 없으면 생성
+                if (asset.type === '주식') {
+                    assetId = asset.isin || `STOCK_${asset.symbol}`;
+                } else if (asset.type === '현금') {
+                    assetId = `CASH_${asset.currency}`;
+                } else if (asset.type === '코인') {
+                    assetId = `COIN_${asset.symbol}`;
+                }
+            }
+
+            console.log(
+                '[openAssetTransactionDialog] Loading transactions for asset:',
+                assetId,
+                'accountId:',
+                accountId,
+                'asset data:',
+                asset,
+                'asset.symbol:',
+                asset.symbol,
+                'asset.koName:',
+                asset.koName,
+                'asset.name:',
+                asset.name
+            );
+
+            // 거래내역 로드 (기본 3개월치만 로드하여 속도 개선)
+            const transactions = await loadTransactions(
+                user.value.uid,
+                assetId,
+                accountId, // accountId가 있으면 해당 계좌만 필터링
+                3 // 기본 3개월
+            );
+
+            console.log(
+                '[openAssetTransactionDialog] Loaded transactions:',
+                transactions.length
+            );
+
+            // 거래내역에 자산 정보 추가 (종목명 표시용)
+            const enrichedTransactions = transactions.map((tx) => ({
+                ...tx,
+                assetName: asset.name || asset.symbol,
+                assetSymbol: asset.symbol,
+                assetCurrency: asset.currency,
+            }));
+
+            // 다이얼로그 제목 생성
+            let dialogTitle;
+
+            // symbol과 koName 추출 (다양한 필드명 고려)
+            let symbol = asset.symbol || asset.ticker || null;
+            let koName = asset.koName || asset.koreanName || asset.name || null;
+
+            // asset 객체에 symbol이 없으면 거래내역에서 찾기
+            if (!symbol && enrichedTransactions.length > 0) {
+                const firstTx = enrichedTransactions[0];
+                symbol =
+                    firstTx.assetSymbol || firstTx.symbol || firstTx.ticker;
+            }
+
+            // koName도 거래내역에서 찾기
+            if (!koName && enrichedTransactions.length > 0) {
+                const firstTx = enrichedTransactions[0];
+                koName =
+                    firstTx.assetKoName ||
+                    firstTx.koName ||
+                    firstTx.koreanName ||
+                    firstTx.assetName;
+            }
+
+            console.log(
+                '[Title Generation] symbol:',
+                symbol,
+                'koName:',
+                koName,
+                'asset.id:',
+                asset.id
+            );
+
+            // 해외주식 판단
+            const isForeignStock = asset.currency && asset.currency !== 'KRW';
+
+            if (symbol && koName && isForeignStock) {
+                // 해외주식: 한글명 (심볼) 형식
+                dialogTitle = `${koName} (${symbol}) 거래내역`;
+            } else if (symbol) {
+                // 심볼만 있는 경우
+                dialogTitle = `${symbol} 거래내역`;
+            } else if (koName) {
+                // 한글명만 있는 경우
+                dialogTitle = `${koName} 거래내역`;
+            } else {
+                // fallback: asset.id 사용 (ISIN일 수 있음)
+                console.warn('[Title] No symbol/koName found, using asset.id');
+                dialogTitle = `${asset.id} 거래내역`;
+            }
+
+            // 다이얼로그 데이터 설정
+            transactionDialogData.value = {
+                mode: accountId ? 'account' : 'asset',
+                accountId: accountId,
+                assetId: assetId,
+                title: dialogTitle,
+                transactions: enrichedTransactions,
+            };
+
+            showTransactionDialog.value = true;
+        } catch (error) {
+            console.error('거래내역 로드 실패:', error);
+            toast.add({
+                severity: 'error',
+                summary: '오류',
+                detail: '거래내역을 불러오는 중 오류가 발생했습니다.',
+                life: 3000,
+            });
+        } finally {
+            isLoadingData.value = false;
+        }
+    };
     // 거래내역 다이얼로그 데이터
     const transactionDialogData = ref({
         mode: 'account', // 'account' or 'asset'
@@ -634,8 +762,30 @@
                     return;
                 }
 
+                // asset의 name과 symbol 보정 (ISIN만 있을 경우 대비)
+                let displayName = asset.name || asset.koName || asset.symbol;
+                let displaySymbol = asset.symbol || asset.ticker;
+
+                // name이 ISIN 형식이면 symbol로 대체
+                if (
+                    !displayName ||
+                    (displayName && displayName.match(/^[A-Z]{2}[A-Z0-9]{10}$/))
+                ) {
+                    displayName = displaySymbol || asset.id;
+                }
+
+                // symbol이 없으면 빈 문자열
+                if (
+                    !displaySymbol ||
+                    displaySymbol.match(/^[A-Z]{2}[A-Z0-9]{10}$/)
+                ) {
+                    displaySymbol = '';
+                }
+
                 result.push({
                     ...asset,
+                    name: displayName,
+                    symbol: displaySymbol,
                     groupKey,
                     groupName,
                     currentPrice,
@@ -926,11 +1076,21 @@
                 );
 
                 if (familyMembers.value.length > 0) {
-                    console.log(
-                        '🟢 Loading data for first member:',
-                        familyMembers.value[0].id
+                    // URL query에 memberId가 있으면 그것을 사용, 없으면 첫 번째 멤버 (본인 우선 정렬 필요하지만 일단 첫번째)
+                    // FamilyMemberList에서 정렬 로직이 있으므로, 여기서도 "본인"을 찾아서 기본값으로 설정하는 것이 좋음
+                    const me = familyMembers.value.find(
+                        (m) => m.relationship === '본인'
                     );
-                    await loadMemberData(familyMembers.value[0].id);
+                    const initialMemberId = me
+                        ? me.id
+                        : familyMembers.value[0].id;
+
+                    console.log(
+                        '🟢 Loading data for initial member:',
+                        initialMemberId
+                    );
+                    selectedMemberId.value = initialMemberId;
+                    await loadMemberData(initialMemberId);
                 } else {
                     console.log('⚠️ No family members found');
                 }
@@ -943,22 +1103,16 @@
     });
 
     // 탭 변경 처리
-    const handleTabChange = async (newIndex) => {
-        console.log('handleTabChange called with:', newIndex);
-        selectedTabIndex.value = String(newIndex);
-        const index = parseInt(newIndex);
+    const handleMemberSelect = async (memberId) => {
+        console.log('handleMemberSelect called with:', memberId);
+        selectedMemberId.value = memberId;
 
-        // "가족 추가" 탭이 아닌 경우에만 데이터 로드
-        if (index < familyMembers.value.length) {
-            const memberId = familyMembers.value[index]?.id;
-            console.log('Loading data for member:', memberId);
-            if (memberId && !loadedMemberData.value[memberId]) {
-                isLoadingData.value = true;
-                try {
-                    await loadMemberData(memberId);
-                } finally {
-                    isLoadingData.value = false;
-                }
+        if (memberId && !loadedMemberData.value[memberId]) {
+            isLoadingData.value = true;
+            try {
+                await loadMemberData(memberId);
+            } finally {
+                isLoadingData.value = false;
             }
         }
     };
@@ -1641,7 +1795,8 @@
                 if (mapping) {
                     // 주식 매핑 있음
                     isin = mapping.isin;
-                    symbol = mapping.systemTicker || mapping.symbol;
+                    // symbol은 mapping.symbol을 우선 사용 (sidebar-tickers.json 기준)
+                    symbol = mapping.symbol || mapping.systemTicker;
                     name = mapping.name || transaction.stock_name;
                     currency = mapping.currency || 'USD';
                     assetType = '주식';
@@ -2162,55 +2317,79 @@
                 </div>
             </template>
         </Card>
+        <!-- 증권사 추가 버튼 (제거 또는 계좌 추가로 변경) -->
+        <div v-if="selectedMember" class="flex justify-content-end gap-2 mb-3">
+            <Button
+                label="거래내역서 업로드"
+                icon="pi pi-upload"
+                severity="success"
+                @click="openBrokerageUploadDialog" />
+            <Button
+                label="계좌 직접 추가"
+                icon="pi pi-plus"
+                @click="openAddAccountDialog(selectedMember.id)" />
+        </div>
 
-        <!-- 가족 멤버 리스트 -->
-        <FamilyMemberList
-            v-if="familyMembers.length > 0"
-            :members="familyMembers"
-            :selectedIndex="selectedTabIndex"
-            @select="handleTabChange" />
+        <div class="flex justify-content-between align-items-center gap-3">
+            <!-- 가족 멤버 리스트 -->
+            <FamilyMemberList
+                v-if="familyMembers.length > 0"
+                :members="familyMembers"
+                :selectedMemberId="selectedMemberId"
+                @select="handleMemberSelect"
+                @add="openAddMemberDialog" />
+            <AssetViewModeToggle
+                v-if="selectedMember"
+                v-model:mode="viewMode" />
+        </div>
 
         <!-- 선택된 멤버의 자산 관리 -->
         <div v-if="selectedMember" class="mt-3">
-            <!-- View 모드 및 필터 토글 -->
-            <div
-                class="flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
-                <AssetViewModeToggle v-model:mode="viewMode" />
-
-                <div class="flex align-items-center gap-2">
-                    <InputSwitch
-                        v-model="showZeroBalanceAssets"
-                        inputId="showZeroBalance" />
-                    <label
-                        for="showZeroBalance"
-                        class="cursor-pointer select-none"
-                        >보유 수량 0인 항목 보기</label
-                    >
-                </div>
-            </div>
-
-            <!-- 증권사 추가 버튼 (제거 또는 계좌 추가로 변경) -->
-            <div class="flex justify-content-end gap-2 mb-3">
-                <Button
-                    label="거래내역서 업로드"
-                    icon="pi pi-upload"
-                    severity="success"
-                    @click="openBrokerageUploadDialog" />
-                <Button
-                    label="계좌 직접 추가"
-                    icon="pi pi-plus"
-                    @click="openAddAccountDialog(selectedMember.id)" />
-            </div>
-
             <!-- DataTable with Row Grouping (증권사별 그룹화) -->
             <Card v-if="viewMode === 'account'">
                 <template #header>
                     <div
                         class="flex justify-content-between align-items-center p-3">
                         <h3 class="m-0">{{ selectedMember.name }}님의 자산</h3>
+                        <div class="flex gap-2">
+                            <Tag
+                                severity="info"
+                                :value="`계좌 ${loadedMemberData[selectedMember.id]?.accounts?.length || 0}개`" />
+                            <Tag
+                                severity="warning"
+                                :value="`보유종목 ${loadedMemberData[selectedMember.id]?.assets?.length || 0}개`" />
+                        </div>
                     </div>
                 </template>
                 <template #content>
+                    <!-- Empty State -->
+                    <div
+                        v-if="
+                            !loadedMemberData[selectedMember.id]?.accounts
+                                ?.length
+                        "
+                        class="flex flex-column align-items-center justify-content-center p-6 text-center">
+                        <i
+                            class="pi pi-inbox text-6xl mb-4"
+                            style="color: var(--text-color-secondary)"></i>
+                        <h3 class="mb-2">아직 등록된 계좌가 없습니다</h3>
+                        <p class="text-color-secondary mb-4">
+                            거래내역서를 업로드하거나 계좌를 직접 추가해보세요.
+                        </p>
+                        <div class="flex gap-2">
+                            <Button
+                                label="거래내역서 업로드"
+                                icon="pi pi-upload"
+                                severity="success"
+                                @click="openBrokerageUploadDialog" />
+                            <Button
+                                label="계좌 직접 추가"
+                                icon="pi pi-plus"
+                                @click="
+                                    openAddAccountDialog(selectedMember.id)
+                                " />
+                        </div>
+                    </div>
                     <DataTable
                         :value="flatTableDataMap[selectedMember.id] || []"
                         rowGroupMode="subheader"
@@ -2220,6 +2399,20 @@
                         :sortOrder="1"
                         :metaKeySelection="false"
                         class="p-datatable-sm">
+                        <template #header>
+                            <!-- View 모드 및 필터 토글 -->
+                            <div
+                                class="flex flex-wrap justify-content-end align-items-center gap-3">
+                                <InputSwitch
+                                    v-model="showZeroBalanceAssets"
+                                    inputId="showZeroBalance" />
+                                <label
+                                    for="showZeroBalance"
+                                    class="cursor-pointer select-none"
+                                    >보유 수량 0인 항목 보기</label
+                                >
+                            </div>
+                        </template>
                         <!-- 그룹 헤더 (증권사 - 계좌) -->
                         <template #groupheader="{ data }">
                             <div
@@ -2267,7 +2460,6 @@
                                     label="거래내역"
                                     icon="pi pi-list"
                                     size="small"
-                                    outlined
                                     @click="
                                         openAccountTransactions(
                                             data.accountId,
@@ -2373,6 +2565,19 @@
                                         text
                                         severity="danger"
                                         v-tooltip="'삭제'" />
+                                    <Button
+                                        v-tooltip="'거래내역'"
+                                        rounded
+                                        severity="secondary"
+                                        text
+                                        icon="pi pi-list"
+                                        size="small"
+                                        @click="
+                                            openAssetTransactionDialog(
+                                                data,
+                                                data.accountId
+                                            )
+                                        " />
                                 </div>
                             </template>
                         </Column>
@@ -2406,7 +2611,10 @@
             <!-- 자산별 기준 보기 (DataTable) -->
             <div v-if="viewMode === 'asset_type'" class="mt-4">
                 <AssetTypeDataTable
-                    :assets="assetTypeDataMap[selectedMember.id] || []" />
+                    :assets="assetTypeDataMap[selectedMember.id] || []"
+                    @view-transactions="
+                        (asset) => openAssetTransactionDialog(asset, null)
+                    " />
             </div>
 
             <!-- 종목 기준 보기 (별도 패널) -->

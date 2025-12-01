@@ -10,7 +10,10 @@ import {
     getDocs,
     query,
     where,
+    orderBy,
+    limit,
     deleteField,
+    Timestamp,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
 // import { user } from '@/store/auth'; // user는 페이지에서 전달받음
@@ -566,9 +569,15 @@ export const useTransactions = () => {
      * @param {string} userId
      * @param {string} assetId - ISIN or currency code
      * @param {string} accountId - Optional: filter by account
+     * @param {number} monthsBack - Optional: number of months to look back (default: 3)
      * @returns {Array} Array of transactions
      */
-    const loadTransactions = async (userId, assetId, accountId = null) => {
+    const loadTransactions = async (
+        userId,
+        assetId,
+        accountId = null,
+        monthsBack = 3
+    ) => {
         if (!userId || !assetId) return [];
         isLoading.value = true;
         try {
@@ -576,11 +585,48 @@ export const useTransactions = () => {
                 db,
                 `userAssets/${userId}/assets/${assetId}/transactions`
             );
+
+            // Try to fetch all transactions first (client-side filtering is more reliable)
+            // since date field format may vary
             const snapshot = await getDocs(transactionsRef);
             let transactions = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
+
+            // Client-side date filtering if monthsBack is specified
+            if (monthsBack !== null) {
+                const cutoffDate = new Date();
+                cutoffDate.setMonth(cutoffDate.getMonth() - monthsBack);
+
+                transactions = transactions.filter((tx) => {
+                    if (!tx.date) return true; // Include if no date
+
+                    let transactionDate;
+                    // Firestore Timestamp
+                    if (tx.date.toDate) {
+                        transactionDate = tx.date.toDate();
+                    }
+                    // YYYYMMDD string format
+                    else if (
+                        typeof tx.date === 'string' &&
+                        tx.date.length === 8
+                    ) {
+                        const year = parseInt(tx.date.substring(0, 4));
+                        const month = parseInt(tx.date.substring(4, 6)) - 1;
+                        const day = parseInt(tx.date.substring(6, 8));
+                        transactionDate = new Date(year, month, day);
+                    }
+                    // Date object
+                    else if (tx.date instanceof Date) {
+                        transactionDate = tx.date;
+                    } else {
+                        return true; // Include if can't parse
+                    }
+
+                    return transactionDate >= cutoffDate;
+                });
+            }
 
             // Filter by accountId if provided
             if (accountId) {
@@ -588,6 +634,23 @@ export const useTransactions = () => {
                     (tx) => tx.accountId === accountId
                 );
             }
+
+            // Sort by date descending
+            transactions.sort((a, b) => {
+                const getDateValue = (tx) => {
+                    if (!tx.date) return 0;
+                    if (tx.date.toDate) return tx.date.toDate().getTime();
+                    if (typeof tx.date === 'string' && tx.date.length === 8) {
+                        const year = parseInt(tx.date.substring(0, 4));
+                        const month = parseInt(tx.date.substring(4, 6)) - 1;
+                        const day = parseInt(tx.date.substring(6, 8));
+                        return new Date(year, month, day).getTime();
+                    }
+                    if (tx.date instanceof Date) return tx.date.getTime();
+                    return 0;
+                };
+                return getDateValue(b) - getDateValue(a);
+            });
 
             return transactions;
         } catch (error) {

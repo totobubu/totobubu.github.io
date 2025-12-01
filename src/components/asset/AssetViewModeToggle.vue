@@ -1,7 +1,7 @@
 <!-- src/components/asset/AssetViewModeToggle.vue -->
 <script setup>
     import { ref, computed } from 'vue';
-    import ToggleButton from 'primevue/togglebutton';
+    import Button from 'primevue/button';
 
     const props = defineProps({
         mode: {
@@ -13,8 +13,12 @@
     const emit = defineEmits(['update:mode']);
 
     const options = ref([
-        { label: '증권사 및 계좌 기준', value: 'account' },
-        { label: '자산별 기준', value: 'asset_type' },
+        {
+            label: '계좌 기준',
+            value: 'account',
+            icon: 'pi pi-building-columns',
+        },
+        { label: '자산별 기준', value: 'asset_type', icon: 'pi pi-chart-bar' },
     ]);
 
     const selectedOption = computed({
@@ -24,20 +28,18 @@
 </script>
 
 <template>
-    <div class="flex align-items-center gap-3 mb-4 p-3 border-round">
-        <label class="font-semibold text-sm">View 모드:</label>
+    <div class="flex align-items-center gap-3">
+        <label class="font-semibold text-sm hidden">View 모드:</label>
         <div class="flex gap-2">
-            <button
+            <Button
                 v-for="option in options"
                 :key="option.value"
+                :icon="option.icon"
+                :severity="
+                    selectedOption === option.value ? 'primary' : 'secondary'
+                "
                 @click="selectedOption = option.value"
-                :class="[
-                    'px-4 py-2 border-round transition-all',
-                    selectedOption === option.value ? 'font-semibold' : '',
-                ]"
-                style="border: 2px solid #e0e0e0">
-                {{ option.label }}
-            </button>
+                :label="option.label" />
         </div>
     </div>
 </template>
