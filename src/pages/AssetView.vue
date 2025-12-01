@@ -124,7 +124,13 @@
                 'accountId:',
                 accountId,
                 'asset data:',
-                asset
+                asset,
+                'asset.symbol:',
+                asset.symbol,
+                'asset.koName:',
+                asset.koName,
+                'asset.name:',
+                asset.name
             );
 
             // 거래내역 로드 (기본 3개월치만 로드하여 속도 개선)
@@ -150,24 +156,52 @@
 
             // 다이얼로그 제목 생성
             let dialogTitle;
-            // 해외주식 판단: currency가 KRW가 아니거나 symbol이 있고 koName이 있는 경우
-            const isForeignStock =
-                (asset.currency && asset.currency !== 'KRW') ||
-                (asset.symbol && asset.koName);
 
-            if (isForeignStock) {
-                // 해외주식: Symbol + 한글명
-                const displayName =
-                    asset.symbol && asset.koName
-                        ? `${asset.symbol} ${asset.koName}`
-                        : asset.symbol || asset.name || asset.id;
-                dialogTitle = `${displayName} 거래내역`;
+            // symbol과 koName 추출 (다양한 필드명 고려)
+            let symbol = asset.symbol || asset.ticker || null;
+            let koName = asset.koName || asset.koreanName || asset.name || null;
+
+            // asset 객체에 symbol이 없으면 거래내역에서 찾기
+            if (!symbol && enrichedTransactions.length > 0) {
+                const firstTx = enrichedTransactions[0];
+                symbol = firstTx.assetSymbol || firstTx.symbol || firstTx.ticker;
+            }
+
+            // koName도 거래내역에서 찾기
+            if (!koName && enrichedTransactions.length > 0) {
+                const firstTx = enrichedTransactions[0];
+                koName =
+                    firstTx.assetKoName ||
+                    firstTx.koName ||
+                    firstTx.koreanName ||
+                    firstTx.assetName;
+            }
+
+            console.log(
+                '[Title Generation] symbol:',
+                symbol,
+                'koName:',
+                koName,
+                'asset.id:',
+                asset.id
+            );
+
+            // 해외주식 판단
+            const isForeignStock = asset.currency && asset.currency !== 'KRW';
+
+            if (symbol && koName && isForeignStock) {
+                // 해외주식: 한글명 (심볼) 형식
+                dialogTitle = `${koName} (${symbol}) 거래내역`;
+            } else if (symbol) {
+                // 심볼만 있는 경우
+                dialogTitle = `${symbol} 거래내역`;
+            } else if (koName) {
+                // 한글명만 있는 경우
+                dialogTitle = `${koName} 거래내역`;
             } else {
-                // 국내주식/기타: 이름 우선
-                const displayName = asset.name || asset.symbol || asset.id;
-                dialogTitle = accountId
-                    ? `${displayName} - 계좌별 거래내역`
-                    : `${displayName} - 전체 거래내역`;
+                // fallback: asset.id 사용 (ISIN일 수 있음)
+                console.warn('[Title] No symbol/koName found, using asset.id');
+                dialogTitle = `${asset.id} 거래내역`;
             }
 
             // 다이얼로그 데이터 설정
@@ -727,8 +761,24 @@
                     return;
                 }
 
+                // asset의 name과 symbol 보정 (ISIN만 있을 경우 대비)
+                let displayName = asset.name || asset.koName || asset.symbol;
+                let displaySymbol = asset.symbol || asset.ticker;
+
+                // name이 ISIN 형식이면 symbol로 대체
+                if (!displayName || (displayName && displayName.match(/^[A-Z]{2}[A-Z0-9]{10}$/))) {
+                    displayName = displaySymbol || asset.id;
+                }
+
+                // symbol이 없으면 빈 문자열
+                if (!displaySymbol || displaySymbol.match(/^[A-Z]{2}[A-Z0-9]{10}$/)) {
+                    displaySymbol = '';
+                }
+
                 result.push({
                     ...asset,
+                    name: displayName,
+                    symbol: displaySymbol,
                     groupKey,
                     groupName,
                     currentPrice,

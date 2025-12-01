@@ -1,44 +1,65 @@
 <!-- src/components/asset/AccountTransactionDialog.vue -->
 <template>
-    <Dialog
+    <Drawer
         v-model:visible="isVisible"
-        modal
         :header="title"
-        :style="{ width: '900px', maxHeight: '90vh' }"
-        :closable="true">
-        <div class="flex flex-column gap-4">
-            <div v-if="isLoading" class="flex justify-content-center p-4">
-                <ProgressSpinner />
-            </div>
+        position="full">
+        <div v-if="isLoading" class="flex justify-content-center p-4">
+            <ProgressSpinner />
+        </div>
 
-            <div v-else-if="transactions.length === 0" class="text-center p-4">
-                <p class="text-color-secondary">거래 내역이 없습니다.</p>
-            </div>
+        <div v-else-if="transactions.length === 0" class="text-center p-4">
+            <p class="text-color-secondary">거래 내역이 없습니다.</p>
+        </div>
 
-            <div v-else class="flex flex-column gap-3">
+        <TabView v-else>
+            <!-- 탭 1: 거래내역 -->
+            <TabPanel header="거래내역">
+                <div class="flex flex-column gap-3">
                 <!-- Info message -->
                 <Message severity="info" :closable="false">
-                    <small
-                        >기본적으로 최근 3개월 데이터만 로드됩니다. 더 많은
-                        데이터를 보려면 기간 필터를 조정하세요.</small
-                    >
+                    <small>
+                        {{ filterInfoMessage }}
+                    </small>
                 </Message>
-                <!-- 유형 필터 -->
-                <div class="flex align-items-center gap-2">
-                    <label>유형 필터:</label>
-                    <div class="flex gap-2">
-                        <Button
-                            label="전체"
-                            :outlined="selectedTypeFilter !== null"
-                            size="small"
-                            @click="selectedTypeFilter = null" />
-                        <Button
-                            v-for="type in uniqueTypes"
-                            :key="type"
-                            :label="type"
-                            :outlined="selectedTypeFilter !== type"
-                            size="small"
-                            @click="selectedTypeFilter = type" />
+                <!-- 필터들 -->
+                <div class="flex flex-column gap-2">
+                    <!-- 유형 필터 -->
+                    <div class="flex align-items-center gap-2">
+                        <label class="font-semibold" style="min-width: 80px">유형 필터:</label>
+                        <div class="flex gap-2 flex-wrap">
+                            <Button
+                                label="전체"
+                                :outlined="selectedTypeFilter !== null"
+                                size="small"
+                                @click="selectedTypeFilter = null" />
+                            <Button
+                                v-for="type in uniqueTypes"
+                                :key="type.value"
+                                :label="type.label"
+                                :outlined="selectedTypeFilter !== type.value"
+                                size="small"
+                                @click="selectedTypeFilter = type.value" />
+                        </div>
+                    </div>
+
+                    <!-- 계좌 필터 -->
+                    <div v-if="uniqueAccounts.length > 1" class="flex align-items-center gap-2">
+                        <label class="font-semibold" style="min-width: 80px">계좌 필터:</label>
+                        <div class="flex gap-2 flex-wrap">
+                            <Button
+                                label="전체"
+                                :outlined="selectedAccountFilter !== null"
+                                size="small"
+                                @click="selectedAccountFilter = null" />
+                            <Button
+                                v-for="account in uniqueAccounts"
+                                :key="account.id"
+                                :label="account.name"
+                                :outlined="selectedAccountFilter !== account.id"
+                                size="small"
+                                @click="selectedAccountFilter = account.id" />
+                        </div>
                     </div>
                 </div>
 
@@ -113,6 +134,15 @@
                             </div>
                         </template>
                     </Column>
+                    <Column
+                        v-if="mode === 'asset' && uniqueAccounts.length > 1"
+                        field="accountName"
+                        header="계좌"
+                        style="min-width: 120px">
+                        <template #body="slotProps">
+                            {{ slotProps.data.accountName || '-' }}
+                        </template>
+                    </Column>
                     <Column field="type" header="유형" style="width: 100px">
                         <template #body="slotProps">
                             <Tag
@@ -136,7 +166,7 @@
                         </template>
                     </Column>
 
-                    <!-- KRW 컬럼 그룹 -->
+                    <!-- 컬럼 그룹 헤더 -->
                     <ColumnGroup type="header">
                         <Row>
                             <Column header="날짜" :rowspan="2" />
@@ -144,13 +174,17 @@
                                 v-if="mode === 'account'"
                                 header="종목"
                                 :rowspan="2" />
+                            <Column
+                                v-if="mode === 'asset' && uniqueAccounts.length > 1"
+                                header="계좌"
+                                :rowspan="2" />
                             <Column header="유형" :rowspan="2" />
                             <Column header="수량" :rowspan="2" />
                             <Column
                                 v-if="hasUSDTransactions"
                                 header="USD"
-                                :colspan="3" />
-                            <Column header="KRW" :colspan="3" />
+                                :colspan="2" />
+                            <Column header="KRW" :colspan="4" />
                         </Row>
                         <Row>
                             <Column
@@ -161,13 +195,10 @@
                                 v-if="hasUSDTransactions"
                                 header="금액"
                                 field="amountUSD" />
-                            <Column
-                                v-if="hasUSDTransactions"
-                                header="환율"
-                                field="exchangeRate" />
                             <Column header="단가" field="price" />
                             <Column header="금액" field="amount" />
-                            <Column header="수수료" field="commission" />
+                            <Column header="환율" field="exchangeRate" />
+                            <Column header="제세금" field="tax" />
                         </Row>
                     </ColumnGroup>
 
@@ -213,24 +244,14 @@
                         </template>
                     </Column>
 
-                    <!-- 환율 -->
-                    <Column
-                        v-if="hasUSDTransactions"
-                        field="exchangeRate"
-                        style="width: 90px">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.exchangeRate
-                                    ? formatNumber(slotProps.data.exchangeRate)
-                                    : '-'
-                            }}
-                        </template>
-                    </Column>
-
                     <!-- KRW 단가 -->
                     <Column field="price" style="width: 110px">
                         <template #body="slotProps">
-                            {{ getPrice(slotProps.data) }}
+                            {{
+                                slotProps.data.price
+                                    ? formatCurrency(slotProps.data.price, 'KRW')
+                                    : '-'
+                            }}
                         </template>
                     </Column>
 
@@ -244,20 +265,35 @@
                                         slotProps.data.amount
                                     )
                                 ">
-                                {{ getAmount(slotProps.data) }}
+                                {{
+                                    slotProps.data.amount
+                                        ? formatCurrency(
+                                              slotProps.data.amount,
+                                              'KRW'
+                                          )
+                                        : '-'
+                                }}
                             </span>
                         </template>
                     </Column>
 
-                    <!-- KRW 수수료 -->
-                    <Column field="commission" style="width: 100px">
+                    <!-- 환율 -->
+                    <Column field="exchangeRate" style="width: 100px">
                         <template #body="slotProps">
                             {{
-                                slotProps.data.commission
-                                    ? formatCurrency(
-                                          slotProps.data.commission,
-                                          'KRW'
-                                      )
+                                slotProps.data.exchangeRate
+                                    ? formatNumber(slotProps.data.exchangeRate)
+                                    : '-'
+                            }}
+                        </template>
+                    </Column>
+
+                    <!-- 제세금 -->
+                    <Column field="tax" style="width: 100px">
+                        <template #body="slotProps">
+                            {{
+                                slotProps.data.tax
+                                    ? formatCurrency(slotProps.data.tax, 'KRW')
                                     : '-'
                             }}
                         </template>
@@ -271,14 +307,174 @@
                         </div>
                     </template>
                 </DataTable>
-            </div>
-        </div>
-    </Dialog>
+                </div>
+            </TabPanel>
+
+            <!-- 탭 2: 배당내역 -->
+            <TabPanel header="배당내역">
+                <div class="flex flex-column gap-3">
+                    <!-- 배당내역 테이블 -->
+                    <DataTable
+                        :value="dividendTransactions"
+                        stripedRows
+                        class="p-datatable-sm"
+                        sortField="exDividendDate"
+                        :sortOrder="-1">
+                        <Column
+                            field="exDividendDate"
+                            header="배당락"
+                            sortable
+                            style="width: 120px">
+                            <template #body="slotProps">
+                                {{ formatDate(slotProps.data.exDividendDate) }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="paymentDate"
+                            header="배당입금"
+                            sortable
+                            style="width: 120px">
+                            <template #body="slotProps">
+                                {{ formatDate(slotProps.data.paymentDate) }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="currentPrice"
+                            header="당일종가"
+                            style="width: 110px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.currentPrice
+                                        ? formatCurrency(
+                                              slotProps.data.currentPrice,
+                                              'USD'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="shares"
+                            header="보유기준수"
+                            style="width: 110px">
+                            <template #body="slotProps">
+                                {{ formatNumber(slotProps.data.shares) }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="dividendPerShare"
+                            header="주당지급"
+                            style="width: 110px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.dividendPerShare
+                                        ? formatCurrency(
+                                              slotProps.data.dividendPerShare,
+                                              'USD'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="grossDividend"
+                            header="외화과표(세전)"
+                            style="width: 130px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.grossDividend
+                                        ? formatCurrency(
+                                              slotProps.data.grossDividend,
+                                              'USD'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="netDividendUSD"
+                            header="세후배당금(USD)"
+                            style="width: 140px">
+                            <template #body="slotProps">
+                                <span class="text-green-600 font-bold">
+                                    {{
+                                        slotProps.data.netDividendUSD
+                                            ? formatCurrency(
+                                                  slotProps.data.netDividendUSD,
+                                                  'USD'
+                                              )
+                                            : '-'
+                                    }}
+                                </span>
+                            </template>
+                        </Column>
+                        <Column
+                            field="krwTaxBase"
+                            header="원화과표"
+                            style="width: 130px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.krwTaxBase
+                                        ? formatCurrency(
+                                              slotProps.data.krwTaxBase,
+                                              'KRW'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="netDividendKRW"
+                            header="세후배당금(KRW)"
+                            style="width: 140px">
+                            <template #body="slotProps">
+                                <span class="text-green-600 font-bold">
+                                    {{
+                                        slotProps.data.netDividendKRW
+                                            ? formatCurrency(
+                                                  slotProps.data.netDividendKRW,
+                                                  'KRW'
+                                              )
+                                            : '-'
+                                    }}
+                                </span>
+                            </template>
+                        </Column>
+                        <Column
+                            field="cumulativeDividend"
+                            header="누적배당"
+                            style="width: 130px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.cumulativeDividend
+                                        ? formatCurrency(
+                                              slotProps.data.cumulativeDividend,
+                                              'USD'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+
+                        <template #empty>
+                            <div class="text-center p-4">
+                                <p class="text-color-secondary">
+                                    배당 내역이 없습니다.
+                                </p>
+                            </div>
+                        </template>
+                    </DataTable>
+                </div>
+            </TabPanel>
+        </TabView>
+    </Drawer>
 </template>
 
 <script setup>
     import { ref, computed } from 'vue';
-    import Dialog from 'primevue/dialog';
+    import Drawer from 'primevue/drawer';
+    import TabView from 'primevue/tabview';
+    import TabPanel from 'primevue/tabpanel';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import ColumnGroup from 'primevue/columngroup';
@@ -322,6 +518,9 @@
     // 유형 필터
     const selectedTypeFilter = ref(null);
 
+    // 계좌 필터
+    const selectedAccountFilter = ref(null);
+
     // 기간 필터 (개월 단위)
     const selectedPeriod = ref(3); // 기본 3개월
 
@@ -337,10 +536,40 @@
 
     // 유니크한 거래 유형 목록
     const uniqueTypes = computed(() => {
-        const types = new Set(
-            props.transactions.map((t) => t.type).filter(Boolean)
+        const typeMap = new Map();
+
+        props.transactions.forEach((t) => {
+            if (t.type) {
+                const label = getTransactionTypeLabel(t.type, t.rawType);
+                if (!typeMap.has(t.type)) {
+                    typeMap.set(t.type, label);
+                }
+            }
+        });
+
+        return Array.from(typeMap.entries())
+            .map(([value, label]) => ({ value, label }))
+            .sort((a, b) => a.label.localeCompare(b.label));
+    });
+
+    // 유니크한 계좌 목록
+    const uniqueAccounts = computed(() => {
+        const accountMap = new Map();
+
+        props.transactions.forEach((t) => {
+            if (t.accountId && t.accountName) {
+                if (!accountMap.has(t.accountId)) {
+                    accountMap.set(t.accountId, {
+                        id: t.accountId,
+                        name: t.accountName,
+                    });
+                }
+            }
+        });
+
+        return Array.from(accountMap.values()).sort((a, b) =>
+            a.name.localeCompare(b.name)
         );
-        return Array.from(types).sort();
     });
 
     // 필터링된 거래내역
@@ -354,13 +583,31 @@
             );
         }
 
+        // 계좌 필터
+        if (selectedAccountFilter.value) {
+            filtered = filtered.filter(
+                (t) => t.accountId === selectedAccountFilter.value
+            );
+        }
+
         // 기간 필터
         if (selectedPeriod.value !== null) {
             const cutoffDate = new Date();
             cutoffDate.setMonth(cutoffDate.getMonth() - selectedPeriod.value);
 
+            console.log(
+                `[Period Filter] Filtering ${selectedPeriod.value} months, cutoff:`,
+                cutoffDate,
+                'today:',
+                new Date()
+            );
+
+            const beforeFilter = filtered.length;
             filtered = filtered.filter((t) => {
-                if (!t.date) return true;
+                if (!t.date) {
+                    console.log('[Period Filter] No date field:', t);
+                    return true;
+                }
 
                 let transactionDate;
                 // Firestore Timestamp 처리
@@ -378,14 +625,52 @@
                 else if (t.date instanceof Date) {
                     transactionDate = t.date;
                 } else {
+                    console.log('[Period Filter] Unknown date format:', t.date, typeof t.date);
                     return true; // 날짜 파싱 실패 시 포함
                 }
 
-                return transactionDate >= cutoffDate;
+                const pass = transactionDate >= cutoffDate;
+                if (!pass) {
+                    console.log('[Period Filter] Filtered out:', transactionDate, '<', cutoffDate);
+                }
+                return pass;
             });
+            console.log(
+                `[Period Filter] Filtered ${beforeFilter} -> ${filtered.length} transactions`
+            );
         }
 
         return filtered;
+    });
+
+    // 배당 거래만 필터링
+    const dividendTransactions = computed(() => {
+        return props.transactions
+            .filter((t) => t.type === '배당' || t.rawType === 'dividend')
+            .map((t) => ({
+                exDividendDate: t.exDividendDate || t.date,
+                paymentDate: t.paymentDate || t.date,
+                currentPrice: t.currentPrice || t.price,
+                shares: t.shares || t.quantity,
+                dividendPerShare: t.dividendPerShare || t.price,
+                grossDividend: t.grossDividend || t.amountUSD,
+                netDividendUSD: t.netDividendUSD || t.amountUSD,
+                krwTaxBase: t.krwTaxBase || t.amount,
+                netDividendKRW: t.netDividendKRW || t.amount,
+                cumulativeDividend: t.cumulativeDividend,
+            }));
+    });
+
+    // 필터 정보 메시지
+    const filterInfoMessage = computed(() => {
+        if (selectedPeriod.value === null) {
+            return `전체 기간 데이터를 표시합니다. (총 ${filteredTransactions.value.length}건)`;
+        }
+        const cutoffDate = new Date();
+        cutoffDate.setMonth(cutoffDate.getMonth() - selectedPeriod.value);
+        const cutoffStr = cutoffDate.toLocaleDateString('ko-KR');
+        const todayStr = new Date().toLocaleDateString('ko-KR');
+        return `${cutoffStr} ~ ${todayStr} (${selectedPeriod.value}개월, 총 ${filteredTransactions.value.length}건)`;
     });
 
     const formatDate = (date) => {
