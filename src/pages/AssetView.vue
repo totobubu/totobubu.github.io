@@ -250,8 +250,12 @@
 
         // 각 자산을 평탄화된 행으로 변환
         data.assets.forEach((asset) => {
-            // 보유 수량 0 필터링
-            if (!showZeroBalanceAssets.value && asset.amount === 0) {
+            // 보유 수량 0 필터링 (현금/예수금은 항상 표시)
+            if (
+                !showZeroBalanceAssets.value &&
+                asset.amount === 0 &&
+                asset.type !== '현금'
+            ) {
                 console.log(
                     '[createFlatTableData] Filtering out asset with 0 amount:',
                     asset.id,
@@ -465,8 +469,12 @@
                     ? `${asset.name || asset.symbol} (${asset.symbol})`
                     : asset.name || asset.type;
 
-                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외
-                if (!showZeroBalanceAssets.value && asset.amount === 0) {
+                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외 (현금/예수금은 항상 표시)
+                if (
+                    !showZeroBalanceAssets.value &&
+                    asset.amount === 0 &&
+                    asset.type !== '현금'
+                ) {
                     // 토글 꺼짐 + 수량 0 = 제외
                     console.log(
                         '[createTreeData] Filtering out asset with 0 amount:',
@@ -613,8 +621,12 @@
                 const profitRate =
                     principal > 0 ? (profitAmount / principal) * 100 : 0;
 
-                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외
-                if (!showZeroBalanceAssets.value && asset.amount === 0) {
+                // 보유 수량 0 필터링: 토글이 꺼져있고(false) amount가 0이면 제외 (현금/예수금은 항상 표시)
+                if (
+                    !showZeroBalanceAssets.value &&
+                    asset.amount === 0 &&
+                    asset.type !== '현금'
+                ) {
                     return;
                 }
 
