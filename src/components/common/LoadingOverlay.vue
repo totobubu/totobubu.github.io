@@ -27,20 +27,22 @@
 </script>
 
 <template>
-    <Transition name="fade">
-        <div
-            v-if="visible"
-            class="loading-overlay"
-            :class="{ 'with-blur': blur }">
-            <div class="loading-content">
-                <ProgressSpinner
-                    :style="{ width: spinnerSize, height: spinnerSize }"
-                    :strokeWidth="spinnerStrokeWidth"
-                    animationDuration="1s" />
-                <p v-if="message" class="loading-text">{{ message }}</p>
+    <Teleport to="body">
+        <Transition name="fade">
+            <div
+                v-if="visible"
+                class="loading-overlay"
+                :class="{ 'with-blur': blur }">
+                <div class="loading-content">
+                    <ProgressSpinner
+                        :style="{ width: spinnerSize, height: spinnerSize }"
+                        :strokeWidth="spinnerStrokeWidth"
+                        animationDuration="1s" />
+                    <p v-if="message" class="loading-text">{{ message }}</p>
+                </div>
             </div>
-        </div>
-    </Transition>
+        </Transition>
+    </Teleport>
 </template>
 
 <style scoped>
@@ -50,11 +52,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        /* background-color: rgba(0, 0, 0, 0.7); */
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 9999;
+        z-index: 100;
     }
 
     .loading-overlay.with-blur {
@@ -66,7 +68,7 @@
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
-        padding: 2rem;
+        padding: 3rem;
         background: var(--surface-card);
         border-radius: 1rem;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
