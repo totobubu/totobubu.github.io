@@ -7,6 +7,7 @@
     import interactionPlugin from '@fullcalendar/interaction';
     import koLocale from '@fullcalendar/core/locales/ko';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
+    import { useCalendarData } from '@/composables/data/useCalendarData';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
     import Button from 'primevue/button';
     import SelectButton from 'primevue/selectbutton';
@@ -25,6 +26,7 @@
 
     const emit = defineEmits(['view-ticker']);
     const { toggleMyStock, myBookmarks } = useFilterState();
+    const { loadVisibleMonth } = useCalendarData();
     const { isMobile } = useBreakpoint();
     const fullCalendar = ref(null);
     const currentTitle = ref('');
@@ -212,6 +214,12 @@
             if (info.view.type !== currentView.value)
                 currentView.value = info.view.type;
             updateNavigationState();
+
+            // 현재 보이는 월의 데이터 로드
+            const viewDate = info.view.currentStart;
+            const year = viewDate.getFullYear();
+            const month = viewDate.getMonth() + 1;
+            loadVisibleMonth(year, month);
         },
         // [핵심 수정] eventSources를 사용하여 데이터를 동적으로 로드
         eventSources: [
