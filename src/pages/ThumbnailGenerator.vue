@@ -149,14 +149,45 @@
         const sanitizeTicker = (ticker) =>
             ticker ? ticker.replace(/\./g, '-').toLowerCase() : '';
         const sanitizedSymbol = sanitizeTicker(symbol);
-        
+
         const navInfo = navData.nav.find(
             (item) =>
                 sanitizeTicker(item.symbol) === sanitizedSymbol ||
                 sanitizeTicker(item.yfSymbol || '') === sanitizedSymbol
         );
-        
+
         return navInfo?.dataPaths?.[0] || null;
+    };
+
+    // [신규] 분할 정보를 바탕으로 과거 데이터 보정
+    const applySplits = (backtestData, splits) => {
+        if (!splits || splits.length === 0) return backtestData;
+
+        // 원본 데이터 보존을 위해 깊은 복사
+        let adjustedData = JSON.parse(JSON.stringify(backtestData));
+
+        splits.forEach((split) => {
+            const splitDate = new Date(split.date);
+            const [numerator, denominator] = split.ratio.split(':').map(Number);
+            // 1:10 (Reverse Split) -> factor = 10
+            // 10:1 (Forward Split) -> factor = 0.1
+            const factor = denominator / numerator;
+
+            adjustedData.forEach((item) => {
+                const itemDate = new Date(item.date);
+                if (itemDate < splitDate) {
+                    if (item.amount !== undefined) item.amount *= factor;
+                    if (item.amountFixed !== undefined)
+                        item.amountFixed *= factor;
+                    if (item.open !== undefined) item.open *= factor;
+                    if (item.high !== undefined) item.high *= factor;
+                    if (item.low !== undefined) item.low *= factor;
+                    if (item.close !== undefined) item.close *= factor;
+                }
+            });
+        });
+
+        return adjustedData;
     };
 
     // [핵심 기능] 날짜 기준으로 배당금 데이터를 동기화하는 함수
@@ -180,29 +211,42 @@
         const updatedThumbnails = await Promise.all(
             allThumbnailsData.value.map(async (thumb) => {
                 const symbol = thumb.symbol;
-                let backtestData = tickerDataCache.get(symbol);
+                let cachedData = tickerDataCache.get(symbol);
+                let backtestData = [];
+                let tickerInfo = null;
 
-                if (!backtestData) {
+                if (!cachedData) {
                     try {
                         // nav.json에서 dataPath 찾기
                         const dataPath = getDataPathForSymbol(navData, symbol);
                         if (!dataPath) {
                             console.warn(`No dataPath found for ${symbol}`);
-                            backtestData = [];
                         } else {
                             const response = await fetch(getDataUrl(dataPath));
                             if (response.ok) {
                                 const data = await response.json();
                                 backtestData = data.backtestData || [];
-                                tickerDataCache.set(symbol, backtestData);
-                            } else {
-                                backtestData = [];
+                                tickerInfo = data.tickerInfo || null;
+                                tickerDataCache.set(symbol, {
+                                    backtestData,
+                                    tickerInfo,
+                                });
                             }
                         }
                     } catch (e) {
                         console.error(`Failed to fetch data for ${symbol}`, e);
-                        backtestData = [];
                     }
+                } else {
+                    backtestData = cachedData.backtestData;
+                    tickerInfo = cachedData.tickerInfo;
+                }
+
+                // [신규] 분할 정보가 있으면 데이터 보정
+                if (tickerInfo?.events?.splits) {
+                    backtestData = applySplits(
+                        backtestData,
+                        tickerInfo.events.splits
+                    );
                 }
 
                 const allDividends = backtestData
