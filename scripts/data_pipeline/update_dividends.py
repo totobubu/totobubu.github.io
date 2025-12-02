@@ -70,9 +70,17 @@ def main():
     print(f"Analyzing {len(active_tickers_info)} active tickers for dividend updates...")
 
     updated_count = 0
+    # 한국 시장 접미사 추적
+    korean_suffix_corrections = {
+        "successful_alternatives": {},  # {symbol: {original: ".KS", working: ".KQ"}}
+        "failed_both": [],  # [symbol1, symbol2, ...]
+        "original_worked": []  # [symbol1, symbol2, ...]
+    }
+    
     # [핵심 수정] 티커별로 개별 처리하여 증분 업데이트 로직 적용
     for ticker_info in tqdm(active_tickers_info, desc="Fetching and merging new dividends"):
         symbol = ticker_info["symbol"]
+        yf_symbol = ticker_info.get("yfSymbol") or symbol
         market = ticker_info.get("market")
         try:
             # 기존 파일 찾기 (market 서브디렉토리와 루트 모두 확인)
@@ -103,10 +111,34 @@ def main():
                 continue
 
             # 3. yfinance에서 해당 티커의 새로운 배당 데이터만 다운로드
-            ticker_obj = yf.Ticker(symbol)
-            new_dividends_df = ticker_obj.dividends[
-                ticker_obj.dividends.index >= start_date_str
-            ]
+            # 한국 시장의 경우 .KS/.KQ 접미사 문제로 fallback 시도
+            ticker_obj = yf.Ticker(yf_symbol)
+            dividends = ticker_obj.dividends
+            
+            # 한국 시장 fallback: 빈 데이터면 다른 접미사 시도
+            if dividends.empty and market in ["KOSPI", "KOSDAQ"]:
+                alternative_suffix = ".KQ" if yf_symbol.endswith(".KS") else ".KS"
+                alternative_symbol = symbol + alternative_suffix
+                
+                tqdm.write(f"  🔄 Trying alternative suffix for {symbol}: {alternative_symbol}")
+                ticker_obj = yf.Ticker(alternative_symbol)
+                dividends = ticker_obj.dividends
+                
+                if not dividends.empty:
+                    tqdm.write(f"  ✅ Found data with {alternative_symbol}")
+            
+            if dividends.empty:
+                continue
+
+            # Handle potential dtype mismatch for delisted stocks
+            try:
+                new_dividends_df = dividends[
+                    dividends.index >= start_date_str
+                ]
+            except (TypeError, ValueError) as e:
+                # Skip tickers with invalid index types (e.g., delisted stocks)
+                tqdm.write(f"  ⚠️ Skipping {symbol}: invalid dividend data ({e})")
+                continue
 
             if new_dividends_df.empty:
                 continue
@@ -125,6 +157,17 @@ def main():
 
             for date, amount in new_dividends_df.items():
                 date_str = date.strftime("%Y-%m-%d")
+
+                # Handle string amounts (e.g. "10.0 KRW")
+                if isinstance(amount, str):
+                    # Remove currency suffix and whitespace
+                    amount_clean = amount.replace("KRW", "").strip()
+                    try:
+                        amount = float(amount_clean)
+                    except ValueError:
+                        tqdm.write(f"  ⚠️ Warning: Could not parse dividend amount '{amount}' for {symbol}")
+                        continue
+
                 new_amount = int(round(amount)) if currency == "KRW" else float(amount)
 
                 if date_str not in backtest_map:

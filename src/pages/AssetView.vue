@@ -22,6 +22,7 @@
 
     import Card from 'primevue/card';
     import Button from 'primevue/button';
+    import SplitButton from 'primevue/splitbutton';
     import InputText from 'primevue/inputtext';
     import Dialog from 'primevue/dialog';
     import Dropdown from 'primevue/dropdown';
@@ -45,6 +46,7 @@
     import AssetTypeDataTable from '@/components/asset/AssetTypeDataTable.vue';
     import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
     import AccountTransactionDialog from '@/components/asset/AccountTransactionDialog.vue';
+    import EnhancedTransactionDialog from '@/components/asset/EnhancedTransactionDialog.vue';
 
     useHead({ title: '자산관리' });
 
@@ -100,6 +102,7 @@
     const showBrokerageUploadDialog = ref(false);
     const showStockMappingDialog = ref(false);
     const showTransactionDialog = ref(false);
+    const showEnhancedTransactionDialog = ref(false);
 
     // 거래내역 다이얼로그 열기
     const openAssetTransactionDialog = async (asset, accountId = null) => {
@@ -212,9 +215,10 @@
                 assetId: assetId,
                 title: dialogTitle,
                 transactions: enrichedTransactions,
+                currentPrice: asset.currentPrice || asset.price || 0,
             };
 
-            showTransactionDialog.value = true;
+            // 다이얼로그는 호출하는 쪽에서 열도록 함 (중복 방지)
         } catch (error) {
             console.error('거래내역 로드 실패:', error);
             toast.add({
@@ -227,6 +231,31 @@
             isLoadingData.value = false;
         }
     };
+
+    // 거래내역 다이얼로그 열기 (배당 제외)
+    const openTransactionDialog = async (
+        asset,
+        accountId = null,
+        enhanced = false
+    ) => {
+        await openAssetTransactionDialog(asset, accountId);
+
+        // 배당 거래 제외
+        const nonDividendTransactions =
+            transactionDialogData.value.transactions.filter(
+                (tx) => tx.type !== 'dividend' && tx.type !== 'interest'
+            );
+
+        transactionDialogData.value.transactions = nonDividendTransactions;
+
+        // 다이얼로그 열기
+        if (enhanced) {
+            showEnhancedTransactionDialog.value = true;
+        } else {
+            showTransactionDialog.value = true;
+        }
+    };
+
     // 거래내역 다이얼로그 데이터
     const transactionDialogData = ref({
         mode: 'account', // 'account' or 'asset'
@@ -2565,17 +2594,41 @@
                                         text
                                         severity="danger"
                                         v-tooltip="'삭제'" />
-                                    <Button
-                                        v-tooltip="'거래내역'"
-                                        rounded
-                                        severity="secondary"
-                                        text
+                                    <SplitButton
+                                        label="거래내역"
                                         icon="pi pi-list"
                                         size="small"
+                                        severity="secondary"
+                                        text
+                                        :model="[
+                                            {
+                                                label: '기본 보기',
+                                                icon: 'pi pi-table',
+                                                command: () => {
+                                                    openTransactionDialog(
+                                                        data,
+                                                        data.accountId,
+                                                        false
+                                                    );
+                                                },
+                                            },
+                                            {
+                                                label: '상세 분석',
+                                                icon: 'pi pi-chart-line',
+                                                command: () => {
+                                                    openTransactionDialog(
+                                                        data,
+                                                        data.accountId,
+                                                        true
+                                                    );
+                                                },
+                                            },
+                                        ]"
                                         @click="
-                                            openAssetTransactionDialog(
+                                            openTransactionDialog(
                                                 data,
-                                                data.accountId
+                                                data.accountId,
+                                                false
                                             )
                                         " />
                                 </div>
@@ -2912,12 +2965,20 @@
             :brokerage="uploadBrokerage"
             @mapping-complete="handleMappingComplete" />
 
-        <!-- 거래내역 다이얼로그 -->
+        <!-- 거래내역 다이얼로그 (기본) -->
         <AccountTransactionDialog
             v-model:visible="showTransactionDialog"
             :title="transactionDialogData.title"
             :transactions="transactionDialogData.transactions"
             :mode="transactionDialogData.mode"
+            :isLoading="isLoadingData" />
+
+        <!-- 거래내역 다이얼로그 (고급 - 수익 분석) -->
+        <EnhancedTransactionDialog
+            v-model:visible="showEnhancedTransactionDialog"
+            :title="transactionDialogData.title"
+            :transactions="transactionDialogData.transactions"
+            :currentPrice="transactionDialogData.currentPrice || 0"
             :isLoading="isLoadingData" />
 
         <!-- 로딩 오버레이 -->
