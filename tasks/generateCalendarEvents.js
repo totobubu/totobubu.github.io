@@ -6,8 +6,7 @@ import path from 'path';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
-const CALENDAR_DIR = path.join(PUBLIC_DIR, 'calendar');
-const OUTPUT_FILE = path.join(PUBLIC_DIR, 'calendar-events.json'); // 호환성을 위해 유지
+const CALENDAR_MONTHLY_DIR = path.join(PUBLIC_DIR, 'calendar', 'monthly');
 
 const KRX_SUFFIXES = new Set(['.KS', '.KQ', '.KN', '.KO']);
 
@@ -50,11 +49,11 @@ const koreanEtfBrands = [
 ];
 
 async function generateCalendarEvents() {
-    console.log('--- Regenerating calendar-events.json from data files ---');
+    console.log('--- Generating monthly calendar events ---');
 
-    // calendar 디렉토리 생성
+    // calendar/monthly 디렉토리 생성
     try {
-        await fs.mkdir(CALENDAR_DIR, { recursive: true });
+        await fs.mkdir(CALENDAR_MONTHLY_DIR, { recursive: true });
     } catch (e) {
         // 이미 존재하면 무시
     }
@@ -97,16 +96,8 @@ async function generateCalendarEvents() {
             .filter(Boolean)
     );
 
-    // 카테고리별 이벤트 저장
-    const eventsByCategory = {
-        'kr-stocks': {},
-        'kr-etfs': {},
-        'us-stocks': {},
-        'us-etfs': {},
-    };
-
-    // 호환성을 위한 전체 이벤트
-    const eventsByDate = {};
+    // 월별 데이터 저장용 맵: { "2024-01": { UsStock: { "2024-01-15": [...] }, KrEtf: { ... } } }
+    const monthlyData = new Map();
 
     // 재귀적으로 모든 JSON 파일 찾기
     async function findJsonFiles(dir) {
@@ -158,17 +149,17 @@ async function generateCalendarEvents() {
         const currency = tickerInfo.currency || 'USD';
         const isEtf = tickerInfo.isEtf || false;
 
-        // 카테고리 결정
-        let category;
-        if (currency === 'KRW' && isEtf) category = 'kr-etfs';
-        else if (currency === 'KRW' && !isEtf) category = 'kr-stocks';
-        else if (currency === 'USD' && isEtf) category = 'us-etfs';
-        else category = 'us-stocks';
+        // 카테고리 결정 (UsStock, UsEtf, KrStock, KrEtf)
+        let categoryKey;
+        if (currency === 'USD' && !isEtf) categoryKey = 'UsStock';
+        else if (currency === 'USD' && isEtf) categoryKey = 'UsEtf';
+        else if (currency === 'KRW' && !isEtf) categoryKey = 'KrStock';
+        else if (currency === 'KRW' && isEtf) categoryKey = 'KrEtf';
+        else categoryKey = 'UsStock'; // fallback
 
         // backtestData에서 배당 관련 필드가 있는 날짜만 처리
-        // (project_future_dividends.py가 이미 forecasted 데이터를 생성함)
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+        today.setHours(0, 0, 0, 0);
 
         // 날짜 범위 설정: 오늘 기준 ±1년
         const oneYearAgo = new Date(today);
@@ -194,7 +185,7 @@ async function generateCalendarEvents() {
                 koName: tickerInfo.koName,
                 frequency: tickerInfo.frequency,
                 group: tickerInfo.group,
-                isEtf: isEtf,
+                currency: currency,
             };
             let hasEvent = false;
 
@@ -206,91 +197,115 @@ async function generateCalendarEvents() {
             // 1. 과거/현재: amount 또는 amountFixed가 있는 경우 (실제 지급된 배당)
             // 2. 미래: expected 또는 forecasted가 true인 경우 (예정된 배당)
             if (amount !== undefined && amount !== null) {
-                // 지나간 일정의 "amountFixed" or "amount"
                 event.amount = amount;
                 hasEvent = true;
             } else if (isFuture && entry.expected === true) {
-                // 미래의 "expected": true
                 event.isExpected = true;
                 hasEvent = true;
             } else if (isFuture && entry.forecasted === true) {
-                // 미래의 "forecasted": true (project_future_dividends.py가 생성)
                 event.isForecast = true;
                 event.isExpected = true;
                 hasEvent = true;
             }
 
             if (hasEvent) {
-                // 카테고리별 파일에 추가
-                if (!eventsByCategory[category][dateStr]) {
-                    eventsByCategory[category][dateStr] = [];
-                }
-                if (
-                    !eventsByCategory[category][dateStr].some(
-                        (e) => e.ticker === baseSymbol
-                    )
-                ) {
-                    eventsByCategory[category][dateStr].push(event);
+                // 월별 데이터에 추가
+                const [year, month] = dateStr.split('-');
+                const yearMonth = `${year}-${month}`;
+
+                // 해당 월 데이터 초기화
+                if (!monthlyData.has(yearMonth)) {
+                    monthlyData.set(yearMonth, {
+                        UsStock: {},
+                        UsEtf: {},
+                        KrStock: {},
+                        KrEtf: {},
+                    });
                 }
 
-                // 호환성을 위한 전체 파일에도 추가
-                if (!eventsByDate[dateStr]) eventsByDate[dateStr] = {};
-                if (!eventsByDate[dateStr][currency])
-                    eventsByDate[dateStr][currency] = [];
+                const monthData = monthlyData.get(yearMonth);
+
+                // 해당 카테고리의 날짜별 데이터 초기화
+                if (!monthData[categoryKey][dateStr]) {
+                    monthData[categoryKey][dateStr] = [];
+                }
+
+                // 중복 체크 후 추가
                 if (
-                    !eventsByDate[dateStr][currency].some(
+                    !monthData[categoryKey][dateStr].some(
                         (e) => e.ticker === baseSymbol
                     )
                 ) {
-                    eventsByDate[dateStr][currency].push(event);
+                    monthData[categoryKey][dateStr].push(event);
                 }
             }
         });
-
-        // project_future_dividends.py가 이미 forecasted 데이터를 생성하므로
-        // 여기서는 backtestData의 forecasted 필드만 읽어서 처리하면 됨
     }
 
-    // 카테고리별 파일 정렬 및 저장
-    const outputFiles = {
-        'kr-stocks': path.join(CALENDAR_DIR, 'calendar-events-kr-stocks.json'),
-        'kr-etfs': path.join(CALENDAR_DIR, 'calendar-events-kr-etfs.json'),
-        'us-stocks': path.join(CALENDAR_DIR, 'calendar-events-us-stocks.json'),
-        'us-etfs': path.join(CALENDAR_DIR, 'calendar-events-us-etfs.json'),
-    };
+    // 월별 파일 저장
+    console.log(`\n📅 총 ${monthlyData.size}개 월 데이터 생성\n`);
 
-    for (const [category, filePath] of Object.entries(outputFiles)) {
-        const sortedEvents = Object.keys(eventsByCategory[category])
-            .sort()
-            .reduce((acc, key) => {
-                acc[key] = eventsByCategory[category][key];
-                return acc;
-            }, {});
+    let totalFiles = 0;
+    let totalEvents = 0;
 
-        await fs.writeFile(filePath, JSON.stringify(sortedEvents, null, 2));
-        const eventCount = Object.values(sortedEvents).reduce(
-            (sum, events) => sum + events.length,
-            0
+    for (const [yearMonth, monthData] of monthlyData.entries()) {
+        const [year, month] = yearMonth.split('-');
+        const yearDir = path.join(CALENDAR_MONTHLY_DIR, year);
+
+        // 연도 디렉토리 생성
+        await fs.mkdir(yearDir, { recursive: true });
+
+        // 각 카테고리별로 날짜 정렬
+        const sortedMonthData = {
+            UsStock: {},
+            UsEtf: {},
+            KrStock: {},
+            KrEtf: {},
+        };
+
+        // 카테고리별로 날짜 정렬 및 빈 객체 제거
+        for (const [category, dates] of Object.entries(monthData)) {
+            if (Object.keys(dates).length > 0) {
+                sortedMonthData[category] = Object.keys(dates)
+                    .sort()
+                    .reduce((acc, dateStr) => {
+                        acc[dateStr] = dates[dateStr];
+                        return acc;
+                    }, {});
+            } else {
+                // 빈 카테고리는 삭제
+                delete sortedMonthData[category];
+            }
+        }
+
+        // 파일 저장
+        const filePath = path.join(yearDir, `${month}.json`);
+        await fs.writeFile(
+            filePath,
+            JSON.stringify(sortedMonthData, null, 2)
         );
+
+        // 통계 계산
+        let monthEventCount = 0;
+        let totalDates = new Set();
+
+        Object.values(monthData).forEach((dates) => {
+            Object.entries(dates).forEach(([dateStr, events]) => {
+                totalDates.add(dateStr);
+                monthEventCount += events.length;
+            });
+        });
+
+        totalFiles++;
+        totalEvents += monthEventCount;
+
         console.log(
-            `  ✓ ${category}: ${Object.keys(sortedEvents).length} dates, ${eventCount} events → ${path.basename(filePath)}`
+            `  ✓ ${yearMonth}: ${totalDates.size} dates, ${monthEventCount} events → ${year}/${month}.json`
         );
     }
 
-    // 호환성을 위한 전체 파일도 저장
-    const sortedEventsByDate = Object.keys(eventsByDate)
-        .sort()
-        .reduce((acc, key) => {
-            acc[key] = eventsByDate[key];
-            return acc;
-        }, {});
-
-    await fs.writeFile(
-        OUTPUT_FILE,
-        JSON.stringify(sortedEventsByDate, null, 2)
-    );
     console.log(
-        `🎉 Successfully generated calendar events files with ${Object.keys(sortedEventsByDate).length} total dates.`
+        `\n🎉 Successfully generated ${totalFiles} monthly calendar files with ${totalEvents} total events.`
     );
 }
 

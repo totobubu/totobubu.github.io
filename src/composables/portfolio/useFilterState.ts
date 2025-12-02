@@ -11,8 +11,13 @@ import {
 import type { Bookmark, BookmarksMap } from '@/types/asset';
 
 const globalSearchQuery = ref<string | null>(null);
-const mainFilterTab = ref<string>('미국'); // 기본값을 '미국'으로 유지
-const subFilterTab = ref<string>('ETF');
+
+// localStorage에서 필터 상태 복원
+const savedMainFilterTab = localStorage.getItem('mainFilterTab');
+const savedSubFilterTab = localStorage.getItem('subFilterTab');
+
+const mainFilterTab = ref<string>(savedMainFilterTab || '미국');
+const subFilterTab = ref<string>(savedSubFilterTab || 'ETF');
 const myBookmarks = ref<BookmarksMap>({});
 
 const isProbableIsin = (value: string | null | undefined): boolean => {
@@ -73,10 +78,13 @@ const serializeBookmarks = (
     return serialized;
 };
 
-watch(mainFilterTab, (newTab) => {
-    if (newTab === '미국' || newTab === '한국') {
-        subFilterTab.value = 'ETF';
-    }
+// 필터 상태를 localStorage에 저장
+watch(mainFilterTab, (newValue) => {
+    localStorage.setItem('mainFilterTab', newValue);
+});
+
+watch(subFilterTab, (newValue) => {
+    localStorage.setItem('subFilterTab', newValue);
 });
 
 export const saveMyBookmarksToFirestore = async (
