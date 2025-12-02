@@ -75,16 +75,17 @@ async function loadMonth(yearMonth: string): Promise<void> {
     try {
         // 1. IndexedDB 캐시 확인
         const cached = await dbCache.get<CalendarCacheData>(
-            `calendar-${yearMonth}`
+            `calendar-v2-${yearMonth}` // v2로 캐시 키 변경하여 이전 캐시 무효화
         );
         if (cached) {
-            // 캐시 유효성 검사: 이벤트에 currency 필드가 있는지 확인
+            // 캐시 유효성 검사: 이벤트에 currency와 isEtf 필드가 있는지 확인
             const isValid =
                 cached.events.length === 0 ||
-                (cached.events[0] as any).currency !== undefined;
+                ((cached.events[0] as any).currency !== undefined &&
+                 (cached.events[0] as any).isEtf !== undefined);
 
             if (isValid) {
-                console.log(`✓ 캐시에서 로드: ${yearMonth}`);
+                console.log(`📅 [useCalendarData] ✓ 캐시에서 로드: ${yearMonth} (${cached.events.length}개 이벤트)`);
                 monthlyData.value.set(yearMonth, cached.events);
 
                 // 티커 속성 정보 병합
@@ -97,54 +98,62 @@ async function loadMonth(yearMonth: string): Promise<void> {
                 loadingMonths.value.delete(yearMonth);
                 return;
             } else {
-                console.log(
-                    `⚠️ 캐시 데이터 형식 불일치 (currency 누락), 재로딩: ${yearMonth}`
-                );
+                console.log(`📅 [useCalendarData] ⚠️ 캐시 무효화: ${yearMonth} (isEtf 필드 누락)`);
             }
         }
 
         // 2. 네트워크에서 fetch (재시도 로직 포함)
-        console.log(`⬇️ 네트워크에서 로드: ${yearMonth}`);
         const [year, month] = yearMonth.split('-');
         const url = getDataUrl(`calendar/monthly/${year}/${month}.json`);
+        console.log(`📅 [useCalendarData] ⬇️  네트워크에서 로드: ${url}`);
 
-        const response = await get<Record<string, Record<Currency, any[]>>>(
-            url,
-            {
-                __maxRetries: 3, // 최대 3번 재시도
-            } as any
-        );
+        const response = await get<{
+            UsStock?: Record<string, any[]>;
+            UsEtf?: Record<string, any[]>;
+            KrStock?: Record<string, any[]>;
+            KrEtf?: Record<string, any[]>;
+        }>(url, {
+            __maxRetries: 3, // 최대 3번 재시도
+        } as any);
 
         const monthEvents = response.data;
 
-        // 3. 데이터 변환 (날짜별 → 배열 형태)
+        // 3. 데이터 변환 (카테고리별 → 배열 형태)
         const flatEvents: CalendarEvent[] = [];
         const tickerPropertiesMap = new Map<string, TickerProperties>();
 
-        for (const [dateStr, eventsByDate] of Object.entries(monthEvents)) {
-            // eventsByDate는 { "KRW": [...], "USD": [...] } 형태
-            for (const [currency, events] of Object.entries(
-                eventsByDate as Record<string, any[]>
-            )) {
+        const categories = [
+            { key: 'UsStock' as const, currency: 'USD' as Currency, isEtf: false },
+            { key: 'UsEtf' as const, currency: 'USD' as Currency, isEtf: true },
+            { key: 'KrStock' as const, currency: 'KRW' as Currency, isEtf: false },
+            { key: 'KrEtf' as const, currency: 'KRW' as Currency, isEtf: true },
+        ];
+
+        categories.forEach(({ key, currency, isEtf }) => {
+            const categoryData = monthEvents[key];
+            if (!categoryData) return;
+
+            // categoryData는 { "2025-12-01": [...], "2025-12-02": [...] } 형태
+            Object.entries(categoryData).forEach(([dateStr, events]) => {
                 events.forEach((event: any) => {
                     flatEvents.push({
                         ...event,
                         date: dateStr,
-                        currency: currency as Currency,
-                        isEtf: event.isEtf || false,
+                        currency: currency,
+                        isEtf: isEtf,
                     });
 
                     // 티커 속성 정보 수집
                     if (!tickerPropertiesMap.has(event.ticker)) {
                         tickerPropertiesMap.set(event.ticker, {
-                            currency: currency as Currency,
-                            isEtf: event.isEtf || false,
+                            currency: currency,
+                            isEtf: isEtf,
                             koName: event.koName,
                         });
                     }
                 });
-            }
-        }
+            });
+        });
 
         // 4. 상태 업데이트
         monthlyData.value.set(yearMonth, flatEvents);
@@ -157,13 +166,13 @@ async function loadMonth(yearMonth: string): Promise<void> {
         });
 
         // 5. IndexedDB에 캐싱
-        await dbCache.set(`calendar-${yearMonth}`, {
+        await dbCache.set(`calendar-v2-${yearMonth}`, {
             events: flatEvents,
             tickerProperties: Array.from(tickerPropertiesMap.entries()),
         });
 
         console.log(
-            `✓ 캐시 저장 완료: ${yearMonth} (${flatEvents.length}개 이벤트)`
+            `📅 [useCalendarData] ✓ 캐시 저장 완료: ${yearMonth} (${flatEvents.length}개 이벤트)`
         );
     } catch (err) {
         console.error(`❌ ${yearMonth} 로드 실패:`, err);
@@ -195,13 +204,13 @@ async function loadDateRange(
         );
 
         console.log(
-            `📅 로딩할 월: ${months.length}개 (${months[0]} ~ ${months[months.length - 1]})`
+            `📅 [useCalendarData] 로딩할 월: ${months.length}개 (${months[0]} ~ ${months[months.length - 1]})`
         );
 
         // 병렬로 모든 월 로드
         await Promise.all(months.map((month) => loadMonth(month)));
 
-        console.log(`✅ 데이터 로딩 완료: ${monthlyData.value.size}개 월`);
+        console.log(`📅 [useCalendarData] ✅ 데이터 로딩 완료: ${monthlyData.value.size}개 월`);
     } catch (err) {
         console.error('데이터 로드 실패:', err);
         error.value = err as Error;
@@ -211,30 +220,25 @@ async function loadDateRange(
 }
 
 /**
- * 현재 연도의 데이터 로드 (기본 동작)
- * 오늘로부터 -6개월 ~ +4개월 범위의 데이터를 로드
+ * 특정 월의 데이터를 로드 (외부에서 호출)
+ * 캘린더 뷰가 변경될 때마다 필요한 월만 로드
  */
-async function loadCurrentYear(): Promise<void> {
+async function loadVisibleMonth(year: number, month: number): Promise<void> {
+    const yearMonth = `${year}-${String(month).padStart(2, '0')}`;
+    console.log(`📅 [useCalendarData] 보이는 월 변경: ${yearMonth}`);
+    await loadMonth(yearMonth);
+}
+
+/**
+ * 현재 월의 데이터만 로드 (초기 로드용)
+ */
+async function loadCurrentMonth(): Promise<void> {
     const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
 
-    // -6개월
-    const startDate = new Date(now);
-    startDate.setMonth(now.getMonth() - 6);
-    startDate.setDate(1); // 해당 월의 1일
-
-    // +4개월
-    const endDate = new Date(now);
-    endDate.setMonth(now.getMonth() + 4);
-    // 해당 월의 마지막 날
-    endDate.setMonth(endDate.getMonth() + 1);
-    endDate.setDate(0);
-
-    const startDateStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
-    const endDateStr = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
-
-    console.log(`📅 데이터 로드 범위: ${startDateStr} ~ ${endDateStr}`);
-
-    await loadDateRange(startDateStr, endDateStr);
+    console.log(`📅 [useCalendarData] 현재 월 로드: ${year}-${String(month).padStart(2, '0')}`);
+    await loadVisibleMonth(year, month);
 }
 
 /**
@@ -243,14 +247,8 @@ async function loadCurrentYear(): Promise<void> {
 const dividendsByDate = computed<DividendsByDate>(() => {
     const result: DividendsByDate = {};
 
-    console.log('[useCalendarData] dividendsByDate computed 실행');
-    console.log('[useCalendarData] monthlyData.size:', monthlyData.value.size);
-
     // 모든 월의 데이터를 날짜별로 그룹화
-    monthlyData.value.forEach((events, yearMonth) => {
-        console.log(
-            `[useCalendarData] ${yearMonth}: ${events.length}개 이벤트`
-        );
+    monthlyData.value.forEach((events) => {
         events.forEach((event) => {
             if (!result[event.date]) {
                 result[event.date] = [];
@@ -259,23 +257,43 @@ const dividendsByDate = computed<DividendsByDate>(() => {
         });
     });
 
-    console.log(
-        '[useCalendarData] dividendsByDate 총 날짜 수:',
-        Object.keys(result).length
-    );
     return result;
 });
+
+// useFilterState를 computed 외부에서 한 번만 호출
+const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
 
 /**
  * 필터링된 배당 데이터
  */
 const filteredDividends = computed<DividendsByDate>(() => {
-    const { mainFilterTab, subFilterTab, myBookmarks } = useFilterState();
+    console.log('📅 [filteredDividends] 필터 시작', {
+        mainFilterTab: mainFilterTab.value,
+        subFilterTab: subFilterTab.value,
+        원본데이터날짜수: Object.keys(dividendsByDate.value).length,
+    });
 
     const result: DividendsByDate = {};
+    let totalEvents = 0;
+    let filteredCount = 0;
+    let sampleLogs = 0;
 
     Object.entries(dividendsByDate.value).forEach(([date, events]) => {
         const filtered = events.filter((event) => {
+            totalEvents++;
+
+            // 처음 5개 이벤트 샘플 로그
+            if (sampleLogs < 5) {
+                console.log(`📅 [샘플 #${sampleLogs + 1}]`, {
+                    ticker: event.ticker,
+                    currency: event.currency,
+                    isEtf: event.isEtf,
+                    mainFilter: mainFilterTab.value,
+                    subFilter: subFilterTab.value,
+                });
+                sampleLogs++;
+            }
+
             // 북마크 필터 (mainFilterTab이 '북마크'일 때만 적용)
             if (mainFilterTab.value === '북마크') {
                 const bookmarks = myBookmarks.value || {};
@@ -321,12 +339,19 @@ const filteredDividends = computed<DividendsByDate>(() => {
                 return false;
             }
 
+            filteredCount++;
             return true;
         });
 
         if (filtered.length > 0) {
             result[date] = filtered;
         }
+    });
+
+    console.log('📅 [filteredDividends] 필터 완료', {
+        전체이벤트: totalEvents,
+        필터후이벤트: filteredCount,
+        결과날짜수: Object.keys(result).length,
     });
 
     return result;
@@ -357,7 +382,7 @@ export interface UseCalendarDataReturn {
     isLoading: Ref<boolean>;
     error: Ref<Error | null>;
     allTickerProperties: Ref<Map<string, TickerProperties>>;
-    loadCurrentYear: () => Promise<void>;
+    loadVisibleMonth: (year: number, month: number) => Promise<void>;
     loadDateRange: (startDate: string, endDate: string) => Promise<void>;
     loadMonth: (yearMonth: string) => Promise<void>;
     getCacheStats: () => Promise<any>;
@@ -377,13 +402,13 @@ export function useCalendarData(): UseCalendarDataReturn {
         allTickerProperties,
 
         // 메서드
-        loadCurrentYear,
+        loadVisibleMonth,
         loadDateRange,
         loadMonth,
         getCacheStats,
         clearCache,
 
         // 유틸
-        ensureDataLoaded: loadCurrentYear, // 기존 호환성
+        ensureDataLoaded: loadCurrentMonth, // 현재 월만 로드
     };
 }

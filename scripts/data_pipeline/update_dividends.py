@@ -71,12 +71,13 @@ def main():
 
     updated_count = 0
     # 한국 시장 접미사 추적
-    korean_suffix_corrections = {
-        "successful_alternatives": {},  # {symbol: {original: ".KS", working: ".KQ"}}
-        "failed_both": [],  # [symbol1, symbol2, ...]
-        "original_worked": []  # [symbol1, symbol2, ...]
+    korean_suffix_report = {
+        "successful_with_original": [],  # [{symbol, suffix, dividends_count}]
+        "successful_with_alternative": [],  # [{symbol, original_suffix, alternative_suffix, dividends_count}]
+        "failed_both": [],  # [{symbol, tried_suffixes}]
+        "timestamp": datetime.now().isoformat()
     }
-    
+
     # [핵심 수정] 티커별로 개별 처리하여 증분 업데이트 로직 적용
     for ticker_info in tqdm(active_tickers_info, desc="Fetching and merging new dividends"):
         symbol = ticker_info["symbol"]
@@ -114,20 +115,43 @@ def main():
             # 한국 시장의 경우 .KS/.KQ 접미사 문제로 fallback 시도
             ticker_obj = yf.Ticker(yf_symbol)
             dividends = ticker_obj.dividends
-            
+
+            original_suffix = None
+            alternative_suffix = None
+            used_alternative = False
+
             # 한국 시장 fallback: 빈 데이터면 다른 접미사 시도
-            if dividends.empty and market in ["KOSPI", "KOSDAQ"]:
-                alternative_suffix = ".KQ" if yf_symbol.endswith(".KS") else ".KS"
-                alternative_symbol = symbol + alternative_suffix
-                
-                tqdm.write(f"  🔄 Trying alternative suffix for {symbol}: {alternative_symbol}")
-                ticker_obj = yf.Ticker(alternative_symbol)
-                dividends = ticker_obj.dividends
-                
-                if not dividends.empty:
-                    tqdm.write(f"  ✅ Found data with {alternative_symbol}")
-            
+            if market in ["KOSPI", "KOSDAQ"]:
+                if yf_symbol.endswith(".KS"):
+                    original_suffix = ".KS"
+                    alternative_suffix = ".KQ"
+                elif yf_symbol.endswith(".KQ"):
+                    original_suffix = ".KQ"
+                    alternative_suffix = ".KS"
+
+                # 원래 접미사로 데이터를 못 찾으면 대체 접미사 시도
+                if dividends.empty and alternative_suffix:
+                    alternative_symbol = symbol + alternative_suffix
+
+                    tqdm.write(f"  🔄 Trying alternative suffix for {symbol}: {alternative_symbol}")
+                    ticker_obj = yf.Ticker(alternative_symbol)
+                    dividends = ticker_obj.dividends
+
+                    if not dividends.empty:
+                        tqdm.write(f"  ✅ Found data with {alternative_symbol}")
+                        used_alternative = True
+                        yf_symbol = alternative_symbol  # 성공한 심볼로 업데이트
+
             if dividends.empty:
+                # 한국 시장인 경우 실패 기록
+                if market in ["KOSPI", "KOSDAQ"] and original_suffix:
+                    tried_suffixes = [original_suffix]
+                    if alternative_suffix:
+                        tried_suffixes.append(alternative_suffix)
+                    korean_suffix_report["failed_both"].append({
+                        "symbol": symbol,
+                        "tried_suffixes": tried_suffixes
+                    })
                 continue
 
             # Handle potential dtype mismatch for delisted stocks
@@ -187,10 +211,39 @@ def main():
                     json.dump(existing_data, f, indent=4, ensure_ascii=False)
                 updated_count += 1
 
+                # 한국 시장 성공 기록
+                if market in ["KOSPI", "KOSDAQ"] and original_suffix:
+                    dividends_count = len(new_dividends_df)
+                    if used_alternative:
+                        korean_suffix_report["successful_with_alternative"].append({
+                            "symbol": symbol,
+                            "original_suffix": original_suffix,
+                            "alternative_suffix": alternative_suffix,
+                            "dividends_count": dividends_count
+                        })
+                    else:
+                        korean_suffix_report["successful_with_original"].append({
+                            "symbol": symbol,
+                            "suffix": original_suffix,
+                            "dividends_count": dividends_count
+                        })
+
         except Exception as e:
             tqdm.write(f"  ❌ Error processing {symbol}: {e}")
 
     print(f"\n--- Dividend Merge Finished. Total files updated: {updated_count} ---")
+
+    # 한국 시장 접미사 리포트 저장
+    report_file_path = os.path.join(DATA_DIR, "korean_suffix_report.json")
+    with open(report_file_path, "w", encoding="utf-8") as f:
+        json.dump(korean_suffix_report, f, indent=4, ensure_ascii=False)
+
+    # 리포트 요약 출력
+    print(f"\n📊 Korean Market Suffix Report:")
+    print(f"  ✅ Original suffix worked: {len(korean_suffix_report['successful_with_original'])} tickers")
+    print(f"  🔄 Alternative suffix worked: {len(korean_suffix_report['successful_with_alternative'])} tickers")
+    print(f"  ❌ Both suffixes failed: {len(korean_suffix_report['failed_both'])} tickers")
+    print(f"  📄 Report saved to: {report_file_path}")
 
 
 if __name__ == "__main__":
