@@ -1,7 +1,6 @@
 <script setup>
     import { computed, ref } from 'vue';
     import ResponsiveDialog from '@/components/common/ResponsiveDialog.vue';
-    import Timeline from 'primevue/timeline';
     import Tag from 'primevue/tag';
     import Card from 'primevue/card';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
@@ -268,8 +267,7 @@
             modal
             :drawerPosition="'full'"
             class="timeline-modal">
-            <!-- Mobile: Card-based UI -->
-            <div v-if="isMobile">
+            <div>
                 <div v-if="hasEvents" class="flex flex-column gap-3">
                     <Card
                         v-for="(item, index) in timelineItems"
@@ -338,70 +336,6 @@
                             </div>
                         </template>
                     </Card>
-                </div>
-                <div v-else class="text-center py-4 text-500">
-                    <slot name="empty">표시할 이벤트가 없습니다.</slot>
-                </div>
-            </div>
-
-            <!-- Desktop: Timeline UI -->
-            <div v-else>
-                <div v-if="hasEvents">
-                    <Timeline :value="timelineItems" align="alternate">
-                        <template #opposite="slotProps">
-                            {{ slotProps.item.date }}
-                        </template>
-                        <template #marker="slotProps">
-                            {{ slotProps.item.eventTypeLabel }}
-                        </template>
-                        <template #content="slotProps">
-                            <template
-                                v-if="
-                                    slotProps.item.from.frequencyLabel &&
-                                    slotProps.item.from.frequencyLabel.includes(
-                                        '주배당'
-                                    ) &&
-                                    slotProps.item.from.weekdayKey
-                                ">
-                                <Tag severity="secondary">
-                                    {{ slotProps.item.from.frequencyLabel }}
-                                </Tag>
-                                <Tag
-                                    :data-p="slotProps.item.from.weekdayKey"
-                                    class="p-tag-rounded timeline-weekday-tag">
-                                    {{ slotProps.item.from.weekdayLabel }}
-                                </Tag>
-                            </template>
-                            <Tag
-                                v-else-if="slotProps.item.from.frequencyLabel"
-                                severity="secondary">
-                                {{ slotProps.item.from.frequencyLabel }}
-                            </Tag>
-                            <i class="pi pi-arrow-right"></i>
-                            <template
-                                v-if="
-                                    slotProps.item.to.frequencyLabel &&
-                                    slotProps.item.to.frequencyLabel.includes(
-                                        '주배당'
-                                    ) &&
-                                    slotProps.item.to.weekdayKey
-                                ">
-                                <Tag severity="secondary">
-                                    {{ slotProps.item.to.frequencyLabel }}
-                                </Tag>
-                                <Tag
-                                    :data-p="slotProps.item.to.weekdayKey"
-                                    class="p-tag-rounded timeline-weekday-tag">
-                                    {{ slotProps.item.to.weekdayLabel }}
-                                </Tag>
-                            </template>
-                            <Tag
-                                v-else-if="slotProps.item.to.frequencyLabel"
-                                severity="secondary">
-                                {{ slotProps.item.to.frequencyLabel }}
-                            </Tag>
-                        </template>
-                    </Timeline>
                 </div>
                 <div v-else class="text-center py-4 text-500">
                     <slot name="empty">표시할 이벤트가 없습니다.</slot>
