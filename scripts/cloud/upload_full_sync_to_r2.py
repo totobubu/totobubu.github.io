@@ -276,9 +276,11 @@ def upload_missing_files(target_sections):
     else:
         print("\n[3/6] sidebar 폴더 확인 건너뜀 (요청 대상 아님)")
 
-    # 4. calendar-events.json 체크
+    # 4. calendar-events.json 및 calendar 폴더 체크
     if run_all or "calendar" in target_sections:
-        print("\n[4/6] calendar-events.json 확인 중...")
+        print("\n[4/6] calendar-events.json 및 calendar 폴더 확인 중...")
+
+        # 4-1. calendar-events.json
         if os.path.exists("public/calendar-events.json"):
             if r2_files is None:
                 r2_files = get_r2_files()
@@ -306,9 +308,47 @@ def upload_missing_files(target_sections):
             else:
                 print("   -> 변경사항 없음")
         else:
-            print("   -> 파일 없음")
+            print("   -> calendar-events.json 파일 없음")
+
+        # 4-2. calendar 폴더
+        if os.path.exists("public/calendar"):
+            r2_calendar_files = get_r2_files("calendar/")
+            local_calendar_files = get_local_files("public/calendar", "*")  # 모든 파일
+
+            calendar_to_upload = []
+            calendar_missing = 0
+            calendar_changed = 0
+
+            for r2_key, file_info in local_calendar_files.items():
+                local_path = file_info["path"]
+                local_hash = file_info["hash"]
+
+                if r2_key not in r2_calendar_files:
+                    calendar_to_upload.append((r2_key, local_path, "missing"))
+                    calendar_missing += 1
+                elif local_hash and r2_calendar_files[r2_key]["etag"] != local_hash:
+                    calendar_to_upload.append((r2_key, local_path, "changed"))
+                    calendar_changed += 1
+
+            if calendar_to_upload:
+                print(f"   -> 누락: {calendar_missing}개, 변경: {calendar_changed}개")
+                success_calendar = 0
+                fail_calendar = 0
+                for r2_key, local_path, status in tqdm(
+                    calendar_to_upload, desc="Uploading calendar files"
+                ):
+                    if upload_file_to_r2(local_path, r2_key):
+                        success_calendar += 1
+                    else:
+                        fail_calendar += 1
+                        tqdm.write(f"[FAIL] {r2_key} ({status})")
+                print(f"   -> 성공: {success_calendar}, 실패: {fail_calendar}")
+            else:
+                print("   -> calendar 폴더 변경사항 없음")
+        else:
+            print("   -> calendar 폴더 없음")
     else:
-        print("\n[4/6] calendar-events.json 확인 건너뜀 (요청 대상 아님)")
+        print("\n[4/6] calendar-events.json 및 calendar 폴더 확인 건너뜀 (요청 대상 아님)")
 
     # 5. logos 폴더 체크
     if run_all or "logos" in target_sections:
