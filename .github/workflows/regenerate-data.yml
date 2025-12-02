@@ -22,7 +22,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  fetch-depth: 0 # 전체 히스토리 필요 (변경사항 비교용)
+                  fetch-depth: 10 # 전체 히스토리 필요 (변경사항 비교용)
                   token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Free Disk Space
