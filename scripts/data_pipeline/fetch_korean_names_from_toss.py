@@ -206,29 +206,41 @@ async def fetch_korean_names_batch(symbols_data: list, max_concurrent: int = 1):
                     stock_section = await page.query_selector('div[data-section-name="종목"]')
 
                     if stock_section:
-                        # 첫 번째 종목 링크의 한국어 이름 찾기
-                        # bold span 안의 한국어 텍스트
+                        # 첫 번째 종목 링크 찾기
                         first_stock = await stock_section.query_selector('a[data-parent-name="ProductListRow"]')
 
                         if first_stock:
-                            korean_name_element = await first_stock.query_selector('span.tw3f-1r5dc8g0[style*="font-weight: bold"]')
+                            # 모든 span 요소에서 한글 텍스트 찾기
+                            all_spans = await first_stock.query_selector_all('span')
+                            korean_name = None
 
-                            if korean_name_element:
-                                text = await korean_name_element.inner_text()
+                            for span in all_spans:
+                                text = await span.inner_text()
                                 text = text.strip()
 
-                                # 한글이 포함되어 있는지 확인
-                                if text and any('\uac00' <= c <= '\ud7a3' for c in text):
-                                    print(f"  OK {symbol}: {text}")
-                                    results[symbol] = {
-                                        "koName": text,
-                                        "market": market,
-                                        "source": "toss"
-                                    }
-                                else:
-                                    print(f"  X {symbol}: No Korean text found ({text})")
+                                # 심볼이 아니고, 한글이 포함되어 있으며, 숫자/퍼센트가 아닌 경우
+                                if text and text != symbol and any('\uac00' <= c <= '\ud7a3' for c in text):
+                                    # 가격이나 퍼센트가 아닌지 확인
+                                    if not any(char in text for char in ['%', '원', '달러']):
+                                        # 여러 줄이 아닌 경우만 (가격 정보 제외)
+                                        if '\n' not in text or (symbol in text and '\n' in text):
+                                            # "AMDW\n라운드힐 AMD 위클리페이 ETF" 형식 처리
+                                            if '\n' in text and symbol in text:
+                                                korean_name = text.split('\n')[1].strip()
+                                                break
+                                            else:
+                                                korean_name = text
+                                                break
+
+                            if korean_name:
+                                print(f"  OK {symbol}: {korean_name}")
+                                results[symbol] = {
+                                    "koName": korean_name,
+                                    "market": market,
+                                    "source": "toss"
+                                }
                             else:
-                                print(f"  X {symbol}: Korean name element not found")
+                                print(f"  X {symbol}: No Korean text found")
                         else:
                             print(f"  X {symbol}: No first stock found")
                     else:
