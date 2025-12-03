@@ -78,6 +78,15 @@ def main():
         "timestamp": datetime.now().isoformat()
     }
 
+    # noDividends 플래그가 있는 종목 제외
+    original_count = len(active_tickers_info)
+    active_tickers_info = [t for t in active_tickers_info if not t.get("noDividends", False)]
+    excluded_count = original_count - len(active_tickers_info)
+    
+    if excluded_count > 0:
+        print(f"⏭️  Excluded {excluded_count} symbols marked as noDividends")
+    print(f"📊 Processing {len(active_tickers_info)} symbols for dividend updates\n")
+
     # [핵심 수정] 티커별로 개별 처리하여 증분 업데이트 로직 적용
     for ticker_info in tqdm(active_tickers_info, desc="Fetching and merging new dividends"):
         symbol = ticker_info["symbol"]
@@ -154,6 +163,22 @@ def main():
                     })
                 continue
 
+            # 한국 시장 성공 기록
+            if market in ["KOSPI", "KOSDAQ"]:
+                if used_alternative:
+                    korean_suffix_report["successful_with_alternative"].append({
+                        "symbol": symbol,
+                        "original_suffix": original_suffix,
+                        "alternative_suffix": alternative_suffix,
+                        "dividends_count": len(dividends)
+                    })
+                elif original_suffix:
+                    korean_suffix_report["successful_with_original"].append({
+                        "symbol": symbol,
+                        "suffix": original_suffix,
+                        "dividends_count": len(dividends)
+                    })
+
             # Handle potential dtype mismatch for delisted stocks
             try:
                 new_dividends_df = dividends[
@@ -211,22 +236,7 @@ def main():
                     json.dump(existing_data, f, indent=4, ensure_ascii=False)
                 updated_count += 1
 
-                # 한국 시장 성공 기록
-                if market in ["KOSPI", "KOSDAQ"] and original_suffix:
-                    dividends_count = len(new_dividends_df)
-                    if used_alternative:
-                        korean_suffix_report["successful_with_alternative"].append({
-                            "symbol": symbol,
-                            "original_suffix": original_suffix,
-                            "alternative_suffix": alternative_suffix,
-                            "dividends_count": dividends_count
-                        })
-                    else:
-                        korean_suffix_report["successful_with_original"].append({
-                            "symbol": symbol,
-                            "suffix": original_suffix,
-                            "dividends_count": dividends_count
-                        })
+
 
         except Exception as e:
             tqdm.write(f"  ❌ Error processing {symbol}: {e}")
@@ -234,7 +244,8 @@ def main():
     print(f"\n--- Dividend Merge Finished. Total files updated: {updated_count} ---")
 
     # 한국 시장 접미사 리포트 저장
-    report_file_path = os.path.join(DATA_DIR, "korean_suffix_report.json")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    report_file_path = os.path.join(script_dir, "korean_suffix_report.json")
     with open(report_file_path, "w", encoding="utf-8") as f:
         json.dump(korean_suffix_report, f, indent=4, ensure_ascii=False)
 
