@@ -154,6 +154,22 @@ def main():
                     })
                 continue
 
+            # 한국 시장 성공 기록
+            if market in ["KOSPI", "KOSDAQ"]:
+                if used_alternative:
+                    korean_suffix_report["successful_with_alternative"].append({
+                        "symbol": symbol,
+                        "original_suffix": original_suffix,
+                        "alternative_suffix": alternative_suffix,
+                        "dividends_count": len(dividends)
+                    })
+                elif original_suffix:
+                    korean_suffix_report["successful_with_original"].append({
+                        "symbol": symbol,
+                        "suffix": original_suffix,
+                        "dividends_count": len(dividends)
+                    })
+
             # Handle potential dtype mismatch for delisted stocks
             try:
                 new_dividends_df = dividends[
@@ -211,22 +227,7 @@ def main():
                     json.dump(existing_data, f, indent=4, ensure_ascii=False)
                 updated_count += 1
 
-                # 한국 시장 성공 기록
-                if market in ["KOSPI", "KOSDAQ"] and original_suffix:
-                    dividends_count = len(new_dividends_df)
-                    if used_alternative:
-                        korean_suffix_report["successful_with_alternative"].append({
-                            "symbol": symbol,
-                            "original_suffix": original_suffix,
-                            "alternative_suffix": alternative_suffix,
-                            "dividends_count": dividends_count
-                        })
-                    else:
-                        korean_suffix_report["successful_with_original"].append({
-                            "symbol": symbol,
-                            "suffix": original_suffix,
-                            "dividends_count": dividends_count
-                        })
+
 
         except Exception as e:
             tqdm.write(f"  ❌ Error processing {symbol}: {e}")
@@ -234,7 +235,8 @@ def main():
     print(f"\n--- Dividend Merge Finished. Total files updated: {updated_count} ---")
 
     # 한국 시장 접미사 리포트 저장
-    report_file_path = os.path.join(DATA_DIR, "korean_suffix_report.json")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    report_file_path = os.path.join(script_dir, "korean_suffix_report.json")
     with open(report_file_path, "w", encoding="utf-8") as f:
         json.dump(korean_suffix_report, f, indent=4, ensure_ascii=False)
 
