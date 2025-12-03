@@ -239,7 +239,11 @@ async def fetch_korean_names_batch(symbols_data: list, max_concurrent: int = 1):
                     await page.wait_for_timeout(500)
 
                 except Exception as e:
-                    print(f"  X {symbol}: Error - {e}")
+                    # 에러 메시지에서 "Call log" 부분 제거
+                    error_msg = str(e)
+                    if "Call log:" in error_msg:
+                        error_msg = error_msg.split("Call log:")[0].strip()
+                    print(f"  X {symbol}: {error_msg}")
                     # 에러 발생 시 모달 닫기
                     try:
                         await page.keyboard.press("Escape")
@@ -301,17 +305,124 @@ def load_symbols_from_nav(markets=["NASDAQ", "NYSE"], limit=None):
 
     return symbols_to_fetch
 
+def update_nav_files(korean_names_data: dict) -> None:
+    """
+    수집한 한국어 이름을 NAV 파일에 업데이트
+
+    Args:
+        korean_names_data: {symbol: {"koName": "한국명", "market": "NASDAQ", ...}, ...} 형식
+    """
+    updated_count = 0
+    nav_files_updated = set()
+
+    for symbol, data in korean_names_data.items():
+        market = data.get("market", "NASDAQ")
+        ko_name = data.get("koName")
+
+        if not ko_name:
+            continue
+
+        # NAV 파일 경로 찾기
+        first_char = symbol[0].lower() if symbol else "unknown"
+        nav_filename = f"{first_char}.json" if first_char.isalnum() else "unknown.json"
+
+        # MARKET_TO_DIR 매핑 (NASDAQ -> nasdaq)
+        market_dir_map = {
+            "NASDAQ": "nasdaq",
+            "NYSE": "nyse",
+            "NYSEARCA": "nysearca",
+            "BATS": "bats",
+            "AMEX": "amex",
+        }
+        market_dir = market_dir_map.get(market.upper(), market.lower())
+        nav_path = NAV_DIR / market_dir / nav_filename
+
+        if not nav_path.exists():
+            print(f"  X NAV file not found: {nav_path}")
+            continue
+
+        try:
+            with open(nav_path, "r", encoding="utf-8") as f:
+                nav_data = json.load(f)
+
+            # 해당 심볼 찾아서 koName 업데이트
+            symbol_found = False
+            for item in nav_data:
+                if item.get("symbol") == symbol:
+                    if not item.get("koName"):
+                        item["koName"] = ko_name
+                        symbol_found = True
+                        updated_count += 1
+                        nav_files_updated.add(str(nav_path.relative_to(ROOT_DIR)))
+                        print(f"  OK Updated {symbol}: {ko_name}")
+                    break
+
+            if symbol_found:
+                # NAV 파일 저장
+                with open(nav_path, "w", encoding="utf-8") as f:
+                    json.dump(nav_data, f, indent=4, ensure_ascii=False)
+
+        except Exception as e:
+            print(f"  X Error updating {symbol} in {nav_path}: {e}")
+
+    print(f"\nNAV Update Summary:")
+    print(f"  Updated: {updated_count} symbols")
+    print(f"  Files modified: {len(nav_files_updated)}")
+    if nav_files_updated:
+        for file_path in sorted(nav_files_updated):
+            print(f"    - {file_path}")
+
+def load_symbols_from_nav_file(nav_file_path: Path) -> list:
+    """
+    특정 NAV 파일에서 한국어 이름이 없는 심볼들 로드
+
+    Args:
+        nav_file_path: NAV 파일 경로 (예: public/nav/NASDAQ/a.json)
+
+    Returns:
+        [{"symbol": "AAPL", "market": "NASDAQ"}, ...] 형식의 리스트
+    """
+    symbols_to_fetch = []
+
+    try:
+        with open(nav_file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        # 시장 정보 추출 (파일 경로에서)
+        # public/nav/NASDAQ/a.json -> NASDAQ
+        market = nav_file_path.parent.name.upper()
+
+        for item in data:
+            symbol = item.get("symbol")
+            ko_name = item.get("koName")
+
+            # 한국어 이름이 없는 경우만 추가
+            if symbol and not ko_name:
+                symbols_to_fetch.append({
+                    "symbol": symbol,
+                    "market": market
+                })
+
+        print(f"  Found {len(symbols_to_fetch)} symbols without koName in {nav_file_path.name}")
+
+    except Exception as e:
+        print(f"  Error reading {nav_file_path}: {e}")
+
+    return symbols_to_fetch
+
 async def main():
     # 커맨드라인 인자 파싱
     parser = argparse.ArgumentParser(description="토스증권에서 한국어 종목명 수집")
     parser.add_argument("--symbol", type=str, help="특정 심볼만 검색 (예: --symbol VOO)")
     parser.add_argument("--market", type=str, default="NASDAQ", help="심볼의 시장 (기본값: NASDAQ)")
+    parser.add_argument("--nav-file", type=str, help="특정 NAV 파일만 처리 (예: public/nav/NASDAQ/a.json)")
+    parser.add_argument("--all", action="store_true", help="전체 심볼 처리 (배치 제한 없음)")
     args = parser.parse_args()
 
     print("Fetching Korean Names from Toss Securities")
     print("=" * 60)
 
-    # 특정 심볼 검색 모드
+    # 모드 1: 특정 심볼 검색
     if args.symbol:
         symbol = args.symbol.upper()
         market = args.market.upper()
@@ -321,13 +432,30 @@ async def main():
             "symbol": symbol,
             "market": market
         }]
-    else:
-        # 배치 실행: 한 번에 100개씩
-        # 전체 실행: limit=None
-        BATCH_SIZE = 100  # 한 번에 100개씩 처리
-        LIMIT = BATCH_SIZE
 
-        print(f"\nBATCH MODE: Fetching {BATCH_SIZE} symbols without Korean names")
+    # 모드 2: 특정 NAV 파일 처리
+    elif args.nav_file:
+        nav_file_path = Path(args.nav_file)
+        if not nav_file_path.exists():
+            print(f"\nERROR: NAV file not found: {nav_file_path}")
+            return
+
+        print(f"\nNAV FILE MODE: Processing {nav_file_path}")
+        symbols_to_fetch = load_symbols_from_nav_file(nav_file_path)
+
+        if not symbols_to_fetch:
+            print("All symbols in this file already have Korean names!")
+            return
+
+    # 모드 3: 전체 또는 배치 처리
+    else:
+        if args.all:
+            print(f"\nALL MODE: Fetching all symbols without Korean names")
+            LIMIT = None
+        else:
+            BATCH_SIZE = 100
+            LIMIT = BATCH_SIZE
+            print(f"\nBATCH MODE: Fetching {BATCH_SIZE} symbols without Korean names")
 
         # NAV에서 한국어 이름이 없는 심볼 로드
         symbols_to_fetch = load_symbols_from_nav(
@@ -364,6 +492,11 @@ async def main():
                 print(f"    - {symbol}: {data['koName']}")
             if len(results) > 5:
                 print(f"    ... and {len(results) - 5} more")
+
+        # NAV 파일 자동 업데이트
+        print("\n" + "=" * 60)
+        print("Updating NAV files...")
+        update_nav_files(results)
     else:
         print("\nNo Korean names found")
 
