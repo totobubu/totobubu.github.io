@@ -52,6 +52,22 @@ TEST_MODE = False  # True -> False로 변경
 
 ```bash
 python scripts/data_pipeline/fetch_korean_names_from_toss.py
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --symbol VOO
+
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/l.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/m.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/o.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/p.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/q.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/r.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/s.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/t.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/u.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/v.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/w.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/x.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/y.json
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/z.json
 ```
 
 ## 출력
@@ -62,16 +78,16 @@ python scripts/data_pipeline/fetch_korean_names_from_toss.py
 
 ```json
 {
-  "AAPL": {
-    "koName": "애플",
-    "market": "NASDAQ",
-    "source": "toss"
-  },
-  "TSLA": {
-    "koName": "테슬라",
-    "market": "NASDAQ",
-    "source": "toss"
-  }
+    "AAPL": {
+        "koName": "애플",
+        "market": "NASDAQ",
+        "source": "toss"
+    },
+    "TSLA": {
+        "koName": "테슬라",
+        "market": "NASDAQ",
+        "source": "toss"
+    }
 }
 ```
 
