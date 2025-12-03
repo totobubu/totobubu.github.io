@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "HEFA",
-        "koName": null,
+        "koName": "아이셰어즈 환 헷지 MSCI EAFE ETF",
         "longName": null,
         "company": "iShares",
         "frequency": "매월",
@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 41.22,
+        "Update": "2025-12-04 04:15:43 KST",
+        "regularMarketPrice": 41.2001,
         "englishName": "iShares Currency Hedged MSCI EAFE ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 458319,
-        "AvgVolume": 720425,
+        "Volume": 290700,
+        "AvgVolume": 716265,
         "sharesOutstanding": null,
         "52Week": "31.72 - 41.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.22,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 458319,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 720425,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23830,6 +23843,10 @@
             "low": 41.040001,
             "close": 41.07,
             "volume": 338819
+        },
+        {
+            "date": "2025-12-02",
+            "amount": 0.432
         },
         {
             "date": "2026-01-02",
