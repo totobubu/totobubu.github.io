@@ -54,6 +54,7 @@ TEST_MODE = False  # True -> False로 변경
 python scripts/data_pipeline/fetch_korean_names_from_toss.py
 python scripts/data_pipeline/fetch_korean_names_from_toss.py --symbol VOO
 
+python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/BATS/*.json
 python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NYSE/*.json
 python scripts/data_pipeline/fetch_korean_names_from_toss.py --nav-file public/nav/NASDAQ/*.json
 ```
