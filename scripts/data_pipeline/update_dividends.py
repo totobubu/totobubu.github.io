@@ -78,6 +78,15 @@ def main():
         "timestamp": datetime.now().isoformat()
     }
 
+    # noDividends 플래그가 있는 종목 제외
+    original_count = len(active_tickers_info)
+    active_tickers_info = [t for t in active_tickers_info if not t.get("noDividends", False)]
+    excluded_count = original_count - len(active_tickers_info)
+    
+    if excluded_count > 0:
+        print(f"⏭️  Excluded {excluded_count} symbols marked as noDividends")
+    print(f"📊 Processing {len(active_tickers_info)} symbols for dividend updates\n")
+
     # [핵심 수정] 티커별로 개별 처리하여 증분 업데이트 로직 적용
     for ticker_info in tqdm(active_tickers_info, desc="Fetching and merging new dividends"):
         symbol = ticker_info["symbol"]
