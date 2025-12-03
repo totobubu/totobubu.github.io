@@ -161,8 +161,60 @@ def prompt_company(symbol: str) -> Optional[str]:
     company = prompt_user(f"{symbol}의 회사명 (예: YieldMax, GraniteShares)", default="").strip()
     return company if company else None
 
-def prompt_ko_name(symbol: str) -> Optional[str]:
-    """한국어 종목명을 입력받습니다."""
+def fetch_korean_name_from_toss(symbol: str, market: str) -> Optional[str]:
+    """토스증권에서 한국어 종목명을 자동으로 조회합니다."""
+    try:
+        # fetch_korean_names_from_toss.py 스크립트 실행
+        script_path = ROOT_DIR / "scripts" / "data_pipeline" / "fetch_korean_names_from_toss.py"
+
+        if not script_path.exists():
+            return None
+
+        result = subprocess.run(
+            [PYTHON, str(script_path), "--symbol", symbol, "--market", market],
+            cwd=ROOT_DIR,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=60,
+        )
+
+        if result.returncode != 0:
+            return None
+
+        # korean_names_from_toss.json 파일 읽기
+        output_file = script_path.parent / "korean_names_from_toss.json"
+        if output_file.exists():
+            with output_file.open(encoding="utf-8") as f:
+                data = json.load(f)
+                if symbol in data:
+                    ko_name = data[symbol].get("koName")
+                    if ko_name:
+                        print(f"[INFO] 토스증권에서 한국어 종목명 자동 조회 성공: {ko_name}")
+                        return ko_name
+
+        return None
+
+    except Exception as exc:
+        print(f"[WARN] 토스증권 한국어 종목명 조회 실패: {exc}")
+        return None
+
+def prompt_ko_name(symbol: str, market: str = "NASDAQ") -> Optional[str]:
+    """한국어 종목명을 입력받습니다. 먼저 토스증권에서 자동으로 검색을 시도합니다."""
+    # 1. 토스증권에서 자동 검색 시도
+    print(f"[INFO] 토스증권에서 {symbol}의 한국어 종목명을 조회합니다...")
+    toss_ko_name = fetch_korean_name_from_toss(symbol, market)
+
+    if toss_ko_name:
+        # 자동 조회 성공 시 사용자에게 확인
+        use_toss = prompt_yes_no(
+            f"토스증권에서 찾은 '{toss_ko_name}'을(를) 사용하시겠습니까?",
+            default=True
+        )
+        if use_toss:
+            return toss_ko_name
+
+    # 2. 토스 검색 실패 또는 사용자가 거부한 경우 수동 입력
     ko_name = prompt_user(f"{symbol}의 한국어 종목명 (예: 삼성전자, 카카오)", default="").strip()
     return ko_name if ko_name else None
 
@@ -632,7 +684,7 @@ def process_symbol(symbol: str) -> Dict[str, str]:
         company = prompt_company(resolved_symbol)
         underlying = prompt_underlying(resolved_symbol)
     # 한국어 종목명(koName) 입력 (모든 경우에 적용)
-    ko_name = prompt_ko_name(resolved_symbol)
+    ko_name = prompt_ko_name(resolved_symbol, market)
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
