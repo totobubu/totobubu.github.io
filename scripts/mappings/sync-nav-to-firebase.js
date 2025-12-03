@@ -36,9 +36,16 @@ for (let i = 0; i < args.length; i++) {
 }
 
 // Initialize Firebase Admin
-const serviceAccount = JSON.parse(
-    readFileSync('./serviceAccountKey.json', 'utf8')
-);
+let serviceAccount;
+if (process.env.FIRESTORE_SA_KEY) {
+    // GitHub Actions or other CI environment
+    serviceAccount = JSON.parse(process.env.FIRESTORE_SA_KEY);
+} else {
+    // Local development
+    serviceAccount = JSON.parse(
+        readFileSync('./serviceAccountKey.json', 'utf8')
+    );
+}
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
