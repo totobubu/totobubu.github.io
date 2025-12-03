@@ -445,19 +445,32 @@ async def main():
             "market": market
         }]
 
-    # 모드 2: 특정 NAV 파일 처리
+    # 모드 2: 특정 NAV 파일 처리 (와일드카드 지원)
     elif args.nav_file:
-        nav_file_path = Path(args.nav_file)
-        if not nav_file_path.exists():
-            print(f"\nERROR: NAV file not found: {nav_file_path}")
+        import glob
+
+        # 와일드카드 패턴 처리
+        nav_file_pattern = args.nav_file
+        matched_files = glob.glob(nav_file_pattern)
+
+        if not matched_files:
+            print(f"\nERROR: No NAV files found matching: {nav_file_pattern}")
             return
 
-        print(f"\nNAV FILE MODE: Processing {nav_file_path}")
-        symbols_to_fetch = load_symbols_from_nav_file(nav_file_path)
+        print(f"\nNAV FILE MODE: Processing {len(matched_files)} file(s)")
+        symbols_to_fetch = []
+
+        for file_path in matched_files:
+            nav_path = Path(file_path)
+            print(f"\n  Processing {nav_path.name}...")
+            file_symbols = load_symbols_from_nav_file(nav_path)
+            symbols_to_fetch.extend(file_symbols)
 
         if not symbols_to_fetch:
-            print("All symbols in this file already have Korean names!")
+            print("\nAll symbols in these files already have Korean names!")
             return
+
+        print(f"\nTotal: {len(symbols_to_fetch)} symbols without koName")
 
     # 모드 3: 전체 또는 배치 처리
     else:
