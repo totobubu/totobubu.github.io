@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "MARO",
-        "koName": null,
+        "koName": "일드맥스 마라 홀딩스 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": "MARA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 10.09,
-        "englishName": "YieldMax MARA Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 180789,
-        "AvgVolume": 215693,
-        "sharesOutstanding": null,
-        "52Week": "8.671 - 53.06",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-04 04:15:43 KST",
         "isin": "US88636R6027",
         "events": {
             "frequencyChanges": [
@@ -3101,8 +3089,140 @@
             "volume": 179284
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 68.19,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 55.23,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 11.44,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.66,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 6.35,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.69,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "MARA 260116C00018000",
+                    "name": "MARA US 01/16/26 C18",
+                    "weight": 2.64,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 1.39,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "MARA 251205C00013000",
+                    "name": "MARA US 12/05/25 C13",
+                    "weight": 0.49,
+                    "type": "option"
+                },
+                {
+                    "symbol": "MARA 251205C00012500",
+                    "name": "MARA US 12/05/25 C12.5",
+                    "weight": 0.43,
+                    "type": "option"
+                }
+            ],
+            "open": 10.2,
+            "high": 10.484,
+            "low": 10.07,
+            "close": 10.4,
+            "volume": 242000
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 0.2439
+            "amountFixed": 0.2439,
+            "holdings": [
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 68.22,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 55.25,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 11.44,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.66,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 6.35,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "MARA 260116C00018000",
+                    "name": "MARA US 01/16/26 C18",
+                    "weight": 2.97,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 1.39,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "MARA 251205C00013000",
+                    "name": "MARA US 12/05/25 C13",
+                    "weight": 0.62,
+                    "type": "option"
+                },
+                {
+                    "symbol": "MARA 251212C00014500",
+                    "name": "MARA HOL CLL OPT 12/25 14.500",
+                    "weight": 0.23,
+                    "type": "option"
+                },
+                {
+                    "symbol": "MARA 251212C00013500",
+                    "name": "MARA HOL CLL OPT 12/25 13.500",
+                    "weight": 0.19,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -3202,6 +3322,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]

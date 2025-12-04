@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "RDYY",
-        "koName": null,
+        "koName": "일드맥스 레딧 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 39.6259,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 10377,
-        "AvgVolume": 25645,
-        "sharesOutstanding": null,
-        "52Week": "34.17 - 56.57",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-05 04:15:28 KST",
         "isin": "US88636V4216",
         "events": {
             "splits": []
@@ -1586,8 +1574,140 @@
             "volume": 10365
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 31.28,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 31.28,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 28.43,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "RDDT 260116C00200000",
+                    "name": "RDDT US 01/16/26 C200",
+                    "weight": 15.33,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.5,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 1.13,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "RDDT 251205C00240000",
+                    "name": "RDDT US 12/05/25 C240",
+                    "weight": 0.39,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00250000",
+                    "name": "RDDT US 12/05/25 C250",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00227500",
+                    "name": "RDDT US 12/05/25 C227.5",
+                    "weight": 0.12,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00225000",
+                    "name": "RDDT US 12/05/25 C225",
+                    "weight": 0.31,
+                    "type": "option"
+                }
+            ],
+            "open": 39.73,
+            "high": 40.09,
+            "low": 39.360001,
+            "close": 39.529999,
+            "volume": 38500
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 0.9603
+            "amountFixed": 0.9603,
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 34.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 34.16,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 29.36,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "RDDT 260116C00200000",
+                    "name": "RDDT US 01/16/26 C200",
+                    "weight": 14.74,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.23,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 2.12,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "RDDT 251205C00240000",
+                    "name": "RDDT US 12/05/25 C240",
+                    "weight": 0.14,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00250000",
+                    "name": "RDDT US 12/05/25 C250",
+                    "weight": 0.01,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00227500",
+                    "name": "RDDT US 12/05/25 C227.5",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RDDT 251205C00225000",
+                    "name": "RDDT US 12/05/25 C225",
+                    "weight": 0.2,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -1687,6 +1807,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]

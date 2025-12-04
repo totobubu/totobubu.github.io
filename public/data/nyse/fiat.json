@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "FIAT",
-        "koName": null,
+        "koName": "일드맥스 숏 코인베이스 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 26.31,
-        "englishName": "YieldMax Short COIN Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 142191,
-        "AvgVolume": 1769024,
-        "sharesOutstanding": null,
-        "52Week": "2.28 - 26.31",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-05 04:15:28 KST",
         "isin": "US88636J4774",
         "events": {
             "frequencyChanges": [
@@ -39,20 +27,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 2.6553,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 6663474,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1650333,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -3987,8 +3962,140 @@
             "volume": 141627
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 36.94,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 17.53,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 16.93,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 13.36,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "COIN 260116P00280000",
+                    "name": "COIN US 01/16/26 P280",
+                    "weight": 10.73,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 4.99,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.82,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 2.81,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "COIN 251219C00430000",
+                    "name": "COIN US 12/19/25 C430",
+                    "weight": 0.1,
+                    "type": "option"
+                },
+                {
+                    "symbol": "COIN 251205P00240000",
+                    "name": "COIN US 12/05/25 P240",
+                    "weight": 0.08,
+                    "type": "option"
+                }
+            ],
+            "open": 26,
+            "high": 26.184999,
+            "low": 25.200001,
+            "close": 25.24,
+            "volume": 163100
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 0.3988
+            "amountFixed": 0.3988,
+            "holdings": [
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 39.15,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 20.06,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 17.95,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 11.54,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "COIN 260116P00280000",
+                    "name": "COIN US 01/16/26 P280",
+                    "weight": 8.71,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 5.29,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.99,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 2.98,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "COIN 251212P00252500",
+                    "name": "COINBASE PUT OPT 12/25 252.500",
+                    "weight": 0.32,
+                    "type": "option"
+                },
+                {
+                    "symbol": "COIN 251219C00430000",
+                    "name": "COIN US 12/19/25 C430",
+                    "weight": 0.1,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -4088,6 +4195,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]

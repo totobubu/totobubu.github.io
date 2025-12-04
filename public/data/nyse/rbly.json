@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "RBLY",
-        "koName": null,
+        "koName": "일드맥스 로블록스 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 34.5003,
-        "englishName": "YieldMax(TM) RBLX Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1080,
-        "AvgVolume": 20341,
-        "sharesOutstanding": null,
-        "52Week": "32.76 - 58.42",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-04 04:15:43 KST",
         "isin": "US88636R8833",
         "events": {
             "frequencyChanges": [
@@ -1829,8 +1817,140 @@
             "volume": 1070
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 47.08,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 46.14,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 31.96,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 9.07,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 4.04,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "RBLX 251205C00101000",
+                    "name": "RBLX US 12/05/25 C101",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00104000",
+                    "name": "RBLX US 12/05/25 C104",
+                    "weight": 0.06,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251219C00130000",
+                    "name": "RBLX US 12/19/25 C130",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00103000",
+                    "name": "RBLX US 12/05/25 C103",
+                    "weight": 0,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00095000",
+                    "name": "RBLX US 12/05/25 C95",
+                    "weight": 0.05,
+                    "type": "option"
+                }
+            ],
+            "open": 34.007,
+            "high": 34.485001,
+            "low": 33.869999,
+            "close": 34.075001,
+            "volume": 6400
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 0.7051
+            "amountFixed": 0.7051,
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 48.62,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 47.65,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 33.01,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 9.37,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.06,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "RBLX 251219C00130000",
+                    "name": "RBLX US 12/19/25 C130",
+                    "weight": 0.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00101000",
+                    "name": "RBLX US 12/05/25 C101",
+                    "weight": 0.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00104000",
+                    "name": "RBLX US 12/05/25 C104",
+                    "weight": 0.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00103000",
+                    "name": "RBLX US 12/05/25 C103",
+                    "weight": 0.0,
+                    "type": "option"
+                },
+                {
+                    "symbol": "RBLX 251205C00095000",
+                    "name": "RBLX US 12/05/25 C95",
+                    "weight": 0.02,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -1930,6 +2050,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]

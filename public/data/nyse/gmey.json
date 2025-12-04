@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "GMEY",
-        "koName": null,
+        "koName": "일드맥스 게임스탑 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": "GME",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 41.82,
-        "englishName": "Yieldmax Gme Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 11378,
-        "AvgVolume": 14715,
-        "sharesOutstanding": null,
-        "52Week": "39.153 - 56.15",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-05 04:15:28 KST",
         "isin": "US88636V4620",
         "events": {
             "splits": []
@@ -1583,8 +1571,140 @@
             "volume": 11274
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 37.78,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 29.18,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 28.03,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "GME 260116C00022000",
+                    "name": "GME US 01/16/26 C22",
+                    "weight": 10.14,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 7.53,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 1.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "GME 251205C00024000",
+                    "name": "GME US 12/05/25 C24",
+                    "weight": 0.36,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME 251205C00024500",
+                    "name": "GME US 12/05/25 C24.5",
+                    "weight": 0.11,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME 251205C00023500",
+                    "name": "GME US 12/05/25 C23.5",
+                    "weight": 0.29,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME 251205C00023000",
+                    "name": "GME US 12/05/25 C23",
+                    "weight": 0.98,
+                    "type": "option"
+                }
+            ],
+            "open": 42.071999,
+            "high": 42.450001,
+            "low": 41.868999,
+            "close": 42.347,
+            "volume": 19700
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 1.016
+            "amountFixed": 1.016,
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 38.38,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 29.64,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 14.06,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "GME 260116C00022000",
+                    "name": "GME US 01/16/26 C22",
+                    "weight": 11.37,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 8.71,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 3.05,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 1.63,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "GME 251205C00024000",
+                    "name": "GME US 12/05/25 C24",
+                    "weight": 0.32,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME 251205C00024500",
+                    "name": "GME US 12/05/25 C24.5",
+                    "weight": 0.1,
+                    "type": "option"
+                },
+                {
+                    "symbol": "GME 251205C00023500",
+                    "name": "GME US 12/05/25 C23.5",
+                    "weight": 0.29,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -1684,6 +1804,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]

@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "SDTY",
-        "koName": null,
+        "koName": "일드맥스 S&P 500 0DTE 커버드콜 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 45.1021,
-        "englishName": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 16419,
-        "AvgVolume": 8870,
-        "sharesOutstanding": null,
-        "52Week": "38.59 - 51.29",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-04 04:15:43 KST",
         "isin": "US88636R5607",
         "events": {
             "splits": []
@@ -2456,7 +2444,92 @@
         },
         {
             "date": "2025-12-03",
-            "amountFixed": 0.2032
+            "amountFixed": 0.2032,
+            "holdings": [
+                {
+                    "symbol": "4SPX 251219C01000260",
+                    "name": "SPX 12/19/2025 1000.26 C",
+                    "weight": 87.67,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 20.82,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 3.73,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 0.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 0.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 12.44,
+                    "type": "cash"
+                }
+            ],
+            "open": 44.959999,
+            "high": 45.110001,
+            "low": 44.720001,
+            "close": 45.039001,
+            "volume": 4000,
+            "yield": 0.1944194883
+        },
+        {
+            "date": "2025-12-04",
+            "holdings": [
+                {
+                    "symbol": "4SPX 251219C01000260",
+                    "name": "SPX 12/19/2025 1000.26 C",
+                    "weight": 87.63,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 20.67,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 3.72,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 0.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 0.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 12.41,
+                    "type": "cash"
+                }
+            ]
         },
         {
             "date": "2025-12-10",

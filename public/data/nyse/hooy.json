@@ -1,7 +1,7 @@
 {
     "tickerInfo": {
         "Symbol": "HOOY",
-        "koName": null,
+        "koName": "일드맥스 로빈후드 옵션 인컴 전략 ETF",
         "longName": null,
         "company": "YieldMax",
         "frequency": "매주",
@@ -9,19 +9,7 @@
         "underlying": "HOOD",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-03 15:01:01 KST",
-        "regularMarketPrice": 54.75,
-        "englishName": "YieldMax HOOD Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 189934,
-        "AvgVolume": 242477,
-        "sharesOutstanding": null,
-        "52Week": "47.06 - 80.99",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2025-12-05 04:15:28 KST",
         "isin": "US88636R4048",
         "events": {
             "frequencyChanges": [
@@ -2276,8 +2264,140 @@
             "volume": 189589
         },
         {
+            "date": "2025-12-03",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 44.83,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 17.93,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 17.67,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 15.48,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 8.91,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 6.9,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.53,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HOOD 251219C00145000",
+                    "name": "HOOD US 12/19/25 C145",
+                    "weight": 1.31,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.04,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HOOD 251205C00131000",
+                    "name": "HOOD US 12/05/25 C131",
+                    "weight": 0.13,
+                    "type": "option"
+                }
+            ],
+            "open": 54.91,
+            "high": 57.380001,
+            "low": 54.334999,
+            "close": 57.290001,
+            "volume": 228600
+        },
+        {
             "date": "2025-12-04",
-            "amountFixed": 1.3217
+            "amountFixed": 1.3217,
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 41.22,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 17.54,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 17.29,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 15.14,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 8.72,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 6.75,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.47,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "HOOD 251219C00145000",
+                    "name": "HOOD US 12/19/25 C145",
+                    "weight": 2.4,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 1.01,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HOOD 251205C00140000",
+                    "name": "HOOD US 12/05/25 C140",
+                    "weight": 0.18,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2025-12-11",
@@ -2377,6 +2497,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-04",
             "forecasted": true
         }
     ]
