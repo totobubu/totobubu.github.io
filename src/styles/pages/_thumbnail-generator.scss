@@ -124,6 +124,16 @@ $thumbnail-px: 4px;
                 rgba(255, 255, 255, 0.3);
             letter-spacing: $thumbnail-px * -0.5;
         }
+        &.group-content {
+            top: 50%;
+            gap: 0px;
+            .ticker {
+                font-size: 180px;
+            }
+            .amount {
+                font-size: 180px;
+            }
+        }
     }
 
     .footer {

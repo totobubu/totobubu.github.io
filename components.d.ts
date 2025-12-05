@@ -38,6 +38,7 @@ declare module 'vue' {
     FamilyMemberList: typeof import('./src/components/asset/FamilyMemberList.vue')['default']
     Fieldset: typeof import('primevue/fieldset')['default']
     FilterInput: typeof import('./src/components/FilterInput.vue')['default']
+    GroupItem: typeof import('./src/components/thumbnail/GroupItem.vue')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
     InputText: typeof import('primevue/inputtext')['default']
