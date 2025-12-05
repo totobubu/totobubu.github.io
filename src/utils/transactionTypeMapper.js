@@ -21,6 +21,7 @@ export const TRANSACTION_TYPES = {
 
     // 환전
     EXCHANGE: 'exchange',
+    SPLIT: 'split',
 
     // 기타
     EVENT: 'event',
@@ -46,6 +47,7 @@ export const BROKERAGE_TYPE_MAPPING = {
         이자입금: TRANSACTION_TYPES.INTEREST,
         출석체크이벤트입고: TRANSACTION_TYPES.EVENT,
         해외주식이벤트입고: TRANSACTION_TYPES.EVENT,
+        외화주식병합단주대금입금: TRANSACTION_TYPES.SPLIT,
     },
     삼성증권: {
         매수: TRANSACTION_TYPES.BUY,
