@@ -5,6 +5,7 @@
     import html2canvas from 'html2canvas';
     import JSZip from 'jszip';
     import ThumbnailItem from '@/components/thumbnail/ThumbnailItem.vue';
+    import GroupItem from '@/components/thumbnail/GroupItem.vue';
 
     import Button from 'primevue/button';
     import ProgressSpinner from 'primevue/progressspinner';
@@ -210,6 +211,11 @@
 
         const updatedThumbnails = await Promise.all(
             allThumbnailsData.value.map(async (thumb) => {
+                // Group 타입은 배당금 동기화 불필요
+                if (thumb.type === 'Group') {
+                    return { ...thumb };
+                }
+
                 const symbol = thumb.symbol;
                 let cachedData = tickerDataCache.get(symbol);
                 let backtestData = [];
@@ -452,14 +458,25 @@
             <div
                 v-else
                 v-for="thumb in filteredThumbnails"
-                :key="thumb.symbol"
-                :data-symbol="thumb.symbol"
+                :key="thumb.symbol || thumb.groupTitle"
+                :data-symbol="thumb.symbol || thumb.groupTitle"
                 class="thumbnail-wrapper">
                 <Checkbox
                     v-model="selectedThumbnails"
-                    :value="thumb.symbol"
+                    :value="thumb.symbol || thumb.groupTitle"
                     class="thumbnail-checkbox" />
+
+                <!-- Group Type -->
+                <GroupItem
+                    v-if="thumb.type === 'Group'"
+                    :data="{
+                        ...thumb,
+                        date,
+                    }" />
+
+                <!-- Regular Thumbnail Type -->
                 <ThumbnailItem
+                    v-else
                     :data="{
                         ...thumb,
                         date,
