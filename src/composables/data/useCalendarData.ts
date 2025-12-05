@@ -75,17 +75,19 @@ async function loadMonth(yearMonth: string): Promise<void> {
     try {
         // 1. IndexedDB 캐시 확인
         const cached = await dbCache.get<CalendarCacheData>(
-            `calendar-v2-${yearMonth}` // v2로 캐시 키 변경하여 이전 캐시 무효화
+            `calendar-v3-${yearMonth}` // v3로 캐시 키 변경하여 이전 캐시 무효화 (12.5 배당 데이터 갱신 반영)
         );
         if (cached) {
             // 캐시 유효성 검사: 이벤트에 currency와 isEtf 필드가 있는지 확인
             const isValid =
                 cached.events.length === 0 ||
                 ((cached.events[0] as any).currency !== undefined &&
-                 (cached.events[0] as any).isEtf !== undefined);
+                    (cached.events[0] as any).isEtf !== undefined);
 
             if (isValid) {
-                console.log(`📅 [useCalendarData] ✓ 캐시에서 로드: ${yearMonth} (${cached.events.length}개 이벤트)`);
+                console.log(
+                    `📅 [useCalendarData] ✓ 캐시에서 로드: ${yearMonth} (${cached.events.length}개 이벤트)`
+                );
                 monthlyData.value.set(yearMonth, cached.events);
 
                 // 티커 속성 정보 병합
@@ -98,7 +100,9 @@ async function loadMonth(yearMonth: string): Promise<void> {
                 loadingMonths.value.delete(yearMonth);
                 return;
             } else {
-                console.log(`📅 [useCalendarData] ⚠️ 캐시 무효화: ${yearMonth} (isEtf 필드 누락)`);
+                console.log(
+                    `📅 [useCalendarData] ⚠️ 캐시 무효화: ${yearMonth} (isEtf 필드 누락)`
+                );
             }
         }
 
@@ -123,9 +127,17 @@ async function loadMonth(yearMonth: string): Promise<void> {
         const tickerPropertiesMap = new Map<string, TickerProperties>();
 
         const categories = [
-            { key: 'UsStock' as const, currency: 'USD' as Currency, isEtf: false },
+            {
+                key: 'UsStock' as const,
+                currency: 'USD' as Currency,
+                isEtf: false,
+            },
             { key: 'UsEtf' as const, currency: 'USD' as Currency, isEtf: true },
-            { key: 'KrStock' as const, currency: 'KRW' as Currency, isEtf: false },
+            {
+                key: 'KrStock' as const,
+                currency: 'KRW' as Currency,
+                isEtf: false,
+            },
             { key: 'KrEtf' as const, currency: 'KRW' as Currency, isEtf: true },
         ];
 
@@ -166,7 +178,7 @@ async function loadMonth(yearMonth: string): Promise<void> {
         });
 
         // 5. IndexedDB에 캐싱
-        await dbCache.set(`calendar-v2-${yearMonth}`, {
+        await dbCache.set(`calendar-v3-${yearMonth}`, {
             events: flatEvents,
             tickerProperties: Array.from(tickerPropertiesMap.entries()),
         });
@@ -210,7 +222,9 @@ async function loadDateRange(
         // 병렬로 모든 월 로드
         await Promise.all(months.map((month) => loadMonth(month)));
 
-        console.log(`📅 [useCalendarData] ✅ 데이터 로딩 완료: ${monthlyData.value.size}개 월`);
+        console.log(
+            `📅 [useCalendarData] ✅ 데이터 로딩 완료: ${monthlyData.value.size}개 월`
+        );
     } catch (err) {
         console.error('데이터 로드 실패:', err);
         error.value = err as Error;
@@ -237,7 +251,9 @@ async function loadCurrentMonth(): Promise<void> {
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
 
-    console.log(`📅 [useCalendarData] 현재 월 로드: ${year}-${String(month).padStart(2, '0')}`);
+    console.log(
+        `📅 [useCalendarData] 현재 월 로드: ${year}-${String(month).padStart(2, '0')}`
+    );
     await loadVisibleMonth(year, month);
 }
 
