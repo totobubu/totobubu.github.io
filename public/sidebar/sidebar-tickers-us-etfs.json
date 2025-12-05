@@ -19,7 +19,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 25,
+        "popularity": 26,
         "koName": "일드맥스 스트래티지 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -58,6 +58,34 @@
         "groupOrder": 2
     },
     {
+        "symbol": "QDTE",
+        "isin": "US77926X3044",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 13,
+        "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4
+    },
+    {
+        "symbol": "JEPQ",
+        "isin": "US46654Q2030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 12,
+        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
+        "company": "J.P. Morgan",
+        "logo": "logos/company/company-jpmorgan.png",
+        "frequency": "매월",
+        "group": "JJD",
+        "groupOrder": 999
+    },
+    {
         "symbol": "NVDY",
         "isin": "US88634T7744",
         "currency": "USD",
@@ -71,20 +99,6 @@
         "group": "JON",
         "underlying": "NVDA",
         "groupOrder": 999
-    },
-    {
-        "symbol": "QDTE",
-        "isin": "US77926X3044",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 12,
-        "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "목",
-        "groupOrder": 4
     },
     {
         "symbol": "TSLY",
@@ -114,20 +128,6 @@
         "frequency": "매주",
         "group": "목",
         "groupOrder": 4
-    },
-    {
-        "symbol": "JEPQ",
-        "isin": "US46654Q2030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 11,
-        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
-        "company": "J.P. Morgan",
-        "logo": "logos/company/company-jpmorgan.png",
-        "frequency": "매월",
-        "group": "JJD",
-        "groupOrder": 999
     },
     {
         "symbol": "TSYY",
@@ -437,6 +437,20 @@
         "groupOrder": 1
     },
     {
+        "symbol": "QDVO",
+        "isin": "US0321085245",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "앰플리파이 CWP 성장 & 인컴 ETF",
+        "company": "Amplify",
+        "logo": "logos/company/company-amplify.png",
+        "frequency": "매월",
+        "group": "SON",
+        "groupOrder": 999
+    },
+    {
         "symbol": "XBTY",
         "isin": "US38747R4213",
         "currency": "USD",
@@ -494,6 +508,20 @@
         "groupOrder": 999
     },
     {
+        "symbol": "DIVO",
+        "isin": "US0321084099",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 4,
+        "koName": "앰플리파이 배당 수익 ETF",
+        "company": "Amplify",
+        "logo": "logos/company/company-amplify.png",
+        "frequency": "매월",
+        "group": "MJS",
+        "groupOrder": 999
+    },
+    {
         "symbol": "GOOW",
         "isin": "US77926X7599",
         "currency": "USD",
@@ -520,20 +548,6 @@
         "logo": "logos/company/company-goldman-sachs.svg",
         "frequency": "매월",
         "group": "FMD",
-        "groupOrder": 999
-    },
-    {
-        "symbol": "QDVO",
-        "isin": "US0321085245",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "앰플리파이 CWP 성장 & 인컴 ETF",
-        "company": "Amplify",
-        "logo": "logos/company/company-amplify.png",
-        "frequency": "매월",
-        "group": "SON",
         "groupOrder": 999
     },
     {
@@ -566,6 +580,21 @@
         "groupOrder": 999
     },
     {
+        "symbol": "SPYI",
+        "isin": "US78433H3030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 4,
+        "koName": "네오스 S&P 500 고배당 ETF",
+        "company": "Neos Funds",
+        "logo": "logos/company/company-neos-funds.png",
+        "frequency": "매월",
+        "group": "SON",
+        "underlying": "SPY",
+        "groupOrder": 999
+    },
+    {
         "symbol": "AMDW",
         "isin": "US77926X7839",
         "currency": "USD",
@@ -579,20 +608,6 @@
         "group": "월",
         "underlying": "AMD",
         "groupOrder": 1
-    },
-    {
-        "symbol": "DIVO",
-        "isin": "US0321084099",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 3,
-        "koName": "앰플리파이 배당 수익 ETF",
-        "company": "Amplify",
-        "logo": "logos/company/company-amplify.png",
-        "frequency": "매월",
-        "group": "MJS",
-        "groupOrder": 999
     },
     {
         "symbol": "HOOY",
@@ -637,21 +652,6 @@
         "frequency": "매주",
         "group": "수",
         "groupOrder": 3
-    },
-    {
-        "symbol": "SPYI",
-        "isin": "US78433H3030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 3,
-        "koName": "네오스 S&P 500 고배당 ETF",
-        "company": "Neos Funds",
-        "logo": "logos/company/company-neos-funds.png",
-        "frequency": "매월",
-        "group": "SON",
-        "underlying": "SPY",
-        "groupOrder": 999
     },
     {
         "symbol": "WDTE",
@@ -1219,6 +1219,20 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "분기",
         "group": "MJD",
+        "groupOrder": 999
+    },
+    {
+        "symbol": "SCHG",
+        "isin": "US8085243009",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "슈왑 미국 성장주 ETF",
+        "company": "Schwab",
+        "logo": "logos/company/company-schwab.svg",
+        "frequency": "분기",
+        "group": "JSD",
         "groupOrder": 999
     },
     {
