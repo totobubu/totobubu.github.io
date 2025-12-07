@@ -1,4 +1,4 @@
-<!-- src/components/asset/AccountTransactionDialog.vue -->
+<!-- src/components/asset/BrokerageTransactionDialog.vue -->
 <template>
     <Drawer v-model:visible="isVisible" :header="title" position="full">
         <div v-if="isLoading" class="flex justify-content-center p-4">
@@ -41,6 +41,33 @@
                                     "
                                     size="small"
                                     @click="selectedTypeFilter = type.value" />
+                            </div>
+                        </div>
+
+                        <!-- 계좌 필터 -->
+                        <div
+                            v-if="uniqueAccounts.length > 1"
+                            class="flex align-items-center gap-2">
+                            <label class="font-semibold" style="min-width: 80px"
+                                >계좌 필터:</label
+                            >
+                            <div class="flex gap-2 flex-wrap">
+                                <Button
+                                    label="전체"
+                                    :outlined="selectedAccountFilter !== null"
+                                    size="small"
+                                    @click="selectedAccountFilter = null" />
+                                <Button
+                                    v-for="account in uniqueAccounts"
+                                    :key="account.id"
+                                    :label="account.name"
+                                    :outlined="
+                                        selectedAccountFilter !== account.id
+                                    "
+                                    size="small"
+                                    @click="
+                                        selectedAccountFilter = account.id
+                                    " />
                             </div>
                         </div>
                     </div>
@@ -103,6 +130,18 @@
                                 {{ formatDate(slotProps.data.date) }}
                             </template>
                         </Column>
+
+                        <!-- 계좌명 -->
+                        <Column
+                            field="accountName"
+                            header="계좌"
+                            style="min-width: 120px">
+                            <template #body="slotProps">
+                                {{ slotProps.data.accountName || '-' }}
+                            </template>
+                        </Column>
+
+                        <!-- 종목명 -->
                         <Column
                             field="assetName"
                             header="종목"
@@ -115,6 +154,7 @@
                                 </div>
                             </template>
                         </Column>
+
                         <Column field="type" header="유형" style="width: 100px">
                             <template #body="slotProps">
                                 <Tag
@@ -145,6 +185,7 @@
                         <ColumnGroup type="header">
                             <Row>
                                 <Column header="날짜" :rowspan="2" />
+                                <Column header="계좌" :rowspan="2" />
                                 <Column header="종목" :rowspan="2" />
                                 <Column header="유형" :rowspan="2" />
                                 <Column header="수량" :rowspan="2" />
@@ -286,10 +327,9 @@
                 </div>
             </TabPanel>
 
-            <!-- 탭 2: 배당내역 -->
+            <!-- 탭 2: 배당내역 (증권사의 모든 배당) -->
             <TabPanel header="배당내역">
                 <div class="flex flex-column gap-3">
-                    <!-- 배당내역 테이블 -->
                     <DataTable
                         :value="dividendTransactions"
                         stripedRows
@@ -431,7 +471,6 @@
                                 }}
                             </template>
                         </Column>
-
                         <template #empty>
                             <div class="text-center p-4">
                                 <p class="text-color-secondary">
@@ -468,13 +507,12 @@
         },
         title: {
             type: String,
-            default: '거래 내역',
+            default: '증권사별 거래 내역',
         },
         transactions: {
             type: Array,
             default: () => [],
         },
-
         isLoading: {
             type: Boolean,
             default: false,
@@ -490,6 +528,9 @@
 
     // 유형 필터
     const selectedTypeFilter = ref(null);
+
+    // 계좌 필터
+    const selectedAccountFilter = ref(null);
 
     // 기간 필터 (개월 단위)
     const selectedPeriod = ref(3); // 기본 3개월
@@ -522,6 +563,26 @@
             .sort((a, b) => a.label.localeCompare(b.label));
     });
 
+    // 유니크한 계좌 목록
+    const uniqueAccounts = computed(() => {
+        const accountMap = new Map();
+
+        props.transactions.forEach((t) => {
+            if (t.accountId && t.accountName) {
+                if (!accountMap.has(t.accountId)) {
+                    accountMap.set(t.accountId, {
+                        id: t.accountId,
+                        name: t.accountName,
+                    });
+                }
+            }
+        });
+
+        return Array.from(accountMap.values()).sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+    });
+
     // 필터링된 거래내역
     const filteredTransactions = computed(() => {
         let filtered = props.transactions;
@@ -530,6 +591,13 @@
         if (selectedTypeFilter.value) {
             filtered = filtered.filter(
                 (t) => t.type === selectedTypeFilter.value
+            );
+        }
+
+        // 계좌 필터
+        if (selectedAccountFilter.value) {
+            filtered = filtered.filter(
+                (t) => t.accountId === selectedAccountFilter.value
             );
         }
 
@@ -594,22 +662,15 @@
 
     const formatDate = (date) => {
         if (!date) return '-';
-
-        // Firestore Timestamp 처리
         if (date.toDate) {
             return date.toDate().toLocaleDateString('ko-KR');
         }
-
-        // YYYYMMDD 형식
         if (typeof date === 'string' && date.length === 8) {
             return `${date.substring(0, 4)}-${date.substring(4, 6)}-${date.substring(6, 8)}`;
         }
-
-        // Date 객체
         if (date instanceof Date) {
             return date.toLocaleDateString('ko-KR');
         }
-
         return date;
     };
 
@@ -623,11 +684,8 @@
 
     const formatCurrency = (value, currency) => {
         if (value === undefined || value === null) return '-';
-
-        // 통화 코드 유효성 검사 및 기본값 설정
         let validCurrency = 'KRW';
         if (currency) {
-            // 일반적인 통화 코드만 허용
             const validCurrencies = [
                 'KRW',
                 'USD',
@@ -645,7 +703,6 @@
                 ? currency.toUpperCase()
                 : 'KRW';
         }
-
         try {
             return new Intl.NumberFormat('ko-KR', {
                 style: 'currency',
@@ -656,58 +713,11 @@
                     validCurrency === 'KRW' || validCurrency === 'JPY' ? 0 : 2,
             }).format(value);
         } catch (error) {
-            // 폴백: 통화 기호 없이 숫자만 표시
             return new Intl.NumberFormat('ko-KR', {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 2,
             }).format(value);
         }
-    };
-
-    // 거래 단가 표시 (통화별로 적절한 필드 선택)
-    const getPrice = (transaction) => {
-        if (!transaction) return '-';
-
-        // USD 거래인 경우
-        if (
-            transaction.currency === 'USD' &&
-            transaction.priceUSD !== undefined
-        ) {
-            return formatCurrency(transaction.priceUSD, 'USD');
-        }
-
-        // 기본적으로 KRW 또는 price 필드 사용
-        if (transaction.price !== undefined && transaction.price !== null) {
-            return formatCurrency(
-                transaction.price,
-                transaction.currency || 'KRW'
-            );
-        }
-
-        return '-';
-    };
-
-    // 거래 금액 표시 (통화별로 적절한 필드 선택)
-    const getAmount = (transaction) => {
-        if (!transaction) return '-';
-
-        // USD 거래인 경우
-        if (
-            transaction.currency === 'USD' &&
-            transaction.amountUSD !== undefined
-        ) {
-            return formatCurrency(transaction.amountUSD, 'USD');
-        }
-
-        // 기본적으로 KRW 또는 amount 필드 사용
-        if (transaction.amount !== undefined && transaction.amount !== null) {
-            return formatCurrency(
-                transaction.amount,
-                transaction.currency || 'KRW'
-            );
-        }
-
-        return '-';
     };
 
     const getTransactionTypeSeverity = (type) => {
@@ -735,16 +745,11 @@
         return '';
     };
 
-    // 자산 표시명 (해외주식은 심볼만)
     const getAssetDisplayName = (transaction) => {
         if (!transaction) return '-';
-
-        // 해외주식인 경우 symbol만 표시
         if (transaction.assetSymbol && transaction.currency !== 'KRW') {
             return transaction.assetSymbol;
         }
-
-        // 국내주식이나 기타는 이름 표시
         return transaction.assetName || transaction.assetSymbol || '-';
     };
 </script>
