@@ -1,9 +1,6 @@
 <!-- src/components/asset/AccountTransactionDialog.vue -->
 <template>
-    <Drawer
-        v-model:visible="isVisible"
-        :header="title"
-        position="full">
+    <Drawer v-model:visible="isVisible" :header="title" position="full">
         <div v-if="isLoading" class="flex justify-content-center p-4">
             <ProgressSpinner />
         </div>
@@ -16,297 +13,276 @@
             <!-- 탭 1: 거래내역 -->
             <TabPanel header="거래내역">
                 <div class="flex flex-column gap-3">
-                <!-- Info message -->
-                <Message severity="info" :closable="false">
-                    <small>
-                        {{ filterInfoMessage }}
-                    </small>
-                </Message>
-                <!-- 필터들 -->
-                <div class="flex flex-column gap-2">
-                    <!-- 유형 필터 -->
-                    <div class="flex align-items-center gap-2">
-                        <label class="font-semibold" style="min-width: 80px">유형 필터:</label>
-                        <div class="flex gap-2 flex-wrap">
-                            <Button
-                                label="전체"
-                                :outlined="selectedTypeFilter !== null"
-                                size="small"
-                                @click="selectedTypeFilter = null" />
-                            <Button
-                                v-for="type in uniqueTypes"
-                                :key="type.value"
-                                :label="type.label"
-                                :outlined="selectedTypeFilter !== type.value"
-                                size="small"
-                                @click="selectedTypeFilter = type.value" />
-                        </div>
-                    </div>
-
-                    <!-- 계좌 필터 -->
-                    <div v-if="uniqueAccounts.length > 1" class="flex align-items-center gap-2">
-                        <label class="font-semibold" style="min-width: 80px">계좌 필터:</label>
-                        <div class="flex gap-2 flex-wrap">
-                            <Button
-                                label="전체"
-                                :outlined="selectedAccountFilter !== null"
-                                size="small"
-                                @click="selectedAccountFilter = null" />
-                            <Button
-                                v-for="account in uniqueAccounts"
-                                :key="account.id"
-                                :label="account.name"
-                                :outlined="selectedAccountFilter !== account.id"
-                                size="small"
-                                @click="selectedAccountFilter = account.id" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 기간 필터 -->
-                <div class="flex align-items-center gap-2">
-                    <label>기간 필터:</label>
-                    <div class="flex gap-2">
-                        <Button
-                            label="3개월"
-                            :outlined="selectedPeriod !== 3"
-                            size="small"
-                            @click="selectedPeriod = 3" />
-                        <Button
-                            label="6개월"
-                            :outlined="selectedPeriod !== 6"
-                            size="small"
-                            @click="selectedPeriod = 6" />
-                        <Button
-                            label="1년"
-                            :outlined="selectedPeriod !== 12"
-                            size="small"
-                            @click="selectedPeriod = 12" />
-                        <Button
-                            label="2년"
-                            :outlined="selectedPeriod !== 24"
-                            size="small"
-                            @click="selectedPeriod = 24" />
-                        <Button
-                            label="3년"
-                            :outlined="selectedPeriod !== 36"
-                            size="small"
-                            @click="selectedPeriod = 36" />
-                        <Button
-                            label="5년"
-                            :outlined="selectedPeriod !== 60"
-                            size="small"
-                            @click="selectedPeriod = 60" />
-                        <Button
-                            label="전체"
-                            :outlined="selectedPeriod !== null"
-                            size="small"
-                            @click="selectedPeriod = null" />
-                    </div>
-                </div>
-
-                <!-- 거래내역 테이블 -->
-                <DataTable
-                    :value="filteredTransactions"
-                    stripedRows
-                    class="p-datatable-sm"
-                    sortField="date"
-                    :sortOrder="-1">
-                    <Column
-                        field="date"
-                        header="날짜"
-                        sortable
-                        style="width: 120px">
-                        <template #body="slotProps">
-                            {{ formatDate(slotProps.data.date) }}
-                        </template>
-                    </Column>
-                    <Column
-                        v-if="mode === 'account'"
-                        field="assetName"
-                        header="종목"
-                        style="min-width: 150px">
-                        <template #body="slotProps">
-                            <div class="flex flex-column">
-                                <span class="font-bold">{{
-                                    getAssetDisplayName(slotProps.data)
-                                }}</span>
+                    <!-- Info message -->
+                    <Message severity="info" :closable="false">
+                        <small>
+                            {{ filterInfoMessage }}
+                        </small>
+                    </Message>
+                    <!-- 필터들 -->
+                    <div class="flex flex-column gap-2">
+                        <!-- 유형 필터 -->
+                        <div class="flex align-items-center gap-2">
+                            <label class="font-semibold" style="min-width: 80px"
+                                >유형 필터:</label
+                            >
+                            <div class="flex gap-2 flex-wrap">
+                                <Button
+                                    label="전체"
+                                    :outlined="selectedTypeFilter !== null"
+                                    size="small"
+                                    @click="selectedTypeFilter = null" />
+                                <Button
+                                    v-for="type in uniqueTypes"
+                                    :key="type.value"
+                                    :label="type.label"
+                                    :outlined="
+                                        selectedTypeFilter !== type.value
+                                    "
+                                    size="small"
+                                    @click="selectedTypeFilter = type.value" />
                             </div>
-                        </template>
-                    </Column>
-                    <Column
-                        v-if="mode === 'asset' && uniqueAccounts.length > 1"
-                        field="accountName"
-                        header="계좌"
-                        style="min-width: 120px">
-                        <template #body="slotProps">
-                            {{ slotProps.data.accountName || '-' }}
-                        </template>
-                    </Column>
-                    <Column field="type" header="유형" style="width: 100px">
-                        <template #body="slotProps">
-                            <Tag
-                                :value="
-                                    getTransactionTypeLabel(
-                                        slotProps.data.type,
-                                        slotProps.data.rawType
-                                    )
-                                "
-                                :severity="
-                                    getTransactionTypeSeverity(
-                                        slotProps.data.type
-                                    )
-                                "
-                                size="small" />
-                        </template>
-                    </Column>
-                    <Column field="quantity" header="수량" style="width: 100px">
-                        <template #body="slotProps">
-                            {{ formatNumber(slotProps.data.quantity) }}
-                        </template>
-                    </Column>
+                        </div>
+                    </div>
 
-                    <!-- 컬럼 그룹 헤더 -->
-                    <ColumnGroup type="header">
-                        <Row>
-                            <Column header="날짜" :rowspan="2" />
-                            <Column
-                                v-if="mode === 'account'"
-                                header="종목"
-                                :rowspan="2" />
-                            <Column
-                                v-if="mode === 'asset' && uniqueAccounts.length > 1"
-                                header="계좌"
-                                :rowspan="2" />
-                            <Column header="유형" :rowspan="2" />
-                            <Column header="수량" :rowspan="2" />
-                            <Column
-                                v-if="hasUSDTransactions"
-                                header="USD"
-                                :colspan="2" />
-                            <Column header="KRW" :colspan="4" />
-                        </Row>
-                        <Row>
-                            <Column
-                                v-if="hasUSDTransactions"
-                                header="단가"
-                                field="priceUSD" />
-                            <Column
-                                v-if="hasUSDTransactions"
-                                header="금액"
-                                field="amountUSD" />
-                            <Column header="단가" field="price" />
-                            <Column header="금액" field="amount" />
-                            <Column header="환율" field="exchangeRate" />
-                            <Column header="제세금" field="tax" />
-                        </Row>
-                    </ColumnGroup>
+                    <!-- 기간 필터 -->
+                    <div class="flex align-items-center gap-2">
+                        <label>기간 필터:</label>
+                        <div class="flex gap-2">
+                            <Button
+                                label="3개월"
+                                :outlined="selectedPeriod !== 3"
+                                size="small"
+                                @click="selectedPeriod = 3" />
+                            <Button
+                                label="6개월"
+                                :outlined="selectedPeriod !== 6"
+                                size="small"
+                                @click="selectedPeriod = 6" />
+                            <Button
+                                label="1년"
+                                :outlined="selectedPeriod !== 12"
+                                size="small"
+                                @click="selectedPeriod = 12" />
+                            <Button
+                                label="2년"
+                                :outlined="selectedPeriod !== 24"
+                                size="small"
+                                @click="selectedPeriod = 24" />
+                            <Button
+                                label="3년"
+                                :outlined="selectedPeriod !== 36"
+                                size="small"
+                                @click="selectedPeriod = 36" />
+                            <Button
+                                label="5년"
+                                :outlined="selectedPeriod !== 60"
+                                size="small"
+                                @click="selectedPeriod = 60" />
+                            <Button
+                                label="전체"
+                                :outlined="selectedPeriod !== null"
+                                size="small"
+                                @click="selectedPeriod = null" />
+                        </div>
+                    </div>
 
-                    <!-- USD 단가 -->
-                    <Column
-                        v-if="hasUSDTransactions"
-                        field="priceUSD"
-                        style="width: 110px">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.priceUSD
-                                    ? formatCurrency(
-                                          slotProps.data.priceUSD,
-                                          'USD'
-                                      )
-                                    : '-'
-                            }}
-                        </template>
-                    </Column>
+                    <!-- 거래내역 테이블 -->
+                    <DataTable
+                        :value="filteredTransactions"
+                        stripedRows
+                        class="p-datatable-sm"
+                        sortField="date"
+                        :sortOrder="-1">
+                        <Column
+                            field="date"
+                            header="날짜"
+                            sortable
+                            style="width: 120px">
+                            <template #body="slotProps">
+                                {{ formatDate(slotProps.data.date) }}
+                            </template>
+                        </Column>
+                        <Column
+                            field="assetName"
+                            header="종목"
+                            style="min-width: 150px">
+                            <template #body="slotProps">
+                                <div class="flex flex-column">
+                                    <span class="font-bold">{{
+                                        getAssetDisplayName(slotProps.data)
+                                    }}</span>
+                                </div>
+                            </template>
+                        </Column>
+                        <Column field="type" header="유형" style="width: 100px">
+                            <template #body="slotProps">
+                                <Tag
+                                    :value="
+                                        getTransactionTypeLabel(
+                                            slotProps.data.type,
+                                            slotProps.data.rawType
+                                        )
+                                    "
+                                    :severity="
+                                        getTransactionTypeSeverity(
+                                            slotProps.data.type
+                                        )
+                                    "
+                                    size="small" />
+                            </template>
+                        </Column>
+                        <Column
+                            field="quantity"
+                            header="수량"
+                            style="width: 100px">
+                            <template #body="slotProps">
+                                {{ formatNumber(slotProps.data.quantity) }}
+                            </template>
+                        </Column>
 
-                    <!-- USD 금액 -->
-                    <Column
-                        v-if="hasUSDTransactions"
-                        field="amountUSD"
-                        style="width: 120px">
-                        <template #body="slotProps">
-                            <span
-                                :class="
-                                    getAmountColorClass(
-                                        slotProps.data.type,
-                                        slotProps.data.amountUSD
-                                    )
-                                ">
+                        <!-- 컬럼 그룹 헤더 -->
+                        <ColumnGroup type="header">
+                            <Row>
+                                <Column header="날짜" :rowspan="2" />
+                                <Column header="종목" :rowspan="2" />
+                                <Column header="유형" :rowspan="2" />
+                                <Column header="수량" :rowspan="2" />
+                                <Column
+                                    v-if="hasUSDTransactions"
+                                    header="USD"
+                                    :colspan="2" />
+                                <Column header="KRW" :colspan="4" />
+                            </Row>
+                            <Row>
+                                <Column
+                                    v-if="hasUSDTransactions"
+                                    header="단가"
+                                    field="priceUSD" />
+                                <Column
+                                    v-if="hasUSDTransactions"
+                                    header="금액"
+                                    field="amountUSD" />
+                                <Column header="단가" field="price" />
+                                <Column header="금액" field="amount" />
+                                <Column header="환율" field="exchangeRate" />
+                                <Column header="제세금" field="tax" />
+                            </Row>
+                        </ColumnGroup>
+
+                        <!-- USD 단가 -->
+                        <Column
+                            v-if="hasUSDTransactions"
+                            field="priceUSD"
+                            style="width: 110px">
+                            <template #body="slotProps">
                                 {{
-                                    slotProps.data.amountUSD
+                                    slotProps.data.priceUSD
                                         ? formatCurrency(
-                                              slotProps.data.amountUSD,
+                                              slotProps.data.priceUSD,
                                               'USD'
                                           )
                                         : '-'
                                 }}
-                            </span>
-                        </template>
-                    </Column>
+                            </template>
+                        </Column>
 
-                    <!-- KRW 단가 -->
-                    <Column field="price" style="width: 110px">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.price
-                                    ? formatCurrency(slotProps.data.price, 'KRW')
-                                    : '-'
-                            }}
-                        </template>
-                    </Column>
+                        <!-- USD 금액 -->
+                        <Column
+                            v-if="hasUSDTransactions"
+                            field="amountUSD"
+                            style="width: 120px">
+                            <template #body="slotProps">
+                                <span
+                                    :class="
+                                        getAmountColorClass(
+                                            slotProps.data.type,
+                                            slotProps.data.amountUSD
+                                        )
+                                    ">
+                                    {{
+                                        slotProps.data.amountUSD
+                                            ? formatCurrency(
+                                                  slotProps.data.amountUSD,
+                                                  'USD'
+                                              )
+                                            : '-'
+                                    }}
+                                </span>
+                            </template>
+                        </Column>
 
-                    <!-- KRW 금액 -->
-                    <Column field="amount" style="width: 120px">
-                        <template #body="slotProps">
-                            <span
-                                :class="
-                                    getAmountColorClass(
-                                        slotProps.data.type,
-                                        slotProps.data.amount
-                                    )
-                                ">
+                        <!-- KRW 단가 -->
+                        <Column field="price" style="width: 110px">
+                            <template #body="slotProps">
                                 {{
-                                    slotProps.data.amount
+                                    slotProps.data.price
                                         ? formatCurrency(
-                                              slotProps.data.amount,
+                                              slotProps.data.price,
                                               'KRW'
                                           )
                                         : '-'
                                 }}
-                            </span>
-                        </template>
-                    </Column>
+                            </template>
+                        </Column>
 
-                    <!-- 환율 -->
-                    <Column field="exchangeRate" style="width: 100px">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.exchangeRate
-                                    ? formatNumber(slotProps.data.exchangeRate)
-                                    : '-'
-                            }}
-                        </template>
-                    </Column>
+                        <!-- KRW 금액 -->
+                        <Column field="amount" style="width: 120px">
+                            <template #body="slotProps">
+                                <span
+                                    :class="
+                                        getAmountColorClass(
+                                            slotProps.data.type,
+                                            slotProps.data.amount
+                                        )
+                                    ">
+                                    {{
+                                        slotProps.data.amount
+                                            ? formatCurrency(
+                                                  slotProps.data.amount,
+                                                  'KRW'
+                                              )
+                                            : '-'
+                                    }}
+                                </span>
+                            </template>
+                        </Column>
 
-                    <!-- 제세금 -->
-                    <Column field="tax" style="width: 100px">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.tax
-                                    ? formatCurrency(slotProps.data.tax, 'KRW')
-                                    : '-'
-                            }}
-                        </template>
-                    </Column>
+                        <!-- 환율 -->
+                        <Column field="exchangeRate" style="width: 100px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.exchangeRate
+                                        ? formatNumber(
+                                              slotProps.data.exchangeRate
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
 
-                    <template #empty>
-                        <div class="text-center p-4">
-                            <p class="text-color-secondary">
-                                필터 조건에 맞는 거래 내역이 없습니다.
-                            </p>
-                        </div>
-                    </template>
-                </DataTable>
+                        <!-- 제세금 -->
+                        <Column field="tax" style="width: 100px">
+                            <template #body="slotProps">
+                                {{
+                                    slotProps.data.tax
+                                        ? formatCurrency(
+                                              slotProps.data.tax,
+                                              'KRW'
+                                          )
+                                        : '-'
+                                }}
+                            </template>
+                        </Column>
+
+                        <template #empty>
+                            <div class="text-center p-4">
+                                <p class="text-color-secondary">
+                                    필터 조건에 맞는 거래 내역이 없습니다.
+                                </p>
+                            </div>
+                        </template>
+                    </DataTable>
                 </div>
             </TabPanel>
 
@@ -498,10 +474,7 @@
             type: Array,
             default: () => [],
         },
-        mode: {
-            type: String,
-            default: 'account', // 'account' or 'asset'
-        },
+
         isLoading: {
             type: Boolean,
             default: false,
@@ -517,9 +490,6 @@
 
     // 유형 필터
     const selectedTypeFilter = ref(null);
-
-    // 계좌 필터
-    const selectedAccountFilter = ref(null);
 
     // 기간 필터 (개월 단위)
     const selectedPeriod = ref(3); // 기본 3개월
@@ -552,26 +522,6 @@
             .sort((a, b) => a.label.localeCompare(b.label));
     });
 
-    // 유니크한 계좌 목록
-    const uniqueAccounts = computed(() => {
-        const accountMap = new Map();
-
-        props.transactions.forEach((t) => {
-            if (t.accountId && t.accountName) {
-                if (!accountMap.has(t.accountId)) {
-                    accountMap.set(t.accountId, {
-                        id: t.accountId,
-                        name: t.accountName,
-                    });
-                }
-            }
-        });
-
-        return Array.from(accountMap.values()).sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
-    });
-
     // 필터링된 거래내역
     const filteredTransactions = computed(() => {
         let filtered = props.transactions;
@@ -583,61 +533,30 @@
             );
         }
 
-        // 계좌 필터
-        if (selectedAccountFilter.value) {
-            filtered = filtered.filter(
-                (t) => t.accountId === selectedAccountFilter.value
-            );
-        }
-
         // 기간 필터
         if (selectedPeriod.value !== null) {
             const cutoffDate = new Date();
             cutoffDate.setMonth(cutoffDate.getMonth() - selectedPeriod.value);
 
-            console.log(
-                `[Period Filter] Filtering ${selectedPeriod.value} months, cutoff:`,
-                cutoffDate,
-                'today:',
-                new Date()
-            );
-
-            const beforeFilter = filtered.length;
             filtered = filtered.filter((t) => {
-                if (!t.date) {
-                    console.log('[Period Filter] No date field:', t);
-                    return true;
-                }
+                if (!t.date) return true;
 
                 let transactionDate;
-                // Firestore Timestamp 처리
                 if (t.date.toDate) {
                     transactionDate = t.date.toDate();
-                }
-                // YYYYMMDD 형식
-                else if (typeof t.date === 'string' && t.date.length === 8) {
+                } else if (typeof t.date === 'string' && t.date.length === 8) {
                     const year = parseInt(t.date.substring(0, 4));
                     const month = parseInt(t.date.substring(4, 6)) - 1;
                     const day = parseInt(t.date.substring(6, 8));
                     transactionDate = new Date(year, month, day);
-                }
-                // Date 객체
-                else if (t.date instanceof Date) {
+                } else if (t.date instanceof Date) {
                     transactionDate = t.date;
                 } else {
-                    console.log('[Period Filter] Unknown date format:', t.date, typeof t.date);
-                    return true; // 날짜 파싱 실패 시 포함
+                    return true;
                 }
 
-                const pass = transactionDate >= cutoffDate;
-                if (!pass) {
-                    console.log('[Period Filter] Filtered out:', transactionDate, '<', cutoffDate);
-                }
-                return pass;
+                return transactionDate >= cutoffDate;
             });
-            console.log(
-                `[Period Filter] Filtered ${beforeFilter} -> ${filtered.length} transactions`
-            );
         }
 
         return filtered;

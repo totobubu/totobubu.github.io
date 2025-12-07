@@ -46,6 +46,8 @@
     import AssetTypeDataTable from '@/components/asset/AssetTypeDataTable.vue';
     import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
     import AccountTransactionDialog from '@/components/asset/AccountTransactionDialog.vue';
+    import AssetTransactionDialog from '@/components/asset/AssetTransactionDialog.vue';
+    import BrokerageTransactionDialog from '@/components/asset/BrokerageTransactionDialog.vue';
     import EnhancedTransactionDialog from '@/components/asset/EnhancedTransactionDialog.vue';
 
     useHead({ title: '자산관리' });
@@ -101,7 +103,9 @@
     const showUploadDialog = ref(false);
     const showBrokerageUploadDialog = ref(false);
     const showStockMappingDialog = ref(false);
-    const showTransactionDialog = ref(false);
+    const showTransactionDialog = ref(false); // Account Transaction Dialog
+    const showAssetTransactionDialog = ref(false);
+    const showBrokerageTransactionDialog = ref(false);
     const showEnhancedTransactionDialog = ref(false);
 
     // 거래내역 다이얼로그 열기
@@ -252,7 +256,12 @@
         if (enhanced) {
             showEnhancedTransactionDialog.value = true;
         } else {
-            showTransactionDialog.value = true;
+            // Determine which dialog to open based on mode
+            if (transactionDialogData.value.mode === 'asset') {
+                showAssetTransactionDialog.value = true;
+            } else {
+                showTransactionDialog.value = true;
+            }
         }
     };
 
@@ -1710,7 +1719,7 @@
                 title: assetName,
                 transactions,
             };
-            showTransactionDialog.value = true;
+            showAssetTransactionDialog.value = true;
         } catch (error) {
             console.error('자산 거래내역 로드 실패:', error);
             toast.add({
@@ -2965,12 +2974,25 @@
             :brokerage="uploadBrokerage"
             @mapping-complete="handleMappingComplete" />
 
-        <!-- 거래내역 다이얼로그 (기본) -->
+        <!-- 거래내역 다이얼로그 (계좌별) -->
         <AccountTransactionDialog
             v-model:visible="showTransactionDialog"
             :title="transactionDialogData.title"
             :transactions="transactionDialogData.transactions"
-            :mode="transactionDialogData.mode"
+            :isLoading="isLoadingData" />
+
+        <!-- 거래내역 다이얼로그 (자산별) -->
+        <AssetTransactionDialog
+            v-model:visible="showAssetTransactionDialog"
+            :title="transactionDialogData.title"
+            :transactions="transactionDialogData.transactions"
+            :isLoading="isLoadingData" />
+
+        <!-- 거래내역 다이얼로그 (증권사별) -->
+        <BrokerageTransactionDialog
+            v-model:visible="showBrokerageTransactionDialog"
+            :title="transactionDialogData.title"
+            :transactions="transactionDialogData.transactions"
             :isLoading="isLoadingData" />
 
         <!-- 거래내역 다이얼로그 (고급 - 수익 분석) -->
