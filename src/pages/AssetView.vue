@@ -236,7 +236,7 @@
         }
     };
 
-    // 거래내역 다이얼로그 열기 (배당 제외)
+    // 거래내역 다이얼로그 열기 (새 Google Sheets 스타일)
     const openTransactionDialog = async (
         asset,
         accountId = null,
@@ -244,24 +244,15 @@
     ) => {
         await openAssetTransactionDialog(asset, accountId);
 
-        // 배당 거래 제외
-        const nonDividendTransactions =
-            transactionDialogData.value.transactions.filter(
-                (tx) => tx.type !== 'dividend' && tx.type !== 'interest'
-            );
-
-        transactionDialogData.value.transactions = nonDividendTransactions;
+        // 새 다이얼로그는 배당 포함 모든 거래내역 표시
+        // 배당 제외하지 않음 (Google Sheets 스타일)
 
         // 다이얼로그 열기
         if (enhanced) {
             showEnhancedTransactionDialog.value = true;
         } else {
-            // Determine which dialog to open based on mode
-            if (transactionDialogData.value.mode === 'asset') {
-                showAssetTransactionDialog.value = true;
-            } else {
-                showTransactionDialog.value = true;
-            }
+            // 항상 새로운 AssetTransactionDialog 사용
+            showAssetTransactionDialog.value = true;
         }
     };
 
@@ -2603,36 +2594,13 @@
                                         text
                                         severity="danger"
                                         v-tooltip="'삭제'" />
-                                    <SplitButton
-                                        label="거래내역"
+                                    <Button
+                                        v-tooltip="'거래내역'"
                                         icon="pi pi-list"
                                         size="small"
                                         severity="secondary"
+                                        rounded
                                         text
-                                        :model="[
-                                            {
-                                                label: '기본 보기',
-                                                icon: 'pi pi-table',
-                                                command: () => {
-                                                    openTransactionDialog(
-                                                        data,
-                                                        data.accountId,
-                                                        false
-                                                    );
-                                                },
-                                            },
-                                            {
-                                                label: '상세 분석',
-                                                icon: 'pi pi-chart-line',
-                                                command: () => {
-                                                    openTransactionDialog(
-                                                        data,
-                                                        data.accountId,
-                                                        true
-                                                    );
-                                                },
-                                            },
-                                        ]"
                                         @click="
                                             openTransactionDialog(
                                                 data,
