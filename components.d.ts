@@ -28,6 +28,7 @@ declare module 'vue' {
     BrokerageUploadDialog: typeof import('./src/components/asset/BrokerageUploadDialog.vue')['default']
     Button: typeof import('primevue/button')['default']
     CalculatorLayout: typeof import('./src/components/calculators/CalculatorLayout.vue')['default']
+    Calendar: typeof import('primevue/calendar')['default']
     CalendarGrid: typeof import('./src/components/CalendarGrid.vue')['default']
     CalendarTickerSelector: typeof import('./src/components/CalendarTickerSelector.vue')['default']
     Card: typeof import('primevue/card')['default']
