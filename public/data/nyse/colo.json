@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-05 04:15:28 KST",
-        "regularMarketPrice": 37.67,
+        "Update": "2025-12-06 04:08:33 KST",
+        "regularMarketPrice": 37.0869,
         "englishName": "Global X MSCI Colombia ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48187,
-        "AvgVolume": 60055,
+        "Volume": 16275,
+        "AvgVolume": 61561,
         "sharesOutstanding": null,
         "52Week": "22.51 - 38.24",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.67,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 48187,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 60055,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34097,6 +34110,14 @@
             "low": 37.599998,
             "close": 37.82,
             "volume": 62010
+        },
+        {
+            "date": "2025-12-05",
+            "open": 37.779999,
+            "high": 37.799999,
+            "low": 37.009998,
+            "close": 37.049999,
+            "volume": 88100
         }
     ]
 }

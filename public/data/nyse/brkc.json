@@ -9,14 +9,14 @@
         "underlying": "BRK.B",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-05 04:15:28 KST",
-        "regularMarketPrice": 45.64,
+        "Update": "2025-12-06 04:08:33 KST",
+        "regularMarketPrice": 45.72,
         "englishName": "YieldMax BRK.B Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2577,
-        "AvgVolume": 9298,
+        "Volume": 4488,
+        "AvgVolume": 9293,
         "sharesOutstanding": null,
         "52Week": "45.28 - 50.66",
         "Yield": null,
@@ -35,16 +35,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 46.165,
-                "change": "down"
+                "value": 45.64,
+                "change": "up"
             },
             "Volume": {
-                "value": 1548,
+                "value": 2577,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 9282,
-                "change": "up"
+                "value": 9298,
+                "change": "down"
             }
         }
     },
@@ -2281,7 +2281,78 @@
             "high": 45.98,
             "low": 45.5,
             "close": 45.560001,
-            "volume": 4609
+            "volume": 4609,
+            "yield": 0.0968413097
+        },
+        {
+            "date": "2025-12-05",
+            "holdings": [
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 47.5,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 23.43,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 20.27,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.2,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 3.8,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 1.76,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "BRKB 260116C00510000",
+                    "name": "BRKB US 01/16/26 C510",
+                    "weight": 1.5,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BRKB 251212C00512500",
+                    "name": "BRKB US 12/12/25 C512.5",
+                    "weight": 0.1,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BRKB 251212C00515000",
+                    "name": "BRKB US 12/12/25 C515",
+                    "weight": 0.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BRKB 251212C00510000",
+                    "name": "BRKB US 12/12/25 C510",
+                    "weight": 0.1,
+                    "type": "option"
+                }
+            ],
+            "open": 45.599998,
+            "high": 45.779999,
+            "low": 45.639999,
+            "close": 45.720001,
+            "volume": 4604
         },
         {
             "date": "2025-12-11",
@@ -2292,12 +2363,12 @@
             "expected": true
         },
         {
-            "date": "2025-12-24",
+            "date": "2025-12-26",
             "expected": true
         },
         {
-            "date": "2025-12-31",
-            "forecasted": true
+            "date": "2026-01-02",
+            "expected": true
         },
         {
             "date": "2026-01-08",

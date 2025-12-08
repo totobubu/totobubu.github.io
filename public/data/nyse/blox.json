@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-05 04:15:28 KST",
-        "regularMarketPrice": 20.1,
+        "Update": "2025-12-06 04:08:33 KST",
+        "regularMarketPrice": 19.47,
         "englishName": "Nicholas Crypto Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 266367,
-        "AvgVolume": 439036,
+        "Volume": 532728,
+        "AvgVolume": 441930,
         "sharesOutstanding": null,
         "52Week": "16.36 - 28.0",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 19.625,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 427804,
+                "value": 20.1,
                 "change": "down"
             },
+            "Volume": {
+                "value": 266367,
+                "change": "up"
+            },
             "AvgVolume": {
-                "value": 434588,
+                "value": 439036,
                 "change": "up"
             }
         }
@@ -1107,7 +1107,12 @@
         },
         {
             "date": "2025-12-05",
-            "expected": true
+            "amountFixed": 0.1315,
+            "open": 19.83,
+            "high": 19.9468,
+            "low": 19.250099,
+            "close": 19.620001,
+            "volume": 618220
         },
         {
             "date": "2025-12-12",
@@ -1207,6 +1212,10 @@
         },
         {
             "date": "2026-05-29",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-05",
             "forecasted": true
         }
     ]

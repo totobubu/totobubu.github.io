@@ -9,14 +9,14 @@
         "underlying": "CVNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-05 04:15:28 KST",
-        "regularMarketPrice": 36.81,
+        "Update": "2025-12-06 04:08:33 KST",
+        "regularMarketPrice": 37.2111,
         "englishName": "YieldMax CVNA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17128,
-        "AvgVolume": 43566,
+        "Volume": 19194,
+        "AvgVolume": 43580,
         "sharesOutstanding": null,
         "52Week": "24.83 - 58.17",
         "Yield": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 38.12,
-                "change": "down"
+                "value": 36.81,
+                "change": "up"
             },
             "Volume": {
-                "value": 36504,
+                "value": 17128,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 43061,
+                "value": 43566,
                 "change": "up"
             }
         }
@@ -2981,7 +2981,78 @@
             "high": 37.5,
             "low": 36.009998,
             "close": 36.91,
-            "volume": 18143
+            "volume": 18143,
+            "yield": 0.7331253333
+        },
+        {
+            "date": "2025-12-05",
+            "holdings": [
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 20.57,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 20.14,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 18.15,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 17.99,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "CVNA 260116C00360000",
+                    "name": "CVNA US 01/16/26 C360",
+                    "weight": 14.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 12.44,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.15,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "CVNA 251205C00362500",
+                    "name": "CVNA US 12/05/25 C362.5",
+                    "weight": 1.8,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CVNA 251205C00355000",
+                    "name": "CVNA US 12/05/25 C355",
+                    "weight": 1.62,
+                    "type": "option"
+                },
+                {
+                    "symbol": "CVNA 251205C00357500",
+                    "name": "CVNA US 12/05/25 C357.5",
+                    "weight": 1.09,
+                    "type": "option"
+                }
+            ],
+            "open": 37.5,
+            "high": 37.390202,
+            "low": 36.75,
+            "close": 37.18,
+            "volume": 32986
         },
         {
             "date": "2025-12-11",
@@ -2992,12 +3063,12 @@
             "expected": true
         },
         {
-            "date": "2025-12-24",
+            "date": "2025-12-26",
             "expected": true
         },
         {
-            "date": "2025-12-31",
-            "forecasted": true
+            "date": "2026-01-02",
+            "expected": true
         },
         {
             "date": "2026-01-08",
