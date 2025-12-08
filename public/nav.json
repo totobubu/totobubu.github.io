@@ -14586,7 +14586,7 @@
             "noDividends": true,
             "logo": null,
             "dataPaths": ["data/kosdaq/419530.json"],
-            "periods": ["6M", "1Y"]
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "419650",
@@ -35236,6 +35236,22 @@
             "periods": ["5Y", "10Y"]
         },
         {
+            "symbol": "HMYY",
+            "isin": "US38747R1409",
+            "market": "NASDAQ",
+            "yfSymbol": "HMYY",
+            "currency": "USD",
+            "holdings": false,
+            "sharesOutstanding": false,
+            "ipoDate": "2025-12-02",
+            "company": "GraniteShares",
+            "underlying": "HIMS",
+            "koName": "그래닛셰어즈 일드부스트 힘스 ETF",
+            "logo": "logos/company/company-graniteshares.png",
+            "dataPaths": ["data/nasdaq/hmyy.json"],
+            "periods": []
+        },
+        {
             "symbol": "HODL",
             "company": "VanEck",
             "ipoDate": "2024-01-11",
@@ -41101,7 +41117,7 @@
             "currency": "USD",
             "logo": "logos/company/company-cambria.png",
             "dataPaths": ["data/nyse/mfut.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "MGC",
@@ -41482,7 +41498,7 @@
             "symbol": "MOS",
             "ipoDate": "1988-01-26",
             "frequency": "분기",
-            "group": "MJS",
+            "group": "MSD",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US61945C1036",
@@ -42864,6 +42880,8 @@
             "koName": "그래닛셰어즈 일드부스트 금광 ETF",
             "logo": null,
             "dataPaths": ["data/nasdaq/nugy.json"],
+            "frequency": "매주",
+            "group": "금",
             "periods": [],
             "isin": "US38747R1813"
         },
@@ -43131,7 +43149,7 @@
             "koName": "그래닛셰어즈 일드부스트 엔비디아 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/nvyy.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "NWS",
@@ -44574,7 +44592,7 @@
             "koName": "디파이언스 데일리 타겟 2배 숏 팔란티어 ETF",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/pltz.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "PLUG",
@@ -45356,7 +45374,7 @@
             "koName": "인베스코 탑 QQQ ETF",
             "logo": "logos/company/company-invesco.svg",
             "dataPaths": ["data/nasdaq/qbig.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "QBTS",
@@ -45402,6 +45420,8 @@
             "koName": "그래닛셰어즈 일드부스트 디 웨이 브 퀀텀 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/qby.json"],
+            "frequency": "매주",
+            "group": "금",
             "periods": []
         },
         {
@@ -46645,6 +46665,8 @@
             "holdings": false,
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/rgyy.json"],
+            "frequency": "매주",
+            "group": "금",
             "periods": []
         },
         {
@@ -46661,6 +46683,20 @@
             "logo": "logos/company/company-ishares.jpeg",
             "dataPaths": ["data/nyse/ring.json"],
             "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+        },
+        {
+            "symbol": "RIOT",
+            "isin": "US7672921050",
+            "market": "NASDAQ",
+            "yfSymbol": "RIOT",
+            "currency": "USD",
+            "holdings": false,
+            "sharesOutstanding": false,
+            "ipoDate": "2016-03-31",
+            "koName": "라이엇 플랫폼스",
+            "logo": null,
+            "dataPaths": ["data/nasdaq/riot.json"],
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "RIOX",
@@ -47240,6 +47276,22 @@
             "logo": "logos/nyse/rtx.svg",
             "dataPaths": ["data/nyse/rtx.json"],
             "periods": ["5Y", "10Y", "15Y", "20Y"]
+        },
+        {
+            "symbol": "RTYY",
+            "isin": "US38747R1573",
+            "market": "NASDAQ",
+            "yfSymbol": "RTYY",
+            "currency": "USD",
+            "holdings": false,
+            "sharesOutstanding": false,
+            "ipoDate": "2025-12-02",
+            "company": "GraniteShares",
+            "underlying": "RIOT",
+            "koName": "그래닛셰어즈 일드부스트 라이엇 ETF",
+            "logo": "logos/company/company-graniteshares.png",
+            "dataPaths": ["data/nasdaq/rtyy.json"],
+            "periods": []
         },
         {
             "symbol": "RVNL",
@@ -48131,6 +48183,8 @@
             "koName": "그래닛셰어즈 일드부스트 반도체 ETF",
             "logo": null,
             "dataPaths": ["data/nasdaq/semy.json"],
+            "frequency": "매주",
+            "group": "금",
             "periods": [],
             "isin": "US38747R1995"
         },
@@ -52658,9 +52712,7 @@
             "koName": "렉스 인컴맥스 옵션 전략 ETF",
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nyse/ulti.json"],
-            "periods": [],
-            "frequency": "매주",
-            "group": "목"
+            "periods": []
         },
         {
             "symbol": "ULTY",
@@ -55433,7 +55485,7 @@
             "koName": "그래닛셰어즈 일드부스트 비트코인 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/xbty.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "XCEM",
