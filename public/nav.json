@@ -12895,7 +12895,7 @@
             "noDividends": true,
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/371450.json"],
-            "periods": ["6M", "1Y", "3Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "371460",
@@ -12910,7 +12910,7 @@
             "noDividends": true,
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/371460.json"],
-            "periods": ["6M", "1Y", "3Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "371470",
@@ -12925,7 +12925,7 @@
             "noDividends": true,
             "logo": "logos/company/etf-tiger.svg",
             "dataPaths": ["data/kosdaq/371470.json"],
-            "periods": ["6M", "1Y", "3Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y"]
         },
         {
             "symbol": "371870",
@@ -33897,7 +33897,7 @@
             "symbol": "GM",
             "ipoDate": "2010-11-18",
             "frequency": "분기",
-            "group": "MJS",
+            "group": "MJD",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US37045V1008",
@@ -35445,7 +35445,7 @@
             "koName": "휴렛 패커드 엔터프라이즈",
             "logo": "logos/nyse/hpe.svg",
             "dataPaths": ["data/nyse/hpe.json"],
-            "periods": ["5Y"]
+            "periods": ["5Y", "10Y"]
         },
         {
             "symbol": "HPQ",
@@ -36120,7 +36120,7 @@
             "koName": "인터렉티브 브로커스",
             "logo": "logos/nasdaq/ibkr.svg",
             "dataPaths": ["data/nasdaq/ibkr.json"],
-            "periods": ["5Y", "10Y"]
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "IBM",
@@ -41908,6 +41908,8 @@
             "koName": "일드맥스 스트래티지 타겟 분배 ETF",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/bats/msst.json"],
+            "frequency": "매주",
+            "group": "화",
             "periods": []
         },
         {
@@ -43100,6 +43102,8 @@
             "koName": "일드맥스 NVDA 타겟 ETF",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/bats/nvit.json"],
+            "frequency": "매주",
+            "group": "화",
             "periods": []
         },
         {
@@ -50319,7 +50323,7 @@
             "koName": "슈왑 가상화폐 테마 ETF",
             "logo": "logos/company/company-schwab.svg",
             "dataPaths": ["data/nyse/stce.json"],
-            "periods": ["6M", "1Y"]
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "STE",
@@ -51003,7 +51007,7 @@
             "koName": "아틀라시언",
             "logo": "logos/nasdaq/team.svg",
             "dataPaths": ["data/nasdaq/team.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
         },
         {
             "symbol": "TECH",
@@ -51116,6 +51120,8 @@
             "koName": "일드맥스 테슬라 퍼포먼스 & 분배 타겟 25 ETF",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/bats/test.json"],
+            "frequency": "매주",
+            "group": "화",
             "periods": []
         },
         {
