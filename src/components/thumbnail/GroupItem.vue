@@ -13,6 +13,7 @@
                 <div class="header">
                     <img :src="data.logo" alt="Company Logo" class="logo" />
                     <span class="date">{{ data.date }}</span>
+                    <p class="copyright">By DivGrow.com</p>
                 </div>
                 <div class="main-content group-content">
                     <h1 class="ticker" :style="{ color: data.tickerColor }">

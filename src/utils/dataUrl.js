@@ -68,3 +68,12 @@ export function isUsingR2() {
     }
     return USE_R2 && !!R2_PUBLIC_URL;
 }
+
+/**
+ * 인자로 받은 path에 대해 강제로 R2 URL을 반환합니다.
+ * 폴백(fallback) 용도로 사용됩니다.
+ */
+export function getR2Url(path) {
+    if (!R2_PUBLIC_URL) return '';
+    return joinURL(R2_PUBLIC_URL, normalizePath(path));
+}
