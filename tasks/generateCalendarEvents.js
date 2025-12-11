@@ -26,6 +26,55 @@ const extractBaseSymbol = (symbol) => {
     return normalized;
 };
 
+import axios from 'axios';
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
+
+const MARKET_SUBDIR_ALIASES = {
+    KOSPI: 'kospi',
+    KOSDAQ: 'kosdaq',
+    KONEX: 'konex',
+    KRX: 'krx',
+    'KRX (KOSPI)': 'kospi',
+    'KRX (KOSDAQ)': 'kosdaq',
+    'KRX-KOSPI': 'kospi',
+    'KRX-KOSDAQ': 'kosdaq',
+    NYSE: 'nyse',
+    NYSEARCA: 'nyse',
+    NASDAQ: 'nasdaq',
+    AMEX: 'amex',
+};
+
+const getMarketSubdirectory = (market) => {
+    const normalized = String(market || '')
+        .trim()
+        .toUpperCase();
+    if (!normalized) return 'misc';
+    return MARKET_SUBDIR_ALIASES[normalized] || normalized.toLowerCase();
+};
+
+const sanitizeTickerForFilename = (ticker) => {
+    if (!ticker) return '';
+    const base = extractBaseSymbol(ticker) || ticker;
+    return base.replace(/[./\\]/g, '-').toLowerCase();
+};
+
+const fetchDataFromR2 = async (symbol, market) => {
+    if (!R2_PUBLIC_URL) return null;
+    const filename = `${sanitizeTickerForFilename(symbol)}.json`;
+    const subdir = getMarketSubdirectory(market);
+    const urls = [
+        `${R2_PUBLIC_URL}/data/${subdir}/${filename}`,
+        `${R2_PUBLIC_URL}/data/${filename}`,
+    ];
+    for (const url of urls) {
+        try {
+            const { data } = await axios.get(url, { timeout: 5000 });
+            if (data && data.backtestData) return data;
+        } catch (e) {}
+    }
+    return null;
+};
+
 // 한국 ETF 브랜드명 목록
 const koreanEtfBrands = [
     'KODEX',
@@ -99,52 +148,55 @@ async function generateCalendarEvents() {
     // 월별 데이터 저장용 맵: { "2024-01": { UsStock: { "2024-01-15": [...] }, KrEtf: { ... } } }
     const monthlyData = new Map();
 
-    // 재귀적으로 모든 JSON 파일 찾기
-    async function findJsonFiles(dir) {
-        const files = [];
-        const entries = await fs.readdir(dir, { withFileTypes: true });
-
-        for (const entry of entries) {
-            const fullPath = path.join(dir, entry.name);
-            if (entry.isDirectory()) {
-                // 하위 디렉토리 재귀적으로 탐색
-                const subFiles = await findJsonFiles(fullPath);
-                files.push(...subFiles);
-            } else if (entry.isFile() && entry.name.endsWith('.json')) {
-                files.push(fullPath);
-            }
-        }
-        return files;
-    }
-
-    const jsonFiles = await findJsonFiles(DATA_DIR);
-
-    for (const filePath of jsonFiles) {
-        // [핵심 수정] try...catch를 파일 읽기 및 파싱 부분에만 적용
-        let data;
+    const fileExists = async (p) => {
         try {
-            const fileContent = await fs.readFile(filePath, 'utf-8');
-            data = JSON.parse(fileContent);
-        } catch (e) {
-            // 파일 읽기/파싱 오류 시 해당 파일만 건너뛰고 계속 진행
-            console.error(`Error processing ${filePath}: ${e.message}`);
-            continue; // 다음 파일로 넘어감
+            await fs.access(p);
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
+    for (const navItem of navData.nav) {
+        if (navItem.upcoming) continue;
+
+        const baseSymbol = extractBaseSymbol(
+            navItem.symbol || navItem.yfSymbol
+        );
+        if (!baseSymbol) continue;
+
+        const tickerInfo = tickerInfoMap.get(baseSymbol);
+        if (!tickerInfo) continue;
+
+        let data = null;
+        const symbol = navItem.symbol || navItem.yfSymbol;
+        const filename = `${sanitizeTickerForFilename(symbol)}.json`;
+
+        // Paths candidates
+        const marketSlug = getMarketSubdirectory(navItem.market);
+        const candidates = [
+            path.join(DATA_DIR, marketSlug, filename),
+            path.join(DATA_DIR, filename),
+        ];
+
+        // Try local files
+        for (const p of candidates) {
+            try {
+                if (await fileExists(p)) {
+                    data = JSON.parse(await fs.readFile(p, 'utf-8'));
+                    if (data) break;
+                }
+            } catch (e) {}
         }
 
+        // Try R2 if not found locally
+        if (!data) {
+            data = await fetchDataFromR2(symbol, navItem.market);
+        }
+
+        if (!data) continue;
         const backtestData = data.backtestData || [];
         if (backtestData.length === 0) continue;
-
-        const fileName = path.basename(filePath);
-        const yfTickerSymbol = path
-            .basename(fileName, '.json')
-            .toUpperCase()
-            .replace(/-/g, '.');
-        const baseSymbol = extractBaseSymbol(yfTickerSymbol);
-        const tickerInfo = tickerInfoMap.get(baseSymbol);
-
-        if (!tickerInfo || tickerInfo.upcoming) {
-            continue;
-        }
 
         const currency = tickerInfo.currency || 'USD';
         const isEtf = tickerInfo.isEtf || false;
@@ -280,10 +332,7 @@ async function generateCalendarEvents() {
 
         // 파일 저장
         const filePath = path.join(yearDir, `${month}.json`);
-        await fs.writeFile(
-            filePath,
-            JSON.stringify(sortedMonthData, null, 2)
-        );
+        await fs.writeFile(filePath, JSON.stringify(sortedMonthData, null, 2));
 
         // 통계 계산
         let monthEventCount = 0;

@@ -1,7 +1,26 @@
-// tasks/generateNav.js
 import fs from 'fs/promises';
 import { existsSync, readFileSync } from 'fs';
 import path from 'path';
+import axios from 'axios';
+
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
+
+const fetchDataFromR2 = async (candidates) => {
+    if (!R2_PUBLIC_URL) return null;
+
+    for (const candidate of candidates) {
+        const url = `${R2_PUBLIC_URL}/${candidate.relPath}`;
+        try {
+            const { data } = await axios.get(url, { timeout: 5000 });
+            if (data && (data.backtestData || data.tickerInfo)) {
+                return data;
+            }
+        } catch (e) {
+            // ignore
+        }
+    }
+    return null;
+};
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, 'public');
@@ -850,15 +869,26 @@ async function generateNavJson() {
             );
         }
 
-        if (!dataFilePath) {
+        let stockData = null;
+        try {
+            if (dataFilePath && existsSync(dataFilePath)) {
+                const dataFileContent = await fs.readFile(dataFilePath, 'utf8');
+                stockData = JSON.parse(dataFileContent);
+            } else {
+                throw new Error('File not found locally');
+            }
+        } catch (error) {
+            // Try R2
+            stockData = await fetchDataFromR2(dataCandidates);
+        }
+
+        if (!stockData) {
             processedTicker.periods = [];
             return processedTicker;
         }
 
         try {
-            // ... (파일 읽고 파싱하는 로직은 변경 없음)
-            const dataFileContent = await fs.readFile(dataFilePath, 'utf8');
-            const stockData = JSON.parse(dataFileContent);
+            // const stockData is already loaded above
             const backtestData = stockData.backtestData || [];
             const tickerInfoFromData =
                 (stockData && stockData.tickerInfo) || {};

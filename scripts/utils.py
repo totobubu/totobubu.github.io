@@ -41,6 +41,25 @@ def load_json_file(file_path):
         with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
+        # 로컬에 없으면 R2에서 조회 (Lazy Loading)
+        r2_url = os.environ.get("R2_PUBLIC_URL")
+        if r2_url:
+            try:
+                import requests
+                
+                # 절대 경로에서 public/ 이후 경로 추출
+                # 예: .../public/data/aapl.json -> data/aapl.json
+                path_str = str(file_path).replace("\\", "/")
+                if "public/" in path_str:
+                    relative_path = path_str.split("public/", 1)[1]
+                    full_url = f"{r2_url.rstrip('/')}/{relative_path}"
+                    
+                    response = requests.get(full_url, timeout=10)
+                    if response.status_code == 200:
+                        # print(f"ℹ️ Loaded from R2: {relative_path}")
+                        return response.json()
+            except Exception:
+                pass
         return None
 
 

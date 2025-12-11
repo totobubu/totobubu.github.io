@@ -95,6 +95,7 @@ $thumbnail-px: 4px;
             height: $thumbnail-px * 20;
         }
         .date {
+            padding-top: $thumbnail-px * 10;
             font-size: $thumbnail-px * 12;
             letter-spacing: $thumbnail-px * -0.3;
         }
@@ -153,6 +154,18 @@ $thumbnail-px: 4px;
             opacity: 1;
             line-height: 1.2;
         }
+    }
+    .copyright {
+        position: absolute;
+        right: $thumbnail-px * 10;
+        top: $thumbnail-px * 2;
+        font-size: $thumbnail-px * 8;
+        font-family: 'Nanum Gothic Coding';
+        text-transform: lowercase;
+        text-shadow: none;
+        opacity: 1;
+        line-height: 1.2;
+        color: #ffffff;
     }
 
     // with-chart 상태에서만 적용되는 스타일 모음
