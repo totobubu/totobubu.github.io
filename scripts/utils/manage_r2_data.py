@@ -78,6 +78,12 @@ SYMBOL_GROUPS = {
         "YBIT", "YQQQ", 
         "QDTE", "XDTE", "RDTE"
     ],
+    "디파이언스수요일": [
+        "SMCC", "PLT", "MST", "HOOI", "HIMY", "AMDU", "QLDY"
+    ],
+    "디파이언스목요일": [
+        "WDTE", "IWMY", "USOY", "GLDY", "QQQY"
+    ]
 }
 
 def get_market_dir_name(market):
@@ -222,7 +228,7 @@ def main():
     parser.add_argument("--group", help="Predefined symbol group (e.g. 일드맥스화요일)")
     parser.add_argument("--company", help="Filter by company name (partial match, e.g. Defiance)")
     parser.add_argument("--expected", help="Expected date (YYYY-MM-DD or YY-MM-DD)")
-    parser.add_argument("--action", choices=["download", "upload"], required=True, help="Action: download (to edit) or upload (and delete)")
+    parser.add_argument("--action", choices=["download", "upload"], default="download", help="Action: download (default) or upload")
     
     args = parser.parse_args()
     
@@ -230,7 +236,8 @@ def main():
 
     if not is_explicit_target:
         if args.action != "upload":
-            print("❌ You must specify --symbol, --group, --company or --expected")
+            print("❌ To download, you must specify --symbol, --group, --company or --expected")
+            print("   To upload all local files, use --action upload")
             return
         # If upload, we continue to auto-scan
 
