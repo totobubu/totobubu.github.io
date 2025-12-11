@@ -18,7 +18,9 @@ const normalizePath = (path) => {
 };
 
 const shouldUseR2 = (normalizedPath) => {
-    if (IS_DEV) return false;
+    // 개발 환경이라도 VITE_USE_R2가 true이면 R2 사용 허용
+    if (IS_DEV && !USE_R2) return false;
+
     if (!USE_R2 || !R2_PUBLIC_URL) return false;
     return R2_ELIGIBLE_PREFIXES.some((prefix) =>
         normalizedPath.startsWith(prefix)

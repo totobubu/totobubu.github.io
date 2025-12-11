@@ -87,6 +87,9 @@ jobs:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/cloud/upload_changed_to_r2.py
 
+            - name: Upload updated data to R2
+              run: python scripts/cloud/upload_specific_to_r2.py "public/data/**/*.json"
+
             - name: Check for changes
               id: git_status
               run: |

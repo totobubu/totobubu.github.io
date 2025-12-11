@@ -656,18 +656,19 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    # market 디렉토리 구조를 고려하여 모든 JSON 파일 찾기
-    files = []
-    # 루트 디렉토리의 JSON 파일
-    files.extend(DATA_DIR.glob("*.json"))
-    # 각 market 서브디렉토리의 JSON 파일
-    for subdir in DATA_DIR.iterdir():
-        if subdir.is_dir():
-            files.extend(subdir.glob("*.json"))
-
     updated_count = 0
 
-    for file_path in tqdm(files, desc="미래 배당일 예측"):
+    for nav_item in tqdm(nav_data.get("nav", []), desc="미래 배당일 예측"):
+        if nav_item.get("upcoming"):
+            continue
+
+        symbol = nav_item.get("symbol")
+        if not symbol:
+            continue
+
+        file_path = get_data_file_path(
+            symbol, nav_item.get("market"), layout="market", ensure_dir=True
+        )
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:
