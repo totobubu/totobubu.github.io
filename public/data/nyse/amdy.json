@@ -9,16 +9,16 @@
         "underlying": "AMD",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-09 04:08:07 KST",
-        "regularMarketPrice": 39.5012,
+        "Update": "2025-12-11 04:21:07 KST",
+        "regularMarketPrice": 39.85,
         "englishName": "YieldMax AMD Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 137612,
-        "AvgVolume": 1988847,
+        "Volume": 61480,
+        "AvgVolume": 399099,
         "sharesOutstanding": null,
-        "52Week": "5.825 - 39.92",
+        "52Week": "29.125 - 54.9",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -36,21 +36,26 @@
                     "date": "2025-12-02",
                     "ratio": "1:5",
                     "type": "split"
+                },
+                {
+                    "date": "2025-12-08",
+                    "ratio": "1:5",
+                    "type": "split"
                 }
             ]
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 7.875,
+                "value": 39.5012,
                 "change": "up"
             },
             "Volume": {
-                "value": 1785181,
+                "value": 137612,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 1963674,
-                "change": "up"
+                "value": 1988847,
+                "change": "down"
             }
         }
     },
@@ -5919,8 +5924,143 @@
             "volume": 157844
         },
         {
+            "date": "2025-12-09",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 61.17,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 13.06,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 12.89,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 12.5,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 7.92,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.89,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.63,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "AMD 260116C00250000",
+                    "name": "AMD US 01/16/26 C250",
+                    "weight": 2.5,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 0.6,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "AMD 251212C00237500",
+                    "name": "AMD US 12/12/25 C237.5",
+                    "weight": 0.18,
+                    "type": "option"
+                }
+            ],
+            "open": 39.599998,
+            "high": 40.150002,
+            "low": 39.380001,
+            "close": 39.82,
+            "volume": 86351
+        },
+        {
+            "date": "2025-12-10",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 61.15,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797PM3",
+                    "name": "United States Treasury Bill 02/19/2026",
+                    "weight": 13.02,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 12.85,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 12.46,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 7.89,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.68,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 2.62,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "AMD 260116C00250000",
+                    "name": "AMD US 01/16/26 C250",
+                    "weight": 2.37,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 0.6,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "AMD 251212C00237500",
+                    "name": "AMD US 12/12/25 C237.5",
+                    "weight": 0.12,
+                    "type": "option"
+                }
+            ]
+        },
+        {
             "date": "2025-12-11",
-            "expected": true
+            "amountFixed": 0.3035
         },
         {
             "date": "2025-12-18",

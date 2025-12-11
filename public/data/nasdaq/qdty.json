@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-12-04 04:15:43 KST",
+        "Update": "2025-12-11 04:21:07 KST",
+        "regularMarketPrice": 44.2693,
+        "englishName": "YieldMax Nasdaq 100 0DTE Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6500,
+        "AvgVolume": 10496,
+        "sharesOutstanding": null,
+        "52Week": "36.76 - 52.55",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R5789",
         "events": {
             "splits": []
@@ -2426,8 +2438,68 @@
             "volume": 9137
         },
         {
+            "date": "2025-12-09",
+            "holdings": [
+                {
+                    "symbol": "4NDX 251219C01001260",
+                    "name": "NDX 12/19/2025 1001.26 C",
+                    "weight": 97.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 29.5,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.11,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 26.52,
+                    "type": "cash"
+                }
+            ],
+            "open": 44.52,
+            "high": 44.718899,
+            "low": 44.419998,
+            "close": 44.660999,
+            "volume": 11214
+        },
+        {
             "date": "2025-12-10",
-            "expected": true
+            "amountFixed": 0.3473,
+            "holdings": [
+                {
+                    "symbol": "4NDX 251219C01001260",
+                    "name": "NDX 12/19/2025 1001.26 C",
+                    "weight": 97.67,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 29.65,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.11,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 27.32,
+                    "type": "cash"
+                }
+            ]
         },
         {
             "date": "2025-12-17",
@@ -2527,6 +2599,10 @@
         },
         {
             "date": "2026-06-03",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-10",
             "forecasted": true
         }
     ]

@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2025-12-04 04:15:43 KST",
+        "Update": "2025-12-11 04:21:07 KST",
+        "regularMarketPrice": 40.4333,
+        "englishName": "YieldMax Russell 2000 0DTE Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4242,
+        "AvgVolume": 9057,
+        "sharesOutstanding": null,
+        "52Week": "39.244 - 50.07",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R5524",
         "events": {
             "splits": []
@@ -2214,8 +2226,68 @@
             "volume": 9091
         },
         {
+            "date": "2025-12-09",
+            "holdings": [
+                {
+                    "symbol": "4RUT 251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 91.27,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 16.16,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.39,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 7.73,
+                    "type": "cash"
+                }
+            ],
+            "open": 40.5835,
+            "high": 40.849998,
+            "low": 40.540001,
+            "close": 40.7122,
+            "volume": 8099
+        },
+        {
             "date": "2025-12-10",
-            "expected": true
+            "amountFixed": 0.3362,
+            "holdings": [
+                {
+                    "symbol": "4RUT 251219C00210260",
+                    "name": "RUT 12/19/2025 210.26 C",
+                    "weight": 92.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 16.26,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "91282CGE5",
+                    "name": "United States Treasury Note/Bond 3.875% 01/15/2026",
+                    "weight": 0.4,
+                    "type": "treasury_note"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 8.47,
+                    "type": "cash"
+                }
+            ]
         },
         {
             "date": "2025-12-17",
@@ -2315,6 +2387,10 @@
         },
         {
             "date": "2026-06-03",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-10",
             "forecasted": true
         }
     ]

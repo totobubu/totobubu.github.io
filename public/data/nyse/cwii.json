@@ -9,14 +9,14 @@
         "underlying": "CRWV",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-09 04:08:07 KST",
-        "regularMarketPrice": 15.55,
+        "Update": "2025-12-11 04:21:07 KST",
+        "regularMarketPrice": 16.22,
         "englishName": "Rex Crwv Growth & Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9022,
-        "AvgVolume": 3795,
+        "Volume": 3198,
+        "AvgVolume": 4256,
         "sharesOutstanding": null,
         "52Week": "12.79 - 23.995",
         "Yield": null,
@@ -28,16 +28,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 16.18,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 897,
+                "value": 15.55,
                 "change": "up"
             },
-            "AvgVolume": {
-                "value": 3881,
+            "Volume": {
+                "value": 9022,
                 "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3795,
+                "change": "up"
             }
         }
     },
@@ -243,7 +243,14 @@
         },
         {
             "date": "2025-12-09",
-            "expected": true
+            "amountFixed": 0.1014,
+            "open": 15.8,
+            "high": 16.59,
+            "low": 16.51,
+            "close": 16.530001,
+            "volume": 9351,
+            "amount": 0.101,
+            "yield": 0.0248417722
         },
         {
             "date": "2025-12-16",
@@ -343,6 +350,10 @@
         },
         {
             "date": "2026-06-02",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-09",
             "forecasted": true
         }
     ]
