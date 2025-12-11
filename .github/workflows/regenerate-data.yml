@@ -77,7 +77,7 @@ jobs:
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
 
-                  CHANGES=$(git status --porcelain public/calendar-events.json public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/ 2>/dev/null | wc -l)
+                  CHANGES=$(git status --porcelain public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/ 2>/dev/null | wc -l)
 
                   if [ "$CHANGES" -eq 0 ]; then
                       echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -85,7 +85,7 @@ jobs:
                   else
                       echo "has_changes=true" >> $GITHUB_OUTPUT
                       echo "[INFO] 재생성된 파일 변경사항 감지됨"
-                      git status --porcelain public/calendar-events.json public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
+                      git status --porcelain public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
                   fi
 
             # R2에 업로드
@@ -98,6 +98,6 @@ jobs:
             - name: Commit and push changes
               if: steps.check_changes.outputs.has_changes == 'true'
               run: |
-                  git add public/calendar-events.json public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
+                  git add public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
                   git commit -m "chore: regenerate calendar, nav, and sidebar data [skip ci]" || echo "커밋 실패 또는 변경사항 없음"
                   git push || echo "푸시 실패"
