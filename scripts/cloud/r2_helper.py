@@ -202,6 +202,20 @@ def delete_r2_files(keys):
     return deleted, errors
 
 
+def read_json_from_r2(key):
+    """R2에서 JSON 파일 읽기 (다운로드 없이)"""
+    s3_client, bucket_name = get_r2_client()
+    if not s3_client:
+        return None
+    try:
+        response = s3_client.get_object(Bucket=bucket_name, Key=key)
+        content = response["Body"].read().decode("utf-8")
+        return json.loads(content)
+    except Exception as e:
+        print(f"[ERROR] R2 JSON 읽기 실패 ({key}): {e}")
+        return None
+
+
 def list_r2_files(prefix=""):
     """R2 버킷에서 파일 목록 가져오기"""
     s3_client, bucket_name = get_r2_client()
