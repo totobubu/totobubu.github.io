@@ -25,13 +25,13 @@ jobs:
                   fetch-depth: 10 # 전체 히스토리 필요 (변경사항 비교용)
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Free Disk Space
-              run: |
-                  sudo rm -rf /usr/local/lib/android
-                  sudo rm -rf /usr/share/dotnet
-                  sudo rm -rf /opt/ghc
-                  sudo rm -rf /usr/local/share/boost
-                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+            # - name: Free Disk Space
+            #   run: |
+            #       sudo rm -rf /usr/local/lib/android
+            #       sudo rm -rf /usr/share/dotnet
+            #       sudo rm -rf /opt/ghc
+            #       sudo rm -rf /usr/local/share/boost
+            #       sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
             - name: Set up Python
               uses: actions/setup-python@v5
@@ -51,24 +51,24 @@ jobs:
             - name: Install Node deps
               run: npm ci --no-audit --no-fund
 
-            # 1. 달력 이벤트 재생성
-            - name: Generate calendar events
-              run: npm run generate-calendar-events
-
-            # 2. Nav 재생성
+            # 1. Nav 재생성 (가장 먼저 실행되어야 함)
             - name: Generate nav
               run: npm run generate-nav
 
-            # 3. Sidebar 재생성
-            - name: Generate sidebar tickers
-              run: npm run generate-sidebar-tickers
+            # 2. 파생 데이터 재생성 (병렬 실행)
+            - name: Generate derived data
+              run: |
+                  npm run generate-calendar-events &
+                  npm run generate-sidebar-tickers &
+                  wait
 
-            # 파일 포맷팅
+            # 파일 포맷팅 (병렬 실행)
             - name: Format generated files
               run: |
-                  npm run format:calendar || true
-                  npm run format:nav.json || true
-                  npm run format:public || true
+                  npm run format:calendar &
+                  npm run format:nav.json &
+                  npm run format:public &
+                  wait
 
             # 변경사항 확인
             - name: Check for changes
