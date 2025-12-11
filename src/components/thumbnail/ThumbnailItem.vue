@@ -104,6 +104,7 @@
                             >({{ data.weekNo }})</span
                         ></span
                     >
+                    <p class="copyright">By DivGrow.com</p>
                 </div>
                 <div class="main-content">
                     <h1 class="ticker" :style="{ color: data.tickerColor }">
