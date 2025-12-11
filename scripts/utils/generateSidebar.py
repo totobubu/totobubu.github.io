@@ -248,7 +248,12 @@ def load_auxiliary_metadata():
     if not DATA_DIR.exists():
         return yield_map, group_value_map, group_labels_map, isin_map
 
-    for data_file in DATA_DIR.glob("*.json"):
+    files = list(DATA_DIR.glob("*.json"))
+    for subdir in DATA_DIR.iterdir():
+        if subdir.is_dir():
+            files.extend(subdir.glob("*.json"))
+
+    for data_file in files:
         ticker_symbol = (
             Path(data_file).name.replace(".json", "").replace("-", ".").upper()
         )

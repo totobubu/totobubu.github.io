@@ -216,20 +216,37 @@ def upload_changed_files():
     
     # 3. 파일 업로드
     print("\n[3/3] R2에 업로드 중...")
+    
+    import concurrent.futures
     success_count = 0
     fail_count = 0
     
-    for local_path, r2_key in tqdm(upload_targets, desc="Uploading"):
+    # 병렬 업로드 함수
+    def _upload_single(item):
+        local_path, r2_key = item
         try:
             if upload_file_to_r2(local_path, r2_key):
+                return (True, r2_key, None)
+            else:
+                return (False, r2_key, "Upload failed")
+        except Exception as e:
+            return (False, r2_key, str(e))
+
+    # ThreadPoolExecutor로 병렬 처리
+    max_workers = 10  # 동시에 10개 파일 업로드
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # submit tasks
+        futures = {executor.submit(_upload_single, item): item for item in upload_targets}
+        
+        # tqdm으로 진행상황 표시
+        for future in tqdm(concurrent.futures.as_completed(futures), total=len(upload_targets), desc="Uploading"):
+            is_success, key, error = future.result()
+            if is_success:
                 success_count += 1
             else:
                 fail_count += 1
-                tqdm.write(f"   [FAIL] {r2_key}")
-        except Exception as e:
-            fail_count += 1
-            tqdm.write(f"   [ERROR] {r2_key}: {e}")
-    
+                tqdm.write(f"   [FAIL] {key}: {error}")
+
     # 결과 출력
     print("\n" + "=" * 70)
     print("  업로드 완료!")
@@ -238,7 +255,7 @@ def upload_changed_files():
     if fail_count > 0:
         print(f"❌ 실패: {fail_count}개")
     print(f"\n💡 예시 URL:")
-    
+
     # 예시 URL 출력 (첫 3개 파일)
     for i, (_, r2_key) in enumerate(upload_targets[:3]):
         print(f"   - {config['public_url']}/{r2_key}")

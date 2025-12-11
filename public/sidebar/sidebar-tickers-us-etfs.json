@@ -63,7 +63,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 13,
+        "popularity": 14,
         "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -246,6 +246,21 @@
         "groupOrder": 5
     },
     {
+        "symbol": "TSLW",
+        "isin": "US77926X6922",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 8,
+        "koName": "라운드힐 테슬라 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "TSLA",
+        "groupOrder": 1
+    },
+    {
         "symbol": "HOOW",
         "isin": "US77926X6351",
         "currency": "USD",
@@ -258,21 +273,6 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "HOOD",
-        "groupOrder": 1
-    },
-    {
-        "symbol": "TSLW",
-        "isin": "US77926X6922",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 7,
-        "koName": "라운드힐 테슬라 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "TSLA",
         "groupOrder": 1
     },
     {
@@ -642,7 +642,10 @@
         "company": "Defiance",
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
-        "group": "수",
+        "group": {
+            "wed": "수",
+            "fri": "금"
+        },
         "groupOrder": 3
     },
     {
@@ -1285,6 +1288,20 @@
         "popularity": 1,
         "company": "ProShares",
         "logo": "logos/company/company-proshares.png",
+        "frequency": "분기",
+        "group": "MJSD",
+        "groupOrder": 999
+    },
+    {
+        "symbol": "TSLL",
+        "isin": "US25460G2865",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "디렉시온 테슬라 2배 ETF",
+        "company": "Direxion",
+        "logo": "logos/company/company-direxion.png",
         "frequency": "분기",
         "group": "MJSD",
         "groupOrder": 999
