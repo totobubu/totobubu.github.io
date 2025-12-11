@@ -923,18 +923,20 @@ def project_future_dividends():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    # market 디렉토리 구조를 고려하여 모든 JSON 파일 찾기
-    files = []
-    # 루트 디렉토리의 JSON 파일
-    files.extend(DATA_DIR.glob("*.json"))
-    # 각 market 서브디렉토리의 JSON 파일
-    for subdir in DATA_DIR.iterdir():
-        if subdir.is_dir():
-            files.extend(subdir.glob("*.json"))
-
     updated_count = 0
 
-    for file_path in tqdm(files, desc="미래 배당일 예측"):
+    for symbol in tqdm(active_symbols, desc="미래 배당일 예측"):
+        ticker_meta = ticker_info_map.get(symbol, {})
+        yahoo_symbol = ticker_meta.get("yfSymbol")
+        if not yahoo_symbol:
+            continue
+
+        file_path = get_data_file_path(
+            yahoo_symbol,
+            ticker_meta.get("market"),
+            layout="market",
+            ensure_dir=True,
+        )
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:
@@ -944,10 +946,9 @@ def project_future_dividends():
         if ticker_info.get("upcoming") or not ticker_info.get("frequency"):
             continue
 
-        # KR 시장 필터링 (KRW 통화만 처리)
-        currency = ticker_info.get("currency", "USD")
-        if currency != "KRW":
-            continue
+        # KR 시장 필터링 already done in active_symbols but good to check currency if needed.
+        # But active_symbols are already KR.
+
 
         original_data_str = json.dumps(data["backtestData"], sort_keys=True)
 

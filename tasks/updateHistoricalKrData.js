@@ -7,7 +7,9 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const YF_HEADERS = { 'User-Agent': 'Mozilla/5.0' };
-const DATA_LAYOUT_MODE = (process.env.DATA_LAYOUT_MODE || 'market').toLowerCase();
+const DATA_LAYOUT_MODE = (
+    process.env.DATA_LAYOUT_MODE || 'market'
+).toLowerCase();
 const MARKET_FILTER = 'KR'; // 한국 티커만 처리
 
 const MARKET_SUBDIR_ALIASES = {
@@ -80,6 +82,35 @@ const fileExists = async (filePath) => {
     } catch {
         return false;
     }
+};
+
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
+
+const fetchDataFromR2 = async (symbolCandidates, market) => {
+    if (!R2_PUBLIC_URL) return null;
+
+    for (const candidate of symbolCandidates) {
+        const filename = `${sanitizeTickerForFilename(candidate)}.json`;
+        const subdir = getMarketSubdirectory(market);
+        // R2 경로 구조: data/market/ticker.json (v2/market layout)
+        const urls = [
+            `${R2_PUBLIC_URL}/data/${subdir}/${filename}`,
+            `${R2_PUBLIC_URL}/data/${filename}`, // Fallback for flat layout
+        ];
+
+        for (const url of urls) {
+            try {
+                const { data } = await axios.get(url, { timeout: 10000 });
+                if (data && (data.backtestData || data.tickerInfo)) {
+                    // console.log(`ℹ️ Loaded from R2: ${candidate}`);
+                    return { data, symbol: candidate };
+                }
+            } catch (e) {
+                // Ignore 404 or network error
+            }
+        }
+    }
+    return null;
 };
 
 const findExistingDataFile = async (symbolCandidates, market) => {
@@ -251,7 +282,7 @@ async function fetchHistoricalData(symbol, fromDate, retryCount = 0) {
                 const low = quotes.low[i];
                 const close = quotes.close[i];
                 const volume = quotes.volume[i];
-                
+
                 // null/undefined를 0으로 변환하지 않음 (데이터가 없는 경우 null로 유지)
                 return {
                     date: new Date(ts * 1000).toISOString().split('T')[0],
@@ -395,9 +426,24 @@ async function fetchAndMergePriceData(ticker) {
         let lastPriceDate = null;
         let isNewFile = false;
 
+        let loaded = false;
         try {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             existingData = JSON.parse(fileContent);
+            loaded = true;
+        } catch (error) {
+            /* 파일 없으면 R2 시도 */
+            if (R2_PUBLIC_URL) {
+                const r2Res = await fetchDataFromR2(symbolCandidates, market);
+                if (r2Res) {
+                    existingData = r2Res.data;
+                    loaded = true;
+                    console.log(`ℹ️ [${symbol}] Fetched from R2`);
+                }
+            }
+        }
+
+        if (loaded) {
             const backtestData = existingData.backtestData || [];
 
             backtestData.forEach((item) => backtestMap.set(item.date, item));
@@ -408,7 +454,7 @@ async function fetchAndMergePriceData(ticker) {
                 datesWithPrice.sort();
                 lastPriceDate = datesWithPrice[datesWithPrice.length - 1];
             }
-        } catch (error) {
+        } else {
             /* 파일 없으면 기본 구조로 초기화 */
             isNewFile = true;
             existingData = {
@@ -419,7 +465,7 @@ async function fetchAndMergePriceData(ticker) {
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        
+
         let startDate = new Date(lastPriceDate || ipoDate || '1990-01-01');
         if (lastPriceDate) {
             const lastDate = new Date(lastPriceDate);
@@ -430,7 +476,7 @@ async function fetchAndMergePriceData(ticker) {
                 startDate.setDate(startDate.getDate() + 1);
             }
         }
-        
+
         // 시작 날짜가 현재 날짜보다 미래인 경우 현재 날짜로 조정
         if (startDate > today) {
             startDate = today;
@@ -456,19 +502,23 @@ async function fetchAndMergePriceData(ticker) {
             const status = priceError?.response?.status;
             const statusText = priceError?.response?.statusText;
             const errorMessage = priceError?.message || 'Unknown error';
-            
+
             // 디버그 정보 상세 출력
             console.error(`❌ [${symbol}] API Error: ${errorMessage}`);
             if (status) {
                 console.error(`   Status: ${status} ${statusText || ''}`);
             }
             if (symbolCandidates.length > 1) {
-                console.error(`   Tried symbols: ${symbolCandidates.join(', ')}`);
+                console.error(
+                    `   Tried symbols: ${symbolCandidates.join(', ')}`
+                );
             }
             if (priceError?.response?.data) {
-                console.error(`   Response data: ${JSON.stringify(priceError.response.data).substring(0, 200)}`);
+                console.error(
+                    `   Response data: ${JSON.stringify(priceError.response.data).substring(0, 200)}`
+                );
             }
-            
+
             return { success: false, symbol, error: errorMessage, status };
         }
         activeSymbol = priceResult.symbol;
@@ -477,9 +527,11 @@ async function fetchAndMergePriceData(ticker) {
             const open = p.open != null ? normalizeNumericValue(p.open) : null;
             const high = p.high != null ? normalizeNumericValue(p.high) : null;
             const low = p.low != null ? normalizeNumericValue(p.low) : null;
-            const close = p.close != null ? normalizeNumericValue(p.close) : null;
-            const volume = p.volume != null ? normalizeNumericValue(p.volume) : null;
-            
+            const close =
+                p.close != null ? normalizeNumericValue(p.close) : null;
+            const volume =
+                p.volume != null ? normalizeNumericValue(p.volume) : null;
+
             return {
                 ...p,
                 open,
@@ -607,7 +659,9 @@ async function fetchAndMergePriceData(ticker) {
         return { success: true, symbol };
     } catch (error) {
         console.error(`❌ [${symbol}] Unexpected Error: ${error.message}`);
-        console.error(`   Stack: ${error.stack?.split('\n').slice(0, 3).join('\n')}`);
+        console.error(
+            `   Stack: ${error.stack?.split('\n').slice(0, 3).join('\n')}`
+        );
         return { success: false, symbol, error: error.message };
     }
 }
@@ -633,16 +687,19 @@ async function main() {
             ['KOSPI', 'KOSDAQ', 'KONEX'].includes(t.market)
     );
     console.log(`[KR Market Filter] Filtering Korean tickers only`);
-    
+
     // 영문자 포함 티커 필터링 및 경고 (우선주 등 - Yahoo Finance에서 인식하지 못할 수 있음)
     const tickersWithLetters = tickersToFetch.filter((t) => {
         const baseSymbol = getBaseSymbol(t.symbol || t.yfSymbol || '');
         return /[A-Z]/.test(baseSymbol);
     });
-    
+
     if (tickersWithLetters.length > 0) {
         console.warn(
-            `⚠️  [WARNING] ${tickersWithLetters.length} tickers with letters found (may fail): ${tickersWithLetters.slice(0, 10).map(t => t.symbol).join(', ')}${tickersWithLetters.length > 10 ? '...' : ''}`
+            `⚠️  [WARNING] ${tickersWithLetters.length} tickers with letters found (may fail): ${tickersWithLetters
+                .slice(0, 10)
+                .map((t) => t.symbol)
+                .join(', ')}${tickersWithLetters.length > 10 ? '...' : ''}`
         );
         console.warn(
             `⚠️  These tickers (preferred shares, etc.) may not be recognized by Yahoo Finance API`

@@ -16,6 +16,11 @@ from typing import Iterable, List, Optional, Tuple
 
 import sys
 
+try:
+    from scripts.cloud.r2_helper import list_r2_files
+except ImportError:
+    def list_r2_files(prefix=""): return []
+
 ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
@@ -109,28 +114,40 @@ def build_symbol_candidates(symbol: str, fallbacks: Iterable[str]) -> List[str]:
 
 
 def find_existing_symbol_file(
-    entry: dict, data_root: Path
+    entry: dict, data_root: Path, r2_files_set: Optional[set] = None
 ) -> Tuple[Optional[str], Optional[Path]]:
     symbol = entry.get("symbol")
     if not isinstance(symbol, str):
         return None, None
     yf_symbol = entry.get("yfSymbol")
-    # yfSymbol이 있으면 우선 사용, 없으면 symbol만 사용
     candidates = [yf_symbol] if yf_symbol else [symbol]
-
     entry_market = entry.get("market")
 
+    def check_path(path_obj: Path) -> bool:
+        if path_obj.exists():
+            return True
+        if r2_files_set:
+            try:
+                # public/data/... -> data/...
+                rel = path_obj.relative_to(PUBLIC_DIR).as_posix()
+                if rel in r2_files_set:
+                    return True
+            except ValueError:
+                pass
+        return False
+
+    # Market layout
     for candidate in candidates:
         target_market = get_market_name(entry_market, candidate)
         market_dir = get_market_dir(target_market)
         candidate_path = market_dir / f"{sanitize_symbol(candidate)}.json"
-        if candidate_path.exists():
+        if check_path(candidate_path):
             return candidate, candidate_path
 
-    # fallback: flat 구조 확인
+    # Fallback: flat layout
     for candidate in candidates:
         flat_path = data_root / f"{sanitize_symbol(candidate)}.json"
-        if flat_path.exists():
+        if check_path(flat_path):
             return candidate, flat_path
 
     return None, None
@@ -196,10 +213,19 @@ def sync_nav_symbols(
     updated = []
     missing = []
 
+    # R2 파일 목록 조회
+    r2_files_set = set()
+    try:
+        r2_files_set = set(list_r2_files("data/"))
+        if r2_files_set:
+            print(f"[INFO] R2에서 {len(r2_files_set)}개 파일 목록을 로드했습니다.")
+    except Exception as e:
+        print(f"[WARN] R2 목록 조회 실패: {e}")
+
     for entry in targets:
         original_symbol = entry.get("symbol")
         market = entry.get("market")
-        resolved_symbol, path = find_existing_symbol_file(entry, DATA_DIR)
+        resolved_symbol, path = find_existing_symbol_file(entry, DATA_DIR, r2_files_set)
         if not resolved_symbol or not path:
             missing.append(original_symbol)
             continue
