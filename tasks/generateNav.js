@@ -888,15 +888,58 @@ async function generateNavJson() {
                     throw new Error('File not found locally');
                 }
             } catch (error) {
-                // Try R2
-                stockData = await fetchDataFromR2(dataCandidates);
+                // Skip R2 fetch for performance. Fallback will handle it.
+                stockData = null;
             }
 
             if (!stockData) {
-                // R2에서 실패했더라도, 기존 데이터를 유지할 수 있으면 유지하는 것이 좋지만
-                // 현재 구조상 전체 재생성이므로 R2 실패 시 빈 배열이 됨
-                // console.warn(`Failed to load data for ${ticker.symbol}`);
-                processedTicker.periods = [];
+                // Fallback: Calculate periods based on IPO date if local/R2 data is missing
+                // This ensures symbols like JEPI, BRKC get periods assigned optimistically
+                const startDateStr = ticker.ipoDate;
+                if (startDateStr) {
+                    const startDate = new Date(startDateStr);
+                    const today = new Date();
+                    const yearsOfHistory =
+                        (today - startDate) / (1000 * 60 * 60 * 24 * 365.25);
+
+                    let masterPeriods = [
+                        '6M',
+                        '1Y',
+                        '3Y',
+                        '5Y',
+                        '10Y',
+                        '15Y',
+                        '20Y',
+                    ];
+
+                    if (processedTicker.frequency === '매주') {
+                        masterPeriods = ['6M', '1Y'];
+                    } else if (processedTicker.frequency === '매월') {
+                        masterPeriods = ['1Y', '2Y', '3Y', '5Y', '10Y'];
+                    } else if (processedTicker.frequency === '분기') {
+                        masterPeriods = ['5Y', '10Y', '15Y', '20Y'];
+                    } else if (processedTicker.frequency === '매년') {
+                        masterPeriods = ['10Y', '15Y', '20Y'];
+                    }
+
+                    const calculatedPeriods = masterPeriods.filter(
+                        (p) => yearsOfHistory >= convertPeriodToYears(p)
+                    );
+
+                    // Add 'dataPaths' optimistic guess if missing
+                    if (
+                        !processedTicker.dataPaths &&
+                        processedTicker.market &&
+                        processedTicker.yfSymbol
+                    ) {
+                        const guessPath = `data/${processedTicker.market.toLowerCase()}/${processedTicker.yfSymbol.toLowerCase()}.json`;
+                        processedTicker.dataPaths = [guessPath];
+                    }
+
+                    processedTicker.periods = calculatedPeriods;
+                } else {
+                    processedTicker.periods = [];
+                }
                 return processedTicker;
             }
 
