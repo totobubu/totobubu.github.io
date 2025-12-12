@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import { existsSync, readFileSync } from 'fs';
 import path from 'path';
 import axios from 'axios';
+import pLimit from 'p-limit';
 
 const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
 
@@ -11,7 +12,7 @@ const fetchDataFromR2 = async (candidates) => {
     for (const candidate of candidates) {
         const url = `${R2_PUBLIC_URL}/${candidate.relPath}`;
         try {
-            const { data } = await axios.get(url, { timeout: 5000 });
+            const { data } = await axios.get(url, { timeout: 1500 });
             if (data && (data.backtestData || data.tickerInfo)) {
                 return data;
             }
@@ -697,274 +698,287 @@ async function generateNavJson() {
         }
     }
 
-    const finalTickersPromises = allTickers.map(async (ticker) => {
-        let processedTicker = { ...ticker };
+    const limit = pLimit(100);
 
-        const yfSymbol =
-            processedTicker.yfSymbol || processedTicker.originalSymbol;
-        const normalizedYfSymbol = normalizeYahooSymbol(yfSymbol);
-        const baseSymbol = extractBaseSymbol(normalizedYfSymbol);
-        if (normalizedYfSymbol) {
-            processedTicker.yfSymbol = normalizedYfSymbol;
-        }
-        if (baseSymbol) {
-            processedTicker.symbol = baseSymbol;
-        }
+    const finalTickersPromises = allTickers.map((ticker) => {
+        return limit(async () => {
+            let processedTicker = { ...ticker };
 
-        const alias = resolveCompanyAlias(processedTicker.company);
-        if (alias) {
-            processedTicker.company = alias;
-        }
-
-        const marketUpper = (processedTicker.market || '').toUpperCase();
-
-        if (
-            (!processedTicker.company || processedTicker.company === null) &&
-            ['KOSPI', 'KOSDAQ'].includes(marketUpper)
-        ) {
-            const inferredCompany = inferKoreanEtfCompany(processedTicker);
-            if (inferredCompany) {
-                processedTicker.company = inferredCompany;
+            const yfSymbol =
+                processedTicker.yfSymbol || processedTicker.originalSymbol;
+            const normalizedYfSymbol = normalizeYahooSymbol(yfSymbol);
+            const baseSymbol = extractBaseSymbol(normalizedYfSymbol);
+            if (normalizedYfSymbol) {
+                processedTicker.yfSymbol = normalizedYfSymbol;
             }
-        }
-
-        const logoAttempts = [];
-        const pushAttempt = (name, category = 'company', extra = {}) => {
-            if (!name) return;
-            logoAttempts.push({ name, category, ...extra });
-        };
-
-        const pushBrandAttempt = (brandValue) => {
-            if (!brandValue) return;
-            const trimmed = brandValue.toString().trim();
-            if (!trimmed) return;
-            const lower = trimmed.toLowerCase();
-
-            if (lower.startsWith('brand-')) {
-                pushAttempt(lower, 'brand');
-                return;
-            }
-            if (lower.startsWith('etf-')) {
-                pushAttempt(lower, 'korea');
-                return;
-            }
-            if (lower.startsWith('company-')) {
-                pushAttempt(lower, 'company');
-                return;
+            if (baseSymbol) {
+                processedTicker.symbol = baseSymbol;
             }
 
-            const normalized = normalizeToFilename(trimmed);
-            if (normalized) {
-                pushAttempt(`brand-${normalized}`, 'brand');
-            }
-        };
-
-        // 1) 브랜드 우선
-        pushBrandAttempt(processedTicker.brand);
-
-        if (['KOSPI', 'KOSDAQ'].includes(marketUpper)) {
-            const etfBrandSlug =
-                resolveKoreanEtfBrandSlugFromTicker(processedTicker);
-            if (etfBrandSlug) {
-                pushAttempt(`etf-${etfBrandSlug}`, 'company');
+            const alias = resolveCompanyAlias(processedTicker.company);
+            if (alias) {
+                processedTicker.company = alias;
             }
 
-            const corporateBrandSlug =
-                resolveKoreanCorporateBrandSlugFromTicker(processedTicker);
-            if (corporateBrandSlug) {
-                pushAttempt(`brand-${corporateBrandSlug}`, 'brand');
-            }
-        }
-
-        // 2) 운용사/회사 기반
-        const globalBrandKey = resolveGlobalBrandLogoKey(
-            processedTicker.company
-        );
-        if (globalBrandKey) {
-            pushAttempt(globalBrandKey, 'company');
-        }
-
-        if (processedTicker.company) {
-            pushAttempt(processedTicker.company, 'company');
-        }
-
-        // 3) 티커 심볼 기반
-        if (processedTicker.symbol) {
-            let symbolCategory = 'company';
-            if (marketUpper === 'KOSPI' || marketUpper === 'KOSDAQ') {
-                symbolCategory = 'symbol';
-            }
-            pushAttempt(processedTicker.symbol, symbolCategory, {
-                type: 'symbol',
-            });
-        }
-
-        const fallbackName = processedTicker.company || processedTicker.symbol;
-
-        let resolvedLogoPath = null;
-        const attemptedKeys = [];
-        const attemptDedup = new Set();
-
-        for (const attempt of logoAttempts) {
-            const normalizedName = normalizeToFilename(attempt.name);
-            if (!normalizedName) continue;
-
-            const dedupKey = `${attempt.category}:${normalizedName}`;
-            if (attemptDedup.has(dedupKey)) continue;
-            attemptDedup.add(dedupKey);
-            attemptedKeys.push(dedupKey);
-
-            const logoPath = findLogoFile(normalizedName, {
-                category: attempt.category,
-                market: processedTicker.market,
-                type: attempt.type,
-            });
-            if (logoPath) {
-                resolvedLogoPath = logoPath;
-                break;
-            }
-        }
-
-        if (resolvedLogoPath) {
-            processedTicker.logo = resolvedLogoPath;
-        } else {
-            processedTicker.logo = null;
-            if (attemptedKeys.length) {
-                console.log(
-                    `🔸 ${ticker.symbol}: 로고 없음. 시도한 후보: ${attemptedKeys.join(', ')}`
-                );
-            }
-
-            const failureName =
-                fallbackName ||
-                logoAttempts[logoAttempts.length - 1]?.name ||
-                null;
-            const normalizedFailureName = normalizeToFilename(failureName);
-
-            failedLogoMatches.push({
-                symbol: ticker.symbol,
-                company: ticker.company || null,
-                market: ticker.market || null,
-                searchName: failureName,
-                normalizedSearchName: normalizedFailureName,
-            });
-        }
-
-        const dataCandidates = getDataFileCandidates(
-            processedTicker.yfSymbol,
-            processedTicker.market
-        );
-        const candidateWithFile =
-            dataCandidates.find((candidate) => existsSync(candidate.absPath)) ||
-            dataCandidates[0];
-        const dataFilePath = candidateWithFile?.absPath;
-        const resolvedDataPath = candidateWithFile?.relPath || null;
-        const availableDataPaths = dataCandidates
-            .filter((candidate) => existsSync(candidate.absPath))
-            .map((candidate) => candidate.relPath);
-
-        if (availableDataPaths.length) {
-            processedTicker.dataPaths = Array.from(
-                new Set(availableDataPaths.concat(resolvedDataPath || []))
-            );
-        }
-
-        let stockData = null;
-        try {
-            if (dataFilePath && existsSync(dataFilePath)) {
-                const dataFileContent = await fs.readFile(dataFilePath, 'utf8');
-                stockData = JSON.parse(dataFileContent);
-            } else {
-                throw new Error('File not found locally');
-            }
-        } catch (error) {
-            // Try R2
-            stockData = await fetchDataFromR2(dataCandidates);
-        }
-
-        if (!stockData) {
-            processedTicker.periods = [];
-            return processedTicker;
-        }
-
-        try {
-            // const stockData is already loaded above
-            const backtestData = stockData.backtestData || [];
-            const tickerInfoFromData =
-                (stockData && stockData.tickerInfo) || {};
-            const dividendDates = extractDividendDates(backtestData);
-            const { frequency: analyzedFrequency, group: analyzedGroup } =
-                analyzeFrequencyAndGroup(dividendDates);
+            const marketUpper = (processedTicker.market || '').toUpperCase();
 
             if (
-                analyzedFrequency &&
-                processedTicker.frequency !== analyzedFrequency
+                (!processedTicker.company ||
+                    processedTicker.company === null) &&
+                ['KOSPI', 'KOSDAQ'].includes(marketUpper)
             ) {
-                processedTicker.frequency = analyzedFrequency;
-            } else if (
-                !processedTicker.frequency &&
-                tickerInfoFromData.frequency
-            ) {
-                processedTicker.frequency = tickerInfoFromData.frequency;
-            }
-
-            if (analyzedGroup) {
-                processedTicker.group = analyzedGroup;
-            } else if (
-                (processedTicker.group === undefined ||
-                    processedTicker.group === null) &&
-                tickerInfoFromData.group
-            ) {
-                processedTicker.group = tickerInfoFromData.group;
-            }
-
-            const firstDividendEntry = backtestData.find(
-                (d) => d.amount !== null && typeof d.amount !== 'undefined'
-            );
-            const startDateStr = firstDividendEntry
-                ? firstDividendEntry.date
-                : ticker.ipoDate;
-
-            if (startDateStr) {
-                const startDate = new Date(startDateStr);
-                const today = new Date();
-                const yearsOfHistory =
-                    (today - startDate) / (1000 * 60 * 60 * 24 * 365.25);
-
-                let masterPeriods = [
-                    '6M',
-                    '1Y',
-                    '3Y',
-                    '5Y',
-                    '10Y',
-                    '15Y',
-                    '20Y',
-                ];
-
-                // --- [핵심 수정] ---
-                if (processedTicker.frequency === '매주') {
-                    masterPeriods = ['6M', '1Y']; // '매주' 배당은 '월' 단위 옵션만 사용
-                } else if (processedTicker.frequency === '매월') {
-                    masterPeriods = ['1Y', '2Y', '3Y', '5Y', '10Y'];
-                } else if (processedTicker.frequency === '분기') {
-                    masterPeriods = ['5Y', '10Y', '15Y', '20Y'];
-                } else if (processedTicker.frequency === '매년') {
-                    masterPeriods = ['10Y', '15Y', '20Y'];
+                const inferredCompany = inferKoreanEtfCompany(processedTicker);
+                if (inferredCompany) {
+                    processedTicker.company = inferredCompany;
                 }
-                // --- // ---
+            }
 
-                const calculatedPeriods = masterPeriods.filter(
-                    (p) => yearsOfHistory >= convertPeriodToYears(p)
-                );
-                processedTicker.periods = calculatedPeriods;
+            const logoAttempts = [];
+            const pushAttempt = (name, category = 'company', extra = {}) => {
+                if (!name) return;
+                logoAttempts.push({ name, category, ...extra });
+            };
+
+            const pushBrandAttempt = (brandValue) => {
+                if (!brandValue) return;
+                const trimmed = brandValue.toString().trim();
+                if (!trimmed) return;
+                const lower = trimmed.toLowerCase();
+
+                if (lower.startsWith('brand-')) {
+                    pushAttempt(lower, 'brand');
+                    return;
+                }
+                if (lower.startsWith('etf-')) {
+                    pushAttempt(lower, 'korea');
+                    return;
+                }
+                if (lower.startsWith('company-')) {
+                    pushAttempt(lower, 'company');
+                    return;
+                }
+
+                const normalized = normalizeToFilename(trimmed);
+                if (normalized) {
+                    pushAttempt(`brand-${normalized}`, 'brand');
+                }
+            };
+
+            // 1) 브랜드 우선
+            pushBrandAttempt(processedTicker.brand);
+
+            if (['KOSPI', 'KOSDAQ'].includes(marketUpper)) {
+                const etfBrandSlug =
+                    resolveKoreanEtfBrandSlugFromTicker(processedTicker);
+                if (etfBrandSlug) {
+                    pushAttempt(`etf-${etfBrandSlug}`, 'company');
+                }
+
+                const corporateBrandSlug =
+                    resolveKoreanCorporateBrandSlugFromTicker(processedTicker);
+                if (corporateBrandSlug) {
+                    pushAttempt(`brand-${corporateBrandSlug}`, 'brand');
+                }
+            }
+
+            // 2) 운용사/회사 기반
+            const globalBrandKey = resolveGlobalBrandLogoKey(
+                processedTicker.company
+            );
+            if (globalBrandKey) {
+                pushAttempt(globalBrandKey, 'company');
+            }
+
+            if (processedTicker.company) {
+                pushAttempt(processedTicker.company, 'company');
+            }
+
+            // 3) 티커 심볼 기반
+            if (processedTicker.symbol) {
+                let symbolCategory = 'company';
+                if (marketUpper === 'KOSPI' || marketUpper === 'KOSDAQ') {
+                    symbolCategory = 'symbol';
+                }
+                pushAttempt(processedTicker.symbol, symbolCategory, {
+                    type: 'symbol',
+                });
+            }
+
+            const fallbackName =
+                processedTicker.company || processedTicker.symbol;
+
+            let resolvedLogoPath = null;
+            const attemptedKeys = [];
+            const attemptDedup = new Set();
+
+            for (const attempt of logoAttempts) {
+                const normalizedName = normalizeToFilename(attempt.name);
+                if (!normalizedName) continue;
+
+                const dedupKey = `${attempt.category}:${normalizedName}`;
+                if (attemptDedup.has(dedupKey)) continue;
+                attemptDedup.add(dedupKey);
+                attemptedKeys.push(dedupKey);
+
+                const logoPath = findLogoFile(normalizedName, {
+                    category: attempt.category,
+                    market: processedTicker.market,
+                    type: attempt.type,
+                });
+                if (logoPath) {
+                    resolvedLogoPath = logoPath;
+                    break;
+                }
+            }
+
+            if (resolvedLogoPath) {
+                processedTicker.logo = resolvedLogoPath;
             } else {
+                processedTicker.logo = null;
+                if (attemptedKeys.length) {
+                    console.log(
+                        `🔸 ${process.env.VERBOSE ? ticker.symbol + ': ' : ''}로고 없음.`
+                    );
+                }
+
+                const failureName =
+                    fallbackName ||
+                    logoAttempts[logoAttempts.length - 1]?.name ||
+                    null;
+                const normalizedFailureName = normalizeToFilename(failureName);
+
+                failedLogoMatches.push({
+                    symbol: ticker.symbol,
+                    company: ticker.company || null,
+                    market: ticker.market || null,
+                    searchName: failureName,
+                    normalizedSearchName: normalizedFailureName,
+                });
+            }
+
+            const dataCandidates = getDataFileCandidates(
+                processedTicker.yfSymbol,
+                processedTicker.market
+            );
+            const candidateWithFile =
+                dataCandidates.find((candidate) =>
+                    existsSync(candidate.absPath)
+                ) || dataCandidates[0];
+            const dataFilePath = candidateWithFile?.absPath;
+            const resolvedDataPath = candidateWithFile?.relPath || null;
+            const availableDataPaths = dataCandidates
+                .filter((candidate) => existsSync(candidate.absPath))
+                .map((candidate) => candidate.relPath);
+
+            if (availableDataPaths.length) {
+                processedTicker.dataPaths = Array.from(
+                    new Set(availableDataPaths.concat(resolvedDataPath || []))
+                );
+            }
+
+            let stockData = null;
+            try {
+                if (dataFilePath && existsSync(dataFilePath)) {
+                    const dataFileContent = await fs.readFile(
+                        dataFilePath,
+                        'utf8'
+                    );
+                    stockData = JSON.parse(dataFileContent);
+                } else {
+                    throw new Error('File not found locally');
+                }
+            } catch (error) {
+                // Try R2
+                stockData = await fetchDataFromR2(dataCandidates);
+            }
+
+            if (!stockData) {
+                // R2에서 실패했더라도, 기존 데이터를 유지할 수 있으면 유지하는 것이 좋지만
+                // 현재 구조상 전체 재생성이므로 R2 실패 시 빈 배열이 됨
+                // console.warn(`Failed to load data for ${ticker.symbol}`);
+                processedTicker.periods = [];
+                return processedTicker;
+            }
+
+            try {
+                // const stockData is already loaded above
+                const backtestData = stockData.backtestData || [];
+                const tickerInfoFromData =
+                    (stockData && stockData.tickerInfo) || {};
+                const dividendDates = extractDividendDates(backtestData);
+                const { frequency: analyzedFrequency, group: analyzedGroup } =
+                    analyzeFrequencyAndGroup(dividendDates);
+
+                if (
+                    analyzedFrequency &&
+                    processedTicker.frequency !== analyzedFrequency
+                ) {
+                    processedTicker.frequency = analyzedFrequency;
+                } else if (
+                    !processedTicker.frequency &&
+                    tickerInfoFromData.frequency
+                ) {
+                    processedTicker.frequency = tickerInfoFromData.frequency;
+                }
+
+                if (analyzedGroup) {
+                    processedTicker.group = analyzedGroup;
+                } else if (
+                    (processedTicker.group === undefined ||
+                        processedTicker.group === null) &&
+                    tickerInfoFromData.group
+                ) {
+                    processedTicker.group = tickerInfoFromData.group;
+                }
+
+                const firstDividendEntry = backtestData.find(
+                    (d) => d.amount !== null && typeof d.amount !== 'undefined'
+                );
+                const startDateStr = firstDividendEntry
+                    ? firstDividendEntry.date
+                    : ticker.ipoDate;
+
+                if (startDateStr) {
+                    const startDate = new Date(startDateStr);
+                    const today = new Date();
+                    const yearsOfHistory =
+                        (today - startDate) / (1000 * 60 * 60 * 24 * 365.25);
+
+                    let masterPeriods = [
+                        '6M',
+                        '1Y',
+                        '3Y',
+                        '5Y',
+                        '10Y',
+                        '15Y',
+                        '20Y',
+                    ];
+
+                    // --- [핵심 수정] ---
+                    if (processedTicker.frequency === '매주') {
+                        masterPeriods = ['6M', '1Y']; // '매주' 배당은 '월' 단위 옵션만 사용
+                    } else if (processedTicker.frequency === '매월') {
+                        masterPeriods = ['1Y', '2Y', '3Y', '5Y', '10Y'];
+                    } else if (processedTicker.frequency === '분기') {
+                        masterPeriods = ['5Y', '10Y', '15Y', '20Y'];
+                    } else if (processedTicker.frequency === '매년') {
+                        masterPeriods = ['10Y', '15Y', '20Y'];
+                    }
+                    // --- // ---
+
+                    const calculatedPeriods = masterPeriods.filter(
+                        (p) => yearsOfHistory >= convertPeriodToYears(p)
+                    );
+                    processedTicker.periods = calculatedPeriods;
+                } else {
+                    processedTicker.periods = [];
+                }
+            } catch (error) {
                 processedTicker.periods = [];
             }
-        } catch (error) {
-            processedTicker.periods = [];
-        }
 
-        return processedTicker;
+            return processedTicker;
+        });
     });
 
     let finalTickers = await Promise.all(finalTickersPromises);
