@@ -12,50 +12,83 @@
         </div>
 
         <div v-else class="asset-transaction-container">
-            <!-- 필터 영역 -->
-            <div class="filter-section p-3 bg-gray-50 border-bottom-1">
-                <div class="flex gap-3 align-items-center">
-                    <!-- 년도 필터 -->
-                    <div class="flex flex-column">
-                        <label for="year-filter" class="text-sm mb-1"
-                            >년도</label
-                        >
-                        <Calendar
-                            v-model="selectedYear"
-                            view="year"
-                            dateFormat="yy"
-                            placeholder="년도 선택"
-                            :showIcon="true"
-                            style="width: 150px" />
+            <!-- 년도별 배당 요약 버튼 -->
+            <div class="year-buttons-section flex gap-2 flex-wrap">
+                <Button
+                    v-for="yearData in yearlyDividendData"
+                    :key="yearData.year"
+                    :severity="
+                        selectedYear === yearData.year ? 'primary' : 'secondary'
+                    "
+                    :outlined="yearData.isFuture"
+                    @click="selectYear(yearData.year)"
+                    class="year-summary-button">
+                    <div class="flex flex-column align-items-start gap-1">
+                        <div class="flex align-items-center gap-2">
+                            <div class="font-bold text-lg">
+                                {{ yearData.year }}년
+                            </div>
+                            <span
+                                v-if="yearData.isFuture"
+                                class="text-xs opacity-70"
+                                >(예상)</span
+                            >
+                        </div>
+                        <div class="text-sm">
+                            <div>세후배당금: {{ yearData.totalDividend }}</div>
+                            <div>원화과표: {{ yearData.totalKrwTax }}</div>
+                        </div>
                     </div>
+                </Button>
+            </div>
 
+            <!-- 필터 영역 -->
+            <div class="filter-section py-2">
+                <div class="flex gap-3 align-items-center">
                     <!-- 거래타입 필터 -->
                     <div class="flex flex-column">
-                        <label for="type-filter" class="text-sm mb-1"
-                            >거래타입</label
-                        >
-                        <Select
+                        <SelectButton
                             v-model="selectedTransactionType"
                             :options="transactionTypes"
                             optionLabel="label"
-                            optionValue="value"
-                            placeholder="타입 선택"
-                            style="width: 200px" />
+                            optionValue="value" />
                     </div>
 
                     <!-- 필터 초기화 버튼 -->
                     <Button
-                        label="필터 초기화"
+                        severity="danger"
                         icon="pi pi-filter-slash"
                         size="small"
-                        text
-                        @click="resetFilters"
-                        class="mt-4" />
+                        @click="resetFilters" />
+
+                    <!-- 재투자 여부 버튼 -->
+                    <div class="flex flex-column gap-1">
+                        <ToggleButton
+                            v-model="isReinvestmentEnabled"
+                            onLabel="재투자 포함"
+                            offLabel="배당만 수령"
+                            onIcon="pi pi-refresh"
+                            offIcon="pi pi-dollar"
+                            size="small"
+                            class="reinvestment-toggle" />
+                    </div>
+
+                    <!-- 배당 기준 설정 버튼 -->
+                    <div class="flex flex-column gap-1">
+                        <SelectButton
+                            v-model="dividendBasis"
+                            :options="dividendBasisOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            size="small" />
+                    </div>
 
                     <!-- 결과 표시 -->
                     <div class="ml-auto mt-4 text-sm text-color-secondary">
-                        총 {{ filteredTransactions.length }}개 /
-                        {{ displayTransactions.length }}개
+                        <span v-if="selectedYear" class="font-semibold"
+                            >{{ selectedYear }}년 |
+                        </span>
+                        총 {{ filteredTransactions.length }}개
                     </div>
                 </div>
             </div>
@@ -426,14 +459,14 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed, watch } from 'vue';
     import Drawer from 'primevue/drawer';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import ProgressSpinner from 'primevue/progressspinner';
-    import Calendar from 'primevue/calendar';
-    import Select from 'primevue/select';
+    import SelectButton from 'primevue/selectbutton';
     import Button from 'primevue/button';
+    import ToggleButton from 'primevue/togglebutton';
     import extractedData from './extracted_transactions.json';
 
     const props = defineProps({
@@ -473,8 +506,341 @@
     });
 
     // 필터 상태
-    const selectedYear = ref(null);
+    const currentYear = new Date().getFullYear().toString(); // "2025"
+    const selectedYear = ref(currentYear); // 기본값: 올해
     const selectedTransactionType = ref('all');
+    const isReinvestmentEnabled = ref(false); // 재투자 여부 (기본: 배당만 수령)
+    const dividendBasis = ref('latest'); // 배당 기준 (기본: 최신)
+
+    // 배당 기준 옵션
+    const dividendBasisOptions = ref([
+        { label: '최신 배당', value: 'latest' },
+        { label: '최근 5회 최대', value: 'max5' },
+        { label: '최근 5회 평균', value: 'avg5' },
+        { label: '최근 5회 최소', value: 'min5' },
+    ]);
+
+    // 선택된 년도가 미래인지 판별
+    const isSelectedYearFuture = computed(() => {
+        if (!selectedYear.value) return false;
+        const yearNum = parseInt(selectedYear.value);
+        const currentYearNum = parseInt(currentYear);
+        return yearNum > currentYearNum;
+    });
+
+    // 모달 열릴 때 올해로 초기화
+    watch(
+        () => props.visible,
+        (newVal) => {
+            if (newVal) {
+                selectedYear.value = currentYear;
+                selectedTransactionType.value = 'all';
+                isReinvestmentEnabled.value = false; // 재투자 옵션 초기화
+                dividendBasis.value = 'latest'; // 배당 기준 초기화
+            }
+        }
+    );
+
+    // 년도 변경 시 재투자 옵션 초기화 (과거 데이터로 전환 시)
+    watch(selectedYear, (newYear) => {
+        const yearNum = parseInt(newYear);
+        const currentYearNum = parseInt(currentYear);
+        if (yearNum <= currentYearNum) {
+            isReinvestmentEnabled.value = false;
+            dividendBasis.value = 'latest';
+        }
+    });
+
+    // 오늘 날짜 기준 (2025-12-12) 보유량과 평단 조회
+    const getCurrentHoldings = computed(() => {
+        const today = new Date('2025-12-12');
+
+        // 오늘 날짜 이전의 모든 거래 데이터를 시간순으로 정렬
+        const pastTransactions = displayTransactions.value
+            .map((row) => {
+                const dateStr = row['날짜'];
+                if (!dateStr || dateStr.includes('년')) return null;
+
+                // 날짜 파싱 (YY. MM. DD. 형식)
+                const parts = dateStr.trim().split(/\s+/);
+                if (parts.length >= 3) {
+                    const year = parseInt('20' + parts[0].replace('.', ''));
+                    const month = parseInt(parts[1].replace('.', ''));
+                    const day = parseInt(parts[2].replace('.', ''));
+                    const rowDate = new Date(year, month - 1, day);
+
+                    if (rowDate <= today) {
+                        return { row, date: rowDate };
+                    }
+                }
+                return null;
+            })
+            .filter((item) => item !== null)
+            .sort((a, b) => a.date - b.date); // Date 객체로 직접 정렬
+
+        // 가장 최근 거래의 보유량과 평단
+        if (pastTransactions.length > 0) {
+            const latest = pastTransactions[pastTransactions.length - 1].row;
+            return {
+                shares: latest['보유량'] || '0 주',
+                avgPrice: latest['평단'] || '$0',
+            };
+        }
+
+        return { shares: '0 주', avgPrice: '$0' };
+    });
+
+    // 과거 배당 내역 분석 (오늘 날짜 이전 데이터만)
+    const historicalDividends = computed(() => {
+        const today = new Date('2025-12-12');
+
+        // 배당 데이터만 필터링 (오늘 이전)
+        const dividends = displayTransactions.value
+            .filter((row) => {
+                const paymentDate = row['배당지급일'];
+                if (!paymentDate || paymentDate.trim() === '') return false;
+
+                // 배당지급일 파싱
+                const parts = paymentDate.trim().split(/\s+/);
+                if (parts.length >= 3) {
+                    const year = parseInt('20' + parts[0].replace('.', ''));
+                    const month = parseInt(parts[1].replace('.', ''));
+                    const day = parseInt(parts[2].replace('.', ''));
+                    const divDate = new Date(year, month - 1, day);
+                    return divDate <= today;
+                }
+                return false;
+            })
+            .map((row) => ({
+                paymentDate: row['배당지급일'],
+                amount: parseNumber(row['세후배당금($)']),
+                shares: parseNumber(row['배당기준']), // "240 주" -> 240
+            }))
+            .filter((div) => div.amount > 0)
+            .sort((a, b) => b.paymentDate.localeCompare(a.paymentDate)); // 최신순
+
+        return dividends;
+    });
+
+    // 배당 기준값 계산
+    const dividendBasisValue = computed(() => {
+        const divs = historicalDividends.value;
+        if (divs.length === 0) return 0;
+
+        const last5 = divs.slice(0, 5);
+
+        let perShareDividend = 0;
+        switch (dividendBasis.value) {
+            case 'latest':
+                perShareDividend = divs[0].amount / divs[0].shares; // 주당 배당금
+                break;
+            case 'max5':
+                perShareDividend = Math.max(
+                    ...last5.map((d) => d.amount / d.shares)
+                );
+                break;
+            case 'avg5':
+                perShareDividend =
+                    last5.reduce((sum, d) => sum + d.amount / d.shares, 0) /
+                    last5.length;
+                break;
+            case 'min5':
+                perShareDividend = Math.min(
+                    ...last5.map((d) => d.amount / d.shares)
+                );
+                break;
+            default:
+                perShareDividend = 0;
+        }
+
+        console.log('📊 배당 분석:', {
+            기준: dividendBasis.value,
+            주당배당금: perShareDividend,
+            과거배당횟수: divs.length,
+            최근5회: last5.map((d) => ({
+                날짜: d.paymentDate,
+                주당: (d.amount / d.shares).toFixed(4),
+            })),
+        });
+
+        return perShareDividend;
+    });
+
+    // 현재 보유량 변경 시 로깅
+    watch(
+        getCurrentHoldings,
+        (newVal) => {
+            console.log('💼 현재 보유 현황 (2025-12-12 기준):', newVal);
+        },
+        { immediate: true }
+    );
+
+    // 배당지급일에서 년도 추출 함수
+    const extractYearFromPaymentDate = (paymentDate) => {
+        if (!paymentDate || paymentDate.trim() === '') return null;
+        // "28. 12. 29" 형식에서 년도 추출
+        const parts = paymentDate.trim().split(/\s+/);
+        if (parts.length >= 1) {
+            const yearStr = parts[0].replace('.', ''); // "28" -> "28"
+            return `20${yearStr}`; // "2028"
+        }
+        return null;
+    };
+
+    // 숫자 문자열에서 숫자만 추출 ("$1,234.56" -> 1234.56)
+    const parseNumber = (str) => {
+        if (!str || str.trim() === '') return 0;
+        const cleaned = str.replace(/[^0-9.-]/g, '');
+        return parseFloat(cleaned) || 0;
+    };
+
+    // 숫자를 통화 형식으로 포맷
+    const formatCurrency = (value, currency = '$') => {
+        if (value === 0) return `${currency}0`;
+        const formatted = Math.abs(value).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+        return `${currency}${formatted}`;
+    };
+
+    // 년도별 배당 데이터 집계 (배당지급일 기준)
+    const yearlyDividendData = computed(() => {
+        // 의존성 명시적 참조 (변경 시 재계산 트리거)
+        const _dividendBasis = dividendBasis.value;
+        const _isReinvestment = isReinvestmentEnabled.value;
+
+        const yearMap = new Map();
+        const currentDate = new Date(); // 오늘 날짜
+        const currentYearNum = currentDate.getFullYear();
+
+        // 과거/현재 데이터만 집계 (미래 JSON 데이터 제외)
+        displayTransactions.value.forEach((row) => {
+            const paymentDate = row['배당지급일'];
+            if (!paymentDate || paymentDate.trim() === '') return;
+
+            const year = extractYearFromPaymentDate(paymentDate);
+            if (!year) return;
+
+            const yearNum = parseInt(year);
+            // 미래 년도 데이터는 집계에서 제외
+            if (yearNum > currentYearNum) return;
+
+            const dividend = parseNumber(row['세후배당금($)']);
+            const krwTax = parseNumber(row['원화과표']);
+
+            if (!yearMap.has(year)) {
+                yearMap.set(year, {
+                    year,
+                    totalDividend: 0,
+                    totalKrwTax: 0,
+                });
+            }
+
+            const yearData = yearMap.get(year);
+            yearData.totalDividend += dividend;
+            yearData.totalKrwTax += krwTax;
+        });
+
+        // Map을 배열로 변환
+        const result = Array.from(yearMap.values()).map((data) => {
+            const yearNum = parseInt(data.year);
+            const isFuture = yearNum > currentYearNum;
+
+            return {
+                year: data.year,
+                totalDividend: formatCurrency(data.totalDividend, '$'),
+                totalKrwTax: formatCurrency(data.totalKrwTax, '₩'),
+                isFuture,
+            };
+        });
+
+        // 미래 년도 버튼 추가 및 계산 (2026, 2027, 2028)
+        const futureYears = ['2026', '2027', '2028'];
+        const currentHoldings = getCurrentHoldings.value;
+        const currentShares = parseNumber(currentHoldings.shares);
+        const perShareDividend = dividendBasisValue.value;
+
+        console.log('🔮 미래 배당 계산:', {
+            현재보유주식: currentShares,
+            주당배당금: perShareDividend,
+            재투자여부: isReinvestmentEnabled.value,
+            배당기준: dividendBasis.value,
+        });
+
+        futureYears.forEach((year) => {
+            let totalDividendAmount = 0;
+            let totalKrwTaxAmount = 0;
+
+            if (currentShares > 0 && perShareDividend > 0) {
+                // 과거 배당 간격 분석
+                const divs = historicalDividends.value;
+                let dividendIntervalDays = 90; // 기본값: 분기
+
+                if (divs.length >= 2) {
+                    const intervals = [];
+                    for (let i = 0; i < Math.min(10, divs.length - 1); i++) {
+                        const date1 = parseDateString(divs[i].paymentDate);
+                        const date2 = parseDateString(divs[i + 1].paymentDate);
+                        if (date1 && date2) {
+                            const diffDays = Math.abs(
+                                (date1 - date2) / (1000 * 60 * 60 * 24)
+                            );
+                            intervals.push(diffDays);
+                        }
+                    }
+                    if (intervals.length > 0) {
+                        dividendIntervalDays = Math.round(
+                            intervals.reduce((a, b) => a + b) / intervals.length
+                        );
+                    }
+                }
+
+                // 연간 배당 횟수 계산
+                const dividendsPerYear = Math.round(365 / dividendIntervalDays);
+
+                // 1년간 총 배당금 계산 (재투자 없는 경우 단순 계산)
+                const yearlyDividend =
+                    currentShares * perShareDividend * dividendsPerYear;
+
+                // 재투자 여부에 따른 계산
+                // TODO: 재투자 로직은 추후 구현 (복리 계산)
+                totalDividendAmount = yearlyDividend;
+
+                // 원화과표 계산 (환율 1,400원 가정, 세전 배당금 = 세후 / 0.85)
+                const exchangeRate = 1400;
+                const pretaxDividend = totalDividendAmount / 0.85;
+                totalKrwTaxAmount = pretaxDividend * exchangeRate;
+            }
+
+            result.push({
+                year,
+                totalDividend:
+                    totalDividendAmount > 0
+                        ? formatCurrency(totalDividendAmount, '$')
+                        : '$0.00',
+                totalKrwTax:
+                    totalKrwTaxAmount > 0
+                        ? formatCurrency(totalKrwTaxAmount, '₩')
+                        : '₩0.00',
+                isFuture: true,
+            });
+        });
+
+        // 년도 오름차순 정렬 (오래된 순)
+        result.sort((a, b) => a.year.localeCompare(b.year));
+
+        return result;
+    });
+
+    // 년도 선택 함수
+    const selectYear = (year) => {
+        if (selectedYear.value === year) {
+            selectedYear.value = null; // 토글
+        } else {
+            selectedYear.value = year;
+        }
+    };
 
     // 거래타입 옵션
     const transactionTypes = ref([
@@ -525,27 +891,209 @@
         return `${year}. ${month}. ${day}.`;
     };
 
+    // 미래 거래 데이터 생성 함수
+    const generateFutureTransactions = (targetYear) => {
+        const transactions = [];
+        const currentHoldings = getCurrentHoldings.value;
+        let currentShares = parseNumber(currentHoldings.shares);
+        let currentAvgPrice = parseNumber(currentHoldings.avgPrice);
+        const perShareDividend = dividendBasisValue.value;
+        if (currentShares === 0 || perShareDividend === 0) {
+            return [];
+        }
+
+        // 과거 배당 내역에서 배당 주기 분석
+        const divs = historicalDividends.value;
+        let dividendIntervalDays = 90; // 기본값: 분기(90일)
+
+        if (divs.length >= 2) {
+            // 최근 배당 간격 계산
+            const intervals = [];
+            console.log(
+                '🔍 배당 간격 분석 시작:',
+                divs.slice(0, 6).map((d) => d.paymentDate)
+            );
+
+            for (let i = 0; i < Math.min(10, divs.length - 1); i++) {
+                const date1 = parseDateString(divs[i].paymentDate);
+                const date2 = parseDateString(divs[i + 1].paymentDate);
+                if (date1 && date2) {
+                    const diffDays = Math.abs(
+                        (date1 - date2) / (1000 * 60 * 60 * 24)
+                    );
+                    intervals.push(diffDays);
+                    console.log(
+                        `  ${divs[i].paymentDate} → ${divs[i + 1].paymentDate}: ${diffDays.toFixed(1)}일`
+                    );
+                }
+            }
+            if (intervals.length > 0) {
+                dividendIntervalDays = Math.round(
+                    intervals.reduce((a, b) => a + b) / intervals.length
+                );
+            }
+        }
+
+        console.log('📊 배당 주기 분석 결과:', {
+            평균간격일수: dividendIntervalDays,
+            과거배당횟수: divs.length,
+            예상연간횟수: Math.round(365 / dividendIntervalDays),
+            계산된간격들: intervals,
+        });
+
+        // 1년간 배당 일정 생성
+        const year = parseInt(targetYear);
+        const startDate = new Date(year, 0, 1); // 1월 1일
+        const endDate = new Date(year, 11, 31); // 12월 31일
+
+        let currentDate = new Date(startDate);
+
+        while (currentDate <= endDate) {
+            // 배당락일 (지급일 -1일)
+            const payDate = new Date(currentDate);
+            const exDate = new Date(currentDate);
+            exDate.setDate(exDate.getDate() - 1);
+
+            // 배당금 계산
+            const dividendAmount = currentShares * perShareDividend;
+            const pretaxDividend = dividendAmount / 0.85;
+            const exchangeRate = 1400;
+            const krwTax = pretaxDividend * exchangeRate;
+
+            // 배당 레코드
+            const dividendRecord = {
+                날짜: formatJsDate(payDate),
+                평단: `$${currentAvgPrice.toFixed(2)}`,
+                보유량: `${currentShares.toFixed(0)} 주`,
+                '거래(수량)': '',
+                '거래(달러)': '',
+                '거래(원화)': '',
+                배당락일: formatJsDate(exDate),
+                배당지급일: formatJsDate(payDate),
+                배당기준: `${currentShares.toFixed(0)} 주`,
+                '세후배당금($)': `$${dividendAmount.toFixed(2)}`,
+                외화과표: `$${pretaxDividend.toFixed(2)}`,
+                원화과표: `₩${Math.round(krwTax).toLocaleString()}`,
+                '세후배당금(원화)': `₩${Math.round(dividendAmount * exchangeRate).toLocaleString()}`,
+                환율: `₩${exchangeRate.toFixed(1)}`,
+                지급기준: `$${perShareDividend.toFixed(4)}`,
+                원금회수율: '',
+                누적배당: '',
+                누적TR: '',
+                당일종가: `$${currentAvgPrice.toFixed(2)}`,
+                '당일 평단': `$${currentAvgPrice.toFixed(2)}`,
+                당일평가액: `$${(currentShares * currentAvgPrice).toFixed(2)}`,
+            };
+
+            transactions.push(dividendRecord);
+
+            // 재투자 포함 시: 배당금으로 주식 매수
+            if (isReinvestmentEnabled.value) {
+                const sharesToBuy = dividendAmount / currentAvgPrice;
+                const newShares = currentShares + sharesToBuy;
+
+                // 거래 레코드 (배당금 재투자)
+                const tradeRecord = {
+                    날짜: formatJsDate(payDate),
+                    평단: `$${currentAvgPrice.toFixed(2)}`,
+                    보유량: `${newShares.toFixed(2)} 주`,
+                    '거래(수량)': `+${sharesToBuy.toFixed(2)} 주`,
+                    '거래(달러)': `$${dividendAmount.toFixed(2)}`,
+                    '거래(원화)': `₩${Math.round(dividendAmount * exchangeRate).toLocaleString()}`,
+                    배당락일: '',
+                    배당지급일: '',
+                    배당기준: '',
+                    '세후배당금($)': '',
+                    외화과표: '',
+                    원화과표: '',
+                    '세후배당금(원화)': '',
+                    환율: `₩${exchangeRate.toFixed(1)}`,
+                    지급기준: '',
+                    원금회수율: '',
+                    누적배당: '',
+                    누적TR: '',
+                    당일종가: `$${currentAvgPrice.toFixed(2)}`,
+                    '당일 평단': `$${currentAvgPrice.toFixed(2)}`,
+                    당일평가액: `$${(newShares * currentAvgPrice).toFixed(2)}`,
+                };
+
+                transactions.push(tradeRecord);
+                currentShares = newShares; // 보유량 업데이트
+            }
+
+            // 다음 배당일로 이동
+            currentDate.setDate(currentDate.getDate() + dividendIntervalDays);
+        }
+
+        console.log(`📅 ${targetYear}년 미래 데이터 생성:`, {
+            레코드수: transactions.length,
+            재투자여부: isReinvestmentEnabled.value,
+            최종보유량: currentShares.toFixed(2),
+            배당횟수: transactions.filter((t) => t['배당지급일']).length,
+        });
+
+        return transactions;
+    };
+
+    // 날짜 문자열 파싱 헬퍼 함수
+    const parseDateString = (dateStr) => {
+        if (!dateStr) return null;
+        const parts = dateStr.trim().split(/\s+/);
+        if (parts.length >= 3) {
+            const year = parseInt('20' + parts[0].replace('.', ''));
+            const month = parseInt(parts[1].replace('.', ''));
+            const day = parseInt(parts[2].replace('.', ''));
+            return new Date(year, month - 1, day);
+        }
+        return null;
+    };
+
     // 필터링된 데이터
     const filteredTransactions = computed(() => {
         let filtered = [...displayTransactions.value];
 
-        // 년도 필터
+        // 미래 년도 JSON 데이터 제외 (2026-2028년 데이터는 계산으로 대체)
+        const currentYearNum = parseInt(currentYear);
+        filtered = filtered.filter((row) => {
+            const paymentDate = row['배당지급일'];
+            if (paymentDate) {
+                const year = extractYearFromPaymentDate(paymentDate);
+                if (year) {
+                    const yearNum = parseInt(year);
+                    // 미래 년도 데이터는 JSON에서 제외 (계산으로 대체 예정)
+                    if (yearNum > currentYearNum) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        });
+
+        // 년도 필터 (배당지급일 기준)
         if (selectedYear.value) {
-            const yearStr = selectedYear.value.getFullYear().toString(); // "2028"
-            const shortYear = yearStr.slice(2); // "28"
+            const selectedYearNum = parseInt(selectedYear.value);
 
-            filtered = filtered.filter((row) => {
-                // 날짜 정규화 후 비교
-                const dateStr = formatDate(row['날짜']);
-
-                // "28. 12. 29." 또는 "2028년" 형식 확인
-                return (
-                    dateStr &&
-                    (dateStr.startsWith(shortYear + '.') ||
-                        dateStr.includes(yearStr) ||
-                        dateStr.includes('20' + shortYear))
-                );
-            });
+            // 미래 년도 선택 시: 계산된 데이터 생성
+            if (selectedYearNum > currentYearNum) {
+                filtered = generateFutureTransactions(selectedYear.value);
+            } else {
+                // 과거/현재 년도: JSON 데이터 필터링
+                filtered = filtered.filter((row) => {
+                    const paymentDate = row['배당지급일'];
+                    if (!paymentDate) {
+                        // 배당지급일이 없는 경우, 날짜 필드로 필터링
+                        const dateStr = formatDate(row['날짜']);
+                        const shortYear = selectedYear.value.slice(2); // "2025" -> "25"
+                        return (
+                            dateStr &&
+                            (dateStr.startsWith(shortYear + '.') ||
+                                dateStr.includes(selectedYear.value))
+                        );
+                    }
+                    const year = extractYearFromPaymentDate(paymentDate);
+                    return year === selectedYear.value;
+                });
+            }
         }
 
         // 거래타입 필터
@@ -567,7 +1115,7 @@
 
     // 필터 초기화
     const resetFilters = () => {
-        selectedYear.value = null;
+        selectedYear.value = currentYear; // 올해로 초기화
         selectedTransactionType.value = 'all';
     };
 
@@ -621,8 +1169,29 @@
 
 <style lang="scss" scoped>
     .asset-transaction-container {
-        height: calc(100vh - 80px);
+        height: calc(100vh - 100px);
         padding: 0;
+
+        .year-summary-button {
+            min-width: 180px;
+            height: auto;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+
+            :deep(.p-button-label) {
+                width: 100%;
+            }
+
+            // 미래 데이터 버튼 스타일
+            &:deep(.p-button-outlined) {
+                border-style: dashed;
+                opacity: 0.85;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
 
         :deep(.asset-transaction-table) {
             font-size: 12px;
