@@ -6,9 +6,13 @@ R2 데이터 수동 관리 스크립트
 2. 로컬에서 데이터 수정 후 R2로 재업로드 (검증 포함)
 
 사용법:
-python scripts/utils/manage_r2_data.py --symbol TSLY --action download
-python scripts/utils/manage_r2_data.py --symbol TSLY --action edit  (다운 -> 대기 -> 업로드)
-python scripts/utils/manage_r2_data.py --expected 2025-12-11 --action edit
+python scripts/utils/manage_r2_data.py --symbol TSLY
+python scripts/utils/manage_r2_data.py --expected 2025-12-11
+python scripts/utils/manage_r2_data.py --group 화요일 수요일 목요일  
+python scripts/utils/manage_r2_data.py --group 디파이언스수요일 디파이언스목요일
+python scripts/utils/manage_r2_data.py --group 일드부스트
+python scripts/utils/manage_r2_data.py --company 회사이름
+python scripts/utils/manage_r2_data.py --action upload
 """
 import argparse
 import sys
@@ -83,6 +87,9 @@ SYMBOL_GROUPS = {
     ],
     "디파이언스목요일": [
         "WDTE", "IWMY", "USOY", "GLDY", "QQQY"
+    ],
+    "일드부스트": [
+        "MAAY", "IOYY", "RTYY", "COYY", "RGYY", "HMYY", "QBY", "TSYY", "SMYY", "HOYY", "SEMY", "BBYY", "NVYY", "NUGY", "PLYY", "MTYY", "AMYY", "XBTY", "AZYY", "TQQY", "FBYY", "YSPY"
     ]
 }
 
