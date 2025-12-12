@@ -2333,7 +2333,6 @@
             {
                 "ticker": "TSPY",
                 "koName": "ETF OPPORTUNITIES TR TAPPALPHA SPY GROWTH & DAILY INCOME",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.271
             }
@@ -2657,14 +2656,12 @@
             {
                 "ticker": "AMZP",
                 "koName": "커브 일드 프리미엄 전략 아마존 ETF",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.5
             },
             {
                 "ticker": "MSFY",
                 "koName": "커브 일드 프리미엄 전략 마이크로소프트 ETF",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.25
             },
@@ -2712,8 +2709,6 @@
             {
                 "ticker": "DVDN",
                 "koName": "킹스반 배당 기회 ETF",
-                "frequency": "분기",
-                "group": "AJOD",
                 "currency": "USD",
                 "amount": 1.37
             },
@@ -2963,7 +2958,6 @@
             {
                 "ticker": "HOMZ",
                 "koName": "ETF 시리즈 솔루션 호야 캐피탈 하우징 ETF",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.09
             },
@@ -2987,7 +2981,6 @@
             {
                 "ticker": "AAPY",
                 "koName": "커브 일드 프리미엄 전략 애플 ETF",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.25
             },
@@ -3716,7 +3709,6 @@
             {
                 "ticker": "NFLP",
                 "koName": "커브 일드 프리미엄 전략 넷플릭스 ETF",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.55
             },
@@ -4324,7 +4316,6 @@
             },
             {
                 "ticker": "MDST",
-                "frequency": "매월",
                 "currency": "USD",
                 "amount": 0.225
             },
@@ -4482,6 +4473,7 @@
                 "ticker": "003690",
                 "koName": "코리안리",
                 "frequency": "매년",
+                "group": "MAD",
                 "currency": "KRW",
                 "amount": 515
             },
@@ -4489,6 +4481,7 @@
                 "ticker": "096770",
                 "koName": "SK이노베이션",
                 "frequency": "매년",
+                "group": "AJD",
                 "currency": "KRW",
                 "amount": 2000
             },
@@ -4496,6 +4489,7 @@
                 "ticker": "139480",
                 "koName": "이마트",
                 "frequency": "매년",
+                "group": "AD",
                 "currency": "KRW",
                 "amount": 2000
             }
@@ -4504,14 +4498,16 @@
             {
                 "ticker": "000150",
                 "koName": "두산",
-                "frequency": "매년",
+                "frequency": "분기",
+                "group": "JSD",
                 "currency": "KRW",
                 "amount": 2000
             },
             {
                 "ticker": "000155",
                 "koName": "두산우",
-                "frequency": "매년",
+                "frequency": "분기",
+                "group": "JSD",
                 "currency": "KRW",
                 "amount": 2050
             },
@@ -4519,6 +4515,7 @@
                 "ticker": "069960",
                 "koName": "현대백화점",
                 "frequency": "매년",
+                "group": "ASD",
                 "currency": "KRW",
                 "amount": 1400
             }
@@ -4528,6 +4525,7 @@
                 "ticker": "001040",
                 "koName": "CJ",
                 "frequency": "매년",
+                "group": "JAD",
                 "currency": "KRW",
                 "amount": 3000
             },
@@ -4541,6 +4539,7 @@
                 "ticker": "035250",
                 "koName": "강원랜드",
                 "frequency": "매년",
+                "group": "AD",
                 "currency": "KRW",
                 "amount": 1170
             }
@@ -4556,6 +4555,7 @@
                 "ticker": "0004G0",
                 "koName": "1Q 미국배당TOP30",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 28
             },
@@ -4563,6 +4563,7 @@
                 "ticker": "0005G0",
                 "koName": "ITF K-AI반도체코어테크",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 24
             },
@@ -4570,6 +4571,7 @@
                 "ticker": "0026S0",
                 "koName": "1Q 미국S&P500",
                 "frequency": "분기",
+                "group": "AJS",
                 "currency": "KRW",
                 "amount": 28
             },
@@ -4577,6 +4579,7 @@
                 "ticker": "140950",
                 "koName": "파워 코스피100",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 390
             },
@@ -4584,6 +4587,7 @@
                 "ticker": "152870",
                 "koName": "파워 200",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 520
             },
@@ -4591,6 +4595,7 @@
                 "ticker": "159800",
                 "koName": "마이티 코스피100",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 490
             },
@@ -4598,6 +4603,7 @@
                 "ticker": "192720",
                 "koName": "파워 고배당저변동성",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 1410
             },
@@ -4605,7 +4611,7 @@
                 "ticker": "434960",
                 "koName": "DAISHIN343 K200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 500
             },
@@ -4613,6 +4619,7 @@
                 "ticker": "442260",
                 "koName": "마이티 다이나믹퀀트액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 275
             },
@@ -4620,6 +4627,7 @@
                 "ticker": "448100",
                 "koName": "WON 200",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -4627,7 +4635,7 @@
                 "ticker": "472840",
                 "koName": "ITF 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 477
             },
@@ -4635,7 +4643,7 @@
                 "ticker": "476850",
                 "koName": "KoAct 배당성장액티브",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -4643,6 +4651,7 @@
                 "ticker": "480460",
                 "koName": "WON 한국부동산TOP3플러스",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -4662,6 +4671,7 @@
                 "ticker": "495230",
                 "koName": "KoAct 코리아밸류업액티브",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -4669,6 +4679,7 @@
                 "ticker": "495330",
                 "koName": "1Q 코리아밸류업",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 23
             },
@@ -4676,6 +4687,7 @@
                 "ticker": "497780",
                 "koName": "KoAct 미국천연가스인프라액티브",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 36
             }
@@ -4684,8 +4696,8 @@
             {
                 "ticker": "055550",
                 "koName": "신한지주",
-                "frequency": "분기",
-                "group": "FAJN",
+                "frequency": "매년",
+                "group": "JSD",
                 "currency": "KRW",
                 "amount": 570
             }
@@ -4697,6 +4709,7 @@
                 "ticker": "0008S0",
                 "koName": "TIGER 미국배당다우존스타겟데일리커버드콜",
                 "frequency": "매월",
+                "group": "FMA",
                 "currency": "KRW",
                 "amount": 92
             },
@@ -4704,6 +4717,7 @@
                 "ticker": "0018C0",
                 "koName": "PLUS 고배당주위클리고정커버드콜",
                 "frequency": "매월",
+                "group": "MAM",
                 "currency": "KRW",
                 "amount": 114
             },
@@ -4711,6 +4725,7 @@
                 "ticker": "237370",
                 "koName": "KODEX 코리아배당성장채권혼합",
                 "frequency": "매월",
+                "group": "AON",
                 "currency": "KRW",
                 "amount": 12
             },
@@ -4718,6 +4733,7 @@
                 "ticker": "402970",
                 "koName": "ACE 미국배당다우존스",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -4725,6 +4741,7 @@
                 "ticker": "441640",
                 "koName": "KODEX 미국배당커버드콜액티브",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 92
             },
@@ -4732,6 +4749,7 @@
                 "ticker": "448330",
                 "koName": "KODEX 삼성전자채권혼합",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -4739,6 +4757,7 @@
                 "ticker": "458750",
                 "koName": "TIGER 미국배당다우존스타겟커버드콜1호",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 56
             },
@@ -4746,6 +4765,7 @@
                 "ticker": "474220",
                 "koName": "TIGER 미국테크TOP10타겟커버드콜",
                 "frequency": "매월",
+                "group": "FMA",
                 "currency": "KRW",
                 "amount": 105
             },
@@ -4753,6 +4773,7 @@
                 "ticker": "476800",
                 "koName": "KODEX 한국부동산리츠인프라",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 39
             },
@@ -4760,6 +4781,7 @@
                 "ticker": "480020",
                 "koName": "ACE 미국빅테크7+데일리타겟커버드콜(합성)",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 116
             },
@@ -4767,6 +4789,7 @@
                 "ticker": "480030",
                 "koName": "ACE 미국500데일리타겟커버드콜(합성)",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 116
             },
@@ -4774,6 +4797,7 @@
                 "ticker": "480040",
                 "koName": "ACE 미국반도체데일리타겟커버드콜(합성)",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 95
             },
@@ -4781,6 +4805,7 @@
                 "ticker": "481060",
                 "koName": "KODEX 미국30년국채타겟커버드콜(합성 H)",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 95
             },
@@ -4788,6 +4813,7 @@
                 "ticker": "489250",
                 "koName": "KODEX 미국배당다우존스",
                 "frequency": "매월",
+                "group": "SON",
                 "currency": "KRW",
                 "amount": 34
             },
@@ -4795,6 +4821,7 @@
                 "ticker": "490490",
                 "koName": "SOL 미국배당미국채혼합50",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 27
             },
@@ -4802,6 +4829,7 @@
                 "ticker": "493810",
                 "koName": "TIGER 미국AI빅테크10타겟데일리커버드콜",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 115
             },
@@ -4809,6 +4837,7 @@
                 "ticker": "494420",
                 "koName": "PLUS 미국배당증가성장주데일리커버드콜",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 104
             },
@@ -4816,6 +4845,7 @@
                 "ticker": "495040",
                 "koName": "PLUS 코리아밸류업",
                 "frequency": "매월",
+                "group": "JFM",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -4823,6 +4853,7 @@
                 "ticker": "495050",
                 "koName": "RISE 코리아밸류업",
                 "frequency": "매월",
+                "group": "JFM",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -4830,6 +4861,7 @@
                 "ticker": "498400",
                 "koName": "KODEX 200타겟위클리커버드콜",
                 "frequency": "매월",
+                "group": "JFM",
                 "currency": "KRW",
                 "amount": 132
             },
@@ -4837,6 +4869,7 @@
                 "ticker": "498860",
                 "koName": "RISE 코리아금융고배당",
                 "frequency": "매월",
+                "group": "JFM",
                 "currency": "KRW",
                 "amount": 35
             }
@@ -4846,6 +4879,7 @@
                 "ticker": "0000D0",
                 "koName": "TIGER 엔비디아미국채커버드콜밸런스(합성)",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 89
             },
@@ -4859,6 +4893,7 @@
                 "ticker": "0005A0",
                 "koName": "KODEX 미국S&P500데일리커버드콜OTM",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 105
             },
@@ -4866,6 +4901,7 @@
                 "ticker": "0013P0",
                 "koName": "RISE 미국은행TOP10",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 21
             },
@@ -4873,6 +4909,7 @@
                 "ticker": "0013R0",
                 "koName": "RISE 테슬라미국채타겟커버드콜혼합(합성)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 112
             },
@@ -4880,6 +4917,7 @@
                 "ticker": "0015E0",
                 "koName": "KIWOOM 엔비디아미국30년국채혼합액티브(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -4887,6 +4925,7 @@
                 "ticker": "0015F0",
                 "koName": "KIWOOM 팔란티어미국30년국채혼합액티브(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -4894,6 +4933,7 @@
                 "ticker": "0022T0",
                 "koName": "SOL 국제금커버드콜액티브",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -4901,7 +4941,7 @@
                 "ticker": "069500",
                 "koName": "KODEX 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 429
             },
@@ -4909,6 +4949,7 @@
                 "ticker": "069660",
                 "koName": "KIWOOM 200",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 570
             },
@@ -4916,6 +4957,7 @@
                 "ticker": "091160",
                 "koName": "KODEX 반도체",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 416
             },
@@ -4923,6 +4965,7 @@
                 "ticker": "091170",
                 "koName": "KODEX 은행",
                 "frequency": "매월",
+                "group": "AJA",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -4930,6 +4973,7 @@
                 "ticker": "091180",
                 "koName": "KODEX 자동차",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 584
             },
@@ -4937,28 +4981,31 @@
                 "ticker": "091220",
                 "koName": "TIGER 은행",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 205
             },
             {
                 "ticker": "091230",
                 "koName": "TIGER 반도체",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 240
             },
             {
                 "ticker": "098560",
                 "koName": "TIGER 방송통신",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 150
             },
             {
                 "ticker": "100910",
                 "koName": "KIWOOM KRX100",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -4966,6 +5013,7 @@
                 "ticker": "101280",
                 "koName": "KODEX 일본TOPIX100",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 247
             },
@@ -4973,7 +5021,7 @@
                 "ticker": "102110",
                 "koName": "TIGER 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 404
             },
@@ -4981,6 +5029,7 @@
                 "ticker": "102780",
                 "koName": "KODEX 삼성그룹",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 182
             },
@@ -4988,6 +5037,7 @@
                 "ticker": "102960",
                 "koName": "KODEX 기계장비",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 59
             },
@@ -4995,13 +5045,15 @@
                 "ticker": "102970",
                 "koName": "KODEX 증권",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 372
             },
             {
                 "ticker": "104520",
                 "koName": "KIWOOM 블루칩",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 180
             },
@@ -5009,6 +5061,7 @@
                 "ticker": "104530",
                 "koName": "KIWOOM 고배당",
                 "frequency": "매월",
+                "group": "AAO",
                 "currency": "KRW",
                 "amount": 280
             },
@@ -5016,7 +5069,7 @@
                 "ticker": "105010",
                 "koName": "TIGER 라틴35",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJD",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -5024,14 +5077,15 @@
                 "ticker": "105190",
                 "koName": "ACE 200",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 820
             },
             {
                 "ticker": "105780",
                 "koName": "RISE 5대그룹주",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 70
             },
@@ -5039,14 +5093,15 @@
                 "ticker": "108450",
                 "koName": "ACE 삼성그룹섹터가중",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 270
             },
             {
                 "ticker": "108590",
                 "koName": "TREX 200",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 700
             },
@@ -5054,6 +5109,7 @@
                 "ticker": "117460",
                 "koName": "KODEX 에너지화학",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 110
             },
@@ -5061,14 +5117,15 @@
                 "ticker": "117680",
                 "koName": "KODEX 철강",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 331
             },
             {
                 "ticker": "122090",
                 "koName": "PLUS 코스피50",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 300
             },
@@ -5076,6 +5133,7 @@
                 "ticker": "131890",
                 "koName": "ACE 삼성그룹동일가중",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 480
             },
@@ -5083,7 +5141,7 @@
                 "ticker": "133690",
                 "koName": "TIGER 미국나스닥100",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 389
             },
@@ -5091,6 +5149,7 @@
                 "ticker": "136340",
                 "koName": "RISE 중기우량회사채",
                 "frequency": "매월",
+                "group": "MJD",
                 "currency": "KRW",
                 "amount": 205
             },
@@ -5098,6 +5157,7 @@
                 "ticker": "138520",
                 "koName": "TIGER 삼성그룹펀더멘털",
                 "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 210
             },
@@ -5105,6 +5165,7 @@
                 "ticker": "138530",
                 "koName": "TIGER LG그룹+펀더멘털",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 160
             },
@@ -5112,6 +5173,7 @@
                 "ticker": "138540",
                 "koName": "TIGER 현대차그룹+펀더멘털",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 700
             },
@@ -5119,6 +5181,7 @@
                 "ticker": "139220",
                 "koName": "TIGER 200 건설",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -5126,20 +5189,23 @@
                 "ticker": "139230",
                 "koName": "TIGER 200 중공업",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
             {
                 "ticker": "139240",
                 "koName": "TIGER 200 철강소재",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 160
             },
             {
                 "ticker": "139250",
                 "koName": "TIGER 200 에너지화학",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 165
             },
@@ -5147,7 +5213,7 @@
                 "ticker": "139260",
                 "koName": "TIGER 200 IT",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 260
             },
@@ -5155,14 +5221,15 @@
                 "ticker": "139270",
                 "koName": "TIGER 200 금융",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 230
             },
             {
                 "ticker": "139280",
                 "koName": "TIGER 경기방어",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 95
             },
@@ -5170,6 +5237,7 @@
                 "ticker": "139290",
                 "koName": "TIGER 200 경기소비재",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 500
             },
@@ -5177,14 +5245,15 @@
                 "ticker": "140570",
                 "koName": "RISE 수출주",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 50
             },
             {
                 "ticker": "140580",
                 "koName": "RISE 우량업종대표주",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 150
             },
@@ -5192,6 +5261,7 @@
                 "ticker": "140700",
                 "koName": "KODEX 보험",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 627
             },
@@ -5199,6 +5269,7 @@
                 "ticker": "140710",
                 "koName": "KODEX 운송",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 105
             },
@@ -5206,6 +5277,7 @@
                 "ticker": "143860",
                 "koName": "TIGER 헬스케어",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -5213,7 +5285,7 @@
                 "ticker": "145850",
                 "koName": "TREX 펀더멘탈 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 850
             },
@@ -5221,6 +5293,7 @@
                 "ticker": "147970",
                 "koName": "TIGER 모멘텀",
                 "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 750
             },
@@ -5228,7 +5301,7 @@
                 "ticker": "148020",
                 "koName": "RISE 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 470
             },
@@ -5236,6 +5309,7 @@
                 "ticker": "150460",
                 "koName": "TIGER 중국소비테마",
                 "frequency": "매년",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 65
             },
@@ -5243,14 +5317,15 @@
                 "ticker": "152100",
                 "koName": "PLUS 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 460
             },
             {
                 "ticker": "153270",
                 "koName": "KIWOOM 코스피100",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 440
             },
@@ -5258,6 +5333,7 @@
                 "ticker": "156080",
                 "koName": "KODEX MSCI Korea",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 358
             },
@@ -5265,6 +5341,7 @@
                 "ticker": "157490",
                 "koName": "TIGER 소프트웨어",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 45
             },
@@ -5272,6 +5349,7 @@
                 "ticker": "157500",
                 "koName": "TIGER 증권",
                 "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 265
             },
@@ -5279,6 +5357,7 @@
                 "ticker": "161510",
                 "koName": "PLUS 고배당주",
                 "frequency": "매월",
+                "group": "JAM",
                 "currency": "KRW",
                 "amount": 63
             },
@@ -5286,6 +5365,7 @@
                 "ticker": "166400",
                 "koName": "TIGER 200커버드콜OTM",
                 "frequency": "매월",
+                "group": "AAO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -5293,6 +5373,7 @@
                 "ticker": "174350",
                 "koName": "TIGER 로우볼",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 525
             },
@@ -5300,6 +5381,7 @@
                 "ticker": "181480",
                 "koName": "ACE 미국부동산리츠(합성 H)",
                 "frequency": "매월",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 248
             },
@@ -5307,6 +5389,7 @@
                 "ticker": "182480",
                 "koName": "TIGER 미국MSCI리츠(합성 H)",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -5314,7 +5397,7 @@
                 "ticker": "210780",
                 "koName": "TIGER 코스피고배당",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 470
             },
@@ -5322,6 +5405,7 @@
                 "ticker": "211560",
                 "koName": "TIGER 배당성장",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 785
             },
@@ -5329,6 +5413,7 @@
                 "ticker": "211900",
                 "koName": "KODEX 코리아배당성장",
                 "frequency": "매년",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 635
             },
@@ -5336,6 +5421,7 @@
                 "ticker": "213610",
                 "koName": "KODEX 삼성그룹밸류",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 173
             },
@@ -5343,6 +5429,7 @@
                 "ticker": "215620",
                 "koName": "HK S&P코리아로우볼",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 270
             },
@@ -5356,6 +5443,7 @@
                 "ticker": "226380",
                 "koName": "ACE Fn성장소비주도주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 70
             },
@@ -5363,6 +5451,7 @@
                 "ticker": "226490",
                 "koName": "KODEX 코스피",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 563
             },
@@ -5370,6 +5459,7 @@
                 "ticker": "226980",
                 "koName": "KODEX 200 중소형",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 327
             },
@@ -5377,6 +5467,7 @@
                 "ticker": "227540",
                 "koName": "TIGER 200 헬스케어",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 65
             },
@@ -5384,13 +5475,15 @@
                 "ticker": "227550",
                 "koName": "TIGER 200 산업재",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 155
             },
             {
                 "ticker": "227560",
                 "koName": "TIGER 200 생활소비재",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -5398,6 +5491,7 @@
                 "ticker": "227570",
                 "koName": "TIGER 우량가치",
                 "frequency": "매년",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 325
             },
@@ -5405,7 +5499,7 @@
                 "ticker": "227830",
                 "koName": "PLUS 코스피",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 310
             },
@@ -5413,6 +5507,7 @@
                 "ticker": "228810",
                 "koName": "TIGER 미디어컨텐츠",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -5420,6 +5515,7 @@
                 "ticker": "228820",
                 "koName": "TIGER KTOP30",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 90
             },
@@ -5427,6 +5523,7 @@
                 "ticker": "229200",
                 "koName": "KODEX 코스닥150",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 44
             },
@@ -5434,13 +5531,15 @@
                 "ticker": "229720",
                 "koName": "KODEX KTOP30",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 325
             },
             {
                 "ticker": "232080",
                 "koName": "TIGER 코스닥150",
-                "frequency": "매년",
+                "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -5448,6 +5547,7 @@
                 "ticker": "234310",
                 "koName": "RISE V&S셀렉트밸류",
                 "frequency": "분기",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 70
             },
@@ -5455,6 +5555,7 @@
                 "ticker": "237350",
                 "koName": "KODEX 코스피100",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 604
             },
@@ -5462,6 +5563,7 @@
                 "ticker": "238670",
                 "koName": "PLUS 스마트베타Quality채권혼합",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 105
             },
@@ -5469,6 +5571,7 @@
                 "ticker": "244580",
                 "koName": "KODEX 바이오",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -5476,6 +5579,7 @@
                 "ticker": "244620",
                 "koName": "KODEX 모멘텀Plus",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 263
             },
@@ -5483,6 +5587,7 @@
                 "ticker": "244660",
                 "koName": "KODEX 퀄리티Plus",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 184
             },
@@ -5490,6 +5595,7 @@
                 "ticker": "244670",
                 "koName": "KODEX 밸류Plus",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 206
             },
@@ -5497,6 +5603,7 @@
                 "ticker": "245340",
                 "koName": "TIGER 미국다우존스30",
                 "frequency": "매월",
+                "group": "AAD",
                 "currency": "KRW",
                 "amount": 22
             },
@@ -5504,15 +5611,15 @@
                 "ticker": "245350",
                 "koName": "TIGER 유로스탁스배당30",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 54
             },
             {
                 "ticker": "245360",
                 "koName": "TIGER 차이나HSCEI",
-                "frequency": "분기",
-                "group": "AJOD",
+                "frequency": "매년",
+                "group": "AJD",
                 "currency": "KRW",
                 "amount": 55
             },
@@ -5520,15 +5627,15 @@
                 "ticker": "251350",
                 "koName": "KODEX MSCI선진국",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 125
             },
             {
                 "ticker": "251590",
                 "koName": "PLUS 고배당저변동50",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 520
             },
@@ -5536,13 +5643,15 @@
                 "ticker": "251600",
                 "koName": "PLUS 고배당주채권혼합",
                 "frequency": "매월",
+                "group": "FMA",
                 "currency": "KRW",
                 "amount": 45
             },
             {
                 "ticker": "252000",
                 "koName": "TIGER 200동일가중",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 255
             },
@@ -5550,6 +5659,7 @@
                 "ticker": "252650",
                 "koName": "KODEX 200동일가중",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 249
             },
@@ -5557,6 +5667,7 @@
                 "ticker": "253280",
                 "koName": "RISE 헬스케어",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -5564,6 +5675,7 @@
                 "ticker": "261060",
                 "koName": "TIGER 코스닥150IT",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 155
             },
@@ -5571,6 +5683,7 @@
                 "ticker": "261070",
                 "koName": "TIGER 코스닥150바이오테크",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -5578,6 +5691,7 @@
                 "ticker": "261140",
                 "koName": "TIGER 우선주",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 315
             },
@@ -5585,7 +5699,7 @@
                 "ticker": "266160",
                 "koName": "RISE 고배당",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 160
             },
@@ -5593,6 +5707,7 @@
                 "ticker": "266360",
                 "koName": "KODEX K콘텐츠",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 67
             },
@@ -5600,6 +5715,7 @@
                 "ticker": "266370",
                 "koName": "KODEX IT",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 197
             },
@@ -5607,6 +5723,7 @@
                 "ticker": "266390",
                 "koName": "KODEX 경기소비재",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 162
             },
@@ -5614,6 +5731,7 @@
                 "ticker": "266410",
                 "koName": "KODEX 필수소비재",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 148
             },
@@ -5621,6 +5739,7 @@
                 "ticker": "266420",
                 "koName": "KODEX 헬스케어",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 43
             },
@@ -5628,6 +5747,7 @@
                 "ticker": "266550",
                 "koName": "PLUS 중형주저변동50",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 390
             },
@@ -5635,7 +5755,7 @@
                 "ticker": "269370",
                 "koName": "TIGER S&P글로벌인프라(합성)",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -5643,7 +5763,7 @@
                 "ticker": "269530",
                 "koName": "PLUS S&P글로벌인프라",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -5651,6 +5771,7 @@
                 "ticker": "269540",
                 "koName": "PLUS 미국S&P500(H)",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 255
             },
@@ -5658,6 +5779,7 @@
                 "ticker": "270800",
                 "koName": "RISE KQ고배당",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -5665,6 +5787,7 @@
                 "ticker": "270810",
                 "koName": "RISE 코스닥150",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -5672,6 +5795,7 @@
                 "ticker": "275280",
                 "koName": "KODEX 모멘텀주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 271
             },
@@ -5679,6 +5803,7 @@
                 "ticker": "275290",
                 "koName": "KODEX 가치주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 348
             },
@@ -5686,6 +5811,7 @@
                 "ticker": "275300",
                 "koName": "KODEX 우량주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 190
             },
@@ -5693,7 +5819,7 @@
                 "ticker": "277630",
                 "koName": "TIGER 코스피",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 330
             },
@@ -5701,6 +5827,7 @@
                 "ticker": "277640",
                 "koName": "TIGER 코스피대형주",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 150
             },
@@ -5708,6 +5835,7 @@
                 "ticker": "277650",
                 "koName": "TIGER 코스피중형주",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 215
             },
@@ -5715,6 +5843,7 @@
                 "ticker": "279530",
                 "koName": "KODEX 고배당주",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -5722,6 +5851,7 @@
                 "ticker": "279540",
                 "koName": "KODEX 최소변동성",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 295
             },
@@ -5729,6 +5859,7 @@
                 "ticker": "280920",
                 "koName": "PLUS 주도업종",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 290
             },
@@ -5736,14 +5867,15 @@
                 "ticker": "281990",
                 "koName": "RISE 중소형고배당",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 300
             },
             {
                 "ticker": "284980",
                 "koName": "RISE 200금융",
-                "frequency": "분기",
-                "group": "JAJO",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 300
             },
@@ -5751,6 +5883,7 @@
                 "ticker": "285690",
                 "koName": "FOCUS ESG리더스",
                 "frequency": "매년",
+                "group": "AJD",
                 "currency": "KRW",
                 "amount": 121
             },
@@ -5764,13 +5897,15 @@
                 "ticker": "289040",
                 "koName": "KODEX MSCI KOREA ESG유니버설",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 242
             },
             {
                 "ticker": "289260",
                 "koName": "TIGER MSCI KOREA ESG리더스",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 45
             },
@@ -5778,6 +5913,7 @@
                 "ticker": "289480",
                 "koName": "TIGER 200커버드콜",
                 "frequency": "매월",
+                "group": "AAO",
                 "currency": "KRW",
                 "amount": 59
             },
@@ -5785,6 +5921,7 @@
                 "ticker": "290080",
                 "koName": "RISE 200고배당커버드콜ATM",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -5792,13 +5929,15 @@
                 "ticker": "290130",
                 "koName": "RISE ESG사회책임투자",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 70
             },
             {
                 "ticker": "292050",
                 "koName": "RISE KRX300",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -5806,7 +5945,7 @@
                 "ticker": "292150",
                 "koName": "TIGER TOP10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 130
             },
@@ -5814,7 +5953,7 @@
                 "ticker": "292160",
                 "koName": "TIGER KRX300",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 161
             },
@@ -5822,6 +5961,7 @@
                 "ticker": "292190",
                 "koName": "KODEX KRX300",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 349
             },
@@ -5829,7 +5969,7 @@
                 "ticker": "292500",
                 "koName": "SOL KRX300",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 135
             },
@@ -5837,6 +5977,7 @@
                 "ticker": "292730",
                 "koName": "FOCUS KRX300",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 134
             },
@@ -5844,7 +5985,7 @@
                 "ticker": "293180",
                 "koName": "HANARO 200",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 450
             },
@@ -5852,7 +5993,7 @@
                 "ticker": "298770",
                 "koName": "KODEX 한국대만IT프리미어",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 11
             },
@@ -5860,6 +6001,7 @@
                 "ticker": "300610",
                 "koName": "TIGER K게임",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -5867,6 +6009,7 @@
                 "ticker": "300640",
                 "koName": "RISE 게임테마",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -5874,19 +6017,23 @@
                 "ticker": "300950",
                 "koName": "KODEX 게임산업",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 34
             },
             {
                 "ticker": "301400",
                 "koName": "PLUS 코스닥150",
+                "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
             {
                 "ticker": "302450",
                 "koName": "RISE 코스피",
-                "frequency": "분기",
+                "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -5894,7 +6041,7 @@
                 "ticker": "304760",
                 "koName": "HANARO KRX300",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 180
             },
@@ -5902,6 +6049,7 @@
                 "ticker": "304770",
                 "koName": "HANARO 코스닥150",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -5909,6 +6057,7 @@
                 "ticker": "305050",
                 "koName": "ACE 코스피",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 550
             },
@@ -5916,6 +6065,7 @@
                 "ticker": "305540",
                 "koName": "TIGER 2차전지테마",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -5923,6 +6073,7 @@
                 "ticker": "305720",
                 "koName": "KODEX 2차전지산업",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -5930,6 +6081,7 @@
                 "ticker": "307510",
                 "koName": "TIGER 의료기기",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 205
             },
@@ -5937,6 +6089,7 @@
                 "ticker": "307520",
                 "koName": "TIGER 지주회사",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 215
             },
@@ -5944,7 +6097,7 @@
                 "ticker": "309230",
                 "koName": "ACE 미국WideMoat동일가중",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 72
             },
@@ -5952,6 +6105,7 @@
                 "ticker": "314700",
                 "koName": "HANARO 농업융복합산업",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -5959,6 +6113,7 @@
                 "ticker": "315270",
                 "koName": "TIGER 200커뮤니케이션서비스",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 195
             },
@@ -5966,6 +6121,7 @@
                 "ticker": "316300",
                 "koName": "ACE 싱가포르리츠",
                 "frequency": "매월",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 56
             },
@@ -5973,13 +6129,15 @@
                 "ticker": "316670",
                 "koName": "KIWOOM 코스닥150",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 10
             },
             {
                 "ticker": "322400",
                 "koName": "HANARO e커머스",
-                "frequency": "매년",
+                "frequency": "분기",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -5987,7 +6145,7 @@
                 "ticker": "322410",
                 "koName": "HANARO K고배당",
                 "frequency": "분기",
-                "group": "AJSO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 470
             },
@@ -5995,6 +6153,7 @@
                 "ticker": "325010",
                 "koName": "KODEX 성장주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 153
             },
@@ -6002,7 +6161,7 @@
                 "ticker": "325020",
                 "koName": "KODEX 배당가치",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 90
             },
@@ -6010,6 +6169,7 @@
                 "ticker": "326230",
                 "koName": "RISE 내수주플러스",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6017,6 +6177,7 @@
                 "ticker": "326240",
                 "koName": "RISE IT플러스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -6024,6 +6185,7 @@
                 "ticker": "329200",
                 "koName": "TIGER 리츠부동산인프라",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 33
             },
@@ -6031,6 +6193,7 @@
                 "ticker": "332610",
                 "koName": "PLUS 미국단기회사채(AAA~A)",
                 "frequency": "매월",
+                "group": "MAM",
                 "currency": "KRW",
                 "amount": 386
             },
@@ -6038,6 +6201,7 @@
                 "ticker": "332620",
                 "koName": "PLUS 미국장기우량회사채",
                 "frequency": "매월",
+                "group": "MAM",
                 "currency": "KRW",
                 "amount": 322
             },
@@ -6045,6 +6209,7 @@
                 "ticker": "336160",
                 "koName": "RISE 금융채액티브",
                 "frequency": "매월",
+                "group": "JMD",
                 "currency": "KRW",
                 "amount": 170
             },
@@ -6052,6 +6217,7 @@
                 "ticker": "337120",
                 "koName": "KODEX 멀티팩터",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 288
             },
@@ -6059,6 +6225,7 @@
                 "ticker": "337140",
                 "koName": "KODEX 코스피대형주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 260
             },
@@ -6066,6 +6233,7 @@
                 "ticker": "337150",
                 "koName": "KODEX 200exTOP",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 281
             },
@@ -6073,6 +6241,7 @@
                 "ticker": "337160",
                 "koName": "KODEX 200ESG",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 305
             },
@@ -6080,6 +6249,7 @@
                 "ticker": "341850",
                 "koName": "TIGER 리츠부동산인프라채권",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 24
             },
@@ -6087,6 +6257,7 @@
                 "ticker": "352540",
                 "koName": "KODEX 일본부동산리츠(H)",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -6094,6 +6265,7 @@
                 "ticker": "352560",
                 "koName": "KODEX 미국부동산리츠(H)",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -6107,7 +6279,7 @@
                 "ticker": "360200",
                 "koName": "ACE 미국S&P500",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 58
             },
@@ -6115,7 +6287,7 @@
                 "ticker": "360750",
                 "koName": "TIGER 미국S&P500",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -6123,6 +6295,7 @@
                 "ticker": "364690",
                 "koName": "KODEX 혁신기술테마액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 255
             },
@@ -6130,6 +6303,7 @@
                 "ticker": "364960",
                 "koName": "TIGER BBIG",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6137,6 +6311,7 @@
                 "ticker": "364970",
                 "koName": "TIGER 바이오TOP10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6144,6 +6319,7 @@
                 "ticker": "364980",
                 "koName": "TIGER 2차전지TOP10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -6151,6 +6327,7 @@
                 "ticker": "364990",
                 "koName": "TIGER 게임TOP10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6158,6 +6335,7 @@
                 "ticker": "365000",
                 "koName": "TIGER 인터넷TOP10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6165,6 +6343,7 @@
                 "ticker": "365040",
                 "koName": "TIGER AI코리아그로스액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -6172,7 +6351,7 @@
                 "ticker": "367380",
                 "koName": "ACE 미국나스닥100",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -6180,7 +6359,7 @@
                 "ticker": "367740",
                 "koName": "HANARO Fn5G산업",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -6188,6 +6367,7 @@
                 "ticker": "367760",
                 "koName": "RISE 5G테크",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 55
             },
@@ -6195,6 +6375,7 @@
                 "ticker": "367770",
                 "koName": "RISE 수소경제테마",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6202,6 +6383,7 @@
                 "ticker": "368680",
                 "koName": "KODEX K-뉴딜디지털플러스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -6209,6 +6391,7 @@
                 "ticker": "371160",
                 "koName": "TIGER 차이나항셍테크",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6216,6 +6399,7 @@
                 "ticker": "373490",
                 "koName": "KODEX 코리아혁신성장액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 200
             },
@@ -6223,6 +6407,7 @@
                 "ticker": "373790",
                 "koName": "KIWOOM 미국방어배당성장나스닥",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6230,7 +6415,7 @@
                 "ticker": "375760",
                 "koName": "HANARO 탄소효율그린뉴딜",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 100
             },
@@ -6238,6 +6423,7 @@
                 "ticker": "375770",
                 "koName": "KODEX 탄소효율그린뉴딜",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 179
             },
@@ -6245,7 +6431,7 @@
                 "ticker": "376410",
                 "koName": "TIGER 탄소효율그린뉴딜",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6253,6 +6439,7 @@
                 "ticker": "377990",
                 "koName": "TIGER Fn신재생에너지",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 55
             },
@@ -6260,6 +6447,7 @@
                 "ticker": "379800",
                 "koName": "KODEX 미국S&P500",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 56
             },
@@ -6267,6 +6455,7 @@
                 "ticker": "379810",
                 "koName": "KODEX 미국나스닥100",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 33
             },
@@ -6274,6 +6463,7 @@
                 "ticker": "380340",
                 "koName": "ACE Fn5G플러스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6281,7 +6471,7 @@
                 "ticker": "381180",
                 "koName": "TIGER 미국필라델피아반도체나스닥",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6289,6 +6479,7 @@
                 "ticker": "381560",
                 "koName": "HANARO Fn전기&수소차",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6296,6 +6487,7 @@
                 "ticker": "381570",
                 "koName": "HANARO Fn친환경에너지",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -6303,6 +6495,7 @@
                 "ticker": "385510",
                 "koName": "KODEX 신재생에너지액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 209
             },
@@ -6310,6 +6503,7 @@
                 "ticker": "385520",
                 "koName": "KODEX 자율주행액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 155
             },
@@ -6317,6 +6511,7 @@
                 "ticker": "385590",
                 "koName": "ACE ESG액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 180
             },
@@ -6324,6 +6519,7 @@
                 "ticker": "385600",
                 "koName": "ACE 2차전지&친환경차액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -6331,6 +6527,7 @@
                 "ticker": "387280",
                 "koName": "TIGER 퓨처모빌리티액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -6338,6 +6535,7 @@
                 "ticker": "388280",
                 "koName": "RISE 컨택트대표",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 75
             },
@@ -6345,7 +6543,7 @@
                 "ticker": "390390",
                 "koName": "KODEX 미국반도체",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 46
             },
@@ -6353,6 +6551,7 @@
                 "ticker": "395160",
                 "koName": "KODEX AI반도체",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 122
             },
@@ -6360,6 +6559,7 @@
                 "ticker": "395170",
                 "koName": "KODEX Top10동일가중",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 171
             },
@@ -6367,6 +6567,7 @@
                 "ticker": "395270",
                 "koName": "HANARO Fn K-반도체",
                 "frequency": "분기",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6374,6 +6575,7 @@
                 "ticker": "395280",
                 "koName": "HANARO Fn K-게임",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6381,6 +6583,7 @@
                 "ticker": "395750",
                 "koName": "PLUS ESG가치주액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -6388,6 +6591,7 @@
                 "ticker": "395760",
                 "koName": "PLUS ESG성장주액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -6395,6 +6599,7 @@
                 "ticker": "396500",
                 "koName": "TIGER 반도체TOP10",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -6402,7 +6607,7 @@
                 "ticker": "399110",
                 "koName": "SOL 미국S&P500ESG",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 36
             },
@@ -6410,6 +6615,7 @@
                 "ticker": "400970",
                 "koName": "TIGER Fn메타버스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6417,6 +6623,7 @@
                 "ticker": "401470",
                 "koName": "KODEX 메타버스액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 48
             },
@@ -6424,6 +6631,7 @@
                 "ticker": "402460",
                 "koName": "HANARO Fn K-메타버스MZ",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 45
             },
@@ -6431,6 +6639,7 @@
                 "ticker": "404260",
                 "koName": "KODEX 기후변화솔루션",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 201
             },
@@ -6438,7 +6647,7 @@
                 "ticker": "404540",
                 "koName": "TIGER KRX기후변화솔루션",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -6446,7 +6655,7 @@
                 "ticker": "404650",
                 "koName": "SOL KRX기후변화솔루션",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6454,6 +6663,7 @@
                 "ticker": "407300",
                 "koName": "HANARO Fn골프테마",
                 "frequency": "매년",
+                "group": "JA",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6461,7 +6671,7 @@
                 "ticker": "407310",
                 "koName": "HANARO 200 TOP10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 100
             },
@@ -6469,7 +6679,7 @@
                 "ticker": "411540",
                 "koName": "SOL 200 Top10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 55
             },
@@ -6477,6 +6687,7 @@
                 "ticker": "411860",
                 "koName": "KIWOOM 독일DAX",
                 "frequency": "매년",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -6490,6 +6701,7 @@
                 "ticker": "417630",
                 "koName": "TIGER KEDI혁신기업ESG30",
                 "frequency": "매년",
+                "group": "AO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -6503,6 +6715,7 @@
                 "ticker": "421320",
                 "koName": "PLUS 우주항공&UAM",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 130
             },
@@ -6510,6 +6723,7 @@
                 "ticker": "423170",
                 "koName": "SOL 한국형글로벌반도체액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 85
             },
@@ -6517,7 +6731,7 @@
                 "ticker": "423920",
                 "koName": "TIGER 미국필라델피아반도체레버리지(합성)",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -6525,7 +6739,7 @@
                 "ticker": "428560",
                 "koName": "KODEX 미국ETF산업Top10 Indxx",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 44
             },
@@ -6533,6 +6747,7 @@
                 "ticker": "429000",
                 "koName": "TIGER 미국S&P500배당귀족",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 23
             },
@@ -6540,6 +6755,7 @@
                 "ticker": "429740",
                 "koName": "PLUS K리츠",
                 "frequency": "매월",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -6547,7 +6763,7 @@
                 "ticker": "429760",
                 "koName": "PLUS 미국S&P500",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -6555,6 +6771,7 @@
                 "ticker": "429980",
                 "koName": "SOL 한국형글로벌전기차&2차전지액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 65
             },
@@ -6562,6 +6779,7 @@
                 "ticker": "432840",
                 "koName": "HANARO 미국S&P500",
                 "frequency": "매월",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 13
             },
@@ -6569,6 +6787,7 @@
                 "ticker": "433330",
                 "koName": "SOL 미국S&P500",
                 "frequency": "매월",
+                "group": "AON",
                 "currency": "KRW",
                 "amount": 11
             },
@@ -6576,6 +6795,7 @@
                 "ticker": "433500",
                 "koName": "ACE 원자력TOP10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 215
             },
@@ -6583,7 +6803,7 @@
                 "ticker": "433970",
                 "koName": "KODEX TDF2030액티브",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -6591,7 +6811,7 @@
                 "ticker": "433980",
                 "koName": "KODEX TDF2040액티브",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -6599,7 +6819,7 @@
                 "ticker": "434060",
                 "koName": "KODEX TDF2050액티브",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -6607,6 +6827,7 @@
                 "ticker": "434730",
                 "koName": "HANARO 원자력iSelect",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 190
             },
@@ -6614,7 +6835,7 @@
                 "ticker": "435040",
                 "koName": "ACE 글로벌브랜드TOP10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -6622,6 +6843,7 @@
                 "ticker": "435420",
                 "koName": "TIGER 미국나스닥100채권혼합Fn",
                 "frequency": "분기",
+                "group": "AOD",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6629,6 +6851,7 @@
                 "ticker": "437080",
                 "koName": "KODEX 미국종합채권ESG액티브(H)",
                 "frequency": "매월",
+                "group": "FMA",
                 "currency": "KRW",
                 "amount": 401
             },
@@ -6636,6 +6859,7 @@
                 "ticker": "438330",
                 "koName": "TIGER 우량회사채액티브",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 236
             },
@@ -6643,6 +6867,7 @@
                 "ticker": "438900",
                 "koName": "HANARO Fn K-푸드",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -6650,6 +6875,7 @@
                 "ticker": "440340",
                 "koName": "TIGER 글로벌멀티에셋TIF액티브",
                 "frequency": "매월",
+                "group": "SON",
                 "currency": "KRW",
                 "amount": 33
             },
@@ -6657,6 +6883,7 @@
                 "ticker": "441330",
                 "koName": "KIWOOM 차이나A50커넥트MSCI",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -6664,6 +6891,7 @@
                 "ticker": "441540",
                 "koName": "HANARO Fn조선해운",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -6671,6 +6899,7 @@
                 "ticker": "441680",
                 "koName": "TIGER 미국나스닥100커버드콜(합성)",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 102
             },
@@ -6678,6 +6907,7 @@
                 "ticker": "441800",
                 "koName": "TIMEFOLIO Korea플러스배당액티브",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 63
             },
@@ -6685,6 +6915,7 @@
                 "ticker": "442580",
                 "koName": "PLUS 글로벌HBM반도체",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 200
             },
@@ -6692,6 +6923,7 @@
                 "ticker": "444200",
                 "koName": "SOL 코리아메가테크액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 115
             },
@@ -6699,6 +6931,7 @@
                 "ticker": "445150",
                 "koName": "KODEX 친환경조선해운액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 189
             },
@@ -6706,6 +6939,7 @@
                 "ticker": "445290",
                 "koName": "KODEX 로봇액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 152
             },
@@ -6713,7 +6947,7 @@
                 "ticker": "445910",
                 "koName": "TIGER MKF배당귀족",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 265
             },
@@ -6721,7 +6955,7 @@
                 "ticker": "446690",
                 "koName": "KODEX 아시아AI반도체exChina액티브",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 47
             },
@@ -6735,6 +6969,7 @@
                 "ticker": "446720",
                 "koName": "SOL 미국배당다우존스",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 26
             },
@@ -6742,7 +6977,7 @@
                 "ticker": "446770",
                 "koName": "ACE 글로벌반도체TOP4 Plus",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -6750,6 +6985,7 @@
                 "ticker": "447430",
                 "koName": "ACE 주주환원가치주액티브",
                 "frequency": "매년",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 500
             },
@@ -6757,6 +6993,7 @@
                 "ticker": "447620",
                 "koName": "SOL 미국TOP5채권혼합40 Solactive",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 9
             },
@@ -6764,7 +7001,7 @@
                 "ticker": "447660",
                 "koName": "PLUS 애플채권혼합",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -6772,7 +7009,7 @@
                 "ticker": "447770",
                 "koName": "TIGER 테슬라채권혼합Fn",
                 "frequency": "분기",
-                "group": "AJOD",
+                "group": "AJD",
                 "currency": "KRW",
                 "amount": 12
             },
@@ -6780,6 +7017,7 @@
                 "ticker": "448290",
                 "koName": "TIGER 미국S&P500(H)",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 39
             },
@@ -6787,6 +7025,7 @@
                 "ticker": "448300",
                 "koName": "TIGER 미국나스닥100(H)",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 26
             },
@@ -6794,6 +7033,7 @@
                 "ticker": "448570",
                 "koName": "FOCUS AI코리아액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -6801,6 +7041,7 @@
                 "ticker": "448600",
                 "koName": "RISE 25-11 회사채(AA-이상)액티브",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 110
             },
@@ -6808,6 +7049,7 @@
                 "ticker": "448630",
                 "koName": "RISE 삼성그룹Top3채권혼합",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -6815,7 +7057,7 @@
                 "ticker": "449180",
                 "koName": "KODEX 미국S&P500(H)",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -6823,7 +7065,7 @@
                 "ticker": "449190",
                 "koName": "KODEX 미국나스닥100(H)",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 26
             },
@@ -6831,6 +7073,7 @@
                 "ticker": "449450",
                 "koName": "PLUS K방산",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 100
             },
@@ -6838,6 +7081,7 @@
                 "ticker": "449770",
                 "koName": "KIWOOM 미국S&P500",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 95
             },
@@ -6845,6 +7089,7 @@
                 "ticker": "449780",
                 "koName": "KIWOOM 미국S&P500(H)",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 80
             },
@@ -6852,6 +7097,7 @@
                 "ticker": "450910",
                 "koName": "SOL 코스닥150",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 19
             },
@@ -6859,6 +7105,7 @@
                 "ticker": "452360",
                 "koName": "SOL 미국배당다우존스(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 25
             },
@@ -6866,6 +7113,7 @@
                 "ticker": "453080",
                 "koName": "KIWOOM 미국나스닥100(H)",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -6873,6 +7121,7 @@
                 "ticker": "453330",
                 "koName": "RISE 미국S&P500(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 13
             },
@@ -6880,7 +7129,7 @@
                 "ticker": "453630",
                 "koName": "KODEX 미국S&P500필수소비재",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 72
             },
@@ -6888,7 +7137,7 @@
                 "ticker": "453640",
                 "koName": "KODEX 미국S&P500헬스케어",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 37
             },
@@ -6896,7 +7145,7 @@
                 "ticker": "453650",
                 "koName": "KODEX 미국S&P500금융",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -6904,7 +7153,7 @@
                 "ticker": "453660",
                 "koName": "KODEX 미국S&P500경기소비재",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 35
             },
@@ -6912,7 +7161,7 @@
                 "ticker": "453810",
                 "koName": "KODEX 인도Nifty50",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 33
             },
@@ -6920,6 +7169,7 @@
                 "ticker": "453850",
                 "koName": "ACE 미국30년국채액티브(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 25
             },
@@ -6927,7 +7177,7 @@
                 "ticker": "453870",
                 "koName": "TIGER 인도니프티50",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -6941,6 +7191,7 @@
                 "ticker": "454320",
                 "koName": "HANARO CAPEX설비투자iSelect",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -6948,6 +7199,7 @@
                 "ticker": "455660",
                 "koName": "ACE 미국하이일드액티브(H)",
                 "frequency": "매월",
+                "group": "MJJ",
                 "currency": "KRW",
                 "amount": 54
             },
@@ -6955,6 +7207,7 @@
                 "ticker": "455850",
                 "koName": "SOL AI반도체소부장",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 24
             },
@@ -6962,6 +7215,7 @@
                 "ticker": "455860",
                 "koName": "SOL 2차전지소부장Fn",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -6969,6 +7223,7 @@
                 "ticker": "456250",
                 "koName": "KODEX 유럽명품TOP10 STOXX",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 17
             },
@@ -6976,6 +7231,7 @@
                 "ticker": "457990",
                 "koName": "PLUS 태양광&ESS",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 100
             },
@@ -6983,6 +7239,7 @@
                 "ticker": "458260",
                 "koName": "TIGER 미국투자등급회사채액티브(H)",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 205
             },
@@ -6990,6 +7247,7 @@
                 "ticker": "458730",
                 "koName": "TIGER 미국배당다우존스",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 26
             },
@@ -6997,6 +7255,7 @@
                 "ticker": "458760",
                 "koName": "TIGER 미국배당다우존스타겟커버드콜2호",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 82
             },
@@ -7010,6 +7269,7 @@
                 "ticker": "460660",
                 "koName": "RISE 미국S&P배당킹",
                 "frequency": "매월",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 27
             },
@@ -7017,6 +7277,7 @@
                 "ticker": "460960",
                 "koName": "ACE 글로벌인컴TOP10",
                 "frequency": "매월",
+                "group": "AON",
                 "currency": "KRW",
                 "amount": 50
             },
@@ -7024,6 +7285,7 @@
                 "ticker": "461340",
                 "koName": "HANARO 글로벌생성형AI액티브",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 7
             },
@@ -7031,6 +7293,7 @@
                 "ticker": "461450",
                 "koName": "KODEX 코스닥글로벌",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 52
             },
@@ -7038,6 +7301,7 @@
                 "ticker": "461580",
                 "koName": "TIGER 코스닥글로벌",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -7051,6 +7315,7 @@
                 "ticker": "461950",
                 "koName": "KODEX 2차전지핵심소재10",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 31
             },
@@ -7058,6 +7323,7 @@
                 "ticker": "462010",
                 "koName": "TIGER 2차전지소재Fn",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -7065,6 +7331,7 @@
                 "ticker": "463250",
                 "koName": "TIGER K방산&우주",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -7072,7 +7339,7 @@
                 "ticker": "463640",
                 "koName": "KODEX 미국S&P500유틸리티",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 89
             },
@@ -7080,7 +7347,7 @@
                 "ticker": "463680",
                 "koName": "KODEX 미국S&P500테크놀로지",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 23
             },
@@ -7088,7 +7355,7 @@
                 "ticker": "463690",
                 "koName": "KODEX 미국S&P500커뮤니케이션",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 28
             },
@@ -7096,7 +7363,7 @@
                 "ticker": "464060",
                 "koName": "HANARO 글로벌반도체TOP10 SOLACTIVE",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -7104,6 +7371,7 @@
                 "ticker": "464470",
                 "koName": "PLUS 미국채30년액티브",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 102
             },
@@ -7111,6 +7379,7 @@
                 "ticker": "464600",
                 "koName": "SOL 자동차소부장Fn",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 60
             },
@@ -7118,6 +7387,7 @@
                 "ticker": "464610",
                 "koName": "SOL 의료기기소부장Fn",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -7137,7 +7407,7 @@
                 "ticker": "465660",
                 "koName": "TIGER 일본반도체FACTSET",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -7145,6 +7415,7 @@
                 "ticker": "465670",
                 "koName": "TIGER 미국캐시카우100",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -7158,6 +7429,7 @@
                 "ticker": "466930",
                 "koName": "SOL 자동차TOP3플러스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 305
             },
@@ -7165,6 +7437,7 @@
                 "ticker": "466940",
                 "koName": "TIGER 은행고배당플러스TOP10",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 68
             },
@@ -7172,6 +7445,7 @@
                 "ticker": "468370",
                 "koName": "KODEX iShares미국인플레이션국채액티브",
                 "frequency": "매월",
+                "group": "AND",
                 "currency": "KRW",
                 "amount": 90
             },
@@ -7179,6 +7453,7 @@
                 "ticker": "468380",
                 "koName": "KODEX iShares미국하이일드액티브",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 63
             },
@@ -7186,6 +7461,7 @@
                 "ticker": "468630",
                 "koName": "KODEX iShares미국투자등급회사채액티브",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 43
             },
@@ -7193,7 +7469,7 @@
                 "ticker": "469050",
                 "koName": "RISE 미국반도체NYSE(H)",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 30
             },
@@ -7201,7 +7477,7 @@
                 "ticker": "469060",
                 "koName": "RISE 미국반도체NYSE",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 200
             },
@@ -7215,6 +7491,7 @@
                 "ticker": "469150",
                 "koName": "ACE AI반도체포커스",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -7222,7 +7499,7 @@
                 "ticker": "469170",
                 "koName": "ACE 포스코그룹포커스",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -7230,6 +7507,7 @@
                 "ticker": "469790",
                 "koName": "KIWOOM K-테크TOP10",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 150
             },
@@ -7237,6 +7515,7 @@
                 "ticker": "471460",
                 "koName": "KIWOOM 국고채30년액티브",
                 "frequency": "매월",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 114
             },
@@ -7244,6 +7523,7 @@
                 "ticker": "471760",
                 "koName": "TIGER AI반도체핵심공정",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 115
             },
@@ -7251,6 +7531,7 @@
                 "ticker": "471780",
                 "koName": "TIGER 코리아테크액티브",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 5
             },
@@ -7258,6 +7539,7 @@
                 "ticker": "471990",
                 "koName": "KODEX AI반도체핵심장비",
                 "frequency": "매년",
+                "group": "A",
                 "currency": "KRW",
                 "amount": 101
             },
@@ -7265,6 +7547,7 @@
                 "ticker": "472150",
                 "koName": "TIGER 배당커버드콜액티브",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 73
             },
@@ -7272,6 +7555,7 @@
                 "ticker": "472830",
                 "koName": "RISE 미국30년국채커버드콜(합성)",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 86
             },
@@ -7279,6 +7563,7 @@
                 "ticker": "472870",
                 "koName": "RISE 미국30년국채엔화노출(합성 H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 22
             },
@@ -7286,6 +7571,7 @@
                 "ticker": "473330",
                 "koName": "SOL 미국30년국채커버드콜(합성)",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 106
             },
@@ -7293,6 +7579,7 @@
                 "ticker": "473460",
                 "koName": "KODEX 미국서학개미",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 53
             },
@@ -7300,6 +7587,7 @@
                 "ticker": "473490",
                 "koName": "KIWOOM 글로벌AI반도체",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -7307,6 +7595,7 @@
                 "ticker": "474800",
                 "koName": "KIWOOM 미국원유에너지기업",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 180
             },
@@ -7320,6 +7609,7 @@
                 "ticker": "475080",
                 "koName": "KODEX 테슬라커버드콜채권혼합액티브",
                 "frequency": "매월",
+                "group": "FAM",
                 "currency": "KRW",
                 "amount": 109
             },
@@ -7339,6 +7629,7 @@
                 "ticker": "475380",
                 "koName": "RISE 글로벌리얼티인컴",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 33
             },
@@ -7346,7 +7637,7 @@
                 "ticker": "476030",
                 "koName": "SOL 미국나스닥100",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 16
             },
@@ -7354,7 +7645,7 @@
                 "ticker": "476070",
                 "koName": "KODEX 글로벌비만치료제TOP2 Plus",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 34
             },
@@ -7368,6 +7659,7 @@
                 "ticker": "476550",
                 "koName": "TIGER 미국30년국채커버드콜액티브(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 82
             },
@@ -7375,6 +7667,7 @@
                 "ticker": "476690",
                 "koName": "TIGER 글로벌비만치료제TOP2Plus",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 16
             },
@@ -7382,6 +7675,7 @@
                 "ticker": "476750",
                 "koName": "ACE 미국30년국채엔화노출액티브(H)",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 24
             },
@@ -7389,6 +7683,7 @@
                 "ticker": "476760",
                 "koName": "ACE 미국30년국채액티브",
                 "frequency": "매월",
+                "group": "AMJ",
                 "currency": "KRW",
                 "amount": 29
             },
@@ -7402,7 +7697,7 @@
                 "ticker": "479730",
                 "koName": "TIGER 인도빌리언컨슈머",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JJO",
                 "currency": "KRW",
                 "amount": 24
             },
@@ -7416,7 +7711,7 @@
                 "ticker": "480310",
                 "koName": "TIGER 글로벌온디바이스AI",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -7424,6 +7719,7 @@
                 "ticker": "481050",
                 "koName": "KODEX CD1년금리플러스액티브(합성)",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 2331
             },
@@ -7443,6 +7739,7 @@
                 "ticker": "481340",
                 "koName": "RISE 미국30년국채액티브",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 38
             },
@@ -7450,6 +7747,7 @@
                 "ticker": "482730",
                 "koName": "TIGER 미국S&P500타겟데일리커버드콜",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 84
             },
@@ -7463,6 +7761,7 @@
                 "ticker": "483030",
                 "koName": "KIWOOM 미국블록버스터바이오테크의약품+",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 40
             },
@@ -7470,6 +7769,7 @@
                 "ticker": "483280",
                 "koName": "KODEX 미국AI테크TOP10타겟커버드콜",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 112
             },
@@ -7477,6 +7777,7 @@
                 "ticker": "483290",
                 "koName": "KODEX 미국배당다우존스타겟커버드콜",
                 "frequency": "매월",
+                "group": "JJA",
                 "currency": "KRW",
                 "amount": 96
             },
@@ -7484,6 +7785,7 @@
                 "ticker": "484790",
                 "koName": "KODEX 미국30년국채액티브(H)",
                 "frequency": "매월",
+                "group": "JAS",
                 "currency": "KRW",
                 "amount": 37
             },
@@ -7491,6 +7793,7 @@
                 "ticker": "484880",
                 "koName": "SOL 금융지주플러스고배당",
                 "frequency": "매월",
+                "group": "JAS",
                 "currency": "KRW",
                 "amount": 52
             },
@@ -7498,7 +7801,7 @@
                 "ticker": "485540",
                 "koName": "KODEX 미국AI테크TOP10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 10
             },
@@ -7506,6 +7809,7 @@
                 "ticker": "486290",
                 "koName": "TIGER 미국나스닥100타겟데일리커버드콜",
                 "frequency": "매월",
+                "group": "JAS",
                 "currency": "KRW",
                 "amount": 111
             },
@@ -7519,7 +7823,7 @@
                 "ticker": "487230",
                 "koName": "KODEX 미국AI전력핵심인프라",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 11
             },
@@ -7533,6 +7837,7 @@
                 "ticker": "487950",
                 "koName": "KODEX 대만테크고배당다우존스",
                 "frequency": "매월",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 54
             },
@@ -7552,7 +7857,7 @@
                 "ticker": "488500",
                 "koName": "TIGER 미국S&P500동일가중",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAO",
                 "currency": "KRW",
                 "amount": 43
             },
@@ -7566,6 +7871,7 @@
                 "ticker": "489030",
                 "koName": "PLUS 고배당주위클리커버드콜",
                 "frequency": "매월",
+                "group": "ASO",
                 "currency": "KRW",
                 "amount": 140
             },
@@ -7573,6 +7879,7 @@
                 "ticker": "489860",
                 "koName": "KIWOOM 글로벌전력GRID인프라",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 131
             },
@@ -7586,6 +7893,7 @@
                 "ticker": "490590",
                 "koName": "RISE 미국AI밸류체인데일리고정커버드콜",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 274
             },
@@ -7593,6 +7901,7 @@
                 "ticker": "490600",
                 "koName": "RISE 미국배당100데일리고정커버드콜",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 200
             },
@@ -7600,6 +7909,7 @@
                 "ticker": "491090",
                 "koName": "KODEX 미국테크TOP3플러스",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 31
             },
@@ -7607,6 +7917,7 @@
                 "ticker": "491620",
                 "koName": "RISE 미국테크100데일리고정커버드콜",
                 "frequency": "매월",
+                "group": "OND",
                 "currency": "KRW",
                 "amount": 273
             },
@@ -7620,7 +7931,7 @@
                 "ticker": "491830",
                 "koName": "TIGER 미국AI반도체팹리스",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 13
             },
@@ -7628,6 +7939,7 @@
                 "ticker": "494210",
                 "koName": "SOL 미국500타겟데일리커버드콜액티브",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 95
             },
@@ -7635,6 +7947,7 @@
                 "ticker": "494300",
                 "koName": "KODEX 미국나스닥100데일리커버드콜OTM",
                 "frequency": "매월",
+                "group": "JND",
                 "currency": "KRW",
                 "amount": 143
             },
@@ -7642,6 +7955,7 @@
                 "ticker": "494330",
                 "koName": "ACE 라이프자산주주가치액티브",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 100
             },
@@ -7649,7 +7963,7 @@
                 "ticker": "494410",
                 "koName": "PLUS 미국S&P500성장주",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -7663,7 +7977,7 @@
                 "ticker": "494840",
                 "koName": "TIGER 미국방산TOP10",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 27
             },
@@ -7671,6 +7985,7 @@
                 "ticker": "494890",
                 "koName": "KODEX 200액티브",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 120
             },
@@ -7678,6 +7993,7 @@
                 "ticker": "495750",
                 "koName": "HANARO 코리아밸류업",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 165
             },
@@ -7685,6 +8001,7 @@
                 "ticker": "495850",
                 "koName": "KODEX 코리아밸류업",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 15
             },
@@ -7692,6 +8009,7 @@
                 "ticker": "496080",
                 "koName": "TIGER 코리아밸류업",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 20
             },
@@ -7699,6 +8017,7 @@
                 "ticker": "496090",
                 "koName": "KIWOOM 코리아밸류업",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 180
             },
@@ -7706,6 +8025,7 @@
                 "ticker": "496120",
                 "koName": "ACE 코리아밸류업",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 175
             },
@@ -7719,6 +8039,7 @@
                 "ticker": "497510",
                 "koName": "ACE 글로벌빅파마",
                 "frequency": "분기",
+                "group": "AJO",
                 "currency": "KRW",
                 "amount": 112
             },
@@ -7726,7 +8047,7 @@
                 "ticker": "497570",
                 "koName": "TIGER 미국필라델피아AI반도체나스닥",
                 "frequency": "분기",
-                "group": "JAJO",
+                "group": "JAJ",
                 "currency": "KRW",
                 "amount": 17
             },
@@ -7734,6 +8055,7 @@
                 "ticker": "497880",
                 "koName": "SOL CD금리&머니마켓액티브",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 150
             },
@@ -7741,6 +8063,7 @@
                 "ticker": "498270",
                 "koName": "KIWOOM 미국양자컴퓨팅",
                 "frequency": "분기",
+                "group": "AJ",
                 "currency": "KRW",
                 "amount": 11
             },
@@ -7748,6 +8071,7 @@
                 "ticker": "498410",
                 "koName": "KODEX 금융고배당TOP10타겟위클리커버드콜",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 122
             },
@@ -7755,6 +8079,7 @@
                 "ticker": "499150",
                 "koName": "SOL 미국S&P500엔화노출(H)",
                 "frequency": "매월",
+                "group": "JFA",
                 "currency": "KRW",
                 "amount": 9
             },
@@ -7762,6 +8087,7 @@
                 "ticker": "499660",
                 "koName": "TIGER CD금리플러스액티브(합성)",
                 "frequency": "매월",
+                "group": "JFD",
                 "currency": "KRW",
                 "amount": 2160
             }
