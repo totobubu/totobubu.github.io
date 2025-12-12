@@ -67,6 +67,9 @@ jobs:
               run: npm ci --no-audit --no-fund
 
             - name: Build Vue App
+              env:
+                  VITE_USE_R2: 'true'
+                  VITE_R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
               run: npm run build
 
             # 빌드 끝났으면 추가 정리(선택)
