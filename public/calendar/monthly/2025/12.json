@@ -244,6 +244,14 @@
                 "amount": 0.17
             },
             {
+                "ticker": "KYLD",
+                "koName": "커브 하이 인컴 ETF",
+                "frequency": "매주",
+                "group": "수",
+                "currency": "USD",
+                "amount": 0.165
+            },
+            {
                 "ticker": "LIN",
                 "koName": "린데",
                 "frequency": "분기",
@@ -570,12 +578,28 @@
         ],
         "2025-12-09": [
             {
+                "ticker": "AEE",
+                "koName": "애머런",
+                "frequency": "분기",
+                "group": "MJS",
+                "currency": "USD",
+                "amount": 0.71
+            },
+            {
                 "ticker": "FIS",
                 "koName": "피델리티 내셔널 인포메이션 서비시스",
                 "frequency": "분기",
                 "group": "MSD",
                 "currency": "USD",
                 "amount": 0.4
+            },
+            {
+                "ticker": "ROST",
+                "koName": "로스 스토어스",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 0.405
             }
         ],
         "2025-12-10": [
@@ -596,33 +620,56 @@
                 "amount": 0.63
             },
             {
+                "ticker": "PPL",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 0.273
+            },
+            {
                 "ticker": "SPG",
                 "koName": "사이먼 프로퍼티 그룹",
                 "frequency": "분기",
                 "group": "FAN",
                 "currency": "USD",
                 "amount": 2.2
-            }
-        ],
-        "2025-12-12": [
-            {
-                "ticker": "ADP",
-                "koName": "오토매틱 데이터 프로세싱",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
             },
             {
-                "ticker": "ALB",
-                "koName": "알버말",
+                "ticker": "TRV",
+                "koName": "트래블러스 컴퍼니스",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 1.1
+            }
+        ],
+        "2025-12-11": [
+            {
+                "ticker": "HPQ",
+                "koName": "휴렛 팩커드",
                 "frequency": "분기",
                 "group": "MJS",
                 "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
+                "amount": 0.3
             },
+            {
+                "ticker": "SRE",
+                "koName": "셈프라",
+                "frequency": "분기",
+                "group": "MSD",
+                "currency": "USD",
+                "amount": 0.645
+            },
+            {
+                "ticker": "TSM",
+                "koName": "TSMC(타이완반도체제조) ADR",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 0.835
+            }
+        ],
+        "2025-12-12": [
             {
                 "ticker": "ALLE",
                 "koName": "얼리젼",
@@ -660,30 +707,12 @@
                 "isExpected": true
             },
             {
-                "ticker": "GPN",
-                "koName": "글로벌 페이먼츠",
-                "frequency": "분기",
-                "group": "MAN",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "GRMN",
-                "koName": "가민",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "NUGY",
                 "koName": "그래닛셰어즈 일드부스트 금광 ETF",
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.46903
             },
             {
                 "ticker": "SEMY",
@@ -691,25 +720,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
-            },
-            {
-                "ticker": "TXT",
-                "koName": "텍스트론",
-                "frequency": "분기",
-                "group": "MJS",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "WMB",
-                "koName": "윌리엄스 컴퍼니즈",
-                "frequency": "분기",
-                "group": "MAD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
+                "amount": 0.61408
             }
         ],
         "2025-12-15": [
@@ -963,15 +974,6 @@
                 "koName": "프로로지스",
                 "frequency": "분기",
                 "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "TSM",
-                "koName": "TSMC(타이완반도체제조) ADR",
-                "frequency": "분기",
-                "group": "JJS",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -1608,15 +1610,6 @@
                 "koName": "레이먼드 제임스 파이낸셜",
                 "frequency": "분기",
                 "group": "MJS",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "SRE",
-                "koName": "셈프라",
-                "frequency": "분기",
-                "group": "MSD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -3505,7 +3498,7 @@
                 "frequency": "매주",
                 "group": "화",
                 "currency": "USD",
-                "amount": 0.43
+                "amount": 0.223
             },
             {
                 "ticker": "NVII",
@@ -3521,7 +3514,7 @@
                 "frequency": "매주",
                 "group": "화",
                 "currency": "USD",
-                "amount": 0.243
+                "amount": 0.233
             },
             {
                 "ticker": "PLTI",
@@ -3545,7 +3538,7 @@
                 "frequency": "매주",
                 "group": "화",
                 "currency": "USD",
-                "amount": 0.164
+                "amount": 0.254
             },
             {
                 "ticker": "TLTW",
@@ -3553,7 +3546,7 @@
                 "frequency": "매월",
                 "group": "SOD",
                 "currency": "USD",
-                "amount": 0.175
+                "amount": 0.188
             },
             {
                 "ticker": "TSII",
@@ -4327,8 +4320,18 @@
                 "amount": 0.04
             },
             {
+                "ticker": "GIAX",
+                "koName": "니콜라스 글로벌 주식 배당 ETF",
+                "frequency": "매월",
+                "group": "ASO",
+                "currency": "USD",
+                "amount": 0.078
+            },
+            {
                 "ticker": "HMYY",
                 "koName": "그래닛셰어즈 일드부스트 힘스 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "amount": 0.65718
             },
@@ -4406,6 +4409,8 @@
             {
                 "ticker": "RTYY",
                 "koName": "그래닛셰어즈 일드부스트 라이엇 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "amount": 0.71618
             },
@@ -4749,11 +4754,27 @@
                 "amount": 2.172
             },
             {
+                "ticker": "AIBU",
+                "koName": "디렉시온 인공지능 빅데이터 불 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 1.062
+            },
+            {
                 "ticker": "AMDU",
                 "frequency": "매주",
                 "group": "수",
                 "currency": "USD",
                 "amount": 0.2583
+            },
+            {
+                "ticker": "AMUU",
+                "koName": "디렉시온 AMD 데일리 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 6.702
             },
             {
                 "ticker": "AMZP",
@@ -4772,12 +4793,68 @@
                 "amount": 1.203
             },
             {
+                "ticker": "AVL",
+                "koName": "디렉시온 데일리 브로드컴 2배 롱 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 12.181
+            },
+            {
+                "ticker": "BOEU",
+                "koName": "디렉시온 보잉 데일리 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 0.12
+            },
+            {
                 "ticker": "CHPY",
                 "koName": "일드맥스 반도체 포트폴리오 옵션 인컴 ETF",
                 "frequency": "매주",
                 "group": "목",
                 "currency": "USD",
                 "amount": 0.3984
+            },
+            {
+                "ticker": "DFEN",
+                "koName": "디렉시온 항공우주 방산 3배 ETF",
+                "frequency": "분기",
+                "group": "MSD",
+                "currency": "USD",
+                "amount": 5.55
+            },
+            {
+                "ticker": "DUSL",
+                "koName": "디렉시온 미국 산업주 3배 레버리지 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 7.273
+            },
+            {
+                "ticker": "ELIL",
+                "koName": "디렉시온 데일리 일라이 릴리 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 2.76
+            },
+            {
+                "ticker": "ETHI",
+                "koName": "디파이언스 레버리지드 롱 인컴 이더리움 ETF",
+                "frequency": "매주",
+                "group": "수",
+                "currency": "USD",
+                "amount": 0.143
+            },
+            {
+                "ticker": "FAS",
+                "koName": "디렉시온 데일리 금융주 3배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 12.095
             },
             {
                 "ticker": "FEAT",
@@ -4820,6 +4897,14 @@
                 "amount": 0.122
             },
             {
+                "ticker": "FNGG",
+                "koName": "디렉시온 FANG 2배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 22.734
+            },
+            {
                 "ticker": "GGLL",
                 "koName": "디렉시온 알파벳 A 2배 ETF",
                 "frequency": "분기",
@@ -4834,6 +4919,30 @@
                 "group": "목",
                 "currency": "USD",
                 "amount": 0.3079
+            },
+            {
+                "ticker": "GSPY",
+                "koName": "고담 인핸스드 500 ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "amount": 0.963
+            },
+            {
+                "ticker": "GVLU",
+                "koName": "고담 1000 가치주 ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "amount": 1.587
+            },
+            {
+                "ticker": "HIBL",
+                "koName": "디렉시온 S&P 500 경기민감주 3배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 1.413
             },
             {
                 "ticker": "HIMY",
@@ -4858,6 +4967,28 @@
                 "amount": 0.3314
             },
             {
+                "ticker": "LMBO",
+                "koName": "디렉시온 데일리 암호화폐 산업 2배 ETF",
+                "frequency": "분기",
+                "group": "MJS",
+                "currency": "USD",
+                "amount": 0.935
+            },
+            {
+                "ticker": "LMTL",
+                "koName": "디렉시온 록히드 마틴 데일리 2배 ETF",
+                "currency": "USD",
+                "amount": 0.649
+            },
+            {
+                "ticker": "METU",
+                "koName": "디렉시온 메타 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 0.109
+            },
+            {
                 "ticker": "MSFU",
                 "koName": "디렉시온 마이크로소프트 2배 ETF",
                 "frequency": "분기",
@@ -4874,12 +5005,33 @@
                 "amount": 0.75
             },
             {
+                "ticker": "MSLC",
+                "currency": "USD",
+                "amount": 1.168
+            },
+            {
                 "ticker": "MST",
                 "koName": "디파이언스 스트래티지 레버리지드 롱 인컴 ETF",
                 "frequency": "매주",
                 "group": "수",
                 "currency": "USD",
                 "amount": 0.2199
+            },
+            {
+                "ticker": "MUU",
+                "koName": "디렉시온 마이크론 테크놀로지 2배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 3.632
+            },
+            {
+                "ticker": "NFXL",
+                "koName": "디렉시온 넷플릭스 2배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 1.36
             },
             {
                 "ticker": "NVDU",
@@ -4890,12 +5042,36 @@
                 "amount": 4.439
             },
             {
+                "ticker": "PALU",
+                "koName": "디렉시온 데일리 팔로알토 네트웍스 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 1.49
+            },
+            {
                 "ticker": "PLT",
                 "koName": "디파이언스 팔란티어 레버리지 롱 인컴 ETF",
                 "frequency": "매주",
                 "group": "수",
                 "currency": "USD",
                 "amount": 0.1867
+            },
+            {
+                "ticker": "PLTU",
+                "koName": "디렉시온 데일리 팔란티어 2배 롱 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 15.776
+            },
+            {
+                "ticker": "PYLD",
+                "koName": "핌코 멀티 섹터 채권 액티브 ETF",
+                "frequency": "매월",
+                "group": "ASD",
+                "currency": "USD",
+                "amount": 0.107
             },
             {
                 "ticker": "QDTY",
@@ -4912,6 +5088,14 @@
                 "group": "수",
                 "currency": "USD",
                 "amount": 0.1891
+            },
+            {
+                "ticker": "QQQU",
+                "koName": "디렉시온 데일리 매그니피센트 7 2배 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 5.308
             },
             {
                 "ticker": "RDTY",
@@ -5008,6 +5192,20 @@
                 "amount": 0.2355
             },
             {
+                "ticker": "SHPU",
+                "koName": "디렉시온 쇼피파이 데일리 2배 ETF",
+                "currency": "USD",
+                "amount": 5.559
+            },
+            {
+                "ticker": "SHRT",
+                "koName": "Gotham Short Strategies ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "amount": 0.005
+            },
+            {
                 "ticker": "SLTY",
                 "koName": "일드맥스 초단기 옵션 인컴 전략 ETF",
                 "frequency": "매주",
@@ -5024,12 +5222,69 @@
                 "amount": 0.138
             },
             {
+                "ticker": "SPUU",
+                "koName": "디렉시온 S&P500 2배 레버리지 ETF",
+                "frequency": "분기",
+                "group": "JSD",
+                "currency": "USD",
+                "amount": 1.906
+            },
+            {
+                "ticker": "TBXU",
+                "currency": "USD",
+                "amount": 0.311
+            },
+            {
+                "ticker": "TECL",
+                "koName": "디렉시온 빅테크 3배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 8.038
+            },
+            {
+                "ticker": "TSLL",
+                "koName": "디렉시온 테슬라 2배 ETF",
+                "frequency": "분기",
+                "group": "MSD",
+                "currency": "USD",
+                "amount": 0.579
+            },
+            {
+                "ticker": "TSMX",
+                "koName": "디렉시온 TSMC 2배 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 3.108
+            },
+            {
+                "ticker": "TSXU",
+                "koName": "디렉시온 반도체 TOP 5 2배 ETF",
+                "currency": "USD",
+                "amount": 0.596
+            },
+            {
+                "ticker": "TTXD",
+                "koName": "디렉시온 테크놀로지 TOP 5 데일리 2배 인버스 ETF",
+                "currency": "USD",
+                "amount": 0.037
+            },
+            {
                 "ticker": "ULTY",
                 "koName": "일드맥스 울트라 옵션 인컴 전략 ETF",
                 "frequency": "매주",
                 "group": "목",
                 "currency": "USD",
                 "amount": 0.5461
+            },
+            {
+                "ticker": "URAA",
+                "koName": "디렉시온 우라늄 산업 2배 ETF",
+                "frequency": "분기",
+                "group": "MSD",
+                "currency": "USD",
+                "amount": 2.347
             },
             {
                 "ticker": "XPAY",
@@ -5200,6 +5455,30 @@
                 "group": "OND",
                 "currency": "USD",
                 "amount": 0.3207
+            },
+            {
+                "ticker": "FNDC",
+                "koName": "슈왑 글로벌 소형주 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 1.524
+            },
+            {
+                "ticker": "FNDE",
+                "koName": "슈왑 신흥국 대형주 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 1.299
+            },
+            {
+                "ticker": "FNDF",
+                "koName": "슈왑 글로벌 대형주 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 1.341
             },
             {
                 "ticker": "GDXY",
@@ -5378,6 +5657,38 @@
                 "amount": 0.9535
             },
             {
+                "ticker": "SCHC",
+                "koName": "슈왑 세계 소형주 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 1.574
+            },
+            {
+                "ticker": "SCHE",
+                "koName": "슈왑 신흥국 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 0.908
+            },
+            {
+                "ticker": "SCHF",
+                "koName": "슈왑 선진국 대형주/중형주 ETF",
+                "frequency": "매년",
+                "group": "JD",
+                "currency": "USD",
+                "amount": 0.678
+            },
+            {
+                "ticker": "SCHY",
+                "koName": "슈왑 세계 배당주 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 0.32
+            },
+            {
                 "ticker": "SMCY",
                 "koName": "일드맥스 슈퍼 마이크로 컴퓨터 옵션 인컴 전략 ETF",
                 "frequency": "매월",
@@ -5392,6 +5703,20 @@
                 "group": "OND",
                 "currency": "USD",
                 "amount": 0.1337
+            },
+            {
+                "ticker": "STCE",
+                "koName": "슈왑 가상화폐 테마 ETF",
+                "currency": "USD",
+                "amount": 1.134
+            },
+            {
+                "ticker": "STRV",
+                "koName": "EA 시리즈 스트라이브 500 ETF",
+                "frequency": "분기",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 0.125
             },
             {
                 "ticker": "TSLY",
@@ -5410,12 +5735,52 @@
                 "amount": 0.1064
             },
             {
+                "ticker": "UBND",
+                "koName": "빅토리 포트폴리오 II 빅토리셰어즈 코어 플러스 중기채 ETF",
+                "frequency": "매월",
+                "group": "JND",
+                "currency": "USD",
+                "amount": 0.163
+            },
+            {
+                "ticker": "UITB",
+                "koName": "빅토리 포트폴리오 II 빅토리셰어즈 코어 중기 채권 ETF",
+                "frequency": "매월",
+                "group": "FND",
+                "currency": "USD",
+                "amount": 0.295
+            },
+            {
                 "ticker": "USOY",
                 "koName": "디파이언스 오일 인핸스드 옵션 인컴 ETF",
                 "frequency": "매주",
                 "group": "목",
                 "currency": "USD",
                 "amount": 0.0714
+            },
+            {
+                "ticker": "USTB",
+                "koName": "빅토리 포트폴리오 II 빅토리셰어즈 단기 채권 ETF",
+                "frequency": "매월",
+                "group": "JND",
+                "currency": "USD",
+                "amount": 0.362
+            },
+            {
+                "ticker": "USVM",
+                "koName": "빅토리셰어즈 MSCI 미국 소형 가치주 모멘텀 ETF",
+                "frequency": "매월",
+                "group": "MJD",
+                "currency": "USD",
+                "amount": 0.368
+            },
+            {
+                "ticker": "VFLO",
+                "koName": "빅토리셰어즈 현금흐름 우수 기업 ETF",
+                "frequency": "매월",
+                "group": "JAD",
+                "currency": "USD",
+                "amount": 0.15
             },
             {
                 "ticker": "WDTE",
@@ -5481,7 +5846,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.43845
             },
             {
                 "ticker": "AZYY",
@@ -5489,7 +5854,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.20582
             },
             {
                 "ticker": "BBYY",
@@ -5497,7 +5862,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.41749
             },
             {
                 "ticker": "BLOX",
@@ -5513,7 +5878,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.27653
             },
             {
                 "ticker": "FBT",
@@ -5530,13 +5895,15 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.19129
             },
             {
                 "ticker": "HMYY",
                 "koName": "그래닛셰어즈 일드부스트 힘스 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.65888
             },
             {
                 "ticker": "HOYY",
@@ -5544,7 +5911,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.44727
             },
             {
                 "ticker": "IOYY",
@@ -5552,7 +5919,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.58614
             },
             {
                 "ticker": "MAAY",
@@ -5560,7 +5927,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.52991
             },
             {
                 "ticker": "MAGY",
@@ -5568,7 +5935,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.365761
             },
             {
                 "ticker": "MTYY",
@@ -5576,7 +5943,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.19921
             },
             {
                 "ticker": "NVYY",
@@ -5584,7 +5951,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.39666
             },
             {
                 "ticker": "PLYY",
@@ -5592,7 +5959,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.3956
             },
             {
                 "ticker": "QBY",
@@ -5600,7 +5967,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.59987
             },
             {
                 "ticker": "QLDY",
@@ -5615,13 +5982,15 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.60498
             },
             {
                 "ticker": "RTYY",
                 "koName": "그래닛셰어즈 일드부스트 라이엇 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.65761
             },
             {
                 "ticker": "SMYY",
@@ -5629,7 +5998,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.44789
             },
             {
                 "ticker": "TQQY",
@@ -5637,7 +6006,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.15717
             },
             {
                 "ticker": "TSYY",
@@ -5645,7 +6014,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.16383
             },
             {
                 "ticker": "URNM",
@@ -5662,7 +6031,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.22248
             },
             {
                 "ticker": "YSPY",
@@ -5670,7 +6039,7 @@
                 "frequency": "매주",
                 "group": "금",
                 "currency": "USD",
-                "isExpected": true
+                "amount": 0.17232
             }
         ],
         "2025-12-15": [
@@ -6601,37 +6970,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "JGLO",
-                "koName": "JP모건 글로벌 선별 주식 ETF",
-                "frequency": "매년",
-                "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "JGRO",
                 "koName": "JP모건 성장주 ETF",
                 "frequency": "매주",
                 "group": "화",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JIVE",
-                "koName": "JP모건 국제 가치주 ETF",
-                "frequency": "매년",
-                "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JPEF",
-                "koName": "JP모건 보통주 집중형 ETF",
-                "frequency": "매년",
-                "group": "D",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -8248,6 +8590,8 @@
             {
                 "ticker": "HMYY",
                 "koName": "그래닛셰어즈 일드부스트 힘스 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "isExpected": true
             },
@@ -8459,6 +8803,8 @@
             {
                 "ticker": "RTYY",
                 "koName": "그래닛셰어즈 일드부스트 라이엇 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "isExpected": true
             },
@@ -9727,15 +10073,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "AMUU",
-                "koName": "디렉시온 AMD 데일리 2배 ETF",
-                "frequency": "분기",
-                "group": "JS",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "AMZD",
                 "koName": "디렉시온 아마존 인버스 ETF",
                 "frequency": "분기",
@@ -9758,15 +10095,6 @@
                 "koName": "인베스트넷 액티브패시브 미국 주식 ETF",
                 "frequency": "매년",
                 "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "AVL",
-                "koName": "디렉시온 데일리 브로드컴 2배 롱 ETF",
-                "frequency": "분기",
-                "group": "MJD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -9900,15 +10228,6 @@
             {
                 "ticker": "BOED",
                 "koName": "디렉시온 보잉 데일리 1배 인버스 ETF",
-                "frequency": "분기",
-                "group": "JS",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "BOEU",
-                "koName": "디렉시온 보잉 데일리 2배 ETF",
                 "frequency": "분기",
                 "group": "JS",
                 "currency": "USD",
@@ -10163,15 +10482,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "DFEN",
-                "koName": "디렉시온 항공우주 방산 3배 ETF",
-                "frequency": "분기",
-                "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "DFEV",
                 "koName": "디멘셔널 신흥국 가치주 ETF",
                 "frequency": "분기",
@@ -10333,15 +10643,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "DUSL",
-                "koName": "디렉시온 미국 산업주 3배 레버리지 ETF",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "DUST",
                 "koName": "디렉시온 금광/은광 2배 인버스 ETF",
                 "frequency": "분기",
@@ -10364,15 +10665,6 @@
                 "koName": "디렉시온 MSCI 이머징 3배 인버스 ETF",
                 "frequency": "분기",
                 "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "ELIL",
-                "koName": "디렉시온 데일리 일라이 릴리 2배 ETF",
-                "frequency": "분기",
-                "group": "JS",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -10432,28 +10724,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "FAS",
-                "koName": "디렉시온 데일리 금융주 3배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "FAZ",
                 "koName": "디렉시온 파이낸셜 데일리 3배 인버스",
                 "frequency": "분기",
                 "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "FNGG",
-                "koName": "디렉시온 FANG 2배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -10635,28 +10909,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "JGLO",
-                "koName": "JP모건 글로벌 선별 주식 ETF",
-                "frequency": "매년",
-                "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "JGRO",
                 "koName": "JP모건 성장주 ETF",
                 "frequency": "매주",
                 "group": "화",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JIVE",
-                "koName": "JP모건 국제 가치주 ETF",
-                "frequency": "매년",
-                "group": "D",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -10675,15 +10931,6 @@
                 "koName": "디렉시온 금광/은광 2배 ETF",
                 "frequency": "분기",
                 "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JPEF",
-                "koName": "JP모건 보통주 집중형 ETF",
-                "frequency": "매년",
-                "group": "D",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -10726,15 +10973,6 @@
             {
                 "ticker": "METD",
                 "koName": "디렉시온 데일리 메타 1배 인버스 ETF",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "METU",
-                "koName": "디렉시온 메타 2배 ETF",
                 "frequency": "분기",
                 "group": "JSD",
                 "currency": "USD",
@@ -10812,28 +11050,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "MUU",
-                "koName": "디렉시온 마이크론 테크놀로지 2배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "NAIL",
                 "koName": "디렉시온 미국 건설주 3배 ETF",
                 "frequency": "분기",
                 "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "NFXL",
-                "koName": "디렉시온 넷플릭스 2배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -10899,15 +11119,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "PALU",
-                "koName": "디렉시온 데일리 팔로알토 네트웍스 2배 ETF",
-                "frequency": "분기",
-                "group": "JS",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "PDBC",
                 "frequency": "매년",
                 "group": "D",
@@ -10947,15 +11158,6 @@
                 "frequency": "매주",
                 "group": "화",
                 "currency": "USD",
-                "isExpected": true
-            },
-            {
-                "ticker": "PLTU",
-                "koName": "디렉시온 데일리 팔란티어 2배 롱 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
                 "isExpected": true
             },
             {
@@ -11100,15 +11302,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "SPUU",
-                "koName": "디렉시온 S&P500 2배 레버리지 ETF",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "SPXL",
                 "koName": "디렉시온 S&P500 3배 ETF",
                 "frequency": "분기",
@@ -11232,28 +11425,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "TSLL",
-                "koName": "디렉시온 테슬라 2배 ETF",
-                "frequency": "분기",
-                "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "TSLS",
                 "koName": "디렉시온 테슬라 인버스 ETF",
                 "frequency": "분기",
                 "group": "MSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "TSMX",
-                "koName": "디렉시온 TSMC 2배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -11308,15 +11483,6 @@
                 "koName": "디렉시온 인공지능 및 자율주행 ETF",
                 "frequency": "분기",
                 "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "URAA",
-                "koName": "디렉시온 우라늄 산업 2배 ETF",
-                "frequency": "분기",
-                "group": "MSD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -11432,15 +11598,6 @@
                 "koName": "위즈덤트리 수익률 향상 미국 투자등급 채권 펀드",
                 "frequency": "매월",
                 "group": "ASD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "AIBU",
-                "koName": "디렉시온 인공지능 빅데이터 불 2배 ETF",
-                "frequency": "분기",
-                "group": "JSD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -12193,15 +12350,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "HIBL",
-                "koName": "디렉시온 S&P 500 경기민감주 3배 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "HIMY",
                 "frequency": "매주",
                 "group": "수",
@@ -12300,6 +12448,15 @@
                 "isExpected": true
             },
             {
+                "ticker": "JGLO",
+                "koName": "JP모건 글로벌 선별 주식 ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
                 "ticker": "JIRE",
                 "koName": "JP모건 연구중심 다국적기업 ETF",
                 "frequency": "매년",
@@ -12309,8 +12466,26 @@
                 "isExpected": true
             },
             {
+                "ticker": "JIVE",
+                "koName": "JP모건 국제 가치주 ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
                 "ticker": "JMEE",
                 "koName": "JP모건 시장 확장 주식 ETF",
+                "frequency": "매년",
+                "group": "D",
+                "currency": "USD",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "JPEF",
+                "koName": "JP모건 보통주 집중형 ETF",
                 "frequency": "매년",
                 "group": "D",
                 "currency": "USD",
@@ -12359,15 +12534,6 @@
                 "frequency": "매주",
                 "group": "목",
                 "currency": "USD",
-                "isExpected": true
-            },
-            {
-                "ticker": "LMBO",
-                "koName": "디렉시온 데일리 암호화폐 산업 2배 ETF",
-                "frequency": "분기",
-                "group": "MJS",
-                "currency": "USD",
-                "isForecast": true,
                 "isExpected": true
             },
             {
@@ -12597,15 +12763,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "QQQU",
-                "koName": "디렉시온 데일리 매그니피센트 7 2배 ETF",
-                "frequency": "분기",
-                "group": "JSD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "QQQY",
                 "koName": "디파이언스 나스닥100 옵션 배당 ETF",
                 "frequency": "매주",
@@ -12733,15 +12890,6 @@
                 "koName": "글로벌엑스 러셀 2000 커버드콜 ETF",
                 "frequency": "매월",
                 "group": "MJJ",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "SCHY",
-                "koName": "슈왑 세계 배당주 ETF",
-                "frequency": "분기",
-                "group": "MJD",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -12956,15 +13104,6 @@
             {
                 "ticker": "TDV",
                 "koName": "프로셰어즈 S&P 기술주 배당 귀족 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "TECL",
-                "koName": "디렉시온 빅테크 3배 ETF",
                 "frequency": "분기",
                 "group": "MJD",
                 "currency": "USD",
@@ -13960,15 +14099,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "GIAX",
-                "koName": "니콜라스 글로벌 주식 배당 ETF",
-                "frequency": "매월",
-                "group": "ASO",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "GMEY",
                 "koName": "일드맥스 게임스탑 옵션 인컴 전략 ETF",
                 "frequency": "매주",
@@ -14021,6 +14151,8 @@
             {
                 "ticker": "HMYY",
                 "koName": "그래닛셰어즈 일드부스트 힘스 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "isExpected": true
             },
@@ -14458,6 +14590,8 @@
             {
                 "ticker": "RTYY",
                 "koName": "그래닛셰어즈 일드부스트 라이엇 ETF",
+                "frequency": "매주",
+                "group": "금",
                 "currency": "USD",
                 "isExpected": true
             },
@@ -15066,15 +15200,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "STRV",
-                "koName": "EA 시리즈 스트라이브 500 ETF",
-                "frequency": "분기",
-                "group": "MJD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "TSLW",
                 "koName": "라운드힐 테슬라 위클리페이 ETF",
                 "frequency": "매주",
@@ -15353,37 +15478,10 @@
                 "isExpected": true
             },
             {
-                "ticker": "JGLO",
-                "koName": "JP모건 글로벌 선별 주식 ETF",
-                "frequency": "매년",
-                "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "JGRO",
                 "koName": "JP모건 성장주 ETF",
                 "frequency": "매주",
                 "group": "화",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JIVE",
-                "koName": "JP모건 국제 가치주 ETF",
-                "frequency": "매년",
-                "group": "D",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "JPEF",
-                "koName": "JP모건 보통주 집중형 ETF",
-                "frequency": "매년",
-                "group": "D",
                 "currency": "USD",
                 "isForecast": true,
                 "isExpected": true
@@ -16824,15 +16922,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "PYLD",
-                "koName": "핌코 멀티 섹터 채권 액티브 ETF",
-                "frequency": "매월",
-                "group": "ASD",
-                "currency": "USD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "QDTE",
                 "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
                 "frequency": "매주",
@@ -17694,17 +17783,6 @@
         ]
     },
     "KrStock": {
-        "2025-12-12": [
-            {
-                "ticker": "0026S0",
-                "koName": "1Q 미국S&P500",
-                "frequency": "분기",
-                "group": "AJS",
-                "currency": "KRW",
-                "isForecast": true,
-                "isExpected": true
-            }
-        ],
         "2025-12-26": [
             {
                 "ticker": "000080",
@@ -19923,15 +20001,6 @@
                 "koName": "ACE 싱가포르리츠",
                 "frequency": "매월",
                 "group": "ASO",
-                "currency": "KRW",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "322410",
-                "koName": "HANARO K고배당",
-                "frequency": "분기",
-                "group": "AJO",
                 "currency": "KRW",
                 "isForecast": true,
                 "isExpected": true
