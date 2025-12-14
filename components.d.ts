@@ -60,6 +60,7 @@ declare module 'vue' {
     StockMappingDialog: typeof import('./src/components/asset/StockMappingDialog.vue')['default']
     StockPriceCandlestickChart: typeof import('./src/components/charts/StockPriceCandlestickChart.vue')['default']
     StockTimelineModal: typeof import('./src/components/StockTimelineModal.vue')['default']
+    Tag: typeof import('primevue/tag')['default']
     ThumbnailItem: typeof import('./src/components/thumbnail/ThumbnailItem.vue')['default']
     ToggleButton: typeof import('primevue/togglebutton')['default']
     TransactionHistoryDialog: typeof import('./src/components/asset/TransactionHistoryDialog.vue')['default']
