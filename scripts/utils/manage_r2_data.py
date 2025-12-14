@@ -82,6 +82,9 @@ SYMBOL_GROUPS = {
         "YBIT", "YQQQ", 
         "QDTE", "XDTE", "RDTE"
     ],
+    "위클리페이": [
+        "AAPW", "AMDW", "AMZW", "ARMW", "AVGW", "BABW", "BRKW", "COIW", "COSW", "GOOW", "HOOW", "METW", "MSFW", "MSTW", "NFLW", "NVDW", "PLTW", "TSLW", "UBEW", "UNHW", "GDXW", "GLDW", "TSYW"
+    ],
     "디파이언스수요일": [
         "SMCC", "PLT", "MST", "HOOI", "HIMY", "AMDU", "QLDY"
     ],
