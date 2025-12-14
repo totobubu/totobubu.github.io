@@ -8,6 +8,7 @@
     import BacktesterResultDetails from './BacktesterResultDetails.vue';
     import { getBacktesterChartPalette } from '@/utils/chartColors.js';
     import { exportResultsAsImage } from '@/services/backtester/imageExporter.js';
+    import { useLayout } from '@/composables/shared/useLayout';
 
     // ECharts 모듈은 main.js에서 전역으로 등록했으므로 여기서는 제거합니다.
 
@@ -15,6 +16,8 @@
         result: Object,
         isLoading: Boolean,
     });
+
+    const { isDarkMode } = useLayout();
 
     // ... (나머지 스크립트 코드는 이전과 동일하게 유지)
     const formatCurrency = (val) =>
@@ -95,9 +98,7 @@
 
     const combinedChartOption = computed(() => {
         if (!props.result) return {};
-        const themeMode = document.documentElement.classList.contains('p-dark')
-            ? 'dark'
-            : 'light';
+        const themeMode = isDarkMode.value ? 'dark' : 'light';
         const palette = getBacktesterChartPalette(themeMode);
 
         const seriesData = [];

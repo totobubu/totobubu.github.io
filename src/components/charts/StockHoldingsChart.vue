@@ -4,6 +4,7 @@
     import VChart from 'vue-echarts';
     import Dropdown from 'primevue/dropdown';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
+    import { useLayout } from '@/composables/shared/useLayout';
 
     const props = defineProps({
         holdingsData: {
@@ -18,6 +19,7 @@
     let loadSymbolMapPromise = null;
 
     const { isMobile } = useBreakpoint();
+    const { isDarkMode } = useLayout();
 
     const normalizeName = (value) => {
         return value
@@ -470,8 +472,7 @@
         const segments = pieSegments.value;
         if (!segments || segments.length === 0) return null;
 
-        const isDarkTheme =
-            document.documentElement.classList.contains('p-dark');
+        const isDarkTheme = isDarkMode.value;
         const isMobileMode = isMobile.value;
 
         const pieData = legendData.value.map((item) => ({
@@ -621,8 +622,7 @@
             };
         });
 
-        const isDarkTheme =
-            document.documentElement.classList.contains('p-dark');
+        const isDarkTheme = isDarkMode.value;
 
         return {
             title: {
