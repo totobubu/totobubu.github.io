@@ -453,6 +453,7 @@
     } from 'echarts/components';
     import VChart from 'vue-echarts';
     import { getTransactionTypeLabel } from '@/utils/transactionTypeMapper';
+    import { useLayout } from '@/composables/shared/useLayout';
 
     use([
         CanvasRenderer,
@@ -487,6 +488,8 @@
     });
 
     const emit = defineEmits(['update:visible']);
+
+    const { isDarkMode } = useLayout();
 
     const isVisible = computed({
         get: () => props.visible,
@@ -646,12 +649,17 @@
             (t) => t.returnRate || 0
         );
 
+        const isDark = isDarkMode.value;
+        const textColor = isDark ? '#f8fafc' : '#1f2937';
+        const axisColor = isDark ? '#e2e8f0' : '#4b5563';
+
         return {
             tooltip: {
                 trigger: 'axis',
             },
             legend: {
                 data: ['수익금', '수익률'],
+                textStyle: { color: textColor },
             },
             grid: {
                 left: '3%',
@@ -662,15 +670,28 @@
             xAxis: {
                 type: 'category',
                 data: dates,
+                axisLabel: { color: axisColor },
             },
             yAxis: [
                 {
                     type: 'value',
                     name: '수익금 (KRW)',
+                    nameTextStyle: { color: textColor },
+                    axisLabel: { color: axisColor },
+                    splitLine: {
+                        lineStyle: {
+                            color: isDark
+                                ? 'rgba(255,255,255,0.1)'
+                                : 'rgba(0,0,0,0.1)',
+                        },
+                    },
                 },
                 {
                     type: 'value',
                     name: '수익률 (%)',
+                    nameTextStyle: { color: textColor },
+                    axisLabel: { color: axisColor },
+                    splitLine: { show: false },
                 },
             ],
             series: [
@@ -705,6 +726,10 @@
             cumulativeInvestments.push(cumulative);
         });
 
+        const isDark = isDarkMode.value;
+        const textColor = isDark ? '#f8fafc' : '#1f2937';
+        const axisColor = isDark ? '#e2e8f0' : '#4b5563';
+
         return {
             tooltip: {
                 trigger: 'axis',
@@ -718,10 +743,20 @@
             xAxis: {
                 type: 'category',
                 data: dates,
+                axisLabel: { color: axisColor },
             },
             yAxis: {
                 type: 'value',
                 name: '누적 투자금 (KRW)',
+                nameTextStyle: { color: textColor },
+                axisLabel: { color: axisColor },
+                splitLine: {
+                    lineStyle: {
+                        color: isDark
+                            ? 'rgba(255,255,255,0.1)'
+                            : 'rgba(0,0,0,0.1)',
+                    },
+                },
             },
             series: [
                 {
@@ -742,6 +777,10 @@
             (t) => t.avgPrice || 0
         );
 
+        const isDark = isDarkMode.value;
+        const textColor = isDark ? '#f8fafc' : '#1f2937';
+        const axisColor = isDark ? '#e2e8f0' : '#4b5563';
+
         return {
             tooltip: {
                 trigger: 'axis',
@@ -755,10 +794,20 @@
             xAxis: {
                 type: 'category',
                 data: dates,
+                axisLabel: { color: axisColor },
             },
             yAxis: {
                 type: 'value',
                 name: '평단가 (KRW)',
+                nameTextStyle: { color: textColor },
+                axisLabel: { color: axisColor },
+                splitLine: {
+                    lineStyle: {
+                        color: isDark
+                            ? 'rgba(255,255,255,0.1)'
+                            : 'rgba(0,0,0,0.1)',
+                    },
+                },
             },
             series: [
                 {
