@@ -246,11 +246,15 @@ async function generateCalendarEvents() {
     let failCount = 0;
     const startTime = Date.now();
 
+    const failedSymbols = []; // Track failed symbols
+
     // Helper to process a single item
     const processItem = async (navItem) => {
         let isLocal = false;
         try {
             if (navItem.upcoming) return;
+            // 배당 없는 종목 건너뛰기
+            if (navItem.noDividends) return;
 
             const baseSymbol = extractBaseSymbol(
                 navItem.symbol || navItem.yfSymbol
@@ -292,6 +296,8 @@ async function generateCalendarEvents() {
             }
 
             if (!data) {
+                // console.warn(`Failed to fetch data for: ${symbol} (${navItem.market})`);
+                failedSymbols.push(`${symbol} (${navItem.market})`);
                 failCount++;
                 return;
             }
@@ -470,10 +476,64 @@ async function generateCalendarEvents() {
         );
     }
 
+    // 메타데이터 생성 및 저장
+    const sortedMonths = Array.from(monthlyData.keys()).sort();
+    let minDate = null;
+    let maxDate = null;
+
+    if (sortedMonths.length > 0) {
+        // 첫 달의 첫 날짜
+        const firstMonthData = monthlyData.get(sortedMonths[0]);
+        // firstMonthData: { UsStock: { "2024-01-01": [...] }, ... }
+        const firstDates = [];
+        Object.values(firstMonthData).forEach((cat) => {
+            if (cat) Object.keys(cat).forEach((d) => firstDates.push(d));
+        });
+
+        if (firstDates.length > 0) {
+            minDate = firstDates.sort()[0];
+        }
+
+        // 마지막 달의 마지막 날짜
+        const lastMonthData = monthlyData.get(
+            sortedMonths[sortedMonths.length - 1]
+        );
+        const lastDates = [];
+        Object.values(lastMonthData).forEach((cat) => {
+            if (cat) Object.keys(cat).forEach((d) => lastDates.push(d));
+        });
+
+        if (lastDates.length > 0) {
+            maxDate = lastDates.sort().reverse()[0];
+        }
+    }
+
+    const metadata = {
+        version: Date.now(), // 타임스탬프 버전
+        totalMonths: sortedMonths.length,
+        totalDates: totalEvents,
+        dateRange: {
+            start: minDate,
+            end: maxDate,
+        },
+        months: sortedMonths,
+    };
+
+    await fs.writeFile(
+        path.join(CALENDAR_MONTHLY_DIR, 'metadata.json'),
+        JSON.stringify(metadata, null, 2)
+    );
+
+    if (failedSymbols.length > 0) {
+        console.log('\n⚠️  Failed Symbols List:');
+        failedSymbols.forEach((s) => console.log(`   - ${s}`));
+    }
+
     console.timeEnd('GenerationTime');
     console.log(
         `\n🎉 Successfully generated ${totalFiles} monthly calendar files with ${totalEvents} total events.`
     );
+    console.log(`Updated metadata.json with version: ${metadata.version}`);
 }
 
 generateCalendarEvents();
