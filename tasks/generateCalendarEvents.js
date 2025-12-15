@@ -243,6 +243,7 @@ async function generateCalendarEvents() {
     let processedCount = 0;
     let r2SuccessCount = 0;
     let localSuccessCount = 0;
+    let noDividendsCount = 0; // Track skipped items
     let failCount = 0;
     const startTime = Date.now();
 
@@ -254,11 +255,15 @@ async function generateCalendarEvents() {
         try {
             if (navItem.upcoming) return;
             // 배당 없는 종목 건너뛰기
-            if (navItem.noDividends) return;
+            if (navItem.noDividends) {
+                noDividendsCount++;
+                return;
+            }
 
             const baseSymbol = extractBaseSymbol(
                 navItem.symbol || navItem.yfSymbol
             );
+
             if (!baseSymbol) return;
 
             const tickerInfo = tickerInfoMap.get(baseSymbol);
@@ -410,7 +415,7 @@ async function generateCalendarEvents() {
 
             if (processedCount % 100 === 0 || processedCount >= totalItems) {
                 console.log(
-                    `[${Math.round((processedCount / totalItems) * 100)}%] ${processedCount}/${totalItems} processed. (Local: ${localSuccessCount}, R2: ${r2SuccessCount}, Failed: ${failCount})`
+                    `[${Math.round((processedCount / totalItems) * 100)}%] ${processedCount}/${totalItems} processed. (Local: ${localSuccessCount}, R2: ${r2SuccessCount}, NoDiv: ${noDividendsCount}, Failed: ${failCount})`
                 );
             }
         }
