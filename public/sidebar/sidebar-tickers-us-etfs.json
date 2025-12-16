@@ -10,8 +10,9 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매주",
-        "group": "수",
-        "groupOrder": 3
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "MSTY",
@@ -23,10 +24,11 @@
         "koName": "일드맥스 스트래티지 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "JON",
         "underlying": "MSTR",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "CONY",
@@ -38,10 +40,11 @@
         "koName": "일드맥스 코인베이스 옵션 배당 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "COIN",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "WPAY",
@@ -49,13 +52,14 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 15,
+        "popularity": 17,
         "koName": "라운드힐 위클리페이 유니버스 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "화",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
     },
     {
         "symbol": "QDTE",
@@ -69,7 +73,22 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
+    },
+    {
+        "symbol": "JEPQ",
+        "isin": "US46654Q2030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 13,
+        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
+        "company": "J.P. Morgan",
+        "logo": "logos/company/company-jpmorgan.png",
+        "frequency": "매월",
+        "group": "JJD",
+        "groupOrder": 999
     },
     {
         "symbol": "NVDY",
@@ -81,23 +100,11 @@
         "koName": "일드맥스 엔비디아 옵션배당 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "NVDA",
-        "groupOrder": 4
-    },
-    {
-        "symbol": "JEPQ",
-        "isin": "US46654Q2030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 12,
-        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
-        "company": "J.P. Morgan",
-        "logo": "logos/company/company-jpmorgan.png",
         "frequency": "매월",
-        "groupOrder": 999
+        "group": "OND",
+        "underlying": "NVDA",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "TSLY",
@@ -109,10 +116,11 @@
         "koName": "일드맥스 테슬라 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "TSLA",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "YMAX",
@@ -125,8 +133,23 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매주",
-        "group": "수",
-        "groupOrder": 3
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
+    },
+    {
+        "symbol": "QQQI",
+        "isin": "US78433H6751",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 11,
+        "koName": "네오스 나스닥 100 인컴 ETF",
+        "company": "Neos Funds",
+        "logo": "logos/company/company-neos-funds.png",
+        "frequency": "매월",
+        "group": "FMA",
+        "groupOrder": 999
     },
     {
         "symbol": "TSYY",
@@ -141,7 +164,8 @@
         "frequency": "매주",
         "group": "금",
         "underlying": "TSLA",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "NVII",
@@ -156,7 +180,8 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "NVDA",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
     },
     {
         "symbol": "PLTY",
@@ -168,23 +193,11 @@
         "koName": "일드맥스 팔란티어 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "PLTR",
-        "groupOrder": 4
-    },
-    {
-        "symbol": "QQQI",
-        "isin": "US78433H6751",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 10,
-        "koName": "네오스 나스닥 100 인컴 ETF",
-        "company": "Neos Funds",
-        "logo": "logos/company/company-neos-funds.png",
         "frequency": "매월",
-        "groupOrder": 999
+        "group": "OND",
+        "underlying": "PLTR",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "PLTW",
@@ -199,7 +212,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "PLTR",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "YMAG",
@@ -212,8 +226,9 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매주",
-        "group": "수",
-        "groupOrder": 3
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "COYY",
@@ -228,7 +243,24 @@
         "frequency": "매주",
         "group": "금",
         "underlying": "COIN",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
+    },
+    {
+        "symbol": "HOOW",
+        "isin": "US77926X6351",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 8,
+        "koName": "라운드힐 로빈후드 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "HOOD",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "NVYY",
@@ -243,7 +275,8 @@
         "frequency": "매주",
         "group": "금",
         "underlying": "NVDA",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "TSLW",
@@ -258,22 +291,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "TSLA",
-        "groupOrder": 1
-    },
-    {
-        "symbol": "HOOW",
-        "isin": "US77926X6351",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 7,
-        "koName": "라운드힐 로빈후드 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "HOOD",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "JEPI",
@@ -281,10 +300,11 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 6,
+        "popularity": 7,
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
         "frequency": "매월",
+        "group": "JAD",
         "groupOrder": 999
     },
     {
@@ -300,7 +320,24 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "MSTR",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
+    },
+    {
+        "symbol": "NVDW",
+        "isin": "US77926X7185",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 6,
+        "koName": "라운드힐 엔비디아 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "NVDA",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "SCHD",
@@ -312,8 +349,9 @@
         "company": "Schwab",
         "logo": "logos/company/company-schwab.svg",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "TSII",
@@ -328,7 +366,8 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "TSLA",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
     },
     {
         "symbol": "AVGW",
@@ -343,7 +382,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "AVGO",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "BITO",
@@ -356,6 +396,7 @@
         "company": "ProSares",
         "logo": "logos/company/company-prosares.png",
         "frequency": "매월",
+        "group": "FMD",
         "groupOrder": 999
     },
     {
@@ -370,7 +411,8 @@
         "logo": "logos/company/company-nicholas.png",
         "frequency": "매주",
         "group": "금",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "COII",
@@ -385,7 +427,22 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "COIN",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
+    },
+    {
+        "symbol": "DIVO",
+        "isin": "US0321084099",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "앰플리파이 배당 수익 ETF",
+        "company": "Amplify",
+        "logo": "logos/company/company-amplify.png",
+        "frequency": "매월",
+        "group": "MJS",
+        "groupOrder": 999
     },
     {
         "symbol": "MST",
@@ -400,7 +457,8 @@
         "frequency": "매주",
         "group": "수",
         "underlying": "MSTR",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "MSTW",
@@ -415,22 +473,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "MSTR",
-        "groupOrder": 1
-    },
-    {
-        "symbol": "NVDW",
-        "isin": "US77926X7185",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 5,
-        "koName": "라운드힐 엔비디아 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "NVDA",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "QDVO",
@@ -443,6 +487,22 @@
         "company": "Amplify",
         "logo": "logos/company/company-amplify.png",
         "frequency": "매월",
+        "group": "SON",
+        "groupOrder": 999
+    },
+    {
+        "symbol": "SPYI",
+        "isin": "US78433H3030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "네오스 S&P 500 고배당 ETF",
+        "company": "Neos Funds",
+        "logo": "logos/company/company-neos-funds.png",
+        "frequency": "매월",
+        "group": "SON",
+        "underlying": "SPY",
         "groupOrder": 999
     },
     {
@@ -457,7 +517,8 @@
         "logo": "logos/company/company-graniteshares.png",
         "frequency": "매주",
         "group": "금",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "XDTE",
@@ -471,7 +532,8 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "YETH",
@@ -485,7 +547,24 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "수",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
+    },
+    {
+        "symbol": "AMDW",
+        "isin": "US77926X7839",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 4,
+        "koName": "라운드힐 AMD 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "AMD",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "AMDY",
@@ -497,23 +576,11 @@
         "koName": "일드맥스 AMD 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "AMD",
-        "groupOrder": 4
-    },
-    {
-        "symbol": "DIVO",
-        "isin": "US0321084099",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "앰플리파이 배당 수익 ETF",
-        "company": "Amplify",
-        "logo": "logos/company/company-amplify.png",
         "frequency": "매월",
-        "groupOrder": 999
+        "group": "OND",
+        "underlying": "AMD",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "GOOW",
@@ -528,7 +595,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "GOOGL",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "GPIQ",
@@ -541,6 +609,7 @@
         "company": "Goldman Sachs",
         "logo": "logos/company/company-goldman-sachs.svg",
         "frequency": "매월",
+        "group": "FMD",
         "groupOrder": 999
     },
     {
@@ -555,7 +624,8 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "SMCY",
@@ -567,39 +637,11 @@
         "koName": "일드맥스 슈퍼 마이크로 컴퓨터 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "SMCI",
-        "groupOrder": 4
-    },
-    {
-        "symbol": "SPYI",
-        "isin": "US78433H3030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "네오스 S&P 500 고배당 ETF",
-        "company": "Neos Funds",
-        "logo": "logos/company/company-neos-funds.png",
         "frequency": "매월",
-        "underlying": "SPY",
-        "groupOrder": 999
-    },
-    {
-        "symbol": "AMDW",
-        "isin": "US77926X7839",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 3,
-        "koName": "라운드힐 AMD 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "AMD",
-        "groupOrder": 1
+        "group": "OND",
+        "underlying": "SMCI",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "HOOY",
@@ -614,7 +656,8 @@
         "frequency": "매주",
         "group": "목",
         "underlying": "HOOD",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "MSFW",
@@ -629,7 +672,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "MSFT",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "QLDY",
@@ -642,11 +686,9 @@
         "company": "Defiance",
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
-        "group": {
-            "wed": "수",
-            "fri": "금"
-        },
-        "groupOrder": 3
+        "group": "수",
+        "groupOrder": 3,
+        "groupLabels": ["수", "금"]
     },
     {
         "symbol": "WDTE",
@@ -660,7 +702,8 @@
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "COIW",
@@ -675,7 +718,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "COIN",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "GPTY",
@@ -688,8 +732,9 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매주",
-        "group": "수",
-        "groupOrder": 3
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "HIMY",
@@ -703,7 +748,8 @@
         "frequency": "매주",
         "group": "수",
         "underlying": "HIMS",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "LFGY",
@@ -716,8 +762,9 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매주",
-        "group": "수",
-        "groupOrder": 3
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "QYLD",
@@ -730,6 +777,7 @@
         "company": "Global X",
         "logo": "logos/company/company-global-x.png",
         "frequency": "매월",
+        "group": "AMJ",
         "groupOrder": 999
     },
     {
@@ -744,7 +792,8 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "수",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "AIPI",
@@ -757,6 +806,7 @@
         "company": "Rex",
         "logo": "logos/company/company-rex.png",
         "frequency": "매월",
+        "group": "JAS",
         "groupOrder": 999
     },
     {
@@ -769,10 +819,11 @@
         "koName": "일드맥스 애플 옵션배당 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "JON",
         "underlying": "AAPL",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "ARKK",
@@ -784,6 +835,7 @@
         "company": "ARK ETF Trust",
         "logo": "logos/company/company-ark.png",
         "frequency": "매년",
+        "group": "SD",
         "groupOrder": 999
     },
     {
@@ -796,10 +848,11 @@
         "koName": "일드맥스 알리바바 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "BABA",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "BITU",
@@ -812,6 +865,7 @@
         "company": "ProShares",
         "logo": "logos/company/company-proshares.png",
         "frequency": "매월",
+        "group": "JJA",
         "groupOrder": 999
     },
     {
@@ -827,7 +881,8 @@
         "frequency": "매주",
         "group": "월",
         "underlying": "COST",
-        "groupOrder": 1
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "CRCO",
@@ -842,7 +897,8 @@
         "frequency": "매주",
         "group": "목",
         "underlying": "CRCL",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "CRSH",
@@ -854,10 +910,11 @@
         "koName": "일드맥스 숏 테슬라 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "TSLA",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "DIA",
@@ -869,7 +926,9 @@
         "company": "SPDR",
         "logo": "logos/company/company-spdr.jpg",
         "frequency": "매월",
-        "groupOrder": 999
+        "group": "AMN",
+        "groupOrder": 999,
+        "yield": 0.01168
     },
     {
         "symbol": "FIAT",
@@ -881,10 +940,11 @@
         "koName": "일드맥스 숏 코인베이스 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "COIN",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "GDE",
@@ -908,10 +968,11 @@
         "koName": "일드맥스 금 광물 옵션 인컴 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "GDX",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "GLD",
@@ -936,7 +997,8 @@
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "HOOI",
@@ -950,7 +1012,8 @@
         "frequency": "매주",
         "group": "수",
         "underlying": "HOOD",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "HOYY",
@@ -964,7 +1027,8 @@
         "logo": "logos/company/company-graniteshares.png",
         "frequency": "매주",
         "group": "금",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "IGOV",
@@ -976,7 +1040,8 @@
         "koName": "아이셰어즈 선진국 국채 ETF",
         "company": "iShares",
         "logo": "logos/company/company-ishares.jpeg",
-        "frequency": "매년",
+        "frequency": "매월",
+        "group": "AMD",
         "groupOrder": 999
     },
     {
@@ -991,7 +1056,8 @@
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "JFLI",
@@ -1004,6 +1070,7 @@
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
         "frequency": "매월",
+        "group": "AMJ",
         "groupOrder": 999
     },
     {
@@ -1019,7 +1086,8 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "lly",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
     },
     {
         "symbol": "MAGY",
@@ -1033,7 +1101,8 @@
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
         "group": "금",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "MTYY",
@@ -1048,7 +1117,8 @@
         "frequency": "매주",
         "group": "금",
         "underlying": "MSTR",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "NFLY",
@@ -1060,10 +1130,11 @@
         "koName": "일드맥스 넷플릭스 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "NFLX",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "NOBL",
@@ -1076,8 +1147,9 @@
         "company": "ProSares",
         "logo": "logos/company/company-prosares.png",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "PFF",
@@ -1090,7 +1162,9 @@
         "company": "iShares",
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "yield": 0.058623
     },
     {
         "symbol": "PLT",
@@ -1105,7 +1179,8 @@
         "frequency": "매주",
         "group": "수",
         "underlying": "PLTR",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "PLTI",
@@ -1120,7 +1195,8 @@
         "frequency": "매주",
         "group": "화",
         "underlying": "PLTR",
-        "groupOrder": 2
+        "groupOrder": 2,
+        "groupLabels": ["화"]
     },
     {
         "symbol": "PLYY",
@@ -1135,7 +1211,8 @@
         "frequency": "매주",
         "group": "금",
         "underlying": "PLTR",
-        "groupOrder": 5
+        "groupOrder": 5,
+        "groupLabels": ["금"]
     },
     {
         "symbol": "PYPY",
@@ -1147,10 +1224,11 @@
         "koName": "일드맥스 페이팔 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "PYPL",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "QLD",
@@ -1163,8 +1241,9 @@
         "company": "ProSares",
         "logo": "logos/company/company-prosares.png",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "QQQ",
@@ -1176,8 +1255,10 @@
         "company": "Invesco",
         "logo": "logos/company/company-invesco.svg",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"],
+        "yield": 0.002902
     },
     {
         "symbol": "QQQY",
@@ -1192,7 +1273,8 @@
         "frequency": "매주",
         "group": "목",
         "underlying": "QQQ",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "QTOP",
@@ -1205,8 +1287,9 @@
         "company": "iShares",
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "SCHG",
@@ -1219,8 +1302,9 @@
         "company": "Schwab",
         "logo": "logos/company/company-schwab.svg",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "JSD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "SGOV",
@@ -1233,6 +1317,7 @@
         "company": "iShares",
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
+        "group": "JAD",
         "groupOrder": 999
     },
     {
@@ -1248,7 +1333,8 @@
         "frequency": "매주",
         "group": "수",
         "underlying": "SMCI",
-        "groupOrder": 3
+        "groupOrder": 3,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "SNOY",
@@ -1260,10 +1346,11 @@
         "koName": "일드맥스 스노우플레이크 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "SNOW",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "SPYD",
@@ -1276,8 +1363,9 @@
         "company": "SPDR",
         "logo": "logos/company/company-spdr.jpg",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MSD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "SQQQ",
@@ -1289,8 +1377,9 @@
         "company": "ProShares",
         "logo": "logos/company/company-proshares.png",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MJD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "TSLL",
@@ -1303,8 +1392,9 @@
         "company": "Direxion",
         "logo": "logos/company/company-direxion.png",
         "frequency": "분기",
-        "group": "MJSD",
-        "groupOrder": 999
+        "group": "MSD",
+        "groupOrder": 999,
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "USOY",
@@ -1318,7 +1408,8 @@
         "logo": "logos/company/company-defiance.png",
         "frequency": "매주",
         "group": "목",
-        "groupOrder": 4
+        "groupOrder": 4,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "XOMO",
@@ -1330,10 +1421,11 @@
         "koName": "일드맥스 엑슨 모빌 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "XOM",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "XPAY",
@@ -1346,6 +1438,7 @@
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매월",
+        "group": "JND",
         "groupOrder": 999
     },
     {
@@ -1359,6 +1452,7 @@
         "company": "Global",
         "logo": "logos/company/company-global.png",
         "frequency": "매월",
+        "group": "JAS",
         "groupOrder": 999
     },
     {
@@ -1371,9 +1465,10 @@
         "koName": "일드맥스 블록 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
+        "frequency": "매월",
+        "group": "OND",
         "underlying": "XYZ",
-        "groupOrder": 4
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     }
 ]
