@@ -52,7 +52,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 15,
+        "popularity": 17,
         "koName": "라운드힐 위클리페이 유니버스 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -77,6 +77,20 @@
         "groupLabels": ["목"]
     },
     {
+        "symbol": "JEPQ",
+        "isin": "US46654Q2030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 13,
+        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
+        "company": "J.P. Morgan",
+        "logo": "logos/company/company-jpmorgan.png",
+        "frequency": "매월",
+        "group": "JJD",
+        "groupOrder": 999
+    },
+    {
         "symbol": "NVDY",
         "isin": "US88634T7744",
         "currency": "USD",
@@ -91,20 +105,6 @@
         "underlying": "NVDA",
         "groupOrder": 999,
         "groupLabels": ["목"]
-    },
-    {
-        "symbol": "JEPQ",
-        "isin": "US46654Q2030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 12,
-        "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
-        "company": "J.P. Morgan",
-        "logo": "logos/company/company-jpmorgan.png",
-        "frequency": "매월",
-        "group": "JJD",
-        "groupOrder": 999
     },
     {
         "symbol": "TSLY",
@@ -136,6 +136,20 @@
         "group": "목",
         "groupOrder": 4,
         "groupLabels": ["수"]
+    },
+    {
+        "symbol": "QQQI",
+        "isin": "US78433H6751",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 11,
+        "koName": "네오스 나스닥 100 인컴 ETF",
+        "company": "Neos Funds",
+        "logo": "logos/company/company-neos-funds.png",
+        "frequency": "매월",
+        "group": "FMA",
+        "groupOrder": 999
     },
     {
         "symbol": "TSYY",
@@ -186,20 +200,6 @@
         "groupLabels": ["목"]
     },
     {
-        "symbol": "QQQI",
-        "isin": "US78433H6751",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 10,
-        "koName": "네오스 나스닥 100 인컴 ETF",
-        "company": "Neos Funds",
-        "logo": "logos/company/company-neos-funds.png",
-        "frequency": "매월",
-        "group": "FMA",
-        "groupOrder": 999
-    },
-    {
         "symbol": "PLTW",
         "isin": "US77926X7268",
         "currency": "USD",
@@ -247,6 +247,22 @@
         "groupLabels": ["금"]
     },
     {
+        "symbol": "HOOW",
+        "isin": "US77926X6351",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 8,
+        "koName": "라운드힐 로빈후드 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "HOOD",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
+    },
+    {
         "symbol": "NVYY",
         "isin": "US38747R4395",
         "currency": "USD",
@@ -279,28 +295,12 @@
         "groupLabels": ["월"]
     },
     {
-        "symbol": "HOOW",
-        "isin": "US77926X6351",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 7,
-        "koName": "라운드힐 로빈후드 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "HOOD",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
-    },
-    {
         "symbol": "JEPI",
         "isin": "US46641Q3323",
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 6,
+        "popularity": 7,
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
         "frequency": "매월",
@@ -322,6 +322,22 @@
         "underlying": "MSTR",
         "groupOrder": 2,
         "groupLabels": ["화"]
+    },
+    {
+        "symbol": "NVDW",
+        "isin": "US77926X7185",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 6,
+        "koName": "라운드힐 엔비디아 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "NVDA",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "SCHD",
@@ -415,6 +431,20 @@
         "groupLabels": ["화"]
     },
     {
+        "symbol": "DIVO",
+        "isin": "US0321084099",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "앰플리파이 배당 수익 ETF",
+        "company": "Amplify",
+        "logo": "logos/company/company-amplify.png",
+        "frequency": "매월",
+        "group": "MJS",
+        "groupOrder": 999
+    },
+    {
         "symbol": "MST",
         "isin": "US88636R2554",
         "currency": "USD",
@@ -447,22 +477,6 @@
         "groupLabels": ["월"]
     },
     {
-        "symbol": "NVDW",
-        "isin": "US77926X7185",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 5,
-        "koName": "라운드힐 엔비디아 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "NVDA",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
-    },
-    {
         "symbol": "QDVO",
         "isin": "US0321085245",
         "currency": "USD",
@@ -474,6 +488,21 @@
         "logo": "logos/company/company-amplify.png",
         "frequency": "매월",
         "group": "SON",
+        "groupOrder": 999
+    },
+    {
+        "symbol": "SPYI",
+        "isin": "US78433H3030",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "네오스 S&P 500 고배당 ETF",
+        "company": "Neos Funds",
+        "logo": "logos/company/company-neos-funds.png",
+        "frequency": "매월",
+        "group": "SON",
+        "underlying": "SPY",
         "groupOrder": 999
     },
     {
@@ -522,6 +551,22 @@
         "groupLabels": ["수"]
     },
     {
+        "symbol": "AMDW",
+        "isin": "US77926X7839",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 4,
+        "koName": "라운드힐 AMD 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "AMD",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
+    },
+    {
         "symbol": "AMDY",
         "isin": "US88634T4774",
         "currency": "USD",
@@ -536,20 +581,6 @@
         "underlying": "AMD",
         "groupOrder": 999,
         "groupLabels": ["목"]
-    },
-    {
-        "symbol": "DIVO",
-        "isin": "US0321084099",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "앰플리파이 배당 수익 ETF",
-        "company": "Amplify",
-        "logo": "logos/company/company-amplify.png",
-        "frequency": "매월",
-        "group": "MJS",
-        "groupOrder": 999
     },
     {
         "symbol": "GOOW",
@@ -611,37 +642,6 @@
         "underlying": "SMCI",
         "groupOrder": 999,
         "groupLabels": ["목"]
-    },
-    {
-        "symbol": "SPYI",
-        "isin": "US78433H3030",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "네오스 S&P 500 고배당 ETF",
-        "company": "Neos Funds",
-        "logo": "logos/company/company-neos-funds.png",
-        "frequency": "매월",
-        "group": "SON",
-        "underlying": "SPY",
-        "groupOrder": 999
-    },
-    {
-        "symbol": "AMDW",
-        "isin": "US77926X7839",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 3,
-        "koName": "라운드힐 AMD 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "AMD",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
     },
     {
         "symbol": "HOOY",
@@ -928,7 +928,7 @@
         "frequency": "매월",
         "group": "AMN",
         "groupOrder": 999,
-        "yield": 0.011595
+        "yield": 0.01168
     },
     {
         "symbol": "FIAT",
@@ -1164,7 +1164,7 @@
         "frequency": "매월",
         "group": "MJD",
         "groupOrder": 999,
-        "yield": 0.058727
+        "yield": 0.058623
     },
     {
         "symbol": "PLT",
@@ -1258,7 +1258,7 @@
         "group": "MJD",
         "groupOrder": 999,
         "groupLabels": ["MJSD"],
-        "yield": 0.002894
+        "yield": 0.002902
     },
     {
         "symbol": "QQQY",
