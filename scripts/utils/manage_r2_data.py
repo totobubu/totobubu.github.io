@@ -6,8 +6,8 @@ R2 데이터 수동 관리 스크립트
 2. 로컬에서 데이터 수정 후 R2로 재업로드 (검증 포함)
 
 사용법:
-python scripts/utils/manage_r2_data.py --symbol TSLY
-python scripts/utils/manage_r2_data.py --expected 2025-12-11
+python scripts/utils/manage_r2_data.py --symbol WPAY
+python scripts/utils/manage_r2_data.py --expected 2025-12-16
 python scripts/utils/manage_r2_data.py --group 화요일 수요일 목요일  
 python scripts/utils/manage_r2_data.py --group 디파이언스수요일 디파이언스목요일
 python scripts/utils/manage_r2_data.py --group 일드부스트
@@ -50,7 +50,10 @@ SYMBOL_GROUPS = {
     "화요일": [
         "WPAY", "XPAY"
     ],
-    "수요일": [
+    "일드화요일": [
+        "MSST", "NVIT", "TEST"
+    ],
+    "일드수요일": [
         "CHPY", 
         "FEAT", "FIVY", 
         "GPTY", 
@@ -61,7 +64,7 @@ SYMBOL_GROUPS = {
         "ULTY", 
         "YMAG", "YMAX", "YBTC", "YETH"
     ],
-    "목요일": [
+    "일드목요일": [
         "ABNY", "AIYY", "AMDY", "AMZY", "APLY", 
         "BABO", "BRKC", 
         "CONY", "CRCO", "CRSH", "CVNY", 
@@ -93,6 +96,9 @@ SYMBOL_GROUPS = {
     ],
     "일드부스트": [
         "MAAY", "IOYY", "RTYY", "COYY", "RGYY", "HMYY", "QBY", "TSYY", "SMYY", "HOYY", "SEMY", "BBYY", "NVYY", "NUGY", "PLYY", "MTYY", "AMYY", "XBTY", "AZYY", "TQQY", "FBYY", "YSPY"
+    ],
+    "렉스ii": [
+        "NVII", "TSII", "MSII", "COII", "HOII", "LLII", "CWII", "PLTI", "WMTI"
     ]
 }
 
