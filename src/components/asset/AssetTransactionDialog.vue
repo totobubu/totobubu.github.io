@@ -108,10 +108,21 @@
                     :style="{ minWidth: '120px', width: '120px' }">
                     <template #body="slotProps">
                         <div
-                            :class="{
-                                'summary-row': isSummaryRow(slotProps.data),
-                                'dividend-row': hasDividend(slotProps.data),
-                            }">
+                            v-if="isSummaryRow(slotProps.data)"
+                            class="summary-row">
+                            {{ formatDate(slotProps.data['날짜']) }}
+                        </div>
+                        <div
+                            v-else-if="hasDividend(slotProps.data)"
+                            class="dividend-row flex flex-column gap-1">
+                            <span class="text-xs text-color-secondary"
+                                >락: {{ slotProps.data['배당락일'] }}</span
+                            >
+                            <span class="text-sm font-medium"
+                                >지: {{ slotProps.data['배당지급일'] }}</span
+                            >
+                        </div>
+                        <div v-else>
                             {{ formatDate(slotProps.data['날짜']) }}
                         </div>
                     </template>
@@ -198,40 +209,6 @@
                                 'dividend-row': hasDividend(slotProps.data),
                             }">
                             {{ slotProps.data['거래(원화)'] }}
-                        </div>
-                    </template>
-                </Column>
-
-                <!-- 배당락일 -->
-                <Column
-                    v-if="shouldShowColumn('배당락일')"
-                    field="배당락일"
-                    header="배당락일"
-                    :style="{ minWidth: '100px' }">
-                    <template #body="slotProps">
-                        <div
-                            :class="{
-                                'summary-row': isSummaryRow(slotProps.data),
-                                'dividend-row': hasDividend(slotProps.data),
-                            }">
-                            {{ slotProps.data['배당락일'] }}
-                        </div>
-                    </template>
-                </Column>
-
-                <!-- 배당지급일 -->
-                <Column
-                    v-if="shouldShowColumn('배당지급일')"
-                    field="배당지급일"
-                    header="배당지급일"
-                    :style="{ minWidth: '100px' }">
-                    <template #body="slotProps">
-                        <div
-                            :class="{
-                                'summary-row': isSummaryRow(slotProps.data),
-                                'dividend-row': hasDividend(slotProps.data),
-                            }">
-                            {{ slotProps.data['배당지급일'] }}
                         </div>
                     </template>
                 </Column>
@@ -758,59 +735,77 @@
         // 미래 년도 버튼 추가 및 계산 (2026, 2027, 2028)
         const futureYears = ['2026', '2027', '2028'];
         const currentHoldings = getCurrentHoldings.value;
-        const currentShares = parseNumber(currentHoldings.shares);
+        let runningShares = parseNumber(currentHoldings.shares);
+        const currentAvgPrice = parseNumber(currentHoldings.avgPrice);
         const perShareDividend = dividendBasisValue.value;
 
-        console.log('🔮 미래 배당 계산:', {
-            현재보유주식: currentShares,
-            주당배당금: perShareDividend,
-            재투자여부: isReinvestmentEnabled.value,
-            배당기준: dividendBasis.value,
-        });
+        // 배당 주기 분석 (generateFutureTransactions와 동일한 로직)
+        const divs = historicalDividends.value;
+        let dividendIntervalDays = 90; // 기본값: 분기
+        if (divs.length >= 2) {
+            const intervals = [];
+            for (let i = 0; i < Math.min(10, divs.length - 1); i++) {
+                const date1 = parseDateString(divs[i].paymentDate);
+                const date2 = parseDateString(divs[i + 1].paymentDate);
+                if (date1 && date2) {
+                    const diffDays = Math.abs(
+                        (date1 - date2) / (1000 * 60 * 60 * 24)
+                    );
+                    intervals.push(diffDays);
+                }
+            }
+            if (intervals.length > 0) {
+                dividendIntervalDays = Math.round(
+                    intervals.reduce((a, b) => a + b) / intervals.length
+                );
+            }
+        }
 
         futureYears.forEach((year) => {
             let totalDividendAmount = 0;
             let totalKrwTaxAmount = 0;
 
-            if (currentShares > 0 && perShareDividend > 0) {
-                // 과거 배당 간격 분석
-                const divs = historicalDividends.value;
-                let dividendIntervalDays = 90; // 기본값: 분기
+            if (runningShares > 0 && perShareDividend > 0) {
+                const yearNum = parseInt(year);
+                const startDate = new Date(yearNum, 0, 1);
+                const endDate = new Date(yearNum, 11, 31);
 
-                if (divs.length >= 2) {
-                    const intervals = [];
-                    for (let i = 0; i < Math.min(10, divs.length - 1); i++) {
-                        const date1 = parseDateString(divs[i].paymentDate);
-                        const date2 = parseDateString(divs[i + 1].paymentDate);
-                        if (date1 && date2) {
-                            const diffDays = Math.abs(
-                                (date1 - date2) / (1000 * 60 * 60 * 24)
-                            );
-                            intervals.push(diffDays);
+                // 첫 배당일 추정: 마지막 배당일 + 주기
+                let lastPaymentDate =
+                    divs.length > 0
+                        ? parseDateString(divs[0].paymentDate)
+                        : new Date();
+                // 시뮬레이션 시작 전, yearNum의 1월 1일 이전까지 날짜를 밀어줌
+                while (lastPaymentDate < startDate) {
+                    lastPaymentDate.setDate(
+                        lastPaymentDate.getDate() + dividendIntervalDays
+                    );
+                }
+                let currentDate = new Date(lastPaymentDate);
+
+                // 해당 년도 내에서 시뮬레이션
+                while (currentDate <= endDate) {
+                    if (currentDate >= startDate) {
+                        const dividendAmount = runningShares * perShareDividend;
+                        totalDividendAmount += dividendAmount;
+
+                        // 원화과표 (환율 1400원, 세후/0.85 * 1400)
+                        const pretaxDividend = dividendAmount / 0.85;
+                        totalKrwTaxAmount += pretaxDividend * 1400;
+
+                        if (
+                            isReinvestmentEnabled.value &&
+                            currentAvgPrice > 0
+                        ) {
+                            const sharesToBuy =
+                                dividendAmount / currentAvgPrice;
+                            runningShares += sharesToBuy;
                         }
                     }
-                    if (intervals.length > 0) {
-                        dividendIntervalDays = Math.round(
-                            intervals.reduce((a, b) => a + b) / intervals.length
-                        );
-                    }
+                    currentDate.setDate(
+                        currentDate.getDate() + dividendIntervalDays
+                    );
                 }
-
-                // 연간 배당 횟수 계산
-                const dividendsPerYear = Math.round(365 / dividendIntervalDays);
-
-                // 1년간 총 배당금 계산 (재투자 없는 경우 단순 계산)
-                const yearlyDividend =
-                    currentShares * perShareDividend * dividendsPerYear;
-
-                // 재투자 여부에 따른 계산
-                // TODO: 재투자 로직은 추후 구현 (복리 계산)
-                totalDividendAmount = yearlyDividend;
-
-                // 원화과표 계산 (환율 1,400원 가정, 세전 배당금 = 세후 / 0.85)
-                const exchangeRate = 1400;
-                const pretaxDividend = totalDividendAmount / 0.85;
-                totalKrwTaxAmount = pretaxDividend * exchangeRate;
             }
 
             result.push({
@@ -906,9 +901,10 @@
         const divs = historicalDividends.value;
         let dividendIntervalDays = 90; // 기본값: 분기(90일)
 
+        const intervals = [];
+
         if (divs.length >= 2) {
             // 최근 배당 간격 계산
-            const intervals = [];
             console.log(
                 '🔍 배당 간격 분석 시작:',
                 divs.slice(0, 6).map((d) => d.paymentDate)
