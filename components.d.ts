@@ -34,6 +34,7 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     CompanyLogo: typeof import('./src/components/CompanyLogo.vue')['default']
     DateAndInvestment: typeof import('./src/components/backtester/controls/DateAndInvestment.vue')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     EnhancedTransactionDialog: typeof import('./src/components/asset/EnhancedTransactionDialog.vue')['default']
     ErrorBoundary: typeof import('./src/components/ErrorBoundary.vue')['default']
     FamilyMemberList: typeof import('./src/components/asset/FamilyMemberList.vue')['default']
