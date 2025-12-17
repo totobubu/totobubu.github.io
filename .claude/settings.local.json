@@ -1,24 +1,26 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(head:*)",
-      "Bash(npm run dev:*)",
-      "Bash(node scripts/migrateAssets.js:*)",
-      "Bash(node scripts/migrateAssetsAdmin.js:*)",
-      "Bash($env:FIREBASE_SERVICE_ACCOUNT_KEY=\"service-account-key.json\")",
-      "Bash(firebase deploy:*)",
-      "Bash(cat:*)",
-      "Bash(npm run generate-calendar-events:*)",
-      "Bash(dir:*)",
-      "Bash(test:*)",
-      "Bash(python scripts/data_pipeline/remove_wrong_no_dividends.py:*)",
-      "Bash(python:*)",
-      "Bash(pip install:*)",
-      "Bash(chcp 6500)",
-      "Bash(netstat:*)",
-      "Bash(findstr:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+    "permissions": {
+        "allow": [
+            "Bash(head:*)",
+            "Bash(npm run dev:*)",
+            "Bash(node scripts/migrateAssets.js:*)",
+            "Bash(node scripts/migrateAssetsAdmin.js:*)",
+            "Bash($env:FIREBASE_SERVICE_ACCOUNT_KEY=\"service-account-key.json\")",
+            "Bash(firebase deploy:*)",
+            "Bash(cat:*)",
+            "Bash(npm run generate-calendar-events:*)",
+            "Bash(dir:*)",
+            "Bash(test:*)",
+            "Bash(python scripts/data_pipeline/remove_wrong_no_dividends.py:*)",
+            "Bash(python:*)",
+            "Bash(pip install:*)",
+            "Bash(chcp 6500)",
+            "Bash(netstat:*)",
+            "Bash(findstr:*)",
+            "Bash(node -e:*)",
+            "Bash(npm run generate-nav:*)"
+        ],
+        "deny": [],
+        "ask": []
+    }
 }

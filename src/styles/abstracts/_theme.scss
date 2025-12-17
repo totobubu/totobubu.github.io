@@ -177,7 +177,7 @@
             }
         }
         .p-breadcrumb-item-label {
-             color: var(--p-surface-900);
+            color: var(--p-surface-900);
         }
     }
 
@@ -230,6 +230,9 @@
             }
         }
     }
+    .company-logo-wrapper {
+        background-color: var(--p-surface-500);
+    }
 
     // Products
     .products-table-container {
@@ -262,16 +265,16 @@
         background-color: var(--p-surface-100);
         color: var(--p-surface-900);
     }
-    
+
     // Global Backgrounds
     #t-layout {
         background-color: var(--t-body-bg);
     }
-    
+
     #t-grid {
         background-color: var(--t-body-bg);
     }
-    
+
     .p-card {
         background-color: var(--t-card-bg);
         color: var(--t-text-color);

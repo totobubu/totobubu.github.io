@@ -948,30 +948,24 @@ async function generateNavJson() {
                 const backtestData = stockData.backtestData || [];
                 const tickerInfoFromData =
                     (stockData && stockData.tickerInfo) || {};
-                const dividendDates = extractDividendDates(backtestData);
-                const { frequency: analyzedFrequency, group: analyzedGroup } =
-                    analyzeFrequencyAndGroup(dividendDates);
 
-                if (
-                    analyzedFrequency &&
-                    processedTicker.frequency !== analyzedFrequency
-                ) {
-                    processedTicker.frequency = analyzedFrequency;
-                } else if (
-                    !processedTicker.frequency &&
-                    tickerInfoFromData.frequency
-                ) {
-                    processedTicker.frequency = tickerInfoFromData.frequency;
-                }
+                // 소스 파일에 frequency가 없을 때만 배당 데이터 분석 수행
+                if (!processedTicker.frequency) {
+                    const dividendDates = extractDividendDates(backtestData);
+                    const { frequency: analyzedFrequency, group: analyzedGroup } =
+                        analyzeFrequencyAndGroup(dividendDates);
 
-                if (analyzedGroup) {
-                    processedTicker.group = analyzedGroup;
-                } else if (
-                    (processedTicker.group === undefined ||
-                        processedTicker.group === null) &&
-                    tickerInfoFromData.group
-                ) {
-                    processedTicker.group = tickerInfoFromData.group;
+                    if (analyzedFrequency) {
+                        processedTicker.frequency = analyzedFrequency;
+                    } else if (tickerInfoFromData.frequency) {
+                        processedTicker.frequency = tickerInfoFromData.frequency;
+                    }
+
+                    if (analyzedGroup) {
+                        processedTicker.group = analyzedGroup;
+                    } else if (tickerInfoFromData.group) {
+                        processedTicker.group = tickerInfoFromData.group;
+                    }
                 }
 
                 const firstDividendEntry = backtestData.find(
