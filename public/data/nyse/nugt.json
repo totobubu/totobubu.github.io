@@ -2103,39 +2103,45 @@
             "low": 44840,
             "close": 45720,
             "volume": 515,
-            "amount": 2038,
+            "amount": 4076000.0,
             "yield": 0.0398981989,
             "amountOriginal": 0.00051,
             "amountSplitAdjustments": [
                 {
                     "date": "2013-04-02",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 10190.0
                 },
                 {
                     "date": "2013-08-20",
                     "ratio": "1:10",
-                    "factor": 0.1
+                    "factor": 0.1,
+                    "amountAfterSplit": 101900.0
                 },
                 {
                     "date": "2015-10-01",
                     "ratio": "1:10",
-                    "factor": 0.1
+                    "factor": 0.1,
+                    "amountAfterSplit": 1019000.0
                 },
                 {
                     "date": "2016-08-25",
                     "ratio": "5:1",
-                    "factor": 5
+                    "factor": 5,
+                    "amountAfterSplit": 203800.0
                 },
                 {
                     "date": "2017-05-01",
                     "ratio": "1:4",
-                    "factor": 0.25
+                    "factor": 0.25,
+                    "amountAfterSplit": 815200.0
                 },
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 4076000.0
                 }
             ]
         },
@@ -14738,14 +14744,15 @@
             "low": 109.55000305175781,
             "close": 111.4000015258789,
             "volume": 1062520,
-            "amount": 0.325,
+            "amount": 1.625,
             "yield": 0.0029017857,
             "amountOriginal": 0.013,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 1.625
                 }
             ]
         },
@@ -16308,14 +16315,15 @@
             "low": 82.9000015258789,
             "close": 86.1500015258789,
             "volume": 2004520,
-            "amount": 0.175,
+            "amount": 0.875,
             "yield": 0.0059171598,
             "amountOriginal": 0.007,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 0.875
                 }
             ]
         },
@@ -16758,14 +16766,15 @@
             "low": 95.9000015258789,
             "close": 96.1500015258789,
             "volume": 1399840,
-            "amount": 0.13,
+            "amount": 0.65,
             "yield": 0.0064024389,
             "amountOriginal": 0.0052,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 0.65
                 }
             ]
         },
@@ -17312,14 +17321,15 @@
             "low": 129.64999389648438,
             "close": 138.10000610351562,
             "volume": 4290880,
-            "amount": 0.25,
+            "amount": 1.25,
             "yield": 0.0037348585,
             "amountOriginal": 0.01,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 1.25
                 }
             ]
         },
@@ -18330,14 +18340,15 @@
             "low": 138.4499969482422,
             "close": 149.14999389648438,
             "volume": 2418020,
-            "amount": 0.71,
+            "amount": 3.55,
             "yield": 0.0090778611,
             "amountOriginal": 0.0284,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",
                     "ratio": "1:5",
-                    "factor": 0.2
+                    "factor": 0.2,
+                    "amountAfterSplit": 3.55
                 }
             ]
         },
@@ -24373,7 +24384,8 @@
             "close": 34.7599983215332,
             "volume": 4250300,
             "amount": 0.24,
-            "yield": 0.0072072074
+            "yield": 0.0072072074,
+            "amountOriginal": 0.24
         },
         {
             "date": "2022-12-21",
@@ -24863,7 +24875,8 @@
             "close": 36.20000076293945,
             "volume": 4050400,
             "amount": 0.053,
-            "yield": 0.0077842722
+            "yield": 0.0077842722,
+            "amountOriginal": 0.053
         },
         {
             "date": "2023-03-22",
@@ -25369,7 +25382,8 @@
             "close": 34.849998474121094,
             "volume": 2309600,
             "amount": 0.087,
-            "yield": 0.010957324
+            "yield": 0.010957324,
+            "amountOriginal": 0.087
         },
         {
             "date": "2023-06-22",
@@ -25867,7 +25881,8 @@
             "close": 32.06999969482422,
             "volume": 1709300,
             "amount": 0.11,
-            "yield": 0.014834999
+            "yield": 0.014834999,
+            "amountOriginal": 0.11
         },
         {
             "date": "2023-09-20",
@@ -26397,7 +26412,8 @@
             "close": 35.61000061035156,
             "volume": 1706800,
             "amount": 0.329,
-            "yield": 0.0163098592
+            "yield": 0.0163098592,
+            "amountOriginal": 0.329
         },
         {
             "date": "2023-12-22",
@@ -26871,7 +26887,8 @@
             "close": 29.219999313354492,
             "volume": 2082700,
             "amount": 0.198,
-            "yield": 0.0257369986
+            "yield": 0.0257369986,
+            "amountOriginal": 0.198
         },
         {
             "date": "2024-03-20",
@@ -27409,7 +27426,8 @@
             "close": 37.5099983215332,
             "volume": 1006800,
             "amount": 0.12,
-            "yield": 0.0199210526
+            "yield": 0.0199210526,
+            "amountOriginal": 0.12
         },
         {
             "date": "2024-06-26",
@@ -27915,7 +27933,8 @@
             "close": 53.77000045776367,
             "volume": 1855100,
             "amount": 0.066,
-            "yield": 0.013700999
+            "yield": 0.013700999,
+            "amountOriginal": 0.066
         },
         {
             "date": "2024-09-25",
@@ -28421,7 +28440,8 @@
             "close": 36.20000076293945,
             "volume": 1187700,
             "amount": 0.246,
-            "yield": 0.017563424
+            "yield": 0.017563424,
+            "amountOriginal": 0.246
         },
         {
             "date": "2024-12-24",
@@ -28911,7 +28931,8 @@
             "close": 59.619998931884766,
             "volume": 1627300,
             "amount": 0.148,
-            "yield": 0.0098321747
+            "yield": 0.0098321747,
+            "amountOriginal": 0.148
         },
         {
             "date": "2025-03-26",
@@ -29409,7 +29430,8 @@
             "close": 74.16999816894531,
             "volume": 1405200,
             "amount": 0.039,
-            "yield": 0.008451666
+            "yield": 0.008451666,
+            "amountOriginal": 0.039
         },
         {
             "date": "2025-06-25",
