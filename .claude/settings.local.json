@@ -24,7 +24,8 @@
       "Bash(PYTHONIOENCODING=utf-8 python:*)",
       "Bash(ls:*)",
       "Bash(find:*)",
-      "Bash(xargs -I {} sh -c 'count=$\\(grep -o \"\"\\\\\"\"type\\\\\"\": \\\\\"\"split\\\\\"\"\"\" {} | wc -l\\); if [ \"\"$count\"\" -ge 3 ]; then echo \"\"{}:$count\"\"; fi')"
+      "Bash(xargs -I {} sh -c 'count=$\\(grep -o \"\"\\\\\"\"type\\\\\"\": \\\\\"\"split\\\\\"\"\"\" {} | wc -l\\); if [ \"\"$count\"\" -ge 3 ]; then echo \"\"{}:$count\"\"; fi')",
+      "Bash(xcopy:*)"
     ],
     "deny": [],
     "ask": []

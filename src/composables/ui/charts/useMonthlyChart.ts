@@ -23,10 +23,9 @@ export function useMonthlyChart(options: MonthlyChartOptions) {
     const labels = reversedData.map((item) => item['배당락']);
 
     const parsedData = reversedData.map((item) => {
-        // 차트 표시용 금액: amountFixed (실제 받은 금액) 우선, 없으면 amount
-        const displayAmount = item.amountFixed !== undefined && item.amountFixed !== null
-            ? item.amountFixed
-            : (item.amount !== undefined && item.amount !== null ? item.amount : 0);
+        // 차트 표시용 금액: 배당금 필드 사용 (useStockData에서 이미 처리됨)
+        const 배당금 = item['배당금'];
+        const displayAmount = typeof 배당금 === 'number' ? 배당금 : 0;
 
         // Split 조정값 (툴팁용)
         const splitAdjusted = item.amount;

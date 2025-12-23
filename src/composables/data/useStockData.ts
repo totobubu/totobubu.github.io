@@ -261,42 +261,15 @@ export function useStockData() {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
 
-                        // 통화 정보 확인
-                        const currency = inferredCurrency || 'USD';
-                        const isKRW = currency === 'KRW';
-                        const currencySymbol = isKRW ? '₩' : '$';
-                        const locale = isKRW ? 'ko-KR' : 'en-US';
-
                         // 배당금 표시 로직:
-                        // - amountFixed: 실제 받은 금액 (가장 신뢰할 수 있는 값)
-                        // - amount: 최신 split 기준 조정된 값 (차트/계산용)
-                        // - amountSplitAdjustments: split 히스토리 (표시용)
+                        // - amount: 최신 split 기준 조정된 값 (차트 비교용, 추세 분석)
+                        // - amountFixed: 실제 받은 금액 (참고용)
 
-                        const actualReceived = item.amountFixed; // 실제 받은 금액
-                        const splitAdjusted = item.amount; // 최신 split 기준값
-                        const adjustments = item.amountSplitAdjustments;
-
-                        let 배당금값: string | number;
-
-                        // Split adjustments가 있으면 상세 정보 표시
-                        if (adjustments && adjustments.length > 0) {
-                            // 모든 split factor를 곱해서 총 비율 계산
-                            const totalFactor = adjustments.reduce((acc: number, adj: any) =>
-                                acc * adj.factor, 1);
-
-                            // 형식: "$0.9986 (10.0x = $9.986)"
-                            // actualReceived (실제 받은 금액) -> splitAdjusted (최신 기준 조정값)
-                            const multiplier = totalFactor === 0 ? 0 : 1 / totalFactor;
-                            배당금값 = `${currencySymbol}${(actualReceived || 0).toLocaleString(locale)} (${multiplier.toFixed(1)}x = ${currencySymbol}${(splitAdjusted || 0).toLocaleString(locale)})`;
-                        } else {
-                            // Split이 없으면 실제 받은 금액 또는 조정값 표시
-                            const displayAmount = actualReceived !== undefined && actualReceived !== null
-                                ? actualReceived
-                                : splitAdjusted;
-                            배당금값 = displayAmount !== undefined && displayAmount !== null
-                                ? displayAmount
-                                : 0;
-                        }
+                        // 배당금 표시값: amount 우선 (split 조정된 값, 추세 비교 가능)
+                        // amount가 없으면 amountFixed 사용
+                        const 배당금값 = item.amount !== undefined && item.amount !== null
+                            ? item.amount
+                            : (item.amountFixed !== undefined && item.amountFixed !== null ? item.amountFixed : 0);
 
                         return {
                             배당락: new Date(item.date)
