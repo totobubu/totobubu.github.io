@@ -21,28 +21,41 @@ export function useWeeklyChart(options: WeeklyChartOptions) {
     });
     const weekColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853', '#FF6D01'];
 
-    // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
+    // 월별 데이터 집계
     const monthlyAggregated = data.reduce((acc: any, item: any) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
         const yearMonth = `${date.getFullYear().toString().slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')}`;
         const weekOfMonth = Math.floor((date.getDate() - 1) / 7);
-        
-        // 우선순위에 따라 차트에 그려질 값 선택
-        let amount = 0;
-        if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
-            amount = item.amountOriginal;
-        } else if (item.amountFixed !== undefined && item.amountFixed !== null) {
-            amount = item.amountFixed;
-        } else {
-            amount = item.amount || 0;
+
+        // 차트 표시용 금액: amountFixed (실제 받은 금액) 우선, 없으면 amount
+        const displayAmount = item.amountFixed !== undefined && item.amountFixed !== null
+            ? item.amountFixed
+            : (item.amount !== undefined && item.amount !== null ? item.amount : 0);
+
+        // Split 조정값 (툴팁용)
+        const splitAdjusted = item.amount;
+        const hasSplits = item.amountSplitAdjustments && item.amountSplitAdjustments.length > 0;
+
+        if (!acc[yearMonth]) {
+            acc[yearMonth] = {
+                weeks: [0, 0, 0, 0, 0],
+                splitAdjusted: [0, 0, 0, 0, 0],
+                total: 0,
+                totalSplitAdjusted: 0,
+                hasSplits: false,
+            };
         }
 
-        if (!acc[yearMonth])
-            acc[yearMonth] = { weeks: [0, 0, 0, 0, 0], total: 0 };
         if (weekOfMonth < 5) {
-            acc[yearMonth].weeks[weekOfMonth] += amount;
-            acc[yearMonth].total += amount;
+            acc[yearMonth].weeks[weekOfMonth] += displayAmount;
+            acc[yearMonth].total += displayAmount;
+
+            if (hasSplits && splitAdjusted !== undefined) {
+                acc[yearMonth].splitAdjusted[weekOfMonth] += splitAdjusted;
+                acc[yearMonth].totalSplitAdjusted += splitAdjusted;
+                acc[yearMonth].hasSplits = true;
+            }
         }
         return acc;
     }, {});
@@ -91,7 +104,10 @@ export function useWeeklyChart(options: WeeklyChartOptions) {
             axisPointer: { type: 'shadow' },
             formatter: (params: any) => {
                 const month = params[0].name;
-                const total = monthlyAggregated[month].total;
+                const monthData = monthlyAggregated[month];
+                const total = monthData.total;
+                const totalSplitAdjusted = monthData.totalSplitAdjusted;
+
                 let tooltip = `${month}<br/>`;
                 params
                     .filter((p: any) => p.seriesName !== '월간 총액' && p.value > 0)
@@ -99,6 +115,15 @@ export function useWeeklyChart(options: WeeklyChartOptions) {
                         tooltip += `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value)}</strong><br/>`;
                     });
                 tooltip += `<strong>총액: ${formatCurrency(total)}</strong>`;
+
+                // Split이 있으면 조정값도 표시
+                if (monthData.hasSplits && totalSplitAdjusted !== total) {
+                    const multiplier = total > 0
+                        ? (totalSplitAdjusted / total).toFixed(1)
+                        : '0.0';
+                    tooltip += `<br/><span style="color: #888;">Split 조정: ${formatCurrency(totalSplitAdjusted)} (${multiplier}x)</span>`;
+                }
+
                 return tooltip;
             },
         },

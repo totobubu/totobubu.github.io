@@ -21,7 +21,7 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
     const formatCurrency = createNumericFormatter(currency);
     const quarterColors = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
 
-    // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
+    // 연도별 데이터 집계
     const yearlyData = data.reduce((acc: any, item: any) => {
         const date = parseYYMMDD(item['배당락']);
         if (!date) return acc;
@@ -30,21 +30,30 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
             aggregation === 'quarter'
                 ? Math.floor(date.getMonth() / 3)
                 : date.getMonth();
-        if (!acc[year])
-            acc[year] =
-                aggregation === 'quarter' ? [0, 0, 0, 0] : Array(12).fill(0);
-        
-        // 우선순위에 따라 차트에 그려질 값 선택
-        let finalAmount = 0;
-        if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
-            finalAmount = item.amountOriginal;
-        } else if (item.amountFixed !== undefined && item.amountFixed !== null) {
-            finalAmount = item.amountFixed;
-        } else {
-            finalAmount = item.amount || 0;
+
+        // 차트 표시용 금액: amountFixed (실제 받은 금액) 우선, 없으면 amount
+        const displayAmount = item.amountFixed !== undefined && item.amountFixed !== null
+            ? item.amountFixed
+            : (item.amount !== undefined && item.amount !== null ? item.amount : 0);
+
+        // Split 조정값 (툴팁용)
+        const splitAdjusted = item.amount;
+        const hasSplits = item.amountSplitAdjustments && item.amountSplitAdjustments.length > 0;
+
+        if (!acc[year]) {
+            acc[year] = {
+                amounts: aggregation === 'quarter' ? [0, 0, 0, 0] : Array(12).fill(0),
+                splitAdjusted: aggregation === 'quarter' ? [0, 0, 0, 0] : Array(12).fill(0),
+                hasSplits: false,
+            };
         }
-        
-        acc[year][subCategory] += finalAmount;
+
+        acc[year].amounts[subCategory] += displayAmount;
+        if (hasSplits && splitAdjusted !== undefined) {
+            acc[year].splitAdjusted[subCategory] += splitAdjusted;
+            acc[year].hasSplits = true;
+        }
+
         return acc;
     }, {});
 
@@ -74,7 +83,7 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
                 params.value > 0 ? formatCurrency(params.value) : '',
         },
         emphasis: { focus: 'series' },
-        data: years.map((year) => yearlyData[year][sc]),
+        data: years.map((year) => yearlyData[year].amounts[sc]),
         itemStyle: { color: colorMap[i] },
     }));
 
@@ -86,7 +95,7 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
             show: true,
             position: 'right',
             formatter: (params: any) => {
-                const total = yearlyData[params.name].reduce(
+                const total = yearlyData[params.name].amounts.reduce(
                     (sum: number, val: number) => sum + val,
                     0
                 );
@@ -104,10 +113,16 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
             axisPointer: { type: 'shadow' },
             formatter: (params: any) => {
                 const year = params[0].name;
-                const total = yearlyData[year].reduce(
+                const yearData = yearlyData[year];
+                const total = yearData.amounts.reduce(
                     (sum: number, val: number) => sum + val,
                     0
                 );
+                const totalSplitAdjusted = yearData.splitAdjusted.reduce(
+                    (sum: number, val: number) => sum + val,
+                    0
+                );
+
                 let tooltip = `${year}년<br/>`;
                 params
                     .filter((p: any) => p.seriesName !== '연간 총액' && p.value > 0)
@@ -115,6 +130,15 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
                         tooltip += `${p.marker} ${p.seriesName}: <strong>${formatCurrency(p.value)}</strong><br/>`;
                     });
                 tooltip += `<strong>총액: ${formatCurrency(total)}</strong>`;
+
+                // Split이 있으면 조정값도 표시
+                if (yearData.hasSplits && totalSplitAdjusted !== total) {
+                    const multiplier = total > 0
+                        ? (totalSplitAdjusted / total).toFixed(1)
+                        : '0.0';
+                    tooltip += `<br/><span style="color: #888;">Split 조정: ${formatCurrency(totalSplitAdjusted)} (${multiplier}x)</span>`;
+                }
+
                 return tooltip;
             },
         },

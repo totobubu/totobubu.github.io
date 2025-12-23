@@ -191,6 +191,8 @@ export function useBacktestData(): UseBacktestDataReturn {
                                 });
                             }
                             // 배당 정보 추가
+                            // NEW STRUCTURE: Use amountFixed as primary value (actual received amount)
+                            // For backtesting, we want the actual received amount, not split-adjusted
                             const amount =
                                 item.amountFixed !== undefined
                                     ? item.amountFixed
