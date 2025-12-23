@@ -22,7 +22,10 @@
       "Bash(chcp 65001)",
       "Bash(npx wrangler:*)",
       "Bash(PYTHONIOENCODING=utf-8 python:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(xargs -I {} sh -c 'count=$\\(grep -o \"\"\\\\\"\"type\\\\\"\": \\\\\"\"split\\\\\"\"\"\" {} | wc -l\\); if [ \"\"$count\"\" -ge 3 ]; then echo \"\"{}:$count\"\"; fi')",
+      "Bash(xcopy:*)"
     ],
     "deny": [],
     "ask": []

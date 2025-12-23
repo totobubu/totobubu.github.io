@@ -16,13 +16,20 @@ export interface TickerInfo {
     [key: string]: any;
 }
 
+export interface SplitAdjustment {
+    date: string;
+    ratio: string;
+    factor: number;
+    amountAfterSplit: number;
+}
+
 export interface DividendHistoryItem {
     배당락: string;
     배당금: string | number;
     amountOriginal?: number;
     amountFixed?: number;
-    amount?: number;
-    amountSplitAdjustments?: any[];
+    amount?: number;  // Now always a number (final split-adjusted value)
+    amountSplitAdjustments?: SplitAdjustment[];
     배당률?: number;
     전일종가?: number | null;
     당일시가?: number | null;
@@ -254,47 +261,15 @@ export function useStockData() {
                         const prevDayData = pricesWithIndex[item.index - 1];
                         const nextDayData = pricesWithIndex[item.index + 1];
 
-                        // 통화 정보 확인
-                        const currency = inferredCurrency || 'USD';
-                        const isKRW = currency === 'KRW';
-                        const currencySymbol = isKRW ? '₩' : '$';
-                        const locale = isKRW ? 'ko-KR' : 'en-US';
+                        // 배당금 표시 로직:
+                        // - amount: 최신 split 기준 조정된 값 (차트 비교용, 추세 분석)
+                        // - amountFixed: 실제 받은 금액 (참고용)
 
-                        // 배당금 필드 설정: 우선순위에 따라 값 선택
-                        // 1. amountOriginal (있으면 이것을 사용)
-                        // 2. amountFixed (amountOriginal이 없으면 이것)
-                        // 3. amount (둘 다 없으면 이것)
-                        let 배당금값: string | number = item.amountOriginal !== undefined && item.amountOriginal !== null
-                            ? item.amountOriginal
-                            : item.amountFixed !== undefined
-                                ? item.amountFixed
-                                : item.amount;
-
-                        // amountOriginal과 amountSplitAdjustments가 있으면 파싱 가능한 문자열 형식으로 변환
-                        // 형식: "amountOriginal (총비율:1 = amountFixed or amount)"
-                        if (
-                            item.amountOriginal != null &&
-                            Array.isArray(item.amountSplitAdjustments) &&
-                            item.amountSplitAdjustments.length > 0
-                        ) {
-                            // 최종값은 amountFixed 또는 amount (amountOriginal이 아님!)
-                            const finalAmount = item.amountFixed !== undefined && item.amountFixed !== null
-                                ? item.amountFixed
-                                : item.amount;
-                            const originalAmount = item.amountOriginal; // 원래 배당금
-
-                            // 모든 비율을 곱해서 총 비율 계산
-                            const totalRatio = item.amountSplitAdjustments.reduce((acc: number, adj: any) => {
-                                const [numerator, denominator] = adj.ratio.split(':').map(Number);
-                                if (denominator && denominator > 0) {
-                                    return acc * (numerator / denominator);
-                                }
-                                return acc;
-                            }, 1);
-
-                            // 형식: "$1.998 (0.5:1 = $0.999)" 또는 "₩129 (7.387:1 = ₩953)"
-                            배당금값 = `${currencySymbol}${originalAmount.toLocaleString(locale)} (${totalRatio.toFixed(3)} : 1 = ${currencySymbol}${finalAmount.toLocaleString(locale)})`;
-                        }
+                        // 배당금 표시값: amount 우선 (split 조정된 값, 추세 비교 가능)
+                        // amount가 없으면 amountFixed 사용
+                        const 배당금값 = item.amount !== undefined && item.amount !== null
+                            ? item.amount
+                            : (item.amountFixed !== undefined && item.amountFixed !== null ? item.amountFixed : 0);
 
                         return {
                             배당락: new Date(item.date)

@@ -1,5 +1,4 @@
 import { createNumericFormatter } from '@/utils/formatters';
-import { parseDividendAmount } from '@/utils/dividendParser';
 
 export interface ChartTheme {
     textColor: string;
@@ -22,35 +21,25 @@ export function useMonthlyChart(options: MonthlyChartOptions) {
 
     const reversedData = [...data].reverse();
     const labels = reversedData.map((item) => item['배당락']);
-    // 차트 value 우선순위: 1. amountOriginal, 2. amountFixed, 3. amount
+
     const parsedData = reversedData.map((item) => {
-        // 우선순위에 따라 차트에 그려질 값 선택
-        let finalAmount = 0;
-        let adjustedAmount: number | null = null; // amountFixed or amount (툴팁 표시용)
-        
-        if (item.amountOriginal !== undefined && item.amountOriginal !== null) {
-            finalAmount = item.amountOriginal;
-            // amountOriginal이 있으면 amountFixed 또는 amount를 툴팁용으로 저장
-            adjustedAmount = item.amountFixed !== undefined && item.amountFixed !== null
-                ? item.amountFixed
-                : item.amount;
-        } else if (item.amountFixed !== undefined && item.amountFixed !== null) {
-            finalAmount = item.amountFixed;
-        } else {
-            finalAmount = item.amount || 0;
-        }
-        
-        // 배당금 필드가 문자열이면 파싱해서 원래값 추출 (툴팁 표시용)
-        const parsed = parseDividendAmount(item['배당금']);
+        // 차트 표시용 금액: 배당금 필드 사용 (useStockData에서 이미 처리됨)
+        const 배당금 = item['배당금'];
+        const displayAmount = typeof 배당금 === 'number' ? 배당금 : 0;
+
+        // Split 조정값 (툴팁용)
+        const splitAdjusted = item.amount;
+        const hasSplits = item.amountSplitAdjustments && item.amountSplitAdjustments.length > 0;
+
         return {
             ...item,
-            finalAmount,
-            adjustedAmount,
-            originalAmount: parsed.originalAmount,
-            displayText: parsed.displayText,
+            displayAmount,
+            splitAdjusted,
+            hasSplits,
         };
     });
-    const dividendData = parsedData.map((item) => item.finalAmount);
+
+    const dividendData = parsedData.map((item) => item.displayAmount);
     const chartContainerHeight = `${Math.max(250, data.length * 40)}px`;
 
     const chartOptions = {
@@ -60,15 +49,18 @@ export function useMonthlyChart(options: MonthlyChartOptions) {
             formatter: (params: any) => {
                 const index = params[0].dataIndex;
                 const item = parsedData[index];
-                let tooltip = `${params[0].name}<br/>배당금 : <strong>${formatCurrency(params[0].value)}</strong>`;
-                // amountOriginal이 있는 경우: amountOriginal (= amountFixed or amount) 형식
-                if (item.adjustedAmount !== null && item.adjustedAmount !== params[0].value) {
-                    tooltip += ` (= ${formatCurrency(item.adjustedAmount)})`;
+                const receivedAmount = params[0].value; // 실제 받은 금액 (차트값)
+
+                let tooltip = `${params[0].name}<br/>배당금: <strong>${formatCurrency(receivedAmount)}</strong>`;
+
+                // Split이 있으면 조정값도 표시
+                if (item.hasSplits && item.splitAdjusted !== receivedAmount) {
+                    const multiplier = receivedAmount > 0
+                        ? (item.splitAdjusted / receivedAmount).toFixed(1)
+                        : '0.0';
+                    tooltip += `<br/><span style="color: #888;">Split 조정: ${formatCurrency(item.splitAdjusted)} (${multiplier}x)</span>`;
                 }
-                // amountOriginal이 없고 원래 배당금이 있는 경우 표시
-                else if (item.displayText) {
-                    tooltip += ` ${item.displayText}`;
-                }
+
                 return tooltip;
             },
         },
