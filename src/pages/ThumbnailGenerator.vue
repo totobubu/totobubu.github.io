@@ -292,11 +292,12 @@
                     );
                 }
 
+                // NEW STRUCTURE: Filter dividends using new amount structure
                 const allDividends = backtestData
                     .filter(
                         (d) =>
-                            d.amount !== undefined ||
-                            d.amountFixed !== undefined
+                            d.amountFixed != null ||
+                            d.amount != null
                     )
                     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -304,6 +305,7 @@
                     (d) => d.date === targetDate
                 );
 
+                // NEW STRUCTURE: Use amountFixed as primary value (actual received amount)
                 const currentDividend =
                     currentIndex !== -1
                         ? (allDividends[currentIndex].amountFixed ??

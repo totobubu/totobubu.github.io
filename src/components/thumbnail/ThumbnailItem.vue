@@ -40,6 +40,7 @@
                 }
             }
 
+            // NEW STRUCTURE: Use amountFixed as primary value (actual received amount)
             const amount = dividend.amountFixed ?? dividend.amount;
 
             if (!monthlyGroups[yearMonth]) {
