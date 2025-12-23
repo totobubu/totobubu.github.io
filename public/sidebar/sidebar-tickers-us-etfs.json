@@ -52,7 +52,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 16,
+        "popularity": 17,
         "koName": "라운드힐 위클리페이 유니버스 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -308,6 +308,22 @@
         "groupOrder": 999
     },
     {
+        "symbol": "TSII",
+        "isin": "US7615624043",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 7,
+        "koName": "렉스 테슬라 성장 및 배당 ETF",
+        "company": "Rex",
+        "logo": "logos/company/company-rex.png",
+        "frequency": "매주",
+        "group": "화",
+        "underlying": "TSLA",
+        "groupOrder": 2,
+        "groupLabels": ["화"]
+    },
+    {
         "symbol": "MSII",
         "isin": "US7615622062",
         "currency": "USD",
@@ -352,22 +368,6 @@
         "group": "MJD",
         "groupOrder": 999,
         "groupLabels": ["MJSD"]
-    },
-    {
-        "symbol": "TSII",
-        "isin": "US7615624043",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 6,
-        "koName": "렉스 테슬라 성장 및 배당 ETF",
-        "company": "Rex",
-        "logo": "logos/company/company-rex.png",
-        "frequency": "매주",
-        "group": "화",
-        "underlying": "TSLA",
-        "groupOrder": 2,
-        "groupLabels": ["화"]
     },
     {
         "symbol": "XDTE",
@@ -592,7 +592,7 @@
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
         "frequency": "매월",
-        "group": "OND",
+        "group": "MND",
         "underlying": "AMD",
         "groupOrder": 999,
         "groupLabels": ["목"]
@@ -884,6 +884,20 @@
         "groupOrder": 999
     },
     {
+        "symbol": "BITX",
+        "isin": "US92864M3016",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "비트코인 전략 2배 ETF",
+        "company": "2x",
+        "logo": "logos/company/company-2x.png",
+        "frequency": "매월",
+        "group": "MJJ",
+        "groupOrder": 999
+    },
+    {
         "symbol": "COSW",
         "isin": "US77926X5288",
         "currency": "USD",
@@ -943,7 +957,7 @@
         "frequency": "매월",
         "group": "AMN",
         "groupOrder": 999,
-        "yield": 0.011654
+        "yield": 0.011625
     },
     {
         "symbol": "FIAT",
@@ -1178,8 +1192,7 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
         "group": "MJD",
-        "groupOrder": 999,
-        "yield": 0.058493
+        "groupOrder": 999
     },
     {
         "symbol": "PLT",
@@ -1257,8 +1270,7 @@
         "frequency": "분기",
         "group": "MJD",
         "groupOrder": 999,
-        "groupLabels": ["MJSD"],
-        "yield": 0.002867
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "QQQY",
