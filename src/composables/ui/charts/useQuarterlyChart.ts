@@ -31,10 +31,9 @@ export function useQuarterlyChart(options: QuarterlyChartOptions) {
                 ? Math.floor(date.getMonth() / 3)
                 : date.getMonth();
 
-        // 차트 표시용 금액: amountFixed (실제 받은 금액) 우선, 없으면 amount
-        const displayAmount = item.amountFixed !== undefined && item.amountFixed !== null
-            ? item.amountFixed
-            : (item.amount !== undefined && item.amount !== null ? item.amount : 0);
+        // 차트 표시용 금액: 배당금 필드 사용 (useStockData에서 이미 처리됨)
+        const 배당금 = item['배당금'];
+        const displayAmount = typeof 배당금 === 'number' ? 배당금 : 0;
 
         // Split 조정값 (툴팁용)
         const splitAdjusted = item.amount;
