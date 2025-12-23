@@ -105,12 +105,13 @@
         const allHoldingsData = data.holdings || []; // 전체 시계열 데이터
 
         // 배당금이 있는 데이터만 필터링
+        // NEW STRUCTURE: Use amountFixed as primary value (actual received amount)
         const dividendHistory = backtestData
-            .filter((item) => item.amount || item.amountFixed)
+            .filter((item) => item.amountFixed != null || item.amount != null)
             .map((item) => ({
                 exDate: item.date,
                 payDate: item.date, // payDate가 없으면 exDate 사용
-                amount: item.amountFixed || item.amount || 0,
+                amount: item.amountFixed ?? item.amount ?? 0,
                 yield: item.yield || 0,
             }))
             .reverse(); // 최신순으로 정렬

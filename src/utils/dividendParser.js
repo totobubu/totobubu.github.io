@@ -1,18 +1,26 @@
 // src/utils/dividendParser.js
 
 /**
+ * @deprecated This utility is deprecated with the new amount structure (V2).
+ * The new structure uses:
+ * - amount: Always a number (final split-adjusted value)
+ * - amountFixed: Actual received amount
+ * - amountSplitAdjustments: Array of {date, ratio, factor, amountAfterSplit}
+ *
+ * This parser is kept for backward compatibility with old string-based dividend amounts.
+ *
  * 배당금 문자열에서 최종 계산값과 원래 배당금을 추출합니다.
- * 
+ *
  * @param {string|number} dividendAmount - 배당금 (문자열 또는 숫자)
  * @returns {{ finalAmount: number, originalAmount: number | null, displayText: string }}
  *   - finalAmount: 최종 계산된 배당금 (차트/계산에 사용)
  *   - originalAmount: 원래 배당금 (툴팁 표시용, 없으면 null)
  *   - displayText: 툴팁에 표시할 텍스트
- * 
+ *
  * @example
  * parseDividendAmount("₩1,266 (1.05:1 → 1.05:1 → 5:1 == ₩180)")
  * // returns { finalAmount: 180, originalAmount: 1266, displayText: "₩180 (= ₩1,266)" }
- * 
+ *
  * parseDividendAmount(500)
  * // returns { finalAmount: 500, originalAmount: null, displayText: "₩500" }
  */
