@@ -77,7 +77,7 @@
             "noDividends": true,
             "logo": "logos/company/etf-heungkuk.svg",
             "dataPaths": ["data/kosdaq/0000y0.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "0000Z0",
@@ -92,7 +92,7 @@
             "noDividends": true,
             "logo": "logos/company/etf-kbsec.svg",
             "dataPaths": ["data/kosdaq/0000z0.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "000100",
@@ -22465,7 +22465,7 @@
             "logo": "logos/company/company-activepassive.png",
             "dataPaths": ["data/nyse/apcb.json"],
             "periods": ["1Y", "2Y"],
-            "group": "JAN"
+            "group": "JND"
         },
         {
             "symbol": "APD",
@@ -23838,7 +23838,9 @@
             "currency": "USD",
             "logo": null,
             "dataPaths": ["data/nyse/beex.json"],
-            "periods": ["6M"]
+            "periods": ["6M"],
+            "frequency": "매년",
+            "group": "D"
         },
         {
             "symbol": "BEN",
@@ -24569,7 +24571,7 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/boed.json"],
             "periods": [],
-            "group": "JS"
+            "group": "JSD"
         },
         {
             "symbol": "BOEU",
@@ -27030,7 +27032,9 @@
             "koName": "디렉시온 시스코 시스템즈 데일리 2배 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/cscl.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "CSCO",
@@ -27061,7 +27065,9 @@
             "koName": "디렉시온 시스코 시스템즈 데일리 1배 인버스 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/cscs.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "CSGP",
@@ -29870,7 +29876,7 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/elis.json"],
             "periods": [],
-            "group": "JS"
+            "group": "JSD"
         },
         {
             "symbol": "ELV",
@@ -32724,7 +32730,9 @@
             "koName": "디렉시온 포드 데일리 1배 인버스 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/frdd.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "FRDM",
@@ -32756,7 +32764,9 @@
             "koName": "디렉시온 데일리 포드 2배 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/frdu.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "FREL",
@@ -34244,7 +34254,7 @@
             "koName": "반에크 대체 자산 매니저 ETF",
             "logo": "logos/company/company-vaneck.png",
             "dataPaths": ["data/nyse/gpz.json"],
-            "periods": ["6M"]
+            "periods": []
         },
         {
             "symbol": "GRAB",
@@ -39868,7 +39878,7 @@
             "ipoDate": "2015-05-28",
             "holdings": false,
             "frequency": "분기",
-            "group": "MJS",
+            "group": "MJD",
             "sharesOutstanding": false,
             "isin": "US25461H8530",
             "market": "NYSE",
@@ -40327,7 +40337,9 @@
             "koName": "디렉시온 록히드 마틴 데일리 1배 인버스 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/lmts.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "LMTW",
@@ -42704,7 +42716,7 @@
             "koName": "반에크 온체인 이코노미 ETF",
             "logo": "logos/company/company-vaneck.png",
             "dataPaths": ["data/nyse/node.json"],
-            "periods": ["6M"]
+            "periods": []
         },
         {
             "symbol": "NOW",
@@ -43677,7 +43689,7 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/pald.json"],
             "periods": [],
-            "group": "JS"
+            "group": "JSD"
         },
         {
             "symbol": "PALL",
@@ -45453,7 +45465,9 @@
             "koName": "디렉시온 퀄컴 데일리 1배 인버스 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/qcmd.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "QCML",
@@ -45483,7 +45497,9 @@
             "koName": "디렉시온 퀄컴 데일리 2배 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/qcmu.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "QCOM",
@@ -48440,7 +48456,9 @@
             "koName": "디렉시온 쇼피파이 데일리 1배 인버스 ETF",
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/shpd.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "SD"
         },
         {
             "symbol": "SHPU",
@@ -48996,8 +49014,8 @@
             "koName": "반에크 팹리스 반도체 ETF",
             "logo": "logos/company/company-vaneck.png",
             "dataPaths": ["data/nyse/smhx.json"],
-            "periods": ["6M", "1Y"],
             "frequency": "매년",
+            "periods": [],
             "group": "D"
         },
         {
@@ -51468,7 +51486,7 @@
             "currency": "USD",
             "logo": "logos/company/company-neos-funds.png",
             "dataPaths": ["data/nasdaq/tlti.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "JFD"
         },
         {
@@ -51594,7 +51612,7 @@
             "ipoDate": "2009-04-16",
             "holdings": true,
             "frequency": "분기",
-            "group": "MJS",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US25460G8490",
             "market": "NYSE",
@@ -56015,7 +56033,7 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/xomx.json"],
             "periods": [],
-            "group": "JS"
+            "group": "JSD"
         },
         {
             "symbol": "XOMZ",
@@ -56031,7 +56049,7 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/xomz.json"],
             "periods": [],
-            "group": "JS"
+            "group": "JSD"
         },
         {
             "symbol": "XOP",
