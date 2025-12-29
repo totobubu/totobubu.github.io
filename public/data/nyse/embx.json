@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-27 04:24:45 KST",
-        "regularMarketPrice": 50.979,
+        "Update": "2025-12-30 04:13:26 KST",
+        "regularMarketPrice": 50.61,
         "englishName": "VanEck Emerging Markets Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3236,
-        "AvgVolume": 17301,
+        "Volume": 981,
+        "AvgVolume": 17385,
         "sharesOutstanding": null,
         "52Week": "45.221237 - 54.61",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.979,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3236,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17301,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27156,15 +27169,6 @@
             "volume": 1800
         },
         {
-            "date": "2025-12-26",
-            "forecasted": true,
-            "open": 51.040001,
-            "high": 51.049999,
-            "low": 50.959999,
-            "close": 50.990002,
-            "volume": 5200
-        },
-        {
             "date": "2026-01-28",
             "forecasted": true
         },
@@ -27182,6 +27186,10 @@
         },
         {
             "date": "2026-05-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-06-26",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2025-12-27 04:24:45 KST",
-        "regularMarketPrice": 27.165,
+        "Update": "2025-12-30 04:13:26 KST",
+        "regularMarketPrice": 27.14,
         "englishName": "Kovitz Core Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4188,
-        "AvgVolume": 49927,
+        "Volume": 12946,
+        "AvgVolume": 49356,
         "sharesOutstanding": null,
         "52Week": "20.395 - 27.27",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.165,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4188,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 49927,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6242,7 +6255,9 @@
             "high": 27.219999,
             "low": 27.165001,
             "close": 27.216,
-            "volume": 8900
+            "volume": 8900,
+            "amount": 0.006,
+            "yield": 0.0030882352
         }
     ]
 }
