@@ -52,7 +52,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 18,
+        "popularity": 19,
         "koName": "라운드힐 위클리페이 유니버스 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -67,7 +67,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 15,
+        "popularity": 16,
         "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -82,7 +82,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 13,
+        "popularity": 14,
         "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
@@ -324,6 +324,36 @@
         "groupLabels": ["화"]
     },
     {
+        "symbol": "XDTE",
+        "isin": "US77926X2053",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 7,
+        "koName": "라운드힐 S&P 500 0DTE 커버드콜 전략 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["목"]
+    },
+    {
+        "symbol": "BLOX",
+        "isin": "US88636V7284",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 6,
+        "koName": "니콜라스 크립토 인컴 ETF",
+        "company": "Nicholas",
+        "logo": "logos/company/company-nicholas.png",
+        "frequency": "매주",
+        "group": "금",
+        "groupOrder": 5,
+        "groupLabels": ["금"]
+    },
+    {
         "symbol": "MSII",
         "isin": "US7615622062",
         "currency": "USD",
@@ -370,21 +400,6 @@
         "groupLabels": ["MJSD"]
     },
     {
-        "symbol": "XDTE",
-        "isin": "US77926X2053",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 6,
-        "koName": "라운드힐 S&P 500 0DTE 커버드콜 전략 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "목",
-        "groupOrder": 4,
-        "groupLabels": ["목"]
-    },
-    {
         "symbol": "AVGW",
         "isin": "US77926X6195",
         "currency": "USD",
@@ -413,21 +428,6 @@
         "frequency": "매월",
         "group": "FMD",
         "groupOrder": 999
-    },
-    {
-        "symbol": "BLOX",
-        "isin": "US88636V7284",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 5,
-        "koName": "니콜라스 크립토 인컴 ETF",
-        "company": "Nicholas",
-        "logo": "logos/company/company-nicholas.png",
-        "frequency": "매주",
-        "group": "금",
-        "groupOrder": 5,
-        "groupLabels": ["금"]
     },
     {
         "symbol": "COII",
@@ -972,7 +972,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011558
+        "yield": 0.011604
     },
     {
         "symbol": "FIAT",
@@ -1192,8 +1192,7 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
         "group": "MJD",
-        "groupOrder": 999,
-        "yield": 0.058632
+        "groupOrder": 999
     },
     {
         "symbol": "PLT",
@@ -1271,8 +1270,7 @@
         "frequency": "분기",
         "group": "MJD",
         "groupOrder": 999,
-        "groupLabels": ["MJSD"],
-        "yield": 0.002835
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "QQQY",
