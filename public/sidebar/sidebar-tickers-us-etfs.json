@@ -5,7 +5,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 39,
+        "popularity": 40,
         "koName": "일드맥스 울트라 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -67,7 +67,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 16,
+        "popularity": 17,
         "koName": "라운드힐 N-100 0DTE 커버드콜 전략 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -82,7 +82,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 14,
+        "popularity": 15,
         "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
@@ -96,7 +96,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 13,
+        "popularity": 14,
         "koName": "일드맥스 엔비디아 옵션배당 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -200,6 +200,22 @@
         "groupLabels": ["목"]
     },
     {
+        "symbol": "NVYY",
+        "isin": "US38747R4395",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 9,
+        "koName": "그래닛셰어즈 일드부스트 엔비디아 ETF",
+        "company": "GraniteShares",
+        "logo": "logos/company/company-graniteshares.png",
+        "frequency": "매주",
+        "group": "금",
+        "underlying": "NVDA",
+        "groupOrder": 5,
+        "groupLabels": ["금"]
+    },
+    {
         "symbol": "PLTW",
         "isin": "US77926X7268",
         "currency": "USD",
@@ -261,22 +277,6 @@
         "underlying": "HOOD",
         "groupOrder": 1,
         "groupLabels": ["월"]
-    },
-    {
-        "symbol": "NVYY",
-        "isin": "US38747R4395",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 8,
-        "koName": "그래닛셰어즈 일드부스트 엔비디아 ETF",
-        "company": "GraniteShares",
-        "logo": "logos/company/company-graniteshares.png",
-        "frequency": "매주",
-        "group": "금",
-        "underlying": "NVDA",
-        "groupOrder": 5,
-        "groupLabels": ["금"]
     },
     {
         "symbol": "TSLW",
@@ -972,7 +972,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011639
+        "yield": 0.011694
     },
     {
         "symbol": "FIAT",
