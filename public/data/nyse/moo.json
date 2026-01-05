@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 73.62,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 73.95,
         "englishName": "VanEck Agribusiness ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 824544000,
-        "Volume": 18803,
-        "AvgVolume": 59062,
+        "marketCap": 828239936,
+        "Volume": 102339,
+        "AvgVolume": 58943,
         "sharesOutstanding": 11200000,
         "52Week": "59.58 - 75.91",
-        "Yield": 0.015173,
+        "Yield": 0.015105,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US92189F7006",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.62,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 824544000,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18803,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59062,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.015173,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37071,7 +37092,8 @@
             "high": 73.849998,
             "low": 72.769997,
             "close": 73.68,
-            "volume": 26100
+            "volume": 26100,
+            "marketCap": 828239936
         }
     ]
 }

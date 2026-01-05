@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 26.4799,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 26.5445,
         "englishName": "Schwab U.S. TIPS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 3069020416,
-        "Volume": 2387001,
-        "AvgVolume": 3723043,
+        "marketCap": 3076507648,
+        "Volume": 2375145,
+        "AvgVolume": 3738479,
         "sharesOutstanding": 115900000,
         "52Week": "25.68 - 27.19",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.4799,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3069020416,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2387001,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3723043,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -403,7 +420,7 @@
             "close": 25.655000686645508,
             "volume": 30800,
             "amount": 0.0025,
-            "yield": 0.0000976181,
+            "yield": 9.76181e-5,
             "marketCap": 2973414579,
             "amountOriginal": 0.02,
             "amountSplitAdjustments": [

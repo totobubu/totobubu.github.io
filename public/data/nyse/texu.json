@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 24.565,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 25.98,
         "englishName": "Direxion Daily Energy Top 5 Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 545,
-        "AvgVolume": 1230,
+        "Volume": 13137,
+        "AvgVolume": 1238,
         "sharesOutstanding": null,
-        "52Week": "22.487 - 25.48",
+        "52Week": "22.487 - 26.2",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.565,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 545,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1230,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -491,7 +504,9 @@
             "high": 23.573299,
             "low": 23.4,
             "close": 23.4,
-            "volume": 254
+            "volume": 254,
+            "amount": 0.16,
+            "yield": 0.0068376068
         },
         {
             "date": "2025-12-24",

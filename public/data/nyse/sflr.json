@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 36.8746,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 37.16,
         "englishName": "Innovator Equity Managed Floor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 217981,
-        "AvgVolume": 181290,
+        "Volume": 188569,
+        "AvgVolume": 183637,
         "sharesOutstanding": null,
-        "52Week": "29.14 - 37.34",
+        "52Week": "29.14 - 37.455",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.8746,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 217981,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 181290,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6459,7 +6472,9 @@
             "high": 37.075001,
             "low": 36.860001,
             "close": 36.860001,
-            "volume": 144023
+            "volume": 144023,
+            "amount": 0.022,
+            "yield": 0.0042340882
         },
         {
             "date": "2026-01-02",
@@ -6470,7 +6485,7 @@
             "volume": 268800
         },
         {
-            "date": "2026-03-30",
+            "date": "2026-03-31",
             "forecasted": true
         },
         {

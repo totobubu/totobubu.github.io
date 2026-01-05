@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 36.2199,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 39.84,
         "englishName": "Direxion Daily Uranium Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 226777,
-        "AvgVolume": 145591,
+        "Volume": 161011,
+        "AvgVolume": 148367,
         "sharesOutstanding": null,
         "52Week": "8.729 - 62.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.2199,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 226777,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 145591,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3125,7 +3138,9 @@
             "high": 32.110001,
             "low": 31.0186,
             "close": 31.25,
-            "volume": 58311
+            "volume": 58311,
+            "amount": 0.108,
+            "yield": 0.0911323764
         },
         {
             "date": "2026-01-02",
@@ -3136,11 +3151,11 @@
             "volume": 257100
         },
         {
-            "date": "2026-03-23",
+            "date": "2026-03-31",
             "forecasted": true
         },
         {
-            "date": "2026-06-23",
+            "date": "2026-06-30",
             "forecasted": true
         }
     ]

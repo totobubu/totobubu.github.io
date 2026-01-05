@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 209.93,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 212.71,
         "englishName": "Republic Services, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 79028813824,
-        "marketCap": 65543462912,
-        "Volume": 508565,
-        "AvgVolume": 1478501,
+        "enterpriseValue": 78493270016,
+        "marketCap": 66411425792,
+        "Volume": 652069,
+        "AvgVolume": 1480074,
         "sharesOutstanding": 309563599,
-        "52Week": "199.43 - 258.75",
-        "Yield": 0.011266,
+        "52Week": "200.24 - 258.75",
+        "Yield": 0.011118,
         "dividendRate": 2.5,
         "payoutRatio": 0.3514,
         "isin": "US7607591002",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 209.93,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 79028813824,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 65543462912,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 508565,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1478501,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011266,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -62649,7 +62674,9 @@
             "high": 210.800003,
             "low": 209.240005,
             "close": 210.199997,
-            "volume": 1151600
+            "volume": 1151600,
+            "amount": 0.625,
+            "yield": 0.0142009022
         },
         {
             "date": "2026-04-02",

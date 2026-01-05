@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 53.98,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 54.0899,
         "englishName": "Jpmorgan Active Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 964636,
-        "AvgVolume": 905785,
+        "Volume": 372496,
+        "AvgVolume": 913733,
         "sharesOutstanding": null,
         "52Week": "51.645 - 55.785",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53.98,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 964636,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 905785,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4563,7 +4576,9 @@
             "high": 54.16,
             "low": 54.049999,
             "close": 54.07,
-            "volume": 1139371
+            "volume": 1139371,
+            "amount": 0.185,
+            "yield": 0.0474685892
         },
         {
             "date": "2026-01-02",
@@ -4574,27 +4589,27 @@
             "volume": 1586500
         },
         {
-            "date": "2026-01-15",
+            "date": "2026-01-30",
             "forecasted": true
         },
         {
-            "date": "2026-02-13",
+            "date": "2026-02-27",
             "forecasted": true
         },
         {
-            "date": "2026-03-13",
+            "date": "2026-03-27",
             "forecasted": true
         },
         {
-            "date": "2026-04-15",
+            "date": "2026-04-28",
             "forecasted": true
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-28",
             "forecasted": true
         },
         {
-            "date": "2026-06-15",
+            "date": "2026-06-26",
             "forecasted": true
         }
     ]

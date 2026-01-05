@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 91.2135,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 92.014,
         "englishName": "Fidelity Nasdaq Composite Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 602009088,
-        "Volume": 337416,
-        "AvgVolume": 294029,
+        "marketCap": 607292416,
+        "Volume": 294469,
+        "AvgVolume": 297525,
         "sharesOutstanding": 6600000,
         "52Week": "58.12 - 94.49",
-        "Yield": 0.003662,
+        "Yield": 0.00363,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US3159128087",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.2135,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 602009088,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 337416,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 294029,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.003662,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -547,7 +568,7 @@
             "close": 7.793000221252441,
             "volume": 1260000,
             "amount": 0.0007,
-            "yield": 0.0000894569,
+            "yield": 8.94569e-5,
             "marketCap": 51433801,
             "amountOriginal": 0.7,
             "amountSplitAdjustments": [

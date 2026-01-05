@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 9.955,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 10.565,
         "englishName": "MARA Holdings, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 6228851712,
-        "marketCap": 3764825088,
-        "Volume": 32480237,
-        "AvgVolume": 44680550,
+        "enterpriseValue": 6580562944,
+        "marketCap": 3995517440,
+        "Volume": 28555461,
+        "AvgVolume": 44431443,
         "sharesOutstanding": 378184353,
         "52Week": "8.95 - 23.45",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.955,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 6228851712,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3764825088,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 32480237,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 44680550,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30944,7 +30965,8 @@
             "high": 9.99,
             "low": 9.03,
             "close": 9.91,
-            "volume": 45296200
+            "volume": 45296200,
+            "marketCap": 3995517440
         }
     ]
 }

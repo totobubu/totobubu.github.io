@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 179.385,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 184.4,
         "englishName": "Molina Healthcare, Inc.",
         "earningsDate": "2026-02-05",
-        "enterpriseValue": 4324956160,
-        "marketCap": 9722667008,
-        "Volume": 787311,
-        "AvgVolume": 1684525,
+        "enterpriseValue": 4577844224,
+        "marketCap": 9994479616,
+        "Volume": 735897,
+        "AvgVolume": 1689161,
         "sharesOutstanding": 51400000,
         "52Week": "133.4 - 359.97",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 179.385,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4324956160,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 9722667008,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 787311,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1684525,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -50972,7 +50993,8 @@
             "high": 180.970001,
             "low": 171.25,
             "close": 178.460007,
-            "volume": 1335500
+            "volume": 1335500,
+            "marketCap": 9994479616
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 30.54,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 31.47,
         "englishName": "Kurv Gold Enhanced Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 66980,
-        "AvgVolume": 44530,
+        "Volume": 91870,
+        "AvgVolume": 45296,
         "sharesOutstanding": null,
         "52Week": "24.55 - 32.42",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.54,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 66980,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 44530,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1031,15 +1044,6 @@
             "volume": 48824
         },
         {
-            "date": "2026-01-02",
-            "forecasted": true,
-            "open": 30.98,
-            "high": 30.98,
-            "low": 30.5,
-            "close": 30.59,
-            "volume": 83500
-        },
-        {
             "date": "2026-02-03",
             "forecasted": true
         },
@@ -1057,6 +1061,10 @@
         },
         {
             "date": "2026-06-03",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-03",
             "forecasted": true
         }
     ]

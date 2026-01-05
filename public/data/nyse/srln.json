@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 41.275,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 41.32,
         "englishName": "State Street Blackstone Senior Loan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1680675,
-        "AvgVolume": 3969590,
+        "Volume": 1293270,
+        "AvgVolume": 3924633,
         "sharesOutstanding": null,
         "52Week": "39.08 - 42.03",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.275,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1680675,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3969590,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -189,7 +202,7 @@
             "close": 50.18000030517578,
             "volume": 70300,
             "amount": 0.003,
-            "yield": 0.000059761
+            "yield": 5.9761e-5
         },
         {
             "date": "2013-05-02",

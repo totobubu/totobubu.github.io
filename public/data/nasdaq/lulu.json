@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 210.8,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 214.26,
         "englishName": "lululemon athletica inc.",
         "earningsDate": "2025-12-11",
-        "enterpriseValue": 25104291840,
-        "marketCap": 24998594560,
-        "Volume": 1578779,
-        "AvgVolume": 4350112,
+        "enterpriseValue": 25456209920,
+        "marketCap": 25408913408,
+        "Volume": 1988134,
+        "AvgVolume": 4340320,
         "sharesOutstanding": 112190041,
         "52Week": "159.25 - 423.32",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 210.8,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 25104291840,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24998594560,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1578779,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4350112,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41756,7 +41777,8 @@
             "high": 212.080002,
             "low": 208.559998,
             "close": 210.809998,
-            "volume": 2410800
+            "volume": 2410800,
+            "marketCap": 25408913408
         }
     ]
 }

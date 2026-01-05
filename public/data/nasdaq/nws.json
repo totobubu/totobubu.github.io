@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 29.71,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 30.13,
         "englishName": "News Corporation",
         "earningsDate": "2025-11-06",
-        "enterpriseValue": 17966518272,
-        "marketCap": 16567289856,
-        "Volume": 234925,
-        "AvgVolume": 900562,
-        "sharesOutstanding": 185853935,
+        "enterpriseValue": 18045128704,
+        "marketCap": 16792413184,
+        "Volume": 349180,
+        "AvgVolume": 893343,
+        "sharesOutstanding": 185762519,
         "52Week": "26.25 - 35.58",
-        "Yield": 0.006732,
+        "Yield": 0.006638,
         "dividendRate": 0.2,
         "payoutRatio": 0.241,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.71,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 17966518272,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 16567289856,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 234925,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 900562,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 185853935,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006732,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28435,7 +28464,8 @@
             "high": 29.99,
             "low": 29.290001,
             "close": 29.77,
-            "volume": 589500
+            "volume": 589500,
+            "marketCap": 16792413184
         }
     ]
 }

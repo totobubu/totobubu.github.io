@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 106.12,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 105.063,
         "englishName": "NetApp, Inc.",
         "earningsDate": "2025-11-25",
-        "enterpriseValue": 20929282048,
-        "marketCap": 21183504384,
-        "Volume": 861190,
-        "AvgVolume": 1919962,
+        "enterpriseValue": 20806486016,
+        "marketCap": 20972507136,
+        "Volume": 808355,
+        "AvgVolume": 1929069,
         "sharesOutstanding": 198060348,
         "52Week": "71.84 - 127.78",
-        "Yield": 0.0196,
+        "Yield": 0.019798,
         "dividendRate": 2.08,
         "payoutRatio": 0.3624,
         "isin": "US64110D1046",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.12,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 20929282048,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21183504384,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 861190,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1919962,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.0196,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68302,16 +68327,11 @@
             "volume": 1072228
         },
         {
-            "date": "2026-01-02",
-            "forecasted": true,
-            "open": 107.650002,
-            "high": 107.959999,
-            "low": 105.239998,
-            "close": 106.470001,
-            "volume": 1829900
+            "date": "2026-04-03",
+            "forecasted": true
         },
         {
-            "date": "2026-04-03",
+            "date": "2026-07-03",
             "forecasted": true
         }
     ]

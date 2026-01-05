@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 4.1701,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 4.335,
         "englishName": "Recursion Pharmaceuticals, Inc.",
         "earningsDate": "2025-11-05",
-        "enterpriseValue": 1554502656,
-        "marketCap": 2173718016,
-        "Volume": 12859228,
-        "AvgVolume": 41061885,
+        "enterpriseValue": 1611841536,
+        "marketCap": 2259674112,
+        "Volume": 12521919,
+        "AvgVolume": 40529475,
         "sharesOutstanding": 514190251,
         "52Week": "3.79 - 12.36",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.1701,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 1554502656,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 2173718016,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12859228,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 41061885,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9521,7 +9542,8 @@
             "high": 4.23,
             "low": 4.12,
             "close": 4.2,
-            "volume": 16117000
+            "volume": 16117000,
+            "marketCap": 2259674112
         }
     ]
 }

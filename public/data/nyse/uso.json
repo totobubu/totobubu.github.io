@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 69.07,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 70.175,
         "englishName": "United States Oil Fund, LP",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 8226236928,
-        "Volume": 3073301,
-        "AvgVolume": 5055772,
+        "marketCap": 8357842944,
+        "Volume": 4231085,
+        "AvgVolume": 5029232,
         "sharesOutstanding": 119100000,
         "52Week": "60.67 - 84.58",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.07,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 8226236928,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3073301,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5055772,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44689,7 +44706,8 @@
             "high": 69.150002,
             "low": 68.150002,
             "close": 68.959999,
-            "volume": 5011500
+            "volume": 5011500,
+            "marketCap": 8357842944
         }
     ]
 }

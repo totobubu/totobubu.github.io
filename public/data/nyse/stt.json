@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 128.18,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 134.465,
         "englishName": "State Street Corporation",
         "earningsDate": "2026-01-16",
-        "enterpriseValue": -45766901760,
-        "marketCap": 36364066816,
-        "Volume": 1104622,
-        "AvgVolume": 2006622,
+        "enterpriseValue": -45750145024,
+        "marketCap": 38147092480,
+        "Volume": 839638,
+        "AvgVolume": 2013427,
         "sharesOutstanding": 279312436,
-        "52Week": "72.81 - 133.0",
-        "Yield": 0.024341,
+        "52Week": "72.81 - 134.55",
+        "Yield": 0.023203,
         "dividendRate": 3.36,
         "payoutRatio": 0.3312,
         "isin": "US8574771031",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 128.18,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": -45766901760,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 36364066816,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1104622,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2006622,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.024341,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105163,14 +105188,16 @@
             "high": 129.119995,
             "low": 127.019997,
             "close": 129.070007,
-            "volume": 2217700
+            "volume": 2217700,
+            "amount": 0.84,
+            "yield": 0.0307955527
         },
         {
-            "date": "2026-04-01",
+            "date": "2026-04-02",
             "forecasted": true
         },
         {
-            "date": "2026-07-01",
+            "date": "2026-07-02",
             "forecasted": true
         }
     ]

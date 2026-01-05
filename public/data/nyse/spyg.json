@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 106.585,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 107.1597,
         "englishName": "State Street SPDR Portfolio S&P 500 Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 14730046464,
-        "Volume": 2445635,
-        "AvgVolume": 3181970,
+        "marketCap": 14809469952,
+        "Volume": 2218779,
+        "AvgVolume": 3190801,
         "sharesOutstanding": 138200000,
         "52Week": "68.65 - 109.63",
-        "Yield": 0.004316,
+        "Yield": 0.004293,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78464A4094",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.585,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 14730046464,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2445635,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3181970,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.004316,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -520,7 +541,7 @@
             "close": 19.0625,
             "volume": 101600,
             "amount": 0.0015,
-            "yield": 0.0000789474,
+            "yield": 7.89474e-5,
             "marketCap": 2634437500,
             "amountOriginal": 0.096,
             "amountSplitAdjustments": [

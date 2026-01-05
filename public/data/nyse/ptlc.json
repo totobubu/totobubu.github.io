@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 55.63,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 56.12,
         "englishName": "Pacer Trendpilot US Large Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 4236224512,
-        "Volume": 150962,
-        "AvgVolume": 143637,
+        "marketCap": 4273537792,
+        "Volume": 113895,
+        "AvgVolume": 144558,
         "sharesOutstanding": 76150000,
         "52Week": "47.13 - 56.975",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.63,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 4236224512,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 150962,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 143637,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24016,7 +24033,8 @@
             "high": 56.005001,
             "low": 55.445,
             "close": 55.709999,
-            "volume": 207600
+            "volume": 207600,
+            "marketCap": 4273537792
         }
     ]
 }

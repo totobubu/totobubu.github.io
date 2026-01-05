@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 123.05,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 123.805,
         "englishName": "iShares S&P 500 Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 16094940160,
-        "Volume": 2755729,
-        "AvgVolume": 2419522,
+        "marketCap": 16193693696,
+        "Volume": 2086347,
+        "AvgVolume": 2453767,
         "sharesOutstanding": 130800000,
         "52Week": "79.31 - 126.61",
-        "Yield": 0.003551,
+        "Yield": 0.00353,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642873099",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 123.05,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 16094940160,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2755729,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2419522,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.003551,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -196,7 +217,7 @@
             "close": 22.828125,
             "volume": 20800,
             "amount": 0.0015,
-            "yield": 0.0000658888,
+            "yield": 6.58888e-5,
             "marketCap": 2985918750,
             "amountOriginal": 0.096,
             "amountSplitAdjustments": [

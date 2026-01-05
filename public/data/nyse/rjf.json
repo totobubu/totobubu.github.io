@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 163.21,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 168.455,
         "englishName": "Raymond James Financial, Inc.",
         "earningsDate": "2025-10-22",
-        "enterpriseValue": 20650866688,
-        "marketCap": 32541458432,
-        "Volume": 488763,
-        "AvgVolume": 1249630,
+        "enterpriseValue": 21242855424,
+        "marketCap": 33587226624,
+        "Volume": 816623,
+        "AvgVolume": 1258846,
         "sharesOutstanding": 196673933,
         "52Week": "117.57 - 177.66",
-        "Yield": 0.012254,
+        "Yield": 0.011873,
         "dividendRate": 2.16,
         "payoutRatio": 0.1942,
         "isin": "US7547301090",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 163.21,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 20650866688,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 32541458432,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 488763,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1249630,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.012254,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -99863,14 +99888,16 @@
             "high": 163.759995,
             "low": 159.639999,
             "close": 163.600006,
-            "volume": 1428600
+            "volume": 1428600,
+            "amount": 0.54,
+            "yield": 0.0158522128
         },
         {
-            "date": "2026-04-01",
+            "date": "2026-04-02",
             "forecasted": true
         },
         {
-            "date": "2026-07-01",
+            "date": "2026-07-02",
             "forecasted": true
         }
     ]

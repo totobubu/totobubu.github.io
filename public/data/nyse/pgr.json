@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 212.365,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 214.3267,
         "englishName": "The Progressive Corporation",
         "earningsDate": "2026-01-28",
-        "enterpriseValue": 138742382592,
-        "marketCap": 124488368128,
-        "Volume": 1714660,
-        "AvgVolume": 3474556,
+        "enterpriseValue": 129594580992,
+        "marketCap": 125638311936,
+        "Volume": 1898766,
+        "AvgVolume": 3494611,
         "sharesOutstanding": 586200000,
         "52Week": "199.9 - 292.99",
-        "Yield": 0.023073,
+        "Yield": 0.022862,
         "dividendRate": 13.9,
         "payoutRatio": 0.2689,
         "isin": "US7433151039",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 212.365,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 138742382592,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 124488368128,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1714660,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3474556,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.023073,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105407,7 +105432,9 @@
             "high": 214.339996,
             "low": 210.410004,
             "close": 212.119995,
-            "volume": 3318300
+            "volume": 3318300,
+            "amount": 13.6,
+            "yield": 0.0863114694
         },
         {
             "date": "2026-04-02",

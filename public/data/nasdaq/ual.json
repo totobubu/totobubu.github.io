@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 112.81,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 116.04,
         "englishName": "United Airlines Holdings, Inc.",
         "earningsDate": "2026-01-20",
-        "enterpriseValue": 54193381376,
-        "marketCap": 36520882176,
-        "Volume": 1403332,
-        "AvgVolume": 5875279,
+        "enterpriseValue": 54578630656,
+        "marketCap": 37566554112,
+        "Volume": 2402925,
+        "AvgVolume": 5846514,
         "sharesOutstanding": 323737989,
-        "52Week": "52.0 - 116.32",
+        "52Week": "52.0 - 116.34",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 112.81,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 54193381376,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 36520882176,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1403332,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5875279,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -45081,7 +45102,8 @@
             "high": 113.57,
             "low": 110.959999,
             "close": 113.010002,
-            "volume": 2620200
+            "volume": 2620200,
+            "marketCap": 37566554112
         }
     ]
 }

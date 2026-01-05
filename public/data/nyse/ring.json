@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 72.57,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 76.475,
         "englishName": "iShares MSCI Global Gold Miners ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 834555008,
-        "Volume": 413167,
-        "AvgVolume": 601816,
+        "marketCap": 879462464,
+        "Volume": 318089,
+        "AvgVolume": 610204,
         "sharesOutstanding": 11500000,
         "52Week": "28.6 - 78.7",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.57,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 834555008,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 413167,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 601816,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31764,7 +31781,8 @@
             "high": 75,
             "low": 71.610001,
             "close": 73.559998,
-            "volume": 821800
+            "volume": 821800,
+            "marketCap": 879462464
         }
     ]
 }

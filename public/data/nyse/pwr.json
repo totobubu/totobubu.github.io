@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 437.6,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 436.7,
         "englishName": "Quanta Services, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 68351553536,
-        "marketCap": 65253113856,
-        "Volume": 562411,
-        "AvgVolume": 1009283,
+        "enterpriseValue": 70978977792,
+        "marketCap": 65118908416,
+        "Volume": 637483,
+        "AvgVolume": 1013356,
         "sharesOutstanding": 149115887,
         "52Week": "227.08 - 473.99",
-        "Yield": 0.000914,
+        "Yield": 0.000916,
         "dividendRate": 0.44,
         "payoutRatio": 0.0593,
         "isin": "US74762E1029",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 437.6,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 68351553536,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 65253113856,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 562411,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1009283,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.000914,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -63190,14 +63215,16 @@
             "high": 441.970001,
             "low": 424.950012,
             "close": 439.679993,
-            "volume": 887000
+            "volume": 887000,
+            "amount": 0.11,
+            "yield": 0.0012001412
         },
         {
-            "date": "2026-04-01",
+            "date": "2026-04-02",
             "forecasted": true
         },
         {
-            "date": "2026-07-01",
+            "date": "2026-07-02",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 14.3255,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 14.75,
         "englishName": "Riot Platforms, Inc.",
         "earningsDate": "2025-10-30",
-        "enterpriseValue": 5251901952,
-        "marketCap": 5326323712,
-        "Volume": 13812577,
-        "AvgVolume": 20941253,
+        "enterpriseValue": 5805894656,
+        "marketCap": 5484156416,
+        "Volume": 9503605,
+        "AvgVolume": 20641895,
         "sharesOutstanding": 371807186,
         "52Week": "6.19 - 23.935",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.3255,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 5251901952,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 5326323712,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13812577,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20941253,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19678,7 +19699,8 @@
             "high": 14.395,
             "low": 12.646,
             "close": 14.16,
-            "volume": 21631600
+            "volume": 21631600,
+            "marketCap": 5484156416
         }
     ]
 }

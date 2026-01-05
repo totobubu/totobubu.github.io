@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-03 04:24:41 KST",
-        "regularMarketPrice": 58.4001,
+        "Update": "2026-01-06 04:26:23 KST",
+        "regularMarketPrice": 59.99,
         "englishName": "PayPal Holdings, Inc.",
         "earningsDate": "2025-10-28",
-        "enterpriseValue": 56035360768,
-        "marketCap": 55794196480,
-        "Volume": 9600773,
-        "AvgVolume": 16810806,
+        "enterpriseValue": 55810805760,
+        "marketCap": 57313153024,
+        "Volume": 10955825,
+        "AvgVolume": 16850445,
         "sharesOutstanding": 935651953,
         "52Week": "55.85 - 93.245",
-        "Yield": 0.002397,
+        "Yield": 0.002334,
         "dividendRate": 0.56,
         "payoutRatio": 0,
         "isin": "US70450Y1038",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.4001,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 56035360768,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 55794196480,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9600773,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16810806,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.002397,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23769,7 +23794,8 @@
             "high": 58.799999,
             "low": 57.650002,
             "close": 58.139999,
-            "volume": 14677400
+            "volume": 14677400,
+            "marketCap": 57313153024
         }
     ]
 }
