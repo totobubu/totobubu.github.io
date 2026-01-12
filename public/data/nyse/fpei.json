@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 19.495,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 19.485,
         "englishName": "First Trust Institutional Preferred Securities and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 213925,
-        "AvgVolume": 315603,
+        "Volume": 216793,
+        "AvgVolume": 317122,
         "sharesOutstanding": null,
         "52Week": "17.805 - 19.53",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.495,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 213925,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 315603,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17099,10 +17112,6 @@
             "volume": 427555
         },
         {
-            "date": "2026-01-12",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-12",
             "forecasted": true
         },
@@ -17120,6 +17129,10 @@
         },
         {
             "date": "2026-06-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-10",
             "forecasted": true
         }
     ]

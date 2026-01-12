@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 19.6,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 19.67,
         "englishName": "GraniteShares YieldBOOST META ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2085,
-        "AvgVolume": 1924,
+        "Volume": 830,
+        "AvgVolume": 1927,
         "sharesOutstanding": null,
         "52Week": "19.28 - 25.883",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.6,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2085,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1924,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -498,7 +511,8 @@
         },
         {
             "date": "2026-01-09",
-            "expected": true
+            "expected": true,
+            "amount": 0.186
         },
         {
             "date": "2026-01-16",

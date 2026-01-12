@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 21.26,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 21.2697,
         "englishName": "First Trust Core Investment Grade ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 376620,
-        "AvgVolume": 474448,
+        "Volume": 420667,
+        "AvgVolume": 480800,
         "sharesOutstanding": null,
         "52Week": "18.76 - 21.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.26,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 376620,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 474448,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4438,10 +4451,6 @@
             "volume": 688353
         },
         {
-            "date": "2026-01-12",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-12",
             "forecasted": true
         },
@@ -4459,6 +4468,10 @@
         },
         {
             "date": "2026-06-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-10",
             "forecasted": true
         }
     ]

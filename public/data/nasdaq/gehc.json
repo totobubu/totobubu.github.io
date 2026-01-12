@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 86.935,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 86.46,
         "englishName": "GE HealthCare Technologies Inc.",
         "earningsDate": "2026-02-04",
-        "enterpriseValue": 47124783104,
-        "marketCap": 39691218944,
-        "Volume": 1452707,
-        "AvgVolume": 3501322,
+        "enterpriseValue": 46723923968,
+        "marketCap": 39474356224,
+        "Volume": 981555,
+        "AvgVolume": 3436417,
         "sharesOutstanding": 455521592,
         "52Week": "57.65 - 94.8",
-        "Yield": 0.00161,
+        "Yield": 0.001619,
         "dividendRate": 0.14,
         "payoutRatio": 0.028,
         "isin": "US36266G1076",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 86.935,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 47124783104,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 39691218944,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1452707,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3501322,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.00161,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6921,11 +6946,15 @@
             "volume": 4187169
         },
         {
-            "date": "2026-01-23",
+            "date": "2026-01-09",
+            "amount": 0.035
+        },
+        {
+            "date": "2026-04-09",
             "forecasted": true
         },
         {
-            "date": "2026-04-24",
+            "date": "2026-07-09",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 19.185,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 19.1889,
         "englishName": "First Trust Limited Duration Investment Grade Corporate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 247709,
-        "AvgVolume": 359191,
+        "Volume": 588770,
+        "AvgVolume": 359088,
         "sharesOutstanding": null,
         "52Week": "18.7 - 19.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.185,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 247709,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 359191,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8432,10 +8445,6 @@
             "volume": 985372
         },
         {
-            "date": "2026-01-12",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-12",
             "forecasted": true
         },
@@ -8453,6 +8462,10 @@
         },
         {
             "date": "2026-06-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-10",
             "forecasted": true
         }
     ]

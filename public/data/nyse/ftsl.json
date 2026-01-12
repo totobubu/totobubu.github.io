@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-10 04:17:44 KST",
-        "regularMarketPrice": 46.035,
+        "Update": "2026-01-13 04:30:56 KST",
+        "regularMarketPrice": 46.065,
         "englishName": "First Trust Senior Loan Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 109572,
-        "AvgVolume": 258690,
+        "Volume": 148149,
+        "AvgVolume": 255537,
         "sharesOutstanding": null,
         "52Week": "44.3 - 46.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.035,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 109572,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 258690,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25889,10 +25902,6 @@
             "volume": 215096
         },
         {
-            "date": "2026-01-12",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-12",
             "forecasted": true
         },
@@ -25910,6 +25919,10 @@
         },
         {
             "date": "2026-06-12",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-10",
             "forecasted": true
         }
     ]
