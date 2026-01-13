@@ -82,7 +82,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 15,
+        "popularity": 16,
         "koName": "JP모건 나스닥 프리미엄 인컴 ETF",
         "company": "J.P. Morgan",
         "logo": "logos/company/company-jpmorgan.png",
@@ -279,6 +279,19 @@
         "groupLabels": ["월"]
     },
     {
+        "symbol": "JEPI",
+        "isin": "US46641Q3323",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 8,
+        "company": "J.P. Morgan",
+        "logo": "logos/company/company-jpmorgan.png",
+        "frequency": "매월",
+        "group": "JAD",
+        "groupOrder": 999
+    },
+    {
         "symbol": "TSLW",
         "isin": "US77926X6922",
         "currency": "USD",
@@ -293,19 +306,6 @@
         "underlying": "TSLA",
         "groupOrder": 1,
         "groupLabels": ["월"]
-    },
-    {
-        "symbol": "JEPI",
-        "isin": "US46641Q3323",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 7,
-        "company": "J.P. Morgan",
-        "logo": "logos/company/company-jpmorgan.png",
-        "frequency": "매월",
-        "group": "JAD",
-        "groupOrder": 999
     },
     {
         "symbol": "TSII",
@@ -856,6 +856,22 @@
         "groupLabels": ["목"]
     },
     {
+        "symbol": "AMZY",
+        "isin": "US88634T8403",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "일드맥스 아마존 옵션배당 전략 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매월",
+        "group": "OND",
+        "underlying": "AMZN",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
+    },
+    {
         "symbol": "APLY",
         "isin": "US88634T8577",
         "currency": "USD",
@@ -988,7 +1004,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011357
+        "yield": 0.011349
     },
     {
         "symbol": "FIAT",
@@ -1224,7 +1240,8 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
         "group": "MJD",
-        "groupOrder": 999
+        "groupOrder": 999,
+        "yield": 0.057676
     },
     {
         "symbol": "PLT",
@@ -1302,7 +1319,8 @@
         "frequency": "분기",
         "group": "MJD",
         "groupOrder": 999,
-        "groupLabels": ["MJSD"]
+        "groupLabels": ["MJSD"],
+        "yield": 0.002817
     },
     {
         "symbol": "QQQY",
