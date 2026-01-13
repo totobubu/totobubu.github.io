@@ -7305,7 +7305,54 @@
             "high": 66.644997,
             "low": 65.949997,
             "close": 66.285004,
-            "volume": 2829620
+            "volume": 2829620,
+            "holdings": [
+                {
+                    "symbol": "Amazon.com",
+                    "name": "Amazon.com",
+                    "weight": 15.15,
+                    "type": "other"
+                },
+                {
+                    "symbol": "Tesla",
+                    "name": "Tesla",
+                    "weight": 14.13,
+                    "type": "other"
+                },
+                {
+                    "symbol": "NVIDIA",
+                    "name": "NVIDIA",
+                    "weight": 14.0,
+                    "type": "other"
+                },
+                {
+                    "symbol": "Microsoft",
+                    "name": "Microsoft",
+                    "weight": 13.98,
+                    "type": "equity"
+                },
+                {
+                    "symbol": "Meta Platforms",
+                    "name": "Meta Platforms",
+                    "weight": 13.79,
+                    "type": "other"
+                },
+                {
+                    "symbol": "Apple",
+                    "name": "Apple",
+                    "weight": 13.56,
+                    "type": "other"
+                }
+            ],
+            "leverage_exposure": [
+                {
+                    "symbol": "ALPHABET INC SWAP",
+                    "name": "ALPHABET INC SWAP",
+                    "weight": 15.05,
+                    "type": "swap",
+                    "underlying": "ALPH"
+                }
+            ]
         }
     ]
 }
