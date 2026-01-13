@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-13 04:30:56 KST",
-        "regularMarketPrice": 22.91,
+        "Update": "2026-01-14 04:19:05 KST",
+        "regularMarketPrice": 23.335,
         "englishName": "Hormel Foods Corporation",
         "earningsDate": "2025-12-04",
-        "enterpriseValue": 15115458560,
-        "marketCap": 12602957824,
-        "Volume": 2215423,
-        "AvgVolume": 5038956,
+        "enterpriseValue": 14906418176,
+        "marketCap": 12836752384,
+        "Volume": 2155182,
+        "AvgVolume": 5023204,
         "sharesOutstanding": 550107295,
         "52Week": "21.03 - 32.07",
-        "Yield": 0.050633,
+        "Yield": 0.049711,
         "dividendRate": 1.17,
         "payoutRatio": 1.3333,
         "isin": "US4404521001",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.91,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 15115458560,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12602957824,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2215423,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5038956,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.050633,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15620,7 +15645,7 @@
             "close": 1.1328129768371582,
             "volume": 262400,
             "amount": 0.0001,
-            "yield": 0.0000853333,
+            "yield": 8.53333e-5,
             "marketCap": 623045362,
             "amountOriginal": 4.800512,
             "amountSplitAdjustments": [
@@ -106384,14 +106409,16 @@
             "high": 22.98,
             "low": 22.49,
             "close": 22.85,
-            "volume": 4673037
+            "volume": 4673037,
+            "amount": 0.293,
+            "yield": 0.0633944154
         },
         {
-            "date": "2026-01-14",
+            "date": "2026-04-10",
             "forecasted": true
         },
         {
-            "date": "2026-04-14",
+            "date": "2026-07-10",
             "forecasted": true
         }
     ]

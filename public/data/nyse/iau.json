@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-13 04:30:56 KST",
-        "regularMarketPrice": 86.8899,
+        "Update": "2026-01-14 04:19:05 KST",
+        "regularMarketPrice": 86.44,
         "englishName": "iShares Gold Trust",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 84296237056,
-        "Volume": 7113830,
-        "AvgVolume": 10795661,
+        "marketCap": 83859767296,
+        "Volume": 9763623,
+        "AvgVolume": 10821014,
         "sharesOutstanding": 970150016,
-        "52Week": "50.14 - 87.19",
+        "52Week": "50.21 - 87.38",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -37,7 +37,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 86.8899,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 84296237056,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7113830,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 10795661,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -47458,7 +47475,8 @@
             "high": 87.190002,
             "low": 86.339996,
             "close": 86.489998,
-            "volume": 10786935
+            "volume": 10786935,
+            "marketCap": 83859767296
         }
     ]
 }
