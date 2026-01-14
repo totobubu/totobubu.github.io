@@ -107,6 +107,21 @@
         "groupLabels": ["목"]
     },
     {
+        "symbol": "YMAX",
+        "isin": "US88636J6597",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 14,
+        "koName": "일드맥스 유니버스 펀드 오브 옵션 인컴 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
+    },
+    {
         "symbol": "TSLY",
         "isin": "US88636J4444",
         "currency": "USD",
@@ -121,21 +136,6 @@
         "underlying": "TSLA",
         "groupOrder": 999,
         "groupLabels": ["목"]
-    },
-    {
-        "symbol": "YMAX",
-        "isin": "US88636J6597",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 13,
-        "koName": "일드맥스 유니버스 펀드 오브 옵션 인컴 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "groupOrder": 4,
-        "groupLabels": ["수"]
     },
     {
         "symbol": "QQQI",
@@ -1004,7 +1004,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011349
+        "yield": 0.011418
     },
     {
         "symbol": "FIAT",
@@ -1240,8 +1240,7 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
         "group": "MJD",
-        "groupOrder": 999,
-        "yield": 0.057676
+        "groupOrder": 999
     },
     {
         "symbol": "PLT",
@@ -1319,8 +1318,7 @@
         "frequency": "분기",
         "group": "MJD",
         "groupOrder": 999,
-        "groupLabels": ["MJSD"],
-        "yield": 0.002817
+        "groupLabels": ["MJSD"]
     },
     {
         "symbol": "QQQY",
