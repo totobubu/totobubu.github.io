@@ -20,7 +20,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 27,
+        "popularity": 28,
         "koName": "일드맥스 스트래티지 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -138,6 +138,22 @@
         "groupLabels": ["목"]
     },
     {
+        "symbol": "PLTY",
+        "isin": "US88636R8007",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 11,
+        "koName": "일드맥스 팔란티어 옵션 인컴 전략 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "PLTR",
+        "groupOrder": 4,
+        "groupLabels": ["목"]
+    },
+    {
         "symbol": "QQQI",
         "isin": "US78433H6751",
         "currency": "USD",
@@ -184,20 +200,20 @@
         "groupLabels": ["화"]
     },
     {
-        "symbol": "PLTY",
-        "isin": "US88636R8007",
+        "symbol": "PLTW",
+        "isin": "US77926X7268",
         "currency": "USD",
-        "market": "NYSE",
+        "market": "NASDAQ",
         "isEtf": true,
         "popularity": 10,
-        "koName": "일드맥스 팔란티어 옵션 인컴 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
+        "koName": "라운드힐 팔란티어 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
         "frequency": "매주",
-        "group": "목",
+        "group": "월",
         "underlying": "PLTR",
-        "groupOrder": 4,
-        "groupLabels": ["목"]
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "YMAG",
@@ -213,6 +229,22 @@
         "group": "목",
         "groupOrder": 4,
         "groupLabels": ["수"]
+    },
+    {
+        "symbol": "HOOW",
+        "isin": "US77926X6351",
+        "currency": "USD",
+        "market": "NASDAQ",
+        "isEtf": true,
+        "popularity": 9,
+        "koName": "라운드힐 로빈후드 위클리페이 ETF",
+        "company": "Roundhill Investments",
+        "logo": "logos/company/company-roundhill-investments.svg",
+        "frequency": "매주",
+        "group": "월",
+        "underlying": "HOOD",
+        "groupOrder": 1,
+        "groupLabels": ["월"]
     },
     {
         "symbol": "NVYY",
@@ -231,22 +263,6 @@
         "groupLabels": ["금"]
     },
     {
-        "symbol": "PLTW",
-        "isin": "US77926X7268",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 9,
-        "koName": "라운드힐 팔란티어 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "PLTR",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
-    },
-    {
         "symbol": "COYY",
         "isin": "US38747R3710",
         "currency": "USD",
@@ -261,22 +277,6 @@
         "underlying": "COIN",
         "groupOrder": 5,
         "groupLabels": ["금"]
-    },
-    {
-        "symbol": "HOOW",
-        "isin": "US77926X6351",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 8,
-        "koName": "라운드힐 로빈후드 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "HOOD",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
     },
     {
         "symbol": "JEPI",
@@ -628,6 +628,22 @@
         "groupOrder": 999
     },
     {
+        "symbol": "HOOY",
+        "isin": "US88636R4048",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 4,
+        "koName": "일드맥스 로빈후드 옵션 인컴 전략 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "underlying": "HOOD",
+        "groupOrder": 4,
+        "groupLabels": ["목"]
+    },
+    {
         "symbol": "LFGY",
         "isin": "US88636R7272",
         "currency": "USD",
@@ -670,22 +686,6 @@
         "frequency": "매주",
         "group": "목",
         "underlying": "SMCI",
-        "groupOrder": 4,
-        "groupLabels": ["목"]
-    },
-    {
-        "symbol": "HOOY",
-        "isin": "US88636R4048",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 3,
-        "koName": "일드맥스 로빈후드 옵션 인컴 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "underlying": "HOOD",
         "groupOrder": 4,
         "groupLabels": ["목"]
     },
@@ -927,6 +927,21 @@
         "frequency": "매월",
         "group": "MJJ",
         "groupOrder": 999
+    },
+    {
+        "symbol": "CHPY",
+        "isin": "US88636R6936",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "일드맥스 반도체 포트폴리오 옵션 인컴 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "COSW",
