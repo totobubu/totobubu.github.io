@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 50.845,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 50.86,
         "englishName": "iShares 10+ Year Investment Grade Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1259129,
-        "AvgVolume": 1459716,
+        "Volume": 1660337,
+        "AvgVolume": 1469069,
         "sharesOutstanding": null,
         "52Week": "46.75 - 52.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.845,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1259129,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1459716,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32849,10 +32862,6 @@
             "volume": 1660337
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -32870,6 +32879,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

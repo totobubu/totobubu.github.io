@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 232.77,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 230.67,
         "englishName": "Gartner, Inc.",
         "earningsDate": "2025-11-04",
-        "enterpriseValue": 18024443904,
-        "marketCap": 17629020160,
-        "Volume": 414719,
-        "AvgVolume": 968182,
+        "enterpriseValue": 18045345792,
+        "marketCap": 17469974528,
+        "Volume": 672129,
+        "AvgVolume": 947008,
         "sharesOutstanding": 72077145,
         "52Week": "222.54 - 584.01",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 232.77,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 18024443904,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 17629020160,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 414719,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 968182,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -73155,7 +73176,8 @@
             "high": 233.070007,
             "low": 226.5,
             "close": 230.669998,
-            "volume": 672129
+            "volume": 672129,
+            "marketCap": 17469974528
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 213.61,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 214.2,
         "englishName": "Keysight Technologies, Inc.",
         "earningsDate": "2025-11-24",
-        "enterpriseValue": 37759774720,
-        "marketCap": 36701855744,
-        "Volume": 578902,
-        "AvgVolume": 1216250,
+        "enterpriseValue": 37708226560,
+        "marketCap": 36803227648,
+        "Volume": 1093072,
+        "AvgVolume": 1221680,
         "sharesOutstanding": 171817127,
         "52Week": "121.43 - 218.15",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 213.61,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 37759774720,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36701855744,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 578902,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1216250,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25446,7 +25467,8 @@
             "high": 216.509995,
             "low": 212.199997,
             "close": 214.199997,
-            "volume": 876924
+            "volume": 876924,
+            "marketCap": 36803227648
         }
     ]
 }

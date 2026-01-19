@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 70.4823,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 70.44,
         "englishName": "The Coca-Cola Company",
         "earningsDate": "2026-02-10",
-        "enterpriseValue": 337577377792,
-        "marketCap": 303332360192,
-        "Volume": 10344544,
-        "AvgVolume": 16716730,
+        "enterpriseValue": 337405313024,
+        "marketCap": 303150333952,
+        "Volume": 19800338,
+        "AvgVolume": 16787250,
         "sharesOutstanding": 4301608845,
         "52Week": "61.37 - 74.38",
-        "Yield": 0.028589,
+        "Yield": 0.028606,
         "dividendRate": 2.04,
         "payoutRatio": 0.6672,
         "isin": "US1912161007",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.4823,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 337577377792,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 303332360192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10344544,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16716730,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.028589,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28407,7 +28432,7 @@
             "close": 1.46875,
             "volume": 1276800,
             "amount": 0.0001,
-            "yield": 0.0000668407,
+            "yield": 6.68407e-5,
             "marketCap": 6317987991,
             "amountOriginal": 45.600768,
             "amountSplitAdjustments": [

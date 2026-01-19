@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 97.81,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 97.82,
         "englishName": "State Street SPDR Bloomberg High Yield Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 8731948032,
-        "Volume": 1729011,
-        "AvgVolume": 4475572,
+        "marketCap": 8732840960,
+        "Volume": 2818410,
+        "AvgVolume": 4425825,
         "sharesOutstanding": 89274600,
         "52Week": "90.41 - 98.24",
-        "Yield": 0.04337,
+        "Yield": 0.043365,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78468R6229",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.81,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 8731948032,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1729011,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4475572,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.04337,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42746,15 +42767,6 @@
             "volume": 3245500
         },
         {
-            "date": "2026-01-16",
-            "forecasted": true,
-            "open": 97.839996,
-            "high": 97.873001,
-            "low": 97.739998,
-            "close": 97.82,
-            "volume": 2818410
-        },
-        {
             "date": "2026-02-18",
             "forecasted": true
         },
@@ -42772,6 +42784,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

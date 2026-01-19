@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 81.05,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 81.09,
         "englishName": "iShares iBoxx $ High Yield Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 15853380608,
-        "Volume": 30040601,
-        "AvgVolume": 38422595,
+        "marketCap": 15861202944,
+        "Volume": 47860768,
+        "AvgVolume": 38138519,
         "sharesOutstanding": 195600000,
         "52Week": "75.08 - 81.36",
-        "Yield": 0.046922,
+        "Yield": 0.046899,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642885135",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 81.05,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 15853380608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 30040601,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 38422595,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.046922,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42975,10 +42996,6 @@
             "volume": 47860768
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -42996,6 +43013,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
+        "Update": "2026-01-20 04:18:22 KST",
         "regularMarketPrice": 21.905,
         "englishName": "iShares iBonds Dec 2029 Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 249214,
-        "AvgVolume": 403238,
+        "Volume": 603056,
+        "AvgVolume": 410737,
         "sharesOutstanding": null,
         "52Week": "21.26 - 22.08",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 249214,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 403238,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12010,10 +12019,6 @@
             "volume": 603056
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -12031,6 +12036,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

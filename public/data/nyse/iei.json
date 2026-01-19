@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 119.06,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 119.08,
         "englishName": "iShares 3-7 Year Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1318837,
-        "AvgVolume": 1904562,
+        "Volume": 1764449,
+        "AvgVolume": 1895720,
         "sharesOutstanding": null,
         "52Week": "115.18 - 120.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 119.06,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1318837,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1904562,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38764,10 +38777,6 @@
             "volume": 1751390
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -38785,6 +38794,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

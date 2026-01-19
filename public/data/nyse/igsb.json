@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 52.9101,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 52.92,
         "englishName": "iShares 1-5 Year Investment Grade Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2501717,
-        "AvgVolume": 3272808,
+        "Volume": 3431935,
+        "AvgVolume": 3265233,
         "sharesOutstanding": null,
         "52Week": "51.49 - 53.18",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.9101,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2501717,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3272808,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40115,10 +40128,6 @@
             "volume": 3376754
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -40136,6 +40145,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

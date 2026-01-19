@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 103.58,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 103.52,
         "englishName": "iShares Convertible Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 414431,
-        "AvgVolume": 607098,
+        "Volume": 465480,
+        "AvgVolume": 605006,
         "sharesOutstanding": null,
         "52Week": "77.02 - 104.37",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.58,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 414431,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 607098,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21668,10 +21681,6 @@
             "volume": 465480
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -21689,6 +21698,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

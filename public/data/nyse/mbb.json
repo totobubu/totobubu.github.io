@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 95.5499,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 95.57,
         "englishName": "iShares MBS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1342944,
-        "AvgVolume": 3374961,
+        "Volume": 2434935,
+        "AvgVolume": 3340164,
         "sharesOutstanding": null,
         "52Week": "90.84 - 96.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 95.5499,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1342944,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3374961,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38425,10 +38438,6 @@
             "volume": 2285644
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -38446,6 +38455,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

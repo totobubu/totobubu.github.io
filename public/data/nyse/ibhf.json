@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 23.0971,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 23.1,
         "englishName": "iShares iBonds 2026 Term High Yield and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 108638,
-        "AvgVolume": 338448,
+        "Volume": 167707,
+        "AvgVolume": 337701,
         "sharesOutstanding": null,
         "52Week": "22.25 - 23.455",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.0971,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 108638,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 338448,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10551,10 +10564,6 @@
             "volume": 167707
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -10572,6 +10581,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

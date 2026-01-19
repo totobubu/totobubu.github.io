@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 21.135,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 21.15,
         "englishName": "iShares iBonds Dec 2031 Term Corporate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 245524,
-        "AvgVolume": 475288,
+        "Volume": 346089,
+        "AvgVolume": 471674,
         "sharesOutstanding": null,
         "52Week": "20.08 - 21.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.135,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 245524,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 475288,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9308,10 +9321,6 @@
             "volume": 346089
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -9329,6 +9338,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

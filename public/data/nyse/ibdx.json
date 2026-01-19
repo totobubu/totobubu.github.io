@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 25.515,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 25.52,
         "englishName": "iShares iBonds Dec 2032 Term Corporate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 201557,
-        "AvgVolume": 369554,
+        "Volume": 286345,
+        "AvgVolume": 370814,
         "sharesOutstanding": null,
         "52Week": "24.045 - 26.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.515,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 201557,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 369554,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7242,10 +7255,6 @@
             "volume": 286345
         },
         {
-            "date": "2026-01-19",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-19",
             "forecasted": true
         },
@@ -7263,6 +7272,10 @@
         },
         {
             "date": "2026-06-18",
+            "forecasted": true
+        },
+        {
+            "date": "2026-07-17",
             "forecasted": true
         }
     ]

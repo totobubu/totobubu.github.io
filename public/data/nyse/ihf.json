@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-17 04:23:06 KST",
-        "regularMarketPrice": 49.11,
+        "Update": "2026-01-20 04:18:22 KST",
+        "regularMarketPrice": 48.91,
         "englishName": "iShares U.S. Healthcare Providers ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 142150,
-        "AvgVolume": 243333,
+        "Volume": 424652,
+        "AvgVolume": 247956,
         "sharesOutstanding": null,
         "52Week": "40.57 - 54.93",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 142150,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 243333,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8897,7 +8910,7 @@
             "close": 9.692000389099121,
             "volume": 191000,
             "amount": 0.0008,
-            "yield": 0.000083091,
+            "yield": 8.3091e-5,
             "amountOriginal": 0.095,
             "amountSplitAdjustments": [
                 {
