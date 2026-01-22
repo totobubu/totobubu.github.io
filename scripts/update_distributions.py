@@ -125,6 +125,38 @@ class YieldMaxParser(BaseParser):
 
         return results
 
+class RexParser(BaseParser):
+    def extract_data(self):
+        results = {}
+        lines = self.text.split('\n')
+
+        for i, line in enumerate(lines):
+            line = line.strip()
+            if not line: continue
+
+            # REX Ticker Pattern: Line with only 4 uppercase letters
+            # e.g. "NVII", "TSII". Avoids text lines.
+            if re.match(r'^[A-Z]{4}$', line):
+                ticker = line
+                # Filter out potential false positives if any occur (e.g. DATE)
+                if ticker in ["DATE", "RATE", "YIELD"]:
+                    continue
+
+                # Look forward for price (e.g. "$0.2075")
+                # Usually within 1-3 lines
+                for offset in range(1, 5):
+                    if i + offset >= len(lines): break
+                    next_line = lines[i + offset].strip()
+                    if not next_line: continue
+
+                    # Match $0.xxxx
+                    # REX text format: "$0.2075"
+                    amt_match = re.match(r'^\$(\d+\.\d+)', next_line)
+                    if amt_match:
+                        results[ticker] = float(amt_match.group(1))
+                        break
+        return results
+
 def find_json_path(ticker):
     pattern = str(DATA_DIR / "**" / f"{ticker.lower()}.json")
     matches = glob.glob(pattern, recursive=True)
@@ -187,17 +219,23 @@ def main():
     if not setup_tesseract():
         sys.exit(1)
 
-    image_files = list(SCREENSHOT_DIR.glob("*.webp")) + list(SCREENSHOT_DIR.glob("*.jpg")) + list(SCREENSHOT_DIR.glob("*.png"))
+    image_files = list(SCREENSHOT_DIR.glob("*.webp")) + list(SCREENSHOT_DIR.glob("*.jpg")) + list(SCREENSHOT_DIR.glob("*.png")) + list(SCREENSHOT_DIR.glob("*.txt"))
 
     for img_path in image_files:
         print(f"\nProcessing {img_path.name}...")
-        text = pytesseract.image_to_string(Image.open(img_path))
+        if img_path.suffix.lower() == ".txt":
+            with open(img_path, "r", encoding="utf-8") as f:
+                text = f.read()
+        else:
+            text = pytesseract.image_to_string(Image.open(img_path))
 
         parser_type = None
         if "roundhill" in img_path.name.lower():
             parser_type = RoundHillParser
         elif "yieldmax" in img_path.name.lower():
             parser_type = YieldMaxParser
+        elif "rex" in img_path.name.lower():
+            parser_type = RexParser
         else:
             continue
 
