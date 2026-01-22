@@ -3,6 +3,7 @@ import re
 import sys
 import json
 import glob
+import subprocess
 import pytesseract
 from PIL import Image
 from pathlib import Path
@@ -160,16 +161,21 @@ def update_json(path, date_str, amount):
                     updated = True
                     print(f"  [+] Updated {path.name}: {date_str} -> {amount}")
                 elif 'amountFixed' in entry:
-                     # Force update if logic thinks it's right/changed significantly
-                     # Note: previous runs might have set it wrong (e.g. 0.887).
+                     # Skip overwriting existing values
                      if abs(entry['amountFixed'] - amount) > 0.0001:
-                         entry['amountFixed'] = amount
-                         updated = True
-                         print(f"  [+] Corrected {path.name}: {date_str} -> {amount} (was {entry.get('amountFixed', 'N/A')})")
+                         print(f"  [!] Skipped {path.name}: {date_str} has {entry['amountFixed']} (new: {amount})")
 
         if updated:
             with open(path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
+
+            # Format with Prettier
+            try:
+                subprocess.run(["npx", "prettier", "--write", str(path)], shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                print(f"  [+] Formatted {path.name} with Prettier")
+            except Exception as fmt_err:
+                print(f"  [!] formatting error on {path.name}: {fmt_err}")
+
             return True
 
     except Exception as e:
