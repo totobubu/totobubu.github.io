@@ -3,7 +3,7 @@ name: Market Data v2 US
 on:
     schedule:
         # 평일 오전 6시 (KST) 실행
-        - cron: '0 21 * * 1-5' # KST 06:00 평일 (월-금, UTC 21:00)
+        - cron: '0 23 * * 1-5' # KST 06:00 평일 (월-금, UTC 21:00)
     workflow_dispatch:
         inputs:
             skip_price_update:
