@@ -114,14 +114,14 @@
                 "isExpected": true
             },
             {
-                "ticker": "ROP",
+                "ticker": "RJF",
                 "frequency": "분기",
                 "group": "JAJO",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "RJF",
+                "ticker": "ROP",
                 "frequency": "분기",
                 "group": "JAJO",
                 "isForecast": true,
@@ -3168,13 +3168,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "FLBL",
+                "ticker": "FLCB",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "FLCB",
+                "ticker": "FLBL",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -3264,13 +3264,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "HYMB",
+                "ticker": "IBDU",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "IBDU",
+                "ticker": "HYMB",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -3540,13 +3540,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "SCHI",
+                "ticker": "SCHJ",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "SCHJ",
+                "ticker": "SCHI",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -3600,13 +3600,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "SGOV",
+                "ticker": "SGVT",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "SGVT",
+                "ticker": "SGOV",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -3732,6 +3732,12 @@
                 "isExpected": true
             },
             {
+                "ticker": "STIP",
+                "frequency": "매월",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
                 "ticker": "SUSB",
                 "frequency": "매월",
                 "isForecast": true,
@@ -3739,12 +3745,6 @@
             },
             {
                 "ticker": "SUSC",
-                "frequency": "매월",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "STIP",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -4022,25 +4022,25 @@
                 "isExpected": true
             },
             {
-                "ticker": "BSCV",
-                "frequency": "매월",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "BSCW",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "BSCQ",
+                "ticker": "BSCV",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
                 "ticker": "BSCX",
+                "frequency": "매월",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "BSCQ",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -4378,13 +4378,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "FMHI",
+                "ticker": "FMB",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "FMB",
+                "ticker": "FMHI",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -4402,13 +4402,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "FPE",
+                "ticker": "FTCB",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "FTCB",
+                "ticker": "FPE",
                 "frequency": "매월",
                 "isForecast": true,
                 "isExpected": true
@@ -6378,8 +6378,19 @@
         "2026-07-03": [
             {
                 "ticker": "030200",
-                "frequency": "매월",
+                "frequency": "매년",
+                "group": "JJD",
                 "koName": "KT",
+                "isForecast": true,
+                "isExpected": true
+            }
+        ],
+        "2026-07-27": [
+            {
+                "ticker": "495330",
+                "frequency": "매월",
+                "group": "JFD",
+                "koName": "1Q 코리아밸류업",
                 "isForecast": true,
                 "isExpected": true
             }
@@ -6390,6 +6401,7 @@
             {
                 "ticker": "0008S0",
                 "frequency": "매월",
+                "group": "FMA",
                 "koName": "TIGER 미국배당다우존스타겟데일리커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6397,6 +6409,7 @@
             {
                 "ticker": "0018C0",
                 "frequency": "매월",
+                "group": "MAM",
                 "koName": "PLUS 고배당주위클리고정커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6404,6 +6417,7 @@
             {
                 "ticker": "0036D0",
                 "frequency": "매월",
+                "group": "JJA",
                 "koName": "TIMEFOLIO 미국배당다우존스액티브",
                 "isForecast": true,
                 "isExpected": true
@@ -6411,6 +6425,7 @@
             {
                 "ticker": "0052D0",
                 "frequency": "매월",
+                "group": "JAS",
                 "koName": "TIGER 코리아배당다우존스",
                 "isForecast": true,
                 "isExpected": true
@@ -6418,6 +6433,7 @@
             {
                 "ticker": "0080X0",
                 "frequency": "매월",
+                "group": "SON",
                 "koName": "SOL 미국S&P500미국채혼합50",
                 "isForecast": true,
                 "isExpected": true
@@ -6425,6 +6441,7 @@
             {
                 "ticker": "0086B0",
                 "frequency": "매월",
+                "group": "SON",
                 "koName": "TIGER 리츠부동산인프라TOP10액티브",
                 "isForecast": true,
                 "isExpected": true
@@ -6432,6 +6449,7 @@
             {
                 "ticker": "0086C0",
                 "frequency": "매월",
+                "group": "SON",
                 "koName": "TIGER 리츠부동산인프라10채권혼합액티브",
                 "isForecast": true,
                 "isExpected": true
@@ -6439,6 +6457,7 @@
             {
                 "ticker": "0089D0",
                 "frequency": "매월",
+                "group": "JND",
                 "koName": "KODEX 금융고배당TOP10",
                 "isForecast": true,
                 "isExpected": true
@@ -6446,6 +6465,7 @@
             {
                 "ticker": "0091C0",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "KODEX 미국10년국채액티브(H)",
                 "isForecast": true,
                 "isExpected": true
@@ -6453,6 +6473,7 @@
             {
                 "ticker": "0094M0",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "RISE 코리아밸류업위클리고정커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6460,6 +6481,7 @@
             {
                 "ticker": "0098N0",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "PLUS 자사주매입고배당주",
                 "isForecast": true,
                 "isExpected": true
@@ -6467,6 +6489,7 @@
             {
                 "ticker": "0104N0",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "TIGER 200타겟위클리커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6474,6 +6497,7 @@
             {
                 "ticker": "0105E0",
                 "frequency": "매월",
+                "group": "JND",
                 "koName": "SOL 코리아고배당",
                 "isForecast": true,
                 "isExpected": true
@@ -6481,13 +6505,15 @@
             {
                 "ticker": "104530",
                 "frequency": "매월",
+                "group": "AAO",
                 "koName": "KIWOOM 고배당",
                 "isForecast": true,
                 "isExpected": true
             },
             {
                 "ticker": "153130",
-                "frequency": "매월",
+                "frequency": "매년",
+                "group": "ASD",
                 "koName": "KODEX 단기채권",
                 "isForecast": true,
                 "isExpected": true
@@ -6495,6 +6521,7 @@
             {
                 "ticker": "214980",
                 "frequency": "매월",
+                "group": "ASD",
                 "koName": "KODEX 단기채권PLUS",
                 "isForecast": true,
                 "isExpected": true
@@ -6502,6 +6529,7 @@
             {
                 "ticker": "237370",
                 "frequency": "매월",
+                "group": "AON",
                 "koName": "KODEX 코리아배당성장채권혼합",
                 "isForecast": true,
                 "isExpected": true
@@ -6509,6 +6537,7 @@
             {
                 "ticker": "273140",
                 "frequency": "매월",
+                "group": "ASD",
                 "koName": "KODEX 단기변동금리부채권액티브",
                 "isForecast": true,
                 "isExpected": true
@@ -6516,27 +6545,31 @@
             {
                 "ticker": "284430",
                 "frequency": "매월",
+                "group": "ASO",
                 "koName": "KODEX 200미국채혼합",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "329660",
-                "frequency": "매월",
-                "koName": "KODEX TRF5050",
                 "isForecast": true,
                 "isExpected": true
             },
             {
                 "ticker": "329650",
                 "frequency": "매월",
+                "group": "ASO",
                 "koName": "KODEX TRF3070",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "329660",
+                "frequency": "매월",
+                "group": "ASO",
+                "koName": "KODEX TRF5050",
                 "isForecast": true,
                 "isExpected": true
             },
             {
                 "ticker": "329670",
                 "frequency": "매월",
+                "group": "ASO",
                 "koName": "KODEX TRF7030",
                 "isForecast": true,
                 "isExpected": true
@@ -6544,6 +6577,7 @@
             {
                 "ticker": "402970",
                 "frequency": "매월",
+                "group": "JAO",
                 "koName": "ACE 미국배당다우존스",
                 "isForecast": true,
                 "isExpected": true
@@ -6551,6 +6585,7 @@
             {
                 "ticker": "441640",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "KODEX 미국배당커버드콜액티브",
                 "isForecast": true,
                 "isExpected": true
@@ -6558,6 +6593,7 @@
             {
                 "ticker": "448330",
                 "frequency": "매월",
+                "group": "OND",
                 "koName": "KODEX 삼성전자채권혼합",
                 "isForecast": true,
                 "isExpected": true
@@ -6565,6 +6601,7 @@
             {
                 "ticker": "458750",
                 "frequency": "매월",
+                "group": "JAO",
                 "koName": "TIGER 미국배당다우존스타겟커버드콜1호",
                 "isForecast": true,
                 "isExpected": true
@@ -6572,6 +6609,7 @@
             {
                 "ticker": "474220",
                 "frequency": "매월",
+                "group": "FMA",
                 "koName": "TIGER 미국테크TOP10타겟커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6579,6 +6617,7 @@
             {
                 "ticker": "476800",
                 "frequency": "매월",
+                "group": "AMJ",
                 "koName": "KODEX 한국부동산리츠인프라",
                 "isForecast": true,
                 "isExpected": true
@@ -6586,6 +6625,7 @@
             {
                 "ticker": "480020",
                 "frequency": "매월",
+                "group": "MJJ",
                 "koName": "ACE 미국빅테크7+데일리타겟커버드콜(합성)",
                 "isForecast": true,
                 "isExpected": true
@@ -6593,6 +6633,7 @@
             {
                 "ticker": "480030",
                 "frequency": "매월",
+                "group": "MJJ",
                 "koName": "ACE 미국500데일리타겟커버드콜(합성)",
                 "isForecast": true,
                 "isExpected": true
@@ -6600,6 +6641,7 @@
             {
                 "ticker": "480040",
                 "frequency": "매월",
+                "group": "MJJ",
                 "koName": "ACE 미국반도체데일리타겟커버드콜(합성)",
                 "isForecast": true,
                 "isExpected": true
@@ -6607,6 +6649,7 @@
             {
                 "ticker": "481060",
                 "frequency": "매월",
+                "group": "MJJ",
                 "koName": "KODEX 미국30년국채타겟커버드콜(합성 H)",
                 "isForecast": true,
                 "isExpected": true
@@ -6614,6 +6657,7 @@
             {
                 "ticker": "489250",
                 "frequency": "매월",
+                "group": "SON",
                 "koName": "KODEX 미국배당다우존스",
                 "isForecast": true,
                 "isExpected": true
@@ -6621,6 +6665,7 @@
             {
                 "ticker": "490490",
                 "frequency": "매월",
+                "group": "JND",
                 "koName": "SOL 미국배당미국채혼합50",
                 "isForecast": true,
                 "isExpected": true
@@ -6628,6 +6673,7 @@
             {
                 "ticker": "493420",
                 "frequency": "매월",
+                "group": "JJA",
                 "koName": "SOL 미국배당다우존스2호",
                 "isForecast": true,
                 "isExpected": true
@@ -6635,6 +6681,7 @@
             {
                 "ticker": "493810",
                 "frequency": "매월",
+                "group": "JND",
                 "koName": "TIGER 미국AI빅테크10타겟데일리커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6642,6 +6689,7 @@
             {
                 "ticker": "494420",
                 "frequency": "매월",
+                "group": "JND",
                 "koName": "PLUS 미국배당증가성장주데일리커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6649,6 +6697,7 @@
             {
                 "ticker": "495040",
                 "frequency": "매월",
+                "group": "JFM",
                 "koName": "PLUS 코리아밸류업",
                 "isForecast": true,
                 "isExpected": true
@@ -6656,6 +6705,7 @@
             {
                 "ticker": "495050",
                 "frequency": "매월",
+                "group": "JFM",
                 "koName": "RISE 코리아밸류업",
                 "isForecast": true,
                 "isExpected": true
@@ -6663,6 +6713,7 @@
             {
                 "ticker": "498400",
                 "frequency": "매월",
+                "group": "JFM",
                 "koName": "KODEX 200타겟위클리커버드콜",
                 "isForecast": true,
                 "isExpected": true
@@ -6670,7 +6721,18 @@
             {
                 "ticker": "498860",
                 "frequency": "매월",
+                "group": "JFM",
                 "koName": "RISE 코리아금융고배당",
+                "isForecast": true,
+                "isExpected": true
+            }
+        ],
+        "2026-07-27": [
+            {
+                "ticker": "438330",
+                "frequency": "매월",
+                "group": "AMJ",
+                "koName": "TIGER 우량회사채액티브",
                 "isForecast": true,
                 "isExpected": true
             }
