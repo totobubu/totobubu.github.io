@@ -206,29 +206,39 @@ class DefianceParser(BaseParser):
         results = {}
         lines = self.text.split('\n')
 
+        current_ticker = None
+
         for line in lines:
             line = line.strip()
             if not line: continue
 
-            # Patter: Ticker ... $Amount
-            # Example: JEPY ... $0.90
+            # 1. Look for Ticker (start of line or distinct)
+            # Must be 3-5 chars.
+            # Only consider if we are looking for a ticker or resetting?
+            # Actually, standard heuristic:
 
-            parts = line.split()
-            # Heuristic: Ticker is usually the first word or distinct uppercase word
+            # Check for Ticker line
+            # IWMY R2000 ...
             ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
+            if ticker_match:
+                candidate = ticker_match.group(1)
+                if candidate not in ["FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", "NET", "ASSET", "ROC"]:
+                    current_ticker = candidate
 
-            # Amount usually starts with $
-            amount_match = re.search(r'\$(\d+\.\d+)', line)
+            # 2. Look for Value with /share
+            # $0.1184/share
+            # The value might be on the same line or a subsequent line.
 
-            if ticker_match and amount_match:
-                ticker = ticker_match.group(1)
-                amount = float(amount_match.group(1))
-
-                # Filter noise
-                if ticker in ["FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC"]:
-                     continue
-
-                results[ticker] = amount
+            val_match = re.search(r'\$?(\d+\.\d+)\s*/\s*share', line, re.IGNORECASE)
+            if val_match and current_ticker:
+                 amount = float(val_match.group(1))
+                 results[current_ticker] = amount
+                 # Reset ticker after finding amount to avoid misattribution
+                 current_ticker = None
+            elif not val_match and ticker_match:
+                 # If we found a ticker but no value on this line, we keep current_ticker
+                 # and hope next lines have the value.
+                 pass
 
         return results
 
