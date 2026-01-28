@@ -170,27 +170,27 @@ class GranitesharesParser(BaseParser):
 
             # Pattern: Ticker (first word) ... $Amount
             # Handle OCR noise: |OYY -> IOYY, _YieldBOOST -> YieldBOOST
-            
+
             parts = line.split()
             if not parts: continue
-            
+
             raw_ticker = parts[0]
-            
+
             # Clean ticker
             clean_ticker = raw_ticker
             if '|' in clean_ticker:
                  clean_ticker = clean_ticker.replace('|', 'I')
-            
+
             # Special case for QBy -> QBY
             if clean_ticker == 'QBy':
                 clean_ticker = 'QBY'
-            
+
             clean_ticker = clean_ticker.upper()
 
             # Filter: Must be 3-5 uppercase letters
             if not re.match(r'^[A-Z]{3,5}$', clean_ticker):
                 continue
-            
+
             # Look for $0.xxxx
             amount_match = re.search(r'\$(\d+\.\d+)', line)
             if amount_match:
@@ -198,6 +198,40 @@ class GranitesharesParser(BaseParser):
                 results[clean_ticker] = amount
 
         return results
+
+
+# Defiance Parser
+class DefianceParser(BaseParser):
+    def extract_data(self):
+        results = {}
+        lines = self.text.split('\n')
+
+        for line in lines:
+            line = line.strip()
+            if not line: continue
+
+            # Patter: Ticker ... $Amount
+            # Example: JEPY ... $0.90
+
+            parts = line.split()
+            # Heuristic: Ticker is usually the first word or distinct uppercase word
+            ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
+
+            # Amount usually starts with $
+            amount_match = re.search(r'\$(\d+\.\d+)', line)
+
+            if ticker_match and amount_match:
+                ticker = ticker_match.group(1)
+                amount = float(amount_match.group(1))
+
+                # Filter noise
+                if ticker in ["FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC"]:
+                     continue
+
+                results[ticker] = amount
+
+        return results
+
 
 def find_json_path(ticker):
     pattern = str(DATA_DIR / "**" / f"{ticker.lower()}.json")
@@ -280,6 +314,8 @@ def main():
             parser_type = RexParser
         elif "graniteshares" in img_path.name.lower():
             parser_type = GranitesharesParser
+        elif "defiance" in img_path.name.lower():
+            parser_type = DefianceParser
         else:
             continue
 
