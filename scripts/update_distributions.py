@@ -157,6 +157,48 @@ class RexParser(BaseParser):
                         break
         return results
 
+
+# Graniteshares Parser
+class GranitesharesParser(BaseParser):
+    def extract_data(self):
+        results = {}
+        lines = self.text.split('\n')
+
+        for line in lines:
+            line = line.strip()
+            if not line: continue
+
+            # Pattern: Ticker (first word) ... $Amount
+            # Handle OCR noise: |OYY -> IOYY, _YieldBOOST -> YieldBOOST
+            
+            parts = line.split()
+            if not parts: continue
+            
+            raw_ticker = parts[0]
+            
+            # Clean ticker
+            clean_ticker = raw_ticker
+            if '|' in clean_ticker:
+                 clean_ticker = clean_ticker.replace('|', 'I')
+            
+            # Special case for QBy -> QBY
+            if clean_ticker == 'QBy':
+                clean_ticker = 'QBY'
+            
+            clean_ticker = clean_ticker.upper()
+
+            # Filter: Must be 3-5 uppercase letters
+            if not re.match(r'^[A-Z]{3,5}$', clean_ticker):
+                continue
+            
+            # Look for $0.xxxx
+            amount_match = re.search(r'\$(\d+\.\d+)', line)
+            if amount_match:
+                amount = float(amount_match.group(1))
+                results[clean_ticker] = amount
+
+        return results
+
 def find_json_path(ticker):
     pattern = str(DATA_DIR / "**" / f"{ticker.lower()}.json")
     matches = glob.glob(pattern, recursive=True)
@@ -236,6 +278,8 @@ def main():
             parser_type = YieldMaxParser
         elif "rex" in img_path.name.lower():
             parser_type = RexParser
+        elif "graniteshares" in img_path.name.lower():
+            parser_type = GranitesharesParser
         else:
             continue
 
