@@ -15,11 +15,18 @@
 이 스크립트를 실행하기 위해서는 **Tesseract-OCR** 엔진이 설치되어 있어야 합니다.
 
 1.  **Tesseract-OCR 설치**:
-    - Windows용 설치러를 다운로드하여 설치합니다. (기본 경로: `C:\Program Files\Tesseract-OCR`)
-    - 스크립트는 다음 경로들을 자동으로 확인합니다:
-        - `C:\Program Files\Tesseract-OCR\tesseract.exe`
-        - `C:\Program Files (x86)\Tesseract-OCR\tesseract.exe`
-        - `C:\Users\{User}\AppData\Local\Programs\Tesseract-OCR\tesseract.exe`
+    - **Windows**:
+        - [UB-Mannheim GitHub](https://github.com/UB-Mannheim/tesseract/wiki)에서 최신 설치러를 다운로드하여 설치합니다.
+        - 설치 중 "Additional script data" 항목에서 "Hangul Script"와 "Hangul Vertical Script"를 체크하면 한글 인식도 가능합니다. (기본 경로: `C:\Program Files\Tesseract-OCR`)
+        - 스크립트는 다음 경로들을 자동으로 확인합니다:
+            - `C:\Program Files\Tesseract-OCR\tesseract.exe`
+            - `C:\Program Files (x86)\Tesseract-OCR\tesseract.exe`
+            - `C:\Users\{User}\AppData\Local\Programs\Tesseract-OCR\tesseract.exe`
+    - **Linux (Ubuntu/Debian)**:
+        ```bash
+        sudo apt install tesseract-ocr
+        sudo apt install libtesseract-dev
+        ```
 
 2.  **초기 설정**:
     - 필요한 Python 라이브러리가 설치되어 있어야 합니다. (보통 `requirements.txt` 또는 `pip install pytesseract pillow` 명령어로 설치)
