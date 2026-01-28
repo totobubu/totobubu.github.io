@@ -17,3 +17,4 @@ export {
     createNumericFormatter,
 } from './formatters.ts';
 export { getGroupSeverity } from './uiHelpers.js';
+export { debounce } from './common.js';
