@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-31 04:25:23 KST",
-        "regularMarketPrice": 24.1,
+        "Update": "2026-02-04 04:59:46 KST",
+        "regularMarketPrice": 23.9783,
         "englishName": "Global X Emerging Markets Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12258,
-        "AvgVolume": 66703,
+        "Volume": 32150,
+        "AvgVolume": 67891,
         "sharesOutstanding": null,
         "52Week": "21.62 - 25.123",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12258,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 66703,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11553,30 +11566,32 @@
             "high": 24.01,
             "low": 23.879999,
             "close": 23.98,
-            "volume": 110351
+            "volume": 110351,
+            "amount": 0.115,
+            "yield": 0.0596169858
         },
         {
-            "date": "2026-02-27",
+            "date": "2026-03-02",
             "forecasted": true
         },
         {
-            "date": "2026-03-27",
+            "date": "2026-04-02",
             "forecasted": true
         },
         {
-            "date": "2026-04-28",
+            "date": "2026-05-01",
             "forecasted": true
         },
         {
-            "date": "2026-05-28",
+            "date": "2026-06-02",
             "forecasted": true
         },
         {
-            "date": "2026-06-26",
+            "date": "2026-07-02",
             "forecasted": true
         },
         {
-            "date": "2026-07-28",
+            "date": "2026-07-31",
             "forecasted": true
         }
     ]

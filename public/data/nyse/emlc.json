@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-01-31 04:25:23 KST",
-        "regularMarketPrice": 26.335,
+        "Update": "2026-02-04 04:59:46 KST",
+        "regularMarketPrice": 26.285,
         "englishName": "VanEck J.P. Morgan EM Local Currency Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3630295,
-        "AvgVolume": 2593319,
+        "Volume": 3709129,
+        "AvgVolume": 2738595,
         "sharesOutstanding": null,
         "52Week": "23.01 - 26.58",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.335,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3630295,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2593319,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32619,30 +32632,32 @@
             "high": 26.254999,
             "low": 26.1717,
             "close": 26.209999,
-            "volume": 7189172
+            "volume": 7189172,
+            "amount": 0.121,
+            "yield": 0.0628865955
         },
         {
-            "date": "2026-02-27",
+            "date": "2026-03-02",
             "forecasted": true
         },
         {
-            "date": "2026-03-27",
+            "date": "2026-04-02",
             "forecasted": true
         },
         {
-            "date": "2026-04-28",
+            "date": "2026-05-01",
             "forecasted": true
         },
         {
-            "date": "2026-05-28",
+            "date": "2026-06-02",
             "forecasted": true
         },
         {
-            "date": "2026-06-26",
+            "date": "2026-07-02",
             "forecasted": true
         },
         {
-            "date": "2026-07-28",
+            "date": "2026-07-31",
             "forecasted": true
         }
     ]
