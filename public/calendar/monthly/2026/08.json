@@ -2195,14 +2195,14 @@
                 "isExpected": true
             },
             {
-                "ticker": "FIAT",
-                "frequency": "매주",
-                "group": "목",
+                "ticker": "FIAX",
+                "frequency": "매월",
                 "isExpected": true
             },
             {
-                "ticker": "FIAX",
-                "frequency": "매월",
+                "ticker": "FIAT",
+                "frequency": "매주",
+                "group": "목",
                 "isExpected": true
             },
             {
@@ -3497,6 +3497,17 @@
             }
         ]
     },
-    "KrStock": {},
+    "KrStock": {
+        "2026-08-03": [
+            {
+                "ticker": "055550",
+                "frequency": "매년",
+                "group": "JSD",
+                "koName": "신한지주",
+                "isForecast": true,
+                "isExpected": true
+            }
+        ]
+    },
     "KrEtf": {}
 }
