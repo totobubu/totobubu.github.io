@@ -134,6 +134,26 @@ class RexParser(BaseParser):
             line = line.strip()
             if not line: continue
 
+            # Strategy 1: Image-based table format
+            # Pattern: "NVII ... $0.2321 ..." (ticker and amount on same line)
+            # Look for 4-letter ticker followed by amount on the same line
+            ticker_match = re.search(r'\b([A-Z]{4})\b', line)
+            if ticker_match:
+                ticker = ticker_match.group(1)
+                # Filter out false positives
+                if ticker in ["DATE", "RATE", "YIELD", "FUND", "MSTR", "TSLA", "NVDA", "COIN", "HOOD"]:
+                    continue
+                
+                # Look for $0.xxxx on the same line
+                amt_match = re.search(r'\$(\d+\.\d+)', line)
+                if amt_match:
+                    amount = float(amt_match.group(1))
+                    # Validate amount is in reasonable range for distributions
+                    if 0.001 <= amount <= 5.0:
+                        results[ticker] = amount
+                        continue
+
+            # Strategy 2: Text-based format (original logic)
             # REX Ticker Pattern: Line with only 4 uppercase letters
             # e.g. "NVII", "TSII". Avoids text lines.
             if re.match(r'^[A-Z]{4}$', line):
