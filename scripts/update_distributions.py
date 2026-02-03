@@ -126,6 +126,21 @@ class YieldMaxParser(BaseParser):
         return results
 
 class RexParser(BaseParser):
+    # OCR often misreads REX tickers as underlying stock symbols
+    # Map: OCR_result → Actual_REX_ticker
+    OCR_CORRECTIONS = {
+        'NVDA': 'NVII',  # REX NVDA Growth & Income ETF
+        'TSLA': 'TSII',  # REX TSLA Growth & Income ETF
+        'MSTR': 'MSII',  # REX MSTR Growth & Income ETF
+        'COIN': 'COII',  # REX COIN Growth & Income ETF
+        'HOOD': 'HOII',  # REX HOOD Growth & Income ETF
+        'HOON': 'HOII',  # OCR sometimes reads HOOD as "Hoon"
+        'CRWY': 'CWII',  # REX CRWY Growth & Income ETF
+        'PLTR': 'PLTI',  # REX PLTR Growth & Income ETF
+        'LLY': 'LLII',   # REX LLY Growth & Income ETF
+        'WMT': 'WMTI',   # REX WMT Growth & Income ETF
+    }
+    
     def extract_data(self):
         results = {}
         lines = self.text.split('\n')
@@ -135,42 +150,76 @@ class RexParser(BaseParser):
             if not line: continue
 
             # Strategy 1: Image-based table format
-            # Pattern: "NVII ... $0.2321 ..." (ticker and amount on same line)
-            # Look for 4-letter ticker followed by amount on the same line
-            ticker_match = re.search(r'\b([A-Z]{4})\b', line)
-            if ticker_match:
-                ticker = ticker_match.group(1)
-                # Filter out false positives
-                if ticker in ["DATE", "RATE", "YIELD", "FUND", "MSTR", "TSLA", "NVDA", "COIN", "HOOD"]:
+            # Extract Fund Ticker and Distribution Per Share from table rows
+            # Pattern: "REX TICKER ... $0.xxxx" or "REX TICKER ... 0.xxxx"
+            
+            # Find ALL tickers in the line (3-4 letters)
+            ticker_matches = re.findall(r'\b([A-Z]{3,4})\b', line)
+            if not ticker_matches:
+                continue
+            
+            # Filter out header words and find the actual fund ticker
+            # Prioritize tickers in OCR_CORRECTIONS or 4-letter tickers
+            ticker = None
+            for candidate in ticker_matches:
+                # Skip common header words
+                if candidate in ["DATE", "RATE", "FUND", "NAME", "RISK", "HIGH", "YIELD"]:
                     continue
+                # Skip "REX" itself (the fund family name)
+                if candidate == "REX":
+                    continue
+                # This is likely the actual ticker
+                ticker = candidate
+                break
+            
+            if not ticker:
+                continue
+            
+            # Look for distribution amount on the same line
+            # Try with $ first
+            amt_match = re.search(r'\$(\d+\.\d+)', line)
+            if not amt_match:
+                # Fallback: decimal without $ (must have 4 decimals to avoid percentages)
+                amt_match = re.search(r'\b(\d+\.\d{4})\b', line)
+            
+            if amt_match:
+                amount = float(amt_match.group(1))
                 
-                # Look for $0.xxxx on the same line
-                amt_match = re.search(r'\$(\d+\.\d+)', line)
-                if amt_match:
-                    amount = float(amt_match.group(1))
-                    # Validate amount is in reasonable range for distributions
-                    if 0.001 <= amount <= 5.0:
-                        results[ticker] = amount
-                        continue
+                # Fix OCR error: sometimes leading 0 is dropped (9.0491 → 0.0491)
+                # If amount > 5.0 and has 4 decimals, likely missing leading 0
+                if amount > 5.0:
+                    # Try replacing first digit with 0
+                    amt_str = amt_match.group(1)
+                    if '.' in amt_str:
+                        # e.g., "9.0491" → "0.0491"
+                        fixed_amt_str = '0' + amt_str[1:]
+                        fixed_amount = float(fixed_amt_str)
+                        if 0.001 <= fixed_amount <= 5.0:
+                            amount = fixed_amount
+                
+                # Validate amount is in reasonable range for distributions
+                if 0.001 <= amount <= 5.0:
+                    # Apply OCR correction if needed
+                    corrected_ticker = self.OCR_CORRECTIONS.get(ticker, ticker)
+                    results[corrected_ticker] = amount
+                    continue
 
             # Strategy 2: Text-based format (original logic)
             # REX Ticker Pattern: Line with only 4 uppercase letters
             # e.g. "NVII", "TSII". Avoids text lines.
             if re.match(r'^[A-Z]{4}$', line):
                 ticker = line
-                # Filter out potential false positives if any occur (e.g. DATE)
+                # Filter out potential false positives
                 if ticker in ["DATE", "RATE", "YIELD"]:
                     continue
 
                 # Look forward for price (e.g. "$0.2075")
-                # Usually within 1-3 lines
                 for offset in range(1, 5):
                     if i + offset >= len(lines): break
                     next_line = lines[i + offset].strip()
                     if not next_line: continue
 
                     # Match $0.xxxx
-                    # REX text format: "$0.2075"
                     amt_match = re.match(r'^\$(\d+\.\d+)', next_line)
                     if amt_match:
                         results[ticker] = float(amt_match.group(1))
