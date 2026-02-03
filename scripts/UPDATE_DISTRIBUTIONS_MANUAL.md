@@ -46,9 +46,18 @@
 
 터미널에서 프로젝트 루트 경로로 이동한 후 다음 명령어를 실행합니다.
 
+**Windows (PowerShell/CMD):**
+```powershell
+py scripts/update_distributions.py
+```
+
+**Linux/Mac:**
 ```bash
 python scripts/update_distributions.py
 ```
+
+> [!TIP]
+> Windows에서 `py` 명령어가 작동하지 않는 경우, `python3 scripts/update_distributions.py`를 시도해보세요.
 
 ### 3단계: 결과 확인
 
