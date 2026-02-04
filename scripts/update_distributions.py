@@ -80,6 +80,29 @@ class RoundHillParser(BaseParser):
 
 # YieldMax Parser
 class YieldMaxParser(BaseParser):
+    # OCR often misreads YieldMax tickers
+    # Map: OCR_result → Actual_ticker (case-insensitive)
+    OCR_CORRECTIONS = {
+        'GAPY': 'CHPY',
+        'PEAR': 'FEAT',
+        'PIVY': 'FIVY',
+        'ELEMAX': 'FIVY',  # OCR sometimes reads "pivy_" as "eleMax"
+        'UPCY': 'LFGY',
+        'APTY': 'QDTY',
+        'SIRE': 'SLTY',
+        'SUTY': 'SLTY',
+        'WIRY': 'ULTY',
+        'UTY': 'ULTY',
+        'YMAG': 'YMAG',  # Sometimes correct
+        'LDMAX': 'YMAG',  # OCR sometimes reads "ymag_" as "ldMax"
+        'YELEIAN': 'LFGY',
+        'YIN': 'YMAX',
+        'VI': 'YMAX',
+        'GPTY': 'GPTY',  # Sometimes correct
+        'RDTY': 'RDTY',  # Sometimes correct
+        'SDTY': 'SDTY',  # Sometimes correct
+    }
+    
     def extract_data(self):
         results = {}
         lines = self.text.split('\n')
@@ -88,16 +111,47 @@ class YieldMaxParser(BaseParser):
             clean_line = line.strip()
             if not clean_line: continue
 
-            ticker_match = re.match(r'^\s*([A-Z]{3,5})\b', clean_line)
-            if ticker_match:
-                ticker = ticker_match.group(1)
-                if ticker in ["YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST"]:
-                    if ticker != "TEST" and ticker != "MSST" and ticker != "NVIT":
-                         if ticker in ["DATE", "VAL"]: continue
+            # Find all potential tickers (2-8 uppercase/lowercase letters)
+            # Convert to uppercase for matching
+            ticker_matches = re.findall(r'\b([A-Za-z]{2,8})\b', clean_line)
+            
+            # Filter out common header/noise words
+            valid_ticker = None
+            for ticker in ticker_matches:
+                ticker_upper = ticker.upper()
+                if ticker_upper in ["YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
+                             "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
+                             "DISTRIBUTION", "RATE", "PER", "SHARE", "FREQUENCY", "WELD",
+                             "MIAN", "MELD", "MAX", "DORSEY", "WRIGHT", "PORTFOLIO", "OPTION",
+                             "INCOME", "STRATEGY", "ODTE", "COVERED", "CALL", "ULTRA", "SHORT",
+                             "MAGNIFICENT", "UNIVERSE", "SEMICONDUCTOR", "TECH", "CRYPTO",
+                             "INDUSTRY", "NASDAQ", "FEATURED", "HYBRID", "NAME", "TIYORID",
+                             "CIYETO", "INCUSTY", "FECH", "ELDMAX", "SELDMAX", "TELDMAX",
+                             "YELDMEX", "COVET", "TECHY", "NASDIAD", "ORIG", "TE", "OD",
+                             "GAVEIED", "OE", "VELIE", "ULTA", "SHERE", "IHESINE", "MELDMEXT",
+                             "FUNDA", "OPTIC", "MERT", "ETFS", "AL", "HIYARID", "WEIGHT",
+                             "OF"]:
+                    continue
+                # Found a potential ticker
+                valid_ticker = ticker_upper
+                break
+            
+            if not valid_ticker:
+                continue
 
+            # Apply OCR correction (case-insensitive)
+            corrected_ticker = self.OCR_CORRECTIONS.get(valid_ticker, valid_ticker)
+
+            # Look for distribution amount (prefer $0.xxxx format)
+            amount_match = re.search(r'\$(\d+\.\d{4})', clean_line)
+            candidate = None
+            
+            if amount_match:
+                candidate = float(amount_match.group(1))
+            else:
+                # Fallback: Look for any decimal with 4+ digits
                 matches = re.findall(r'(\d+\.\d+)', clean_line)
-                candidate = None
-
+                
                 # First pass: Look for exactly 4 decimals
                 for m in matches:
                      if '.' in m:
@@ -112,7 +166,7 @@ class YieldMaxParser(BaseParser):
                                  candidate = val
                              break
 
-                # Second pass fallback for MSST (0.2157) if simple float
+                # Second pass fallback if simple float
                 if not candidate:
                      for m in matches:
                          val = float(m)
@@ -120,8 +174,8 @@ class YieldMaxParser(BaseParser):
                              candidate = val
                              break
 
-                if candidate:
-                    results[ticker] = candidate
+            if candidate:
+                results[corrected_ticker] = candidate
 
         return results
 
