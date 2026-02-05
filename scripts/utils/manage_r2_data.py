@@ -86,10 +86,10 @@ SYMBOL_GROUPS = {
         "QDTE", "XDTE", "RDTE"
     ],
     "위클리페이": [
-        "AAPW", "AMDW", "AMZW", "ARMW", "AVGW", "BABW", "BRKW", "COIW", "COSW", "GOOW", "HOOW", "METW", "MSFW", "MSTW", "NFLW", "NVDW", "PLTW", "TSLW", "UBEW", "UNHW", "GDXW", "GLDW", "TSYW"
+        "AAPW", "AMDW", "AMZW", "ARMW", "AVGW", "BABW", "BRKW", "COIW", "COSW", "GOOW", "HOOW", "METW", "MSFW", "MSTW", "NFLW", "NVDW", "PLTW", "UBEW", "UNHW", "GDXW", "GLDW", "TSYW"
     ],
     "디파이언스수요일": [
-        "SMCC", "PLT", "MST", "HOOI", "HIMY", "AMDU", "QLDY"
+        "PLT", "MST", "QLDY"
     ],
     "디파이언스목요일": [
         "WDTE", "IWMY", "USOY", "GLDY", "QQQY"
@@ -98,7 +98,7 @@ SYMBOL_GROUPS = {
         "MAAY", "IOYY", "RTYY", "COYY", "RGYY", "HMYY", "QBY", "TSYY", "SMYY", "HOYY", "SEMY", "BBYY", "NVYY", "NUGY", "PLYY", "MTYY", "AMYY", "XBTY", "AZYY", "TQQY", "FBYY", "YSPY"
     ],
     "렉스ii": [
-        "NVII", "TSII", "MSII", "COII", "HOII", "LLII", "CWII", "PLTI", "WMTI"
+        "NVII", "TSII", "MSII", "COII", "LLII", "CWII", "PLTI", "WMTI"
     ]
 }
 
