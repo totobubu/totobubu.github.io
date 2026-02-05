@@ -83,12 +83,56 @@ class YieldMaxParser(BaseParser):
     # OCR often misreads YieldMax tickers
     # Map: OCR_result → Actual_ticker (case-insensitive)
     OCR_CORRECTIONS = {
+        # Direct mappings based on analysis of ocr_output.txt
+        'APNY': 'ABNY', 'APNY_': 'ABNY',
+        'ALYY': 'AIYY', 'ALYY': 'AIYY', 'AIVY': 'AIYY',
+        'ANIPY': 'AMDY',
+        'ANAZY': 'AMZY', 'ANAZY,': 'AMZY',
+        'APTY': 'APLY',  # Correction: APLY (Apple), not QDTY
+        'PASO': 'BABO', 'PASO,': 'BABO',
+        'SAKE': 'BRKY',
+        'CONY': 'CONY',
+        'CRCO': 'CRCO', 'CRCO_': 'CRCO',
+        'CRS': 'CRSH', 'CRS,': 'CRSH', # Short TSLA
+        'EVNY': 'CVNY',
+        'PS': 'DIPS', # Short NVDA
+        'DISO': 'DISO',
+        'PRAY': 'DRAY',
+        'GAY': 'FBYY',
+        'PAR': 'FIAT', # Short COIN
+        'EPXY': 'GDXY',
+        'EMEY': 'GMEY',
+        'COOY': 'GOOY',
+        'RVY': 'HIYY', 'RVY_': 'HIYY',
+        'HOOY': 'HOOY',
+        'JPMO': 'JPMO',
+        'MANO': 'MARO',
+        'MARNY': 'MRNY', 'MARNY,': 'MRNY',
+        'MSRO': 'MSFO',
+        'MUSTY': 'MSTY', 'MUSTY:': 'MSTY',
+        'NEVY': 'NFLY',
+        'NVPY': 'NVDY',
+        'ARK': 'OARK',
+        'PLTY': 'PLTY',
+        'PYPY': 'PYPY',
+        'PRETY': 'RBLY',
+        'AOVY': 'RDYY', 'AOVY:': 'RDYY',
+        'SMCY': 'SMCY', 'SMCY_': 'SMCY',
+        'SNOY': 'SNOY', 'SNOY:': 'SNOY',
+        'RSTY': 'TSLY', 'RSTY,': 'TSLY',
+        'TSMY': 'TSMY',
+        'WWTR': 'WNTR', # Short MSTR
+        'XOMO': 'XOMO',
+        'XYZY': 'XYZY',
+        'YAR': 'YBIT',
+        'YAAA': 'YQQQ', # Short N100
+        
+        # Existing/Generic corrections just in case
         'GAPY': 'CHPY',
         'PEAR': 'FEAT',
         'PIVY': 'FIVY',
         'ELEMAX': 'FIVY',  # OCR sometimes reads "pivy_" as "eleMax"
         'UPCY': 'LFGY',
-        'APTY': 'QDTY',
         'SIRE': 'SLTY',
         'SUTY': 'SLTY',
         'WIRY': 'ULTY',
@@ -111,35 +155,58 @@ class YieldMaxParser(BaseParser):
             clean_line = line.strip()
             if not clean_line: continue
 
-            # Find all potential tickers (2-8 uppercase/lowercase letters)
-            # Convert to uppercase for matching
-            ticker_matches = re.findall(r'\b([A-Za-z]{2,8})\b', clean_line)
+            # Strategy 1: Look for first token that looks like a garbled ticker
+            # YieldMax lines in OCR often start with the ticker then a Separator like | or [
+            # Example: "apny_ |'eldMax..."
             
-            # Filter out common header/noise words
+            parts = clean_line.split()
             valid_ticker = None
-            for ticker in ticker_matches:
-                ticker_upper = ticker.upper()
-                if ticker_upper in ["YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
-                             "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
-                             "DISTRIBUTION", "RATE", "PER", "SHARE", "FREQUENCY", "WELD",
-                             "MIAN", "MELD", "MAX", "DORSEY", "WRIGHT", "PORTFOLIO", "OPTION",
-                             "INCOME", "STRATEGY", "ODTE", "COVERED", "CALL", "ULTRA", "SHORT",
-                             "MAGNIFICENT", "UNIVERSE", "SEMICONDUCTOR", "TECH", "CRYPTO",
-                             "INDUSTRY", "NASDAQ", "FEATURED", "HYBRID", "NAME", "TIYORID",
-                             "CIYETO", "INCUSTY", "FECH", "ELDMAX", "SELDMAX", "TELDMAX",
-                             "YELDMEX", "COVET", "TECHY", "NASDIAD", "ORIG", "TE", "OD",
-                             "GAVEIED", "OE", "VELIE", "ULTA", "SHERE", "IHESINE", "MELDMEXT",
-                             "FUNDA", "OPTIC", "MERT", "ETFS", "AL", "HIYARID", "WEIGHT",
-                             "OF"]:
-                    continue
-                # Found a potential ticker
-                valid_ticker = ticker_upper
-                break
             
+            if parts:
+                first_token = parts[0].upper().replace('_', '').replace(',', '').replace(':', '')
+                
+                # Check if first token is a mapped ticker
+                if first_token in self.OCR_CORRECTIONS:
+                    valid_ticker = self.OCR_CORRECTIONS[first_token]
+                # Check if first token is a valid ticker (2-5 chars)
+                elif 2 <= len(first_token) <= 5 and first_token.isalpha():
+                    # Check if it's one of the known tickers that doesn't need mapping
+                    candidate = first_token
+                    if candidate not in ["YIELD", "ETF", "THE", "AND", "FOR", "SEE", "DATE"]:
+                        valid_ticker = candidate
+
+            # Fallback: Searching regex in the whole line if the first token check failed
+            if not valid_ticker:
+                ticker_matches = re.findall(r'\b([A-Za-z]{2,8})\b', clean_line)
+                for ticker in ticker_matches:
+                    ticker_upper = ticker.upper()
+                    if ticker_upper in self.OCR_CORRECTIONS:
+                        valid_ticker = self.OCR_CORRECTIONS[ticker_upper]
+                        break
+                    
+                    if ticker_upper in ["YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
+                                 "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
+                                 "DISTRIBUTION", "RATE", "PER", "SHARE", "FREQUENCY", "WELD",
+                                 "MIAN", "MELD", "MAX", "DORSEY", "WRIGHT", "PORTFOLIO", "OPTION",
+                                 "INCOME", "STRATEGY", "ODTE", "COVERED", "CALL", "ULTRA", "SHORT",
+                                 "MAGNIFICENT", "UNIVERSE", "SEMICONDUCTOR", "TECH", "CRYPTO",
+                                 "INDUSTRY", "NASDAQ", "FEATURED", "HYBRID", "NAME", "TIYORID",
+                                 "CIYETO", "INCUSTY", "FECH", "ELDMAX", "SELDMAX", "TELDMAX",
+                                 "YELDMEX", "COVET", "TECHY", "NASDIAD", "ORIG", "TE", "OD",
+                                 "GAVEIED", "OE", "VELIE", "ULTA", "SHERE", "IHESINE", "MELDMEXT",
+                                 "FUNDA", "OPTIC", "MERT", "ETFS", "AL", "HIYARID", "WEIGHT",
+                                 "OF", "THE", "AND", "FOR", "SEE"]:
+                        continue
+                    
+                    # If it looks like a valid ticker (3-5 chars), take it
+                    if 3 <= len(ticker_upper) <= 5:
+                         valid_ticker = ticker_upper
+                         break
+
             if not valid_ticker:
                 continue
 
-            # Apply OCR correction (case-insensitive)
+            # Apply OCR correction (case-insensitive) just to be sure
             corrected_ticker = self.OCR_CORRECTIONS.get(valid_ticker, valid_ticker)
 
             # Look for distribution amount (prefer $0.xxxx format)
@@ -156,23 +223,15 @@ class YieldMaxParser(BaseParser):
                 for m in matches:
                      if '.' in m:
                          decimals = m.split('.')[1]
-                         if len(decimals) >= 4:
+                         if len(decimals) >= 3: # Relaxed to 3 for cases like 2.68% vs 0.221
                              val = float(m)
-                             # Unpack "70.2389" -> "0.2389"
+                             # Unpack "70.2389" -> "0.2389" if > 5.0 (likely OCR error)
                              if val > 5.0:
                                  if len(decimals) == 4:
                                      candidate = float(f"0.{decimals}")
-                             else:
+                             elif val < 2.5: # Most distributions are small
                                  candidate = val
-                             break
-
-                # Second pass fallback if simple float
-                if not candidate:
-                     for m in matches:
-                         val = float(m)
-                         if 0.05 < val < 2.5:
-                             candidate = val
-                             break
+                                 break
 
             if candidate:
                 results[corrected_ticker] = candidate
