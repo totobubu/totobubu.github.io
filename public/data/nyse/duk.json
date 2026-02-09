@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 123.13,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 121.49,
         "englishName": "Duke Energy Corporation",
         "earningsDate": "2026-02-10",
-        "enterpriseValue": 186134970368,
-        "marketCap": 95753428992,
-        "Volume": 2568641,
-        "AvgVolume": 3675318,
+        "enterpriseValue": 187068170240,
+        "marketCap": 94478065664,
+        "Volume": 2064731,
+        "AvgVolume": 3667922,
         "sharesOutstanding": 777661224,
         "52Week": "110.51 - 130.03",
-        "Yield": 0.03411,
+        "Yield": 0.034571,
         "dividendRate": 4.26,
         "payoutRatio": 0.6614,
         "isin": "US26441C2044",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 123.13,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 186134970368,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 95753428992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2568641,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3675318,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.03411,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106709,6 +106734,14 @@
             "low": 122.43,
             "close": 123.410004,
             "volume": 4218394
+        },
+        {
+            "date": "2026-02-06",
+            "open": 123.025002,
+            "high": 124.275002,
+            "low": 121.339996,
+            "close": 121.860001,
+            "volume": 4411874
         },
         {
             "date": "2026-02-13",

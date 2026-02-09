@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 84.33,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 91.21,
         "englishName": "Direxion Daily Industrials Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26694,
-        "AvgVolume": 17606,
+        "Volume": 25160,
+        "AvgVolume": 18265,
         "sharesOutstanding": null,
-        "52Week": "32.055 - 88.41",
+        "52Week": "32.055 - 91.47",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 84.33,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 26694,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17606,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17870,6 +17883,14 @@
             "low": 83.540001,
             "close": 84.436501,
             "volume": 44715
+        },
+        {
+            "date": "2026-02-06",
+            "open": 86.57,
+            "high": 92.199997,
+            "low": 88.714996,
+            "close": 92.07,
+            "volume": 32340
         },
         {
             "date": "2026-03-23",

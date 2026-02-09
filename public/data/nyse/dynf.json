@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 60.4299,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 61.43,
         "englishName": "iShares U.S. Equity Factor Rotation Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5545986,
-        "AvgVolume": 2923949,
+        "Volume": 2888212,
+        "AvgVolume": 2994632,
         "sharesOutstanding": null,
         "52Week": "42.1 - 62.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.4299,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5545986,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2923949,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14130,6 +14143,14 @@
             "low": 60.005001,
             "close": 60.23,
             "volume": 7018440
+        },
+        {
+            "date": "2026-02-06",
+            "open": 60.52,
+            "high": 61.709999,
+            "low": 60.610001,
+            "close": 61.57,
+            "volume": 4015621
         },
         {
             "date": "2026-03-16",

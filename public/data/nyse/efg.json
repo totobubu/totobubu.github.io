@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 116.9,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 119.22,
         "englishName": "iShares MSCI EAFE Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 883310,
-        "AvgVolume": 1005914,
+        "Volume": 472660,
+        "AvgVolume": 1005831,
         "sharesOutstanding": null,
         "52Week": "88.66 - 122.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 116.9,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 883310,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1005914,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41580,6 +41593,14 @@
             "low": 116.334999,
             "close": 116.419998,
             "volume": 1094671
+        },
+        {
+            "date": "2026-02-06",
+            "open": 116.809998,
+            "high": 119.489998,
+            "low": 118.029999,
+            "close": 119.489998,
+            "volume": 658329
         },
         {
             "date": "2026-06-16",

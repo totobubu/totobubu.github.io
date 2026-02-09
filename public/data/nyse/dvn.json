@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 43.23,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 43.89,
         "englishName": "Devon Energy Corporation",
         "earningsDate": "2026-02-17",
-        "enterpriseValue": 34627547136,
-        "marketCap": 27118178304,
-        "Volume": 9017443,
-        "AvgVolume": 9513575,
+        "enterpriseValue": 34489540608,
+        "marketCap": 27532195840,
+        "Volume": 7511710,
+        "AvgVolume": 9495747,
         "sharesOutstanding": 620264320,
-        "52Week": "25.89 - 43.68",
-        "Yield": 0.021744,
+        "52Week": "25.89 - 44.0",
+        "Yield": 0.021417,
         "dividendRate": 0.96,
         "payoutRatio": 0.2217,
         "isin": "US25179M1036",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.23,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 34627547136,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 27118178304,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9017443,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9513575,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.021744,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -92683,6 +92708,14 @@
             "low": 41.955002,
             "close": 43.169998,
             "volume": 11689882
+        },
+        {
+            "date": "2026-02-06",
+            "open": 42.82,
+            "high": 44,
+            "low": 43.09,
+            "close": 43.810001,
+            "volume": 9908568
         },
         {
             "date": "2026-03-13",

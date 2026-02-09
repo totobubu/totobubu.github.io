@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 42.14,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 42.4965,
         "englishName": "ProShares MSCI EAFE Dividend Growers ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5100,
-        "AvgVolume": 7455,
+        "Volume": 3690,
+        "AvgVolume": 7478,
         "sharesOutstanding": null,
         "52Week": "35.77 - 43.429",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.14,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5100,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7455,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23384,6 +23397,14 @@
             "low": 41.944302,
             "close": 41.944302,
             "volume": 5444
+        },
+        {
+            "date": "2026-02-06",
+            "open": 42.060001,
+            "high": 42.575001,
+            "low": 42.27,
+            "close": 42.575001,
+            "volume": 5672
         },
         {
             "date": "2026-03-24",

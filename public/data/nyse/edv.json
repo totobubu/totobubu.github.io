@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 65.305,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 65.375,
         "englishName": "Vanguard Extended Duration Treasury Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 993503,
-        "AvgVolume": 1108883,
+        "Volume": 462016,
+        "AvgVolume": 1111003,
         "sharesOutstanding": null,
         "52Week": "61.56 - 73.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.305,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 993503,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1108883,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36450,6 +36463,14 @@
             "low": 64.709999,
             "close": 65.440002,
             "volume": 1339235
+        },
+        {
+            "date": "2026-02-06",
+            "open": 64.879997,
+            "high": 65.559998,
+            "low": 65.180099,
+            "close": 65.559998,
+            "volume": 751384
         },
         {
             "date": "2026-03-18",

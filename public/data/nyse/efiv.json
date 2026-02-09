@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 66.54,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 67.49,
         "englishName": "State Street SPDR S&P 500 ESG ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 27190,
-        "AvgVolume": 49639,
+        "Volume": 24246,
+        "AvgVolume": 45737,
         "sharesOutstanding": null,
         "52Week": "46.165 - 67.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.54,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 27190,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 49639,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11382,6 +11395,14 @@
             "low": 66.089996,
             "close": 66.260002,
             "volume": 31419
+        },
+        {
+            "date": "2026-02-06",
+            "open": 66.760002,
+            "high": 67.760002,
+            "low": 66.800003,
+            "close": 67.639999,
+            "volume": 40509
         },
         {
             "date": "2026-03-20",

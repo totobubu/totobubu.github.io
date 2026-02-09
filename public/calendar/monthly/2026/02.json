@@ -66,6 +66,20 @@
                 "amount": 0.5
             }
         ],
+        "2026-02-05": [
+            {
+                "ticker": "DHI",
+                "frequency": "분기",
+                "group": "FMA",
+                "amount": 0.45
+            },
+            {
+                "ticker": "VLO",
+                "frequency": "분기",
+                "group": "FMA",
+                "amount": 1.2
+            }
+        ],
         "2026-02-06": [
             {
                 "ticker": "AZN",
@@ -134,7 +148,7 @@
                 "ticker": "NUGY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.42211
             },
             {
                 "ticker": "NSC",
@@ -154,7 +168,7 @@
                 "ticker": "SEMY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.50015
             },
             {
                 "ticker": "WFC",
@@ -342,13 +356,6 @@
                 "ticker": "CTAS",
                 "frequency": "매년",
                 "group": "FMN",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "DHI",
-                "frequency": "분기",
-                "group": "FMA",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -927,13 +934,6 @@
                 "group": "MAN",
                 "isForecast": true,
                 "isExpected": true
-            },
-            {
-                "ticker": "VLO",
-                "frequency": "분기",
-                "group": "MAN",
-                "isForecast": true,
-                "isExpected": true
             }
         ],
         "2026-02-23": [
@@ -1274,16 +1274,16 @@
                 "isExpected": true
             },
             {
+                "ticker": "NUGY",
+                "frequency": "매주",
+                "group": "금",
+                "isExpected": true
+            },
+            {
                 "ticker": "MTB",
                 "frequency": "분기",
                 "group": "MAN",
                 "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "NUGY",
-                "frequency": "매주",
-                "group": "금",
                 "isExpected": true
             },
             {
@@ -1504,12 +1504,6 @@
                 "amount": 0.112
             },
             {
-                "ticker": "BOND",
-                "frequency": "매월",
-                "group": "MMD",
-                "amount": 0.4
-            },
-            {
                 "ticker": "BND",
                 "frequency": "매월",
                 "group": "MJD",
@@ -1520,6 +1514,12 @@
                 "frequency": "매주",
                 "group": "월",
                 "amount": 0.120075
+            },
+            {
+                "ticker": "BOND",
+                "frequency": "매월",
+                "group": "MMD",
+                "amount": 0.4
             },
             {
                 "ticker": "CAM",
@@ -1546,16 +1546,16 @@
                 "amount": 0.308
             },
             {
-                "ticker": "CLOA",
-                "frequency": "매월",
-                "group": "MAD",
-                "amount": 0.209
-            },
-            {
                 "ticker": "CLOB",
                 "frequency": "매월",
                 "group": "FND",
                 "amount": 0.238
+            },
+            {
+                "ticker": "CLOA",
+                "frequency": "매월",
+                "group": "MAD",
+                "amount": 0.209
             },
             {
                 "ticker": "CLOI",
@@ -1654,16 +1654,16 @@
                 "amount": 0.147
             },
             {
-                "ticker": "FLBL",
-                "frequency": "매월",
-                "group": "JJD",
-                "amount": 0.114
-            },
-            {
                 "ticker": "FLCB",
                 "frequency": "매월",
                 "group": "SOD",
                 "amount": 0.081
+            },
+            {
+                "ticker": "FLBL",
+                "frequency": "매월",
+                "group": "JJD",
+                "amount": 0.114
             },
             {
                 "ticker": "FLGV",
@@ -1786,12 +1786,6 @@
                 "amount": 0.115
             },
             {
-                "ticker": "HYLB",
-                "frequency": "매월",
-                "group": "FMD",
-                "amount": 0.206
-            },
-            {
                 "ticker": "HYHG",
                 "frequency": "매월",
                 "group": "JJD",
@@ -1802,6 +1796,12 @@
                 "frequency": "매월",
                 "group": "FND",
                 "amount": 0.085
+            },
+            {
+                "ticker": "HYLB",
+                "frequency": "매월",
+                "group": "FMD",
+                "amount": 0.206
             },
             {
                 "ticker": "IBDT",
@@ -1828,16 +1828,16 @@
                 "amount": 0.088
             },
             {
-                "ticker": "IBDV",
-                "frequency": "매월",
-                "group": "ASD",
-                "amount": 0.082
-            },
-            {
                 "ticker": "HYS",
                 "frequency": "매월",
                 "group": "JJD",
                 "amount": 0.6
+            },
+            {
+                "ticker": "IBDV",
+                "frequency": "매월",
+                "group": "ASD",
+                "amount": 0.082
             },
             {
                 "ticker": "IBDW",
@@ -1846,28 +1846,28 @@
                 "amount": 0.082
             },
             {
-                "ticker": "IBDR",
-                "frequency": "매월",
-                "group": "FND",
-                "amount": 0.083
-            },
-            {
-                "ticker": "HYG",
-                "frequency": "매월",
-                "group": "MJD",
-                "amount": 0.399
-            },
-            {
                 "ticker": "IBDX",
                 "frequency": "매월",
                 "group": "ASD",
                 "amount": 0.1
             },
             {
+                "ticker": "IBDR",
+                "frequency": "매월",
+                "group": "FND",
+                "amount": 0.083
+            },
+            {
                 "ticker": "IBDY",
                 "frequency": "매월",
                 "group": "ASD",
                 "amount": 0.104
+            },
+            {
+                "ticker": "HYG",
+                "frequency": "매월",
+                "group": "MJD",
+                "amount": 0.399
             },
             {
                 "ticker": "IBHF",
@@ -2008,16 +2008,16 @@
                 "amount": 0.036
             },
             {
-                "ticker": "JEPQ",
-                "frequency": "매월",
-                "group": "JJD",
-                "amount": 0.466
-            },
-            {
                 "ticker": "JEPI",
                 "frequency": "매월",
                 "group": "JAD",
                 "amount": 0.344
+            },
+            {
+                "ticker": "JEPQ",
+                "frequency": "매월",
+                "group": "JJD",
+                "amount": 0.466
             },
             {
                 "ticker": "JFLX",
@@ -2062,10 +2062,10 @@
                 "amount": 0.176
             },
             {
-                "ticker": "JNK",
+                "ticker": "JPIB",
                 "frequency": "매월",
-                "group": "FMD",
-                "amount": 0.56
+                "group": "OND",
+                "amount": 0.193
             },
             {
                 "ticker": "JSCP",
@@ -2074,10 +2074,10 @@
                 "amount": 0.171
             },
             {
-                "ticker": "JPIB",
+                "ticker": "JNK",
                 "frequency": "매월",
-                "group": "OND",
-                "amount": 0.193
+                "group": "FMD",
+                "amount": 0.56
             },
             {
                 "ticker": "LDUR",
@@ -2290,16 +2290,16 @@
                 "amount": 0.088
             },
             {
-                "ticker": "SGOV",
-                "frequency": "매월",
-                "group": "JAD",
-                "amount": 0.309
-            },
-            {
                 "ticker": "SGVT",
                 "frequency": "매월",
                 "group": "JAD",
                 "amount": 0.319
+            },
+            {
+                "ticker": "SGOV",
+                "frequency": "매월",
+                "group": "JAD",
+                "amount": 0.309
             },
             {
                 "ticker": "SHYD",
@@ -2320,16 +2320,16 @@
                 "amount": 0.104
             },
             {
-                "ticker": "SHV",
-                "frequency": "매월",
-                "group": "SOD",
-                "amount": 0.342
-            },
-            {
                 "ticker": "SJNK",
                 "frequency": "매월",
                 "group": "MJD",
                 "amount": 0.14
+            },
+            {
+                "ticker": "SHV",
+                "frequency": "매월",
+                "group": "SOD",
+                "amount": 0.342
             },
             {
                 "ticker": "SLQD",
@@ -2416,13 +2416,13 @@
                 "amount": 0.2955
             },
             {
-                "ticker": "SPTI",
+                "ticker": "SPTL",
                 "frequency": "매월",
                 "group": "JAD",
                 "amount": 0.093
             },
             {
-                "ticker": "SPTL",
+                "ticker": "SPTI",
                 "frequency": "매월",
                 "group": "JAD",
                 "amount": 0.093
@@ -2718,16 +2718,16 @@
                 "amount": 0.1901
             },
             {
-                "ticker": "NVII",
-                "frequency": "매주",
-                "group": "화",
-                "amount": 0.2321
-            },
-            {
                 "ticker": "NVIT",
                 "frequency": "매주",
                 "group": "화",
                 "amount": 0.2397
+            },
+            {
+                "ticker": "NVII",
+                "frequency": "매주",
+                "group": "화",
+                "amount": 0.2321
             },
             {
                 "ticker": "PLTI",
@@ -2956,6 +2956,12 @@
                 "amount": 0.0584
             },
             {
+                "ticker": "AVIG",
+                "frequency": "매월",
+                "group": "FMD",
+                "amount": 0.16
+            },
+            {
                 "ticker": "BABO",
                 "frequency": "매주",
                 "group": "목",
@@ -3157,13 +3163,13 @@
                 "ticker": "SMCY",
                 "frequency": "매주",
                 "group": "목",
-                "isExpected": true
+                "amount": 0.091
             },
             {
                 "ticker": "SNOY",
                 "frequency": "매월",
                 "group": "JON",
-                "isExpected": true
+                "amount": 0.067
             },
             {
                 "ticker": "TSLY",
@@ -3237,19 +3243,19 @@
                 "ticker": "AMYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.36204
             },
             {
                 "ticker": "AZYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.1791
             },
             {
                 "ticker": "BBYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.33098
             },
             {
                 "ticker": "BLOX",
@@ -3261,43 +3267,43 @@
                 "ticker": "COYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.15042
             },
             {
                 "ticker": "FBYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.16715
             },
             {
                 "ticker": "HMYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.32906
             },
             {
                 "ticker": "HOYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.26948
             },
             {
                 "ticker": "IOYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.37725
             },
             {
                 "ticker": "MAAY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.31736
             },
             {
                 "ticker": "MAGY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.297886
             },
             {
                 "ticker": "MLPA",
@@ -3310,55 +3316,61 @@
                 "ticker": "MTYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.17651
             },
             {
                 "ticker": "NVYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.31582
             },
             {
                 "ticker": "PLYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.27709
             },
             {
                 "ticker": "QBY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.35472
+            },
+            {
+                "ticker": "QLDY",
+                "frequency": "매주",
+                "group": "수",
+                "amount": 0.1705
             },
             {
                 "ticker": "RGYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.39301
             },
             {
                 "ticker": "RTYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.46003
             },
             {
                 "ticker": "SMYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.31031
             },
             {
                 "ticker": "TQQY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.14269
             },
             {
                 "ticker": "TSYY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.11366
             },
             {
                 "ticker": "UBND",
@@ -3392,13 +3404,13 @@
                 "ticker": "XBTY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.17664
             },
             {
                 "ticker": "YSPY",
                 "frequency": "매주",
                 "group": "금",
-                "isExpected": true
+                "amount": 0.16633
             }
         ],
         "2026-02-09": [
@@ -3657,13 +3669,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "NVII",
+                "ticker": "NVIT",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
             },
             {
-                "ticker": "NVIT",
+                "ticker": "NVII",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
@@ -4353,13 +4365,6 @@
                 "isExpected": true
             },
             {
-                "ticker": "AVIG",
-                "frequency": "매월",
-                "group": "FMD",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "DFGP",
                 "frequency": "매월",
                 "group": "FND",
@@ -4732,13 +4737,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "NVII",
+                "ticker": "NVIT",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
             },
             {
-                "ticker": "NVIT",
+                "ticker": "NVII",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
@@ -5351,16 +5356,16 @@
                 "isExpected": true
             },
             {
-                "ticker": "BSCX",
+                "ticker": "BSCQ",
                 "frequency": "매월",
-                "group": "OND",
+                "group": "AND",
                 "isForecast": true,
                 "isExpected": true
             },
             {
-                "ticker": "BSCQ",
+                "ticker": "BSCX",
                 "frequency": "매월",
-                "group": "AND",
+                "group": "OND",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -5716,16 +5721,16 @@
                 "isExpected": true
             },
             {
+                "ticker": "SMYY",
+                "frequency": "매주",
+                "group": "금",
+                "isExpected": true
+            },
+            {
                 "ticker": "SMTH",
                 "frequency": "매월",
                 "group": "JFD",
                 "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "SMYY",
-                "frequency": "매주",
-                "group": "금",
                 "isExpected": true
             },
             {
@@ -6107,13 +6112,13 @@
                 "isExpected": true
             },
             {
-                "ticker": "NVII",
+                "ticker": "NVIT",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
             },
             {
-                "ticker": "NVIT",
+                "ticker": "NVII",
                 "frequency": "매주",
                 "group": "화",
                 "isExpected": true
@@ -6238,16 +6243,16 @@
                 "isExpected": true
             },
             {
+                "ticker": "RDTY",
+                "frequency": "매주",
+                "group": "목",
+                "isExpected": true
+            },
+            {
                 "ticker": "QUS",
                 "frequency": "분기",
                 "group": "JSD",
                 "isForecast": true,
-                "isExpected": true
-            },
-            {
-                "ticker": "RDTY",
-                "frequency": "매주",
-                "group": "목",
                 "isExpected": true
             },
             {
@@ -6917,16 +6922,16 @@
                 "isExpected": true
             },
             {
-                "ticker": "HOYY",
-                "frequency": "매주",
-                "group": "금",
-                "isExpected": true
-            },
-            {
                 "ticker": "HIPS",
                 "frequency": "매월",
                 "group": "FMA",
                 "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "HOYY",
+                "frequency": "매주",
+                "group": "금",
                 "isExpected": true
             },
             {
@@ -7268,16 +7273,16 @@
                 "isExpected": true
             },
             {
-                "ticker": "XBTY",
-                "frequency": "매주",
-                "group": "금",
-                "isExpected": true
-            },
-            {
                 "ticker": "XBIL",
                 "frequency": "매월",
                 "group": "AMD",
                 "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "XBTY",
+                "frequency": "매주",
+                "group": "금",
                 "isExpected": true
             },
             {
@@ -7405,18 +7410,18 @@
                 "isExpected": true
             },
             {
-                "ticker": "005385",
-                "frequency": "매년",
-                "group": "JSD",
-                "koName": "현대차우",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "005380",
                 "frequency": "매년",
                 "group": "JJD",
                 "koName": "현대차",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "005385",
+                "frequency": "매년",
+                "group": "JSD",
+                "koName": "현대차우",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -7987,18 +7992,18 @@
                 "isExpected": true
             },
             {
-                "ticker": "0015E0",
-                "frequency": "매월",
-                "group": "AMJ",
-                "koName": "KIWOOM 엔비디아미국30년국채혼합액티브(H)",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "0015F0",
                 "frequency": "매월",
                 "group": "AMJ",
                 "koName": "KIWOOM 팔란티어미국30년국채혼합액티브(H)",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "0015E0",
+                "frequency": "매월",
+                "group": "AMJ",
+                "koName": "KIWOOM 엔비디아미국30년국채혼합액티브(H)",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -8027,18 +8032,18 @@
                 "isExpected": true
             },
             {
-                "ticker": "0046Y0",
-                "frequency": "매월",
-                "group": "JJA",
-                "koName": "ACE 미국배당퀄리티",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "0046A0",
                 "frequency": "매월",
                 "group": "MJJ",
                 "koName": "TIGER 미국초단기(3개월이하)국채",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "0046Y0",
+                "frequency": "매월",
+                "group": "JJA",
+                "koName": "ACE 미국배당퀄리티",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -8555,18 +8560,18 @@
                 "isExpected": true
             },
             {
-                "ticker": "468380",
-                "frequency": "매월",
-                "group": "JND",
-                "koName": "KODEX iShares미국하이일드액티브",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "468630",
                 "frequency": "매월",
                 "group": "JND",
                 "koName": "KODEX iShares미국투자등급회사채액티브",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "468380",
+                "frequency": "매월",
+                "group": "JND",
+                "koName": "KODEX iShares미국하이일드액티브",
                 "isForecast": true,
                 "isExpected": true
             },
@@ -8811,18 +8816,18 @@
                 "isExpected": true
             },
             {
-                "ticker": "499660",
-                "frequency": "매월",
-                "group": "JFD",
-                "koName": "TIGER CD금리플러스액티브(합성)",
-                "isForecast": true,
-                "isExpected": true
-            },
-            {
                 "ticker": "499150",
                 "frequency": "매월",
                 "group": "JFA",
                 "koName": "SOL 미국S&P500엔화노출(H)",
+                "isForecast": true,
+                "isExpected": true
+            },
+            {
+                "ticker": "499660",
+                "frequency": "매월",
+                "group": "JFD",
+                "koName": "TIGER CD금리플러스액티브(합성)",
                 "isForecast": true,
                 "isExpected": true
             }

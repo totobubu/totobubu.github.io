@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 24.65,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 25.91,
         "englishName": "Direxion Daily LLY Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 634687,
-        "AvgVolume": 127895,
+        "Volume": 386786,
+        "AvgVolume": 135968,
         "sharesOutstanding": null,
         "52Week": "11.496 - 34.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.65,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 634687,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 127895,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1800,6 +1813,14 @@
             "low": 23.85,
             "close": 24.636299,
             "volume": 748947
+        },
+        {
+            "date": "2026-02-06",
+            "open": 26.280001,
+            "high": 26.43,
+            "low": 25.26,
+            "close": 26.41,
+            "volume": 432180
         },
         {
             "date": "2026-03-23",

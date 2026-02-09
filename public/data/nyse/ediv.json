@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-06 04:33:20 KST",
-        "regularMarketPrice": 41.29,
+        "Update": "2026-02-07 04:39:09 KST",
+        "regularMarketPrice": 41.8,
         "englishName": "State Street SPDR S&P Emerging Markets Dividend ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 174209,
-        "AvgVolume": 151083,
+        "Volume": 82850,
+        "AvgVolume": 153880,
         "sharesOutstanding": null,
         "52Week": "32.36 - 42.06",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.29,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 174209,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 151083,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30488,6 +30501,14 @@
             "low": 41.130001,
             "close": 41.240002,
             "volume": 272490
+        },
+        {
+            "date": "2026-02-06",
+            "open": 41.669998,
+            "high": 41.93,
+            "low": 41.560001,
+            "close": 41.91,
+            "volume": 178111
         },
         {
             "date": "2026-03-20",
