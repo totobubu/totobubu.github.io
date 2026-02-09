@@ -53,6 +53,13 @@ class BaseParser:
 
 # RoundHill Parser
 class RoundHillParser(BaseParser):
+    OCR_CORRECTIONS = {
+        'COsSWw': 'COSW',
+        'GOOWw': 'GOOW',
+        'COSSW': 'COSW',
+        'GOOWW': 'GOOW',
+    }
+
     def extract_data(self):
         results = {}
         lines = self.text.split('\n')
@@ -60,6 +67,11 @@ class RoundHillParser(BaseParser):
         for line in lines:
             line = line.strip()
             if not line: continue
+            
+            # Pre-cleanup keys using OCR corrections
+            for bad, good in self.OCR_CORRECTIONS.items():
+                if bad in line:
+                    line = line.replace(bad, good)
 
             if "Expense Ratio" in line or "Fee" in line:
                 continue
