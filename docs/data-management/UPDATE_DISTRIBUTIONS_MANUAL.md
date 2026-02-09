@@ -47,13 +47,15 @@
 터미널에서 프로젝트 루트 경로로 이동한 후 다음 명령어를 실행합니다.
 
 **Windows (PowerShell/CMD):**
+
 ```powershell
-py scripts/update_distributions.py
+py scripts/data_pipeline/update_distributions.py
 ```
 
 **Linux/Mac:**
+
 ```bash
-python scripts/update_distributions.py
+python scripts/data_pipeline/update_distributions.py
 ```
 
 > [!TIP]
