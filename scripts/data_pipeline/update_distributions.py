@@ -38,15 +38,23 @@ class BaseParser:
         self.filename = filename
 
     def parse_date(self):
+        # Try YYYY-MM-DD
         match = re.search(r'(\d{4})[-_.](\d{1,2})[-_.](\d{1,2})', self.filename)
         if match:
              return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+
+        # Try YY-MM-DD (assume 20xx)
+        match = re.search(r'(\d{2})[-_.](\d{1,2})[-_.](\d{1,2})', self.filename)
+        if match:
+             return f"20{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+
 
         match = re.search(r'(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})', self.text)
         if match:
              return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
 
         return None
+
 
     def extract_data(self):
         raise NotImplementedError
@@ -139,6 +147,16 @@ class YieldMaxParser(BaseParser):
         'YAR': 'YBIT',
         'YAAA': 'YQQQ', # Short N100
         
+        # New corrections for 2026-02-11
+        'CUPY': 'CHPY',
+        'RIVY': 'FIVY',
+        'GERY': 'GPTY',
+        'URAY': 'LFGY',
+        'OOTY': 'QDTY',
+        'SPTY': 'SDTY',
+        'SURY': 'SLTY',
+        'UM': 'ULTY',
+
         # Existing/Generic corrections just in case
         'GAPY': 'CHPY',
         'PEAR': 'FEAT',
