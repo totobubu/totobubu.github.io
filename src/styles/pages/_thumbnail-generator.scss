@@ -16,6 +16,7 @@ $thumbnail-px: 4px;
     align-items: center;
     margin-bottom: 2rem;
     color: var(--p-text-color);
+
     h1 {
         font-size: 1.5rem;
     }
@@ -40,7 +41,7 @@ $thumbnail-px: 4px;
 
 
 
-.thumbnail-download-btn {  
+.thumbnail-download-btn {
     display: none;
 }
 
@@ -49,7 +50,7 @@ $thumbnail-px: 4px;
     overflow: hidden;
 
     &:hover {
-        .thumbnail-download-btn {  
+        .thumbnail-download-btn {
             display: block;
         }
     }
@@ -70,12 +71,12 @@ $thumbnail-px: 4px;
     background-color: #ffffff;
 
     .thumbnail-container {
-        
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
     }
 
     .thumbnail-container-inner {
@@ -118,9 +119,11 @@ $thumbnail-px: 4px;
         display: flex;
         justify-content: center;
         align-items: center;
+
         .logo {
             height: $thumbnail-px * 20;
         }
+
         .date {
 
             font-size: $thumbnail-px * 12;
@@ -139,23 +142,25 @@ $thumbnail-px: 4px;
         .ticker {
             font-size: $thumbnail-px * 50;
             line-height: 1;
-            text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0
-                rgba(255, 255, 255, 0.3);
+            text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0 rgba(255, 255, 255, 0.3);
         }
+
         .amount {
             font-size: $thumbnail-px * 30;
             line-height: 1;
             margin-top: 0;
-            text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0
-                rgba(255, 255, 255, 0.3);
+            text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0 rgba(255, 255, 255, 0.3);
             letter-spacing: $thumbnail-px * -0.5;
         }
+
         &.group-content {
             top: 50%;
             gap: 0px;
+
             .ticker {
                 font-size: 180px;
             }
+
             .amount {
                 font-size: 180px;
             }
@@ -166,19 +171,20 @@ $thumbnail-px: 4px;
         text-align: center;
         letter-spacing: 1px;
         text-transform: uppercase;
-        text-shadow: $thumbnail-px * 1 $thumbnail-px * 1 0
-            rgba(255, 255, 255, 0.3);
+        text-shadow: $thumbnail-px * 1 $thumbnail-px * 1 0 rgba(255, 255, 255, 0.3);
         letter-spacing: $thumbnail-px * -0.3;
 
         .comparison {
             font-size: $thumbnail-px * 12;
         }
+
         .description {
             font-size: $thumbnail-px * 8;
             opacity: 1;
             line-height: 1.2;
         }
     }
+
     .copyright {
         font-size: $thumbnail-px * 6;
         font-family: 'Nanum Gothic Coding';
@@ -199,11 +205,11 @@ $thumbnail-px: 4px;
             font-size: $thumbnail-px * 4;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
-                rgba(0, 0, 0, 0.7);
+            text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0 rgba(0, 0, 0, 0.7);
             white-space: nowrap;
             padding: 0 $thumbnail-px * 1;
         }
+
         .chart {
             &-section {
                 width: 100%;
@@ -214,6 +220,7 @@ $thumbnail-px: 4px;
                 justify-content: center;
                 flex-direction: column;
                 gap: $thumbnail-px * 3;
+                background-color: #ffffff;
             }
 
             &-row {
@@ -263,12 +270,12 @@ $thumbnail-px: 4px;
                 justify-content: center;
                 min-width: 0;
                 transition: min-width 0.2s;
+
                 &[style*='rgb(251, 188, 4);'] {
                     .segment-label {
                         color: #000000;
 
-                        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0
-                            rgba(255, 255, 255, 0.7);
+                        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0 rgba(255, 255, 255, 0.7);
                     }
                 }
             }
