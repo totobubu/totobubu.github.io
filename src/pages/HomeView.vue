@@ -1,15 +1,15 @@
 <!-- REFACTORED: src/pages/HomeView.vue -->
 <script setup>
-    import { useHead } from '@vueuse/head';
-    import { useRouter } from 'vue-router';
-    import Button from 'primevue/button';
-    import { user } from '../store/auth';
+import { useHead } from '@vueuse/head';
+import { useRouter } from 'vue-router';
+import Button from 'primevue/button';
+import { user } from '../store/auth';
 
-    const router = useRouter();
+const router = useRouter();
 
-    useHead({
-        title: '홈',
-    });
+useHead({
+    title: '홈',
+});
 </script>
 
 <template>
@@ -27,42 +27,15 @@
         </header>
 
         <article class="t-home-link">
-            <Button
-                label="배당달력"
-                icon="pi pi-calendar"
-                severity="primary"
-                rounded
-                size="large"
+            <Button label="배당달력" icon="pi pi-calendar" severity="primary" rounded size="large"
                 @click="router.push('/calendar')" />
-            <Button
-                label="백테스터"
-                icon="pi pi-history"
-                severity="primary"
-                rounded
-                size="large"
+            <Button label="백테스터" icon="pi pi-history" severity="primary" rounded size="large"
                 @click="router.push('/backtester')" />
-            <Button
-                v-if="!user"
-                label="로그인"
-                icon="pi pi-user"
-                severity="primary"
-                rounded
-                size="large"
+            <Button v-if="!user" label="로그인" icon="pi pi-user" severity="primary" rounded size="large"
                 @click="router.push('/login')" />
-            <Button
-                v-else
-                label="북마크"
-                icon="pi pi-star"
-                severity="primary"
-                rounded
-                size="large"
-                @click="router.push('/bookmarks')" />
-            <Button
-                label="문의하기"
-                icon="pi pi-envelope"
-                severity="primary"
-                rounded
-                size="large"
+            <Button v-else label="북마크" icon="pi pi-star" severity="primary" rounded size="large"
+                @click="router.push('/bookmark')" />
+            <Button label="문의하기" icon="pi pi-envelope" severity="primary" rounded size="large"
                 @click="router.push('/contact')" />
         </article>
     </main>

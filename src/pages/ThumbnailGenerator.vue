@@ -2,10 +2,12 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useHead } from '@vueuse/head';
+import { useRouter } from 'vue-router';
 import html2canvas from 'html2canvas';
 import JSZip from 'jszip';
 import ThumbnailItem from '@/components/thumbnail/ThumbnailItem.vue';
 import GroupItem from '@/components/thumbnail/GroupItem.vue';
+import { useFilterState } from '@/composables/portfolio/useFilterState';
 
 import Button from 'primevue/button';
 import ProgressSpinner from 'primevue/progressspinner';
@@ -31,28 +33,19 @@ useHead({
     ],
 });
 
+const { myBookmarks } = useFilterState();
+const router = useRouter();
+
 const allThumbnailsData = ref([]);
-const selectedThumbnails = ref([]);
+// const selectedThumbnails = ref([]); // [삭제] 개별 선택 방식 제거
 const isLoading = ref(true);
 const isDownloading = ref(false);
 const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
-const includeChart = ref(false); // [신규] 차트 포함 여부
+const includeChart = ref(true); // [신규] 차트 포함 여부 (기본값 true)
 const date = ref('');
 const groups = ref(['All']);
 const selectedGroup = ref('All');
 
-const companyOptions = ref([
-    {
-        name: 'YieldMax',
-        logo: getAssetUrl('logos/company/company-yieldmax.png'),
-    },
-    {
-        name: 'Roundhill',
-        logo: getAssetUrl(
-            'logos/company/company-roundhill-investments.svg'
-        ),
-    },
-]);
 const backgroundOptions = ref([
     { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
     { name: 'Gray', path: '/thumbnail/gray.png', tickerColor: '#ffd700' },
@@ -73,6 +66,7 @@ const filteredThumbnails = computed(() => {
     );
 });
 
+/*
 const isAllSelected = computed({
     get: () =>
         filteredThumbnails.value.length > 0 &&
@@ -99,6 +93,7 @@ const isAllSelected = computed({
 watch(selectedGroup, () => {
     isAllSelected.value = true;
 });
+*/
 
 // 차트 포함 옵션이 변경되면 데이터를 다시 동기화
 watch(includeChart, async () => {
@@ -340,12 +335,12 @@ const syncDividendData = async () => {
             const diff = currentDividend - previousDividend;
             const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
 
-            // 차트용 배당 데이터: 최근 3개월치 배당만 필터링
-            const threeMonthsAgo = new Date(targetDate);
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            // 차트용 배당 데이터: 최근 4개월치 배당만 필터링
+            const fourMonthsAgo = new Date(targetDate);
+            fourMonthsAgo.setMonth(fourMonthsAgo.getMonth() - 4);
             const chartDividends = allDividends.filter(
                 (d) =>
-                    new Date(d.date) >= threeMonthsAgo &&
+                    new Date(d.date) >= fourMonthsAgo &&
                     new Date(d.date) <= new Date(targetDate)
             );
 
@@ -363,10 +358,30 @@ const syncDividendData = async () => {
                 foundDate: foundDate
             };
         })
-    );
+    ).then((results) => {
+        // [수정] 날짜(foundDate) 기준 내림차순 정렬 (최신 배당이 위로 오도록)
+        return results.sort((a, b) => {
+            const dateA = new Date(a.foundDate);
+            const dateB = new Date(b.foundDate);
+            return dateB - dateA;
+        });
+    });
 
     allThumbnailsData.value = updatedThumbnails;
     isSyncing.value = false;
+};
+
+// Company Name에 따른 배경 선택 헬퍼
+const getBackgroundForCompany = (companyName) => {
+    if (!companyName) return backgroundOptions.value[1]; // Default Gray
+
+    const name = companyName.toLowerCase();
+    if (name.includes('roundhill')) {
+        return backgroundOptions.value.find(b => b.name === 'Blue') || backgroundOptions.value[0];
+    } else if (name.includes('yieldmax')) {
+        return backgroundOptions.value.find(b => b.name === 'Red') || backgroundOptions.value[2];
+    }
+    return backgroundOptions.value.find(b => b.name === 'Gray') || backgroundOptions.value[1];
 };
 
 onMounted(async () => {
@@ -377,38 +392,50 @@ onMounted(async () => {
     date.value = `${String(today.getFullYear()).slice(-2)}. ${String(today.getMonth() + 1).padStart(2, '0')}. ${String(today.getDate()).padStart(2, '0')}`;
 
     try {
-        const response = await fetch('/thumbnail.json');
-        const configs = await response.json();
+        // 기존 thumbnail.json 로드 로직 제거
+        // 대신 myBookmarks와 nav.json을 사용하여 데이터 구성
+        const navData = await loadNavData();
+        const bookmarks = myBookmarks.value;
 
-        groups.value = [
-            'All',
-            ...new Set(configs.map((c) => c.group).filter(Boolean)),
-        ];
+        if (!navData || !bookmarks) {
+            allThumbnailsData.value = [];
+            isLoading.value = false;
+            return;
+        }
 
-        allThumbnailsData.value = configs.map((config) => {
-            const company =
-                companyOptions.value.find(
-                    (c) => c.name === config.companyName
-                ) || {};
-            const background =
-                backgroundOptions.value.find(
-                    (b) => b.name === config.backgroundName
-                ) || {};
+        // Bookmark Data + Nav Data Mapping
+        const thumbnailConfigs = Object.keys(bookmarks).map(isin => {
+            const stockInfo = navData.nav.find(item => item.isin === isin) || {};
+            const symbol = stockInfo.symbol || bookmarks[isin].symbol || isin;
+            const companyName = stockInfo.company || 'Unknown';
+            const group = stockInfo.group || 'Others';
+
+            const background = getBackgroundForCompany(companyName);
 
             return {
-                ...config,
-                logo: company.logo,
+                symbol: symbol,
+                companyName: companyName,
+                group: group,
                 tickerColor: background.tickerColor,
                 backgroundImageUrl: background.path,
-                // 초기값은 0 또는 JSON 파일 값으로 설정
-                formattedCurrentAmount: formatCurrentAmount(
-                    config.currentDividendAmount || 0
-                ),
+                // groupTitle, groupSubtitle 등의 필드는 nav.json에 없으므로 필요한 경우 추가 로직 필요
+                // 여기서는 기본적으로 Symbol 기반 썸네일 생성
+
+                // 초기값 설정
+                formattedCurrentAmount: '0.0000',
                 comparisonText: 'LAST $ +0.000000',
             };
         });
 
-        isAllSelected.value = true;
+        // Group 목록 업데이트
+        groups.value = [
+            'All',
+            ...new Set(thumbnailConfigs.map((c) => c.group).filter(Boolean)),
+        ];
+
+        allThumbnailsData.value = thumbnailConfigs;
+
+        // isAllSelected.value = true;
         // 페이지 로드 시, 오늘 날짜 기준으로 데이터 자동 동기화
         await syncDividendData();
     } catch (error) {
@@ -422,15 +449,23 @@ onMounted(async () => {
 });
 
 const downloadImages = async () => {
-    if (selectedThumbnails.value.length === 0) {
-        alert('다운로드할 썸네일을 선택해주세요.');
+    if (filteredThumbnails.value.length === 0) {
+        alert('다운로드할 썸네일이 없습니다.');
         return;
     }
     isDownloading.value = true;
     const zip = new JSZip();
     const dateForFilename = date.value.replace(/[. ]/g, '');
 
-    for (const symbol of selectedThumbnails.value) {
+    // [수정] selectedThumbnails 대신 filteredThumbnails 전체 대상
+    const targets = filteredThumbnails.value;
+
+    // Group item 제외하고 Symbol 있는 것만
+    const symbols = targets
+        .filter(t => t.type !== 'Group' && t.symbol)
+        .map(t => t.symbol);
+
+    for (const symbol of symbols) {
         const el = document.querySelector(
             `[data-symbol="${symbol}"] .thumbnail-container`
         );
@@ -471,33 +506,65 @@ const downloadImages = async () => {
         isDownloading.value = false;
     }
 };
+
+const goToBookmarkEdit = () => {
+    router.push({ name: 'bookmark-edit' });
+};
+
+// [신규] 개별 다운로드 함수
+const downloadSingleThumbnail = async (symbol) => {
+    if (!symbol) return;
+
+    const el = document.querySelector(
+        `[data-symbol="${symbol}"] .thumbnail-container`
+    );
+    if (!el) return;
+
+    try {
+        const customDate = date.value.replace(/[. ]/g, '');
+        const chartSuffix = includeChart.value ? '_chart' : '';
+
+        const canvas = await html2canvas(el, {
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: null,
+        });
+
+        const link = document.createElement('a');
+        link.download = `${symbol.toLowerCase()}_${customDate}${chartSuffix}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch (error) {
+        console.error(`Failed to download thumbnail for ${symbol}:`, error);
+    }
+};
 </script>
 
 <template>
     <div class="thumbnail-batch-page">
         <header class="batch-header">
             <div class="flex align-items-center gap-3">
-                <Checkbox v-model="isAllSelected" :binary="true" />
                 <h1>
-                    ({{ selectedThumbnails.length }} /
-                    {{ allThumbnailsData.length }})
+                    ({{ filteredThumbnails.length }})
                 </h1>
             </div>
             <div class="flex align-items-center gap-3">
+                <Button label="북마크 관리" icon="pi pi-pencil" @click="goToBookmarkEdit" severity="secondary" />
                 <SelectButton v-if="groups.length > 1" v-model="selectedGroup" :options="groups" />
 
                 <!-- [신규] 차트 포함 옵션 -->
-                <div class="flex align-items-center gap-2">
+                <!-- [신규] 차트 포함 옵션 (항상 true로 고정) -->
+                <!-- <div class="flex align-items-center gap-2">
                     <Checkbox v-model="includeChart" :binary="true" inputId="includeChart" />
                     <label for="includeChart" class="cursor-pointer">차트 포함</label>
-                </div>
+                </div> -->
 
-                <!-- [핵심 수정] 날짜 입력 및 동기화 버튼 -->
-                <InputText v-model="date" placeholder="YY. MM. DD" />
-                <Button icon="pi pi-sync" @click="syncDividendData" :loading="isSyncing" />
+                <!-- [삭제] 날짜 입력 및 동기화 버튼 (사용자 요청으로 제거, 자동 처리됨) -->
+                <!-- <InputText v-model="date" placeholder="YY. MM. DD" />
+                <Button icon="pi pi-sync" @click="syncDividendData" :loading="isSyncing" /> -->
 
                 <Button icon="pi pi-download" @click="downloadImages" :loading="isDownloading"
-                    :disabled="isLoading || selectedThumbnails.length === 0" />
+                    :disabled="isLoading || filteredThumbnails.length === 0" label="전체 다운로드" />
             </div>
         </header>
 
@@ -506,10 +573,20 @@ const downloadImages = async () => {
                 <ProgressSpinner />
                 <p>썸네일 데이터 로딩 중...</p>
             </div>
+
+            <!-- [신규] 북마크 없음 안내 -->
+            <div v-else-if="filteredThumbnails.length === 0" class="no-bookmarks">
+                <p>북마크된 종목이 없습니다.</p>
+                <Button label="북마크 추가하러 가기" icon="pi pi-plus" @click="goToBookmarkEdit" />
+            </div>
+
             <div v-else v-for="thumb in filteredThumbnails" :key="thumb.symbol || thumb.groupTitle"
                 :data-symbol="thumb.symbol || thumb.groupTitle" class="thumbnail-wrapper">
-                <Checkbox v-model="selectedThumbnails" :value="thumb.symbol || thumb.groupTitle"
-                    class="thumbnail-checkbox" />
+
+                <!-- [수정] 개별 다운로드 버튼으로 변경 -->
+                <Button v-if="thumb.type !== 'Group'" icon="pi pi-download"
+                    class="thumbnail-download-btn p-button-rounded " @click="downloadSingleThumbnail(thumb.symbol)"
+                    style="position: absolute; top: 0.5rem; left: 0.5rem; z-index: 10; background: rgba(255,255,255,0.8);" />
 
                 <!-- Group Type -->
                 <GroupItem v-if="thumb.type === 'Group'" :data="{
@@ -528,3 +605,7 @@ const downloadImages = async () => {
         </main>
     </div>
 </template>
+
+<style lang="scss" scoped>
+@import '@/styles/pages/thumbnail-generator';
+</style>
