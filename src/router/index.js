@@ -63,8 +63,8 @@ const router = createRouter({
             component: PasswordResetView,
         },
         {
-            path: '/bookmarks',
-            name: 'bookmarks',
+            path: '/bookmark-edit',
+            name: 'bookmark-edit',
             component: BookmarkView,
             meta: { requiresAuth: true },
         },
@@ -93,8 +93,8 @@ const router = createRouter({
             meta: { requiresAuth: true },
         },
         {
-            path: '/thumbnail-generator',
-            name: 'thumbnail-generator',
+            path: '/bookmark',
+            name: 'bookmark-gallery',
             component: ThumbnailGenerator,
         },
         {
@@ -145,9 +145,9 @@ router.beforeEach(async (to, from, next) => {
     if (requiresAuth && !user) {
         next({ name: 'login', query: { redirect: to.fullPath } });
     } else if (requiresAdmin && !isAdminUser) {
-        next({ name: 'bookmarks' });
+        next({ name: 'bookmark-gallery' });
     } else if (isAuthPage && user) {
-        next({ name: 'bookmarks' }); // 로그인/회원가입 페이지에 이미 로그인된 사용자가 접근 시 /bookmarks 로 이동
+        next({ name: 'bookmark-gallery' }); // 로그인/회원가입 페이지에 이미 로그인된 사용자가 접근 시 /bookmark 로 이동
     } else {
         next();
     }
