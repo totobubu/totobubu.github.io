@@ -33,11 +33,12 @@ useHead({
     ],
 });
 
-const { myBookmarks } = useFilterState();
+const { myBookmarks, isBookmarksLoading } = useFilterState(); // [수정] isBookmarksLoading 추가
 const router = useRouter();
 
 const allThumbnailsData = ref([]);
 // const selectedThumbnails = ref([]); // [삭제] 개별 선택 방식 제거
+// [수정] isLoading 초기값은 isBookmarksLoading과 연동되도록 설정
 const isLoading = ref(true);
 const isDownloading = ref(false);
 const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
@@ -188,21 +189,18 @@ const applySplits = (backtestData, splits) => {
 
 // [핵심 기능] 날짜 기준으로 배당금 데이터를 동기화하는 함수
 const syncDividendData = async () => {
+    // navDataCache가 없으면 실행하지 않음 (로드될 때까지 대기)
+    if (!navDataCache.value) return;
+
     isSyncing.value = true;
     const targetDate = parseDateInput(date.value);
     if (!targetDate) {
-        alert('날짜 형식이 올바르지 않습니다. (예: 24. 10. 20)');
+        // alert('날짜 형식이 올바르지 않습니다. (예: 24. 10. 20)'); // 초기 자동실행 시 알림 방지
         isSyncing.value = false;
         return;
     }
 
-    // nav.json 로드
-    const navData = await loadNavData();
-    if (!navData) {
-        alert('nav.json을 불러올 수 없습니다.');
-        isSyncing.value = false;
-        return;
-    }
+    const navData = navDataCache.value;
 
     const updatedThumbnails = await Promise.all(
         allThumbnailsData.value.map(async (thumb) => {
@@ -384,6 +382,49 @@ const getBackgroundForCompany = (companyName) => {
     return backgroundOptions.value.find(b => b.name === 'Gray') || backgroundOptions.value[1];
 };
 
+// [신규] 초기 데이터 로드 및 반응형 업데이트 함수
+const updateThumbnailConfigs = async () => {
+    // navData가 로드되지 않았으면 대기
+    if (!navDataCache.value) {
+        await loadNavData();
+    }
+    const navData = navDataCache.value;
+    const bookmarks = myBookmarks.value;
+
+    if (!navData || !bookmarks) {
+        allThumbnailsData.value = [];
+        return;
+    }
+
+    const thumbnailConfigs = Object.keys(bookmarks).map(isin => {
+        const stockInfo = navData.nav.find(item => item.isin === isin) || {};
+        const symbol = stockInfo.symbol || bookmarks[isin].symbol || isin;
+        const companyName = stockInfo.company || 'Unknown';
+        const group = stockInfo.group || 'Others';
+
+        const background = getBackgroundForCompany(companyName);
+
+        return {
+            symbol: symbol,
+            companyName: companyName,
+            group: group,
+            tickerColor: background.tickerColor,
+            backgroundImageUrl: background.path,
+            formattedCurrentAmount: '0.0000',
+            comparisonText: 'LAST $ +0.000000',
+        };
+    });
+
+    groups.value = [
+        'All',
+        ...new Set(thumbnailConfigs.map((c) => c.group).filter(Boolean)),
+    ];
+
+    allThumbnailsData.value = thumbnailConfigs;
+    // 데이터 구성 후 배당 정보 동기화
+    await syncDividendData();
+};
+
 onMounted(async () => {
     const today = new Date();
     // [수정] 오늘 날짜 + 2일로 설정
@@ -391,62 +432,29 @@ onMounted(async () => {
 
     date.value = `${String(today.getFullYear()).slice(-2)}. ${String(today.getMonth() + 1).padStart(2, '0')}. ${String(today.getDate()).padStart(2, '0')}`;
 
-    try {
-        // 기존 thumbnail.json 로드 로직 제거
-        // 대신 myBookmarks와 nav.json을 사용하여 데이터 구성
-        const navData = await loadNavData();
-        const bookmarks = myBookmarks.value;
-
-        if (!navData || !bookmarks) {
-            allThumbnailsData.value = [];
-            isLoading.value = false;
-            return;
-        }
-
-        // Bookmark Data + Nav Data Mapping
-        const thumbnailConfigs = Object.keys(bookmarks).map(isin => {
-            const stockInfo = navData.nav.find(item => item.isin === isin) || {};
-            const symbol = stockInfo.symbol || bookmarks[isin].symbol || isin;
-            const companyName = stockInfo.company || 'Unknown';
-            const group = stockInfo.group || 'Others';
-
-            const background = getBackgroundForCompany(companyName);
-
-            return {
-                symbol: symbol,
-                companyName: companyName,
-                group: group,
-                tickerColor: background.tickerColor,
-                backgroundImageUrl: background.path,
-                // groupTitle, groupSubtitle 등의 필드는 nav.json에 없으므로 필요한 경우 추가 로직 필요
-                // 여기서는 기본적으로 Symbol 기반 썸네일 생성
-
-                // 초기값 설정
-                formattedCurrentAmount: '0.0000',
-                comparisonText: 'LAST $ +0.000000',
-            };
-        });
-
-        // Group 목록 업데이트
-        groups.value = [
-            'All',
-            ...new Set(thumbnailConfigs.map((c) => c.group).filter(Boolean)),
-        ];
-
-        allThumbnailsData.value = thumbnailConfigs;
-
-        // isAllSelected.value = true;
-        // 페이지 로드 시, 오늘 날짜 기준으로 데이터 자동 동기화
-        await syncDividendData();
-    } catch (error) {
-        console.error(
-            'Failed to load or process thumbnail configs:',
-            error
-        );
-    } finally {
-        isLoading.value = false;
-    }
+    // 1. Nav Data 로드 시작
+    loadNavData().then(() => {
+        // Nav Data 로드 완료 시 업데이트 시도
+        updateThumbnailConfigs();
+    });
 });
+
+// [중요] 북마크나 로딩 상태가 변경되면 업데이트 트리거
+watch(
+    () => [myBookmarks.value, isBookmarksLoading.value, navDataCache.value],
+    async ([newBookmarks, newLoading, newNav]) => {
+        // 로딩 중이면 isLoading = true 유지
+        // 단, navDataCache가 있고, bookmarksLoading이 false여야 로딩 완료로 간주
+        if (newLoading || !newNav) {
+            isLoading.value = true;
+        } else {
+            // 데이터 업데이트
+            await updateThumbnailConfigs();
+            isLoading.value = false;
+        }
+    },
+    { immediate: true, deep: true }
+);
 
 const downloadImages = async () => {
     if (filteredThumbnails.value.length === 0) {
