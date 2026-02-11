@@ -38,9 +38,21 @@ $thumbnail-px: 4px;
     color: var(--p-text-color);
 }
 
+
+
+.thumbnail-download-btn {  
+    display: none;
+}
+
 .thumbnail-wrapper {
     position: relative;
     overflow: hidden;
+
+    &:hover {
+        .thumbnail-download-btn {  
+            display: block;
+        }
+    }
 }
 
 .thumbnail-checkbox {
@@ -50,18 +62,34 @@ $thumbnail-px: 4px;
     z-index: 10;
 }
 
+
 .thumbnail-item-wrapper {
     width: 100%;
     height: 100%;
     aspect-ratio: 1 / 1;
+    background-color: #ffffff;
+
+    .thumbnail-container {
+        
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    }
 
     .thumbnail-container-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
         width: $thumbnail-size;
-        height: $thumbnail-size;
+        height: 100%;
         position: relative;
         overflow: hidden;
         font-family: 'Bungee', sans-serif;
         color: #ffffff;
+        padding: $thumbnail-px * 10;
     }
 
     .bg-image {
@@ -78,7 +106,7 @@ $thumbnail-px: 4px;
     .header,
     .main-content,
     .footer {
-        position: absolute;
+        // position: absolute;
         width: 100%;
         padding: 0 0;
         z-index: 2;
@@ -86,25 +114,23 @@ $thumbnail-px: 4px;
     }
 
     .header {
-        top: $thumbnail-px * 8;
+        top: $thumbnail-px * 0;
         padding: 0 $thumbnail-px * 10;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         .logo {
             height: $thumbnail-px * 20;
         }
         .date {
-            padding-top: $thumbnail-px * 10;
+            // padding-top: $thumbnail-px * 4;
             font-size: $thumbnail-px * 12;
             letter-spacing: $thumbnail-px * -0.3;
+            line-height: 1;
         }
     }
 
     .main-content {
-        top: 44%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -156,30 +182,23 @@ $thumbnail-px: 4px;
         }
     }
     .copyright {
-        position: absolute;
-        right: $thumbnail-px * 10;
-        top: $thumbnail-px * 2;
-        font-size: $thumbnail-px * 8;
+        // position: absolute;
+        // right: $thumbnail-px * 10;
+        // top: $thumbnail-px * 1;
+        font-size: $thumbnail-px * 6;
         font-family: 'Nanum Gothic Coding';
         text-transform: lowercase;
         text-shadow: none;
         opacity: 1;
-        line-height: 1.2;
+        line-height: 1;
         color: #ffffff;
     }
 
+
     // with-chart 상태에서만 적용되는 스타일 모음
     &.with-chart {
-        height: auto;
-        aspect-ratio: 1 / 1.2;
 
         // 차트 영역 스타일
-
-        .thumbnail-container {
-            height: auto;
-            aspect-ratio: 1 / 1.2;
-            background-color: #ffffff;
-        }
 
         .segment-label {
             font-size: $thumbnail-px * 4;
@@ -192,11 +211,11 @@ $thumbnail-px: 4px;
         }
         .chart {
             &-section {
-                position: absolute;
-                top: $thumbnail-size;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                // position: absolute;
+                // top: $thumbnail-size;
+                // bottom: 0;
+                // left: 0;
+                // right: 0;
                 width: 100%;
                 padding: $thumbnail-px * 3 $thumbnail-px * 5;
                 z-index: 2;
@@ -265,4 +284,15 @@ $thumbnail-px: 4px;
             }
         }
     }
+}
+
+.no-bookmarks {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-color-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
