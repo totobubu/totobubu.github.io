@@ -184,7 +184,7 @@ class YieldMaxParser(BaseParser):
         'SAKE': 'BRKY',
         'CUNY': 'CVNY',
         'PIPS': 'DIPS',
-        'PISO': 'DISO',
+        'PISO': 'DISO', 'piso': 'DISO',
         'PRAY': 'DRAY',
         'REY': 'FBY',
         'RAT': 'FIAT',
@@ -202,6 +202,14 @@ class YieldMaxParser(BaseParser):
         'XVZY': 'XYZY',
         'YERT': 'YBIT',
         'YAAQ': 'YQQQ',
+
+        # Corrections for missing tickers (2026-02-12 debug)
+        '8RKC': 'BRKC', 'BRKC': 'BRKC', 'sake' : 'BRKC',
+        '0IPS': 'DIPS', 'OIPS': 'DIPS', 'DlPS': 'DIPS', 'pips': 'DIPS',
+        '6DXY': 'GDXY', 'CDXY': 'GDXY', '@pxy': 'GDXY',
+        'M5FO': 'MSFO',
+        'M5TY': 'MSTY', 'misty': 'MSTY',
+        'NELY': 'NFLY', 'nety': 'NFLY',
     }
     
     def extract_data(self):
@@ -553,6 +561,15 @@ def main():
                 text = f.read()
         else:
             text = pytesseract.image_to_string(Image.open(img_path))
+
+        # Debug: Save OCR output to file
+        try:
+            with open("ocr_debug.txt", "a", encoding="utf-8") as f:
+                f.write(f"\n--- {img_path.name} ---\n")
+                f.write(text)
+                f.write("\n" + "="*30 + "\n")
+        except Exception as e:
+            print(f"  [!] Failed to write debug log: {e}")
 
         parser_type = None
         if "roundhill" in img_path.name.lower():
