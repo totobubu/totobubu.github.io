@@ -175,6 +175,33 @@ class YieldMaxParser(BaseParser):
         'GPTY': 'GPTY',  # Sometimes correct
         'RDTY': 'RDTY',  # Sometimes correct
         'SDTY': 'SDTY',  # Sometimes correct
+
+        # New corrections for 2026-02-12
+        'AY': 'AIYY',
+        'AMPY': 'AMDY',
+        'ANMZY': 'AMZY',
+        'APTY': 'APLY', # Overrides previous if any, identifying as Apple
+        'SAKE': 'BRKY',
+        'CUNY': 'CVNY',
+        'PIPS': 'DIPS',
+        'PISO': 'DISO',
+        'PRAY': 'DRAY',
+        'REY': 'FBY',
+        'RAT': 'FIAT',
+        'GPXY': 'GDXY',
+        'AMEY': 'GMEY',
+        'SPMO': 'JPMO',
+        'NANG': 'MARO',
+        'MANY': 'MRNY',
+        'MSRO': 'MSFO',
+        'NETY': 'NFLY',
+        'PURTY': 'PLTY',
+        'ROVY': 'RDYY',
+        'QS': 'TSLY',
+        'WWE': 'WNTR',
+        'XVZY': 'XYZY',
+        'YERT': 'YBIT',
+        'YAAQ': 'YQQQ',
     }
     
     def extract_data(self):
