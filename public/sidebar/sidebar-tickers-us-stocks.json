@@ -5,27 +5,12 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": false,
-        "popularity": 4,
+        "popularity": 3,
         "koName": "리얼티 인컴",
         "logo": "logos/nyse/o.svg",
         "frequency": "매월",
         "group": "OND",
         "groupOrder": 999
-    },
-    {
-        "symbol": "ABBV",
-        "isin": "US00287Y1091",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": false,
-        "popularity": 2,
-        "koName": "애브비",
-        "logo": "logos/nyse/abbv.svg",
-        "frequency": "분기",
-        "group": "JAJ",
-        "groupOrder": 999,
-        "groupLabels": ["JAJO"],
-        "yield": 0.029698
     },
     {
         "symbol": "NVDA",
@@ -42,33 +27,19 @@
         "groupLabels": ["MJSD"]
     },
     {
-        "symbol": "VZ",
-        "isin": "ARDEUT112927",
+        "symbol": "ABBV",
+        "isin": "US00287Y1091",
         "currency": "USD",
         "market": "NYSE",
         "isEtf": false,
-        "popularity": 2,
-        "koName": "버라이즌",
-        "logo": "logos/nyse/vz.svg",
+        "popularity": 1,
+        "koName": "애브비",
+        "logo": "logos/nyse/abbv.svg",
         "frequency": "분기",
         "group": "JAJ",
         "groupOrder": 999,
-        "groupLabels": ["JAJO"]
-    },
-    {
-        "symbol": "AAPL",
-        "isin": "US0378331005",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": false,
-        "popularity": 1,
-        "koName": "애플",
-        "logo": "logos/nasdaq/aapl.svg",
-        "frequency": "분기",
-        "group": "MAN",
-        "groupOrder": 999,
-        "groupLabels": ["FMAN"],
-        "yield": 0.003717
+        "groupLabels": ["JAJO"],
+        "yield": 0.029698
     },
     {
         "symbol": "ABNB",
@@ -94,17 +65,6 @@
         "group": "JMS",
         "groupOrder": 999,
         "groupLabels": ["MJSD"]
-    },
-    {
-        "symbol": "AI",
-        "isin": "US12468P1049",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": false,
-        "popularity": 1,
-        "koName": "C3 AI",
-        "logo": "logos/nyse/ai.svg",
-        "groupOrder": 999
     },
     {
         "symbol": "AMD",
@@ -1221,6 +1181,20 @@
         "group": "FAN",
         "groupOrder": 999,
         "groupLabels": ["FMAN"]
+    },
+    {
+        "symbol": "VZ",
+        "isin": "ARDEUT112927",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": false,
+        "popularity": 1,
+        "koName": "버라이즌",
+        "logo": "logos/nyse/vz.svg",
+        "frequency": "분기",
+        "group": "JAJ",
+        "groupOrder": 999,
+        "groupLabels": ["JAJO"]
     },
     {
         "symbol": "WBD",

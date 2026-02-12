@@ -20,7 +20,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 27,
+        "popularity": 28,
         "koName": "일드맥스 스트래티지 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -51,7 +51,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 20,
+        "popularity": 19,
         "koName": "일드맥스 코인베이스 옵션 배당 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -106,22 +106,6 @@
         "groupLabels": ["수"]
     },
     {
-        "symbol": "NVDY",
-        "isin": "US88634T7744",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 12,
-        "koName": "일드맥스 엔비디아 옵션배당 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JON",
-        "underlying": "NVDA",
-        "groupOrder": 999,
-        "groupLabels": ["목"]
-    },
-    {
         "symbol": "QQQI",
         "isin": "US78433H6751",
         "currency": "USD",
@@ -134,6 +118,38 @@
         "frequency": "매월",
         "group": "FMA",
         "groupOrder": 999
+    },
+    {
+        "symbol": "NVDY",
+        "isin": "US88634T7744",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 11,
+        "koName": "일드맥스 엔비디아 옵션배당 전략 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매월",
+        "group": "JON",
+        "underlying": "NVDA",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
+    },
+    {
+        "symbol": "TSLY",
+        "isin": "US88636J4444",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 11,
+        "koName": "일드맥스 테슬라 옵션 인컴 전략 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매월",
+        "group": "JON",
+        "underlying": "TSLA",
+        "groupOrder": 999,
+        "groupLabels": ["목"]
     },
     {
         "symbol": "PLTY",
@@ -149,22 +165,6 @@
         "group": "목",
         "underlying": "PLTR",
         "groupOrder": 4,
-        "groupLabels": ["목"]
-    },
-    {
-        "symbol": "TSLY",
-        "isin": "US88636J4444",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 10,
-        "koName": "일드맥스 테슬라 옵션 인컴 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JON",
-        "underlying": "TSLA",
-        "groupOrder": 999,
         "groupLabels": ["목"]
     },
     {
@@ -398,6 +398,21 @@
         "groupOrder": 999
     },
     {
+        "symbol": "LFGY",
+        "isin": "US88636R7272",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "일드맥스 크립토 산업 및 기술주 포트폴리오 옵션 인컴 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
+    },
+    {
         "symbol": "MSII",
         "isin": "US7615622062",
         "currency": "USD",
@@ -548,21 +563,6 @@
         "frequency": "매월",
         "group": "FMD",
         "groupOrder": 999
-    },
-    {
-        "symbol": "LFGY",
-        "isin": "US88636R7272",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "일드맥스 크립토 산업 및 기술주 포트폴리오 옵션 인컴 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "groupOrder": 4,
-        "groupLabels": ["수"]
     },
     {
         "symbol": "MSTW",
@@ -840,35 +840,6 @@
         "groupLabels": ["목"]
     },
     {
-        "symbol": "APLY",
-        "isin": "US88634T8577",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 1,
-        "koName": "일드맥스 애플 옵션배당 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JND",
-        "underlying": "AAPL",
-        "groupOrder": 999,
-        "groupLabels": ["목"]
-    },
-    {
-        "symbol": "ARKK",
-        "isin": "US00214Q1040",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 1,
-        "company": "ARK ETF Trust",
-        "logo": "logos/company/company-ark.png",
-        "frequency": "매년",
-        "group": "SD",
-        "groupOrder": 999
-    },
-    {
         "symbol": "BABO",
         "isin": "US88636R1077",
         "currency": "USD",
@@ -926,22 +897,6 @@
         "group": "목",
         "groupOrder": 4,
         "groupLabels": ["수"]
-    },
-    {
-        "symbol": "COSW",
-        "isin": "US77926X5288",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 1,
-        "koName": "라운드힐 코스트코 위클리페이 ETF",
-        "company": "Roundhill Investments",
-        "logo": "logos/company/company-roundhill-investments.svg",
-        "frequency": "매주",
-        "group": "월",
-        "underlying": "COST",
-        "groupOrder": 1,
-        "groupLabels": ["월"]
     },
     {
         "symbol": "CRCO",
@@ -1259,22 +1214,6 @@
         "groupLabels": ["화"]
     },
     {
-        "symbol": "PLYY",
-        "isin": "US38747R2720",
-        "currency": "USD",
-        "market": "NASDAQ",
-        "isEtf": true,
-        "popularity": 1,
-        "koName": "그래닛셰어즈 일드부스트 팔란티어 ETF",
-        "company": "GraniteShares",
-        "logo": "logos/company/company-graniteshares.png",
-        "frequency": "매주",
-        "group": "금",
-        "underlying": "PLTR",
-        "groupOrder": 5,
-        "groupLabels": ["금"]
-    },
-    {
         "symbol": "PYPY",
         "isin": "US88634T4519",
         "currency": "USD",
@@ -1468,22 +1407,6 @@
         "frequency": "매주",
         "group": "목",
         "groupOrder": 4,
-        "groupLabels": ["목"]
-    },
-    {
-        "symbol": "XOMO",
-        "isin": "US88634T4105",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 1,
-        "koName": "일드맥스 엑슨 모빌 옵션 인컴 전략 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JON",
-        "underlying": "XOM",
-        "groupOrder": 999,
         "groupLabels": ["목"]
     },
     {
