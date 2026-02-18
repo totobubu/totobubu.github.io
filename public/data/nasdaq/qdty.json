@@ -4120,7 +4120,39 @@
         },
         {
             "date": "2026-02-18",
-            "expected": true
+            "expected": true,
+            "holdings": [
+                {
+                    "symbol": "4NDX 261218C01001260",
+                    "name": "NDX 12/18/2026 1001.26 C",
+                    "weight": 93.58,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 4.52,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 1.89,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "4XND 261218C00010020",
+                    "name": "XND 12/18/2026 10.02 C",
+                    "weight": 0.12,
+                    "type": "option"
+                },
+                {
+                    "symbol": "912797TR8",
+                    "name": "United States Treasury Bill 05/12/2026",
+                    "weight": 0.1,
+                    "type": "treasury_bill"
+                }
+            ]
         },
         {
             "date": "2026-02-25",
