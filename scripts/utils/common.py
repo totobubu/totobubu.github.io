@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
 DEFAULT_DATA_LAYOUT = os.environ.get("DATA_LAYOUT_MODE", "flat").lower()
@@ -15,6 +15,8 @@ MARKET_SUBDIR_ALIASES = {
     "KOSPI": "kospi",
     "KOSDAQ": "kosdaq",
     "KONEX": "konex",
+    "KRX (KOSPI)": "kospi",
+    "KRX (KOSDAQ)": "kosdaq",
     "KRX": "krx",
     "NYSE": "nyse",
     "NASDAQ": "nasdaq",
