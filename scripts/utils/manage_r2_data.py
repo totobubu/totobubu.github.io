@@ -6,7 +6,7 @@ R2 데이터 수동 관리 스크립트
 2. 로컬에서 데이터 수정 후 R2로 재업로드 (검증 포함)
 
 사용법:
-python scripts/utils/manage_r2_data.py --symbol WPAY
+python scripts/utils/manage_r2_data.py --symbol TOPW
 python scripts/utils/manage_r2_data.py --expected 2025-12-16
 python scripts/utils/manage_r2_data.py --group 화요일 수요일 목요일  
 python scripts/utils/manage_r2_data.py --group 디파이언스수요일 디파이언스목요일
@@ -48,7 +48,7 @@ MARKET_SUBDIR_ALIASES = {
 
 SYMBOL_GROUPS = {
     "화요일": [
-        "WPAY", "XPAY"
+        "TOPW", "XPAY"
     ],
     "일드화요일": [
         "MSST", "NVIT", "TEST"

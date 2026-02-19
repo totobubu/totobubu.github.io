@@ -182,7 +182,7 @@ def is_roundhill_etf(ticker_symbol):
     roundhill_tickers = [
         'NFLW', 'AAPW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
         'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
-        'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+        'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'TOPW',
         'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
         'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
         'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'
@@ -631,7 +631,7 @@ def process_all_tickers(data_dir='public/data'):
         ROUNDHILL_ETFS = [
             'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
             'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
-            'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+            'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'TOPW',
             'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
             'METV', 'MAGS', 'CHAT', 'BETZ', 'NERD', 'OZEM', 'WEED', 'MAGC',
             'UX', 'HUMN', 'MEME', 'WEEK', 'XDIV', 'MAGX'

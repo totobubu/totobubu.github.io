@@ -58,6 +58,7 @@ interface NavItem {
     currency?: string;
     market?: string;
     upcoming?: boolean;
+    aliases?: string[];
     dataPaths?: string[];
     [key: string]: any;
 }
@@ -203,6 +204,10 @@ export function useStockData() {
                     (item) =>
                         sanitizeTickerForFilename(item.yfSymbol || '') ===
                         sanitizedTicker
+                ) ||
+                navData.nav.find(
+                    (item) =>
+                        item.aliases && item.aliases.includes(sanitizedTicker.toUpperCase())
                 );
 
             if (!navInfo) {
@@ -310,7 +315,7 @@ export function useStockData() {
                 const latestClose =
                     cleanedBacktestData.length > 0
                         ? cleanedBacktestData[cleanedBacktestData.length - 1]
-                              .close
+                            .close
                         : null;
 
                 // Holdings 데이터 로드 - backtestData에서 추출

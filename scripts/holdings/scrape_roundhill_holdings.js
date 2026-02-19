@@ -26,7 +26,7 @@ const ROUNDHILL_ETFS = [
     // WeeklyPay™ (22개)
     'AAPW', 'NFLW', 'TSLW', 'NVDW', 'MSFW', 'GOOW', 'AMZW', 'METW',
     'PLTW', 'COIW', 'HOOW', 'MSTW', 'BRKW', 'AMDW', 'AVGW', 'ARMW',
-    'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'WPAY',
+    'BABW', 'COSW', 'UBEW', 'GDXW', 'GLDW', 'TOPW',
     // Income (7개)
     'XDTE', 'QDTE', 'RDTE', 'XPAY', 'YBTC', 'YETH', 'MAGY',
     // Thematic (8개)

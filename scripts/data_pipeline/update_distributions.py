@@ -143,6 +143,7 @@ class YieldMaxParser(BaseParser):
         'TSMY': 'TSMY',
         'WWTR': 'WNTR', # Short MSTR
         'XOMO': 'XOMO',
+        'WPAY': 'TOPW',
         'XYZY': 'XYZY',
         'YAR': 'YBIT',
         'YAAA': 'YQQQ', # Short N100
