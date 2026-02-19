@@ -515,7 +515,7 @@
                         id="ticker-input"
                         type="text"
                         v-model="ticker"
-                        placeholder="예: WPAY, SCHD, VYM"
+                        placeholder="예: TOPW, SCHD, VYM"
                         @keyup.enter="fetchTickerData"
                         :disabled="isLoading"
                         class="ticker-field" />

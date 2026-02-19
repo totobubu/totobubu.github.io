@@ -76,7 +76,7 @@ function getHardcodedRoundhillTickers() {
         'UBEW',
         'GDXW',
         'GLDW',
-        'WPAY',
+        'TOPW',
         'XDTE',
         'QDTE',
         'RDTE',
