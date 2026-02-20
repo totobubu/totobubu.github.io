@@ -3,9 +3,7 @@ name: Market Data v2 KR
 on:
     schedule:
         # 한국 증시 마감 후 30분 (오후 4시 KST = UTC 07:00)
-        # 일광절약시간 고려: UTC 06:00 또는 07:00
-        - cron: '0 6 * * 1-5' # 월-금 오후 4시 KST (UTC 06:00)
-        - cron: '0 7 * * 1-5' # 월-금 오후 4시 KST (UTC 07:00, 일광절약시간)
+        - cron: '0 7 * * 1-5' # 월-금 오후 4시 KST (UTC 07:00)
     workflow_dispatch:
         inputs:
             skip_price_update:
