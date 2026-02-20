@@ -72,7 +72,7 @@ SYMBOL_GROUPS = {
         "FBY", "FIAT", 
         "GDXY", "GMEY", "GOOY", 
         "HIYY", "HOOY", 
-        "JPMO", 
+        "JPO", 
         "MARO", "MRNY", "MSFO", "MSTY", 
         "NFLY", "NVDY", 
         "OARK", 

@@ -210,7 +210,7 @@ def is_yieldmax_etf(ticker_symbol):
         'ABNY', 'AIYY', 'AMDY', 'BABO', 'BRKC', 'CRCO', 'CVNY', 'DISO',
         'DRAY', 'FBY', 'GDXY', 'GMEY', 'HIYY', 'HOOY', 'JPMO', 'MARO',
         'MRNY', 'MSFO', 'PYPY', 'RBLY', 'RDYY', 'SMCY', 'SNOY', 'TSMY',
-        'XOMO', 'XYZY', 'YBIT', 'CHPY', 'GPTY', 'LFGY', 'BIGY', 'RNTY', 'SOXY'
+        'XOMO', 'XYZY', 'YBIT', 'CHPY', 'GPTY', 'LFGY', 'BIGY', 'RNTY', 'SOXY', 'JPO'
     ]
     
     return ticker_symbol.upper() in yieldmax_tickers
