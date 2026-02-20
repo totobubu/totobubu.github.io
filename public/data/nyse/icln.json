@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 18.445,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 18.8081,
         "englishName": "iShares Global Clean Energy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2370860,
-        "AvgVolume": 3975034,
+        "Volume": 1768096,
+        "AvgVolume": 3894560,
         "sharesOutstanding": null,
         "52Week": "10.46 - 19.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.445,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2370860,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3975034,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35786,15 +35799,6 @@
             "volume": 3178000
         },
         {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 18.940001,
-            "high": 19.1,
-            "low": 18.65,
-            "close": 18.85,
-            "volume": 7047200
-        },
-        {
             "date": "2026-02-11",
             "open": 19.09,
             "high": 19.209999,
@@ -35817,10 +35821,6 @@
             "low": 17.99,
             "close": 18.42,
             "volume": 2791376
-        },
-        {
-            "date": "2026-02-16",
-            "forecasted": true
         },
         {
             "date": "2026-02-17",
@@ -35940,6 +35940,14 @@
         },
         {
             "date": "2026-08-04",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-11",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-18",
             "forecasted": true
         }
     ]

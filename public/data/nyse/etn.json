@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 371.85,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 372.425,
         "englishName": "Eaton Corporation plc",
         "earningsDate": "2026-02-03",
-        "enterpriseValue": 147454885888,
-        "marketCap": 144761208832,
-        "Volume": 1765111,
-        "AvgVolume": 3058319,
+        "enterpriseValue": 156247621632,
+        "marketCap": 144985047040,
+        "Volume": 1343290,
+        "AvgVolume": 3051086,
         "sharesOutstanding": 388400000,
-        "52Week": "231.85 - 399.56",
-        "Yield": 0.011187,
+        "52Week": "231.85 - 408.45",
+        "Yield": 0.01117,
         "dividendRate": 4.16,
         "payoutRatio": 0.3981,
         "isin": "IE00B8KQN827",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 371.85,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 147454885888,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 144761208832,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1765111,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3058319,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.011187,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -126200,15 +126225,6 @@
             "volume": 3298994
         },
         {
-            "date": "2026-02-06",
-            "forecasted": true,
-            "open": 360.779999,
-            "high": 374.899994,
-            "low": 357.684998,
-            "close": 373.820007,
-            "volume": 3003581
-        },
-        {
             "date": "2026-02-09",
             "open": 373,
             "high": 380.519989,
@@ -126274,6 +126290,10 @@
         },
         {
             "date": "2026-05-07",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-07",
             "forecasted": true
         }
     ]

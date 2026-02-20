@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 1192.33,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 1126.91,
         "englishName": "W.W. Grainger, Inc.",
-        "earningsDate": "2026-02-03",
-        "enterpriseValue": 58476625920,
-        "marketCap": 57031819264,
-        "Volume": 130958,
-        "AvgVolume": 287391,
+        "earningsDate": "2026-05-07",
+        "enterpriseValue": 55844175872,
+        "marketCap": 53902635008,
+        "Volume": 205032,
+        "AvgVolume": 295791,
         "sharesOutstanding": 47549337,
-        "52Week": "893.99 - 1204.36",
-        "Yield": 0.007406,
+        "52Week": "893.99 - 1218.63",
+        "Yield": 0.007836,
         "dividendRate": 9.04,
         "payoutRatio": 0.2494,
         "isin": "US3848021040",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1192.33,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 58476625920,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 57031819264,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 130958,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 287391,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007406,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121266,16 +121291,9 @@
             "high": 1197.650024,
             "low": 1174.839966,
             "close": 1190.150024,
-            "volume": 250000
-        },
-        {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 1190.150024,
-            "high": 1191.310059,
-            "low": 1170.48999,
-            "close": 1188.030029,
-            "volume": 217200
+            "volume": 250000,
+            "amount": 2.26,
+            "yield": 0.0093403636
         },
         {
             "date": "2026-02-11",
@@ -121327,6 +121345,10 @@
         },
         {
             "date": "2026-05-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-07",
             "forecasted": true
         }
     ]

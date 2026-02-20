@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 27.575,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 27.97,
         "englishName": "Invesco Equal Weight 0-30 Years Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1142772,
-        "AvgVolume": 295632,
+        "Volume": 419732,
+        "AvgVolume": 438908,
         "sharesOutstanding": null,
         "52Week": "26.4 - 28.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.575,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1142772,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 295632,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37408,10 +37421,6 @@
             "volume": 263410
         },
         {
-            "date": "2026-02-20",
-            "forecasted": true
-        },
-        {
             "date": "2026-03-20",
             "forecasted": true
         },
@@ -37429,6 +37438,10 @@
         },
         {
             "date": "2026-07-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-20",
             "forecasted": true
         }
     ]

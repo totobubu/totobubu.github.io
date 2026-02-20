@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 24.305,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 22.23,
         "englishName": "Gen Digital Inc.",
         "earningsDate": "2026-02-05",
-        "enterpriseValue": 21912942592,
-        "marketCap": 14989285376,
-        "Volume": 8097053,
-        "AvgVolume": 5334845,
-        "sharesOutstanding": 616716107,
-        "52Week": "22.14 - 32.22",
-        "Yield": null,
+        "enterpriseValue": 21388529664,
+        "marketCap": 13709598720,
+        "Volume": 2543766,
+        "AvgVolume": 5547840,
+        "sharesOutstanding": 605663774,
+        "52Week": "22.075 - 32.22",
+        "Yield": 0.022492,
         "dividendRate": 0.5,
         "payoutRatio": 0.5155,
         "isin": "US6687711084",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.305,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 21912942592,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14989285376,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8097053,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5334845,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 616716107,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -83147,11 +83172,9 @@
             "high": 23.969999,
             "low": 23.434999,
             "close": 23.719999,
-            "volume": 7118033
-        },
-        {
-            "date": "2026-02-16",
-            "forecasted": true
+            "volume": 7118033,
+            "amount": 0.125,
+            "yield": 0.0265957447
         },
         {
             "date": "2026-02-17",
@@ -83178,7 +83201,11 @@
             "volume": 7125824
         },
         {
-            "date": "2026-05-15",
+            "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-13",
             "forecasted": true
         }
     ]

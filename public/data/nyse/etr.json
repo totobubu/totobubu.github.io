@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 97.39,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 103.94,
         "englishName": "Entergy Corporation",
         "earningsDate": "2026-02-12",
-        "enterpriseValue": 72516018176,
-        "marketCap": 43494072320,
-        "Volume": 1250631,
-        "AvgVolume": 2593845,
-        "sharesOutstanding": 446596904,
-        "52Week": "75.57 - 98.58",
-        "Yield": 0.024746,
+        "enterpriseValue": 75463376896,
+        "marketCap": 47016153088,
+        "Volume": 874526,
+        "AvgVolume": 2679900,
+        "sharesOutstanding": 452339365,
+        "52Week": "75.57 - 106.71",
+        "Yield": null,
         "dividendRate": 2.48,
-        "payoutRatio": 0.5911,
+        "payoutRatio": 0.624,
         "isin": "US29364G1031",
         "events": {
             "splits": [
@@ -32,7 +32,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.39,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 72516018176,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 43494072320,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1250631,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2593845,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 446596904,
+                "change": "up"
+            },
+            "payoutRatio": {
+                "value": 0.5911,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123974,7 +124003,9 @@
             "high": 98.459999,
             "low": 96.959999,
             "close": 98.150002,
-            "volume": 1912700
+            "volume": 1912700,
+            "amount": 0.64,
+            "yield": 0.0316937641
         },
         {
             "date": "2026-02-10",
@@ -124001,15 +124032,6 @@
             "volume": 3821302
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 102.440002,
-            "high": 105.690002,
-            "low": 102.004997,
-            "close": 105.07,
-            "volume": 5498631
-        },
-        {
             "date": "2026-02-17",
             "open": 106,
             "high": 106.7099,
@@ -124034,7 +124056,11 @@
             "volume": 1341795
         },
         {
-            "date": "2026-05-13",
+            "date": "2026-05-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-07",
             "forecasted": true
         }
     ]

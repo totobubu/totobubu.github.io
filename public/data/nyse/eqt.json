@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 56.21,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 60.3825,
         "englishName": "EQT Corporation",
         "earningsDate": "2026-02-17",
-        "enterpriseValue": 46150393856,
-        "marketCap": 35079020544,
-        "Volume": 2395574,
-        "AvgVolume": 9503863,
+        "enterpriseValue": 48725327872,
+        "marketCap": 37682958336,
+        "Volume": 8086126,
+        "AvgVolume": 9759083,
         "sharesOutstanding": 624070822,
         "52Week": "43.57 - 62.23",
-        "Yield": 0.011208,
+        "Yield": 0.010566,
         "dividendRate": 0.66,
         "payoutRatio": 0.2052,
         "isin": "US26884L1098",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.21,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 46150393856,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 35079020544,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2395574,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9503863,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011208,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106571,7 +106596,9 @@
             "high": 58.889999,
             "low": 56.465,
             "close": 57.75,
-            "volume": 9572038
+            "volume": 9572038,
+            "amount": 0.165,
+            "yield": 0.0136874357
         },
         {
             "date": "2026-02-18",
@@ -106590,11 +106617,11 @@
             "volume": 12739400
         },
         {
-            "date": "2026-05-05",
+            "date": "2026-05-15",
             "forecasted": true
         },
         {
-            "date": "2026-08-05",
+            "date": "2026-08-17",
             "forecasted": true
         }
     ]

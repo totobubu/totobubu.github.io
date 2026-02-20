@@ -9,18 +9,18 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 230.885,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 220.48,
         "englishName": "The Hershey Company",
         "earningsDate": "2026-02-05",
-        "enterpriseValue": 50182742016,
-        "marketCap": 46820040704,
-        "Volume": 1610638,
-        "AvgVolume": 1764204,
+        "enterpriseValue": 49386483712,
+        "marketCap": 44710064128,
+        "Volume": 878489,
+        "AvgVolume": 1878300,
         "sharesOutstanding": 148171608,
-        "52Week": "150.04 - 234.43",
-        "Yield": null,
-        "dividendRate": 5.48,
+        "52Week": "150.04 - 234.87",
+        "Yield": 0.024855,
+        "dividendRate": 5.81,
         "payoutRatio": 1.2627,
         "isin": "US4278661081",
         "events": {
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 230.885,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 50182742016,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 46820040704,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1610638,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1764204,
+                "change": "up"
+            },
+            "dividendRate": {
+                "value": 5.48,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105525,16 +105550,14 @@
             "volume": 1691223
         },
         {
-            "date": "2026-02-16",
-            "forecasted": true
-        },
-        {
             "date": "2026-02-17",
             "open": 221.080002,
             "high": 222.050003,
             "low": 214.619995,
             "close": 219.399994,
-            "volume": 2696605
+            "volume": 2696605,
+            "amount": 1.452,
+            "yield": 0.0251583135
         },
         {
             "date": "2026-02-18",
@@ -105554,6 +105577,10 @@
         },
         {
             "date": "2026-05-15",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-17",
             "forecasted": true
         }
     ]

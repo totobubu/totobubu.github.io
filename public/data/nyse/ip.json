@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 46.4,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 46.68,
         "englishName": "International Paper Company",
         "earningsDate": "2026-04-30",
-        "enterpriseValue": 32574230528,
-        "marketCap": 24500977664,
-        "Volume": 3414146,
-        "AvgVolume": 5892303,
+        "enterpriseValue": 33887539200,
+        "marketCap": 24648828928,
+        "Volume": 2671643,
+        "AvgVolume": 6223500,
         "sharesOutstanding": 528038317,
-        "52Week": "35.56 - 57.55",
-        "Yield": 0.039871,
+        "52Week": "35.56 - 57.07",
+        "Yield": 0.039632,
         "dividendRate": 1.85,
         "payoutRatio": 1.5812,
         "isin": "US4601461035",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.4,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 32574230528,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24500977664,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3414146,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5892303,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.039871,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -150560,15 +150585,6 @@
             "volume": 6388782
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 49.130001,
-            "high": 49.580002,
-            "low": 48.599998,
-            "close": 49.099998,
-            "volume": 3076493
-        },
-        {
             "date": "2026-02-17",
             "open": 48.900002,
             "high": 49.389999,
@@ -150594,6 +150610,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         }
     ]

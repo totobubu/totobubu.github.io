@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 455.355,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 466.1096,
         "englishName": "SPDR Gold Shares",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 118528909312,
-        "Volume": 8539207,
-        "AvgVolume": 17099796,
+        "marketCap": 121328328704,
+        "Volume": 9666011,
+        "AvgVolume": 17086255,
         "sharesOutstanding": 260300000,
         "52Week": "261.25 - 509.7",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 455.355,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 118528909312,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8539207,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17099796,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48095,7 +48112,8 @@
             "high": 461.505005,
             "low": 456.079987,
             "close": 459.559998,
-            "volume": 8174974
+            "volume": 8174974,
+            "marketCap": 121328328704
         }
     ]
 }

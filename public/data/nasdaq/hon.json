@@ -9,18 +9,18 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 238.8099,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 243.88,
         "englishName": "Honeywell International Inc.",
         "earningsDate": "2026-01-29",
-        "enterpriseValue": 170191519744,
-        "marketCap": 160926760960,
-        "Volume": 2085557,
-        "AvgVolume": 4310326,
+        "enterpriseValue": 176810639360,
+        "marketCap": 164343349248,
+        "Volume": 1610490,
+        "AvgVolume": 4309665,
         "sharesOutstanding": 634887208,
-        "52Week": "169.04807 - 238.8099",
-        "Yield": 0.019178,
-        "dividendRate": 4.58,
+        "52Week": "169.04807 - 245.63",
+        "Yield": 0.01878,
+        "dividendRate": 4.76,
         "payoutRatio": 0.605,
         "isin": "CA4385211061",
         "events": {
@@ -77,7 +77,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 238.8099,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 170191519744,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 160926760960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2085557,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4310326,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.019178,
+                "change": "down"
+            },
+            "dividendRate": {
+                "value": 4.58,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -154499,15 +154528,6 @@
             "volume": 6390567
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 239.639999,
-            "high": 243.2099,
-            "low": 238.960007,
-            "close": 241.380005,
-            "volume": 5330471
-        },
-        {
             "date": "2026-02-17",
             "open": 239.789993,
             "high": 244.75,
@@ -154533,6 +154553,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         }
     ]

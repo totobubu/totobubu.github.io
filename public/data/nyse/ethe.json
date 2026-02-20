@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 16.74,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 16.0601,
         "englishName": "Grayscale Ethereum Staking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6825248,
-        "AvgVolume": 7886034,
+        "Volume": 5019923,
+        "AvgVolume": 7351831,
         "sharesOutstanding": null,
         "52Week": "12.105 - 40.135",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.74,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6825248,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7886034,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13387,7 +13400,9 @@
             "high": 19.049999,
             "low": 17.209999,
             "close": 18.74,
-            "volume": 18198431
+            "volume": 18198431,
+            "amount": 0.026,
+            "yield": 0.0057886352
         },
         {
             "date": "2026-02-04",

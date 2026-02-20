@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 37.3601,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 39.1,
         "englishName": "iShares MSCI Brazil ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 7492568064,
-        "Volume": 36026467,
-        "AvgVolume": 34396691,
+        "marketCap": 7841504768,
+        "Volume": 32688854,
+        "AvgVolume": 36139325,
         "sharesOutstanding": 200550000,
-        "52Week": "23.05 - 38.88",
-        "Yield": 0.024143,
+        "52Week": "23.05 - 39.45",
+        "Yield": 0.023069,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642864007",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.3601,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 7492568064,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 36026467,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 34396691,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.024143,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58165,15 +58186,6 @@
             "volume": 43170000
         },
         {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 38.299999,
-            "high": 38.529999,
-            "low": 38.139999,
-            "close": 38.32,
-            "volume": 28963300
-        },
-        {
             "date": "2026-02-11",
             "open": 39.110001,
             "high": 39.450001,
@@ -58196,10 +58208,6 @@
             "low": 37.334999,
             "close": 38.060001,
             "volume": 50861427
-        },
-        {
-            "date": "2026-02-16",
-            "forecasted": true
         },
         {
             "date": "2026-02-17",
@@ -58319,6 +58327,14 @@
         },
         {
             "date": "2026-08-04",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-11",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-18",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 120.92,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 138.405,
         "englishName": "Corning Incorporated",
         "earningsDate": "2026-01-28",
-        "enterpriseValue": 103166713856,
-        "marketCap": 103672012800,
-        "Volume": 8172910,
-        "AvgVolume": 7099631,
-        "sharesOutstanding": 857360396,
-        "52Week": "37.31 - 121.63",
-        "Yield": 0.009262,
+        "enterpriseValue": 119875674112,
+        "marketCap": 118744301568,
+        "Volume": 7966393,
+        "AvgVolume": 7703748,
+        "sharesOutstanding": 857948109,
+        "52Week": "37.31 - 140.27",
+        "Yield": 0.008092,
         "dividendRate": 1.12,
         "payoutRatio": 0.612,
         "isin": "US2193501051",
@@ -47,7 +47,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 120.92,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 103166713856,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 103672012800,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8172910,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7099631,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 857360396,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.009262,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101602,15 +101631,6 @@
             "volume": 11016471
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 130.410004,
-            "high": 133.604996,
-            "low": 124.800003,
-            "close": 133.460007,
-            "volume": 10929420
-        },
-        {
             "date": "2026-02-17",
             "open": 131.869995,
             "high": 133.779999,
@@ -101636,6 +101656,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         }
     ]

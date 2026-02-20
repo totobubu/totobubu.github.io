@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 24.908,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 25.5367,
         "englishName": "iShares S&P GSCI Commodity-Indexed Trust",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1557995520,
-        "Volume": 138566,
-        "AvgVolume": 934483,
+        "marketCap": 1597320576,
+        "Volume": 390717,
+        "AvgVolume": 838050,
         "sharesOutstanding": 62550000,
         "52Week": "19.86 - 26.33",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.908,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1557995520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 138566,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 934483,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44455,7 +44472,8 @@
             "high": 25.49,
             "low": 25.190001,
             "close": 25.469999,
-            "volume": 286202
+            "volume": 286202,
+            "marketCap": 1597320576
         }
     ]
 }

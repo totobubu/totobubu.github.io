@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 44.15,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 47.775,
         "englishName": "Exelon Corporation",
         "earningsDate": "2026-02-12",
-        "enterpriseValue": 92909387776,
-        "marketCap": 44590940160,
-        "Volume": 3439907,
-        "AvgVolume": 7509062,
-        "sharesOutstanding": 1008290316,
-        "52Week": "40.81 - 48.51",
-        "Yield": 0.035787,
-        "dividendRate": 1.6,
-        "payoutRatio": 0.5663,
+        "enterpriseValue": 98064195584,
+        "marketCap": 48868696064,
+        "Volume": 4377130,
+        "AvgVolume": 7964993,
+        "sharesOutstanding": 1022892585,
+        "52Week": "41.71 - 49.11",
+        "Yield": 0.03349,
+        "dividendRate": 1.68,
+        "payoutRatio": 0.5861,
         "isin": "US30161N1019",
         "events": {
             "splits": [
@@ -37,7 +37,44 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.15,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 92909387776,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 44590940160,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3439907,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7509062,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 1008290316,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.035787,
+                "change": "down"
+            },
+            "dividendRate": {
+                "value": 1.6,
+                "change": "up"
+            },
+            "payoutRatio": {
+                "value": 0.5663,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122679,15 +122716,6 @@
             "volume": 7165300
         },
         {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 43.970001,
-            "high": 44.919998,
-            "low": 43.700001,
-            "close": 44.639999,
-            "volume": 8679800
-        },
-        {
             "date": "2026-02-11",
             "open": 44.889999,
             "high": 44.889999,
@@ -122737,6 +122765,10 @@
         },
         {
             "date": "2026-05-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-10",
             "forecasted": true
         }
     ]

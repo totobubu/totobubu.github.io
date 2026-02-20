@@ -9,16 +9,16 @@
         "underlying": "HOOD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 30.51,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 27,
         "englishName": "Roundhill HOOD WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 390127,
-        "AvgVolume": 399060,
+        "Volume": 105306,
+        "AvgVolume": 336701,
         "sharesOutstanding": null,
-        "52Week": "25.55 - 86.16",
+        "52Week": "24.88 - 86.16",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.51,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 390127,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 399060,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1519,7 +1532,9 @@
             "high": 27.3599,
             "low": 25.844999,
             "close": 26.809999,
-            "volume": 145414
+            "volume": 145414,
+            "amount": 0.175,
+            "yield": 1.3391251389
         },
         {
             "date": "2026-02-18",

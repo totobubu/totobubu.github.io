@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 69.845,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 74.275,
         "englishName": "iShares MSCI Taiwan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 5936825344,
-        "Volume": 3343436,
-        "AvgVolume": 4452700,
+        "marketCap": 6313375232,
+        "Volume": 3530641,
+        "AvgVolume": 4507310,
         "sharesOutstanding": 85000000,
-        "52Week": "39.44 - 71.56",
-        "Yield": 0.013931,
+        "52Week": "39.44 - 74.5",
+        "Yield": 0.0131,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G7723",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.845,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 5936825344,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3343436,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4452700,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.013931,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58436,7 +58457,8 @@
             "high": 72.699997,
             "low": 72.105003,
             "close": 72.669998,
-            "volume": 2504347
+            "volume": 2504347,
+            "marketCap": 6313375232
         }
     ]
 }

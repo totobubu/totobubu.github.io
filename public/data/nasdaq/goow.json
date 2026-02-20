@@ -9,14 +9,14 @@
         "underlying": "GOOGL",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 71.0579,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 67.41,
         "englishName": "Roundhill GOOGL WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 89024,
-        "AvgVolume": 57985,
+        "Volume": 37350,
+        "AvgVolume": 60603,
         "sharesOutstanding": null,
         "52Week": "49.33 - 78.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.0579,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 89024,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 57985,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1310,7 +1323,9 @@
             "high": 64.584999,
             "low": 62.77,
             "close": 64.040001,
-            "volume": 58257
+            "volume": 58257,
+            "amount": 0.31,
+            "yield": 0.2773072729
         },
         {
             "date": "2026-02-18",

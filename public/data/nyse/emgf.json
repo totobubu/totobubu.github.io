@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 63.495,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 66.095,
         "englishName": "iShares Emerging Markets Equity Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 45978,
-        "AvgVolume": 99895,
+        "Volume": 76534,
+        "AvgVolume": 98406,
         "sharesOutstanding": null,
-        "52Week": "41.01 - 64.31",
+        "52Week": "41.01 - 66.205",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 63.495,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 45978,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 99895,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20674,15 +20687,6 @@
             "volume": 145000
         },
         {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 64.470001,
-            "high": 64.589996,
-            "low": 64.139999,
-            "close": 64.349998,
-            "volume": 105700
-        },
-        {
             "date": "2026-02-11",
             "open": 64.919998,
             "high": 65.370003,
@@ -20705,10 +20709,6 @@
             "low": 64.059998,
             "close": 65.050003,
             "volume": 81527
-        },
-        {
-            "date": "2026-02-16",
-            "forecasted": true
         },
         {
             "date": "2026-02-17",
@@ -20828,6 +20828,14 @@
         },
         {
             "date": "2026-08-04",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-11",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-18",
             "forecasted": true
         }
     ]

@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 73.445,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 76.2121,
         "englishName": "iShares Core MSCI Emerging Markets ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 84520509440,
-        "Volume": 8882260,
-        "AvgVolume": 15525537,
+        "marketCap": 87704879104,
+        "Volume": 19032015,
+        "AvgVolume": 15439555,
         "sharesOutstanding": 1150800000,
-        "52Week": "47.29 - 74.7",
-        "Yield": 0.015794,
+        "52Week": "47.29 - 76.34",
+        "Yield": 0.015221,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G1031",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.445,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 84520509440,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8882260,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15525537,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.015794,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30298,15 +30319,6 @@
             "volume": 16273100
         },
         {
-            "date": "2026-02-10",
-            "forecasted": true,
-            "open": 74.470001,
-            "high": 74.610001,
-            "low": 74.150002,
-            "close": 74.370003,
-            "volume": 17264900
-        },
-        {
             "date": "2026-02-11",
             "open": 75.019997,
             "high": 75.580002,
@@ -30329,10 +30341,6 @@
             "low": 73.794998,
             "close": 74.970001,
             "volume": 15631859
-        },
-        {
-            "date": "2026-02-16",
-            "forecasted": true
         },
         {
             "date": "2026-02-17",
@@ -30452,6 +30460,14 @@
         },
         {
             "date": "2026-08-04",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-11",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-18",
             "forecasted": true
         }
     ]

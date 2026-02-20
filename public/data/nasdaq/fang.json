@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 166.905,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 176.16,
         "englishName": "Diamondback Energy, Inc.",
         "earningsDate": "2026-02-23",
-        "enterpriseValue": 69873688576,
-        "marketCap": 48316678144,
-        "Volume": 719133,
-        "AvgVolume": 1820909,
-        "sharesOutstanding": 286525614,
-        "52Week": "114.0 - 169.49",
-        "Yield": 0.023966,
+        "enterpriseValue": 72721752064,
+        "marketCap": 50474352640,
+        "Volume": 1472931,
+        "AvgVolume": 1900470,
+        "sharesOutstanding": 284525614,
+        "52Week": "114.0 - 177.02",
+        "Yield": 0.022707,
         "dividendRate": 4,
         "payoutRatio": 0.2739,
         "isin": "US25278X1090",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 166.905,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 69873688576,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 48316678144,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 719133,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1820909,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 286525614,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.023966,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30193,15 +30222,6 @@
             "volume": 2313675
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 166.619995,
-            "high": 170.300003,
-            "low": 166.350098,
-            "close": 169.139999,
-            "volume": 1405857
-        },
-        {
             "date": "2026-02-17",
             "open": 170.5,
             "high": 172.800003,
@@ -30227,6 +30247,10 @@
         },
         {
             "date": "2026-05-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-13",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 82.145,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 80.63,
         "englishName": "Fortinet, Inc.",
         "earningsDate": "2026-02-05",
-        "enterpriseValue": 56661544960,
-        "marketCap": 62944923648,
-        "Volume": 10389996,
-        "AvgVolume": 6005470,
+        "enterpriseValue": 58102775808,
+        "marketCap": 61784031232,
+        "Volume": 3380976,
+        "AvgVolume": 6420316,
         "sharesOutstanding": 743648102,
-        "52Week": "70.12 - 114.82",
+        "52Week": "70.12 - 114.57",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 82.145,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 56661544960,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 62944923648,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10389996,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6005470,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36775,7 +36796,8 @@
             "high": 81.769997,
             "low": 80.239998,
             "close": 81.669998,
-            "volume": 4101261
+            "volume": 4101261,
+            "marketCap": 61784031232
         }
     ]
 }

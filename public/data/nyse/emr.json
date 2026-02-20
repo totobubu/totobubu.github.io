@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 156.61,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 149.15,
         "englishName": "Emerson Electric Co.",
         "earningsDate": "2026-02-03",
-        "enterpriseValue": 97154277376,
-        "marketCap": 88062132224,
-        "Volume": 1725846,
-        "AvgVolume": 2847729,
+        "enterpriseValue": 97356603392,
+        "marketCap": 83867353088,
+        "Volume": 1689363,
+        "AvgVolume": 3175635,
         "sharesOutstanding": 562000000,
-        "52Week": "90.06 - 160.13",
-        "Yield": 0.013652,
+        "52Week": "90.06 - 165.15",
+        "Yield": 0.014335,
         "dividendRate": 2.17,
         "payoutRatio": 0.5239,
         "isin": "US2910111044",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 156.61,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 97154277376,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 88062132224,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1725846,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2847729,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.013652,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -124544,15 +124569,6 @@
             "volume": 9889581
         },
         {
-            "date": "2026-02-13",
-            "forecasted": true,
-            "open": 145.699997,
-            "high": 148.990005,
-            "low": 144.100006,
-            "close": 148.130005,
-            "volume": 5181119
-        },
-        {
             "date": "2026-02-17",
             "open": 146.449997,
             "high": 150.169998,
@@ -124578,6 +124594,10 @@
         },
         {
             "date": "2026-05-14",
+            "forecasted": true
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         }
     ]

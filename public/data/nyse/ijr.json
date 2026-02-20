@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-07 04:39:09 KST",
-        "regularMarketPrice": 131.745,
+        "Update": "2026-02-21 04:40:12 KST",
+        "regularMarketPrice": 131.53,
         "englishName": "iShares Core S&P Small-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 74534731776,
-        "Volume": 4032780,
-        "AvgVolume": 5787444,
+        "marketCap": 74413096960,
+        "Volume": 5360381,
+        "AvgVolume": 5774575,
         "sharesOutstanding": 565750016,
-        "52Week": "89.22 - 131.89",
-        "Yield": 0.009617,
+        "52Week": "89.22 - 133.52",
+        "Yield": 0.009633,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642878049",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 131.745,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 74534731776,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4032780,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5787444,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009617,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -201,7 +222,7 @@
             "close": 17.520832061767578,
             "volume": 6000,
             "amount": 0.0012,
-            "yield": 0.0000685714,
+            "yield": 6.85714e-5,
             "marketCap": 9912411019,
             "amountOriginal": 0.258012,
             "amountSplitAdjustments": [
