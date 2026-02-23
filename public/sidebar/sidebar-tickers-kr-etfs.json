@@ -5,10 +5,24 @@
         "currency": "KRW",
         "market": "KOSDAQ",
         "isEtf": true,
-        "popularity": 5,
+        "popularity": 6,
         "koName": "KODEX 미국배당커버드콜액티브",
         "company": "삼성자산운용",
         "logo": "logos/company/etf-kodex.svg",
+        "frequency": "매월",
+        "group": "OND",
+        "groupOrder": 999
+    },
+    {
+        "symbol": "490590",
+        "isin": "KR7490590007",
+        "currency": "KRW",
+        "market": "KOSDAQ",
+        "isEtf": true,
+        "popularity": 5,
+        "koName": "RISE 미국AI밸류체인데일리고정커버드콜",
+        "company": "KB자산운용",
+        "logo": "logos/company/etf-kbsec.svg",
         "frequency": "매월",
         "group": "OND",
         "groupOrder": 999
@@ -25,20 +39,6 @@
         "logo": "logos/company/etf-tiger.svg",
         "frequency": "매월",
         "group": "JAS",
-        "groupOrder": 999
-    },
-    {
-        "symbol": "490590",
-        "isin": "KR7490590007",
-        "currency": "KRW",
-        "market": "KOSDAQ",
-        "isEtf": true,
-        "popularity": 4,
-        "koName": "RISE 미국AI밸류체인데일리고정커버드콜",
-        "company": "KB자산운용",
-        "logo": "logos/company/etf-kbsec.svg",
-        "frequency": "매월",
-        "group": "OND",
         "groupOrder": 999
     },
     {
@@ -866,5 +866,19 @@
         "group": "JAJ",
         "groupOrder": 999,
         "groupLabels": ["JAJO"]
+    },
+    {
+        "symbol": "491620",
+        "isin": "KR7491620001",
+        "currency": "KRW",
+        "market": "KOSDAQ",
+        "isEtf": true,
+        "popularity": 1,
+        "koName": "RISE 미국테크100데일리고정커버드콜",
+        "company": "KB자산운용",
+        "logo": "logos/company/etf-kbsec.svg",
+        "frequency": "매월",
+        "group": "OND",
+        "groupOrder": 999
     }
 ]
