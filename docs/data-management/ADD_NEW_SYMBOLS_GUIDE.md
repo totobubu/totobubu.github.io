@@ -19,25 +19,25 @@ python scripts/utils/add_new_symbols.py --symbol YMAX
 ```
 
 - 여러 심볼을 한 번에 처리하고 싶다면 `--symbol` 옵션을 반복해서 넘깁니다.
-  ```bash
-  python scripts/utils/add_new_symbols.py --symbol VOO --symbol QQQ
-  ```
+    ```bash
+    python scripts/utils/add_new_symbols.py --symbol TPAY --symbol GIF
+    ```
 - 주요 옵션
-  - `--skip-workflow`: nav/data 갱신까지만 수행하고 통합 워크플로우는 건너뜁니다.
-  - `--skip-format`: 마지막 포맷팅 단계만 생략합니다.
-  - `--dry-run`: 실제 파일 수정 없이 실행 계획만 출력합니다.
+    - `--skip-workflow`: nav/data 갱신까지만 수행하고 통합 워크플로우는 건너뜁니다.
+    - `--skip-format`: 마지막 포맷팅 단계만 생략합니다.
+    - `--dry-run`: 실제 파일 수정 없이 실행 계획만 출력합니다.
 
 ---
 
 ## 3. 단계별 동작
 
-| 순서 | 설명 | 상세 |
-| --- | --- | --- |
-| 1 | ISIN/심볼 정규화 | `fetch_missing_isin.py` 로직을 그대로 호출. 자동 조회 실패 시 터미널에서 심볼/ISIN을 직접 입력 가능 |
-| 2 | IPO 날짜 확인 | Yahoo Finance chart API (`firstTradeDate`) 활용. 값이 없으면 YYYY-MM-DD 형식으로 수동 입력 |
-| 3 | nav 소스 업데이트 | `public/nav/{market}/{첫글자}.json`에 `symbol`, `ipoDate` upsert |
-| 4 | data 파일 생성 | `public/data/{symbol}.json`이 없으면 기본 스켈레톤 생성 후 `tickerInfo`에 market/currency/ISIN/업데이트 시간 저장 |
-| 5 | 로컬 워크플로우 실행 | `update_info_data_v2.yml`과 동일한 순서로 Node/Python 스크립트 일괄 실행 (환율 → IPO sync → nav 생성 → info 파이프라인 → 배당 → 캘린더 → 포맷) |
+| 순서 | 설명                 | 상세                                                                                                                                           |
+| ---- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | ISIN/심볼 정규화     | `fetch_missing_isin.py` 로직을 그대로 호출. 자동 조회 실패 시 터미널에서 심볼/ISIN을 직접 입력 가능                                            |
+| 2    | IPO 날짜 확인        | Yahoo Finance chart API (`firstTradeDate`) 활용. 값이 없으면 YYYY-MM-DD 형식으로 수동 입력                                                     |
+| 3    | nav 소스 업데이트    | `public/nav/{market}/{첫글자}.json`에 `symbol`, `ipoDate` upsert                                                                               |
+| 4    | data 파일 생성       | `public/data/{symbol}.json`이 없으면 기본 스켈레톤 생성 후 `tickerInfo`에 market/currency/ISIN/업데이트 시간 저장                              |
+| 5    | 로컬 워크플로우 실행 | `update_info_data_v2.yml`과 동일한 순서로 Node/Python 스크립트 일괄 실행 (환율 → IPO sync → nav 생성 → info 파이프라인 → 배당 → 캘린더 → 포맷) |
 
 > ⚠️ 일부 단계(시장 선택, ISIN/IPO 수동 입력)는 **인터랙티브**하게 이뤄집니다. 터미널 입력이 가능한 환경에서 실행하세요.
 
@@ -50,7 +50,7 @@ python scripts/utils/add_new_symbols.py --symbol YMAX
 신규 티커 처리: YMAX
 ============================================================
 [WARN] 자동 ISIN 조회 실패: ...
-수동으로 입력할 심볼 (엔터 시 기존 심볼 유지): 
+수동으로 입력할 심볼 (엔터 시 기존 심볼 유지):
 YMAX ISIN (예: US0000000001): US1234567890
 [UPDATE] nav entry 저장: public/nav/NASDAQ/y.json
 [UPDATE] data 파일 저장: public/data/ymax.json
@@ -110,4 +110,3 @@ YMAX ISIN (예: US0000000001): US1234567890
 - `docs/TICKER_MANAGEMENT_GUIDE.md`
 
 필요한 보완 사항이나 자동화 아이디어가 떠오르면 언제든 공유해주세요! 😉
-
