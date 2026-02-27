@@ -718,6 +718,12 @@ def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str
     if prefill is None:
         prefill = {}
 
+    # CLI 인자가 하나라도 있으면 non-interactive 모드
+    # (지정하지 않은 값은 None으로 자동 처리, 인터랙티브 프롬프트 건너뜀)
+    cli_mode = any(v is not None for v in prefill.values())
+    if cli_mode:
+        print("[INFO] CLI 모드: 지정되지 않은 값은 자동으로 건너뜁니다.")
+
     normalized = sanitize_symbol(symbol)
     print("\n" + "=" * 60)
     print(f"신규 티커 처리: {normalized}")
@@ -749,19 +755,21 @@ def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str
     currency = MARKET_TO_CURRENCY.get(market)
 
     # ETF 확인 및 추가 정보 수집
-    is_etf = detect_etf(resolved_symbol, prefill.get("is_etf"))
+    # CLI 모드에서는 --etf 미지정 시 False로 처리 (인터랙티브 없음)
+    is_etf = detect_etf(resolved_symbol, prefill.get("is_etf") if not cli_mode else (prefill.get("is_etf") or False))
     company = None
     underlying = None
     ko_name = None
     if is_etf:
-        company = prompt_company(resolved_symbol, prefill.get("company"))
-        underlying = prompt_underlying(resolved_symbol, prefill.get("underlying"))
+        # CLI 모드: 미지정 값은 None (인터랙티브 건너뜀)
+        company = prompt_company(resolved_symbol, prefill.get("company") if not cli_mode else (prefill.get("company") or ""))
+        underlying = prompt_underlying(resolved_symbol, prefill.get("underlying") if not cli_mode else (prefill.get("underlying") or ""))
     elif prefill.get("company") or prefill.get("underlying"):
         # ETF 아니어도 CLI로 전달된 경우 반영
         company = prefill.get("company") or None
         underlying = (prefill.get("underlying") or "").upper() or None
-    # 한국어 종목명(koName) 입력 (모든 경우에 적용)
-    ko_name = prompt_ko_name(resolved_symbol, market, prefill.get("ko_name"))
+    # 한국어 종목명(koName): CLI 모드에서는 미지정 시 None (인터랙티브 건너뜀)
+    ko_name = prompt_ko_name(resolved_symbol, market, prefill.get("ko_name") if not cli_mode else (prefill.get("ko_name") or ""))
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
