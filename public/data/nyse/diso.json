@@ -9,14 +9,14 @@
         "underlying": "DIS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-25 04:59:07 KST",
-        "regularMarketPrice": 11.0212,
+        "Update": "2026-02-27 04:44:51 KST",
+        "regularMarketPrice": 11.02,
         "englishName": "YieldMax DIS Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9251,
-        "AvgVolume": 15845,
+        "Volume": 715,
+        "AvgVolume": 17513,
         "sharesOutstanding": null,
         "52Week": "10.59 - 16.611",
         "Yield": null,
@@ -35,16 +35,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 10.8,
+                "value": 10.93,
                 "change": "up"
             },
             "Volume": {
-                "value": 4479,
-                "change": "up"
+                "value": 2007,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 17513,
-                "change": "down"
+                "value": 15721,
+                "change": "up"
             }
         }
     },
@@ -9222,11 +9222,148 @@
                     "weight": 0.07,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 10.95,
+            "high": 11.07,
+            "low": 10.95,
+            "close": 11.042,
+            "volume": 9800
+        },
+        {
+            "date": "2026-02-25",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 30.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 25.42,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 23.46,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RS8",
+                    "name": "United States Treasury Bill 09/03/2026",
+                    "weight": 12.17,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 6.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.52,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "2DIS 260320C00110010",
+                    "name": "DIS 03/20/2026 110.01 C",
+                    "weight": 1.4,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00110000",
+                    "name": "DIS US 02/27/26 C110",
+                    "weight": 0.14,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00108000",
+                    "name": "DIS US 02/27/26 C108",
+                    "weight": 0.11,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00106000",
+                    "name": "DIS US 02/27/26 C106",
+                    "weight": 0.27,
+                    "type": "option"
+                }
+            ],
+            "open": 10.97,
+            "high": 10.9899,
+            "low": 10.93,
+            "close": 10.9797,
+            "volume": 2157
         },
         {
             "date": "2026-02-26",
-            "expected": true
+            "expected": true,
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 30.88,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 25.77,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797QX8",
+                    "name": "United States Treasury Bill 06/11/2026",
+                    "weight": 23.79,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RS8",
+                    "name": "United States Treasury Bill 09/03/2026",
+                    "weight": 12.33,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 6.7,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.6,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "2DIS 260320C00110010",
+                    "name": "DIS 03/20/2026 110.01 C",
+                    "weight": 0.99,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00108000",
+                    "name": "DIS US 02/27/26 C108",
+                    "weight": 0.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00110000",
+                    "name": "DIS US 02/27/26 C110",
+                    "weight": 0.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DIS 260227C00106000",
+                    "name": "DIS US 02/27/26 C106",
+                    "weight": 0.13,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2026-03-05",

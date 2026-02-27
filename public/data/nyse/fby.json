@@ -9,16 +9,16 @@
         "underlying": "META",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-25 04:59:07 KST",
-        "regularMarketPrice": 11.5375,
+        "Update": "2026-02-27 04:44:51 KST",
+        "regularMarketPrice": 11.775,
         "englishName": "YieldMax META Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63730,
-        "AvgVolume": 161075,
+        "Volume": 132617,
+        "AvgVolume": 168363,
         "sharesOutstanding": null,
-        "52Week": "11.375 - 19.85",
+        "52Week": "11.42 - 20.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -35,16 +35,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 11.535,
+                "value": 11.74,
                 "change": "up"
             },
             "Volume": {
-                "value": 65057,
+                "value": 151592,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 168363,
-                "change": "down"
+                "value": 158488,
+                "change": "up"
             }
         }
     },
@@ -9371,11 +9371,148 @@
                     "weight": 0.07,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 11.42,
+            "high": 11.56,
+            "low": 11.375,
+            "close": 11.535,
+            "volume": 87600
+        },
+        {
+            "date": "2026-02-25",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 29.14,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797TR8",
+                    "name": "United States Treasury Bill 05/12/2026",
+                    "weight": 25.62,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 25.61,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RS8",
+                    "name": "United States Treasury Bill 09/03/2026",
+                    "weight": 13.09,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 5.82,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "META 260417C00650000",
+                    "name": "META US 04/17/26 C650",
+                    "weight": 4.25,
+                    "type": "option"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.11,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "META 260227C00680000",
+                    "name": "META US 02/27/26 C680",
+                    "weight": 0.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "META 260227C00677500",
+                    "name": "META US 02/27/26 C677.5",
+                    "weight": 0.02,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 0.01,
+                    "type": "money_market"
+                }
+            ],
+            "open": 11.59,
+            "high": 11.76,
+            "low": 11.59,
+            "close": 11.75,
+            "volume": 168830
         },
         {
             "date": "2026-02-26",
-            "expected": true
+            "expected": true,
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 28.74,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797TR8",
+                    "name": "United States Treasury Bill 05/12/2026",
+                    "weight": 25.26,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 25.26,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RS8",
+                    "name": "United States Treasury Bill 09/03/2026",
+                    "weight": 12.9,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797SL2",
+                    "name": "United States Treasury Bill 04/09/2026",
+                    "weight": 5.74,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "META 260417C00650000",
+                    "name": "META US 04/17/26 C650",
+                    "weight": 5.2,
+                    "type": "option"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 2.87,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "META 260227C00680000",
+                    "name": "META US 02/27/26 C680",
+                    "weight": 0.05,
+                    "type": "option"
+                },
+                {
+                    "symbol": "META 260227C00677500",
+                    "name": "META US 02/27/26 C677.5",
+                    "weight": 0.03,
+                    "type": "option"
+                },
+                {
+                    "symbol": "META 260227C00660000",
+                    "name": "META US 02/27/26 C660",
+                    "weight": 0.14,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2026-03-05",

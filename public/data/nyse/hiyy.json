@@ -9,37 +9,12 @@
         "underlying": "HIMS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-25 04:59:07 KST",
-        "regularMarketPrice": 12.1711,
-        "englishName": "YieldMax HIMS Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 15293,
-        "AvgVolume": 19730,
-        "sharesOutstanding": null,
-        "52Week": "10.87 - 53.97",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-02-27 04:44:51 KST",
         "isin": "US88636V4547",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 11.65,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 9117,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 14188,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -4932,11 +4907,148 @@
                     "weight": 17.42,
                     "type": "option"
                 }
-            ]
+            ],
+            "open": 11.03,
+            "high": 12.24,
+            "low": 10.87,
+            "close": 11.91,
+            "volume": 15800
+        },
+        {
+            "date": "2026-02-25",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 77.88,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 26.49,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.38,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HIMS 260320C00017000",
+                    "name": "HIMS US 03/20/26 C17",
+                    "weight": 6,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00016000",
+                    "name": "HIMS & H CLL OPT 02/26 16",
+                    "weight": 0.38,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00018500",
+                    "name": "HIMS US 02/27/26 C18.5",
+                    "weight": 0.12,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00017500",
+                    "name": "HIMS & H CLL OPT 02/26 17.500",
+                    "weight": 0.1,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00019000",
+                    "name": "HIMS US 02/27/26 C19",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00017000",
+                    "name": "HIMS US 02/27/26 C17",
+                    "weight": 0.3,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00016500",
+                    "name": "HIMS US 02/27/26 C16.5",
+                    "weight": 0.81,
+                    "type": "option"
+                }
+            ],
+            "open": 12.15,
+            "high": 12.42,
+            "low": 11.88,
+            "close": 12.25,
+            "volume": 28902
         },
         {
             "date": "2026-02-26",
-            "expected": true
+            "expected": true,
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 67.19,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 22.88,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 18.04,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "HIMS 260320C00017000",
+                    "name": "HIMS US 03/20/26 C17",
+                    "weight": 6.68,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00016000",
+                    "name": "HIMS US 02/27/26 C16",
+                    "weight": 0.34,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260306C00018000",
+                    "name": "HIMS & H CLL OPT 03/26 18",
+                    "weight": 0.27,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00018500",
+                    "name": "HIMS US 02/27/26 C18.5",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00017500",
+                    "name": "HIMS US 02/27/26 C17.5",
+                    "weight": 0.07,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00019000",
+                    "name": "HIMS US 02/27/26 C19",
+                    "weight": 0.04,
+                    "type": "option"
+                },
+                {
+                    "symbol": "HIMS 260227C00017000",
+                    "name": "HIMS US 02/27/26 C17",
+                    "weight": 0.21,
+                    "type": "option"
+                }
+            ]
         },
         {
             "date": "2026-03-05",
