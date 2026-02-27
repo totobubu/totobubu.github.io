@@ -22,6 +22,38 @@ python scripts/utils/add_new_symbols.py --symbol YMAX
     ```bash
     python scripts/utils/add_new_symbols.py --symbol TPAY --symbol GIF
     ```
+
+### 인터랙티브 입력 없이 실행하기 (CLI 미리 전달)
+
+ISIN, 시장, ETF 여부 등을 커맨드라인에서 미리 전달하면 터미널 입력 없이 자동으로 실행됩니다.
+
+```bash
+python scripts/utils/add_new_symbols.py `
+    --symbol TPAY --symbol GIF `
+    --isin TPAY:US1234567890AB --isin GIF:US9876543210AB `
+    --market TPAY:NASDAQ --market GIF:NYSE `
+    --etf TPAY `
+    --company "TPAY:YieldMax" `
+    --underlying TPAY:TSLA `
+    --ko-name "TPAY:트리플포인트" --ko-name "GIF:GIF"
+```
+
+> 심볼이 하나일 때는 `SYMBOL:` 접두사를 생략할 수 있습니다.
+>
+> ```bash
+> python scripts/utils/add_new_symbols.py --symbol YMAX `
+>     --isin US12345678901A --market NASDAQ --etf YMAX --ko-name "YieldMax"
+> ```
+
+| 옵션           | 형식            | 설명                                                           |
+| -------------- | --------------- | -------------------------------------------------------------- |
+| `--isin`       | `SYMBOL:ISIN`   | 12자리 ISIN (예: `TPAY:US1234567890AB`)                        |
+| `--market`     | `SYMBOL:MARKET` | 시장 (NASDAQ / NYSE / NYSEARCA / BATS / AMEX / KOSPI / KOSDAQ) |
+| `--etf`        | `SYMBOL`        | ETF로 표시 (예: `--etf TPAY`)                                  |
+| `--company`    | `SYMBOL:NAME`   | 운용사명 (예: `TPAY:YieldMax`)                                 |
+| `--underlying` | `SYMBOL:TICKER` | 기초자산 심볼 (예: `TPAY:TSLA`)                                |
+| `--ko-name`    | `SYMBOL:NAME`   | 한국어 종목명 (예: `"GIF:글로벌 X"`)                           |
+
 - 주요 옵션
     - `--skip-workflow`: nav/data 갱신까지만 수행하고 통합 워크플로우는 건너뜁니다.
     - `--skip-format`: 마지막 포맷팅 단계만 생략합니다.

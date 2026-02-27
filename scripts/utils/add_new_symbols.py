@@ -6,6 +6,19 @@
     python scripts/utils/add_new_symbols.py --symbol YMAX
     python scripts/utils/add_new_symbols.py --symbol voo --symbol qqq
 
+    # 커맨드라인으로 값 미리 전달 (인터랙티브 입력 생략):
+    python scripts/utils/add_new_symbols.py \
+        --symbol TPAY --symbol GIF \
+        --isin TPAY:US1234567890AB --isin GIF:US9876543210AB \
+        --market TPAY:NASDAQ --market GIF:NYSE \
+        --etf TPAY \
+        --company TPAY:YieldMax \
+        --underlying TPAY:TSLA \
+        --ko-name "TPAY:트리플포인트 벤처" --ko-name "GIF:GIF"
+
+    # 심볼이 하나일 때 SYMBOL: 접두사 생략 가능:
+    python scripts/utils/add_new_symbols.py --symbol TPAY --company Roundhill --isin US77926X8662 --market bats --etf TPAY --ko-name "라운드힐 S&P 500 타겟10 ETF"
+
 주요 단계:
     1. fetch_missing_isin.py 로직을 재사용해 ISIN/심볼 정규화
        (실패 시 터미널에서 수동 입력 가능)
@@ -150,14 +163,20 @@ def prompt_yes_no(prompt: str, default: bool = False) -> bool:
     return response in ("y", "yes")
 
 
-def detect_etf(symbol: str) -> bool:
-    """심볼이 ETF인지 확인합니다."""
+def detect_etf(symbol: str, prefill: Optional[bool] = None) -> bool:
+    """심볼이 ETF인지 확인합니다. prefill이 있으면 인터랙티브 입력을 건너뜁니다."""
+    if prefill is not None:
+        print(f"[INFO] {symbol} ETF 여부 (CLI): {'예' if prefill else '아니오'}")
+        return prefill
     print(f"\n[INFO] {symbol}이(가) ETF인지 확인 중...")
     return prompt_yes_no(f"{symbol}이(가) ETF입니까?", default=False)
 
 
-def prompt_company(symbol: str) -> Optional[str]:
-    """회사명을 입력받습니다."""
+def prompt_company(symbol: str, prefill: Optional[str] = None) -> Optional[str]:
+    """회사명을 입력받습니다. prefill이 있으면 인터랙티브 입력을 건너뜁니다."""
+    if prefill is not None:
+        print(f"[INFO] {symbol} 회사명 (CLI): {prefill}")
+        return prefill if prefill else None
     company = prompt_user(f"{symbol}의 회사명 (예: YieldMax, GraniteShares)", default="").strip()
     return company if company else None
 
@@ -199,8 +218,12 @@ def fetch_korean_name_from_toss(symbol: str, market: str) -> Optional[str]:
         print(f"[WARN] 토스증권 한국어 종목명 조회 실패: {exc}")
         return None
 
-def prompt_ko_name(symbol: str, market: str = "NASDAQ") -> Optional[str]:
-    """한국어 종목명을 입력받습니다. 먼저 토스증권에서 자동으로 검색을 시도합니다."""
+def prompt_ko_name(symbol: str, market: str = "NASDAQ", prefill: Optional[str] = None) -> Optional[str]:
+    """한국어 종목명을 입력받습니다. prefill이 있으면 인터랙티브 입력을 건너뜁니다."""
+    if prefill is not None:
+        print(f"[INFO] {symbol} 한국어 종목명 (CLI): {prefill}")
+        return prefill if prefill else None
+
     # 1. 토스증권에서 자동 검색 시도
     print(f"[INFO] 토스증권에서 {symbol}의 한국어 종목명을 조회합니다...")
     toss_ko_name = fetch_korean_name_from_toss(symbol, market)
@@ -219,8 +242,12 @@ def prompt_ko_name(symbol: str, market: str = "NASDAQ") -> Optional[str]:
     return ko_name if ko_name else None
 
 
-def prompt_underlying(symbol: str) -> Optional[str]:
-    """기초자산 심볼을 입력받습니다."""
+def prompt_underlying(symbol: str, prefill: Optional[str] = None) -> Optional[str]:
+    """기초자산 심볼을 입력받습니다. prefill이 있으면 인터랙티브 입력을 건너뜁니다."""
+    if prefill is not None:
+        val = prefill.upper() if prefill else None
+        print(f"[INFO] {symbol} 기초자산 (CLI): {val}")
+        return val if val else None
     has_underlying = prompt_yes_no(f"{symbol}에 기초자산(underlying)이 있습니까?", default=False)
     if has_underlying:
         underlying = prompt_user(f"{symbol}의 기초자산 심볼 (예: NVDA, TSLA)", default="").strip().upper()
@@ -455,8 +482,14 @@ def ensure_nav_entry(
     return nav_path
 
 
-def resolve_market(symbol: str, detected: Optional[str]) -> str:
-    """마켓 정보를 결정합니다. Google Finance를 사용하여 정확한 거래소를 확인합니다."""
+def resolve_market(symbol: str, detected: Optional[str], prefill: Optional[str] = None) -> str:
+    """마켓 정보를 결정합니다. prefill이 있으면 인터랙티브 입력을 건너뜁니다."""
+    # 0. CLI로 미리 전달된 마켓 사용
+    if prefill:
+        prefill_upper = prefill.upper()
+        print(f"[INFO] {symbol} 시장 (CLI): {prefill_upper}")
+        return prefill_upper
+
     # 1. 기존 감지된 마켓이 유효하면 사용
     if detected in MARKET_CHOICES:
         print(f"[INFO] 기존 감지 마켓 사용: {detected}")
@@ -651,13 +684,53 @@ def run_update_workflow(symbols: List[Dict[str, str]]) -> None:
     print("\n✅ 워크플로우 완료")
 
 
-def process_symbol(symbol: str) -> Dict[str, str]:
+def parse_prefill_map(entries: List[str], all_symbols: List[str]) -> Dict[str, str]:
+    """SYMBOL:VALUE 또는 단순 VALUE(심볼이 하나일 때) 형식 파싱.
+
+    Returns:
+        Dict[UPPER_SYMBOL -> value]
+    """
+    result: Dict[str, str] = {}
+    for entry in (entries or []):
+        if ":" in entry:
+            sym, _, val = entry.partition(":")
+            result[sym.upper().strip()] = val.strip()
+        else:
+            # 심볼 접두사 없음 → 심볼이 하나인 경우에만 허용
+            upper_symbols = [s.upper() for s in all_symbols]
+            if len(upper_symbols) == 1:
+                result[upper_symbols[0]] = entry.strip()
+            else:
+                raise SystemExit(
+                    f"[ERROR] 여러 심볼이 있을 때는 'SYMBOL:VALUE' 형식으로 전달해야 합니다: '{entry}'"
+                )
+    return result
+
+
+def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str]:  # noqa: C901
+    """단일 심볼을 처리합니다.
+
+    Args:
+        symbol: 처리할 심볼
+        prefill: CLI로 미리 전달된 값. 키:
+            isin, market, is_etf, company, underlying, ko_name
+    """
+    if prefill is None:
+        prefill = {}
+
     normalized = sanitize_symbol(symbol)
     print("\n" + "=" * 60)
     print(f"신규 티커 처리: {normalized}")
     print("=" * 60)
 
-    isin, resolved_symbol = fetch_isin_with_fallback(normalized)
+    # ISIN
+    prefill_isin = prefill.get("isin")
+    if prefill_isin:
+        isin = prefill_isin.upper()
+        resolved_symbol = normalized
+        print(f"[INFO] ISIN (CLI): {isin}")
+    else:
+        isin, resolved_symbol = fetch_isin_with_fallback(normalized)
     if resolved_symbol != normalized:
         print(f"[INFO] {normalized} → {resolved_symbol} 로 재매핑")
 
@@ -672,19 +745,23 @@ def process_symbol(symbol: str) -> Dict[str, str]:
         return {}
 
     detected_market = determine_market_from_symbol(resolved_symbol)
-    market = resolve_market(resolved_symbol, detected_market)
+    market = resolve_market(resolved_symbol, detected_market, prefill.get("market"))
     currency = MARKET_TO_CURRENCY.get(market)
 
     # ETF 확인 및 추가 정보 수집
-    is_etf = detect_etf(resolved_symbol)
+    is_etf = detect_etf(resolved_symbol, prefill.get("is_etf"))
     company = None
     underlying = None
     ko_name = None
     if is_etf:
-        company = prompt_company(resolved_symbol)
-        underlying = prompt_underlying(resolved_symbol)
+        company = prompt_company(resolved_symbol, prefill.get("company"))
+        underlying = prompt_underlying(resolved_symbol, prefill.get("underlying"))
+    elif prefill.get("company") or prefill.get("underlying"):
+        # ETF 아니어도 CLI로 전달된 경우 반영
+        company = prefill.get("company") or None
+        underlying = (prefill.get("underlying") or "").upper() or None
     # 한국어 종목명(koName) 입력 (모든 경우에 적용)
-    ko_name = prompt_ko_name(resolved_symbol, market)
+    ko_name = prompt_ko_name(resolved_symbol, market, prefill.get("ko_name"))
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
@@ -716,14 +793,85 @@ def process_symbol(symbol: str) -> Dict[str, str]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="신규 심볼 온보딩 자동화 스크립트",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+예시:
+  # 기본 (인터랙티브):
+  python scripts/utils/add_new_symbols.py --symbol YMAX
+
+  # 값 미리 전달 (인터랙티브 생략):
+  python scripts/utils/add_new_symbols.py \\
+      --symbol TPAY --symbol GIF \\
+      --isin TPAY:US1234567890AB --isin GIF:US9876543210AB \\
+      --market TPAY:NASDAQ --market GIF:NYSE \\
+      --etf TPAY \\
+      --company TPAY:YieldMax \\
+      --underlying TPAY:TSLA \\
+      --ko-name "TPAY:트리플포인트" --ko-name "GIF:GIF"
+
+  # 심볼이 하나면 SYMBOL: 접두사 생략 가능:
+  python scripts/utils/add_new_symbols.py --symbol YMAX \\
+      --isin US12345678901A --market NASDAQ --etf YMAX --ko-name "YieldMax"
+        """,
     )
     parser.add_argument(
         "--symbol",
         dest="symbols",
         action="append",
         required=True,
+        metavar="SYMBOL",
         help="처리할 심볼 (여러 번 지정 가능)",
     )
+    # --- 값 미리 전달 옵션 (SYMBOL:VALUE 또는 심볼 하나일 때 VALUE) ---
+    parser.add_argument(
+        "--isin",
+        dest="isins",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]ISIN",
+        help="ISIN 미리 전달 (예: TPAY:US1234567890AB)",
+    )
+    parser.add_argument(
+        "--market",
+        dest="markets",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]MARKET",
+        help="시장 미리 전달 (예: TPAY:NASDAQ)",
+    )
+    parser.add_argument(
+        "--etf",
+        dest="etfs",
+        action="append",
+        default=[],
+        metavar="SYMBOL",
+        help="ETF로 표시할 심볼 (예: --etf TPAY)",
+    )
+    parser.add_argument(
+        "--company",
+        dest="companies",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]NAME",
+        help="회사명 미리 전달 (예: TPAY:YieldMax)",
+    )
+    parser.add_argument(
+        "--underlying",
+        dest="underlyings",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]UNDERLYING",
+        help="기초자산 심볼 미리 전달 (예: TPAY:TSLA)",
+    )
+    parser.add_argument(
+        "--ko-name",
+        dest="ko_names",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]NAME",
+        help="한국어 종목명 미리 전달 (예: \"TPAY:트리플포인트\")",
+    )
+    # --- 동작 제어 옵션 ---
     parser.add_argument(
         "--skip-workflow",
         action="store_true",
@@ -747,10 +895,29 @@ def main() -> int:
     args = parser.parse_args()
 
     os.chdir(ROOT_DIR)
+
+    # CLI 미리 전달값 파싱 (SYMBOL:VALUE → {SYMBOL: VALUE} 맵)
+    isin_map = parse_prefill_map(args.isins, args.symbols)
+    market_map = parse_prefill_map(args.markets, args.symbols)
+    company_map = parse_prefill_map(args.companies, args.symbols)
+    underlying_map = parse_prefill_map(args.underlyings, args.symbols)
+    ko_name_map = parse_prefill_map(args.ko_names, args.symbols)
+    # --etf SYMBOL 형식이므로 대문자로 set 생성
+    etf_set = {s.upper() for s in (args.etfs or [])}
+
     summaries: List[Dict[str, str]] = []
 
     for symbol in args.symbols:
-        summaries.append(process_symbol(symbol))
+        sym_upper = symbol.upper()
+        prefill: Dict = {
+            "isin": isin_map.get(sym_upper),
+            "market": market_map.get(sym_upper),
+            "is_etf": True if sym_upper in etf_set else None,
+            "company": company_map.get(sym_upper),
+            "underlying": underlying_map.get(sym_upper),
+            "ko_name": ko_name_map.get(sym_upper),
+        }
+        summaries.append(process_symbol(symbol, prefill=prefill))
 
     if args.dry_run:
         print("\n[DRY-RUN] 워크플로우는 실행되지 않았습니다.")
