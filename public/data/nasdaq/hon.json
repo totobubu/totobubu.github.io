@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 242.99,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 247.23,
         "englishName": "Honeywell International Inc.",
         "earningsDate": "2026-01-29",
-        "enterpriseValue": 176880566272,
-        "marketCap": 163743596544,
-        "Volume": 1215555,
-        "AvgVolume": 4195757,
+        "enterpriseValue": 178603245568,
+        "marketCap": 166600802304,
+        "Volume": 1970281,
+        "AvgVolume": 4245566,
         "sharesOutstanding": 634887208,
-        "52Week": "169.04807 - 246.0",
-        "Yield": 0.018849,
+        "52Week": "169.04807 - 247.925",
+        "Yield": 0.018525,
         "dividendRate": 4.76,
         "payoutRatio": 0.605,
         "isin": "CA4385211061",
@@ -77,7 +77,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 242.99,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 176880566272,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 163743596544,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1215555,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4195757,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.018849,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -154568,14 +154593,16 @@
             "high": 243.929993,
             "low": 240.255005,
             "close": 243.589996,
-            "volume": 3879568
+            "volume": 3879568,
+            "amount": 1.19,
+            "yield": 0.0223524049
         },
         {
-            "date": "2026-05-14",
+            "date": "2026-05-27",
             "forecasted": true
         },
         {
-            "date": "2026-08-14",
+            "date": "2026-08-27",
             "forecasted": true
         }
     ]

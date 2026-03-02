@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 108.3369,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 107.645,
         "englishName": "iShares Intermediate Government/Credit Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 71655,
-        "AvgVolume": 192109,
+        "Volume": 105547,
+        "AvgVolume": 203967,
         "sharesOutstanding": null,
         "52Week": "104.44 - 108.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 108.3369,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 71655,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 192109,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38992,10 +39005,6 @@
             "volume": 417433
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -39013,6 +39022,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

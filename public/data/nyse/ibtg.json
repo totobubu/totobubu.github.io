@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 22.9201,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 22.855,
         "englishName": "iShares iBonds Dec 2026 Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 292271,
-        "AvgVolume": 765591,
+        "Volume": 243335,
+        "AvgVolume": 758500,
         "sharesOutstanding": null,
         "52Week": "22.81 - 22.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.9201,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 292271,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 765591,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12236,10 +12249,6 @@
             "volume": 310783
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -12257,6 +12266,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

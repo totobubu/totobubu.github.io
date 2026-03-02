@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 94.425,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 93.865,
         "englishName": "PIMCO 0-5 Year High Yield Corporate Bond Index Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 55923,
-        "AvgVolume": 140273,
+        "Volume": 94610,
+        "AvgVolume": 142167,
         "sharesOutstanding": null,
         "52Week": "86.65 - 95.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.425,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 55923,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 140273,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29942,10 +29955,6 @@
             "volume": 90468
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -29963,6 +29972,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

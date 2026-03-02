@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 25.53,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 25.35,
         "englishName": "Global X Investment Grade Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17,
-        "AvgVolume": 21149,
+        "Volume": 405,
+        "AvgVolume": 21186,
         "sharesOutstanding": null,
         "52Week": "25.05 - 26.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21149,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1452,10 +1465,6 @@
             "volume": 17
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -1473,6 +1482,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

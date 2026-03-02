@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 22.5318,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 22.4599,
         "englishName": "iShares iBonds Dec 2027 Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 197743,
-        "AvgVolume": 605540,
+        "Volume": 258181,
+        "AvgVolume": 616613,
         "sharesOutstanding": null,
         "52Week": "22.3 - 22.57",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.5318,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 197743,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 605540,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12236,10 +12249,6 @@
             "volume": 255007
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -12257,6 +12266,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

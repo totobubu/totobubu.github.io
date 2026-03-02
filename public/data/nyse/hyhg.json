@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 64.3283,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 64.03,
         "englishName": "ProShares High Yield—Interest Rate Hedged",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5769,
-        "AvgVolume": 12618,
+        "Volume": 7874,
+        "AvgVolume": 12566,
         "sharesOutstanding": null,
-        "52Week": "59.66 - 66.89",
+        "52Week": "59.66 - 66.34",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.3283,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5769,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12618,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26020,10 +26033,6 @@
             "volume": 8856
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -26041,6 +26050,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 30.81,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 30.72,
         "englishName": "State Street SPDR Bloomberg Investment Grade Floating Rate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 628123,
-        "AvgVolume": 850200,
+        "Volume": 1237936,
+        "AvgVolume": 855318,
         "sharesOutstanding": null,
-        "52Week": "30.01 - 30.87",
+        "52Week": "30.01 - 30.86",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.81,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 628123,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 850200,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29009,10 +29022,6 @@
             "volume": 991449
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -29030,6 +29039,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 20.235,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 20.11,
         "englishName": "VanEck Emerging Markets High Yield Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49389,
-        "AvgVolume": 162303,
+        "Volume": 105796,
+        "AvgVolume": 162632,
         "sharesOutstanding": null,
         "52Week": "18.43 - 20.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.235,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49389,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 162303,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28098,10 +28111,6 @@
             "volume": 66193
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -28119,6 +28128,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

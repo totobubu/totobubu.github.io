@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 23.385,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 23.195,
         "englishName": "iShares U.S. Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4954635,
-        "AvgVolume": 7258980,
+        "Volume": 6877267,
+        "AvgVolume": 7379459,
         "sharesOutstanding": null,
         "52Week": "22.48 - 23.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.385,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4954635,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7258980,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28542,10 +28555,6 @@
             "volume": 7348431
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -28563,6 +28572,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

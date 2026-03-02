@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 25.57,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 25.4299,
         "englishName": "iShares iBonds Dec 2028 Term Corporate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 389414,
-        "AvgVolume": 848536,
+        "Volume": 566917,
+        "AvgVolume": 858086,
         "sharesOutstanding": null,
         "52Week": "24.81 - 25.76",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.57,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 389414,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 848536,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15172,10 +15185,6 @@
             "volume": 496332
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -15193,6 +15202,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

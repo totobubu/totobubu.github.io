@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 148.9101,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 158.365,
         "englishName": "Corning Incorporated",
         "earningsDate": "2026-01-28",
-        "enterpriseValue": 137300598784,
-        "marketCap": 127757131776,
-        "Volume": 8968569,
-        "AvgVolume": 8445493,
+        "enterpriseValue": 137369239552,
+        "marketCap": 135868956672,
+        "Volume": 11065493,
+        "AvgVolume": 8808081,
         "sharesOutstanding": 857948109,
         "52Week": "37.31 - 162.1",
-        "Yield": 0.007521,
+        "Yield": 0.007072,
         "dividendRate": 1.12,
         "payoutRatio": 0.612,
         "isin": "US2193501051",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 148.9101,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 137300598784,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 127757131776,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8968569,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8445493,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007521,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101671,14 +101696,16 @@
             "high": 154.5,
             "low": 146.619995,
             "close": 150.380005,
-            "volume": 11212183
+            "volume": 11212183,
+            "amount": 0.28,
+            "yield": 0.0093966035
         },
         {
-            "date": "2026-05-14",
+            "date": "2026-05-27",
             "forecasted": true
         },
         {
-            "date": "2026-08-14",
+            "date": "2026-08-27",
             "forecasted": true
         }
     ]

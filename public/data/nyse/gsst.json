@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 50.685,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 50.52,
         "englishName": "Goldman Sachs Ultra Short Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 137883,
-        "AvgVolume": 261662,
+        "Volume": 103459,
+        "AvgVolume": 267345,
         "sharesOutstanding": null,
         "52Week": "50.25 - 50.83",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.685,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 137883,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 261662,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14030,10 +14043,6 @@
             "volume": 243789
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -14051,6 +14060,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

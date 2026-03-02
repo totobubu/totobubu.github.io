@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 39.835,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 39.525,
         "englishName": "TCW Flexible Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 803953,
-        "AvgVolume": 397401,
+        "Volume": 298844,
+        "AvgVolume": 406130,
         "sharesOutstanding": null,
         "52Week": "38.4 - 39.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.835,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 803953,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 397401,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3446,10 +3459,6 @@
             "volume": 899596
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -3467,6 +3476,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]

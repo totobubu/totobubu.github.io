@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 309.015,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 305.62,
         "englishName": "Hilton Worldwide Holdings Inc.",
         "earningsDate": "2026-02-11",
-        "enterpriseValue": 85213757440,
-        "marketCap": 71825956864,
-        "Volume": 1062480,
-        "AvgVolume": 1835967,
+        "enterpriseValue": 83826540544,
+        "marketCap": 71036837888,
+        "Volume": 1351800,
+        "AvgVolume": 1854598,
         "sharesOutstanding": 229291615,
         "52Week": "196.04 - 333.86",
-        "Yield": 0.001942,
+        "Yield": 0.001963,
         "dividendRate": 0.6,
         "payoutRatio": 0.098,
         "isin": "US43300A2033",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 309.015,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 85213757440,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 71825956864,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1062480,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1835967,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.001942,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27736,14 +27761,16 @@
             "high": 314.029999,
             "low": 307.690002,
             "close": 311.779999,
-            "volume": 1454984
+            "volume": 1454984,
+            "amount": 0.15,
+            "yield": 0.0019106455
         },
         {
-            "date": "2026-05-21",
+            "date": "2026-05-27",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-08-27",
             "forecasted": true
         }
     ]

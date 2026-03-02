@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-02-28 04:35:24 KST",
-        "regularMarketPrice": 40.745,
+        "Update": "2026-03-03 04:46:10 KST",
+        "regularMarketPrice": 40.53,
         "englishName": "FlexShares High Yield Value-Scored Bond Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 233815,
-        "AvgVolume": 139939,
+        "Volume": 229767,
+        "AvgVolume": 144330,
         "sharesOutstanding": null,
         "52Week": "38.01 - 41.316",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.745,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 233815,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 139939,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15522,10 +15535,6 @@
             "volume": 288486
         },
         {
-            "date": "2026-03-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-04-02",
             "forecasted": true
         },
@@ -15543,6 +15552,10 @@
         },
         {
             "date": "2026-07-31",
+            "forecasted": true
+        },
+        {
+            "date": "2026-09-02",
             "forecasted": true
         }
     ]
