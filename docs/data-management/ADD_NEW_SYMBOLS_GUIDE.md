@@ -29,7 +29,7 @@ ISIN, 시장, ETF 여부 등을 커맨드라인에서 미리 전달하면 터미
 
 ```bash
 python scripts/utils/add_new_symbols.py `
-    --symbol TPAY --symbol GIF `
+    --symbol MINY --symbol GIF `
     --isin TPAY:US1234567890AB --isin GIF:US9876543210AB `
     --market TPAY:NASDAQ --market GIF:NYSE `
     --etf TPAY `
@@ -41,7 +41,7 @@ python scripts/utils/add_new_symbols.py `
 > 심볼이 하나일 때는 `SYMBOL:` 접두사를 생략할 수 있습니다.
 >
 > ```bash
-> python scripts/utils/add_new_symbols.py --symbol GIF --isin US7615628341 --market BATS --etf GIF --ko-name "REX 그로스 및 인컴 유니버스 ETF" --company Rex
+> python scripts/utils/add_new_symbols.py --symbol MINY --isin US88636X2523 --market BATS --etf MINY --ko-name "YieldMax 전략 금속 및 광업 포트폴리오 옵션 소득 ETF " --company YieldMax
 > ```
 
 | 옵션           | 형식            | 설명                                                           |
