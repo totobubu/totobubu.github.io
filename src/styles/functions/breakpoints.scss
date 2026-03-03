@@ -9,21 +9,29 @@
     $breakpoint-names: map.keys($breakpoints)
 ) {
     $n: list.index($breakpoint-names, $name);
-    @return if(
-        $n !=null and $n < list.length($breakpoint-names),
-        list.nth($breakpoint-names, $n + 1),
-        null
-    );
+    @if $n != null and $n < list.length($breakpoint-names) {
+        @return list.nth($breakpoint-names, $n + 1);
+    } @else {
+        @return null;
+    }
 }
 
 @function breakpoint-min($name, $breakpoints: vars.$grid-breakpoints) {
     $min: map.get($breakpoints, $name);
-    @return if($min != 0, $min, null);
+    @if $min != 0 {
+        @return $min;
+    } @else {
+        @return null;
+    }
 }
 
 @function breakpoint-max($name, $breakpoints: vars.$grid-breakpoints) {
     $next: breakpoint-next($name, $breakpoints);
-    @return if($next, breakpoint-min($next, $breakpoints) - 0.02, null);
+    @if $next {
+        @return breakpoint-min($next, $breakpoints) - 0.02;
+    } @else {
+        @return null;
+    }
 }
 
 @mixin media-breakpoint-up($name, $breakpoints: vars.$grid-breakpoints) {
