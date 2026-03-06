@@ -41,7 +41,7 @@ python scripts/utils/add_new_symbols.py `
 > 심볼이 하나일 때는 `SYMBOL:` 접두사를 생략할 수 있습니다.
 >
 > ```bash
-> python scripts/utils/add_new_symbols.py --symbol MINY --isin US88636X2523 --market BATS --etf MINY --ko-name "YieldMax 전략 금속 및 광업 포트폴리오 옵션 소득 ETF " --company YieldMax
+> python scripts/utils/add_new_symbols.py --symbol YBMN --isin US2689618369 --market BATS --etf YBMN --ko-name "디파이언스 비트마인 이머션 테크놀로지스 옵션 인컴 ETF" --company Defiance
 > ```
 
 | 옵션           | 형식            | 설명                                                           |
