@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-03-07 04:36:09 KST",
-        "regularMarketPrice": 115.16,
+        "Update": "2026-03-10 04:43:24 KST",
+        "regularMarketPrice": 111.78,
         "englishName": "Genuine Parts Company",
         "earningsDate": "2026-02-17",
-        "enterpriseValue": 22586882048,
-        "marketCap": 16019964928,
-        "Volume": 525395,
-        "AvgVolume": 1302498,
+        "enterpriseValue": 22368063488,
+        "marketCap": 15549770752,
+        "Volume": 1002711,
+        "AvgVolume": 1280969,
         "sharesOutstanding": 137622108,
         "52Week": "104.01 - 151.57",
-        "Yield": 0.035776,
+        "Yield": 0.036858,
         "dividendRate": 4.25,
         "payoutRatio": 8.766,
         "isin": "US3724601055",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 115.16,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22586882048,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 16019964928,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 525395,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1302498,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.035776,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105523,7 +105548,9 @@
             "high": 115.769997,
             "low": 113.239998,
             "close": 115.519997,
-            "volume": 853177
+            "volume": 853177,
+            "amount": 1.063,
+            "yield": 0.0450774036
         },
         {
             "date": "2026-06-05",
