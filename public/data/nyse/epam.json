@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-03-12 04:46:08 KST",
-        "regularMarketPrice": 142.2,
+        "Update": "2026-03-13 04:46:50 KST",
+        "regularMarketPrice": 136.89,
         "englishName": "EPAM Systems, Inc.",
         "earningsDate": "2026-02-19",
-        "enterpriseValue": 6545829888,
-        "marketCap": 7855500288,
-        "Volume": 756959,
-        "AvgVolume": 1080876,
+        "enterpriseValue": 6535001600,
+        "marketCap": 7562162176,
+        "Volume": 897637,
+        "AvgVolume": 1087911,
         "sharesOutstanding": 54139969,
         "52Week": "125.57 - 222.53",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 142.2,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 6545829888,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 7855500288,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 756959,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1080876,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31861,7 +31882,8 @@
             "high": 145.690002,
             "low": 137.470001,
             "close": 141.979996,
-            "volume": 1084399
+            "volume": 1084399,
+            "marketCap": 7562162176
         }
     ]
 }
