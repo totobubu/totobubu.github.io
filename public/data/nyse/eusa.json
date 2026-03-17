@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-03-17 05:01:30 KST",
-        "regularMarketPrice": 103.5892,
+        "Update": "2026-03-18 04:54:40 KST",
+        "regularMarketPrice": 103.905,
         "englishName": "iShares MSCI USA Equal Weighted ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 492048704,
-        "Volume": 38433,
-        "AvgVolume": 47693,
+        "marketCap": 493548736,
+        "Volume": 17329,
+        "AvgVolume": 47742,
         "sharesOutstanding": 4750000,
         "52Week": "81.38 - 108.54",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.5892,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 492048704,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 38433,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 47693,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39525,7 +39542,8 @@
                     "name": "Occidental Petroleum Corp",
                     "weight": 0.22
                 }
-            ]
+            ],
+            "marketCap": 493548736
         },
         {
             "date": "2026-06-16",
