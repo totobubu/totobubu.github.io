@@ -303,6 +303,55 @@ class YieldMaxParser(BaseParser):
             if candidate:
                 results[corrected_ticker] = candidate
 
+        # Strategy 2: Columnar format detection
+        # New images might output tickers in one block, and amounts in another block due to OCR PSM
+        if not results:
+            tickers_list = []
+            amounts_list = []
+            
+            # Common non-ticker words that might appear as isolated tokens
+            stopwords = {"YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
+                         "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
+                         "RATE", "PER", "SHARE", "WELD", "MIAN", "MELD", "MAX", 
+                         "DORSEY", "WRIGHT", "OPTION", "INCOME", "ODTE", "COVERED", 
+                         "CALL", "ULTRA", "SHORT", "TECH", "CRYPTO", "NAME", "FECH", 
+                         "ORIG", "VELIE", "ULTA", "SHERE", "MERT", "ETFS", "WEIGHT",
+                         "THE", "AND", "FOR", "SEE", "NAV", "DIST", "PAY", "REC"}
+            
+            for line in lines:
+                clean_line = line.strip()
+                if not clean_line: continue
+                
+                # Exclude strings with percentages
+                if '%' in clean_line:
+                    continue
+                    
+                # Look for standalone amounts
+                match = re.search(r'^\$(\d+\.\d{3,4})$', clean_line)
+                if not match:
+                    match = re.search(r'^(\d+\.\d{3,4})$', clean_line)
+                
+                if match:
+                    val = float(match.group(1))
+                    if val < 5.0: # realistic distribution amount threshold
+                        amounts_list.append(val)
+                    continue
+                
+                # If not an amount, check if it's a potential ticker line
+                words = clean_line.split()
+                if len(words) <= 2: 
+                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '')
+                    if token in self.OCR_CORRECTIONS:
+                        tickers_list.append(self.OCR_CORRECTIONS[token])
+                    elif 3 <= len(token) <= 5 and token.isalpha():
+                        if token not in stopwords:
+                            tickers_list.append(token)
+            
+            # Map them securely by position
+            min_len = min(len(tickers_list), len(amounts_list))
+            for i in range(min_len):
+                results[tickers_list[i]] = amounts_list[i]
+
         return results
 
 class RexParser(BaseParser):
@@ -558,11 +607,15 @@ def main():
 
     for img_path in image_files:
         print(f"\nProcessing {img_path.name}...")
-        if img_path.suffix.lower() == ".txt":
-            with open(img_path, "r", encoding="utf-8") as f:
-                text = f.read()
-        else:
-            text = pytesseract.image_to_string(Image.open(img_path))
+        try:
+            if img_path.suffix.lower() == ".txt":
+                with open(img_path, "r", encoding="utf-8") as f:
+                    text = f.read()
+            else:
+                text = pytesseract.image_to_string(Image.open(img_path))
+        except Exception as e:
+            print(f"  [!] Failed to read or process image {img_path.name}: {e}")
+            continue
 
         # Debug: Save OCR output to file
         try:
