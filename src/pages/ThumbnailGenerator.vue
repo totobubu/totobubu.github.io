@@ -126,7 +126,7 @@ watch(selectedGroup, () => {
     const loadNavData = async () => {
         if (navDataCache.value) return navDataCache.value;
         try {
-            const navUrl = getDataUrl('nav.json');
+            const navUrl = getDataUrl('nav.json') + `?t=${new Date().getTime()}`;
             const navResponse = await fetch(navUrl);
             if (!navResponse.ok) {
                 console.error('Failed to load nav.json');
@@ -223,7 +223,7 @@ watch(selectedGroup, () => {
                         } else {
                             // [수정] fetchWithFallback 함수를 내부 정의하거나 사용하여 로컬 실패 시 R2 시도
                             const fetchWithFallback = async (path) => {
-                                const localUrl = getDataUrl(path);
+                                const localUrl = getDataUrl(path) + `?t=${new Date().getTime()}`;
                                 try {
                                     const res = await fetch(localUrl);
                                     if (res.ok) {
@@ -247,8 +247,10 @@ watch(selectedGroup, () => {
                                     }
                                 } catch (err) {
                                     // 로컬 실패 시 R2 시도
-                                    const r2Url = getR2Url(path);
-                                    if (r2Url && r2Url !== localUrl) {
+                                    const baseR2Url = getR2Url(path);
+                                    const r2Url = baseR2Url ? baseR2Url + `?t=${new Date().getTime()}` : null;
+                                    
+                                    if (r2Url && baseR2Url !== getDataUrl(path)) {
                                         console.log(
                                             `Fetching from R2 fallback: ${r2Url}`
                                         );
