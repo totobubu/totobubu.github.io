@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-03-19 04:59:10 KST",
-        "regularMarketPrice": 15.12,
+        "Update": "2026-03-20 04:48:34 KST",
+        "regularMarketPrice": 15.165,
         "englishName": "Huntington Bancshares Incorporated",
         "earningsDate": "2026-01-22",
-        "enterpriseValue": 38904504320,
-        "marketCap": 30690459648,
-        "Volume": 18349862,
-        "AvgVolume": 33376347,
+        "enterpriseValue": 38336163840,
+        "marketCap": 30781800448,
+        "Volume": 14549699,
+        "AvgVolume": 33243020,
         "sharesOutstanding": 2029792391,
         "52Week": "11.92 - 19.46",
-        "Yield": 0.041005,
+        "Yield": 0.040884,
         "dividendRate": 0.62,
         "payoutRatio": 0.446,
         "isin": "US4461501045",
@@ -92,7 +92,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.12,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 38904504320,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 30690459648,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18349862,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 33376347,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.041005,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107057,6 +107082,10 @@
             "low": 15.27,
             "close": 15.39,
             "volume": 23658630
+        },
+        {
+            "date": "2026-03-18",
+            "amount": 0.155
         },
         {
             "date": "2026-06-18",
