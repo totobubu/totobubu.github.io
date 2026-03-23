@@ -66,12 +66,15 @@ class RoundHillParser(BaseParser):
         'GOOWw': 'GOOW',
         'COSSW': 'COSW',
         'GOOWW': 'GOOW',
+        'COIw': 'COIW',
+        'GOOwWw': 'GOOW',
     }
 
     def extract_data(self):
         results = {}
         lines = self.text.split('\n')
 
+        # Strategy 1: Same-line format (Ticker and Amount on the same line)
         for line in lines:
             line = line.strip()
             if not line: continue
@@ -95,6 +98,51 @@ class RoundHillParser(BaseParser):
 
                 if ticker not in ["FUND", "ETF", "NAV", "DATE"]:
                     results[ticker] = amount
+
+        # Strategy 2: Columnar format detection (Tickers in one block, Amounts in another)
+        if not results:
+            tickers_list = []
+            amounts_list = []
+            for line in lines:
+                line = line.strip()
+                if not line: continue
+                
+                if "Expense Ratio" in line or "Fee" in line:
+                    continue
+
+                # Look for distribution amount (e.g., $0.158776 or 0.158776)
+                # Must have at least 4 decimals to be a valid distribution amount
+                amount_match = re.search(r'^\$?(\d+\.\d{4,})$', line)
+                if amount_match:
+                    amounts_list.append(float(amount_match.group(1)))
+                    continue
+
+                # Look for ticker (3-6 chars, allowing for some OCR noise)
+                # Roundhill tickers are usually 4 uppercase chars.
+                words = line.split()
+                if words:
+                    # Take the first token if it's short and looks like a ticker
+                    token = words[0]
+                    # Apply corrections first (e.g., GOOwWw -> GOOW)
+                    corrected_token = self.OCR_CORRECTIONS.get(token, token)
+                    
+                    # If it's a known correction, it's definitely a ticker
+                    if corrected_token in self.OCR_CORRECTIONS.values():
+                        tickers_list.append(corrected_token)
+                        continue
+
+                    # Otherwise, check if it looks like a valid ticker (all caps, 3-5 chars)
+                    # or if it was a minor OCR mess (allow some lowercase if corrected or short)
+                    if re.match(r'^[A-Za-z]{3,5}$', token):
+                        ticker = token.upper()
+                        # Final check against stopwords
+                        if ticker not in ["FUND", "NAME", "ETF", "NAV", "DATE", "SHARE", "PER", "STOCK", "MACRO", "THE", "THEIR", "AND", "FOR"]:
+                             tickers_list.append(ticker)
+
+            # Map by position if counts match
+            if len(tickers_list) == len(amounts_list) and tickers_list:
+                for i in range(len(tickers_list)):
+                    results[tickers_list[i]] = amounts_list[i]
 
         return results
 
