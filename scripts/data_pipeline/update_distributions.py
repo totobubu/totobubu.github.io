@@ -260,6 +260,39 @@ class YieldMaxParser(BaseParser):
         'M5FO': 'MSFO',
         'M5TY': 'MSTY', 'misty': 'MSTY',
         'NELY': 'NFLY', 'nety': 'NFLY',
+
+        # New garbled patterns from 2026-03-26
+        'ARR': 'AIYY', 'AIRR': 'AIYY',
+        'AMIDY': 'AMDY',
+        'ACNFRI': 'AMZY',
+        'AG': 'APLY',
+        'MARS': 'BABO',
+        'CERE': 'BRKC',
+        'ERCO': 'CRCO',
+        'GRI': 'CRSH',
+        'BRAY': 'DRAY',
+        'FEY)': 'FBY', 'FEY': 'FBY',
+        'MEY': 'GMEY',
+        'BOOY)': 'GOOY',
+        'IRR?': 'HIYY',
+        'NOT': 'HOOY',
+        'IRO': 'JPO',
+        'MARY': 'MRNY',
+        'MERO': 'MSFO',
+        'METN': 'MSTY',
+        'NNA?': 'NFLY',
+        'CR?': 'NVDY',
+        'ENS': 'OARK',
+        'PYEN': 'PLTY',
+        'REIN': 'RBLY',
+        'ROY': 'RDYY',
+        'AURA': 'SMCY',
+        'AAY': 'SNOY',
+        'GARY': 'TSLY',
+        'MOMO)': 'TSMY', 'MOMO': 'TSMY',
+        'AR': 'WNTR',
+        'AN': 'XOMO',
+        'YOQOO': 'YQQQ',
     }
     
     def extract_data(self):
@@ -278,7 +311,9 @@ class YieldMaxParser(BaseParser):
             valid_ticker = None
             
             if parts:
-                first_token = parts[0].upper().replace('_', '').replace(',', '').replace(':', '')
+                # Find first token that looks like a ticker or is in corrections
+                # Sometimes OCR prepends noise like | or _
+                first_token = parts[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace(' ', '')
                 
                 # Check if first token is a mapped ticker
                 if first_token in self.OCR_CORRECTIONS:
@@ -387,11 +422,14 @@ class YieldMaxParser(BaseParser):
                 
                 # If not an amount, check if it's a potential ticker line
                 words = clean_line.split()
-                if len(words) <= 2: 
-                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '')
-                    if token in self.OCR_CORRECTIONS:
-                        tickers_list.append(self.OCR_CORRECTIONS[token])
-                    elif 3 <= len(token) <= 5 and token.isalpha():
+                if words:
+                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
+                    
+                    # YieldMax specific: "ABNY Strategy ETF..." -> ABNY
+                    corrected = self.OCR_CORRECTIONS.get(token, token)
+                    if corrected in self.OCR_CORRECTIONS.values():
+                        tickers_list.append(corrected)
+                    elif 2 <= len(token) <= 5 and token.isalpha():
                         if token not in stopwords:
                             tickers_list.append(token)
             
