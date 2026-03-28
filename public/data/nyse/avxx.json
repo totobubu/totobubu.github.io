@@ -24,7 +24,13 @@
         "payoutRatio": null,
         "isin": "US88636W7911",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-03-23",
+                    "ratio": "1:3",
+                    "type": "split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -871,6 +877,22 @@
             "low": 12.37,
             "close": 12.49,
             "volume": 130617
+        },
+        {
+            "date": "2026-03-26",
+            "open": 12.1,
+            "high": 12.53,
+            "low": 11.8,
+            "close": 12.15,
+            "volume": 69000
+        },
+        {
+            "date": "2026-03-27",
+            "open": 11.78,
+            "high": 11.78,
+            "low": 10.55,
+            "close": 10.5981,
+            "volume": 81141
         }
     ]
 }
