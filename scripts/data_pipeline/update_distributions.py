@@ -396,6 +396,19 @@ class YieldMaxParser(BaseParser):
             tickers_list = []
             amounts_list = []
             
+            # Known YieldMax Weekly ETF tickers in alphabetical order (as appears in table).
+            # When OCR produces a columnar layout, amounts are reliable but tickers are often
+            # garbled or missing entirely. If the amount count matches a known set size,
+            # we use the canonical list directly to avoid positional drift from missing tickers.
+            CANONICAL_WEEKLY_42 = [
+                'ABNY', 'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
+                'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DISO', 'DRAY', 'FBY',  'FIAT',
+                'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'JPO',  'MARO', 'MRNY',
+                'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK', 'PLTY', 'PYPY', 'RBLY',
+                'RDYY', 'SMCY', 'SNOY', 'TSLY', 'TSMY', 'WNTR', 'XOMO', 'XYZY',
+                'YBIT', 'YQQQ',
+            ]
+            
             # Common non-ticker words that might appear as isolated tokens
             stopwords = {"YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
                          "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
@@ -405,6 +418,8 @@ class YieldMaxParser(BaseParser):
                          "ORIG", "VELIE", "ULTA", "SHERE", "MERT", "ETFS", "WEIGHT",
                          "THE", "AND", "FOR", "SEE", "NAV", "DIST", "PAY", "REC"}
             
+            seen_tickers = set()  # prevent duplicates from garbled lines (e.g. SNOY from both ENOY and aay)
+
             for line in lines:
                 clean_line = line.strip()
                 if not clean_line: continue
@@ -413,10 +428,8 @@ class YieldMaxParser(BaseParser):
                 if '%' in clean_line:
                     continue
                     
-                # Look for standalone amounts
-                match = re.search(r'^\$(\d+\.\d{3,4})$', clean_line)
-                if not match:
-                    match = re.search(r'^(\d+\.\d{3,4})$', clean_line)
+                # Look for standalone amounts — also handles trailing-dot artifacts like "0.0834."
+                match = re.search(r'^\$?(\d+\.\d{3,4})\.?$', clean_line)
                 
                 if match:
                     val = float(match.group(1))
@@ -427,28 +440,38 @@ class YieldMaxParser(BaseParser):
                 # If not an amount, check if it's a potential ticker line
                 words = clean_line.split()
                 if words:
-                    # Clean the token: remove punctuation and noise
-                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '').replace('“', '').replace('”', '').replace('‘', '').replace('’', '')
+                    # Clean the token: remove punctuation and noise (including Unicode quotes)
+                    raw_token = words[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
+                    token = raw_token.upper().replace('\u201c', '').replace('\u201d', '').replace('\u2018', '').replace('\u2019', '').replace('"', '').replace("'", '')
                     
                     # YieldMax specific: "ABNY Strategy ETF..." -> ABNY
-                    # First try direct case-sensitive lookup for common lowercase garbles
-                    raw_token = words[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
+                    # Try case-sensitive lookup first (for lowercase garbles like "ay"->DRAY, "iro"->GOOY)
                     corrected = self.OCR_CORRECTIONS.get(raw_token, self.OCR_CORRECTIONS.get(token, token))
                     
                     if corrected in self.OCR_CORRECTIONS.values():
-                        tickers_list.append(corrected)
+                        if corrected not in seen_tickers:
+                            tickers_list.append(corrected)
+                            seen_tickers.add(corrected)
                     elif 2 <= len(token) <= 5 and token.isalpha():
-                        if token not in stopwords:
+                        if token not in stopwords and token not in seen_tickers:
                             tickers_list.append(token)
+                            seen_tickers.add(token)
             
-            # Map them securely by position
-            # Log mismatch for debugging
-            if len(tickers_list) != len(amounts_list):
-                 print(f"  [!] Columnar mismatch in {self.filename}: {len(tickers_list)} tickers vs {len(amounts_list)} amounts")
-                 
-            min_len = min(len(tickers_list), len(amounts_list))
-            for i in range(min_len):
-                results[tickers_list[i]] = amounts_list[i]
+            print(f"  [i] Columnar: {len(tickers_list)} tickers, {len(amounts_list)} amounts in {self.filename}")
+
+            # --- Canonical match: amounts count matches a known YieldMax set ---
+            # Amounts are reliable (just numbers); use canonical order when possible.
+            if len(amounts_list) == len(CANONICAL_WEEKLY_42):
+                print(f"  [i] Using canonical 42-ticker list for {self.filename}")
+                for i, ticker in enumerate(CANONICAL_WEEKLY_42):
+                    results[ticker] = amounts_list[i]
+            else:
+                # Fallback: positional mapping (may be off if tickers are missing mid-list)
+                if len(tickers_list) != len(amounts_list):
+                    print(f"  [!] Columnar mismatch in {self.filename}: {len(tickers_list)} tickers vs {len(amounts_list)} amounts — mapping first {min(len(tickers_list), len(amounts_list))}")
+                min_len = min(len(tickers_list), len(amounts_list))
+                for i in range(min_len):
+                    results[tickers_list[i]] = amounts_list[i]
 
         return results
 
