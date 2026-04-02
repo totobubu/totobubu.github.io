@@ -261,38 +261,42 @@ class YieldMaxParser(BaseParser):
         'M5TY': 'MSTY', 'misty': 'MSTY',
         'NELY': 'NFLY', 'nety': 'NFLY',
 
-        # New garbled patterns from 2026-03-26
+        # New garbled patterns from 2026-03-26 (Updated 2026-04-02)
         'ARR': 'AIYY', 'AIRR': 'AIYY',
-        'AMIDY': 'AMDY',
+        'AMIDY': 'AMDY', 'AMIDY,': 'AMDY',
         'ACNFRI': 'AMZY',
         'AG': 'APLY',
         'MARS': 'BABO',
-        'CERE': 'BRKC',
+        'CERE': 'BRKC', 'cere': 'BRKC',
+        'CONN': 'CONY', 'CONN,': 'CONY',
         'ERCO': 'CRCO',
         'GRI': 'CRSH',
-        'BRAY': 'DRAY',
-        'FEY)': 'FBY', 'FEY': 'FBY',
-        'MEY': 'GMEY',
-        'BOOY)': 'GOOY',
+        'DIS': 'CVNY',
+        'BRAY': 'DIPS', 'BRAY,': 'DIPS', # Correction for 2026-04-02
+        'ay': 'DRAY', # Correction for 2026-04-02
+        'FEY)': 'FBY', 'FEY': 'FBY', 'MEY': 'FBY', 'MEY,': 'FBY',
+        'BOOY)': 'FIAT',
+        '“IRR?': 'GDXY',
+        'NOOY': 'GMEY', 'nOoY': 'GMEY',
+        'IRO': 'GOOY', 'iro': 'GOOY',
         'IRR?': 'HIYY',
         'NOT': 'HOOY',
-        'IRO': 'JPO',
-        'MARY': 'MRNY',
-        'MERO': 'MSFO',
-        'METN': 'MSTY',
-        'NNA?': 'NFLY',
-        'CR?': 'NVDY',
-        'ENS': 'OARK',
-        'PYEN': 'PLTY',
-        'REIN': 'RBLY',
+        'MANY': 'MRNY', 'MANY,': 'MRNY',
+        'MERO': 'MSFO', 'Mero': 'MSFO',
+        'METN': 'MSTY', 'MeTN': 'MSTY',
+        'NNA?': 'NFLY', 'nna?': 'NFLY',
+        'CR?': 'NVDY', 'NUDY': 'NVDY',
+        'ENS': 'OARK', 'ens': 'OARK',
+        'PYEN': 'PLTY', 'PYEN,': 'PLTY',
+        'REIN': 'RBLY', 'REIN,': 'RBLY',
         'ROY': 'RDYY',
-        'AURA': 'SMCY',
-        'AAY': 'SNOY',
+        'AURA': 'SMCY', 'aura': 'SMCY',
+        'ENOY': 'SNOY', 'aay': 'SNOY', 'AAY': 'SNOY',
         'GARY': 'TSLY',
         'MOMO)': 'TSMY', 'MOMO': 'TSMY',
         'AR': 'WNTR',
-        'AN': 'XOMO',
-        'YOQOO': 'YQQQ',
+        'AN': 'XOMO', 'an': 'XOMO',
+        'YOQOO': 'YQQQ', 'YoQoo': 'YQQQ',
     }
     
     def extract_data(self):
@@ -423,10 +427,14 @@ class YieldMaxParser(BaseParser):
                 # If not an amount, check if it's a potential ticker line
                 words = clean_line.split()
                 if words:
-                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
+                    # Clean the token: remove punctuation and noise
+                    token = words[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '').replace('“', '').replace('”', '').replace('‘', '').replace('’', '')
                     
                     # YieldMax specific: "ABNY Strategy ETF..." -> ABNY
-                    corrected = self.OCR_CORRECTIONS.get(token, token)
+                    # First try direct case-sensitive lookup for common lowercase garbles
+                    raw_token = words[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
+                    corrected = self.OCR_CORRECTIONS.get(raw_token, self.OCR_CORRECTIONS.get(token, token))
+                    
                     if corrected in self.OCR_CORRECTIONS.values():
                         tickers_list.append(corrected)
                     elif 2 <= len(token) <= 5 and token.isalpha():
@@ -434,6 +442,10 @@ class YieldMaxParser(BaseParser):
                             tickers_list.append(token)
             
             # Map them securely by position
+            # Log mismatch for debugging
+            if len(tickers_list) != len(amounts_list):
+                 print(f"  [!] Columnar mismatch in {self.filename}: {len(tickers_list)} tickers vs {len(amounts_list)} amounts")
+                 
             min_len = min(len(tickers_list), len(amounts_list))
             for i in range(min_len):
                 results[tickers_list[i]] = amounts_list[i]
@@ -627,6 +639,47 @@ class DefianceParser(BaseParser):
         return results
 
 
+# Neos Parser
+class NeosParser(BaseParser):
+    def extract_data(self):
+        results = {}
+        lines = self.text.split('\n')
+
+        # NEOS distribution announcements often have Tickers as standalone lines,
+        # or followed by their name, then the amount on another line or same line.
+        
+        # Valid Neos tickers are usually 4 or 5 uppercase characters.
+        # Examples from screenshot: SPYI, QQQI, IWMI, NIHI, BTCI, NEHI, IYRI, IAUI, MLPI, XSPI, XQQI, XBCI, QQQH, SPYH, NLSI, HYBI, BNDI, TLTI, CSHI
+        
+        current_ticker = None
+        for line in lines:
+            line = line.strip()
+            if not line: continue
+
+            # Pattern for Ticker: standalone 4-5 uppercase chars that aren't common words
+            ticker_match = re.search(r'\b([A-Z]{4,5})\b', line)
+            
+            # Pattern for amount: $0.xxxx (at least 4 decimals)
+            amount_match = re.search(r'\$?(\d+\.\d{4,})', line)
+
+            if ticker_match and not amount_match:
+                candidate = ticker_match.group(1)
+                # Exclusion list for non-tickers
+                if candidate not in ["NEOS", "FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", "NET", "ASSET", "ROC", "MONTH", "YEAR", "HIGH", "BOND", "MARKET", "DAILY", "SHARE", "TOTAL", "MSCI", "EAFE", "GOLD", "STOK", "BOND", "MARKET"]:
+                    current_ticker = candidate
+
+            if amount_match:
+                amount = float(amount_match.group(1))
+                if ticker_match:
+                    results[ticker_match.group(1)] = amount
+                    current_ticker = None
+                elif current_ticker:
+                    results[current_ticker] = amount
+                    current_ticker = None
+
+        return results
+
+
 def find_json_path(ticker):
     pattern = str(DATA_DIR / "**" / f"{ticker.lower()}.json")
     matches = glob.glob(pattern, recursive=True)
@@ -723,6 +776,8 @@ def main():
             parser_type = GranitesharesParser
         elif "defiance" in img_path.name.lower():
             parser_type = DefianceParser
+        elif "neos" in img_path.name.lower():
+            parser_type = NeosParser
         else:
             continue
 
