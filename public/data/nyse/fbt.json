@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-07 04:57:12 KST",
-        "regularMarketPrice": 200.99,
+        "Update": "2026-04-08 04:58:34 KST",
+        "regularMarketPrice": 200.94,
         "englishName": "First Trust NYSE Arca Biotechnology Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 4190641664,
-        "Volume": 16631,
-        "AvgVolume": 209140,
+        "marketCap": 4189598976,
+        "Volume": 25762,
+        "AvgVolume": 208750,
         "sharesOutstanding": 20850000,
         "52Week": "141.38 - 224.94",
         "Yield": 0.0001,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 200.99,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4190641664,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 16631,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 209140,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -45031,7 +45048,8 @@
                     "name": "Exelixis Inc",
                     "weight": 3.46
                 }
-            ]
+            ],
+            "marketCap": 4189598976
         },
         {
             "date": "2026-06-12",

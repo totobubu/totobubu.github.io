@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-07 04:57:12 KST",
-        "regularMarketPrice": 59.4,
+        "Update": "2026-04-08 04:58:34 KST",
+        "regularMarketPrice": 58.88,
         "englishName": "iShares MSCI Switzerland ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 1700324992,
-        "Volume": 1401129,
-        "AvgVolume": 759916,
+        "marketCap": 1685440000,
+        "Volume": 1216665,
+        "AvgVolume": 778148,
         "sharesOutstanding": 28625000,
-        "52Week": "46.22 - 65.53",
-        "Yield": 0.010774,
+        "52Week": "46.72 - 65.53",
+        "Yield": 0.01087,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642867497",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.4,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1700324992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1401129,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 759916,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010774,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68438,7 +68459,8 @@
                     "name": "Holcim Ltd",
                     "weight": 2.34
                 }
-            ]
+            ],
+            "marketCap": 1685440000
         },
         {
             "date": "2026-06-16",

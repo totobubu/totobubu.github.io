@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-07 04:57:12 KST",
-        "regularMarketPrice": 102.9335,
+        "Update": "2026-04-08 04:58:34 KST",
+        "regularMarketPrice": 102.7085,
         "englishName": "iShares MSCI USA Equal Weighted ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 488934144,
-        "Volume": 36515,
+        "marketCap": 487865408,
+        "Volume": 25901,
         "AvgVolume": 42433,
         "sharesOutstanding": 4750000,
-        "52Week": "81.38 - 108.54",
+        "52Week": "81.84 - 108.54",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 102.9335,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 488934144,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36515,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39692,7 +39705,8 @@
                     "name": "Netflix Inc",
                     "weight": 0.24
                 }
-            ]
+            ],
+            "marketCap": 487865408
         },
         {
             "date": "2026-06-17",
