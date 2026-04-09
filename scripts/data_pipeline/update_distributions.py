@@ -626,38 +626,53 @@ class DefianceParser(BaseParser):
         lines = self.text.split('\n')
 
         current_ticker = None
+        tickers_list = []
+        amounts_list = []
+
+        # Common words in Defiance/related screenshots that are NOT tickers
+        exclusions = [
+            "FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", 
+            "NET", "ASSET", "ROC", "ETF", "SHARE", "WEEKLY", "INCOME", "TARGET", 
+            "NASDAQ", "GOLD", "TOTAL", "INDEX", "DAILY", "NAME", "OIL"
+        ]
 
         for line in lines:
             line = line.strip()
             if not line: continue
 
             # 1. Look for Ticker (start of line or distinct)
-            # Must be 3-5 chars.
-            # Only consider if we are looking for a ticker or resetting?
-            # Actually, standard heuristic:
-
-            # Check for Ticker line
-            # IWMY R2000 ...
+            # Must be 3-5 chars, all uppercase letters.
             ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
             if ticker_match:
-                candidate = ticker_match.group(1)
-                if candidate not in ["FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", "NET", "ASSET", "ROC"]:
+                candidate = ticker_match.group(1).upper()
+                if candidate not in exclusions:
                     current_ticker = candidate
+                    if candidate not in tickers_list:
+                        tickers_list.append(candidate)
 
             # 2. Look for Value with /share
             # $0.1184/share
-            # The value might be on the same line or a subsequent line.
+            # Relaxed regex to handle spacing or OCR noise, but must follow a price format
+            val_match = re.search(r'\$?(\d+\.\d+)', line)
+            if val_match:
+                # Confirm it's a distribution amount by checking for "share" keyword in the same line
+                if any(kw in line.lower() for kw in ["/share", "per share", "share"]):
+                    amount = float(val_match.group(1))
+                    
+                    if current_ticker:
+                         results[current_ticker] = amount
+                         # Reset ticker after finding amount to avoid misattribution in interleaved mode
+                         current_ticker = None
+                    
+                    amounts_list.append(amount)
 
-            val_match = re.search(r'\$?(\d+\.\d+)\s*/\s*share', line, re.IGNORECASE)
-            if val_match and current_ticker:
-                 amount = float(val_match.group(1))
-                 results[current_ticker] = amount
-                 # Reset ticker after finding amount to avoid misattribution
-                 current_ticker = None
-            elif not val_match and ticker_match:
-                 # If we found a ticker but no value on this line, we keep current_ticker
-                 # and hope next lines have the value.
-                 pass
+        # Strategy 2: If interleaved mapping failed or provided fewer results than found items, 
+        # and we have an equal count of tickers and amounts, use positional mapping.
+        if (not results or len(results) < len(tickers_list)) and len(tickers_list) == len(amounts_list) and tickers_list:
+            # Clear previous potentially misattributed results if we're doing positional
+            results = {} 
+            for i in range(len(tickers_list)):
+                results[tickers_list[i]] = amounts_list[i]
 
         return results
 
