@@ -208,7 +208,7 @@ def is_yieldmax_etf(ticker_symbol):
         'OARK', 'YMAX', 'YMAG', 'CRSH', 'DIPS', 'FIAT', 'WNTR', 'YQQQ',
         'SLTY', 'ULTY', 'FEAT', 'FIVY', 'QDTY', 'RDTY', 'SDTY',
         'ABNY', 'AIYY', 'AMDY', 'BABO', 'BRKC', 'CRCO', 'CVNY', 'DISO',
-        'DRAY', 'FBY', 'GDXY', 'GMEY', 'HIYY', 'HOOY', 'JPMO', 'MARO',
+        'DRAY', 'FBY', 'GDXY', 'GMEY', 'HIYY', 'HOOY', 'MARO',
         'MRNY', 'MSFO', 'PYPY', 'RBLY', 'RDYY', 'SMCY', 'SNOY', 'TSMY',
         'XOMO', 'XYZY', 'YBIT', 'CHPY', 'GPTY', 'LFGY', 'BIGY', 'RNTY', 'SOXY', 'JPO'
     ]
