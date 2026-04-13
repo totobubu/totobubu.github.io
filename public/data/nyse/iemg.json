@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-11 04:59:51 KST",
-        "regularMarketPrice": 74.26,
+        "Update": "2026-04-14 05:11:43 KST",
+        "regularMarketPrice": 74.95,
         "englishName": "iShares Core MSCI Emerging Markets ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 85458411520,
-        "Volume": 6101313,
-        "AvgVolume": 19519086,
+        "marketCap": 86252453888,
+        "Volume": 8892903,
+        "AvgVolume": 19159385,
         "sharesOutstanding": 1150800000,
-        "52Week": "50.74 - 77.68",
-        "Yield": 0.015621,
+        "52Week": "51.33 - 77.68",
+        "Yield": 0.015477,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46434G1031",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.26,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 85458411520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6101313,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 19519086,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.015621,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30831,6 +30852,10 @@
         },
         {
             "date": "2026-10-06",
+            "forecasted": true
+        },
+        {
+            "date": "2026-10-13",
             "forecasted": true
         }
     ]
