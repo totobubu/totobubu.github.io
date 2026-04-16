@@ -5,7 +5,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 36,
+        "popularity": 38,
         "koName": "일드맥스 울트라 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -36,7 +36,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 21,
+        "popularity": 22,
         "koName": "라운드힐 위클리페이 유니버스 ETF",
         "company": "Roundhill Investments",
         "logo": "logos/company/company-roundhill-investments.svg",
@@ -96,7 +96,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 14,
+        "popularity": 15,
         "koName": "일드맥스 유니버스 펀드 오브 옵션 인컴 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -111,7 +111,7 @@
         "currency": "USD",
         "market": "NASDAQ",
         "isEtf": true,
-        "popularity": 13,
+        "popularity": 14,
         "koName": "네오스 나스닥 100 인컴 ETF",
         "company": "Neos Funds",
         "logo": "logos/company/company-neos-funds.png",
@@ -635,10 +635,10 @@
         "koName": "일드맥스 AMD 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JND",
+        "frequency": "매주",
+        "group": "목",
         "underlying": "AMD",
-        "groupOrder": 999,
+        "groupOrder": 4,
         "groupLabels": ["목"]
     },
     {
@@ -942,7 +942,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011575
+        "yield": 0.011594
     },
     {
         "symbol": "FIAT",
@@ -1160,10 +1160,10 @@
         "koName": "일드맥스 넷플릭스 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매월",
-        "group": "JND",
+        "frequency": "매주",
+        "group": "목",
         "underlying": "NFLX",
-        "groupOrder": 999,
+        "groupOrder": 4,
         "groupLabels": ["목"]
     },
     {
@@ -1193,7 +1193,8 @@
         "logo": "logos/company/company-ishares.jpeg",
         "frequency": "매월",
         "group": "MJD",
-        "groupOrder": 999
+        "groupOrder": 999,
+        "yield": 0.058099
     },
     {
         "symbol": "PLTI",
@@ -1239,7 +1240,8 @@
         "frequency": "분기",
         "group": "MJD",
         "groupOrder": 999,
-        "groupLabels": ["MJSD"]
+        "groupLabels": ["MJSD"],
+        "yield": 0.002777
     },
     {
         "symbol": "QQQY",
