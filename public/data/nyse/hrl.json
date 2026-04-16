@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-16 07:29:58 KST",
-        "regularMarketPrice": 20.66,
+        "Update": "2026-04-17 05:11:29 KST",
+        "regularMarketPrice": 20.9,
         "englishName": "Hormel Foods Corporation",
         "earningsDate": "2026-02-26",
-        "enterpriseValue": 11099636736,
-        "marketCap": 11368871936,
-        "Volume": 3782942,
-        "AvgVolume": 4756020,
+        "enterpriseValue": 11044609024,
+        "marketCap": 11500940288,
+        "Volume": 3123079,
+        "AvgVolume": 4762291,
         "sharesOutstanding": 550284207,
         "52Week": "20.32 - 31.86",
-        "Yield": 0.056292,
+        "Yield": 0.055646,
         "dividendRate": 1.17,
         "payoutRatio": 1.3062,
         "isin": "US4404521001",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.66,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11099636736,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 11368871936,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3782942,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4756020,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.056292,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106882,7 +106907,9 @@
             "high": 20.594999,
             "low": 20.315001,
             "close": 20.48,
-            "volume": 4709892
+            "volume": 4709892,
+            "amount": 0.293,
+            "yield": 0.0708860725
         },
         {
             "date": "2026-04-14",
@@ -106893,11 +106920,11 @@
             "volume": 5314027
         },
         {
-            "date": "2026-07-10",
+            "date": "2026-07-13",
             "forecasted": true
         },
         {
-            "date": "2026-10-12",
+            "date": "2026-10-13",
             "forecasted": true
         }
     ]
