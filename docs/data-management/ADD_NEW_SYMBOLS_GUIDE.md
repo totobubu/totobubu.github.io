@@ -15,6 +15,8 @@
 ## 2. 빠른 시작
 
 ```bash
+python -m pip install -r requirements-workflow.txt
+
 python scripts/utils/add_new_symbols.py --symbol YMAX
 ```
 
@@ -41,17 +43,18 @@ python scripts/utils/add_new_symbols.py `
 > 심볼이 하나일 때는 `SYMBOL:` 접두사를 생략할 수 있습니다.
 >
 > ```bash
-> python scripts/utils/add_new_symbols.py --symbol YBMN --isin US2689618369 --market BATS --etf YBMN --ko-name "디파이언스 비트마인 이머션 테크놀로지스 옵션 인컴 ETF" --company Defiance
+> python scripts/utils/add_new_symbols.py --symbol MUYY --isin US38747T6901 --market BATS --etf MUYY --ko-name "그래닛셰어즈 일드부스트 MU ETF" --underlying MU --company GraniteShares
 > ```
-
-| 옵션           | 형식            | 설명                                                           |
-| -------------- | --------------- | -------------------------------------------------------------- |
-| `--isin`       | `SYMBOL:ISIN`   | 12자리 ISIN (예: `TPAY:US1234567890AB`)                        |
-| `--market`     | `SYMBOL:MARKET` | 시장 (NASDAQ / NYSE / NYSEARCA / BATS / AMEX / KOSPI / KOSDAQ) |
-| `--etf`        | `SYMBOL`        | ETF로 표시 (예: `--etf TPAY`)                                  |
-| `--company`    | `SYMBOL:NAME`   | 운용사명 (예: `TPAY:YieldMax`)                                 |
-| `--underlying` | `SYMBOL:TICKER` | 기초자산 심볼 (예: `TPAY:TSLA`)                                |
-| `--ko-name`    | `SYMBOL:NAME`   | 한국어 종목명 (예: `"GIF:글로벌 X"`)                           |
+>
+> TMYY MUYY
+> | 옵션 | 형식 | 설명 |
+> | -------------- | --------------- | -------------------------------------------------------------- |
+> | `--isin` | `SYMBOL:ISIN` | 12자리 ISIN (예: `TPAY:US1234567890AB`) |
+> | `--market` | `SYMBOL:MARKET` | 시장 (NASDAQ / NYSE / NYSEARCA / BATS / AMEX / KOSPI / KOSDAQ) |
+> | `--etf` | `SYMBOL` | ETF로 표시 (예: `--etf TPAY`) |
+> | `--company` | `SYMBOL:NAME` | 운용사명 (예: `TPAY:YieldMax`) |
+> | `--underlying` | `SYMBOL:TICKER` | 기초자산 심볼 (예: `TPAY:TSLA`) |
+> | `--ko-name` | `SYMBOL:NAME` | 한국어 종목명 (예: `"GIF:글로벌 X"`) |
 
 - 주요 옵션
     - `--skip-workflow`: nav/data 갱신까지만 수행하고 통합 워크플로우는 건너뜁니다.
@@ -99,13 +102,13 @@ YMAX ISIN (예: US0000000001): US1234567890
 
 ## 5. 옵션별 사용 시나리오
 
-- **워크플로우 없이 파일만 준비하고 싶을 때**  
+- **워크플로우 없이 파일만 준비하고 싶을 때**
   `python scripts/utils/add_new_symbols.py --symbol ABC --skip-workflow`
 
-- **형식화 스텝을 직접 하고 싶을 때**  
+- **형식화 스텝을 직접 하고 싶을 때**
   `python scripts/utils/add_new_symbols.py --symbol ABC --skip-format`
 
-- **변경 없이 계획만 확인**  
+- **변경 없이 계획만 확인**
   `python scripts/utils/add_new_symbols.py --symbol ABC --dry-run`
 
 ---
@@ -121,13 +124,13 @@ YMAX ISIN (예: US0000000001): US1234567890
 
 ## 7. 자주 묻는 질문 (FAQ)
 
-- **Q. 자동 ISIN 조회가 계속 실패합니다.**  
+- **Q. 자동 ISIN 조회가 계속 실패합니다.**
   A. 스크립트가 수동 입력을 안내합니다. 해당 증권사의 공식 ISIN을 확인 후 직접 입력하세요.
 
-- **Q. 시장 정보가 비어 있다고 나오는데요?**  
+- **Q. 시장 정보가 비어 있다고 나오는데요?**
   A. 심볼 접미사로 판별하지 못한 경우입니다. 안내 메시지에 따라 `NASDAQ`, `NYSE`, `KOSPI`, `KOSDAQ` 중 하나를 입력하면 됩니다.
 
-- **Q. nav/data 파일은 업데이트 되었는데 사이트에 반영이 안 됩니다.**  
+- **Q. nav/data 파일은 업데이트 되었는데 사이트에 반영이 안 됩니다.**
   A. `npm run generate-nav`를 포함한 통합 워크플로우를 다시 실행하거나, 최소한 nav 생성/배포 단계를 마쳐야 합니다. (스크립트 기본 설정으로는 자동 수행됨)
 
 ---
