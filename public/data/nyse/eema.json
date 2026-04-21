@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-21 05:01:54 KST",
-        "regularMarketPrice": 107.27,
+        "Update": "2026-04-22 05:20:46 KST",
+        "regularMarketPrice": 105.88,
         "englishName": "iShares MSCI Emerging Markets Asia ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 815251968,
-        "Volume": 51666,
-        "AvgVolume": 298316,
+        "marketCap": 804688000,
+        "Volume": 45433,
+        "AvgVolume": 297501,
         "sharesOutstanding": 7600000,
-        "52Week": "69.92 - 109.16",
+        "52Week": "71.23 - 109.16",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 107.27,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 815251968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 51666,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 298316,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32458,7 +32475,8 @@
             "high": 107.32,
             "low": 106.695,
             "close": 107.25,
-            "volume": 52279
+            "volume": 52279,
+            "marketCap": 804688000
         }
     ]
 }

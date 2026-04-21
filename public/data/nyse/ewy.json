@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-21 05:01:54 KST",
-        "regularMarketPrice": 150.11,
+        "Update": "2026-04-22 05:20:46 KST",
+        "regularMarketPrice": 146.84,
         "englishName": "iShares MSCI South Korea ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 11348316160,
-        "Volume": 11252989,
-        "AvgVolume": 22100770,
+        "marketCap": 11101104128,
+        "Volume": 10949350,
+        "AvgVolume": 22116326,
         "sharesOutstanding": 75600000,
-        "52Week": "54.04 - 154.99",
-        "Yield": 0.004197,
+        "52Week": "54.64 - 154.99",
+        "Yield": 0.00429,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642867729",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 150.11,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 11348316160,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11252989,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 22100770,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.004197,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -59022,7 +59043,8 @@
             "high": 150.990005,
             "low": 148.770004,
             "close": 150.089996,
-            "volume": 11794035
+            "volume": 11794035,
+            "marketCap": 11101104128
         }
     ]
 }

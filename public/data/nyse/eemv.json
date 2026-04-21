@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-21 05:01:54 KST",
-        "regularMarketPrice": 70.305,
+        "Update": "2026-04-22 05:20:46 KST",
+        "regularMarketPrice": 69.38,
         "englishName": "iShares MSCI Emerging Markets Min Vol Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 6671944704,
-        "Volume": 146816,
-        "AvgVolume": 358152,
+        "marketCap": 6584161792,
+        "Volume": 103461,
+        "AvgVolume": 355854,
         "sharesOutstanding": 94900000,
-        "52Week": "57.73 - 71.19",
+        "52Week": "58.35 - 71.19",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.305,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6671944704,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 146816,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 358152,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33297,7 +33314,8 @@
             "high": 70.370003,
             "low": 70.019997,
             "close": 70.260002,
-            "volume": 147753
+            "volume": 147753,
+            "marketCap": 6584161792
         }
     ]
 }
