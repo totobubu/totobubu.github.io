@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-22 05:20:46 KST",
-        "regularMarketPrice": 51.16,
+        "Update": "2026-04-23 05:07:03 KST",
+        "regularMarketPrice": 51.197,
         "englishName": "First Trust Managed Municipal ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 117964,
-        "AvgVolume": 138416,
+        "Volume": 110126,
+        "AvgVolume": 136572,
         "sharesOutstanding": null,
-        "52Week": "49.04 - 52.03",
+        "52Week": "49.28 - 52.03",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.16,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 117964,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 138416,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24315,30 +24328,32 @@
             "high": 51.23,
             "low": 51.148201,
             "close": 51.168999,
-            "volume": 118064
+            "volume": 118064,
+            "amount": 0.156,
+            "yield": 0.03749756
         },
         {
-            "date": "2026-04-24",
+            "date": "2026-05-21",
             "forecasted": true
         },
         {
-            "date": "2026-05-25",
+            "date": "2026-06-18",
             "forecasted": true
         },
         {
-            "date": "2026-06-26",
+            "date": "2026-07-21",
             "forecasted": true
         },
         {
-            "date": "2026-07-24",
+            "date": "2026-08-21",
             "forecasted": true
         },
         {
-            "date": "2026-08-26",
+            "date": "2026-09-21",
             "forecasted": true
         },
         {
-            "date": "2026-09-25",
+            "date": "2026-10-21",
             "forecasted": true
         }
     ]
