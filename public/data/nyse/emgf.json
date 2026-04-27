@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-25 04:53:43 KST",
-        "regularMarketPrice": 67.8225,
+        "Update": "2026-04-28 05:10:23 KST",
+        "regularMarketPrice": 67.81,
         "englishName": "iShares Emerging Markets Equity Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 90115,
-        "AvgVolume": 164353,
+        "Volume": 64931,
+        "AvgVolume": 165914,
         "sharesOutstanding": null,
-        "52Week": "46.04 - 68.46",
+        "52Week": "46.31 - 68.46",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67.8225,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 90115,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 164353,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24935,6 +24948,10 @@
         },
         {
             "date": "2026-10-20",
+            "forecasted": true
+        },
+        {
+            "date": "2026-10-27",
             "forecasted": true
         }
     ]

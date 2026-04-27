@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-25 04:53:43 KST",
-        "regularMarketPrice": 58.46,
+        "Update": "2026-04-28 05:10:23 KST",
+        "regularMarketPrice": 58.61,
         "englishName": "Fidelity Blue Chip Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 617360,
-        "AvgVolume": 571974,
+        "Volume": 388591,
+        "AvgVolume": 577388,
         "sharesOutstanding": null,
-        "52Week": "39.17 - 58.6",
+        "52Week": "39.17 - 58.75",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.46,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 617360,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 571974,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1133,7 +1146,7 @@
             "close": 28.489999771118164,
             "volume": 218100,
             "amount": 0.002,
-            "yield": 0.0000697593
+            "yield": 6.97593e-5
         },
         {
             "date": "2020-12-21",

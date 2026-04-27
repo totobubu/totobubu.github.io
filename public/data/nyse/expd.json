@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-25 04:53:43 KST",
-        "regularMarketPrice": 147.655,
+        "Update": "2026-04-28 05:10:23 KST",
+        "regularMarketPrice": 148.19,
         "englishName": "Expeditors International of Washington, Inc.",
         "earningsDate": "2026-05-05",
-        "enterpriseValue": 19250939904,
-        "marketCap": 19635752960,
-        "Volume": 457921,
-        "AvgVolume": 1479850,
+        "enterpriseValue": 18958567424,
+        "marketCap": 19706900480,
+        "Volume": 716262,
+        "AvgVolume": 1482370,
         "sharesOutstanding": 132984007,
         "52Week": "106.0 - 167.19",
-        "Yield": 0.01043,
-        "dividendRate": 1.54,
-        "payoutRatio": 0.2588,
+        "Yield": 0.010392,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US3021301094",
         "events": {
             "splits": [
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 147.655,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19250939904,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 19635752960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 457921,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1479850,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01043,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -94933,7 +94958,8 @@
             "high": 149.354996,
             "low": 146.860001,
             "close": 147.559998,
-            "volume": 537634
+            "volume": 537634,
+            "marketCap": 19706900480
         }
     ]
 }
