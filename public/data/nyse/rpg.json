@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 52.97,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 52.85,
         "englishName": "Invesco S&P 500 Pure Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 454996,
-        "AvgVolume": 462045,
+        "Volume": 171533,
+        "AvgVolume": 467342,
         "sharesOutstanding": null,
         "52Week": "38.04 - 54.27",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.97,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 454996,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 462045,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32985,7 +32998,7 @@
             "close": 36.50199890136719,
             "volume": 445500,
             "amount": 0.0003,
-            "yield": 0.0000163684,
+            "yield": 1.63684e-5,
             "amountOriginal": 0.04,
             "amountSplitAdjustments": [
                 {

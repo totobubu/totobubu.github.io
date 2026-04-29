@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 3.86,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 3.82,
         "englishName": "Grab Holdings Limited",
         "earningsDate": "2026-05-04",
-        "enterpriseValue": 10711874560,
-        "marketCap": 15827859456,
-        "Volume": 47477389,
-        "AvgVolume": 48607870,
+        "enterpriseValue": 10588859392,
+        "marketCap": 15663840256,
+        "Volume": 41344415,
+        "AvgVolume": 48594667,
         "sharesOutstanding": 3972725983,
         "52Week": "3.48 - 6.62",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.86,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 10711874560,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 15827859456,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 47477389,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48607870,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12166,7 +12187,8 @@
             "high": 3.875,
             "low": 3.79,
             "close": 3.86,
-            "volume": 48603153
+            "volume": 48603153,
+            "marketCap": 15663840256
         }
     ]
 }

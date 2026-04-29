@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 1262.48,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 1240.15,
         "englishName": "Mettler-Toledo International Inc.",
         "earningsDate": "2026-05-07",
-        "enterpriseValue": 28107030528,
-        "marketCap": 25563330560,
-        "Volume": 62500,
-        "AvgVolume": 159257,
+        "enterpriseValue": 27858657280,
+        "marketCap": 25111183360,
+        "Volume": 92234,
+        "AvgVolume": 158386,
         "sharesOutstanding": 20248505,
         "52Week": "1029.23 - 1525.17",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1262.48,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 28107030528,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 25563330560,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 62500,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 159257,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -64328,7 +64349,8 @@
             "high": 1275.079956,
             "low": 1256.209961,
             "close": 1262.47998,
-            "volume": 62500
+            "volume": 62500,
+            "marketCap": 25111183360
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
+        "Update": "2026-04-30 05:34:11 KST",
         "regularMarketPrice": 49.85,
         "englishName": "F/m US Treasury 3 Month Bill Fund - ETF Class Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1418372,
-        "AvgVolume": 2496062,
+        "Volume": 1968743,
+        "AvgVolume": 2482201,
         "sharesOutstanding": null,
         "52Week": "49.81 - 50.02",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 1418372,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2496062,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7583,22 +7592,20 @@
             "high": 49.849998,
             "low": 49.84,
             "close": 49.849998,
-            "volume": 1418372
+            "volume": 1418372,
+            "amount": 0.147,
+            "yield": 0.0423269826
         },
         {
-            "date": "2026-04-30",
+            "date": "2026-05-28",
             "forecasted": true
         },
         {
-            "date": "2026-05-29",
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-30",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-30",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -7606,7 +7613,11 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-30",
+            "date": "2026-09-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-10-28",
             "forecasted": true
         }
     ]

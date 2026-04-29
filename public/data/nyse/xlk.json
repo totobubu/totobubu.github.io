@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 157.85,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 159.11,
         "englishName": "State Street Technology Select Sector SPDR ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 42944040960,
-        "Volume": 9028537,
-        "AvgVolume": 18330475,
+        "marketCap": null,
+        "Volume": 7397508,
+        "AvgVolume": 18062552,
         "sharesOutstanding": 272056000,
         "52Week": "101.9 - 160.62",
-        "Yield": 0.006988,
+        "Yield": 0.006932,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US81369Y8030",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 157.85,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9028537,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18330475,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006988,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2284,7 +2301,7 @@
             "close": 51.5625,
             "volume": 397700,
             "amount": 0.0003,
-            "yield": 0.0000057971,
+            "yield": 5.7971e-6,
             "marketCap": 14027887500,
             "amountOriginal": 0.0005,
             "amountSplitAdjustments": [

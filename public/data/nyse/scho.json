@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 24.26,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 24.23,
         "englishName": "Schwab Short-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2358118,
-        "AvgVolume": 3263901,
+        "Volume": 2153389,
+        "AvgVolume": 3206362,
         "sharesOutstanding": null,
         "52Week": "24.17 - 24.47",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2358118,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3263901,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -195,7 +208,7 @@
             "close": 25.03499984741211,
             "volume": 109400,
             "amount": 0.0018,
-            "yield": 0.0000718133,
+            "yield": 7.18133e-5,
             "amountOriginal": 0.014,
             "amountSplitAdjustments": [
                 {

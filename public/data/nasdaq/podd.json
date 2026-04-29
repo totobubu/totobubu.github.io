@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 182.87,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 160.02,
         "englishName": "Insulet Corporation",
         "earningsDate": "2026-05-06",
-        "enterpriseValue": 13542842368,
-        "marketCap": 12666254336,
-        "Volume": 1154811,
-        "AvgVolume": 999262,
+        "enterpriseValue": 13159888896,
+        "marketCap": 11083579392,
+        "Volume": 4045372,
+        "AvgVolume": 997365,
         "sharesOutstanding": 69263714,
-        "52Week": "182.26 - 354.88",
+        "52Week": "158.35 - 354.88",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 182.87,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 13542842368,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12666254336,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1154811,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 999262,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42853,7 +42874,8 @@
             "high": 191.75,
             "low": 182.259995,
             "close": 182.869995,
-            "volume": 1161616
+            "volume": 1161616,
+            "marketCap": 11083579392
         }
     ]
 }

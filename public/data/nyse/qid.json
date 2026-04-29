@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 17.45,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 17.25,
         "englishName": "ProShares UltraShort QQQ",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 28045789,
-        "AvgVolume": 22759727,
+        "Volume": 34998872,
+        "AvgVolume": 22725254,
         "sharesOutstanding": null,
         "52Week": "17.09 - 36.2",
         "Yield": null,
@@ -52,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.45,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 28045789,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22759727,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4194,7 +4207,7 @@
             "close": 67328,
             "volume": 25725,
             "yield": 68.4682973166,
-            "amountOriginal": 0.000058,
+            "amountOriginal": 5.8e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2011-02-25",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 483.89,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 481.22,
         "englishName": "Synopsys, Inc.",
         "earningsDate": "2026-05-27",
-        "enterpriseValue": 104165580800,
-        "marketCap": 92694953984,
-        "Volume": 1545948,
-        "AvgVolume": 2219881,
+        "enterpriseValue": 101359198208,
+        "marketCap": 92183478272,
+        "Volume": 1152389,
+        "AvgVolume": 2204086,
         "sharesOutstanding": 191562027,
         "52Week": "376.18 - 651.73",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 483.89,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 104165580800,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 92694953984,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1545948,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2219881,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77370,7 +77391,8 @@
             "high": 498,
             "low": 479,
             "close": 483.890015,
-            "volume": 1546910
+            "volume": 1546910,
+            "marketCap": 92183478272
         }
     ]
 }

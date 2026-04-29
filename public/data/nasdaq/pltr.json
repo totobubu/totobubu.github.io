@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 141.18,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 137.97,
         "englishName": "Palantir Technologies Inc.",
         "earningsDate": "2026-05-04",
-        "enterpriseValue": 335401844736,
-        "marketCap": 338430623744,
-        "Volume": 24542303,
-        "AvgVolume": 53659904,
+        "enterpriseValue": 330809802752,
+        "marketCap": 330735779840,
+        "Volume": 32062834,
+        "AvgVolume": 53085077,
         "sharesOutstanding": 2295915766,
         "52Week": "105.32 - 207.52",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 141.18,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 335401844736,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 338430623744,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 24542303,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 53659904,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12532,7 +12553,8 @@
             "high": 143.850006,
             "low": 140.420105,
             "close": 141.179993,
-            "volume": 24542303
+            "volume": 24542303,
+            "marketCap": 330735779840
         }
     ]
 }

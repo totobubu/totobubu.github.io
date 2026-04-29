@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-04-29 05:36:11 KST",
-        "regularMarketPrice": 106.3,
+        "Update": "2026-04-30 05:34:11 KST",
+        "regularMarketPrice": 102.89,
         "englishName": "Mohawk Industries, Inc.",
         "earningsDate": "2026-04-30",
-        "enterpriseValue": 8219120128,
-        "marketCap": 6505311232,
-        "Volume": 735079,
-        "AvgVolume": 979603,
+        "enterpriseValue": 8139835904,
+        "marketCap": 6296626688,
+        "Volume": 1405725,
+        "AvgVolume": 985462,
         "sharesOutstanding": 61197654,
         "52Week": "94.56 - 143.13",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.3,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 8219120128,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6505311232,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 735079,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 979603,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77149,7 +77170,8 @@
             "high": 108.639999,
             "low": 106,
             "close": 106.300003,
-            "volume": 735079
+            "volume": 735079,
+            "marketCap": 6296626688
         }
     ]
 }
