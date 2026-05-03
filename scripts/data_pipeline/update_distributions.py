@@ -628,27 +628,58 @@ class DefianceParser(BaseParser):
         current_ticker = None
         tickers_list = []
         amounts_list = []
+        
+        NAME_TO_TICKER = {
+            "r200 weekly": "IWMY",
+            "russell 2000 weekly": "IWMY",
+            "nasdaq 100 weekly": "QQQY",
+            "s&p 500 weekly": "JEPY",
+            "gold enhanced": "GLDY",
+            "oil enhanced": "USOY",
+            "ll enhanced": "USOY",
+            "nasdaq 100 lightningspread": "QLDY",
+            "nasdaq 100 income target": "QQQT",
+            "s&p 500 income target": "SPYT",
+            "tnammd 8": "SPYT",
+            "long + income mstr": "MST",
+            "bmnr option income": "YBMN",
+        }
 
         # Common words in Defiance/related screenshots that are NOT tickers
         exclusions = [
             "FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", 
             "NET", "ASSET", "ROC", "ETF", "SHARE", "WEEKLY", "INCOME", "TARGET", 
-            "NASDAQ", "GOLD", "TOTAL", "INDEX", "DAILY", "NAME", "OIL"
+            "NASDAQ", "GOLD", "TOTAL", "INDEX", "DAILY", "NAME", "OIL",
+            "MSTR", "BMNR" 
         ]
+        
+        valid_tickers = ['IWMY', 'QQQY', 'JEPY', 'GLDY', 'USOY', 'QQQT', 'SPYT', 'QLDY', 'MST', 'YBMN', 'WDTE']
 
         for line in lines:
             line = line.strip()
             if not line: continue
 
-            # 1. Look for Ticker (start of line or distinct)
-            # Must be 3-5 chars, all uppercase letters.
-            ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
-            if ticker_match:
-                candidate = ticker_match.group(1).upper()
-                if candidate not in exclusions:
-                    current_ticker = candidate
-                    if candidate not in tickers_list:
-                        tickers_list.append(candidate)
+            found_ticker_this_line = False
+
+            line_lower = line.lower()
+            for name, mapped_ticker in NAME_TO_TICKER.items():
+                if name in line_lower:
+                    current_ticker = mapped_ticker
+                    if mapped_ticker not in tickers_list:
+                        tickers_list.append(mapped_ticker)
+                    found_ticker_this_line = True
+                    break
+
+            if not found_ticker_this_line:
+                # 1. Look for Ticker (start of line or distinct)
+                # Must be 3-5 chars, all uppercase letters.
+                ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
+                if ticker_match:
+                    candidate = ticker_match.group(1).upper()
+                    if candidate in valid_tickers or candidate not in exclusions:
+                        current_ticker = candidate
+                        if candidate not in tickers_list:
+                            tickers_list.append(candidate)
 
             # 2. Look for Value with /share
             # $0.1184/share
@@ -656,7 +687,7 @@ class DefianceParser(BaseParser):
             val_match = re.search(r'\$?(\d+\.\d+)', line)
             if val_match:
                 # Confirm it's a distribution amount by checking for "share" keyword in the same line
-                if any(kw in line.lower() for kw in ["/share", "per share", "share"]):
+                if any(kw in line_lower for kw in ["/share", "per share", "share"]):
                     amount = float(val_match.group(1))
                     
                     if current_ticker:

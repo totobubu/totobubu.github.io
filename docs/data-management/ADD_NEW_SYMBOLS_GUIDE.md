@@ -43,7 +43,7 @@ python scripts/utils/add_new_symbols.py `
 > 심볼이 하나일 때는 `SYMBOL:` 접두사를 생략할 수 있습니다.
 >
 > ```bash
-> python scripts/utils/add_new_symbols.py --symbol MUYY --isin US38747T6901 --market BATS --etf MUYY --ko-name "그래닛셰어즈 일드부스트 MU ETF" --underlying MU --company GraniteShares
+> python scripts/utils/add_new_symbols.py --symbol XEY --isin US38747T6588 --market BATS --etf XEY --ko-name "그래닛셰어즈 일드부스트 이더리움 ETF" --underlying Ether --company GraniteShares
 > ```
 >
 > TMYY MUYY
