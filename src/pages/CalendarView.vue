@@ -25,10 +25,8 @@
         if (params) router.push({ name: 'stock-detail', params });
     };
 
-    const loadHolidays = async (tab) => {
-        // [핵심 수정] 북마크, 미국 탭은 미국 휴일, 한국 탭은 한국 휴일을 로드합니다.
-        const fileName =
-            tab === '한국' ? 'kr_holidays.json' : 'us_holidays.json';
+    const loadHolidays = async () => {
+        const fileName = 'us_holidays.json';
         try {
             const response = await fetch(`/holidays/${fileName}`);
             if (!response.ok) throw new Error(`Failed to fetch ${fileName}`);
@@ -42,11 +40,11 @@
     // [핵심 수정] onMounted와 watch를 다시 활성화합니다.
     onMounted(() => {
         ensureDataLoaded();
-        loadHolidays(mainFilterTab.value);
+        loadHolidays();
     });
 
-    watch(mainFilterTab, (newTab) => {
-        loadHolidays(newTab);
+    watch(mainFilterTab, () => {
+        loadHolidays();
     });
 </script>
 

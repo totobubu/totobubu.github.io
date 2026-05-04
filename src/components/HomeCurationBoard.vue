@@ -108,6 +108,29 @@ const navigateToStock = (ticker) => {
   border: 1px solid var(--surface-border);
 }
 
+@media screen and (max-width: 768px) {
+  .horizontal-scroll-container {
+    padding-bottom: 1rem;
+    gap: 0.75rem !important;
+  }
+  
+  .etf-card {
+    min-width: 240px;
+    max-width: 240px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .etf-card {
+    min-width: 85vw; /* 모바일에서 카드가 화면 대부분을 차지하도록 설정 */
+    max-width: 85vw;
+  }
+  
+  .category-header h2 {
+    font-size: 1.1rem !important;
+  }
+}
+
 .etf-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -115,6 +138,6 @@ const navigateToStock = (ticker) => {
 }
 
 .etf-card :deep(.p-card-body) {
-  padding: 1.25rem;
+  padding: 1rem;
 }
 </style>

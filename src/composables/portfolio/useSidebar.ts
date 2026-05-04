@@ -74,31 +74,9 @@ interface NavData {
     nav: NavDataItem[];
 }
 
-type MarketKey = 'kr-stocks' | 'kr-etfs' | 'us-stocks' | 'us-etfs';
+type MarketKey = 'us-stocks' | 'us-etfs';
 
-/**
- * 한국 ETF 브랜드명
- */
-const KOREAN_ETF_BRANDS = [
-    'KODEX',
-    'TIGER',
-    'KBSTAR',
-    'ACE',
-    'ARIRANG',
-    'HANARO',
-    'SOL',
-    'PLUS',
-    'RISE',
-    'TIMEFOLIO',
-    'KOSEF',
-    'KINDEX',
-    'TRUE',
-    'FOCUS',
-    'SMART',
-    'QV',
-    'TREX',
-    'HK ',
-] as const;
+
 
 /**
  * 요일 순서
@@ -109,8 +87,6 @@ const DAY_ORDER: Record<string, number> = { 월: 1, 화: 2, 수: 3, 목: 4, 금:
  * 시장별 파일 매핑
  */
 const MARKET_FILE_MAP: Record<MarketKey, string> = {
-    'kr-stocks': 'sidebar/sidebar-tickers-kr-stocks.json',
-    'kr-etfs': 'sidebar/sidebar-tickers-kr-etfs.json',
     'us-stocks': 'sidebar/sidebar-tickers-us-stocks.json',
     'us-etfs': 'sidebar/sidebar-tickers-us-etfs.json',
 };
@@ -120,11 +96,6 @@ const MARKET_FILE_MAP: Record<MarketKey, string> = {
  */
 function convertNavItemToTicker(item: NavDataItem): SidebarTicker | null {
     let isEtf = !!(item.company || item.underlying);
-    if (!isEtf && item.koName) {
-        isEtf = KOREAN_ETF_BRANDS.some((brand) =>
-            item.koName!.startsWith(brand)
-        );
-    }
 
     const symbol = item.symbol;
     if (!symbol) return null;
@@ -259,8 +230,6 @@ export function useSidebar(): UseSidebarReturn {
         await ensureAllTickersForSearchLoaded();
 
         const filterMap: Record<MarketKey, (item: SidebarTicker) => boolean> = {
-            'kr-stocks': (item) => item.currency === 'KRW' && !item.isEtf,
-            'kr-etfs': (item) => item.currency === 'KRW' && item.isEtf,
             'us-stocks': (item) => item.currency === 'USD' && !item.isEtf,
             'us-etfs': (item) => item.currency === 'USD' && item.isEtf,
         };
@@ -354,10 +323,6 @@ export function useSidebar(): UseSidebarReturn {
         } else if (mainTab === '미국') {
             baseList = allTickers.value.filter(
                 (item) => item.currency === 'USD'
-            );
-        } else if (mainTab === '한국') {
-            baseList = allTickers.value.filter(
-                (item) => item.currency === 'KRW'
             );
         }
 
@@ -471,17 +436,10 @@ export function useSidebar(): UseSidebarReturn {
             const subTab = subFilterTab.value;
 
             const marketsToLoad: MarketKey[] = [];
-            if (mainTab === '한국') {
-                marketsToLoad.push(subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks');
-            } else if (mainTab === '미국') {
+            if (mainTab === '미국') {
                 marketsToLoad.push(subTab === 'ETF' ? 'us-etfs' : 'us-stocks');
             } else if (mainTab === '북마크') {
-                marketsToLoad.push(
-                    'kr-stocks',
-                    'kr-etfs',
-                    'us-stocks',
-                    'us-etfs'
-                );
+                marketsToLoad.push('us-stocks', 'us-etfs');
             }
 
             await Promise.all(marketsToLoad.map((m) => loadMarketData(m)));
@@ -511,25 +469,14 @@ export function useSidebar(): UseSidebarReturn {
         const subTab = subFilterTab.value;
 
         const marketsToLoad: MarketKey[] = [];
-        if (mainTab === '한국') {
-            const market: MarketKey =
-                subTab === 'ETF' ? 'kr-etfs' : 'kr-stocks';
-            if (!loadedMarkets.value.has(market)) {
-                marketsToLoad.push(market);
-            }
-        } else if (mainTab === '미국') {
+        if (mainTab === '미국') {
             const market: MarketKey =
                 subTab === 'ETF' ? 'us-etfs' : 'us-stocks';
             if (!loadedMarkets.value.has(market)) {
                 marketsToLoad.push(market);
             }
         } else if (mainTab === '북마크') {
-            const bookmarkMarkets: MarketKey[] = [
-                'kr-stocks',
-                'kr-etfs',
-                'us-stocks',
-                'us-etfs',
-            ];
+            const bookmarkMarkets: MarketKey[] = ['us-stocks', 'us-etfs'];
             bookmarkMarkets.forEach((market) => {
                 if (!loadedMarkets.value.has(market)) {
                     marketsToLoad.push(market);
@@ -635,17 +582,11 @@ export function useSidebar(): UseSidebarReturn {
         }
 
         const result = toggleMyStock(payload as any);
-        const isKoreanTicker =
-            ((payload as any).currency || '').toUpperCase() === 'KRW';
-        const displaySymbol = isKoreanTicker
-            ? (payload as any).koName ||
-              (payload as any).symbol ||
-              (payload as any).isin ||
-              '알 수 없음'
-            : (payload as any).symbol ||
-              (payload as any).koName ||
-              (payload as any).isin ||
-              '알 수 없음';
+        const displaySymbol =
+            (payload as any).symbol ||
+            (payload as any).koName ||
+            (payload as any).isin ||
+            '알 수 없음';
 
         if (result === 'added') {
             toast.add({
