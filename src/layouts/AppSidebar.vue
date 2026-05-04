@@ -61,23 +61,6 @@
                 },
             ],
         },
-        {
-            label: '한국',
-            code: 'KR',
-            flagSrc: '/flags/kr.svg',
-            items: [
-                {
-                    label: '한국 ETF',
-                    shortLabel: 'ETF',
-                    value: { main: '한국', sub: 'ETF' },
-                },
-                {
-                    label: '한국 개별 주식',
-                    shortLabel: '개별주',
-                    value: { main: '한국', sub: '주식' },
-                },
-            ],
-        },
     ];
 
     const isBookmarkActive = computed(
