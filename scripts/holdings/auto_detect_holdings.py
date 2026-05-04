@@ -47,15 +47,6 @@ ETF_COMPANIES = {
     "Northern Trust",
     "Columbia",
     "BNY Mellon",
-    "삼성자산운용",
-    "미래에셋자산운용",
-    "한국투자신탁운용",
-    "KB자산운용",
-    "NH-Amundi자산운용",
-    "신한자산운용",
-    "KODEX",
-    "TIGER",
-    "KINDEX",
 }
 
 
@@ -103,30 +94,14 @@ def should_check_holdings(item, force_recheck=False, market=None):
     if market in ["NYSE", "NASDAQ"]:
         return True
 
-    # 한국 시장은 제외 (KOSPI, KOSDAQ)
-    if market in ["KOSPI", "KOSDAQ"]:
-        return False
-
     # 시장 정보가 없는 경우, item의 market 필드 확인
     item_market = item.get("market", "")
     if item_market in ["NYSE", "NASDAQ"]:
         return True
 
-    # 한국 시장 제외
-    if item_market in ["KOSPI", "KOSDAQ"]:
-        return False
-
     # 기존 로직: ETF 운용사가 있으면 확인
     company = item.get("company", "")
     if any(etf_company in company for etf_company in ETF_COMPANIES):
-        return True
-
-    # 한국 ETF는 koName에 특정 키워드가 있으면 확인
-    ko_name = item.get("koName", "")
-    if any(
-        keyword in ko_name
-        for keyword in ["KODEX", "TIGER", "KINDEX", "PLUS", "SOL", "HANARO"]
-    ):
         return True
 
     return False
@@ -201,10 +176,6 @@ def process_nav_file(file_path, check_api=True, max_workers=3, force_recheck=Fal
             market = "NYSE"
         elif "NASDAQ" in path_parts:
             market = "NASDAQ"
-        elif "KOSPI" in path_parts:
-            market = "KOSPI"
-        elif "KOSDAQ" in path_parts:
-            market = "KOSDAQ"
 
         print(f"\n[FILE] {file_path.relative_to(Path('public/nav'))}")
         print(f"  시장: {market or 'Unknown'}")
@@ -277,7 +248,7 @@ def process_nav_file(file_path, check_api=True, max_workers=3, force_recheck=Fal
 
 
 def process_all_nav_files(
-    check_api=True, market_filter=None, exclude_korea=False, force_recheck=False
+    check_api=True, market_filter=None, force_recheck=False
 ):
     """
     모든 nav JSON 파일 처리
@@ -296,13 +267,6 @@ def process_all_nav_files(
 
     # 모든 JSON 파일 찾기
     json_files = list(nav_dir.rglob("*.json"))
-
-    # 한국 시장 제외
-    if exclude_korea:
-        json_files = [
-            f for f in json_files if "KOSPI" not in str(f) and "KOSDAQ" not in str(f)
-        ]
-        print(f"[INFO] 한국 시장(KOSPI, KOSDAQ) 제외")
 
     # 시장 필터링
     if market_filter:
@@ -475,7 +439,6 @@ if __name__ == "__main__":
     print("  --api           : API 확인 모드 (실제 holdings 여부 확인, 느림)")
     print("  --recheck       : 기존 holdings 필드 무시하고 재확인")
     print("  --market NYSE   : 특정 시장만 처리")
-    print("  --exclude-kr    : 한국 시장(KOSPI, KOSDAQ) 제외")
     print("  --yes           : 자동 확인 (입력 대기 없음)")
     print("\n예시:")
     print("  python auto_detect_holdings.py --api ARKK ARKQ  # 특정 티커만")
@@ -485,7 +448,6 @@ if __name__ == "__main__":
     check_api = "--api" in sys.argv
     fast_mode = "--fast" in sys.argv
     auto_yes = "--yes" in sys.argv
-    exclude_korea = "--exclude-kr" in sys.argv
     force_recheck = "--recheck" in sys.argv
 
     market_filter = None
@@ -556,6 +518,5 @@ if __name__ == "__main__":
     process_all_nav_files(
         check_api=check_api,
         market_filter=market_filter,
-        exclude_korea=exclude_korea,
         force_recheck=force_recheck,
     )

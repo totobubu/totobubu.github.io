@@ -154,7 +154,7 @@
     };
 
     const fetchLocalData = async () => {
-        const markets = ['KOSPI', 'KOSDAQ', 'NASDAQ', 'NYSE', 'AMEX'];
+        const markets = ['NASDAQ', 'NYSE', 'AMEX'];
         const chars = [
             ...Array.from({ length: 10 }, (_, i) => i.toString()),
             ...Array.from({ length: 26 }, (_, i) =>
@@ -228,7 +228,7 @@
 
                 // Let's iterate markets to find the symbol in localData
                 let localItem = null;
-                const markets = ['KOSPI', 'KOSDAQ', 'NASDAQ', 'NYSE', 'AMEX'];
+                const markets = ['NASDAQ', 'NYSE', 'AMEX'];
                 for (const m of markets) {
                     const key = `${m}_${mapping.systemTicker}`;
                     if (localData.has(key)) {
