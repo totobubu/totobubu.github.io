@@ -49,12 +49,6 @@ const router = createRouter({
             component: BacktesterView,
             props: true,
         },
-        // {
-        //     path: '/backtester-kr/:ticker?',
-        //     name: 'backtester-kr',
-        //     component: BacktesterViewKR,
-        //     props: true,
-        // },
         { path: '/signup', name: 'signup', component: SignUpView },
         { path: '/login', name: 'login', component: LoginView },
         {

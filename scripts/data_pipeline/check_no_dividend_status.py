@@ -20,7 +20,7 @@ def get_no_dividend_symbols():
     symbols = []
     
     # 모든 시장 디렉토리 스캔
-    for market_dir in ["KOSDAQ", "KOSPI", "NASDAQ", "NYSE", "bats"]:
+    for market_dir in ["NASDAQ", "NYSE", "bats"]:
         market_path = NAV_DIR / market_dir
         if not market_path.exists():
             continue

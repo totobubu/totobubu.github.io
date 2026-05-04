@@ -15,7 +15,6 @@
         "build": "vue-tsc --noEmit && vite build",
         "type-check": "vue-tsc --noEmit",
         "add-ipo-dates": "node tasks/addIpoDatesToNav.js",
-        "check:kr-suffix": "node scripts/utils/checkKrTickerSuffixes.js",
         "migrate:assets": "node scripts/migration/migrateAssets.js",
         "migrate:assets:dry": "node scripts/migration/migrateAssets.js --dry-run",
         "preview": "vite preview",
