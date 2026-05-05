@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 21.32,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 21.36,
         "englishName": "Franklin U.S. Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 203325,
-        "AvgVolume": 471003,
+        "Volume": 246969,
+        "AvgVolume": 469263,
         "sharesOutstanding": null,
         "52Week": "20.98 - 21.96",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 203325,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 471003,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13489,7 +13502,9 @@
             "high": 21.434999,
             "low": 21.365,
             "close": 21.385,
-            "volume": 278792
+            "volume": 278792,
+            "amount": 0.086,
+            "yield": 0.0464920508
         },
         {
             "date": "2026-05-04",
