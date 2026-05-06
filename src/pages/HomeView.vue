@@ -22,16 +22,16 @@ useHead({
             </p>
             <h1 class="h1 text-2xl font-bold mb-1">배당모아 Div Grow</h1>
             <h2 class="text-color-secondary text-sm mb-3">해외 ETF 쇼핑 및 배당 포트폴리오 매니저</h2>
-            
-            <div class="search-container px-3 w-full max-w-30rem mx-auto mb-4">
+
+            <div class="search-container px-3 w-full mx-auto mb-4">
                 <span class="p-input-icon-left w-full">
                     <i class="pi pi-search" />
                     <InputText placeholder="ETF 또는 티커 검색 (예: SCHD)" class="w-full border-round-3xl" @click="router.push('/calendar')" />
                 </span>
             </div>
-            
+
             <!-- Quick Links (Restored from Original) -->
-            <article class="t-home-link px-3 w-full max-w-30rem mx-auto mt-2">
+            <article class="t-home-link px-3 w-full mx-auto mt-2">
                 <Button label="내 포트폴리오" icon="pi pi-briefcase" severity="primary" rounded size="large" class="w-full mb-2" @click="router.push('/asset')" />
                 <div class="grid grid-nogutter gap-2">
                     <div class="col">
