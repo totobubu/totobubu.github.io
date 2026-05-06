@@ -18,6 +18,8 @@
         "migrate:assets": "node scripts/migration/migrateAssets.js",
         "migrate:assets:dry": "node scripts/migration/migrateAssets.js --dry-run",
         "preview": "vite preview",
+        "build:android": "vue-tsc --noEmit && vite build && npx cap sync android",
+        "open:android": "npx cap open android",
         "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
         "lint:eslint": "eslint . --fix",
         "lint": "npm-run-all lint:*",
@@ -32,6 +34,8 @@
         "data:sort-keys": "node tasks/sortDataKeys.js"
     },
     "dependencies": {
+        "@capacitor/android": "^8.3.1",
+        "@capacitor/core": "^8.3.1",
         "@fullcalendar/core": "^6.1.19",
         "@fullcalendar/daygrid": "^6.1.19",
         "@fullcalendar/google-calendar": "^6.1.19",
@@ -64,6 +68,7 @@
         "web-streams-polyfill": "^4.0.0"
     },
     "devDependencies": {
+        "@capacitor/cli": "^8.3.1",
         "@eslint/js": "^9.34.0",
         "@primevue/auto-import-resolver": "^4.3.7",
         "@types/node": "^24.10.1",
