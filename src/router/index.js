@@ -18,6 +18,7 @@ const LoginView = () => import('../pages/LoginView.vue');
 const PasswordResetView = () => import('../pages/PasswordResetView.vue');
 const BookmarkView = () => import('../pages/BookmarkView.vue');
 const AssetView = () => import('../pages/AssetView.vue');
+const PortfolioView = () => import('../pages/PortfolioView.vue');
 const AdminView = () => import('../pages/AdminView.vue');
 const ProfileView = () => import('../pages/ProfileView.vue');
 const ContactView = () => import('../pages/ContactView.vue');
@@ -67,6 +68,12 @@ const router = createRouter({
             name: 'assets',
             component: AssetView,
             meta: { requiresAuth: true, adminOnly: true },
+        },
+        {
+            path: '/portfolio',
+            name: 'portfolio',
+            component: PortfolioView,
+            meta: { requiresAuth: true },
         },
         {
             path: '/admin',
@@ -124,6 +131,11 @@ const router = createRouter({
                 );
                 return { name: 'stock-detail', params };
             },
+        },
+        {
+            path: '/time-machine/:ticker?',
+            name: 'time-machine',
+            component: () => import('../pages/TimeMachineView.vue'),
         },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
