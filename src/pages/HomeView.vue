@@ -1,13 +1,42 @@
 <!-- REFACTORED: src/pages/HomeView.vue -->
 <script setup>
+import { ref, watch } from 'vue';
 import { useHead } from '@vueuse/head';
 import { useRouter } from 'vue-router';
 import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+import AutoComplete from 'primevue/autocomplete';
 import HomeCurationBoard from '@/components/HomeCurationBoard.vue';
 import { user } from '../store/auth';
+import { useSidebar } from '@/composables/portfolio/useSidebar';
+import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
 const router = useRouter();
+const { globalSearchQuery, filteredTickers, isSearchLoading } = useSidebar();
+
+const searchValue = ref('');
+const suggestions = ref([]);
+
+const onSearch = (event) => {
+    const query = event.query?.trim();
+    globalSearchQuery.value = query || null;
+    suggestions.value = filteredTickers.value.slice(0, 20);
+};
+
+// filteredTickers가 비동기 로드 후 업데이트되면 suggestions도 갱신
+watch(filteredTickers, (newTickers) => {
+    if (globalSearchQuery.value?.trim()) {
+        suggestions.value = newTickers.slice(0, 20);
+    }
+});
+
+const onSelect = (event) => {
+    const ticker = event.value;
+    if (!ticker?.symbol) return;
+    globalSearchQuery.value = null;
+    searchValue.value = '';
+    const params = getRouteParamsFromSymbol(ticker.symbol, ticker.market);
+    if (params) router.push({ name: 'stock-detail', params });
+};
 
 useHead({
     title: '홈',
@@ -24,10 +53,30 @@ useHead({
             <h2 class="text-color-secondary text-sm mb-3">해외 ETF 쇼핑 및 배당 포트폴리오 매니저</h2>
 
             <div class="search-container px-3 w-full mx-auto mb-4">
-                <span class="p-input-icon-left w-full">
-                    <i class="pi pi-search" />
-                    <InputText placeholder="ETF 또는 티커 검색 (예: SCHD)" class="w-full border-round-3xl" @click="router.push('/calendar')" />
-                </span>
+                <AutoComplete
+                    v-model="searchValue"
+                    :suggestions="suggestions"
+                    :loading="isSearchLoading"
+                    optionLabel="symbol"
+                    placeholder="ETF 또는 티커 검색 (예: SCHD)"
+                    class="w-full home-search-autocomplete"
+                    inputClass="w-full border-round-3xl"
+                    @complete="onSearch"
+                    @option-select="onSelect"
+                    :delay="200"
+                    forceSelection
+                    fluid
+                >
+                    <template #option="{ option }">
+                        <div class="flex align-items-center gap-2">
+                            <span class="font-bold text-sm">{{ option.symbol }}</span>
+                            <span class="text-color-secondary text-xs">{{ option.koName || option.longName || option.company }}</span>
+                        </div>
+                    </template>
+                    <template #prefix>
+                        <i class="pi pi-search" />
+                    </template>
+                </AutoComplete>
             </div>
 
             <!-- Quick Links (Restored from Original) -->
