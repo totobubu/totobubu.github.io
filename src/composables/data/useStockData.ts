@@ -228,9 +228,9 @@ export function useStockData() {
                 const fullBacktestData: any[] = staticData.backtestData || [];
 
                 const inferredCurrency =
-                    staticData.tickerInfo?.currency || navInfo.currency || null;
+                    staticData.tickerInfo?.currency || navInfo?.currency || null;
                 const inferredMarket =
-                    staticData.tickerInfo?.market || navInfo.market || null;
+                    staticData.tickerInfo?.market || navInfo?.market || null;
                 const applyUsdPriceTruncation = isUsdUsMarket(
                     inferredCurrency,
                     inferredMarket
