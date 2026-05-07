@@ -1,7 +1,5 @@
 // src/utils/tickerRoute.js
 const MARKET_SLUG_META = {
-    kospi: { market: 'KOSPI', suffix: 'KS' },
-    kosdaq: { market: 'KOSDAQ', suffix: 'KQ' },
     nyse: { market: 'NYSE', suffix: null },
     nasdaq: { market: 'NASDAQ', suffix: null },
     amex: { market: 'AMEX', suffix: null },
@@ -17,17 +15,9 @@ const MARKET_NAME_TO_SLUG = Object.entries(MARKET_SLUG_META).reduce(
     {}
 );
 
-const SYMBOL_SUFFIX_TO_SLUG = {
-    KS: 'kospi',
-    KSC: 'kospi',
-    KQ: 'kosdaq',
-};
+const SYMBOL_SUFFIX_TO_SLUG = {};
 
-const LEGACY_SUFFIX_TO_SLUG = {
-    ks: 'kospi',
-    ksc: 'kospi',
-    kq: 'kosdaq',
-};
+const LEGACY_SUFFIX_TO_SLUG = {};
 
 const DEFAULT_MARKET_SLUG = 'global';
 

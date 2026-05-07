@@ -113,8 +113,6 @@ jobs:
               run: npm run generate-calendar-events
 
             - name: Format changed files only
-              env:
-                  EXCLUDE_PATHS: 'public/data/kosdaq public/data/kospi'
               run: npm run format:changed
 
             - name: Upload changed files to R2 (Git-based, fast)

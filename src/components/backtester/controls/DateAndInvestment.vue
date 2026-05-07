@@ -15,18 +15,6 @@
 
     const { deviceType } = useBreakpoint();
 
-    const props = defineProps({
-        isLoading: Boolean,
-        portfolio: Array,
-        country: {
-            // [핵심 수정] country prop 추가
-            type: String,
-            default: 'US',
-        },
-    });
-
-    const isKR = computed(() => props.country === 'KR');
-
     const emit = defineEmits(['run-backtest']);
 
     const { findRateForDate } = useExchangeRates();
@@ -138,60 +126,33 @@
         <Form class="flex flex-column gap-3 col-12">
             <Fieldset legend="비교 대상">
                 <div class="flex flex-wrap gap-2">
-                    <template v-if="!isKR">
-                        <div class="flex align-items-center">
-                            <RadioButton
-                                v-model="comparison"
-                                inputId="compSPY"
-                                name="comparison"
-                                value="SPY" /><label for="compSPY" class="ml-2"
-                                >S&P 500 (SPY)</label
-                            >
-                        </div>
-                        <div class="flex align-items-center">
-                            <RadioButton
-                                v-model="comparison"
-                                inputId="compQQQ"
-                                name="comparison"
-                                value="QQQ" /><label for="compQQQ" class="ml-2"
-                                >Nasdaq 100 (QQQ)</label
-                            >
-                        </div>
-                        <div class="flex align-items-center">
-                            <RadioButton
-                                v-model="comparison"
-                                inputId="compDIA"
-                                name="comparison"
-                                value="DIA" /><label for="compDIA" class="ml-2"
-                                >Dow 30 (DIA)</label
-                            >
-                        </div>
-                    </template>
-                    <!-- [핵심 수정] 한국 백테스터 전용 비교 대상 -->
-                    <template v-else>
-                        <div class="flex align-items-center">
-                            <RadioButton
-                                v-model="comparison"
-                                inputId="compKOSPI"
-                                name="comparison"
-                                value="^KS11" /><label
-                                for="compKOSPI"
-                                class="ml-2"
-                                >KOSPI (^KS11)</label
-                            >
-                        </div>
-                        <div class="flex align-items-center">
-                            <RadioButton
-                                v-model="comparison"
-                                inputId="compKOSDAQ"
-                                name="comparison"
-                                value="^KQ11" /><label
-                                for="compKOSDAQ"
-                                class="ml-2"
-                                >KOSDAQ (^KQ11)</label
-                            >
-                        </div>
-                    </template>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compSPY"
+                            name="comparison"
+                            value="SPY" /><label for="compSPY" class="ml-2"
+                            >S&P 500 (SPY)</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compQQQ"
+                            name="comparison"
+                            value="QQQ" /><label for="compQQQ" class="ml-2"
+                            >Nasdaq 100 (QQQ)</label
+                        >
+                    </div>
+                    <div class="flex align-items-center">
+                        <RadioButton
+                            v-model="comparison"
+                            inputId="compDIA"
+                            name="comparison"
+                            value="DIA" /><label for="compDIA" class="ml-2"
+                            >Dow 30 (DIA)</label
+                        >
+                    </div>
                     <div class="flex align-items-center">
                         <RadioButton
                             v-model="comparison"
@@ -267,10 +228,7 @@
                             </FloatLabel>
                         </InputGroup>
                     </FormField>
-                    <template v-if="deviceType === 'mobile'">
                         <FormField>
-                            <!-- [핵심 수정] 환율 관련 UI 조건부 렌더링 -->
-                            <template v-if="!isKR">
                                 <InputGroup>
                                     <FloatLabel variant="in">
                                         <InputNumber
@@ -298,22 +256,6 @@
                                         >
                                     </FloatLabel>
                                 </InputGroup>
-                            </template>
-                            <template v-else>
-                                <!-- KRW 전용 투자금 입력 UI -->
-                                <InputGroup>
-                                    <FloatLabel variant="in">
-                                        <InputNumber
-                                            v-model="investmentKRW"
-                                            inputId="investmentKRW"
-                                            mode="currency"
-                                            currency="KRW"
-                                            locale="ko-KR"
-                                            @input="updateUSD" />
-                                        <label for="in_label">KRW</label>
-                                    </FloatLabel>
-                                </InputGroup>
-                            </template>
                         </FormField>
                         <FormField>
                             <InputGroup>
@@ -346,70 +288,6 @@
                                 </FloatLabel>
                             </InputGroup>
                         </FormField>
-                    </template>
-
-                    <div class="flex flex-col gap-2" v-else>
-                        <FormField>
-                            <InputGroup>
-                                <FloatLabel variant="in">
-                                    <InputNumber
-                                        v-model="investmentKRW"
-                                        inputId="investmentKRW"
-                                        mode="currency"
-                                        currency="KRW"
-                                        locale="ko-KR"
-                                        @input="updateUSD" />
-                                    <label for="in_label">KRW</label>
-                                </FloatLabel>
-                                <InputGroupAddon>≈</InputGroupAddon>
-                                <FloatLabel variant="in">
-                                    <InputNumber
-                                        v-model="investmentUSD"
-                                        inputId="investmentUSD"
-                                        mode="currency"
-                                        currency="USD"
-                                        locale="en-US"
-                                        @input="updateKRW" />
-                                    <label for="in_label"
-                                        >USD (₩{{
-                                            startDateRate.toFixed(2)
-                                        }})</label
-                                    >
-                                </FloatLabel>
-                            </InputGroup>
-                        </FormField>
-                        <FormField class="w-6rem">
-                            <InputGroup>
-                                <FloatLabel variant="in">
-                                    <InputNumber
-                                        v-model="commission"
-                                        inputId="commission"
-                                        :minFractionDigits="2"
-                                        suffix=" %" />
-                                    <label for="commission">거래 수수료</label>
-                                </FloatLabel>
-                            </InputGroup>
-                        </FormField>
-                        <FormField class="w-10rem">
-                            <InputGroup>
-                                <FloatLabel variant="in">
-                                    <span
-                                        class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled">
-                                        <span
-                                            class="p-inputtext p-component p-filled p-inputnumber-input">
-                                            <SelectButton
-                                                v-model="applyTax"
-                                                :options="taxOptions"
-                                                size="small"
-                                                optionLabel="label"
-                                                optionValue="value" />
-                                        </span>
-                                    </span>
-                                    <label for="applyTax">배당 소득세</label>
-                                </FloatLabel>
-                            </InputGroup>
-                        </FormField>
-                    </div>
                 </div>
             </Fieldset>
             <Button

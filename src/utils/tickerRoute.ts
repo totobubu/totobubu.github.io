@@ -10,8 +10,6 @@ type MarketNameToSlug = Record<string, string>;
 type SuffixToSlug = Record<string, string>;
 
 const MARKET_SLUG_META: MarketSlugMeta = {
-    kospi: { market: 'KOSPI', suffix: 'KS' },
-    kosdaq: { market: 'KOSDAQ', suffix: 'KQ' },
     nyse: { market: 'NYSE', suffix: null },
     nasdaq: { market: 'NASDAQ', suffix: null },
     amex: { market: 'AMEX', suffix: null },
@@ -26,17 +24,9 @@ const MARKET_NAME_TO_SLUG: MarketNameToSlug = Object.entries(
     return map;
 }, {} as MarketNameToSlug);
 
-const SYMBOL_SUFFIX_TO_SLUG: SuffixToSlug = {
-    KS: 'kospi',
-    KSC: 'kospi',
-    KQ: 'kosdaq',
-};
+const SYMBOL_SUFFIX_TO_SLUG: SuffixToSlug = {};
 
-const LEGACY_SUFFIX_TO_SLUG: SuffixToSlug = {
-    ks: 'kospi',
-    ksc: 'kospi',
-    kq: 'kosdaq',
-};
+const LEGACY_SUFFIX_TO_SLUG: SuffixToSlug = {};
 
 const DEFAULT_MARKET_SLUG = 'global';
 
