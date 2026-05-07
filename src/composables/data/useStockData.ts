@@ -99,23 +99,9 @@ const MARKET_SUFFIX_REGEX = /-(ks|kq|kn|ko)$/i;
 const stripMarketSuffix = (sanitizedTicker?: string): string =>
     sanitizedTicker ? sanitizedTicker.replace(MARKET_SUFFIX_REGEX, '') : '';
 
-// const stripSymbolSuffix = (symbol?: string): string => {
-//     if (!symbol) return '';
-//     const match = symbol.match(SYMBOL_SUFFIX_REGEX);
-//     if (match) {
-//         return symbol.slice(0, -match[0].length);
-//     }
-//     return symbol;
-// };
-
-// const isKoreanMarket = (market?: string): boolean =>
-//     ['KOSPI', 'KOSDAQ', 'KONEX'].includes((market || '').toUpperCase());
-
 const marketNameMap: Record<string, string> = {
     NMS: 'NASDAQ',
     NYQ: 'NYSE',
-    KOE: 'KOSDAQ',
-    KSC: 'KOSPI',
     NCM: 'NASDAQ',
     NGM: 'NASDAQ',
     ASE: 'NYSE',
@@ -194,7 +180,7 @@ export function useStockData() {
         try {
             const navData = await loadNavData();
             const normalizedTicker = stripMarketSuffix(sanitizedTicker);
-            const navInfo =
+            let navInfo =
                 navData.nav.find(
                     (item) =>
                         sanitizeTickerForFilename(item.symbol) ===
@@ -210,36 +196,41 @@ export function useStockData() {
                         item.aliases && item.aliases.includes(sanitizedTicker.toUpperCase())
                 );
 
-            if (!navInfo) {
-                const displayLabel = (() => {
-                    if (!normalizedTicker) return sanitizedTicker.toUpperCase();
-                    return normalizedTicker.toUpperCase();
-                })();
+            let staticData = null;
+            let originalTickerSymbol = '';
 
-                throw new Error(
-                    `'${displayLabel}'에 대한 종목 정보를 찾을 수 없습니다.`
-                );
+            if (navInfo) {
+                if (navInfo.upcoming) {
+                    isUpcoming.value = true;
+                    tickerInfo.value = navInfo;
+                    isLoading.value = false;
+                    return;
+                }
+                originalTickerSymbol = navInfo.yfSymbol || navInfo.symbol;
+                const staticDataCandidates = buildStaticDataCandidates(navInfo);
+                const result = await fetchStaticData(staticDataCandidates);
+                staticData = result.data;
+            } else {
+                // FALLBACK: 사전 등록되지 않은 티커는 실시간 동적 조회 API를 통해 가져옵니다.
+                originalTickerSymbol = sanitizedTicker.toUpperCase();
+                console.log(`[useStockData] Fetching dynamic data for ${originalTickerSymbol}`);
+                try {
+                    const response = await fetch(`/api/getDynamicStockData?ticker=${originalTickerSymbol}`);
+                    if (!response.ok) throw new Error('Failed to fetch dynamic data');
+                    staticData = await response.json();
+                } catch (e) {
+                    const displayLabel = normalizedTicker ? normalizedTicker.toUpperCase() : sanitizedTicker.toUpperCase();
+                    throw new Error(`'${displayLabel}'에 대한 종목 정보를 찾을 수 없습니다. (동적 조회 실패)`);
+                }
             }
-
-            if (navInfo.upcoming) {
-                isUpcoming.value = true;
-                tickerInfo.value = navInfo;
-                isLoading.value = false;
-                return;
-            }
-
-            const originalTickerSymbol = navInfo.yfSymbol || navInfo.symbol;
-            const staticDataCandidates = buildStaticDataCandidates(navInfo);
-            const { data: staticData } =
-                await fetchStaticData(staticDataCandidates);
 
             if (staticData) {
                 const fullBacktestData: any[] = staticData.backtestData || [];
 
                 const inferredCurrency =
-                    staticData.tickerInfo?.currency || navInfo.currency || null;
+                    staticData.tickerInfo?.currency || navInfo?.currency || null;
                 const inferredMarket =
-                    staticData.tickerInfo?.market || navInfo.market || null;
+                    staticData.tickerInfo?.market || navInfo?.market || null;
                 const applyUsdPriceTruncation = isUsdUsMarket(
                     inferredCurrency,
                     inferredMarket

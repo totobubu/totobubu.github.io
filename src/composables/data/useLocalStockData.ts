@@ -33,7 +33,7 @@ export function useLocalStockData(): UseLocalStockDataReturn {
         if (isLoaded.value || isLoading.value) return;
 
         isLoading.value = true;
-        const markets = ['KOSPI', 'KOSDAQ', 'NASDAQ', 'NYSE', 'AMEX'];
+        const markets = ['NASDAQ', 'NYSE', 'AMEX', 'bats'];
         const chars = [
             ...Array.from({ length: 10 }, (_, i) => i.toString()),
             ...Array.from({ length: 26 }, (_, i) =>

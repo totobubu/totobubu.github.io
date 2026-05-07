@@ -6,6 +6,7 @@ import { PrimeVueResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: '/',
     plugins: [
         vue(),
         // AutoImport 플러그인은 잠시 제거하고, Components 플러그인만 사용합니다.

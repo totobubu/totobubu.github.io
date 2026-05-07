@@ -68,7 +68,7 @@ jobs:
             - name: 1. Auto-detect holdings for new tickers
               run: |
                   echo "🔍 Holdings 자동 감지 시작..."
-                  python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
+                  python scripts/holdings/auto_detect_holdings.py --api --yes
                   echo "✅ Holdings 자동 감지 완료"
 
             - name: 2. Fetch ETF holdings data (Yahoo Finance - 23분 소요)

@@ -16,7 +16,12 @@ const globalSearchQuery = ref<string | null>(null);
 const savedMainFilterTab = localStorage.getItem('mainFilterTab');
 const savedSubFilterTab = localStorage.getItem('subFilterTab');
 
-const mainFilterTab = ref<string>(savedMainFilterTab || '미국');
+let initialMainFilterTab = savedMainFilterTab || '미국';
+if (initialMainFilterTab === '한국') {
+    initialMainFilterTab = '미국';
+}
+
+const mainFilterTab = ref<string>(initialMainFilterTab);
 const subFilterTab = ref<string>(savedSubFilterTab || 'ETF');
 const myBookmarks = ref<BookmarksMap>({});
 

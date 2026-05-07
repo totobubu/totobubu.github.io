@@ -6,7 +6,7 @@
 export type Currency = 'KRW' | 'USD';
 
 // 시장 타입
-export type Market = 'KOSPI' | 'KOSDAQ' | 'NASDAQ' | 'NYSE' | 'BATS';
+export type Market = 'NASDAQ' | 'NYSE' | 'BATS' | 'AMEX' | 'OTC';
 
 // 배당 주기
 export type DividendFrequency = '매월' | '분기' | '반기' | '매년' | '불규칙';
