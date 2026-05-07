@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 37.11,
-        "englishName": "iShares MSCI Europe Financials ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 297490,
-        "AvgVolume": 1823035,
-        "sharesOutstanding": null,
-        "52Week": "30.05 - 39.23",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US4642891802",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 36.71,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 564986,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1830593,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -33121,6 +33096,66 @@
             "low": 36.759998,
             "close": 37.110001,
             "volume": 297490
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "HSBA.L",
+                    "name": "HSBC Holdings PLC",
+                    "weight": 9.26
+                },
+                {
+                    "symbol": "SAN.MC",
+                    "name": "Banco Santander SA",
+                    "weight": 5.33
+                },
+                {
+                    "symbol": "ALV.DE",
+                    "name": "Allianz SE",
+                    "weight": 5.14
+                },
+                {
+                    "symbol": "UBSG.SW",
+                    "name": "UBS Group AG Registered Shares",
+                    "weight": 4.14
+                },
+                {
+                    "symbol": "BBVA.MC",
+                    "name": "Banco Bilbao Vizcaya Argentaria SA",
+                    "weight": 3.7
+                },
+                {
+                    "symbol": "UCG.MI",
+                    "name": "UniCredit SpA",
+                    "weight": 3.23
+                },
+                {
+                    "symbol": "BNP.PA",
+                    "name": "BNP Paribas Act. Cat.A",
+                    "weight": 3.19
+                },
+                {
+                    "symbol": "ZURN.SW",
+                    "name": "Zurich Insurance Group AG",
+                    "weight": 2.99
+                },
+                {
+                    "symbol": "ISP.MI",
+                    "name": "Intesa Sanpaolo",
+                    "weight": 2.8
+                },
+                {
+                    "symbol": "INGA.AS",
+                    "name": "ING Groep NV",
+                    "weight": 2.45
+                }
+            ],
+            "open": 38.380001,
+            "high": 38.59,
+            "low": 38.290001,
+            "close": 38.48,
+            "volume": 5318213
         }
     ]
 }

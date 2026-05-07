@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 74.95,
-        "englishName": "Franklin U.S. Large Cap Multifactor Index ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 60959,
-        "AvgVolume": 138651,
-        "sharesOutstanding": null,
-        "52Week": "56.7 - 75.06",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US35473P8014",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 74.22,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 49350,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 138551,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -18563,6 +18538,66 @@
             "low": 74.720001,
             "close": 74.949997,
             "volume": 60959
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.94
+                },
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 6.94
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 4.4
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 4.34
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 3.5
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 3.19
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 3.01
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 2.05
+                },
+                {
+                    "symbol": "CAT",
+                    "name": "Caterpillar Inc",
+                    "weight": 1.69
+                },
+                {
+                    "symbol": "JNJ",
+                    "name": "Johnson & Johnson",
+                    "weight": 1.65
+                }
+            ],
+            "open": 75.5,
+            "high": 76.050003,
+            "low": 75.4786,
+            "close": 76.029999,
+            "volume": 129194
         },
         {
             "date": "2026-06-18",

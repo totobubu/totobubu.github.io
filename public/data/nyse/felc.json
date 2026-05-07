@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 40.46,
-        "englishName": "Fidelity Enhanced Large Cap Core ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 450100,
-        "AvgVolume": 1233798,
-        "sharesOutstanding": null,
-        "52Week": "30.97 - 40.545",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US3160921132",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 40.1,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 753622,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1235790,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5293,6 +5268,66 @@
             "low": 40.349998,
             "close": 40.459999,
             "volume": 451810
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 8.17
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.84
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 4.66
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 4.38
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 3.83
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 3.68
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 2.76
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 2.5
+                },
+                {
+                    "symbol": "BRK-B",
+                    "name": "Berkshire Hathaway Inc Class B",
+                    "weight": 1.88
+                },
+                {
+                    "symbol": "JPM",
+                    "name": "JPMorgan Chase & Co",
+                    "weight": 1.51
+                }
+            ],
+            "open": 40.720001,
+            "high": 41.029701,
+            "low": 40.639999,
+            "close": 41,
+            "volume": 562185
         },
         {
             "date": "2026-06-18",

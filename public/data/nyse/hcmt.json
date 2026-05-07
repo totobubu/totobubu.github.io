@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 37.92,
-        "englishName": "Direxion HCM Tactical Enhanced U.S. Equity Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 15944,
-        "AvgVolume": 66050,
-        "sharesOutstanding": null,
-        "52Week": "26.54 - 40.92",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US25461A7265",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 37.27,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 96666,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 65635,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -6045,6 +6020,51 @@
             "low": 37.7705,
             "close": 37.919998,
             "volume": 15944
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 3.13
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 2.57
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 1.95
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 1.67
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 1.44
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 1.28
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 1.15
+                }
+            ],
+            "open": 38.330002,
+            "high": 38.900002,
+            "low": 38.290001,
+            "close": 38.900002,
+            "volume": 17600
         },
         {
             "date": "2026-06-24",

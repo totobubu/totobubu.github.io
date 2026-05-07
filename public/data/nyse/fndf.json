@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 52.07,
-        "englishName": "Schwab Fundamental International Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 3358673,
-        "AvgVolume": 1692901,
-        "sharesOutstanding": null,
-        "52Week": "37.48 - 52.94",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US8085247554",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 51.23,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1197626,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 1701431,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -26034,6 +26009,61 @@
             "low": 51.670101,
             "close": 52.07,
             "volume": 3358673
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "005930.KS",
+                    "name": "Samsung Electronics Co Ltd",
+                    "weight": 4.25
+                },
+                {
+                    "symbol": "SHEL.L",
+                    "name": "Shell PLC",
+                    "weight": 2.45
+                },
+                {
+                    "symbol": "TTE.PA",
+                    "name": "TotalEnergies SE",
+                    "weight": 1.87
+                },
+                {
+                    "symbol": "BP.L",
+                    "name": "BP PLC",
+                    "weight": 1.27
+                },
+                {
+                    "symbol": "GLEN.L",
+                    "name": "Glencore PLC",
+                    "weight": 1.27
+                },
+                {
+                    "symbol": "BHP.AX",
+                    "name": "BHP Group Ltd",
+                    "weight": 1.13
+                },
+                {
+                    "symbol": "HSBA.L",
+                    "name": "HSBC Holdings PLC",
+                    "weight": 1.02
+                },
+                {
+                    "symbol": "7203.T",
+                    "name": "Toyota Motor Corp",
+                    "weight": 0.96
+                },
+                {
+                    "symbol": "000660.KS",
+                    "name": "SK Hynix Inc",
+                    "weight": 0.82
+                }
+            ],
+            "open": 53.119999,
+            "high": 53.310001,
+            "low": 53.009998,
+            "close": 53.25,
+            "volume": 3056768
         }
     ]
 }

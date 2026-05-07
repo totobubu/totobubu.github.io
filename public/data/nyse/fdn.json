@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 267.76,
-        "englishName": "First Trust Dow Jones Internet Index Fund",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 262974,
-        "AvgVolume": 687965,
-        "sharesOutstanding": null,
-        "52Week": "224.47 - 287.81",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US33733E3027",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 267.72,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 422429,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 694921,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -40339,6 +40314,66 @@
             "low": 266.929993,
             "close": 267.76001,
             "volume": 264429
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 11.58
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 8.68
+                },
+                {
+                    "symbol": "NFLX",
+                    "name": "Netflix Inc",
+                    "weight": 7.77
+                },
+                {
+                    "symbol": "CSCO",
+                    "name": "Cisco Systems Inc",
+                    "weight": 7.1
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 6.42
+                },
+                {
+                    "symbol": "ANET",
+                    "name": "Arista Networks Inc",
+                    "weight": 5.22
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 5.12
+                },
+                {
+                    "symbol": "BKNG",
+                    "name": "Booking Holdings Inc",
+                    "weight": 4.07
+                },
+                {
+                    "symbol": "CRM",
+                    "name": "Salesforce Inc",
+                    "weight": 3.8
+                },
+                {
+                    "symbol": "CIEN",
+                    "name": "Ciena Corp",
+                    "weight": 3.48
+                }
+            ],
+            "open": 266.980011,
+            "high": 267.720001,
+            "low": 265.415009,
+            "close": 266.859985,
+            "volume": 603661
         }
     ]
 }

@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 130.584,
-        "englishName": "AB Disruptors ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 456927,
-        "AvgVolume": 225061,
-        "sharesOutstanding": null,
-        "52Week": "74.49 - 130.71",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US00039J5092",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 128.16,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 122593,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 227521,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -6692,6 +6667,61 @@
             "low": 129.452698,
             "close": 130.479996,
             "volume": 456927
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 3.73
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 3.4
+                },
+                {
+                    "symbol": "2330.TW",
+                    "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+                    "weight": 2.65
+                },
+                {
+                    "symbol": "AMD",
+                    "name": "Advanced Micro Devices Inc",
+                    "weight": 1.9
+                },
+                {
+                    "symbol": "CAT",
+                    "name": "Caterpillar Inc",
+                    "weight": 1.57
+                },
+                {
+                    "symbol": "ASML",
+                    "name": "ASML Holding NV ADR",
+                    "weight": 1.35
+                },
+                {
+                    "symbol": "005930.KS",
+                    "name": "Samsung Electronics Co Ltd",
+                    "weight": 1.34
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 1.31
+                },
+                {
+                    "symbol": "LRCX",
+                    "name": "Lam Research Corp",
+                    "weight": 1.29
+                }
+            ],
+            "open": 132.529999,
+            "high": 134.119995,
+            "low": 131.839996,
+            "close": 134.110001,
+            "volume": 169900
         }
     ]
 }

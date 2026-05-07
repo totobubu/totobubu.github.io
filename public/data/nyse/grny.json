@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 26.75,
-        "englishName": "Fundstrat Granny Shots US Large Cap ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1168872,
-        "AvgVolume": 2421586,
-        "sharesOutstanding": null,
-        "52Week": "19.28 - 26.825",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US8863642315",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 26.64,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1758349,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2470908,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -3329,6 +3304,66 @@
             "low": 26.684999,
             "close": 26.75,
             "volume": 1168872
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "AMD",
+                    "name": "Advanced Micro Devices Inc",
+                    "weight": 4.13
+                },
+                {
+                    "symbol": "PWR",
+                    "name": "Quanta Services Inc",
+                    "weight": 3.17
+                },
+                {
+                    "symbol": "GEV",
+                    "name": "GE Vernova Inc",
+                    "weight": 3.02
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 2.99
+                },
+                {
+                    "symbol": "MSTR",
+                    "name": "Strategy Inc Class A",
+                    "weight": 2.98
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 2.93
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 2.91
+                },
+                {
+                    "symbol": "ANET",
+                    "name": "Arista Networks Inc",
+                    "weight": 2.85
+                },
+                {
+                    "symbol": "NFLX",
+                    "name": "Netflix Inc",
+                    "weight": 2.79
+                },
+                {
+                    "symbol": "KLAC",
+                    "name": "KLA Corp",
+                    "weight": 2.72
+                }
+            ],
+            "open": 26.950001,
+            "high": 27.1499,
+            "low": 26.870001,
+            "close": 27.1,
+            "volume": 1603384
         }
     ]
 }

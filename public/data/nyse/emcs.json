@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 43.32,
-        "englishName": "Xtrackers MSCI Emerging Markets Climate Selection ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1717,
-        "AvgVolume": 2898,
-        "sharesOutstanding": null,
-        "52Week": "28.5 - 43.32",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US2330512268",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 41.9901,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 2898,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2905,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -15277,10 +15252,65 @@
         {
             "date": "2026-05-05",
             "open": 43.02,
-            "high": 43.32,
-            "low": 43.162601,
-            "close": 43.162601,
-            "volume": 1717
+            "high": 44.793301,
+            "low": 44.793301,
+            "close": 44.793301,
+            "volume": 160
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "2330.TW",
+                    "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+                    "weight": 19.53
+                },
+                {
+                    "symbol": "005930.KS",
+                    "name": "Samsung Electronics Co Ltd",
+                    "weight": 9.68
+                },
+                {
+                    "symbol": "000660.KS",
+                    "name": "SK Hynix Inc",
+                    "weight": 6.21
+                },
+                {
+                    "symbol": "0700.HK",
+                    "name": "Tencent Holdings Ltd",
+                    "weight": 5.18
+                },
+                {
+                    "symbol": "9988.HK",
+                    "name": "Alibaba Group Holding Ltd Ordinary Shares",
+                    "weight": 3.58
+                },
+                {
+                    "symbol": "2308.TW",
+                    "name": "Delta Electronics Inc",
+                    "weight": 2.43
+                },
+                {
+                    "symbol": "2454.TW",
+                    "name": "MediaTek Inc",
+                    "weight": 2.05
+                },
+                {
+                    "symbol": "00939",
+                    "name": "China Construction Bank Corp Class H",
+                    "weight": 1.99
+                },
+                {
+                    "symbol": "02318",
+                    "name": "Ping An Insurance (Group) Co. of China Ltd Class H",
+                    "weight": 1.96
+                },
+                {
+                    "symbol": "ITSA4",
+                    "name": "Itausa Investimentos ITAU SA Participating Preferred",
+                    "weight": 1.69
+                }
+            ]
         }
     ]
 }

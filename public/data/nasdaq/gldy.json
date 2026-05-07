@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 14.7435,
-        "englishName": "Defiance Gold Enhanced Options Income ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 41254,
-        "AvgVolume": 48050,
-        "sharesOutstanding": null,
-        "52Week": "14.6 - 19.655",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US88636J3941",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 14.6498,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 51814,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 48635,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2425,8 +2400,23 @@
             "volume": 41254
         },
         {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "FGXXX",
+                    "name": "First American Government Obligs X",
+                    "weight": 18.42
+                }
+            ],
+            "open": 15.01,
+            "high": 15.1799,
+            "low": 15.01,
+            "close": 15.065,
+            "volume": 36006
+        },
+        {
             "date": "2026-05-07",
-            "expected": true
+            "amountFixed": 0.085
         },
         {
             "date": "2026-05-14",

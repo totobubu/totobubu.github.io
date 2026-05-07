@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 42.69,
-        "englishName": "Fidelity Enhanced Large Cap Growth ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 245444,
-        "AvgVolume": 762215,
-        "sharesOutstanding": null,
-        "52Week": "32.05 - 43.22",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US31609A3059",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 42.39,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 268866,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 766150,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5293,6 +5268,66 @@
             "low": 42.580002,
             "close": 42.689999,
             "volume": 245444
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 13.61
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 11.54
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 8.34
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 6.28
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 5.1
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 4.58
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 3.82
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 3.66
+                },
+                {
+                    "symbol": "TSLA",
+                    "name": "Tesla Inc",
+                    "weight": 2.87
+                },
+                {
+                    "symbol": "LLY",
+                    "name": "Eli Lilly and Co",
+                    "weight": 2.1
+                }
+            ],
+            "open": 42.990002,
+            "high": 43.4855,
+            "low": 42.880001,
+            "close": 43.459999,
+            "volume": 465486
         },
         {
             "date": "2026-06-18",

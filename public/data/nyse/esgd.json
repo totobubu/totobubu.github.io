@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 100.83,
-        "englishName": "iShares ESG Aware MSCI EAFE ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 315180,
-        "AvgVolume": 370801,
-        "sharesOutstanding": null,
-        "52Week": "85.37 - 104.81",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US46435G5163",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 99.49,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 287923,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 370130,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -19933,6 +19908,66 @@
             "low": 100.010002,
             "close": 100.830002,
             "volume": 315295
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "ASML.AS",
+                    "name": "ASML Holding NV",
+                    "weight": 2.79
+                },
+                {
+                    "symbol": "NOVN.SW",
+                    "name": "Novartis AG Registered Shares",
+                    "weight": 1.57
+                },
+                {
+                    "symbol": "HSBA.L",
+                    "name": "HSBC Holdings PLC",
+                    "weight": 1.37
+                },
+                {
+                    "symbol": "ROP.SW",
+                    "name": "Roche Holding AG Ordinary Shares new",
+                    "weight": 1.19
+                },
+                {
+                    "symbol": "SIE.DE",
+                    "name": "Siemens AG",
+                    "weight": 1.18
+                },
+                {
+                    "symbol": "NESN.SW",
+                    "name": "Nestle SA",
+                    "weight": 1.16
+                },
+                {
+                    "symbol": "AZN.L",
+                    "name": "AstraZeneca PLC",
+                    "weight": 1.14
+                },
+                {
+                    "symbol": "ABBN.SW",
+                    "name": "ABB Ltd",
+                    "weight": 1.06
+                },
+                {
+                    "symbol": "SU.PA",
+                    "name": "Schneider Electric SE",
+                    "weight": 1.05
+                },
+                {
+                    "symbol": "SAP.DE",
+                    "name": "SAP SE",
+                    "weight": 1.01
+                }
+            ],
+            "open": 102.989998,
+            "high": 103.610001,
+            "low": 102.989998,
+            "close": 103.480003,
+            "volume": 314555
         }
     ]
 }

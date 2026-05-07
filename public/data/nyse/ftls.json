@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 73.88,
-        "englishName": "First Trust Long/Short Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 85009,
-        "AvgVolume": 93720,
-        "sharesOutstanding": null,
-        "52Week": "63.667 - 74.081",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US33739P1030",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 73.24,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 73996,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 93756,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -23828,6 +23803,56 @@
             "low": 73.32,
             "close": 73.879997,
             "volume": 85009
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.46
+                },
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 3.79
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 3.52
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 2.95
+                },
+                {
+                    "symbol": "JPM",
+                    "name": "JPMorgan Chase & Co",
+                    "weight": 2.7
+                },
+                {
+                    "symbol": "BAC",
+                    "name": "Bank of America Corp",
+                    "weight": 2.63
+                },
+                {
+                    "symbol": "ASML",
+                    "name": "ASML Holding NV ADR",
+                    "weight": 2.58
+                },
+                {
+                    "symbol": "BRK-B",
+                    "name": "Berkshire Hathaway Inc Class B",
+                    "weight": 2.33
+                }
+            ],
+            "open": 74.110001,
+            "high": 74.790001,
+            "low": 73.900002,
+            "close": 73.989998,
+            "volume": 97261
         },
         {
             "date": "2026-06-26",

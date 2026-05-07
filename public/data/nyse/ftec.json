@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 254.87,
-        "englishName": "Fidelity MSCI Information Technology Index ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 349064,
-        "AvgVolume": 440540,
-        "sharesOutstanding": null,
-        "52Week": "164.76 - 255.47",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US3160928087",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 250.42,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 312353,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 442801,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -25653,6 +25628,66 @@
             "low": 252.070007,
             "close": 254.869995,
             "volume": 349064
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 18.83
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 14.29
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 9.91
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 4.86
+                },
+                {
+                    "symbol": "MU",
+                    "name": "Micron Technology Inc",
+                    "weight": 2.64
+                },
+                {
+                    "symbol": "AMD",
+                    "name": "Advanced Micro Devices Inc",
+                    "weight": 2.47
+                },
+                {
+                    "symbol": "INTC",
+                    "name": "Intel Corp",
+                    "weight": 1.99
+                },
+                {
+                    "symbol": "CSCO",
+                    "name": "Cisco Systems Inc",
+                    "weight": 1.63
+                },
+                {
+                    "symbol": "LRCX",
+                    "name": "Lam Research Corp",
+                    "weight": 1.44
+                },
+                {
+                    "symbol": "AMAT",
+                    "name": "Applied Materials Inc",
+                    "weight": 1.4
+                }
+            ],
+            "open": 257.529999,
+            "high": 261.589996,
+            "low": 256.899902,
+            "close": 261.5,
+            "volume": 384188
         },
         {
             "date": "2026-06-18",

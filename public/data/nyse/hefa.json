@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 44.24,
-        "englishName": "iShares Currency Hedged MSCI EAFE ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 672136,
-        "AvgVolume": 823916,
-        "sharesOutstanding": null,
-        "52Week": "36.42 - 45.23",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US46434V8037",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 43.57,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 501053,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 824736,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -24755,6 +24730,26 @@
             "low": 43.805,
             "close": 44.240002,
             "volume": 672136
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "EFA",
+                    "name": "iShares MSCI EAFE ETF",
+                    "weight": 100.15
+                },
+                {
+                    "symbol": "XTSLA",
+                    "name": "BlackRock Cash Funds Treasury SL Agency",
+                    "weight": 0.07
+                }
+            ],
+            "open": 44.970001,
+            "high": 45.125,
+            "low": 44.865002,
+            "close": 45.099998,
+            "volume": 419045
         },
         {
             "date": "2026-05-22",

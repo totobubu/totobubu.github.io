@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 67.55,
-        "englishName": "Jpmorgan Hedged Equity Laddered Overlay ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 461833,
-        "AvgVolume": 278876,
-        "sharesOutstanding": null,
-        "52Week": "59.434 - 67.77",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US46654Q7245",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 67.49,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 190081,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 280040,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5581,6 +5556,61 @@
             "low": 67.519997,
             "close": 67.550003,
             "volume": 461833
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 8.65
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.51
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 5.57
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 4.92
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 3.82
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 3.53
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 2.49
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 2.43
+                },
+                {
+                    "symbol": "TSLA",
+                    "name": "Tesla Inc",
+                    "weight": 1.65
+                }
+            ],
+            "open": 67.639999,
+            "high": 67.809998,
+            "low": 67.600098,
+            "close": 67.760002,
+            "volume": 228441
         },
         {
             "date": "2026-06-24",

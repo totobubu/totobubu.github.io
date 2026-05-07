@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 99.8,
-        "englishName": "Goldman Sachs MarketBeta US Equity ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 50586,
-        "AvgVolume": 128333,
-        "sharesOutstanding": null,
-        "52Week": "76.74 - 99.9599",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US3814301236",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 99.01,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 43228,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 129116,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -12383,6 +12358,66 @@
             "low": 99.559799,
             "close": 99.800003,
             "volume": 50586
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 7.75
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.49
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 4.97
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 4.21
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 3.72
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 3.23
+                },
+                {
+                    "symbol": "GOOG",
+                    "name": "Alphabet Inc Class C",
+                    "weight": 3.2
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 2.21
+                },
+                {
+                    "symbol": "TSLA",
+                    "name": "Tesla Inc",
+                    "weight": 1.84
+                },
+                {
+                    "symbol": "JPM",
+                    "name": "JPMorgan Chase & Co",
+                    "weight": 1.41
+                }
+            ],
+            "open": 100.730003,
+            "high": 101.199997,
+            "low": 100.480003,
+            "close": 101.199997,
+            "volume": 53831
         },
         {
             "date": "2026-06-25",

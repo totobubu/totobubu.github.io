@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 39.16,
-        "englishName": "Gotham Enhanced 500 ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 257,
-        "AvgVolume": 1853,
-        "sharesOutstanding": null,
-        "52Week": "30.52 - 39.24",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US8863648353",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 38.87,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 371,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1936,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -11108,6 +11083,66 @@
             "low": 39.16,
             "close": 39.204498,
             "volume": 257
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "NVDA",
+                    "name": "NVIDIA Corp",
+                    "weight": 7.49
+                },
+                {
+                    "symbol": "AAPL",
+                    "name": "Apple Inc",
+                    "weight": 6.5
+                },
+                {
+                    "symbol": "MSFT",
+                    "name": "Microsoft Corp",
+                    "weight": 5.56
+                },
+                {
+                    "symbol": "GOOGL",
+                    "name": "Alphabet Inc Class A",
+                    "weight": 5.24
+                },
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com Inc",
+                    "weight": 4.78
+                },
+                {
+                    "symbol": "META",
+                    "name": "Meta Platforms Inc Class A",
+                    "weight": 2.84
+                },
+                {
+                    "symbol": "AVGO",
+                    "name": "Broadcom Inc",
+                    "weight": 2.26
+                },
+                {
+                    "symbol": "BRK-B",
+                    "name": "Berkshire Hathaway Inc Class B",
+                    "weight": 1.56
+                },
+                {
+                    "symbol": "MU",
+                    "name": "Micron Technology Inc",
+                    "weight": 1.44
+                },
+                {
+                    "symbol": "CSCO",
+                    "name": "Cisco Systems Inc",
+                    "weight": 1.34
+                }
+            ],
+            "open": 39.709999,
+            "high": 39.769402,
+            "low": 39.709999,
+            "close": 39.752102,
+            "volume": 2003
         }
     ]
 }

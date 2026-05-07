@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-06 05:31:46 KST",
-        "regularMarketPrice": 35.56,
-        "englishName": "Franklin FTSE United Kingdom ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 155787,
-        "AvgVolume": 189103,
-        "sharesOutstanding": null,
-        "52Week": "29.215 - 37.37",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-05-07 05:30:19 KST",
         "isin": "US35473P6786",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 35.55,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1425163,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 166808,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -17459,6 +17434,66 @@
             "low": 35.279999,
             "close": 35.560001,
             "volume": 155787
+        },
+        {
+            "date": "2026-05-06",
+            "holdings": [
+                {
+                    "symbol": "HSBA.L",
+                    "name": "HSBC Holdings PLC",
+                    "weight": 9.34
+                },
+                {
+                    "symbol": "AZN.L",
+                    "name": "AstraZeneca PLC",
+                    "weight": 8.43
+                },
+                {
+                    "symbol": "SHEL.L",
+                    "name": "Shell PLC",
+                    "weight": 7.64
+                },
+                {
+                    "symbol": "RR.L",
+                    "name": "Rolls-Royce Holdings PLC",
+                    "weight": 4.04
+                },
+                {
+                    "symbol": "ULVR.L",
+                    "name": "Unilever PLC",
+                    "weight": 3.72
+                },
+                {
+                    "symbol": "BP.L",
+                    "name": "BP PLC",
+                    "weight": 3.69
+                },
+                {
+                    "symbol": "BATS.L",
+                    "name": "British American Tobacco PLC",
+                    "weight": 3.67
+                },
+                {
+                    "symbol": "GSK.L",
+                    "name": "GSK PLC",
+                    "weight": 3.11
+                },
+                {
+                    "symbol": "RIO.L",
+                    "name": "Rio Tinto PLC Ordinary Shares",
+                    "weight": 3.07
+                },
+                {
+                    "symbol": "NG.L",
+                    "name": "National Grid PLC",
+                    "weight": 2.62
+                }
+            ],
+            "open": 36.299999,
+            "high": 36.400002,
+            "low": 36.18,
+            "close": 36.279999,
+            "volume": 796481
         }
     ]
 }
