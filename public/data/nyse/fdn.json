@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 267.72,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 267.76,
         "englishName": "First Trust Dow Jones Internet Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 422429,
-        "AvgVolume": 694921,
+        "Volume": 262974,
+        "AvgVolume": 687965,
         "sharesOutstanding": null,
         "52Week": "224.47 - 287.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 267.72,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 422429,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 694921,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40318,6 +40331,14 @@
             "low": 266.619995,
             "close": 267.720001,
             "volume": 422628
+        },
+        {
+            "date": "2026-05-05",
+            "open": 268.899994,
+            "high": 268.899994,
+            "low": 266.929993,
+            "close": 267.76001,
+            "volume": 264429
         }
     ]
 }

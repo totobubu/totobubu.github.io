@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 101.36,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 101.83,
         "englishName": "Fidelity MSCI Consumer Discretionary Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 65642,
-        "AvgVolume": 97031,
+        "Volume": 85352,
+        "AvgVolume": 96930,
         "sharesOutstanding": null,
         "52Week": "84.49 - 107.45",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101.36,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 65642,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 97031,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25632,6 +25645,14 @@
             "low": 101.050003,
             "close": 101.360001,
             "volume": 65642
+        },
+        {
+            "date": "2026-05-05",
+            "open": 102.089996,
+            "high": 102.400002,
+            "low": 101.790001,
+            "close": 101.830002,
+            "volume": 85352
         },
         {
             "date": "2026-06-18",

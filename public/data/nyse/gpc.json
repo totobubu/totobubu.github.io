@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 103.52,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 104.29,
         "englishName": "Genuine Parts Company",
         "earningsDate": "2026-04-21",
-        "enterpriseValue": 20679794688,
-        "marketCap": 14401921024,
-        "Volume": 951010,
-        "AvgVolume": 1964450,
+        "enterpriseValue": 20477485056,
+        "marketCap": 14509044736,
+        "Volume": 767549,
+        "AvgVolume": 1961581,
         "sharesOutstanding": 137624545,
         "52Week": "96.08 - 151.57",
-        "Yield": 0.040118,
+        "Yield": 0.039822,
         "dividendRate": 4.25,
         "payoutRatio": 9.4375,
         "isin": "US3724601055",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.52,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 20679794688,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14401921024,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 951010,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1964450,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.040118,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105846,6 +105871,14 @@
             "low": 103.480003,
             "close": 103.519997,
             "volume": 1212271
+        },
+        {
+            "date": "2026-05-05",
+            "open": 102.93,
+            "high": 105.084999,
+            "low": 102.392998,
+            "close": 104.290001,
+            "volume": 1071407
         },
         {
             "date": "2026-06-05",

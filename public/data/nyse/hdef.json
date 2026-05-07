@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 32.52,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 32.84,
         "englishName": "Xtrackers MSCI EAFE High Dividend Yield Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 114886,
-        "AvgVolume": 196955,
+        "Volume": 82883,
+        "AvgVolume": 194911,
         "sharesOutstanding": null,
         "52Week": "27.77 - 34.255",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.52,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 114886,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 196955,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22020,6 +22033,14 @@
             "low": 32.459999,
             "close": 32.52,
             "volume": 114900
+        },
+        {
+            "date": "2026-05-05",
+            "open": 32.799999,
+            "high": 32.869999,
+            "low": 32.66,
+            "close": 32.84,
+            "volume": 82883
         },
         {
             "date": "2026-06-18",

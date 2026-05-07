@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 49.98,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 50.08,
         "englishName": "First Trust Morningstar Dividend Leaders Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 723472,
-        "AvgVolume": 1150078,
+        "Volume": 675465,
+        "AvgVolume": 1137676,
         "sharesOutstanding": null,
         "52Week": "40.94 - 51.46",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.98,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 723472,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1150078,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41032,6 +41045,14 @@
             "low": 49.790001,
             "close": 49.98,
             "volume": 727451
+        },
+        {
+            "date": "2026-05-05",
+            "open": 49.98,
+            "high": 50.330002,
+            "low": 49.840099,
+            "close": 50.080002,
+            "volume": 675465
         },
         {
             "date": "2026-06-26",

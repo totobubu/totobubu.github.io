@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 20.86,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 21.31,
         "englishName": "Host Hotels & Resorts, Inc.",
         "earningsDate": "2026-05-06",
-        "enterpriseValue": 19579260928,
-        "marketCap": 14523155456,
-        "Volume": 4556547,
-        "AvgVolume": 8775168,
+        "enterpriseValue": 19393554432,
+        "marketCap": 14836454400,
+        "Volume": 5578739,
+        "AvgVolume": 8709005,
         "sharesOutstanding": 687333299,
         "52Week": "14.37 - 21.55",
-        "Yield": 0.038351,
+        "Yield": 0.037541,
         "dividendRate": 0.8,
         "payoutRatio": 0.7273,
         "isin": "US44107P1049",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.86,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19579260928,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14523155456,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4556547,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8775168,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.038351,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105832,6 +105857,14 @@
             "low": 20.825001,
             "close": 20.860001,
             "volume": 4671696
+        },
+        {
+            "date": "2026-05-05",
+            "open": 21,
+            "high": 21.415001,
+            "low": 20.98,
+            "close": 21.309999,
+            "volume": 5578739
         },
         {
             "date": "2026-06-30",

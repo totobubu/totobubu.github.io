@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 79.28,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 79.9,
         "englishName": "Global X Gold Explorers ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15494,
-        "AvgVolume": 45346,
+        "Volume": 6951,
+        "AvgVolume": 41641,
         "sharesOutstanding": null,
         "52Week": "39.2 - 110.19",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 79.28,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15494,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 45346,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31658,6 +31671,14 @@
             "low": 79.260002,
             "close": 79.279999,
             "volume": 15733
+        },
+        {
+            "date": "2026-05-05",
+            "open": 80.720001,
+            "high": 81.144997,
+            "low": 79.633202,
+            "close": 79.633202,
+            "volume": 6951
         }
     ]
 }

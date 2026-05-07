@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 62.23,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 63.46,
         "englishName": "Grayscale Bitcoin Trust ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2514650,
-        "AvgVolume": 3556998,
+        "Volume": 1521699,
+        "AvgVolume": 3296500,
         "sharesOutstanding": 692369984,
         "52Week": "48.555 - 99.12",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 62.23,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2514650,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3556998,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24814,6 +24827,14 @@
             "low": 61.009998,
             "close": 62.23,
             "volume": 2518411
+        },
+        {
+            "date": "2026-05-05",
+            "open": 63.34,
+            "high": 63.52,
+            "low": 62.950001,
+            "close": 63.459999,
+            "volume": 1526144
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 33.15,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 33.52,
         "englishName": "First Trust Dow Jones Global Select Dividend Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 277370,
-        "AvgVolume": 293311,
+        "Volume": 140712,
+        "AvgVolume": 287133,
         "sharesOutstanding": null,
         "52Week": "25.32 - 34.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.15,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 277370,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 293311,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37636,6 +37649,14 @@
             "low": 33.02,
             "close": 33.150002,
             "volume": 277370
+        },
+        {
+            "date": "2026-05-05",
+            "open": 33.369999,
+            "high": 33.560001,
+            "low": 33.280102,
+            "close": 33.52,
+            "volume": 140712
         },
         {
             "date": "2026-06-26",

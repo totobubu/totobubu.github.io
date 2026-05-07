@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 56.91,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 57.38,
         "englishName": "Fidelity Covington Trust - Fidelity Fundamental Large Cap Core ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 120756,
-        "AvgVolume": 107018,
+        "Volume": 95092,
+        "AvgVolume": 107935,
         "sharesOutstanding": null,
         "52Week": "43.63 - 57.639",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.91,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 120756,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 107018,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11958,6 +11971,14 @@
             "low": 56.759998,
             "close": 56.91,
             "volume": 120756
+        },
+        {
+            "date": "2026-05-05",
+            "open": 57.349998,
+            "high": 57.439999,
+            "low": 57.229401,
+            "close": 57.380001,
+            "volume": 95092
         },
         {
             "date": "2026-06-18",

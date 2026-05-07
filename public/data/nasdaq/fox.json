@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 56.07,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 55.91,
         "englishName": "Fox Corporation",
         "earningsDate": "2026-05-11",
-        "enterpriseValue": 29889798144,
-        "marketCap": 23851956224,
-        "Volume": 728488,
-        "AvgVolume": 1740791,
+        "enterpriseValue": 29523957760,
+        "marketCap": 23783892992,
+        "Volume": 551961,
+        "AvgVolume": 1709933,
         "sharesOutstanding": 224702222,
-        "52Week": "44.35 - 68.175",
-        "Yield": 0.009809,
+        "52Week": "45.16 - 68.175",
+        "Yield": 0.009837,
         "dividendRate": 0.56,
         "payoutRatio": 0.1319,
         "isin": "US35137L2043",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.07,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29889798144,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23851956224,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 728488,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1740791,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009809,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16146,7 +16171,16 @@
             "high": 57.130001,
             "low": 55.924999,
             "close": 56.07,
-            "volume": 760100
+            "volume": 760100,
+            "marketCap": 23783892992
+        },
+        {
+            "date": "2026-05-05",
+            "open": 56.07,
+            "high": 56.299999,
+            "low": 55.150002,
+            "close": 55.91,
+            "volume": 551961
         }
     ]
 }

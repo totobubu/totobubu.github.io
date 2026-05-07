@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 17.615,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 17.65,
         "englishName": "Nicholas Fixed Income Alternative ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 828,
-        "AvgVolume": 17328,
+        "Volume": 31346,
+        "AvgVolume": 17126,
         "sharesOutstanding": null,
         "52Week": "17.29 - 18.32",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.615,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 828,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17328,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7005,6 +7018,14 @@
             "low": 17.615,
             "close": 17.620001,
             "volume": 828
+        },
+        {
+            "date": "2026-05-05",
+            "open": 17.684999,
+            "high": 17.684999,
+            "low": 17.639999,
+            "close": 17.65,
+            "volume": 31346
         },
         {
             "date": "2026-05-21",

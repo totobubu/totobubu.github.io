@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 29.89,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 30.19,
         "englishName": "Schwab Fundamental U.S. Large Company ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2885355,
-        "AvgVolume": 6365013,
+        "Volume": 2375630,
+        "AvgVolume": 6302961,
         "sharesOutstanding": null,
-        "52Week": "22.83 - 30.24",
+        "52Week": "22.83 - 30.255",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.89,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2885355,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6365013,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26442,6 +26455,14 @@
             "low": 29.830099,
             "close": 29.889999,
             "volume": 2905501
+        },
+        {
+            "date": "2026-05-05",
+            "open": 30,
+            "high": 30.254999,
+            "low": 30,
+            "close": 30.190001,
+            "volume": 2375630
         },
         {
             "date": "2026-06-25",

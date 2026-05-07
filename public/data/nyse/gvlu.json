@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 26.085,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 26.265,
         "englishName": "Gotham 1000 Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3857,
-        "AvgVolume": 6510,
+        "Volume": 1422,
+        "AvgVolume": 6391,
         "sharesOutstanding": null,
         "52Week": "22.34 - 26.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.085,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3857,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6510,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8181,6 +8194,14 @@
             "low": 26.030001,
             "close": 26.0945,
             "volume": 3857
+        },
+        {
+            "date": "2026-05-05",
+            "open": 26.16,
+            "high": 26.264999,
+            "low": 26.155001,
+            "close": 26.2125,
+            "volume": 1422
         }
     ]
 }

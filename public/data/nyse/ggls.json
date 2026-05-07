@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 5.4,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 5.33,
         "englishName": "Direxion Daily GOOGL Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18505997,
-        "AvgVolume": 17462215,
+        "Volume": 11758219,
+        "AvgVolume": 17298070,
         "sharesOutstanding": null,
-        "52Week": "5.36 - 14.94",
+        "52Week": "5.275 - 14.94",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.4,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18505997,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17462215,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7338,6 +7351,14 @@
             "low": 5.36,
             "close": 5.4,
             "volume": 18505997
+        },
+        {
+            "date": "2026-05-05",
+            "open": 5.36,
+            "high": 5.3903,
+            "low": 5.275,
+            "close": 5.33,
+            "volume": 11763244
         },
         {
             "date": "2026-06-24",

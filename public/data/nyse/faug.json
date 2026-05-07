@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 55.04,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 55.255,
         "englishName": "FT Vest U.S. Equity Buffer ETF - August",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10159,
-        "AvgVolume": 44815,
+        "Volume": 4718,
+        "AvgVolume": 44790,
         "sharesOutstanding": null,
-        "52Week": "45.373 - 55.23",
+        "52Week": "45.373 - 55.26",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10159,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 44815,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13060,6 +13073,14 @@
             "low": 54.950001,
             "close": 55.040001,
             "volume": 10159
+        },
+        {
+            "date": "2026-05-05",
+            "open": 55.150002,
+            "high": 55.259998,
+            "low": 55.150002,
+            "close": 55.211201,
+            "volume": 4718
         }
     ]
 }

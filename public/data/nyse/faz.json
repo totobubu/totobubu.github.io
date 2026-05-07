@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 44.46,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 44.66,
         "englishName": "Direxion Daily Financial Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 421385,
-        "AvgVolume": 988220,
+        "Volume": 422667,
+        "AvgVolume": 956120,
         "sharesOutstanding": null,
         "52Week": "34.87 - 56.37",
         "Yield": null,
@@ -62,7 +62,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.46,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 421385,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 988220,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35462,6 +35475,14 @@
             "low": 43.119999,
             "close": 44.459999,
             "volume": 421481
+        },
+        {
+            "date": "2026-05-05",
+            "open": 44.650002,
+            "high": 45.150002,
+            "low": 44.18,
+            "close": 44.66,
+            "volume": 422667
         },
         {
             "date": "2026-06-24",

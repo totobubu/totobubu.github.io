@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 85.65,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 85.79,
         "englishName": "VanEck Gold Miners ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15086147,
-        "AvgVolume": 25743476,
+        "Volume": 10278279,
+        "AvgVolume": 25343946,
         "sharesOutstanding": null,
         "52Week": "45.1 - 117.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 85.65,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15086147,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 25743476,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40531,6 +40544,14 @@
             "low": 85.459999,
             "close": 85.650002,
             "volume": 15345117
+        },
+        {
+            "date": "2026-05-05",
+            "open": 87.279999,
+            "high": 87.699997,
+            "low": 85.720001,
+            "close": 85.809998,
+            "volume": 10411911
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 23.61,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 23.74,
         "englishName": "First Trust BuyWrite Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 312426,
-        "AvgVolume": 694981,
+        "Volume": 335689,
+        "AvgVolume": 689300,
         "sharesOutstanding": null,
         "52Week": "21.66 - 24.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.61,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 312426,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 694981,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25422,6 +25435,14 @@
             "low": 23.545,
             "close": 23.610001,
             "volume": 312426
+        },
+        {
+            "date": "2026-05-05",
+            "open": 23.76,
+            "high": 23.780001,
+            "low": 23.67,
+            "close": 23.74,
+            "volume": 335689
         },
         {
             "date": "2026-05-21",

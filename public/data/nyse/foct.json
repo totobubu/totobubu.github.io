@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 50.905,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 51.155,
         "englishName": "FT Vest U.S. Equity Buffer ETF - October",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9939,
-        "AvgVolume": 21630,
+        "Volume": 10854,
+        "AvgVolume": 21460,
         "sharesOutstanding": null,
         "52Week": "41.41 - 51.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.905,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9939,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21630,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11156,6 +11169,14 @@
             "low": 50.8601,
             "close": 50.904999,
             "volume": 9939
+        },
+        {
+            "date": "2026-05-05",
+            "open": 51.009998,
+            "high": 51.18,
+            "low": 51.07,
+            "close": 51.125702,
+            "volume": 10854
         }
     ]
 }

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 46.42,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 46.45,
         "englishName": "iShares MSCI United Kingdom ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2182468,
-        "AvgVolume": 2232836,
+        "Volume": 1688040,
+        "AvgVolume": 2208611,
         "sharesOutstanding": 67800000,
         "52Week": "38.02 - 48.92",
-        "Yield": 0.019345,
+        "Yield": 0.019333,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "AR0582556699",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.42,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2182468,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2232836,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.019345,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68923,6 +68940,14 @@
             "low": 46.310001,
             "close": 46.419998,
             "volume": 2182468
+        },
+        {
+            "date": "2026-05-05",
+            "open": 46.25,
+            "high": 46.470001,
+            "low": 46.029999,
+            "close": 46.450001,
+            "volume": 1689011
         },
         {
             "date": "2026-06-16",

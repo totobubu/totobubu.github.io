@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 21.0849,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 21.01,
         "englishName": "Gammaroad Market Navigation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1001,
-        "AvgVolume": 851,
+        "Volume": 1,
+        "AvgVolume": 866,
         "sharesOutstanding": null,
         "52Week": "20.14 - 21.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.0849,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1001,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 851,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3393,6 +3406,14 @@
             "low": 21.01,
             "close": 21.01,
             "volume": 1001
+        },
+        {
+            "date": "2026-05-04",
+            "open": 21.01,
+            "high": 21.01,
+            "low": 21.01,
+            "close": 21.01,
+            "volume": 1000
         },
         {
             "date": "2026-06-30",

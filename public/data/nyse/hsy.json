@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 182.01,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 184.91,
         "englishName": "The Hershey Company",
         "earningsDate": "2026-04-30",
-        "enterpriseValue": 41790631936,
-        "marketCap": 36891779072,
-        "Volume": 1385749,
-        "AvgVolume": 2052881,
-        "sharesOutstanding": 148077438,
+        "enterpriseValue": 41723695104,
+        "marketCap": 37507768320,
+        "Volume": 1366505,
+        "AvgVolume": 1986453,
+        "sharesOutstanding": 148229858,
         "52Week": "150.04 - 239.48",
-        "Yield": 0.030559,
+        "Yield": 0.030079,
         "dividendRate": 5.81,
         "payoutRatio": 1.0358,
         "isin": "US4278661081",
@@ -47,7 +47,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 182.01,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 41790631936,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36891779072,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1385749,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2052881,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 148077438,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.030559,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105957,6 +105986,14 @@
             "low": 180.399994,
             "close": 182.009995,
             "volume": 1385749
+        },
+        {
+            "date": "2026-05-05",
+            "open": 181.669998,
+            "high": 186.389999,
+            "low": 181.639999,
+            "close": 184.910004,
+            "volume": 1366505
         },
         {
             "date": "2026-05-15",

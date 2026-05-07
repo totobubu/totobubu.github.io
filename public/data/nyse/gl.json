@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 152.65,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 154.14,
         "englishName": "Globe Life Inc.",
         "earningsDate": "2026-04-22",
-        "enterpriseValue": 14234466304,
-        "marketCap": 11974560768,
-        "Volume": 371350,
-        "AvgVolume": 501948,
+        "enterpriseValue": 14229013504,
+        "marketCap": 12091443200,
+        "Volume": 306817,
+        "AvgVolume": 495033,
         "sharesOutstanding": 78444555,
         "52Week": "116.73 - 155.08",
-        "Yield": 0.005306,
+        "Yield": 0.005255,
         "dividendRate": 1.32,
         "payoutRatio": 0.0789,
         "isin": "US37959E1029",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 152.65,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 14234466304,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 11974560768,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 371350,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 501948,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.005306,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105695,6 +105720,14 @@
             "low": 151.639999,
             "close": 152.649994,
             "volume": 371350
+        },
+        {
+            "date": "2026-05-05",
+            "open": 153,
+            "high": 154.675003,
+            "low": 152.865005,
+            "close": 154.139999,
+            "volume": 306817
         },
         {
             "date": "2026-07-02",

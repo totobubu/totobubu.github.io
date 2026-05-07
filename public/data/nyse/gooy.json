@@ -9,14 +9,14 @@
         "underlying": "GOOGL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 15.35,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 15.52,
         "englishName": "YieldMax GOOGL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 341065,
-        "AvgVolume": 435243,
+        "Volume": 442512,
+        "AvgVolume": 428021,
         "sharesOutstanding": null,
         "52Week": "11.36 - 15.96",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.35,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 341065,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 435243,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12648,10 +12661,15 @@
                 {
                     "symbol": "Cash&Other",
                     "name": "Cash & Other",
-                    "weight": 0.0,
+                    "weight": 0,
                     "type": "cash"
                 }
-            ]
+            ],
+            "open": 15.4,
+            "high": 15.64,
+            "low": 15.3966,
+            "close": 15.52,
+            "volume": 442512
         },
         {
             "date": "2026-05-07",

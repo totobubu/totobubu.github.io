@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 69.72,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 71.087,
         "englishName": "Fidelity Wise Origin Bitcoin Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4622641,
-        "AvgVolume": 5593075,
+        "Volume": 3696171,
+        "AvgVolume": 5227611,
         "sharesOutstanding": null,
         "52Week": "54.205 - 110.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.72,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4622641,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5593075,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4660,6 +4673,14 @@
             "low": 68.345001,
             "close": 69.720001,
             "volume": 4626793
+        },
+        {
+            "date": "2026-05-05",
+            "open": 70.959999,
+            "high": 71.154999,
+            "low": 70.480003,
+            "close": 71.080002,
+            "volume": 3696171
         }
     ]
 }

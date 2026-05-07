@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 48.51,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 49.405,
         "englishName": "Goldman Sachs ActiveBeta Emerging Markets Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 79784,
-        "AvgVolume": 177738,
+        "Volume": 75467,
+        "AvgVolume": 177223,
         "sharesOutstanding": null,
-        "52Week": "33.84 - 48.93",
+        "52Week": "33.84 - 49.5896",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.51,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 79784,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 177738,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21709,6 +21722,14 @@
             "low": 48.209999,
             "close": 48.509998,
             "volume": 79784
+        },
+        {
+            "date": "2026-05-05",
+            "open": 49,
+            "high": 49.5896,
+            "low": 49.099998,
+            "close": 49.404999,
+            "volume": 75467
         },
         {
             "date": "2026-06-23",

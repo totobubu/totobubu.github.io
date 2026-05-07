@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 26.3425,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 26.36,
         "englishName": "Global X Video Games & Esports ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18497,
-        "AvgVolume": 29100,
+        "Volume": 37209,
+        "AvgVolume": 28081,
         "sharesOutstanding": null,
         "52Week": "24.89 - 34.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.3425,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18497,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 29100,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13438,6 +13451,14 @@
             "low": 26.23,
             "close": 26.342501,
             "volume": 18497
+        },
+        {
+            "date": "2026-05-05",
+            "open": 26.34,
+            "high": 26.4613,
+            "low": 25.99,
+            "close": 26.360001,
+            "volume": 37209
         }
     ]
 }

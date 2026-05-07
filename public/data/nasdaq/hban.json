@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 16.16,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 16.41,
         "englishName": "Huntington Bancshares Incorporated",
         "earningsDate": "2026-04-23",
-        "enterpriseValue": 40391180288,
-        "marketCap": 32758429696,
-        "Volume": 16491165,
-        "AvgVolume": 26240706,
+        "enterpriseValue": 39438430208,
+        "marketCap": 33265213440,
+        "Volume": 13989915,
+        "AvgVolume": 25874183,
         "sharesOutstanding": 2027130587,
         "52Week": "14.79 - 19.46",
-        "Yield": 0.038366,
+        "Yield": 0.037782,
         "dividendRate": 0.62,
         "payoutRatio": 0.4769,
         "isin": "US4461501045",
@@ -92,7 +92,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.16,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 40391180288,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 32758429696,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16491165,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26240706,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.038366,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107323,6 +107348,14 @@
             "low": 16.115,
             "close": 16.16,
             "volume": 16491165
+        },
+        {
+            "date": "2026-05-05",
+            "open": 16.209999,
+            "high": 16.440001,
+            "low": 16.120001,
+            "close": 16.41,
+            "volume": 13989915
         },
         {
             "date": "2026-06-18",

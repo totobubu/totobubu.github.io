@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 26.64,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 26.75,
         "englishName": "Fundstrat Granny Shots US Large Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1758349,
-        "AvgVolume": 2470908,
+        "Volume": 1168872,
+        "AvgVolume": 2421586,
         "sharesOutstanding": null,
         "52Week": "19.28 - 26.825",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.64,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1758349,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2470908,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3308,6 +3321,14 @@
             "low": 26.504999,
             "close": 26.639999,
             "volume": 1758349
+        },
+        {
+            "date": "2026-05-05",
+            "open": 26.77,
+            "high": 26.825001,
+            "low": 26.684999,
+            "close": 26.75,
+            "volume": 1168872
         }
     ]
 }

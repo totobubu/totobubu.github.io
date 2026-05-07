@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 250.42,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 254.87,
         "englishName": "Fidelity MSCI Information Technology Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 312353,
-        "AvgVolume": 442801,
+        "Volume": 349064,
+        "AvgVolume": 440540,
         "sharesOutstanding": null,
-        "52Week": "164.76 - 251.8492",
+        "52Week": "164.76 - 255.47",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 250.42,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 312353,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 442801,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25632,6 +25645,14 @@
             "low": 248.5,
             "close": 250.419998,
             "volume": 312375
+        },
+        {
+            "date": "2026-05-05",
+            "open": 252.589996,
+            "high": 255.470001,
+            "low": 252.070007,
+            "close": 254.869995,
+            "volume": 349064
         },
         {
             "date": "2026-06-18",

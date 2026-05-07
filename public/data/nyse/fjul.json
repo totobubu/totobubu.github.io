@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 58.03,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 58.24,
         "englishName": "FT Vest U.S. Equity Buffer ETF - July",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10002,
-        "AvgVolume": 42716,
+        "Volume": 7893,
+        "AvgVolume": 42558,
         "sharesOutstanding": null,
-        "52Week": "47.511 - 58.246",
+        "52Week": "47.511 - 58.3",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.03,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10002,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 42716,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11668,6 +11681,14 @@
             "low": 57.959999,
             "close": 58.029999,
             "volume": 10002
+        },
+        {
+            "date": "2026-05-05",
+            "open": 58.200001,
+            "high": 58.299999,
+            "low": 58.189999,
+            "close": 58.240002,
+            "volume": 7893
         }
     ]
 }

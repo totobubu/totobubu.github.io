@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 379.64,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 384.27,
         "englishName": "Alphabet Inc.",
         "earningsDate": "2026-04-29",
-        "enterpriseValue": 4612129554432,
-        "marketCap": 4592505454592,
-        "Volume": 18143004,
-        "AvgVolume": 20950610,
-        "sharesOutstanding": 5438000000,
-        "52Week": "149.49 - 384.16",
-        "Yield": 0.002213,
+        "enterpriseValue": 4568754159616,
+        "marketCap": 4655601418240,
+        "Volume": 13813532,
+        "AvgVolume": 20391586,
+        "sharesOutstanding": 5456000000,
+        "52Week": "149.49 - 388.96",
+        "Yield": 0.002186,
         "dividendRate": 0.88,
         "payoutRatio": 0.0641,
         "isin": "CA02080M1005",
@@ -42,7 +42,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 379.64,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4612129554432,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4592505454592,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18143004,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20950610,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 5438000000,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.002213,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -49087,6 +49116,14 @@
             "low": 376.769989,
             "close": 379.640015,
             "volume": 18143004
+        },
+        {
+            "date": "2026-05-05",
+            "open": 381.149994,
+            "high": 388.959991,
+            "low": 380.350006,
+            "close": 384.269989,
+            "volume": 14189714
         },
         {
             "date": "2026-06-09",

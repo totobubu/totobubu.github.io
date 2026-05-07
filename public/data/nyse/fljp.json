@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 37.63,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 38.1,
         "englishName": "Franklin FTSE Japan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1066446,
-        "AvgVolume": 1530481,
+        "Volume": 2234643,
+        "AvgVolume": 1524865,
         "sharesOutstanding": null,
         "52Week": "30.535 - 40.215",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.63,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1066446,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1530481,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17438,6 +17451,14 @@
             "low": 37.5,
             "close": 37.630001,
             "volume": 1066459
+        },
+        {
+            "date": "2026-05-05",
+            "open": 37.810001,
+            "high": 38.115002,
+            "low": 37.775002,
+            "close": 38.099998,
+            "volume": 2234643
         }
     ]
 }

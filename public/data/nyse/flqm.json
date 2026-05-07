@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 56.04,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 56.45,
         "englishName": "Franklin U.S. Mid Cap Multifactor Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 85710,
-        "AvgVolume": 163276,
+        "Volume": 98678,
+        "AvgVolume": 163121,
         "sharesOutstanding": null,
         "52Week": "51.97 - 58.66",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 85710,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 163276,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18540,6 +18553,14 @@
             "low": 55.950001,
             "close": 56.040001,
             "volume": 85710
+        },
+        {
+            "date": "2026-05-05",
+            "open": 56.290001,
+            "high": 56.610001,
+            "low": 56.07,
+            "close": 56.450001,
+            "volume": 98678
         },
         {
             "date": "2026-06-18",

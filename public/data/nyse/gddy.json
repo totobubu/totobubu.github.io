@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 88.28,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 87.49,
         "englishName": "GoDaddy Inc.",
         "earningsDate": "2026-04-30",
-        "enterpriseValue": 14024178688,
-        "marketCap": 11714482176,
-        "Volume": 1398584,
-        "AvgVolume": 2399028,
+        "enterpriseValue": 14225441792,
+        "marketCap": 11609651200,
+        "Volume": 1580223,
+        "AvgVolume": 2389726,
         "sharesOutstanding": 132696893,
         "52Week": "73.06 - 190.496",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 88.28,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 14024178688,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11714482176,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1398584,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2399028,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25062,7 +25083,16 @@
             "high": 90,
             "low": 87.199997,
             "close": 88.279999,
-            "volume": 1398584
+            "volume": 1398584,
+            "marketCap": 11609651200
+        },
+        {
+            "date": "2026-05-05",
+            "open": 87.279999,
+            "high": 87.739998,
+            "low": 84.170097,
+            "close": 87.489998,
+            "volume": 1580223
         }
     ]
 }

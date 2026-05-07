@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
+        "Update": "2026-05-06 05:31:46 KST",
         "regularMarketPrice": 23,
         "englishName": "Unlimited HFMF Managed Futures ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3718,
-        "AvgVolume": 13106,
+        "Volume": 48991,
+        "AvgVolume": 11660,
         "sharesOutstanding": null,
         "52Week": "19.85 - 24.92",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 3718,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13106,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1654,6 +1663,14 @@
             "low": 22.885,
             "close": 23.025101,
             "volume": 3718
+        },
+        {
+            "date": "2026-05-05",
+            "open": 23.1,
+            "high": 23.059999,
+            "low": 22.940001,
+            "close": 23.014999,
+            "volume": 48991
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 90.06,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 90.78,
         "englishName": "Goldman Sachs Equal Weight U.S. Large Cap Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 66179,
-        "AvgVolume": 103463,
+        "Volume": 44695,
+        "AvgVolume": 102656,
         "sharesOutstanding": null,
         "52Week": "75.176 - 91.53",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 90.06,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 66179,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 103463,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17760,6 +17773,14 @@
             "low": 89.950104,
             "close": 90.059998,
             "volume": 66179
+        },
+        {
+            "date": "2026-05-05",
+            "open": 90.699997,
+            "high": 91.019897,
+            "low": 90.355003,
+            "close": 90.779999,
+            "volume": 44695
         },
         {
             "date": "2026-06-25",

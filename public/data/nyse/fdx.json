@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 357.8,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 362.75,
         "englishName": "FedEx Corporation",
         "earningsDate": "2026-06-23",
-        "enterpriseValue": 127735324672,
-        "marketCap": 85373493248,
-        "Volume": 5012666,
-        "AvgVolume": 1791510,
+        "enterpriseValue": 119176495104,
+        "marketCap": 86554599424,
+        "Volume": 1836468,
+        "AvgVolume": 1836208,
         "sharesOutstanding": 238606756,
         "52Week": "212.64 - 404.03",
-        "Yield": 0.01621,
+        "Yield": 0.015989,
         "dividendRate": 5.8,
         "payoutRatio": 0.3059,
         "isin": "US31428X1063",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 357.8,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 127735324672,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 85373493248,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5012666,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1791510,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01621,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -109159,6 +109184,14 @@
             "low": 354.140015,
             "close": 357.799988,
             "volume": 5012666
+        },
+        {
+            "date": "2026-05-05",
+            "open": 357,
+            "high": 365.549988,
+            "low": 357,
+            "close": 362.75,
+            "volume": 1839731
         },
         {
             "date": "2026-06-09",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 21.63,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 21.26,
         "englishName": "ProShares UltraShort Gold",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5291911,
-        "AvgVolume": 6467486,
+        "Volume": 1581442,
+        "AvgVolume": 6370665,
         "sharesOutstanding": null,
         "52Week": "15.6 - 48.48",
         "Yield": null,
@@ -47,7 +47,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.63,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5291911,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6467486,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35089,6 +35102,14 @@
             "low": 21.030001,
             "close": 21.629999,
             "volume": 5294759
+        },
+        {
+            "date": "2026-05-05",
+            "open": 21.059999,
+            "high": 21.285,
+            "low": 20.959999,
+            "close": 21.26,
+            "volume": 1592852
         }
     ]
 }

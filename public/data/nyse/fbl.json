@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 25.45,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 24.99,
         "englishName": "GraniteShares 2x Long META Daily ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1910868,
-        "AvgVolume": 1297998,
+        "Volume": 1489976,
+        "AvgVolume": 1276995,
         "sharesOutstanding": null,
         "52Week": "19.075 - 51.715",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.45,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1910868,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1297998,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6839,6 +6852,14 @@
             "low": 24.819,
             "close": 25.450001,
             "volume": 1913153
+        },
+        {
+            "date": "2026-05-05",
+            "open": 25.68,
+            "high": 25.719999,
+            "low": 24.6,
+            "close": 24.99,
+            "volume": 1493545
         }
     ]
 }

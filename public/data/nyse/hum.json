@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 237.96,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 239.53,
         "englishName": "Humana Inc.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 20521967616,
-        "marketCap": 28569835520,
-        "Volume": 819309,
-        "AvgVolume": 1960651,
+        "enterpriseValue": 21041833984,
+        "marketCap": 28758331392,
+        "Volume": 971317,
+        "AvgVolume": 1944646,
         "sharesOutstanding": 120061500,
         "52Week": "163.11 - 315.35",
-        "Yield": 0.014876,
+        "Yield": 0.014779,
         "dividendRate": 3.54,
         "payoutRatio": 0.3778,
         "isin": "US4448591028",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 237.96,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 20521967616,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 28569835520,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 819309,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1960651,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.014876,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101181,6 +101206,14 @@
             "low": 234.012497,
             "close": 237.960007,
             "volume": 819309
+        },
+        {
+            "date": "2026-05-05",
+            "open": 237.929993,
+            "high": 242.695007,
+            "low": 237.600006,
+            "close": 239.529999,
+            "volume": 971317
         },
         {
             "date": "2026-06-26",

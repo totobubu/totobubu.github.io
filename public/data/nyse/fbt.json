@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 208.25,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 208.48,
         "englishName": "First Trust NYSE Arca Biotechnology Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36121,
-        "AvgVolume": 80856,
+        "Volume": 33004,
+        "AvgVolume": 80735,
         "sharesOutstanding": 20850000,
         "52Week": "152.78 - 224.94",
         "Yield": 0.000096,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 208.25,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 36121,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 80856,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -45190,6 +45203,14 @@
             "low": 206.404999,
             "close": 208.25,
             "volume": 36121
+        },
+        {
+            "date": "2026-05-05",
+            "open": 209.940002,
+            "high": 209.380005,
+            "low": 207.240005,
+            "close": 208.479996,
+            "volume": 33004
         },
         {
             "date": "2026-06-12",

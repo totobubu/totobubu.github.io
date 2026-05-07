@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 12.056,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 12.06,
         "englishName": "GraniteShares HIPS US High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19032,
-        "AvgVolume": 44210,
+        "Volume": 116115,
+        "AvgVolume": 44070,
         "sharesOutstanding": null,
         "52Week": "11.39 - 12.46",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.056,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19032,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 44210,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23407,6 +23420,14 @@
             "low": 12.05,
             "close": 12.056,
             "volume": 19032
+        },
+        {
+            "date": "2026-05-05",
+            "open": 12,
+            "high": 12.08,
+            "low": 11.97,
+            "close": 12.0605,
+            "volume": 116127
         },
         {
             "date": "2026-05-28",

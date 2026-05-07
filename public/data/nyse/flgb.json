@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 35.55,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 35.56,
         "englishName": "Franklin FTSE United Kingdom ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1425163,
-        "AvgVolume": 166808,
+        "Volume": 155787,
+        "AvgVolume": 189103,
         "sharesOutstanding": null,
         "52Week": "29.215 - 37.37",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1425163,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 166808,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17438,6 +17451,14 @@
             "low": 35.400002,
             "close": 35.549999,
             "volume": 1425163
+        },
+        {
+            "date": "2026-05-05",
+            "open": 35.529999,
+            "high": 35.59,
+            "low": 35.279999,
+            "close": 35.560001,
+            "volume": 155787
         }
     ]
 }

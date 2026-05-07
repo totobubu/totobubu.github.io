@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 113.09,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 113.16,
         "englishName": "VanEck Junior Gold Miners ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4003595,
-        "AvgVolume": 5419616,
+        "Volume": 4154386,
+        "AvgVolume": 5354168,
         "sharesOutstanding": null,
         "52Week": "57.4 - 157.49",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 113.09,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4003595,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5419616,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33559,6 +33572,14 @@
             "low": 112.800003,
             "close": 113.089996,
             "volume": 4003595
+        },
+        {
+            "date": "2026-05-05",
+            "open": 115.949997,
+            "high": 115.987999,
+            "low": 113.139999,
+            "close": 113.160004,
+            "volume": 4154386
         }
     ]
 }

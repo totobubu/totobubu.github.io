@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 40.1,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 40.46,
         "englishName": "Fidelity Enhanced Large Cap Core ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 753622,
-        "AvgVolume": 1235790,
+        "Volume": 450100,
+        "AvgVolume": 1233798,
         "sharesOutstanding": null,
-        "52Week": "30.97 - 40.438",
+        "52Week": "30.97 - 40.545",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.1,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 753622,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1235790,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5272,6 +5285,14 @@
             "low": 39.919998,
             "close": 40.099998,
             "volume": 753622
+        },
+        {
+            "date": "2026-05-05",
+            "open": 40.310001,
+            "high": 40.544998,
+            "low": 40.349998,
+            "close": 40.459999,
+            "volume": 451810
         },
         {
             "date": "2026-06-18",

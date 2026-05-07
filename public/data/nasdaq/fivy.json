@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 25.8979,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 25.6039,
         "englishName": "YieldMax Dorsey Wright Hybrid 5 Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4005,
-        "AvgVolume": 3830,
+        "Volume": 17247,
+        "AvgVolume": 3766,
         "sharesOutstanding": null,
         "52Week": "22.231 - 41.876",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.8979,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4005,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3830,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10064,11 +10077,16 @@
                     "weight": 6.97,
                     "type": "other"
                 }
-            ]
+            ],
+            "open": 26,
+            "high": 26,
+            "low": 25.575001,
+            "close": 25.603901,
+            "volume": 17247
         },
         {
             "date": "2026-05-06",
-            "expected": true
+            "amountFixed": 0.2205
         },
         {
             "date": "2026-05-13",

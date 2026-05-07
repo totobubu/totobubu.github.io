@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 43.57,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 44.24,
         "englishName": "iShares Currency Hedged MSCI EAFE ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 501053,
-        "AvgVolume": 824736,
+        "Volume": 672136,
+        "AvgVolume": 823916,
         "sharesOutstanding": null,
         "52Week": "36.42 - 45.23",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.57,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 501053,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 824736,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24734,6 +24747,14 @@
             "low": 43.41,
             "close": 43.57,
             "volume": 501053
+        },
+        {
+            "date": "2026-05-05",
+            "open": 43.869999,
+            "high": 44.240002,
+            "low": 43.805,
+            "close": 44.240002,
+            "volume": 672136
         },
         {
             "date": "2026-05-22",

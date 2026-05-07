@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 35.41,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 36.07,
         "englishName": "NYLI FTSE International Equity Currency Neutral ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 224651,
-        "AvgVolume": 309786,
+        "Volume": 159184,
+        "AvgVolume": 292035,
         "sharesOutstanding": null,
         "52Week": "28.205 - 37.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.41,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 224651,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 309786,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22324,6 +22337,14 @@
             "low": 35.299999,
             "close": 35.41,
             "volume": 224651
+        },
+        {
+            "date": "2026-05-05",
+            "open": 35.849998,
+            "high": 36.099998,
+            "low": 35.775002,
+            "close": 36.07,
+            "volume": 159184
         },
         {
             "date": "2026-06-18",

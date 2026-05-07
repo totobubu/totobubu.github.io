@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-05 05:22:48 KST",
-        "regularMarketPrice": 55.57,
+        "Update": "2026-05-06 05:31:46 KST",
+        "regularMarketPrice": 57.68,
         "englishName": "Freeport-McMoRan Inc.",
         "earningsDate": "2026-04-23",
-        "enterpriseValue": 97839996928,
-        "marketCap": 79770820608,
-        "Volume": 11910181,
-        "AvgVolume": 17544531,
+        "enterpriseValue": 96468000768,
+        "marketCap": 82799730688,
+        "Volume": 13149760,
+        "AvgVolume": 17418570,
         "sharesOutstanding": 1435501606,
         "52Week": "35.15 - 70.97",
-        "Yield": 0.010797,
+        "Yield": 0.010402,
         "dividendRate": 0.6,
         "payoutRatio": 0.3175,
         "isin": "US35671D8570",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.57,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 97839996928,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 79770820608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11910181,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17544531,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010797,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70414,6 +70439,14 @@
             "low": 55.490002,
             "close": 55.57,
             "volume": 11910181
+        },
+        {
+            "date": "2026-05-05",
+            "open": 57.009998,
+            "high": 57.98,
+            "low": 56.244999,
+            "close": 57.68,
+            "volume": 11751732
         },
         {
             "date": "2026-07-15",
