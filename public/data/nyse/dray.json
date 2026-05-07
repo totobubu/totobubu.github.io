@@ -9,14 +9,14 @@
         "underlying": "DKNG",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-02 05:07:33 KST",
-        "regularMarketPrice": 17.5,
+        "Update": "2026-05-05 05:22:48 KST",
+        "regularMarketPrice": 17.7399,
         "englishName": "YieldMax DKNG Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2161,
-        "AvgVolume": 21696,
+        "Volume": 2559,
+        "AvgVolume": 22265,
         "sharesOutstanding": null,
         "52Week": "15.0 - 53.95",
         "Yield": null,
@@ -35,16 +35,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 17.351,
+                "value": 17.5,
                 "change": "up"
             },
             "Volume": {
-                "value": 1234,
+                "value": 2161,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 22032,
-                "change": "down"
+                "value": 21696,
+                "change": "up"
             }
         }
     },
@@ -8316,6 +8316,64 @@
                     "symbol": "2DKNG 260515P00025010",
                     "name": "DKNG 05/15/2026 25.01 P",
                     "weight": 11.19,
+                    "type": "option"
+                }
+            ],
+            "open": 17.549999,
+            "high": 17.739901,
+            "low": 17.556101,
+            "close": 17.685801,
+            "volume": 2559
+        },
+        {
+            "date": "2026-05-05",
+            "holdings": [
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 41.82,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 25.35,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 23.56,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 17.45,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "DKNG 260515C00025000",
+                    "name": "DKNG US 05/15/26 C25",
+                    "weight": 3.33,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DKNG 260508C00025500",
+                    "name": "DKNG US 05/08/26 C25.5",
+                    "weight": 1.93,
+                    "type": "option"
+                },
+                {
+                    "symbol": "DKNG 260508C00024000",
+                    "name": "DKNG US 05/08/26 C24",
+                    "weight": 4.26,
+                    "type": "option"
+                },
+                {
+                    "symbol": "2DKNG 260515P00025010",
+                    "name": "DKNG 05/15/2026 25.01 P",
+                    "weight": 9.19,
                     "type": "option"
                 }
             ]

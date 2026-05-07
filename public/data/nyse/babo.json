@@ -9,14 +9,14 @@
         "underlying": "BABA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-02 05:07:33 KST",
-        "regularMarketPrice": 10.225,
+        "Update": "2026-05-05 05:22:48 KST",
+        "regularMarketPrice": 10.37,
         "englishName": "YieldMax BABA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 28247,
-        "AvgVolume": 60064,
+        "Volume": 28865,
+        "AvgVolume": 59736,
         "sharesOutstanding": null,
         "52Week": "9.79 - 20.0",
         "Yield": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 10.26,
-                "change": "down"
+                "value": 10.225,
+                "change": "up"
             },
             "Volume": {
-                "value": 17035,
+                "value": 28247,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 60765,
+                "value": 60064,
                 "change": "down"
             }
         }
@@ -10464,6 +10464,76 @@
                     "symbol": "BABA 260508C00134000",
                     "name": "ALIBABA CLL OPT 05/26 134",
                     "weight": 1.03,
+                    "type": "option"
+                }
+            ],
+            "open": 10.3,
+            "high": 10.505,
+            "low": 10.37,
+            "close": 10.37,
+            "volume": 28865
+        },
+        {
+            "date": "2026-05-05",
+            "holdings": [
+                {
+                    "symbol": "912797RG4",
+                    "name": "United States Treasury Bill 08/06/2026",
+                    "weight": 55.71,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RS8",
+                    "name": "United States Treasury Bill 09/03/2026",
+                    "weight": 24.29,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "912797RF6",
+                    "name": "United States Treasury Bill 07/09/2026",
+                    "weight": 20.67,
+                    "type": "treasury_bill"
+                },
+                {
+                    "symbol": "31846V336",
+                    "name": "First American Government Obligations Fund 12/01/2031",
+                    "weight": 6.02,
+                    "type": "money_market"
+                },
+                {
+                    "symbol": "Cash&Other",
+                    "name": "Cash & Other",
+                    "weight": 2.97,
+                    "type": "cash"
+                },
+                {
+                    "symbol": "BABA 260515C00145000",
+                    "name": "BABA US 05/15/26 C145",
+                    "weight": 1.31,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BABA 260508C00138000",
+                    "name": "BABA US 05/08/26 C138",
+                    "weight": 0.53,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BABA 260508C00136000",
+                    "name": "BABA US 05/08/26 C136",
+                    "weight": 0.23,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BABA 260508C00132000",
+                    "name": "BABA US 05/08/26 C132",
+                    "weight": 0.52,
+                    "type": "option"
+                },
+                {
+                    "symbol": "BABA 260508C00134000",
+                    "name": "BABA US 05/08/26 C134",
+                    "weight": 1.24,
                     "type": "option"
                 }
             ]
