@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-08 05:21:43 KST",
-        "regularMarketPrice": 45.17,
+        "Update": "2026-05-09 05:31:52 KST",
+        "regularMarketPrice": 44.33,
         "englishName": "FirstEnergy Corp.",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 55807541248,
-        "marketCap": 26127734784,
-        "Volume": 4904934,
-        "AvgVolume": 5067570,
+        "enterpriseValue": 55587737600,
+        "marketCap": 25641854976,
+        "Volume": 6249997,
+        "AvgVolume": 5065883,
         "sharesOutstanding": 578431175,
         "52Week": "39.28 - 52.34",
-        "Yield": 0.039407,
+        "Yield": 0.040153,
         "dividendRate": 1.86,
         "payoutRatio": 0.9674,
         "isin": "US3379321074",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.17,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 55807541248,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 26127734784,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4904934,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5067570,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.039407,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -64622,10 +64647,12 @@
             "high": 45.169998,
             "low": 44.73,
             "close": 45.169998,
-            "volume": 4904934
+            "volume": 4904934,
+            "amount": 0.465,
+            "yield": 0.0499221692
         },
         {
-            "date": "2026-08-06",
+            "date": "2026-08-07",
             "forecasted": true
         },
         {

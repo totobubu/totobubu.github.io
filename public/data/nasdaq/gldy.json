@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-08 05:21:43 KST",
-        "regularMarketPrice": 15.0053,
+        "Update": "2026-05-09 05:31:52 KST",
+        "regularMarketPrice": 15.03,
         "englishName": "Defiance Gold Enhanced Options Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19386,
-        "AvgVolume": 47429,
+        "Volume": 40018,
+        "AvgVolume": 46979,
         "sharesOutstanding": null,
-        "52Week": "14.6 - 19.48",
+        "52Week": "14.6 - 19.39",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.0053,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19386,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 47429,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2433,7 +2446,8 @@
             "high": 15.16,
             "low": 15,
             "close": 15.0053,
-            "volume": 19386
+            "volume": 19386,
+            "yield": 0.4853034301
         },
         {
             "date": "2026-05-14",

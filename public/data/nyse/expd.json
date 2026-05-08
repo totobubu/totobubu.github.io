@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-08 05:21:43 KST",
-        "regularMarketPrice": 151.86,
+        "Update": "2026-05-09 05:31:52 KST",
+        "regularMarketPrice": 156.69,
         "englishName": "Expeditors International of Washington, Inc.",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 19218049024,
-        "marketCap": 20049164288,
-        "Volume": 790902,
-        "AvgVolume": 1435457,
-        "sharesOutstanding": 132024000,
-        "52Week": "108.36 - 167.19",
-        "Yield": 0.010141,
+        "enterpriseValue": 19112681472,
+        "marketCap": 20493664256,
+        "Volume": 811385,
+        "AvgVolume": 1429966,
+        "sharesOutstanding": 130791133,
+        "52Week": "108.4 - 167.19",
+        "Yield": 0.009828,
         "dividendRate": 1.62,
         "payoutRatio": 0.2488,
         "isin": "US3021301094",
@@ -57,7 +57,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 151.86,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19218049024,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 20049164288,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 790902,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1435457,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 132024000,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010141,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -95012,7 +95041,8 @@
             "high": 153.690002,
             "low": 151,
             "close": 151.860001,
-            "volume": 790902
+            "volume": 790902,
+            "marketCap": 20493664256
         }
     ]
 }

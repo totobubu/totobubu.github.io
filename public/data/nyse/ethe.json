@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-08 05:21:43 KST",
-        "regularMarketPrice": 18.63,
+        "Update": "2026-05-09 05:31:52 KST",
+        "regularMarketPrice": 18.78,
         "englishName": "Grayscale Ethereum Staking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2580562,
-        "AvgVolume": 3673363,
+        "Volume": 1755830,
+        "AvgVolume": 3655872,
         "sharesOutstanding": null,
         "52Week": "14.71 - 40.135",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.63,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2580562,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3673363,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13897,7 +13910,9 @@
             "high": 19.459999,
             "low": 19.129999,
             "close": 19.23,
-            "volume": 1777632
+            "volume": 1777632,
+            "amount": 0.025,
+            "yield": 0.0091752577
         },
         {
             "date": "2026-05-06",
@@ -13920,23 +13935,23 @@
             "forecasted": true
         },
         {
-            "date": "2026-07-07",
+            "date": "2026-07-03",
             "forecasted": true
         },
         {
-            "date": "2026-08-07",
+            "date": "2026-08-05",
             "forecasted": true
         },
         {
-            "date": "2026-09-07",
+            "date": "2026-09-04",
             "forecasted": true
         },
         {
-            "date": "2026-10-07",
+            "date": "2026-10-05",
             "forecasted": true
         },
         {
-            "date": "2026-11-06",
+            "date": "2026-11-05",
             "forecasted": true
         }
     ]
