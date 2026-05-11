@@ -6006,7 +6006,9 @@
             "koName": "그래닛셰어즈 일드부스트 써클 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/bats/cry.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매주",
+            "group": "금"
         },
         {
             "symbol": "CSCL",
@@ -12533,7 +12535,7 @@
             "currency": "USD",
             "logo": "logos/company/company-roundhill-investments.svg",
             "dataPaths": ["data/nasdaq/gdxw.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "GDXY",
@@ -12686,7 +12688,7 @@
         {
             "symbol": "GIAX",
             "company": "Nicholas",
-            "frequency": "매월",
+            "frequency": "매주",
             "ipoDate": "2024-07-30",
             "sharesOutstanding": false,
             "isin": "US88636J1622",
@@ -12698,7 +12700,7 @@
             "logo": "logos/company/company-nicholas.png",
             "dataPaths": ["data/nyse/giax.json"],
             "periods": ["1Y"],
-            "group": "FAD"
+            "group": "금"
         },
         {
             "symbol": "GILD",
@@ -12794,7 +12796,7 @@
             "noDividends": true,
             "logo": "logos/company/company-roundhill-investments.svg",
             "dataPaths": ["data/nasdaq/gldw.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "GLDY",
@@ -14579,7 +14581,7 @@
             "symbol": "HWM",
             "ipoDate": "2016-11-01",
             "frequency": "분기",
-            "group": "FAN",
+            "group": "FMN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US4432011082",
@@ -17560,7 +17562,7 @@
             "koName": "자빌",
             "logo": "logos/nyse/jbl.svg",
             "dataPaths": ["data/nyse/jbl.json"],
-            "periods": ["5Y", "10Y", "15Y"]
+            "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
             "symbol": "JBND",
@@ -19630,7 +19632,7 @@
             "koName": "라운드힐 매그니피센트 7 커버드콜 ETF",
             "logo": "logos/company/company-roundhill-investments.svg",
             "dataPaths": ["data/nasdaq/magy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "MAIN",
@@ -23230,7 +23232,7 @@
             "symbol": "PH",
             "ipoDate": "1980-03-17",
             "frequency": "분기",
-            "group": "FAN",
+            "group": "MAN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US7010941042",
@@ -34604,7 +34606,9 @@
             "koName": "그래닛셰어즈 일드부스트 이더리움 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/bats/xey.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매주",
+            "group": "금"
         },
         {
             "symbol": "XHB",
