@@ -54,7 +54,7 @@ const navigateToStock = (ticker) => {
         <h2 class="text-xl font-bold m-0">{{ category.title }}</h2>
         <p class="text-color-secondary text-sm mt-1 mb-0">{{ category.description }}</p>
       </div>
-      
+
       <div class="horizontal-scroll-container flex gap-3 px-3 pb-3">
         <Card v-for="item in category.items" :key="item.ticker" class="etf-card cursor-pointer" @click="navigateToStock(item.ticker)">
           <template #title>
@@ -113,7 +113,7 @@ const navigateToStock = (ticker) => {
     padding-bottom: 1rem;
     gap: 0.75rem !important;
   }
-  
+
   .etf-card {
     min-width: 240px;
     max-width: 240px;
@@ -125,7 +125,7 @@ const navigateToStock = (ticker) => {
     min-width: 85vw; /* 모바일에서 카드가 화면 대부분을 차지하도록 설정 */
     max-width: 85vw;
   }
-  
+
   .category-header h2 {
     font-size: 1.1rem !important;
   }

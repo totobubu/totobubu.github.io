@@ -149,11 +149,19 @@ $font-family-base: 'Nanum Gothic Coding', monospace !default;
 
 // toto variables
 :root {
+    --font-family: 'Nanum Gothic Coding', monospace !important;
+    --surface-border: var(--p-surface-200);
+    --primary-color: var(--p-primary-500);
+    --p-surface-0: #ffffff; /* PrimeVue sometimes omits 0 */
     --tw-spacing: 0.25rem;
-    --t-ground: var(--p-zinc-950);
-    --t-body-bg: var(--p-zinc-900);
+    --t-ground: var(--p-surface-50);
+    --t-body-bg: var(--p-surface-0);
     --t-dialog-close-button: 2rem;
     --t-overlay-modal-padding-y: 1rem;
     --t-overlay-modal-padding-x: 1.5rem;
     --p-iftalabel-input-padding-top: 1.5rem;
+}
+
+html.p-dark {
+    --p-surface-0: var(--p-surface-950, #121212);
 }

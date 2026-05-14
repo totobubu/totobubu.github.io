@@ -3,60 +3,105 @@ import Lara from '@primeuix/themes/lara';
 
 export const MyPreset = definePreset(Lara, {
     semantic: {
+        typography: {
+            fontFamily: "'Nanum Gothic Coding', monospace",
+        },
         primary: {
-            50: '#fff8e1',
-            100: '#ffecb3',
-            200: '#ffe082',
-            300: '#ffd54f',
-            400: '#ffca28',
-            500: '#ffc107', // Rich Amber
-            600: '#ffb300',
-            700: '#ffa000',
-            800: '#ff8f00',
-            900: '#ff6f00',
-            950: '#452000',
+            50: '#eaf3ec',
+            100: '#c5edc7',
+            200: '#91b795',
+            300: '#75fbb8',
+            400: '#58e073',
+            500: '#00A843', // Primary Green from text description
+            600: '#006e29', // YAML primary
+            700: '#006c45',
+            800: '#00531d',
+            900: '#004c1a',
+            950: '#002107',
+        },
+        surface: {
+            0: '#ffffff',
+            50: '#f6fff8',  // Base background from text
+            100: '#f3fcf5', // surface
+            200: '#e7f0e9', // surface-container
+            300: '#dce5de', // surface-variant
+            400: '#bbcbb8', // outline-variant
+            500: '#6c7b6a', // outline
+            600: '#446649', // tertiary
+            700: '#3c4a3c', // on-surface-variant
+            800: '#2a322e', // inverse-surface
+            900: '#151d19', // on-surface
+            950: '#0e1411',
         },
         colorScheme: {
             light: {
                 primary: {
-                    color: '#ffc107',
-                    inverseColor: '#1f2937',
-                    contrastColor: '#1f2937',
-                    hoverColor: '#ffca28',
-                    activeColor: '#ffb300',
+                    color: '{primary.500}',
+                    inverseColor: '#ffffff',
+                    contrastColor: '#ffffff',
+                    hoverColor: '{primary.600}',
+                    activeColor: '{primary.700}',
+                },
+                surface: {
+                    0: '{surface.0}',
+                    50: '{surface.50}',
+                    100: '{surface.100}',
+                    200: '{surface.200}',
+                    300: '{surface.300}',
+                    400: '{surface.400}',
+                    500: '{surface.500}',
+                    600: '{surface.600}',
+                    700: '{surface.700}',
+                    800: '{surface.800}',
+                    900: '{surface.900}',
+                    950: '{surface.950}'
                 },
                 highlight: {
-                    background: 'rgba(255, 193, 7, 0.12)',
-                    focusBackground: 'rgba(255, 193, 7, 0.18)',
-                    color: '#1f2937',
-                    focusColor: '#111827',
+                    background: '{primary.50}',
+                    focusBackground: '{primary.100}',
+                    color: '{primary.900}',
+                    focusColor: '{primary.950}',
                 },
                 formField: {
-                    hoverBorderColor: '{primary.hoverColor}',
+                    hoverBorderColor: '{primary.500}',
                 },
             },
             dark: {
                 primary: {
-                    color: '#ffe082',
-                    inverseColor: '#111827',
-                    contrastColor: '#111827',
-                    hoverColor: '#ffecb3',
-                    activeColor: '#ffc107',
+                    color: '{primary.400}', // Inverse primary (#58e073)
+                    inverseColor: '#002107',
+                    contrastColor: '#002107',
+                    hoverColor: '{primary.300}',
+                    activeColor: '{primary.200}',
+                },
+                surface: {
+                    0: '{surface.950}',
+                    50: '{surface.900}',
+                    100: '{surface.800}',
+                    200: '{surface.700}',
+                    300: '{surface.600}',
+                    400: '{surface.500}',
+                    500: '{surface.400}',
+                    600: '{surface.300}',
+                    700: '{surface.200}',
+                    800: '{surface.100}',
+                    900: '{surface.50}',
+                    950: '{surface.0}'
                 },
                 highlight: {
-                    background: 'rgba(255, 224, 130, 0.16)',
-                    focusBackground: 'rgba(255, 224, 130, 0.24)',
-                    color: 'rgba(255,255,255,.87)',
-                    focusColor: 'rgba(255,255,255,.87)',
+                    background: '{surface.800}',
+                    focusBackground: '{surface.700}',
+                    color: '{primary.400}',
+                    focusColor: '{primary.400}',
                 },
                 formField: {
-                    hoverBorderColor: '{primary.color}',
+                    hoverBorderColor: '{primary.400}',
                 },
             },
         },
         focusRing: {
             width: '2px',
-            style: 'dashed',
+            style: 'solid',
             color: '{primary.color}',
             offset: '1px',
         },
@@ -68,6 +113,7 @@ export const MyPreset = definePreset(Lara, {
                     root: {
                         background: '{surface.0}',
                         color: '{surface.900}',
+                        borderColor: '{primary.600}',
                     },
                     subtitle: {
                         color: '{surface.500}',
@@ -75,8 +121,9 @@ export const MyPreset = definePreset(Lara, {
                 },
                 dark: {
                     root: {
-                        background: '{surface.900}',
-                        color: '{surface.0}',
+                        background: '{surface.800}', // inverse-surface
+                        color: '{surface.100}',
+                        borderColor: '{primary.400}',
                     },
                     subtitle: {
                         color: '{surface.400}',
@@ -84,5 +131,19 @@ export const MyPreset = definePreset(Lara, {
                 },
             },
         },
+        button: {
+            colorScheme: {
+                light: {
+                    root: {
+                        borderRadius: '8px'
+                    }
+                },
+                dark: {
+                    root: {
+                        borderRadius: '8px'
+                    }
+                }
+            }
+        }
     },
 });
