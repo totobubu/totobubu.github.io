@@ -370,7 +370,18 @@ export function useStockData() {
                 const liveDataArray = await liveDataResponse.json();
                 const liveData = liveDataArray[0];
                 if (liveData && tickerInfo.value) {
-                    tickerInfo.value = { ...tickerInfo.value, ...liveData };
+                    // Map Yahoo Finance fields to AssetDetails keys
+                    const mappedData: any = {
+                        Yield: liveData.trailingAnnualDividendYield || liveData.dividendYield,
+                        Volume: liveData.regularMarketVolume,
+                        AvgVolume: liveData.averageDailyVolume10Day || liveData.averageDailyVolume3Month,
+                        earningsDate: liveData.earningsTimestamp 
+                            ? new Date(liveData.earningsTimestamp * 1000).toLocaleDateString('ko-KR') 
+                            : null,
+                    };
+                    
+                    tickerInfo.value = { ...tickerInfo.value, ...liveData, ...mappedData };
+                    
                     if (liveData.exchange && tickerInfo.value) {
                         tickerInfo.value.market =
                             marketNameMap[liveData.exchange] ||

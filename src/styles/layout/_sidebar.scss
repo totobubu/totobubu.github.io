@@ -12,7 +12,7 @@
 
     .p-calendar-search {
         overflow-y: hidden;
-        height: calc(100% - 0.5rem - var(--p-button-icon-only-width));
+    //     height: calc(100% - 0.5rem - var(--p-button-icon-only-width));
     }
 }
 
@@ -20,7 +20,7 @@
     .p-accordionheader {
         padding: 0.75rem 1rem;
 
-        color: var(--p-text-color-inversed, #ffffff);
+    //     color: var(--p-text-color-inversed, #ffffff);
         gap: 0.5rem;
 
         > span {
@@ -54,7 +54,7 @@
 
 .p-drawer-full .p-drawer {
     .p-drawer-header {
-        padding: 0.75rem var(--p-drawer-header-padding);
+    //     padding: 0.75rem var(--p-drawer-header-padding);
     }
 
     .p-drawer-content {
@@ -253,12 +253,12 @@
                 padding: 0.1rem;
             }
             .pi.pi-bookmark.is-active {
-                color: var(--p-primary-color, #f59e0b);
+    //             color: var(--p-primary-color, #f59e0b);
                 box-shadow: 0 0 0 0.1rem rgba(245, 158, 11, 0.15);
                 transform: scale(1.04);
             }
             .pi.pi-bookmark:focus-visible {
-                outline: 2px solid var(--p-primary-color, #f59e0b);
+    //             outline: 2px solid var(--p-primary-color, #f59e0b);
                 outline-offset: 2px;
             }
         }

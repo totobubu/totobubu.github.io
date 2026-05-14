@@ -500,8 +500,10 @@ export function useLayout(): UseLayoutReturn {
     watchEffect(() => {
         if (appState.value.darkMode) {
             document.documentElement.classList.add('p-dark');
+            document.documentElement.classList.remove('p-light');
         } else {
             document.documentElement.classList.remove('p-dark');
+            document.documentElement.classList.add('p-light');
         }
     });
 
