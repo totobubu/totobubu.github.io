@@ -5,7 +5,7 @@
         "currency": "USD",
         "market": "NYSE",
         "isEtf": true,
-        "popularity": 38,
+        "popularity": 37,
         "koName": "일드맥스 울트라 옵션 인컴 전략 ETF",
         "company": "YieldMax",
         "logo": "logos/company/company-yieldmax.png",
@@ -152,21 +152,6 @@
         "groupLabels": ["목"]
     },
     {
-        "symbol": "YMAG",
-        "isin": "US88636J6423",
-        "currency": "USD",
-        "market": "NYSE",
-        "isEtf": true,
-        "popularity": 11,
-        "koName": "일드맥스 M7 옵션 인컴 ETF",
-        "company": "YieldMax",
-        "logo": "logos/company/company-yieldmax.png",
-        "frequency": "매주",
-        "group": "목",
-        "groupOrder": 4,
-        "groupLabels": ["수"]
-    },
-    {
         "symbol": "PLTY",
         "isin": "US88636R8007",
         "currency": "USD",
@@ -197,6 +182,21 @@
         "underlying": "TSLA",
         "groupOrder": 5,
         "groupLabels": ["금"]
+    },
+    {
+        "symbol": "YMAG",
+        "isin": "US88636J6423",
+        "currency": "USD",
+        "market": "NYSE",
+        "isEtf": true,
+        "popularity": 10,
+        "koName": "일드맥스 M7 옵션 인컴 ETF",
+        "company": "YieldMax",
+        "logo": "logos/company/company-yieldmax.png",
+        "frequency": "매주",
+        "group": "목",
+        "groupOrder": 4,
+        "groupLabels": ["수"]
     },
     {
         "symbol": "HOOW",
@@ -942,7 +942,7 @@
         "frequency": "매월",
         "group": "AND",
         "groupOrder": 999,
-        "yield": 0.011288
+        "yield": 0.011305
     },
     {
         "symbol": "FIAT",
