@@ -18,7 +18,6 @@
         const { currency = 'USD' } = props.info;
 
         const detailMapping = [
-            { key: 'market', label: '시장' },
             {
                 key: 'marketCap',
                 label: '시가총액',

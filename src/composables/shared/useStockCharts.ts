@@ -44,7 +44,6 @@ interface ThemeOptions {
 export interface UseStockChartsOptions {
     tickerInfo: Ref<TickerInfo | null>;
     displayData: Ref<DisplayDataItem[]>;
-    currentView: Ref<string>;
     deviceType: Ref<DeviceType>;
 }
 
@@ -59,7 +58,7 @@ export interface UseStockChartsReturn {
 export function useStockCharts(
     options: UseStockChartsOptions
 ): UseStockChartsReturn {
-    const { tickerInfo, displayData, currentView, deviceType } = options;
+    const { tickerInfo, displayData, deviceType } = options;
 
     const documentStyle = computed(() =>
         getComputedStyle(document.documentElement)
@@ -92,30 +91,23 @@ export function useStockCharts(
             currency: tickerInfo.value.currency,
         };
 
-        // '주가' 뷰일 때 빈 객체를 반환하여 오류를 막습니다.
-        if (currentView.value === '주가') {
-            return { chartOptions: undefined, chartContainerHeight: undefined };
+        const freq = tickerInfo.value.frequency;
+        if (freq === '매년') return useAnnualChart(sharedOptions);
+        if (typeof freq === 'string' && freq.includes('주'))
+            return useWeeklyChart(sharedOptions);
+        if (freq === '분기')
+            return useQuarterlyChart({
+                ...sharedOptions,
+                aggregation: 'quarter',
+            });
+        if (freq === '매월' && displayData.value.length > 59) {
+            return useQuarterlyChart({
+                ...sharedOptions,
+                aggregation: 'month',
+                colorMap: monthColors,
+            } as any);
         }
-
-        if (currentView.value === '배당') {
-            const freq = tickerInfo.value.frequency;
-            if (freq === '매년') return useAnnualChart(sharedOptions);
-            if (typeof freq === 'string' && freq.includes('주'))
-                return useWeeklyChart(sharedOptions);
-            if (freq === '분기')
-                return useQuarterlyChart({
-                    ...sharedOptions,
-                    aggregation: 'quarter',
-                });
-            if (freq === '매월' && displayData.value.length > 59) {
-                return useQuarterlyChart({
-                    ...sharedOptions,
-                    aggregation: 'month',
-                    colorMap: monthColors,
-                } as any);
-            }
-            if (freq === '매월') return useMonthlyChart(sharedOptions);
-        }
+        if (freq === '매월') return useMonthlyChart(sharedOptions);
         return { chartOptions: undefined, chartContainerHeight: undefined };
     });
 

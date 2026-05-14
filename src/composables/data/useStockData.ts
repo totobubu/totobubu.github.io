@@ -72,6 +72,7 @@ const tickerInfo = ref<TickerInfo | null>(null);
 const dividendHistory = ref<DividendHistoryItem[]>([]);
 const backtestData = ref<BacktestDataItem[]>([]);
 const holdingsData = ref<HoldingsDataItem[]>([]);
+const forecastedDividends = ref<{ date: string; forecasted?: boolean; expected?: boolean }[]>([]);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 const isUpcoming = ref(false);
@@ -176,6 +177,7 @@ export function useStockData() {
         dividendHistory.value = [];
         backtestData.value = [];
         holdingsData.value = [];
+        forecastedDividends.value = [];
 
         try {
             const navData = await loadNavData();
@@ -303,6 +305,15 @@ export function useStockData() {
                     }));
 
                 backtestData.value = cleanedBacktestData;
+
+                // Extract forecasted/expected dividend dates
+                forecastedDividends.value = fullBacktestData
+                    .filter((d: any) => d.forecasted === true || d.expected === true)
+                    .map((d: any) => ({
+                        date: d.date,
+                        forecasted: d.forecasted,
+                        expected: d.expected,
+                    }));
                 const latestClose =
                     cleanedBacktestData.length > 0
                         ? cleanedBacktestData[cleanedBacktestData.length - 1]
@@ -393,6 +404,7 @@ export function useStockData() {
         dividendHistory,
         backtestData,
         holdingsData,
+        forecastedDividends,
         isLoading,
         error,
         loadData,

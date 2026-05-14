@@ -17,9 +17,13 @@
 
     import Skeleton from 'primevue/skeleton';
     import StockHeader from '@/components/StockHeader.vue';
-    import StockChartCard from '@/components/StockChartCard.vue';
-    import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
-    import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
+    
+    // New Redesign Components
+    import AssetDetails from '@/components/stock/AssetDetails.vue';
+    import DividendsSummary from '@/components/stock/DividendsSummary.vue';
+    import AnnualPayoutHistory from '@/components/stock/AnnualPayoutHistory.vue';
+    import AnalysisGauges from '@/components/stock/AnalysisGauges.vue';
+    import SimilarAssets from '@/components/stock/SimilarAssets.vue';
     import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
 
     const route = useRoute();
@@ -31,6 +35,7 @@
         dividendHistory,
         backtestData,
         holdingsData,
+        forecastedDividends,
         isLoading,
         error,
         loadData,
@@ -56,18 +61,7 @@
     });
     useHead({ title: pageTitle });
 
-    const currentView = ref('배당');
-    const viewOptions = computed(() => {
-        const options = [];
-        if (dividendHistory.value && dividendHistory.value.length > 0)
-            options.push('배당', '목록');
-        if (backtestData.value && backtestData.value.length > 0)
-            options.push('주가');
-        // Holdings 데이터가 있을 때 자산 탭 추가
-        if (holdingsData.value && holdingsData.value.length > 0)
-            options.push('자산');
-        return options;
-    });
+
 
     const selectedTimeRange = ref(null);
 
@@ -161,7 +155,6 @@
     const { chartOptions, chartContainerHeight } = useStockCharts({
         tickerInfo,
         displayData,
-        currentView,
         deviceType,
     });
 
@@ -170,10 +163,6 @@
         (newSanitized) => {
             if (newSanitized) {
                 loadData(newSanitized).then(() => {
-                    const hasDividends =
-                        dividendHistory.value &&
-                        dividendHistory.value.length > 0;
-                    currentView.value = hasDividends ? '배당' : '주가';
 
                     // [디버그 로그 추가]
                     console.log(
@@ -213,19 +202,9 @@
 <template>
     <!-- 템플릿 부분은 변경 없이 그대로 유지됩니다 -->
     <div>
-        <!-- Skeleton UI -->
-        <div v-if="isLoading" class="flex flex-column gap-5">
-            <div id="t-stock-header">
-                <Skeleton
-                    v-for="i in 6"
-                    :key="i"
-                    height="5rem"
-                    borderRadius="0.5rem"></Skeleton>
-            </div>
-            <Skeleton height="30rem" borderRadius="1rem"></Skeleton>
-        </div>
+        <!-- Skeleton UI removed and moved to AssetDetails -->
         <!-- Error UI -->
-        <div v-else-if="error" class="text-center mt-8">
+        <div v-if="error" class="text-center mt-8">
             <i class="pi pi-exclamation-triangle text-5xl text-red-500" />
             <p class="text-xl mt-4 text-red-500">{{ error }}</p>
         </div>
@@ -240,70 +219,41 @@
                 <p>데이터가 집계되면 차트와 상세 정보가 표시됩니다.</p>
             </div>
         </div>
-        <div v-else-if="tickerInfo" class="flex flex-column gap-5">
-            <StockHeader :info="tickerInfo" />
+        <div v-else-if="isLoading || tickerInfo" class="flex flex-column gap-5">
+            <!-- StockHeader is mostly the breadcrumbs/basic title -->
+            <StockHeader v-if="tickerInfo" :info="tickerInfo" />
 
-            <StockChartCard
-                v-if="viewOptions.length > 0"
-                :tickerInfo="tickerInfo"
-                :dividendHistory="dividendHistory"
-                :userBookmark="currentUserBookmark"
-                :time-range-options="timeRangeOptions"
-                v-model:currentView="currentView"
-                v-model:selectedTimeRange="selectedTimeRange"
-                :viewOptions="viewOptions">
-                <!-- [핵심 수정] 이 부분에 v-if를 추가합니다. -->
-                <template #calculators>
-                    <StockCalculators
-                        v-if="dividendHistory && dividendHistory.length > 0"
-                        :dividendHistory="dividendHistory"
-                        :tickerInfo="tickerInfo"
-                        :userBookmark="currentUserBookmark" />
-                </template>
-            </StockChartCard>
+            <!-- Redesigned UI Components -->
+            <AssetDetails 
+              :is-loading="isLoading"
+              :ticker-info="tickerInfo" 
+              :backtest-data="backtestData" 
+            />
 
-            <div v-if="currentView === '배당'">
-                <div
-                    v-if="chartOptions && Object.keys(chartOptions).length > 0"
-                    class="chart-wrapper">
-                    <div
-                        class="chart-container"
-                        :style="{ height: chartContainerHeight }">
-                        <v-chart :option="chartOptions" autoresize />
-                    </div>
-                </div>
-                <div v-else class="text-center p-4">
-                    선택된 기간에 대한 배당 차트 데이터가 없습니다.
-                </div>
-            </div>
+            <template v-if="!isLoading && tickerInfo">
+              <DividendsSummary 
+                :ticker-info="tickerInfo" 
+                :dividend-history="dividendHistory"
+                :forecasted-dividends="forecastedDividends"
+              />
 
-            <div v-if="currentView === '주가'">
-                <StockPriceCandlestickChart
-                    v-if="backtestData && backtestData.length > 0"
-                    :price-data="backtestData" />
-                <div v-else class="text-center p-4">
-                    주가 데이터가 없습니다.
-                </div>
-            </div>
+              <AnnualPayoutHistory 
+                :dividend-history="dividendHistory" 
+              />
 
-            <StockHistoryPanel
-                v-if="currentView === '목록'"
-                :history="displayData"
-                :is-desktop="isDesktop"
-                :currency="tickerInfo.currency" />
+              <AnalysisGauges />
 
-            <div v-if="currentView === '자산'">
-                <StockHoldingsChart
-                    v-if="holdingsData && holdingsData.length > 0"
-                    :holdings-data="holdingsData" />
-                <div v-else class="text-center p-4">
-                    Holdings 데이터가 없습니다.
-                </div>
-            </div>
+              <div class="holdings-card surface-card border-round-xl p-4 mb-4" v-if="holdingsData && holdingsData.length > 0">
+                  <h3 class="text-xl font-bold mb-4 text-900">Asset Holdings (자산 구성)</h3>
+                  <StockHoldingsChart :holdings-data="holdingsData" />
+              </div>
 
-            <span v-if="tickerInfo.Update" class="text-center">
-                업데이트: {{ tickerInfo.Update }}
-            </span>
+              <SimilarAssets />
+
+              <span v-if="tickerInfo.Update" class="text-center">
+                  업데이트: {{ tickerInfo.Update }}
+              </span>
+            </template>
         </div>
         <div v-else class="text-center mt-8">
             <i class="pi pi-inbox text-5xl" />
@@ -311,3 +261,15 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.holdings-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+:deep(.surface-card) {
+  background-color: #f4fcf6 !important;
+  border-color: #e5f3e9 !important;
+}
+</style>

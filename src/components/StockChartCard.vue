@@ -21,15 +21,11 @@
     const props = defineProps({
         tickerInfo: Object,
         dividendHistory: Array,
-        userBookmark: Object,
-        viewOptions: Array,
         timeRangeOptions: Array,
-        currentView: String,
         selectedTimeRange: String,
     });
 
     const emit = defineEmits([
-        'update:currentView',
         'update:selectedTimeRange',
     ]);
     const { isDesktop, isMobile } = useBreakpoint();
@@ -45,11 +41,6 @@
 
     const currentPrice = computed(() => {
         return props.tickerInfo?.price || 0;
-    });
-
-    const localCurrentView = computed({
-        get: () => props.currentView,
-        set: (value) => emit('update:currentView', value),
     });
     const localSelectedTimeRange = computed({
         get: () => props.selectedTimeRange,
@@ -183,16 +174,10 @@
                 class="t-chart-header"
                 :class="isMobile ? 'flex-column gap-2' : 'flex-grow-1'">
                 <div class="flex gap-2">
-                    <SelectButton
-                        v-if="viewOptions && viewOptions.length > 1"
-                        v-model="localCurrentView"
-                        :options="viewOptions"
-                        :size="buttonSize" />
                     <template
                         v-if="
                             timeRangeOptions &&
-                            timeRangeOptions.length > 0 &&
-                            currentView !== '주가'
+                            timeRangeOptions.length > 0
                         ">
                         <SelectButton
                             v-if="isDesktop"
