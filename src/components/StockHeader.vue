@@ -17,49 +17,7 @@
         if (!props.info) return [];
         const { currency = 'USD' } = props.info;
 
-        const detailMapping = [
-            {
-                key: 'marketCap',
-                label: '시가총액',
-                formatter: (val) => formatLargeNumber(val, currency),
-            },
-            {
-                key: 'enterpriseValue',
-                label: '기업가치',
-                formatter: (val) => formatLargeNumber(val, currency),
-            },
-            { key: 'earningsDate', label: '실적발표일' },
-            {
-                key: 'Volume',
-                label: '거래량',
-                formatter: (val) => formatLargeNumber(val, currency),
-            },
-            {
-                key: 'AvgVolume',
-                label: '평균거래량',
-                formatter: (val) => formatLargeNumber(val, currency),
-            },
-            {
-                key: 'sharesOutstanding',
-                label: '유통 주식 수',
-                formatter: (val) => formatLargeNumber(val, currency),
-            },
-            {
-                key: 'Yield',
-                label: '연간 배당률',
-                formatter: formatPercent,
-            },
-            {
-                key: 'dividendRate',
-                label: '연간 배당금',
-                formatter: (val) => formatCurrency(val, currency),
-            },
-            {
-                key: 'payoutRatio',
-                label: '배당 성향',
-                formatter: formatPercent,
-            },
-        ];
+        const detailMapping = [];
 
         return detailMapping
             .map((item) => {

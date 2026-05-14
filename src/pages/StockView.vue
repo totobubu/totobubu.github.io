@@ -248,7 +248,7 @@
                   <StockHoldingsChart :holdings-data="holdingsData" />
               </div>
 
-              <SimilarAssets />
+              <SimilarAssets :ticker-info="tickerInfo" />
 
               <span v-if="tickerInfo.Update" class="text-center">
                   업데이트: {{ tickerInfo.Update }}

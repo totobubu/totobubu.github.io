@@ -186,9 +186,9 @@ watch(
                 </div>
             </header>
             <section id="t-content">
-                <div v-if="isMobile && mobileTitle" class="text-center px-3">
+                <!-- <div v-if="isMobile && mobileTitle" class="text-center px-3">
                     <h1 class="text-xl font-bold m-0">{{ mobileTitle }}</h1>
-                </div>
+                </div> -->
                 <RouterView />
                 <ScrollTop target="parent" :threshold="100" icon="pi pi-arrow-up" />
             </section>
