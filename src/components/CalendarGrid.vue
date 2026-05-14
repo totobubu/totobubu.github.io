@@ -116,6 +116,11 @@ const hasEvents = (dateStr) => {
 // we will show an ex-dividend dot (orange) if there are any events.
 // For demonstration of the UI, we'll occasionally show other dots based on hash or mock logic
 // if multiple events exist, to match the colorful screenshot.
+const getEventCount = (dateStr) => {
+    const events = props.dividendsByDate[dateStr];
+    return events ? events.length : 0;
+};
+
 const getDots = (dateStr) => {
     const events = props.dividendsByDate[dateStr];
     if (!events || events.length === 0) return [];
@@ -172,6 +177,7 @@ onMounted(() => {
                     <div v-if="cell.isCurrentMonth" class="dots-container">
                         <span v-for="dot in getDots(cell.dateStr)" :key="dot"
                               class="dot" :class="dot"></span>
+                        <span v-if="getEventCount(cell.dateStr) > 0" class="event-count">+{{ getEventCount(cell.dateStr) }}</span>
                     </div>
                 </div>
             </div>
@@ -299,7 +305,15 @@ onMounted(() => {
     right: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 0.2rem;
+}
+
+.event-count {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1a7f37;
+    margin-left: 1px;
 }
 
 .dot {
