@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 55.04,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 54.92,
         "englishName": "NEOS Gold High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 197771,
-        "AvgVolume": 193432,
+        "Volume": 169082,
+        "AvgVolume": 193516,
         "sharesOutstanding": null,
         "52Week": "48.246 - 64.57",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 197771,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 193432,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2114,7 +2127,9 @@
             "high": 55.040001,
             "low": 54,
             "close": 55.040001,
-            "volume": 197771
+            "volume": 197771,
+            "amount": 0.555,
+            "yield": 0.1256827383
         },
         {
             "date": "2026-06-16",

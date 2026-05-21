@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 17.99,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 17.89,
         "englishName": "First Trust Preferred Securities and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 788940,
-        "AvgVolume": 1426680,
+        "Volume": 1271793,
+        "AvgVolume": 1416498,
         "sharesOutstanding": null,
         "52Week": "17.33 - 18.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.99,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 788940,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1426680,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27093,10 +27106,6 @@
             "volume": 795380
         },
         {
-            "date": "2026-05-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-06-18",
             "forecasted": true
         },
@@ -27114,6 +27123,10 @@
         },
         {
             "date": "2026-10-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-20",
             "forecasted": true
         }
     ]

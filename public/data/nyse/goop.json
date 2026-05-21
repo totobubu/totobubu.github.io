@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 45.2488,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 45.12,
         "englishName": "Kurv Yield Premium Strategy Google ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 23773,
-        "AvgVolume": 15440,
+        "Volume": 20355,
+        "AvgVolume": 15575,
         "sharesOutstanding": null,
         "52Week": "23.489 - 48.23",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.2488,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 23773,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15440,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5256,30 +5269,32 @@
             "high": 45.248798,
             "low": 44.550598,
             "close": 45.248798,
-            "volume": 23811
+            "volume": 23811,
+            "amount": 0.6,
+            "yield": 0.1197870399
         },
         {
-            "date": "2026-05-22",
+            "date": "2026-06-18",
             "forecasted": true
         },
         {
-            "date": "2026-06-22",
+            "date": "2026-07-20",
             "forecasted": true
         },
         {
-            "date": "2026-07-22",
+            "date": "2026-08-20",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-09-18",
             "forecasted": true
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-10-20",
             "forecasted": true
         },
         {
-            "date": "2026-10-22",
+            "date": "2026-11-20",
             "forecasted": true
         }
     ]

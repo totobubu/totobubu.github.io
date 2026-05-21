@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 1065.06,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 1078.42,
         "englishName": "Equinix, Inc.",
         "earningsDate": "2026-04-29",
-        "enterpriseValue": 125396623360,
-        "marketCap": 105040748544,
-        "Volume": 404723,
-        "AvgVolume": 581285,
+        "enterpriseValue": 127036743680,
+        "marketCap": 106358366208,
+        "Volume": 500524,
+        "AvgVolume": 579916,
         "sharesOutstanding": 98624248,
         "52Week": "710.52 - 1128.68",
-        "Yield": 0.018055,
+        "Yield": 0.017832,
         "dividendRate": 19.7,
         "payoutRatio": 1.3299,
         "isin": "US29444U7000",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1065.06,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 125396623360,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 105040748544,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 404723,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 581285,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.018055,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58322,14 +58347,16 @@
             "high": 1066.859985,
             "low": 1044.300049,
             "close": 1065.060059,
-            "volume": 485236
+            "volume": 485236,
+            "amount": 5.16,
+            "yield": 0.0233432878
         },
         {
-            "date": "2026-05-25",
+            "date": "2026-08-20",
             "forecasted": true
         },
         {
-            "date": "2026-08-25",
+            "date": "2026-11-20",
             "forecasted": true
         }
     ]

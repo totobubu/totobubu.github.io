@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 43.3481,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 43.26,
         "englishName": "First Trust Smith Opportunistic Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 400204,
-        "AvgVolume": 416718,
+        "Volume": 338177,
+        "AvgVolume": 416496,
         "sharesOutstanding": null,
         "52Week": "42.514 - 45.155",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.3481,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 400204,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 416718,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18856,10 +18869,6 @@
             "volume": 400204
         },
         {
-            "date": "2026-05-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-06-18",
             "forecasted": true
         },
@@ -18877,6 +18886,10 @@
         },
         {
             "date": "2026-10-21",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-20",
             "forecasted": true
         }
     ]

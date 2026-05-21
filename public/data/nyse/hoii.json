@@ -9,14 +9,14 @@
         "underlying": "HOOD",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-21 06:01:37 KST",
-        "regularMarketPrice": 10.315,
+        "Update": "2026-05-22 06:04:12 KST",
+        "regularMarketPrice": 10.355,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2107,
-        "AvgVolume": 3200,
+        "Volume": 623,
+        "AvgVolume": 3182,
         "sharesOutstanding": null,
         "52Week": "9.57 - 24.56",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.315,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2107,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3200,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1174,7 +1187,9 @@
             "high": 10.1372,
             "low": 10.0987,
             "close": 10.0987,
-            "volume": 2829
+            "volume": 2829,
+            "amount": 0.057,
+            "yield": 0.2039083821
         },
         {
             "date": "2026-05-20",
