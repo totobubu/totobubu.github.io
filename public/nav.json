@@ -3129,7 +3129,7 @@
             "koName": "비트코인 전략 2배 ETF",
             "logo": "logos/company/company-2x.png",
             "dataPaths": ["data/nyse/bitx.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "MJJ"
         },
         {
@@ -12057,7 +12057,7 @@
             "logo": "logos/company/company-first-trust.png",
             "dataPaths": ["data/nyse/fthi.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "FMA"
+            "group": "FMM"
         },
         {
             "symbol": "FTLS",
@@ -18873,7 +18873,7 @@
             "koName": "실SQ",
             "logo": null,
             "dataPaths": ["data/nyse/laes.json"],
-            "periods": ["6M", "1Y"]
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "LBAY",
@@ -21888,7 +21888,7 @@
             "dataPaths": ["data/nasdaq/nugy.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": [],
+            "periods": ["6M"],
             "isin": "US38747R1813"
         },
         {
@@ -27195,7 +27195,7 @@
             "dataPaths": ["data/nasdaq/semy.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": [],
+            "periods": ["6M"],
             "isin": "US38747R1995"
         },
         {
