@@ -19654,7 +19654,7 @@
             "symbol": "MAR",
             "ipoDate": "1998-03-23",
             "frequency": "분기",
-            "group": "FAN",
+            "group": "FMN",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US5719032022",
@@ -20371,7 +20371,7 @@
         {
             "symbol": "MMM",
             "frequency": "분기",
-            "group": "FAN",
+            "group": "FMA",
             "ipoDate": "1962-01-02",
             "holdings": false,
             "sharesOutstanding": false,
@@ -25197,7 +25197,7 @@
             "koName": "페라리",
             "logo": "logos/nyse/race.svg",
             "dataPaths": ["data/nyse/race.json"],
-            "periods": [],
+            "periods": ["10Y"],
             "group": "AM"
         },
         {
@@ -31282,7 +31282,7 @@
             "dataPaths": ["data/bats/tsyw.json"],
             "frequency": "매주",
             "group": "월",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "TSYY",
@@ -32100,7 +32100,7 @@
             "koName": "위즈덤트리 변동금리형 채권 ETF",
             "logo": "logos/company/company-wisdomtree.jpeg",
             "dataPaths": ["data/nyse/usfr.json"],
-            "periods": ["1Y", "2Y", "3Y", "5Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "MJD"
         },
         {
