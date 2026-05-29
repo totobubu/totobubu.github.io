@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-29 06:06:51 KST",
-        "regularMarketPrice": 12.2978,
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 12.3924,
         "englishName": "REX-Osprey ETH + Staking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 982,
-        "AvgVolume": 1026,
+        "Volume": 384,
+        "AvgVolume": 1025,
         "sharesOutstanding": null,
         "52Week": "11.03 - 28.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.2978,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 982,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1026,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1614,18 +1627,16 @@
             "high": 12.379,
             "low": 12.22,
             "close": 12.2978,
-            "volume": 982
+            "volume": 982,
+            "amount": 0.012,
+            "yield": 0.0097359736
         },
         {
-            "date": "2026-05-29",
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -1633,11 +1644,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

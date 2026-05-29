@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-29 06:06:51 KST",
-        "regularMarketPrice": 59.0956,
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 59.1491,
         "englishName": "NestYield Visionary ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12909,
-        "AvgVolume": 4498,
+        "Volume": 2617,
+        "AvgVolume": 4633,
         "sharesOutstanding": null,
         "52Week": "39.86 - 65.79",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.0956,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12909,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4498,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3247,18 +3260,16 @@
             "high": 60.379902,
             "low": 59.095001,
             "close": 59.0956,
-            "volume": 12909
+            "volume": 12909,
+            "amount": 0.37,
+            "yield": 0.0614917334
         },
         {
-            "date": "2026-05-29",
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -3266,11 +3277,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

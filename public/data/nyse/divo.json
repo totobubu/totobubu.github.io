@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-29 06:06:51 KST",
-        "regularMarketPrice": 45.98,
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 46.24,
         "englishName": "Amplify CWP Enhanced Dividend Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 738234,
-        "AvgVolume": 915195,
+        "Volume": 1025807,
+        "AvgVolume": 912462,
         "sharesOutstanding": null,
-        "52Week": "40.85 - 47.3",
+        "52Week": "40.94 - 47.3",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.98,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 738234,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 915195,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19583,18 +19596,16 @@
             "high": 46,
             "low": 45.695,
             "close": 45.98,
-            "volume": 738234
+            "volume": 738234,
+            "amount": 0.184,
+            "yield": 0.0679965134
         },
         {
-            "date": "2026-05-29",
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -19602,11 +19613,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]
