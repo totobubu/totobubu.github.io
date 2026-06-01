@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 29.35,
+        "englishName": "REX Drone ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 868368,
+        "AvgVolume": 155004,
+        "sharesOutstanding": null,
+        "52Week": "18.0 - 30.12",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US7615625032",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.31,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1062980,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 139962,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1168,6 +1193,22 @@
             "low": 24.764299,
             "close": 25.594801,
             "volume": 68798
+        },
+        {
+            "date": "2026-05-28",
+            "open": 27.725,
+            "high": 29.68,
+            "low": 27.219999,
+            "close": 29.309999,
+            "volume": 1062980
+        },
+        {
+            "date": "2026-05-29",
+            "open": 29.174999,
+            "high": 29.5,
+            "low": 27.66,
+            "close": 29.35,
+            "volume": 868368
         }
     ]
 }

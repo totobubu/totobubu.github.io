@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 9.29,
+        "englishName": "REX-Osprey™ DOGE ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 10247,
+        "AvgVolume": 41067,
+        "sharesOutstanding": null,
+        "52Week": "8.23 - 27.11",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US26923N2154",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.23,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 37894,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 41103,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1400,6 +1425,22 @@
             "low": 9.3602,
             "close": 9.485,
             "volume": 4829
+        },
+        {
+            "date": "2026-05-28",
+            "open": 9.09,
+            "high": 9.31,
+            "low": 8.99,
+            "close": 9.23,
+            "volume": 37894
+        },
+        {
+            "date": "2026-05-29",
+            "open": 9.135,
+            "high": 9.38,
+            "low": 9.0884,
+            "close": 9.29,
+            "volume": 10247
         }
     ]
 }

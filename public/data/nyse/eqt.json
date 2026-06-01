@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 54.93,
+        "englishName": "EQT Corporation",
+        "earningsDate": "2026-04-21",
+        "enterpriseValue": 43954339840,
+        "marketCap": 34357508096,
+        "Volume": 4653735,
+        "AvgVolume": 7923693,
+        "sharesOutstanding": 625478000,
+        "52Week": "48.47 - 68.24",
+        "Yield": 0.011742,
+        "dividendRate": 0.66,
+        "payoutRatio": 0.1224,
         "isin": "US26884L1098",
         "events": {
             "splits": [
@@ -50,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.35,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 43841753088,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 34620207104,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4890852,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7971708,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.011653,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107116,6 +107153,22 @@
             "low": 55.060001,
             "close": 55.169998,
             "volume": 4798804
+        },
+        {
+            "date": "2026-05-28",
+            "open": 55.360001,
+            "high": 55.619999,
+            "low": 54.59,
+            "close": 55.349998,
+            "volume": 4890852
+        },
+        {
+            "date": "2026-05-29",
+            "open": 55.490002,
+            "high": 55.5117,
+            "low": 54.529999,
+            "close": 54.93,
+            "volume": 4653735
         },
         {
             "date": "2026-08-06",

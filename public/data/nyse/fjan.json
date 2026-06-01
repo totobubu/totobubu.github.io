@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 55.195,
+        "englishName": "FT Vest U.S. Equity Buffer ETF - January",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 11667,
+        "AvgVolume": 52730,
+        "sharesOutstanding": null,
+        "52Week": "45.68 - 55.22",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33740F6236",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.1085,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9740,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 53436,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10776,6 +10801,22 @@
             "low": 54.895,
             "close": 54.950001,
             "volume": 22100
+        },
+        {
+            "date": "2026-05-28",
+            "open": 54.93,
+            "high": 55.130001,
+            "low": 54.8955,
+            "close": 55.108501,
+            "volume": 9740
+        },
+        {
+            "date": "2026-05-29",
+            "open": 55.154999,
+            "high": 55.220001,
+            "low": 55.09,
+            "close": 55.195,
+            "volume": 11667
         }
     ]
 }

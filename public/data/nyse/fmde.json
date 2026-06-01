@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 39.69,
+        "englishName": "Fidelity Enhanced Mid Cap Core ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 531379,
+        "AvgVolume": 1104591,
+        "sharesOutstanding": null,
+        "52Week": "32.83 - 39.76",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US31609A5039",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.61,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 909547,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1107768,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5400,6 +5425,69 @@
             "low": 39.400002,
             "close": 39.419998,
             "volume": 568283
+        },
+        {
+            "date": "2026-05-28",
+            "holdings": [
+                {
+                    "symbol": "WDC",
+                    "name": "Western Digital Corp",
+                    "weight": 1.52
+                },
+                {
+                    "symbol": "BNY",
+                    "name": "Bank of New York Mellon Corp",
+                    "weight": 1.22
+                },
+                {
+                    "symbol": "HWM",
+                    "name": "Howmet Aerospace Inc",
+                    "weight": 1.2
+                },
+                {
+                    "symbol": "MPC",
+                    "name": "Marathon Petroleum Corp",
+                    "weight": 1.07
+                },
+                {
+                    "symbol": "FIX",
+                    "name": "Comfort Systems USA Inc",
+                    "weight": 1.04
+                },
+                {
+                    "symbol": "KMI",
+                    "name": "Kinder Morgan Inc Class P",
+                    "weight": 0.98
+                },
+                {
+                    "symbol": "SPG",
+                    "name": "Simon Property Group Inc",
+                    "weight": 0.97
+                },
+                {
+                    "symbol": "AME",
+                    "name": "AMETEK Inc",
+                    "weight": 0.92
+                },
+                {
+                    "symbol": "CTVA",
+                    "name": "Corteva Inc",
+                    "weight": 0.9
+                }
+            ],
+            "open": 39.490002,
+            "high": 39.744999,
+            "low": 39.314999,
+            "close": 39.610001,
+            "volume": 909547
+        },
+        {
+            "date": "2026-05-29",
+            "open": 39.73,
+            "high": 39.759998,
+            "low": 39.549999,
+            "close": 39.689999,
+            "volume": 531379
         },
         {
             "date": "2026-06-18",

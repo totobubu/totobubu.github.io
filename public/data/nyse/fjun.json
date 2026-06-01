@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 59.725,
+        "englishName": "FT Vest U.S. Equity Buffer ETF - June",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 8797,
+        "AvgVolume": 27803,
+        "sharesOutstanding": null,
+        "52Week": "51.45 - 60.47",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33740F7226",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.705,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10568,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 28085,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11936,6 +11961,22 @@
             "low": 59.619999,
             "close": 59.6446,
             "volume": 20534
+        },
+        {
+            "date": "2026-05-28",
+            "open": 59.709999,
+            "high": 59.786098,
+            "low": 59.650101,
+            "close": 59.705002,
+            "volume": 10568
+        },
+        {
+            "date": "2026-05-29",
+            "open": 59.689999,
+            "high": 59.769901,
+            "low": 59.670101,
+            "close": 59.724998,
+            "volume": 8797
         }
     ]
 }

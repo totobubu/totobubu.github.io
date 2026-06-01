@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 44.653,
+        "englishName": "Pinnacle Focused Opportunities ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 15202,
+        "AvgVolume": 30674,
+        "sharesOutstanding": null,
+        "52Week": "24.448 - 47.2",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T5193",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.84,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7383,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 31052,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7208,6 +7233,22 @@
             "low": 44.1049,
             "close": 44.990002,
             "volume": 48508
+        },
+        {
+            "date": "2026-05-28",
+            "open": 45.700001,
+            "high": 45.48,
+            "low": 44.514999,
+            "close": 44.84,
+            "volume": 7383
+        },
+        {
+            "date": "2026-05-29",
+            "open": 45.209999,
+            "high": 44.880001,
+            "low": 44.099998,
+            "close": 44.653,
+            "volume": 15202
         }
     ]
 }

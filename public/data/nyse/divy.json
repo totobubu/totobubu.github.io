@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 28.4203,
+        "englishName": "Tidal ETF Trust - Sound Equity Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 499,
+        "AvgVolume": 2903,
+        "sharesOutstanding": null,
+        "52Week": "24.4 - 29.258",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8863647934",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.4131,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2522,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2909,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11456,6 +11481,24 @@
             "low": 28.5,
             "close": 28.5,
             "volume": 1222
+        },
+        {
+            "date": "2026-05-28",
+            "open": 28.309999,
+            "high": 28.455,
+            "low": 28.413099,
+            "close": 28.413099,
+            "volume": 2522,
+            "amount": 0.039,
+            "yield": 0.0325326751
+        },
+        {
+            "date": "2026-05-29",
+            "open": 28.42,
+            "high": 28.431101,
+            "low": 28.42,
+            "close": 28.4203,
+            "volume": 499
         }
     ]
 }

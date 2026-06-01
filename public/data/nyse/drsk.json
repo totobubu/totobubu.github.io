@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 29.56,
+        "englishName": "Aptus Defined Risk ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 113625,
+        "AvgVolume": 121475,
+        "sharesOutstanding": null,
+        "52Week": "27.1 - 30.15",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US26922A3885",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.34,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 93813,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 121924,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16116,6 +16141,22 @@
             "low": 29.200001,
             "close": 29.209999,
             "volume": 76022
+        },
+        {
+            "date": "2026-05-28",
+            "open": 29.27,
+            "high": 29.370001,
+            "low": 29.285,
+            "close": 29.34,
+            "volume": 93813
+        },
+        {
+            "date": "2026-05-29",
+            "open": 29.32,
+            "high": 29.59,
+            "low": 29.32,
+            "close": 29.559999,
+            "volume": 113625
         },
         {
             "date": "2026-06-30",

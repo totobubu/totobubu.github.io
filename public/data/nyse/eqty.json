@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 27.83,
+        "englishName": "Kovitz Core Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 21107,
+        "AvgVolume": 39659,
+        "sharesOutstanding": null,
+        "52Week": "23.57 - 28.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US92046L3539",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.73,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 475269,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32509,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7317,6 +7342,22 @@
             "low": 27.556101,
             "close": 27.559999,
             "volume": 14492
+        },
+        {
+            "date": "2026-05-28",
+            "open": 27.57,
+            "high": 27.735001,
+            "low": 27.668501,
+            "close": 27.73,
+            "volume": 475614
+        },
+        {
+            "date": "2026-05-29",
+            "open": 27.834999,
+            "high": 27.9,
+            "low": 27.82,
+            "close": 27.83,
+            "volume": 21107
         }
     ]
 }

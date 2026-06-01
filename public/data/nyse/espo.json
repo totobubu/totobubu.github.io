@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 89.135,
+        "englishName": "VanEck Video Gaming and eSports ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 19175,
+        "AvgVolume": 19482,
+        "sharesOutstanding": null,
+        "52Week": "86.92 - 122.99",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US92189F1140",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 89.23,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11036,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 19618,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15685,6 +15710,22 @@
             "low": 88.610001,
             "close": 88.82,
             "volume": 32112
+        },
+        {
+            "date": "2026-05-28",
+            "open": 88.07,
+            "high": 89.230003,
+            "low": 88.07,
+            "close": 89.230003,
+            "volume": 11036
+        },
+        {
+            "date": "2026-05-29",
+            "open": 88.900002,
+            "high": 89.620003,
+            "low": 88.600098,
+            "close": 89.135002,
+            "volume": 19175
         }
     ]
 }

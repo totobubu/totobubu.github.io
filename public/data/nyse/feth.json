@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 20.07,
+        "englishName": "Fidelity Ethereum Fund",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1569042,
+        "AvgVolume": 3432756,
+        "sharesOutstanding": null,
+        "52Week": "17.98 - 48.56",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US31613E1038",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2611523,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3446203,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3720,6 +3745,22 @@
             "low": 20.32,
             "close": 20.450001,
             "volume": 1434740
+        },
+        {
+            "date": "2026-05-28",
+            "open": 19.76,
+            "high": 20.184999,
+            "low": 19.559999,
+            "close": 20.040001,
+            "volume": 2611523
+        },
+        {
+            "date": "2026-05-29",
+            "open": 19.879999,
+            "high": 20.355,
+            "low": 19.67,
+            "close": 20.07,
+            "volume": 1569042
         }
     ]
 }

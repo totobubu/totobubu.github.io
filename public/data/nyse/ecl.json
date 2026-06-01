@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 256,
+        "englishName": "Ecolab Inc.",
+        "earningsDate": "2026-04-28",
+        "enterpriseValue": 82018910208,
+        "marketCap": 72048001024,
+        "Volume": 1077492,
+        "AvgVolume": 1581719,
+        "sharesOutstanding": 281437502,
+        "52Week": "243.15 - 309.27",
+        "Yield": 0.010781,
+        "dividendRate": 2.92,
+        "payoutRatio": 0.3735,
         "isin": "US2788651006",
         "events": {
             "splits": [
@@ -35,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 260.25,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 82674655232,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 73244106752,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1613738,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1580490,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010605,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122216,6 +122253,22 @@
             "low": 258.350006,
             "close": 262.579987,
             "volume": 2598128
+        },
+        {
+            "date": "2026-05-28",
+            "open": 259.540009,
+            "high": 263.950012,
+            "low": 258.834991,
+            "close": 260.25,
+            "volume": 1613738
+        },
+        {
+            "date": "2026-05-29",
+            "open": 260.170013,
+            "high": 260.920013,
+            "low": 255.630005,
+            "close": 256,
+            "volume": 1077492
         },
         {
             "date": "2026-06-17",

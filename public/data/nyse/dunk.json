@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 26,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 10940,
+        "AvgVolume": 13350,
+        "sharesOutstanding": null,
+        "52Week": "19.5 - 26.42",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634W1080",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.22,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11774,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13375,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1416,6 +1441,22 @@
             "low": 23.993099,
             "close": 24.16,
             "volume": 15398
+        },
+        {
+            "date": "2026-05-28",
+            "open": 24.7999,
+            "high": 25.34,
+            "low": 24.7999,
+            "close": 25.219999,
+            "volume": 11774
+        },
+        {
+            "date": "2026-05-29",
+            "open": 25.690001,
+            "high": 25.950001,
+            "low": 25.690001,
+            "close": 26,
+            "volume": 10940
         }
     ]
 }

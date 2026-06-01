@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 19.14,
+        "englishName": "Grayscale Ethereum Mini Trust ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3493044,
+        "AvgVolume": 4104782,
+        "sharesOutstanding": null,
+        "52Week": "17.065 - 45.785",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38964R2031",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.1,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3509648,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4114114,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3726,6 +3751,22 @@
             "low": 19.370001,
             "close": 19.5,
             "volume": 2019223
+        },
+        {
+            "date": "2026-05-28",
+            "open": 18.84,
+            "high": 19.245001,
+            "low": 18.66,
+            "close": 19.1,
+            "volume": 3509648
+        },
+        {
+            "date": "2026-05-29",
+            "open": 18.959999,
+            "high": 19.405001,
+            "low": 18.76,
+            "close": 19.139999,
+            "volume": 3493044
         }
     ]
 }

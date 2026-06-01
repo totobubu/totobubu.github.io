@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 45.52,
+        "englishName": "Fidelity Total Bond ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3778045,
+        "AvgVolume": 2800151,
+        "sharesOutstanding": null,
+        "52Week": "44.817 - 46.86",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US3161883091",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.47,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3947344,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2781218,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23684,15 +23709,29 @@
             "volume": 2469109
         },
         {
+            "date": "2026-05-28",
+            "open": 45.419998,
+            "high": 45.540001,
+            "low": 45.380001,
+            "close": 45.470001,
+            "volume": 3947344,
+            "amount": 0.173,
+            "yield": 0.0509026883
+        },
+        {
             "date": "2026-05-29",
+            "open": 45.52,
+            "high": 45.57,
+            "low": 45.490002,
+            "close": 45.52,
+            "volume": 3778045
+        },
+        {
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -23700,11 +23739,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

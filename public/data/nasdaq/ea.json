@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 201.72,
+        "englishName": "Electronic Arts Inc.",
+        "earningsDate": "2026-05-05",
+        "enterpriseValue": 49312661504,
+        "marketCap": 50581590016,
+        "Volume": 3555874,
+        "AvgVolume": 1980906,
+        "sharesOutstanding": 250751484,
+        "52Week": "141.61 - 204.89",
+        "Yield": 0.003768,
+        "dividendRate": 0.76,
+        "payoutRatio": 0.2165,
         "isin": "US2855121099",
         "events": {
             "splits": [
@@ -35,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 201.15,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 49194807296,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 50438660096,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1609566,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1986493,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.003778,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -83084,14 +83121,32 @@
             "high": 201.410004,
             "low": 200.5,
             "close": 200.679993,
-            "volume": 1131433
+            "volume": 1131433,
+            "amount": 0.19,
+            "yield": 0.0047310756
         },
         {
-            "date": "2026-08-25",
+            "date": "2026-05-28",
+            "open": 200.509995,
+            "high": 201.274994,
+            "low": 200.360001,
+            "close": 201.149994,
+            "volume": 1609566
+        },
+        {
+            "date": "2026-05-29",
+            "open": 201.149994,
+            "high": 202.110001,
+            "low": 201.070007,
+            "close": 201.720001,
+            "volume": 3555874
+        },
+        {
+            "date": "2026-08-27",
             "forecasted": true
         },
         {
-            "date": "2026-11-25",
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

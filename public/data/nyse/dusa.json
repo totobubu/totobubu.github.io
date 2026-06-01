@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 55.54,
+        "englishName": "Davis Select U.S. Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 33790,
+        "AvgVolume": 51054,
+        "sharesOutstanding": null,
+        "52Week": "43.05 - 56.461",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US23908L2079",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.985,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 60731,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 50888,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19239,6 +19264,22 @@
             "low": 56.020302,
             "close": 56.110001,
             "volume": 45059
+        },
+        {
+            "date": "2026-05-28",
+            "open": 56.130001,
+            "high": 56.078201,
+            "low": 55.689999,
+            "close": 55.985001,
+            "volume": 60731
+        },
+        {
+            "date": "2026-05-29",
+            "open": 55.939999,
+            "high": 55.779999,
+            "low": 55.470001,
+            "close": 55.540001,
+            "volume": 33790
         }
     ]
 }

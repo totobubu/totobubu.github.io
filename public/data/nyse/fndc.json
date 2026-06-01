@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-26 05:29:21 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 50.34,
+        "englishName": "Schwab Fundamental International Small Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 84209,
+        "AvgVolume": 233312,
+        "sharesOutstanding": null,
+        "52Week": "39.97 - 50.83",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8085247489",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.22,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 81311,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 235801,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26079,6 +26104,22 @@
             "low": 50.0201,
             "close": 50.139999,
             "volume": 72348
+        },
+        {
+            "date": "2026-05-28",
+            "open": 49.939999,
+            "high": 50.369999,
+            "low": 49.7701,
+            "close": 50.220001,
+            "volume": 81311
+        },
+        {
+            "date": "2026-05-29",
+            "open": 50.380001,
+            "high": 50.523602,
+            "low": 50.23,
+            "close": 50.34,
+            "volume": 84209
         }
     ]
 }

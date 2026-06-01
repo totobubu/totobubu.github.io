@@ -2438,7 +2438,7 @@
             "koName": "앰플리파이 비트코인 맥스 인컴 커버드 콜 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/bagy.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "MJJ"
         },
         {
@@ -6250,7 +6250,7 @@
             "koName": "디파이언스 데일리 타겟 2배 롱 카바나 ETF",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/cvnx.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "CVNY",
@@ -8336,7 +8336,7 @@
             "symbol": "EA",
             "ipoDate": "1989-09-20",
             "frequency": "분기",
-            "group": "FAD",
+            "group": "FMA",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US2855121099",
@@ -11840,7 +11840,7 @@
             "logo": "logos/company/company-fidelity.jpeg",
             "dataPaths": ["data/nyse/fsec.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y"],
-            "group": "MAD"
+            "group": "MAM"
         },
         {
             "symbol": "FSEP",
@@ -14384,7 +14384,7 @@
             "koName": "일드맥스 로빈후드 옵션 인컴 전략 ETF",
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/nyse/hooy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "HOYY",
@@ -14513,7 +14513,7 @@
             "logo": "logos/company/company-hartford.png",
             "dataPaths": ["data/nyse/htrb.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y"],
-            "group": "FMA"
+            "group": "FMM"
         },
         {
             "symbol": "HTUS",
@@ -19327,7 +19327,7 @@
             "currency": "USD",
             "logo": "logos/company/company-tidal.png",
             "dataPaths": ["data/nyse/logo.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "LOW",
@@ -24540,7 +24540,7 @@
             "symbol": "QDTY",
             "company": "YieldMax",
             "frequency": "매주",
-            "group": "목",
+            "group": "수",
             "ipoDate": "2025-02-13",
             "holdings": true,
             "sharesOutstanding": false,
@@ -25671,7 +25671,7 @@
             "dataPaths": ["data/nasdaq/rgyy.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RING",
@@ -27086,7 +27086,7 @@
             "symbol": "SDTY",
             "company": "YieldMax",
             "frequency": "매주",
-            "group": "목",
+            "group": "수",
             "ipoDate": "2025-02-06",
             "holdings": true,
             "sharesOutstanding": false,
@@ -28366,7 +28366,7 @@
             "koName": "솔라나 2배 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/solt.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "MJJ"
         },
         {
@@ -28949,7 +28949,7 @@
             "logo": "logos/company/company-sp.png",
             "dataPaths": ["data/nyse/spus.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y"],
-            "group": "MAD"
+            "group": "MAM"
         },
         {
             "symbol": "SPUU",

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 59.1491,
+        "englishName": "NestYield Visionary ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 2617,
+        "AvgVolume": 4633,
+        "sharesOutstanding": null,
+        "52Week": "39.86 - 65.79",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US45259A6964",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.0956,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12909,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4498,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3230,15 +3255,29 @@
             "volume": 2562
         },
         {
+            "date": "2026-05-28",
+            "open": 59.259998,
+            "high": 60.379902,
+            "low": 59.095001,
+            "close": 59.0956,
+            "volume": 12909,
+            "amount": 0.37,
+            "yield": 0.0614917334
+        },
+        {
             "date": "2026-05-29",
+            "open": 59.389999,
+            "high": 59.52,
+            "low": 58.52,
+            "close": 59.149101,
+            "volume": 2617
+        },
+        {
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -3246,11 +3285,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

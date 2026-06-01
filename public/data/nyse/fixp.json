@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 19.8367,
+        "englishName": "FolioBeyond Enhanced Fixed Income Premium ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 2850,
+        "AvgVolume": 2124,
+        "sharesOutstanding": null,
+        "52Week": "17.67 - 20.46",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8863641655",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.7479,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 14359,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1922,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2933,15 +2958,29 @@
             "volume": 101
         },
         {
+            "date": "2026-05-28",
+            "open": 19.780001,
+            "high": 19.809999,
+            "low": 19.7479,
+            "close": 19.7479,
+            "volume": 14359,
+            "amount": 0.08,
+            "yield": 0.0589484298
+        },
+        {
             "date": "2026-05-29",
+            "open": 19.8599,
+            "high": 19.889999,
+            "low": 19.82,
+            "close": 19.8367,
+            "volume": 2850
+        },
+        {
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -2949,11 +2988,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

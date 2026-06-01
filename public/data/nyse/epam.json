@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 102.46,
+        "englishName": "EPAM Systems, Inc.",
+        "earningsDate": "2026-05-07",
+        "enterpriseValue": 4550720512,
+        "marketCap": 5352966656,
+        "Volume": 1577899,
+        "AvgVolume": 1516011,
+        "sharesOutstanding": 52244451,
+        "52Week": "89.25 - 222.53",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US29414B1044",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4563781632,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 5299154944,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1896118,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1509777,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32314,7 +32347,25 @@
             "high": 103.940002,
             "low": 99.230003,
             "close": 101.68,
-            "volume": 818058
+            "volume": 818058,
+            "marketCap": 5299154944
+        },
+        {
+            "date": "2026-05-28",
+            "open": 99.959999,
+            "high": 102.989998,
+            "low": 99.921402,
+            "close": 101.43,
+            "volume": 1896118,
+            "marketCap": 5352966656
+        },
+        {
+            "date": "2026-05-29",
+            "open": 100.720001,
+            "high": 104.25,
+            "low": 99.25,
+            "close": 102.459999,
+            "volume": 1577899
         }
     ]
 }

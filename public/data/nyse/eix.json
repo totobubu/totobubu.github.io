@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 69.94,
+        "englishName": "Edison International",
+        "earningsDate": "2026-04-28",
+        "enterpriseValue": 71219314688,
+        "marketCap": 26912489472,
+        "Volume": 5014867,
+        "AvgVolume": 3050851,
+        "sharesOutstanding": 384793941,
+        "52Week": "47.73 - 76.22",
+        "Yield": 0.048756,
+        "dividendRate": 3.51,
+        "payoutRatio": 0.3707,
         "isin": "US2810201077",
         "events": {
             "splits": [
@@ -25,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.28,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 71750336512,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 27043317760,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1188030,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3064224,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.04852,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121769,6 +121806,22 @@
             "low": 70.68,
             "close": 71.660004,
             "volume": 1377091
+        },
+        {
+            "date": "2026-05-28",
+            "open": 71.660004,
+            "high": 71.739998,
+            "low": 70.209999,
+            "close": 70.279999,
+            "volume": 1188030
+        },
+        {
+            "date": "2026-05-29",
+            "open": 70.529999,
+            "high": 70.529999,
+            "low": 68.93,
+            "close": 69.940002,
+            "volume": 5014867
         },
         {
             "date": "2026-07-07",

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 29.47,
+        "englishName": "VanEck Ethereum ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 77135,
+        "AvgVolume": 127535,
+        "sharesOutstanding": null,
+        "52Week": "26.43 - 71.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US92189L1035",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.39,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 157800,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 127024,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3720,6 +3745,22 @@
             "low": 29.9266,
             "close": 30.02,
             "volume": 59424
+        },
+        {
+            "date": "2026-05-28",
+            "open": 28.99,
+            "high": 29.6,
+            "low": 28.719999,
+            "close": 29.389999,
+            "volume": 157800
+        },
+        {
+            "date": "2026-05-29",
+            "open": 29.129999,
+            "high": 29.83,
+            "low": 28.879999,
+            "close": 29.469999,
+            "volume": 77135
         }
     ]
 }

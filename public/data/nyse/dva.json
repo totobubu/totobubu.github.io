@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 194.36,
+        "englishName": "DaVita Inc.",
+        "earningsDate": "2026-05-05",
+        "enterpriseValue": 27011776512,
+        "marketCap": 12474996736,
+        "Volume": 353226,
+        "AvgVolume": 869659,
+        "sharesOutstanding": 64185000,
+        "52Week": "101.0 - 202.69",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US23918K1088",
         "events": {
             "splits": [
@@ -30,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 197.1,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 26871820288,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 12650863616,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 367404,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 874803,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69209,7 +69242,25 @@
             "high": 197.809906,
             "low": 194.259995,
             "close": 194.919998,
-            "volume": 441030
+            "volume": 441030,
+            "marketCap": 12650863616
+        },
+        {
+            "date": "2026-05-28",
+            "open": 193.830002,
+            "high": 198.604996,
+            "low": 193.835007,
+            "close": 197.100006,
+            "volume": 367404,
+            "marketCap": 12474996736
+        },
+        {
+            "date": "2026-05-29",
+            "open": 197,
+            "high": 197.089996,
+            "low": 193.955002,
+            "close": 194.360001,
+            "volume": 353226
         }
     ]
 }

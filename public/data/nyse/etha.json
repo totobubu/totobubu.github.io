@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 15.2,
+        "englishName": "iShares Ethereum Trust ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 28101694,
+        "AvgVolume": 32007245,
+        "sharesOutstanding": null,
+        "52Week": "13.62 - 36.8",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46438R1059",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.19,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 32456470,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 31994734,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3740,6 +3765,22 @@
             "low": 15.39,
             "close": 15.485,
             "volume": 24824418
+        },
+        {
+            "date": "2026-05-28",
+            "open": 14.9673,
+            "high": 15.29,
+            "low": 14.815,
+            "close": 15.19,
+            "volume": 32456470
+        },
+        {
+            "date": "2026-05-29",
+            "open": 15.05,
+            "high": 15.428,
+            "low": 14.895,
+            "close": 15.2,
+            "volume": 28101694
         }
     ]
 }

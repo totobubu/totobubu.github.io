@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 12.3924,
+        "englishName": "REX-Osprey ETH + Staking ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 384,
+        "AvgVolume": 1025,
+        "sharesOutstanding": null,
+        "52Week": "11.03 - 28.52",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US26923N2642",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.2978,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 982,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1026,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1589,15 +1614,37 @@
             "volume": 133
         },
         {
+            "date": "2026-05-27",
+            "open": 12.551,
+            "high": 12.551,
+            "low": 12.551,
+            "close": 12.551,
+            "volume": 100
+        },
+        {
+            "date": "2026-05-28",
+            "open": 12.12,
+            "high": 12.379,
+            "low": 12.22,
+            "close": 12.2978,
+            "volume": 982,
+            "amount": 0.012,
+            "yield": 0.0097359736
+        },
+        {
             "date": "2026-05-29",
+            "open": 12.335,
+            "high": 12.3924,
+            "low": 12.335,
+            "close": 12.3924,
+            "volume": 384
+        },
+        {
+            "date": "2026-06-26",
             "forecasted": true
         },
         {
-            "date": "2026-06-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-07-29",
+            "date": "2026-07-28",
             "forecasted": true
         },
         {
@@ -1605,11 +1652,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-28",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         }
     ]

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 54.4845,
+        "englishName": "FT Vest U.S. Equity Buffer ETF - December",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5634,
+        "AvgVolume": 26691,
+        "sharesOutstanding": null,
+        "52Week": "44.72 - 54.4845",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33740U5056",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 54.3899,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8697,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 26985,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10920,6 +10945,22 @@
             "low": 54.150002,
             "close": 54.244801,
             "volume": 9445
+        },
+        {
+            "date": "2026-05-28",
+            "open": 54.25,
+            "high": 54.419998,
+            "low": 54.300098,
+            "close": 54.3899,
+            "volume": 8779
+        },
+        {
+            "date": "2026-05-29",
+            "open": 54.380001,
+            "high": 54.484501,
+            "low": 54.381401,
+            "close": 54.484501,
+            "volume": 5634
         }
     ]
 }

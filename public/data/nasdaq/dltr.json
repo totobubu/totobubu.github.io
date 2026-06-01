@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 116.44,
+        "englishName": "Dollar Tree, Inc.",
+        "earningsDate": "2026-05-28",
+        "enterpriseValue": 28824399872,
+        "marketCap": 22376810496,
+        "Volume": 6675977,
+        "AvgVolume": 3648520,
+        "sharesOutstanding": 192174588,
+        "52Week": "84.71 - 142.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US2567461080",
         "events": {
             "splits": [
@@ -45,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 113,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 25252780032,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 22003972096,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12828757,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3490890,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 194725406,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70720,7 +70757,25 @@
             "high": 96.889999,
             "low": 92.900002,
             "close": 95.870003,
-            "volume": 6232713
+            "volume": 6232713,
+            "marketCap": 22003972096
+        },
+        {
+            "date": "2026-05-28",
+            "open": 111.001999,
+            "high": 114.620003,
+            "low": 106.400002,
+            "close": 113,
+            "volume": 12828757,
+            "marketCap": 22376810496
+        },
+        {
+            "date": "2026-05-29",
+            "open": 111.099998,
+            "high": 116.864998,
+            "low": 110.040199,
+            "close": 116.440002,
+            "volume": 6675977
         }
     ]
 }

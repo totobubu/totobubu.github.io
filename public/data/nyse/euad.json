@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 42.61,
+        "englishName": "Select STOXX Europe Aerospace & Defense ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 253268,
+        "AvgVolume": 568880,
+        "sharesOutstanding": null,
+        "52Week": "37.62 - 48.429",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US84858T7726",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.34,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 409029,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 571495,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3541,6 +3566,22 @@
             "low": 41.200001,
             "close": 41.200001,
             "volume": 311670
+        },
+        {
+            "date": "2026-05-28",
+            "open": 41.470001,
+            "high": 42.490002,
+            "low": 41.470001,
+            "close": 42.34,
+            "volume": 409029
+        },
+        {
+            "date": "2026-05-29",
+            "open": 42.540001,
+            "high": 42.990002,
+            "low": 42.470001,
+            "close": 42.610001,
+            "volume": 253268
         }
     ]
 }

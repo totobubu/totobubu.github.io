@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 383.45,
+        "englishName": "F5, Inc.",
+        "earningsDate": "2026-04-28",
+        "enterpriseValue": 20449882112,
+        "marketCap": 21633961984,
+        "Volume": 1306611,
+        "AvgVolume": 739951,
+        "sharesOutstanding": 56419247,
+        "52Week": "223.76 - 399.59",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US3156161024",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 383.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 20716181504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21632831488,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1263817,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 730885,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -61025,7 +61058,25 @@
             "high": 395.859985,
             "low": 385.339996,
             "close": 388.149994,
-            "volume": 647934
+            "volume": 647934,
+            "marketCap": 21632831488
+        },
+        {
+            "date": "2026-05-28",
+            "open": 388.269989,
+            "high": 397.880005,
+            "low": 372.619995,
+            "close": 383.429993,
+            "volume": 1263817,
+            "marketCap": 21633961984
+        },
+        {
+            "date": "2026-05-29",
+            "open": 385.73999,
+            "high": 389.940002,
+            "low": 374.649994,
+            "close": 383.450012,
+            "volume": 1306611
         }
     ]
 }

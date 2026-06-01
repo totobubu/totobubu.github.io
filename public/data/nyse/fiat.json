@@ -9,7 +9,19 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 20.87,
+        "englishName": "YieldMax Short COIN Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 52641,
+        "AvgVolume": 75120,
+        "sharesOutstanding": null,
+        "52Week": "18.9 - 53.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J4774",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.3699,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 38065,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 75726,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11435,7 +11460,22 @@
         },
         {
             "date": "2026-05-28",
-            "amountFixed": 0.3071
+            "amountFixed": 0.3071,
+            "open": 22.27,
+            "high": 22.4715,
+            "low": 21.3699,
+            "close": 21.3699,
+            "volume": 38065,
+            "amount": 0.307,
+            "yield": 0.5014593624
+        },
+        {
+            "date": "2026-05-29",
+            "open": 21.51,
+            "high": 21.59,
+            "low": 20.555,
+            "close": 20.870001,
+            "volume": 52641
         },
         {
             "date": "2026-06-04",

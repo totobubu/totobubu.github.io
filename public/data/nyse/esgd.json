@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-05-27 05:48:49 KST",
+        "Update": "2026-05-30 06:06:43 KST",
+        "regularMarketPrice": 103.48,
+        "englishName": "iShares ESG Aware MSCI EAFE ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 390402,
+        "AvgVolume": 357506,
+        "sharesOutstanding": null,
+        "52Week": "85.48 - 104.81",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46435G5163",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.4,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 756442,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 350962,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20132,6 +20157,22 @@
             "low": 103.309998,
             "close": 103.550003,
             "volume": 301801
+        },
+        {
+            "date": "2026-05-28",
+            "open": 103,
+            "high": 103.760002,
+            "low": 102.780098,
+            "close": 103.400002,
+            "volume": 756662
+        },
+        {
+            "date": "2026-05-29",
+            "open": 103.790001,
+            "high": 104.224998,
+            "low": 103.470001,
+            "close": 103.480003,
+            "volume": 390402
         }
     ]
 }
