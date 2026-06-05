@@ -9,13 +9,13 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-05 05:55:34 KST",
-        "regularMarketPrice": 291.37,
+        "Update": "2026-06-06 05:43:34 KST",
+        "regularMarketPrice": 263.61,
         "englishName": "Bloom Energy Corporation",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 82214338560,
-        "marketCap": 82878406656,
-        "Volume": 6112117,
+        "enterpriseValue": 83366330368,
+        "marketCap": 74982244352,
+        "Volume": 11355453,
         "AvgVolume": 10471122,
         "sharesOutstanding": 284443868,
         "52Week": "19.97 - 322.83",
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 291.37,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 82214338560,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 82878406656,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6112117,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17763,7 +17780,8 @@
             "high": 295.690002,
             "low": 272.109985,
             "close": 291.369995,
-            "volume": 6608586
+            "volume": 6608586,
+            "marketCap": 74982244352
         }
     ]
 }
