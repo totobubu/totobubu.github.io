@@ -4294,7 +4294,7 @@
             "company": "Pacer",
             "ipoDate": "2017-06-19",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "JSD",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US69374H8575",
@@ -5861,7 +5861,7 @@
             "koName": "써클 인터넷 그룹",
             "logo": "logos/nyse/crcl.png",
             "dataPaths": ["data/nyse/crcl.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "CRCO",
@@ -14238,7 +14238,7 @@
             "dataPaths": ["data/nasdaq/hmyy.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "HODL",
@@ -15250,7 +15250,7 @@
             "company": "Pacer",
             "ipoDate": "2017-06-19",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "MJD",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US69374H8732",
@@ -19075,7 +19075,7 @@
             "symbol": "LIN",
             "ipoDate": "1992-06-17",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "MJD",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "IE000S9YS762",
@@ -24303,7 +24303,9 @@
             "koName": "페이팔",
             "logo": "logos/nasdaq/pypl.svg",
             "dataPaths": ["data/nasdaq/pypl.json"],
-            "periods": ["6M"]
+            "periods": ["6M"],
+            "frequency": "분기",
+            "group": "MJN"
         },
         {
             "symbol": "PYPY",
@@ -24418,7 +24420,7 @@
             "dataPaths": ["data/nasdaq/qby.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "QCMD",
@@ -26301,7 +26303,7 @@
             "dataPaths": ["data/nasdaq/rtyy.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "RVNL",
