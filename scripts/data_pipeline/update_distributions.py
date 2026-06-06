@@ -625,83 +625,87 @@ class DefianceParser(BaseParser):
         results = {}
         lines = self.text.split('\n')
 
+        def get_ticker_from_line(line):
+            line_lower = line.lower()
+            line_lower = line_lower.replace('—', '').replace('@', 'q') # e.g. —@lpy -> qlpy
+            
+            if "r2000" in line_lower or "r200" in line_lower or "russell" in line_lower:
+                return "IWMY"
+            if "nasdaq 100 weekly" in line_lower or "n100 weekly" in line_lower:
+                return "QQQY"
+            if "s&p 500 weekly" in line_lower or "sp500 weekly" in line_lower:
+                return "JEPY"
+            if "gold" in line_lower:
+                return "GLDY"
+            if "oil" in line_lower:
+                return "USOY"
+            if "lightningspread" in line_lower or "lightning spread" in line_lower or "qldy" in line_lower or "lpy" in line_lower:
+                return "QLDY"
+            if "nasdaq 100 income" in line_lower or "qqqt" in line_lower:
+                return "QQQT"
+            if "s&p 500 income" in line_lower or "spyt" in line_lower or "tnammd" in line_lower:
+                return "SPYT"
+            if "mstr" in line_lower or "mst" in line_lower or "mets" in line_lower:
+                return "MST"
+            if "ybmn" in line_lower or "bmnr" in line_lower or "beene" in line_lower:
+                return "YBMN"
+            if "wdte" in line_lower:
+                return "WDTE"
+            return None
+
+        def extract_amount_from_line(line):
+            line_clean = re.sub(r'\b\d+(?:\.\d+)?%', '', line)
+            line_clean = re.sub(r'\b\d{2}[-_./]\d{2}[-_./]\d{4}\b', '', line_clean)
+            
+            float_matches = re.findall(r'\$?(\d+\.\d+)', line_clean)
+            for m in float_matches:
+                val = float(m)
+                if 0.01 <= val <= 2.0:
+                    return val
+                    
+            digit_matches = re.findall(r'\b(\d{4,5})\b', line_clean)
+            if not digit_matches:
+                digit_matches = re.findall(r'(\d{4,5})', line_clean)
+                
+            for m in digit_matches:
+                if m in ["100", "500", "2000", "2024", "2025", "2026", "2027"]:
+                    continue
+                if len(m) == 5 and m.startswith('9'):
+                    val = float('0.' + m[1:])
+                    if 0.01 <= val <= 2.0:
+                        return val
+                elif len(m) == 4:
+                    val = float('0.' + m)
+                    if 0.01 <= val <= 2.0:
+                        return val
+            return None
+
         current_ticker = None
         tickers_list = []
         amounts_list = []
-        
-        NAME_TO_TICKER = {
-            "r200 weekly": "IWMY",
-            "russell 2000 weekly": "IWMY",
-            "nasdaq 100 weekly": "QQQY",
-            "s&p 500 weekly": "JEPY",
-            "gold enhanced": "GLDY",
-            "oil enhanced": "USOY",
-            "ll enhanced": "USOY",
-            "nasdaq 100 lightningspread": "QLDY",
-            "nasdaq 100 income target": "QQQT",
-            "s&p 500 income target": "SPYT",
-            "tnammd 8": "SPYT",
-            "long + income mstr": "MST",
-            "bmnr option income": "YBMN",
-        }
 
-        # Common words in Defiance/related screenshots that are NOT tickers
-        exclusions = [
-            "FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", 
-            "NET", "ASSET", "ROC", "ETF", "SHARE", "WEEKLY", "INCOME", "TARGET", 
-            "NASDAQ", "GOLD", "TOTAL", "INDEX", "DAILY", "NAME", "OIL",
-            "MSTR", "BMNR" 
-        ]
-        
-        valid_tickers = ['IWMY', 'QQQY', 'JEPY', 'GLDY', 'USOY', 'QQQT', 'SPYT', 'QLDY', 'MST', 'YBMN', 'WDTE']
-
+        # Strategy 1: Inline & Interleaved Extraction
         for line in lines:
             line = line.strip()
-            if not line: continue
+            if not line:
+                continue
 
-            found_ticker_this_line = False
+            ticker = get_ticker_from_line(line)
+            if ticker:
+                current_ticker = ticker
+                if ticker not in tickers_list:
+                    tickers_list.append(ticker)
 
-            line_lower = line.lower()
-            for name, mapped_ticker in NAME_TO_TICKER.items():
-                if name in line_lower:
-                    current_ticker = mapped_ticker
-                    if mapped_ticker not in tickers_list:
-                        tickers_list.append(mapped_ticker)
-                    found_ticker_this_line = True
-                    break
+            amount = extract_amount_from_line(line)
+            if amount is not None:
+                amounts_list.append(amount)
+                if current_ticker:
+                    results[current_ticker] = amount
+                    current_ticker = None
 
-            if not found_ticker_this_line:
-                # 1. Look for Ticker (start of line or distinct)
-                # Must be 3-5 chars, all uppercase letters.
-                ticker_match = re.search(r'\b([A-Z]{3,5})\b', line)
-                if ticker_match:
-                    candidate = ticker_match.group(1).upper()
-                    if candidate in valid_tickers or candidate not in exclusions:
-                        current_ticker = candidate
-                        if candidate not in tickers_list:
-                            tickers_list.append(candidate)
-
-            # 2. Look for Value with /share
-            # $0.1184/share
-            # Relaxed regex to handle spacing or OCR noise, but must follow a price format
-            val_match = re.search(r'\$?(\d+\.\d+)', line)
-            if val_match:
-                # Confirm it's a distribution amount by checking for "share" keyword in the same line
-                if any(kw in line_lower for kw in ["/share", "per share", "share"]):
-                    amount = float(val_match.group(1))
-                    
-                    if current_ticker:
-                         results[current_ticker] = amount
-                         # Reset ticker after finding amount to avoid misattribution in interleaved mode
-                         current_ticker = None
-                    
-                    amounts_list.append(amount)
-
-        # Strategy 2: If interleaved mapping failed or provided fewer results than found items, 
-        # and we have an equal count of tickers and amounts, use positional mapping.
+        # Strategy 2: Columnar format mapping (if len(tickers_list) == len(amounts_list))
         if (not results or len(results) < len(tickers_list)) and len(tickers_list) == len(amounts_list) and tickers_list:
-            # Clear previous potentially misattributed results if we're doing positional
-            results = {} 
+            results = {}
             for i in range(len(tickers_list)):
                 results[tickers_list[i]] = amounts_list[i]
 
