@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 107.69,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 112.15,
         "englishName": "Dollar Tree, Inc.",
         "earningsDate": "2026-05-28",
-        "enterpriseValue": 27494594560,
-        "marketCap": 20695281664,
-        "Volume": 2134933,
-        "AvgVolume": 3782874,
+        "enterpriseValue": 27281281024,
+        "marketCap": 21552379904,
+        "Volume": 2852927,
+        "AvgVolume": 3777031,
         "sharesOutstanding": 192174588,
         "52Week": "84.71 - 142.4",
         "Yield": null,
@@ -57,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 107.69,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27494594560,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 20695281664,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2134933,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3782874,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70802,7 +70823,8 @@
             "high": 110.25,
             "low": 107.539398,
             "close": 107.690002,
-            "volume": 2184038
+            "volume": 2184038,
+            "marketCap": 21552379904
         }
     ]
 }

@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 16.85,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 16.2,
         "englishName": "Bitmine Immersion Technologies, Inc.",
         "earningsDate": null,
-        "enterpriseValue": 7670046208,
-        "marketCap": 9597369344,
-        "Volume": 38078577,
-        "AvgVolume": 41013615,
+        "enterpriseValue": 8180793856,
+        "marketCap": 9227145216,
+        "Volume": 33913923,
+        "AvgVolume": 41306352,
         "sharesOutstanding": 569576819,
         "52Week": "3.92 - 161.0",
-        "Yield": 0.000593,
+        "Yield": 0.000617,
         "dividendRate": 0.01,
         "payoutRatio": 0,
         "isin": "US09175A2069",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.85,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 7670046208,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 9597369344,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 38078577,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 41013615,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.000593,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2257,7 +2282,8 @@
             "high": 17.280001,
             "low": 16.41,
             "close": 16.85,
-            "volume": 38364553
+            "volume": 38364553,
+            "marketCap": 9227145216
         }
     ]
 }

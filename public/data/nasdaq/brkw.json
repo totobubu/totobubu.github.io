@@ -9,14 +9,14 @@
         "underlying": "BRK.B",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 39.2201,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 39.1596,
         "englishName": "Roundhill BRKB WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3648,
-        "AvgVolume": 3849,
+        "Volume": 1099,
+        "AvgVolume": 3839,
         "sharesOutstanding": null,
         "52Week": "37.425 - 51.639",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.2201,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3648,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3849,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2174,7 +2187,8 @@
             "high": 39.305,
             "low": 39.09,
             "close": 39.2201,
-            "volume": 3660
+            "volume": 3660,
+            "yield": 0.2470424661
         },
         {
             "date": "2026-06-15",

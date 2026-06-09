@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 109.73,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 112.48,
         "englishName": "Deckers Outdoor Corporation",
         "earningsDate": "2026-05-21",
-        "enterpriseValue": 13485143040,
-        "marketCap": 15239408640,
-        "Volume": 1198346,
-        "AvgVolume": 2064039,
+        "enterpriseValue": 13707352064,
+        "marketCap": 15621330944,
+        "Volume": 1385841,
+        "AvgVolume": 2025053,
         "sharesOutstanding": 138880957,
         "52Week": "78.91 - 126.5",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 109.73,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 13485143040,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 15239408640,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1198346,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2064039,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -73932,7 +73953,8 @@
             "high": 111.25,
             "low": 107.5,
             "close": 109.730003,
-            "volume": 1706902
+            "volume": 1706902,
+            "marketCap": 15621330944
         }
     ]
 }

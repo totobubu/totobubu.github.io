@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 162.3,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 163.99,
         "englishName": "Booking Holdings Inc.",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 131657842688,
-        "marketCap": 125762772992,
-        "Volume": 6433204,
-        "AvgVolume": 7852217,
+        "enterpriseValue": 128914767872,
+        "marketCap": 127072321536,
+        "Volume": 7764854,
+        "AvgVolume": 7507387,
         "sharesOutstanding": 774878436,
         "52Week": "150.14 - 233.5764",
-        "Yield": 0.00971,
+        "Yield": 0.00961,
         "dividendRate": 1.61,
         "payoutRatio": 0.2073,
         "isin": "US09857L1089",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 162.3,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 131657842688,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 125762772992,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6433204,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7852217,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.00971,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -61453,7 +61478,9 @@
             "high": 171.919998,
             "low": 164.889999,
             "close": 165.839996,
-            "volume": 7809100
+            "volume": 7809100,
+            "amount": 0.42,
+            "yield": 0.2370777227
         },
         {
             "date": "2026-06-08",

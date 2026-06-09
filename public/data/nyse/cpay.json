@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 349.01,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 357.84,
         "englishName": "Corpay, Inc.",
         "earningsDate": "2026-05-07",
-        "enterpriseValue": 30993399808,
-        "marketCap": 22811963392,
-        "Volume": 423395,
-        "AvgVolume": 588465,
+        "enterpriseValue": 31095365632,
+        "marketCap": 23389108224,
+        "Volume": 334875,
+        "AvgVolume": 580757,
         "sharesOutstanding": 65361919,
         "52Week": "252.84 - 367.43",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 349.01,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 30993399808,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 22811963392,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 423395,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 588465,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35006,7 +35027,8 @@
             "high": 354.779907,
             "low": 342.470001,
             "close": 349.01001,
-            "volume": 553095
+            "volume": 553095,
+            "marketCap": 23389108224
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": "COST",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 42.9753,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 42.68,
         "englishName": "Roundhill COST WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5356,
-        "AvgVolume": 7274,
+        "Volume": 5513,
+        "AvgVolume": 6634,
         "sharesOutstanding": null,
         "52Week": "41.234 - 50.32",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.9753,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5356,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7274,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1377,7 +1390,8 @@
             "high": 43.060001,
             "low": 42.7999,
             "close": 42.9753,
-            "volume": 5362
+            "volume": 5362,
+            "yield": 0.1807004949
         },
         {
             "date": "2026-06-15",

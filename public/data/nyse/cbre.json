@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 131.71,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 136.1,
         "englishName": "CBRE Group, Inc.",
         "earningsDate": "2026-04-23",
-        "enterpriseValue": 48042475520,
-        "marketCap": 38566875136,
-        "Volume": 1767819,
-        "AvgVolume": 2294926,
+        "enterpriseValue": 48270872576,
+        "marketCap": 39852339200,
+        "Volume": 1611799,
+        "AvgVolume": 2296906,
         "sharesOutstanding": 292816579,
         "52Week": "121.69 - 174.27",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 131.71,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 48042475520,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 38566875136,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1767819,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2294926,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -49781,7 +49802,8 @@
             "high": 134.080002,
             "low": 130.5,
             "close": 131.710007,
-            "volume": 2153261
+            "volume": 2153261,
+            "marketCap": 39852339200
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 487,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 487.77,
         "englishName": "Berkshire Hathaway Inc.",
         "earningsDate": "2026-05-02",
-        "enterpriseValue": -265526116352,
-        "marketCap": 1050387808256,
-        "Volume": 5166605,
-        "AvgVolume": 4821344,
+        "enterpriseValue": -265527738368,
+        "marketCap": 1052048556032,
+        "Volume": 3927431,
+        "AvgVolume": 4798726,
         "sharesOutstanding": 1398308677,
         "52Week": "455.19 - 516.85",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 487,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": -265526116352,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1050387808256,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5166605,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4821344,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68096,7 +68117,8 @@
             "high": 490.759888,
             "low": 484.919891,
             "close": 487,
-            "volume": 5173314
+            "volume": 5173314,
+            "marketCap": 1052048556032
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 186.44,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 189.85,
         "englishName": "Charles River Laboratories International, Inc.",
         "earningsDate": "2026-05-07",
-        "enterpriseValue": 11655156736,
-        "marketCap": 8980390912,
-        "Volume": 622939,
-        "AvgVolume": 897253,
+        "enterpriseValue": 11900812288,
+        "marketCap": 9144643584,
+        "Volume": 615160,
+        "AvgVolume": 877644,
         "sharesOutstanding": 48167730,
-        "52Week": "140.78 - 228.88",
+        "52Week": "143.06 - 228.88",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 186.44,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11655156736,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 8980390912,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 622939,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 897253,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58721,7 +58742,8 @@
             "high": 187.214996,
             "low": 181.455002,
             "close": 186.440002,
-            "volume": 761633
+            "volume": 761633,
+            "marketCap": 9144643584
         }
     ]
 }

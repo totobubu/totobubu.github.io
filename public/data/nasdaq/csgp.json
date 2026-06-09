@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 33.39,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 33.93,
         "englishName": "CoStar Group, Inc.",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 13817175040,
-        "marketCap": 13634997248,
-        "Volume": 7710512,
-        "AvgVolume": 7064977,
+        "enterpriseValue": 13612997632,
+        "marketCap": 13855509504,
+        "Volume": 6479916,
+        "AvgVolume": 7169631,
         "sharesOutstanding": 408355715,
         "52Week": "31.36 - 97.43",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.39,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 13817175040,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 13634997248,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7710512,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7064977,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -63227,7 +63248,8 @@
             "high": 34.040001,
             "low": 32.68,
             "close": 33.389999,
-            "volume": 7710521
+            "volume": 7710521,
+            "marketCap": 13855509504
         }
     ]
 }

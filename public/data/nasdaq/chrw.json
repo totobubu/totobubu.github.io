@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 188.14,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 191.65,
         "englishName": "C.H. Robinson Worldwide, Inc.",
         "earningsDate": "2026-04-29",
-        "enterpriseValue": 23184068608,
-        "marketCap": 22176632832,
-        "Volume": 1108577,
-        "AvgVolume": 1809330,
+        "enterpriseValue": 23661455360,
+        "marketCap": 22590367744,
+        "Volume": 1531593,
+        "AvgVolume": 1790033,
         "sharesOutstanding": 117873042,
         "52Week": "92.36 - 203.34",
-        "Yield": 0.013288,
+        "Yield": 0.013045,
         "dividendRate": 2.52,
         "payoutRatio": 0.5061,
         "isin": "US12541W2098",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 188.14,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 23184068608,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 22176632832,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1108577,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1809330,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.013288,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -65390,7 +65415,9 @@
             "high": 186.610001,
             "low": 181.830002,
             "close": 184.089996,
-            "volume": 1004500
+            "volume": 1004500,
+            "amount": 0.63,
+            "yield": 0.0171431699
         },
         {
             "date": "2026-06-08",

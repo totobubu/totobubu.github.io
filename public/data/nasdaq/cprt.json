@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-09 05:58:35 KST",
-        "regularMarketPrice": 30.86,
+        "Update": "2026-06-10 05:54:02 KST",
+        "regularMarketPrice": 31.31,
         "englishName": "Copart, Inc.",
         "earningsDate": "2026-05-21",
-        "enterpriseValue": 24573708288,
-        "marketCap": 28570542080,
-        "Volume": 8152001,
-        "AvgVolume": 8774120,
-        "sharesOutstanding": 925811482,
-        "52Week": "29.97 - 50.92",
+        "enterpriseValue": 24481126400,
+        "marketCap": 30161186816,
+        "Volume": 9819310,
+        "AvgVolume": 8758217,
+        "sharesOutstanding": 963308388,
+        "52Week": "29.97 - 50.91",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.86,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 24573708288,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 28570542080,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8152001,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8774120,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 925811482,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -73004,7 +73029,8 @@
             "high": 31.360001,
             "low": 30.469999,
             "close": 30.860001,
-            "volume": 8162027
+            "volume": 8162027,
+            "marketCap": 30161186816
         }
     ]
 }
