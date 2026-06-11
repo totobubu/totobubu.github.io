@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-10 05:54:02 KST",
-        "regularMarketPrice": 395.23,
+        "Update": "2026-06-12 06:20:11 KST",
+        "regularMarketPrice": 393.84,
         "englishName": "F5, Inc.",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 21169790976,
-        "marketCap": 22298580992,
-        "Volume": 445659,
-        "AvgVolume": 752525,
+        "enterpriseValue": 20864000000,
+        "marketCap": 22220156928,
+        "Volume": 351595,
+        "AvgVolume": 754168,
         "sharesOutstanding": 56419247,
         "52Week": "223.76 - 411.52",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 395.23,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 21169790976,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 22298580992,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 445659,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 752525,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -61121,7 +61142,8 @@
             "high": 401.230011,
             "low": 389.579987,
             "close": 390.769989,
-            "volume": 459953
+            "volume": 459953,
+            "marketCap": 22220156928
         }
     ]
 }

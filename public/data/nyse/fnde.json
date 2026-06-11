@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-10 05:54:02 KST",
-        "regularMarketPrice": 40.15,
+        "Update": "2026-06-12 06:20:11 KST",
+        "regularMarketPrice": 40.73,
         "englishName": "Schwab Fundamental Emerging Markets Equity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1754194,
-        "AvgVolume": 1022557,
+        "Volume": 719546,
+        "AvgVolume": 1030220,
         "sharesOutstanding": null,
         "52Week": "32.1 - 42.43",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.15,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1754194,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1022557,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26284,6 +26297,10 @@
             "low": 39.785,
             "close": 39.790001,
             "volume": 893549
+        },
+        {
+            "date": "2026-12-11",
+            "forecasted": true
         }
     ]
 }

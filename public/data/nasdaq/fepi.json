@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-10 05:54:02 KST",
-        "regularMarketPrice": 44.02,
+        "Update": "2026-06-12 06:20:11 KST",
+        "regularMarketPrice": 43.44,
         "englishName": "REX FANG & Innovation Equity Premium Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 271637,
-        "AvgVolume": 198298,
+        "Volume": 227609,
+        "AvgVolume": 200920,
         "sharesOutstanding": null,
         "52Week": "37.9 - 49.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 271637,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 198298,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5939,30 +5952,32 @@
             "high": 43.740002,
             "low": 42.900002,
             "close": 42.950001,
-            "volume": 185871
+            "volume": 185871,
+            "amount": 0.213,
+            "yield": 0.2580939163
         },
         {
-            "date": "2026-07-03",
+            "date": "2026-07-10",
             "forecasted": true
         },
         {
-            "date": "2026-08-03",
+            "date": "2026-08-10",
             "forecasted": true
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-09-10",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-09",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
+            "date": "2026-11-10",
             "forecasted": true
         },
         {
-            "date": "2026-12-03",
+            "date": "2026-12-10",
             "forecasted": true
         }
     ]
