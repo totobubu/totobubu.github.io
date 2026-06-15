@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 148.17,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 142.77,
         "englishName": "Gartner, Inc.",
         "earningsDate": "2026-05-05",
-        "enterpriseValue": 11651339264,
-        "marketCap": 9920261120,
-        "Volume": 1139920,
-        "AvgVolume": 1574895,
+        "enterpriseValue": 11608489984,
+        "marketCap": 9558721536,
+        "Volume": 1238678,
+        "AvgVolume": 1563088,
         "sharesOutstanding": 66951889,
-        "52Week": "139.18 - 413.26",
+        "52Week": "139.18 - 409.98",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 148.17,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 11651339264,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 9920261120,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1139920,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1574895,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -73990,7 +74011,8 @@
             "high": 149.005005,
             "low": 143.490005,
             "close": 148.169998,
-            "volume": 1139920
+            "volume": 1139920,
+            "marketCap": 9558721536
         }
     ]
 }

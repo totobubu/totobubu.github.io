@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 50.42,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 50.21,
         "englishName": "Trimble Inc.",
         "earningsDate": "2026-05-06",
-        "enterpriseValue": 12834276352,
-        "marketCap": 11753482240,
-        "Volume": 2669436,
-        "AvgVolume": 2239257,
+        "enterpriseValue": 12932183040,
+        "marketCap": 11704528896,
+        "Volume": 3044227,
+        "AvgVolume": 2259826,
         "sharesOutstanding": 233111519,
         "52Week": "48.9 - 87.5",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.42,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 12834276352,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11753482240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2669436,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2239257,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -81282,7 +81303,8 @@
             "high": 50.564999,
             "low": 49.169998,
             "close": 50.419998,
-            "volume": 2669575
+            "volume": 2669575,
+            "marketCap": 11704528896
         }
     ]
 }

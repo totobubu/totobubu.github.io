@@ -9,14 +9,14 @@
         "underlying": "TSM",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 24.835,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 25.095,
         "englishName": "GraniteShares YieldBOOST TSM ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 874,
-        "AvgVolume": 3876,
+        "Volume": 532,
+        "AvgVolume": 3806,
         "sharesOutstanding": null,
         "52Week": "24.06 - 25.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.835,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 874,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3876,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -393,7 +406,9 @@
             "high": 24.9184,
             "low": 24.790001,
             "close": 24.834999,
-            "volume": 875
+            "volume": 875,
+            "amount": 0.288,
+            "yield": 0.1335049266
         },
         {
             "date": "2026-06-18",

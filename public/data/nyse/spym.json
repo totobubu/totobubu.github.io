@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 87.06,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 88.59,
         "englishName": "State Street SPDR Portfolio S&P 500 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 53024281,
-        "AvgVolume": 14847085,
+        "Volume": 28191295,
+        "AvgVolume": 14523261,
         "sharesOutstanding": null,
         "52Week": "69.84 - 89.52",
         "Yield": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 87.06,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 53024281,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 14847085,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42479,16 +42492,11 @@
             "volume": 34746429
         },
         {
-            "date": "2026-06-12",
-            "forecasted": true,
-            "open": 86.940002,
-            "high": 87.389999,
-            "low": 86.300003,
-            "close": 87.059998,
-            "volume": 53024281
+            "date": "2026-09-11",
+            "forecasted": true
         },
         {
-            "date": "2026-09-11",
+            "date": "2026-12-11",
             "forecasted": true
         }
     ]

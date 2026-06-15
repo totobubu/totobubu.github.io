@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 144.27,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 146.25,
         "englishName": "PepsiCo, Inc.",
         "earningsDate": "2026-07-09",
-        "enterpriseValue": 238498611200,
-        "marketCap": 197208571904,
-        "Volume": 5925794,
-        "AvgVolume": 6860774,
+        "enterpriseValue": 239236661248,
+        "marketCap": 199915110400,
+        "Volume": 8935493,
+        "AvgVolume": 6894241,
         "sharesOutstanding": 1366768315,
         "52Week": "127.6 - 171.48",
-        "Yield": 0.03944,
+        "Yield": 0.038906,
         "dividendRate": 5.92,
         "payoutRatio": 0.8932,
         "isin": "US7134481081",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 144.27,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 238498611200,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 197208571904,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5925794,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6860774,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.03944,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -76,7 +101,7 @@
             "close": 1.5740740299224854,
             "volume": 469800,
             "amount": 0.0001,
-            "yield": 0.0000626087,
+            "yield": 6.26087e-5,
             "marketCap": 2152294576,
             "amountOriginal": 13.50108,
             "amountSplitAdjustments": [

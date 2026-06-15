@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 92.82,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 93.75,
         "englishName": "Textron Inc.",
         "earningsDate": "2026-04-30",
-        "enterpriseValue": 19008092160,
-        "marketCap": 16140375040,
-        "Volume": 1445269,
-        "AvgVolume": 1365807,
+        "enterpriseValue": 18846375936,
+        "marketCap": 16302091264,
+        "Volume": 1867703,
+        "AvgVolume": 1370004,
         "sharesOutstanding": 173888981,
         "52Week": "75.8 - 101.57",
-        "Yield": 0.000862,
+        "Yield": 0.000853,
         "dividendRate": 0.08,
         "payoutRatio": 0.0153,
         "isin": "US8832031012",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.82,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19008092160,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 16140375040,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1445269,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1365807,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.000862,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122483,16 +122508,11 @@
             "volume": 1138994
         },
         {
-            "date": "2026-06-12",
-            "forecasted": true,
-            "open": 94.379997,
-            "high": 94.440102,
-            "low": 92.199997,
-            "close": 92.82,
-            "volume": 1445269
+            "date": "2026-09-11",
+            "forecasted": true
         },
         {
-            "date": "2026-09-11",
+            "date": "2026-12-11",
             "forecasted": true
         }
     ]

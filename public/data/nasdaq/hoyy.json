@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 5.9349,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 5.9751,
         "englishName": "GraniteShares YieldBOOST HOOD ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26844,
-        "AvgVolume": 32806,
+        "Volume": 20937,
+        "AvgVolume": 32753,
         "sharesOutstanding": null,
         "52Week": "5.783 - 26.455",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.9349,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 26844,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32806,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1548,7 +1561,9 @@
             "high": 5.94,
             "low": 5.91,
             "close": 5.9349,
-            "volume": 26844
+            "volume": 26844,
+            "amount": 0.083,
+            "yield": 1.9159932432
         },
         {
             "date": "2026-06-18",

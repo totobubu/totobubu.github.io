@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 2.68,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 2.78,
         "englishName": "Rezolve AI PLC",
         "earningsDate": "2026-03-30",
-        "enterpriseValue": 897074240,
-        "marketCap": 1068857920,
-        "Volume": 41625161,
-        "AvgVolume": 16889617,
+        "enterpriseValue": 947523392,
+        "marketCap": 1108740736,
+        "Volume": 15427350,
+        "AvgVolume": 17371338,
         "sharesOutstanding": 398827587,
         "52Week": "1.92 - 8.45",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.68,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 897074240,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1068857920,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 41625161,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16889617,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9268,7 +9289,8 @@
             "high": 2.99,
             "low": 2.655,
             "close": 2.68,
-            "volume": 41625161
+            "volume": 41625161,
+            "marketCap": 1108740736
         }
     ]
 }

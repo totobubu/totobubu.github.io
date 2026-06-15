@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 238.1,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 238.17,
         "englishName": "Garmin Ltd.",
         "earningsDate": "2026-04-29",
-        "enterpriseValue": 43526795264,
-        "marketCap": 45919064064,
-        "Volume": 322238,
-        "AvgVolume": 754409,
+        "enterpriseValue": 43434225664,
+        "marketCap": 45932564480,
+        "Volume": 370537,
+        "AvgVolume": 755082,
         "sharesOutstanding": 192856206,
         "52Week": "186.67 - 273.32",
-        "Yield": 0.01764,
+        "Yield": 0.017634,
         "dividendRate": 4.2,
         "payoutRatio": 0.4018,
         "isin": "CH0114405324",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 238.1,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 43526795264,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 45919064064,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 322238,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 754409,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01764,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -57831,16 +57856,11 @@
             "volume": 547575
         },
         {
-            "date": "2026-06-12",
-            "forecasted": true,
-            "open": 240,
-            "high": 240.429993,
-            "low": 236.5,
-            "close": 238.100006,
-            "volume": 322238
+            "date": "2026-09-11",
+            "forecasted": true
         },
         {
-            "date": "2026-09-11",
+            "date": "2026-12-11",
             "forecasted": true
         }
     ]

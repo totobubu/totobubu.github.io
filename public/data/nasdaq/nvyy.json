@@ -9,16 +9,16 @@
         "underlying": "NVDA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 13.0654,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 13.165,
         "englishName": "GraniteShares YieldBOOST NVDA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 80369,
-        "AvgVolume": 103636,
+        "Volume": 134191,
+        "AvgVolume": 103512,
         "sharesOutstanding": null,
-        "52Week": "12.9901 - 28.3",
+        "52Week": "12.99 - 28.3",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.0654,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 80369,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 103636,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2381,7 +2394,9 @@
             "high": 13.0899,
             "low": 12.9901,
             "close": 13.0654,
-            "volume": 80369
+            "volume": 80369,
+            "amount": 0.126,
+            "yield": 1.5260161414
         },
         {
             "date": "2026-06-18",

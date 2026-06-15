@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 15.6,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 15.5,
         "englishName": "SoFi Enhanced Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 70986,
-        "AvgVolume": 36803,
+        "Volume": 85293,
+        "AvgVolume": 37446,
         "sharesOutstanding": null,
         "52Week": "14.601 - 16.07",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.6,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 70986,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 36803,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5278,15 +5291,6 @@
             "volume": 55093
         },
         {
-            "date": "2026-06-12",
-            "forecasted": true,
-            "open": 15.53,
-            "high": 15.63,
-            "low": 15.565,
-            "close": 15.6,
-            "volume": 70986
-        },
-        {
             "date": "2026-07-14",
             "forecasted": true
         },
@@ -5304,6 +5308,10 @@
         },
         {
             "date": "2026-11-13",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-14",
             "forecasted": true
         }
     ]

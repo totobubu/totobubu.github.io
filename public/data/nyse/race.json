@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 354.91,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 369.06,
         "englishName": "Ferrari N.V.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 65655525376,
-        "marketCap": 62492880896,
-        "Volume": 342174,
-        "AvgVolume": 669911,
-        "sharesOutstanding": 176080931,
+        "enterpriseValue": 63765057536,
+        "marketCap": 64973025280,
+        "Volume": 700075,
+        "AvgVolume": 661704,
+        "sharesOutstanding": 176050032,
         "52Week": "312.51 - 519.1",
-        "Yield": 0.010186,
+        "Yield": 0.009795,
         "dividendRate": 4.23,
         "payoutRatio": 0.3321,
         "isin": "NL0011585146",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 354.91,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 65655525376,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 62492880896,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 342174,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 669911,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 176080931,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010186,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21466,7 +21495,8 @@
             "high": 360.670013,
             "low": 353.065002,
             "close": 354.910004,
-            "volume": 342174
+            "volume": 342174,
+            "marketCap": 64973025280
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": "MU",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 24.01,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 24.28,
         "englishName": "GraniteShares YieldBOOST MU ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 50763,
-        "AvgVolume": 38123,
+        "Volume": 68879,
+        "AvgVolume": 38418,
         "sharesOutstanding": null,
         "52Week": "23.87 - 26.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.01,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 50763,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 38123,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -393,7 +406,9 @@
             "high": 24.09,
             "low": 23.870001,
             "close": 24.01,
-            "volume": 50763
+            "volume": 50763,
+            "amount": 0.457,
+            "yield": 0.1806993355
         },
         {
             "date": "2026-06-18",

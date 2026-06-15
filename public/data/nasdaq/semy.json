@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 16.0563,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 16.145,
         "englishName": "GraniteShares YieldBOOST Semiconductors ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 166552,
-        "AvgVolume": 282073,
+        "Volume": 194002,
+        "AvgVolume": 281001,
         "sharesOutstanding": null,
         "52Week": "15.88 - 25.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.0563,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 166552,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 282073,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1239,7 +1252,9 @@
             "high": 16.110001,
             "low": 15.99,
             "close": 16.056299,
-            "volume": 166552
+            "volume": 166552,
+            "amount": 0.283,
+            "yield": 0.898047408
         },
         {
             "date": "2026-06-18",

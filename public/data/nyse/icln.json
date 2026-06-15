@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-13 06:06:12 KST",
-        "regularMarketPrice": 20.92,
+        "Update": "2026-06-16 07:07:43 KST",
+        "regularMarketPrice": 21.03,
         "englishName": "iShares Global Clean Energy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3453228,
-        "AvgVolume": 6363630,
+        "Volume": 6045390,
+        "AvgVolume": 6360738,
         "sharesOutstanding": null,
         "52Week": "12.55 - 23.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.92,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3453228,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6363630,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36827,6 +36840,10 @@
         },
         {
             "date": "2026-12-08",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]
