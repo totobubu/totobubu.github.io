@@ -400,10 +400,11 @@ class YieldMaxParser(BaseParser):
             # When OCR produces a columnar layout, amounts are reliable but tickers are often
             # garbled or missing entirely. If the amount count matches a known set size,
             # we use the canonical list directly to avoid positional drift from missing tickers.
-            CANONICAL_WEEKLY_42 = [
-                'ABNY', 'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
-                'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DISO', 'DRAY', 'FBY',  'FIAT',
-                'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'JPO',  'MARO', 'MRNY',
+            # Updated 2026-06-18: ABNY/DISO 제거, INYY(INTC) 추가 → 41종목
+            CANONICAL_WEEKLY_41 = [
+                'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
+                'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DRAY', 'FBY',  'FIAT',
+                'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'INYY', 'JPO',  'MARO', 'MRNY',
                 'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK', 'PLTY', 'PYPY', 'RBLY',
                 'RDYY', 'SMCY', 'SNOY', 'TSLY', 'TSMY', 'WNTR', 'XOMO', 'XYZY',
                 'YBIT', 'YQQQ',
@@ -457,18 +458,18 @@ class YieldMaxParser(BaseParser):
                             tickers_list.append(token)
                             seen_tickers.add(token)
             
-            print(f"  [i] Columnar: {len(tickers_list)} tickers, {len(amounts_list)} amounts in {self.filename}")
+            print(f"  [i] 열 형식: {self.filename}에서 티커 {len(tickers_list)}개, 금액 {len(amounts_list)}개 감지")
 
             # --- Canonical match: amounts count matches a known YieldMax set ---
             # Amounts are reliable (just numbers); use canonical order when possible.
-            if len(amounts_list) == len(CANONICAL_WEEKLY_42):
-                print(f"  [i] Using canonical 42-ticker list for {self.filename}")
-                for i, ticker in enumerate(CANONICAL_WEEKLY_42):
+            if len(amounts_list) == len(CANONICAL_WEEKLY_41):
+                print(f"  [i] {self.filename}: 정규 {len(CANONICAL_WEEKLY_41)}종목 목록 사용")
+                for i, ticker in enumerate(CANONICAL_WEEKLY_41):
                     results[ticker] = amounts_list[i]
             else:
                 # Fallback: positional mapping (may be off if tickers are missing mid-list)
                 if len(tickers_list) != len(amounts_list):
-                    print(f"  [!] Columnar mismatch in {self.filename}: {len(tickers_list)} tickers vs {len(amounts_list)} amounts — mapping first {min(len(tickers_list), len(amounts_list))}")
+                    print(f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 — 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑")
                 min_len = min(len(tickers_list), len(amounts_list))
                 for i in range(min_len):
                     results[tickers_list[i]] = amounts_list[i]
@@ -787,11 +788,11 @@ def update_json(path, date_str, amount):
                     del entry['expected']
                     entry['amountFixed'] = amount
                     updated = True
-                    print(f"  [+] Updated {path.name}: {date_str} -> {amount}")
+                    print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
                 elif 'amountFixed' in entry:
                      # Skip overwriting existing values
                      if abs(entry['amountFixed'] - amount) > 0.0001:
-                         print(f"  [!] Skipped {path.name}: {date_str} has {entry['amountFixed']} (new: {amount})")
+                         print(f"  [!] {path.name} 건너뜀: {date_str}에 이미 {entry['amountFixed']} 존재 (새 값: {amount})")
 
         if updated:
             with open(path, 'w', encoding='utf-8') as f:
@@ -800,14 +801,14 @@ def update_json(path, date_str, amount):
             # Format with Prettier
             try:
                 subprocess.run(["npx", "prettier", "--write", str(path)], shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                print(f"  [+] Formatted {path.name} with Prettier")
+                print(f"  [+] {path.name} Prettier 포매팅 완료")
             except Exception as fmt_err:
-                print(f"  [!] formatting error on {path.name}: {fmt_err}")
+                print(f"  [!] {path.name} 포매팅 오류: {fmt_err}")
 
             return True
 
     except Exception as e:
-        print(f"  [!] Error reading/writing {path}: {e}")
+        print(f"  [!] {path} 읽기/쓰기 오류: {e}")
 
     return False
 
@@ -818,7 +819,7 @@ def main():
     image_files = list(SCREENSHOT_DIR.glob("*.webp")) + list(SCREENSHOT_DIR.glob("*.jpg")) + list(SCREENSHOT_DIR.glob("*.png")) + list(SCREENSHOT_DIR.glob("*.txt"))
 
     for img_path in image_files:
-        print(f"\nProcessing {img_path.name}...")
+        print(f"\n{img_path.name} 처리 중...")
         try:
             if img_path.suffix.lower() == ".txt":
                 with open(img_path, "r", encoding="utf-8") as f:
@@ -826,7 +827,7 @@ def main():
             else:
                 text = pytesseract.image_to_string(Image.open(img_path))
         except Exception as e:
-            print(f"  [!] Failed to read or process image {img_path.name}: {e}")
+            print(f"  [!] {img_path.name} 이미지 읽기/처리 실패: {e}")
             continue
 
         # Debug: Save OCR output to file
@@ -836,7 +837,7 @@ def main():
                 f.write(text)
                 f.write("\n" + "="*30 + "\n")
         except Exception as e:
-            print(f"  [!] Failed to write debug log: {e}")
+            print(f"  [!] 디버그 로그 쓰기 실패: {e}")
 
         parser_type = None
         if "roundhill" in img_path.name.lower():
@@ -858,7 +859,7 @@ def main():
         date_str = parser.parse_date()
 
         if not date_str: continue
-        print(f"  Date: {date_str}")
+        print(f"  날짜: {date_str}")
 
         data_map = parser.extract_data()
         for ticker, amount in data_map.items():
