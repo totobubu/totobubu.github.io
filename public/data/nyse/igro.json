@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 88.12,
-        "englishName": "iShares International Dividend Growth ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 28727,
-        "AvgVolume": 47169,
-        "sharesOutstanding": null,
-        "52Week": "75.66 - 90.48",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US46435G5247",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 88.9039,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 42324,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 48515,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -24524,14 +24499,24 @@
             "high": 88.980003,
             "low": 88.050003,
             "close": 88.120003,
-            "volume": 28727
+            "volume": 28727,
+            "amount": 1.194,
+            "yield": 0.0370307922
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 88.139999,
+            "high": 88.660004,
+            "low": 88.209999,
+            "close": 88.209999,
+            "volume": 36346
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

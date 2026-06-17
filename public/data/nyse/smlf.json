@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 87.16,
-        "englishName": "iShares U.S. Small-Cap Equity Factor ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 211653,
-        "AvgVolume": 177234,
-        "sharesOutstanding": null,
-        "52Week": "65.14 - 88.135",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US46434V2907",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 86.88,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 99718,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 178990,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -23074,14 +23049,24 @@
             "high": 88.135002,
             "low": 87.089996,
             "close": 87.160004,
-            "volume": 211653
+            "volume": 211653,
+            "amount": 0.206,
+            "yield": 0.012375
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 87.279999,
+            "high": 87.709198,
+            "low": 86.57,
+            "close": 86.620003,
+            "volume": 105620
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

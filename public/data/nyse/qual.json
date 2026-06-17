@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 219.2,
-        "englishName": "iShares MSCI USA Quality Factor ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1290469,
-        "AvgVolume": 1955784,
-        "sharesOutstanding": 120600000,
-        "52Week": "175.2 - 219.82",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US46432F3394",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 216.91,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1640638,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 1973690,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -29624,14 +29599,24 @@
             "high": 219.820007,
             "low": 218.389999,
             "close": 219.199997,
-            "volume": 1290469
+            "volume": 1290469,
+            "amount": 0.386,
+            "yield": 0.0103849842
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 218.759995,
+            "high": 219.365799,
+            "low": 217.589996,
+            "close": 217.759995,
+            "volume": 1160234
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 69.0306,
-        "englishName": "iShares ESG Advanced MSCI USA ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 42087,
-        "AvgVolume": 71185,
-        "sharesOutstanding": null,
-        "52Week": "50.97 - 69.83",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US46436E7673",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 67.51,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 40166,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 72866,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -14424,14 +14399,24 @@
             "high": 69.239998,
             "low": 68.880096,
             "close": 69.030602,
-            "volume": 42087
+            "volume": 42087,
+            "amount": 0.123,
+            "yield": 0.0098520026
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 69.010002,
+            "high": 69.239998,
+            "low": 67.846001,
+            "close": 67.980003,
+            "volume": 164310
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

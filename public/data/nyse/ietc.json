@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 109.92,
-        "englishName": "iShares U.S. Tech Independence Focused ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 61663,
-        "AvgVolume": 52612,
-        "sharesOutstanding": null,
-        "52Week": "84.32 - 118.7",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US46431W6488",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 106.06,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 301458,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 49726,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -17664,14 +17639,24 @@
             "high": 110.099998,
             "low": 109,
             "close": 109.919998,
-            "volume": 61663
+            "volume": 61663,
+            "amount": 0.11,
+            "yield": 0.0046475242
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 110,
+            "high": 109.980003,
+            "low": 107.540001,
+            "close": 107.540001,
+            "volume": 41249
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

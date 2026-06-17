@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 106.16,
-        "englishName": "iShares Russell Top 200 Value ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 64294,
-        "AvgVolume": 239460,
-        "sharesOutstanding": null,
-        "52Week": "81.83 - 106.51",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US4642894202",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 105.38,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 106813,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 241296,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -35222,14 +35197,24 @@
             "high": 106.510002,
             "low": 106.059998,
             "close": 106.160004,
-            "volume": 64294
+            "volume": 64294,
+            "amount": 0.38,
+            "yield": 0.0180995472
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 106.400002,
+            "high": 106.830002,
+            "low": 105.779999,
+            "close": 105.860001,
+            "volume": 132201
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

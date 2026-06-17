@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 49.65,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 141507,
-        "AvgVolume": 74160,
-        "sharesOutstanding": null,
-        "52Week": "46.29 - 51.25",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US78433H6181",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 50,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 64567,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 73931,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -3362,7 +3337,12 @@
         },
         {
             "date": "2026-06-16",
-            "expected": true
+            "expected": true,
+            "open": 49.360001,
+            "high": 49.526001,
+            "low": 49.18,
+            "close": 49.330002,
+            "volume": 60485
         },
         {
             "date": "2026-07-22",

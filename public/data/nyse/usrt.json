@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 66.02,
-        "englishName": "iShares Core U.S. REIT ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 613231,
-        "AvgVolume": 460011,
-        "sharesOutstanding": null,
-        "52Week": "55.34 - 67.0",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US4642885218",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 66.86,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 337722,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 460398,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -39132,14 +39107,24 @@
             "high": 66.829903,
             "low": 65.849998,
             "close": 66.019997,
-            "volume": 613231
+            "volume": 613231,
+            "amount": 0.374,
+            "yield": 0.0312818959
         },
         {
-            "date": "2026-06-17",
+            "date": "2026-06-16",
+            "open": 66.389999,
+            "high": 66.610001,
+            "low": 65.889999,
+            "close": 66.129997,
+            "volume": 342724
+        },
+        {
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-12-15",
             "forecasted": true
         }
     ]

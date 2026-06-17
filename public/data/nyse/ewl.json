@@ -9,41 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-16 07:07:43 KST",
-        "regularMarketPrice": 61.68,
-        "englishName": "iShares MSCI Switzerland ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 572487,
-        "AvgVolume": 717165,
-        "sharesOutstanding": 28625000,
-        "52Week": "51.83 - 65.53",
-        "Yield": 0.010376,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-06-17 06:42:54 KST",
         "isin": "US4642867497",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 62.72,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 342112,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 724307,
-                "change": "down"
-            },
-            "Yield": {
-                "value": 0.010204,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -69053,11 +69024,18 @@
             "high": 62.220001,
             "low": 61.650002,
             "close": 61.68,
-            "volume": 572487
+            "volume": 572487,
+            "amount": 1.09,
+            "yield": 0.0339165334
         },
         {
             "date": "2026-06-16",
-            "forecasted": true
+            "forecasted": true,
+            "open": 61.869999,
+            "high": 62.16,
+            "low": 61.689999,
+            "close": 61.93,
+            "volume": 216745
         }
     ]
 }
