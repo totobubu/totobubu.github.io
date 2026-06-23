@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-23 06:41:58 KST",
-        "regularMarketPrice": 128.33,
+        "Update": "2026-06-24 05:55:51 KST",
+        "regularMarketPrice": 127.51,
         "englishName": "Invesco S&P 100 Equal Weight ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63300,
-        "AvgVolume": 94111,
+        "Volume": 87003,
+        "AvgVolume": 92959,
         "sharesOutstanding": null,
-        "52Week": "105.99 - 130.62",
+        "52Week": "107.75 - 130.62",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 128.33,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 63300,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 94111,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39925,14 +39938,16 @@
             "high": 128.919998,
             "low": 128.005005,
             "close": 128.330002,
-            "volume": 63300
+            "volume": 63300,
+            "amount": 0.515,
+            "yield": 0.0193226941
         },
         {
-            "date": "2026-06-23",
+            "date": "2026-09-22",
             "forecasted": true
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-12-22",
             "forecasted": true
         }
     ]

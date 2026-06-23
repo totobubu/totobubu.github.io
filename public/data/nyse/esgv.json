@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-23 06:41:58 KST",
-        "regularMarketPrice": 131.7,
+        "Update": "2026-06-24 05:55:51 KST",
+        "regularMarketPrice": 129.72,
         "englishName": "Vanguard ESG U.S. Stock ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 176875,
-        "AvgVolume": 236890,
+        "Volume": 241874,
+        "AvgVolume": 236503,
         "sharesOutstanding": null,
-        "52Week": "104.48 - 134.99",
+        "52Week": "106.85 - 134.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 131.7,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 176875,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 236890,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16126,7 +16139,9 @@
             "high": 132.600006,
             "low": 131.630005,
             "close": 132.380005,
-            "volume": 158200
+            "volume": 158200,
+            "amount": 0.279,
+            "yield": 0.0106363704
         },
         {
             "date": "2026-06-22",
