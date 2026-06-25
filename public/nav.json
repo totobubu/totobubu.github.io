@@ -6024,8 +6024,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/cscl.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "CSCO",
@@ -6057,8 +6057,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/cscs.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "CSGP",
@@ -9559,7 +9559,7 @@
             "koName": "이더리움 2배 ETF",
             "logo": "logos/company/company-2x.png",
             "dataPaths": ["data/nyse/ethu.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JJA"
         },
         {
@@ -13429,7 +13429,7 @@
             "company": "Goldman Sachs",
             "ipoDate": "2015-09-21",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "JSD",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US3814305039",
@@ -14856,7 +14856,7 @@
             "koName": "네오스 금 고배당 ETF",
             "logo": "logos/company/company-neos-funds.png",
             "dataPaths": ["data/nasdaq/iaui.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "JJA"
         },
         {
@@ -24436,8 +24436,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/qcmd.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "QCML",
@@ -24468,8 +24468,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/qcmu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "QCOM",
@@ -27331,7 +27331,7 @@
             "company": "ProShares",
             "ipoDate": "2006-06-21",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "MJD",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US74349Y7537",
@@ -29803,7 +29803,7 @@
             "ipoDate": "2008-05-22",
             "holdings": false,
             "frequency": "분기",
-            "group": "MSD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US74347B2016",
             "market": "NYSE",
