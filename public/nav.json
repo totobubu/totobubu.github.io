@@ -1669,7 +1669,7 @@
             "currency": "USD",
             "logo": "logos/company/company-ark.png",
             "dataPaths": ["data/nasdaq/arkt.json"],
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "ARKW",
@@ -4497,7 +4497,7 @@
             "currency": "USD",
             "logo": "logos/company/company-carbon.png",
             "dataPaths": ["data/nyse/ccsb.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JJA"
         },
         {
@@ -7283,7 +7283,7 @@
             "logo": "logos/company/company-wisdomtree.jpeg",
             "dataPaths": ["data/nasdaq/dgrw.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "SND"
+            "group": "JSD"
         },
         {
             "symbol": "DGS",
@@ -12057,7 +12057,7 @@
             "logo": "logos/company/company-first-trust.png",
             "dataPaths": ["data/nyse/fthi.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "FMM"
+            "group": "FMJ"
         },
         {
             "symbol": "FTLS",
@@ -12649,7 +12649,7 @@
             "koName": "글로벌파운드리",
             "logo": "logos/nasdaq/gfs.svg",
             "dataPaths": ["data/nasdaq/gfs.json"],
-            "periods": ["6M", "1Y", "3Y"]
+            "periods": []
         },
         {
             "symbol": "GGLL",
@@ -14757,7 +14757,7 @@
             "logo": "logos/company/company-first-trust.png",
             "dataPaths": ["data/nyse/hyls.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "MAM"
+            "group": "MMJ"
         },
         {
             "symbol": "HYMB",
@@ -17023,7 +17023,7 @@
             "koName": "네오스 러셀 2000 고배당 ETF",
             "logo": "logos/company/company-neos-funds.png",
             "dataPaths": ["data/nasdaq/iwmi.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "JJA"
         },
         {
@@ -24920,8 +24920,8 @@
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nasdaq/qqup.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "QQXL",
@@ -24937,8 +24937,8 @@
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nasdaq/qqxl.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "QQXT",
@@ -28849,7 +28849,7 @@
             "logo": "logos/company/company-sp.png",
             "dataPaths": ["data/nyse/spsk.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y"],
-            "group": "AMD"
+            "group": "AMJ"
         },
         {
             "symbol": "SPSM",
@@ -29900,7 +29900,7 @@
             "company": "First Trust",
             "ipoDate": "2012-08-14",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "JSD",
             "holdings": true,
             "sharesOutstanding": false,
             "isin": "US33738R1187",
@@ -31253,7 +31253,7 @@
             "dataPaths": ["data/nyse/tsxd.json"],
             "frequency": "분기",
             "periods": [],
-            "group": "MD"
+            "group": "MJD"
         },
         {
             "symbol": "TSXU",
@@ -31381,7 +31381,7 @@
             "dataPaths": ["data/nyse/ttxu.json"],
             "frequency": "분기",
             "periods": [],
-            "group": "MD"
+            "group": "MJD"
         },
         {
             "symbol": "TXN",
@@ -32891,7 +32891,7 @@
             "koName": "뱅가드 미국 배당성장주 ETF",
             "logo": "logos/company/company-vanguard.png",
             "dataPaths": ["data/nyse/vig.json"],
-            "periods": ["5Y", "10Y", "15Y"]
+            "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
             "symbol": "VIGI",
@@ -35556,7 +35556,7 @@
             "symbol": "ZBH",
             "ipoDate": "2001-07-25",
             "frequency": "분기",
-            "group": "MSD",
+            "group": "MJS",
             "holdings": false,
             "sharesOutstanding": false,
             "isin": "US98956P1021",
