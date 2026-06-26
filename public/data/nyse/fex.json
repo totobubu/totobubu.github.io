@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 139.3264,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 138.0733,
         "englishName": "First Trust Large Cap Core AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36797,
-        "AvgVolume": 22145,
+        "Volume": 45509,
+        "AvgVolume": 22614,
         "sharesOutstanding": null,
-        "52Week": "107.88 - 140.1",
+        "52Week": "108.68 - 140.1",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 139.3264,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36797,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22145,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39067,14 +39080,16 @@
             "high": 140.100006,
             "low": 138.940094,
             "close": 139.326401,
-            "volume": 36797
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 36797,
+            "amount": 0.267,
+            "yield": 0.011232326
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

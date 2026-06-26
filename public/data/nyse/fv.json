@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 73.9792,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 73.2306,
         "englishName": "First Trust Dorsey Wright Focus 5 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 38863,
-        "AvgVolume": 91809,
+        "Volume": 56280,
+        "AvgVolume": 90491,
         "sharesOutstanding": null,
-        "52Week": "58.06 - 74.615",
+        "52Week": "58.331 - 74.615",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.9792,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 38863,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 91809,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25079,14 +25092,16 @@
             "high": 74.276299,
             "low": 73.480003,
             "close": 73.979202,
-            "volume": 38863
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 38863,
+            "amount": 0.076,
+            "yield": 0.0062602066
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

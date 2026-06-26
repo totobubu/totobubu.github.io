@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 93.28,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 93.99,
         "englishName": "First Trust Capital Strength ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 346194,
-        "AvgVolume": 695554,
+        "Volume": 412560,
+        "AvgVolume": 688304,
         "sharesOutstanding": null,
         "52Week": "89.39 - 99.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 93.28,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 346194,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 695554,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40745,14 +40758,16 @@
             "high": 94.731003,
             "low": 93.184998,
             "close": 93.279999,
-            "volume": 346194
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 346194,
+            "amount": 0.264,
+            "yield": 0.0138808681
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

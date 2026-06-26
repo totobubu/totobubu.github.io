@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 44.6965,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 44.6979,
         "englishName": "First Trust Senior Loan Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 136812,
-        "AvgVolume": 292111,
+        "Volume": 253673,
+        "AvgVolume": 290556,
         "sharesOutstanding": null,
         "52Week": "44.37 - 46.19",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.6965,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 136812,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 292111,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26851,30 +26864,32 @@
             "high": 44.73,
             "low": 44.650101,
             "close": 44.696499,
-            "volume": 136812
+            "volume": 136812,
+            "amount": 0.23,
+            "yield": 0.0701409096
         },
         {
-            "date": "2026-07-21",
+            "date": "2026-07-24",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-08-25",
             "forecasted": true
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-10-23",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-11-25",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

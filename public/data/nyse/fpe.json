@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 17.88,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 17.87,
         "englishName": "First Trust Preferred Securities and Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1246134,
-        "AvgVolume": 1204683,
+        "Volume": 753182,
+        "AvgVolume": 1208429,
         "sharesOutstanding": null,
         "52Week": "17.54 - 18.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.88,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1246134,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1204683,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27291,30 +27304,32 @@
             "high": 17.92,
             "low": 17.870001,
             "close": 17.879999,
-            "volume": 1246134
+            "volume": 1246134,
+            "amount": 0.098,
+            "yield": 0.0641541039
         },
         {
-            "date": "2026-07-21",
+            "date": "2026-07-24",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-08-25",
             "forecasted": true
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-10-23",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-11-25",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

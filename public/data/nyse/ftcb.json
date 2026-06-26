@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 20.92,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 20.95,
         "englishName": "First Trust Core Investment Grade ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 520283,
-        "AvgVolume": 711366,
+        "Volume": 437311,
+        "AvgVolume": 714183,
         "sharesOutstanding": null,
         "52Week": "20.591 - 21.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.92,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 520283,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 711366,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5407,30 +5420,32 @@
             "high": 20.940001,
             "low": 20.889999,
             "close": 20.92,
-            "volume": 520283
+            "volume": 520283,
+            "amount": 0.083,
+            "yield": 0.0567877629
         },
         {
-            "date": "2026-07-21",
+            "date": "2026-07-24",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-08-25",
             "forecasted": true
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-10-23",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-11-25",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

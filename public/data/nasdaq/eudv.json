@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 52.3198,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 52.3616,
         "englishName": "ProShares MSCI Europe Dividend Growers ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1,
-        "AvgVolume": 532,
+        "Volume": 14,
+        "AvgVolume": 525,
         "sharesOutstanding": null,
         "52Week": "49.484 - 56.05",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.3198,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 532,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22258,7 +22271,8 @@
             "high": 52.109001,
             "low": 52.109001,
             "close": 52.109001,
-            "volume": 200
+            "volume": 200,
+            "yield": 0.0312230127
         },
         {
             "date": "2026-09-24",

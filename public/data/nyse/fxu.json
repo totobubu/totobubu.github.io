@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 49.69,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 50.24,
         "englishName": "First Trust Utilities AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 171527,
-        "AvgVolume": 285032,
+        "Volume": 253677,
+        "AvgVolume": 284191,
         "sharesOutstanding": null,
         "52Week": "41.65 - 51.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.69,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 171527,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 285032,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39067,14 +39080,16 @@
             "high": 50.02,
             "low": 49.310001,
             "close": 49.689999,
-            "volume": 171527
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 171527,
+            "amount": 0.217,
+            "yield": 0.0255499501
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

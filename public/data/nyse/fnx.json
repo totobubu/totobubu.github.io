@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 145.205,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 145.04,
         "englishName": "First Trust Mid Cap Core AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49947,
-        "AvgVolume": 22662,
+        "Volume": 50718,
+        "AvgVolume": 22990,
         "sharesOutstanding": null,
-        "52Week": "113.39 - 146.265",
+        "52Week": "113.65 - 146.27",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 145.205,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49947,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22662,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39067,14 +39080,16 @@
             "high": 146.264999,
             "low": 143.910004,
             "close": 145.205002,
-            "volume": 49947
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 49947,
+            "amount": 0.266,
+            "yield": 0.0099506633
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 140.8568,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 142.9515,
         "englishName": "First Trust Small Cap Core AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 13935,
-        "AvgVolume": 36017,
+        "Volume": 31719,
+        "AvgVolume": 35770,
         "sharesOutstanding": null,
-        "52Week": "95.31 - 142.04",
+        "52Week": "95.31 - 143.04",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 140.8568,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13935,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 36017,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39063,14 +39076,16 @@
             "high": 142.039993,
             "low": 140.029999,
             "close": 140.856796,
-            "volume": 13935
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 13935,
+            "amount": 0.437,
+            "yield": 0.0097264873
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

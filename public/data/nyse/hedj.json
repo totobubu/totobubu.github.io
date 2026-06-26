@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 56.8,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 56.15,
         "englishName": "WisdomTree Europe Hedged Equity Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63174,
-        "AvgVolume": 91475,
+        "Volume": 178830,
+        "AvgVolume": 91372,
         "sharesOutstanding": null,
-        "52Week": "47.14 - 58.36",
+        "52Week": "47.53 - 58.36",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 63174,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 91475,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34018,7 +34031,9 @@
             "high": 57.019901,
             "low": 56.620098,
             "close": 56.799999,
-            "volume": 64374
+            "volume": 64374,
+            "amount": 0.985,
+            "yield": 0.032501758
         },
         {
             "date": "2026-09-25",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 23.57,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 23.45,
         "englishName": "First Trust BuyWrite Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1094179,
-        "AvgVolume": 724803,
+        "Volume": 536480,
+        "AvgVolume": 735764,
         "sharesOutstanding": null,
         "52Week": "22.37 - 24.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.57,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1094179,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 724803,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25815,30 +25828,32 @@
             "high": 23.74,
             "low": 23.509701,
             "close": 23.57,
-            "volume": 1122963
+            "volume": 1122963,
+            "amount": 0.172,
+            "yield": 0.0952662722
         },
         {
-            "date": "2026-07-21",
+            "date": "2026-07-24",
             "forecasted": true
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-08-25",
             "forecasted": true
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-10-23",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-11-25",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

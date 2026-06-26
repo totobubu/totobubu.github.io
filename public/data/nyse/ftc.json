@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 191.2631,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 186.6831,
         "englishName": "First Trust Large Cap Growth AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 33123,
-        "AvgVolume": 16166,
+        "Volume": 6888,
+        "AvgVolume": 16532,
         "sharesOutstanding": null,
-        "52Week": "147.48 - 194.18",
+        "52Week": "147.94 - 194.18",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 191.2631,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 33123,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16166,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39049,14 +39062,16 @@
             "high": 191.982498,
             "low": 189.529999,
             "close": 191.263107,
-            "volume": 33123
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 33123,
+            "amount": 0.042,
+            "yield": 0.0019963225
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 75.25,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 75.14,
         "englishName": "WisdomTree U.S. MidCap Earnings Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19746,
-        "AvgVolume": 22377,
+        "Volume": 17703,
+        "AvgVolume": 22288,
         "sharesOutstanding": null,
-        "52Week": "61.02 - 76.09",
+        "52Week": "61.34 - 76.09",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 19746,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 22377,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39869,14 +39882,16 @@
             "high": 75.919998,
             "low": 75.019997,
             "close": 75.25,
-            "volume": 19746
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 19746,
+            "amount": 0.24,
+            "yield": 0.0155502396
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 120.45,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 122.92,
         "englishName": "First Trust Health Care AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 40281,
-        "AvgVolume": 25666,
+        "Volume": 14071,
+        "AvgVolume": 25874,
         "sharesOutstanding": null,
-        "52Week": "97.52 - 121.385",
+        "52Week": "97.52 - 122.92",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 120.45,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 40281,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 25666,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38979,14 +38992,16 @@
             "high": 121.385002,
             "low": 120.308197,
             "close": 120.449997,
-            "volume": 40281
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 40281,
+            "amount": 0.118,
+            "yield": 0.0091459315
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

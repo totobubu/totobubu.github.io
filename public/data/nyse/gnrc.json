@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 295.16,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 278.62,
         "englishName": "Generac Holdings Inc.",
         "earningsDate": "2026-04-29",
-        "enterpriseValue": 17855490048,
-        "marketCap": 17375680512,
-        "Volume": 1396780,
-        "AvgVolume": 854796,
+        "enterpriseValue": 18504224768,
+        "marketCap": 16401991680,
+        "Volume": 795316,
+        "AvgVolume": 855609,
         "sharesOutstanding": 58868681,
         "52Week": "134.8 - 296.44",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 295.16,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 17855490048,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 17375680512,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1396780,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 854796,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36939,7 +36960,8 @@
             "high": 296.440002,
             "low": 284.575012,
             "close": 295.160004,
-            "volume": 1396780
+            "volume": 1396780,
+            "marketCap": 16401991680
         }
     ]
 }

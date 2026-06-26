@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 61.59,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 62.49,
         "englishName": "First Trust Financials AlphaDEX Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 27504,
-        "AvgVolume": 69650,
+        "Volume": 38534,
+        "AvgVolume": 68190,
         "sharesOutstanding": null,
         "52Week": "54.4 - 62.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 27504,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 69650,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39067,14 +39080,16 @@
             "high": 62.610001,
             "low": 61.500099,
             "close": 61.59,
-            "volume": 27504
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 27504,
+            "amount": 0.242,
+            "yield": 0.024809962
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 190.25,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 185.11,
         "englishName": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 512728,
-        "AvgVolume": 828488,
+        "Volume": 579149,
+        "AvgVolume": 790053,
         "sharesOutstanding": null,
-        "52Week": "135.59 - 199.99",
+        "52Week": "137.37 - 199.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 190.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 512728,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 828488,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33959,14 +33972,16 @@
             "high": 191.425003,
             "low": 188.440002,
             "close": 190.25,
-            "volume": 520714
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 520714,
+            "amount": 0.756,
+            "yield": 0.0118810324
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

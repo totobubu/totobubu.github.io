@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 27.03,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 26.91,
         "englishName": "First Trust Global Tactical Commodity Strategy Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1210984,
-        "AvgVolume": 929311,
+        "Volume": 567304,
+        "AvgVolume": 939025,
         "sharesOutstanding": null,
         "52Week": "22.7 - 30.65",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.03,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1210984,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 929311,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25611,14 +25624,16 @@
             "high": 27.1,
             "low": 26.705,
             "close": 27.030001,
-            "volume": 1210984
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 1210984,
+            "amount": 0.169,
+            "yield": 0.1706477039
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 200.86,
+        "Update": "2026-06-27 05:40:20 KST",
+        "regularMarketPrice": 195.72,
         "englishName": "First Trust US Equity Opportunities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 40107,
-        "AvgVolume": 43303,
+        "Volume": 18581,
+        "AvgVolume": 43038,
         "sharesOutstanding": null,
         "52Week": "140.26 - 203.17",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 200.86,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 40107,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 43303,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40991,14 +41004,16 @@
             "high": 201.257996,
             "low": 196.349899,
             "close": 200.860001,
-            "volume": 40107
-        },
-        {
-            "date": "2026-06-26",
-            "forecasted": true
+            "volume": 40107,
+            "amount": 0.005,
+            "yield": 0.0047087547
         },
         {
             "date": "2026-09-25",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-24",
             "forecasted": true
         }
     ]
