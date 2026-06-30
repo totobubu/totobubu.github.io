@@ -24,7 +24,13 @@
         "payoutRatio": null,
         "isin": "US38747R5533",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-06-26",
+                    "ratio": "8:1",
+                    "type": "reverse-split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -2777,6 +2783,14 @@
             "low": 19.939899,
             "close": 20.889999,
             "volume": 605649
+        },
+        {
+            "date": "2026-06-29",
+            "open": 20.969999,
+            "high": 23.27,
+            "low": 19.26,
+            "close": 23.09,
+            "volume": 1352802
         }
     ]
 }
