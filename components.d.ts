@@ -60,7 +60,6 @@ declare module 'vue' {
     StockChartCard: typeof import('./src/components/StockChartCard.vue')['default']
     StockHeader: typeof import('./src/components/StockHeader.vue')['default']
     StockHistoryPanel: typeof import('./src/components/StockHistoryPanel.vue')['default']
-    StockHoldingsChart: typeof import('./src/components/charts/StockHoldingsChart.vue')['default']
     StockMappingDialog: typeof import('./src/components/asset/StockMappingDialog.vue')['default']
     StockPriceCandlestickChart: typeof import('./src/components/charts/StockPriceCandlestickChart.vue')['default']
     StockTimelineModal: typeof import('./src/components/StockTimelineModal.vue')['default']

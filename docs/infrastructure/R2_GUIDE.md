@@ -376,7 +376,6 @@ python scripts/cloud/upload_full_sync_to_r2.py --target logos
 - ✅ `update_info_data_v2.yml`
 - ✅ `market_data_v2_kr.yml`
 - ✅ `market_data_v2_us.yml`
-- ✅ `update_holdings.yml`
 
 ### Deploy 워크플로우
 

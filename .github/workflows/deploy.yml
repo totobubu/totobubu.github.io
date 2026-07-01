@@ -55,7 +55,7 @@ jobs:
             # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
             - name: Remove large local data before build
               run: |
-                  rm -rf public/data public/logos public/thumbnail public/holdings || true
+                  rm -rf public/data public/logos public/thumbnail || true
 
             - name: Set up Node.js
               uses: actions/setup-node@v4

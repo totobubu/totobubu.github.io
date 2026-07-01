@@ -12,8 +12,6 @@
 | **4. IPO 날짜** | ✅ | ✅ | ❌ |
 | **5. 배당 빈도** | ✅ | ✅ | ❌ |
 | **6. nav.json 생성** | ✅ | ✅ | ❌ |
-| **6.5. Holdings 자동 감지** | ✅ | ✅ | ❌ |
-| **6.6. ETF Holdings** | ✅ | ✅ | ❌ |
 | **7. 시가총액 업데이트** | ✅ | ✅ | ❌ |
 | **7.5. 히스토리 가격** | ✅ | ❌ | ✅ |
 | **8. 배당 데이터** | ✅ | ✅ | ❌ |
@@ -39,7 +37,6 @@
 ### 2️⃣ **GitHub Info Data** (update_info_data_v2.yml)
 - **목적:** 정보성 데이터만 업데이트
 - **실행:** 하루 1회 (새벽 2시)
-- **포함:** 환율, IPO, 배당, Holdings 등 **자주 변하지 않는 데이터**
 - **제외:** 
   - ❌ 히스토리 가격 데이터 (7.5)
   - ❌ 북마크 인기도 (11)
@@ -63,8 +60,6 @@
 | 4 | IPO 날짜 | ✅ | ✅ | `npm run add-ipo-dates` |
 | 5 | 배당 빈도 | ✅ | ✅ | `python scripts/data_pipeline/analyze_dividend_frequency.py` |
 | 6 | nav.json | ✅ | ✅ | `npm run generate-nav` |
-| 6.5 | Holdings 자동감지 | ✅ | ✅ | `python scripts/holdings/auto_detect_holdings.py` |
-| 6.6 | ETF Holdings | ✅ | ✅ | `python scripts/holdings/fetch_holdings.py` |
 | 7 | 시가총액 | ✅ | ✅ | `python scripts/data_pipeline/update_market_cap.py` |
 | 8 | 배당 데이터 | ✅ | ✅ | `python scripts/data_pipeline/update_dividends.py` |
 | 9 | 배당 히스토리 | ✅ | ✅ | `python scripts/data_pipeline/scraper_dividend.py` |

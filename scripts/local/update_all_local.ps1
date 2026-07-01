@@ -32,18 +32,6 @@ try {
     Write-Host "✅ nav.json 생성 완료" -ForegroundColor Green
     Write-Host ""
 
-    # 6.5. Holdings 자동 감지
-    Write-Host "🔍 6.5. Holdings 자동 감지 중..." -ForegroundColor Cyan
-    python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
-    Write-Host "✅ Holdings 자동 감지 완료" -ForegroundColor Green
-    Write-Host ""
-
-    # 6.6. ETF Holdings 데이터 수집
-    Write-Host "📊 6.6. ETF Holdings 데이터 수집 중..." -ForegroundColor Cyan
-    Write-Host "y" | python scripts/holdings/fetch_holdings.py
-    Write-Host "✅ ETF Holdings 데이터 수집 완료" -ForegroundColor Green
-    Write-Host ""
-
     # 7. 시가총액 업데이트 (매일 실행)
     Write-Host "💰 7. 시가총액 업데이트 중..." -ForegroundColor Cyan
     python scripts/data_pipeline/update_market_cap.py
@@ -144,4 +132,3 @@ try {
     Write-Host $_.ScriptStackTrace -ForegroundColor Red
     exit 1
 }
-
