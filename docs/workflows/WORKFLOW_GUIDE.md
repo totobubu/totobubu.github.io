@@ -4,7 +4,6 @@
 
 1. [워크플로우 개요](#워크플로우-개요)
 2. [Info Data 워크플로우](#info-data-워크플로우)
-3. [Holdings 워크플로우](#holdings-워크플로우)
 4. [최적화 내역](#최적화-내역)
 5. [성능 개선 효과](#성능-개선-효과)
 
@@ -17,7 +16,6 @@
 | 워크플로우 | 파일 | 실행 빈도 | 실행 시간 | 소요 시간 |
 |-----------|------|----------|-----------|----------|
 | **Info Data** | `update_info_data_v2.yml` | 매일 | 새벽 2시 (KST) | ~25분 |
-| **Holdings** | `update_holdings.yml` | 매일 | 새벽 3시 30분 (KST) | ~30분 |
 | **Market Data KR** | `market_data_v2_kr.yml` | 평일 | 오후 4시 (KST) | ~15분 |
 | **Market Data US** | `market_data_v2_us.yml` | 평일 | 오후 5시 (EST) | ~15분 |
 
@@ -134,44 +132,26 @@ if not data_changed:
 
 ---
 
-## 📈 Holdings 워크플로우
 
 ### 개요
 
-**파일**: `.github/workflows/update_holdings.yml`
 
 **실행 빈도**: 매일 새벽 3시 30분 (KST)
 
-**목적**: ETF Holdings 데이터 수집 (완전 자동화)
 
 ### 워크플로우 구조
 
 ```
-1. Auto-detect holdings for new tickers
-   → python scripts/holdings/auto_detect_holdings.py
 
-2. Fetch ETF holdings (Yahoo Finance - 23분)
-   → python scripts/holdings/fetch_holdings.py
    - YieldMax: 57개 (웹 스크래핑)
    - 일반 ETF: ~900개 (Yahoo Finance API)
 
-3. Scrape Roundhill holdings (Playwright - 3-5분) ⚡
-   → node scripts/holdings/scrape_roundhill_holdings_playwright.js --all
-   → python scripts/holdings/add_roundhill_holdings.py --batch
    - Roundhill: 43개 (완전 자동화)
    - 데이터 중복 자동 비교
 
-4. Download ARK holdings CSV (10초) ⚡
-   → node scripts/holdings/scrape_ark_holdings.js --all
-   → python scripts/holdings/add_roundhill_holdings.py --batch
    - ARK: 10개 (CSV 직접 다운로드)
-   - 총 350개 Holdings
 
-5. Download iShares holdings (JSON API + CSV - 20초) ⚡ NEW!
-   → python scripts/holdings/scrape_ishares_holdings.py --all
-   → python scripts/holdings/add_roundhill_holdings.py --batch
    - iShares: 4개 (IBIT, ETHA, GARP, GSG)
-   - 총 162개 Holdings
 
 6. Format changed files
    → npm run format:changed
@@ -182,7 +162,6 @@ if not data_changed:
 8. Commit and push
 ```
 
-### Holdings 변경 빈도
 
 | ETF 유형 | 변경 빈도 | 예시 |
 |---------|---------|------|
@@ -193,22 +172,17 @@ if not data_changed:
 
 ### 분리 이유
 
-Holdings 수집은 시간이 오래 걸리므로 별도 워크플로우로 분리:
 
 **Before (Info에 포함):**
 ```
-Info 워크플로우: 2시간 31분 (Holdings 23분 포함)
 ```
 
 **After (별도 워크플로우):**
 ```
-Info 워크플로우: ~45분 (Holdings 제거, 새벽 2시)
-Holdings 워크플로우: ~30분 (매일, 새벽 3시 30분)
 ```
 
 **장점:**
 - ✅ Info Data가 빠르게 완료 (45분)
-- ✅ Holdings는 여유 시간대 실행
 - ✅ Concurrency 그룹으로 순차 실행 보장
 - ✅ 완전 자동화 (Roundhill 포함)
 
@@ -312,23 +286,18 @@ else:
 - ✅ R2 업로드 파일 수 감소
 - ✅ Git 커밋 크기 최소화
 
-### 4. Holdings 분리
 
 #### Before
 
 ```yaml
 # Info 워크플로우에 포함 (매일)
-- name: Fetch holdings
-  run: python scripts/holdings/fetch_holdings.py  # 23분
 ```
 
-**문제:** Holdings는 자주 변경되지 않는데 매일 수집
 
 #### After
 
 ```yaml
 # 별도 워크플로우 (주 1회)
-# update_holdings.yml
 schedule:
   - cron: '0 18 * * 0'  # 일요일만
 ```
@@ -372,7 +341,6 @@ schedule:
 | 월간 | 20시간 44분 | 8시간 52분 | **11시간 52분** |
 | GitHub Actions 비용 | $X | $0.43X | **57% 절감** |
 
-**Holdings 분리 효과:**
 
 | 항목 | Before | After | 절감 |
 |------|--------|-------|------|
@@ -388,7 +356,6 @@ schedule:
 | **API 호출** | 중복 다수 | 최적화 | 중복 제거 |
 | **메모리 사용** | 높음 | 낮음 | 최적화 |
 | **파일 변경** | 불필요한 변경 많음 | 최소화 | 데이터 변경 시만 |
-| **실행 빈도** | Holdings 매일 | Holdings 주 1회 | 86% 감소 |
 
 ---
 
@@ -444,7 +411,6 @@ tickers.tickers  # 1회 호출
 - [V1_V2_COMPARISON.md](./V1_V2_COMPARISON.md) - V1과 V2 상세 비교 (참고용)
 - [UPDATE_POLICY.md](./UPDATE_POLICY.md) - Update 필드 정책
 - [FORMAT_GUIDE.md](./FORMAT_GUIDE.md) - Git 기반 스마트 포맷
-- [README_HOLDINGS.md](./README_HOLDINGS.md) - Holdings 시스템 가이드
 
 ---
 
@@ -457,7 +423,6 @@ tickers.tickers  # 1회 호출
 - ✅ 중복 API 호출 제거
 - ✅ 57% 빠른 처리 속도
 
-**Holdings** (주 1회):
 - ✅ 별도 워크플로우로 분리
 - ✅ 불필요한 실행 제거
 - ✅ 월 8시간 절약

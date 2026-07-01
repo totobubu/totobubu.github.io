@@ -19,10 +19,8 @@
 **주요 기능:**
 - ✅ IPO 날짜 업데이트
 - ✅ 배당 빈도 분석
-- ✅ Holdings 자동 감지
 - ✅ nav.json 생성
 - ✅ 정보 데이터 스크래핑
-- ✅ Holdings 데이터 수집
 - ✅ 히스토리 가격 데이터 업데이트 (KR/US 자동 구분)
 - ✅ 시가총액 업데이트
 - ✅ 배당 데이터 업데이트
@@ -70,8 +68,6 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 
 === Step 3/15 ===
 
--> Auto-detect holdings
-   $ python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes WEED MAGS
 
 ...
 
@@ -86,10 +82,8 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 
 1. **IPO 날짜 업데이트** - nav.json의 IPO 날짜 동기화
 2. **배당 빈도 분석** - 배당 주기 및 그룹 자동 분석
-3. **Holdings 자동 감지** - ETF인 경우 holdings 자동 감지
 4. **nav.json 생성** - 최신 nav.json 파일 생성
 5. **정보 데이터 스크래핑** - 티커 기본 정보 수집
-6. **Holdings 데이터 수집** - ETF holdings 상세 정보 수집
 7. **히스토리 가격 업데이트** - KR/US 자동 구분하여 가격 데이터 업데이트
 8. **시가총액 업데이트** - 최신 시가총액 정보 업데이트
 9. **배당 데이터 업데이트** - 배당 내역 업데이트
@@ -111,12 +105,9 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 python scripts/workflows/run_new_ticker_workflow.py WEED --skip-format
 ```
 
-### `--skip-fetch-holdings`
 
-Holdings 데이터 수집 단계를 건너뜁니다.
 
 ```bash
-python scripts/workflows/run_new_ticker_workflow.py WEED --skip-fetch-holdings
 ```
 
 ### `--dry-run`
@@ -155,15 +146,10 @@ Project root: C:\workspace\divgrow\totobubu.github.io
 **해결:**
 1. 오류 메시지를 확인하여 어떤 단계에서 실패했는지 확인
 2. 해당 단계를 개별적으로 실행하여 문제 파악
-3. 필요한 경우 `--skip-format` 또는 `--skip-fetch-holdings` 옵션 사용
 
 **예시:**
 ```bash
-# Holdings 수집 단계에서 오류 발생 시
-python scripts/workflows/run_new_ticker_workflow.py WEED --skip-fetch-holdings
 
-# 나중에 개별적으로 Holdings 수집
-python scripts/holdings/fetch_holdings.py WEED
 ```
 
 ---
@@ -230,10 +216,8 @@ python scripts/workflows/run_new_ticker_workflow.py WEED MAGS --dry-run
 
 ### 3. 특정 단계만 건너뛰기
 
-Holdings가 없는 일반 주식의 경우:
 
 ```bash
-python scripts/workflows/run_new_ticker_workflow.py AAPL --skip-fetch-holdings
 ```
 
 ### 4. 변경사항 확인

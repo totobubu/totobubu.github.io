@@ -65,8 +65,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 2. 📅 IPO 날짜 동기화
 3. 📊 배당 빈도 분석
 4. 🗂️ nav.json 생성
-5. 🔍 Holdings 자동 감지
-6. 📊 ETF Holdings 데이터 수집
 7. 📈 히스토리 가격 데이터 업데이트
 8. 💰 시가총액 업데이트
 9. 💵 배당 데이터 업데이트
@@ -117,11 +115,7 @@ python scripts/analyze_dividend_frequency.py WEED MAGS # 여러 티커
 # 4. 최종 nav.json 파일 생성
 npm run generate-nav
 
-# 5. Holdings 자동 감지
-python scripts/auto_detect_holdings.py --api --exclude-kr --yes
 
-# 6. ETF Holdings 데이터 수집
-echo y | python scripts/fetch_holdings.py
 
 # 7. 주가 데이터 증분 업데이트
 node tasks/updateHistoricalKrData.js   # 한국 티커 전체

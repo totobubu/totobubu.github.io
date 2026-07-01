@@ -47,11 +47,6 @@ export interface BacktestDataItem {
     volume: number;
 }
 
-export interface HoldingsDataItem {
-    date: string;
-    data: any[];
-}
-
 interface NavItem {
     symbol: string;
     yfSymbol?: string;
@@ -71,7 +66,6 @@ interface NavData {
 const tickerInfo = ref<TickerInfo | null>(null);
 const dividendHistory = ref<DividendHistoryItem[]>([]);
 const backtestData = ref<BacktestDataItem[]>([]);
-const holdingsData = ref<HoldingsDataItem[]>([]);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 const isUpcoming = ref(false);
@@ -175,7 +169,6 @@ export function useStockData() {
         tickerInfo.value = null;
         dividendHistory.value = [];
         backtestData.value = [];
-        holdingsData.value = [];
 
         try {
             const navData = await loadNavData();
@@ -309,21 +302,6 @@ export function useStockData() {
                             .close
                         : null;
 
-                // Holdings 데이터 로드 - backtestData에서 추출
-                // 기존 holdings 대분류 지원 (마이그레이션 기간)
-                if (staticData.holdings && Array.isArray(staticData.holdings)) {
-                    // 기존 구조 (대분류)
-                    holdingsData.value = staticData.holdings;
-                } else {
-                    // 새 구조 (backtestData 내부)
-                    holdingsData.value = fullBacktestData
-                        .filter((d: any) => d.holdings && Array.isArray(d.holdings))
-                        .map((d: any) => ({
-                            date: d.date,
-                            data: d.holdings,
-                        }));
-                }
-
                 tickerInfo.value = {
                     ...navInfo,
                     ...staticData.tickerInfo,
@@ -392,7 +370,6 @@ export function useStockData() {
         tickerInfo,
         dividendHistory,
         backtestData,
-        holdingsData,
         isLoading,
         error,
         loadData,

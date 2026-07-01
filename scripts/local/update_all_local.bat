@@ -33,20 +33,6 @@ if errorlevel 1 goto error
 echo ✅ nav.json 생성 완료
 echo.
 
-REM 6.5. Holdings 자동 감지
-echo 🔍 6.5. Holdings 자동 감지 중...
-python scripts/holdings/auto_detect_holdings.py --api --exclude-kr --yes
-if errorlevel 1 goto error
-echo ✅ Holdings 자동 감지 완료
-echo.
-
-REM 6.6. ETF Holdings 데이터 수집
-echo 📊 6.6. ETF Holdings 데이터 수집 중...
-echo y | python scripts/holdings/fetch_holdings.py
-if errorlevel 1 goto error
-echo ✅ ETF Holdings 데이터 수집 완료
-echo.
-
 REM 7. 시가총액 업데이트 (매일 실행)
 echo 💰 7. 시가총액 업데이트 중...
 python scripts/data_pipeline/update_market_cap.py
@@ -159,4 +145,3 @@ echo.
 exit /b 1
 
 :end
-

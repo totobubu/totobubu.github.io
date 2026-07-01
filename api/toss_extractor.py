@@ -261,6 +261,7 @@ def extract_transactions_from_pdf(pdf_path, verbose=True):
 
 def save_to_json(data, output_path):
     """추출한 데이터를 JSON 파일로 저장"""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"\n💾 데이터가 저장되었습니다: {output_path}")
@@ -363,7 +364,7 @@ def main():
         data = extract_transactions_from_pdf(pdf_path)
         print(json.dumps(data, ensure_ascii=False))
     else:
-        pdf_path = Path("public/holdings/1761864827737.pdf")
+        pdf_path = Path("public/transactions/1761864827737.pdf")
 
         if not pdf_path.exists():
             print(f"❌ 파일을 찾을 수 없습니다: {pdf_path}")
@@ -373,7 +374,7 @@ def main():
         print_statistics(data)
         print_sample_transactions(data, count=10)
 
-        output_path = Path("public/holdings/toss_transactions.json")
+        output_path = Path("public/transactions/toss_transactions.json")
         save_to_json(data, output_path)
 
         print(f"\n🎉 작업이 완료되었습니다!")
@@ -381,5 +382,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

@@ -35,9 +35,6 @@ docs/
 
 ### 데이터 수집 & 업데이트
 - **[MARKET_CAP_GUIDE.md](./data-management/MARKET_CAP_GUIDE.md)** - 시가총액 데이터 통합 가이드 ⭐
-- **[README_HOLDINGS.md](./data-management/README_HOLDINGS.md)** - ETF Holdings 데이터 수집 가이드
-- **[HOLDINGS_PLAYWRIGHT_ANALYSIS.md](./data-management/HOLDINGS_PLAYWRIGHT_ANALYSIS.md)** - Holdings Playwright 분석
-- **[ROUNDHILL_SCRAPING_GUIDE.md](./data-management/ROUNDHILL_SCRAPING_GUIDE.md)** - Roundhill ETF 스크래핑 가이드
 - **[UPDATE_INFO_DATA_V2_GUIDE.md](./data-management/UPDATE_INFO_DATA_V2_GUIDE.md)** - Info 데이터 업데이트 V2 가이드
 
 ### 데이터 정책 & 포맷
@@ -79,7 +76,6 @@ docs/
 
 ### 데이터 수집 및 관리
 1. [data-management/MARKET_CAP_GUIDE.md](./data-management/MARKET_CAP_GUIDE.md) - 시가총액 데이터
-2. [data-management/README_HOLDINGS.md](./data-management/README_HOLDINGS.md) - Holdings 데이터
 3. [data-management/README_TRANSACTION_UPLOAD.md](./data-management/README_TRANSACTION_UPLOAD.md) - 거래 데이터
 
 ### 워크플로우 운영 및 최적화
@@ -101,7 +97,6 @@ docs/
 1. **통합 파이프라인**: 5개 스크립트를 1개로 통합 (68% 단축)
 2. **Git 기반 처리**: 변경된 파일만 선택적 처리 (90% 빠름)
 3. **스마트 업데이트**: 데이터 변경 시에만 Update 필드 갱신
-4. **Holdings 분리**: 별도 워크플로우로 분리 (주 1회 실행)
 
 ---
 

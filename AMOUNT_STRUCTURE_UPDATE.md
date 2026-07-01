@@ -103,7 +103,6 @@ item.amountSplitAdjustments?.forEach(adj => {
 ### Vue 컴포넌트
 - ✅ `src/components/StockHistoryPanel.vue` - 배당 히스토리 패널
 - ✅ `src/components/thumbnail/ThumbnailItem.vue` - 썸네일 아이템
-- ✅ `src/pages/BlogGeneratorView.vue` - 블로그 생성기
 - ✅ `src/pages/ThumbnailGenerator.vue` - 썸네일 생성기
 
 ### 유틸리티
