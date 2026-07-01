@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 67.17,
+        "Update": "2026-07-01 05:51:13 KST",
+        "regularMarketPrice": 67.93,
         "englishName": "Equity Residential",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": 33787531264,
-        "marketCap": 25952874496,
-        "Volume": 1452385,
-        "AvgVolume": 2942793,
+        "enterpriseValue": null,
+        "marketCap": 26246520832,
+        "Volume": 2219783,
+        "AvgVolume": 2945396,
         "sharesOutstanding": 374712144,
         "52Week": "57.57 - 69.03",
-        "Yield": 0.041388,
+        "Yield": 0.040924,
         "dividendRate": 2.81,
         "payoutRatio": 1.1118,
         "isin": "US29476L1070",
@@ -32,32 +32,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 66.22,
-                "change": "up"
-            },
-            "enterpriseValue": {
-                "value": 33592702976,
-                "change": "up"
-            },
-            "marketCap": {
-                "value": 25585819648,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1861734,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2934124,
-                "change": "up"
-            },
-            "Yield": {
-                "value": 0.041981,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -75029,11 +75004,37 @@
             "volume": 1452385
         },
         {
+            "date": "2026-06-26",
+            "open": 67.639999,
+            "high": 68.529999,
+            "low": 67.410004,
+            "close": 68.379997,
+            "volume": 3391071
+        },
+        {
+            "date": "2026-06-29",
+            "open": 67.480003,
+            "high": 68.339996,
+            "low": 67.309998,
+            "close": 68.339996,
+            "volume": 1523385,
+            "amount": 0.703,
+            "yield": 0.0413752204
+        },
+        {
             "date": "2026-06-30",
+            "open": 67.480003,
+            "high": 68.459999,
+            "low": 67.220001,
+            "close": 67.93,
+            "volume": 2219883
+        },
+        {
+            "date": "2026-09-29",
             "forecasted": true
         },
         {
-            "date": "2026-09-30",
+            "date": "2026-12-29",
             "forecasted": true
         }
     ]

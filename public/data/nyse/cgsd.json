@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-06-26 06:05:42 KST",
-        "regularMarketPrice": 25.8,
+        "Update": "2026-07-01 05:51:13 KST",
+        "regularMarketPrice": 25.73,
         "englishName": "Capital Group Short Duration Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 277874,
-        "AvgVolume": 415119,
+        "Volume": 542341,
+        "AvgVolume": 416729,
         "sharesOutstanding": null,
         "52Week": "25.7 - 26.15",
         "Yield": null,
@@ -27,12 +27,16 @@
             "splits": []
         },
         "changes": {
-            "Volume": {
-                "value": 370248,
+            "regularMarketPrice": {
+                "value": 25.76,
                 "change": "down"
             },
+            "Volume": {
+                "value": 533096,
+                "change": "up"
+            },
             "AvgVolume": {
-                "value": 412570,
+                "value": 413170,
                 "change": "up"
             }
         }
@@ -7461,8 +7465,30 @@
             "volume": 277874
         },
         {
+            "date": "2026-06-26",
+            "open": 25.82,
+            "high": 25.84,
+            "low": 25.799999,
+            "close": 25.82,
+            "volume": 376988
+        },
+        {
             "date": "2026-06-29",
-            "forecasted": true
+            "open": 25.74,
+            "high": 25.76,
+            "low": 25.730101,
+            "close": 25.76,
+            "volume": 533096,
+            "amount": 0.087,
+            "yield": 0.0446386946
+        },
+        {
+            "date": "2026-06-30",
+            "open": 25.74,
+            "high": 25.75,
+            "low": 25.7201,
+            "close": 25.73,
+            "volume": 542341
         },
         {
             "date": "2026-07-29",
@@ -7482,6 +7508,10 @@
         },
         {
             "date": "2026-11-26",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-29",
             "forecasted": true
         }
     ]
