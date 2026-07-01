@@ -460,7 +460,6 @@ def ensure_nav_entry(
             "market": market,
             "yfSymbol": symbol,
             "currency": MARKET_TO_CURRENCY.get(market, "USD"),
-            "holdings": False,  # 기본값
             "sharesOutstanding": False,  # 기본값
         }
         if ipo_date:
