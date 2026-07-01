@@ -24,7 +24,6 @@ const ProfileView = () => import('../pages/ProfileView.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
 const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
-const BlogGeneratorView = () => import('../pages/BlogGeneratorView.vue');
 
 const getCurrentUser = () => {
     return new Promise((resolve, reject) => {
@@ -97,11 +96,6 @@ const router = createRouter({
             path: '/bookmark',
             name: 'bookmark-gallery',
             component: ThumbnailGenerator,
-        },
-        {
-            path: '/blog-generator',
-            name: 'blog-generator',
-            component: BlogGeneratorView,
         },
         {
             path: '/contact',

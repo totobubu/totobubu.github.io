@@ -392,48 +392,6 @@ def upload_missing_files(target_sections):
     else:
         print("\n[5/6] logos 폴더 확인 건너뜀 (요청 대상 아님)")
 
-    # 6. holdings 폴더 체크
-    if run_all or "holdings" in target_sections:
-        print("\n[6/6] holdings 폴더 확인 중...")
-        if os.path.exists("public/holdings"):
-            r2_holdings_files = get_r2_files("holdings/")
-            local_holdings_files = get_local_files("public/holdings", "*.txt")
-
-            holdings_to_upload = []
-            holdings_missing = 0
-            holdings_changed = 0
-
-            for r2_key, file_info in local_holdings_files.items():
-                local_path = file_info["path"]
-                local_hash = file_info["hash"]
-
-                if r2_key not in r2_holdings_files:
-                    holdings_to_upload.append((r2_key, local_path, "missing"))
-                    holdings_missing += 1
-                elif local_hash and r2_holdings_files[r2_key]["etag"] != local_hash:
-                    holdings_to_upload.append((r2_key, local_path, "changed"))
-                    holdings_changed += 1
-
-            if holdings_to_upload:
-                print(f"   -> 누락: {holdings_missing}개, 변경: {holdings_changed}개")
-                success_holdings = 0
-                fail_holdings = 0
-                for r2_key, local_path, status in tqdm(
-                    holdings_to_upload, desc="Uploading holdings"
-                ):
-                    if upload_file_to_r2(local_path, r2_key):
-                        success_holdings += 1
-                    else:
-                        fail_holdings += 1
-                        tqdm.write(f"[FAIL] {r2_key} ({status})")
-                print(f"   -> 성공: {success_holdings}, 실패: {fail_holdings}")
-            else:
-                print("   -> 변경사항 없음")
-        else:
-            print("   -> 폴더 없음")
-    else:
-        print("\n[6/6] holdings 폴더 확인 건너뜀 (요청 대상 아님)")
-
     # 최종 결과
     print("\n" + "=" * 60)
     print("  동기화 완료!")
@@ -470,7 +428,7 @@ def parse_arguments():
         "--target",
         "-t",
         action="append",
-        choices=["all", "data", "nav", "sidebar", "calendar", "logos", "holdings"],
+        choices=["all", "data", "nav", "sidebar", "calendar", "logos"],
         help="동기화할 섹션 선택 (여러 번 지정 가능). 지정하지 않으면 all",
     )
 

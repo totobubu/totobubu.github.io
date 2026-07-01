@@ -20,7 +20,6 @@
     import StockChartCard from '@/components/StockChartCard.vue';
     import StockPriceCandlestickChart from '@/components/charts/StockPriceCandlestickChart.vue';
     import StockHistoryPanel from '@/components/StockHistoryPanel.vue';
-    import StockHoldingsChart from '@/components/charts/StockHoldingsChart.vue';
 
     const route = useRoute();
     const { myBookmarks } = useFilterState();
@@ -30,7 +29,6 @@
         tickerInfo,
         dividendHistory,
         backtestData,
-        holdingsData,
         isLoading,
         error,
         loadData,
@@ -63,9 +61,6 @@
             options.push('배당', '목록');
         if (backtestData.value && backtestData.value.length > 0)
             options.push('주가');
-        // Holdings 데이터가 있을 때 자산 탭 추가
-        if (holdingsData.value && holdingsData.value.length > 0)
-            options.push('자산');
         return options;
     });
 
@@ -291,15 +286,6 @@
                 :history="displayData"
                 :is-desktop="isDesktop"
                 :currency="tickerInfo.currency" />
-
-            <div v-if="currentView === '자산'">
-                <StockHoldingsChart
-                    v-if="holdingsData && holdingsData.length > 0"
-                    :holdings-data="holdingsData" />
-                <div v-else class="text-center p-4">
-                    Holdings 데이터가 없습니다.
-                </div>
-            </div>
 
             <span v-if="tickerInfo.Update" class="text-center">
                 업데이트: {{ tickerInfo.Update }}

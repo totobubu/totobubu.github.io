@@ -115,7 +115,6 @@ prettier --write src/App.vue
 - ✅ `update_info_data_v2.yml`
 - ✅ `market_data_v2_kr.yml`
 - ✅ `market_data_v2_us.yml`
-- ✅ `update_holdings.yml`
 
 ---
 

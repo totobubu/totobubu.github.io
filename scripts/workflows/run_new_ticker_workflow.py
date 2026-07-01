@@ -98,9 +98,7 @@ def get_ticker_markets(tickers: Iterable[str]) -> dict[str, list[str]]:
     return {"KR": kr_tickers, "US": us_tickers}
 
 
-def prepare_steps(
-    tickers: Iterable[str], skip_format: bool, skip_fetch: bool
-):
+def prepare_steps(tickers: Iterable[str], skip_format: bool):
     """Return the ordered list of workflow steps."""
     ticker_args = [t.upper() for t in tickers]
     if not ticker_args:
@@ -118,32 +116,12 @@ def prepare_steps(
             "Analyze dividend frequency",
             [PYTHON, "scripts/data_pipeline/analyze_dividend_frequency.py", *ticker_args],
         ),
-        (
-            "Auto-detect holdings",
-            [
-                PYTHON,
-                "scripts/holdings/auto_detect_holdings.py",
-                "--api",
-                "--exclude-kr",
-                "--yes",
-                *ticker_args,
-            ],
-        ),
         ("Regenerate nav", ["npm", "run", "generate-nav"]),
         (
             "Scrape info data",
             [PYTHON, "scripts/data_pipeline/scraper_info.py", *ticker_args],
         ),
     ]
-
-    if not skip_fetch:
-        for ticker in ticker_args:
-            steps.append(
-                (
-                    f"Fetch holdings ({ticker})",
-                    [PYTHON, "scripts/holdings/fetch_holdings.py", ticker],
-                )
-            )
 
     # 티커를 market별로 분류하여 적절한 스크립트 실행
     ticker_markets = get_ticker_markets(ticker_args)
@@ -215,11 +193,6 @@ def main():
         help="Skip the final formatting step.",
     )
     parser.add_argument(
-        "--skip-fetch-holdings",
-        action="store_true",
-        help="Skip holdings collection.",
-    )
-    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print the plan without executing commands.",
@@ -232,7 +205,6 @@ def main():
     steps = prepare_steps(
         args.tickers,
         skip_format=args.skip_format,
-        skip_fetch=args.skip_fetch_holdings,
     )
 
     print("=" * 80)
@@ -261,4 +233,3 @@ if __name__ == "__main__":
     except Exception as exc:  # pylint: disable=broad-except
         print(f"\n[ERROR] Workflow aborted due to error: {exc}")
         sys.exit(1)
-
