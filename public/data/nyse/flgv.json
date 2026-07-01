@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 20.28,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 20.17,
         "englishName": "Franklin U.S. Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 551602,
-        "AvgVolume": 125983,
+        "Volume": 73401,
+        "AvgVolume": 110614,
         "sharesOutstanding": null,
         "52Week": "19.96 - 21.3",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.28,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 551602,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 125983,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12332,10 +12345,6 @@
             "volume": 551602
         },
         {
-            "date": "2026-07-01",
-            "forecasted": true
-        },
-        {
             "date": "2026-07-31",
             "forecasted": true
         },
@@ -12353,6 +12362,10 @@
         },
         {
             "date": "2026-12-01",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-31",
             "forecasted": true
         }
     ]

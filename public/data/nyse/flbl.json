@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 22.92,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 22.87,
         "englishName": "Franklin Senior Loan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 203590,
-        "AvgVolume": 189908,
+        "Volume": 96508,
+        "AvgVolume": 188001,
         "sharesOutstanding": null,
         "52Week": "22.57 - 24.29",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.92,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 203590,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 189908,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16463,10 +16476,6 @@
             "volume": 203590
         },
         {
-            "date": "2026-07-01",
-            "forecasted": true
-        },
-        {
             "date": "2026-07-31",
             "forecasted": true
         },
@@ -16484,6 +16493,10 @@
         },
         {
             "date": "2026-12-01",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-31",
             "forecasted": true
         }
     ]

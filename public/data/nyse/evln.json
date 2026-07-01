@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 48.5051,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 48.5507,
         "englishName": "Eaton Vance Floating-Rate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 55353,
-        "AvgVolume": 65909,
+        "Volume": 71086,
+        "AvgVolume": 67022,
         "sharesOutstanding": null,
         "52Week": "48.08 - 50.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.5051,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 55353,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 65909,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4871,10 +4884,12 @@
             "high": 48.52,
             "low": 48.459999,
             "close": 48.5051,
-            "volume": 55353
+            "volume": 55353,
+            "amount": 0.261,
+            "yield": 0.0751394932
         },
         {
-            "date": "2026-07-29",
+            "date": "2026-07-30",
             "forecasted": true
         },
         {
@@ -4882,19 +4897,19 @@
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-30",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-26",
+            "date": "2026-11-30",
             "forecasted": true
         },
         {
-            "date": "2026-12-29",
+            "date": "2026-12-30",
             "forecasted": true
         }
     ]

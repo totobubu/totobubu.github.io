@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 27.24,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 27.12,
         "englishName": "iShares Fallen Angels USD Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1198298,
-        "AvgVolume": 1097572,
+        "Volume": 1980429,
+        "AvgVolume": 1071813,
         "sharesOutstanding": null,
         "52Week": "26.373 - 27.79",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.24,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1198298,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1097572,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20431,10 +20444,6 @@
             "volume": 1198298
         },
         {
-            "date": "2026-07-01",
-            "forecasted": true
-        },
-        {
             "date": "2026-07-31",
             "forecasted": true
         },
@@ -20452,6 +20461,10 @@
         },
         {
             "date": "2026-12-01",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-31",
             "forecasted": true
         }
     ]

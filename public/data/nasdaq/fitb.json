@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 56.37,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 57.49,
         "englishName": "Fifth Third Bancorp",
         "earningsDate": "2026-07-17",
-        "enterpriseValue": 68102369280,
-        "marketCap": 51088781312,
-        "Volume": 3392243,
-        "AvgVolume": 7001558,
+        "enterpriseValue": 67730780160,
+        "marketCap": 52103852032,
+        "Volume": 4708484,
+        "AvgVolume": 6800319,
         "sharesOutstanding": 906311548,
-        "52Week": "40.05 - 56.94",
-        "Yield": 0.027852,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "52Week": "40.05 - 58.15",
+        "Yield": 0.027309,
+        "dividendRate": 1.6,
+        "payoutRatio": 0.5286,
         "isin": "US3167731005",
         "events": {
             "splits": [
@@ -77,7 +77,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.37,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 68102369280,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 51088781312,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3392243,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7001558,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.027852,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106824,7 +106849,9 @@
             "high": 56.7351,
             "low": 55.630001,
             "close": 56.369999,
-            "volume": 3392243
+            "volume": 3392243,
+            "amount": 0.4,
+            "yield": 0.034922886
         },
         {
             "date": "2026-09-30",

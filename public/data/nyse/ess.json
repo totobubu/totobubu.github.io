@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 291.59,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 295.18,
         "englishName": "Essex Property Trust, Inc.",
         "earningsDate": "2026-04-28",
-        "enterpriseValue": null,
-        "marketCap": 20098187264,
-        "Volume": 217433,
-        "AvgVolume": 475291,
+        "enterpriseValue": 25745287168,
+        "marketCap": 20345632768,
+        "Volume": 260556,
+        "AvgVolume": 472275,
         "sharesOutstanding": 64261739,
-        "52Week": "238.46 - 296.07",
-        "Yield": 0.035324,
+        "52Week": "238.46 - 299.2899",
+        "Yield": 0.034894,
         "dividendRate": 10.36,
         "payoutRatio": 1.1586,
         "isin": "US2971781057",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 291.59,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 20098187264,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 217433,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 475291,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.035324,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -72742,7 +72763,9 @@
             "high": 293.779999,
             "low": 288.649994,
             "close": 291.589996,
-            "volume": 217433
+            "volume": 217433,
+            "amount": 2.59,
+            "yield": 0.0443824684
         },
         {
             "date": "2026-09-30",

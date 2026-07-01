@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 7.5,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 7.84,
         "englishName": "Proshares Ultra Ether ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1639448,
-        "AvgVolume": 2024646,
+        "Volume": 1970556,
+        "AvgVolume": 2020783,
         "sharesOutstanding": null,
         "52Week": "7.07 - 131.74",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.5,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1639448,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2024646,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4207,10 +4220,6 @@
             "volume": 1639448
         },
         {
-            "date": "2026-07-01",
-            "forecasted": true
-        },
-        {
             "date": "2026-07-31",
             "forecasted": true
         },
@@ -4228,6 +4237,10 @@
         },
         {
             "date": "2026-12-01",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-31",
             "forecasted": true
         }
     ]

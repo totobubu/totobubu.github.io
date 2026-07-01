@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-01 05:51:13 KST",
-        "regularMarketPrice": 25.61,
+        "Update": "2026-07-02 06:28:34 KST",
+        "regularMarketPrice": 25.53,
         "englishName": "VanEck IG Floating Rate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 753226,
-        "AvgVolume": 921298,
+        "Volume": 993446,
+        "AvgVolume": 909108,
         "sharesOutstanding": null,
         "52Week": "25.34 - 25.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.61,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 753226,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 921298,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30926,10 +30939,6 @@
             "volume": 753226
         },
         {
-            "date": "2026-07-01",
-            "forecasted": true
-        },
-        {
             "date": "2026-07-31",
             "forecasted": true
         },
@@ -30947,6 +30956,10 @@
         },
         {
             "date": "2026-12-01",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-31",
             "forecasted": true
         }
     ]
