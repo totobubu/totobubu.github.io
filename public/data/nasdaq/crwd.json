@@ -24,7 +24,13 @@
         "payoutRatio": 0,
         "isin": "US22788C1053",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-07-02",
+                    "ratio": "4:1",
+                    "type": "reverse-split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -15961,6 +15967,14 @@
             "close": 772.73999,
             "volume": 2449719,
             "marketCap": 197521932288
+        },
+        {
+            "date": "2026-07-02",
+            "open": 191.255005,
+            "high": 199.529999,
+            "low": 190.610001,
+            "close": 193.979996,
+            "volume": 8781012
         }
     ]
 }
