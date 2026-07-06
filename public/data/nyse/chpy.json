@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-04 05:19:12 KST",
-        "regularMarketPrice": 78.33,
+        "Update": "2026-07-07 05:50:51 KST",
+        "regularMarketPrice": 80.12,
         "englishName": "YieldMax Semiconductor Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1123323,
-        "AvgVolume": 729274,
+        "Volume": 640658,
+        "AvgVolume": 735918,
         "sharesOutstanding": null,
         "52Week": "50.85 - 89.86",
         "Yield": null,
@@ -27,12 +27,16 @@
             "splits": []
         },
         "changes": {
-            "Volume": {
-                "value": 1115447,
+            "regularMarketPrice": {
+                "value": 78.33,
                 "change": "up"
             },
+            "Volume": {
+                "value": 1123323,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 722665,
+                "value": 729274,
                 "change": "up"
             }
         }
@@ -2836,6 +2840,10 @@
         {
             "date": "2026-12-30",
             "expected": true
+        },
+        {
+            "date": "2027-01-06",
+            "forecasted": true
         }
     ]
 }

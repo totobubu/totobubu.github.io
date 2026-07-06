@@ -9,14 +9,14 @@
         "underlying": "AMD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-04 05:19:12 KST",
-        "regularMarketPrice": 100.45,
+        "Update": "2026-07-07 05:50:51 KST",
+        "regularMarketPrice": 106.68,
         "englishName": "Roundhill AMD WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 107534,
-        "AvgVolume": 71183,
+        "Volume": 84033,
+        "AvgVolume": 71518,
         "sharesOutstanding": null,
         "52Week": "38.3 - 115.9",
         "Yield": null,
@@ -27,8 +27,16 @@
             "splits": []
         },
         "changes": {
+            "regularMarketPrice": {
+                "value": 100.45,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 107534,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 70563,
+                "value": 71183,
                 "change": "up"
             }
         }
@@ -2176,6 +2184,10 @@
         {
             "date": "2026-12-28",
             "expected": true
+        },
+        {
+            "date": "2027-01-04",
+            "forecasted": true
         }
     ]
 }
