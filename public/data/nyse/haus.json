@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 19.1066,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 19.287,
         "englishName": "Residential REIT ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1424,
-        "AvgVolume": 2913,
+        "Volume": 601,
+        "AvgVolume": 2926,
         "sharesOutstanding": null,
         "52Week": "16.6 - 19.56",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.1066,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1424,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2913,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8743,7 +8756,9 @@
             "high": 19.0546,
             "low": 18.92,
             "close": 19.0546,
-            "volume": 8514
+            "volume": 8514,
+            "amount": 0.34,
+            "yield": 0.0516332982
         },
         {
             "date": "2026-06-30",
@@ -8778,11 +8793,11 @@
             "volume": 1424
         },
         {
-            "date": "2026-09-25",
+            "date": "2026-09-29",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2026-12-29",
             "forecasted": true
         }
     ]

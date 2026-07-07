@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 224.46,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 221.07,
         "englishName": "IDEX Corporation",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 17877749760,
-        "marketCap": 16613420032,
-        "Volume": 310476,
-        "AvgVolume": 709977,
+        "enterpriseValue": 17925117952,
+        "marketCap": 16362509312,
+        "Volume": 435147,
+        "AvgVolume": 707509,
         "sharesOutstanding": 74015052,
         "52Week": "157.25 - 230.18",
-        "Yield": 0.009489,
+        "Yield": 0.009635,
         "dividendRate": 2.92,
         "payoutRatio": 0.4201,
         "isin": "US45167R1041",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 224.46,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 17877749760,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 16613420032,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 310476,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 709977,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009489,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -85007,14 +85032,16 @@
             "high": 225.460007,
             "low": 221.070007,
             "close": 224.460007,
-            "volume": 310476
+            "volume": 310476,
+            "amount": 0.73,
+            "yield": 0.0161566159
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-10-06",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2027-01-06",
             "forecasted": true
         }
     ]

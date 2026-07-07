@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 337.72,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 339.22,
         "englishName": "JPMorgan Chase & Co.",
         "earningsDate": "2026-07-14",
-        "enterpriseValue": 655120203776,
-        "marketCap": 904924561408,
-        "Volume": 4380667,
-        "AvgVolume": 8991627,
+        "enterpriseValue": 663828627456,
+        "marketCap": 908943818752,
+        "Volume": 4714193,
+        "AvgVolume": 9005083,
         "sharesOutstanding": 2679511418,
         "52Week": "279.1 - 343.45",
-        "Yield": 0.01747,
+        "Yield": 0.017393,
         "dividendRate": 6,
         "payoutRatio": 0.2824,
         "isin": "US46625H1005",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 337.72,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 655120203776,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 904924561408,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4380667,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8991627,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.01747,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106294,7 +106319,9 @@
             "high": 339.714996,
             "low": 334.109985,
             "close": 337.720001,
-            "volume": 4380667
+            "volume": 4380667,
+            "amount": 1.5,
+            "yield": 0.0179104478
         },
         {
             "date": "2026-10-06",

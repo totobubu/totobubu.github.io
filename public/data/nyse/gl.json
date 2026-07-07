@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 176.98,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 176.67,
         "englishName": "Globe Life Inc.",
         "earningsDate": "2026-04-22",
-        "enterpriseValue": 16835687424,
-        "marketCap": 13741569024,
-        "Volume": 417985,
-        "AvgVolume": 592322,
+        "enterpriseValue": 16563154944,
+        "marketCap": 13717499904,
+        "Volume": 408655,
+        "AvgVolume": 594104,
         "sharesOutstanding": 77644761,
         "52Week": "116.73 - 182.32",
-        "Yield": 0.006441,
+        "Yield": 0.006453,
         "dividendRate": 1.32,
         "payoutRatio": 0.0789,
         "isin": "US37959E1029",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 176.98,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16835687424,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 13741569024,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 417985,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 592322,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.006441,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106030,14 +106055,16 @@
             "high": 180.429993,
             "low": 176.339996,
             "close": 176.979996,
-            "volume": 417985
+            "volume": 417985,
+            "amount": 0.33,
+            "yield": 0.0067039106
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-06",
             "forecasted": true
         },
         {
-            "date": "2026-12-31",
+            "date": "2027-01-06",
             "forecasted": true
         }
     ]

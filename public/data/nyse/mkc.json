@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 51.78,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 52.22,
         "englishName": "McCormick & Company, Incorporated",
         "earningsDate": "2026-06-25",
-        "enterpriseValue": 19550115840,
-        "marketCap": 13921132544,
-        "Volume": 2089199,
-        "AvgVolume": 4469227,
+        "enterpriseValue": 19101132800,
+        "marketCap": 14039428096,
+        "Volume": 2272021,
+        "AvgVolume": 4451380,
         "sharesOutstanding": 254055150,
-        "52Week": "44.82 - 74.95",
-        "Yield": 0.035921,
+        "52Week": "44.82 - 73.84",
+        "Yield": 0.035619,
         "dividendRate": 1.92,
         "payoutRatio": 0.3095,
         "isin": "US5797802064",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.78,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19550115840,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 13921132544,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2089199,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4469227,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.035921,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -123145,14 +123170,16 @@
             "high": 52.720001,
             "low": 50.779999,
             "close": 51.779999,
-            "volume": 2089199
+            "volume": 2089199,
+            "amount": 0.48,
+            "yield": 0.0447076806
         },
         {
-            "date": "2026-07-20",
+            "date": "2026-10-06",
             "forecasted": true
         },
         {
-            "date": "2026-10-20",
+            "date": "2027-01-06",
             "forecasted": true
         }
     ]

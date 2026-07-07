@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 50.11,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 49.94,
         "englishName": "iShares Core International Aggregate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 978974,
-        "AvgVolume": 2039645,
+        "Volume": 759415,
+        "AvgVolume": 2018227,
         "sharesOutstanding": null,
         "52Week": "49.631 - 51.83",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 978974,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2039645,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21530,7 +21543,9 @@
             "high": 50.25,
             "low": 50.09,
             "close": 50.16,
-            "volume": 816720
+            "volume": 816720,
+            "amount": 0.415,
+            "yield": 0.0449590737
         },
         {
             "date": "2026-07-02",

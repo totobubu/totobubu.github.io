@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-07 05:50:51 KST",
-        "regularMarketPrice": 984.75,
+        "Update": "2026-07-08 05:57:58 KST",
+        "regularMarketPrice": 938.38,
         "englishName": "Micron Technology, Inc.",
         "earningsDate": "2026-06-24",
-        "enterpriseValue": 1082144784384,
-        "marketCap": 1112169906176,
-        "Volume": 35948270,
-        "AvgVolume": 51461354,
+        "enterpriseValue": 1092523917312,
+        "marketCap": 1059799957504,
+        "Volume": 51513504,
+        "AvgVolume": 51396462,
         "sharesOutstanding": 1129393151,
         "52Week": "103.38 - 1255.0",
-        "Yield": 0.000538,
+        "Yield": 0.000565,
         "dividendRate": 0.53,
         "payoutRatio": 0.0112,
         "isin": "US5951121038",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 984.75,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1082144784384,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1112169906176,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 35948270,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 51461354,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.000538,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -95575,14 +95600,16 @@
             "high": 1019,
             "low": 980.849976,
             "close": 984.75,
-            "volume": 35948270
+            "volume": 35948270,
+            "amount": 0.15,
+            "yield": 0.0006405164
         },
         {
-            "date": "2026-09-30",
+            "date": "2026-10-06",
             "forecasted": true
         },
         {
-            "date": "2026-12-30",
+            "date": "2027-01-06",
             "forecasted": true
         }
     ]
