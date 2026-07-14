@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-14 05:29:58 KST",
-        "regularMarketPrice": 63.94,
+        "Update": "2026-07-15 05:10:43 KST",
+        "regularMarketPrice": 63.37,
         "englishName": "GLOBALFOUNDRIES Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 36600283136,
-        "marketCap": 35083931648,
-        "Volume": 2392356,
-        "AvgVolume": 4778619,
+        "enterpriseValue": 33841747968,
+        "marketCap": 34771173376,
+        "Volume": 3284503,
+        "AvgVolume": 4780449,
         "sharesOutstanding": 548700833,
         "52Week": "31.51 - 92.55",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 63.94,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 36600283136,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 35083931648,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2392356,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4778619,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10543,7 +10564,8 @@
             "high": 67.5,
             "low": 63.855,
             "close": 63.939999,
-            "volume": 2392356
+            "volume": 2392356,
+            "marketCap": 34771173376
         }
     ]
 }
