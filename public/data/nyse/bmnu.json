@@ -24,7 +24,13 @@
         "payoutRatio": null,
         "isin": "US26923Q5642",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-07-13",
+                    "ratio": "1:10",
+                    "type": "split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -1625,6 +1631,14 @@
             "low": 7.47,
             "close": 7.81,
             "volume": 2237761
+        },
+        {
+            "date": "2026-07-14",
+            "open": 8.59,
+            "high": 9.61,
+            "low": 8.62,
+            "close": 9.52,
+            "volume": 7317329
         }
     ]
 }
