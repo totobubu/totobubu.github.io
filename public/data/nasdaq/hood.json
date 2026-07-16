@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-16 05:19:14 KST",
-        "regularMarketPrice": 115.54,
+        "Update": "2026-07-17 05:05:37 KST",
+        "regularMarketPrice": 106.02,
         "englishName": "Robinhood Markets, Inc.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 96871301120,
-        "marketCap": 104044355584,
-        "Volume": 20983659,
-        "AvgVolume": 30232829,
+        "enterpriseValue": 98753355776,
+        "marketCap": 95471550464,
+        "Volume": 27898732,
+        "AvgVolume": 29730204,
         "sharesOutstanding": 791184698,
         "52Week": "63.515 - 153.86",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 115.54,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 96871301120,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 104044355584,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 20983659,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 30232829,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11127,7 +11148,8 @@
             "high": 116.599998,
             "low": 112.120003,
             "close": 115.540001,
-            "volume": 20983659
+            "volume": 20983659,
+            "marketCap": 95471550464
         }
     ]
 }

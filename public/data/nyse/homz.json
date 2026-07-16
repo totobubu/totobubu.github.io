@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-16 05:19:14 KST",
-        "regularMarketPrice": 46.61,
+        "Update": "2026-07-17 05:05:37 KST",
+        "regularMarketPrice": 47.21,
         "englishName": "The Hoya Capital Housing ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1073,
-        "AvgVolume": 3316,
+        "Volume": 1525,
+        "AvgVolume": 3326,
         "sharesOutstanding": null,
         "52Week": "41.16 - 50.01",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.61,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1073,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3316,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14914,10 +14927,6 @@
             "volume": 1073
         },
         {
-            "date": "2026-07-16",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-14",
             "forecasted": true
         },
@@ -14935,6 +14944,10 @@
         },
         {
             "date": "2026-12-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

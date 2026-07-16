@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-16 05:19:14 KST",
-        "regularMarketPrice": 49.145,
+        "Update": "2026-07-17 05:05:37 KST",
+        "regularMarketPrice": 49.09,
         "englishName": "NEOS Enhanced Income Credit Select ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 27005,
-        "AvgVolume": 31131,
+        "Volume": 28569,
+        "AvgVolume": 31085,
         "sharesOutstanding": null,
         "52Week": "48.75 - 51.17",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.145,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 27005,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 31131,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3715,7 +3728,9 @@
             "high": 49.16,
             "low": 49.049999,
             "close": 49.145,
-            "volume": 27005
+            "volume": 27005,
+            "amount": 0.33,
+            "yield": 0.0904057103
         },
         {
             "date": "2026-08-12",
