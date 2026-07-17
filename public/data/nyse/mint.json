@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-17 05:05:37 KST",
-        "regularMarketPrice": 100.615,
+        "Update": "2026-07-18 05:20:40 KST",
+        "regularMarketPrice": 100.64,
         "englishName": "PIMCO Enhanced Short Maturity Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1012970,
-        "AvgVolume": 1587222,
+        "Volume": 1052817,
+        "AvgVolume": 1576329,
         "sharesOutstanding": null,
         "52Week": "100.27 - 100.82",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.615,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1012970,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1587222,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101,7 +114,7 @@
             "close": 100.16999816894531,
             "volume": 6700,
             "amount": 0.006,
-            "yield": 0.0000599101
+            "yield": 5.99101e-5
         },
         {
             "date": "2009-12-01",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-17 05:05:37 KST",
-        "regularMarketPrice": 8.58,
+        "Update": "2026-07-18 05:20:40 KST",
+        "regularMarketPrice": 8.19,
         "englishName": "Direxion Daily S&P Biotech Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 20245578,
-        "AvgVolume": 8294304,
+        "Volume": 19677362,
+        "AvgVolume": 8487152,
         "sharesOutstanding": null,
         "52Week": "6.68 - 69.69",
         "Yield": null,
@@ -42,7 +42,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.58,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 20245578,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8294304,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5718,7 +5731,7 @@
             "close": 6460,
             "volume": 2753,
             "yield": 2.4844720497,
-            "amountOriginal": 0.000002,
+            "amountOriginal": 2e-6,
             "amountSplitAdjustments": [
                 {
                     "date": "2018-03-29",
@@ -9395,7 +9408,7 @@
             "close": 2294,
             "volume": 14700,
             "yield": 6.9100169779,
-            "amountOriginal": 0.00007,
+            "amountOriginal": 7e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-08-28",

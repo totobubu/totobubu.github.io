@@ -9,16 +9,16 @@
         "underlying": "MARA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-17 05:05:37 KST",
-        "regularMarketPrice": 4.97,
+        "Update": "2026-07-18 05:20:40 KST",
+        "regularMarketPrice": 4.72,
         "englishName": "YieldMax MARA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 348571,
-        "AvgVolume": 528096,
+        "Volume": 463172,
+        "AvgVolume": 528986,
         "sharesOutstanding": null,
-        "52Week": "4.93 - 24.3",
+        "52Week": "4.655 - 24.3",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.97,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 348571,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 528096,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3387,7 +3400,9 @@
             "high": 5.2706,
             "low": 4.93,
             "close": 4.97,
-            "volume": 348571
+            "volume": 348571,
+            "amount": 0.089,
+            "yield": 2.2319274809
         },
         {
             "date": "2026-07-23",
