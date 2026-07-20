@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 103.24,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 104.7,
         "englishName": "ServiceNow, Inc.",
         "earningsDate": "2026-07-22",
-        "enterpriseValue": 104515346432,
-        "marketCap": 106472235008,
-        "Volume": 13002785,
-        "AvgVolume": 28305147,
+        "enterpriseValue": 103721238528,
+        "marketCap": 107977949184,
+        "Volume": 18215610,
+        "AvgVolume": 28238573,
         "sharesOutstanding": 1031308000,
         "52Week": "81.24 - 210.2",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 103.24,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 104515346432,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 106472235008,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13002785,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 28305147,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31675,7 +31696,8 @@
             "high": 105.830002,
             "low": 102.639999,
             "close": 103.239998,
-            "volume": 13002785
+            "volume": 13002785,
+            "marketCap": 107977949184
         }
     ]
 }

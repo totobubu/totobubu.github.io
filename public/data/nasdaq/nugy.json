@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 13.1,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 13.0622,
         "englishName": "Graniteshares YieldBOOST Gold Miners ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2474,
-        "AvgVolume": 21680,
+        "Volume": 5497,
+        "AvgVolume": 21100,
         "sharesOutstanding": null,
         "52Week": "13.03 - 25.84",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2474,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21680,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1434,7 +1447,9 @@
             "high": 13.14,
             "low": 13.03,
             "close": 13.1,
-            "volume": 2474
+            "volume": 2474,
+            "amount": 0.162,
+            "yield": 0.8788365311
         },
         {
             "date": "2026-07-24",

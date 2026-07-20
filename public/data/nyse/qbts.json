@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 16.73,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 16.72,
         "englishName": "D-Wave Quantum Inc.",
         "earningsDate": "2026-05-12",
-        "enterpriseValue": 5717364736,
-        "marketCap": 6197547520,
-        "Volume": 17382302,
-        "AvgVolume": 32067522,
+        "enterpriseValue": 5647080960,
+        "marketCap": 6193843200,
+        "Volume": 12912573,
+        "AvgVolume": 31714327,
         "sharesOutstanding": 367269074,
         "52Week": "12.75 - 46.75",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.73,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 5717364736,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 6197547520,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17382302,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 32067522,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11298,7 +11319,8 @@
             "high": 17.42,
             "low": 16.025,
             "close": 16.73,
-            "volume": 16411213
+            "volume": 16411213,
+            "marketCap": 6193843200
         }
     ]
 }

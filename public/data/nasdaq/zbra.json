@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 267.4,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 264.69,
         "englishName": "Zebra Technologies Corporation",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 15359754240,
-        "marketCap": 12737168384,
-        "Volume": 659993,
-        "AvgVolume": 968867,
+        "enterpriseValue": 15472168960,
+        "marketCap": 12608082944,
+        "Volume": 513480,
+        "AvgVolume": 968383,
         "sharesOutstanding": 47633392,
         "52Week": "199.05 - 352.66",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 267.4,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 15359754240,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 12737168384,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 659993,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 968867,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -79033,7 +79054,8 @@
             "high": 269.399994,
             "low": 259.304993,
             "close": 267.399994,
-            "volume": 659993
+            "volume": 659993,
+            "marketCap": 12608082944
         }
     ]
 }

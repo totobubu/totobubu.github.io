@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 84.14,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 86.05,
         "englishName": "PDD Holdings Inc.",
         "earningsDate": "2026-05-27",
-        "enterpriseValue": -309250293760,
-        "marketCap": 119764582400,
-        "Volume": 10424815,
-        "AvgVolume": 8949849,
+        "enterpriseValue": -312816435200,
+        "marketCap": 122483269632,
+        "Volume": 5837955,
+        "AvgVolume": 9033685,
         "sharesOutstanding": 1423396462,
         "52Week": "71.94 - 139.41",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 84.14,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": -309250293760,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 119764582400,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10424815,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8949849,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17925,7 +17946,8 @@
             "high": 84.75,
             "low": 83.5,
             "close": 84.139999,
-            "volume": 10424815
+            "volume": 10424815,
+            "marketCap": 122483269632
         }
     ]
 }

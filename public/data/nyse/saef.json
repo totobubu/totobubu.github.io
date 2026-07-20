@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 24.24,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 24.27,
         "englishName": "Schwab Ariel Opportunities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 7596,
-        "AvgVolume": 4318,
+        "AvgVolume": 4411,
         "sharesOutstanding": null,
-        "52Week": "24.26 - 32.37",
+        "52Week": "24.2 - 32.37",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.24,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4318,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9425,14 +9434,16 @@
             "high": 24.299999,
             "low": 24.26,
             "close": 24.27,
-            "volume": 7596
+            "volume": 7596,
+            "amount": 6.9659,
+            "yield": 0.292268583
         },
         {
-            "date": "2026-09-24",
+            "date": "2026-10-16",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 50.59,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 50.6,
         "englishName": "iShares Treasury Floating Rate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 894077,
-        "AvgVolume": 1496952,
+        "Volume": 1099116,
+        "AvgVolume": 1482844,
         "sharesOutstanding": null,
         "52Week": "50.39 - 50.66",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 894077,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1496952,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -181,7 +194,7 @@
             "close": 50.099998474121094,
             "volume": 2300,
             "amount": 0.003,
-            "yield": 0.0000598802
+            "yield": 5.98802e-5
         },
         {
             "date": "2014-03-04",

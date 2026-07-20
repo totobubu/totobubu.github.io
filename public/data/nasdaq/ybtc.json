@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 17.83,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 17.9901,
         "englishName": "Roundhill Bitcoin Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 40599,
-        "AvgVolume": 89837,
+        "Volume": 82511,
+        "AvgVolume": 87016,
         "sharesOutstanding": null,
-        "52Week": "16.3 - 49.54",
+        "52Week": "16.3 - 49.52",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.83,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 40599,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 89837,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5453,6 +5466,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

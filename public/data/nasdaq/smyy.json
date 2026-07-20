@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 6.445,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 6.39,
         "englishName": "GraniteShares YieldBOOST SMCI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10645,
-        "AvgVolume": 35795,
+        "Volume": 19864,
+        "AvgVolume": 35429,
         "sharesOutstanding": null,
-        "52Week": "6.43 - 26.93",
+        "52Week": "6.39 - 26.93",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.445,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10645,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 35795,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1746,7 +1759,9 @@
             "high": 6.4795,
             "low": 6.435,
             "close": 6.445,
-            "volume": 10645
+            "volume": 10645,
+            "amount": 0.116,
+            "yield": 2.021179289
         },
         {
             "date": "2026-07-24",

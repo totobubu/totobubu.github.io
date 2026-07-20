@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 100.03,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 100.08,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 56115,
-        "AvgVolume": 38978,
+        "Volume": 26987,
+        "AvgVolume": 39357,
         "sharesOutstanding": null,
         "52Week": "99.93 - 100.213",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.03,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56115,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38978,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3103,6 +3116,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

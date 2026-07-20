@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 149.94,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 149.82,
         "englishName": "Zscaler, Inc.",
         "earningsDate": "2026-05-26",
-        "enterpriseValue": 22008180736,
-        "marketCap": 24246726656,
-        "Volume": 2473260,
-        "AvgVolume": 4565763,
+        "enterpriseValue": 22575781888,
+        "marketCap": 24227321856,
+        "Volume": 1584941,
+        "AvgVolume": 4575118,
         "sharesOutstanding": 161709525,
         "52Week": "114.625 - 336.99",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 149.94,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22008180736,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24246726656,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2473260,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4565763,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18744,7 +18765,8 @@
             "high": 153.289993,
             "low": 145.389999,
             "close": 149.940002,
-            "volume": 2512763
+            "volume": 2512763,
+            "marketCap": 24227321856
         }
     ]
 }

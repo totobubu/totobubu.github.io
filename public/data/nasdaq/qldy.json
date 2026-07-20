@@ -12,14 +12,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 42.405,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 42.3122,
         "englishName": "Defiance NASDAQ 100 Lightningspread Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49981,
-        "AvgVolume": 43773,
+        "Volume": 26992,
+        "AvgVolume": 44395,
         "sharesOutstanding": null,
         "52Week": "37.4 - 52.35",
         "Yield": null,
@@ -29,7 +29,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.405,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49981,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 43773,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1894,7 +1907,9 @@
             "high": 42.775002,
             "low": 41.650002,
             "close": 42.404999,
-            "volume": 50539
+            "volume": 50539,
+            "amount": 0.17,
+            "yield": 0.3148046689
         },
         {
             "date": "2026-07-22",
@@ -1998,6 +2013,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 110.15,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 106.44,
         "englishName": "Revvity, Inc.",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 14951086080,
-        "marketCap": 12288309248,
-        "Volume": 1225419,
-        "AvgVolume": 1479311,
+        "enterpriseValue": 14778168320,
+        "marketCap": 11874422784,
+        "Volume": 1001607,
+        "AvgVolume": 1483654,
         "sharesOutstanding": 111559773,
         "52Week": "81.22 - 118.3",
-        "Yield": 0.002542,
+        "Yield": 0.002631,
         "dividendRate": 0.28,
         "payoutRatio": 0.1346,
         "isin": "US7140461093",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 110.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 14951086080,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12288309248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1225419,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1479311,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.002542,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122381,7 +122406,9 @@
             "high": 111.760002,
             "low": 108.940002,
             "close": 110.150002,
-            "volume": 1028446
+            "volume": 1028446,
+            "amount": 0.07,
+            "yield": 0.0031648432
         },
         {
             "date": "2026-10-16",

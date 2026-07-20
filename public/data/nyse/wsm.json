@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-18 05:20:40 KST",
-        "regularMarketPrice": 228.41,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 223.34,
         "englishName": "Williams-Sonoma, Inc.",
         "earningsDate": "2026-05-21",
-        "enterpriseValue": 27732934656,
-        "marketCap": 26894503936,
-        "Volume": 1054599,
-        "AvgVolume": 1184736,
+        "enterpriseValue": 27736465408,
+        "marketCap": 26297526272,
+        "Volume": 754484,
+        "AvgVolume": 1199708,
         "sharesOutstanding": 117746611,
         "52Week": "165.51 - 244.65",
-        "Yield": 0.011996,
+        "Yield": 0.012268,
         "dividendRate": 3.04,
         "payoutRatio": 0.3072,
         "isin": "US9699041011",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 228.41,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27732934656,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 26894503936,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1054599,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1184736,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011996,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -98294,7 +98319,9 @@
             "high": 233.705002,
             "low": 224.949997,
             "close": 228.410004,
-            "volume": 862413
+            "volume": 862413,
+            "amount": 0.76,
+            "yield": 0.0154798758
         },
         {
             "date": "2026-10-16",
