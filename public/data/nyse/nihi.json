@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 51.17,
+        "englishName": "NEOS MSCI EAFE High Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 40743,
+        "AvgVolume": 46583,
+        "sharesOutstanding": null,
+        "52Week": "46.85 - 53.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US78433H5431",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.42,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 35406,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 46827,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1699,6 +1724,38 @@
             "volume": 50922
         },
         {
+            "date": "2026-07-15",
+            "open": 51.869999,
+            "high": 52.060001,
+            "low": 51.669998,
+            "close": 51.990002,
+            "volume": 38334
+        },
+        {
+            "date": "2026-07-16",
+            "open": 51.645,
+            "high": 51.7999,
+            "low": 51.600899,
+            "close": 51.700001,
+            "volume": 31112
+        },
+        {
+            "date": "2026-07-17",
+            "open": 51.240002,
+            "high": 51.529999,
+            "low": 51.205002,
+            "close": 51.419998,
+            "volume": 35406
+        },
+        {
+            "date": "2026-07-20",
+            "open": 51.509998,
+            "high": 51.52,
+            "low": 51.169998,
+            "close": 51.169998,
+            "volume": 40743
+        },
+        {
             "date": "2026-07-22",
             "expected": true
         },
@@ -1721,6 +1778,10 @@
         {
             "date": "2026-12-16",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

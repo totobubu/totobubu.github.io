@@ -9,12 +9,37 @@
         "underlying": "NFLX",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 14.865,
+        "englishName": "Roundhill NFLX WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 15234,
+        "AvgVolume": 17181,
+        "sharesOutstanding": null,
+        "52Week": "14.29 - 48.45",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X6435",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.2,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 25230,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17101,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2332,8 +2357,37 @@
             "volume": 8867
         },
         {
+            "date": "2026-07-15",
+            "open": 16.620001,
+            "high": 16.879999,
+            "low": 16.540001,
+            "close": 16.540001,
+            "volume": 11426
+        },
+        {
+            "date": "2026-07-16",
+            "open": 16.700001,
+            "high": 16.758101,
+            "low": 16.43,
+            "close": 16.68,
+            "volume": 11006
+        },
+        {
+            "date": "2026-07-17",
+            "open": 14.38,
+            "high": 15.43,
+            "low": 14.29,
+            "close": 15.3741,
+            "volume": 25544
+        },
+        {
             "date": "2026-07-20",
-            "expected": true
+            "expected": true,
+            "open": 15.02,
+            "high": 14.969,
+            "low": 14.69,
+            "close": 14.865,
+            "volume": 15250
         },
         {
             "date": "2026-07-27",
@@ -2433,6 +2487,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

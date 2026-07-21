@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 14.1588,
+        "englishName": "GraniteShares YieldBOOST Semiconductors ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 193229,
+        "AvgVolume": 261081,
+        "sharesOutstanding": null,
+        "52Week": "14.1 - 25.81",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R1995",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.2228,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 206355,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 261332,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1404,8 +1429,39 @@
             "volume": 219102
         },
         {
+            "date": "2026-07-15",
+            "open": 14.81,
+            "high": 14.81,
+            "low": 14.37,
+            "close": 14.6,
+            "volume": 167360
+        },
+        {
+            "date": "2026-07-16",
+            "open": 14.68,
+            "high": 14.71,
+            "low": 14.54,
+            "close": 14.5666,
+            "volume": 132442
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 14.16,
+            "high": 14.335,
+            "low": 14.1,
+            "close": 14.2228,
+            "volume": 206355,
+            "amount": 0.267,
+            "yield": 1.1169251412
+        },
+        {
+            "date": "2026-07-20",
+            "open": 14.3,
+            "high": 14.4,
+            "low": 14.155,
+            "close": 14.1588,
+            "volume": 193229
         },
         {
             "date": "2026-07-24",
@@ -1502,6 +1558,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

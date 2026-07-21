@@ -9,12 +9,37 @@
         "underlying": "NVDA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 12.4,
+        "englishName": "GraniteShares YieldBOOST NVDA ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12467,
+        "AvgVolume": 93959,
+        "sharesOutstanding": null,
+        "52Week": "12.22 - 28.3",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R4395",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.43,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 164802,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 92411,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2544,8 +2569,39 @@
             "volume": 22368
         },
         {
+            "date": "2026-07-15",
+            "open": 12.72,
+            "high": 12.735,
+            "low": 12.61,
+            "close": 12.71,
+            "volume": 29004
+        },
+        {
+            "date": "2026-07-16",
+            "open": 12.7,
+            "high": 12.72,
+            "low": 12.5972,
+            "close": 12.63,
+            "volume": 46619
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 12.41,
+            "high": 12.52,
+            "low": 12.22,
+            "close": 12.43,
+            "volume": 164802,
+            "amount": 0.11,
+            "yield": 1.4032796132
+        },
+        {
+            "date": "2026-07-20",
+            "open": 12.43,
+            "high": 12.48,
+            "low": 12.4,
+            "close": 12.4,
+            "volume": 12467
         },
         {
             "date": "2026-07-24",
@@ -2642,6 +2698,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

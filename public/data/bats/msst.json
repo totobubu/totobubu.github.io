@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 23.0257,
+        "englishName": "YieldMax MSTR Performance & Distribution Target 25 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 362,
+        "AvgVolume": 1891,
+        "sharesOutstanding": null,
+        "52Week": "19.41 - 54.29",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V7516",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.5,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 879,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1909,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1385,7 +1410,40 @@
             "high": 22.611,
             "low": 22.579901,
             "close": 22.611,
-            "volume": 1511
+            "volume": 1511,
+            "yield": 0.2652251023
+        },
+        {
+            "date": "2026-07-15",
+            "open": 22.870001,
+            "high": 22.870001,
+            "low": 22.6644,
+            "close": 22.6644,
+            "volume": 574
+        },
+        {
+            "date": "2026-07-16",
+            "open": 22.219999,
+            "high": 22.219999,
+            "low": 22.181999,
+            "close": 22.181999,
+            "volume": 426
+        },
+        {
+            "date": "2026-07-17",
+            "open": 21.5,
+            "high": 22.4153,
+            "low": 22.4153,
+            "close": 22.4153,
+            "volume": 879
+        },
+        {
+            "date": "2026-07-20",
+            "open": 22.955,
+            "high": 23.0257,
+            "low": 22.955,
+            "close": 23.0257,
+            "volume": 362
         },
         {
             "date": "2026-07-21",
@@ -1489,6 +1547,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 34.8993,
+        "englishName": "YieldMax Strategic Metals & Mining Portfolio Option Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 36361,
+        "AvgVolume": 5496,
+        "sharesOutstanding": null,
+        "52Week": "34.3 - 51.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636X2523",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.1481,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10967,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5470,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -807,7 +832,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.2134
+            "amountFixed": 0.2134,
+            "open": 36.184299,
+            "high": 36.431301,
+            "low": 36.184299,
+            "close": 36.431301,
+            "volume": 1145,
+            "yield": 0.1238935153
+        },
+        {
+            "date": "2026-07-16",
+            "open": 36.02,
+            "high": 35.455002,
+            "low": 35.055,
+            "close": 35.240002,
+            "volume": 8046
+        },
+        {
+            "date": "2026-07-17",
+            "open": 34.299999,
+            "high": 35.330002,
+            "low": 34.370098,
+            "close": 35.1147,
+            "volume": 10967
+        },
+        {
+            "date": "2026-07-20",
+            "open": 34.93,
+            "high": 35,
+            "low": 34.880001,
+            "close": 34.8993,
+            "volume": 36361
         },
         {
             "date": "2026-07-22",
@@ -911,6 +966,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

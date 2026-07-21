@@ -9,7 +9,19 @@
         "underlying": "SMCI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 4.07,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 467009,
+        "AvgVolume": 1121731,
+        "sharesOutstanding": null,
+        "52Week": "3.99 - 23.79",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R8676",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.13,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 695915,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1117039,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3868,8 +3893,41 @@
             "volume": 285192
         },
         {
+            "date": "2026-07-15",
+            "open": 4.78,
+            "high": 4.82,
+            "low": 4.535,
+            "close": 4.65,
+            "volume": 696855
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.0761
+            "expected": true,
+            "open": 4.54,
+            "high": 4.54,
+            "low": 4.185,
+            "close": 4.2,
+            "volume": 1021438,
+            "amount": 0.076,
+            "amountFixed": 0.0761,
+            "yield": 2.1624669604
+        },
+        {
+            "date": "2026-07-17",
+            "open": 4.15,
+            "high": 4.26,
+            "low": 3.99,
+            "close": 4.13,
+            "volume": 695915
+        },
+        {
+            "date": "2026-07-20",
+            "open": 4.17,
+            "high": 4.18,
+            "low": 4.07,
+            "close": 4.07,
+            "volume": 474745
+        },
         },
         {
             "date": "2026-07-23",

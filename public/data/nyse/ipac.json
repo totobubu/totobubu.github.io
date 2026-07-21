@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 80.97,
+        "englishName": "iShares Core MSCI Pacific ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 44786,
+        "AvgVolume": 151737,
+        "sharesOutstanding": null,
+        "52Week": "67.7 - 84.63",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46434V6965",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 81.05,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 86061,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 151504,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24378,6 +24403,38 @@
             "low": 82.910004,
             "close": 83.059998,
             "volume": 84378
+        },
+        {
+            "date": "2026-07-15",
+            "open": 83.110001,
+            "high": 83.239998,
+            "low": 82.504997,
+            "close": 83.019997,
+            "volume": 59834
+        },
+        {
+            "date": "2026-07-16",
+            "open": 82.120003,
+            "high": 82.379898,
+            "low": 81.794998,
+            "close": 82.059998,
+            "volume": 48517
+        },
+        {
+            "date": "2026-07-17",
+            "open": 80.190002,
+            "high": 81.160004,
+            "low": 80.195,
+            "close": 81.050003,
+            "volume": 86061
+        },
+        {
+            "date": "2026-07-20",
+            "open": 81.269997,
+            "high": 81.419998,
+            "low": 80.919998,
+            "close": 80.970001,
+            "volume": 44786
         }
     ]
 }

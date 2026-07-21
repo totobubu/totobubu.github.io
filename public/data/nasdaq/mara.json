@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 11.67,
+        "englishName": "MARA Holdings, Inc.",
+        "earningsDate": "2026-05-11",
+        "enterpriseValue": 6127354880,
+        "marketCap": 4449426944,
+        "Volume": 60659809,
+        "AvgVolume": 43374609,
+        "sharesOutstanding": 381270503,
+        "52Week": "6.66 - 23.45",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US5657881067",
         "events": {
             "splits": [
@@ -35,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.69,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 6405682176,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4075781376,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 43030675,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 43346519,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32011,6 +32044,41 @@
             "low": 11.675,
             "close": 12.16,
             "volume": 57195223
+        },
+        {
+            "date": "2026-07-15",
+            "open": 12.23,
+            "high": 12.535,
+            "low": 11.6,
+            "close": 12.29,
+            "volume": 48531744,
+            "marketCap": 4354108928
+        },
+        {
+            "date": "2026-07-16",
+            "open": 12.01,
+            "high": 12.24,
+            "low": 11.25,
+            "close": 11.42,
+            "volume": 43961566,
+            "marketCap": 4075781376
+        },
+        {
+            "date": "2026-07-17",
+            "open": 10.91,
+            "high": 11.05,
+            "low": 10.5413,
+            "close": 10.69,
+            "volume": 43030675,
+            "marketCap": 4449426944
+        },
+        {
+            "date": "2026-07-20",
+            "open": 11.07,
+            "high": 12.03,
+            "low": 11.07,
+            "close": 11.67,
+            "volume": 60659809
         }
     ]
 }

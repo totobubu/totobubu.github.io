@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 23.402,
+        "englishName": "Unlimited HFEQ Equity Long/Short ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3471,
+        "AvgVolume": 8336,
+        "sharesOutstanding": null,
+        "52Week": "19.9 - 24.69",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8863643719",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.7,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2015,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8362,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2026,6 +2051,38 @@
             "low": 24.01,
             "close": 24.0865,
             "volume": 5053
+        },
+        {
+            "date": "2026-07-15",
+            "open": 23.98,
+            "high": 24.08,
+            "low": 23.98,
+            "close": 23.991199,
+            "volume": 1284
+        },
+        {
+            "date": "2026-07-16",
+            "open": 23.870001,
+            "high": 24.049999,
+            "low": 23.700001,
+            "close": 23.7983,
+            "volume": 16817
+        },
+        {
+            "date": "2026-07-17",
+            "open": 23.75,
+            "high": 23.700001,
+            "low": 23.605101,
+            "close": 23.605101,
+            "volume": 2015
+        },
+        {
+            "date": "2026-07-20",
+            "open": 23.695,
+            "high": 23.695,
+            "low": 23.402,
+            "close": 23.402,
+            "volume": 3471
         }
     ]
 }

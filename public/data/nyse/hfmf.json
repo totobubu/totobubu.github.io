@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 21.8475,
+        "englishName": "Unlimited HFMF Managed Futures ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 2201,
+        "AvgVolume": 9996,
+        "sharesOutstanding": null,
+        "52Week": "19.98 - 24.92",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8863643222",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.755,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3127,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10037,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2026,6 +2051,38 @@
             "low": 21.855,
             "close": 21.879999,
             "volume": 3493
+        },
+        {
+            "date": "2026-07-15",
+            "open": 21.858999,
+            "high": 21.861099,
+            "low": 21.780001,
+            "close": 21.861099,
+            "volume": 4506
+        },
+        {
+            "date": "2026-07-16",
+            "open": 21.790001,
+            "high": 21.799999,
+            "low": 21.66,
+            "close": 21.68,
+            "volume": 3998
+        },
+        {
+            "date": "2026-07-17",
+            "open": 21.629,
+            "high": 21.768999,
+            "low": 21.629,
+            "close": 21.764999,
+            "volume": 3127
+        },
+        {
+            "date": "2026-07-20",
+            "open": 21.83,
+            "high": 21.8475,
+            "low": 21.83,
+            "close": 21.8475,
+            "volume": 2201
         }
     ]
 }

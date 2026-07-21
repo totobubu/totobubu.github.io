@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 124.83,
+        "englishName": "PTC Inc.",
+        "earningsDate": "2026-07-29",
+        "enterpriseValue": 15307395072,
+        "marketCap": 14418588672,
+        "Volume": 1308496,
+        "AvgVolume": 1752445,
+        "sharesOutstanding": 115505791,
+        "52Week": "108.5 - 219.69",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US69370C1009",
         "events": {
             "splits": [
@@ -45,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 124.37,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 15652757504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14365455360,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1458873,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1740622,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -82837,6 +82870,40 @@
             "low": 120.260002,
             "close": 122.510002,
             "volume": 1273216
+        },
+        {
+            "date": "2026-07-15",
+            "open": 123.639999,
+            "high": 126.580002,
+            "low": 122.889999,
+            "close": 123.610001,
+            "volume": 1305647
+        },
+        {
+            "date": "2026-07-16",
+            "open": 125.5,
+            "high": 128.005005,
+            "low": 124.370003,
+            "close": 127.360001,
+            "volume": 1050569,
+            "marketCap": 14365455360
+        },
+        {
+            "date": "2026-07-17",
+            "open": 126.379997,
+            "high": 127.644997,
+            "low": 124.25,
+            "close": 124.370003,
+            "volume": 1458873,
+            "marketCap": 14418588672
+        },
+        {
+            "date": "2026-07-20",
+            "open": 123.389999,
+            "high": 126.190002,
+            "low": 122.794998,
+            "close": 124.830002,
+            "volume": 1332166
         }
     ]
 }

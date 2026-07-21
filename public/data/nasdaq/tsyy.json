@@ -9,7 +9,19 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 21.3,
+        "englishName": "GraniteShares YieldBOOST TSLA ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 31440,
+        "AvgVolume": 85402,
+        "sharesOutstanding": null,
+        "52Week": "20.28 - 77.984",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R6119",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.8172,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 23375,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 86150,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3360,8 +3385,39 @@
             "volume": 23476
         },
         {
+            "date": "2026-07-15",
+            "open": 22.43,
+            "high": 22.49,
+            "low": 22.32,
+            "close": 22.35,
+            "volume": 17103
+        },
+        {
+            "date": "2026-07-16",
+            "open": 22.280001,
+            "high": 22.3899,
+            "low": 22.190001,
+            "close": 22.290001,
+            "volume": 32997
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 21.790001,
+            "high": 21.9,
+            "low": 21.639999,
+            "close": 21.8172,
+            "volume": 23375,
+            "amount": 0.217,
+            "yield": 0.3803120523
+        },
+        {
+            "date": "2026-07-20",
+            "open": 21.950001,
+            "high": 21.950001,
+            "low": 21.299999,
+            "close": 21.299999,
+            "volume": 31440
         },
         {
             "date": "2026-07-24",
@@ -3458,6 +3514,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

@@ -9,7 +9,19 @@
         "underlying": "PYPL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 30.8072,
+        "englishName": "Yieldmax PYPL Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3311,
+        "AvgVolume": 12026,
+        "sharesOutstanding": null,
+        "52Week": "24.15 - 64.75",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T4519",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.88,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7835,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12042,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6107,8 +6132,41 @@
             "volume": 2685
         },
         {
+            "date": "2026-07-15",
+            "open": 30,
+            "high": 30.565001,
+            "low": 29.16,
+            "close": 30.360001,
+            "volume": 58452
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.2404
+            "expected": true,
+            "open": 30.200001,
+            "high": 31.094999,
+            "low": 30.35,
+            "close": 30.739599,
+            "volume": 24080,
+            "amount": 0.24,
+            "amountFixed": 0.2404,
+            "yield": 0.6012251457
+        },
+        {
+            "date": "2026-07-17",
+            "open": 30.4,
+            "high": 30.879999,
+            "low": 30.245001,
+            "close": 30.6616,
+            "volume": 8118
+        },
+        {
+            "date": "2026-07-20",
+            "open": 30.139999,
+            "high": 30.895,
+            "low": 30.139999,
+            "close": 30.807199,
+            "volume": 3311
+        },
         },
         {
             "date": "2026-07-23",

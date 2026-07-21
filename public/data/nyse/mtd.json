@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 1273.77,
+        "englishName": "Mettler-Toledo International Inc.",
+        "earningsDate": "2026-07-30",
+        "enterpriseValue": 28640425984,
+        "marketCap": 25739835392,
+        "Volume": 139062,
+        "AvgVolume": 204050,
+        "sharesOutstanding": 20207601,
+        "52Week": "1023.05 - 1525.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US5926881054",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1310.02,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29147029504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 26472359936,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 101659,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 203790,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -64745,6 +64778,41 @@
             "low": 1287.079956,
             "close": 1314.829956,
             "volume": 146872
+        },
+        {
+            "date": "2026-07-15",
+            "open": 1321.439941,
+            "high": 1332.234985,
+            "low": 1314.344971,
+            "close": 1316.550049,
+            "volume": 75926,
+            "marketCap": 26976135168
+        },
+        {
+            "date": "2026-07-16",
+            "open": 1313.060059,
+            "high": 1341.119995,
+            "low": 1306.400024,
+            "close": 1335.089966,
+            "volume": 89058,
+            "marketCap": 26472359936
+        },
+        {
+            "date": "2026-07-17",
+            "open": 1312.130005,
+            "high": 1339.579956,
+            "low": 1301.359985,
+            "close": 1310.02002,
+            "volume": 131366,
+            "marketCap": 25739835392
+        },
+        {
+            "date": "2026-07-20",
+            "open": 1295.349976,
+            "high": 1295.795044,
+            "low": 1269.209961,
+            "close": 1273.77002,
+            "volume": 139062
         }
     ]
 }

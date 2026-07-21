@@ -9,12 +9,37 @@
         "underlying": "HIMS",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 6.5229,
+        "englishName": "GraniteShares YieldBOOST HIMS ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4007,
+        "AvgVolume": 4096,
+        "sharesOutstanding": null,
+        "52Week": "6.5229 - 25.79",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R1409",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.555,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2303,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4267,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1314,8 +1339,37 @@
             "volume": 3546
         },
         {
+            "date": "2026-07-15",
+            "open": 6.815,
+            "high": 6.85,
+            "low": 6.805,
+            "close": 6.845,
+            "volume": 1674
+        },
+        {
+            "date": "2026-07-16",
+            "open": 6.84,
+            "high": 6.84,
+            "low": 6.72,
+            "close": 6.725,
+            "volume": 9649
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 6.56,
+            "high": 6.6398,
+            "low": 6.555,
+            "close": 6.555,
+            "volume": 2310
+        },
+        {
+            "date": "2026-07-20",
+            "open": 6.53,
+            "high": 6.541,
+            "low": 6.5229,
+            "close": 6.5229,
+            "volume": 4007
         },
         {
             "date": "2026-07-24",
@@ -1412,6 +1466,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

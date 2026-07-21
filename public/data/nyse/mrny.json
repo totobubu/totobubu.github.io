@@ -9,7 +9,19 @@
         "underlying": "MRNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 15.98,
+        "englishName": "YieldMax MRNA Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 175811,
+        "AvgVolume": 203375,
+        "sharesOutstanding": null,
+        "52Week": "13.6 - 25.9",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T4691",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.42,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 213011,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 202414,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5938,8 +5963,40 @@
             "volume": 176256
         },
         {
+            "date": "2026-07-15",
+            "open": 18.1,
+            "high": 18.290001,
+            "low": 17.715799,
+            "close": 18.280001,
+            "volume": 213512
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.3647
+"expected": true,
+            "open": 17.719999,
+            "high": 17.719999,
+            "low": 16.67,
+            "close": 16.719999,
+            "volume": 211038,
+            "amount": 0.365,
+            "amountFixed": 0.3647,
+            "yield": 1.2193510846
+        },
+        {
+            "date": "2026-07-17",
+            "open": 16.42,
+            "high": 16.695,
+            "low": 16.200001,
+            "close": 16.42,
+            "volume": 217816
+        },
+        {
+            "date": "2026-07-20",
+            "open": 16.41,
+            "high": 16.540001,
+            "low": 15.8239,
+            "close": 15.98,
+            "volume": 178983
         },
         {
             "date": "2026-07-23",

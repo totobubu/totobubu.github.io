@@ -9,12 +9,37 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 3.46,
+        "englishName": "Roundhill MSTR WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 504033,
+        "AvgVolume": 547349,
+        "sharesOutstanding": null,
+        "52Week": "3.0 - 51.13",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X5932",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.39,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 363174,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 548380,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2117,8 +2142,37 @@
             "volume": 429377
         },
         {
+            "date": "2026-07-15",
+            "open": 3.6,
+            "high": 3.68,
+            "low": 3.45,
+            "close": 3.5,
+            "volume": 335629
+        },
+        {
+            "date": "2026-07-16",
+            "open": 3.42,
+            "high": 3.415,
+            "low": 3.33,
+            "close": 3.345,
+            "volume": 345394
+        },
+        {
+            "date": "2026-07-17",
+            "open": 3.22,
+            "high": 3.4299,
+            "low": 3.195,
+            "close": 3.39,
+            "volume": 363174
+        },
+        {
             "date": "2026-07-20",
-            "expected": true
+            "expected": true,
+            "open": 3.37,
+            "high": 3.565,
+            "low": 3.34,
+            "close": 3.46,
+            "volume": 504033
         },
         {
             "date": "2026-07-27",
@@ -2218,6 +2272,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

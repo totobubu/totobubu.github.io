@@ -9,12 +9,37 @@
         "underlying": "RIOT",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 10.09,
+        "englishName": "GraniteShares YieldBOOST RIOT ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6264,
+        "AvgVolume": 9529,
+        "sharesOutstanding": null,
+        "52Week": "9.86 - 25.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R1573",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.9295,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6040,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9473,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1308,8 +1333,47 @@
             "volume": 7095
         },
         {
+            "date": "2026-07-14",
+            "open": 10.63,
+            "high": 10.63,
+            "low": 10.35,
+            "close": 10.482,
+            "volume": 30900
+        },
+        {
+            "date": "2026-07-15",
+            "open": 10.48,
+            "high": 10.48,
+            "low": 10.3757,
+            "close": 10.3934,
+            "volume": 1628
+        },
+        {
+            "date": "2026-07-16",
+            "open": 10.25,
+            "high": 10.25,
+            "low": 10.15,
+            "close": 10.1509,
+            "volume": 3081
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 9.86,
+            "high": 9.96,
+            "low": 9.86,
+            "close": 9.9295,
+            "volume": 6111,
+            "amount": 0.185,
+            "yield": 1.1926440162
+        },
+        {
+            "date": "2026-07-20",
+            "open": 9.98,
+            "high": 10.115,
+            "low": 9.98,
+            "close": 10.09,
+            "volume": 6264
         },
         {
             "date": "2026-07-24",
@@ -1406,6 +1470,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

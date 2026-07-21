@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 8.33,
+        "englishName": "REX IncomeMax Option Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 77294,
+        "AvgVolume": 97321,
+        "sharesOutstanding": null,
+        "52Week": "8.2 - 26.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US7615628671",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.35,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 87566,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 96936,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1487,8 +1512,39 @@
             "volume": 84318
         },
         {
+            "date": "2026-07-15",
+            "open": 9.5484,
+            "high": 9.5484,
+            "low": 9,
+            "close": 9.21,
+            "volume": 63084
+        },
+        {
             "date": "2026-07-16",
-            "expected": true
+            "expected": true,
+            "open": 8.97,
+            "high": 8.97,
+            "low": 8.42,
+            "close": 8.5188,
+            "volume": 133488,
+            "amount": 0.12,
+            "yield": 0.7257525084
+        },
+        {
+            "date": "2026-07-17",
+            "open": 8.26,
+            "high": 8.53,
+            "low": 8.2,
+            "close": 8.35,
+            "volume": 87566
+        },
+        {
+            "date": "2026-07-20",
+            "open": 8.31,
+            "high": 8.5299,
+            "low": 8.2636,
+            "close": 8.33,
+            "volume": 77294
         },
         {
             "date": "2026-07-23",

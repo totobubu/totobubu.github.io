@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 20.8,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 83863,
+        "AvgVolume": 36186,
+        "sharesOutstanding": null,
+        "52Week": "17.665 - 25.92",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US5009488496",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.75,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 39560,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 35870,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1464,7 +1489,38 @@
         },
         {
             "date": "2026-07-15",
-            "expected": true
+            "expected": true,
+            "open": 22.01,
+            "high": 21.989201,
+            "low": 21.32,
+            "close": 21.690001,
+            "volume": 48102,
+            "amount": 0.1,
+            "yield": 0.1476601545
+        },
+        {
+            "date": "2026-07-16",
+            "open": 21.870001,
+            "high": 21.761801,
+            "low": 20.75,
+            "close": 21,
+            "volume": 84807
+        },
+        {
+            "date": "2026-07-17",
+            "open": 20.33,
+            "high": 21.18,
+            "low": 20.1,
+            "close": 20.700899,
+            "volume": 39560
+        },
+        {
+            "date": "2026-07-20",
+            "open": 20.959999,
+            "high": 21.002001,
+            "low": 20.780001,
+            "close": 20.799999,
+            "volume": 84306
         },
         {
             "date": "2026-07-22",
@@ -1568,6 +1624,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

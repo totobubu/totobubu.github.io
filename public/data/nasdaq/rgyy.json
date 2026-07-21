@@ -9,12 +9,37 @@
         "underlying": "RGTI",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 6.76,
+        "englishName": "GraniteShares YieldBOOST RGTI ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 37786,
+        "AvgVolume": 15967,
+        "sharesOutstanding": null,
+        "52Week": "6.74 - 25.015",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R1730",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.785,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5221,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15972,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1362,8 +1387,39 @@
             "volume": 27499
         },
         {
+            "date": "2026-07-15",
+            "open": 7.24,
+            "high": 7.24,
+            "low": 7.0456,
+            "close": 7.07,
+            "volume": 13846
+        },
+        {
+            "date": "2026-07-16",
+            "open": 7.01,
+            "high": 7.05,
+            "low": 6.925,
+            "close": 6.94,
+            "volume": 25474
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 6.74,
+            "high": 6.785,
+            "low": 6.74,
+            "close": 6.785,
+            "volume": 5359,
+            "amount": 0.137,
+            "yield": 1.5483946588
+        },
+        {
+            "date": "2026-07-20",
+            "open": 6.81,
+            "high": 6.81,
+            "low": 6.75,
+            "close": 6.76,
+            "volume": 37786
         },
         {
             "date": "2026-07-24",
@@ -1460,6 +1516,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

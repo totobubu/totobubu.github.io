@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
-        "regularMarketPrice": 9.7199,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 9.76,
         "englishName": "GraniteShares YieldBOOST BABA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1712,
-        "AvgVolume": 2668,
+        "Volume": 432,
+        "AvgVolume": 2590,
         "sharesOutstanding": null,
         "52Week": "9.48 - 25.02",
         "Yield": null,
@@ -28,16 +28,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 9.675,
+                "value": 9.65,
                 "change": "up"
             },
             "Volume": {
-                "value": 2387,
+                "value": 545,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 2636,
-                "change": "up"
+                "value": 2598,
+                "change": "down"
             }
         }
     },
@@ -1595,8 +1595,39 @@
             "volume": 1712
         },
         {
+            "date": "2026-07-15",
+            "open": 9.77,
+            "high": 9.77,
+            "low": 9.74,
+            "close": 9.76,
+            "volume": 3503
+        },
+        {
+            "date": "2026-07-16",
+            "open": 9.76,
+            "high": 9.76,
+            "low": 9.76,
+            "close": 9.76,
+            "volume": 35
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 9.65,
+            "high": 9.65,
+            "low": 9.65,
+            "close": 9.65,
+            "volume": 545,
+            "amount": 0.092,
+            "yield": 1.0749896373
+        },
+        {
+            "date": "2026-07-20",
+            "open": 9.76,
+            "high": 9.762,
+            "low": 9.76,
+            "close": 9.76,
+            "volume": 432
         },
         {
             "date": "2026-07-24",
@@ -1693,6 +1724,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

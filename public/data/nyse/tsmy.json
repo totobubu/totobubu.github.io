@@ -9,7 +9,19 @@
         "underlying": "TSM",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 15.22,
+        "englishName": "YieldMax TSM Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 156501,
+        "AvgVolume": 185152,
+        "sharesOutstanding": null,
+        "52Week": "14.303 - 18.02",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R8593",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.05,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 280260,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 182001,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3989,8 +4014,41 @@
             "volume": 214846
         },
         {
+            "date": "2026-07-15",
+            "open": 16.18,
+            "high": 16.18,
+            "low": 15.61,
+            "close": 15.93,
+            "volume": 290037
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.1423
+            "expected": true,
+            "open": 15.35,
+            "high": 15.64,
+            "low": 15.1829,
+            "close": 15.5,
+            "volume": 266294,
+            "amount": 0.142,
+            "amountFixed": 0.1423,
+            "yield": 0.5582149837
+        },
+        {
+            "date": "2026-07-17",
+            "open": 14.94,
+            "high": 15.25,
+            "low": 14.39,
+            "close": 15.05,
+            "volume": 280260
+        },
+        {
+            "date": "2026-07-20",
+            "open": 15.22,
+            "high": 15.4299,
+            "low": 15.1,
+            "close": 15.22,
+            "volume": 156501
+        },
         },
         {
             "date": "2026-07-23",

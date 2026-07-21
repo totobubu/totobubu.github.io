@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 48.8186,
+        "englishName": "YieldMax NVDA Performance & Distribution Target 25 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12871,
+        "AvgVolume": 5719,
+        "sharesOutstanding": null,
+        "52Week": "44.195 - 56.263",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V5791",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.21,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1796,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5744,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1385,7 +1410,40 @@
             "high": 49.950001,
             "low": 48.904999,
             "close": 49.930698,
-            "volume": 6656
+            "volume": 6656,
+            "yield": 0.1598016595
+        },
+        {
+            "date": "2026-07-15",
+            "open": 49.735001,
+            "high": 50.1292,
+            "low": 49.735001,
+            "close": 50.1292,
+            "volume": 2142
+        },
+        {
+            "date": "2026-07-16",
+            "open": 49.700001,
+            "high": 49.700001,
+            "low": 49.52,
+            "close": 49.561401,
+            "volume": 3119
+        },
+        {
+            "date": "2026-07-17",
+            "open": 47.985001,
+            "high": 49.6399,
+            "low": 47.985001,
+            "close": 48.8321,
+            "volume": 1796
+        },
+        {
+            "date": "2026-07-20",
+            "open": 49.709999,
+            "high": 49.709999,
+            "low": 48.741699,
+            "close": 48.8186,
+            "volume": 12871
         },
         {
             "date": "2026-07-21",
@@ -1489,6 +1547,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

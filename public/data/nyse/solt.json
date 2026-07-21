@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 35.36,
+        "englishName": "2x Solana ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 306422,
+        "AvgVolume": 474983,
+        "sharesOutstanding": null,
+        "52Week": "23.28 - 706.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US92864M8304",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.18,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 291702,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 481824,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2692,8 +2717,36 @@
             "volume": 296080
         },
         {
+            "date": "2026-07-15",
+            "open": 36.34,
+            "high": 36.630001,
+            "low": 34.849998,
+            "close": 34.98,
+            "volume": 364992
+        },
+        {
+            "date": "2026-07-16",
+            "open": 34.349998,
+            "high": 34.689999,
+            "low": 33.369999,
+            "close": 33.73,
+            "volume": 274584
+        },
+        {
             "date": "2026-07-17",
-            "forecasted": true
+            "open": 31.93,
+            "high": 33.459999,
+            "low": 31.51,
+            "close": 33.18,
+            "volume": 291702
+        },
+        {
+            "date": "2026-07-20",
+            "open": 34.509998,
+            "high": 35.990002,
+            "low": 33.880001,
+            "close": 35.360001,
+            "volume": 306422
         },
         {
             "date": "2026-08-17",
@@ -2713,6 +2766,10 @@
         },
         {
             "date": "2026-12-17",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

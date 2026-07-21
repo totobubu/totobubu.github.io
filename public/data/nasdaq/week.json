@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 100.08,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 26987,
+        "AvgVolume": 39357,
+        "sharesOutstanding": null,
+        "52Week": "99.93 - 100.213",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X6765",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.03,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56115,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38978,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2961,7 +2986,41 @@
             "high": 100.050003,
             "low": 100.010002,
             "close": 100.010002,
-            "volume": 27428
+            "volume": 27428,
+            "amount": 0.067,
+            "yield": 0.0338474726
+        },
+        {
+            "date": "2026-07-15",
+            "open": 100.010002,
+            "high": 100.040001,
+            "low": 100.007599,
+            "close": 100.019997,
+            "volume": 28099
+        },
+        {
+            "date": "2026-07-16",
+            "open": 100.010002,
+            "high": 100.029999,
+            "low": 100.019997,
+            "close": 100.025002,
+            "volume": 27584
+        },
+        {
+            "date": "2026-07-17",
+            "open": 100.040001,
+            "high": 100.07,
+            "low": 100.029999,
+            "close": 100.029999,
+            "volume": 59897
+        },
+        {
+            "date": "2026-07-20",
+            "open": 100.07,
+            "high": 100.080002,
+            "low": 100.040001,
+            "close": 100.080002,
+            "volume": 26987
         },
         {
             "date": "2026-07-21",
@@ -3065,6 +3124,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

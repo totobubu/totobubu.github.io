@@ -9,12 +9,37 @@
         "underlying": "PLTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 8.835,
+        "englishName": "GraniteShares YieldBoost PLTR ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4314,
+        "AvgVolume": 7537,
+        "sharesOutstanding": null,
+        "52Week": "8.63 - 25.71",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R2720",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.775,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12158,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7465,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1754,8 +1779,37 @@
             "volume": 3966
         },
         {
+            "date": "2026-07-15",
+            "open": 8.86,
+            "high": 8.9,
+            "low": 8.82,
+            "close": 8.8912,
+            "volume": 9144
+        },
+        {
+            "date": "2026-07-16",
+            "open": 8.875,
+            "high": 8.8888,
+            "low": 8.87,
+            "close": 8.885,
+            "volume": 3134
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 8.79,
+            "high": 8.79,
+            "low": 8.75,
+            "close": 8.775,
+            "volume": 12158
+        },
+        {
+            "date": "2026-07-20",
+            "open": 8.81,
+            "high": 8.85,
+            "low": 8.78,
+            "close": 8.835,
+            "volume": 4314
         },
         {
             "date": "2026-07-24",
@@ -1852,6 +1906,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

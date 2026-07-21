@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 44.3625,
+        "englishName": "NEOS Enhanced Income 20+ Year Treasury Bond ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 8404,
+        "AvgVolume": 9418,
+        "sharesOutstanding": null,
+        "52Week": "43.8 - 48.7",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US78433H5928",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.71,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6745,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9383,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3252,7 +3277,38 @@
         },
         {
             "date": "2026-07-15",
-            "expected": true
+            "expected": true,
+            "open": 44.540001,
+            "high": 44.599998,
+            "low": 44.535,
+            "close": 44.569801,
+            "volume": 9951,
+            "amount": 0.223,
+            "yield": 0.0686214623
+        },
+        {
+            "date": "2026-07-16",
+            "open": 44.290001,
+            "high": 44.52,
+            "low": 44.279999,
+            "close": 44.4851,
+            "volume": 6843
+        },
+        {
+            "date": "2026-07-17",
+            "open": 44.669998,
+            "high": 44.790001,
+            "low": 44.669899,
+            "close": 44.669899,
+            "volume": 6745
+        },
+        {
+            "date": "2026-07-20",
+            "open": 44.529999,
+            "high": 44.494999,
+            "low": 44.299999,
+            "close": 44.362499,
+            "volume": 8404
         },
         {
             "date": "2026-08-12",

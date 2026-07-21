@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 39.93,
+        "englishName": "iShares Gold Trust Micro",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1441927,
+        "AvgVolume": 2255668,
+        "sharesOutstanding": null,
+        "52Week": "32.58 - 55.27",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46436F1030",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1691132,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2255195,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10120,6 +10145,38 @@
             "low": 40.299999,
             "close": 40.400002,
             "volume": 1729472
+        },
+        {
+            "date": "2026-07-15",
+            "open": 40.419998,
+            "high": 40.669998,
+            "low": 40.125,
+            "close": 40.41,
+            "volume": 1799541
+        },
+        {
+            "date": "2026-07-16",
+            "open": 39.91,
+            "high": 40.008499,
+            "low": 39.544998,
+            "close": 39.639999,
+            "volume": 1390791
+        },
+        {
+            "date": "2026-07-17",
+            "open": 39.549999,
+            "high": 40.084999,
+            "low": 39.490002,
+            "close": 40,
+            "volume": 1691132
+        },
+        {
+            "date": "2026-07-20",
+            "open": 39.93,
+            "high": 40.055,
+            "low": 39.834999,
+            "close": 39.93,
+            "volume": 1441927
         }
     ]
 }

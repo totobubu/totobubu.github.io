@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 18.64,
+        "englishName": "The Trade Desk, Inc.",
+        "earningsDate": "2026-05-07",
+        "enterpriseValue": 7756974592,
+        "marketCap": 8762819584,
+        "Volume": 10780846,
+        "AvgVolume": 19184273,
+        "sharesOutstanding": 426999732,
+        "52Week": "16.98 - 91.45",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US88339J1051",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.59,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8006131712,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8739314688,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12295268,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19299004,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22071,6 +22104,40 @@
             "low": 18.905001,
             "close": 18.940001,
             "volume": 13738595
+        },
+        {
+            "date": "2026-07-15",
+            "open": 19.34,
+            "high": 19.759501,
+            "low": 19.125,
+            "close": 19.370001,
+            "volume": 10117081
+        },
+        {
+            "date": "2026-07-16",
+            "open": 19.75,
+            "high": 19.99,
+            "low": 19.0201,
+            "close": 19.120001,
+            "volume": 8164373,
+            "marketCap": 8739314688
+        },
+        {
+            "date": "2026-07-17",
+            "open": 18.91,
+            "high": 19.205,
+            "low": 18.35,
+            "close": 18.59,
+            "volume": 13565880,
+            "marketCap": 8762819584
+        },
+        {
+            "date": "2026-07-20",
+            "open": 18.59,
+            "high": 19.120199,
+            "low": 18.129999,
+            "close": 18.639999,
+            "volume": 10780846
         }
     ]
 }

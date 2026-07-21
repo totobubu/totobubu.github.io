@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 223.34,
+        "englishName": "Williams-Sonoma, Inc.",
+        "earningsDate": "2026-05-21",
+        "enterpriseValue": 27736465408,
+        "marketCap": 26297526272,
+        "Volume": 754484,
+        "AvgVolume": 1199708,
+        "sharesOutstanding": 117746611,
+        "52Week": "165.51 - 244.65",
+        "Yield": 0.012268,
+        "dividendRate": 3.04,
+        "payoutRatio": 0.3072,
         "isin": "US9699041011",
         "events": {
             "splits": [
@@ -55,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 228.41,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27732934656,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 26894503936,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1054599,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1184736,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011996,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -98261,11 +98298,45 @@
             "volume": 741630
         },
         {
+            "date": "2026-07-15",
+            "open": 219.880005,
+            "high": 223.369995,
+            "low": 218.470001,
+            "close": 222.839996,
+            "volume": 725011
+        },
+        {
+            "date": "2026-07-16",
+            "open": 221.809998,
+            "high": 231.970001,
+            "low": 222.080002,
+            "close": 228.380005,
+            "volume": 641473
+        },
+        {
             "date": "2026-07-17",
-            "forecasted": true
+            "open": 226.100006,
+            "high": 233.705002,
+            "low": 224.949997,
+            "close": 228.410004,
+            "volume": 862413,
+            "amount": 0.76,
+            "yield": 0.0154798758
+        },
+        {
+            "date": "2026-07-20",
+            "open": 229.509995,
+            "high": 228.912506,
+            "low": 222.960007,
+            "close": 223.339996,
+            "volume": 754484
         },
         {
             "date": "2026-10-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

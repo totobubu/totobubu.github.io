@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 13.0622,
+        "englishName": "Graniteshares YieldBOOST Gold Miners ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5497,
+        "AvgVolume": 21100,
+        "sharesOutstanding": null,
+        "52Week": "13.03 - 25.84",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R1813",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2474,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21680,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1400,8 +1425,39 @@
             "volume": 5085
         },
         {
+            "date": "2026-07-15",
+            "open": 13.53,
+            "high": 13.58,
+            "low": 13.41,
+            "close": 13.515,
+            "volume": 6929
+        },
+        {
+            "date": "2026-07-16",
+            "open": 13.43,
+            "high": 13.43,
+            "low": 13.27,
+            "close": 13.29,
+            "volume": 14499
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 13.03,
+            "high": 13.14,
+            "low": 13.03,
+            "close": 13.1,
+            "volume": 2474,
+            "amount": 0.162,
+            "yield": 0.8788365311
+        },
+        {
+            "date": "2026-07-20",
+            "open": 13.09,
+            "high": 13.145,
+            "low": 13.0622,
+            "close": 13.0622,
+            "volume": 5497
         },
         {
             "date": "2026-07-24",
@@ -1498,6 +1554,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

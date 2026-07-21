@@ -9,12 +9,37 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 14.83,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 181795,
+        "AvgVolume": 56695,
+        "sharesOutstanding": null,
+        "52Week": "14.82 - 30.39",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US7615624043",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.28,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 38598,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 56909,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2414,7 +2439,41 @@
             "high": 16.129999,
             "low": 15.87,
             "close": 15.92,
-            "volume": 75511
+            "volume": 75511,
+            "amount": 0.203,
+            "yield": 0.8247117794
+        },
+        {
+            "date": "2026-07-15",
+            "open": 16.030001,
+            "high": 16.275,
+            "low": 15.69,
+            "close": 15.84,
+            "volume": 35381
+        },
+        {
+            "date": "2026-07-16",
+            "open": 15.77,
+            "high": 15.77,
+            "low": 15.4001,
+            "close": 15.71,
+            "volume": 58486
+        },
+        {
+            "date": "2026-07-17",
+            "open": 15.36,
+            "high": 15.425,
+            "low": 15.09,
+            "close": 15.2932,
+            "volume": 39158
+        },
+        {
+            "date": "2026-07-20",
+            "open": 15.4,
+            "high": 15.43,
+            "low": 14.82,
+            "close": 14.83,
+            "volume": 182856
         },
         {
             "date": "2026-07-21",
@@ -2518,6 +2577,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

@@ -9,7 +9,19 @@
         "underlying": "NFLX",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 7.2,
+        "englishName": "YieldMax NFLX Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 88771,
+        "AvgVolume": 93324,
+        "sharesOutstanding": null,
+        "52Week": "7.0 - 18.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T7827",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.43,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 173810,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 94050,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6110,8 +6135,40 @@
             "volume": 83133
         },
         {
+            "date": "2026-07-15",
+            "open": 7.81,
+            "high": 7.9311,
+            "low": 7.78,
+            "close": 7.81,
+            "volume": 42259
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.0393
+"expected": true,
+            "open": 7.76,
+            "high": 7.85,
+            "low": 7.72,
+            "close": 7.85,
+            "volume": 78002,
+            "amount": 0.039,
+            "amountFixed": 0.0393,
+            "yield": 0.656121134
+        },
+        {
+            "date": "2026-07-17",
+            "open": 7.05,
+            "high": 7.43,
+            "low": 7,
+            "close": 7.43,
+            "volume": 173810
+        },
+        {
+            "date": "2026-07-20",
+            "open": 7.35,
+            "high": 7.3401,
+            "low": 7.17,
+            "close": 7.2,
+            "volume": 88771
         },
         {
             "date": "2026-07-23",

@@ -9,7 +9,19 @@
         "underlying": "ARKK",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 28.8169,
+        "englishName": "YieldMax Innovation Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 40961,
+        "AvgVolume": 12359,
+        "sharesOutstanding": null,
+        "52Week": "28.44 - 47.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T6001",
         "events": {
             "frequencyChanges": [
@@ -32,7 +44,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.89,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15407,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12309,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8156,8 +8181,40 @@
             "volume": 4093
         },
         {
+            "date": "2026-07-15",
+            "open": 30.5697,
+            "high": 30.700001,
+            "low": 30.459999,
+            "close": 30.6443,
+            "volume": 3016
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.2781
+"expected": true,
+            "open": 30.18,
+            "high": 29.870001,
+            "low": 29.230301,
+            "close": 29.33,
+            "volume": 13327,
+            "amount": 0.278,
+            "amountFixed": 0.2781,
+            "yield": 0.3808979457
+        },
+        {
+            "date": "2026-07-17",
+            "open": 28.85,
+            "high": 29.190001,
+            "low": 28.440001,
+            "close": 28.923,
+            "volume": 15407
+        },
+        {
+            "date": "2026-07-20",
+            "open": 28.74,
+            "high": 29.1399,
+            "low": 28.754999,
+            "close": 28.8169,
+            "volume": 40961
         },
         {
             "date": "2026-07-23",

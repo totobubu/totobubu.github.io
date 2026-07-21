@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 11.5784,
+        "englishName": "Defiance BMNR Option Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 613,
+        "AvgVolume": 6190,
+        "sharesOutstanding": null,
+        "52Week": "9.37 - 30.984",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US2689618369",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.9994,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3256,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6247,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1323,7 +1348,38 @@
         },
         {
             "date": "2026-07-15",
-            "expected": true
+            "expected": true,
+            "open": 11.23,
+            "high": 11.25,
+            "low": 11.035,
+            "close": 11.035,
+            "volume": 3849,
+            "amount": 0.104,
+            "yield": 0.2692163847
+        },
+        {
+            "date": "2026-07-16",
+            "open": 10.66,
+            "high": 10.95,
+            "low": 10.6,
+            "close": 10.8749,
+            "volume": 2722
+        },
+        {
+            "date": "2026-07-17",
+            "open": 10.45,
+            "high": 11.02,
+            "low": 10.45,
+            "close": 10.9994,
+            "volume": 3256
+        },
+        {
+            "date": "2026-07-20",
+            "open": 11.37,
+            "high": 11.62,
+            "low": 11.37,
+            "close": 11.5784,
+            "volume": 613
         },
         {
             "date": "2026-07-22",
@@ -1427,6 +1483,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

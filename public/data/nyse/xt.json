@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 79.65,
+        "englishName": "iShares Future Exponential Technologies ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 50519,
+        "AvgVolume": 126781,
+        "sharesOutstanding": null,
+        "52Week": "64.658 - 84.23",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46434V3814",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 80.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 111495,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 126532,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22816,8 +22841,36 @@
             "volume": 73343
         },
         {
+            "date": "2026-07-15",
+            "open": 82.080002,
+            "high": 82.139999,
+            "low": 81.099998,
+            "close": 81.620003,
+            "volume": 82135
+        },
+        {
+            "date": "2026-07-16",
+            "open": 80.970001,
+            "high": 81.269501,
+            "low": 80.5,
+            "close": 80.760002,
+            "volume": 72254
+        },
+        {
+            "date": "2026-07-17",
+            "open": 79.370003,
+            "high": 80.650002,
+            "low": 79.370003,
+            "close": 80.040001,
+            "volume": 111495
+        },
+        {
             "date": "2026-07-20",
-            "forecasted": true
+            "open": 80.440002,
+            "high": 80.750397,
+            "low": 79.650002,
+            "close": 79.650002,
+            "volume": 50519
         },
         {
             "date": "2026-07-27",
@@ -22917,6 +22970,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

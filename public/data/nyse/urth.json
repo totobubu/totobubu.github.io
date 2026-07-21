@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 201.1,
+        "englishName": "iShares MSCI World ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 358433,
+        "AvgVolume": 1081986,
+        "sharesOutstanding": 6900000,
+        "52Week": "168.23 - 206.33",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US4642863926",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 201.9,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 424640,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1108657,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32703,8 +32728,36 @@
             "volume": 858516
         },
         {
+            "date": "2026-07-15",
+            "open": 204.610001,
+            "high": 205.009995,
+            "low": 203.600006,
+            "close": 204.75,
+            "volume": 286307
+        },
+        {
+            "date": "2026-07-16",
+            "open": 203.979996,
+            "high": 204.550003,
+            "low": 202.839996,
+            "close": 203.580002,
+            "volume": 426989
+        },
+        {
+            "date": "2026-07-17",
+            "open": 201.270004,
+            "high": 202.595001,
+            "low": 201.020004,
+            "close": 201.899994,
+            "volume": 433743
+        },
+        {
             "date": "2026-07-20",
-            "forecasted": true
+            "open": 202.610001,
+            "high": 202.830002,
+            "low": 201.005005,
+            "close": 201.100006,
+            "volume": 358433
         },
         {
             "date": "2026-07-27",
@@ -32804,6 +32857,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

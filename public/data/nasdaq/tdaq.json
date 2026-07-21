@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 26.44,
+        "englishName": "TappAlpha Innovation 100 Growth & Daily Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 188971,
+        "AvgVolume": 228000,
+        "sharesOutstanding": null,
+        "52Week": "22.701 - 29.51",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US26923N5462",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 241414,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 225590,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1745,30 +1770,64 @@
             "high": 27.469999,
             "low": 27.205,
             "close": 27.35,
-            "volume": 274329
+            "volume": 274329,
+            "amount": 0.39,
+            "yield": 0.1360948905
+        },
+        {
+            "date": "2026-07-15",
+            "open": 27.5,
+            "high": 27.6721,
+            "low": 27.07,
+            "close": 27.280001,
+            "volume": 200101
         },
         {
             "date": "2026-07-16",
-            "forecasted": true
+            "open": 27.23,
+            "high": 27.23,
+            "low": 26.76,
+            "close": 26.799999,
+            "volume": 329272
+        },
+        {
+            "date": "2026-07-17",
+            "open": 26.440001,
+            "high": 26.74,
+            "low": 26.08,
+            "close": 26.43,
+            "volume": 264875
+        },
+        {
+            "date": "2026-07-20",
+            "open": 26.65,
+            "high": 26.875,
+            "low": 26.434999,
+            "close": 26.440001,
+            "volume": 188971
         },
         {
             "date": "2026-08-14",
             "forecasted": true
         },
         {
-            "date": "2026-09-16",
+            "date": "2026-09-14",
             "forecasted": true
         },
         {
-            "date": "2026-10-16",
+            "date": "2026-10-14",
             "forecasted": true
         },
         {
-            "date": "2026-11-16",
+            "date": "2026-11-13",
             "forecasted": true
         },
         {
-            "date": "2026-12-16",
+            "date": "2026-12-14",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-14",
             "forecasted": true
         }
     ]

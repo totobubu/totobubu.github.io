@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
-        "regularMarketPrice": 17.58,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 17.4605,
         "englishName": "Nicholas Fixed Income Alternative ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12081,
-        "AvgVolume": 12955,
+        "Volume": 14578,
+        "AvgVolume": 12977,
         "sharesOutstanding": null,
         "52Week": "17.29 - 18.3",
         "Yield": null,
@@ -28,16 +28,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 17.56,
-                "change": "up"
+                "value": 17.49,
+                "change": "down"
             },
             "Volume": {
-                "value": 2207,
-                "change": "up"
+                "value": 36045,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 12985,
-                "change": "down"
+                "value": 12511,
+                "change": "up"
             }
         }
     },
@@ -7389,8 +7389,39 @@
             "volume": 12092
         },
         {
+            "date": "2026-07-15",
+            "open": 17.605,
+            "high": 17.605,
+            "low": 17.59,
+            "close": 17.605,
+            "volume": 8682
+        },
+        {
             "date": "2026-07-16",
-            "expected": true
+            "expected": true,
+            "open": 17.489901,
+            "high": 17.489901,
+            "low": 17.450001,
+            "close": 17.469999,
+            "volume": 6232,
+            "amount": 0.117,
+            "yield": 0.0890342375
+        },
+        {
+            "date": "2026-07-17",
+            "open": 17.52,
+            "high": 17.530001,
+            "low": 17.49,
+            "close": 17.49,
+            "volume": 36045
+        },
+        {
+            "date": "2026-07-20",
+            "open": 17.49,
+            "high": 17.495001,
+            "low": 17.460501,
+            "close": 17.460501,
+            "volume": 14578
         },
         {
             "date": "2026-08-20",
@@ -7411,6 +7442,10 @@
         {
             "date": "2026-12-17",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

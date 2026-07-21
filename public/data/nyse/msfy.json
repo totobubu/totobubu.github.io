@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 17.5955,
+        "englishName": "Kurv Yield Premium Strategy Microsoft ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 10768,
+        "AvgVolume": 15257,
+        "sharesOutstanding": null,
+        "52Week": "15.38 - 28.47",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US5009487084",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.2,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5656,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15421,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5482,27 +5507,61 @@
             "volume": 32817
         },
         {
-            "date": "2026-08-10",
+            "date": "2026-07-15",
+            "open": 16.879999,
+            "high": 17.3997,
+            "low": 16.889999,
+            "close": 17.245199,
+            "volume": 28561,
+            "amount": 0.2,
+            "yield": 0.2725118645
+        },
+        {
+            "date": "2026-07-16",
+            "open": 17.459999,
+            "high": 17.6999,
+            "low": 17.219999,
+            "close": 17.5193,
+            "volume": 8163
+        },
+        {
+            "date": "2026-07-17",
+            "open": 17.18,
+            "high": 17.26,
+            "low": 17.0788,
+            "close": 17.2108,
+            "volume": 5656
+        },
+        {
+            "date": "2026-07-20",
+            "open": 17.08,
+            "high": 17.6,
+            "low": 17.040001,
+            "close": 17.595501,
+            "volume": 10768
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         },
         {
-            "date": "2026-09-10",
+            "date": "2026-09-15",
             "forecasted": true
         },
         {
-            "date": "2026-10-09",
+            "date": "2026-10-15",
             "forecasted": true
         },
         {
-            "date": "2026-11-10",
+            "date": "2026-11-13",
             "forecasted": true
         },
         {
-            "date": "2026-12-10",
+            "date": "2026-12-15",
             "forecasted": true
         },
         {
-            "date": "2027-01-08",
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

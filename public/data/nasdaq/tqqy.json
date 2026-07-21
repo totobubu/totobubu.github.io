@@ -9,12 +9,37 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 12.4764,
+        "englishName": "GraniteShares YieldBOOST QQQ ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6392,
+        "AvgVolume": 28501,
+        "sharesOutstanding": null,
+        "52Week": "12.41 - 19.83",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R6374",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.5096,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8198,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 28485,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2974,8 +2999,39 @@
             "volume": 8496
         },
         {
+            "date": "2026-07-15",
+            "open": 12.8898,
+            "high": 12.905,
+            "low": 12.859,
+            "close": 12.905,
+            "volume": 2336
+        },
+        {
+            "date": "2026-07-16",
+            "open": 12.86,
+            "high": 12.87,
+            "low": 12.73,
+            "close": 12.7589,
+            "volume": 18359
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 12.49,
+            "high": 12.56,
+            "low": 12.41,
+            "close": 12.5096,
+            "volume": 8198,
+            "amount": 0.098,
+            "yield": 0.6006381105
+        },
+        {
+            "date": "2026-07-20",
+            "open": 12.55,
+            "high": 12.59,
+            "low": 12.4764,
+            "close": 12.4764,
+            "volume": 6392
         },
         {
             "date": "2026-07-24",
@@ -3072,6 +3128,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

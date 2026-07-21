@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 34.24,
+        "englishName": "iShares Latin America 40 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 764780,
+        "AvgVolume": 2510704,
+        "sharesOutstanding": 47750000,
+        "52Week": "24.68 - 38.5",
+        "Yield": 0.019276,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US4642873909",
         "events": {
             "splits": [
@@ -20,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.07,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1536153,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2539193,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.019372,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56004,8 +56033,36 @@
             "volume": 3567158
         },
         {
+            "date": "2026-07-15",
+            "open": 34.740002,
+            "high": 34.779999,
+            "low": 34.514999,
+            "close": 34.66,
+            "volume": 2046819
+        },
+        {
+            "date": "2026-07-16",
+            "open": 34.41,
+            "high": 34.435001,
+            "low": 34.055,
+            "close": 34.110001,
+            "volume": 1540151
+        },
+        {
+            "date": "2026-07-17",
+            "open": 33.68,
+            "high": 34.209499,
+            "low": 33.709999,
+            "close": 34.07,
+            "volume": 1536153
+        },
+        {
             "date": "2026-07-20",
-            "forecasted": true
+            "open": 34.23,
+            "high": 34.435001,
+            "low": 34.130001,
+            "close": 34.240002,
+            "volume": 770095
         },
         {
             "date": "2026-07-27",
@@ -56105,6 +56162,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

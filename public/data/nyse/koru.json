@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 18.41,
+        "englishName": "Direxion Daily South Korea Bull 3X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 22107572,
+        "AvgVolume": 20996126,
+        "sharesOutstanding": null,
+        "52Week": "3.716 - 63.985",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25461A3876",
         "events": {
             "splits": [
@@ -17,10 +29,28 @@
                     "date": "2025-02-10",
                     "ratio": "1:10",
                     "type": "split"
+                },
+                {
+                    "date": "2026-07-15",
+                    "ratio": "20:1",
+                    "type": "reverse-split"
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.26,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 40176168,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20476163,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26921,6 +26951,38 @@
             "low": 442.213989,
             "close": 481.339996,
             "volume": 2640841
+        },
+        {
+            "date": "2026-07-15",
+            "open": 23.58,
+            "high": 23.709999,
+            "low": 19.5,
+            "close": 21.870001,
+            "volume": 29647471
+        },
+        {
+            "date": "2026-07-16",
+            "open": 19.98,
+            "high": 20.299999,
+            "low": 18.060699,
+            "close": 18.65,
+            "volume": 25027673
+        },
+        {
+            "date": "2026-07-17",
+            "open": 16.35,
+            "high": 20.49,
+            "low": 15.4501,
+            "close": 18.26,
+            "volume": 40176168
+        },
+        {
+            "date": "2026-07-20",
+            "open": 19.209999,
+            "high": 19.98,
+            "low": 18.33,
+            "close": 18.41,
+            "volume": 22355508
         },
         {
             "date": "2026-09-24",

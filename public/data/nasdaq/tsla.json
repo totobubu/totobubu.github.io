@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 369.57,
+        "englishName": "Tesla, Inc.",
+        "earningsDate": "2026-07-22",
+        "enterpriseValue": 1402162905088,
+        "marketCap": 1388002803712,
+        "Volume": 32893543,
+        "AvgVolume": 49145609,
+        "sharesOutstanding": 3755723871,
+        "52Week": "297.82 - 498.83",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US88160R1014",
         "events": {
             "splits": [
@@ -25,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 380.84,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1440546422784,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1430329884672,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 29958144,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 49689021,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36197,6 +36230,40 @@
             "low": 394.76001,
             "close": 396.179993,
             "volume": 23374603
+        },
+        {
+            "date": "2026-07-15",
+            "open": 399.394989,
+            "high": 406.589508,
+            "low": 390.660004,
+            "close": 394.459991,
+            "volume": 31393664
+        },
+        {
+            "date": "2026-07-16",
+            "open": 392.350006,
+            "high": 395.309998,
+            "low": 385.320007,
+            "close": 391.059998,
+            "volume": 28935215,
+            "marketCap": 1430329884672
+        },
+        {
+            "date": "2026-07-17",
+            "open": 381.779999,
+            "high": 385.689911,
+            "low": 377.220001,
+            "close": 380.839996,
+            "volume": 29958144,
+            "marketCap": 1388002803712
+        },
+        {
+            "date": "2026-07-20",
+            "open": 386.088013,
+            "high": 386.48999,
+            "low": 369.424988,
+            "close": 369.570007,
+            "volume": 32893543
         }
     ]
 }

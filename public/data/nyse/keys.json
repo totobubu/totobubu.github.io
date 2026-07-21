@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 314.13,
+        "englishName": "Keysight Technologies, Inc.",
+        "earningsDate": "2026-05-19",
+        "enterpriseValue": 54336847872,
+        "marketCap": 53683359744,
+        "Volume": 780815,
+        "AvgVolume": 1591896,
+        "sharesOutstanding": 170895368,
+        "52Week": "152.846 - 374.963",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US49338L1035",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 315.9,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 53800235008,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 53985841152,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1105764,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1578311,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26433,6 +26466,41 @@
             "low": 322.570007,
             "close": 325.730011,
             "volume": 1237680
+        },
+        {
+            "date": "2026-07-15",
+            "open": 330.649994,
+            "high": 331.98999,
+            "low": 316.109985,
+            "close": 322.709991,
+            "volume": 1421249,
+            "marketCap": 53491101696
+        },
+        {
+            "date": "2026-07-16",
+            "open": 316.304993,
+            "high": 320.380005,
+            "low": 310.299988,
+            "close": 312.76001,
+            "volume": 1209345,
+            "marketCap": 53985841152
+        },
+        {
+            "date": "2026-07-17",
+            "open": 307.225006,
+            "high": 318.269989,
+            "low": 300.869995,
+            "close": 315.899994,
+            "volume": 1105764,
+            "marketCap": 53683359744
+        },
+        {
+            "date": "2026-07-20",
+            "open": 318.429993,
+            "high": 322.420013,
+            "low": 313.200012,
+            "close": 314.130005,
+            "volume": 780815
         }
     ]
 }

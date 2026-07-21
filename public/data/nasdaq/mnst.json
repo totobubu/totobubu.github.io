@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 95.45,
+        "englishName": "Monster Beverage Corporation",
+        "earningsDate": "2026-05-07",
+        "enterpriseValue": 92465266688,
+        "marketCap": 93350871040,
+        "Volume": 4802594,
+        "AvgVolume": 5750344,
+        "sharesOutstanding": 978008110,
+        "52Week": "58.09 - 100.34",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US61174X1090",
         "events": {
             "splits": [
@@ -45,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.5,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 94851604480,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 95355789312,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9139300,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5658411,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -91986,6 +92019,41 @@
             "low": 97.089996,
             "close": 98.004997,
             "volume": 4590976
+        },
+        {
+            "date": "2026-07-15",
+            "open": 98.010002,
+            "high": 99.029999,
+            "low": 97.290001,
+            "close": 97.57,
+            "volume": 4617543,
+            "marketCap": 97742135296
+        },
+        {
+            "date": "2026-07-16",
+            "open": 97.739998,
+            "high": 99.980003,
+            "low": 97.57,
+            "close": 99.940002,
+            "volume": 7013517,
+            "marketCap": 95355789312
+        },
+        {
+            "date": "2026-07-17",
+            "open": 100.019997,
+            "high": 100.339996,
+            "low": 96.57,
+            "close": 97.5,
+            "volume": 9139300,
+            "marketCap": 93350871040
+        },
+        {
+            "date": "2026-07-20",
+            "open": 97.330002,
+            "high": 97.970001,
+            "low": 95.360001,
+            "close": 95.449997,
+            "volume": 4802594
         }
     ]
 }

@@ -9,12 +9,37 @@
         "underlying": "META",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 27.66,
+        "englishName": "Roundhill META WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 21797,
+        "AvgVolume": 18940,
+        "sharesOutstanding": null,
+        "52Week": "23.3 - 54.53",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X7425",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15918,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 18822,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2332,8 +2357,37 @@
             "volume": 13437
         },
         {
+            "date": "2026-07-15",
+            "open": 29.23,
+            "high": 30.01,
+            "low": 29.27,
+            "close": 29.93,
+            "volume": 13446
+        },
+        {
+            "date": "2026-07-16",
+            "open": 29.940001,
+            "high": 29.8689,
+            "low": 28.98,
+            "close": 29.02,
+            "volume": 15257
+        },
+        {
+            "date": "2026-07-17",
+            "open": 28.177,
+            "high": 28.370001,
+            "low": 27.065001,
+            "close": 28.110001,
+            "volume": 16792
+        },
+        {
             "date": "2026-07-20",
-            "expected": true
+            "expected": true,
+            "open": 27.77,
+            "high": 27.844999,
+            "low": 27.440001,
+            "close": 27.66,
+            "volume": 21797
         },
         {
             "date": "2026-07-27",
@@ -2433,6 +2487,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 28.18,
+        "englishName": "iShares Core High Dividend ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 14324169,
+        "AvgVolume": 3073372,
+        "sharesOutstanding": null,
+        "52Week": "23.516 - 28.88",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46429B6636",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8219544,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2982585,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30892,11 +30917,45 @@
             "volume": 4202083
         },
         {
-            "date": "2026-09-15",
+            "date": "2026-07-15",
+            "open": 27.57,
+            "high": 27.82,
+            "low": 27.549999,
+            "close": 27.65,
+            "volume": 3658285,
+            "amount": 0.087,
+            "yield": 0.1203482046
+        },
+        {
+            "date": "2026-07-16",
+            "open": 27.84,
+            "high": 28.360001,
+            "low": 27.790001,
+            "close": 28.360001,
+            "volume": 3802978
+        },
+        {
+            "date": "2026-07-17",
+            "open": 28.629999,
+            "high": 28.875,
+            "low": 28.17,
+            "close": 28.25,
+            "volume": 8246522
+        },
+        {
+            "date": "2026-07-20",
+            "open": 28.27,
+            "high": 28.309999,
+            "low": 28.105,
+            "close": 28.18,
+            "volume": 14324169
+        },
+        {
+            "date": "2026-10-15",
             "forecasted": true
         },
         {
-            "date": "2026-12-15",
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

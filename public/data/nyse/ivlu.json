@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 41.82,
+        "englishName": "iShares Edge MSCI Intl Value Factor ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 758074,
+        "AvgVolume": 917006,
+        "sharesOutstanding": null,
+        "52Week": "32.675 - 43.405",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46435G4091",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.12,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 668788,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 918840,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22182,6 +22207,38 @@
             "low": 42.400101,
             "close": 42.439999,
             "volume": 730149
+        },
+        {
+            "date": "2026-07-15",
+            "open": 42.529999,
+            "high": 42.740002,
+            "low": 42.369999,
+            "close": 42.66,
+            "volume": 698311
+        },
+        {
+            "date": "2026-07-16",
+            "open": 42.23,
+            "high": 42.461399,
+            "low": 42.200001,
+            "close": 42.34,
+            "volume": 535532
+        },
+        {
+            "date": "2026-07-17",
+            "open": 41.810001,
+            "high": 42.16,
+            "low": 41.759998,
+            "close": 42.119999,
+            "volume": 668788
+        },
+        {
+            "date": "2026-07-20",
+            "open": 42.080002,
+            "high": 42.119999,
+            "low": 41.790001,
+            "close": 41.82,
+            "volume": 758074
         }
     ]
 }

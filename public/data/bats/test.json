@@ -9,12 +9,33 @@
         "underlying": "TSLA",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 41.1948,
+        "englishName": "YieldMax TSLA Performance & Distribution Target 25 ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 938,
+        "AvgVolume": 2088,
+        "sharesOutstanding": null,
+        "52Week": "40.27 - 57.74",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V5460",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.07,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2081,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1385,8 +1406,41 @@
             "open": 43.75,
             "high": 43.75,
             "low": 43.34,
-            "close": 43.625702,
-            "volume": 7059
+            "close": 43.439301,
+            "volume": 7059,
+            "yield": 0.1682857143
+        },
+        {
+            "date": "2026-07-15",
+            "open": 43.438999,
+            "high": 43.438999,
+            "low": 43.438999,
+            "close": 43.438999,
+            "volume": 400
+        },
+        {
+            "date": "2026-07-16",
+            "open": 43,
+            "high": 43.1339,
+            "low": 42.895,
+            "close": 43.1339,
+            "volume": 536
+        },
+        {
+            "date": "2026-07-17",
+            "open": 42.009998,
+            "high": 42.274399,
+            "low": 41.869999,
+            "close": 42.274399,
+            "volume": 938
+        },
+        {
+            "date": "2026-07-20",
+            "open": 42.560001,
+            "high": 42.274399,
+            "low": 41.869999,
+            "close": 41.194801,
+            "volume": 938
         },
         {
             "date": "2026-07-21",
@@ -1490,6 +1544,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

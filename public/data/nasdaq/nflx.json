@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 67.6,
+        "englishName": "Netflix, Inc.",
+        "earningsDate": "2026-07-16",
+        "enterpriseValue": 294630391808,
+        "marketCap": 284649979904,
+        "Volume": 59580599,
+        "AvgVolume": 42296640,
+        "sharesOutstanding": 4210798528,
+        "52Week": "65.08 - 126.71",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US64110L1061",
         "events": {
             "splits": [
@@ -30,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 68.95,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 316656058368,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 290334539776,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 141231076,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 40977172,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54555,6 +54588,40 @@
             "low": 72.277496,
             "close": 73.529999,
             "volume": 33306968
+        },
+        {
+            "date": "2026-07-15",
+            "open": 73.785004,
+            "high": 75.059998,
+            "low": 73.129997,
+            "close": 73.68,
+            "volume": 32381169
+        },
+        {
+            "date": "2026-07-16",
+            "open": 73.970001,
+            "high": 74.639999,
+            "low": 72.940102,
+            "close": 74.349998,
+            "volume": 64570712,
+            "marketCap": 290334539776
+        },
+        {
+            "date": "2026-07-17",
+            "open": 65.540001,
+            "high": 69.489998,
+            "low": 65.095001,
+            "close": 68.949997,
+            "volume": 141231076,
+            "marketCap": 284649979904
+        },
+        {
+            "date": "2026-07-20",
+            "open": 68.315002,
+            "high": 68.379997,
+            "low": 66.690002,
+            "close": 67.599998,
+            "volume": 59580599
         }
     ]
 }

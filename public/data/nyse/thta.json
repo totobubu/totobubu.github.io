@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 15.4,
+        "englishName": "SoFi Enhanced Yield ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 59402,
+        "AvgVolume": 47137,
+        "sharesOutstanding": null,
+        "52Week": "14.601 - 16.07",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US8863642802",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.35,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 46855,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 47081,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5395,7 +5420,37 @@
         },
         {
             "date": "2026-07-15",
-            "forecasted": true
+            "open": 15.62,
+            "high": 15.55,
+            "low": 15.4449,
+            "close": 15.4701,
+            "volume": 145702,
+            "amount": 0.128,
+            "yield": 0.1190140845
+        },
+        {
+            "date": "2026-07-16",
+            "open": 15.44,
+            "high": 15.51,
+            "low": 15.3845,
+            "close": 15.39,
+            "volume": 52269
+        },
+        {
+            "date": "2026-07-17",
+            "open": 15.3,
+            "high": 15.395,
+            "low": 15.14,
+            "close": 15.35,
+            "volume": 46855
+        },
+        {
+            "date": "2026-07-20",
+            "open": 15.36,
+            "high": 15.45,
+            "low": 15.36,
+            "close": 15.4,
+            "volume": 59402
         },
         {
             "date": "2026-08-14",
@@ -5415,6 +5470,10 @@
         },
         {
             "date": "2026-12-15",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

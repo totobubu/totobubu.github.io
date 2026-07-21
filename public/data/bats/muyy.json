@@ -9,12 +9,37 @@
         "underlying": "MU",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 20.45,
+        "englishName": "GraniteShares YieldBOOST MU ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 29927,
+        "AvgVolume": 59144,
+        "sharesOutstanding": null,
+        "52Week": "20.21 - 26.81",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747T6901",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.447,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 54300,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 58313,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -558,8 +583,39 @@
             "volume": 141945
         },
         {
+            "date": "2026-07-15",
+            "open": 21.9704,
+            "high": 21.9704,
+            "low": 21.115,
+            "close": 21.269899,
+            "volume": 68455
+        },
+        {
+            "date": "2026-07-16",
+            "open": 20.887199,
+            "high": 21.048,
+            "low": 20.74,
+            "close": 20.820601,
+            "volume": 44643
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 20.32,
+            "high": 20.65,
+            "low": 20.280001,
+            "close": 20.447001,
+            "volume": 54300,
+            "amount": 0.352,
+            "yield": 0.3170393701
+        },
+        {
+            "date": "2026-07-20",
+            "open": 20.549999,
+            "high": 20.645,
+            "low": 20.421,
+            "close": 20.450001,
+            "volume": 29927
         },
         {
             "date": "2026-07-24",
@@ -656,6 +712,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 25.47,
+        "englishName": "ALPS Smith Core Plus Bond ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 431247,
+        "AvgVolume": 400786,
+        "sharesOutstanding": null,
+        "52Week": "25.44 - 26.47",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US00162Q3469",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.525,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1032880,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 386927,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5288,15 +5313,45 @@
             "volume": 331595
         },
         {
+            "date": "2026-07-15",
+            "open": 25.559999,
+            "high": 25.620001,
+            "low": 25.559999,
+            "close": 25.6,
+            "volume": 286833
+        },
+        {
+            "date": "2026-07-16",
+            "open": 25.469999,
+            "high": 25.51,
+            "low": 25.4601,
+            "close": 25.495001,
+            "volume": 269229,
+            "amount": 0.095,
+            "yield": 0.0479387534
+        },
+        {
             "date": "2026-07-17",
+            "open": 25.52,
+            "high": 25.559999,
+            "low": 25.51,
+            "close": 25.525,
+            "volume": 1032880
+        },
+        {
+            "date": "2026-07-20",
+            "open": 25.51,
+            "high": 25.51,
+            "low": 25.450001,
+            "close": 25.469999,
+            "volume": 431247
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         },
         {
-            "date": "2026-08-18",
-            "forecasted": true
-        },
-        {
-            "date": "2026-09-18",
+            "date": "2026-09-16",
             "forecasted": true
         },
         {
@@ -5304,11 +5359,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-11-18",
+            "date": "2026-11-16",
             "forecasted": true
         },
         {
-            "date": "2026-12-18",
+            "date": "2026-12-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

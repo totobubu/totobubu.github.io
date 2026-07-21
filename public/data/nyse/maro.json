@@ -9,7 +9,19 @@
         "underlying": "MARA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 5.06,
+        "englishName": "YieldMax MARA Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 636765,
+        "AvgVolume": 531363,
+        "sharesOutstanding": null,
+        "52Week": "4.655 - 23.69",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R6027",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 4.72,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 463172,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 528986,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3361,8 +3386,40 @@
             "volume": 335236
         },
         {
+            "date": "2026-07-15",
+            "open": 5.37,
+            "high": 5.45,
+            "low": 5.14,
+            "close": 5.4,
+            "volume": 406301
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.0888
+"expected": true,
+            "open": 5.24,
+            "high": 5.2706,
+            "low": 4.93,
+            "close": 4.97,
+            "volume": 348571,
+            "amount": 0.089,
+            "amountFixed": 0.0888,
+            "yield": 2.2319274809
+        },
+        {
+            "date": "2026-07-17",
+            "open": 4.79,
+            "high": 4.83,
+            "low": 4.655,
+            "close": 4.72,
+            "volume": 463172
+        },
+        {
+            "date": "2026-07-20",
+            "open": 4.85,
+            "high": 5.155,
+            "low": 4.84,
+            "close": 5.06,
+            "volume": 636765
         },
         {
             "date": "2026-07-23",

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 30.3,
+        "englishName": "Roundhill S&P 500 No Dividend Target ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 96657,
+        "AvgVolume": 17067,
+        "sharesOutstanding": null,
+        "52Week": "25.023 - 31.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X8332",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.29,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9031,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17059,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2048,6 +2073,38 @@
             "low": 30.59,
             "close": 30.629999,
             "volume": 11485
+        },
+        {
+            "date": "2026-07-15",
+            "open": 30.75,
+            "high": 30.808001,
+            "low": 30.629999,
+            "close": 30.754,
+            "volume": 10258
+        },
+        {
+            "date": "2026-07-16",
+            "open": 30.74,
+            "high": 30.75,
+            "low": 30.6,
+            "close": 30.6,
+            "volume": 7703
+        },
+        {
+            "date": "2026-07-17",
+            "open": 30.264999,
+            "high": 30.440001,
+            "low": 30.23,
+            "close": 30.290001,
+            "volume": 9031
+        },
+        {
+            "date": "2026-07-20",
+            "open": 30.5,
+            "high": 30.5,
+            "low": 30.290001,
+            "close": 30.299999,
+            "volume": 96657
         }
     ]
 }

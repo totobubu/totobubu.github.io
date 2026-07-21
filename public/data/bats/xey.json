@@ -9,12 +9,37 @@
         "underlying": "ETHER",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 20.215,
+        "englishName": "GraniteShares YieldBOOST Ether ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12,
+        "AvgVolume": 183,
+        "sharesOutstanding": null,
+        "52Week": "19.85 - 25.44",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747T6588",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.195,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 21,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 185,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -454,8 +479,38 @@
             "volume": 13
         },
         {
+            "date": "2026-07-15",
+            "open": 20.375,
+            "high": 20.375,
+            "low": 20.375,
+            "close": 20.375,
+            "volume": 22
+        },
+        {
+            "date": "2026-07-16",
+            "open": 20.375,
+            "high": 20.375,
+            "low": 20.375,
+            "close": 20.375,
+            "volume": 11
+        },
+        {
             "date": "2026-07-17",
-            "forecasted": true
+            "open": 20.195,
+            "high": 20.195,
+            "low": 20.195,
+            "close": 20.195,
+            "volume": 21,
+            "amount": 0.189,
+            "yield": 0.1309234959
+        },
+        {
+            "date": "2026-07-20",
+            "open": 20.215,
+            "high": 20.215,
+            "low": 20.215,
+            "close": 20.215,
+            "volume": 12
         },
         {
             "date": "2026-07-24",
@@ -555,6 +610,10 @@
         },
         {
             "date": "2027-01-08",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

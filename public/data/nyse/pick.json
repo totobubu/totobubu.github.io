@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 55.97,
+        "englishName": "iShares MSCI Global Metals & Mining Producers ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 602853,
+        "AvgVolume": 764039,
+        "sharesOutstanding": 8350000,
+        "52Week": "37.89 - 69.02",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46434G8481",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.27,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 328536,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 765977,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32688,8 +32713,36 @@
             "volume": 850555
         },
         {
+            "date": "2026-07-15",
+            "open": 58.650002,
+            "high": 58.868301,
+            "low": 57.505001,
+            "close": 58.25,
+            "volume": 355622
+        },
+        {
+            "date": "2026-07-16",
+            "open": 57.439999,
+            "high": 57.290001,
+            "low": 56.549999,
+            "close": 56.66,
+            "volume": 383440
+        },
+        {
+            "date": "2026-07-17",
+            "open": 55.5,
+            "high": 56.615002,
+            "low": 55.230099,
+            "close": 56.27,
+            "volume": 328536
+        },
+        {
             "date": "2026-07-20",
-            "forecasted": true
+            "open": 56.619999,
+            "high": 56.619999,
+            "low": 55.75,
+            "close": 55.970001,
+            "volume": 602853
         },
         {
             "date": "2026-07-27",
@@ -32789,6 +32842,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

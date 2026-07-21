@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 480.5,
+        "englishName": "Vertex Pharmaceuticals Incorporated",
+        "earningsDate": "2026-08-03",
+        "enterpriseValue": 118000402432,
+        "marketCap": 121953509376,
+        "Volume": 1060306,
+        "AvgVolume": 1502942,
+        "sharesOutstanding": 253805417,
+        "52Week": "362.5 - 533.67",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US92532F1003",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 485.65,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 118096846848,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 123260600320,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1503917,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1490173,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -79131,6 +79164,40 @@
             "low": 473.179993,
             "close": 476.309998,
             "volume": 1093650
+        },
+        {
+            "date": "2026-07-15",
+            "open": 472.25,
+            "high": 480.959991,
+            "low": 469.600006,
+            "close": 477.079987,
+            "volume": 1122761
+        },
+        {
+            "date": "2026-07-16",
+            "open": 480,
+            "high": 487.299988,
+            "low": 476.25,
+            "close": 486.029999,
+            "volume": 1345227,
+            "marketCap": 123260600320
+        },
+        {
+            "date": "2026-07-17",
+            "open": 483.51001,
+            "high": 496.690002,
+            "low": 481.975006,
+            "close": 485.649994,
+            "volume": 1503917,
+            "marketCap": 121953509376
+        },
+        {
+            "date": "2026-07-20",
+            "open": 485.649994,
+            "high": 491.230011,
+            "low": 478.480011,
+            "close": 480.5,
+            "volume": 1101508
         }
     ]
 }

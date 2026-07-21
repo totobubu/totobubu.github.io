@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 39.74,
+        "englishName": "UDR, Inc.",
+        "earningsDate": "2026-07-27",
+        "enterpriseValue": 19624867840,
+        "marketCap": 14724292608,
+        "Volume": 2649315,
+        "AvgVolume": 4313718,
+        "sharesOutstanding": 324915653,
+        "52Week": "32.94 - 42.0",
+        "Yield": 0.043407,
+        "dividendRate": 1.73,
+        "payoutRatio": 1.1701,
         "isin": "US9026531049",
         "events": {
             "splits": [
@@ -25,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.76,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19888048128,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14731701248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2670790,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4311637,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.043385,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -105578,10 +105615,44 @@
         },
         {
             "date": "2026-07-15",
+            "open": 40.259998,
+            "high": 40.27,
+            "low": 39.41,
+            "close": 39.459999,
+            "volume": 2398636
+        },
+        {
+            "date": "2026-07-16",
+            "open": 39.5,
+            "high": 40.695,
+            "low": 39.57,
+            "close": 40.57,
+            "volume": 2335182
+        },
+        {
+            "date": "2026-07-17",
+            "open": 40.66,
+            "high": 40.799999,
+            "low": 39.439999,
+            "close": 39.759998,
+            "volume": 2670790,
+            "amount": 0.145,
+            "yield": 0.0354156419
+        },
+        {
+            "date": "2026-07-20",
+            "open": 39.759998,
+            "high": 39.959999,
+            "low": 39.529999,
+            "close": 39.740002,
+            "volume": 2651045
+        },
+        {
+            "date": "2026-10-16",
             "forecasted": true
         },
         {
-            "date": "2026-10-15",
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

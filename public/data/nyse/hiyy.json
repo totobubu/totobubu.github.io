@@ -9,12 +9,37 @@
         "underlying": "HIMS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 15.04,
+        "englishName": "YieldMax HIMS Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 54387,
+        "AvgVolume": 49680,
+        "sharesOutstanding": null,
+        "52Week": "9.53 - 53.97",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V4547",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 33601,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 49818,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1758,8 +1783,40 @@
             "volume": 25914
         },
         {
+            "date": "2026-07-15",
+            "open": 16.389999,
+            "high": 16.889999,
+            "low": 16.434999,
+            "close": 16.860001,
+            "volume": 60687
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.3271
+"expected": true,
+            "open": 16.389999,
+            "high": 16.559999,
+            "low": 15.39,
+            "close": 15.39,
+            "volume": 34700,
+            "amount": 0.327,
+            "amountFixed": 0.3271,
+            "yield": 0.9178768101
+        },
+        {
+            "date": "2026-07-17",
+            "open": 14.77,
+            "high": 15.4897,
+            "low": 14.765,
+            "close": 15,
+            "volume": 33601
+        },
+        {
+            "date": "2026-07-20",
+            "open": 15,
+            "high": 15.29,
+            "low": 14.97,
+            "close": 15.04,
+            "volume": 54387
         },
         {
             "date": "2026-07-23",

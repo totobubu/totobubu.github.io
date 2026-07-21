@@ -9,7 +9,19 @@
         "underlying": "NVDA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 12.41,
+        "englishName": "YieldMax NVDA Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1731751,
+        "AvgVolume": 3083724,
+        "sharesOutstanding": null,
+        "52Week": "11.925 - 18.03",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T7744",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.36,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2701448,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3073142,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6615,8 +6640,40 @@
             "volume": 1566908
         },
         {
+            "date": "2026-07-15",
+            "open": 12.81,
+            "high": 12.9,
+            "low": 12.585,
+            "close": 12.83,
+            "volume": 1926849
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.0963
+"expected": true,
+            "open": 12.63,
+            "high": 12.685,
+            "low": 12.49,
+            "close": 12.57,
+            "volume": 1731567,
+            "amount": 0.096,
+            "amountFixed": 0.0963,
+            "yield": 0.6627632621
+        },
+        {
+            "date": "2026-07-17",
+            "open": 12.33,
+            "high": 12.5373,
+            "low": 12.0514,
+            "close": 12.36,
+            "volume": 2701448
+        },
+        {
+            "date": "2026-07-20",
+            "open": 12.48,
+            "high": 12.585,
+            "low": 12.3501,
+            "close": 12.41,
+            "volume": 1741095
         },
         {
             "date": "2026-07-23",

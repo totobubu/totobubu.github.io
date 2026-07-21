@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 26.8547,
+        "englishName": "Roundhill UBER WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 2587,
+        "AvgVolume": 4755,
+        "sharesOutstanding": null,
+        "52Week": "26.16 - 54.44",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X4786",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.27,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4278,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4704,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1553,8 +1578,37 @@
             "volume": 18314
         },
         {
+            "date": "2026-07-15",
+            "open": 27.309999,
+            "high": 27.32,
+            "low": 27.171801,
+            "close": 27.2834,
+            "volume": 1949
+        },
+        {
+            "date": "2026-07-16",
+            "open": 27.709999,
+            "high": 27.8269,
+            "low": 27.66,
+            "close": 27.8269,
+            "volume": 2057
+        },
+        {
+            "date": "2026-07-17",
+            "open": 27.18,
+            "high": 27.27,
+            "low": 26.950001,
+            "close": 27.1861,
+            "volume": 4278
+        },
+        {
             "date": "2026-07-20",
-            "expected": true
+            "expected": true,
+            "open": 26.809999,
+            "high": 26.955,
+            "low": 26.82,
+            "close": 26.8547,
+            "volume": 2587
         },
         {
             "date": "2026-07-27",
@@ -1654,6 +1708,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

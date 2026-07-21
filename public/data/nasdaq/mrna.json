@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 59.49,
+        "englishName": "Moderna, Inc.",
+        "earningsDate": "2026-07-31",
+        "enterpriseValue": 20622325760,
+        "marketCap": 23604815872,
+        "Volume": 4571142,
+        "AvgVolume": 7795881,
+        "sharesOutstanding": 396786259,
+        "52Week": "22.28 - 85.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US60770K1079",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.82,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 21150052352,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 24529328128,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4468505,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7813172,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17055,6 +17088,41 @@
             "low": 65.800003,
             "close": 67.440002,
             "volume": 5811327
+        },
+        {
+            "date": "2026-07-15",
+            "open": 67.790001,
+            "high": 68.489998,
+            "low": 65.949997,
+            "close": 68.279999,
+            "volume": 3419415,
+            "marketCap": 25057052672
+        },
+        {
+            "date": "2026-07-16",
+            "open": 67,
+            "high": 67.419998,
+            "low": 62.799999,
+            "close": 63.150002,
+            "volume": 5579792,
+            "marketCap": 24529328128
+        },
+        {
+            "date": "2026-07-17",
+            "open": 61.630001,
+            "high": 63.279999,
+            "low": 61.060001,
+            "close": 61.82,
+            "volume": 4468505,
+            "marketCap": 23604815872
+        },
+        {
+            "date": "2026-07-20",
+            "open": 61.439999,
+            "high": 62.425098,
+            "low": 59.299999,
+            "close": 59.490002,
+            "volume": 4571142
         }
     ]
 }

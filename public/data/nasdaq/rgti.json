@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 14.25,
+        "englishName": "Rigetti Computing, Inc.",
+        "earningsDate": "2026-05-11",
+        "enterpriseValue": 4278684160,
+        "marketCap": 4736683008,
+        "Volume": 15140619,
+        "AvgVolume": 39579714,
+        "sharesOutstanding": 332398807,
+        "52Week": "12.53 - 58.15",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US76655K1034",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.11,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4275360256,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 4690147328,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 22022653,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 39829068,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11688,6 +11721,40 @@
             "low": 15.5784,
             "close": 16.110001,
             "volume": 20985795
+        },
+        {
+            "date": "2026-07-15",
+            "open": 16.120001,
+            "high": 16.379999,
+            "low": 14.91,
+            "close": 15.25,
+            "volume": 21605927
+        },
+        {
+            "date": "2026-07-16",
+            "open": 14.8,
+            "high": 14.965,
+            "low": 13.93,
+            "close": 14.1,
+            "volume": 25539238,
+            "marketCap": 4690147328
+        },
+        {
+            "date": "2026-07-17",
+            "open": 13.67,
+            "high": 14.58,
+            "low": 13.4101,
+            "close": 14.11,
+            "volume": 22426046,
+            "marketCap": 4736683008
+        },
+        {
+            "date": "2026-07-20",
+            "open": 14.33,
+            "high": 14.68,
+            "low": 14.14,
+            "close": 14.25,
+            "volume": 15140619
         }
     ]
 }

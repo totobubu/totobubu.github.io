@@ -9,7 +9,19 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 18.94,
+        "englishName": "GraniteShares YieldBoost MSTR ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3098,
+        "AvgVolume": 3493,
+        "sharesOutstanding": null,
+        "52Week": "18.71 - 151.02",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R2803",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.8728,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 643,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3526,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1763,8 +1788,39 @@
             "volume": 1143
         },
         {
+            "date": "2026-07-15",
+            "open": 19.059999,
+            "high": 19.184999,
+            "low": 19.059999,
+            "close": 19.184999,
+            "volume": 518
+        },
+        {
+            "date": "2026-07-16",
+            "open": 19,
+            "high": 19,
+            "low": 18.975,
+            "close": 18.975,
+            "volume": 1259
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 18.780001,
+            "high": 18.872801,
+            "low": 18.780001,
+            "close": 18.872801,
+            "volume": 643,
+            "amount": 0.237,
+            "yield": 0.4859318165
+        },
+        {
+            "date": "2026-07-20",
+            "open": 18.91,
+            "high": 19.049999,
+            "low": 18.799999,
+            "close": 18.940001,
+            "volume": 3098
         },
         {
             "date": "2026-07-24",
@@ -1861,6 +1917,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 58.58,
+        "englishName": "Morgan Stanley Pathway Large Cap Equity ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 68155,
+        "AvgVolume": 80518,
+        "sharesOutstanding": null,
+        "52Week": "50.2 - 59.67",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US61769L8587",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.67,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 42798,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 80718,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3186,6 +3211,38 @@
             "low": 59.125,
             "close": 59.279999,
             "volume": 58260
+        },
+        {
+            "date": "2026-07-15",
+            "open": 59.349998,
+            "high": 59.619999,
+            "low": 59.240002,
+            "close": 59.52,
+            "volume": 73300
+        },
+        {
+            "date": "2026-07-16",
+            "open": 59.080002,
+            "high": 59.581902,
+            "low": 59.110001,
+            "close": 59.279999,
+            "volume": 69712
+        },
+        {
+            "date": "2026-07-17",
+            "open": 58.540001,
+            "high": 58.970001,
+            "low": 58.540001,
+            "close": 58.66,
+            "volume": 42798
+        },
+        {
+            "date": "2026-07-20",
+            "open": 58.869999,
+            "high": 58.9814,
+            "low": 58.540001,
+            "close": 58.580002,
+            "volume": 68155
         }
     ]
 }

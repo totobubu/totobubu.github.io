@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 27.25,
+        "englishName": "YieldMax Ultra Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 426635,
+        "AvgVolume": 607660,
+        "sharesOutstanding": null,
+        "52Week": "26.62 - 64.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J5276",
         "events": {
             "frequencyChanges": [
@@ -34,7 +46,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.12,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 621278,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 605657,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5494,7 +5519,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.3302
+            "amountFixed": 0.3302,
+            "open": 28.49,
+            "high": 28.6,
+            "low": 27.82,
+            "close": 28.190001,
+            "volume": 524153,
+            "yield": 0.5672481572
+        },
+        {
+            "date": "2026-07-16",
+            "open": 27.92,
+            "high": 27.945,
+            "low": 27.415001,
+            "close": 27.48,
+            "volume": 515911
+        },
+        {
+            "date": "2026-07-17",
+            "open": 26.91,
+            "high": 27.440001,
+            "low": 26.620001,
+            "close": 27.120001,
+            "volume": 621278
+        },
+        {
+            "date": "2026-07-20",
+            "open": 27.299999,
+            "high": 27.58,
+            "low": 27.25,
+            "close": 27.25,
+            "volume": 426635
         },
         {
             "date": "2026-07-22",
@@ -5598,6 +5653,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

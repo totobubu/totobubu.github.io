@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 48.04,
+        "englishName": "ALPS O'Shares U.S. Small-Cap Quality Dividend ETF Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 30896,
+        "AvgVolume": 62932,
+        "sharesOutstanding": null,
+        "52Week": "42.081 - 48.88",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US00162Q3956",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.37,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 22615,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 63309,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19404,15 +19429,45 @@
             "volume": 31503
         },
         {
+            "date": "2026-07-15",
+            "open": 47.330002,
+            "high": 47.9799,
+            "low": 47.445202,
+            "close": 47.68,
+            "volume": 52347
+        },
+        {
+            "date": "2026-07-16",
+            "open": 47.650002,
+            "high": 48.610001,
+            "low": 47.794998,
+            "close": 48.610001,
+            "volume": 112834,
+            "amount": 0.023,
+            "yield": 0.0205246581
+        },
+        {
             "date": "2026-07-17",
+            "open": 48.450001,
+            "high": 48.880001,
+            "low": 48.204601,
+            "close": 48.369999,
+            "volume": 22615
+        },
+        {
+            "date": "2026-07-20",
+            "open": 48.439999,
+            "high": 48.334999,
+            "low": 47.974998,
+            "close": 48.040001,
+            "volume": 30896
+        },
+        {
+            "date": "2026-08-14",
             "forecasted": true
         },
         {
-            "date": "2026-08-18",
-            "forecasted": true
-        },
-        {
-            "date": "2026-09-18",
+            "date": "2026-09-16",
             "forecasted": true
         },
         {
@@ -19420,11 +19475,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-11-18",
+            "date": "2026-11-16",
             "forecasted": true
         },
         {
-            "date": "2026-12-18",
+            "date": "2026-12-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

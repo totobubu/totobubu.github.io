@@ -9,7 +9,19 @@
         "underlying": "MSTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 26.98,
+        "englishName": "YieldMax MSTR Short Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 142156,
+        "AvgVolume": 149813,
+        "sharesOutstanding": null,
+        "52Week": "20.85 - 45.53",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R3479",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.83,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 105464,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 151831,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2763,8 +2788,41 @@
             "volume": 160477
         },
         {
+            "date": "2026-07-15",
+            "open": 26.83,
+            "high": 27.559999,
+            "low": 26.351801,
+            "close": 27.389999,
+            "volume": 119273
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.5531
+            "expected": true,
+            "open": 27.200001,
+            "high": 27.629999,
+            "low": 27.004999,
+            "close": 27.629999,
+            "volume": 51392,
+            "amount": 0.553,
+            "amountFixed": 0.5531,
+            "yield": 1.085507313
+        },
+        {
+            "date": "2026-07-17",
+            "open": 28.209999,
+            "high": 28.23,
+            "low": 27.41,
+            "close": 27.83,
+            "volume": 105464
+        },
+        {
+            "date": "2026-07-20",
+            "open": 27.51,
+            "high": 27.5,
+            "low": 26.1901,
+            "close": 26.98,
+            "volume": 142523
+        },
         },
         {
             "date": "2026-07-23",

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 31.63,
+        "englishName": "Global X PureCap MSCI Information Technology ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 46368,
+        "AvgVolume": 101359,
+        "sharesOutstanding": null,
+        "52Week": "23.64 - 35.1",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US37960A2895",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.64,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 149494,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 99763,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1980,6 +2005,38 @@
             "low": 32.220001,
             "close": 32.57,
             "volume": 32683
+        },
+        {
+            "date": "2026-07-15",
+            "open": 32.669998,
+            "high": 32.529999,
+            "low": 32.02,
+            "close": 32.529999,
+            "volume": 25892
+        },
+        {
+            "date": "2026-07-16",
+            "open": 32.169998,
+            "high": 32.049999,
+            "low": 31.809999,
+            "close": 31.98,
+            "volume": 280529
+        },
+        {
+            "date": "2026-07-17",
+            "open": 31.23,
+            "high": 31.93,
+            "low": 30.990999,
+            "close": 31.639999,
+            "volume": 149494
+        },
+        {
+            "date": "2026-07-20",
+            "open": 31.969999,
+            "high": 32.049999,
+            "low": 31.625,
+            "close": 31.629999,
+            "volume": 46368
         }
     ]
 }

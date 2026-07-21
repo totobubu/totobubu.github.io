@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 34.28,
+        "englishName": "Roundhill ETF Trust - Roundhill Top WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 210529,
+        "AvgVolume": 77711,
+        "sharesOutstanding": null,
+        "52Week": "31.88 - 56.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X5858",
         "events": {
             "splits": [],
@@ -21,7 +33,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 39344,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 78804,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1785,7 +1810,40 @@
             "high": 34.700001,
             "low": 34.25,
             "close": 34.580002,
-            "volume": 165731
+            "volume": 165731,
+            "yield": 0.4878787402
+        },
+        {
+            "date": "2026-07-15",
+            "open": 34.75,
+            "high": 35.294102,
+            "low": 34.8092,
+            "close": 35.240002,
+            "volume": 43932
+        },
+        {
+            "date": "2026-07-16",
+            "open": 35.040001,
+            "high": 35.205002,
+            "low": 34.505001,
+            "close": 34.779999,
+            "volume": 39837
+        },
+        {
+            "date": "2026-07-17",
+            "open": 34,
+            "high": 34.349998,
+            "low": 33.689999,
+            "close": 34.040001,
+            "volume": 40401
+        },
+        {
+            "date": "2026-07-20",
+            "open": 34.330002,
+            "high": 34.57,
+            "low": 34.209999,
+            "close": 34.279999,
+            "volume": 213883
         },
         {
             "date": "2026-07-21",
@@ -1889,6 +1947,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

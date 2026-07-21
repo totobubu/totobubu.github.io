@@ -9,14 +9,14 @@
         "underlying": "AMZN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
-        "regularMarketPrice": 15.3001,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 15.2158,
         "englishName": "Graniteshares YieldBOOST AMZN ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 683,
-        "AvgVolume": 3549,
+        "Volume": 565,
+        "AvgVolume": 3388,
         "sharesOutstanding": null,
         "52Week": "14.95 - 25.32",
         "Yield": null,
@@ -28,16 +28,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 15.275,
+                "value": 15.13,
                 "change": "up"
             },
             "Volume": {
-                "value": 3330,
+                "value": 2235,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 3509,
-                "change": "up"
+                "value": 3416,
+                "change": "down"
             }
         }
     },
@@ -1827,8 +1827,39 @@
             "volume": 688
         },
         {
+            "date": "2026-07-15",
+            "open": 15.355,
+            "high": 15.355,
+            "low": 15.35,
+            "close": 15.35,
+            "volume": 487
+        },
+        {
+            "date": "2026-07-16",
+            "open": 15.34,
+            "high": 15.348,
+            "low": 15.26,
+            "close": 15.26,
+            "volume": 1749
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 15.09,
+            "high": 15.14,
+            "low": 15.06,
+            "close": 15.14,
+            "volume": 2235,
+            "amount": 0.1,
+            "yield": 0.5032882704
+        },
+        {
+            "date": "2026-07-20",
+            "open": 15.2158,
+            "high": 15.2158,
+            "low": 15.2158,
+            "close": 15.2158,
+            "volume": 565
         },
         {
             "date": "2026-07-24",
@@ -1925,6 +1956,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

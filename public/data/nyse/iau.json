@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 75.35,
+        "englishName": "iShares Gold Trust",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 7492469,
+        "AvgVolume": 6020495,
+        "sharesOutstanding": 970150016,
+        "52Week": "61.6 - 104.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US4642852044",
         "events": {
             "splits": [
@@ -25,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.5,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6258884,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5996131,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48470,6 +48495,38 @@
             "low": 76.029999,
             "close": 76.269997,
             "volume": 3520842
+        },
+        {
+            "date": "2026-07-15",
+            "open": 76.260002,
+            "high": 76.75,
+            "low": 75.730003,
+            "close": 76.279999,
+            "volume": 2929172
+        },
+        {
+            "date": "2026-07-16",
+            "open": 75.300003,
+            "high": 75.510002,
+            "low": 74.614998,
+            "close": 74.800003,
+            "volume": 5562935
+        },
+        {
+            "date": "2026-07-17",
+            "open": 74.599998,
+            "high": 75.650002,
+            "low": 74.550003,
+            "close": 75.5,
+            "volume": 6258884
+        },
+        {
+            "date": "2026-07-20",
+            "open": 75.370003,
+            "high": 75.580002,
+            "low": 75.18,
+            "close": 75.349998,
+            "volume": 7572551
         }
     ]
 }

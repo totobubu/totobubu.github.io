@@ -9,12 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 2.57,
+        "englishName": "SEALSQ Corp",
+        "earningsDate": null,
+        "enterpriseValue": 85825288,
+        "marketCap": 572529152,
+        "Volume": 14104811,
+        "AvgVolume": 16043504,
+        "sharesOutstanding": 222773999,
+        "52Week": "1.99 - 8.71",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "VGG794831062",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.54,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 65922876,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 565845952,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16464468,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16071632,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6359,6 +6392,41 @@
             "low": 2.67,
             "close": 2.72,
             "volume": 11032176
+        },
+        {
+            "date": "2026-07-15",
+            "open": 2.75,
+            "high": 2.8,
+            "low": 2.59,
+            "close": 2.65,
+            "volume": 12608074,
+            "marketCap": 543568576
+        },
+        {
+            "date": "2026-07-16",
+            "open": 2.52,
+            "high": 2.57,
+            "low": 2.42,
+            "close": 2.44,
+            "volume": 11563579,
+            "marketCap": 565845952
+        },
+        {
+            "date": "2026-07-17",
+            "open": 2.3625,
+            "high": 2.58,
+            "low": 2.35,
+            "close": 2.54,
+            "volume": 16464468,
+            "marketCap": 572529152
+        },
+        {
+            "date": "2026-07-20",
+            "open": 2.55,
+            "high": 2.62,
+            "low": 2.5,
+            "close": 2.57,
+            "volume": 14104811
         }
     ]
 }

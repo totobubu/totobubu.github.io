@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 92.63,
+        "englishName": "JPMorgan Active Growth ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 569140,
+        "AvgVolume": 572444,
+        "sharesOutstanding": null,
+        "52Week": "81.16 - 99.73",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46654Q6098",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 656964,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 567500,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7894,6 +7919,38 @@
             "volume": 321859
         },
         {
+            "date": "2026-07-15",
+            "open": 96.75,
+            "high": 96.75,
+            "low": 94.669998,
+            "close": 96.089996,
+            "volume": 371495
+        },
+        {
+            "date": "2026-07-16",
+            "open": 94.970001,
+            "high": 95.239998,
+            "low": 93.279999,
+            "close": 93.709999,
+            "volume": 456008
+        },
+        {
+            "date": "2026-07-17",
+            "open": 91.610001,
+            "high": 93.57,
+            "low": 91.019997,
+            "close": 92.660004,
+            "volume": 656964
+        },
+        {
+            "date": "2026-07-20",
+            "open": 93.589996,
+            "high": 94.260002,
+            "low": 92.599998,
+            "close": 92.629997,
+            "volume": 569140
+        },
+        {
             "date": "2026-07-21",
             "forecasted": true
         },
@@ -7995,6 +8052,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

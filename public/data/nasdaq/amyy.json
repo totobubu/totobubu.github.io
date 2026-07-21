@@ -9,16 +9,16 @@
         "underlying": "AMD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
-        "regularMarketPrice": 15.46,
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 14.855,
         "englishName": "Graniteshares YieldBOOST AMD ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11712,
-        "AvgVolume": 24649,
+        "Volume": 16387,
+        "AvgVolume": 25077,
         "sharesOutstanding": null,
-        "52Week": "15.08 - 26.53",
+        "52Week": "14.71 - 26.53",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 15.3301,
+                "value": 14.8007,
                 "change": "up"
             },
             "Volume": {
-                "value": 19038,
+                "value": 28580,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 24557,
+                "value": 24755,
                 "change": "up"
             }
         }
@@ -1827,8 +1827,39 @@
             "volume": 11675
         },
         {
+            "date": "2026-07-15",
+            "open": 15.475,
+            "high": 15.475,
+            "low": 15.13,
+            "close": 15.345,
+            "volume": 11421
+        },
+        {
+            "date": "2026-07-16",
+            "open": 15.15,
+            "high": 15.2299,
+            "low": 15.08,
+            "close": 15.1063,
+            "volume": 15900
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 14.73,
+            "high": 14.8586,
+            "low": 14.71,
+            "close": 14.82,
+            "volume": 28580,
+            "amount": 0.238,
+            "yield": 1.0339728445
+        },
+        {
+            "date": "2026-07-20",
+            "open": 14.95,
+            "high": 14.99,
+            "low": 14.855,
+            "close": 14.855,
+            "volume": 16387
         },
         {
             "date": "2026-07-24",
@@ -1925,6 +1956,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

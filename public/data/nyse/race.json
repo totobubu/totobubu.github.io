@@ -9,12 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 371.52,
+        "englishName": "Ferrari N.V.",
+        "earningsDate": "2026-07-30",
+        "enterpriseValue": 67634253824,
+        "marketCap": 65346105344,
+        "Volume": 295094,
+        "AvgVolume": 594208,
+        "sharesOutstanding": 175888530,
+        "52Week": "312.51 - 519.1",
+        "Yield": 0.00973,
+        "dividendRate": 4.23,
+        "payoutRatio": 0.3321,
         "isin": "NL0011585146",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 376.83,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 68649209856,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 66280071168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 343045,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 597844,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009593,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21620,6 +21657,40 @@
             "low": 369.089996,
             "close": 369.160004,
             "volume": 281153
+        },
+        {
+            "date": "2026-07-15",
+            "open": 372.5,
+            "high": 377.929993,
+            "low": 371.970001,
+            "close": 375.73999,
+            "volume": 286547
+        },
+        {
+            "date": "2026-07-16",
+            "open": 377.920013,
+            "high": 382.959991,
+            "low": 377.019989,
+            "close": 382.579987,
+            "volume": 354156,
+            "marketCap": 66280071168
+        },
+        {
+            "date": "2026-07-17",
+            "open": 379.059998,
+            "high": 379.549988,
+            "low": 375.625,
+            "close": 376.829987,
+            "volume": 343045,
+            "marketCap": 65346105344
+        },
+        {
+            "date": "2026-07-20",
+            "open": 375.649994,
+            "high": 375.75,
+            "low": 370.964996,
+            "close": 371.519989,
+            "volume": 295094
         }
     ]
 }

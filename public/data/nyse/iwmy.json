@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 19.04,
+        "englishName": "Defiance R2000 Target 30 Weekly Distribution ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 27530,
+        "AvgVolume": 54091,
+        "sharesOutstanding": null,
+        "52Week": "17.44 - 24.1",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J1390",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.13,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 47104,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 54275,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5838,8 +5863,39 @@
             "volume": 17969
         },
         {
+            "date": "2026-07-15",
+            "open": 19.299999,
+            "high": 19.389999,
+            "low": 19.2799,
+            "close": 19.3298,
+            "volume": 56842
+        },
+        {
             "date": "2026-07-16",
-            "expected": true
+            "expected": true,
+            "open": 19.209999,
+            "high": 19.299999,
+            "low": 19.17,
+            "close": 19.24,
+            "volume": 52781,
+            "amount": 0.111,
+            "yield": 0.4287610843
+        },
+        {
+            "date": "2026-07-17",
+            "open": 19.08,
+            "high": 19.24,
+            "low": 19.02,
+            "close": 19.129999,
+            "volume": 48396
+        },
+        {
+            "date": "2026-07-20",
+            "open": 19.18,
+            "high": 19.221001,
+            "low": 19.040001,
+            "close": 19.040001,
+            "volume": 27530
         },
         {
             "date": "2026-07-23",

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 20.21,
+        "englishName": "YieldMax Crypto Industry & Tech Portfolio Option Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 48707,
+        "AvgVolume": 65081,
+        "sharesOutstanding": null,
+        "52Week": "18.828 - 41.59",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R7272",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.438,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 45280,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 65222,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3280,7 +3305,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.1936
+            "amountFixed": 0.1936,
+            "open": 20.469999,
+            "high": 20.7628,
+            "low": 20.254999,
+            "close": 20.690001,
+            "volume": 50180,
+            "yield": 0.8635662366
+        },
+        {
+            "date": "2026-07-16",
+            "open": 20.610001,
+            "high": 20.610001,
+            "low": 19.75,
+            "close": 19.815001,
+            "volume": 40298
+        },
+        {
+            "date": "2026-07-17",
+            "open": 19.43,
+            "high": 19.76,
+            "low": 18.969999,
+            "close": 19.438,
+            "volume": 45280
+        },
+        {
+            "date": "2026-07-20",
+            "open": 19.73,
+            "high": 20.379999,
+            "low": 19.73,
+            "close": 20.209999,
+            "volume": 49526
         },
         {
             "date": "2026-07-22",
@@ -3384,6 +3439,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

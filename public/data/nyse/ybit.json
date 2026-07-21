@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 19.115,
+        "englishName": "YieldMax Bitcoin Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 20145,
+        "AvgVolume": 28134,
+        "sharesOutstanding": null,
+        "52Week": "17.98 - 55.685",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J4287",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.87,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10162,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 28322,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4878,8 +4903,41 @@
             "volume": 7168
         },
         {
+            "date": "2026-07-15",
+            "open": 19.459999,
+            "high": 19.289,
+            "low": 19.17,
+            "close": 19.24,
+            "volume": 13524
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.178
+            "expected": true,
+            "open": 18.93,
+            "high": 19.009501,
+            "low": 18.912901,
+            "close": 18.98,
+            "volume": 9157,
+            "amount": 0.178,
+            "amountFixed": 0.178,
+            "yield": 0.5553565769
+        },
+        {
+            "date": "2026-07-17",
+            "open": 18.58,
+            "high": 18.9,
+            "low": 18.469999,
+            "close": 18.870001,
+            "volume": 10162
+        },
+        {
+            "date": "2026-07-20",
+            "open": 19,
+            "high": 19.209999,
+            "low": 18.886,
+            "close": 19.115,
+            "volume": 20145
+        },
         },
         {
             "date": "2026-07-23",

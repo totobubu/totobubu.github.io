@@ -9,7 +9,19 @@
         "underlying": "MSTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 13.12,
+        "englishName": "Yieldmax MSTR Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 833394,
+        "AvgVolume": 1686872,
+        "sharesOutstanding": null,
+        "52Week": "11.53 - 110.9",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T4931",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.82,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 961366,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1696831,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4987,8 +5012,38 @@
             "volume": 1007412
         },
         {
+            "date": "2026-07-15",
+            "open": 13.415,
+            "high": 13.62,
+            "low": 13.105,
+            "close": 13.22,
+            "volume": 876618
+        },
+        {
             "date": "2026-07-16",
+"expected": true,
+            "open": 12.85,
+            "high": 12.925,
+            "low": 12.605,
+            "close": 12.65,
+            "volume": 767122,
             "amountFixed": 0.2067
+        },
+        {
+            "date": "2026-07-17",
+            "open": 12.26,
+            "high": 12.93,
+            "low": 12.2,
+            "close": 12.82,
+            "volume": 961366
+        },
+        {
+            "date": "2026-07-20",
+            "open": 12.855,
+            "high": 13.435,
+            "low": 12.8101,
+            "close": 13.12,
+            "volume": 833394
         },
         {
             "date": "2026-07-23",

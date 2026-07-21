@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 6.02,
+        "englishName": "GraniteShares YieldBOOST MARA ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 34333,
+        "AvgVolume": 12627,
+        "sharesOutstanding": null,
+        "52Week": "5.9 - 24.89",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747R2498",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.9,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8161,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12657,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1482,8 +1507,37 @@
             "volume": 38973
         },
         {
+            "date": "2026-07-15",
+            "open": 6.155,
+            "high": 6.19,
+            "low": 6.095,
+            "close": 6.18,
+            "volume": 10010
+        },
+        {
+            "date": "2026-07-16",
+            "open": 6.13,
+            "high": 6.14,
+            "low": 6.0899,
+            "close": 6.09,
+            "volume": 8923
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 5.92,
+            "high": 5.96,
+            "low": 5.9,
+            "close": 5.9,
+            "volume": 8223
+        },
+        {
+            "date": "2026-07-20",
+            "open": 6,
+            "high": 6.0301,
+            "low": 5.945,
+            "close": 6.02,
+            "volume": 34333
         },
         {
             "date": "2026-07-24",
@@ -1580,6 +1634,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

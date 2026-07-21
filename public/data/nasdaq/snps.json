@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 378.46,
+        "englishName": "Synopsys, Inc.",
+        "earningsDate": "2026-05-27",
+        "enterpriseValue": 81937170432,
+        "marketCap": 72467267584,
+        "Volume": 2326047,
+        "AvgVolume": 1933144,
+        "sharesOutstanding": 191479325,
+        "52Week": "366.0 - 651.73",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US8716071076",
         "events": {
             "splits": [
@@ -25,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 384.275,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 88209080320,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 73580716032,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4951945,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1885365,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77786,6 +77819,40 @@
             "low": 424.269989,
             "close": 425.899994,
             "volume": 1372221
+        },
+        {
+            "date": "2026-07-15",
+            "open": 429.859985,
+            "high": 432.25,
+            "low": 421.01001,
+            "close": 425.274994,
+            "volume": 1418066
+        },
+        {
+            "date": "2026-07-16",
+            "open": 425.640015,
+            "high": 425.640015,
+            "low": 416.334991,
+            "close": 417.029999,
+            "volume": 1172008,
+            "marketCap": 73580716032
+        },
+        {
+            "date": "2026-07-17",
+            "open": 401.589996,
+            "high": 402.720001,
+            "low": 366,
+            "close": 384.274994,
+            "volume": 4951945,
+            "marketCap": 72467267584
+        },
+        {
+            "date": "2026-07-20",
+            "open": 382,
+            "high": 385.179993,
+            "low": 373.859985,
+            "close": 378.459991,
+            "volume": 2355516
         }
     ]
 }

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 41.1871,
+        "englishName": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 7137,
+        "AvgVolume": 13603,
+        "sharesOutstanding": null,
+        "52Week": "39.07 - 46.65",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R5607",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.2095,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9893,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13621,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3136,7 +3161,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.2073
+            "amountFixed": 0.2073,
+            "open": 41.689999,
+            "high": 41.790001,
+            "low": 41.564999,
+            "close": 41.7085,
+            "volume": 5102,
+            "yield": 0.2651571184
+        },
+        {
+            "date": "2026-07-16",
+            "open": 41.599499,
+            "high": 41.779999,
+            "low": 41.52,
+            "close": 41.534801,
+            "volume": 9509
+        },
+        {
+            "date": "2026-07-17",
+            "open": 40.990002,
+            "high": 41.400002,
+            "low": 40.9701,
+            "close": 41.209499,
+            "volume": 9893
+        },
+        {
+            "date": "2026-07-20",
+            "open": 41.450001,
+            "high": 41.450001,
+            "low": 41.150002,
+            "close": 41.187099,
+            "volume": 7161
         },
         {
             "date": "2026-07-22",
@@ -3240,6 +3295,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

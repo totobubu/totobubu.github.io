@@ -9,7 +9,19 @@
         "underlying": "SNOW",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 10.69,
+        "englishName": "YieldMax SNOW Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 165334,
+        "AvgVolume": 90516,
+        "sharesOutstanding": null,
+        "52Week": "6.17 - 17.354",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J7744",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 95461,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 89381,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4392,8 +4417,41 @@
             "volume": 254060
         },
         {
+            "date": "2026-07-15",
+            "open": 10.93,
+            "high": 10.85,
+            "low": 10.63,
+            "close": 10.78,
+            "volume": 85791
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.1667
+            "expected": true,
+            "open": 10.66,
+            "high": 10.649,
+            "low": 10.43,
+            "close": 10.57,
+            "volume": 67809,
+            "amount": 0.167,
+            "amountFixed": 0.1667,
+            "yield": 0.7011350844
+        },
+        {
+            "date": "2026-07-17",
+            "open": 10.47,
+            "high": 10.6,
+            "low": 10.4,
+            "close": 10.59,
+            "volume": 107902
+        },
+        {
+            "date": "2026-07-20",
+            "open": 10.46,
+            "high": 10.801,
+            "low": 10.48,
+            "close": 10.69,
+            "volume": 165334
+        },
         },
         {
             "date": "2026-07-23",

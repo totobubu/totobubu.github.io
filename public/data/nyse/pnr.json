@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 62.12,
+        "englishName": "Pentair plc",
+        "earningsDate": "2026-07-28",
+        "enterpriseValue": 12106166272,
+        "marketCap": 10038935552,
+        "Volume": 3408300,
+        "AvgVolume": 2580404,
+        "sharesOutstanding": 161605541,
+        "52Week": "57.6 - 113.95",
+        "Yield": 0.01642,
+        "dividendRate": 1.06,
+        "payoutRatio": 0.2563,
         "isin": "IE00BLS09M33",
         "events": {
             "splits": [
@@ -35,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 62.45,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 12629768192,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10092265472,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5020732,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2514886,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.016333,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122436,11 +122473,43 @@
             "volume": 3343991
         },
         {
+            "date": "2026-07-15",
+            "open": 57.990002,
+            "high": 66.870003,
+            "low": 57.990002,
+            "close": 64.330002,
+            "volume": 11103676
+        },
+        {
+            "date": "2026-07-16",
+            "open": 63.41,
+            "high": 66.25,
+            "low": 62.310001,
+            "close": 65.690002,
+            "volume": 6437446
+        },
+        {
             "date": "2026-07-17",
-            "forecasted": true
+            "open": 64.93,
+            "high": 65.894997,
+            "low": 62.110001,
+            "close": 62.450001,
+            "volume": 5020732
+        },
+        {
+            "date": "2026-07-20",
+            "open": 62.810001,
+            "high": 62.84,
+            "low": 61.619999,
+            "close": 62.119999,
+            "volume": 3408300
         },
         {
             "date": "2026-10-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-15",
             "forecasted": true
         }
     ]

@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 77.12,
+        "englishName": "Direxion Daily Technology Bear 3X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 311767,
+        "AvgVolume": 866576,
+        "sharesOutstanding": null,
+        "52Week": "59.0 - 260.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25461A4940",
         "events": {
             "splits": [
@@ -47,10 +59,28 @@
                     "date": "2024-11-04",
                     "ratio": "1:10",
                     "type": "split"
+                },
+                {
+                    "date": "2026-07-15",
+                    "ratio": "1:10",
+                    "type": "split"
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 77.11,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 526941,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 862193,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35640,6 +35670,38 @@
             "low": 6.67,
             "close": 6.77,
             "volume": 10130030
+        },
+        {
+            "date": "2026-07-15",
+            "open": 65.919998,
+            "high": 73.580002,
+            "low": 66.364998,
+            "close": 69.800003,
+            "volume": 325089
+        },
+        {
+            "date": "2026-07-16",
+            "open": 73.010002,
+            "high": 75.800003,
+            "low": 72.650002,
+            "close": 74.650002,
+            "volume": 334682
+        },
+        {
+            "date": "2026-07-17",
+            "open": 80.510002,
+            "high": 82.489998,
+            "low": 74.370003,
+            "close": 77.110001,
+            "volume": 526941
+        },
+        {
+            "date": "2026-07-20",
+            "open": 75.110001,
+            "high": 77.269997,
+            "low": 73.224998,
+            "close": 77.120003,
+            "volume": 312147
         },
         {
             "date": "2026-09-23",

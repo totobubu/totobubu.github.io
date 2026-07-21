@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 23.59,
+        "englishName": "Return Stacked U.S. Stocks & Gold/Bitcoin ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 9639,
+        "AvgVolume": 17898,
+        "sharesOutstanding": null,
+        "52Week": "21.325 - 31.06",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V7029",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.44,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10169,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17885,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2266,6 +2291,38 @@
             "low": 23.978901,
             "close": 24.023701,
             "volume": 15590
+        },
+        {
+            "date": "2026-07-15",
+            "open": 24.211901,
+            "high": 24.235001,
+            "low": 23.950001,
+            "close": 24.1257,
+            "volume": 6967
+        },
+        {
+            "date": "2026-07-16",
+            "open": 23.67,
+            "high": 23.897499,
+            "low": 23.584999,
+            "close": 23.6042,
+            "volume": 15296
+        },
+        {
+            "date": "2026-07-17",
+            "open": 23.115,
+            "high": 23.559999,
+            "low": 23.115,
+            "close": 23.541,
+            "volume": 10169
+        },
+        {
+            "date": "2026-07-20",
+            "open": 23.7036,
+            "high": 23.795,
+            "low": 23.504999,
+            "close": 23.59,
+            "volume": 9639
         }
     ]
 }

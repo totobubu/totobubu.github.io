@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 115.65,
+        "englishName": "Incyte Corporation",
+        "earningsDate": "2026-07-28",
+        "enterpriseValue": 19448061952,
+        "marketCap": 23104806912,
+        "Volume": 1220995,
+        "AvgVolume": 1744695,
+        "sharesOutstanding": 199782155,
+        "52Week": "67.17 - 119.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US45337C1027",
         "events": {
             "splits": [
@@ -25,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 117.25,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19328192512,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 23424458752,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2190282,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1725036,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -73942,6 +73975,41 @@
             "low": 112.809998,
             "close": 114.879997,
             "volume": 1300773
+        },
+        {
+            "date": "2026-07-15",
+            "open": 113.540001,
+            "high": 115.800003,
+            "low": 110.559998,
+            "close": 115.089996,
+            "volume": 1505265,
+            "marketCap": 23304589312
+        },
+        {
+            "date": "2026-07-16",
+            "open": 115.059998,
+            "high": 117.18,
+            "low": 114.130096,
+            "close": 116.650002,
+            "volume": 1333251,
+            "marketCap": 23424458752
+        },
+        {
+            "date": "2026-07-17",
+            "open": 116.269997,
+            "high": 119.599998,
+            "low": 116.269997,
+            "close": 117.25,
+            "volume": 2190282,
+            "marketCap": 23104806912
+        },
+        {
+            "date": "2026-07-20",
+            "open": 117.620003,
+            "high": 118.650002,
+            "low": 114.955002,
+            "close": 115.650002,
+            "volume": 1220995
         }
     ]
 }

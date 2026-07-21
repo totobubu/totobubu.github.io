@@ -9,12 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 32.21,
+        "englishName": "News Corporation",
+        "earningsDate": "2026-05-07",
+        "enterpriseValue": 19197224960,
+        "marketCap": 17460596736,
+        "Volume": 865007,
+        "AvgVolume": 1608059,
+        "sharesOutstanding": 180862344,
+        "52Week": "25.49 - 35.58",
+        "Yield": 0.006209,
+        "dividendRate": 0.2,
+        "payoutRatio": 0.2532,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.42,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19262916608,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 17577334784,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 999381,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1600814,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 180889472,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006169,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29498,6 +29539,40 @@
             "low": 30.870001,
             "close": 31.15,
             "volume": 1004072
+        },
+        {
+            "date": "2026-07-15",
+            "open": 31.15,
+            "high": 32.049999,
+            "low": 30.85,
+            "close": 31.66,
+            "volume": 1453446
+        },
+        {
+            "date": "2026-07-16",
+            "open": 31.959999,
+            "high": 32.66,
+            "low": 31.959999,
+            "close": 32.540001,
+            "volume": 1053242,
+            "marketCap": 17577334784
+        },
+        {
+            "date": "2026-07-17",
+            "open": 32.639999,
+            "high": 32.91,
+            "low": 32.189999,
+            "close": 32.419998,
+            "volume": 999381,
+            "marketCap": 17460596736
+        },
+        {
+            "date": "2026-07-20",
+            "open": 32.349998,
+            "high": 32.48,
+            "low": 32.040001,
+            "close": 32.209999,
+            "volume": 865007
         }
     ]
 }

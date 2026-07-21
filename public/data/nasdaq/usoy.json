@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 7.33,
+        "englishName": "Defiance Oil Enhanced Options Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 343907,
+        "AvgVolume": 441822,
+        "sharesOutstanding": null,
+        "52Week": "6.35 - 9.58",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J3784",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.275,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 395835,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 445813,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4585,8 +4610,39 @@
             "volume": 685587
         },
         {
+            "date": "2026-07-15",
+            "open": 7.18,
+            "high": 7.235,
+            "low": 7.08,
+            "close": 7.2,
+            "volume": 448520
+        },
+        {
             "date": "2026-07-16",
-            "expected": true
+            "expected": true,
+            "open": 7.16,
+            "high": 7.17,
+            "low": 7.01,
+            "close": 7.05,
+            "volume": 197101,
+            "amount": 0.055,
+            "yield": 0.6163407821
+        },
+        {
+            "date": "2026-07-17",
+            "open": 7.2,
+            "high": 7.285,
+            "low": 7.135,
+            "close": 7.275,
+            "volume": 395835
+        },
+        {
+            "date": "2026-07-20",
+            "open": 7.3,
+            "high": 7.36,
+            "low": 7.25,
+            "close": 7.33,
+            "volume": 350372
         },
         {
             "date": "2026-07-23",

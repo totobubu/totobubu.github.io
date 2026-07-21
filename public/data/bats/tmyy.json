@@ -9,12 +9,37 @@
         "underlying": "TSM",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 22.9025,
+        "englishName": "GraniteShares YieldBOOST TSM ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5530,
+        "AvgVolume": 3327,
+        "sharesOutstanding": null,
+        "52Week": "22.9025 - 25.39",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747T6828",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.96,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2185,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3303,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -558,8 +583,39 @@
             "volume": 1181
         },
         {
+            "date": "2026-07-15",
+            "open": 23.870001,
+            "high": 23.91,
+            "low": 23.6598,
+            "close": 23.7393,
+            "volume": 4722
+        },
+        {
+            "date": "2026-07-16",
+            "open": 23.4,
+            "high": 23.66,
+            "low": 23.4,
+            "close": 23.557899,
+            "volume": 1169
+        },
+        {
             "date": "2026-07-17",
-            "expected": true
+            "expected": true,
+            "open": 22.940001,
+            "high": 23.115,
+            "low": 22.940001,
+            "close": 22.959999,
+            "volume": 2185,
+            "amount": 0.266,
+            "yield": 0.2055187356
+        },
+        {
+            "date": "2026-07-20",
+            "open": 23.15,
+            "high": 23.200001,
+            "low": 22.9025,
+            "close": 22.9025,
+            "volume": 5530
         },
         {
             "date": "2026-07-24",
@@ -656,6 +712,10 @@
         {
             "date": "2027-01-04",
             "expected": true
+        },
+        {
+            "date": "2027-01-15",
+            "forecasted": true
         }
     ]
 }

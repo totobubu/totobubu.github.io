@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 22.288,
+        "englishName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 12781,
+        "AvgVolume": 22600,
+        "sharesOutstanding": null,
+        "52Week": "21.95 - 50.47",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R6779",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.27,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 17332,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 22598,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1944,7 +1969,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.2415
+            "amountFixed": 0.2415,
+            "open": 22.08,
+            "high": 22.209999,
+            "low": 21.950001,
+            "close": 22.209999,
+            "volume": 21723,
+            "yield": 0.8574003623
+        },
+        {
+            "date": "2026-07-16",
+            "open": 22.209999,
+            "high": 22.17,
+            "low": 21.950001,
+            "close": 22.01,
+            "volume": 11427
+        },
+        {
+            "date": "2026-07-17",
+            "open": 21.98,
+            "high": 22.27,
+            "low": 21.9501,
+            "close": 22.232401,
+            "volume": 17427
+        },
+        {
+            "date": "2026-07-20",
+            "open": 22.23,
+            "high": 22.32,
+            "low": 22.17,
+            "close": 22.288,
+            "volume": 12781
         },
         {
             "date": "2026-07-22",
@@ -2048,6 +2103,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

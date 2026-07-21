@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 49.0317,
+        "englishName": "NEOS Enhanced Income Credit Select ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 16860,
+        "AvgVolume": 31827,
+        "sharesOutstanding": null,
+        "52Week": "48.75 - 51.17",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US78433H5845",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.045,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 73456,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 30886,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3698,7 +3723,38 @@
         },
         {
             "date": "2026-07-15",
-            "expected": true
+            "expected": true,
+            "open": 49.049999,
+            "high": 49.16,
+            "low": 49.049999,
+            "close": 49.145,
+            "volume": 27005,
+            "amount": 0.33,
+            "yield": 0.0904057103
+        },
+        {
+            "date": "2026-07-16",
+            "open": 49.049999,
+            "high": 49.119999,
+            "low": 49.033298,
+            "close": 49.091,
+            "volume": 28559
+        },
+        {
+            "date": "2026-07-17",
+            "open": 49.049999,
+            "high": 49.080002,
+            "low": 49,
+            "close": 49.044998,
+            "volume": 73456
+        },
+        {
+            "date": "2026-07-20",
+            "open": 49.080002,
+            "high": 49.080002,
+            "low": 49.02,
+            "close": 49.0317,
+            "volume": 16860
         },
         {
             "date": "2026-08-12",

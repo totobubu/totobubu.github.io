@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 97.82,
+        "englishName": "Strategy Inc",
+        "earningsDate": "2026-07-30",
+        "enterpriseValue": 48275075072,
+        "marketCap": 35468288000,
+        "Volume": 15776759,
+        "AvgVolume": 20630637,
+        "sharesOutstanding": 342947057,
+        "52Week": "81.81 - 437.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US9221778528",
         "events": {
             "splits": [
@@ -30,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.85,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 47987707904,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 34391404544,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12460674,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20778850,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -63484,6 +63517,41 @@
             "low": 93.559998,
             "close": 97.580002,
             "volume": 18039740
+        },
+        {
+            "date": "2026-07-15",
+            "open": 99.779999,
+            "high": 101.897499,
+            "low": 96.360397,
+            "close": 97.470001,
+            "volume": 14496437,
+            "marketCap": 34094082048
+        },
+        {
+            "date": "2026-07-16",
+            "open": 95.879997,
+            "high": 96.610001,
+            "low": 93.449997,
+            "close": 94.029999,
+            "volume": 10782507,
+            "marketCap": 34391404544
+        },
+        {
+            "date": "2026-07-17",
+            "open": 90.940002,
+            "high": 95.969902,
+            "low": 90.059998,
+            "close": 94.849998,
+            "volume": 12460674,
+            "marketCap": 35468288000
+        },
+        {
+            "date": "2026-07-20",
+            "open": 95.550003,
+            "high": 100.919899,
+            "low": 94.870003,
+            "close": 97.82,
+            "volume": 16091578
         }
     ]
 }

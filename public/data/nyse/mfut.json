@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 19.02,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3574,
+        "AvgVolume": 10818,
+        "sharesOutstanding": null,
+        "52Week": "14.5 - 22.0",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J3370",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.99,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6094,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10754,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4274,6 +4299,38 @@
             "low": 19.07,
             "close": 19.110001,
             "volume": 5205
+        },
+        {
+            "date": "2026-07-15",
+            "open": 19.02,
+            "high": 18.9751,
+            "low": 18.9,
+            "close": 18.9751,
+            "volume": 2807
+        },
+        {
+            "date": "2026-07-16",
+            "open": 18.790001,
+            "high": 18.83,
+            "low": 18.77,
+            "close": 18.83,
+            "volume": 1900
+        },
+        {
+            "date": "2026-07-17",
+            "open": 18.799999,
+            "high": 19.055,
+            "low": 18.799999,
+            "close": 18.99,
+            "volume": 6094
+        },
+        {
+            "date": "2026-07-20",
+            "open": 19.040001,
+            "high": 19.09,
+            "low": 18.9,
+            "close": 19.02,
+            "volume": 3574
         }
     ]
 }

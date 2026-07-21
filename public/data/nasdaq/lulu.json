@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 116.67,
+        "englishName": "lululemon athletica inc.",
+        "earningsDate": "2026-06-04",
+        "enterpriseValue": 13831006208,
+        "marketCap": 13248335872,
+        "Volume": 2356983,
+        "AvgVolume": 3780555,
+        "sharesOutstanding": 108437957,
+        "52Week": "104.44 - 230.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US5500211090",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 116.33,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 14110349312,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 13209728000,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2576914,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3756644,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42825,6 +42858,41 @@
             "low": 115.910004,
             "close": 117.32,
             "volume": 2217803
+        },
+        {
+            "date": "2026-07-15",
+            "open": 118,
+            "high": 120.489998,
+            "low": 116.57,
+            "close": 117.419998,
+            "volume": 2010215,
+            "marketCap": 13489070080
+        },
+        {
+            "date": "2026-07-16",
+            "open": 115.07,
+            "high": 119.900002,
+            "low": 114.349998,
+            "close": 118.790001,
+            "volume": 2063801,
+            "marketCap": 13209728000
+        },
+        {
+            "date": "2026-07-17",
+            "open": 117.959999,
+            "high": 119.050003,
+            "low": 115.660004,
+            "close": 116.330002,
+            "volume": 2576914,
+            "marketCap": 13248335872
+        },
+        {
+            "date": "2026-07-20",
+            "open": 116.400002,
+            "high": 117.805,
+            "low": 115,
+            "close": 116.669998,
+            "volume": 2356983
         }
     ]
 }

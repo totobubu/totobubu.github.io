@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 17.9901,
+        "englishName": "Roundhill Bitcoin Covered Call Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 82511,
+        "AvgVolume": 87016,
+        "sharesOutstanding": null,
+        "52Week": "16.3 - 49.52",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X5023",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.83,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 40599,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 89837,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5315,7 +5340,37 @@
         },
         {
             "date": "2026-07-15",
-            "amountFixed": 0.098746
+            "amountFixed": 0.098746,
+            "open": 18,
+            "high": 18.09,
+            "low": 17.950001,
+            "close": 17.98,
+            "volume": 58329,
+            "yield": 0.8487751667
+        },
+        {
+            "date": "2026-07-16",
+            "open": 17.75,
+            "high": 18,
+            "low": 17.75,
+            "close": 17.85,
+            "volume": 32145
+        },
+        {
+            "date": "2026-07-17",
+            "open": 17.48,
+            "high": 17.844999,
+            "low": 17.340401,
+            "close": 17.83,
+            "volume": 40599
+        },
+        {
+            "date": "2026-07-20",
+            "open": 17.83,
+            "high": 18.084999,
+            "low": 17.805,
+            "close": 17.990101,
+            "volume": 82511
         },
         {
             "date": "2026-07-22",
@@ -5419,6 +5474,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

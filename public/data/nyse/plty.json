@@ -9,7 +9,19 @@
         "underlying": "PLTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 31.14,
+        "englishName": "YieldMax PLTR Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 137195,
+        "AvgVolume": 201483,
+        "sharesOutstanding": null,
+        "52Week": "26.06 - 78.84",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R8007",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.63,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 92743,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 202536,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3703,8 +3728,41 @@
             "volume": 134364
         },
         {
+            "date": "2026-07-15",
+            "open": 31.41,
+            "high": 31.83,
+            "low": 31.25,
+            "close": 31.33,
+            "volume": 67271
+        },
+        {
             "date": "2026-07-16",
-            "amountFixed": 0.2998
+            "expected": true,
+            "open": 30.879999,
+            "high": 31.23,
+            "low": 30.240101,
+            "close": 31.129999,
+            "volume": 75933,
+            "amount": 0.3,
+            "amountFixed": 0.2998,
+            "yield": 1.1974968004
+        },
+        {
+            "date": "2026-07-17",
+            "open": 30.58,
+            "high": 31.15,
+            "low": 30.15,
+            "close": 30.629999,
+            "volume": 92743
+        },
+        {
+            "date": "2026-07-20",
+            "open": 30.559999,
+            "high": 31.445,
+            "low": 30.67,
+            "close": 31.139999,
+            "volume": 137195
+        },
         },
         {
             "date": "2026-07-23",

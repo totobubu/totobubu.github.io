@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 40.79,
+        "englishName": "iShares International Equity Factor ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 137643,
+        "AvgVolume": 292216,
+        "sharesOutstanding": null,
+        "52Week": "33.53 - 41.97",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46434V2741",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 405540,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 288365,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22580,8 +22605,36 @@
             "volume": 336725
         },
         {
+            "date": "2026-07-15",
+            "open": 41.490002,
+            "high": 41.599998,
+            "low": 41.224998,
+            "close": 41.560001,
+            "volume": 280618
+        },
+        {
+            "date": "2026-07-16",
+            "open": 41.16,
+            "high": 41.395,
+            "low": 41.139999,
+            "close": 41.27,
+            "volume": 161121
+        },
+        {
+            "date": "2026-07-17",
+            "open": 40.810001,
+            "high": 41.1199,
+            "low": 40.73,
+            "close": 41.040001,
+            "volume": 405540
+        },
+        {
             "date": "2026-07-20",
-            "forecasted": true
+            "open": 41.029999,
+            "high": 41.09,
+            "low": 40.709999,
+            "close": 40.790001,
+            "volume": 137643
         },
         {
             "date": "2026-07-27",
@@ -22681,6 +22734,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

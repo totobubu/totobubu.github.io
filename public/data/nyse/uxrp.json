@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 11.18,
+        "englishName": "ProShares Ultra XRP ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 98979,
+        "AvgVolume": 93852,
+        "sharesOutstanding": null,
+        "52Week": "9.335 - 306.4",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US74349Y4989",
         "events": {
             "splits": [
@@ -20,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.65,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 27702,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 94921,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2030,6 +2055,38 @@
             "low": 10.78,
             "close": 11.17,
             "volume": 59470
+        },
+        {
+            "date": "2026-07-15",
+            "open": 11.39,
+            "high": 11.4393,
+            "low": 11.04,
+            "close": 11.04,
+            "volume": 52750
+        },
+        {
+            "date": "2026-07-16",
+            "open": 11.02,
+            "high": 11.21,
+            "low": 10.61,
+            "close": 10.81,
+            "volume": 45165
+        },
+        {
+            "date": "2026-07-17",
+            "open": 10.345,
+            "high": 10.739,
+            "low": 10.27,
+            "close": 10.65,
+            "volume": 27702
+        },
+        {
+            "date": "2026-07-20",
+            "open": 10.78,
+            "high": 11.235,
+            "low": 10.615,
+            "close": 11.18,
+            "volume": 99459
         }
     ]
 }

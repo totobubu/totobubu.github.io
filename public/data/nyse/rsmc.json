@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 27.73,
+        "englishName": "Rockefeller U.S. Small-Mid Cap ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 13410,
+        "AvgVolume": 9973,
+        "sharesOutstanding": null,
+        "52Week": "24.17 - 29.225",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US45259A8036",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.96,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5437,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9955,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3520,6 +3545,38 @@
             "low": 27.9666,
             "close": 27.9666,
             "volume": 33931
+        },
+        {
+            "date": "2026-07-15",
+            "open": 28.120001,
+            "high": 28.189899,
+            "low": 28.075001,
+            "close": 28.112,
+            "volume": 2513
+        },
+        {
+            "date": "2026-07-16",
+            "open": 28.280001,
+            "high": 28.280001,
+            "low": 28.280001,
+            "close": 28.280001,
+            "volume": 988
+        },
+        {
+            "date": "2026-07-17",
+            "open": 28.0501,
+            "high": 28.09,
+            "low": 27.959999,
+            "close": 27.959999,
+            "volume": 5437
+        },
+        {
+            "date": "2026-07-20",
+            "open": 28,
+            "high": 28.004999,
+            "low": 27.690001,
+            "close": 27.73,
+            "volume": 13410
         }
     ]
 }

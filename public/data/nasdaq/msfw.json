@@ -9,12 +9,37 @@
         "underlying": "MSFT",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 26.2786,
+        "englishName": "Roundhill MSFT WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 6770,
+        "AvgVolume": 19837,
+        "sharesOutstanding": null,
+        "52Week": "22.97 - 55.97",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X7342",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.76,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10632,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19801,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2118,8 +2143,37 @@
             "volume": 10524
         },
         {
+            "date": "2026-07-15",
+            "open": 25.469999,
+            "high": 26.110001,
+            "low": 25.799999,
+            "close": 25.905899,
+            "volume": 10941
+        },
+        {
+            "date": "2026-07-16",
+            "open": 26.219999,
+            "high": 26.569,
+            "low": 25.790001,
+            "close": 26.35,
+            "volume": 12373
+        },
+        {
+            "date": "2026-07-17",
+            "open": 25.799999,
+            "high": 25.962099,
+            "low": 25.48,
+            "close": 25.76,
+            "volume": 10632
+        },
+        {
             "date": "2026-07-20",
-            "expected": true
+            "expected": true,
+            "open": 25.360001,
+            "high": 26.278601,
+            "low": 25.379999,
+            "close": 26.278601,
+            "volume": 6770
         },
         {
             "date": "2026-07-27",
@@ -2219,6 +2273,10 @@
         },
         {
             "date": "2027-01-11",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-18",
             "forecasted": true
         }
     ]

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 48.55,
+        "englishName": "iShares MSCI India ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4924028,
+        "AvgVolume": 6214122,
+        "sharesOutstanding": null,
+        "52Week": "45.21 - 55.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US46429B5984",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5763239,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6236157,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29086,6 +29111,38 @@
             "volume": 4363741
         },
         {
+            "date": "2026-07-15",
+            "open": 48.66,
+            "high": 48.849998,
+            "low": 48.599998,
+            "close": 48.720001,
+            "volume": 5520129
+        },
+        {
+            "date": "2026-07-16",
+            "open": 48.57,
+            "high": 48.779999,
+            "low": 48.52,
+            "close": 48.689999,
+            "volume": 3017363
+        },
+        {
+            "date": "2026-07-17",
+            "open": 48.93,
+            "high": 49.084999,
+            "low": 48.825001,
+            "close": 48.91,
+            "volume": 5863825
+        },
+        {
+            "date": "2026-07-20",
+            "open": 48.939999,
+            "high": 48.950001,
+            "low": 48.535,
+            "close": 48.549999,
+            "volume": 5490819
+        },
+        {
             "date": "2026-07-21",
             "forecasted": true
         },
@@ -29187,6 +29244,10 @@
         },
         {
             "date": "2027-01-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]

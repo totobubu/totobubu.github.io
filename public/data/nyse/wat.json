@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 357.54,
+        "englishName": "Waters Corporation",
+        "earningsDate": "2026-08-04",
+        "enterpriseValue": 41368616960,
+        "marketCap": 35105370112,
+        "Volume": 627053,
+        "AvgVolume": 1021649,
+        "sharesOutstanding": 98185855,
+        "52Week": "275.05 - 414.15",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US9418481035",
         "events": {
             "splits": [
@@ -25,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 368.98,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 42272907264,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36228616192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 471363,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1024522,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69290,6 +69323,40 @@
             "low": 368.920013,
             "close": 376.390015,
             "volume": 717169
+        },
+        {
+            "date": "2026-07-15",
+            "open": 377.26001,
+            "high": 381.309998,
+            "low": 373.850006,
+            "close": 374.920013,
+            "volume": 455789
+        },
+        {
+            "date": "2026-07-16",
+            "open": 373.799988,
+            "high": 380.909912,
+            "low": 371.290009,
+            "close": 378.190002,
+            "volume": 755603,
+            "marketCap": 36228616192
+        },
+        {
+            "date": "2026-07-17",
+            "open": 374.079987,
+            "high": 378.899994,
+            "low": 367.5,
+            "close": 368.980011,
+            "volume": 471363,
+            "marketCap": 35105370112
+        },
+        {
+            "date": "2026-07-20",
+            "open": 367.480011,
+            "high": 367.86499,
+            "low": 357.040009,
+            "close": 357.540009,
+            "volume": 627053
         }
     ]
 }

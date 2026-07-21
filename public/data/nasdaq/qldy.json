@@ -12,12 +12,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-15 05:10:43 KST",
+        "Update": "2026-07-21 05:50:38 KST",
+        "regularMarketPrice": 42.3122,
+        "englishName": "Defiance NASDAQ 100 Lightningspread Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 26992,
+        "AvgVolume": 44395,
+        "sharesOutstanding": null,
+        "52Week": "37.4 - 52.35",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V8845",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.405,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49981,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 43773,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1861,7 +1886,38 @@
         },
         {
             "date": "2026-07-15",
-            "expected": true
+            "expected": true,
+            "open": 44.68,
+            "high": 44.68,
+            "low": 43.720001,
+            "close": 44.099602,
+            "volume": 45146
+        },
+        {
+            "date": "2026-07-16",
+            "open": 43.740002,
+            "high": 43.740002,
+            "low": 43.040001,
+            "close": 43.1684,
+            "volume": 52260
+        },
+        {
+            "date": "2026-07-17",
+            "open": 41.98,
+            "high": 42.775002,
+            "low": 41.650002,
+            "close": 42.404999,
+            "volume": 50539,
+            "amount": 0.17,
+            "yield": 0.3148046689
+        },
+        {
+            "date": "2026-07-20",
+            "open": 42.82,
+            "high": 42.875,
+            "low": 42.312199,
+            "close": 42.312199,
+            "volume": 27019
         },
         {
             "date": "2026-07-22",
@@ -1965,6 +2021,10 @@
         },
         {
             "date": "2027-01-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-19",
             "forecasted": true
         }
     ]
