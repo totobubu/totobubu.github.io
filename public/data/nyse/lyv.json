@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-23 05:33:37 KST",
-        "regularMarketPrice": 177.92,
+        "Update": "2026-07-24 05:22:55 KST",
+        "regularMarketPrice": 176.06,
         "englishName": "Live Nation Entertainment, Inc.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 44461817856,
-        "marketCap": 41404260352,
-        "Volume": 1045178,
-        "AvgVolume": 2527221,
+        "enterpriseValue": 44482764800,
+        "marketCap": 40971415552,
+        "Volume": 1068093,
+        "AvgVolume": 2503106,
         "sharesOutstanding": 232712799,
         "52Week": "125.34 - 188.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 177.92,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 44461817856,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 41404260352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1045178,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2527221,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46480,7 +46501,8 @@
             "high": 180.175003,
             "low": 176.589996,
             "close": 177.919998,
-            "volume": 1045178
+            "volume": 1045178,
+            "marketCap": 40971415552
         }
     ]
 }

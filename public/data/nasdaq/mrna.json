@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-23 05:33:37 KST",
-        "regularMarketPrice": 58.07,
+        "Update": "2026-07-24 05:22:55 KST",
+        "regularMarketPrice": 57.02,
         "englishName": "Moderna, Inc.",
         "earningsDate": "2026-07-31",
-        "enterpriseValue": 19765268480,
-        "marketCap": 23041378304,
-        "Volume": 3646300,
-        "AvgVolume": 7789672,
+        "enterpriseValue": 19134377984,
+        "marketCap": 22624753664,
+        "Volume": 4113758,
+        "AvgVolume": 7785047,
         "sharesOutstanding": 396786259,
         "52Week": "22.28 - 85.6",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.07,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19765268480,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23041378304,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3646300,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7789672,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17118,7 +17139,8 @@
             "high": 59.860001,
             "low": 57.740002,
             "close": 58.07,
-            "volume": 3765770
+            "volume": 3765770,
+            "marketCap": 22624753664
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-07-23 05:33:37 KST",
-        "regularMarketPrice": 52.18,
+        "Update": "2026-07-24 05:22:55 KST",
+        "regularMarketPrice": 51.91,
         "englishName": "NEOS Russell 2000 High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 394590,
-        "AvgVolume": 337777,
+        "Volume": 274874,
+        "AvgVolume": 340206,
         "sharesOutstanding": null,
         "52Week": "44.52 - 53.86",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.18,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 394590,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 337777,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4277,7 +4290,9 @@
             "high": 52.59,
             "low": 52.130001,
             "close": 52.18,
-            "volume": 394590
+            "volume": 394590,
+            "amount": 0.625,
+            "yield": 0.1470862749
         },
         {
             "date": "2026-08-19",

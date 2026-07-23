@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-23 05:33:37 KST",
-        "regularMarketPrice": 2.6,
+        "Update": "2026-07-24 05:22:55 KST",
+        "regularMarketPrice": 2.57,
         "englishName": "SEALSQ Corp",
         "earningsDate": null,
-        "enterpriseValue": 95776496,
-        "marketCap": 579212352,
-        "Volume": 13940174,
-        "AvgVolume": 15909542,
+        "enterpriseValue": 97766736,
+        "marketCap": 572529152,
+        "Volume": 15048329,
+        "AvgVolume": 15956647,
         "sharesOutstanding": 222773999,
         "52Week": "1.99 - 8.71",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.6,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 95776496,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 579212352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 13940174,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15909542,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6422,7 +6443,8 @@
             "high": 2.65,
             "low": 2.55,
             "close": 2.6,
-            "volume": 13940174
+            "volume": 13940174,
+            "marketCap": 572529152
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-23 05:33:37 KST",
-        "regularMarketPrice": 38.3,
+        "Update": "2026-07-24 05:22:55 KST",
+        "regularMarketPrice": 35.46,
         "englishName": "Kurv Yield Premium Strategy Google ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14482,
-        "AvgVolume": 20483,
+        "Volume": 25315,
+        "AvgVolume": 20449,
         "sharesOutstanding": null,
-        "52Week": "26.912 - 48.23",
+        "52Week": "27.51 - 48.23",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.3,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14482,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20483,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5547,30 +5560,32 @@
             "high": 39.130001,
             "low": 38.264999,
             "close": 38.299999,
-            "volume": 15557
+            "volume": 15557,
+            "amount": 0.45,
+            "yield": 0.1347190112
         },
         {
-            "date": "2026-08-17",
+            "date": "2026-08-21",
             "forecasted": true
         },
         {
-            "date": "2026-09-17",
+            "date": "2026-09-22",
             "forecasted": true
         },
         {
-            "date": "2026-10-16",
+            "date": "2026-10-22",
             "forecasted": true
         },
         {
-            "date": "2026-11-17",
+            "date": "2026-11-20",
             "forecasted": true
         },
         {
-            "date": "2026-12-17",
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-01-15",
+            "date": "2027-01-22",
             "forecasted": true
         }
     ]
