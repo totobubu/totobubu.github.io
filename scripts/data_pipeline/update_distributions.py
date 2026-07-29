@@ -148,6 +148,19 @@ class RoundHillParser(BaseParser):
 
 # YieldMax Parser
 class YieldMaxParser(BaseParser):
+    # YieldMax publishes the weekly table in this order. Keeping the order in
+    # one place lets us recover rows whose ticker cell is lost by OCR while
+    # still pairing each value with the correct Distribution per Share row.
+    # 2026-07-30 added INYY and YSPC.
+    CANONICAL_WEEKLY_TICKERS = [
+        'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
+        'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DRAY', 'FBY', 'FIAT',
+        'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'INYY', 'JPO',
+        'MARO', 'MRNY', 'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK',
+        'PLTY', 'PYPY', 'RBLY', 'RDYY', 'SMCY', 'SNOY', 'TSLY',
+        'TSMY', 'WNTR', 'XOMO', 'XYZY', 'YSPC', 'YBIT', 'YQQQ',
+    ]
+
     # OCR often misreads YieldMax tickers
     # Map: OCR_result → Actual_ticker (case-insensitive)
     OCR_CORRECTIONS = {
@@ -302,6 +315,21 @@ class YieldMaxParser(BaseParser):
         results = {}
         lines = self.text.split('\n')
 
+        # The current YieldMax image is a wide, bordered table. With Tesseract
+        # PSM 6 each visual row remains one OCR line, but several ticker cells
+        # are still garbled. Amounts are read reliably and remain in table
+        # order, so prefer a complete positional mapping over partial matches.
+        ordered_amounts = []
+        for line in lines:
+            amt_match = re.search(r'(\d+\.\d{4})\b', line)
+            if amt_match:
+                amount = float(amt_match.group(1))
+                if amount < 5.0:
+                    ordered_amounts.append(amount)
+
+        if len(ordered_amounts) == len(self.CANONICAL_WEEKLY_TICKERS):
+            return dict(zip(self.CANONICAL_WEEKLY_TICKERS, ordered_amounts))
+
         for line in lines:
             clean_line = line.strip()
             if not clean_line: continue
@@ -335,22 +363,13 @@ class YieldMaxParser(BaseParser):
                 if val < 5.0:
                     results[corrected_ticker] = val
 
-        # Strategy 2: Columnar format / fallback using CANONICAL_WEEKLY_42
+        # Strategy 2: Columnar format / fallback using the canonical list
         if not results:
             tickers_list = []
             amounts_list = []
             
             # Known YieldMax Weekly ETF tickers in alphabetical order (as appears in table).
             # Updated 2026-07-30: INYY(INTC), YSPC 추가 -> 42종목
-            CANONICAL_WEEKLY_42 = [
-                'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
-                'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DRAY', 'FBY',  'FIAT',
-                'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'INYY', 'JPO',  'MARO', 'MRNY',
-                'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK', 'PLTY', 'PYPY', 'RBLY',
-                'RDYY', 'SMCY', 'SNOY', 'TSLY', 'TSMY', 'WNTR', 'XOMO', 'XYZY',
-                'YSPC', 'YBIT', 'YQQQ',
-            ]
-            
             stopwords = {"YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
                          "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
                          "RATE", "PER", "SHARE", "WELD", "MIAN", "MELD", "MAX", 
@@ -393,9 +412,9 @@ class YieldMaxParser(BaseParser):
             
             print(f"  [i] 열 형식: {self.filename}에서 티커 {len(tickers_list)}개, 금액 {len(amounts_list)}개 감지")
 
-            if len(amounts_list) == len(CANONICAL_WEEKLY_42):
-                print(f"  [i] {self.filename}: 정규 {len(CANONICAL_WEEKLY_42)}종목 목록 사용")
-                for i, ticker in enumerate(CANONICAL_WEEKLY_42):
+            if len(amounts_list) == len(self.CANONICAL_WEEKLY_TICKERS):
+                print(f"  [i] {self.filename}: 정규 {len(self.CANONICAL_WEEKLY_TICKERS)}종목 목록 사용")
+                for i, ticker in enumerate(self.CANONICAL_WEEKLY_TICKERS):
                     results[ticker] = amounts_list[i]
             else:
                 if len(tickers_list) != len(amounts_list):
@@ -755,7 +774,10 @@ def main():
                 with open(img_path, "r", encoding="utf-8") as f:
                     text = f.read()
             else:
-                text = pytesseract.image_to_string(Image.open(img_path))
+                # YieldMax uses a single wide table. PSM 6 preserves its visual
+                # row order for reliable ticker/value pairing.
+                ocr_config = "--psm 6" if "yieldmax" in img_path.name.lower() else ""
+                text = pytesseract.image_to_string(Image.open(img_path), config=ocr_config)
         except Exception as e:
             print(f"  [!] {img_path.name} 이미지 읽기/처리 실패: {e}")
             continue
