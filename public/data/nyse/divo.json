@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 47.16,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 46.575,
         "englishName": "Amplify CWP Enhanced Dividend Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 750625,
-        "AvgVolume": 826488,
+        "Volume": 1106084,
+        "AvgVolume": 826136,
         "sharesOutstanding": null,
         "52Week": "42.29 - 47.3",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.16,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 750625,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 826488,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19546,10 +19559,6 @@
             "volume": 783093
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -19567,6 +19576,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

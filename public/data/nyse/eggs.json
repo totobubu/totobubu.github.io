@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 34.3108,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 33.23,
         "englishName": "NestYield Total Return Guard ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18701,
-        "AvgVolume": 12870,
+        "Volume": 7820,
+        "AvgVolume": 13068,
         "sharesOutstanding": null,
-        "52Week": "33.24 - 45.5",
+        "52Week": "33.225 - 45.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.3108,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18701,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12870,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3218,10 +3231,6 @@
             "volume": 16079
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -3239,6 +3248,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 41.12,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 40.7,
         "englishName": "WisdomTree U.S. SmallCap Dividend Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 118416,
-        "AvgVolume": 144060,
+        "Volume": 106975,
+        "AvgVolume": 143929,
         "sharesOutstanding": null,
         "52Week": "31.05 - 41.41",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.12,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 118416,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 144060,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41746,27 +41759,31 @@
             "volume": 96601
         },
         {
-            "date": "2026-08-25",
+            "date": "2026-07-28",
+            "amount": 0.045
+        },
+        {
+            "date": "2026-08-28",
             "forecasted": true
         },
         {
-            "date": "2026-09-25",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-23",
+            "date": "2026-10-28",
             "forecasted": true
         },
         {
-            "date": "2026-11-25",
+            "date": "2026-11-26",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2026-12-28",
             "forecasted": true
         },
         {
-            "date": "2027-01-25",
+            "date": "2027-01-28",
             "forecasted": true
         }
     ]

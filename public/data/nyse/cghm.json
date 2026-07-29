@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 25.62,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 25.55,
         "englishName": "Capital Group Municipal High-Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 317379,
-        "AvgVolume": 440296,
+        "Volume": 493944,
+        "AvgVolume": 437768,
         "sharesOutstanding": null,
         "52Week": "24.32 - 30.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 317379,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 440296,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4246,10 +4259,6 @@
             "volume": 318278
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -4267,6 +4276,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 26.01,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 25.905,
         "englishName": "Capital Group Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1077963,
-        "AvgVolume": 1156962,
+        "Volume": 1251069,
+        "AvgVolume": 1164498,
         "sharesOutstanding": null,
         "52Week": "25.824 - 26.91",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.01,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1077963,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1156962,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5760,10 +5773,6 @@
             "volume": 697267
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -5781,6 +5790,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

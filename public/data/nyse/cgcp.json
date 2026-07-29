@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 22.11,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 22.035,
         "englishName": "Capital Group Core Plus Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1809710,
-        "AvgVolume": 1529468,
+        "Volume": 1659894,
+        "AvgVolume": 1533052,
         "sharesOutstanding": null,
         "52Week": "21.965 - 23.005",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1809710,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1529468,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8998,10 +9011,6 @@
             "volume": 1245216
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -9019,6 +9028,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

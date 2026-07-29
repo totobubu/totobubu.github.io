@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 27.17,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 27.12,
         "englishName": "Capital Group U.S. Multi-Sector Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 735370,
-        "AvgVolume": 1043552,
+        "Volume": 1120472,
+        "AvgVolume": 1039460,
         "sharesOutstanding": null,
         "52Week": "27.01 - 28.08",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.17,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 735370,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1043552,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7622,10 +7635,6 @@
             "volume": 710825
         },
         {
-            "date": "2026-07-29",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -7643,6 +7652,10 @@
         },
         {
             "date": "2026-12-29",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

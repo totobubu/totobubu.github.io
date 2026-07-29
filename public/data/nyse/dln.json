@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-29 05:23:29 KST",
-        "regularMarketPrice": 99,
+        "Update": "2026-07-30 05:14:48 KST",
+        "regularMarketPrice": 97.86,
         "englishName": "WisdomTree U.S. LargeCap Dividend Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 99822,
-        "AvgVolume": 140090,
+        "Volume": 108506,
+        "AvgVolume": 139685,
         "sharesOutstanding": null,
         "52Week": "82.22 - 99.35",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 99,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 99822,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 140090,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42132,27 +42145,31 @@
             "volume": 114354
         },
         {
-            "date": "2026-08-25",
+            "date": "2026-07-28",
+            "amount": 0.105
+        },
+        {
+            "date": "2026-08-28",
             "forecasted": true
         },
         {
-            "date": "2026-09-25",
+            "date": "2026-09-28",
             "forecasted": true
         },
         {
-            "date": "2026-10-23",
+            "date": "2026-10-28",
             "forecasted": true
         },
         {
-            "date": "2026-11-25",
+            "date": "2026-11-26",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2026-12-28",
             "forecasted": true
         },
         {
-            "date": "2027-01-25",
+            "date": "2027-01-28",
             "forecasted": true
         }
     ]
