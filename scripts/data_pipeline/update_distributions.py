@@ -153,7 +153,7 @@ class YieldMaxParser(BaseParser):
     OCR_CORRECTIONS = {
         # Direct mappings based on analysis of ocr_output.txt
         'APNY': 'ABNY', 'APNY_': 'ABNY',
-        'ALYY': 'AIYY', 'ALYY': 'AIYY', 'AIVY': 'AIYY',
+        'ALYY': 'AIYY', 'AIVY': 'AIYY', 'seestegy': 'AIYY', 'AL': 'AIYY',
         'ANIPY': 'AMDY',
         'ANAZY': 'AMZY', 'ANAZY,': 'AMZY',
         'APTY': 'APLY',  # Correction: APLY (Apple), not QDTY
@@ -298,7 +298,6 @@ class YieldMaxParser(BaseParser):
         'AN': 'XOMO', 'an': 'XOMO',
         'YOQOO': 'YQQQ', 'YoQoo': 'YQQQ',
     }
-    
     def extract_data(self):
         results = {}
         lines = self.text.split('\n')
@@ -307,110 +306,51 @@ class YieldMaxParser(BaseParser):
             clean_line = line.strip()
             if not clean_line: continue
 
-            # Strategy 1: Look for first token that looks like a garbled ticker
-            # YieldMax lines in OCR often start with the ticker then a Separator like | or [
-            # Example: "apny_ |'eldMax..."
-            
+            # Strategy 1: Look for line starting with ticker or corrected ticker
             parts = clean_line.split()
             valid_ticker = None
             
             if parts:
-                # Find first token that looks like a ticker or is in corrections
-                # Sometimes OCR prepends noise like | or _
-                first_token = parts[0].upper().replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace(' ', '')
+                raw_first = parts[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('[', '').replace('*', '').strip()
+                first_token = raw_first.upper()
                 
-                # Check if first token is a mapped ticker
-                if first_token in self.OCR_CORRECTIONS:
+                # Check OCR_CORRECTIONS first (case-sensitive or upper)
+                if raw_first in self.OCR_CORRECTIONS:
+                    valid_ticker = self.OCR_CORRECTIONS[raw_first]
+                elif first_token in self.OCR_CORRECTIONS:
                     valid_ticker = self.OCR_CORRECTIONS[first_token]
-                # Check if first token is a valid ticker (2-5 chars)
                 elif 2 <= len(first_token) <= 5 and first_token.isalpha():
-                    # Check if it's one of the known tickers that doesn't need mapping
-                    candidate = first_token
-                    if candidate not in ["YIELD", "ETF", "THE", "AND", "FOR", "SEE", "DATE"]:
-                        valid_ticker = candidate
-
-            # Fallback: Searching regex in the whole line if the first token check failed
-            if not valid_ticker:
-                ticker_matches = re.findall(r'\b([A-Za-z]{2,8})\b', clean_line)
-                for ticker in ticker_matches:
-                    ticker_upper = ticker.upper()
-                    if ticker_upper in self.OCR_CORRECTIONS:
-                        valid_ticker = self.OCR_CORRECTIONS[ticker_upper]
-                        break
-                    
-                    if ticker_upper in ["YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
-                                 "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
-                                 "DISTRIBUTION", "RATE", "PER", "SHARE", "FREQUENCY", "WELD",
-                                 "MIAN", "MELD", "MAX", "DORSEY", "WRIGHT", "PORTFOLIO", "OPTION",
-                                 "INCOME", "STRATEGY", "ODTE", "COVERED", "CALL", "ULTRA", "SHORT",
-                                 "MAGNIFICENT", "UNIVERSE", "SEMICONDUCTOR", "TECH", "CRYPTO",
-                                 "INDUSTRY", "NASDAQ", "FEATURED", "HYBRID", "NAME", "TIYORID",
-                                 "CIYETO", "INCUSTY", "FECH", "ELDMAX", "SELDMAX", "TELDMAX",
-                                 "YELDMEX", "COVET", "TECHY", "NASDIAD", "ORIG", "TE", "OD",
-                                 "GAVEIED", "OE", "VELIE", "ULTA", "SHERE", "IHESINE", "MELDMEXT",
-                                 "FUNDA", "OPTIC", "MERT", "ETFS", "AL", "HIYARID", "WEIGHT",
-                                 "OF", "THE", "AND", "FOR", "SEE"]:
-                        continue
-                    
-                    # If it looks like a valid ticker (3-5 chars), take it
-                    if 3 <= len(ticker_upper) <= 5:
-                         valid_ticker = ticker_upper
-                         break
+                    if first_token not in ["YIELD", "ETF", "THE", "AND", "FOR", "SEE", "DATE", "YI", "YI_", "WEEKL", "WEEKLY"]:
+                        valid_ticker = first_token
 
             if not valid_ticker:
                 continue
 
-            # Apply OCR correction (case-insensitive) just to be sure
             corrected_ticker = self.OCR_CORRECTIONS.get(valid_ticker, valid_ticker)
 
-            # Look for distribution amount (prefer $0.xxxx format)
-            amount_match = re.search(r'\$(\d+\.\d{4})', clean_line)
-            candidate = None
-            
-            if amount_match:
-                candidate = float(amount_match.group(1))
-            else:
-                # Fallback: Look for any decimal with 4+ digits
-                matches = re.findall(r'(\d+\.\d+)', clean_line)
-                
-                # First pass: Look for exactly 4 decimals
-                for m in matches:
-                     if '.' in m:
-                         decimals = m.split('.')[1]
-                         if len(decimals) >= 3: # Relaxed to 3 for cases like 2.68% vs 0.221
-                             val = float(m)
-                             # Unpack "70.2389" -> "0.2389" if > 5.0 (likely OCR error)
-                             if val > 5.0:
-                                 if len(decimals) == 4:
-                                     candidate = float(f"0.{decimals}")
-                             elif val < 2.5: # Most distributions are small
-                                 candidate = val
-                                 break
+            # Look for distribution amount ($0.xxxx, §0.xxxx, 0.xxxx)
+            amt_match = re.search(r'(?:\$|§)?(\d+\.\d{4})\b', clean_line)
+            if amt_match:
+                val = float(amt_match.group(1))
+                if val < 5.0:
+                    results[corrected_ticker] = val
 
-            if candidate:
-                results[corrected_ticker] = candidate
-
-        # Strategy 2: Columnar format detection
-        # New images might output tickers in one block, and amounts in another block due to OCR PSM
+        # Strategy 2: Columnar format / fallback using CANONICAL_WEEKLY_42
         if not results:
             tickers_list = []
             amounts_list = []
             
             # Known YieldMax Weekly ETF tickers in alphabetical order (as appears in table).
-            # When OCR produces a columnar layout, amounts are reliable but tickers are often
-            # garbled or missing entirely. If the amount count matches a known set size,
-            # we use the canonical list directly to avoid positional drift from missing tickers.
-            # Updated 2026-06-18: ABNY/DISO 제거, INYY(INTC) 추가 → 41종목
-            CANONICAL_WEEKLY_41 = [
+            # Updated 2026-07-30: INYY(INTC), YSPC 추가 -> 42종목
+            CANONICAL_WEEKLY_42 = [
                 'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
                 'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DRAY', 'FBY',  'FIAT',
                 'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'INYY', 'JPO',  'MARO', 'MRNY',
                 'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK', 'PLTY', 'PYPY', 'RBLY',
                 'RDYY', 'SMCY', 'SNOY', 'TSLY', 'TSMY', 'WNTR', 'XOMO', 'XYZY',
-                'YBIT', 'YQQQ',
+                'YSPC', 'YBIT', 'YQQQ',
             ]
             
-            # Common non-ticker words that might appear as isolated tokens
             stopwords = {"YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
                          "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
                          "RATE", "PER", "SHARE", "WELD", "MIAN", "MELD", "MAX", 
@@ -419,34 +359,27 @@ class YieldMaxParser(BaseParser):
                          "ORIG", "VELIE", "ULTA", "SHERE", "MERT", "ETFS", "WEIGHT",
                          "THE", "AND", "FOR", "SEE", "NAV", "DIST", "PAY", "REC"}
             
-            seen_tickers = set()  # prevent duplicates from garbled lines (e.g. SNOY from both ENOY and aay)
+            seen_tickers = set()
 
             for line in lines:
                 clean_line = line.strip()
                 if not clean_line: continue
                 
-                # Exclude strings with percentages
-                if '%' in clean_line:
-                    continue
-                    
-                # Look for standalone amounts — also handles trailing-dot artifacts like "0.0834."
-                match = re.search(r'^\$?(\d+\.\d{3,4})\.?$', clean_line)
-                
-                if match:
-                    val = float(match.group(1))
-                    if val < 5.0: # realistic distribution amount threshold
+                amt_match = re.search(r'(?:^|\s)(?:\$|50\.|§)?(\d+\.\d{4})\b', clean_line)
+                if amt_match:
+                    val = float(amt_match.group(1))
+                    dec = amt_match.group(1).split('.')[1]
+                    if val >= 5.0 and len(dec) == 4:
+                        val = float(f"0.{dec}")
+                    if val < 5.0:
                         amounts_list.append(val)
-                    continue
+                        continue
                 
-                # If not an amount, check if it's a potential ticker line
                 words = clean_line.split()
                 if words:
-                    # Clean the token: remove punctuation and noise (including Unicode quotes)
                     raw_token = words[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
                     token = raw_token.upper().replace('\u201c', '').replace('\u201d', '').replace('\u2018', '').replace('\u2019', '').replace('"', '').replace("'", '')
                     
-                    # YieldMax specific: "ABNY Strategy ETF..." -> ABNY
-                    # Try case-sensitive lookup first (for lowercase garbles like "ay"->DRAY, "iro"->GOOY)
                     corrected = self.OCR_CORRECTIONS.get(raw_token, self.OCR_CORRECTIONS.get(token, token))
                     
                     if corrected in self.OCR_CORRECTIONS.values():
@@ -460,16 +393,13 @@ class YieldMaxParser(BaseParser):
             
             print(f"  [i] 열 형식: {self.filename}에서 티커 {len(tickers_list)}개, 금액 {len(amounts_list)}개 감지")
 
-            # --- Canonical match: amounts count matches a known YieldMax set ---
-            # Amounts are reliable (just numbers); use canonical order when possible.
-            if len(amounts_list) == len(CANONICAL_WEEKLY_41):
-                print(f"  [i] {self.filename}: 정규 {len(CANONICAL_WEEKLY_41)}종목 목록 사용")
-                for i, ticker in enumerate(CANONICAL_WEEKLY_41):
+            if len(amounts_list) == len(CANONICAL_WEEKLY_42):
+                print(f"  [i] {self.filename}: 정규 {len(CANONICAL_WEEKLY_42)}종목 목록 사용")
+                for i, ticker in enumerate(CANONICAL_WEEKLY_42):
                     results[ticker] = amounts_list[i]
             else:
-                # Fallback: positional mapping (may be off if tickers are missing mid-list)
                 if len(tickers_list) != len(amounts_list):
-                    print(f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 — 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑")
+                    print(f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 - 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑")
                 min_len = min(len(tickers_list), len(amounts_list))
                 for i in range(min_len):
                     results[tickers_list[i]] = amounts_list[i]
