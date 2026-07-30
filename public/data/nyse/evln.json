@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-30 05:14:48 KST",
-        "regularMarketPrice": 48.6001,
+        "Update": "2026-07-31 05:24:31 KST",
+        "regularMarketPrice": 48.64,
         "englishName": "Eaton Vance Floating-Rate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 69031,
-        "AvgVolume": 75337,
+        "Volume": 65354,
+        "AvgVolume": 75937,
         "sharesOutstanding": null,
-        "52Week": "48.08 - 50.216",
+        "52Week": "48.08 - 50.12",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.6001,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 69031,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 75337,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5036,10 +5049,6 @@
             "volume": 69209
         },
         {
-            "date": "2026-07-30",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -5057,6 +5066,10 @@
         },
         {
             "date": "2026-12-30",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

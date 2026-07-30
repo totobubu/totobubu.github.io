@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-30 05:14:48 KST",
-        "regularMarketPrice": 46.06,
+        "Update": "2026-07-31 05:24:31 KST",
+        "regularMarketPrice": 46,
         "englishName": "Boston Scientific Corporation",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 78277517312,
-        "marketCap": 68461522944,
-        "Volume": 47259708,
-        "AvgVolume": 20368178,
+        "enterpriseValue": null,
+        "marketCap": 68372340736,
+        "Volume": 22759824,
+        "AvgVolume": 20853124,
         "sharesOutstanding": 1486355179,
         "52Week": "42.2 - 109.5",
         "Yield": null,
@@ -38,16 +38,20 @@
             ]
         },
         "changes": {
-            "enterpriseValue": {
-                "value": 77460021248,
-                "change": "up"
+            "regularMarketPrice": {
+                "value": 46.06,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 68461522944,
+                "change": "down"
             },
             "Volume": {
-                "value": 21399973,
-                "change": "up"
+                "value": 47259708,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 20266231,
+                "value": 20368178,
                 "change": "up"
             }
         }
@@ -77471,7 +77475,8 @@
             "high": 46.880001,
             "low": 42.549999,
             "close": 46.040001,
-            "volume": 47259708
+            "volume": 47259708,
+            "marketCap": 68372340736
         }
     ]
 }

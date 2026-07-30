@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-30 05:14:48 KST",
-        "regularMarketPrice": 50.1701,
+        "Update": "2026-07-31 05:24:31 KST",
+        "regularMarketPrice": 50.23,
         "englishName": "Eaton Vance Total Return Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 357332,
-        "AvgVolume": 504111,
+        "Volume": 494093,
+        "AvgVolume": 503163,
         "sharesOutstanding": null,
         "52Week": "50.016 - 52.15",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.1701,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 357332,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 504111,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4790,10 +4803,6 @@
             "volume": 357332
         },
         {
-            "date": "2026-07-30",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-28",
             "forecasted": true
         },
@@ -4811,6 +4820,10 @@
         },
         {
             "date": "2026-12-30",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]
