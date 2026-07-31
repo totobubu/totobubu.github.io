@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-31 05:24:31 KST",
-        "regularMarketPrice": 17.27,
+        "Update": "2026-08-01 05:29:53 KST",
+        "regularMarketPrice": 17.2101,
         "englishName": "Sound Enhanced Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7727,
-        "AvgVolume": 8247,
+        "Volume": 2284,
+        "AvgVolume": 8238,
         "sharesOutstanding": null,
         "52Week": "17.071 - 19.0",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.27,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7727,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8247,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11463,7 +11476,9 @@
             "high": 17.370001,
             "low": 17.24,
             "close": 17.27,
-            "volume": 7727
+            "volume": 7727,
+            "amount": 0.04,
+            "yield": 0.0717328686
         }
     ]
 }

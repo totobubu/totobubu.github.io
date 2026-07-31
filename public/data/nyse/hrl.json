@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-31 05:24:31 KST",
-        "regularMarketPrice": 25.37,
-        "englishName": null,
-        "earningsDate": null,
-        "enterpriseValue": 13873862656,
-        "marketCap": null,
-        "Volume": 3075251,
-        "AvgVolume": 5064726,
-        "sharesOutstanding": null,
+        "Update": "2026-08-01 05:29:53 KST",
+        "regularMarketPrice": 25.01,
+        "englishName": "Hormel Foods Corporation",
+        "earningsDate": "2026-05-28",
+        "enterpriseValue": 13637227520,
+        "marketCap": 13762608128,
+        "Volume": 4694574,
+        "AvgVolume": 5050279,
+        "sharesOutstanding": 550284207,
         "52Week": "19.7 - 29.35",
-        "Yield": 0.04592,
+        "Yield": 0.046581,
         "dividendRate": 1.17,
         "payoutRatio": 1.3706,
         "isin": "US4404521001",
@@ -57,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.37,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 13873862656,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3075251,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5064726,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.04592,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15620,7 +15641,7 @@
             "close": 1.1328129768371582,
             "volume": 262400,
             "amount": 0.0001,
-            "yield": 0.0000853333,
+            "yield": 8.53333e-5,
             "marketCap": 623045362,
             "amountOriginal": 4.800512,
             "amountSplitAdjustments": [

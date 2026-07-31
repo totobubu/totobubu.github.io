@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-07-31 05:24:31 KST",
-        "regularMarketPrice": 24.715,
+        "Update": "2026-08-01 05:29:53 KST",
+        "regularMarketPrice": 24.64,
         "englishName": "Hilton Bdc Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 945,
-        "AvgVolume": 3852,
+        "Volume": 400,
+        "AvgVolume": 3806,
         "sharesOutstanding": null,
         "52Week": "23.16 - 27.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.715,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 945,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3852,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2331,26 +2344,28 @@
             "high": 24.715,
             "low": 24.650999,
             "close": 24.715,
-            "volume": 945
+            "volume": 945,
+            "amount": 0.115,
+            "yield": 0.0539348574
         },
         {
             "date": "2026-08-28",
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
+            "date": "2026-09-30",
             "forecasted": true
         },
         {
-            "date": "2026-10-29",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-26",
+            "date": "2026-11-30",
             "forecasted": true
         },
         {
-            "date": "2026-12-29",
+            "date": "2026-12-30",
             "forecasted": true
         },
         {
